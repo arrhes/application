@@ -24,6 +24,7 @@ export function renderButtonContent(
 ) {
     const contextLoading = useButtonLoading()
     const isLoading = props.isLoading ?? contextLoading
+    const isDisabled = props.isDisabled || isLoading
 
     const iconOnlyStyles =
         props.text === undefined
@@ -41,21 +42,24 @@ export function renderButtonContent(
         <div
             title={props.title ?? props.text}
             aria-current={props.isCurrent}
-            aria-disabled={props.isDisabled}
+            aria-disabled={isDisabled}
             className={cx(classes.container, iconOnlyStyles, props.className)}
         >
-            {props.leftIcon &&
-                !isLoading &&
+            {isLoading ? (
+                <CircularLoader size={16} className={classes.leftIcon} />
+            ) : (
+                props.leftIcon &&
                 cloneElement(props.leftIcon, {
-                    "aria-disabled": props.isDisabled,
+                    "aria-disabled": isDisabled,
                     "aria-current": props.isCurrent,
                     size: 16,
                     className: cx(classes.leftIcon),
                     strokeWidth: 1.75,
-                })}
+                })
+            )}
 
             {props.text && (
-                <span aria-disabled={props.isDisabled} aria-current={props.isCurrent} className={cx(classes.text)}>
+                <span aria-disabled={isDisabled} aria-current={props.isCurrent} className={cx(classes.text)}>
                     {props.text}
                 </span>
             )}
@@ -66,7 +70,7 @@ export function renderButtonContent(
                         <CircularLoader size={16 - 4} className={classes.rightIcon} />
                     ) : (
                         cloneElement(props.rightIcon, {
-                            "aria-disabled": props.isDisabled,
+                            "aria-disabled": isDisabled,
                             size: 16 - 4,
                             className: cx(classes.rightIcon, css({ _disabled: { color: "neutral/50" } })),
                             strokeWidth: 1.75,

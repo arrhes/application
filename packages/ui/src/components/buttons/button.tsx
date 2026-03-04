@@ -1,4 +1,12 @@
-import { type ComponentProps, createContext, type MouseEvent, type ReactNode, useContext, useState } from "react"
+import {
+    type ComponentProps,
+    createContext,
+    type MouseEvent,
+    type ReactNode,
+    useContext,
+    useRef,
+    useState,
+} from "react"
 import { css, cx } from "../../utilities/cn.ts"
 import { sleep } from "../../utilities/sleep.ts"
 
@@ -34,6 +42,7 @@ export function Button(
     },
 ) {
     const [isLoading, setIsLoading] = useState(false)
+    const isLoadingRef = useRef(false)
 
     async function handleClick(e: MouseEvent<HTMLButtonElement>) {
         if (props.onClick === undefined) return
@@ -42,12 +51,19 @@ export function Button(
             return
         }
 
+        if (isLoadingRef.current) return
+        isLoadingRef.current = true
         setIsLoading(true)
-        await Promise.all([sleep(100), props.onClick(e)])
-        setIsLoading(false)
+
+        try {
+            await Promise.all([sleep(100), props.onClick(e)])
+        } finally {
+            isLoadingRef.current = false
+            setIsLoading(false)
+        }
     }
 
-    const { hasLoader, className, isDisabled, title, children, ...buttonProps } = props
+    const { hasLoader, className, isDisabled, title, children, onClick: _onClick, ...buttonProps } = props
 
     return (
         <ButtonLoadingContext.Provider value={isLoading}>
@@ -67,7 +83,7 @@ export function Button(
                         bg: "transparent",
                         border: "none",
                         padding: "0",
-                        _disabled: { cursor: "not-allowed" },
+                        _disabled: { cursor: "not-allowed", pointerEvents: "none" },
                     }),
                     className,
                 )}

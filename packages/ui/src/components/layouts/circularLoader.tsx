@@ -10,6 +10,7 @@ export function CircularLoader(props: { text?: string; className?: string; size?
                     justifyContent: "flex-start",
                     alignItems: "center",
                     gap: "0.5rem",
+                    stroke: "neutral/50",
                 }),
                 props.className,
             )}
@@ -18,7 +19,7 @@ export function CircularLoader(props: { text?: string; className?: string; size?
                 size={props.size ?? 16}
                 className={css({
                     animation: "spin 1s linear infinite",
-                    stroke: "neutral/50",
+                    stroke: "inherit",
                 })}
             />
             {props.text && (

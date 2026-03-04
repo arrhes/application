@@ -24,8 +24,11 @@ export function FormRoot<T extends Record<string, unknown>, U extends v.GenericS
         resolver: valibotResolver<T, any, T>(props.schema),
     })
     const submitButtonRef = useRef<HTMLButtonElement>(null)
+    const isSubmittingRef = useRef(false)
 
     useEffect(() => {
+        if (props.submitOnPressEnterKey === false) return
+
         const listener = async (event: KeyboardEvent) => {
             if (event.code === "Enter" || event.code === "NumpadEnter") {
                 event.preventDefault()
@@ -36,7 +39,7 @@ export function FormRoot<T extends Record<string, unknown>, U extends v.GenericS
         return () => {
             document.removeEventListener("keydown", listener)
         }
-    }, [])
+    }, [props.submitOnPressEnterKey])
 
     return (
         <FormProvider {...form}>
@@ -82,19 +85,26 @@ export function FormRoot<T extends Record<string, unknown>, U extends v.GenericS
                         onClick={async (event) => {
                             event.preventDefault()
 
-                            const triggerResponse = await form.trigger()
-                            if (!triggerResponse) return
+                            if (isSubmittingRef.current) return
+                            isSubmittingRef.current = true
 
-                            const data = form.getValues()
-                            const response = await props.onSubmit(data)
-                            if (!response) return
+                            try {
+                                const triggerResponse = await form.trigger()
+                                if (!triggerResponse) return
 
-                            if (props.resetOnSubmit === true) {
-                                form.reset()
-                            }
+                                const data = form.getValues()
+                                const response = await props.onSubmit(data)
+                                if (!response) return
 
-                            if (props.onSuccess !== undefined) {
-                                await props.onSuccess(data)
+                                if (props.resetOnSubmit === true) {
+                                    form.reset()
+                                }
+
+                                if (props.onSuccess !== undefined) {
+                                    await props.onSuccess(data)
+                                }
+                            } finally {
+                                isSubmittingRef.current = false
                             }
                         }}
                     >
