@@ -36,7 +36,7 @@ export function DeleteOneFile(props: {
         toast({ title: "Fichier supprimé", variant: "success" })
 
         applicationRouter.navigate({
-            to: "/dashboard/organisations/$idOrganization/exercices/$idYear/fichiers",
+            to: "/dashboard/organisations/$idOrganization/exercices/$idYear/stockage",
             params: {
                 idOrganization: props.file.idOrganization,
                 idYear: props.file.idYear,

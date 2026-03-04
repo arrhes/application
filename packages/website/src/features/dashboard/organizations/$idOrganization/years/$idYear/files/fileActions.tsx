@@ -1,7 +1,8 @@
 import { deleteOneFileRouteDefinition, readAllFilesRouteDefinition } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { ButtonGhostContent } from "@arrhes/ui"
-import { IconDotsVertical, IconEye, IconPencil, IconTrash } from "@tabler/icons-react"
+import { css } from "@arrhes/ui/css"
+import { IconDotsVertical, IconEye, IconPencil } from "@tabler/icons-react"
 import { useState } from "react"
 import type * as v from "valibot"
 import { Dropdown } from "../../../../../../../components/layouts/dropdownMenu/dropdown.js"
@@ -54,25 +55,35 @@ export function FileActions(props: {
                 <Dropdown.Content align="end">
                     <Dropdown.Item asChild>
                         <LinkButton
-                            to="/dashboard/organisations/$idOrganization/exercices/$idYear/fichiers/$idFile"
+                            to="/dashboard/organisations/$idOrganization/exercices/$idYear/stockage/$idFile"
                             params={{
                                 idOrganization: props.idOrganization,
                                 idYear: props.idYear,
                                 idFile: props.file.id,
                             }}
                         >
-                            <IconEye size={16} />
-                            Voir
+                            <ButtonGhostContent
+                                leftIcon={<IconEye />}
+                                text="Voir"
+                                className={css({ width: "100%", justifyContent: "start" })}
+                            />
                         </LinkButton>
                     </Dropdown.Item>
                     <Dropdown.Item onSelect={() => setEditOpen(true)}>
-                        <IconPencil size={16} />
-                        Modifier
+                        <ButtonGhostContent
+                            leftIcon={<IconPencil />}
+                            text="Modifier"
+                            className={css({ width: "100%", justifyContent: "start" })}
+                        />
                     </Dropdown.Item>
                     <Dropdown.Separator />
                     <Dropdown.Item onSelect={() => setDeleteOpen(true)}>
-                        <IconTrash size={16} />
-                        Supprimer
+                        <ButtonGhostContent
+                            leftIcon={<IconPencil />}
+                            text="IconTrash"
+                            color="danger"
+                            className={css({ width: "100%", justifyContent: "start" })}
+                        />
                     </Dropdown.Item>
                 </Dropdown.Content>
             </Dropdown.Root>

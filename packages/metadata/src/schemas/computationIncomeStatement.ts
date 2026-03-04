@@ -4,14 +4,14 @@ import { idSchema } from "../components/schemas/idSchema.js"
 import type { computationIncomeStatementModel } from "../models/computationIncomeStatement.js"
 
 export const computationIncomeStatementSchema = v.object({
-    id: v.nonNullable(idSchema),
-    idOrganization: v.nonNullable(idSchema),
-    idYear: v.nonNullable(idSchema),
-    idComputation: v.nonNullable(idSchema),
-    idIncomeStatement: v.nonNullable(idSchema),
-    index: v.nonNullable(integerSchema),
-    operation: v.nonNullable(v.picklist(operation)),
-    createdAt: v.nonNullable(dateTimeSchema),
+    id: v.nonNullable(idSchema, "Ce champ est requis"),
+    idOrganization: v.nonNullable(idSchema, "Ce champ est requis"),
+    idYear: v.nonNullable(idSchema, "Ce champ est requis"),
+    idComputation: v.nonNullable(idSchema, "Ce champ est requis"),
+    idIncomeStatement: v.nonNullable(idSchema, "Ce champ est requis"),
+    index: v.nonNullable(integerSchema, "Ce champ est requis"),
+    operation: v.nonNullable(v.picklist(operation, "Valeur invalide"), "Ce champ est requis"),
+    createdAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),
     lastUpdatedAt: v.nullable(dateTimeSchema),
     createdBy: v.nullable(idSchema),
     lastUpdatedBy: v.nullable(idSchema),

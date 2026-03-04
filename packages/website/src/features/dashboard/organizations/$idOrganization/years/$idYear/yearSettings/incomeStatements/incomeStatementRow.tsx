@@ -34,7 +34,7 @@ export function IncomeStatementRow(props: {
                     display: "flex",
                     justifyContent: "flex-start",
                     alignItems: "center",
-                    gap: "2",
+                    gap: "0.5rem",
                     _hover: { backgroundColor: "neutral/5" },
                     borderBottom: "1px solid",
                     borderColor: "neutral/5",
@@ -65,7 +65,7 @@ export function IncomeStatementRow(props: {
                         display: "flex",
                         justifyContent: "flex-start",
                         alignItems: "center",
-                        gap: "2",
+                        gap: "0.5rem",
                     })}
                 >
                     <span className={css({ color: "neutral", fontSize: "xs", lineHeight: "1" })}>

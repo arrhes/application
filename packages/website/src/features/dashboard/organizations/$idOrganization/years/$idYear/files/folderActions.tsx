@@ -1,6 +1,7 @@
 import { deleteOneFolderRouteDefinition, readAllFoldersRouteDefinition } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { ButtonGhostContent } from "@arrhes/ui"
+import { css } from "@arrhes/ui/css"
 import { IconDotsVertical, IconEye, IconPencil, IconTrash } from "@tabler/icons-react"
 import { useState } from "react"
 import type * as v from "valibot"
@@ -53,17 +54,27 @@ export function FolderActions(props: {
                 </Dropdown.Trigger>
                 <Dropdown.Content align="end">
                     <Dropdown.Item onSelect={() => props.onFolderOpen(props.folder.id)}>
-                        <IconEye size={16} />
-                        Ouvrir
+                        <ButtonGhostContent
+                            leftIcon={<IconEye />}
+                            text="Ouvrir"
+                            className={css({ width: "100%", justifyContent: "start" })}
+                        />
                     </Dropdown.Item>
                     <Dropdown.Item onSelect={() => setEditOpen(true)}>
-                        <IconPencil size={16} />
-                        Renommer
+                        <ButtonGhostContent
+                            leftIcon={<IconPencil />}
+                            text="Renommer"
+                            className={css({ width: "100%", justifyContent: "start" })}
+                        />
                     </Dropdown.Item>
                     <Dropdown.Separator />
                     <Dropdown.Item onSelect={() => setDeleteOpen(true)}>
-                        <IconTrash size={16} />
-                        Supprimer
+                        <ButtonGhostContent
+                            leftIcon={<IconTrash />}
+                            text="Supprimer"
+                            color="danger"
+                            className={css({ width: "100%", justifyContent: "start" })}
+                        />
                     </Dropdown.Item>
                 </Dropdown.Content>
             </Dropdown.Root>

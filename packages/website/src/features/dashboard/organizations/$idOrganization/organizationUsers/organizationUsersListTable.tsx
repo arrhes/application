@@ -7,7 +7,7 @@ import { EmptyState } from "../../../../../components/layouts/emptyState.tsx"
 import { ListTable } from "../../../../../components/layouts/listTable/listTable.tsx"
 import { OrganizationUserListTableRow } from "./organizationUserListTableRow.tsx"
 
-export function OrganizationUsersListTable(props: {
+export function OrganizationUsersListTable(_props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
 }) {
     return (

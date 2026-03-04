@@ -96,9 +96,7 @@ export function RecordsTable(props: {
                                 idRecord: row.original.id,
                             }}
                         >
-                            <LinkContent>
-                                {row.original.label}
-                            </LinkContent>
+                            <LinkContent>{row.original.label}</LinkContent>
                         </LinkButton>
                     ),
                     filterFn: "includesString",

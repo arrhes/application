@@ -8,8 +8,8 @@ export const sendSupportMessageRouteDefinition = routeDefinition({
     path: `${routePath.auth}/send-support-message`,
     schemas: {
         body: v.object({
-            category: v.nullable(v.picklist(ticketType)),
-            message: v.nonNullable(stringSchema),
+            category: v.nullable(v.picklist(ticketType, "Valeur invalide")),
+            message: v.nonNullable(stringSchema, "Ce champ est requis"),
         }),
         return: v.object({}),
     },

@@ -59,7 +59,7 @@ export function ComputationsTable(props: {
                                         display: "flex",
                                         justifyContent: "flex-start",
                                         alignItems: "center",
-                                        gap: "2",
+                                        gap: "0.5rem",
                                         _hover: { backgroundColor: "neutral/5" },
                                         borderBottom: "1px solid",
                                         borderColor: "neutral/5",

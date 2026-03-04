@@ -8,7 +8,7 @@ export function DocIndexLink(props: { to: ValidRoutes; label: string }) {
             to={props.to}
             className={css({
                 width: "100%",
-                gap: "2",
+                gap: "0.5rem",
                 py: "1.5",
                 fontSize: "sm",
                 color: "neutral/60",

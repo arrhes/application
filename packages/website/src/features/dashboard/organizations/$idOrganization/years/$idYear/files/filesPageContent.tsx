@@ -66,15 +66,15 @@ export function FilesPageContent(props: {
         idFolder,
         currentFolderId,
         navigateToFolder,
-        breadcrumbDragOver,
-        handleBreadcrumbDragOver,
-        handleBreadcrumbDragLeave,
-        handleBreadcrumbDrop,
+        breadcrumbDragOver: _breadcrumbDragOver,
+        handleBreadcrumbDragOver: _handleBreadcrumbDragOver,
+        handleBreadcrumbDragLeave: _handleBreadcrumbDragLeave,
+        handleBreadcrumbDrop: _handleBreadcrumbDrop,
         params,
     } = props
-    const [viewMode, setViewMode] = useState<ViewMode>("list")
+    const [viewMode, _setViewMode] = useState<ViewMode>("list")
 
-    const folderPath = useMemo(() => buildFolderPath(folders, idFolder), [folders, idFolder])
+    const _folderPath = useMemo(() => buildFolderPath(folders, idFolder), [folders, idFolder])
 
     const currentFolders = folders.filter((f) => (f.idFolderParent ?? null) === currentFolderId)
 

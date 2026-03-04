@@ -9,7 +9,7 @@ import { organizationSettingsRoute } from "../../../../../routes/root/dashboard/
 import { UpdateOneOrganization } from "./updateOneOrganization.tsx"
 
 export function OrganizationSettingsPage() {
-    const params = useParams({ from: organizationSettingsRoute.id })
+    const _params = useParams({ from: organizationSettingsRoute.id })
 
     return (
         <Page.Root>

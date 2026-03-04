@@ -28,7 +28,7 @@ export function IncomeStatementsPage() {
                                 display: "flex",
                                 justifyContent: "flex-end",
                                 alignItems: "center",
-                                gap: "2",
+                                gap: "0.5rem",
                                 flexWrap: "wrap",
                             })}
                         >
@@ -65,7 +65,7 @@ export function IncomeStatementsPage() {
                                 display: "flex",
                                 justifyContent: "flex-end",
                                 alignItems: "flex-start",
-                                gap: "2",
+                                gap: "0.5rem",
                             })}
                         >
                             <CreateOneComputation idOrganization={params.idOrganization} idYear={params.idYear}>

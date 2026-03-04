@@ -12,7 +12,7 @@ export const createOneApiKeyRouteDefinition = routeDefinition({
         }),
         return: v.object({
             ...apiKeySchemaReturn.entries,
-            rawKey: v.nonNullable(v.string()),
+            rawKey: v.nonNullable(v.string("Doit être une chaîne de caractères"), "Ce champ est requis"),
         }),
     },
 })

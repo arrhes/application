@@ -35,7 +35,7 @@ export function IncomeStatementReportPage() {
                                         display: "flex",
                                         justifyContent: "end",
                                         alignItems: "start",
-                                        gap: "2",
+                                        gap: "0.5rem",
                                     })}
                                 >
                                     <DownloadIncomeStatementReport

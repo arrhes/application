@@ -13,6 +13,7 @@ export function DataBlockHeader(props: { title: string; className?: ComponentPro
                     justifyContent: "flex-start",
                     alignItems: "flex-start",
                     gap: "0.5rem",
+                    padding: "0.5rem",
                 }),
                 props.className,
             )}
@@ -20,7 +21,7 @@ export function DataBlockHeader(props: { title: string; className?: ComponentPro
             <span
                 className={css({
                     textTransform: "uppercase",
-                    color: "neutral/25",
+                    color: "neutral/50",
                     fontSize: "xs",
                     fontWeight: "medium",
                     letterSpacing: "wide",

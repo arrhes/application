@@ -171,6 +171,7 @@ export function JournalReportTable(props: {
                                             />
                                         </Table.Body.Cell>
                                     </Table.Body.Row>
+                                    {/* biome-ignore lint/complexity/noUselessFragments: Fragment needed for TypeScript type compatibility with Table.Body.Root children */}
                                     <Fragment>
                                         {sortedRecordRows.map((recordRow) => {
                                             const account = props.accounts.get(recordRow.idAccount)
@@ -187,7 +188,7 @@ export function JournalReportTable(props: {
                                                                 display: "flex",
                                                                 justifyContent: "start",
                                                                 alignItems: "start",
-                                                                gap: "2",
+                                                                gap: "0.5rem",
                                                             })}
                                                         >
                                                             {account && (

@@ -1,8 +1,9 @@
 import { readOneAccountRouteDefinition, readOneRecordRowRouteDefinition } from "@arrhes/application-metadata/routes"
-import { ButtonOutlineContent, ButtonPlainContent } from "@arrhes/ui"
+import { ButtonGhostContent, ButtonOutlineContent, ButtonPlainContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconChevronLeft, IconPencil, IconTrash } from "@tabler/icons-react"
+import { IconChevronLeft, IconDatabase, IconInfoCircle, IconPencil, IconTrash } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
+import { useState } from "react"
 import { FormatBoolean } from "../../../../../../../../../components/formats/formatBoolean.tsx"
 import { FormatDateTime } from "../../../../../../../../../components/formats/formatDateTime.tsx"
 import { FormatNull } from "../../../../../../../../../components/formats/formatNull.tsx"
@@ -18,6 +19,7 @@ import { DeleteOneRecordRow } from "./deleteOneRecordRow.tsx"
 import { UpdateOneRecordRow } from "./updateOneRecordRow.tsx"
 
 export function RecordRowPage() {
+    const [activeTab, setActiveTab] = useState<"informations" | "metadata">("informations")
     const params = useParams({ from: recordRowRoute.id })
 
     return (
@@ -40,7 +42,7 @@ export function RecordRowPage() {
                                             display: "flex",
                                             justifyContent: "space-between",
                                             alignItems: "flex-start",
-                                            gap: "2",
+                                            gap: "0.5rem",
                                         })}
                                     >
                                         <LinkButton
@@ -58,7 +60,7 @@ export function RecordRowPage() {
                                                 display: "flex",
                                                 justifyContent: "flex-end",
                                                 alignItems: "center",
-                                                gap: "2",
+                                                gap: "0.5rem",
                                             })}
                                         >
                                             <UpdateOneRecordRow recordRow={recordRow}>
@@ -70,68 +72,108 @@ export function RecordRowPage() {
                                         </div>
                                     </div>
                                 </Section.Item>
-                                <Section.Item className={css({ flexDirection: "column" })}>
-                                    <DataBlock.Root>
-                                        <DataBlock.Header title="Informations" />
-                                        <DataBlock.Content>
-                                            <DataBlock.Item label="Libellé">
-                                                <FormatText>{recordRow.label}</FormatText>
-                                            </DataBlock.Item>
-                                            <DataBlock.Item label="Compte">
-                                                {recordRow.idAccount === null ? (
-                                                    <FormatNull />
-                                                ) : (
-                                                    <DataWrapper
-                                                        routeDefinition={readOneAccountRouteDefinition}
-                                                        body={{
-                                                            idYear: params.idYear,
-                                                            idAccount: recordRow.idAccount,
-                                                        }}
-                                                    >
-                                                        {(account) => (
-                                                            <FormatText>{`${account.number} - ${account.label}`}</FormatText>
-                                                        )}
-                                                    </DataWrapper>
-                                                )}
-                                            </DataBlock.Item>
-                                            <DataBlock.Item label="Débit">
-                                                <FormatPrice price={recordRow.debit} />
-                                            </DataBlock.Item>
-                                            <DataBlock.Item label="Crédit">
-                                                <FormatPrice price={recordRow.credit} />
-                                            </DataBlock.Item>
-                                            <DataBlock.Item label="Calculé pour le journal ?">
-                                                <FormatBoolean boolean={recordRow.isComputedForJournalReport} />
-                                            </DataBlock.Item>
-                                            <DataBlock.Item label="Calculé pour le grand-livre ?">
-                                                <FormatBoolean boolean={recordRow.isComputedForLedgerReport} />
-                                            </DataBlock.Item>
-                                            <DataBlock.Item label="Calculé pour la balance ?">
-                                                <FormatBoolean boolean={recordRow.isComputedForBalanceReport} />
-                                            </DataBlock.Item>
-                                            <DataBlock.Item label="Calculé pour le bilan ?">
-                                                <FormatBoolean boolean={recordRow.isComputedForBalanceSheetReport} />
-                                            </DataBlock.Item>
-                                            <DataBlock.Item label="Calculé pour le compte de résultat ?">
-                                                <FormatBoolean boolean={recordRow.isComputedForIncomeStatementReport} />
-                                            </DataBlock.Item>
-                                        </DataBlock.Content>
-                                    </DataBlock.Root>
-                                    <DataBlock.Root>
-                                        <DataBlock.Header title="Métadonnées" />
-                                        <DataBlock.Content>
-                                            <DataBlock.Item label="Ajouté le">
-                                                <FormatDateTime date={recordRow.createdAt} />
-                                            </DataBlock.Item>
-                                            <DataBlock.Item label="Modifié le">
-                                                <FormatDateTime date={recordRow.lastUpdatedAt} />
-                                            </DataBlock.Item>
-                                            <DataBlock.Item label="Id">
-                                                <FormatText>{recordRow.id}</FormatText>
-                                            </DataBlock.Item>
-                                        </DataBlock.Content>
-                                    </DataBlock.Root>
+                                <Section.Item>
+                                    <div
+                                        className={css({
+                                            width: "100%",
+                                            display: "flex",
+                                            justifyContent: "flex-start",
+                                            alignItems: "center",
+                                            gap: "0.5rem",
+                                            borderBottom: "1px solid",
+                                            borderBottomColor: "neutral/5",
+                                            paddingBottom: "0.5rem",
+                                        })}
+                                    >
+                                        <button type="button" onClick={() => setActiveTab("informations")}>
+                                            <ButtonGhostContent
+                                                leftIcon={<IconInfoCircle />}
+                                                text="Informations"
+                                                color="neutral"
+                                                isCurrent={activeTab === "informations"}
+                                            />
+                                        </button>
+                                        <button type="button" onClick={() => setActiveTab("metadata")}>
+                                            <ButtonGhostContent
+                                                leftIcon={<IconDatabase />}
+                                                text="Métadonnées"
+                                                color="neutral"
+                                                isCurrent={activeTab === "metadata"}
+                                            />
+                                        </button>
+                                    </div>
                                 </Section.Item>
+                                {activeTab === "informations" ? (
+                                    <Section.Item className={css({ flexDirection: "column" })}>
+                                        <DataBlock.Root>
+                                            <DataBlock.Header title="Informations" />
+                                            <DataBlock.Content>
+                                                <DataBlock.Item label="Libellé">
+                                                    <FormatText>{recordRow.label}</FormatText>
+                                                </DataBlock.Item>
+                                                <DataBlock.Item label="Compte">
+                                                    {recordRow.idAccount === null ? (
+                                                        <FormatNull />
+                                                    ) : (
+                                                        <DataWrapper
+                                                            routeDefinition={readOneAccountRouteDefinition}
+                                                            body={{
+                                                                idYear: params.idYear,
+                                                                idAccount: recordRow.idAccount,
+                                                            }}
+                                                        >
+                                                            {(account) => (
+                                                                <FormatText>{`${account.number} - ${account.label}`}</FormatText>
+                                                            )}
+                                                        </DataWrapper>
+                                                    )}
+                                                </DataBlock.Item>
+                                                <DataBlock.Item label="Débit">
+                                                    <FormatPrice price={recordRow.debit} />
+                                                </DataBlock.Item>
+                                                <DataBlock.Item label="Crédit">
+                                                    <FormatPrice price={recordRow.credit} />
+                                                </DataBlock.Item>
+                                                <DataBlock.Item label="Calculé pour le journal ?">
+                                                    <FormatBoolean boolean={recordRow.isComputedForJournalReport} />
+                                                </DataBlock.Item>
+                                                <DataBlock.Item label="Calculé pour le grand-livre ?">
+                                                    <FormatBoolean boolean={recordRow.isComputedForLedgerReport} />
+                                                </DataBlock.Item>
+                                                <DataBlock.Item label="Calculé pour la balance ?">
+                                                    <FormatBoolean boolean={recordRow.isComputedForBalanceReport} />
+                                                </DataBlock.Item>
+                                                <DataBlock.Item label="Calculé pour le bilan ?">
+                                                    <FormatBoolean
+                                                        boolean={recordRow.isComputedForBalanceSheetReport}
+                                                    />
+                                                </DataBlock.Item>
+                                                <DataBlock.Item label="Calculé pour le compte de résultat ?">
+                                                    <FormatBoolean
+                                                        boolean={recordRow.isComputedForIncomeStatementReport}
+                                                    />
+                                                </DataBlock.Item>
+                                            </DataBlock.Content>
+                                        </DataBlock.Root>
+                                    </Section.Item>
+                                ) : (
+                                    <Section.Item className={css({ flexDirection: "column" })}>
+                                        <DataBlock.Root>
+                                            <DataBlock.Header title="Métadonnées" />
+                                            <DataBlock.Content>
+                                                <DataBlock.Item label="Ajouté le">
+                                                    <FormatDateTime date={recordRow.createdAt} />
+                                                </DataBlock.Item>
+                                                <DataBlock.Item label="Modifié le">
+                                                    <FormatDateTime date={recordRow.lastUpdatedAt} />
+                                                </DataBlock.Item>
+                                                <DataBlock.Item label="Id">
+                                                    <FormatText>{recordRow.id}</FormatText>
+                                                </DataBlock.Item>
+                                            </DataBlock.Content>
+                                        </DataBlock.Root>
+                                    </Section.Item>
+                                )}
                             </Section.Root>
                         )
                     }}

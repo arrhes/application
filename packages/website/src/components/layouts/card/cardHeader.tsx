@@ -11,7 +11,7 @@ export function CardHeader(props: { children?: ReactNode; className?: ComponentP
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "flex-start",
-                    gap: "2",
+                    gap: "0.5rem",
                     padding: "1rem",
                 }),
                 props.className,

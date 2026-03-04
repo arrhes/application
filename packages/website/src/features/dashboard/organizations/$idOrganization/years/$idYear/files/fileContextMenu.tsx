@@ -54,7 +54,7 @@ export function FileContextMenu(props: {
                         leftIcon={<IconEye size={16} />}
                         onSelect={() => {
                             applicationRouter.navigate({
-                                to: "/dashboard/organisations/$idOrganization/exercices/$idYear/fichiers/$idFile",
+                                to: "/dashboard/organisations/$idOrganization/exercices/$idYear/stockage/$idFile",
                                 params: {
                                     idOrganization: props.idOrganization,
                                     idYear: props.idYear,

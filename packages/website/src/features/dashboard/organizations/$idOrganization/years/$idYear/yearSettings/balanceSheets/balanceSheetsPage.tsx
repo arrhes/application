@@ -25,7 +25,7 @@ export function BalanceSheetsPage() {
                                 display: "flex",
                                 justifyContent: "flex-end",
                                 alignItems: "center",
-                                gap: "2",
+                                gap: "0.5rem",
                                 flexWrap: "wrap",
                             })}
                         >

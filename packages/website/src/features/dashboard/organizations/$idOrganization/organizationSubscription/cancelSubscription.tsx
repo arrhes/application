@@ -9,7 +9,7 @@ import { toast } from "../../../../../contexts/toasts/useToast.ts"
 import { getResponseBodyFromAPI } from "../../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../../utilities/invalidateData.ts"
 
-export function CancelSubscription(props: { idOrganization: string }) {
+export function CancelSubscription(_props: { idOrganization: string }) {
     return (
         <DeleteConfirmation
             title="Voulez-vous annuler votre abonnement ?"

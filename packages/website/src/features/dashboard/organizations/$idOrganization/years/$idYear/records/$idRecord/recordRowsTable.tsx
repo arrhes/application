@@ -65,7 +65,7 @@ export function RecordRowsTable(props: {
                                     display: "flex",
                                     justifyContent: "flex-start",
                                     alignItems: "flex-start",
-                                    gap: "2",
+                                    gap: "0.5rem",
                                 })}
                             >
                                 <FormatText className={css({ overflow: "visible" })}>{account.number}</FormatText>

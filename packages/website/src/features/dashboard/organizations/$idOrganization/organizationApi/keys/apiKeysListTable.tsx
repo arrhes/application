@@ -7,7 +7,7 @@ import { EmptyState } from "../../../../../../components/layouts/emptyState.tsx"
 import { ListTable } from "../../../../../../components/layouts/listTable/listTable.tsx"
 import { ApiKeyListTableRow } from "./apiKeyListTableRow.tsx"
 
-export function ApiKeysListTable(props: { idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"] }) {
+export function ApiKeysListTable(_props: { idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"] }) {
     return (
         <ListTable.Root>
             <DataWrapper routeDefinition={readAllApiKeysRouteDefinition} body={{}}>

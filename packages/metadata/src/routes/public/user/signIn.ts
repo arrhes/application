@@ -9,7 +9,7 @@ export const signInRouteDefinition = routeDefinition({
     schemas: {
         body: v.object({
             email: userSchema.entries.email,
-            password: v.nonNullable(stringSchema),
+            password: v.nonNullable(stringSchema, "Ce champ est requis"),
         }),
         return: v.object({}),
     },

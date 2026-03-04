@@ -11,7 +11,7 @@ export const readOrganizationSubscriptionRoute = apiFactory
     .createApp()
     .post(readOrganizationSubscriptionRouteDefinition.path, async (c) => {
         const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
-        const body = await validateBodyMiddleware({
+        const _body = await validateBodyMiddleware({
             context: c,
             schema: readOrganizationSubscriptionRouteDefinition.schemas.body,
         })

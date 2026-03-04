@@ -174,7 +174,7 @@ export function UpdateOneRecordRow(props: {
                                         flexDirection: "column",
                                         justifyContent: "flex-start",
                                         alignItems: "flex-start",
-                                        gap: "2",
+                                        gap: "0.5rem",
                                     })}
                                 >
                                     <FormLabel label="Mouvement ajouté aux calculs ?" isRequired={false} />
@@ -185,7 +185,7 @@ export function UpdateOneRecordRow(props: {
                                             justifyContent: "flex-start",
                                             alignItems: "flex-start",
                                             flexWrap: "wrap",
-                                            gap: "2",
+                                            gap: "0.5rem",
                                         })}
                                     >
                                         <FormField

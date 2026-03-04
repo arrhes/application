@@ -207,7 +207,7 @@ export function BalanceReportTable(props: {
                                                     display: "flex",
                                                     justifyContent: "start",
                                                     alignItems: "start",
-                                                    gap: "2",
+                                                    gap: "0.5rem",
                                                 })}
                                             >
                                                 <FormatText className={css({ overflow: "visible" })}>

@@ -67,7 +67,7 @@ const columns: Array<ListTableColumn<Payment>> = [
 ]
 
 export function OrganizationSubscriptionHistoryPage() {
-    const params = useParams({ from: organizationSubscriptionHistoryRoute.id })
+    const _params = useParams({ from: organizationSubscriptionHistoryRoute.id })
 
     return (
         <Page.Root>

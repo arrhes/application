@@ -12,7 +12,7 @@ export const cancelSubscriptionRoute = apiFactory
     .createApp()
     .post(cancelSubscriptionRouteDefinition.path, async (c) => {
         const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
-        const body = await validateBodyMiddleware({
+        const _body = await validateBodyMiddleware({
             context: c,
             schema: cancelSubscriptionRouteDefinition.schemas.body,
         })

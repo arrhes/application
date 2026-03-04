@@ -18,7 +18,7 @@ export function InputDisabled(
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    gap: "2",
+                    gap: "0.5rem",
                     border: "1px solid",
                     borderRadius: "md",
                     backgroundColor: "neutral/5",

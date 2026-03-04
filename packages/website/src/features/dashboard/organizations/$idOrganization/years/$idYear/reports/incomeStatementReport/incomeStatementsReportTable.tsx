@@ -167,7 +167,7 @@ export function IncomeStatementsReportTable(props: {
                                                 width: "100%",
                                                 display: "flex",
                                                 justifyContent: "end",
-                                                gap: "2",
+                                                gap: "0.5rem",
                                             })}
                                         >
                                             <FormatText className={css({ whiteSpace: "normal", textAlign: "right" })}>

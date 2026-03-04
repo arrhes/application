@@ -84,7 +84,7 @@ export const CommandInput = React.forwardRef<
             height: "40px",
             display: "flex",
             alignItems: "center",
-            gap: "2",
+            gap: "0.5rem",
             padding: "1rem",
             borderBottom: "1px solid",
             borderColor: "neutral/10",

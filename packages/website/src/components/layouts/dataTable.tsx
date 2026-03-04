@@ -223,7 +223,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                                 display: "flex",
                                                 justifyContent: "flex-start",
                                                 alignItems: "center",
-                                                gap: "2",
+                                                gap: "0.5rem",
                                                 padding: "1rem",
                                             })}
                                         >
@@ -276,13 +276,13 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                             !props.onRowClick
                                                 ? undefined
                                                 : css({
-                                                    cursor: "pointer",
-                                                    _hover: { backgroundColor: "neutral/5" },
-                                                }),
+                                                      cursor: "pointer",
+                                                      _hover: { backgroundColor: "neutral/5" },
+                                                  }),
                                             row.getIsExpanded()
                                                 ? css({
-                                                    borderBottomColor: "neutral/10",
-                                                })
+                                                      borderBottomColor: "neutral/10",
+                                                  })
                                                 : undefined,
                                         )}
                                     >

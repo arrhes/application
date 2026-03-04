@@ -9,7 +9,7 @@ import { organizationSecurityRoute } from "../../../../../routes/root/dashboard/
 import { DeleteOneOrganization } from "./deleteOneOrganization.tsx"
 
 export function OrganizationSecurityPage() {
-    const params = useParams({ from: organizationSecurityRoute.id })
+    const _params = useParams({ from: organizationSecurityRoute.id })
 
     return (
         <Page.Root>

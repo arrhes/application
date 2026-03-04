@@ -4,7 +4,7 @@ import { apiDocLayoutRoute } from "./apiDocLayoutRoute.tsx"
 
 export const filesApiDocRoute = createRoute({
     getParentRoute: () => apiDocLayoutRoute,
-    path: "/fichiers",
+    path: "/stockage",
     beforeLoad: () => ({
         title: "Fichiers et documents",
     }),

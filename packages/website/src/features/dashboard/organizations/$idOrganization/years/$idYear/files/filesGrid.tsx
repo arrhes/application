@@ -341,7 +341,7 @@ export function FilesGrid(props: {
                                 onDragStart={(e) => handleDragStart(e, file.id)}
                                 onClick={() => {
                                     applicationRouter.navigate({
-                                        to: "/dashboard/organisations/$idOrganization/exercices/$idYear/fichiers/$idFile",
+                                        to: "/dashboard/organisations/$idOrganization/exercices/$idYear/stockage/$idFile",
                                         params: {
                                             idOrganization: props.idOrganization,
                                             idYear: props.idYear,

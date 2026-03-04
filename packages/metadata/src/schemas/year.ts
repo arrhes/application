@@ -5,16 +5,16 @@ import { varcharSchema } from "../components/schemas/varcharSchema.js"
 import type { yearModel } from "../models/year.js"
 
 export const yearSchema = v.object({
-    id: v.nonNullable(idSchema),
-    idOrganization: v.nonNullable(idSchema),
+    id: v.nonNullable(idSchema, "Ce champ est requis"),
+    idOrganization: v.nonNullable(idSchema, "Ce champ est requis"),
     idYearPrevious: v.nullable(idSchema),
     // isGenerated: v.nonNullable(booleanSchema),
-    isClosed: v.nonNullable(booleanSchema),
+    isClosed: v.nonNullable(booleanSchema, "Ce champ est requis"),
     closedAt: v.nullable(dateTimeSchema),
-    label: v.nonNullable(varcharSchema({ maxLength: 256 })),
+    label: v.nonNullable(varcharSchema({ maxLength: 256 }), "Ce champ est requis"),
     startingAt: v.nonNullable(dateTimeSchema, "Doit être une date valide"),
     endingAt: v.nonNullable(dateTimeSchema, "Doit être une date valide"),
-    createdAt: v.nonNullable(dateTimeSchema),
+    createdAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),
     lastUpdatedAt: v.nullable(dateTimeSchema),
     createdBy: v.nullable(idSchema),
     lastUpdatedBy: v.nullable(idSchema),

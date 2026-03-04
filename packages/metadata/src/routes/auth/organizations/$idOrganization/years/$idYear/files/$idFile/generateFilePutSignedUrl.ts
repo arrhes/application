@@ -10,8 +10,8 @@ export const generateFilePutSignedUrlRouteDefinition = routeDefinition({
         body: v.object({
             idFile: fileSchema.entries.id,
             idYear: fileSchema.entries.idYear,
-            type: v.nonNullable(fileSchema.entries.type.wrapped),
-            size: v.nonNullable(fileSchema.entries.size.wrapped),
+            type: v.nonNullable(fileSchema.entries.type.wrapped, "Ce champ est requis"),
+            size: v.nonNullable(fileSchema.entries.size.wrapped, "Ce champ est requis"),
         }),
         return: v.object({
             file: fileSchemaReturn,

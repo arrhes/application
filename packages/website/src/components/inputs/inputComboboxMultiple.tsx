@@ -85,7 +85,7 @@ export function InputComboboxMultiple<TValue extends string>(props: InputCombobo
                                     display: "flex",
                                     justifyContent: "space-between",
                                     alignItems: "center",
-                                    gap: "2",
+                                    gap: "0.5rem",
                                     borderRadius: "md",
                                 })}
                             >
@@ -118,7 +118,7 @@ export function InputComboboxMultiple<TValue extends string>(props: InputCombobo
                                     display: "grid",
                                     gridTemplateColumns: "auto min-content",
                                     alignItems: "center",
-                                    gap: "2",
+                                    gap: "0.5rem",
                                     padding: "1rem",
                                     border: "1px solid",
                                     borderColor: "neutral/20",

@@ -29,7 +29,7 @@ export function FormSubmit<T>(props: FormSubmit<T>) {
                 flexDirection: "column",
                 justifyContent: "flex-start",
                 alignItems: "stretch",
-                gap: "2",
+                gap: "0.5rem",
             })}
         >
             <div
@@ -39,7 +39,7 @@ export function FormSubmit<T>(props: FormSubmit<T>) {
                     flexDirection: "row",
                     justifyContent: "flex-end",
                     alignItems: "center",
-                    gap: "2",
+                    gap: "0.5rem",
                 })}
             >
                 {props.previousCallback === undefined ? null : (

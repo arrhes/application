@@ -103,7 +103,7 @@ export function UpdateManyRecordRows(props: {
                                         flexDirection: "column",
                                         justifyContent: "flex-start",
                                         alignItems: "flex-start",
-                                        gap: "2",
+                                        gap: "0.5rem",
                                     })}
                                 >
                                     <FormLabel label="Mouvement ajouté aux calculs ?" isRequired={false} />
@@ -114,7 +114,7 @@ export function UpdateManyRecordRows(props: {
                                             justifyContent: "flex-start",
                                             alignItems: "flex-start",
                                             flexWrap: "wrap",
-                                            gap: "2",
+                                            gap: "0.5rem",
                                         })}
                                     >
                                         <FormField

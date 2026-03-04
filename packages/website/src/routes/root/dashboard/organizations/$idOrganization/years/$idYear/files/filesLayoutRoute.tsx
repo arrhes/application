@@ -3,7 +3,7 @@ import { yearLayoutRoute } from "../yearLayoutRoute.js"
 
 export const filesLayoutRoute = createRoute({
     getParentRoute: () => yearLayoutRoute,
-    path: "/fichiers",
+    path: "/stockage",
     beforeLoad: () => ({
         title: "Stockage",
     }),

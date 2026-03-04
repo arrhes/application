@@ -18,7 +18,7 @@ export function SectionItem(props: {
                     flexDirection: "column",
                     justifyContent: "flex-start",
                     alignItems: "flex-start",
-                    gap: "4",
+                    gap: "1rem",
                 }),
                 props.className,
             )}

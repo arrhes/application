@@ -16,7 +16,7 @@ export function DataBlockRoot(props: {
                     flexDirection: "column",
                     justifyContent: "flex-start",
                     alignItems: "stretch",
-                    gap: "0.5rem",
+                    gap: "0rem",
                 }),
                 props.className,
             )}

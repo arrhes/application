@@ -43,7 +43,7 @@ export async function getResponseBodyFromAPI<
         if (response.ok === false) {
             throw new ClientError({
                 message: "Error with the POST request response",
-                cause: jsonResponse.message,
+                cause: jsonResponse.cause ?? jsonResponse.message,
             })
         }
 
@@ -68,15 +68,43 @@ export async function getResponseBodyFromAPI<
         abortController?.abort()
 
         if (parameters.hasToastMessage) {
-            toast({ title: "Error with the API.", variant: "error" })
+            const clientError = error instanceof ClientError ? error : new ClientError({ rawError: error })
+
+            let validationMessages: string | undefined
+            try {
+                const parsed = JSON.parse(clientError.cause ?? "")
+                if (parsed?.nested && typeof parsed.nested === "object") {
+                    validationMessages = Object.entries(parsed.nested as Record<string, string[]>)
+                        .map(([field, errors]) => `${field}: ${errors.join(", ")}`)
+                        .join(" | ")
+                }
+            } catch {
+                // cause is not a JSON validation error string, ignore
+            }
+
+            if (validationMessages) {
+                toast({
+                    title: "Requête invalide",
+                    description: validationMessages,
+                    variant: "error",
+                })
+            } else {
+                toast({
+                    title: clientError.cause ?? "Erreur avec l'API.",
+                    variant: "error",
+                })
+            }
         }
 
         return <const>{
             ok: false,
             data: undefined,
-            error: new ClientError({
-                rawError: error,
-            }),
+            error:
+                error instanceof ClientError
+                    ? error
+                    : new ClientError({
+                          rawError: error,
+                      }),
         }
     }
 }

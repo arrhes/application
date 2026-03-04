@@ -20,7 +20,7 @@ export function SupportPage() {
                             display: "flex",
                             justifyContent: "flex-start",
                             alignItems: "flex-start",
-                            gap: "2",
+                            gap: "0.5rem",
                         })}
                     >
                         <a href="mailto:contact@arrhes.com">

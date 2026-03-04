@@ -7,7 +7,7 @@ export const mollieWebhookRouteDefinition = routeDefinition({
     path: `${routePath.public}/mollie-webhook`,
     schemas: {
         body: v.object({
-            id: v.string(),
+            id: v.string("Ce champ est requis"),
         }),
         return: v.object({}),
     },

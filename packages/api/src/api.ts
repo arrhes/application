@@ -77,9 +77,11 @@ export async function api(parameters: {
                         statusCode: error.statusCode,
                         schema: v.object({
                             message: v.string(),
+                            cause: v.optional(v.string()),
                         }),
                         data: {
                             message: error.externalMessage ?? "Internal error",
+                            cause: typeof error.cause === "string" ? error.cause : undefined,
                         },
                     })
                 }

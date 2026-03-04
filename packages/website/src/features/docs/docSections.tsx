@@ -2,8 +2,8 @@ import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconBook, IconCode, IconGavel, IconHome, IconInfoCircle, IconLayout } from "@tabler/icons-react"
 import type { DocSection } from "./sectionTab.tsx"
 
-export // Documentation sections configuration
-const docSections: Record<string, DocSection> = {
+// Documentation sections configuration
+export const docSections: Record<string, DocSection> = {
     general: {
         id: "general",
         label: "Général",
@@ -88,7 +88,7 @@ const docSections: Record<string, DocSection> = {
                     { path: "/documentation/api/authentification", label: "Authentification" },
                     { path: "/documentation/api/organisations", label: "Organisations" },
                     { path: "/documentation/api/comptabilité", label: "Comptabilité" },
-                    { path: "/documentation/api/fichiers", label: "Fichiers et documents" },
+                    { path: "/documentation/api/stockage", label: "Fichiers et documents" },
                 ],
             },
         },

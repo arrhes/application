@@ -9,7 +9,6 @@ import { CreateOneRecord } from "./createOneRecord.js"
 import { ExportRecordRows } from "./exportRecordRows.js"
 import { RecordsTable } from "./recordsTable.js"
 
-
 export function RecordsPage() {
     const params = useParams({ from: recordsRoute.id })
 
@@ -18,14 +17,7 @@ export function RecordsPage() {
             <Page.Content>
                 <YearDataWrapper
                     idYear={params.idYear}
-                    requiredKeys={[
-                        "records",
-                        "recordRows",
-                        "journals",
-                        "recordLabels",
-                        "files",
-                        "accounts",
-                    ]}
+                    requiredKeys={["records", "recordRows", "journals", "recordLabels", "files", "accounts"]}
                 >
                     {(data) => (
                         <div className={css({ width: "100%", minWidth: "0" })}>
@@ -47,7 +39,7 @@ export function RecordsPage() {
                                     <Button>
                                         <ButtonGhostContent
                                             leftIcon={<IconDownload />}
-                                        // text="Exporter"
+                                            // text="Exporter"
                                         />
                                     </Button>
                                 </ExportRecordRows>

@@ -53,7 +53,7 @@ export function BalanceSheetTable(props: {
                                 display: "flex",
                                 justifyContent: "flex-start",
                                 alignItems: "center",
-                                gap: "2",
+                                gap: "0.5rem",
                             })}
                         >
                             <InputDebounced

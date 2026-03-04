@@ -23,7 +23,7 @@ export function YearLayout() {
                     {
                         label: "Stockage",
                         icon: <IconFolders />,
-                        to: "/dashboard/organisations/$idOrganization/exercices/$idYear/fichiers",
+                        to: "/dashboard/organisations/$idOrganization/exercices/$idYear/stockage",
                         params: {
                             idOrganization: params.idOrganization,
                             idYear: params.idYear,

@@ -22,7 +22,7 @@ export function RecordLabelsPage() {
                                 display: "flex",
                                 justifyContent: "flex-end",
                                 alignItems: "center",
-                                gap: "2",
+                                gap: "0.5rem",
                             })}
                         >
                             <CreateOneRecordLabel idOrganization={params.idOrganization} idYear={params.idYear}>

@@ -1,11 +1,14 @@
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { Button, ButtonGhostContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconArrowUp, IconFolder } from "@tabler/icons-react"
+import { IconArrowLeft, IconFile, IconFileTypePdf, IconFolder } from "@tabler/icons-react"
+import type { ReactElement } from "react"
 import type * as v from "valibot"
 import { FormatDateTime } from "../../../../../../../components/formats/formatDateTime.js"
+import { FormatFileSize } from "../../../../../../../components/formats/formatFileSize.js"
 import { FormatNull } from "../../../../../../../components/formats/formatNull.js"
-import { FormatText } from "../../../../../../../components/formats/formatText.js"
 import { DataTable } from "../../../../../../../components/layouts/dataTable.js"
+import { LinkButton } from "../../../../../../../components/linkButton.js"
 import { FileActions } from "./fileActions.js"
 import { FolderActions } from "./folderActions.js"
 
@@ -30,6 +33,10 @@ export function FilesTable(props: {
         ...props.files.map((file) => ({ kind: "file" as const, data: file })),
     ]
 
+    const icons: Record<string, ReactElement> = {
+        "application/pdf": <IconFileTypePdf />,
+    }
+
     return (
         <DataTable
             data={rows}
@@ -43,62 +50,51 @@ export function FilesTable(props: {
                         const item = row.original
                         if (item.kind === "back") {
                             return (
-                                <button
-                                    type="button"
-                                    onClick={() => props.onFolderOpen(props.parentFolderId)}
-                                    className={css({
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: "2",
-                                        cursor: "pointer",
-                                        background: "none",
-                                        border: "none",
-                                        padding: "0",
-                                        fontWeight: "medium",
-                                        color: "neutral/60",
-                                        _hover: { color: "primary" },
-                                    })}
-                                >
-                                    <IconArrowUp size={16} />
-                                    ..
-                                </button>
+                                <Button onClick={() => props.onFolderOpen(props.parentFolderId)}>
+                                    <ButtonGhostContent leftIcon={<IconArrowLeft />} text=".." />
+                                </Button>
                             )
                         }
                         if (item.kind === "folder") {
                             return (
-                                <button
-                                    type="button"
-                                    onClick={() => props.onFolderOpen(item.data.id)}
-                                    className={css({
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: "2",
-                                        cursor: "pointer",
-                                        background: "none",
-                                        border: "none",
-                                        padding: "0",
-                                        fontWeight: "medium",
-                                        color: "neutral",
-                                        _hover: { color: "primary" },
-                                    })}
-                                >
-                                    <IconFolder size={16} className={css({ color: "amber.500" })} />
-                                    <FormatText>{item.data.name}</FormatText>
-                                </button>
+                                <Button onClick={() => props.onFolderOpen(item.data.id)}>
+                                    <ButtonGhostContent leftIcon={<IconFolder />} text={item.data.name} />
+                                </Button>
                             )
                         }
-                        return !item.data.name ? <FormatNull /> : <FormatText>{item.data.name}</FormatText>
+                        if (item.kind === "file") {
+                            const leftIcon = item.data.type !== null ? icons[item.data.type] : undefined
+                            return (
+                                <LinkButton
+                                    to="/dashboard/organisations/$idOrganization/exercices/$idYear/stockage/$idFile"
+                                    params={{
+                                        idFile: item.data.id,
+                                    }}
+                                >
+                                    <ButtonGhostContent
+                                        leftIcon={leftIcon ?? <IconFile />}
+                                        text={item.data.name ?? "/"}
+                                    />
+                                </LinkButton>
+                            )
+                        }
                     },
                     filterFn: "includesString",
                 },
                 {
-                    accessorKey: "type",
-                    header: "Type",
+                    accessorKey: "size",
+                    header: "Size",
                     cell: ({ row }) => {
                         const item = row.original
-                        if (item.kind === "back") return <span className={css({ color: "neutral/40" })}>--</span>
-                        if (item.kind === "folder") return <FormatText>Dossier</FormatText>
-                        return item.data.type?.split("/").at(1) ?? <FormatNull />
+                        if (item.kind === "back") {
+                            return <FormatNull />
+                        }
+                        if (item.kind === "folder") {
+                            return <FormatNull />
+                        }
+                        if (item.kind === "file") {
+                            return <FormatFileSize size={item.data.size} />
+                        }
                     },
                     filterFn: "includesString",
                 },

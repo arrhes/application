@@ -5,12 +5,12 @@ import { varcharSchema } from "../components/schemas/varcharSchema.js"
 import type { folderModel } from "../models/folder.js"
 
 export const folderSchema = v.object({
-    id: v.nonNullable(idSchema),
-    idOrganization: v.nonNullable(idSchema),
-    idYear: v.nonNullable(idSchema),
+    id: v.nonNullable(idSchema, "Ce champ est requis"),
+    idOrganization: v.nonNullable(idSchema, "Ce champ est requis"),
+    idYear: v.nonNullable(idSchema, "Ce champ est requis"),
     idFolderParent: v.nullable(idSchema),
-    name: v.nonNullable(varcharSchema({ maxLength: 256 })),
-    createdAt: v.nonNullable(dateTimeSchema),
+    name: v.nonNullable(varcharSchema({ maxLength: 256 }), "Ce champ est requis"),
+    createdAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),
     lastUpdatedAt: v.nullable(dateTimeSchema),
     createdBy: v.nullable(idSchema),
     lastUpdatedBy: v.nullable(idSchema),

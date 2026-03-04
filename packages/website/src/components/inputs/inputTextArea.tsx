@@ -32,7 +32,7 @@ export function InputTextArea(
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    gap: "2",
+                    gap: "0.5rem",
                     padding: "1rem",
                     border: "1px solid",
                     borderRadius: "md",

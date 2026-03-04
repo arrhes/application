@@ -5,13 +5,13 @@ import { organizationUserStatus } from "../components/values/organizationUserSta
 import type { organizationUserModel } from "../models/organizationUser.js"
 
 export const organizationUserSchema = v.object({
-    id: v.nonNullable(idSchema),
-    idOrganization: v.nonNullable(idSchema),
-    idUser: v.nonNullable(idSchema),
-    isOwner: v.nonNullable(booleanSchema),
-    isAdmin: v.nonNullable(booleanSchema),
-    status: v.nonNullable(v.picklist(organizationUserStatus)),
-    createdAt: v.nonNullable(dateTimeSchema),
+    id: v.nonNullable(idSchema, "Ce champ est requis"),
+    idOrganization: v.nonNullable(idSchema, "Ce champ est requis"),
+    idUser: v.nonNullable(idSchema, "Ce champ est requis"),
+    isOwner: v.nonNullable(booleanSchema, "Ce champ est requis"),
+    isAdmin: v.nonNullable(booleanSchema, "Ce champ est requis"),
+    status: v.nonNullable(v.picklist(organizationUserStatus, "Valeur invalide"), "Ce champ est requis"),
+    createdAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),
     lastUpdatedAt: v.nullable(dateTimeSchema),
     createdBy: v.nullable(idSchema),
     lastUpdatedBy: v.nullable(idSchema),

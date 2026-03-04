@@ -4,13 +4,13 @@ import { idSchema } from "../components/schemas/idSchema.js"
 import type { documentModel } from "../models/document.js"
 
 export const documentSchema = v.object({
-    id: v.nonNullable(idSchema),
-    idOrganization: v.nonNullable(idSchema),
-    idYear: v.nonNullable(idSchema),
-    label: v.nonNullable(stringSchema),
-    type: v.nonNullable(v.picklist(documentType)),
-    storageKey: v.nonNullable(stringSchema),
-    createdAt: v.nonNullable(dateTimeSchema),
+    id: v.nonNullable(idSchema, "Ce champ est requis"),
+    idOrganization: v.nonNullable(idSchema, "Ce champ est requis"),
+    idYear: v.nonNullable(idSchema, "Ce champ est requis"),
+    label: v.nonNullable(stringSchema, "Ce champ est requis"),
+    type: v.nonNullable(v.picklist(documentType, "Valeur invalide"), "Ce champ est requis"),
+    storageKey: v.nonNullable(stringSchema, "Ce champ est requis"),
+    createdAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),
     lastUpdatedAt: v.nullable(dateTimeSchema),
     createdBy: v.nullable(idSchema),
     lastUpdatedBy: v.nullable(idSchema),

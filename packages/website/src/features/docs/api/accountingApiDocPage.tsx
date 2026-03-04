@@ -288,7 +288,7 @@ export function AccountingApiDocPage() {
                 <DocParagraph>Retourne l'objet ligne d'écriture créé.</DocParagraph>
             </DocSection>
 
-            <DocNextPage to="/documentation/api/fichiers" label="Fichiers et documents" />
+            <DocNextPage to="/documentation/api/stockage" label="Fichiers et documents" />
         </DocRoot>
     )
 }

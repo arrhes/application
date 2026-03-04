@@ -149,7 +149,7 @@ export function LedgerReportTable(props: {
                                                     display: "flex",
                                                     justifyContent: "start",
                                                     alignItems: "start",
-                                                    gap: "2",
+                                                    gap: "0.5rem",
                                                 })}
                                             >
                                                 <FormatText className={css({ overflow: "visible" })}>
@@ -174,6 +174,7 @@ export function LedgerReportTable(props: {
                                             />
                                         </Table.Body.Cell>
                                     </Table.Body.Row>
+                                    {/* biome-ignore lint/complexity/noUselessFragments: Fragment needed for TypeScript type compatibility with Table.Body.Root children */}
                                     <Fragment>
                                         {filteredRecordRows.map((recordRow) => {
                                             return (

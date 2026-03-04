@@ -28,7 +28,7 @@ async function uploadOneFile(params: {
     idFolder?: string | null
     file: File
 }): Promise<boolean> {
-    const { file, idOrganization, idYear, idFolder } = params
+    const { file, idOrganization: _idOrganization, idYear, idFolder } = params
 
     if (file.size > MAX_FILE_SIZE) {
         toast({ title: `"${file.name}" dépasse la taille maximale de 10 Mo`, variant: "error" })

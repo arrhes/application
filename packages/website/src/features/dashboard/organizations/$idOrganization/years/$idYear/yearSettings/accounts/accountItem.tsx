@@ -11,7 +11,7 @@ const rowStyle = css({
     display: "flex",
     justifyContent: "flex-start",
     alignItems: "center",
-    gap: "2",
+    gap: "0.5rem",
     _hover: { backgroundColor: "neutral/5" },
     borderBottomWidth: "1px",
     borderColor: "neutral/5",
@@ -23,7 +23,7 @@ const labelContainerStyle = css({
     display: "flex",
     justifyContent: "flex-start",
     alignItems: "center",
-    gap: "2",
+    gap: "0.5rem",
 })
 
 const numberBaseStyle = css({ color: "neutral", fontSize: "xs", lineHeight: "none" })
