@@ -1,7 +1,7 @@
 import { CircularLoader } from "@arrhes/ui"
 import { createRoute } from "@tanstack/react-router"
 import { Page } from "../../../../../../../components/layouts/page/page.js"
-import { YearLayout } from "../../../../../../../features/dashboard/organizations/$idOrganization/years/$idYear/yearLayout.js"
+import { YearLayout } from "../../../../../../../features/dashboard/$idYear/yearLayout.js"
 import { prefetchYearData } from "../../../../../../../utilities/prefetchYearData.js"
 import { yearPathRoute } from "./yearPathRoute.js"
 

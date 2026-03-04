@@ -1,5 +1,5 @@
 import { createRoute } from "@tanstack/react-router"
-import { RecordRowPage } from "../../../../../../../../../../features/dashboard/organizations/$idOrganization/years/$idYear/records/$idRecord/$idRecordRow/recordRowPage.js"
+import { RecordRowPage } from "../../../../../../../../../../features/dashboard/$idYear/records/$idRecord/$idRecordRow/recordRowPage.js"
 import { recordRowLayoutRoute } from "./recordRowLayoutRoute.js"
 
 export const recordRowRoute = createRoute({

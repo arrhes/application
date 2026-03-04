@@ -1,5 +1,5 @@
 import { createRoute } from "@tanstack/react-router"
-import { OrganizationSubscriptionLayout } from "../../../../../../features/dashboard/organizations/$idOrganization/organizationSubscription/organizationSubscriptionLayout.js"
+import { OrganizationSubscriptionLayout } from "../../../../../../features/dashboard/$idOrganization/organizationSubscription/organizationSubscriptionLayout.js"
 import { organizationLayoutRoute } from "../organizationLayoutRoute.js"
 
 export const organizationSubscriptionLayoutRoute = createRoute({

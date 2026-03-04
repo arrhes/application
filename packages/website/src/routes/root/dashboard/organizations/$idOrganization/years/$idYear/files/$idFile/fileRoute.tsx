@@ -1,5 +1,5 @@
 import { createRoute } from "@tanstack/react-router"
-import { FilePage } from "../../../../../../../../../features/dashboard/organizations/$idOrganization/years/$idYear/files/$idFile/filePage.js"
+import { FilePage } from "../../../../../../../../../features/dashboard/$idYear/files/$idFile/filePage.js"
 import { fileLayoutRoute } from "./fileLayoutRoute.js"
 
 export const fileRoute = createRoute({

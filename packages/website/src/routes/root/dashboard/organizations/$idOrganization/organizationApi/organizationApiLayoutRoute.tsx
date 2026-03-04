@@ -1,5 +1,5 @@
 import { createRoute } from "@tanstack/react-router"
-import { OrganizationApiLayout } from "../../../../../../features/dashboard/organizations/$idOrganization/organizationApi/organizationApiLayout.js"
+import { OrganizationApiLayout } from "../../../../../../features/dashboard/$idOrganization/organizationApi/organizationApiLayout.js"
 import { organizationLayoutRoute } from "../organizationLayoutRoute.tsx"
 
 export const organizationApiLayoutRoute = createRoute({

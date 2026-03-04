@@ -1,5 +1,5 @@
 import { createRoute } from "@tanstack/react-router"
-import { JournalPage } from "../../../../../../../../../../features/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/journals/$idJournal/journalPage.js"
+import { JournalPage } from "../../../../../../../../../../features/dashboard/$idYear/yearSettings/journals/$idJournal/journalPage.js"
 import { journalLayoutRoute } from "./journalLayoutRoute.js"
 
 export const journalRoute = createRoute({

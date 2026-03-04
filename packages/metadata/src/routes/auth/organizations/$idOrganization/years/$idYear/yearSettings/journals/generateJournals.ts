@@ -1,3 +1,4 @@
+/*
 import * as v from "valibot"
 import { routePath } from "../../../../../../../../components/index.js"
 import { journalSchema, journalSchemaReturn } from "../../../../../../../../schemas/journal.js"
@@ -13,3 +14,4 @@ export const generateJournalsRouteDefinition = routeDefinition({
         return: v.array(journalSchemaReturn),
     },
 })
+*/

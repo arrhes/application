@@ -1,5 +1,5 @@
 import { createRoute } from "@tanstack/react-router"
-import { LedgerReportPage } from "../../../../../../../../features/dashboard/organizations/$idOrganization/years/$idYear/reports/ledgerReport/ledgerReportPage.js"
+import { LedgerReportPage } from "../../../../../../../../features/dashboard/$idYear/reports/ledgerReport/ledgerReportPage.js"
 import { reportsLayoutRoute } from "./reportsLayoutRoute.js"
 
 export const ledgerReportRoute = createRoute({

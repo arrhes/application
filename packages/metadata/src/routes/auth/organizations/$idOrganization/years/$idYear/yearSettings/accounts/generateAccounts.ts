@@ -1,3 +1,4 @@
+/*
 import * as v from "valibot"
 import { routePath } from "../../../../../../../../components/index.js"
 import { booleanSchema } from "../../../../../../../../components/schemas/booleanSchema.js"
@@ -16,3 +17,4 @@ export const generateAccountsRouteDefinition = routeDefinition({
         return: v.array(accountSchemaReturn),
     },
 })
+*/

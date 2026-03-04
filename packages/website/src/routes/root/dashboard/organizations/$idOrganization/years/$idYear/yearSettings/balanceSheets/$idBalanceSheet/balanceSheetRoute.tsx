@@ -1,5 +1,5 @@
 import { createRoute } from "@tanstack/react-router"
-import { BalanceSheetPage } from "../../../../../../../../../../features/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/balanceSheets/$idBalanceSheet/balanceSheetPage.js"
+import { BalanceSheetPage } from "../../../../../../../../../../features/dashboard/$idYear/yearSettings/balanceSheets/$idBalanceSheet/balanceSheetPage.js"
 import { balanceSheetLayoutRoute } from "./balanceSheetLayoutRoute.js"
 
 export const balanceSheetRoute = createRoute({

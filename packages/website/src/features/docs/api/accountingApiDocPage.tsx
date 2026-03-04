@@ -82,7 +82,6 @@ export function AccountingApiDocPage() {
                         ["POST /auth/create-one-account", "Créer un compte"],
                         ["POST /auth/update-one-account", "Modifier un compte"],
                         ["POST /auth/delete-one-account", "Supprimer un compte"],
-                        ["POST /auth/generate-accounts", "Générer le PCG par défaut"],
                     ]}
                 />
             </DocSection>
@@ -119,7 +118,6 @@ export function AccountingApiDocPage() {
                         ["POST /auth/create-one-journal", "Créer un journal"],
                         ["POST /auth/update-one-journal", "Modifier un journal"],
                         ["POST /auth/delete-one-journal", "Supprimer un journal"],
-                        ["POST /auth/generate-journals", "Générer les journaux par défaut"],
                     ]}
                 />
             </DocSection>
@@ -137,11 +135,6 @@ export function AccountingApiDocPage() {
                         ["POST /auth/create-one-balance-sheet", "Créer une ligne de bilan"],
                         ["POST /auth/update-one-balance-sheet", "Modifier une ligne de bilan"],
                         ["POST /auth/delete-one-balance-sheet", "Supprimer une ligne de bilan"],
-                        ["POST /auth/generate-balance-sheets", "Générer la structure de bilan par défaut"],
-                        [
-                            "POST /auth/connect-accounts-to-balance-sheets",
-                            "Lier automatiquement les comptes aux lignes de bilan",
-                        ],
                     ]}
                 />
             </DocSection>
@@ -158,11 +151,6 @@ export function AccountingApiDocPage() {
                         ["POST /auth/create-one-income-statement", "Créer une ligne"],
                         ["POST /auth/update-one-income-statement", "Modifier une ligne"],
                         ["POST /auth/delete-one-income-statement", "Supprimer une ligne"],
-                        ["POST /auth/generate-income-statements", "Générer la structure par défaut"],
-                        [
-                            "POST /auth/connect-accounts-to-income-statements",
-                            "Lier automatiquement les comptes aux lignes",
-                        ],
                     ]}
                 />
             </DocSection>
@@ -196,7 +184,6 @@ export function AccountingApiDocPage() {
                         ["POST /auth/create-one-computation", "Créer un calcul"],
                         ["POST /auth/update-one-computation", "Modifier un calcul"],
                         ["POST /auth/delete-one-computation", "Supprimer un calcul"],
-                        ["POST /auth/generate-computations", "Générer les calculs par défaut"],
                     ]}
                 />
             </DocSection>

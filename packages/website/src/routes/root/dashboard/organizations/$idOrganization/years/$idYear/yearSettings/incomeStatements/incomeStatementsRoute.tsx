@@ -1,5 +1,5 @@
 import { createRoute } from "@tanstack/react-router"
-import { IncomeStatementsPage } from "../../../../../../../../../features/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/incomeStatementsPage.js"
+import { IncomeStatementsPage } from "../../../../../../../../../features/dashboard/$idYear/yearSettings/incomeStatements/incomeStatementsPage.js"
 import { incomeStatementsLayoutRoute } from "./incomeStatementsLayoutRoute.js"
 
 export const incomeStatementsRoute = createRoute({

@@ -1,5 +1,5 @@
 import { createRoute } from "@tanstack/react-router"
-import { OrganizationSubscriptionPage } from "../../../../../../features/dashboard/organizations/$idOrganization/organizationSubscription/organizationSubscriptionPage.js"
+import { OrganizationSubscriptionPage } from "../../../../../../features/dashboard/$idOrganization/organizationSubscription/organizationSubscriptionPage.js"
 import { organizationSubscriptionLayoutRoute } from "./organizationSubscriptionLayoutRoute.js"
 
 export const organizationSubscriptionRoute = createRoute({

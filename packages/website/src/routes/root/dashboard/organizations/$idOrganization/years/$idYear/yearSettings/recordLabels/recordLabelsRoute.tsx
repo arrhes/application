@@ -1,5 +1,5 @@
 import { createRoute } from "@tanstack/react-router"
-import { RecordLabelsPage } from "../../../../../../../../../features/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/recordLabels/recordLabelsPage.js"
+import { RecordLabelsPage } from "../../../../../../../../../features/dashboard/$idYear/yearSettings/recordLabels/recordLabelsPage.js"
 import { recordLabelsLayoutRoute } from "./recordLabelsLayoutRoute.js"
 
 export const recordLabelsRoute = createRoute({

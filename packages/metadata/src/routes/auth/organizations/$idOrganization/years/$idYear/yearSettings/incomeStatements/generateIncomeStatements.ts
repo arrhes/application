@@ -1,3 +1,4 @@
+/*
 import * as v from "valibot"
 import { routePath } from "../../../../../../../../components/index.js"
 import { incomeStatementSchema, incomeStatementSchemaReturn } from "../../../../../../../../schemas/incomeStatement.js"
@@ -13,3 +14,4 @@ export const generateIncomeStatementsRouteDefinition = routeDefinition({
         return: v.array(incomeStatementSchemaReturn),
     },
 })
+*/

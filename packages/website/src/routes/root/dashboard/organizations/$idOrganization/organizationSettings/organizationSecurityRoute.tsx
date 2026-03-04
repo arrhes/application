@@ -1,5 +1,5 @@
 import { createRoute } from "@tanstack/react-router"
-import { OrganizationSecurityPage } from "../../../../../../features/dashboard/organizations/$idOrganization/organizationSettings/organizationSecurityPage.js"
+import { OrganizationSecurityPage } from "../../../../../../features/dashboard/$idOrganization/organizationSettings/organizationSecurityPage.js"
 import { organizationSettingsLayoutRoute } from "./organizationSettingsLayoutRoute.js"
 
 export const organizationSecurityRoute = createRoute({
