@@ -1,5 +1,4 @@
-import { ContentfulStatusCode } from "hono/utils/http-status"
-
+import type { ContentfulStatusCode } from "hono/utils/http-status"
 
 export class Exception extends Error {
     statusCode?
@@ -21,17 +20,16 @@ export class Exception extends Error {
         this.internalMessage = parameters.internalMessage
         this.externalMessage = parameters.externalMessage ?? "Internal error"
 
-        this.cause = (parameters.cause === undefined)
-            ? (parameters.rawError instanceof Error)
-                ? String(parameters.rawError.cause)
-                : (parameters.rawError instanceof String)
-                    ? JSON.parse(String(parameters.rawError))
-                    : parameters.rawError
-            : parameters.cause
+        this.cause =
+            parameters.cause === undefined
+                ? parameters.rawError instanceof Error
+                    ? String(parameters.rawError.cause)
+                    : parameters.rawError instanceof String
+                      ? JSON.parse(String(parameters.rawError))
+                      : parameters.rawError
+                : parameters.cause
 
-        this.stack = (parameters.rawError instanceof Error)
-            ? parameters.rawError.stack
-            : (new Error()).stack
+        this.stack = parameters.rawError instanceof Error ? parameters.rawError.stack : new Error().stack
 
         // console.log(JSON.stringify(this, null, 2))
     }

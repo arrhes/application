@@ -1,5 +1,4 @@
-import { DefaultRecord } from "./records2022.js"
-
+import type { DefaultRecord } from "./records2022.js"
 
 export const defaultRecords2023: Array<DefaultRecord> = [
     {
@@ -10,21 +9,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Qonto",
                 debit: 7.54,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 1.5,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Qonto",
                 debit: 0,
-                credit: 9.04
-            }
-        ]
+                credit: 9.04,
+            },
+        ],
     },
     {
         label: "Paiement Qonto",
@@ -34,15 +33,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Qonto",
                 debit: 9.04,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Qonto",
                 debit: 0,
-                credit: 9.04
-            }
-        ]
+                credit: 9.04,
+            },
+        ],
     },
     {
         label: "Abonnement Zoho",
@@ -52,27 +51,27 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Zoho",
                 debit: 10.8,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4456,
                 label: "TVA déductible (autoliquidation)",
                 debit: 2.16,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4457,
                 label: "TVA due (autoliquidation)",
                 debit: 0,
-                credit: 2.16
+                credit: 2.16,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Zoho",
                 debit: 0,
-                credit: 10.8
-            }
-        ]
+                credit: 10.8,
+            },
+        ],
     },
     {
         label: "Paiement Zoho",
@@ -82,15 +81,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Zoho",
                 debit: 10.8,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Zoho",
                 debit: 0,
-                credit: 10.8
-            }
-        ]
+                credit: 10.8,
+            },
+        ],
     },
     {
         label: "Abonnement Qonto (février)",
@@ -100,21 +99,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Qonto",
                 debit: 9,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 1.8,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Qonto",
                 debit: 0,
-                credit: 10.8
-            }
-        ]
+                credit: 10.8,
+            },
+        ],
     },
     {
         label: "Paiement Qonto",
@@ -124,15 +123,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Qonto",
                 debit: 10.8,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Qonto",
                 debit: 0,
-                credit: 10.8
-            }
-        ]
+                credit: 10.8,
+            },
+        ],
     },
     {
         label: "Abonnement Qonto (mars)",
@@ -142,21 +141,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Qonto",
                 debit: 9,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 1.8,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Qonto",
                 debit: 0,
-                credit: 10.8
-            }
-        ]
+                credit: 10.8,
+            },
+        ],
     },
     {
         label: "Paiement Qonto",
@@ -166,15 +165,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Qonto",
                 debit: 10.8,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Qonto",
                 debit: 0,
-                credit: 10.8
-            }
-        ]
+                credit: 10.8,
+            },
+        ],
     },
     {
         label: "Affectation réserve légale",
@@ -184,15 +183,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 120,
                 label: "Affectation depuis le compte de résultat",
                 debit: 100,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 1061,
                 label: "Affectation vers la réserve légale",
                 debit: 0,
-                credit: 100
-            }
-        ]
+                credit: 100,
+            },
+        ],
     },
     {
         label: "Affectation autres réserves",
@@ -202,15 +201,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 120,
                 label: "Affectation depuis le compte de résultat",
                 debit: 181.02,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 1068,
                 label: "Affectation vers les autres réserves",
                 debit: 0,
-                credit: 181.02
-            }
-        ]
+                credit: 181.02,
+            },
+        ],
     },
     {
         label: "Affectation vers le report à nouveau",
@@ -220,15 +219,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 120,
                 label: "Affectation depuis le compte de résultat",
                 debit: 3339.38,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 110,
                 label: "Affectation vers le report à nouveau",
                 debit: 0,
-                credit: 3339.38
-            }
-        ]
+                credit: 3339.38,
+            },
+        ],
     },
     {
         label: "Repas d'associés",
@@ -238,21 +237,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 6251,
                 label: "Repas d'associés",
                 debit: 58.9,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 7.5,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 401,
                 label: "Fournisseur Pères populaire",
                 debit: 0,
-                credit: 66.4
-            }
-        ]
+                credit: 66.4,
+            },
+        ],
     },
     {
         label: "Paiement Pères Populaire",
@@ -262,15 +261,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 401,
                 label: "Fournisseur Pères Populaire",
                 debit: 66.4,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Pères Populaire",
                 debit: 0,
-                credit: 66.4
-            }
-        ]
+                credit: 66.4,
+            },
+        ],
     },
     {
         label: "Abonnement Qonto (avril)",
@@ -280,21 +279,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Qonto",
                 debit: 9,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 1.8,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Qonto",
                 debit: 0,
-                credit: 10.8
-            }
-        ]
+                credit: 10.8,
+            },
+        ],
     },
     {
         label: "Paiement Qonto",
@@ -304,15 +303,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Qonto",
                 debit: 10.8,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Qonto",
                 debit: 0,
-                credit: 10.8
-            }
-        ]
+                credit: 10.8,
+            },
+        ],
     },
     {
         label: "Dépôt des comptes",
@@ -322,21 +321,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 6227,
                 label: "Dépôt des comptes",
                 debit: 42.59,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 2.42,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 401,
                 label: "Fournisseur INPI",
                 debit: 0,
-                credit: 45.01
-            }
-        ]
+                credit: 45.01,
+            },
+        ],
     },
     {
         label: "Paiement INPI",
@@ -346,15 +345,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 401,
                 label: "Fournisseur INPI",
                 debit: 45.01,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement INPI",
                 debit: 0,
-                credit: 45.01
-            }
-        ]
+                credit: 45.01,
+            },
+        ],
     },
     {
         label: "Dépôt des comptes",
@@ -364,21 +363,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 6227,
                 label: "Dépôt des comptes",
                 debit: 2.1,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 0.42,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 401,
                 label: "Fournisseur INPI",
                 debit: 0,
-                credit: 2.52
-            }
-        ]
+                credit: 2.52,
+            },
+        ],
     },
     {
         label: "Paiement INPI",
@@ -388,15 +387,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 401,
                 label: "Fournisseur INPI",
                 debit: 2.52,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement INPI",
                 debit: 0,
-                credit: 2.52
-            }
-        ]
+                credit: 2.52,
+            },
+        ],
     },
     {
         label: "Repas d'associés",
@@ -406,21 +405,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 6251,
                 label: "Repas d'associés",
                 debit: 6.36,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 0.64,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 401,
                 label: "Fournisseur Felicità",
                 debit: 0,
-                credit: 7
-            }
-        ]
+                credit: 7,
+            },
+        ],
     },
     {
         label: "Paiement Felicità",
@@ -430,15 +429,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 401,
                 label: "Fournisseur Felicità",
                 debit: 7,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Felicità",
                 debit: 0,
-                credit: 7
-            }
-        ]
+                credit: 7,
+            },
+        ],
     },
     {
         label: "Repas d'associés",
@@ -448,21 +447,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 6251,
                 label: "Repas d'associés",
                 debit: 4,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 0.4,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 401,
                 label: "Fournisseur Felicità",
                 debit: 0,
-                credit: 4.4
-            }
-        ]
+                credit: 4.4,
+            },
+        ],
     },
     {
         label: "Paiement Felicità",
@@ -472,15 +471,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 401,
                 label: "Fournisseur Felicità",
                 debit: 4.4,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Felicità",
                 debit: 0,
-                credit: 4.4
-            }
-        ]
+                credit: 4.4,
+            },
+        ],
     },
     {
         label: "Abonnement Qonto (mai)",
@@ -490,21 +489,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Qonto",
                 debit: 9,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 1.8,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Qonto",
                 debit: 0,
-                credit: 10.8
-            }
-        ]
+                credit: 10.8,
+            },
+        ],
     },
     {
         label: "Paiement Qonto",
@@ -514,15 +513,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Qonto",
                 debit: 10.8,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Qonto",
                 debit: 0,
-                credit: 10.8
-            }
-        ]
+                credit: 10.8,
+            },
+        ],
     },
     {
         label: "Abonnement Hostinger",
@@ -532,21 +531,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Hostinger",
                 debit: 39.48,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 7.9,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Hostinger",
                 debit: 0,
-                credit: 47.38
-            }
-        ]
+                credit: 47.38,
+            },
+        ],
     },
     {
         label: "Paiement Hostinger",
@@ -556,15 +555,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Hostinger",
                 debit: 47.38,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Hostinger",
                 debit: 0,
-                credit: 47.38
-            }
-        ]
+                credit: 47.38,
+            },
+        ],
     },
     {
         label: "Abonnement Hostinger",
@@ -574,21 +573,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 651,
                 label: "Renouvellement domaine Hostinger",
                 debit: 7.99,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 1.6,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 401,
                 label: "Fournisseur Hostinger",
                 debit: 0,
-                credit: 9.59
-            }
-        ]
+                credit: 9.59,
+            },
+        ],
     },
     {
         label: "Paiement Hostinger",
@@ -598,15 +597,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 401,
                 label: "Fournisseur Hostinger",
                 debit: 9.59,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Hostinger",
                 debit: 0,
-                credit: 9.59
-            }
-        ]
+                credit: 9.59,
+            },
+        ],
     },
     {
         label: "Abonnement Hostinger",
@@ -616,21 +615,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Hostinger",
                 debit: 23.76,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 4.75,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Hostinger",
                 debit: 0,
-                credit: 28.51
-            }
-        ]
+                credit: 28.51,
+            },
+        ],
     },
     {
         label: "Paiement Hostinger",
@@ -640,15 +639,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Hostinger",
                 debit: 28.51,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Hostinger",
                 debit: 0,
-                credit: 28.51
-            }
-        ]
+                credit: 28.51,
+            },
+        ],
     },
     {
         label: "Abonnement Hostinger",
@@ -658,21 +657,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Hostinger",
                 debit: 23.76,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 4.75,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Hostinger",
                 debit: 0,
-                credit: 28.51
-            }
-        ]
+                credit: 28.51,
+            },
+        ],
     },
     {
         label: "Paiement Hostinger",
@@ -682,15 +681,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Hostinger",
                 debit: 28.51,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Hostinger",
                 debit: 0,
-                credit: 28.51
-            }
-        ]
+                credit: 28.51,
+            },
+        ],
     },
     {
         label: "Abonnement Scalingo",
@@ -700,21 +699,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Scalingo",
                 debit: 3.27,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 0.66,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Scalingo",
                 debit: 0,
-                credit: 3.93
-            }
-        ]
+                credit: 3.93,
+            },
+        ],
     },
     {
         label: "Paiement Scalingo",
@@ -724,15 +723,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Scalingo",
                 debit: 3.93,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Scalingo",
                 debit: 0,
-                credit: 3.93
-            }
-        ]
+                credit: 3.93,
+            },
+        ],
     },
     {
         label: "Abonnement Qonto (juin)",
@@ -742,21 +741,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Qonto",
                 debit: 9,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 1.8,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Qonto",
                 debit: 0,
-                credit: 10.8
-            }
-        ]
+                credit: 10.8,
+            },
+        ],
     },
     {
         label: "Paiement Qonto",
@@ -766,15 +765,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Qonto",
                 debit: 10.8,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Qonto",
                 debit: 0,
-                credit: 10.8
-            }
-        ]
+                credit: 10.8,
+            },
+        ],
     },
     {
         label: "Remboursement INPI",
@@ -784,21 +783,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 6227,
                 label: "Remboursement INPI",
                 debit: 0,
-                credit: 39.36
+                credit: 39.36,
             },
             {
                 accountNumber: 44571,
                 label: "TVA due",
                 debit: 0,
-                credit: 1.77
+                credit: 1.77,
             },
             {
                 accountNumber: 401,
                 label: "Fournisseur INPI",
                 debit: 41.13,
-                credit: 0
-            }
-        ]
+                credit: 0,
+            },
+        ],
     },
     {
         label: "Remboursement INPI",
@@ -808,58 +807,57 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 401,
                 label: "Fournisseur INPI",
                 debit: 0,
-                credit: 41.13
+                credit: 41.13,
             },
             {
                 accountNumber: 512,
                 label: "Remboursement INPI",
                 debit: 1.16,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Remboursement INPI",
-                debit: 13.40,
-                credit: 0
+                debit: 13.4,
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Remboursement INPI",
                 debit: 5.45,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Remboursement INPI",
-                debit: 18.60,
-                credit: 0
+                debit: 18.6,
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Remboursement INPI",
                 debit: 2.52,
-                credit: 0
-            }
-        ]
+                credit: 0,
+            },
+        ],
     },
     {
         label: "Paiement Impôts sur les sociétés",
         date: "2023-06-18T10:00:00.000Z",
         rows: [
-
             {
                 accountNumber: 444,
                 label: "Impôts sur les sociétés exercice précédent",
                 debit: 639,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Impôts sur les sociétés",
                 debit: 0,
-                credit: 639
-            }
-        ]
+                credit: 639,
+            },
+        ],
     },
     {
         label: "Paiement TVA",
@@ -869,15 +867,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 44551,
                 label: "TVA exercice précédent",
                 debit: 874,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement de la TVA",
                 debit: 0,
-                credit: 874
-            }
-        ]
+                credit: 874,
+            },
+        ],
     },
     {
         label: "Dépôt des comptes",
@@ -887,21 +885,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 6227,
                 label: "Dépôt des comptes",
                 debit: 42.59,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 2.42,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 401,
                 label: "Fournisseur INPI",
                 debit: 0,
-                credit: 45.01
-            }
-        ]
+                credit: 45.01,
+            },
+        ],
     },
     {
         label: "Paiement INPI",
@@ -911,15 +909,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 401,
                 label: "Fournisseur INPI",
                 debit: 45.01,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement INPI",
                 debit: 0,
-                credit: 45.01
-            }
-        ]
+                credit: 45.01,
+            },
+        ],
     },
     {
         label: "Repas d'associés",
@@ -929,21 +927,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 6251,
                 label: "Repas d'associés",
                 debit: 4,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 0.4,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 401,
                 label: "Fournisseur Felicità",
                 debit: 0,
-                credit: 4.4
-            }
-        ]
+                credit: 4.4,
+            },
+        ],
     },
     {
         label: "Paiement Felicità",
@@ -953,15 +951,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 401,
                 label: "Fournisseur Felicità",
                 debit: 4.4,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Felicità",
                 debit: 0,
-                credit: 4.4
-            }
-        ]
+                credit: 4.4,
+            },
+        ],
     },
     {
         label: "Repas d'associés",
@@ -971,21 +969,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 6251,
                 label: "Repas d'associés",
                 debit: 39.64,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 3.96,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 401,
                 label: "Fournisseur La Halte",
                 debit: 0,
-                credit: 43.6
-            }
-        ]
+                credit: 43.6,
+            },
+        ],
     },
     {
         label: "Paiement La Halte",
@@ -995,15 +993,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 401,
                 label: "Fournisseur La Halte",
                 debit: 43.6,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement La Halte",
                 debit: 0,
-                credit: 43.6
-            }
-        ]
+                credit: 43.6,
+            },
+        ],
     },
     {
         label: "Abonnement Scalingo",
@@ -1013,21 +1011,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Scalingo",
                 debit: 31.78,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 6.36,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Scalingo",
                 debit: 0,
-                credit: 38.14
-            }
-        ]
+                credit: 38.14,
+            },
+        ],
     },
     {
         label: "Paiement Scalingo",
@@ -1037,15 +1035,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Scalingo",
                 debit: 38.14,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Scalingo",
                 debit: 0,
-                credit: 38.14
-            }
-        ]
+                credit: 38.14,
+            },
+        ],
     },
     {
         label: "Abonnement Qonto (juillet)",
@@ -1055,21 +1053,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Qonto",
                 debit: 11,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 2.2,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Qonto",
                 debit: 0,
-                credit: 13.2
-            }
-        ]
+                credit: 13.2,
+            },
+        ],
     },
     {
         label: "Paiement Qonto",
@@ -1079,15 +1077,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Qonto",
                 debit: 13.2,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Qonto",
                 debit: 0,
-                credit: 13.2
-            }
-        ]
+                credit: 13.2,
+            },
+        ],
     },
     {
         label: "Domaine Hostinger",
@@ -1097,27 +1095,27 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 651,
                 label: "Renouvellement domaine Hostinger",
                 debit: 10.16,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4456,
                 label: "TVA déductible (autoliquidation)",
                 debit: 2.03,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4457,
                 label: "TVA due (autoliquidation)",
                 debit: 0,
-                credit: 2.03
+                credit: 2.03,
             },
             {
                 accountNumber: 401,
                 label: "Fournisseur Hostinger",
                 debit: 0,
-                credit: 10.16
-            }
-        ]
+                credit: 10.16,
+            },
+        ],
     },
     {
         label: "Paiement Hostinger",
@@ -1127,15 +1125,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 401,
                 label: "Fournisseur Hostinger",
                 debit: 10.16,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Hostinger",
                 debit: 0,
-                credit: 10.16
-            }
-        ]
+                credit: 10.16,
+            },
+        ],
     },
     {
         label: "Domaine Hostinger",
@@ -1145,27 +1143,27 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 651,
                 label: "Renouvellement domaine Hostinger",
                 debit: 10.16,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4456,
                 label: "TVA déductible (autoliquidation)",
                 debit: 2.03,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4457,
                 label: "TVA due (autoliquidation)",
                 debit: 0,
-                credit: 2.03
+                credit: 2.03,
             },
             {
                 accountNumber: 401,
                 label: "Fournisseur Hostinger",
                 debit: 0,
-                credit: 10.16
-            }
-        ]
+                credit: 10.16,
+            },
+        ],
     },
     {
         label: "Paiement Hostinger",
@@ -1175,15 +1173,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 401,
                 label: "Fournisseur Hostinger",
                 debit: 10.16,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Hostinger",
                 debit: 0,
-                credit: 10.16
-            }
-        ]
+                credit: 10.16,
+            },
+        ],
     },
     {
         label: "Domaine Hostinger",
@@ -1193,27 +1191,27 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 651,
                 label: "Renouvellement domaine Hostinger",
                 debit: 7.99,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4456,
                 label: "TVA déductible (autoliquidation)",
                 debit: 1.6,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4457,
                 label: "TVA due (autoliquidation)",
                 debit: 0,
-                credit: 1.6
+                credit: 1.6,
             },
             {
                 accountNumber: 401,
                 label: "Fournisseur Hostinger",
                 debit: 0,
-                credit: 7.99
-            }
-        ]
+                credit: 7.99,
+            },
+        ],
     },
     {
         label: "Paiement Hostinger",
@@ -1223,15 +1221,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 401,
                 label: "Fournisseur Hostinger",
                 debit: 7.99,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Hostinger",
                 debit: 0,
-                credit: 7.99
-            }
-        ]
+                credit: 7.99,
+            },
+        ],
     },
     {
         label: "Remboursement domaine Hostinger",
@@ -1241,27 +1239,27 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 651,
                 label: "Renouvellement domaine Hostinger",
                 debit: 0,
-                credit: 10.16
+                credit: 10.16,
             },
             {
                 accountNumber: 4457,
                 label: "TVA due (autoliquidation)",
                 debit: 0,
-                credit: 2.03
+                credit: 2.03,
             },
             {
                 accountNumber: 4456,
                 label: "TVA déductible (autoliquidation)",
                 debit: 2.03,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 401,
                 label: "Fournisseur Hostinger",
                 debit: 10.16,
-                credit: 0
-            }
-        ]
+                credit: 0,
+            },
+        ],
     },
     {
         label: "Remboursement Hostinger",
@@ -1271,15 +1269,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 401,
                 label: "Fournisseur Hostinger",
                 debit: 0,
-                credit: 10.16
+                credit: 10.16,
             },
             {
                 accountNumber: 512,
                 label: "Remboursement Hostinger",
                 debit: 10.16,
-                credit: 0
-            }
-        ]
+                credit: 0,
+            },
+        ],
     },
     {
         label: "Dépôt des comptes",
@@ -1289,21 +1287,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 6227,
                 label: "Dépôt des comptes",
                 debit: 2.1,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 0.42,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 401,
                 label: "Fournisseur INPI",
                 debit: 0,
-                credit: 2.52
-            }
-        ]
+                credit: 2.52,
+            },
+        ],
     },
     {
         label: "Paiement INPI",
@@ -1313,15 +1311,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 401,
                 label: "Fournisseur INPI",
                 debit: 2.52,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement INPI",
                 debit: 0,
-                credit: 2.52
-            }
-        ]
+                credit: 2.52,
+            },
+        ],
     },
     {
         label: "Pénalités de retard",
@@ -1331,15 +1329,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 678,
                 label: "Pénalité de retard",
                 debit: 43,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 401,
                 label: "Fournisseur DGFIP",
                 debit: 0,
-                credit: 43
-            }
-        ]
+                credit: 43,
+            },
+        ],
     },
     {
         label: "Paiement DGFIP",
@@ -1349,15 +1347,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 401,
                 label: "Fournisseur DGFIP",
                 debit: 43,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement DGFIP",
                 debit: 0,
-                credit: 43
-            }
-        ]
+                credit: 43,
+            },
+        ],
     },
     {
         label: "Abonnement Scalingo",
@@ -1367,21 +1365,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Scalingo",
                 debit: 23.58,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 4.72,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Scalingo",
                 debit: 0,
-                credit: 28.3
-            }
-        ]
+                credit: 28.3,
+            },
+        ],
     },
     {
         label: "Paiement Scalingo",
@@ -1391,15 +1389,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Scalingo",
                 debit: 28.3,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Scalingo",
                 debit: 0,
-                credit: 28.3
-            }
-        ]
+                credit: 28.3,
+            },
+        ],
     },
     {
         label: "Abonnement Qonto (août)",
@@ -1409,21 +1407,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Qonto",
                 debit: 11,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 2.2,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Qonto",
                 debit: 0,
-                credit: 13.2
-            }
-        ]
+                credit: 13.2,
+            },
+        ],
     },
     {
         label: "Abonnement Qonto (août)",
@@ -1433,15 +1431,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Qonto",
                 debit: 13.2,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Qonto",
                 debit: 0,
-                credit: 13.2
-            }
-        ]
+                credit: 13.2,
+            },
+        ],
     },
     {
         label: "Abonnement Brevo",
@@ -1451,21 +1449,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Brevo",
                 debit: 19,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 3.8,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Brevo",
                 debit: 0,
-                credit: 22.8
-            }
-        ]
+                credit: 22.8,
+            },
+        ],
     },
     {
         label: "Paiement Brevo",
@@ -1475,15 +1473,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Brevo",
                 debit: 22.8,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Brevo",
                 debit: 0,
-                credit: 22.8
-            }
-        ]
+                credit: 22.8,
+            },
+        ],
     },
     {
         label: "Abonnement Scalingo",
@@ -1493,21 +1491,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Scalingo",
                 debit: 22.32,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 4.46,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Scalingo",
                 debit: 0,
-                credit: 26.78
-            }
-        ]
+                credit: 26.78,
+            },
+        ],
     },
     {
         label: "Paiement Scalingo",
@@ -1517,15 +1515,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Scalingo",
                 debit: 26.78,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Scalingo",
                 debit: 0,
-                credit: 26.78
-            }
-        ]
+                credit: 26.78,
+            },
+        ],
     },
     {
         label: "Abonnement Qonto (septembre)",
@@ -1535,21 +1533,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Qonto",
                 debit: 11,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 2.2,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Qonto",
                 debit: 0,
-                credit: 13.2
-            }
-        ]
+                credit: 13.2,
+            },
+        ],
     },
     {
         label: "Paiement Qonto",
@@ -1559,15 +1557,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Qonto",
                 debit: 13.2,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Qonto",
                 debit: 0,
-                credit: 13.2
-            }
-        ]
+                credit: 13.2,
+            },
+        ],
     },
     {
         label: "Repas d'associés",
@@ -1577,21 +1575,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 6251,
                 label: "Repas d'associés",
                 debit: 27.27,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 2.73,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 401,
                 label: "Fournisseur Vertical",
                 debit: 0,
-                credit: 30
-            }
-        ]
+                credit: 30,
+            },
+        ],
     },
     {
         label: "Paiement Vertical",
@@ -1601,15 +1599,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 401,
                 label: "Fournisseur Vertical",
                 debit: 30,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Vertical",
                 debit: 0,
-                credit: 30
-            }
-        ]
+                credit: 30,
+            },
+        ],
     },
     {
         label: "Abonnement Qonto (octobre)",
@@ -1619,21 +1617,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Qonto",
                 debit: 11,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 2.2,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Qonto",
                 debit: 0,
-                credit: 13.2
-            }
-        ]
+                credit: 13.2,
+            },
+        ],
     },
     {
         label: "Paiement Qonto",
@@ -1643,15 +1641,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Qonto",
                 debit: 13.2,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Qonto",
                 debit: 0,
-                credit: 13.2
-            }
-        ]
+                credit: 13.2,
+            },
+        ],
     },
     {
         label: "Abonnement Scalingo",
@@ -1661,21 +1659,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Scalingo",
                 debit: 4.98,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 1,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Scalingo",
                 debit: 0,
-                credit: 5.98
-            }
-        ]
+                credit: 5.98,
+            },
+        ],
     },
     {
         label: "Paiement Scalingo",
@@ -1685,15 +1683,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Scalingo",
                 debit: 5.98,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Scalingo",
                 debit: 0,
-                credit: 5.98
-            }
-        ]
+                credit: 5.98,
+            },
+        ],
     },
     {
         label: "Abonnement Hostinger",
@@ -1703,27 +1701,27 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Hostinger",
                 debit: 83.88,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4456,
                 label: "TVA déductible (autoliquidation)",
                 debit: 16.78,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4457,
                 label: "TVA due (autoliquidation)",
                 debit: 0,
-                credit: 16.78
+                credit: 16.78,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Hostinger",
                 debit: 0,
-                credit: 83.88
-            }
-        ]
+                credit: 83.88,
+            },
+        ],
     },
     {
         label: "Paiement Hostinger",
@@ -1733,15 +1731,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Hostinger",
                 debit: 83.88,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Hostinger",
                 debit: 0,
-                credit: 83.88
-            }
-        ]
+                credit: 83.88,
+            },
+        ],
     },
     {
         label: "Abonnement Hostinger",
@@ -1751,27 +1749,27 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Hostinger",
                 debit: 83.88,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4456,
                 label: "TVA déductible (autoliquidation)",
                 debit: 16.78,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4457,
                 label: "TVA due (autoliquidation)",
                 debit: 0,
-                credit: 16.78
+                credit: 16.78,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Hostinger",
                 debit: 0,
-                credit: 83.88
-            }
-        ]
+                credit: 83.88,
+            },
+        ],
     },
     {
         label: "Paiement Hostinger",
@@ -1781,15 +1779,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Hostinger",
                 debit: 83.88,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Hostinger",
                 debit: 0,
-                credit: 83.88
-            }
-        ]
+                credit: 83.88,
+            },
+        ],
     },
     {
         label: "Abonnement Scaleway",
@@ -1799,15 +1797,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Scaleway",
                 debit: 0.01,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Scaleway",
                 debit: 0,
-                credit: 0.01
-            }
-        ]
+                credit: 0.01,
+            },
+        ],
     },
     {
         label: "Paiement Scaleway",
@@ -1817,15 +1815,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Scaleway",
                 debit: 0.01,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Scaleway",
                 debit: 0,
-                credit: 0.01
-            }
-        ]
+                credit: 0.01,
+            },
+        ],
     },
     {
         label: "Abonnement Qonto (novembre)",
@@ -1835,21 +1833,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Qonto",
                 debit: 11,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 2.2,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Qonto",
                 debit: 0,
-                credit: 13.2
-            }
-        ]
+                credit: 13.2,
+            },
+        ],
     },
     {
         label: "Paiement Qonto",
@@ -1859,15 +1857,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Qonto",
                 debit: 13.2,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Qonto",
                 debit: 0,
-                credit: 13.2
-            }
-        ]
+                credit: 13.2,
+            },
+        ],
     },
     {
         label: "Abonnement Scaleway",
@@ -1877,15 +1875,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Scaleway",
                 debit: 0.02,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Scaleway",
                 debit: 0,
-                credit: 0.02
-            }
-        ]
+                credit: 0.02,
+            },
+        ],
     },
     {
         label: "Paiement Scaleway",
@@ -1895,15 +1893,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Scaleway",
                 debit: 0.02,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Scaleway",
                 debit: 0,
-                credit: 0.02
-            }
-        ]
+                credit: 0.02,
+            },
+        ],
     },
     {
         label: "Abonnement Hostinger",
@@ -1913,27 +1911,27 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Hostinger",
                 debit: 76.32,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4456,
                 label: "TVA déductible (autoliquidation)",
                 debit: 15.26,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4457,
                 label: "TVA due (autoliquidation)",
                 debit: 0,
-                credit: 15.26
+                credit: 15.26,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Hostinger",
                 debit: 0,
-                credit: 76.32
-            }
-        ]
+                credit: 76.32,
+            },
+        ],
     },
     {
         label: "Paiement Hostinger",
@@ -1943,15 +1941,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Hostinger",
                 debit: 76.32,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Hostinger",
                 debit: 0,
-                credit: 76.32
-            }
-        ]
+                credit: 76.32,
+            },
+        ],
     },
     {
         label: "Abonnement Qonto (décembre)",
@@ -1961,21 +1959,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Qonto",
                 debit: 11,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44566,
                 label: "TVA déductible",
                 debit: 2.2,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Qonto",
                 debit: 0,
-                credit: 13.2
-            }
-        ]
+                credit: 13.2,
+            },
+        ],
     },
     {
         label: "Paiement Qonto",
@@ -1985,15 +1983,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Qonto",
                 debit: 13.2,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Qonto",
                 debit: 0,
-                credit: 13.2
-            }
-        ]
+                credit: 13.2,
+            },
+        ],
     },
     {
         label: "Abonnement Scaleway",
@@ -2003,15 +2001,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 613,
                 label: "Abonnement Scaleway",
                 debit: 0.02,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 4011,
                 label: "Fournisseur Scaleway",
                 debit: 0,
-                credit: 0.02
-            }
-        ]
+                credit: 0.02,
+            },
+        ],
     },
     {
         label: "Paiement Scaleway",
@@ -2021,15 +2019,15 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 4011,
                 label: "Fournisseur Scaleway",
                 debit: 0.02,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Scaleway",
                 debit: 0,
-                credit: 0.02
-            }
-        ]
+                credit: 0.02,
+            },
+        ],
     },
     {
         label: "Achat mobilier de bureau",
@@ -2039,21 +2037,21 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 2184,
                 label: "Acquisition mobilier de bureau",
                 debit: 174.99,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 44562,
                 label: "TVA déductible",
                 debit: 35,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 404,
                 label: "Fournisseur Cdiscount",
                 debit: 0,
-                credit: 209.99
-            }
-        ]
+                credit: 209.99,
+            },
+        ],
     },
     {
         label: "Paiement Cdiscount",
@@ -2063,14 +2061,14 @@ export const defaultRecords2023: Array<DefaultRecord> = [
                 accountNumber: 404,
                 label: "Fournisseur Cdiscount",
                 debit: 209.99,
-                credit: 0
+                credit: 0,
             },
             {
                 accountNumber: 512,
                 label: "Paiement Cdiscount",
                 debit: 0,
-                credit: 209.99
-            }
-        ]
-    }
+                credit: 209.99,
+            },
+        ],
+    },
 ]

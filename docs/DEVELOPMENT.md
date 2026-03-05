@@ -1,108 +1,67 @@
-# Guide de développement
+# Guide de developpement
 
-Ce document vous guidera pour installer, configurer et développer Arrhes sur votre machine locale.
+Ce document vous guidera pour installer, configurer et developper Arrhes sur votre machine locale.
 
-## Table des matières
+## Table des matieres
 
 - [Choix de l'environnement](#choix-de-lenvironnement)
-- [Prérequis](#prérequis)
+- [Prerequis](#prérequis)
 - [Installation](#installation)
 - [Configuration](#configuration)
-- [Initialisation de la base de données](#initialisation-de-la-base-de-données)
-- [Lancement en développement](#lancement-en-développement)
+- [Initialisation de la base de donnees](#initialisation-de-la-base-de-données)
+- [Lancement en developpement](#lancement-en-développement)
 - [Structure du projet](#structure-du-projet)
 - [Scripts disponibles](#scripts-disponibles)
-- [Workflow de développement](#workflow-de-développement)
+- [Workflow de developpement](#workflow-de-développement)
 - [Debugging](#debugging)
 - [Conseils](#conseils)
 
 ## Choix de l'environnement
 
-Vous avez trois options pour développer Arrhes :
+Vous avez deux options pour developper Arrhes :
 
-### Option 1 : Dev Container 🚀 (Le plus simple)
-
-**Avantages :**
-- ✨ Configuration 100% automatique
-- Environnement de développement complet dans un container
-- Tous les services préconfigurés (PostgreSQL, RustFS, MailHog)
-- Base de données initialisée automatiquement avec données de démo
-- Extensions VS Code/Cursor installées automatiquement
-- Zéro configuration manuelle
-
-**Prérequis :**
-- Docker et Docker Compose
-- VS Code ou Cursor avec l'extension "Dev Containers"
-
-**Idéal pour :** Nouveaux contributeurs, onboarding ultra-rapide, environnement unifié
-
-### Option 2 : Développement avec Docker Compose 🐳
+### Option 1 : Developpement avec Docker Compose (Recommande)
 
 **Avantages :**
-- Configuration simplifiée (pas d'installation de PostgreSQL, RustFS, etc.)
-- Environnement standardisé et reproductible
-- Isolation complète des services
-- Node.js et pnpm installés localement (meilleure performance)
+- Configuration simplifiee (pas d'installation de PostgreSQL, RustFS, etc.)
+- Environnement standardise et reproductible
+- Isolation complete des services
+- Node.js et pnpm installes localement (meilleure performance IDE)
 
-**Prérequis :**
-- Node.js 24.5+
+**Prerequis :**
+- Node.js 25+
 - pnpm
 - Docker et Docker Compose
 
-**Idéal pour :** Développement quotidien, bonne balance performance/simplicité
+**Ideal pour :** Developpement quotidien, bonne balance performance/simplicite
 
-### Option 3 : Développement natif
+### Option 2 : Developpement natif
 
 **Avantages :**
-- Contrôle total sur chaque service
-- Peut être plus rapide sur certaines machines
+- Controle total sur chaque service
+- Peut etre plus rapide sur certaines machines
 - Pas besoin de Docker
 
-**Prérequis :**
-- Node.js 24.5+
+**Prerequis :**
+- Node.js 25+
 - pnpm
-- PostgreSQL installé localement
-- Optionnellement Docker pour RustFS et MailHog
+- PostgreSQL installe localement
+- Optionnellement Docker pour RustFS et Mailpit
 
-**Idéal pour :** Développeurs expérimentés, personnalisation avancée
+**Ideal pour :** Developpeurs experimentes, personnalisation avancee
 
----
+## Prerequis
 
-**💡 Conseil :** 
-- **Première contribution ?** → Choisissez l'**Option 1 (Dev Container)** pour démarrer en 2 minutes
-- **Développement quotidien ?** → Choisissez l'**Option 2 (Docker Compose)** pour la meilleure expérience
+### Prerequis communs
 
-## Prérequis
-
-> **Windows :** Certains chemins du repository sont longs et peuvent dépasser la limite par défaut de Windows. Avant de cloner, exécutez la commande suivante depuis une invite de commandes **administrateur** :
-> ```
-> git config --system core.longpaths true
-> ```
-
-### Option 1 : Dev Container
-
-- **Docker** et **Docker Compose** : https://www.docker.com/get-started
+- **Node.js** : Version 25 ou superieure
   ```bash
-  docker --version
-  docker-compose --version
-  ```
-
-- **VS Code** ou **Cursor** avec l'extension Dev Containers :
-  - VS Code : https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers
-  - Cursor : Installer depuis le marketplace d'extensions
-
-C'est tout ! Node.js, pnpm, PostgreSQL, RustFS et MailHog seront configurés automatiquement dans le container.
-
-### Prérequis communs (Options 2 et 3)
-
-- **Node.js** : Version 24.5 ou supérieure
-  ```bash
-  node --version  # Devrait afficher v24.5.x ou supérieur
+  node --version  # Devrait afficher v25.x.x ou superieur
   ```
   
   Installation : https://nodejs.org/
 
-- **pnpm** : Version 9 ou supérieure
+- **pnpm** : Version 10 ou superieure
   ```bash
   pnpm --version
   ```
@@ -114,19 +73,19 @@ C'est tout ! Node.js, pnpm, PostgreSQL, RustFS et MailHog seront configurés aut
   curl -fsSL https://get.pnpm.io/install.sh | sh -
   ```
 
-### Option 2 : Avec Docker Compose
+### Option 1 : Avec Docker Compose
 
 - **Docker** et **Docker Compose** : https://www.docker.com/get-started
   ```bash
   docker --version
-  docker-compose --version
+  docker compose version
   ```
 
-C'est tout ! PostgreSQL, RustFS et MailHog seront lancés automatiquement dans des containers.
+C'est tout ! PostgreSQL, RustFS et Mailpit seront lances automatiquement dans des containers.
 
-### Option 3 : Développement natif
+### Option 2 : Developpement natif
 
-- **PostgreSQL** : Version 14 ou supérieure recommandée
+- **PostgreSQL** : Version 14 ou superieure recommandee
   ```bash
   psql --version
   ```
@@ -147,184 +106,70 @@ C'est tout ! PostgreSQL, RustFS et MailHog seront lancés automatiquement dans d
   ```
 
   **Windows :**
-  Télécharger depuis https://www.postgresql.org/download/windows/
+  Telecharger depuis https://www.postgresql.org/download/windows/
 
-- **Docker** (optionnel, pour RustFS et MailHog) : https://www.docker.com/get-started
+- **Docker** (optionnel, pour RustFS et Mailpit) : https://www.docker.com/get-started
 - Ou configurez des services S3 et SMTP alternatifs
 
 ## Installation
 
-### Option 1 : Avec Dev Container 🚀
-
-**Étape 1 : Cloner le repository**
+### Etape 1 : Cloner le repository
 
 ```bash
-git clone https://github.com/arrhes/arrhes-platform.git
-cd arrhes-platform
+git clone https://github.com/arrhes/application.git
+cd application
 ```
 
-**Étape 2 : Ouvrir dans VS Code/Cursor**
-
-```bash
-# Avec VS Code
-code .
-
-# Avec Cursor
-cursor .
-```
-
-**Étape 3 : Reopen in Container**
-
-Lorsque VS Code/Cursor détecte le fichier `.development/devcontainer.json`, une notification apparaît :
-
-> "Folder contains a Dev Container configuration file. Reopen folder to develop in a container?"
-
-Cliquez sur **"Reopen in Container"** ou utilisez la palette de commandes :
-- `Cmd/Ctrl + Shift + P`
-- Tapez "Dev Containers: Reopen in Container"
-- Appuyez sur Entrée
-
-**Ce qui se passe automatiquement :**
-1. 🐳 Construction du container de développement
-2. 📦 Installation de toutes les dépendances (pnpm install)
-3. 🚀 Démarrage de PostgreSQL, RustFS et MailHog
-4. ⏳ Attente que PostgreSQL soit prêt
-5. 🗄️ Création du schéma de base de données
-6. 🌱 Insertion des données de démonstration
-7. ⚙️ Création automatique des fichiers `.env`
-8. 🎨 Installation des extensions VS Code recommandées
-
-**Étape 4 : Lancer l'application**
-
-Une fois le container prêt (vous verrez "✨ Configuration terminée !" dans le terminal) :
-
-```bash
-pnpm run dev
-```
-
-C'est tout ! Vous êtes prêt à développer. 🎉
-
-**URLs d'accès :**
-- **Platform** : http://localhost:5173
-- **API** : http://localhost:3000
-- **RustFS Console** : http://localhost:9001 (arrhes_rustfs / arrhes_rustfs_secret)
-- **MailHog** : http://localhost:8025
-
-**Identifiants de démonstration :**
-- Email : `demo@arrhes.com`
-- Mot de passe : `demo`
-
----
-
-### Option 2 : Avec Docker Compose 🐳
-
-**Étape 1 : Cloner le repository**
-
-```bash
-git clone https://github.com/arrhes/arrhes-platform.git
-cd arrhes-platform
-```
-
-**Étape 2 : Installer les dépendances**
+### Etape 2 : Installer les dependances
 
 ```bash
 pnpm install
 ```
 
-Cette commande installera toutes les dépendances de tous les packages du monorepo.
+Cette commande installera toutes les dependances de tous les packages du monorepo.
 
-**Étape 3 : Vérifier l'installation**
-
-```bash
-pnpm ls --depth=0
-```
-
-Vous devriez voir tous les packages workspace listés.
-
----
-
-### Option 3 : Installation native
-
-**Étape 1 : Cloner le repository**
-
-```bash
-git clone https://github.com/arrhes/arrhes-platform.git
-cd arrhes-platform
-```
-
-**Étape 2 : Installer les dépendances**
-
-```bash
-pnpm install
-```
-
-**Étape 3 : Vérifier l'installation**
+### Etape 3 : Verifier l'installation
 
 ```bash
 pnpm ls --depth=0
 ```
+
+Vous devriez voir tous les packages workspace listes.
 
 ## Configuration
 
-### Option 1 : Avec Dev Container 🚀
+### Option 1 : Configuration avec Docker Compose (Recommande)
 
-**Aucune configuration manuelle nécessaire !**
-
-Le script `post-create.sh` s'exécute automatiquement et crée les fichiers `.env` avec les bonnes valeurs pour l'environnement containerisé.
-
-Les fichiers suivants sont créés automatiquement :
-- `packages/api/.env` (avec connexion aux services Docker)
-- `packages/tools/.env` (avec connexion à PostgreSQL)
-
-**Note importante :** Dans le Dev Container, les URLs pointent vers les noms de services Docker :
-- PostgreSQL : `postgres:5432` (au lieu de `localhost:5432`)
-- RustFS : `rustfs:9000` (au lieu de `localhost:9000`)
-- MailHog : `mailhog:1025` (au lieu de `localhost:1025`)
-
-Si vous souhaitez modifier la configuration, éditez directement les fichiers `.env` créés.
-
----
-
-### Option 2 : Configuration avec Docker Compose 🐳
-
-#### 1. Lancer les services avec Docker Compose
+#### 1. Lancer les services avec just (recommande)
 
 ```bash
-# Lancer tous les services (PostgreSQL, RustFS, MailHog)
-docker-compose up -d
+just dev up
+```
 
-# Vérifier que tout fonctionne
-docker-compose ps
+Ou directement avec Docker Compose :
+
+```bash
+docker compose -f .workflows/.dev/compose.yml up -d --build
 ```
 
 Les services seront disponibles sur :
-- **PostgreSQL** : `localhost:5432`
+- **PostgreSQL** : `localhost:5432` (user: `postgres`, password: `admin`, database: `default`)
 - **RustFS API** : `localhost:9000`
-- **RustFS Console** : http://localhost:9001
-- **MailHog SMTP** : `localhost:1025`
-- **MailHog Web** : http://localhost:8025
+- **RustFS Console** : http://localhost:9001 (credentials: `rustfsadmin` / `rustfsadmin`)
+- **Mailpit SMTP** : `localhost:1025`
+- **Mailpit Web** : http://localhost:8025
 
-#### 2. Créer le bucket RustFS
+#### 2. Creer le bucket RustFS
 
-```bash
-# Accéder à la console RustFS : http://localhost:9001
-# Credentials : arrhes_rustfs / arrhes_rustfs_secret
-# Créer un bucket nommé "arrhes-files"
-```
+Accedez a la console RustFS : http://localhost:9001
+- Credentials : `rustfsadmin` / `rustfsadmin`
+- Creez un bucket nomme `arrhes-files`
 
-Ou via la ligne de commande :
-```bash
-# Installer le client RustFS
-# Create the bucket via the RustFS web UI at http://localhost:9001 or use an S3-compatible client to create `arrhes-files`.
-```
-
-#### 3. Créer les fichiers de configuration
+#### 3. Creer les fichiers de configuration
 
 **`packages/api/.env` :**
 
-```bash
-cd packages/api
-cat > .env << 'EOF'
+```env
 # Environnement
 ENV=development
 VERBOSE=true
@@ -337,44 +182,38 @@ COOKIES_KEY=development-secret-key-change-in-production-min-32-chars
 
 # URLs
 API_BASE_URL=http://localhost:3000
-PLATFORM_BASE_URL=http://localhost:5173
-WEBSITE_BASE_URL=http://localhost:5174
+APPLICATION_BASE_URL=http://localhost:5173
+WEBSITE_BASE_URL=http://localhost:5173
 
-# Base de données (Docker Compose)
-SQL_DATABASE_URL=postgres://arrhes_user:arrhes_password@localhost:5432/arrhes
+# Base de donnees (Docker Compose)
+SQL_DATABASE_URL=postgres://postgres:admin@localhost:5432/default
 
 # Stockage RustFS (Docker Compose)
 STORAGE_ENDPOINT=http://localhost:9000
 STORAGE_BUCKET_NAME=arrhes-files
-STORAGE_ACCESS_KEY=arrhes_rustfs
-STORAGE_SECRET_KEY=arrhes_rustfs_secret
+STORAGE_ACCESS_KEY=rustfsadmin
+STORAGE_SECRET_KEY=rustfsadmin
 
-# Email MailHog (Docker Compose)
+# Email Mailpit (Docker Compose)
 EMAIL_ENDPOINT=localhost:1025
 EMAIL_USER=test
 EMAIL_PASSWORD=test
-EOF
-cd ../..
 ```
 
 **`packages/tools/.env` :**
 
-```bash
-cd packages/tools
-cat > .env << 'EOF'
-DATABASE_URL=postgres://arrhes_user:arrhes_password@localhost:5432/arrhes
-EOF
-cd ../..
+```env
+DATABASE_URL=postgres://postgres:admin@localhost:5432/default
 ```
 
 ---
 
 ### Option 2 : Configuration native
 
-#### 1. Créer la base de données PostgreSQL
+#### 1. Creer la base de donnees PostgreSQL
 
 ```bash
-# Se connecter à PostgreSQL
+# Se connecter a PostgreSQL
 sudo -u postgres psql
 
 # Dans le shell PostgreSQL :
@@ -394,75 +233,61 @@ docker run -d \
   -p 9000:9000 \
   -p 9001:9001 \
   --name rustfs \
-
-  -e "RUSTFS_ROOT_USER=arrhes_rustfs" \
-  -e "RUSTFS_ROOT_PASSWORD=arrhes_rustfs_secret" \
+  -e "RUSTFS_ACCESS_KEY=rustfsadmin" \
+  -e "RUSTFS_SECRET_KEY=rustfsadmin" \
+  -e "RUSTFS_CONSOLE_ENABLE=true" \
+  -e "RUSTFS_VOLUMES=/data" \
   -v ~/rustfs/data:/data \
-  rustfs/rustfs:latest server /data --web-ui-address ":9001"
+  rustfs/rustfs:latest
 
-# Accéder à la web UI : http://localhost:9001
-# Créer un bucket nommé "arrhes-files"
+# Acceder a la web UI : http://localhost:9001
+# Creer un bucket nomme "arrhes-files"
 ```
 
-**MailHog (Test d'emails) :**
+**Mailpit (Test d'emails) :**
 
 ```bash
-# Lancer MailHog avec Docker
-docker run -d -p 1025:1025 -p 8025:8025 mailhog/mailhog
+# Lancer Mailpit avec Docker
+docker run -d -p 1025:1025 -p 8025:8025 axllent/mailpit
 
 # Interface web : http://localhost:8025
 ```
 
-#### 3. Créer les fichiers de configuration
+#### 3. Creer les fichiers de configuration
 
-Utilisez les mêmes commandes que dans l'Option 1, étape 3 ci-dessus.
-
----
-
-**Pour plus de détails sur la configuration, consultez [CONFIGURATION.md](CONFIGURATION.md).**
-
-## Initialisation de la base de données
-
-### Option 1 : Avec Dev Container 🚀
-
-**Aucune action nécessaire !**
-
-La base de données est automatiquement initialisée lors de la création du container. Le script `post-create.sh` exécute :
-1. `pnpm --filter tools run push` (création du schéma)
-2. `pnpm --filter tools run seed` (insertion des données de démo)
-
-Si vous souhaitez réinitialiser la base :
-```bash
-pnpm --filter tools run reset
-```
+Utilisez les memes fichiers `.env` que dans l'Option 1, en ajustant les credentials PostgreSQL selon votre configuration.
 
 ---
 
-### Options 2 et 3 : Configuration manuelle
+**Pour plus de details sur la configuration, consultez [CONFIGURATION.md](CONFIGURATION.md).**
 
-**Étape 1 : Pousser le schéma vers la base de données**
+## Initialisation de la base de donnees
+
+### Pour le developpement local (hors Docker)
+
+**Etape 1 : Pousser le schema vers la base de donnees**
 
 ```bash
 pnpm --filter tools run push
 ```
 
-Cette commande crée toutes les tables nécessaires dans PostgreSQL à partir des schémas définis dans `@arrhes/application-metadata`.
+Cette commande cree toutes les tables necessaires dans PostgreSQL a partir des schemas definis dans `@arrhes/application-metadata`.
 
-**Étape 2 : Seed avec des données de démonstration**
+**Etape 2 : Seed avec des donnees de demonstration**
 
 ```bash
 pnpm --filter tools run seed
 ```
 
-Cette commande insère :
-- Un utilisateur de démonstration : `demo@arrhes.com` / `demo`
+Cette commande insere :
+- Un utilisateur de demonstration : `demo@arrhes.com` / `demo`
 - Une organisation exemple : "Arrhes"
 - Des comptes comptables de base
 - Des journaux
-- Des écritures comptables d'exemple pour 2022 et 2023
-- Des documents et états financiers
+- Des ecritures comptables d'exemple pour 2022 et 2023
+- Des documents et etats financiers
 
-**Étape 3 : Réinitialiser la base (si nécessaire)**
+**Etape 3 : Reinitialiser la base (si necessaire)**
 
 Pour tout supprimer et recommencer :
 
@@ -470,34 +295,47 @@ Pour tout supprimer et recommencer :
 pnpm --filter tools run reset
 ```
 
-Cette commande exécute : `clear` + `push` + `seed`
+Cette commande execute : `clear` + `push` + `seed`
 
-## Lancement en développement
+### Avec Docker Compose
 
-### Commande principale (toutes options)
+Pour reinitialiser la base de donnees dans l'environnement Docker :
+
+```bash
+just dev reset
+```
+
+Ou manuellement :
+```bash
+docker compose -f .workflows/.dev/compose.yml exec api sh -c "cd /workspace/packages/tools && pnpm run reset"
+```
+
+## Lancement en developpement
+
+### Commande principale
 
 ```bash
 pnpm run dev
 ```
 
-Cette commande lance simultanément :
+Cette commande lance simultanement :
 - **API** sur http://localhost:3000
-- **Platform** sur http://localhost:5173
+- **Website (Dashboard)** sur http://localhost:5173
 
-Les deux processus tournent en parallèle avec hot-reload activé.
+Les deux processus tournent en parallele avec hot-reload active.
 
 ### Lancer individuellement (optionnel)
 
-Dans des terminaux séparés :
+Dans des terminaux separes :
 
 **Terminal 1 - API :**
 ```bash
 pnpm --filter api run dev
 ```
 
-**Terminal 2 - Platform :**
+**Terminal 2 - Website :**
 ```bash
-pnpm --filter platform run dev
+pnpm --filter website run dev
 ```
 
 **Terminal 3 - Metadata (optionnel, watch mode) :**
@@ -505,14 +343,14 @@ pnpm --filter platform run dev
 pnpm --filter metadata run dev
 ```
 
-### Accès à l'application
+### Acces a l'application
 
-- **Frontend (Platform)** : http://localhost:5173
+- **Frontend (Dashboard)** : http://localhost:5173
 - **API** : http://localhost:3000
-- **RustFS Console** : http://localhost:9001 (arrhes_rustfs / arrhes_rustfs_secret)
-- **MailHog Web UI** : http://localhost:8025
+- **RustFS Console** : http://localhost:9001 (rustfsadmin / rustfsadmin)
+- **Mailpit Web UI** : http://localhost:8025
 
-### Identifiants de démonstration
+### Identifiants de demonstration
 
 ```
 Email    : demo@arrhes.com
@@ -521,88 +359,109 @@ Password : demo
 
 ### Notes par option
 
-**Dev Container :**
-- Les services (PostgreSQL, RustFS, MailHog) sont déjà démarrés automatiquement
-- Les ports sont automatiquement forwardés vers votre machine locale
-- Vous pouvez cliquer sur les ports dans VS Code/Cursor pour ouvrir les URLs
-
 **Docker Compose :**
-- Assurez-vous que les services sont lancés : `docker-compose ps`
-- Si les services ne sont pas démarrés : `docker-compose up -d`
+- Assurez-vous que les services sont lances : `docker compose -f .workflows/.dev/compose.yml ps`
+- Si les services ne sont pas demarres : `just dev up`
 
 **Natif :**
-- Assurez-vous que PostgreSQL est démarré
-- Si vous utilisez RustFS/MailHog avec Docker, vérifiez qu'ils tournent : `docker ps`
+- Assurez-vous que PostgreSQL est demarre
+- Si vous utilisez RustFS/Mailpit avec Docker, verifiez qu'ils tournent : `docker ps`
 
 ## Structure du projet
 
 ```
 arrhes/
 ├── packages/
-│   ├── api/                    # Backend API
+│   ├── api/                    # Backend API (@arrhes/application-api)
 │   │   ├── src/
 │   │   │   ├── api.ts         # Configuration Hono
-│   │   │   ├── server.ts      # Point d'entrée
+│   │   │   ├── server.ts      # Point d'entree
 │   │   │   ├── clients/       # Clients services externes
-│   │   │   ├── factories/     # Factories Hono typées
+│   │   │   ├── factories/     # Factories Hono typees
 │   │   │   ├── middlewares/   # Auth, validation, etc.
 │   │   │   ├── routes/        # Routes API
-│   │   │   │   ├── auth/      # Routes authentifiées
+│   │   │   │   ├── auth/      # Routes authentifiees
 │   │   │   │   └── public/    # Routes publiques
+│   │   │   ├── validators/    # Validation des donnees
 │   │   │   └── utilities/     # Utilitaires
 │   │   ├── .env               # Variables d'environnement
 │   │   ├── package.json
 │   │   └── tsconfig.json
 │   │
-│   ├── platform/               # Frontend React
+│   ├── website/               # Frontend React (@arrhes/application-website)
 │   │   ├── src/
-│   │   │   ├── root.tsx       # Point d'entrée React
+│   │   │   ├── root.tsx       # Point d'entree React
 │   │   │   ├── index.html     # HTML principal
-│   │   │   ├── assets/        # CSS, fonts, images
-│   │   │   ├── components/    # Composants UI réutilisables
+│   │   │   ├── assets/        # CSS, images, manifest
+│   │   │   ├── components/    # Composants UI reutilisables
 │   │   │   ├── contexts/      # React contexts
 │   │   │   ├── features/      # Features par domaine
-│   │   │   ├── routes/        # Définition routes
+│   │   │   │   ├── dashboard/ # Dashboard (organisations, settings, support)
+│   │   │   │   ├── docs/      # Documentation integree
+│   │   │   │   ├── website/   # Site vitrine
+│   │   │   │   ├── signIn/    # Connexion
+│   │   │   │   └── signUp/    # Inscription
+│   │   │   ├── routes/        # Definition routes
 │   │   │   └── utilities/     # Utilitaires
 │   │   ├── package.json
 │   │   ├── tsconfig.json
 │   │   └── vite.config.ts
 │   │
-│   ├── metadata/               # Schémas et types partagés
+│   ├── metadata/               # Schemas et types partages (@arrhes/application-metadata)
 │   │   ├── src/
-│   │   │   ├── models/        # Modèles Drizzle ORM
-│   │   │   ├── schemas/       # Schémas Valibot
-│   │   │   ├── routes/        # Définitions routes API
-│   │   │   ├── components/    # Composants métier
+│   │   │   ├── models/        # Modeles Drizzle ORM
+│   │   │   ├── schemas/       # Schemas Valibot
+│   │   │   ├── routes/        # Definitions routes API
+│   │   │   ├── components/    # Composants metier
 │   │   │   └── utilities/     # Utilitaires
 │   │   ├── package.json
 │   │   └── tsconfig.json
 │   │
-│   ├── tools/                  # Outils base de données
+│   ├── ui/                     # Composants UI partages (@arrhes/ui)
 │   │   ├── src/
-│   │   │   ├── clearDB.ts     # Vider la DB
-│   │   │   ├── migrate.ts     # Migrations
-│   │   │   ├── schemas.ts     # Import schémas
-│   │   │   └── seed/          # Scripts de seed
-│   │   ├── .env               # Variables d'environnement
-│   │   ├── drizzle.config.ts  # Config Drizzle Kit
+│   │   │   ├── components/    # Boutons, layouts, etc.
+│   │   │   ├── fonts/         # Polices
+│   │   │   ├── styles/        # CSS
+│   │   │   └── utilities/     # cn, sleep
 │   │   ├── package.json
-│   │   └── tsconfig.json
+│   │   └── panda.config.ts
 │   │
-│   └── website/                # Site vitrine
+│   └── tools/                  # Outils base de donnees (@arrhes/application-tools)
 │       ├── src/
-│       ├── package.json
-│       └── vite.config.ts
+│       │   ├── clearDB.ts     # Vider la DB
+│       │   ├── migrate.ts     # Migrations
+│       │   ├── schemas.ts     # Import schemas
+│       │   ├── dbClient.ts    # Client DB
+│       │   ├── drizzle.config.ts  # Config Drizzle Kit
+│       │   └── seed/          # Scripts de seed
+│       ├── .env               # Variables d'environnement
+│       └── package.json
+│
+├── .workflows/                  # Docker configurations
+│   ├── .dev/                   # Environnement Docker de developpement
+│   │   ├── compose.yml
+│   │   └── packages/
+│   │       ├── api/            # Dockerfile + .env de dev
+│   │       ├── dashboard/      # Dockerfile + .env du frontend
+│   │       └── tools/          # .env des outils
+│   └── .build/                 # Configuration Docker de production et CI
+│       ├── compose.yml
+│       └── packages/
+│           ├── api/
+│           ├── ci/             # Dockerfile pour le pipeline CI local (just build)
+│           └── dashboard/
 │
 ├── docs/                       # Documentation
 │   ├── ARCHITECTURE.md
+│   ├── BUSINESS_MODEL.md
 │   ├── CONFIGURATION.md
-│   ├── DEVELOPMENT.md
-│   └── CONTRIBUTING.md
+│   ├── CONTRIBUTING.md
+│   └── DEVELOPMENT.md
 │
+├── justfile                    # Commandes just (dev up/down/reset/logs, build)
+├── biome.json                  # Configuration Biome (linter + formatter)
 ├── pnpm-workspace.yaml         # Configuration workspace
 ├── package.json                # Scripts racine
-├── tsconfig.json               # Config TypeScript globale
 ├── LICENSE
 └── README.md
 ```
@@ -612,37 +471,59 @@ arrhes/
 ### Scripts racine (depuis `/`)
 
 ```bash
-# Lancer API + Platform en développement
+# Lancer API + Website en developpement
 pnpm run dev
 
 # Builder tous les packages
 pnpm run build
+
+# Verifier le linting et le formatage (Biome)
+pnpm check
+
+# Corriger automatiquement le linting et le formatage
+pnpm check:fix
+```
+
+### Commandes just
+
+```bash
+# Demarrer l'environnement Docker de developpement
+just dev up
+
+# Arreter l'environnement
+just dev down
+
+# Reinitialiser la base de donnees
+just dev reset
+
+# Voir les logs
+just dev logs
+
+# Lancer le pipeline CI en local (Biome check + build, dans Docker)
+just build
 ```
 
 ### Scripts API (`packages/api/`)
 
 ```bash
-# Développement avec hot-reload
+# Developpement avec hot-reload
 pnpm --filter api run dev
 
 # Build pour production
 pnpm --filter api run build
 
-# Lancer en production (après build)
+# Lancer en production (apres build)
 pnpm --filter api run start
 ```
 
-### Scripts Platform (`packages/platform/`)
+### Scripts Website (`packages/website/`)
 
 ```bash
-# Développement avec hot-reload
-pnpm --filter platform run dev
+# Developpement avec hot-reload
+pnpm --filter website run dev
 
 # Build pour production
-pnpm --filter platform run build
-
-# Linter
-pnpm --filter platform run lint
+pnpm --filter website run build
 ```
 
 ### Scripts Metadata (`packages/metadata/`)
@@ -658,19 +539,22 @@ pnpm --filter metadata run build
 ### Scripts Tools (`packages/tools/`)
 
 ```bash
-# Générer les migrations depuis le schéma
+# Generer les migrations depuis le schema
 pnpm --filter tools run generate
 
-# Pousser le schéma vers la DB (dev)
+# Pousser le schema vers la DB (dev)
 pnpm --filter tools run push
+
+# Introspecter le schema de la DB
+pnpm --filter tools run pull
 
 # Appliquer les migrations (production)
 pnpm --filter tools run migrate
 
-# Seed avec données de démo
+# Seed avec donnees de demo
 pnpm --filter tools run seed
 
-# Vider complètement la DB
+# Vider completement la DB
 pnpm --filter tools run clear
 
 # Reset complet : clear + push + seed
@@ -680,52 +564,44 @@ pnpm --filter tools run reset
 pnpm --filter tools run drop
 ```
 
-## Workflow de développement
+## Workflow de developpement
 
-### Développement typique
+### Developpement typique
 
-#### Avec Docker Compose 🐳
+#### Avec Docker Compose
 
 1. **Lancer les services**
    ```bash
-   # Lancer tous les services (PostgreSQL, RustFS, MailHog)
-   docker-compose up -d
+   just dev up
    ```
 
-2. **Lancer l'application**
+2. **Lancer l'application** (dans un terminal separe si necessaire)
    ```bash
    pnpm run dev
    ```
 
-3. **Développer avec hot-reload**
-   - Modifications dans `packages/api/src/` → Rechargement automatique de l'API
-   - Modifications dans `packages/platform/src/` → HMR (Hot Module Replacement)
-   - Modifications dans `packages/metadata/src/` → Nécessite rebuild (ou mode watch)
+3. **Developper avec hot-reload**
+   - Modifications dans `packages/api/src/` : Rechargement automatique de l'API
+   - Modifications dans `packages/website/src/` : HMR (Hot Module Replacement)
+   - Modifications dans `packages/metadata/src/` : Necessite rebuild (ou mode watch)
 
-4. **Arrêter les services (à la fin de la session)**
+4. **Arreter les services (a la fin de la session)**
    ```bash
-   # Arrêter sans supprimer les données
-   docker-compose stop
-   
-   # Ou arrêter et supprimer les containers (garde les volumes)
-   docker-compose down
-   
-   # Ou tout supprimer (containers + volumes = perte de données)
-   docker-compose down -v
+   just dev down
    ```
 
 #### Avec installation native
 
 1. **Lancer les services externes**
    ```bash
-   # PostgreSQL (si pas démarré)
+   # PostgreSQL (si pas demarre)
    sudo systemctl start postgresql
    
-   # RustFS (si utilisé avec Docker)
+   # RustFS (si utilise avec Docker)
    docker start rustfs
    
-   # MailHog (si utilisé avec Docker)
-   docker start mailhog
+   # Mailpit (si utilise avec Docker)
+   docker start mailpit
    ```
 
 2. **Lancer l'application**
@@ -733,39 +609,39 @@ pnpm --filter tools run drop
    pnpm run dev
    ```
 
-3. **Développer avec hot-reload**
-   - Modifications dans `packages/api/src/` → Rechargement automatique de l'API
-   - Modifications dans `packages/platform/src/` → HMR (Hot Module Replacement)
-   - Modifications dans `packages/metadata/src/` → Nécessite rebuild (ou mode watch)
+3. **Developper avec hot-reload**
+   - Modifications dans `packages/api/src/` : Rechargement automatique de l'API
+   - Modifications dans `packages/website/src/` : HMR (Hot Module Replacement)
+   - Modifications dans `packages/metadata/src/` : Necessite rebuild (ou mode watch)
 
-### Modifier le schéma de base de données
+### Modifier le schema de base de donnees
 
-1. **Modifier les modèles** dans `packages/metadata/src/models/`
+1. **Modifier les modeles** dans `packages/metadata/src/models/`
 
 2. **Rebuild metadata**
    ```bash
    pnpm --filter metadata run build
    ```
 
-3. **Générer la migration** (optionnel, pour production)
+3. **Generer la migration** (optionnel, pour production)
    ```bash
    pnpm --filter tools run generate
    ```
 
 4. **Appliquer les changements**
    ```bash
-   # Développement : push direct
+   # Developpement : push direct
    pnpm --filter tools run push
    
    # Production : migrations
    pnpm --filter tools run migrate
    ```
 
-5. **Mettre à jour le seed** si nécessaire dans `packages/tools/src/seed/`
+5. **Mettre a jour le seed** si necessaire dans `packages/tools/src/seed/`
 
 ### Ajouter une nouvelle route API
 
-1. **Créer la définition de route** dans `packages/metadata/src/routes/`
+1. **Creer la definition de route** dans `packages/metadata/src/routes/`
    ```typescript
    // packages/metadata/src/routes/auth/myFeature.ts
    import { routeDefinition } from '#src/utilities/routeDefinition.js'
@@ -779,7 +655,7 @@ pnpm --filter tools run drop
    })
    ```
 
-2. **Créer l'implémentation** dans `packages/api/src/routes/auth/`
+2. **Creer l'implementation** dans `packages/api/src/routes/auth/`
    ```typescript
    // packages/api/src/routes/auth/myFeature.ts
    import { myFeatureRoute } from '@arrhes/application-metadata/routes'
@@ -788,7 +664,7 @@ pnpm --filter tools run drop
    export const myFeature = authFactory.createApp().post(
        myFeatureRoute.path,
        async (c) => {
-           // Implémentation
+           // Implementation
            return c.json({ /* ... */ })
        }
    )
@@ -796,17 +672,17 @@ pnpm --filter tools run drop
 
 3. **Enregistrer la route** dans `packages/api/src/routes/routes.ts`
 
-4. **Utiliser côté frontend** dans `packages/platform/src/utilities/postAPI.ts`
+4. **Utiliser cote frontend** dans `packages/website/src/utilities/postAPI.ts`
 
 ### Ajouter une nouvelle page
 
-1. **Créer le composant** dans `packages/platform/src/features/`
+1. **Creer le composant** dans `packages/website/src/features/`
 
-2. **Définir la route** dans `packages/platform/src/routes/root/`
+2. **Definir la route** dans `packages/website/src/routes/root/`
 
-3. **Mettre à jour le tree** dans `packages/platform/src/routes/platformTree.ts`
+3. **Mettre a jour le tree** dans le fichier tree correspondant (ex: `dashboardTree.ts`, `docsTree.ts`)
 
-4. **Ajouter la navigation** si nécessaire dans les layouts
+4. **Ajouter la navigation** si necessaire dans les layouts
 
 ## Debugging
 
@@ -844,7 +720,7 @@ Attacher le debugger dans VS Code avec cette configuration (`.vscode/launch.json
 }
 ```
 
-### Platform (Frontend)
+### Website (Frontend)
 
 **Console du navigateur :**
 - Ouvrir DevTools (F12)
@@ -855,12 +731,16 @@ Attacher le debugger dans VS Code avec cette configuration (`.vscode/launch.json
 - Inspecter les composants et leur state
 
 **TanStack Query DevTools :**
-Déjà intégré dans l'application, visible en bas de l'écran en mode dev.
+Deja integre dans l'application, visible en bas de l'ecran en mode dev.
 
-### Base de données
+### Base de donnees
 
 **Inspecter la DB :**
 ```bash
+# Avec Docker Compose
+psql postgres://postgres:admin@localhost:5432/default
+
+# Avec installation native
 psql postgres://arrhes_user:arrhes_password@localhost:5432/arrhes
 ```
 
@@ -869,7 +749,7 @@ psql postgres://arrhes_user:arrhes_password@localhost:5432/arrhes
 -- Lister les tables
 \dt
 
--- Voir le schéma d'une table
+-- Voir le schema d'une table
 \d table_name
 
 -- Compter les enregistrements
@@ -881,67 +761,66 @@ SELECT * FROM users ORDER BY "createdAt" DESC LIMIT 10;
 
 **Drizzle Studio** (GUI pour visualiser la DB) :
 ```bash
-pnpm dlx drizzle-kit studio --config=packages/tools/drizzle.config.ts
+pnpm dlx drizzle-kit studio --config=packages/tools/src/drizzle.config.ts
 ```
 
 ## Conseils
 
 ### Performance
 
-- **Hot-reload lent ?** Redémarrez le serveur de développement
-- **Build lent ?** Vérifiez que Node.js est à jour
+- **Hot-reload lent ?** Redemarrez le serveur de developpement
+- **Build lent ?** Verifiez que Node.js est a jour
 - **pnpm lent ?** Nettoyez le cache : `pnpm store prune`
 
-### Problèmes courants
+### Problemes courants
 
 **"Cannot connect to database" :**
-- **Avec Docker :** Vérifiez que les containers sont lancés : `docker-compose ps`
-- **Natif :** Vérifiez que PostgreSQL est démarré : `sudo systemctl status postgresql`
-- Testez la connexion : `psql postgres://arrhes_user:arrhes_password@localhost:5432/arrhes`
-- Vérifiez les credentials dans `.env`
+- **Avec Docker :** Verifiez que les containers sont lances : `docker compose -f .workflows/.dev/compose.yml ps`
+- **Natif :** Verifiez que PostgreSQL est demarre : `sudo systemctl status postgresql`
+- Testez la connexion : `psql postgres://postgres:admin@localhost:5432/default`
+- Verifiez les credentials dans `.env`
 
 **"Module not found @arrhes/application-metadata" :**
 - Rebuild metadata : `pnpm --filter metadata run build`
 - Ou lancez en mode watch : `pnpm --filter metadata run dev`
 
 **"CORS error" :**
-- Vérifiez `CORS_ORIGIN` dans `packages/api/.env`
+- Verifiez `CORS_ORIGIN` dans `packages/api/.env`
 - Assurez-vous que l'URL correspond exactement
 
 **"Cookie not set" :**
-- Vérifiez `COOKIES_DOMAIN` (doit être `localhost` en dev)
-- Vérifiez que l'API et la platform sont sur le même domaine
+- Verifiez `COOKIES_DOMAIN` (doit etre `localhost` en dev)
+- Verifiez que l'API et le frontend sont sur le meme domaine
 
 **"S3/Storage error" :**
-- Vérifiez que RustFS est démarré : `docker ps | grep rustfs`
-- Vérifiez que le bucket existe (console : http://localhost:9001)
-- Testez l'endpoint : `curl http://localhost:9000/health || curl http://localhost:9000/health/live`
+- Verifiez que RustFS est demarre : `docker ps | grep rustfs`
+- Verifiez que le bucket existe (console : http://localhost:9001)
+- Testez l'endpoint : `curl http://localhost:9000`
 
-**Problèmes Docker :**
-- **Port déjà utilisé :** Un autre service utilise le même port
+**Problemes Docker :**
+- **Port deja utilise :** Un autre service utilise le meme port
   ```bash
   # Voir ce qui utilise le port 5432 (PostgreSQL)
   sudo lsof -i :5432
-  # Ou arrêter l'autre service
   ```
-- **Container ne démarre pas :** Voir les logs
+- **Container ne demarre pas :** Voir les logs
   ```bash
-  docker-compose logs postgres
-  docker-compose logs rustfs
-  docker-compose logs mailhog
+  docker compose -f .workflows/.dev/compose.yml logs postgres
+  docker compose -f .workflows/.dev/compose.yml logs rustfs
+  docker compose -f .workflows/.dev/compose.yml logs mailpit
   ```
-- **Réinitialiser complètement :**
+- **Reinitialiser completement :**
   ```bash
-  docker-compose down -v
-  docker-compose up -d
+  docker compose -f .workflows/.dev/compose.yml down -v
+  docker compose -f .workflows/.dev/compose.yml up -d --build
   ```
 
 ### Bonnes pratiques
 
-1. **Commits atomiques** : Un commit = une fonctionnalité/fix
+1. **Commits atomiques** : Un commit = une fonctionnalite/fix
 2. **Messages de commit clairs** : Suivez les conventions (voir CONTRIBUTING.md)
-3. **Tester avant de commit** : Vérifiez que tout fonctionne
-4. **Suivre les patterns existants** : Regardez le code existant pour rester cohérent
+3. **Tester avant de commit** : Lancez `just build` pour verifier le linting et la compilation
+4. **Suivre les patterns existants** : Regardez le code existant pour rester coherent
 5. **Documenter les changements** : Commentaires pour la logique complexe
 
 ### Ressources utiles

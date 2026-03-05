@@ -1,5 +1,1 @@
-export const accountType = <const>[
-    "balance-sheet",
-    "income-statement",
-    "special",
-]
+export const accountType = <const>["balance-sheet", "income-statement", "special"]

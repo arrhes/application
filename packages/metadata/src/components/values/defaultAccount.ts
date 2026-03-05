@@ -1,12 +1,11 @@
-import { accountType } from "./accountType.js"
-
+import type { accountType } from "./accountType.js"
 
 export type DefaultAccount = {
     number: number
     isMandatory: boolean
-    isClass: boolean,
+    isClass: boolean
     isSelectable: boolean
     type: (typeof accountType)[number]
-    label: string,
+    label: string
     children: Array<DefaultAccount>
 }

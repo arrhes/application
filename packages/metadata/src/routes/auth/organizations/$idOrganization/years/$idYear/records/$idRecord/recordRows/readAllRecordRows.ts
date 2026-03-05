@@ -1,18 +1,16 @@
-import { routePath } from "../../../../../../../../../components/_index.js"
+import * as v from "valibot"
+import { routePath } from "../../../../../../../../../components/index.js"
 import { recordRowSchema, recordRowSchemaReturn } from "../../../../../../../../../schemas/recordRow.js"
 import { routeDefinition } from "../../../../../../../../../utilities/routeDefinition.js"
-import * as v from "valibot"
-
 
 export const readAllRecordRowsRouteDefinition = routeDefinition({
     protocol: "http",
     path: `${routePath.auth}/read-all-record-rows`,
     schemas: {
         body: v.object({
-            idOrganization: recordRowSchema.entries.idOrganization,
             idYear: recordRowSchema.entries.idYear,
             idRecord: v.optional(recordRowSchema.entries.idRecord),
         }),
-        return: v.array(recordRowSchemaReturn)
+        return: v.array(recordRowSchemaReturn),
     },
 })

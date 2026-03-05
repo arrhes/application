@@ -1,4 +1,3 @@
-
 import { TableBodyCell } from "./tableBody/tableBodyCell.js"
 import { TableBodyRoot } from "./tableBody/tableBodyRoot.js"
 import { TableBodyRow } from "./tableBody/tableBodyRow.js"
@@ -7,17 +6,16 @@ import { TableHeaderRoot } from "./tableHeader/tableHeaderRoot.js"
 import { TableHeaderRow } from "./tableHeader/tableHeaderRow.js"
 import { TableRoot } from "./tableRoot.js"
 
-
 export const Table = {
     Root: TableRoot,
     Header: {
         Root: TableHeaderRoot,
         Row: TableHeaderRow,
-        Cell: TableHeaderCell
+        Cell: TableHeaderCell,
     },
     Body: {
         Root: TableBodyRoot,
         Row: TableBodyRow,
-        Cell: TableBodyCell
-    }
+        Cell: TableBodyCell,
+    },
 }

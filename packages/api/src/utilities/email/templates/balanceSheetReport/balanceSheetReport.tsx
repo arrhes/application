@@ -1,9 +1,8 @@
+import type { returnedSchemas } from "@arrhes/application-metadata"
+import { css, Style } from "hono/css"
+import type * as v from "valibot"
 import { BalanceSheetAssetsReportTable } from "./balanceSheetAssets/balanceSheetAssetsReportTable.js"
 import { BalanceSheetLiabilitiesReportTable } from "./balanceSheetLiabilities/balanceSheetLiabilitiesReportTable.js"
-import { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Style, css } from "hono/css"
-import * as v from "valibot"
-
 
 function BalanceSheetReport(props: {
     recordRows: Array<v.InferOutput<typeof returnedSchemas.recordRow>>
@@ -17,7 +16,9 @@ function BalanceSheetReport(props: {
                 <Style />
             </head>
             <body class={css`width: fit-content; height: fit-content; overflow: scroll; margin: 32px;`}>
-                <div class={css`width: fit-content; min-height:fit-content; overflow: scroll; display: flex; flex-direction: column; gap:16px;`}>
+                <div
+                    class={css`width: fit-content; min-height:fit-content; overflow: scroll; display: flex; flex-direction: column; gap:16px;`}
+                >
                     <BalanceSheetAssetsReportTable
                         accounts={props.accounts}
                         recordRows={props.recordRows}

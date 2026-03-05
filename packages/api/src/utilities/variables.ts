@@ -4,7 +4,7 @@ export const verificationTokenLifetime = 1000 * 60 * 60 * 24 * 1
 
 export const storageFileExpiresIn = 60 * 60
 
-export const cookiePrefix = "arrhes"
+export const productName = "arrhes"
 
 /**
  * Returns cookie security options based on the environment.

@@ -1,0 +1,55 @@
+# ==============================================================================
+# .dockerignore - Reduces Docker build context size
+# ==============================================================================
+# Applied when build context is the repo root (used by both dev and CI Dockerfiles).
+# Keeps the build context small and fast by excluding unnecessary files.
+# ==============================================================================
+
+# Version control
+.git
+
+# Dependencies (installed inside containers)
+node_modules
+**/node_modules
+
+# Build outputs (generated inside containers)
+build
+**/build
+dist
+**/dist
+styled-system
+**/styled-system
+*.tsbuildinfo
+
+# Test artifacts (but keep tests/ directory for CI)
+test-results
+playwright-report
+coverage
+.nyc_output
+
+# IDE and editor files
+.vscode
+.idea
+.continue
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Misc
+.cache
+.old
+*.tgz
+.npmrc
+.pnpm-store
+docs
+
+# Workflow files not needed inside containers
+.workflows/.gitignore
+.github

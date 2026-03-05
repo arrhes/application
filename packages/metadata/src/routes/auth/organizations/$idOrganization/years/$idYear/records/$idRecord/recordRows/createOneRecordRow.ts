@@ -1,15 +1,13 @@
-import { routePath } from "../../../../../../../../../components/_index.js"
+import * as v from "valibot"
+import { routePath } from "../../../../../../../../../components/index.js"
 import { recordRowSchema, recordRowSchemaReturn } from "../../../../../../../../../schemas/recordRow.js"
 import { routeDefinition } from "../../../../../../../../../utilities/routeDefinition.js"
-import * as v from "valibot"
-
 
 export const createOneRecordRowRouteDefinition = routeDefinition({
     protocol: "http",
     path: `${routePath.auth}/create-one-record-row`,
     schemas: {
         body: v.object({
-            idOrganization: recordRowSchema.entries.idOrganization,
             idYear: recordRowSchema.entries.idYear,
             idRecord: recordRowSchema.entries.idRecord,
             idAccount: recordRowSchema.entries.idAccount,
@@ -22,6 +20,6 @@ export const createOneRecordRowRouteDefinition = routeDefinition({
             debit: v.optional(recordRowSchema.entries.debit),
             credit: v.optional(recordRowSchema.entries.credit),
         }),
-        return: recordRowSchemaReturn
+        return: recordRowSchemaReturn,
     },
 })

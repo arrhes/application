@@ -1,6 +1,6 @@
 export function serializeCookie(parameters: {
-    name: string,
-    value: string,
+    name: string
+    value: string
     options?: {
         path?: string
         domain?: string

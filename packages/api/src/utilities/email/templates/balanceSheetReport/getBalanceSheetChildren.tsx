@@ -1,7 +1,5 @@
-import { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import * as v from "valibot"
-
-
+import type { returnedSchemas } from "@arrhes/application-metadata"
+import type * as v from "valibot"
 
 export function getBalanceSheetChildren(parameters: {
     balanceSheet: v.InferOutput<typeof returnedSchemas.balanceSheet>
@@ -9,13 +7,17 @@ export function getBalanceSheetChildren(parameters: {
 }): Array<v.InferOutput<typeof returnedSchemas.balanceSheet>> {
     if (parameters.balanceSheets.length === 0) return []
 
-    const children = parameters.balanceSheets.filter((balanceSheet) => balanceSheet.idBalanceSheetParent === parameters.balanceSheet.id)
+    const children = parameters.balanceSheets.filter(
+        (balanceSheet) => balanceSheet.idBalanceSheetParent === parameters.balanceSheet.id,
+    )
 
     return [
         ...children,
-        ...children.flatMap((balanceSheet) => getBalanceSheetChildren({
-            balanceSheet: balanceSheet,
-            balanceSheets: parameters.balanceSheets,
-        }))
+        ...children.flatMap((balanceSheet) =>
+            getBalanceSheetChildren({
+                balanceSheet: balanceSheet,
+                balanceSheets: parameters.balanceSheets,
+            }),
+        ),
     ]
 }

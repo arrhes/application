@@ -1,13 +1,8 @@
-
-function MagicLink(props: {
-    magicLink: string
-}) {
+function MagicLink(props: { magicLink: string }) {
     return (
         <html lang="fr">
             <body>
-                <p>
-                    Bonjour,
-                </p>
+                <p>Bonjour,</p>
                 <p>
                     Cliquer sur le lien suivant pour vous connecter
                     <br />

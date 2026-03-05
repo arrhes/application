@@ -1,8 +1,7 @@
-import { routePath } from "../../../../../../../../../../components/_index.js"
+import * as v from "valibot"
+import { routePath } from "../../../../../../../../../../components/index.js"
 import { recordRowSchema, recordRowSchemaReturn } from "../../../../../../../../../../schemas/recordRow.js"
 import { routeDefinition } from "../../../../../../../../../../utilities/routeDefinition.js"
-import * as v from "valibot"
-
 
 export const readOneRecordRowRouteDefinition = routeDefinition({
     protocol: "http",
@@ -10,9 +9,8 @@ export const readOneRecordRowRouteDefinition = routeDefinition({
     schemas: {
         body: v.object({
             idRecordRow: recordRowSchema.entries.id,
-            idOrganization: recordRowSchema.entries.idOrganization,
             idYear: recordRowSchema.entries.idYear,
         }),
-        return: recordRowSchemaReturn
+        return: recordRowSchemaReturn,
     },
 })

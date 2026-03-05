@@ -15,13 +15,16 @@
         "./utilities/*": "./src/utilities/*",
         "./styles/*": "./src/styles/*",
         "./fonts/*": "./src/fonts/*",
+        "./css": {
+            "import": "./styled-system/css/index.mjs",
+            "types": "./styled-system/css/index.d.ts"
+        },
         "./styled-system": "./styled-system/index.mjs",
         "./styled-system/*": "./styled-system/*",
         "./*": "./*"
     },
     "scripts": {
         "prepare": "panda codegen",
-        "lint": "eslint .",
         "typecheck": "tsc --noEmit"
     },
     "dependencies": {

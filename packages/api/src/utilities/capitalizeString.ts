@@ -1,4 +1,3 @@
-
 export function capitalizeString(string: string) {
     if (string.length === 0) {
         return string

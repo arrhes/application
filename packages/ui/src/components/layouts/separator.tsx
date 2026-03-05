@@ -1,10 +1,9 @@
 import type { ComponentProps } from "react"
 import { css, cx } from "../../utilities/cn.js"
 
-
 export function Separator(props: {
     orientation?: "horizontal" | "vertical"
-    className?: ComponentProps<'div'>['className']
+    className?: ComponentProps<"div">["className"]
 }) {
     const orientation = props.orientation ?? "horizontal"
 
@@ -19,14 +18,14 @@ export function Separator(props: {
                 }),
                 orientation === "horizontal"
                     ? css({
-                        width: "100%",
-                        height: "1px",
-                    })
+                          width: "100%",
+                          height: "1px",
+                      })
                     : css({
-                        width: "1px",
-                        height: "100%",
-                    }),
-                props.className
+                          width: "1px",
+                          height: "100%",
+                      }),
+                props.className,
             )}
         />
     )

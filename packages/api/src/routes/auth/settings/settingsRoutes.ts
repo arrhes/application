@@ -5,7 +5,6 @@ import { updateUserEmailRoute } from "../../../routes/auth/settings/updateUserEm
 import { updateUserPasswordRoute } from "../../../routes/auth/settings/updateUserPassword.js"
 import { validateUserEmailRoute } from "../../../routes/auth/settings/validateUserEmail.js"
 
-
 export const settingsRoutes = [
     activateUserRoute,
     readUserSessionRoute,
@@ -13,4 +12,4 @@ export const settingsRoutes = [
     updateUserEmailRoute,
     updateUserPasswordRoute,
     validateUserEmailRoute,
-]    
+]

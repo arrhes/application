@@ -1,13 +1,8 @@
-
-function EmailValidation(props: {
-    token: string
-}) {
+function EmailValidation(props: { token: string }) {
     return (
         <html lang="fr">
             <body>
-                <p>
-                    Bonjour,
-                </p>
+                <p>Bonjour,</p>
                 <p>
                     Pour valider votre email, veuillez utiliser le code suivant
                     <br />

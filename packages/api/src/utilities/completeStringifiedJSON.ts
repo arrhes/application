@@ -4,17 +4,13 @@ const dataCloseChar: Record<string, string> = {
     '"': '"',
 }
 
-
-export function completeStringifiedJSON(parameters: {
-    rawString: string
-}) {
-
-    let string = parameters.rawString
+export function completeStringifiedJSON(parameters: { rawString: string }) {
+    const string = parameters.rawString
         .trim()
         .replace(/(\r\n|\n|\r|\s{2,})/gm, "")
-        .replace(/(?<=:)([a-zA-Z]+)(?=\s*(?![,\}])(?:[,\}\s]|$))/g, " null")
+        .replace(/(?<=:)([a-zA-Z]+)(?=\s*(?![,}])(?:[,}\s]|$))/g, " null")
 
-    let missingChars: Array<string> = []
+    const missingChars: Array<string> = []
     for (let i = 0; i < string.length; i++) {
         const char = string[i]
         if (char === missingChars[missingChars.length - 1]) {
@@ -39,7 +35,7 @@ export function completeStringifiedJSON(parameters: {
     const cleanedString = completeString
         .replace(/"":/g, "")
         .replace(/":}|": }/g, '": null }')
-        .replace(/,""}|,}|,\"\w+\"}/g, "}")
+        .replace(/,""}|,}|,"\w+"}/g, "}")
         .replace(/},]/g, "}]")
 
     return cleanedString

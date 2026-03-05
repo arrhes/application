@@ -1,6 +1,5 @@
-import { sql } from 'drizzle-orm'
-import { dbClient } from './dbClient.js'
-
+import { sql } from "drizzle-orm"
+import { dbClient } from "./dbClient.js"
 
 async function clearDb() {
     const query = sql<string>`
@@ -13,7 +12,7 @@ async function clearDb() {
 
     const tables = await dbClient.execute(query)
 
-    for (let table of tables) {
+    for (const table of tables) {
         const query = sql.raw(`DROP TABLE ${table.table_name} CASCADE;`)
         await dbClient.execute(query)
     }

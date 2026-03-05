@@ -1,12 +1,8 @@
 import { Style } from "hono/css"
-import { DOMAttributes } from "hono/jsx"
-import { JSX } from "hono/jsx/jsx-runtime"
+import type { DOMAttributes } from "hono/jsx"
+import type { JSX } from "hono/jsx/jsx-runtime"
 
-
-export function TableHeaderRow(props: {
-    children: JSX.Element | JSX.Element[]
-    class?: DOMAttributes["class"]
-}) {
+export function TableHeaderRow(props: { children: JSX.Element | JSX.Element[]; class?: DOMAttributes["class"] }) {
     return (
         <>
             <Style />

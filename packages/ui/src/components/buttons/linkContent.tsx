@@ -1,6 +1,5 @@
 import { css, cx } from "../../utilities/cn.ts"
 
-
 export type LinkContentProps = {
     disabled?: boolean
     children?: string
@@ -13,13 +12,13 @@ export function LinkContent(props: LinkContentProps) {
             aria-disabled={props.disabled}
             className={cx(
                 css({
-                    color: "neutral",
+                    color: "primary",
                     textDecoration: "underline",
                     cursor: "pointer",
                     _hover: { textDecoration: "none" },
                     _disabled: { opacity: 0.3, cursor: "not-allowed" },
                 }),
-                props.className
+                props.className,
             )}
         >
             {props.children}

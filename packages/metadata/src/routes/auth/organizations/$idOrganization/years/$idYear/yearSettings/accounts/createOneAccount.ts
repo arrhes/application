@@ -1,15 +1,13 @@
-import { routePath } from "../../../../../../../../components/_index.js"
+import * as v from "valibot"
+import { routePath } from "../../../../../../../../components/index.js"
 import { accountSchema, accountSchemaReturn } from "../../../../../../../../schemas/account.js"
 import { routeDefinition } from "../../../../../../../../utilities/routeDefinition.js"
-import * as v from "valibot"
-
 
 export const createOneAccountRouteDefinition = routeDefinition({
     protocol: "http",
     path: `${routePath.auth}/create-one-account`,
     schemas: {
         body: v.object({
-            idOrganization: accountSchema.entries.idOrganization,
             idYear: accountSchema.entries.idYear,
             idAccountParent: accountSchema.entries.idAccountParent,
 
@@ -27,8 +25,8 @@ export const createOneAccountRouteDefinition = routeDefinition({
             isSelectable: accountSchema.entries.isSelectable,
             number: accountSchema.entries.number,
             label: accountSchema.entries.label,
-            type: accountSchema.entries.type
+            type: accountSchema.entries.type,
         }),
-        return: accountSchemaReturn
+        return: accountSchemaReturn,
     },
 })

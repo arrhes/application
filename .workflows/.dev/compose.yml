@@ -1,0 +1,154 @@
+# ==============================================================================
+# Arrhes Application - Development Environment
+# ==============================================================================
+# Docker Compose configuration for local development
+#
+# Architecture:
+# - Full workspace: bind-mounted from host (including node_modules)
+# - Dependencies must be installed on the host (`pnpm install`)
+# - Infrastructure: PostgreSQL, RustFS (S3), Mailpit (SMTP)
+# - Services: API, Website
+#
+# Usage:
+#   docker compose -f .workflows/.dev/compose.yml up -d     # Start all services
+#   docker compose -f .workflows/.dev/compose.yml down      # Stop all services
+#   docker compose -f .workflows/.dev/compose.yml logs -f   # View logs
+# ==============================================================================
+
+services:
+  # ============================================================================
+  # Infrastructure Services
+  # ============================================================================
+  
+  # PostgreSQL - Relational database for application data
+  postgres:
+    container_name: arrhes-postgres
+    image: postgres:18.1
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: default
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d default"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # RustFS - S3-compatible object storage for files
+  rustfs:
+    container_name: arrhes-rustfs
+    image: rustfs/rustfs:latest
+    restart: unless-stopped
+    environment:
+      RUSTFS_CONSOLE_ENABLE: true
+      RUSTFS_ACCESS_KEY: rustfsadmin
+      RUSTFS_SECRET_KEY: rustfsadmin
+      RUSTFS_VOLUMES: /data
+    ports:
+      - "9000:9000"  # API
+      - "9001:9001"  # Web Console
+    volumes:
+      - rustfs_data:/data
+    init: true
+    healthcheck:
+      test: ["CMD-SHELL", "wget --quiet --tries=1 --spider http://localhost:9000 2>&1 | grep -q '403 Forbidden' && exit 0 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Mailpit - Development SMTP server with web interface
+  mailpit:
+    container_name: arrhes-mailpit
+    image: axllent/mailpit:latest
+    restart: unless-stopped
+    ports:
+      - "1025:1025"  # SMTP
+      - "8025:8025"  # Web UI
+    healthcheck:
+      test: ["CMD-SHELL", "wget --quiet --tries=1 --spider http://localhost:8025 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ============================================================================
+  # Application Services
+  # ============================================================================
+
+  # API - Backend service (Hono framework on Node.js)
+  api:
+    container_name: arrhes-api
+    image: arrhes-dev-api:latest
+    build:
+      context: ../..
+      dockerfile: .workflows/.dev/packages/api/Dockerfile
+      args:
+        NODE_VERSION: "25.2.1"
+        PNPM_VERSION: "10.26.1"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../..:/workspace:cached
+    environment:
+      # API environment (packages/api)
+      ENV: development
+      VERBOSE: "true"
+      PORT: "3000"
+      CORS_ORIGIN: http://localhost:5173
+      COOKIES_DOMAIN: localhost
+      COOKIES_KEY: development-secret-key-change-in-production-min-32-chars
+      API_BASE_URL: http://localhost:3000
+      APPLICATION_BASE_URL: http://localhost:5173
+      WEBSITE_BASE_URL: http://localhost:5173
+      SQL_DATABASE_URL: postgres://postgres:admin@postgres:5432/default
+      STORAGE_ENDPOINT: http://rustfs:9000
+      STORAGE_PUBLIC_ENDPOINT: http://localhost:9000
+      STORAGE_BUCKET_NAME: arrhes-files
+      STORAGE_ACCESS_KEY: rustfsadmin
+      STORAGE_SECRET_KEY: rustfsadmin
+      EMAIL_ENDPOINT: mailpit:1025
+      EMAIL_USER: test
+      EMAIL_PASSWORD: test
+      MOLLIE_API_KEY: test_z8gjjnezmRNx7dretKbEr5vcCfADh9
+      # Tools environment (packages/tools) - used by migrate/seed
+      NODE_ENV: development
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rustfs:
+        condition: service_healthy
+      mailpit:
+        condition: service_healthy
+
+  # Website - Frontend interface (React + Vite)
+  website:
+    container_name: arrhes-website
+    image: arrhes-dev-website:latest
+    build:
+      context: ../..
+      dockerfile: .workflows/.dev/packages/website/Dockerfile
+      args:
+        NODE_VERSION: "25.2.1"
+        PNPM_VERSION: "10.26.1"
+    ports:
+      - "5173:5173"
+    volumes:
+      - ../..:/workspace:cached
+    environment:
+      # Vite reads VITE_* from .env files, not process.env.
+      # The entrypoint writes these to packages/website/.env at startup.
+      VITE_ENV: development
+      VITE_API_BASE_URL: http://localhost:3000
+      VITE_DASHBOARD_BASE_URL: http://localhost:5173
+      VITE_WEBSITE_BASE_URL: http://localhost:5173
+
+# ==============================================================================
+# Named Volumes (Persistent infrastructure data)
+# ==============================================================================
+volumes:
+  postgres_data:
+  rustfs_data:

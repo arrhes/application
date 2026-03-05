@@ -11,11 +11,7 @@
         "sourceMap": true,
         "target": "ES2022",
         "useDefineForClassFields": true,
-        "lib": [
-            "ES2022",
-            "DOM",
-            "DOM.Iterable"
-        ],
+        "lib": ["ES2022", "DOM", "DOM.Iterable"],
         "module": "ESNext",
         "skipLibCheck": true,
         "moduleResolution": "bundler",
@@ -32,9 +28,5 @@
         "noUncheckedSideEffectImports": true,
         "baseUrl": "."
     },
-    "include": [
-        "panda.config.ts",
-        "src",
-        "styled-system"
-    ]
+    "include": ["panda.config.ts", "src", "styled-system"]
 }

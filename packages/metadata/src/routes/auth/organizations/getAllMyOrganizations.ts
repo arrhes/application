@@ -1,9 +1,8 @@
-import { routePath } from "../../../components/_index.js"
+import * as v from "valibot"
+import { routePath } from "../../../components/index.js"
 import { organizationSchemaReturn } from "../../../schemas/organization.js"
 import { organizationUserSchemaReturn } from "../../../schemas/organizationUser.js"
 import { routeDefinition } from "../../../utilities/routeDefinition.js"
-import * as v from "valibot"
-
 
 export const getAllMyOrganizationsRouteDefinition = routeDefinition({
     protocol: "http",
@@ -14,7 +13,7 @@ export const getAllMyOrganizationsRouteDefinition = routeDefinition({
             v.object({
                 ...organizationUserSchemaReturn.entries,
                 organization: organizationSchemaReturn,
-            })
-        )
+            }),
+        ),
     },
 })

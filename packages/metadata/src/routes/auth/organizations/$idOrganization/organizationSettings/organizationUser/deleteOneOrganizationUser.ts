@@ -1,8 +1,7 @@
-import { routePath } from "../../../../../../components/_index.js"
+import * as v from "valibot"
+import { routePath } from "../../../../../../components/index.js"
 import { organizationUserSchema } from "../../../../../../schemas/organizationUser.js"
 import { routeDefinition } from "../../../../../../utilities/routeDefinition.js"
-import * as v from "valibot"
-
 
 export const deleteOneOrganizationUserRouteDefinition = routeDefinition({
     protocol: "http",
@@ -10,8 +9,7 @@ export const deleteOneOrganizationUserRouteDefinition = routeDefinition({
     schemas: {
         body: v.object({
             idOrganizationUser: organizationUserSchema.entries.id,
-            idOrganization: organizationUserSchema.entries.idOrganization,
         }),
-        return: v.object({})
+        return: v.object({}),
     },
 })

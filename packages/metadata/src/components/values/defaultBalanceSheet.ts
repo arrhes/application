@@ -1,6 +1,5 @@
-import { balanceSheetFlow } from "./balanceSheetFlow.js"
-import { balanceSheetSide } from "./balanceSheetSide.js"
-
+import type { balanceSheetFlow } from "./balanceSheetFlow.js"
+import type { balanceSheetSide } from "./balanceSheetSide.js"
 
 export type DefaultBalanceSheet = {
     side: (typeof balanceSheetSide)[number]

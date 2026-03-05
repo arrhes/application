@@ -1,40 +1,35 @@
-import { authFactory } from "../../../factories/authFactory.js"
+import { activateOrganizationMembershipRouteDefinition, models } from "@arrhes/application-metadata"
+import { and, eq } from "drizzle-orm"
+import { checkUserSessionMiddleware } from "../../../middlewares/checkUserSessionMiddleware.js"
+import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"
+import { apiFactory } from "../../../utilities/apiFactory.js"
 import { response } from "../../../utilities/response.js"
 import { updateOne } from "../../../utilities/sql/updateOne.js"
-import { bodyValidator } from "../../../validators/bodyValidator.js"
-import { models } from "@arrhes/application-metadata/models"
-import { activateOrganizationMembershipRouteDefinition } from "@arrhes/application-metadata/routes"
-import { and, eq } from "drizzle-orm"
 
+export const activateOrganizationMembershipRoute = apiFactory
+    .createApp()
+    .post(activateOrganizationMembershipRouteDefinition.path, async (c) => {
+        const { user } = await checkUserSessionMiddleware({ context: c })
+        const body = await validateBodyMiddleware({
+            context: c,
+            schema: activateOrganizationMembershipRouteDefinition.schemas.body,
+        })
 
-export const activateOrganizationMembershipRoute = authFactory.createApp()
-    .post(
-        activateOrganizationMembershipRouteDefinition.path,
-        bodyValidator(activateOrganizationMembershipRouteDefinition.schemas.body),
-        async (c) => {
-            const body = c.req.valid("json")
+        const activateOrganizationUser = await updateOne({
+            database: c.var.clients.sql,
+            table: models.organizationUser,
+            data: {
+                status: "active",
+                lastUpdatedAt: new Date().toISOString(),
+                lastUpdatedBy: user.id,
+            },
+            where: (table) => and(eq(table.id, body.idOrganizationUser), eq(table.idUser, user.id)),
+        })
 
-            const activateOrganizationUser = await updateOne({
-                database: c.var.clients.sql,
-                table: models.organizationUser,
-                data: {
-                    status: "active",
-                    lastUpdatedAt: new Date().toISOString(),
-                    lastUpdatedBy: c.var.user.id,
-                },
-                where: (table) => (
-                    and(
-                        eq(table.id, body.idOrganizationUser),
-                        eq(table.idUser, c.var.user.id),
-                    )
-                )
-            })
-
-            return response({
-                context: c,
-                statusCode: 200,
-                schema: activateOrganizationMembershipRouteDefinition.schemas.return,
-                data: activateOrganizationUser,
-            })
-        }
-    )
+        return response({
+            context: c,
+            statusCode: 200,
+            schema: activateOrganizationMembershipRouteDefinition.schemas.return,
+            data: activateOrganizationUser,
+        })
+    })

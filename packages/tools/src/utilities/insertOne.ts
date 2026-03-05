@@ -1,20 +1,14 @@
-import { TableConfig } from "drizzle-orm"
-import { PgInsertValue, PgTable } from "drizzle-orm/pg-core"
-import { dbClient } from "../dbClient.js"
+import type { TableConfig } from "drizzle-orm"
+import type { PgInsertValue, PgTable } from "drizzle-orm/pg-core"
+import type { dbClient } from "../dbClient.js"
 
-
-export async function insertOne<
-    T extends PgTable<TableConfig>
->(parameters: {
-    database: typeof dbClient | Parameters<Parameters<typeof dbClient["transaction"]>[0]>[0]
+export async function insertOne<T extends PgTable<TableConfig>>(parameters: {
+    database: typeof dbClient | Parameters<Parameters<(typeof dbClient)["transaction"]>[0]>[0]
     table: T
     data: PgInsertValue<T>
 }): Promise<T["$inferSelect"]> {
     try {
-        const responseMany = await parameters.database
-            .insert(parameters.table)
-            .values(parameters.data)
-            .returning()
+        const responseMany = await parameters.database.insert(parameters.table).values(parameters.data).returning()
 
         const responseOne = responseMany.at(0)
         if (responseOne === undefined) {
@@ -22,8 +16,7 @@ export async function insertOne<
         }
 
         return responseOne
-    }
-    catch (error: unknown) {
+    } catch (_error: unknown) {
         throw new Error("Object not inserted")
     }
 }

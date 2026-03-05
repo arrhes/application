@@ -1,4 +1,1 @@
-export const organizationScope = <const>[
-    "company",
-    "association",
-]
+export const organizationScope = <const>["company", "association"]

@@ -6,7 +6,6 @@
 // import * as v from "valibot"
 // import { db } from "../../../clients/db.js"
 
-
 // type GenerateLastYearData = {
 //     organization: v.Output<typeof auth.organizations.get.return>
 //     year: v.Output<typeof auth.years.get.return>
@@ -81,7 +80,6 @@
 //             .values(newBalanceSheets)
 //     }
 
-
 //     // Add accountBalanceSheets
 //     const lastYearAccountBalanceSheets = await db
 //         .select()
@@ -105,7 +103,6 @@
 //             .insert(accountBalanceSheets)
 //             .values(newAccountBalanceSheets)
 //     }
-
 
 //     // Add incomeStatements
 //     const currentIncomeStatements = await db
@@ -142,7 +139,6 @@
 //             .values(newIncomeStatements)
 //     }
 
-
 //     // Add accountIncomeStatements
 //     const lastYearAccountIncomeStatements = await db
 //         .select()
@@ -164,7 +160,6 @@
 //             .insert(accountIncomeStatements)
 //             .values(newAccountIncomeStatements)
 //     }
-
 
 //     // Add computations
 //     const lastYearComputations = await db
@@ -188,7 +183,6 @@
 //             .insert(computations)
 //             .values(newComputations)
 //     }
-
 
 //     // Add computationIncomeStatements
 //     const lastYearComputationIncomeStatements = await db

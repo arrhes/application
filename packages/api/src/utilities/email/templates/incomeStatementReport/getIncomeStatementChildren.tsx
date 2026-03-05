@@ -1,7 +1,5 @@
-import { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import * as v from "valibot"
-
-
+import type { returnedSchemas } from "@arrhes/application-metadata"
+import type * as v from "valibot"
 
 export function getIncomeStatementChildren(parameters: {
     incomeStatement: v.InferOutput<typeof returnedSchemas.incomeStatement>
@@ -9,13 +7,17 @@ export function getIncomeStatementChildren(parameters: {
 }): Array<v.InferOutput<typeof returnedSchemas.incomeStatement>> {
     if (parameters.incomeStatements.length === 0) return []
 
-    const children = parameters.incomeStatements.filter((incomeStatement) => incomeStatement.idIncomeStatementParent === parameters.incomeStatement.id)
+    const children = parameters.incomeStatements.filter(
+        (incomeStatement) => incomeStatement.idIncomeStatementParent === parameters.incomeStatement.id,
+    )
 
     return [
         ...children,
-        ...children.flatMap((incomeStatement) => getIncomeStatementChildren({
-            incomeStatement: incomeStatement,
-            incomeStatements: parameters.incomeStatements,
-        }))
+        ...children.flatMap((incomeStatement) =>
+            getIncomeStatementChildren({
+                incomeStatement: incomeStatement,
+                incomeStatements: parameters.incomeStatements,
+            }),
+        ),
     ]
 }

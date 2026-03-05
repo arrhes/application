@@ -1,0 +1,8 @@
+# ==============================================================================
+# .dockerignore - Excludes files from Docker build context
+# ==============================================================================
+# Minimal exclusions since the Dockerfiles no longer COPY source code.
+# The build context is only used for the Dockerfile itself.
+# ==============================================================================
+
+.git

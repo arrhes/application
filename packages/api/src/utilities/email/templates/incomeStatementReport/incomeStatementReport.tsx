@@ -1,8 +1,7 @@
+import type { returnedSchemas } from "@arrhes/application-metadata"
+import { css, Style } from "hono/css"
+import type * as v from "valibot"
 import { IncomeStatementsReportTable } from "./incomeStatementsReportTable.js"
-import { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Style, css } from "hono/css"
-import * as v from "valibot"
-
 
 function IncomeStatementReport(props: {
     accounts: Array<v.InferOutput<typeof returnedSchemas.account>>
@@ -18,7 +17,9 @@ function IncomeStatementReport(props: {
                 <Style />
             </head>
             <body class={css`width: fit-content; height: fit-content; overflow: scroll; margin: 32px;`}>
-                <div class={css`width: fit-content; min-height:fit-content; overflow: scroll; display: flex; flex-direction: column; gap:16px;`}>
+                <div
+                    class={css`width: fit-content; min-height:fit-content; overflow: scroll; display: flex; flex-direction: column; gap:16px;`}
+                >
                     <IncomeStatementsReportTable
                         accounts={props.accounts}
                         recordRows={props.recordRows}

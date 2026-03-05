@@ -1,4 +1,3 @@
-
 export type DefaultJournal = {
     code: string
     label: string
@@ -7,22 +6,22 @@ export type DefaultJournal = {
 export const defaultJournals: DefaultJournal[] = [
     {
         code: "VT",
-        label: "Ventes"
+        label: "Ventes",
     },
     {
         code: "AC",
-        label: "Achats"
+        label: "Achats",
     },
     {
         code: "BQ",
-        label: "Banque"
+        label: "Banque",
     },
     {
         code: "OD",
-        label: "Opérations diverses"
+        label: "Opérations diverses",
     },
     {
         code: "AN",
-        label: "À-nouveaux"
-    }
+        label: "À-nouveaux",
+    },
 ]

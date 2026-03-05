@@ -1,15 +1,14 @@
-import { apiFactory } from "./factories/apiFactory.js"
-import { routes } from "./routes/routes.js"
-import { apiLog } from "./utilities/apiLog.js"
-import { Exception } from "./utilities/exception.js"
-import { getClients } from "./utilities/getClients.js"
-import { getEnv } from "./utilities/getEnv.js"
-import { response } from "./utilities/response.js"
 import { cors } from "hono/cors"
 import { logger } from "hono/logger"
 import pg from "postgres"
 import * as v from "valibot"
-
+import { routes } from "./routes/routes.js"
+import { apiFactory } from "./utilities/apiFactory.js"
+import { apiLog } from "./utilities/apiLog.js"
+import { Exception } from "./utilities/exception.js"
+import type { getClients } from "./utilities/getClients.js"
+import type { getEnv } from "./utilities/getEnv.js"
+import { response } from "./utilities/response.js"
 
 export async function api(parameters: {
     env: ReturnType<typeof getEnv>
@@ -17,7 +16,8 @@ export async function api(parameters: {
 }) {
     try {
         // Create app
-        const api = apiFactory.createApp()
+        const api = apiFactory
+            .createApp()
 
             // Set logger
             .use(logger())
@@ -33,14 +33,23 @@ export async function api(parameters: {
             .use("/*", async (c, next) => {
                 const corsMiddlewareHandler = cors({
                     origin: c.var.env.CORS_ORIGIN.split(",") ?? "*",
-                    allowHeaders: ["Content-Type", "Authorization", "Cookie", "Set-Cookie", "Credentials", "X-Forwaded-For", "Cache-Control"],
+                    allowHeaders: [
+                        "Content-Type",
+                        "Authorization",
+                        "Cookie",
+                        "Set-Cookie",
+                        "Credentials",
+                        "X-Forwaded-For",
+                        "X-Organization-Id",
+                        "Cache-Control",
+                    ],
                     allowMethods: ["POST"],
                     credentials: true,
                 })
                 return corsMiddlewareHandler(c, next)
             })
 
-            // Set error handler           
+            // Set error handler
             .onError(async (error, c) => {
                 if (error instanceof Exception) {
                     apiLog({
@@ -49,29 +58,31 @@ export async function api(parameters: {
                         internalMessage: error.internalMessage,
                         externalMessage: error.externalMessage,
                         cause: error.cause,
-                        stack: error.stack
+                        stack: error.stack,
                     })
                     if (error.statusCode === 500) {
                         return response({
                             context: c,
                             statusCode: 500,
                             schema: v.object({
-                                message: v.string()
+                                message: v.string(),
                             }),
                             data: {
-                                message: "Internal error"
-                            }
+                                message: "Internal error",
+                            },
                         })
                     }
                     return response({
                         context: c,
                         statusCode: error.statusCode,
                         schema: v.object({
-                            message: v.string()
+                            message: v.string(),
+                            cause: v.optional(v.string()),
                         }),
                         data: {
-                            message: error.message
-                        }
+                            message: error.externalMessage ?? "Internal error",
+                            cause: typeof error.cause === "string" ? error.cause : undefined,
+                        },
                     })
                 }
                 if (error instanceof pg.PostgresError) {
@@ -80,17 +91,17 @@ export async function api(parameters: {
                         type: "error",
                         internalMessage: error.message,
                         cause: String(error.cause),
-                        stack: error.stack
+                        stack: error.stack,
                     })
                     return response({
                         context: c,
                         statusCode: 500,
                         schema: v.object({
-                            message: v.string()
+                            message: v.string(),
                         }),
                         data: {
                             message: "Internal error",
-                        }
+                        },
                     })
                 }
                 apiLog({
@@ -104,12 +115,12 @@ export async function api(parameters: {
                     context: c,
                     statusCode: 500,
                     schema: v.object({
-                        message: v.string()
+                        message: v.string(),
                     }),
                     data: {
                         errorCode: "SERVER_ERROR",
-                        message: "Internal error"
-                    }
+                        message: "Internal error",
+                    },
                 })
             })
 
@@ -119,12 +130,12 @@ export async function api(parameters: {
                     statusCode: 200,
                     schema: v.object({
                         state: v.boolean(),
-                        message: v.string()
+                        message: v.string(),
                     }),
                     data: {
                         state: true,
-                        message: "Server is running"
-                    }
+                        message: "Server is running",
+                    },
                 })
             })
 
@@ -135,20 +146,16 @@ export async function api(parameters: {
                     context: c,
                     statusCode: 404,
                     schema: v.object({
-                        message: v.string()
+                        message: v.string(),
                     }),
                     data: {
-                        message: "Endpoint not found"
-                    }
+                        message: "Endpoint not found",
+                    },
                 })
             })
 
         return api
-    }
-    catch (error: unknown) {
+    } catch (error: unknown) {
         throw new Error("Failed to create api", { cause: error })
     }
 }
-
-
-

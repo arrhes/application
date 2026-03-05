@@ -1,5 +1,1 @@
-export const documentType = <const>[
-    "bilan",
-    "compte_de_résultat",
-    "fec"
-]
+export const documentType = <const>["bilan", "compte_de_résultat", "fec"]

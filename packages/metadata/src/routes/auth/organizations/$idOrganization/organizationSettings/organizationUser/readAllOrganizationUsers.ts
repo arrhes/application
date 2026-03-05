@@ -1,17 +1,14 @@
-import { routePath } from "../../../../../../components/_index.js"
-import { organizationUserSchema, organizationUserSchemaReturn } from "../../../../../../schemas/organizationUser.js"
+import * as v from "valibot"
+import { routePath } from "../../../../../../components/index.js"
+import { organizationUserSchemaReturn } from "../../../../../../schemas/organizationUser.js"
 import { userSchemaReturn } from "../../../../../../schemas/user.js"
 import { routeDefinition } from "../../../../../../utilities/routeDefinition.js"
-import * as v from "valibot"
-
 
 export const readAllOrganizationUsersRouteDefinition = routeDefinition({
     protocol: "http",
     path: `${routePath.auth}/read-all-organization-users`,
     schemas: {
-        body: v.object({
-            idOrganization: organizationUserSchema.entries.idOrganization,
-        }),
+        body: v.object({}),
         return: v.array(
             v.object({
                 ...organizationUserSchemaReturn.entries,
@@ -19,8 +16,8 @@ export const readAllOrganizationUsersRouteDefinition = routeDefinition({
                     id: userSchemaReturn.entries.id,
                     email: userSchemaReturn.entries.email,
                     alias: userSchemaReturn.entries.alias,
-                })
-            })
-        )
+                }),
+            }),
+        ),
     },
 })

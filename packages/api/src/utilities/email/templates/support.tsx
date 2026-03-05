@@ -1,10 +1,4 @@
-
-
-function Support(props: {
-    category: string
-    date: string
-    message: string
-}) {
+function Support(props: { category: string; date: string; message: string }) {
     return (
         <html lang="fr">
             <body>

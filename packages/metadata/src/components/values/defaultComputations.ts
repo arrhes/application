@@ -1,5 +1,3 @@
-
-
 export type DefaultComputation = {
     number: number
     label: string
@@ -16,13 +14,13 @@ export const defaultComputations: DefaultComputation[] = [
         incomeStatements: [
             {
                 number: 1,
-                operation: "plus"
+                operation: "plus",
             },
             {
                 number: 2,
-                operation: "minus"
-            }
-        ]
+                operation: "minus",
+            },
+        ],
     },
     {
         number: 2,
@@ -30,13 +28,13 @@ export const defaultComputations: DefaultComputation[] = [
         incomeStatements: [
             {
                 number: 5,
-                operation: "plus"
+                operation: "plus",
             },
             {
                 number: 6,
-                operation: "minus"
-            }
-        ]
+                operation: "minus",
+            },
+        ],
     },
     {
         number: 3,
@@ -44,29 +42,29 @@ export const defaultComputations: DefaultComputation[] = [
         incomeStatements: [
             {
                 number: 1,
-                operation: "plus"
+                operation: "plus",
             },
             {
                 number: 2,
-                operation: "minus"
+                operation: "minus",
             },
             {
                 number: 3,
-                operation: "plus"
+                operation: "plus",
             },
             {
                 number: 4,
-                operation: "minus"
+                operation: "minus",
             },
             {
                 number: 5,
-                operation: "plus"
+                operation: "plus",
             },
             {
                 number: 6,
-                operation: "minus"
-            }
-        ]
+                operation: "minus",
+            },
+        ],
     },
     {
         number: 4,
@@ -74,13 +72,13 @@ export const defaultComputations: DefaultComputation[] = [
         incomeStatements: [
             {
                 number: 7,
-                operation: "plus"
+                operation: "plus",
             },
             {
                 number: 8,
-                operation: "minus"
-            }
-        ]
+                operation: "minus",
+            },
+        ],
     },
     {
         number: 5,
@@ -88,21 +86,21 @@ export const defaultComputations: DefaultComputation[] = [
         incomeStatements: [
             {
                 number: 1,
-                operation: "plus"
+                operation: "plus",
             },
             {
                 number: 3,
-                operation: "plus"
+                operation: "plus",
             },
             {
                 number: 5,
-                operation: "plus"
+                operation: "plus",
             },
             {
                 number: 7,
-                operation: "plus"
+                operation: "plus",
             },
-        ]
+        ],
     },
     {
         number: 6,
@@ -110,29 +108,29 @@ export const defaultComputations: DefaultComputation[] = [
         incomeStatements: [
             {
                 number: 2,
-                operation: "plus"
+                operation: "plus",
             },
             {
                 number: 4,
-                operation: "plus"
+                operation: "plus",
             },
             {
                 number: 6,
-                operation: "plus"
+                operation: "plus",
             },
             {
                 number: 8,
-                operation: "plus"
+                operation: "plus",
             },
             {
                 number: 9,
-                operation: "plus"
+                operation: "plus",
             },
             {
                 number: 10,
-                operation: "plus"
-            }
-        ]
+                operation: "plus",
+            },
+        ],
     },
     {
         number: 7,
@@ -140,44 +138,44 @@ export const defaultComputations: DefaultComputation[] = [
         incomeStatements: [
             {
                 number: 1,
-                operation: "plus"
+                operation: "plus",
             },
             {
                 number: 2,
-                operation: "minus"
+                operation: "minus",
             },
             {
                 number: 3,
-                operation: "plus"
+                operation: "plus",
             },
             {
                 number: 4,
-                operation: "minus"
+                operation: "minus",
             },
             {
                 number: 5,
-                operation: "plus"
+                operation: "plus",
             },
             {
                 number: 6,
-                operation: "minus"
+                operation: "minus",
             },
             {
                 number: 7,
-                operation: "plus"
+                operation: "plus",
             },
             {
                 number: 8,
-                operation: "minus"
+                operation: "minus",
             },
             {
                 number: 9,
-                operation: "minus"
+                operation: "minus",
             },
             {
                 number: 10,
-                operation: "minus"
-            }
-        ]
-    }
+                operation: "minus",
+            },
+        ],
+    },
 ]

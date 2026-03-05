@@ -1,36 +1,31 @@
-import { dateTimeSchema } from "../components/_index.js"
+import * as v from "valibot"
+import { dateTimeSchema } from "../components/index.js"
 import { idSchema } from "../components/schemas/idSchema.js"
 import { varcharSchema } from "../components/schemas/varcharSchema.js"
-import { recordLabelModel } from "../models/recordLabel.js"
-import * as v from "valibot"
-
+import type { recordLabelModel } from "../models/recordLabel.js"
 
 export const recordLabelSchema = v.object({
-    id: v.nonNullable(idSchema),
-    idOrganization: v.nonNullable(idSchema),
-    idYear: v.nonNullable(idSchema),
+    id: v.nonNullable(idSchema, "Ce champ est requis"),
+    idOrganization: v.nonNullable(idSchema, "Ce champ est requis"),
+    idYear: v.nonNullable(idSchema, "Ce champ est requis"),
 
-    label: v.nonNullable(varcharSchema({ maxLength: 256 })),
+    label: v.nonNullable(varcharSchema({ maxLength: 256 }), "Ce champ est requis"),
 
-    createdAt: v.nonNullable(dateTimeSchema),
+    createdAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),
     lastUpdatedAt: v.nullable(dateTimeSchema),
     createdBy: v.nullable(idSchema),
     lastUpdatedBy: v.nullable(idSchema),
 }) satisfies v.GenericSchema<typeof recordLabelModel.$inferSelect>
 
+export const recordLabelSchemaReturn = v.pick(recordLabelSchema, [
+    "id",
+    "idOrganization",
+    "idYear",
 
-export const recordLabelSchemaReturn = v.pick(
-    recordLabelSchema,
-    [
-        "id",
-        "idOrganization",
-        "idYear",
+    "label",
 
-        "label",
-
-        "createdAt",
-        "lastUpdatedAt",
-        "createdBy",
-        "lastUpdatedBy",
-    ]
-)
+    "createdAt",
+    "lastUpdatedAt",
+    "createdBy",
+    "lastUpdatedBy",
+])

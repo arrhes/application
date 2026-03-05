@@ -1,10 +1,9 @@
+import type { returnedSchemas } from "@arrhes/application-metadata"
+import { Fragment } from "hono/jsx/jsx-runtime"
+import type * as v from "valibot"
+import { numberToRomanString } from "../../../numberToRomanString.js"
 import { getIncomeStatementChildren } from "./getIncomeStatementChildren.js"
 import { IncomeStatementReportRow } from "./incomeStatementReportRow.js"
-import { numberToRomanString } from "../../../numberToRomanString.js"
-import { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Fragment } from "hono/jsx/jsx-runtime"
-import * as v from "valibot"
-
 
 export function IncomeStatementReportItem(props: {
     accounts: Array<v.InferOutput<typeof returnedSchemas.account>>
@@ -13,20 +12,19 @@ export function IncomeStatementReportItem(props: {
     incomeStatementChildren: Array<v.InferOutput<typeof returnedSchemas.incomeStatement>>
     level: number
 }) {
-
-    const number = (props.level === 0)
-        ? numberToRomanString(Number(props.incomeStatement.number))
-        : null
+    const number = props.level === 0 ? numberToRomanString(Number(props.incomeStatement.number)) : null
 
     const label = props.incomeStatement.label
 
-    const isAmountDisplayed = (props.incomeStatement.isComputed === true || props.incomeStatementChildren.length === 0)
+    const isAmountDisplayed = props.incomeStatement.isComputed === true || props.incomeStatementChildren.length === 0
 
     let amount = 0
     props.accounts
         .filter((account) => {
             const hasAccount = props.incomeStatement.id === account.idIncomeStatement
-            const hasChildrenAccount = props.incomeStatementChildren.some((incomeStatement) => incomeStatement.id === account.idIncomeStatement)
+            const hasChildrenAccount = props.incomeStatementChildren.some(
+                (incomeStatement) => incomeStatement.id === account.idIncomeStatement,
+            )
             return hasAccount || hasChildrenAccount
         })
         .forEach((account) => {
@@ -47,27 +45,25 @@ export function IncomeStatementReportItem(props: {
                 amount={Math.abs(amount)}
                 isAmountDisplayed={isAmountDisplayed}
             />
-            {
-                props.incomeStatementChildren
-                    .filter((incomeStatement) => incomeStatement.idIncomeStatementParent === props.incomeStatement.id)
-                    .map((incomeStatement) => {
-                        const incomeStatementChildren = getIncomeStatementChildren({
-                            incomeStatement: incomeStatement,
-                            incomeStatements: props.incomeStatementChildren,
-                        })
-
-                        return (
-                            <IncomeStatementReportItem
-                                key={incomeStatement.id}
-                                accounts={props.accounts}
-                                recordRows={props.recordRows}
-                                incomeStatement={incomeStatement}
-                                incomeStatementChildren={incomeStatementChildren}
-                                level={props.level + 1}
-                            />
-                        )
+            {props.incomeStatementChildren
+                .filter((incomeStatement) => incomeStatement.idIncomeStatementParent === props.incomeStatement.id)
+                .map((incomeStatement) => {
+                    const incomeStatementChildren = getIncomeStatementChildren({
+                        incomeStatement: incomeStatement,
+                        incomeStatements: props.incomeStatementChildren,
                     })
-            }
+
+                    return (
+                        <IncomeStatementReportItem
+                            key={incomeStatement.id}
+                            accounts={props.accounts}
+                            recordRows={props.recordRows}
+                            incomeStatement={incomeStatement}
+                            incomeStatementChildren={incomeStatementChildren}
+                            level={props.level + 1}
+                        />
+                    )
+                })}
         </Fragment>
     )
 }

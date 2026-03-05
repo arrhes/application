@@ -1,6 +1,1 @@
-export const colorVariant = <const>[
-    "success",
-    "error",
-    "warning",
-    "information",
-]
+export const colorVariant = <const>["success", "error", "warning", "information"]

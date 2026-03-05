@@ -1,8 +1,7 @@
-import { routePath } from "../../../../../../../../../components/_index.js"
+import * as v from "valibot"
+import { routePath } from "../../../../../../../../../components/index.js"
 import { accountSchema } from "../../../../../../../../../schemas/account.js"
 import { routeDefinition } from "../../../../../../../../../utilities/routeDefinition.js"
-import * as v from "valibot"
-
 
 export const deleteOneAccountRouteDefinition = routeDefinition({
     protocol: "http",
@@ -10,9 +9,8 @@ export const deleteOneAccountRouteDefinition = routeDefinition({
     schemas: {
         body: v.object({
             idAccount: accountSchema.entries.id,
-            idOrganization: accountSchema.entries.idOrganization,
             idYear: accountSchema.entries.idYear,
         }),
-        return: v.object({})
+        return: v.object({}),
     },
 })

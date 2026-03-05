@@ -1,8 +1,7 @@
-import { routePath } from "../../../../../../../../../components/_index.js"
+import * as v from "valibot"
+import { routePath } from "../../../../../../../../../components/index.js"
 import { recordRowSchema } from "../../../../../../../../../schemas/recordRow.js"
 import { routeDefinition } from "../../../../../../../../../utilities/routeDefinition.js"
-import * as v from "valibot"
-
 
 export const updateManyRecordRowsRouteDefinition = routeDefinition({
     protocol: "http",
@@ -10,7 +9,6 @@ export const updateManyRecordRowsRouteDefinition = routeDefinition({
     schemas: {
         body: v.object({
             idRecord: recordRowSchema.entries.idRecord,
-            idOrganization: recordRowSchema.entries.idOrganization,
             idYear: recordRowSchema.entries.idYear,
 
             isComputedForJournalReport: v.optional(recordRowSchema.entries.isComputedForJournalReport),
@@ -20,6 +18,6 @@ export const updateManyRecordRowsRouteDefinition = routeDefinition({
             isComputedForIncomeStatementReport: v.optional(recordRowSchema.entries.isComputedForIncomeStatementReport),
             label: v.optional(recordRowSchema.entries.label),
         }),
-        return: v.array(recordRowSchema)
+        return: v.array(recordRowSchema),
     },
 })

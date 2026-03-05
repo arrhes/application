@@ -1,8 +1,10 @@
-import { routePath } from "../../../../../../../../../components/_index.js"
-import { incomeStatementSchema, incomeStatementSchemaReturn } from "../../../../../../../../../schemas/incomeStatement.js"
-import { routeDefinition } from "../../../../../../../../../utilities/routeDefinition.js"
 import * as v from "valibot"
-
+import { routePath } from "../../../../../../../../../components/index.js"
+import {
+    incomeStatementSchema,
+    incomeStatementSchemaReturn,
+} from "../../../../../../../../../schemas/incomeStatement.js"
+import { routeDefinition } from "../../../../../../../../../utilities/routeDefinition.js"
 
 export const updateOneIncomeStatementRouteDefinition = routeDefinition({
     protocol: "http",
@@ -10,13 +12,12 @@ export const updateOneIncomeStatementRouteDefinition = routeDefinition({
     schemas: {
         body: v.object({
             idIncomeStatement: incomeStatementSchema.entries.id,
-            idOrganization: incomeStatementSchema.entries.idOrganization,
             idYear: incomeStatementSchema.entries.idYear,
             idIncomeStatementParent: v.optional(incomeStatementSchema.entries.idIncomeStatementParent),
             isComputed: v.optional(incomeStatementSchema.entries.isComputed),
             number: v.optional(incomeStatementSchema.entries.number),
             label: v.optional(incomeStatementSchema.entries.label),
         }),
-        return: incomeStatementSchemaReturn
+        return: incomeStatementSchemaReturn,
     },
 })

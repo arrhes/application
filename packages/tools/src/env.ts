@@ -1,12 +1,11 @@
-import * as v from 'valibot'
-
+import * as v from "valibot"
 
 export function env() {
     try {
         return v.parse(
             v.object({
                 NODE_ENV: v.picklist(["development", "production"]),
-                SQL_DATABASE_URL: v.string()
+                SQL_DATABASE_URL: v.string(),
             }),
             process.env,
         )

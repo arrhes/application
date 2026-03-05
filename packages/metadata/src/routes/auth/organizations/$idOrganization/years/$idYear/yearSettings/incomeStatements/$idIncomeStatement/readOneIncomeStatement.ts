@@ -1,8 +1,10 @@
-import { routePath } from "../../../../../../../../../components/_index.js"
-import { incomeStatementSchema, incomeStatementSchemaReturn } from "../../../../../../../../../schemas/incomeStatement.js"
-import { routeDefinition } from "../../../../../../../../../utilities/routeDefinition.js"
 import * as v from "valibot"
-
+import { routePath } from "../../../../../../../../../components/index.js"
+import {
+    incomeStatementSchema,
+    incomeStatementSchemaReturn,
+} from "../../../../../../../../../schemas/incomeStatement.js"
+import { routeDefinition } from "../../../../../../../../../utilities/routeDefinition.js"
 
 export const readOneIncomeStatementRouteDefinition = routeDefinition({
     protocol: "http",
@@ -10,9 +12,8 @@ export const readOneIncomeStatementRouteDefinition = routeDefinition({
     schemas: {
         body: v.object({
             idIncomeStatement: incomeStatementSchema.entries.id,
-            idOrganization: incomeStatementSchema.entries.idOrganization,
             idYear: incomeStatementSchema.entries.idYear,
         }),
-        return: incomeStatementSchemaReturn
+        return: incomeStatementSchemaReturn,
     },
 })

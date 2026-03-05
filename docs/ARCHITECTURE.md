@@ -1,20 +1,20 @@
 # Architecture
 
-Ce document décrit l'architecture globale du projet Arrhes, un système de comptabilité en partie double pour associations et entreprises françaises.
+Ce document decrit l'architecture globale du projet Arrhes, un systeme de comptabilite en partie double pour associations et entreprises francaises.
 
-## Table des matières
+## Table des matieres
 
 - [Vue d'ensemble](#vue-densemble)
 - [Architecture monorepo](#architecture-monorepo)
 - [Packages](#packages)
 - [Stack technique](#stack-technique)
-- [Flux de données](#flux-de-données)
+- [Flux de donnees](#flux-de-données)
 - [Authentification](#authentification)
-- [Base de données](#base-de-données)
+- [Base de donnees](#base-de-données)
 
 ## Vue d'ensemble
 
-Arrhes est construit sur une architecture monorepo moderne utilisant **pnpm workspaces**. Le projet est divisé en plusieurs packages indépendants mais interconnectés, chacun ayant une responsabilité spécifique.
+Arrhes est construit sur une architecture monorepo moderne utilisant **pnpm workspaces**. Le projet est divise en plusieurs packages independants mais interconnectes, chacun ayant une responsabilite specifique.
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -22,14 +22,16 @@ Arrhes est construit sur une architecture monorepo moderne utilisant **pnpm work
 └────────────────────────────┬────────────────────────────┘
                              │
                   ┌──────────▼──────────┐
-                  │   @arrhes/platform  │  (Frontend React)
+                  │ @arrhes/application  │  (Frontend React)
+                  │    -website          │
                   │   Port: 5173        │
                   └──────────┬──────────┘
                              │
                              │ HTTP/REST
                              │
                   ┌──────────▼──────────┐
-                  │    @arrhes/api      │  (Backend Hono)
+                  │    @arrhes/         │  (Backend Hono)
+                  │   application-api   │
                   │   Port: 3000        │
                   └──────────┬──────────┘
                              │
@@ -43,12 +45,12 @@ Arrhes est construit sur une architecture monorepo moderne utilisant **pnpm work
 
 ## Architecture monorepo
 
-Le projet utilise **pnpm workspaces** pour gérer plusieurs packages dans un seul repository. Cette approche offre plusieurs avantages :
+Le projet utilise **pnpm workspaces** pour gerer plusieurs packages dans un seul repository. Cette approche offre plusieurs avantages :
 
-- **Partage de code** : Les packages peuvent facilement partager du code via `@arrhes/application-metadata`
-- **Dépendances optimisées** : pnpm déduplique les dépendances communes
-- **Développement simplifié** : Build et développement coordonnés entre packages
-- **Versioning cohérent** : Toutes les parties du projet évoluent ensemble
+- **Partage de code** : Les packages peuvent facilement partager du code via `@arrhes/application-metadata` et `@arrhes/ui`
+- **Dependances optimisees** : pnpm deduplique les dependances communes
+- **Developpement simplifie** : Build et developpement coordonnes entre packages
+- **Versioning coherent** : Toutes les parties du projet evoluent ensemble
 
 ### Structure du workspace
 
@@ -56,34 +58,34 @@ Le projet utilise **pnpm workspaces** pour gérer plusieurs packages dans un seu
 arrhes/
 ├── packages/
 │   ├── api/          # Backend API
-│   ├── platform/     # Interface utilisateur
-│   ├── metadata/     # Schémas et types partagés
+│   ├── metadata/     # Schemas et types partages
 │   ├── tools/        # Outils de migration DB
-│   └── website/      # Site vitrine
+│   ├── ui/           # Composants UI partages
+│   └── website/      # Interface utilisateur (dashboard + site vitrine + docs)
 ├── pnpm-workspace.yaml
 └── package.json
 ```
 
 ## Packages
 
-### @arrhes/api
+### @arrhes/application-api
 
-**Rôle :** Backend REST API pour toutes les opérations métier
+**Role :** Backend REST API pour toutes les operations metier
 
 **Technologies :**
-- **Hono** : Framework web léger et performant
+- **Hono** : Framework web leger et performant
 - **TypeScript** : Typage statique
 - **Drizzle ORM** : ORM pour PostgreSQL
-- **Valibot** : Validation des données
+- **Valibot** : Validation des donnees
 - **Nodemailer** : Envoi d'emails
 - **AWS SDK** : Stockage de fichiers (S3-compatible)
-- **Puppeteer** : Génération de PDF
+- **Puppeteer** : Generation de PDF
 
 **Structure :**
 ```
 api/src/
 ├── api.ts              # Configuration de l'app Hono
-├── server.ts           # Point d'entrée du serveur
+├── server.ts           # Point d'entree du serveur
 ├── clients/            # Clients pour services externes
 │   ├── sqlClient.ts
 │   ├── emailClient.ts
@@ -97,177 +99,243 @@ api/src/
 │   ├── publicMiddleware.ts
 │   └── userVerificationMiddleware.ts
 ├── routes/             # Routes de l'API
-│   ├── auth/           # Routes authentifiées
-│   │   ├── organizations/  # Gestion organisations
-│   │   ├── settings/       # Paramètres utilisateur
+│   ├── routes.ts       # Enregistrement de toutes les routes
+│   ├── auth/           # Routes authentifiees
+│   │   ├── authRoute.ts
+│   │   ├── organizations/  # Gestion organisations (annees, ecritures, rapports, etc.)
+│   │   ├── settings/       # Parametres utilisateur
 │   │   └── support/        # Support
 │   └── public/         # Routes publiques
+│       ├── publicRoute.ts
 │       ├── signIn.ts
 │       ├── signUp.ts
 │       ├── signOut.ts
 │       └── sendMagicLink.ts
+├── validators/         # Validation des donnees entrantes
+│   └── bodyValidator.ts
 └── utilities/          # Utilitaires
     ├── email/          # Templates et envoi emails
-    ├── sql/            # Helpers SQL
-    ├── storage/        # Helpers S3
-    ├── cookies/        # Gestion cookies sécurisés
-    └── workspace/      # Logique métier
+    ├── sql/            # Helpers SQL (selectOne, selectMany, insertOne, insertMany, deleteOne, deleteMany, updateOne)
+    ├── storage/        # Helpers S3 (signed URLs, get/put/delete)
+    ├── cookies/        # Gestion cookies securises
+    ├── workspace/      # Logique metier (generation donnees exercices)
+    ├── getEnv.ts       # Validation des variables d'environnement (Valibot)
+    ├── exception.ts    # Gestion des erreurs structurees
+    ├── response.ts     # Helpers de reponse HTTP
+    ├── validate.ts     # Validation des donnees entrantes
+    └── ...             # Autres utilitaires
 ```
 
-**Points d'entrée :**
+**Points d'entree :**
 - `server.ts` : Lance le serveur HTTP
 - `api.ts` : Configure l'application Hono avec middlewares et routes
 
-**Responsabilités :**
+**Responsabilites :**
 - Gestion de l'authentification (magic links, sessions)
-- CRUD pour toutes les entités (organisations, comptes, écritures, etc.)
-- Validation des écritures comptables
-- Génération des états financiers
-- Gestion des pièces justificatives (upload/download via S3)
+- CRUD pour toutes les entites (organisations, comptes, ecritures, etc.)
+- Validation des ecritures comptables
+- Generation des etats financiers
+- Gestion des pieces justificatives (upload/download via S3)
 - Envoi d'emails transactionnels
 
-### @arrhes/platform
+### @arrhes/application-website
 
-**Rôle :** Interface utilisateur web pour interagir avec l'application
+**Role :** Interface utilisateur web complete incluant le dashboard, le site vitrine et la documentation
 
 **Technologies :**
 - **React 19** : Framework UI
 - **TanStack Router** : Routing type-safe
-- **TanStack Query** : Gestion d'état serveur et cache
-- **TanStack Table** : Tableaux de données performants
+- **TanStack Query** : Gestion d'etat serveur et cache
+- **TanStack Table** : Tableaux de donnees performants
 - **TanStack Virtual** : Virtualisation pour grandes listes
 - **Radix UI** : Composants accessibles headless
 - **Panda CSS** : Framework CSS utility-first
 - **React Hook Form** : Gestion de formulaires
-- **Valibot** : Validation côté client
+- **Valibot** : Validation cote client
+- **cmdk** : Palette de commandes
 - **Vite** : Build tool et dev server
 
 **Structure :**
 ```
-platform/src/
-├── root.tsx            # Point d'entrée React
+website/src/
+├── root.tsx            # Point d'entree React
 ├── index.html          # HTML principal
 ├── assets/             # Ressources statiques
 │   ├── css/
-│   ├── fonts/
 │   ├── images/
 │   └── manifest/       # PWA manifest
-├── components/         # Composants réutilisables
-│   ├── buttons/
-│   ├── formats/        # Formatage de données
-│   ├── forms/
-│   ├── inputs/
-│   ├── layouts/
-│   └── overlays/       # Modals, dropdowns, tooltips
+├── components/         # Composants reutilisables
+│   ├── document/       # Composants lies aux documents
+│   ├── formats/        # Formatage de donnees
+│   ├── forms/          # Formulaires
+│   ├── inputs/         # Champs de saisie
+│   ├── layouts/        # Layouts, data blocks, tables
+│   └── overlays/       # Modals, drawers, dropdowns, tooltips
 ├── contexts/           # Contexts React
-│   ├── data/           # Context de données globales
+│   ├── data/           # Context de donnees globales (TanStack Query)
 │   ├── router/         # Configuration du router
 │   └── toasts/         # Notifications
-├── features/           # Features par domaine métier
-│   ├── authLayout.tsx
-│   ├── organizations/  # Gestion organisations
-│   ├── settings/
-│   ├── signIn/
-│   ├── signUp/
-│   └── support/
-├── routes/             # Définition des routes
-│   ├── platformRouter.tsx
-│   ├── platformTree.ts
-│   └── root/           # Routes de l'app
+├── features/           # Features par domaine metier
+│   ├── dashboard/      # Dashboard (organisations, settings, support)
+│   ├── docs/           # Documentation (comptabilite, dashboard, general)
+│   ├── website/        # Site vitrine (home, pricing, etc.)
+│   ├── signIn/         # Connexion
+│   ├── signUp/         # Inscription
+│   └── error/          # Page d'erreur
+├── routes/             # Definition des routes
+│   ├── platformRouter.tsx   # Creation du router TanStack
+│   ├── platformTree.ts      # Arbre de routes complet
+│   ├── rootLayoutRoute.tsx  # Layout racine
+│   ├── catchRoute.tsx       # Route catch-all
+│   └── root/                # Routes imbriquees
+│       ├── dashboard/       # Routes du dashboard
+│       ├── docs/            # Routes de la documentation
+│       ├── website/         # Routes du site vitrine
+│       ├── signIn/          # Route connexion
+│       └── signUp/          # Route inscription
 └── utilities/          # Utilitaires
     ├── postAPI.ts      # Client API
     ├── useHTTPData.ts  # Hook pour data fetching
-    └── cookies/        # Gestion cookies
+    ├── cookies/        # Gestion cookies
+    └── ...             # Autres utilitaires
 ```
 
-**Responsabilités :**
-- Interface utilisateur complète
+**Responsabilites :**
+- Interface utilisateur complete (dashboard)
+- Site vitrine avec pages marketing
+- Documentation integree (comptabilite, utilisation du dashboard)
 - Formulaires de saisie avec validation
-- Tableaux de données avec tri, filtrage, pagination
-- Visualisation des états financiers
-- Gestion des documents et pièces justificatives
+- Tableaux de donnees avec tri, filtrage, pagination
+- Visualisation des etats financiers
+- Gestion des documents et pieces justificatives
 - Notifications et retours utilisateur
 
 ### @arrhes/application-metadata
 
-**Rôle :** Package partagé contenant tous les schémas, modèles et types utilisés par l'API et la plateforme
+**Role :** Package partage contenant tous les schemas, modeles et types utilises par l'API et le frontend
 
 **Technologies :**
-- **Drizzle ORM** : Définition des schémas de base de données
-- **Valibot** : Schémas de validation
-- **TypeScript** : Types partagés
+- **Drizzle ORM** : Definition des schemas de base de donnees
+- **Valibot** : Schemas de validation
+- **TypeScript** : Types partages
+- **nanoid** : Generation d'identifiants uniques
 
 **Structure :**
 ```
 metadata/src/
-├── models/             # Modèles Drizzle ORM
-│   ├── user.ts
-│   ├── organization.ts
+├── models/             # Modeles Drizzle ORM
+│   ├── _index.ts       # Barrel export
 │   ├── account.ts
-│   ├── journal.ts
-│   ├── record.ts       # Écritures comptables
-│   ├── recordRow.ts    # Lignes d'écriture
-│   ├── document.ts
-│   ├── attachment.ts
-│   ├── year.ts
+│   ├── file.ts
 │   ├── balanceSheet.ts
+│   ├── computation.ts
+│   ├── computationIncomeStatement.ts
+│   ├── document.ts
 │   ├── incomeStatement.ts
-│   └── computation.ts
-├── schemas/            # Schémas Valibot pour validation
-│   └── [mêmes fichiers que models/]
-├── routes/             # Définitions de routes typées
-│   ├── auth/
-│   └── public/
-├── components/         # Composants métier partagés
+│   ├── journal.ts
+│   ├── organization.ts
+│   ├── organizationUser.ts
+│   ├── record.ts       # Ecritures comptables
+│   ├── recordLabel.ts  # Labels d'ecritures
+│   ├── recordRow.ts    # Lignes d'ecriture
+│   ├── user.ts
+│   ├── userSession.ts
+│   └── year.ts
+├── schemas/            # Schemas Valibot pour validation
+│   └── [memes fichiers que models/]
+├── routes/             # Definitions de routes typees
+│   ├── auth/           # Routes authentifiees (organisations, settings, support)
+│   └── public/         # Routes publiques (user: signIn, signUp, signOut, sendMagicLink)
+├── components/         # Composants metier partages
 │   ├── models/
 │   ├── schemas/
-│   └── values/         # Valeurs par défaut et constantes
+│   └── values/         # Valeurs par defaut et constantes
 └── utilities/          # Utilitaires
     ├── generate.ts
-    ├── generateId.ts
+    ├── generateId.ts   # Generation d'IDs (nanoid, 16 chars, alphabet custom)
     └── routeDefinition.ts
 ```
 
-**Exports :**
+**Exports (subpath) :**
 ```typescript
-// Utilisable par l'API et la plateforme
+// Utilisable par l'API et le frontend
 import { models } from '@arrhes/application-metadata/models'
 import { schemas } from '@arrhes/application-metadata/schemas'
 import { routes } from '@arrhes/application-metadata/routes'
 import { generateId } from '@arrhes/application-metadata/utilities'
+import { components } from '@arrhes/application-metadata/components'
 ```
 
-**Responsabilités :**
-- Définition unique des schémas de base de données
-- Validation cohérente des données entre frontend et backend
-- Types TypeScript partagés
-- Génération d'IDs uniques (nanoid)
-- Définitions de routes type-safe
+**Responsabilites :**
+- Definition unique des schemas de base de donnees
+- Validation coherente des donnees entre frontend et backend
+- Types TypeScript partages
+- Generation d'IDs uniques (nanoid)
+- Definitions de routes type-safe
 
-### @arrhes/tools
+### @arrhes/ui
 
-**Rôle :** Outils de gestion de la base de données (migrations, seed, maintenance)
+**Role :** Composants UI partages et systeme de style
+
+**Technologies :**
+- **React** : Framework UI
+- **Panda CSS** : Framework CSS utility-first
+- **Tabler Icons** : Icones
+
+**Structure :**
+```
+ui/src/
+├── index.ts            # Barrel export
+├── components/         # Composants reutilisables
+│   ├── buttons/        # Boutons (button, buttonContent, linkContent)
+│   └── layouts/        # Layouts (badge, circularLoader, logo, separator)
+├── fonts/              # Polices (Monaspace Neon)
+├── styles/             # CSS (fonts)
+└── utilities/          # Utilitaires
+    ├── cn.ts           # Utilitaire CSS (cx, css)
+    └── sleep.ts
+```
+
+**Exports (subpath) :**
+```typescript
+import { Button } from '@arrhes/ui'
+import { cn } from '@arrhes/ui/utilities/cn.js'
+import { css } from '@arrhes/ui/styled-system/css'
+```
+
+**Responsabilites :**
+- Composants UI reutilisables entre packages
+- Systeme de theming et styles partages (Panda CSS)
+- Polices et assets partages
+
+### @arrhes/application-tools
+
+**Role :** Outils de gestion de la base de donnees (migrations, seed, maintenance)
 
 **Technologies :**
 - **Drizzle Kit** : CLI pour migrations
-- **tsx** : Exécution TypeScript
+- **tsx** : Execution TypeScript
 - **Postgres** : Client PostgreSQL
+- **@ngneat/falso** : Generation de donnees de test
 
 **Scripts disponibles :**
 ```bash
-# Générer les migrations depuis le schéma
+# Generer les migrations depuis le schema
 pnpm --filter tools run generate
 
-# Pousser le schéma directement vers la DB
+# Pousser le schema directement vers la DB
 pnpm --filter tools run push
+
+# Introspecter le schema de la DB
+pnpm --filter tools run pull
 
 # Appliquer les migrations
 pnpm --filter tools run migrate
 
-# Seed avec données de démonstration
+# Seed avec donnees de demonstration
 pnpm --filter tools run seed
 
-# Vider la base de données
+# Vider la base de donnees
 pnpm --filter tools run clear
 
 # Reset complet (clear + push + seed)
@@ -281,106 +349,99 @@ pnpm --filter tools run drop
 ```
 tools/src/
 ├── env.ts              # Configuration environnement
-├── schemas.ts          # Import des schémas metadata
+├── dbClient.ts         # Client de base de donnees
+├── schemas.ts          # Import des schemas metadata
+├── drizzle.config.ts   # Configuration Drizzle Kit
 ├── migrate.ts          # Script de migration
 ├── clearDB.ts          # Script de nettoyage
 └── seed/               # Scripts de seed
     ├── seed.ts         # Seed principal
-    ├── migration.ts    # Migrations de données
-    ├── records2022.ts  # Données exemple 2022
-    └── records2023.ts  # Données exemple 2023
+    ├── migration.ts    # Migrations de donnees
+    ├── recordRows.ts   # Lignes d'ecritures
+    ├── records2022.ts  # Donnees exemple 2022
+    └── records2023.ts  # Donnees exemple 2023
 ```
 
-**Responsabilités :**
-- Gestion du schéma de base de données
-- Migrations de structure et de données
-- Génération de données de test
-- Maintenance de la base de données
-
-### @arrhes/website
-
-**Rôle :** Site vitrine pour présenter l'application
-
-**Technologies :**
-- **React** : Framework UI
-- **Vite** : Build tool
-
-**Note :** Package actuellement minimal, prévu pour évoluer en site marketing/landing page.
+**Responsabilites :**
+- Gestion du schema de base de donnees
+- Migrations de structure et de donnees
+- Generation de donnees de test
+- Maintenance de la base de donnees
 
 ## Stack technique
 
 ### Backend (API)
 
-| Composant | Technologie | Rôle |
+| Composant | Technologie | Role |
 |-----------|-------------|------|
-| Runtime | Node.js 24.5+ | Environnement d'exécution |
+| Runtime | Node.js 25+ | Environnement d'execution |
 | Language | TypeScript 5.9 | Langage de programmation |
-| Framework | Hono 4.9 | Framework web minimaliste |
+| Framework | Hono 4.10 | Framework web minimaliste |
 | ORM | Drizzle 0.44 | Mapping objet-relationnel |
-| Validation | Valibot 1.1 | Validation de schémas |
-| Database | PostgreSQL | Base de données relationnelle |
+| Validation | Valibot 1.2 | Validation de schemas |
+| Database | PostgreSQL | Base de donnees relationnelle |
 | Storage | AWS S3 SDK | Stockage de fichiers |
 | Email | Nodemailer 7.0 | Envoi d'emails |
-| PDF | Puppeteer 24.22 | Génération de PDF |
+| PDF | Puppeteer 24 | Generation de PDF |
 
-### Frontend (Platform)
+### Frontend (Website / Dashboard)
 
-| Composant | Technologie | Rôle |
+| Composant | Technologie | Role |
 |-----------|-------------|------|
-| Framework | React 19.1 | UI framework |
-| Routing | TanStack Router 1.132 | Routing type-safe |
+| Framework | React 19.2 | UI framework |
+| Routing | TanStack Router 1.139 | Routing type-safe |
 | State | TanStack Query 5.90 | Server state management |
 | Tables | TanStack Table 8.21 | Data tables |
 | Virtual | TanStack Virtual 3.13 | Virtualisation listes |
 | UI | Radix UI | Composants accessibles |
 | Styling | Panda CSS | CSS utility-first |
-| Forms | React Hook Form 7.63 | Gestion de formulaires |
-| Validation | Valibot 1.1 | Validation client-side |
-| Icons | Tabler Icons 3.35 | Icônes |
-| Build | Vite 7.1 | Build tool moderne |
+| Forms | React Hook Form 7.66 | Gestion de formulaires |
+| Validation | Valibot 1.2 | Validation client-side |
+| Icons | Tabler Icons 3.35 | Icones |
+| Build | Vite 7.2 | Build tool moderne |
 
 ### Tooling
 
-| Outil | Version | Rôle |
+| Outil | Version | Role |
 |-------|---------|------|
 | pnpm | Latest | Package manager |
 | TypeScript | 5.9 | Compilateur TypeScript |
-| ESLint | 9.36 | Linter JavaScript/TypeScript |
-| Drizzle Kit | 0.31 | Migrations de base de données |
-| tsx | 4.20 | Exécution TypeScript |
+| Biome | 2.3 | Formatter et linter |
+| Drizzle Kit | 0.31 | Migrations de base de donnees |
+| tsx | 4.20 | Execution TypeScript |
 
-## Flux de données
+## Flux de donnees
 
 ### Authentification par Magic Link
 
 ```
 1. Utilisateur entre son email
    └─> POST /api/public/sendMagicLink
-       └─> Génération token + envoi email
+       └─> Generation token + envoi email
        
 2. Utilisateur clique sur le lien
    └─> GET /api/public/signIn?token=xxx
        └─> Validation token
-       └─> Création session
-       └─> Cookie sécurisé (httpOnly, signed)
-       └─> Redirection vers plateforme
+       └─> Creation session
+       └─> Cookie securise (httpOnly, signed)
+       └─> Redirection vers dashboard
        
-3. Requêtes authentifiées
-   └─> Cookie envoyé automatiquement
-       └─> authMiddleware vérifie session
-       └─> Accès aux routes protégées
+3. Requetes authentifiees
+   └─> Cookie envoye automatiquement
+       └─> authMiddleware verifie session
+       └─> Acces aux routes protegees
 ```
 
 ### CRUD standard
 
 ```
-Platform                    API                      Database
+Website                        API                      Database
 ────────────────────────────────────────────────────────────
 1. User action
    └─> postAPI()
        └─> POST /api/auth/...
            └─> authMiddleware
-               └─> Validation données (Valibot)
+               └─> Validation donnees (Valibot)
                    └─> Drizzle ORM
                        └─> SQL Query
                            └─> PostgreSQL
@@ -389,32 +450,32 @@ Platform                    API                      Database
    ┌─ JSON
    └─ TanStack Query cache
       └─ Invalidation automatique
-         └─ Re-fetch et mise à jour UI
+         └─ Re-fetch et mise a jour UI
 ```
 
 ### Upload de fichiers
 
 ```
-1. Sélection fichier
-   └─> Demande URL signée PUT
+1. Selection fichier
+   └─> Demande URL signee PUT
        └─> POST /api/auth/.../generatePutSignedUrl
-           └─> S3 génère URL temporaire (expires 15min)
+           └─> S3 genere URL temporaire (expires 15min)
            
 2. Upload direct vers S3
    └─> PUT https://s3.../file
        (pas de passage par l'API)
        
-3. Sauvegarde référence
-   └─> POST /api/auth/.../attachment
+3. Sauvegarde reference
+   └─> POST /api/auth/.../file
        └─> Stocke storageKey en DB
 ```
 
 ### Download de fichiers
 
 ```
-1. Demande URL signée GET
+1. Demande URL signee GET
    └─> POST /api/auth/.../generateGetSignedUrl
-       └─> S3 génère URL temporaire (expires 1h)
+       └─> S3 genere URL temporaire (expires 1h)
        
 2. Download direct depuis S3
    └─> GET https://s3.../file
@@ -423,76 +484,77 @@ Platform                    API                      Database
 
 ## Authentification
 
-### Stratégie
+### Strategie
 
-Arrhes utilise une **authentification par magic link** (lien temporaire envoyé par email) combinée à des **sessions persistantes** côté serveur.
+Arrhes utilise une **authentification par magic link** (lien temporaire envoye par email) combinee a des **sessions persistantes** cote serveur.
 
 ### Flow complet
 
 1. **Inscription** (`/api/public/signUp`)
    - Validation email + alias
-   - Hash du mot de passe (PBKDF2, 128000 itérations)
-   - Création user
-   - Envoi email de vérification
+   - Hash du mot de passe (PBKDF2, 128000 iterations)
+   - Creation user
+   - Envoi email de verification
 
 2. **Connexion** (`/api/public/sendMagicLink`)
-   - Génération token de vérification unique
+   - Generation token de verification unique
    - Stockage temporaire en DB
    - Envoi email avec lien
 
 3. **Validation** (`/api/public/signIn`)
-   - Vérification du token
-   - Création d'une session
-   - Cookie signé et httpOnly
+   - Verification du token
+   - Creation d'une session
+   - Cookie signe et httpOnly
    - Redirection vers l'application
 
-4. **Requêtes authentifiées**
-   - Cookie envoyé automatiquement
-   - `authMiddleware` vérifie la session
+4. **Requetes authentifiees**
+   - Cookie envoye automatiquement
+   - `authMiddleware` verifie la session
    - Charge l'utilisateur en contexte
-   - Vérifie l'appartenance à l'organisation si nécessaire
+   - Verifie l'appartenance a l'organisation si necessaire
 
-5. **Déconnexion** (`/api/public/signOut`)
+5. **Deconnexion** (`/api/public/signOut`)
    - Suppression de la session en DB
    - Suppression du cookie
 
-### Sécurité
+### Securite
 
-- **Cookies signés** : Vérification de l'intégrité avec `COOKIES_KEY`
+- **Cookies signes** : Verification de l'integrite avec `COOKIES_KEY`
 - **httpOnly** : Protection contre XSS
 - **sameSite** : Protection contre CSRF
-- **CORS configuré** : Origine autorisée uniquement
+- **CORS configure** : Origine autorisee uniquement
 - **Tokens temporaires** : Expiration des magic links
-- **Hashing sécurisé** : PBKDF2 avec salt unique par utilisateur
+- **Hashing securise** : PBKDF2 avec salt unique par utilisateur
 
-## Base de données
+## Base de donnees
 
-### Schéma principal
+### Schema principal
 
-Le schéma PostgreSQL contient les tables suivantes (via Drizzle ORM) :
+Le schema PostgreSQL contient les tables suivantes (via Drizzle ORM) :
 
 **Utilisateurs et organisations :**
 - `user` : Utilisateurs de l'application
 - `organization` : Organisations (entreprises/associations)
-- `organizationUser` : Relation many-to-many avec rôles
+- `organizationUser` : Relation many-to-many avec roles
 - `userSession` : Sessions actives
 
-**Comptabilité :**
+**Comptabilite :**
 - `year` : Exercices comptables
 - `account` : Plan comptable
 - `journal` : Journaux comptables
-- `record` : Écritures comptables
-- `recordRow` : Lignes d'écriture (débit/crédit)
+- `record` : Ecritures comptables
+- `recordRow` : Lignes d'ecriture (debit/credit)
+- `recordLabel` : Labels d'ecritures
 - `document` : Documents comptables
-- `attachment` : Pièces justificatives
+- `file` : Pieces justificatives
 
-**États financiers :**
+**Etats financiers :**
 - `balanceSheet` : Configuration du bilan
-- `incomeStatement` : Configuration du compte de résultat
-- `computation` : Calculs personnalisés
-- `computationIncomeStatement` : Relation calculs/compte de résultat
+- `incomeStatement` : Configuration du compte de resultat
+- `computation` : Calculs personnalises
+- `computationIncomeStatement` : Relation calculs/compte de resultat
 
-### Relations clés
+### Relations cles
 
 ```
 organization 1──n organizationUser n──1 user
@@ -504,33 +566,35 @@ organization 1──n organizationUser n──1 user
               │
               └── 1──n record
                        │
-                       └── 1──n recordRow
-                                    │
-                                    └── n──1 account
+                       ├── 1──n recordRow
+                       │            │
+                       │            └── n──1 account
+                       └── n──n recordLabel
 ```
 
 ### Migrations
 
-Les migrations sont gérées par **Drizzle Kit** :
-- Le schéma source est défini dans `@arrhes/application-metadata`
-- Drizzle Kit génère automatiquement les migrations SQL
+Les migrations sont gerees par **Drizzle Kit** :
+- Le schema source est defini dans `@arrhes/application-metadata`
+- Drizzle Kit genere automatiquement les migrations SQL
 - Application via `drizzle-kit migrate` ou `push` (dev)
 
-## Diagramme de dépendances
+## Diagramme de dependances
 
 ```
-@arrhes/platform ──depends on──> @arrhes/application-metadata
-                                        ▲
-                                        │
-@arrhes/api      ──depends on───────────┘
-                                        ▲
-                                        │
-@arrhes/tools    ──depends on───────────┘
+@arrhes/application-website ──depends on──> @arrhes/application-metadata
+          │                                          ▲
+          └─depends on──> @arrhes/ui                 │
+                                                     │
+@arrhes/application-api  ──depends on───────────────┘
+                                                     ▲
+                                                     │
+@arrhes/application-tools ──depends on──────────────┘
 
-@arrhes/website  (indépendant)
+@arrhes/ui  (independant de metadata)
 ```
 
-Tous les packages dépendent de `@arrhes/application-metadata` pour partager les schémas, modèles et types. Cette architecture assure une cohérence totale entre le frontend et le backend.
+Les packages API, website et tools dependent tous de `@arrhes/application-metadata` pour partager les schemas, modeles et types. Le package website depend aussi de `@arrhes/ui` pour les composants UI partages. Cette architecture assure une coherence totale entre le frontend et le backend.
 
 ---
 

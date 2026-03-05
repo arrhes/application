@@ -1,8 +1,7 @@
-import { routePath } from "../../../../../../../../../components/_index.js"
+import * as v from "valibot"
+import { routePath } from "../../../../../../../../../components/index.js"
 import { balanceSheetSchema, balanceSheetSchemaReturn } from "../../../../../../../../../schemas/balanceSheet.js"
 import { routeDefinition } from "../../../../../../../../../utilities/routeDefinition.js"
-import * as v from "valibot"
-
 
 export const updateOneBalanceSheetRouteDefinition = routeDefinition({
     protocol: "http",
@@ -10,7 +9,6 @@ export const updateOneBalanceSheetRouteDefinition = routeDefinition({
     schemas: {
         body: v.object({
             idBalanceSheet: balanceSheetSchema.entries.id,
-            idOrganization: balanceSheetSchema.entries.idOrganization,
             idYear: balanceSheetSchema.entries.idYear,
             idBalanceSheetParent: v.optional(balanceSheetSchema.entries.idBalanceSheetParent),
             isComputed: v.optional(balanceSheetSchema.entries.isComputed),
@@ -18,6 +16,6 @@ export const updateOneBalanceSheetRouteDefinition = routeDefinition({
             number: v.optional(balanceSheetSchema.entries.number),
             label: v.optional(balanceSheetSchema.entries.label),
         }),
-        return: balanceSheetSchemaReturn
+        return: balanceSheetSchemaReturn,
     },
 })

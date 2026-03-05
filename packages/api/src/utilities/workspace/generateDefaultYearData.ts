@@ -3,7 +3,6 @@
 // import { generateId } from "@arrhes/application-metadata/utilities"
 // import * as v from "valibot"
 
-
 // export async function generateDefaultYearData(parameters: {
 //     organization: v.InferOutput<typeof returnedSchemas.organization>
 //     year: v.InferOutput<typeof returnedSchemas.year>
@@ -65,7 +64,6 @@
 //             .values(newAccounts)
 //     }
 
-
 //     // Add balanceSheets
 //     let newBalanceSheets: (typeof balanceSheets.$inferInsert & { numberParent: number | undefined, accounts: DefaultBalanceSheet["accounts"][number][] })[] = defaultBalanceSheets.map((_balanceSheet) => ({
 //         id: generateId(),
@@ -93,7 +91,6 @@
 //             .values(newBalanceSheets)
 //     }
 
-
 //     // Add accountBalanceSheets
 //     const newAccountBalanceSheets: Array<(typeof accountBalanceSheets.$inferInsert)> = []
 //     newBalanceSheets.forEach((_balanceSheet) => {
@@ -116,7 +113,6 @@
 //             .insert(accountBalanceSheets)
 //             .values(newAccountBalanceSheets)
 //     }
-
 
 //     // Add incomeStatements
 //     let newIncomeStatements: (typeof incomeStatements.$inferInsert & { numberParent: number | undefined, accounts: number[] })[] = defaultIncomeStatements.map((_incomeStatement) => ({
@@ -143,7 +139,6 @@
 //             .values(newIncomeStatements)
 //     }
 
-
 //     // Add accountIncomeStatements
 //     const newAccountIncomeStatements: Array<(typeof accountIncomeStatements.$inferInsert)> = []
 //     newIncomeStatements.forEach((_incomeStatement) => {
@@ -165,7 +160,6 @@
 //             .values(newAccountIncomeStatements)
 //     }
 
-
 //     // Add computations
 //     const newComputations: (typeof computations.$inferInsert & { incomeStatements: DefaultComputation["incomeStatements"][number][] })[] = defaultComputations.map((_computation) => {
 //         return ({
@@ -182,7 +176,6 @@
 //             .insert(computations)
 //             .values(newComputations)
 //     }
-
 
 //     // Add computationIncomeStatements
 //     const newComputationIncomeStatements: Array<(typeof computationIncomeStatements.$inferInsert)> = []

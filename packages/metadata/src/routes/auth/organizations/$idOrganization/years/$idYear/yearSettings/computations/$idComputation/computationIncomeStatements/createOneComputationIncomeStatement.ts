@@ -1,21 +1,22 @@
-import { routePath } from "../../../../../../../../../../components/_index.js"
-import { computationIncomeStatementSchema, computationIncomeStatementSchemaReturn } from "../../../../../../../../../../schemas/computationIncomeStatement.js"
-import { routeDefinition } from "../../../../../../../../../../utilities/routeDefinition.js"
 import * as v from "valibot"
-
+import { routePath } from "../../../../../../../../../../components/index.js"
+import {
+    computationIncomeStatementSchema,
+    computationIncomeStatementSchemaReturn,
+} from "../../../../../../../../../../schemas/computationIncomeStatement.js"
+import { routeDefinition } from "../../../../../../../../../../utilities/routeDefinition.js"
 
 export const createOneComputationIncomeStatementRouteDefinition = routeDefinition({
     protocol: "http",
     path: `${routePath.auth}/create-one-computation-income-statement`,
     schemas: {
         body: v.object({
-            idOrganization: computationIncomeStatementSchema.entries.idOrganization,
             idYear: computationIncomeStatementSchema.entries.idYear,
             idComputation: computationIncomeStatementSchema.entries.idComputation,
             idIncomeStatement: computationIncomeStatementSchema.entries.idIncomeStatement,
             index: computationIncomeStatementSchema.entries.index,
-            operation: computationIncomeStatementSchema.entries.operation
+            operation: computationIncomeStatementSchema.entries.operation,
         }),
-        return: computationIncomeStatementSchemaReturn
+        return: computationIncomeStatementSchemaReturn,
     },
 })

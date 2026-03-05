@@ -1,24 +1,18 @@
-import { authFactory } from "../../../factories/authFactory.js"
+import { readUserSessionRouteDefinition } from "@arrhes/application-metadata"
+import { checkUserSessionMiddleware } from "../../../middlewares/checkUserSessionMiddleware.js"
+import { apiFactory } from "../../../utilities/apiFactory.js"
 import { response } from "../../../utilities/response.js"
-import { bodyValidator } from "../../../validators/bodyValidator.js"
-import { readUserSessionRouteDefinition } from "@arrhes/application-metadata/routes"
 
+export const readUserSessionRoute = apiFactory.createApp().post(readUserSessionRouteDefinition.path, async (c) => {
+    const { user, userSession } = await checkUserSessionMiddleware({ context: c })
 
-export const readUserSessionRoute = authFactory.createApp()
-    .post(
-        readUserSessionRouteDefinition.path,
-        bodyValidator(readUserSessionRouteDefinition.schemas.body),
-        async (c) => {
-            const body = c.req.valid("json")
-
-            return response({
-                context: c,
-                statusCode: 200,
-                schema: readUserSessionRouteDefinition.schemas.return,
-                data: {
-                    ...c.var.userSession,
-                    user: c.var.user
-                },
-            })
-        }
-    )
+    return response({
+        context: c,
+        statusCode: 200,
+        schema: readUserSessionRouteDefinition.schemas.return,
+        data: {
+            ...userSession,
+            user: user,
+        },
+    })
+})

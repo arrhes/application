@@ -19,16 +19,9 @@
         "rootDir": "./src",
         "outDir": "./build",
         "paths": {
-            "#/*": [
-                "./src/*"
-            ]
+            "#/*": ["./src/*"]
         }
     },
-    "exclude": [
-        "./node_modules",
-        "./build",
-    ],
-    "include": [
-        "./src"
-    ]
+    "exclude": ["./node_modules", "./build"],
+    "include": ["./src"]
 }

@@ -4,12 +4,12 @@
     "private": true,
     "scripts": {
         "generate": "pnpm drizzle-kit generate --config=./src/drizzle.config.ts",
-        "push": "pnpm drizzle-kit push --config=./src/drizzle.config.ts --force",
+        "push": "tsx --env-file=.env ./src/push.ts",
         "pull": "pnpm drizzle-kit introspect --config=./src/drizzle.config.ts",
         "migrate": "pnpm drizzle-kit migrate --config=./src/drizzle.config.ts",
         "seed": "tsx --env-file=.env ./src/seed/seed.ts",
+        "migration": "tsx --env-file=.env ./src/seed/migration.ts",
         "clear": "tsx --env-file=.env ./src/clearDB.ts",
-        "sendSQL": "tsx --env-file=.env ./src/sendSQL.ts",
         "reset": "tsx --env-file=.env ./src/clearDB.ts && pnpm run push && tsx --env-file=.env ./src/seed/seed.ts",
         "drop": "pnpm drizzle-kit drop --config=./src/drizzle.config.ts"
     },

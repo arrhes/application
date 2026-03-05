@@ -1,30 +1,22 @@
-import { sqlClient } from "../../clients/sqlClient.js"
+import type { SQL, TableConfig } from "drizzle-orm"
+import type { PgTable } from "drizzle-orm/pg-core"
+import type { sqlClient } from "../../clients/sqlClient.js"
 import { Exception } from "../../utilities/exception.js"
-import { SQL, TableConfig } from "drizzle-orm"
-import { PgTable } from "drizzle-orm/pg-core"
 
-
-export async function selectMany<
-    T extends PgTable<TableConfig>
->(parameters: {
+export async function selectMany<T extends PgTable<TableConfig>>(parameters: {
     database: ReturnType<typeof sqlClient> | Parameters<Parameters<ReturnType<typeof sqlClient>["transaction"]>[0]>[0]
     table: T
-    where?: ((table: T) => SQL<unknown> | undefined)
+    where?: (table: T) => SQL<unknown> | undefined
     limit?: number
     offset?: number
-    orderBy?: ((table: T) => SQL<unknown>)
+    orderBy?: (table: T) => SQL<unknown>
 }) {
     try {
         const query = parameters.database
             .select()
-            // @ts-ignore: Unreachable code error
+            // @ts-expect-error: Unreachable code error
             .from(parameters.table)
-            .where(
-                parameters?.where === undefined
-                    ? undefined
-                    : parameters.where(parameters.table)
-            )
-
+            .where(parameters?.where === undefined ? undefined : parameters.where(parameters.table))
 
         if (parameters.limit !== undefined) {
             query.limit(parameters.limit)
@@ -41,12 +33,11 @@ export async function selectMany<
         const responseMany = await query
 
         return responseMany
-    }
-    catch (error: unknown) {
+    } catch (error: unknown) {
         throw new Exception({
             statusCode: 500,
             internalMessage: "Objects not selected",
-            rawError: error
+            rawError: error,
         })
     }
 }

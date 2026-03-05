@@ -1,19 +1,17 @@
+import type { returnedSchemas } from "@arrhes/application-metadata"
+import { css, Style } from "hono/css"
+import { Fragment } from "hono/jsx/jsx-runtime"
+import type * as v from "valibot"
+import { Table } from "../../components/table/table.js"
+import { getBalanceSheetChildren } from "../getBalanceSheetChildren.js"
 import { BalanceSheetLiabilitiesReportItem } from "./balanceSheetLiabilitiesReportItem.js"
 import { BalanceSheetLiabilitiesReportRow } from "./balanceSheetLiabilitiesReportRow.js"
-import { getBalanceSheetChildren } from "../getBalanceSheetChildren.js"
-import { Table } from "../../components/table/table.js"
-import { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Style, css } from "hono/css"
-import { Fragment } from "hono/jsx/jsx-runtime"
-import * as v from "valibot"
-
 
 export function BalanceSheetLiabilitiesReportTable(props: {
     recordRows: Array<v.InferOutput<typeof returnedSchemas.recordRow>>
     accounts: Array<v.InferOutput<typeof returnedSchemas.account>>
     balanceSheets: Array<v.InferOutput<typeof returnedSchemas.balanceSheet>>
 }) {
-
     let netTotalAmount = 0
     props.accounts
         .filter((account) => account.idBalanceSheetLiability !== null)
@@ -24,7 +22,7 @@ export function BalanceSheetLiabilitiesReportTable(props: {
                     const debit = Number(recordRow.debit)
                     const credit = Number(recordRow.credit)
 
-                    netTotalAmount += (debit - credit)
+                    netTotalAmount += debit - credit
                 })
         })
 
@@ -35,45 +33,37 @@ export function BalanceSheetLiabilitiesReportTable(props: {
                 <Table.Header.Root>
                     <Table.Header.Row>
                         <Table.Header.Cell>
-                            <span class={css`color: #333333;`}>
-                                PASSIF
-                            </span>
+                            <span class={css`color: #333333;`}>PASSIF</span>
                         </Table.Header.Cell>
+                        <Table.Header.Cell align="right"></Table.Header.Cell>
+                        <Table.Header.Cell align="right"></Table.Header.Cell>
                         <Table.Header.Cell align="right">
-                        </Table.Header.Cell>
-                        <Table.Header.Cell align="right">
-                        </Table.Header.Cell>
-                        <Table.Header.Cell align="right">
-                            <span class={css`color: #333333;`}>
-                                Net
-                            </span>
+                            <span class={css`color: #333333;`}>Net</span>
                         </Table.Header.Cell>
                     </Table.Header.Row>
                 </Table.Header.Root>
                 <Table.Body.Root>
                     <Fragment>
-                        {
-                            props.balanceSheets
-                                .filter((balanceSheet) => balanceSheet.idBalanceSheetParent === null)
-                                .sort((a, b) => Number(a.number) - Number(b.number))
-                                .map((balanceSheet) => {
-                                    const balanceSheetChildren = getBalanceSheetChildren({
-                                        balanceSheet: balanceSheet,
-                                        balanceSheets: props.balanceSheets
-                                    })
-
-                                    return (
-                                        <BalanceSheetLiabilitiesReportItem
-                                            key={balanceSheet.id}
-                                            accounts={props.accounts}
-                                            recordRows={props.recordRows}
-                                            balanceSheet={balanceSheet}
-                                            balanceSheetChildren={balanceSheetChildren}
-                                            level={0}
-                                        />
-                                    )
+                        {props.balanceSheets
+                            .filter((balanceSheet) => balanceSheet.idBalanceSheetParent === null)
+                            .sort((a, b) => Number(a.number) - Number(b.number))
+                            .map((balanceSheet) => {
+                                const balanceSheetChildren = getBalanceSheetChildren({
+                                    balanceSheet: balanceSheet,
+                                    balanceSheets: props.balanceSheets,
                                 })
-                        }
+
+                                return (
+                                    <BalanceSheetLiabilitiesReportItem
+                                        key={balanceSheet.id}
+                                        accounts={props.accounts}
+                                        recordRows={props.recordRows}
+                                        balanceSheet={balanceSheet}
+                                        balanceSheetChildren={balanceSheetChildren}
+                                        level={0}
+                                    />
+                                )
+                            })}
                     </Fragment>
                     <BalanceSheetLiabilitiesReportRow
                         level={0}

@@ -1,8 +1,7 @@
-import { passwordSchema, routePath } from "../../../components/_index.js"
+import * as v from "valibot"
+import { passwordSchema, routePath } from "../../../components/index.js"
 import { userSchema } from "../../../schemas/user.js"
 import { routeDefinition } from "../../../utilities/routeDefinition.js"
-import * as v from "valibot"
-
 
 export const signUpRouteDefinition = routeDefinition({
     protocol: "http",
@@ -13,7 +12,6 @@ export const signUpRouteDefinition = routeDefinition({
             password: passwordSchema,
             passwordCheck: passwordSchema,
         }),
-        return: v.object({})
+        return: v.object({}),
     },
 })
-

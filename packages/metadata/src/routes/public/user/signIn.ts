@@ -1,8 +1,7 @@
-import { routePath, stringSchema } from "../../../components/_index.js"
+import * as v from "valibot"
+import { routePath, stringSchema } from "../../../components/index.js"
 import { userSchema } from "../../../schemas/user.js"
 import { routeDefinition } from "../../../utilities/routeDefinition.js"
-import * as v from "valibot"
-
 
 export const signInRouteDefinition = routeDefinition({
     protocol: "http",
@@ -10,8 +9,8 @@ export const signInRouteDefinition = routeDefinition({
     schemas: {
         body: v.object({
             email: userSchema.entries.email,
-            password: v.nonNullable(stringSchema)
+            password: v.nonNullable(stringSchema, "Ce champ est requis"),
         }),
-        return: v.object({})
+        return: v.object({}),
     },
 })

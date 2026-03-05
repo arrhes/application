@@ -1,5 +1,1 @@
-export const balanceSheetColumn = <const>[
-    "gross",
-    "amortization",
-    "net",
-]
+export const balanceSheetColumn = <const>["gross", "amortization", "net"]

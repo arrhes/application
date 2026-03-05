@@ -1,8 +1,7 @@
-import { routePath } from "../../../../../../../../../components/_index.js"
+import * as v from "valibot"
+import { routePath } from "../../../../../../../../../components/index.js"
 import { documentSchema, documentSchemaReturn } from "../../../../../../../../../schemas/document.js"
 import { routeDefinition } from "../../../../../../../../../utilities/routeDefinition.js"
-import * as v from "valibot"
-
 
 export const readOneDocumentRouteDefinition = routeDefinition({
     protocol: "http",
@@ -10,9 +9,8 @@ export const readOneDocumentRouteDefinition = routeDefinition({
     schemas: {
         body: v.object({
             idDocument: documentSchema.entries.id,
-            idOrganization: documentSchema.entries.idOrganization,
             idYear: documentSchema.entries.idYear,
         }),
-        return: documentSchemaReturn
+        return: documentSchemaReturn,
     },
 })

@@ -1,9 +1,8 @@
-import { routePath } from "../../../components/_index.js"
+import * as v from "valibot"
+import { routePath } from "../../../components/index.js"
 import { userSchemaReturn } from "../../../schemas/user.js"
 import { userSessionSchemaReturn } from "../../../schemas/userSession.js"
 import { routeDefinition } from "../../../utilities/routeDefinition.js"
-import * as v from "valibot"
-
 
 export const readUserSessionRouteDefinition = routeDefinition({
     protocol: "http",
@@ -13,6 +12,6 @@ export const readUserSessionRouteDefinition = routeDefinition({
         return: v.object({
             ...userSessionSchemaReturn.entries,
             user: userSchemaReturn,
-        })
+        }),
     },
 })

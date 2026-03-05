@@ -1,10 +1,9 @@
-import { validate } from "../utilities/validate.js"
 import * as v from "valibot"
-
+import { validate } from "../utilities/validate.js"
 
 enum Env {
     development = "development",
-    production = "production"
+    production = "production",
 }
 
 const envSchema = v.object({
@@ -17,12 +16,13 @@ const envSchema = v.object({
     COOKIES_KEY: v.string(),
 
     API_BASE_URL: v.string(),
-    PLATFORM_BASE_URL: v.string(),
+    APPLICATION_BASE_URL: v.string(),
     WEBSITE_BASE_URL: v.string(),
 
     SQL_DATABASE_URL: v.string(),
 
     STORAGE_ENDPOINT: v.string(),
+    STORAGE_PUBLIC_ENDPOINT: v.string(),
     STORAGE_BUCKET_NAME: v.string(),
     STORAGE_ACCESS_KEY: v.string(),
     STORAGE_SECRET_KEY: v.string(),
@@ -30,15 +30,14 @@ const envSchema = v.object({
     EMAIL_ENDPOINT: v.string(),
     EMAIL_USER: v.string(),
     EMAIL_PASSWORD: v.string(),
-})
 
+    MOLLIE_API_KEY: v.string(),
+})
 
 export function getEnv() {
     const parsedEnv = validate({
         schema: envSchema,
-        // @ts-ignore
         data: process.env,
-        message: "Missing environment variables",
     })
 
     return parsedEnv

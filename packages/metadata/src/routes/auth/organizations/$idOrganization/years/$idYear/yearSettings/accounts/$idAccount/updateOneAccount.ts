@@ -1,8 +1,7 @@
-import { routePath } from "../../../../../../../../../components/_index.js"
+import * as v from "valibot"
+import { routePath } from "../../../../../../../../../components/index.js"
 import { accountSchema, accountSchemaReturn } from "../../../../../../../../../schemas/account.js"
 import { routeDefinition } from "../../../../../../../../../utilities/routeDefinition.js"
-import * as v from "valibot"
-
 
 export const updateOneAccountRouteDefinition = routeDefinition({
     protocol: "http",
@@ -10,7 +9,6 @@ export const updateOneAccountRouteDefinition = routeDefinition({
     schemas: {
         body: v.object({
             idAccount: accountSchema.entries.id,
-            idOrganization: accountSchema.entries.idOrganization,
             idYear: accountSchema.entries.idYear,
             idAccountParent: v.optional(accountSchema.entries.idAccountParent),
 
@@ -30,6 +28,6 @@ export const updateOneAccountRouteDefinition = routeDefinition({
             label: v.optional(accountSchema.entries.label),
             type: v.optional(accountSchema.entries.type),
         }),
-        return: accountSchemaReturn
+        return: accountSchemaReturn,
     },
 })

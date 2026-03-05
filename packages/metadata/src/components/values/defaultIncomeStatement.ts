@@ -1,5 +1,3 @@
-
-
 export type DefaultIncomeStatement = {
     number: number
     label: string

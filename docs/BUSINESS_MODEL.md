@@ -24,7 +24,7 @@ This document outlines the business model strategy for Arrhes, an open-source do
 - Full double-entry accounting
 - All journals, accounts, records
 - Balance sheet & income statement
-- Document/attachment management
+- Document/file management
 - Multi-organization support
 - Self-hosting with Docker
 

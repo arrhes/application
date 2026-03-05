@@ -1,8 +1,7 @@
-import { routePath } from "../../../components/_index.js"
+import * as v from "valibot"
+import { routePath } from "../../../components/index.js"
 import { organizationSchema, organizationSchemaReturn } from "../../../schemas/organization.js"
 import { routeDefinition } from "../../../utilities/routeDefinition.js"
-import * as v from "valibot"
-
 
 export const addNewOrganizationRouteDefinition = routeDefinition({
     protocol: "http",
@@ -14,7 +13,6 @@ export const addNewOrganizationRouteDefinition = routeDefinition({
             siren: v.optional(organizationSchema.entries.siren),
             email: v.optional(organizationSchema.entries.email),
         }),
-        return: organizationSchemaReturn
+        return: organizationSchemaReturn,
     },
 })
-

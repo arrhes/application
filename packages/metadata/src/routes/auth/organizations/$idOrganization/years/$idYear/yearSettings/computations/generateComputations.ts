@@ -1,17 +1,17 @@
-import { routePath } from "../../../../../../../../components/_index.js"
+/*
+import * as v from "valibot"
+import { routePath } from "../../../../../../../../components/index.js"
 import { computationSchema, computationSchemaReturn } from "../../../../../../../../schemas/computation.js"
 import { routeDefinition } from "../../../../../../../../utilities/routeDefinition.js"
-import * as v from "valibot"
-
 
 export const generateComputationsRouteDefinition = routeDefinition({
     protocol: "http",
     path: `${routePath.auth}/generate-computations`,
     schemas: {
         body: v.object({
-            idOrganization: computationSchema.entries.idOrganization,
             idYear: computationSchema.entries.idYear,
         }),
-        return: v.array(computationSchemaReturn)
+        return: v.array(computationSchemaReturn),
     },
 })
+*/

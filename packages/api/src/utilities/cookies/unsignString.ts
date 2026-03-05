@@ -1,12 +1,8 @@
+import { timingSafeEqual } from "node:crypto"
 import { signString } from "../../utilities/cookies/signString.js"
 import { Exception } from "../../utilities/exception.js"
-import { timingSafeEqual } from "crypto"
 
-
-export function unsignString(parameters: {
-    signedValue: string | undefined
-    secret: string
-}) {
+export function unsignString(parameters: { signedValue: string | undefined; secret: string }) {
     try {
         if (parameters.signedValue === undefined) {
             return undefined
@@ -24,10 +20,7 @@ export function unsignString(parameters: {
             secret: parameters.secret,
         })
 
-        const isSame = timingSafeEqual(
-            Buffer.from(parameters.signedValue),
-            Buffer.from(expectedSignedValue)
-        )
+        const isSame = timingSafeEqual(Buffer.from(parameters.signedValue), Buffer.from(expectedSignedValue))
         if (isSame === false) {
             throw new Exception({
                 internalMessage: "Invalid signed value",
@@ -35,8 +28,7 @@ export function unsignString(parameters: {
         }
 
         return value
-    }
-    catch (error: unknown) {
+    } catch (error: unknown) {
         throw new Exception({
             internalMessage: "Failed to unsign string",
             rawError: error,
