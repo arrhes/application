@@ -1,45 +1,93 @@
 name: Publish all packages
 
 on:
-    release:
-        types: [published]
+  release:
+    types: [published]
+  workflow_dispatch:
 
 env:
-    REGISTRY: ghcr.io
-    IMAGE_NAME: ${{ github.repository }}
+  REGISTRY: ghcr.io
 
 jobs:
-    publish:
+  check:
+    runs-on: ubuntu-22.04
 
-        runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      packages: read
 
-        permissions:
-            contents: read
-            packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-        steps:
-            -   name: Checkout repository
-                uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.26.1
+          run_install: false
 
-            -   name: Login to the container registry
-                uses: docker/login-action@v3
-                with:
-                    registry: ${{ env.REGISTRY }}
-                    username: ${{ github.actor }}
-                    password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          node-version: 25.2.1
 
-            -   name: Extract metadata
-                id: meta
-                uses: docker/metadata-action@v5
-                with:
-                    images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      - name: Install dependencies
+        run: pnpm install
 
-            -   name: Build and push Docker image
-                uses: docker/build-push-action@v5
-                with:
-                    context: .
-                    file: ./.docker/Dockerfile
-                    push: true
-                    tags: ${{ steps.meta.outputs.tags }}
-                    secrets: |
-                        "github_token=${{ secrets.GITHUB_TOKEN }}"
+      - name: Lint and format check
+        run: pnpm check
+
+      - name: Unit tests
+        run: pnpm --recursive --if-present --filter='./packages/**' run test:unit
+
+      - name: Build
+        run: pnpm run build
+
+  publish:
+    needs: check
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        include:
+          - package: api
+            dockerfile: .workflows/.build/packages/api/Dockerfile
+            image_suffix: api
+          - package: dashboard
+            dockerfile: .workflows/.build/packages/dashboard/Dockerfile
+            image_suffix: dashboard
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Login to the container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Determine image tag
+        id: tag
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            echo "version=${{ github.event.release.tag_name }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "version=sha-${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ${{ matrix.dockerfile }}
+          push: true
+          tags: ${{ env.REGISTRY }}/arrhes/platform/${{ matrix.image_suffix }}:${{ steps.tag.outputs.version }}
+          secrets: |
+            "github_token=${{ secrets.GITHUB_TOKEN }}"
