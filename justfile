@@ -56,26 +56,34 @@ dev-reset:
 # ==============================================================================
 # Build Pipeline
 # ==============================================================================
-# Mirrors the GitHub Actions CI workflow locally inside Docker:
-#   1. pnpm install
-#   2. pnpm check (Biome lint + format)
-#   3. pnpm test:unit (Unit tests)
-#   4. pnpm build (TypeScript + Vite)
+# Uses the same compose file as CI (single source of truth):
+#   1. ci service: pnpm install, Biome check, unit tests, build
+#   2. api/dashboard services: production Docker images
 #
-# Usage: just build
+# Usage:
+#   just build        - Run CI checks only
+#   just build-all    - Run CI checks + build production images
+
+COMPOSE_BUILD := "docker compose -f .workflows/.build/compose.yml"
 
 build:
     @echo "=============================================="
     @echo "  Arrhes Build (lint + test + build)"
     @echo "=============================================="
     @echo ""
-    docker build \
-        --file .workflows/.build/packages/ci/Dockerfile \
-        --build-arg NODE_VERSION=25.2.1 \
-        --build-arg PNPM_VERSION=10.26.1 \
-        --progress=plain \
-        --no-cache \
-        .
+    {{COMPOSE_BUILD}} build --progress=plain --no-cache ci
+    @echo ""
+    @echo "=============================================="
+    @echo "  Build succeeded"
+    @echo "=============================================="
+
+build-all:
+    @echo "=============================================="
+    @echo "  Arrhes Full Build (ci + images)"
+    @echo "=============================================="
+    @echo ""
+    {{COMPOSE_BUILD}} build --progress=plain --no-cache ci
+    ARRHES_VERSION=$(cat VERSION) {{COMPOSE_BUILD}} build --progress=plain --no-cache api dashboard
     @echo ""
     @echo "=============================================="
     @echo "  Build succeeded"

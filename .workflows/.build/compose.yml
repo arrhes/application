@@ -1,0 +1,37 @@
+# ==============================================================================
+# Build Compose
+# ==============================================================================
+# Single source of truth for building all images.
+# Used by both local builds (`just build`) and CI (GitHub Actions).
+#
+# Services:
+#   ci        - Lint + unit tests + build (gate before packaging)
+#   api       - Production API image
+#   dashboard - Production Dashboard image (nginx + static)
+#
+# Usage:
+#   docker compose -f .workflows/.build/compose.yml build ci
+#   docker compose -f .workflows/.build/compose.yml build api dashboard
+# ==============================================================================
+
+services:
+  ci:
+    build:
+      context: ../..
+      dockerfile: .workflows/.build/packages/ci/Dockerfile
+
+  api:
+    image: arrhes-api:${ARRHES_VERSION:-dev}
+    build:
+      context: ../..
+      dockerfile: .workflows/.build/packages/api/Dockerfile
+
+  dashboard:
+    image: arrhes-dashboard:${ARRHES_VERSION:-dev}
+    build:
+      context: ../..
+      dockerfile: .workflows/.build/packages/dashboard/Dockerfile
+      args:
+        - VITE_PUBLIC_APPLICATION_URL=${VITE_PUBLIC_APPLICATION_URL:-}
+        - VITE_PUBLIC_WEBSITE_URL=${VITE_PUBLIC_WEBSITE_URL:-}
+        - VITE_PUBLIC_API_URL=${VITE_PUBLIC_API_URL:-}
