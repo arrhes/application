@@ -52,6 +52,11 @@ Proposez des ameliorations d'interface
 
 Avant de commencer a contribuer, configurez votre environnement de developpement :
 
+> **Windows :** Certains chemins du repository sont longs et peuvent dépasser la limite par défaut de Windows. Avant de cloner, exécutez la commande suivante depuis une invite de commandes **administrateur** :
+> ```
+> git config --system core.longpaths true
+> ```
+
 1. **Fork le repository** sur votre compte GitHub
 
 2. **Cloner votre fork**
