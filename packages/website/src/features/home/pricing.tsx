@@ -6,9 +6,9 @@ import {
     IconCalculator,
     IconCheck,
     IconCloudUpload,
+    IconCode,
     IconFileText,
     IconLifebuoy,
-    IconSettings,
     IconSparkles,
     IconUserPlus,
     IconUsers,
@@ -84,16 +84,16 @@ export function Pricing() {
                         flex: "1",
                     })}
                 >
-                    <FeatureItem icon={<IconAppWindow />} text="Accès illimité à l'application" />
-                    <FeatureItem icon={<IconCloudUpload />} text="Stockage de documents (jusqu'à 1Go)" />
+                    <FeatureItem icon={<IconAppWindow />} text="Accès illimité à l'application web" />
                     <FeatureItem icon={<IconBuildings />} text="Multiple organisations" />
-                    <FeatureItem icon={<IconUsers />} text="Multiple membres" />
+                    <FeatureItem icon={<IconUsers />} text="Membres illimités" />
+                    <FeatureItem icon={<IconCloudUpload />} text="Stockage de documents (jusqu'à 1Go)" />
                     <FeatureItem
                         icon={<IconFileText />}
                         text="Génération des documents de synthèse pour la liasse fiscale"
                     />
                     <FeatureItem icon={<IconFileText />} text="Export du Fichier des Écritures Comptable (FEC)" />
-                    <FeatureItem icon={<IconSettings />} text="Accès à l'API" isDev />
+                    <FeatureItem icon={<IconCode />} text="Accès complet à l'API" />
                     <FeatureItem icon={<IconCalculator />} text="Comptabilité analytique" isDev />
                 </div>
 
@@ -164,9 +164,19 @@ export function Pricing() {
                         flex: "1",
                     })}
                 >
-                    <FeatureItem icon={<IconCheck />} text="Tout le plan basique" />
+                    <FeatureItem icon={<IconCheck />} text="L'ensemble du plan basique" />
                     <FeatureItem icon={<IconCloudUpload />} text="Stockage de documents (jusqu'à 1To)" highlighted />
-                    <FeatureItem icon={<IconSparkles />} text="Assistant IA" highlighted />
+                    <FeatureItem
+                        icon={<IconSparkles />}
+                        text="Assistant IA"
+                        highlighted
+                        description={[
+                            "Poser des questions générales sur la comptabilité",
+                            "Interroger la documentation",
+                            "Automatiser les actions",
+                            "Utiliser la détection automatique du contenu des documents",
+                        ]}
+                    />
                     <FeatureItem icon={<IconLifebuoy />} text="Support prioritaire" highlighted />
                 </div>
                 {/* <LinkButton to="/inscription">

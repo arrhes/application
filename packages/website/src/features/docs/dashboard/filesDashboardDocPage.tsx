@@ -35,7 +35,7 @@ export function FilesDashboardDocPage() {
                     items={[
                         "PDF : idéal pour les factures et documents officiels",
                         "Images (JPG, PNG) : pratique pour les tickets et reçus photographiés",
-                        "Taille maximale : 10 Mo par fichier",
+                        "Taille maximale : 50 Mo par fichier",
                         "Plusieurs fichiers peuvent être associés à une même écriture",
                     ]}
                 />

@@ -1,4 +1,5 @@
 import { DocHeader } from "../../../components/document/docHeader.tsx"
+import { DocList } from "../../../components/document/docList.tsx"
 import { DocNextPage } from "../../../components/document/docNextPage.tsx"
 import { DocParagraph } from "../../../components/document/docParagraph.tsx"
 import { DocRoot } from "../../../components/document/docRoot.tsx"
@@ -10,150 +11,91 @@ export function AuthenticationApiDocPage() {
     return (
         <DocRoot>
             <DocHeader
-                title="Authentification et utilisateurs"
-                description="Routes publiques d'authentification, paramètres utilisateur et support"
+                title="Authentification"
+                description="Méthodes d'authentification, en-têtes requis et clés API"
             />
 
-            <DocSection title="Authentification">
+            <DocSection title="Méthodes d'authentification">
                 <DocParagraph>
-                    Les routes d'authentification sont accessibles sans session. Elles permettent de créer un compte, se
-                    connecter et se déconnecter.
+                    L'API supporte deux méthodes d'authentification pour accéder aux routes protégées. Chaque requête
+                    doit utiliser l'une des deux méthodes suivantes :
                 </DocParagraph>
-
                 <DocTable
-                    headers={["Route", "Description"]}
+                    headers={["Méthode", "En-tête", "Cas d'usage"]}
                     rows={[
-                        ["POST /public/sign-up", "Créer un nouveau compte utilisateur"],
-                        ["POST /public/sign-in", "Se connecter avec email et mot de passe"],
-                        ["POST /public/sign-out", "Se déconnecter et invalider la session"],
-                        ["POST /public/send-magic-link", "Envoyer un lien de connexion par email"],
+                        ["Cookie de session", "Cookie: arrhes_id_user_session=...", "Utilisation via l'interface web"],
+                        ["Clé API (Bearer)", "Authorization: Bearer <clé>", "Intégration programmatique"],
                     ]}
                 />
+            </DocSection>
 
+            <DocSection title="Authentification par cookie de session">
+                <DocParagraph>
+                    Lors de la connexion via l'interface web, un cookie <code>arrhes_id_user_session</code> (httpOnly)
+                    est automatiquement défini. Ce cookie identifie l'utilisateur pour toutes les requêtes suivantes.
+                </DocParagraph>
+                <DocParagraph>
+                    Avec cette méthode, l'organisation cible doit être spécifiée séparément via l'en-tête{" "}
+                    <code>X-Organization-Id</code> ou le cookie <code>arrhes_id_organization</code>.
+                </DocParagraph>
                 <DocTip variant="info">
-                    La route <code>/public/sign-in</code> définit les cookies <code>arrhes_id_user_session</code> et{" "}
-                    <code>arrhes_is_auth</code> nécessaires pour les routes protégées.
+                    L'en-tête <code>X-Organization-Id</code> a la priorité sur le cookie{" "}
+                    <code>arrhes_id_organization</code>.
                 </DocTip>
             </DocSection>
 
-            <DocSection title="POST /public/sign-up">
-                <DocParagraph>Créer un nouveau compte utilisateur.</DocParagraph>
-                <DocTable
-                    headers={["Champ", "Type", "Requis"]}
-                    rows={[
-                        ["email", "string", "oui"],
-                        ["password", "string", "oui"],
-                        ["passwordCheck", "string", "oui"],
-                    ]}
-                />
+            <DocSection title="Authentification par clé API">
                 <DocParagraph>
-                    Retourne <code>{"{}"}</code>. Erreur <code>400</code> si les mots de passe ne correspondent pas.
+                    Les clés API permettent un accès programmatique à l'API. Elles sont liées à une organisation
+                    spécifique et nécessitent un abonnement premium.
                 </DocParagraph>
-            </DocSection>
-
-            <DocSection title="POST /public/sign-in">
-                <DocParagraph>Se connecter avec email et mot de passe.</DocParagraph>
-                <DocTable
-                    headers={["Champ", "Type", "Requis"]}
-                    rows={[
-                        ["email", "string", "oui"],
-                        ["password", "string", "oui"],
-                    ]}
-                />
                 <DocParagraph>
-                    Retourne <code>{"{}"}</code>. Erreur <code>400</code> si les identifiants sont incorrects.
+                    L'en-tête <code>Authorization</code> doit contenir le token au format Bearer :
                 </DocParagraph>
-            </DocSection>
-
-            <DocSection title="POST /public/sign-out">
-                <DocParagraph>Se déconnecter et invalider la session courante.</DocParagraph>
+                <DocTable headers={["En-tête", "Valeur"]} rows={[["Authorization", "Bearer <votre_clé_api>"]]} />
                 <DocParagraph>
-                    Aucun champ requis. Retourne <code>{"{}"}</code>.
+                    Avec une clé API, l'organisation est automatiquement déterminée par la clé elle-même. Il n'est pas
+                    nécessaire de fournir l'en-tête <code>X-Organization-Id</code>.
                 </DocParagraph>
-            </DocSection>
-
-            <DocSection title="POST /public/send-magic-link">
-                <DocParagraph>Envoyer un lien de connexion par email.</DocParagraph>
-                <DocTable headers={["Champ", "Type", "Requis"]} rows={[["email", "string", "oui"]]} />
-                <DocParagraph>
-                    Retourne <code>{"{}"}</code>.
-                </DocParagraph>
-            </DocSection>
-
-            <DocSection title="Webhooks">
-                <DocParagraph>Route de callback pour les notifications de paiement Mollie.</DocParagraph>
-                <DocTable
-                    headers={["Route", "Description"]}
-                    rows={[["POST /public/mollie-webhook", "Recevoir les mises à jour de statut de paiement"]]}
-                />
                 <DocTip variant="warning">
-                    Cette route est destinée à être appelée par Mollie uniquement. Elle ne doit pas être utilisée
-                    directement.
+                    La clé brute (<code>rawKey</code>) n'est retournée qu'au moment de la création via la route{" "}
+                    <code>POST /auth/create-one-api-key</code>. Conservez-la précieusement, elle ne pourra pas être
+                    récupérée ultérieurement.
                 </DocTip>
             </DocSection>
 
-            <DocSection title="Paramètres utilisateur">
-                <DocParagraph>
-                    Ces routes permettent de gérer le profil et les identifiants de l'utilisateur connecté. Toutes
-                    nécessitent une session active.
-                </DocParagraph>
-
+            <DocSection title="En-têtes requis">
+                <DocParagraph>Résumé des en-têtes nécessaires selon la méthode d'authentification :</DocParagraph>
                 <DocTable
-                    headers={["Route", "Description"]}
+                    headers={["En-tête", "Cookie de session", "Clé API"]}
                     rows={[
-                        ["POST /auth/read-user-session", "Lire la session et les données utilisateur"],
-                        ["POST /auth/update-user", "Mettre à jour le profil (alias)"],
-                        ["POST /auth/update-user-email", "Changer l'adresse email"],
-                        ["POST /auth/update-user-password", "Changer le mot de passe"],
-                        ["POST /auth/activate-user", "Activer le compte via un token email"],
-                        ["POST /auth/validate-user-email", "Valider une nouvelle adresse email"],
-                    ]}
-                />
-            </DocSection>
-
-            <DocSection title="POST /auth/update-user-email">
-                <DocParagraph>Changer l'adresse email de l'utilisateur. Requiert le mot de passe actuel.</DocParagraph>
-                <DocTable
-                    headers={["Champ", "Type", "Requis"]}
-                    rows={[
-                        ["currentPassword", "string", "oui"],
-                        ["emailToValidate", "string", "oui"],
-                    ]}
-                />
-                <DocParagraph>Retourne l'objet utilisateur mis à jour.</DocParagraph>
-            </DocSection>
-
-            <DocSection title="POST /auth/update-user-password">
-                <DocParagraph>Changer le mot de passe de l'utilisateur.</DocParagraph>
-                <DocTable
-                    headers={["Champ", "Type", "Requis"]}
-                    rows={[
-                        ["currentPassword", "string", "oui"],
-                        ["newPassword", "string", "oui"],
-                        ["newPasswordCheck", "string", "oui"],
+                        ["Content-Type: application/json", "Requis", "Requis"],
+                        ["X-Organization-Id", "Requis *", "Non nécessaire"],
+                        ["Authorization: Bearer <clé>", "Non utilisé", "Requis"],
                     ]}
                 />
                 <DocParagraph>
-                    Retourne l'objet utilisateur. Erreur <code>400</code> si les mots de passe ne correspondent pas ou
-                    si le mot de passe actuel est incorrect.
+                    * L'en-tête <code>X-Organization-Id</code> peut être remplacé par le cookie{" "}
+                    <code>arrhes_id_organization</code>.
                 </DocParagraph>
             </DocSection>
 
-            <DocSection title="Support">
-                <DocParagraph>Envoyer un ticket de support depuis l'application.</DocParagraph>
-                <DocTable
-                    headers={["Route", "Champs", "Description"]}
-                    rows={[
-                        [
-                            "POST /auth/send-support-message",
-                            "category (string | null), message (string)",
-                            "Envoyer un message de support",
-                        ],
+            <DocSection title="Permissions">
+                <DocParagraph>
+                    Certaines routes nécessitent des permissions supplémentaires au-delà de l'authentification :
+                </DocParagraph>
+                <DocList
+                    items={[
+                        <>
+                            <strong>Administrateur</strong> : les routes de gestion d'organisation (suppression,
+                            paiements, abonnement) nécessitent que l'utilisateur soit administrateur de l'organisation.
+                        </>,
+                        <>
+                            <strong>Plan avancé</strong> : les routes de gestion des clés API nécessitent un abonnement
+                            avancé actif sur l'organisation.
+                        </>,
                     ]}
                 />
-                <DocParagraph>
-                    Retourne <code>{"{}"}</code>.
-                </DocParagraph>
             </DocSection>
 
             <DocNextPage to="/documentation/api/organisations" label="Organisations" />

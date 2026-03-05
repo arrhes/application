@@ -1,40 +1,17 @@
 import { ButtonOutlineContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconChevronRight } from "@tabler/icons-react"
+import { DocHeader } from "../../../components/document/docHeader.js"
 import { DocRoot } from "../../../components/document/docRoot.js"
 import { LinkButton } from "../../../components/linkButton.js"
 
 export function RootGeneralDocPage() {
     return (
         <DocRoot>
-            {/* Page header */}
-            <div
-                className={css({
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "0.5rem",
-                })}
-            >
-                <h1
-                    className={css({
-                        fontSize: "lg",
-                        fontWeight: "bold",
-                        color: "neutral",
-                    })}
-                >
-                    Documentation
-                </h1>
-                <p
-                    className={css({
-                        color: "neutral/60",
-                        fontSize: "md",
-                        lineHeight: "relaxed",
-                    })}
-                >
-                    Bienvenue dans la documentation d'Arrhes. Vous pouvez ici découvrir le projet, reprendre les bases
-                    de la comptabilité ou apprendre à utiliser le logiciel.
-                </p>
-            </div>
+            <DocHeader
+                title="Documentation"
+                description="Bienvenue dans la documentation d'Arrhes. Vous pouvez ici découvrir le projet, reprendre les bases de la comptabilité ou apprendre à utiliser le logiciel."
+            />
 
             {/* About section */}
             <div

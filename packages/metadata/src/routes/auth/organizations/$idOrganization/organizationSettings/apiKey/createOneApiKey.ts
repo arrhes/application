@@ -8,7 +8,7 @@ export const createOneApiKeyRouteDefinition = routeDefinition({
     path: `${routePath.auth}/create-one-api-key`,
     schemas: {
         body: v.object({
-            name: apiKeySchema.entries.name,
+            name: v.optional(apiKeySchema.entries.name),
         }),
         return: v.object({
             ...apiKeySchemaReturn.entries,

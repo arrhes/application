@@ -18,7 +18,7 @@ export const generateFilePutSignedUrlRoute = apiFactory
             schema: generateFilePutSignedUrlRouteDefinition.schemas.body,
         })
 
-        if (body.size > 10_000_000) {
+        if (body.size > 50_000_000) {
             throw new Exception({
                 internalMessage: "File size is too big",
                 statusCode: 400,

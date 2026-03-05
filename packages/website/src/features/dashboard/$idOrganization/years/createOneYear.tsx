@@ -34,8 +34,8 @@ export function CreateOneYear(props: {
                     <FormRoot
                         schema={createOneYearRouteDefinition.schemas.body}
                         defaultValues={{
-                            startingAt: (new Date(currentDate.getFullYear(), 0, 1)).toISOString(),
-                            endingAt: (new Date(currentDate.getFullYear(), 11, 31)).toISOString(),
+                            startingAt: new Date(currentDate.getFullYear(), 0, 1).toISOString(),
+                            endingAt: new Date(currentDate.getFullYear(), 11, 31).toISOString(),
                             label: undefined,
                         }}
                         submitButtonProps={{

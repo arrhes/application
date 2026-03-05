@@ -30,9 +30,7 @@ export function CreateOneApiKey(props: {
                 open={open}
                 onOpenChange={(value) => {
                     setOpen(value)
-                    if (!value) {
-                        setRawKey(null)
-                    }
+                    setRawKey(null)
                 }}
             >
                 <Drawer.Trigger>{props.children}</Drawer.Trigger>
@@ -80,7 +78,7 @@ export function CreateOneApiKey(props: {
                                                 <FormItem>
                                                     <FormLabel
                                                         label="Nom de la clé"
-                                                        isRequired={true}
+                                                        isRequired={false}
                                                         description={undefined}
                                                         tooltip={undefined}
                                                     />

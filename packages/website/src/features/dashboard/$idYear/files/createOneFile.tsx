@@ -12,7 +12,7 @@ import { toast } from "../../../../contexts/toasts/useToast.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
 
-const MAX_FILE_SIZE = 1024 * 1024 * 10 // 10 MB
+const MAX_FILE_SIZE = 1024 * 1024 * 50 // 50 MB
 
 /**
  * Derive a human-readable reference from a file name by stripping the extension.
@@ -31,7 +31,7 @@ async function uploadOneFile(params: {
     const { file, idOrganization: _idOrganization, idYear, idFolder } = params
 
     if (file.size > MAX_FILE_SIZE) {
-        toast({ title: `"${file.name}" dépasse la taille maximale de 10 Mo`, variant: "error" })
+        toast({ title: `"${file.name}" dépasse la taille maximale de 50 Mo`, variant: "error" })
         return false
     }
 

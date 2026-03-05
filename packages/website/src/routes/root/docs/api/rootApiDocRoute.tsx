@@ -6,7 +6,7 @@ export const rootApiDocRoute = createRoute({
     getParentRoute: () => apiDocLayoutRoute,
     path: "/",
     beforeLoad: () => ({
-        title: "API REST",
+        title: "API",
     }),
     component: () => <RootApiDocPage />,
 })

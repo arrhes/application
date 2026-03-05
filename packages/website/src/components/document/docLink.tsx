@@ -7,6 +7,7 @@ export function DocLink(props: { to: ValidRoutes; children: React.ReactNode }) {
         <LinkButton
             to={props.to}
             className={css({
+                fontSize: "sm",
                 color: "primary",
                 fontWeight: "medium",
                 textDecoration: "underline",

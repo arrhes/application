@@ -80,14 +80,14 @@ export const docSections: Record<string, DocSection> = {
         icon: <IconCode />,
         navigation: {
             api: {
-                title: "API REST",
+                title: "API",
                 icon: <IconCode className={css({ width: "1rem", height: "1rem" })} />,
                 items: [
                     { path: "/documentation/api", label: "Présentation" },
                     { path: "/documentation/api/introduction", label: "Introduction" },
                     { path: "/documentation/api/authentification", label: "Authentification" },
-                    { path: "/documentation/api/organisations", label: "Organisations" },
-                    { path: "/documentation/api/comptabilité", label: "Comptabilité" },
+                    { path: "/documentation/api/organisation", label: "Organisation" },
+                    { path: "/documentation/api/exercice", label: "Exercice" },
                     { path: "/documentation/api/stockage", label: "Fichiers et documents" },
                 ],
             },

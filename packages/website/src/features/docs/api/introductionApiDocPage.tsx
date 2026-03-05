@@ -1,4 +1,5 @@
 import { DocHeader } from "../../../components/document/docHeader.tsx"
+import { DocLink } from "../../../components/document/docLink.tsx"
 import { DocList } from "../../../components/document/docList.tsx"
 import { DocNextPage } from "../../../components/document/docNextPage.tsx"
 import { DocParagraph } from "../../../components/document/docParagraph.tsx"
@@ -12,7 +13,7 @@ export function IntroductionApiDocPage() {
         <DocRoot>
             <DocHeader
                 title="Introduction"
-                description="Conventions, authentification et gestion des erreurs de l'API REST"
+                description="Conventions, authentification et gestion des erreurs de l'API"
             />
 
             <DocSection title="Conventions">
@@ -21,37 +22,22 @@ export function IntroductionApiDocPage() {
                     items={[
                         "Toutes les routes utilisent la méthode POST",
                         "Le corps de la requête et la réponse sont en JSON",
-                        "Les schémas de validation utilisent Valibot",
-                        "Les identifiants sont des chaînes NanoID",
                         "Les dates suivent le format ISO 8601",
                         'Les montants (débit, crédit) sont des chaînes numériques (ex : "100.00")',
                     ]}
                 />
                 <DocTip variant="info">
-                    Les identifiants d'entités et le cadrage organisationnel sont passés dans le corps de la requête, et
-                    non dans l'URL.
+                    Les identifiants d'entités (idYear, idRecord, idAccount, etc.) sont passés dans le corps de la
+                    requête. L'organisation est identifiée via le token d'authentification, et non dans le corps de la
+                    requête, ni dans l'URL.
                 </DocTip>
             </DocSection>
 
             <DocSection title="Authentification">
                 <DocParagraph>
-                    L'API utilise une authentification par cookies de session. Lors de la connexion via{" "}
-                    <code>/public/sign-in</code>, deux cookies sont définis :
+                    Toutes les routes documentées ici sont protégées et nécessitent une authentification.
                 </DocParagraph>
-                <DocList
-                    items={[
-                        "arrhes_id_user_session : identifiant de session (httpOnly)",
-                        "arrhes_is_auth : indicateur d'authentification (accessible côté client)",
-                    ]}
-                />
-                <DocParagraph>
-                    Les routes publiques (<code>/public/*</code>) ne nécessitent pas d'authentification. Toutes les
-                    routes protégées (<code>/auth/*</code>) requièrent un cookie de session valide.
-                </DocParagraph>
-                <DocTip variant="warning">
-                    Certaines routes nécessitent des permissions supplémentaires : être administrateur de l'organisation
-                    ou disposer d'un abonnement premium.
-                </DocTip>
+                <DocLink to="/documentation/api/authentification">Voir les méthodes d'authentification</DocLink>
             </DocSection>
 
             <DocSection title="Gestion des erreurs">
@@ -69,12 +55,9 @@ export function IntroductionApiDocPage() {
                 <DocTable
                     headers={["Message", "Signification"]}
                     rows={[
-                        ['"Identifiants incorrects"', "Email ou mot de passe incorrect"],
-                        ['"Les mots de passe ne correspondent pas"', "Les nouveaux mots de passe ne correspondent pas"],
-                        ['"Mot de passe incorrect"', "Mot de passe actuel incorrect"],
                         ["\"Vous n'êtes pas administrateur de l'organisation\"", "Accès administrateur requis"],
                         ['"Données invalides"', "La validation du corps de la requête a échoué"],
-                        ['"Fichier trop volumineux"', "Le fichier dépasse la limite de 10 Mo"],
+                        ['"Fichier trop volumineux"', "Le fichier dépasse la limite de 50 Mo"],
                         ['"Limite de stockage atteinte"', "Limite de stockage de l'organisation atteinte"],
                     ]}
                 />
@@ -82,39 +65,34 @@ export function IntroductionApiDocPage() {
 
             <DocSection title="Catégories de routes">
                 <DocParagraph>
-                    L'API expose 112 routes réparties en 23 catégories. Le tableau ci-dessous résume chaque catégorie :
+                    L'API expose 90 routes protégées réparties en 17 catégories. Le tableau ci-dessous résume chaque
+                    catégorie :
                 </DocParagraph>
                 <DocTable
-                    headers={["#", "Catégorie", "Préfixe", "Routes", "Auth"]}
+                    headers={["#", "Catégorie", "Routes", "Scope"]}
                     rows={[
-                        ["1", "Authentification", "/public", "4", "Non"],
-                        ["2", "Webhooks", "/public", "1", "Non"],
-                        ["3", "Paramètres utilisateur", "/auth", "6", "Oui"],
-                        ["4", "Support", "/auth", "1", "Oui"],
-                        ["5", "Organisations", "/auth", "4", "Oui"],
-                        ["6", "Paramètres d'organisation", "/auth", "2", "Oui (admin)"],
-                        ["7", "Clés API", "/auth", "3", "Oui (premium)"],
-                        ["8", "Abonnement et paiements", "/auth", "4", "Oui (admin)"],
-                        ["9", "Utilisateurs d'organisation", "/auth", "5", "Oui"],
-                        ["10", "Exercices", "/auth", "3", "Oui"],
-                        ["11", "Paramètres d'exercice", "/auth", "6", "Oui"],
-                        ["12", "Comptes", "/auth", "6", "Oui"],
-                        ["13", "Journaux", "/auth", "6", "Oui"],
-                        ["14", "Bilans", "/auth", "7", "Oui"],
-                        ["15", "Comptes de résultat", "/auth", "7", "Oui"],
-                        ["16", "Libellés d'écriture", "/auth", "5", "Oui"],
-                        ["17", "Calculs", "/auth", "6", "Oui"],
-                        ["18", "Calculs - comptes de résultat", "/auth", "5", "Oui"],
-                        ["19", "Écritures", "/auth", "8", "Oui"],
-                        ["20", "Lignes d'écriture", "/auth", "6", "Oui"],
-                        ["21", "Fichiers", "/auth", "7", "Oui"],
-                        ["22", "Dossiers", "/auth", "5", "Oui"],
-                        ["23", "Documents et rapports", "/auth", "5", "Oui"],
+                        ["1", "Paramètres d'organisation", "3", "Organisation"],
+                        ["2", "Clés API", "3", "Organisation"],
+                        ["3", "Abonnement et paiements", "4", "Organisation"],
+                        ["4", "Utilisateurs d'organisation", "5", "Organisation"],
+                        ["5", "Exercices", "9", "Organisation"],
+                        ["6", "Comptes", "5", "Exercice"],
+                        ["7", "Journaux", "5", "Exercice"],
+                        ["8", "Bilans", "5", "Exercice"],
+                        ["9", "Comptes de résultat", "5", "Exercice"],
+                        ["10", "Calculs", "5", "Exercice"],
+                        ["11", "Calculs - comptes de résultat", "5", "Exercice"],
+                        ["12", "Libellés d'écriture", "5", "Exercice"],
+                        ["13", "Écritures", "8", "Exercice"],
+                        ["14", "Mouvements", "6", "Exercice"],
+                        ["15", "Fichiers", "7", "Exercice"],
+                        ["16", "Dossiers", "5", "Exercice"],
+                        ["17", "Documents et rapports", "5", "Exercice"],
                     ]}
                 />
             </DocSection>
 
-            <DocNextPage to="/documentation/api/authentification" label="Authentification et utilisateurs" />
+            <DocNextPage to="/documentation/api/authentification" label="Authentification" />
         </DocRoot>
     )
 }

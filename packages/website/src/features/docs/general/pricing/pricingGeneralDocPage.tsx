@@ -76,7 +76,7 @@ export function PricingGeneralDocPage() {
                     />
                     <FaqItem
                         question="Pourquoi avoir choisi ce modèle ?"
-                        answer="Nous souhaitons démocratiser l'accès à la comptabilité au plus grand nombre. Nous avons ajouté une offre avancée afin de pouvoir continuer à développer la plateforme."
+                        answer="Nous souhaitons démocratiser l'accès à la comptabilité au plus grand nombre. Nous avons ajouté une offre avancée afin de pouvoir continuer à développer la plateforme et supporter les coûts de serveur."
                     />
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import { ButtonOutlineContent, LinkContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconChevronRight } from "@tabler/icons-react"
+import { DocHeader } from "../../../components/document/docHeader.tsx"
 import { DocLink } from "../../../components/document/docLink.tsx"
 import { DocRoot } from "../../../components/document/docRoot.tsx"
 import { DocTip } from "../../../components/document/docTip.tsx"
@@ -9,34 +10,10 @@ import { LinkButton } from "../../../components/linkButton.tsx"
 export function RootDashboardDocPage() {
     return (
         <DocRoot>
-            {/* Page header */}
-            <div
-                className={css({
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "0.5rem",
-                })}
-            >
-                <h1
-                    className={css({
-                        fontSize: "lg",
-                        fontWeight: "bold",
-                        color: "neutral",
-                    })}
-                >
-                    Guide d'utilisation
-                </h1>
-                <p
-                    className={css({
-                        color: "neutral/60",
-                        fontSize: "md",
-                        lineHeight: "relaxed",
-                    })}
-                >
-                    Découvrez comment utiliser Arrhes au quotidien pour gérer votre comptabilité de manière simple et
-                    efficace.
-                </p>
-            </div>
+            <DocHeader
+                title="Guide d'utilisation"
+                description="Découvrez comment utiliser Arrhes au quotidien pour gérer votre comptabilité de manière simple et efficace."
+            />
 
             {/* About section */}
             <div

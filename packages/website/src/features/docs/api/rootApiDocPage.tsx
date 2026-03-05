@@ -1,6 +1,7 @@
 import { ButtonOutlineContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconChevronRight } from "@tabler/icons-react"
+import { DocHeader } from "../../../components/document/docHeader.tsx"
 import { DocLink } from "../../../components/document/docLink.tsx"
 import { DocRoot } from "../../../components/document/docRoot.tsx"
 import { DocTip } from "../../../components/document/docTip.tsx"
@@ -9,34 +10,10 @@ import { LinkButton } from "../../../components/linkButton.tsx"
 export function RootApiDocPage() {
     return (
         <DocRoot>
-            {/* Page header */}
-            <div
-                className={css({
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "0.5rem",
-                })}
-            >
-                <h1
-                    className={css({
-                        fontSize: "lg",
-                        fontWeight: "bold",
-                        color: "neutral",
-                    })}
-                >
-                    API REST
-                </h1>
-                <p
-                    className={css({
-                        color: "neutral/60",
-                        fontSize: "md",
-                        lineHeight: "relaxed",
-                    })}
-                >
-                    Documentation technique de l'API REST d'Arrhes. Toutes les routes, leurs paramètres et leurs
-                    réponses.
-                </p>
-            </div>
+            <DocHeader
+                title="API"
+                description="Documentation technique de l'API d'Arrhes. Toutes les routes, leurs paramètres et leurs réponses."
+            />
 
             {/* About section */}
             <div
@@ -67,9 +44,8 @@ export function RootApiDocPage() {
                         lineHeight: "relaxed",
                     })}
                 >
-                    L'API d'Arrhes suit un modèle de routage basé sur le corps de la requête : toutes les routes
-                    utilisent la méthode POST, et les identifiants sont passés dans le corps JSON. L'API expose 112
-                    routes réparties en 23 catégories.
+                    L'API d'Arrhes utilise exclusivement la méthode POST. L'organisation est identifiée via la clé API
+                    (Bearer token). L'API expose 90 routes protégées réparties en 17 catégories.
                 </p>
                 <div
                     className={css({
@@ -84,9 +60,9 @@ export function RootApiDocPage() {
             </div>
 
             <DocTip variant="info">
-                L'API utilise une authentification par cookies de session. Les routes publiques (authentification,
-                webhooks) ne nécessitent pas de session. Les routes protégées nécessitent le cookie{" "}
-                <code>arrhes_id_user_session</code> obtenu lors de la connexion.
+                L'API supporte deux méthodes d'authentification : les cookies de session (pour l'interface web) et les
+                clés API avec l'en-tête <code>Authorization: Bearer &lt;clé&gt;</code> (pour l'intégration
+                programmatique).
             </DocTip>
 
             <DocTip variant="tip">

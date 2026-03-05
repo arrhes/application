@@ -5,7 +5,7 @@ export function DocTable(props: { headers: string[]; rows: string[][] }) {
         <div
             className={css({
                 overflowX: "auto",
-                borderRadius: "xl",
+                borderRadius: "lg",
                 border: "1px solid",
                 borderColor: "neutral/10",
                 backgroundColor: "white",
@@ -29,8 +29,7 @@ export function DocTable(props: { headers: string[]; rows: string[][] }) {
                             <th
                                 key={index}
                                 className={css({
-                                    px: "4",
-                                    py: "3",
+                                    padding: "0.5rem",
                                     textAlign: "left",
                                     fontSize: "xs",
                                     fontWeight: "semibold",
@@ -60,8 +59,7 @@ export function DocTable(props: { headers: string[]; rows: string[][] }) {
                                 <td
                                     key={cellIndex}
                                     className={css({
-                                        px: "4",
-                                        py: "3",
+                                        padding: "0.5rem",
                                         fontSize: "sm",
                                         color: "neutral/70",
                                         lineHeight: "1.5",

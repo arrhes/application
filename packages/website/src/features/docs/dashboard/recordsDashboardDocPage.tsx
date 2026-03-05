@@ -87,7 +87,7 @@ export function RecordsDashboardDocPage() {
                 <DocList
                     items={[
                         "Formats acceptés : PDF, images (JPG, PNG)",
-                        "Taille maximale : 10 Mo par fichier",
+                        "Taille maximale : 50 Mo par fichier",
                         "Vous pouvez joindre plusieurs fichiers à une même écriture",
                     ]}
                 />

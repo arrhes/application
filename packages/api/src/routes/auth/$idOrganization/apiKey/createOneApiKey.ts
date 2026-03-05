@@ -1,4 +1,4 @@
-import { createHash, randomBytes } from "node:crypto"
+import { createHash } from "node:crypto"
 import { createOneApiKeyRouteDefinition, generateId, models } from "@arrhes/application-metadata"
 import { and, eq } from "drizzle-orm"
 import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
@@ -30,7 +30,7 @@ export const createOneApiKeyRoute = apiFactory.createApp().post(createOneApiKeyR
         })
     }
 
-    const rawKey = randomBytes(32).toString("base64url")
+    const rawKey = generateId()
     const keyHash = createHash("sha256").update(rawKey).digest("hex")
 
     const createOneApiKey = await insertOne({
@@ -41,7 +41,7 @@ export const createOneApiKeyRoute = apiFactory.createApp().post(createOneApiKeyR
             idOrganization: idOrganization,
             idUser: user.id,
             keyHash: keyHash,
-            name: body.name,
+            name: body.name ?? new Date().toISOString(),
             isDefault: false,
             isActive: true,
             createdAt: new Date().toISOString(),
