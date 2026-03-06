@@ -25,6 +25,6 @@ FROM nginx:alpine AS deploy
 WORKDIR /
 COPY .workflows/.build/packages/dashboard/nginx/default.conf /etc/nginx/nginx.conf
 RUN rm -rf /usr/share/nginx/html/*
-COPY --from=build /root/build /usr/share/nginx/html
+COPY --from=build /root/packages/website/build /usr/share/nginx/html
 EXPOSE 3101
 CMD ["nginx"]
