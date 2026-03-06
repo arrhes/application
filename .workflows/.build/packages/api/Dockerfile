@@ -14,7 +14,7 @@ RUN pnpm run build
 # Start api
 FROM base AS deploy
 WORKDIR /root
-COPY --from=build /root/build ./build
+COPY --from=build /root/packages/api/build ./build
 COPY --from=build /root/node_modules ./node_modules
 COPY --from=build /root/packages/metadata ./packages/metadata
 COPY --from=build /root/package.json ./package.json
