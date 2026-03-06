@@ -1,7 +1,6 @@
 # Use an official Node.js image to build our image from
 FROM node:25-alpine AS base
-RUN npm i -g corepack@latest
-RUN corepack enable
+RUN npm install -g pnpm@10.26.1
 
 ENV NODE_OPTIONS="--max-old-space-size=4096"
 
@@ -9,12 +8,7 @@ ENV NODE_OPTIONS="--max-old-space-size=4096"
 FROM base AS build
 WORKDIR /root
 COPY . .
-
-# Build the api
-RUN echo "@arrhes:registry=https://npm.pkg.github.com/" >> .npmrc
-RUN --mount=type=secret,id=github_token echo "//npm.pkg.github.com/:_authToken=$(cat /run/secrets/github_token)" >> .npmrc
 RUN pnpm install
-RUN rm -f .npmrc
 RUN pnpm run build
 
 # Start api

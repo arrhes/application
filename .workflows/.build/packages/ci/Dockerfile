@@ -1,7 +1,7 @@
 # ==============================================================================
-# CI Build Dockerfile
+# CI Dockerfile
 # ==============================================================================
-# Mirrors the GitHub Actions CI pipeline locally:
+# Runs the full check pipeline inside Docker:
 #   1. Install dependencies
 #   2. Biome check (lint + format)
 #   3. Unit tests
@@ -10,17 +10,8 @@
 # Usage: just build
 # ==============================================================================
 
-ARG NODE_VERSION="25.2.1"
-ARG PNPM_VERSION="10.26.1"
-
-FROM node:${NODE_VERSION}-bullseye-slim
-
-ARG PNPM_VERSION
-
-# Install PNPM
-RUN npm install -g "pnpm@${PNPM_VERSION}" && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+FROM node:25-alpine
+RUN npm install -g pnpm@10.26.1
 
 WORKDIR /workspace
 
