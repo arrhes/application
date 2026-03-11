@@ -16,7 +16,7 @@ dev-up:
     @echo "=============================================="
     @echo ""
     @echo "  Services:"
-    @echo "    Dashboard:  http://localhost:5173"
+    @echo "    Website:  http://localhost:5173"
     @echo "    API:        http://localhost:3000"
     @echo ""
     @echo "  Infrastructure:"
@@ -58,7 +58,7 @@ dev-reset:
 # ==============================================================================
 # Uses the same compose file as CI (single source of truth):
 #   1. ci service: pnpm install, Biome check, unit tests, build
-#   2. api/dashboard services: production Docker images
+#   2. api/website services: production Docker images
 #
 # Usage:
 #   just build        - Run CI checks only
@@ -83,7 +83,7 @@ build-all:
     @echo "=============================================="
     @echo ""
     {{COMPOSE_BUILD}} build --progress=plain --no-cache ci
-    ARRHES_VERSION=$(cat VERSION) {{COMPOSE_BUILD}} build --progress=plain --no-cache api dashboard
+    ARRHES_VERSION=$(cat VERSION) {{COMPOSE_BUILD}} build --progress=plain --no-cache api website
     @echo ""
     @echo "=============================================="
     @echo "  Build succeeded"
