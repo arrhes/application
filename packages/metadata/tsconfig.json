@@ -12,10 +12,12 @@
         "moduleResolution": "NodeNext",
         "resolveJsonModule": true,
         "isolatedModules": true,
+        "composite": true,
         "declaration": true,
         "declarationMap": true,
         "sourceMap": true,
-        "noEmit": true,
+        "rootDir": "./src",
+        "outDir": "./build",
         "paths": {
             "#/*": ["./src/*"]
         }
