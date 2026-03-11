@@ -11,11 +11,11 @@ COPY . .
 RUN pnpm install
 RUN pnpm run build
 
+# Create a self-contained deploy output
+RUN pnpm --filter @arrhes/application-api deploy --legacy /deploy
+
 # Start api
 FROM base AS deploy
 WORKDIR /root
-COPY --from=build /root/packages/api/build ./build
-COPY --from=build /root/node_modules ./node_modules
-COPY --from=build /root/packages/metadata ./packages/metadata
-COPY --from=build /root/packages/api/package.json ./package.json
+COPY --from=build /deploy .
 CMD [ "pnpm", "start"]
