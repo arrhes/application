@@ -17,4 +17,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run CI build (lint + test + build)
-        run: docker compose -f .workflows/.build/compose.yml build ci
+        run: docker compose -f .workflows/.build/compose.yml build --progress=plain --no-cache ci
