@@ -12,7 +12,7 @@ RUN pnpm install
 RUN pnpm run build
 
 # Create a self-contained deploy output
-RUN pnpm --filter @arrhes/application-api deploy /deploy
+RUN pnpm --filter @arrhes/application-api deploy --legacy /deploy
 
 # Start api
 FROM base AS deploy

@@ -16,5 +16,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install just
+        uses: extractions/setup-just@v2
+
       - name: Run CI build (lint + test + build)
-        run: docker compose -f .workflows/.build/compose.yml build --progress=plain --no-cache ci
+        run: just build
