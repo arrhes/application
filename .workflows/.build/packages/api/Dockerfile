@@ -17,5 +17,5 @@ WORKDIR /root
 COPY --from=build /root/packages/api/build ./build
 COPY --from=build /root/node_modules ./node_modules
 COPY --from=build /root/packages/metadata ./packages/metadata
-COPY --from=build /root/package.json ./package.json
+COPY --from=build /root/packages/api/package.json ./package.json
 CMD [ "pnpm", "start"]

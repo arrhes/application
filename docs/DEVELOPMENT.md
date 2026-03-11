@@ -182,7 +182,6 @@ COOKIES_KEY=development-secret-key-change-in-production-min-32-chars
 
 # URLs
 API_BASE_URL=http://localhost:3000
-APPLICATION_BASE_URL=http://localhost:5173
 WEBSITE_BASE_URL=http://localhost:5173
 
 # Base de donnees (Docker Compose)

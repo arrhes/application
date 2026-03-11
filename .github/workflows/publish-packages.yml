@@ -43,14 +43,14 @@ jobs:
           ARRHES_VERSION: ${{ steps.version.outputs.version }}
         run: |
           docker compose -f .workflows/.build/compose.yml build ci
-          docker compose -f .workflows/.build/compose.yml build api dashboard
+          docker compose -f .workflows/.build/compose.yml build api website
 
       - name: Tag and push images
         env:
           VERSION: ${{ steps.version.outputs.version }}
           SHA: ${{ github.sha }}
         run: |
-          IMAGES=("api" "dashboard")
+          IMAGES=("api" "website")
           MINOR="${VERSION%.*}"
 
           for img in "${IMAGES[@]}"; do

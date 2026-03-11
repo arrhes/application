@@ -18,7 +18,7 @@ Pour en savoir plus, consultez le site officiel : [arrhes.com](https://arrhes.co
 
 ## A propos
 
-Arrhes est une application open source de gestion de comptabilite en partie double. Ce répertoire contient le code source du projet. Il inclut le backend API, le dashboard web, les schémas partagés et les outils de migration.
+Arrhes est une application open source de gestion de comptabilite en partie double. Ce répertoire contient le code source du projet. Il inclut le backend API, l'application web, les schémas partagés et les outils de migration.
 
 ## Demarrage rapide
 
@@ -67,7 +67,7 @@ Une fois l'environnement demarré :
 
 | Service    | URL                     |
 |------------|-------------------------|
-| Dashboard  | http://localhost:5173   |
+| Website  | http://localhost:5173   |
 | API        | http://localhost:3000   |
 | Mailpit    | http://localhost:8025   |
 | RustFS     | http://localhost:9001   |

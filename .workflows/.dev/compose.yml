@@ -102,7 +102,6 @@ services:
       COOKIES_DOMAIN: localhost
       COOKIES_KEY: development-secret-key-change-in-production-min-32-chars
       API_BASE_URL: http://localhost:3000
-      APPLICATION_BASE_URL: http://localhost:5173
       WEBSITE_BASE_URL: http://localhost:5173
       SQL_DATABASE_URL: postgres://postgres:admin@postgres:5432/default
       STORAGE_ENDPOINT: http://rustfs:9000
@@ -143,7 +142,6 @@ services:
       # The entrypoint writes these to packages/website/.env at startup.
       VITE_ENV: development
       VITE_API_BASE_URL: http://localhost:3000
-      VITE_DASHBOARD_BASE_URL: http://localhost:5173
       VITE_WEBSITE_BASE_URL: http://localhost:5173
 
 # ==============================================================================
