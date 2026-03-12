@@ -19,7 +19,6 @@ export async function generatePutSignedUrl(parameters: {
         const signedUrl = await getSignedUrl(
             parameters.var.clients.storagePublic,
             new PutObjectCommand({
-                ACL: "private",
                 Bucket: parameters.var.env.STORAGE_BUCKET_NAME,
                 Key: parameters.storageKey,
                 ContentLength: parameters.contentLength,

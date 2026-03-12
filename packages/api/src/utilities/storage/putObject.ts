@@ -16,7 +16,6 @@ export async function putObject(parameters: {
 }) {
     try {
         const command = new PutObjectCommand({
-            ACL: "private",
             Bucket: parameters.var.env.STORAGE_BUCKET_NAME,
             Key: parameters.storageKey,
             ContentLength: parameters.contentLength,
