@@ -93,18 +93,19 @@ async function startServer() {
                         2,
                     ),
                 )
+            } else {
+                console.error(
+                    JSON.stringify(
+                        {
+                            type: "error",
+                            message: "Unknown error",
+                            cause: error,
+                        },
+                        undefined,
+                        2,
+                    ),
+                )
             }
-            console.error(
-                JSON.stringify(
-                    {
-                        type: "error",
-                        message: "Unknown error",
-                        cause: error,
-                    },
-                    undefined,
-                    2,
-                ),
-            )
 
             console.error("Restarting in 3 seconds...")
             await new Promise((resolve) => setTimeout(resolve, 3000))
