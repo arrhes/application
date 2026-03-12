@@ -32,5 +32,5 @@ services:
       context: ../..
       dockerfile: .workflows/.build/packages/website/Dockerfile
       args:
-        - VITE_PUBLIC_WEBSITE_URL=${VITE_PUBLIC_WEBSITE_URL:-}
-        - VITE_PUBLIC_API_URL=${VITE_PUBLIC_API_URL:-}
+        - VITE_WEBSITE_BASE_URL=${VITE_WEBSITE_BASE_URL:-}
+        - VITE_API_BASE_URL=${VITE_API_BASE_URL:-}

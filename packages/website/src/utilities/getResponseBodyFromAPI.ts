@@ -20,6 +20,21 @@ export async function getResponseBodyFromAPI<
     const abortController = parameters.signal ? undefined : new AbortController()
     const signal = parameters.signal ?? abortController!.signal
     try {
+        const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
+        if (!apiBaseUrl) {
+            console.error(
+                "VITE_API_BASE_URL is not defined. The request will not be sent. " +
+                    "Make sure the environment variable is set at build time.",
+            )
+            return <const>{
+                ok: false,
+                data: undefined,
+                error: new ClientError({
+                    message: "VITE_API_BASE_URL is not defined",
+                }),
+            }
+        }
+
         const headers: Record<string, string> = {
             "Content-Type": "application/json",
         }
@@ -29,16 +44,13 @@ export async function getResponseBodyFromAPI<
             headers["X-Organization-Id"] = idOrganization
         }
 
-        const response = await fetch(
-            new URL(`${import.meta.env.VITE_API_BASE_URL}${parameters.routeDefinition.path}`),
-            {
-                method: "POST",
-                headers,
-                credentials: "include",
-                body: JSON.stringify(parameters.body),
-                signal,
-            },
-        )
+        const response = await fetch(new URL(`${apiBaseUrl}${parameters.routeDefinition.path}`), {
+            method: "POST",
+            headers,
+            credentials: "include",
+            body: JSON.stringify(parameters.body),
+            signal,
+        })
         const jsonResponse = JSON.parse((await response.text()) || "{}")
         if (response.ok === false) {
             throw new ClientError({

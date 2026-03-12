@@ -3,12 +3,12 @@ FROM node:25-alpine AS base
 RUN npm install -g pnpm@10.26.1
 
 # Define build arguments for environment variables
-ARG VITE_PUBLIC_WEBSITE_URL
-ARG VITE_PUBLIC_API_URL
+ARG VITE_API_BASE_URL
+ARG VITE_WEBSITE_BASE_URL
 
 # Set environment variables during the build process
-ENV VITE_PUBLIC_WEBSITE_URL=$VITE_PUBLIC_WEBSITE_URL
-ENV VITE_PUBLIC_API_URL=$VITE_PUBLIC_API_URL
+ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
+ENV VITE_WEBSITE_BASE_URL=$VITE_WEBSITE_BASE_URL
 ENV NODE_OPTIONS="--max-old-space-size=4096"
 
 # Build the repo
