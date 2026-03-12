@@ -17,6 +17,21 @@ export async function getResponseBodyFromAPI<
     signal?: AbortSignal
     hasToastMessage?: boolean
 }) {
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
+    if (!apiBaseUrl) {
+        console.error(
+            "VITE_API_BASE_URL is not defined. The request will not be sent. " +
+                "Make sure the environment variable is set at build time.",
+        )
+        return <const>{
+            ok: false,
+            data: undefined,
+            error: new ClientError({
+                message: "VITE_API_BASE_URL is not defined",
+            }),
+        }
+    }
+
     const abortController = parameters.signal ? undefined : new AbortController()
     const signal = parameters.signal ?? abortController!.signal
     try {
