@@ -23,11 +23,11 @@ COPY tests/ ./tests/
 # Install dependencies
 RUN pnpm install --frozen-lockfile
 
+# Build all packages (must run before tests so workspace deps are compiled)
+RUN pnpm run build
+
 # Run Biome check (lint + format)
 RUN pnpm check
 
 # Run unit tests
 RUN pnpm --recursive --if-present --filter='./packages/**' run test:unit
-
-# Build all packages
-RUN pnpm run build

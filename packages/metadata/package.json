@@ -3,6 +3,7 @@
     "type": "module",
     "private": true,
     "scripts": {
+        "build": "tsc --build",
         "typecheck": "tsc --noEmit"
     },
     "devDependencies": {
@@ -16,28 +17,28 @@
     },
     "exports": {
         ".": {
-            "types": "./src/index.ts",
-            "default": "./src/index.ts"
+            "types": "./build/index.d.ts",
+            "default": "./build/index.js"
         },
         "./models": {
-            "types": "./src/models/index.ts",
-            "default": "./src/models/index.ts"
+            "types": "./build/models/index.d.ts",
+            "default": "./build/models/index.js"
         },
         "./components": {
-            "types": "./src/components/index.ts",
-            "default": "./src/components/index.ts"
+            "types": "./build/components/index.d.ts",
+            "default": "./build/components/index.js"
         },
         "./schemas": {
-            "types": "./src/schemas/index.ts",
-            "default": "./src/schemas/index.ts"
+            "types": "./build/schemas/index.d.ts",
+            "default": "./build/schemas/index.js"
         },
         "./routes": {
-            "types": "./src/routes/index.ts",
-            "default": "./src/routes/index.ts"
+            "types": "./build/routes/index.d.ts",
+            "default": "./build/routes/index.js"
         },
         "./utilities": {
-            "types": "./src/utilities/index.ts",
-            "default": "./src/utilities/index.ts"
+            "types": "./build/utilities/index.d.ts",
+            "default": "./build/utilities/index.js"
         }
     }
 }
