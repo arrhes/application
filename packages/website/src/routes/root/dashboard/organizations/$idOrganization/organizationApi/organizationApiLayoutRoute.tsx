@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { OrganizationApiLayout } from "../../../../../../features/dashboard/$idOrganization/organizationApi/organizationApiLayout.js"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { organizationLayoutRoute } from "../organizationLayoutRoute.tsx"
 
 export const organizationApiLayoutRoute = createRoute({
@@ -8,5 +7,8 @@ export const organizationApiLayoutRoute = createRoute({
     beforeLoad: () => ({
         title: "API",
     }),
-    component: () => <OrganizationApiLayout />,
+    component: lazyRouteComponent(
+        () => import("../../../../../../features/dashboard/$idOrganization/organizationApi/organizationApiLayout.js"),
+        "OrganizationApiLayout",
+    ),
 })

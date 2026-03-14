@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { PrivacyGeneralDocPage } from "../../../../features/docs/general/privacyGeneralDocPage.tsx"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { generalDocLayoutRoute } from "./generalDocLayoutRoute.tsx"
 
 export const privacyGeneralDocRoute = createRoute({
@@ -8,5 +7,8 @@ export const privacyGeneralDocRoute = createRoute({
     beforeLoad: () => ({
         title: "Politique de confidentialité",
     }),
-    component: () => <PrivacyGeneralDocPage />,
+    component: lazyRouteComponent(
+        () => import("../../../../features/docs/general/privacyGeneralDocPage.tsx"),
+        "PrivacyGeneralDocPage",
+    ),
 })

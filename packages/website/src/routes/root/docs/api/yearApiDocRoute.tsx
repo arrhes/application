@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { YearApiDocPage } from "../../../../features/docs/api/yearApiDocPage.tsx"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { apiDocLayoutRoute } from "./apiDocLayoutRoute.tsx"
 
 export const yearApiDocRoute = createRoute({
@@ -8,5 +7,5 @@ export const yearApiDocRoute = createRoute({
     beforeLoad: () => ({
         title: "Exercice",
     }),
-    component: () => <YearApiDocPage />,
+    component: lazyRouteComponent(() => import("../../../../features/docs/api/yearApiDocPage.tsx"), "YearApiDocPage"),
 })

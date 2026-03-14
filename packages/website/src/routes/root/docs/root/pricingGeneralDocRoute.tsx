@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { PricingGeneralDocPage } from "../../../../features/docs/general/pricing/pricingGeneralDocPage.tsx"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { generalDocLayoutRoute } from "./generalDocLayoutRoute.tsx"
 
 export const pricingGeneralDocRoute = createRoute({
@@ -8,5 +7,8 @@ export const pricingGeneralDocRoute = createRoute({
     beforeLoad: () => ({
         title: "Tarifs",
     }),
-    component: () => <PricingGeneralDocPage />,
+    component: lazyRouteComponent(
+        () => import("../../../../features/docs/general/pricing/pricingGeneralDocPage.tsx"),
+        "PricingGeneralDocPage",
+    ),
 })

@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { SupportGeneralDocPage } from "../../../../features/docs/general/supportGeneralDocPage.tsx"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { generalDocLayoutRoute } from "./generalDocLayoutRoute.tsx"
 
 export const supportGeneralDocRoute = createRoute({
@@ -8,5 +7,8 @@ export const supportGeneralDocRoute = createRoute({
     beforeLoad: () => ({
         title: "Support",
     }),
-    component: () => <SupportGeneralDocPage />,
+    component: lazyRouteComponent(
+        () => import("../../../../features/docs/general/supportGeneralDocPage.tsx"),
+        "SupportGeneralDocPage",
+    ),
 })

@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { GettingStartedDashboardDocPage } from "../../../../features/docs/dashboard/gettingStartedDashboardDocPage.tsx"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { dashboardDocLayoutRoute } from "./dashboardDocLayoutRoute.tsx"
 
 export const gettingStartedDashboardDocRoute = createRoute({
@@ -8,5 +7,8 @@ export const gettingStartedDashboardDocRoute = createRoute({
     beforeLoad: () => ({
         title: "Démarrage",
     }),
-    component: () => <GettingStartedDashboardDocPage />,
+    component: lazyRouteComponent(
+        () => import("../../../../features/docs/dashboard/gettingStartedDashboardDocPage.tsx"),
+        "GettingStartedDashboardDocPage",
+    ),
 })

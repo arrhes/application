@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { OrganizationApiKeysPage } from "../../../../../../features/dashboard/$idOrganization/organizationApi/keys/organizationApiKeysPage.js"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { organizationApiLayoutRoute } from "./organizationApiLayoutRoute.js"
 
 export const organizationApiKeysRoute = createRoute({
@@ -8,5 +7,11 @@ export const organizationApiKeysRoute = createRoute({
     beforeLoad: () => ({
         title: "Clés",
     }),
-    component: () => <OrganizationApiKeysPage />,
+    component: lazyRouteComponent(
+        () =>
+            import(
+                "../../../../../../features/dashboard/$idOrganization/organizationApi/keys/organizationApiKeysPage.js"
+            ),
+        "OrganizationApiKeysPage",
+    ),
 })

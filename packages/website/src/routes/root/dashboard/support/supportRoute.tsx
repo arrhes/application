@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { SupportPage } from "../../../../features/dashboard/support/supportPage.js"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { dashboardLayoutRoute } from "../dashboardLayoutRoute.js"
 
 export const supportRoute = createRoute({
@@ -8,5 +7,5 @@ export const supportRoute = createRoute({
     beforeLoad: () => ({
         title: "Support",
     }),
-    component: () => <SupportPage />,
+    component: lazyRouteComponent(() => import("../../../../features/dashboard/support/supportPage.js"), "SupportPage"),
 })

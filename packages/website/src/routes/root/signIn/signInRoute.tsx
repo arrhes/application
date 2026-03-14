@@ -1,6 +1,5 @@
 import { CircularLoader } from "@arrhes/ui"
-import { createRoute, redirect } from "@tanstack/react-router"
-import { SignInPage } from "../../../features/signIn/signInPage.js"
+import { createRoute, lazyRouteComponent, redirect } from "@tanstack/react-router"
 import { rootLayoutRoute } from "../../rootLayoutRoute.js"
 
 export const signInRoute = createRoute({
@@ -15,5 +14,5 @@ export const signInRoute = createRoute({
             title: "Connexion",
         }
     },
-    component: () => <SignInPage />,
+    component: lazyRouteComponent(() => import("../../../features/signIn/signInPage.js"), "SignInPage"),
 })

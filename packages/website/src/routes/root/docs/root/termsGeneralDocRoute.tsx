@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { TermsGeneralDocPage } from "../../../../features/docs/general/termsGeneralDocPage.tsx"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { generalDocLayoutRoute } from "./generalDocLayoutRoute.tsx"
 
 export const termsGeneralDocRoute = createRoute({
@@ -8,5 +7,8 @@ export const termsGeneralDocRoute = createRoute({
     beforeLoad: () => ({
         title: "CGU",
     }),
-    component: () => <TermsGeneralDocPage />,
+    component: lazyRouteComponent(
+        () => import("../../../../features/docs/general/termsGeneralDocPage.tsx"),
+        "TermsGeneralDocPage",
+    ),
 })

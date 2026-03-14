@@ -1,10 +1,12 @@
-import { createRoute } from "@tanstack/react-router"
-import { SettingsPage } from "../../../../features/dashboard/settings/settingsPage.js"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { settingsLayoutRoute } from "./settingsLayoutRoute.js"
 
 export const settingsRoute = createRoute({
     getParentRoute: () => settingsLayoutRoute,
     path: "/",
     beforeLoad: () => {},
-    component: () => <SettingsPage />,
+    component: lazyRouteComponent(
+        () => import("../../../../features/dashboard/settings/settingsPage.js"),
+        "SettingsPage",
+    ),
 })

@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { BalanceSheetsPage } from "../../../../../../../../../features/dashboard/$idYear/yearSettings/balanceSheets/balanceSheetsPage.js"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { balanceSheetsLayoutRoute } from "./balanceSheetsLayoutRoute.js"
 
 export const balanceSheetsRoute = createRoute({
@@ -8,5 +7,11 @@ export const balanceSheetsRoute = createRoute({
     beforeLoad: () => ({
         title: undefined,
     }),
-    component: () => <BalanceSheetsPage />,
+    component: lazyRouteComponent(
+        () =>
+            import(
+                "../../../../../../../../../features/dashboard/$idYear/yearSettings/balanceSheets/balanceSheetsPage.js"
+            ),
+        "BalanceSheetsPage",
+    ),
 })

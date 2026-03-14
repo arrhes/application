@@ -1,4 +1,4 @@
-import { Profiler, StrictMode } from "react"
+import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 import "./assets/css/root.css"
 import { RootProvider } from "./contexts/rootProvider.js"
@@ -9,9 +9,7 @@ if (!rootElement.innerHTML) {
     const root = createRoot(rootElement)
     root.render(
         <StrictMode>
-            <Profiler id="website" onRender={() => {}}>
-                <RootProvider />
-            </Profiler>
+            <RootProvider />
         </StrictMode>,
     )
 }

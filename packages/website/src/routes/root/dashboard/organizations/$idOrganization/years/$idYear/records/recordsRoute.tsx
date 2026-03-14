@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { RecordsPage } from "../../../../../../../../features/dashboard/$idYear/records/recordsPage.js"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { recordsLayoutRoute } from "./recordsLayoutRoute.js"
 
 export const recordsRoute = createRoute({
@@ -8,5 +7,8 @@ export const recordsRoute = createRoute({
     beforeLoad: () => ({
         title: undefined,
     }),
-    component: () => <RecordsPage />,
+    component: lazyRouteComponent(
+        () => import("../../../../../../../../features/dashboard/$idYear/records/recordsPage.js"),
+        "RecordsPage",
+    ),
 })

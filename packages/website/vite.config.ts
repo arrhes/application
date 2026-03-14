@@ -1,9 +1,32 @@
 import react from "@vitejs/plugin-react"
-import { defineConfig } from "vite"
+import { defineConfig, type Plugin } from "vite"
+
+function fontPreloadPlugin(): Plugin {
+    return {
+        name: "font-preload",
+        transformIndexHtml: {
+            order: "post",
+            handler(_html, ctx) {
+                const fontAssets = (ctx.bundle ? Object.keys(ctx.bundle) : []).filter((name) => name.endsWith(".woff2"))
+                return fontAssets.map((font) => ({
+                    tag: "link",
+                    attrs: {
+                        rel: "preload",
+                        as: "font",
+                        type: "font/woff2",
+                        href: `/${font}`,
+                        crossorigin: "anonymous",
+                    },
+                    injectTo: "head" as const,
+                }))
+            },
+        },
+    }
+}
 
 export default defineConfig(() => {
     return {
-        plugins: [react({ include: "**/*.tsx" })],
+        plugins: [react({ include: "**/*.tsx" }), fontPreloadPlugin()],
         assetsInclude: ["**/*.md"],
         root: "./src",
         base: "/",

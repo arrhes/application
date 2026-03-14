@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { YearSettingsPage } from "../../../../../../../../features/dashboard/$idYear/yearSettings/yearSettingsPage.js"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { yearSettingsLayoutRoute } from "./yearSettingsLayoutRoute.js"
 
 export const yearSettingsRoute = createRoute({
@@ -8,5 +7,8 @@ export const yearSettingsRoute = createRoute({
     beforeLoad: () => ({
         title: undefined,
     }),
-    component: () => <YearSettingsPage />,
+    component: lazyRouteComponent(
+        () => import("../../../../../../../../features/dashboard/$idYear/yearSettings/yearSettingsPage.js"),
+        "YearSettingsPage",
+    ),
 })

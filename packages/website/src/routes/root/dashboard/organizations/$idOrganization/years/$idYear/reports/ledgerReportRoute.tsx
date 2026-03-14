@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { LedgerReportPage } from "../../../../../../../../features/dashboard/$idYear/reports/ledgerReport/ledgerReportPage.js"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { reportsLayoutRoute } from "./reportsLayoutRoute.js"
 
 export const ledgerReportRoute = createRoute({
@@ -8,5 +7,8 @@ export const ledgerReportRoute = createRoute({
     beforeLoad: () => ({
         title: "Grand livre",
     }),
-    component: () => <LedgerReportPage />,
+    component: lazyRouteComponent(
+        () => import("../../../../../../../../features/dashboard/$idYear/reports/ledgerReport/ledgerReportPage.js"),
+        "LedgerReportPage",
+    ),
 })

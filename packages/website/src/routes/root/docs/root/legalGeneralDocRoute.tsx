@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { LegalGeneralDocPage } from "../../../../features/docs/general/legalGeneralDocPage.tsx"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { generalDocLayoutRoute } from "./generalDocLayoutRoute.tsx"
 
 export const legalGeneralDocRoute = createRoute({
@@ -8,5 +7,8 @@ export const legalGeneralDocRoute = createRoute({
     beforeLoad: () => ({
         title: "Mentions légales",
     }),
-    component: () => <LegalGeneralDocPage />,
+    component: lazyRouteComponent(
+        () => import("../../../../features/docs/general/legalGeneralDocPage.tsx"),
+        "LegalGeneralDocPage",
+    ),
 })

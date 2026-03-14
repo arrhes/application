@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { OrganizationSettingsLayout } from "../../../../../../features/dashboard/$idOrganization/organizationSettings/organizationSettingsLayout.js"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { organizationLayoutRoute } from "../organizationLayoutRoute.js"
 
 export const organizationSettingsLayoutRoute = createRoute({
@@ -8,5 +7,11 @@ export const organizationSettingsLayoutRoute = createRoute({
     beforeLoad: () => ({
         title: "Paramètres",
     }),
-    component: () => <OrganizationSettingsLayout />,
+    component: lazyRouteComponent(
+        () =>
+            import(
+                "../../../../../../features/dashboard/$idOrganization/organizationSettings/organizationSettingsLayout.js"
+            ),
+        "OrganizationSettingsLayout",
+    ),
 })
