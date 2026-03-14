@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { AuthenticationApiDocPage } from "../../../../features/docs/api/authenticationApiDocPage.tsx"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { apiDocLayoutRoute } from "./apiDocLayoutRoute.tsx"
 
 export const authenticationApiDocRoute = createRoute({
@@ -8,5 +7,8 @@ export const authenticationApiDocRoute = createRoute({
     beforeLoad: () => ({
         title: "Authentification et utilisateurs",
     }),
-    component: () => <AuthenticationApiDocPage />,
+    component: lazyRouteComponent(
+        () => import("../../../../features/docs/api/authenticationApiDocPage.tsx"),
+        "AuthenticationApiDocPage",
+    ),
 })

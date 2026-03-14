@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { ErrorPage } from "../../features/error/errorPage.js"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { rootLayoutRoute } from "../rootLayoutRoute.js"
 
 export const errorRoute = createRoute({
@@ -8,5 +7,5 @@ export const errorRoute = createRoute({
     beforeLoad: () => ({
         title: "Error",
     }),
-    component: () => <ErrorPage />,
+    component: lazyRouteComponent(() => import("../../features/error/errorPage.js"), "ErrorPage"),
 })

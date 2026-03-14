@@ -19,7 +19,7 @@ dist
 **/dist
 styled-system
 **/styled-system
-*.tsbuildinfo
+**/*.tsbuildinfo
 
 # Test artifacts (but keep tests/ directory for CI)
 test-results

@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { YearsDashboardDocPage } from "../../../../features/docs/dashboard/yearsDashboardDocPage.js"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { dashboardDocLayoutRoute } from "./dashboardDocLayoutRoute.js"
 
 export const yearsDashboardDocRoute = createRoute({
@@ -8,5 +7,8 @@ export const yearsDashboardDocRoute = createRoute({
     beforeLoad: () => ({
         title: "Exercices",
     }),
-    component: () => <YearsDashboardDocPage />,
+    component: lazyRouteComponent(
+        () => import("../../../../features/docs/dashboard/yearsDashboardDocPage.js"),
+        "YearsDashboardDocPage",
+    ),
 })

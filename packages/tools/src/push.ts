@@ -8,13 +8,13 @@
 // It runs with tsx, which properly handles .js → .ts extension resolution.
 // =============================================================================
 
-import { modelSchemas } from "@arrhes/application-metadata/models"
+import { modelSchemas } from "@arrhes/application-metadata"
 import { pushSchema } from "drizzle-kit/api"
 import { sql } from "drizzle-orm"
 import type { PgDatabase } from "drizzle-orm/pg-core"
 import { drizzle } from "drizzle-orm/postgres-js"
 import postgres from "postgres"
-import { env } from "./env"
+import { env } from "./env.js"
 
 const connection = postgres(env()?.SQL_DATABASE_URL ?? "", { max: 1 })
 const db = drizzle(connection)

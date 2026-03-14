@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { FilesApiDocPage } from "../../../../features/docs/api/filesApiDocPage.tsx"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { apiDocLayoutRoute } from "./apiDocLayoutRoute.tsx"
 
 export const filesApiDocRoute = createRoute({
@@ -8,5 +7,5 @@ export const filesApiDocRoute = createRoute({
     beforeLoad: () => ({
         title: "Fichiers et documents",
     }),
-    component: () => <FilesApiDocPage />,
+    component: lazyRouteComponent(() => import("../../../../features/docs/api/filesApiDocPage.tsx"), "FilesApiDocPage"),
 })

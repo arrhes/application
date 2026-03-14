@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { RootAccountingDocPage } from "../../../../features/docs/accounting/rootAccountingDocPage.js"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { accountingDocLayoutRoute } from "./accountingDocLayoutRoute.js"
 
 export const rootAccountingDocRoute = createRoute({
@@ -8,5 +7,8 @@ export const rootAccountingDocRoute = createRoute({
     beforeLoad: () => ({
         title: "Cours de comptabilité",
     }),
-    component: () => <RootAccountingDocPage />,
+    component: lazyRouteComponent(
+        () => import("../../../../features/docs/accounting/rootAccountingDocPage.js"),
+        "RootAccountingDocPage",
+    ),
 })

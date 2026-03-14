@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { OrganizationSubscriptionPage } from "../../../../../../features/dashboard/$idOrganization/organizationSubscription/organizationSubscriptionPage.js"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { organizationSubscriptionLayoutRoute } from "./organizationSubscriptionLayoutRoute.js"
 
 export const organizationSubscriptionRoute = createRoute({
@@ -8,5 +7,11 @@ export const organizationSubscriptionRoute = createRoute({
     beforeLoad: () => ({
         title: undefined,
     }),
-    component: () => <OrganizationSubscriptionPage />,
+    component: lazyRouteComponent(
+        () =>
+            import(
+                "../../../../../../features/dashboard/$idOrganization/organizationSubscription/organizationSubscriptionPage.js"
+            ),
+        "OrganizationSubscriptionPage",
+    ),
 })

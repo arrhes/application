@@ -16,6 +16,7 @@
     font-stretch: 75% 125%;
     font-style: normal;
     font-optical-sizing: auto;
+    font-display: swap;
 }
 
 @font-face {
@@ -27,4 +28,5 @@
     font-stretch: 75% 125%;
     font-style: italic;
     font-optical-sizing: auto;
+    font-display: swap;
 }

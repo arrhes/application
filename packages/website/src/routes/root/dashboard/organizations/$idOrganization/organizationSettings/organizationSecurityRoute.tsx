@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { OrganizationSecurityPage } from "../../../../../../features/dashboard/$idOrganization/organizationSettings/organizationSecurityPage.js"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { organizationSettingsLayoutRoute } from "./organizationSettingsLayoutRoute.js"
 
 export const organizationSecurityRoute = createRoute({
@@ -8,5 +7,11 @@ export const organizationSecurityRoute = createRoute({
     beforeLoad: () => ({
         title: "Sécurité",
     }),
-    component: () => <OrganizationSecurityPage />,
+    component: lazyRouteComponent(
+        () =>
+            import(
+                "../../../../../../features/dashboard/$idOrganization/organizationSettings/organizationSecurityPage.js"
+            ),
+        "OrganizationSecurityPage",
+    ),
 })

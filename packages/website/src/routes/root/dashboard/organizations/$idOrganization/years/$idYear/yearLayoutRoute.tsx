@@ -1,7 +1,6 @@
 import { CircularLoader } from "@arrhes/ui"
-import { createRoute } from "@tanstack/react-router"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { Page } from "../../../../../../../components/layouts/page/page.js"
-import { YearLayout } from "../../../../../../../features/dashboard/$idYear/yearLayout.js"
 import { prefetchYearData } from "../../../../../../../utilities/prefetchYearData.js"
 import { yearPathRoute } from "./yearPathRoute.js"
 
@@ -24,5 +23,8 @@ export const yearLayoutRoute = createRoute({
             title: undefined,
         }
     },
-    component: () => <YearLayout />,
+    component: lazyRouteComponent(
+        () => import("../../../../../../../features/dashboard/$idYear/yearLayout.js"),
+        "YearLayout",
+    ),
 })

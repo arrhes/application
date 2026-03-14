@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { FilePage } from "../../../../../../../../../features/dashboard/$idYear/files/$idFile/filePage.js"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { fileLayoutRoute } from "./fileLayoutRoute.js"
 
 export const fileRoute = createRoute({
@@ -8,5 +7,8 @@ export const fileRoute = createRoute({
     beforeLoad: () => ({
         title: undefined,
     }),
-    component: () => <FilePage />,
+    component: lazyRouteComponent(
+        () => import("../../../../../../../../../features/dashboard/$idYear/files/$idFile/filePage.js"),
+        "FilePage",
+    ),
 })

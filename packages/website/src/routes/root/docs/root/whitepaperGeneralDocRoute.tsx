@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { WhitepaperGeneralDocPage } from "../../../../features/docs/general/whitepaperGeneralDocPage.tsx"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { generalDocLayoutRoute } from "./generalDocLayoutRoute.tsx"
 
 export const whitepaperGeneralDocRoute = createRoute({
@@ -8,5 +7,8 @@ export const whitepaperGeneralDocRoute = createRoute({
     beforeLoad: () => ({
         title: "Philosophie",
     }),
-    component: () => <WhitepaperGeneralDocPage />,
+    component: lazyRouteComponent(
+        () => import("../../../../features/docs/general/whitepaperGeneralDocPage.tsx"),
+        "WhitepaperGeneralDocPage",
+    ),
 })
