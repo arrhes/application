@@ -32,13 +32,13 @@ export function InputPassword(
             className={cx(
                 css({
                     width: "100%",
-                    height: "32px",
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
+                    gap: "0.5rem",
                     border: "1px solid",
                     borderRadius: "md",
-                    _hover: { borderColor: "neutral/30" },
+                    _hover: { borderColor: "neutral/50" },
                     _focusWithin: { borderColor: "neutral/50", boxShadow: "inset" },
                 }),
                 css(!props.error ? { borderColor: "neutral/20" } : { borderColor: "error" }),
@@ -50,13 +50,13 @@ export function InputPassword(
                 type={showPassword ? "text" : "password"}
                 className={css({
                     width: "100%",
-                    height: "100%",
-                    fontSize: "sm",
-                    lineHeight: "none",
+                    fontSize: "0.875rem",
+                    lineHeight: "1rem",
+                    fontWeight: "400",
                     _placeholder: { color: "neutral/25" },
                     backgroundColor: "transparent",
-                    padding: "1rem",
-                    borderRadius: "md",
+                    padding: "0.5rem",
+                    _focusWithin: { borderColor: "neutral/50", outline: "none" },
                 })}
                 ref={props.ref}
                 value={input(props.value)}
@@ -67,11 +67,14 @@ export function InputPassword(
                 className={css({
                     _hover: { backgroundColor: "neutral/5" },
                     borderRadius: "md",
-                    padding: "1rem",
+                    padding: "0.25rem",
+                    margin: "0.25rem",
                 })}
                 tabIndex={-1}
             >
-                {showPassword ? <IconEye size={16} /> : <IconEyeClosed size={16} />}
+                {showPassword
+                    ? <IconEye size={16} className={css({ stroke: "neutral/50" })} />
+                    : <IconEyeClosed size={16} className={css({ stroke: "neutral/50" })} />}
             </Button>
         </div>
     )

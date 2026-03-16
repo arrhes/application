@@ -18,13 +18,12 @@ export function InputToggle<TValue extends string | boolean>(
         <div
             className={css({
                 width: "fit",
-                height: "32px",
                 display: "flex",
                 justifyContent: "flex-start",
                 alignItems: "center",
                 border: "1px solid",
                 borderColor: "neutral/20",
-                borderRadius: "sm",
+                borderRadius: "md",
                 cursor: "pointer",
                 _focus: { borderColor: "neutral/50", boxShadow: "inset" },
                 outline: "none",
@@ -58,11 +57,10 @@ export function InputToggle<TValue extends string | boolean>(
                                 css(
                                     isSelected
                                         ? {
-                                              backgroundColor: "neutral/10",
-                                              outline: "1px solid",
-                                              outlineColor: "neutral",
-                                              borderRadius: "sm",
-                                          }
+                                            backgroundColor: "neutral/10",
+                                            outline: "1px solid",
+                                            outlineColor: "neutral",
+                                        }
                                         : {},
                                 ),
                             )}
