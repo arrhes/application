@@ -43,6 +43,7 @@ export function HomePage() {
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "start",
+                        flexWrap: "wrap",
                         gap: "1rem",
                     })}
                 >

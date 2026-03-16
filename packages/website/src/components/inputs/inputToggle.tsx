@@ -57,10 +57,10 @@ export function InputToggle<TValue extends string | boolean>(
                                 css(
                                     isSelected
                                         ? {
-                                            backgroundColor: "neutral/10",
-                                            outline: "1px solid",
-                                            outlineColor: "neutral",
-                                        }
+                                              backgroundColor: "neutral/10",
+                                              outline: "1px solid",
+                                              outlineColor: "neutral",
+                                          }
                                         : {},
                                 ),
                             )}

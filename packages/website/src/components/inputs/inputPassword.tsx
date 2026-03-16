@@ -72,9 +72,11 @@ export function InputPassword(
                 })}
                 tabIndex={-1}
             >
-                {showPassword
-                    ? <IconEye size={16} className={css({ stroke: "neutral/50" })} />
-                    : <IconEyeClosed size={16} className={css({ stroke: "neutral/50" })} />}
+                {showPassword ? (
+                    <IconEye size={16} className={css({ stroke: "neutral/50" })} />
+                ) : (
+                    <IconEyeClosed size={16} className={css({ stroke: "neutral/50" })} />
+                )}
             </Button>
         </div>
     )

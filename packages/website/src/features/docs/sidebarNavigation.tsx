@@ -10,7 +10,11 @@ export interface NavigationSection {
     items: { path: string; label: string }[]
 }
 
-export function SidebarNavigation(props: { navigation: Record<string, NavigationSection>; pathname: string }) {
+export function SidebarNavigation(props: {
+    navigation: Record<string, NavigationSection>
+    pathname: string
+    onClick?: () => void
+}) {
     return (
         <nav
             className={css({
@@ -18,8 +22,6 @@ export function SidebarNavigation(props: { navigation: Record<string, Navigation
                 display: "flex",
                 flexDirection: "column",
                 gap: "0.5rem",
-                padding: "1rem",
-                paddingLeft: 0,
             })}
         >
             {Object.entries(props.navigation).map(([key, section]) => (
@@ -54,7 +56,12 @@ export function SidebarNavigation(props: { navigation: Record<string, Navigation
                         })}
                     >
                         {section.items.map((item) => (
-                            <LinkButton key={item.path} to={item.path} className={css({ width: "100%" })}>
+                            <LinkButton
+                                key={item.path}
+                                to={item.path}
+                                className={css({ width: "100%" })}
+                                onClick={props.onClick}
+                            >
                                 <ButtonGhostContent
                                     text={item.label}
                                     isCurrent={props.pathname === item.path}

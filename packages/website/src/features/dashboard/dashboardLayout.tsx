@@ -45,13 +45,16 @@ export function DashboardLayout() {
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "center",
+                        flexWrap: "wrap",
                         gap: "1rem",
                     })}
                 >
                     <div
                         className={css({
                             display: "flex",
+                            justifyContent: "start",
                             alignItems: "center",
+                            flexWrap: "wrap",
                             gap: "0.5rem",
                         })}
                     >
@@ -63,7 +66,9 @@ export function DashboardLayout() {
                     <nav
                         className={css({
                             display: "flex",
+                            justifyContent: "end",
                             alignItems: "center",
+                            flexWrap: "wrap",
                             gap: "0.5rem",
                         })}
                     >

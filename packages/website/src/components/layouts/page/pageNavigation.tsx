@@ -46,6 +46,7 @@ export function PageNavigation(props: {
                         justifyContent: "flex-start",
                         alignItems: "center",
                         gap: "0.5rem",
+                        flexWrap: "wrap",
                     })}
                 >
                     {props.tabs.map((tab) => {

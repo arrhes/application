@@ -2,9 +2,7 @@ import { css, cx } from "@arrhes/ui/utilities/cn.js"
 import * as PopoverPrimitive from "@radix-ui/react-popover"
 import type { ComponentProps } from "react"
 
-type PopoverContent = ComponentProps<typeof PopoverPrimitive.Content>
-
-export function PopoverContent(props: PopoverContent) {
+export function PopoverContent(props: ComponentProps<typeof PopoverPrimitive.Content>) {
     return (
         <PopoverPrimitive.Portal>
             <PopoverPrimitive.Content
@@ -16,7 +14,7 @@ export function PopoverContent(props: PopoverContent) {
                 className={cx(
                     css({
                         zIndex: "10",
-                        padding: "0.5rem",
+                        // padding: "0.5rem",
                         backgroundColor: "white",
                         borderRadius: "lg",
                         boxShadow: "md",
