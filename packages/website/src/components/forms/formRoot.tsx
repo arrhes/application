@@ -114,6 +114,7 @@ export function FormRoot<T extends Record<string, unknown>, U extends v.GenericS
                             leftIcon={props.submitButtonProps.leftIcon}
                             rightIcon={props.submitButtonProps.rightIcon}
                             isDisabled={props.submitButtonProps.isDisabled}
+                            className={props.submitButtonProps.className}
                         />
                     </Button>
                 </div>
