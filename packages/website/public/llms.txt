@@ -1,0 +1,60 @@
+# Arrhes
+
+> Arrhes est un logiciel de comptabilite en partie double, open source, conçu pour les entreprises et associations francaises.
+
+Arrhes est accessible a l'adresse https://arrhes.com. L'espace utilisateur est disponible a l'adresse https://arrhes.com/dashboard.
+
+Principales fonctionnalités :
+
+- Gestion du plan comptable conforme au PCG
+- Saisie des écritures comptables en partie double avec journaux et catégories
+- Génération des documents de synthèse : livre-journal, grand livre, balance, bilan et compte de résultat
+- Export FEC pour les obligations fiscales
+- Stockage de documents comme les pièces justificatives (jusqu'a 1 Go en plan basique, 1 To en plan avancé)
+- Gestion multi-organisations (entreprises et associations)
+- Collaboration en équipe avec rôles (proprietaire, administrateur, membre)
+- API complète avec authentification par clé API
+
+Deux plans tarifaires :
+
+- Plan basique (gratuit) : application complete, organisations illimitees, membres illimites, 1 Go de stockage, generation de la liasse fiscale, export FEC, acces API complet
+- Plan avance (30 EUR HT/mois) : tout le plan basique + 1 To de stockage, assistant IA, support prioritaire
+
+## Documentation
+
+- [Fonctionnalités](https://arrhes.com/documentation/fonctionnalités): Présentation des fonctionnalités du logiciel
+- [Tarifs](https://arrhes.com/documentation/tarifs): Détail des plans tarifaires
+- [Philosophie](https://arrhes.com/documentation/philosophie): Vision et philosophie du projet
+- [Support](https://arrhes.com/documentation/support): Comment obtenir de l'aide
+
+## Guide d'utilisation
+
+- [Démarrage](https://arrhes.com/documentation/dashboard/démarrage): Premiers pas avec Arrhes
+- [Organisations](https://arrhes.com/documentation/dashboard/organisations): Gestion des organisations
+- [Exercices](https://arrhes.com/documentation/dashboard/exercices): Gestion des exercices fiscaux
+- [Écritures](https://arrhes.com/documentation/dashboard/écritures): Saisie et gestion des écritures comptables
+- [Stockage](https://arrhes.com/documentation/dashboard/stockage): Stockage des documents
+- [Documents de synthèse](https://arrhes.com/documentation/dashboard/documents): Génération des rapports comptables
+
+## Cours de comptabilité
+
+- [Introduction](https://arrhes.com/documentation/comptabilité/introduction): Introduction a la comptabilité en partie double
+- [Comptes](https://arrhes.com/documentation/comptabilité/comptes): Fonctionnement des comptes comptables
+- [Ecritures](https://arrhes.com/documentation/comptabilité/écritures): Les écritures comptables
+- [Documents](https://arrhes.com/documentation/comptabilité/documents): Les documents comptables obligatoires
+- [Glossaire](https://arrhes.com/documentation/comptabilité/glossaire): Glossaire des termes comptables
+
+## API
+
+- [Introduction](https://arrhes.com/documentation/api/introduction): Présentation de l'API
+- [Authentification](https://arrhes.com/documentation/api/authentification): Authentification et gestion des utilisateurs
+- [Organisation](https://arrhes.com/documentation/api/organisation): Endpoints relatifs aux organisations
+- [Exercice](https://arrhes.com/documentation/api/exercice): Endpoints relatifs aux exercices fiscaux
+- [Stockage](https://arrhes.com/documentation/api/stockage): Endpoints relatifs aux fichiers et documents
+
+## Optional
+
+- [Mentions legales](https://arrhes.com/documentation/mentions-légales): Informations légales
+- [CGU](https://arrhes.com/documentation/cgu): Conditions générales d'utilisation
+- [Politique de confidentialite](https://arrhes.com/documentation/confidentialité): Politique de confidentialité et traitement des données
+- [Code source](https://github.com/arrhes/application): Dêpot GitHub du projet (licence AGPL-3.0)
