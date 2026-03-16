@@ -1,6 +1,6 @@
-import { LinkContent } from "@arrhes/ui"
+import { ButtonOutlineContent, LinkContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconBrandGithub, IconMail } from "@tabler/icons-react"
+import { IconBrandGithub, IconBrandLinkedin, IconExternalLink, IconMail } from "@tabler/icons-react"
 import { DocRoot } from "../../../components/document/docRoot.js"
 import { DocTip } from "../../../components/document/docTip.js"
 import { LinkButton } from "../../../components/linkButton.js"
@@ -166,7 +166,70 @@ export function SupportGeneralDocPage() {
                         Signalez un bug, proposez une amélioration ou consultez le code source.
                     </p>
                     <a href="https://github.com/arrhes/arrhes" target="_blank" rel="noopener noreferrer">
-                        <LinkContent>github.com/arrhes/arrhes</LinkContent>
+                        <ButtonOutlineContent leftIcon={<IconExternalLink />} text="Voir sur GitHub" />
+                    </a>
+                </div>
+
+                {/* LinkedIn */}
+                <div
+                    className={css({
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "0.75rem",
+                        padding: "1.5rem",
+                        borderRadius: "lg",
+                        border: "1px solid",
+                        borderColor: "neutral/10",
+                        backgroundColor: "white",
+                    })}
+                >
+                    <div
+                        className={css({
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.75rem",
+                        })}
+                    >
+                        <div
+                            className={css({
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                width: "2.5rem",
+                                height: "2.5rem",
+                                borderRadius: "md",
+                                backgroundColor: "background",
+                            })}
+                        >
+                            <IconBrandLinkedin
+                                className={css({
+                                    width: "1.25rem",
+                                    height: "1.25rem",
+                                    color: "neutral",
+                                })}
+                            />
+                        </div>
+                        <h2
+                            className={css({
+                                fontSize: "md",
+                                fontWeight: "semibold",
+                                color: "neutral",
+                            })}
+                        >
+                            LinkedIn
+                        </h2>
+                    </div>
+                    <p
+                        className={css({
+                            fontSize: "sm",
+                            color: "neutral/60",
+                            lineHeight: "relaxed",
+                        })}
+                    >
+                        Suivez-nous sur LinkedIn pour les dernières mises à jour et nouvelles.
+                    </p>
+                    <a href="https://linkedin.com/company/arrhes" target="_blank" rel="noopener noreferrer">
+                        <ButtonOutlineContent leftIcon={<IconExternalLink />} text="Voir sur LinkedIn" />
                     </a>
                 </div>
             </div>
@@ -273,6 +336,44 @@ export function SupportGeneralDocPage() {
                                 })}
                             >
                                 Apprenez à utiliser Arrhes efficacement
+                            </p>
+                        </div>
+                    </LinkButton>
+
+                    <LinkButton
+                        to="/documentation/api"
+                        className={css({
+                            width: "100%",
+                            gap: "0.75rem",
+                            padding: "1rem",
+                            borderRadius: "md",
+                            border: "1px solid",
+                            borderColor: "neutral/10",
+                            backgroundColor: "white",
+                            transition: "all",
+                            _hover: {
+                                borderColor: "neutral/20",
+                                backgroundColor: "neutral/3",
+                            },
+                        })}
+                    >
+                        <div>
+                            <p
+                                className={css({
+                                    fontSize: "sm",
+                                    fontWeight: "medium",
+                                    color: "neutral",
+                                })}
+                            >
+                                Guide d'utilisation de l'API
+                            </p>
+                            <p
+                                className={css({
+                                    fontSize: "xs",
+                                    color: "neutral/50",
+                                })}
+                            >
+                                Apprenez à utiliser l'API
                             </p>
                         </div>
                     </LinkButton>
