@@ -9,7 +9,7 @@ const docTipRecipe = sva({
             padding: "1.25rem",
             borderRadius: "lg",
             border: "1px solid",
-            borderLeft: "3px solid",
+            // borderLeft: "3px solid",
             display: "flex",
             flexDirection: "column",
             gap: "1rem",
@@ -45,8 +45,7 @@ const docTipRecipe = sva({
             tip: {
                 container: {
                     backgroundColor: "warning/5",
-                    borderColor: "warning/10",
-                    borderLeftColor: "warning",
+                    borderColor: "warning/20",
                 },
                 icon: { stroke: "warning" },
                 label: { color: "warning" },
@@ -54,8 +53,7 @@ const docTipRecipe = sva({
             warning: {
                 container: {
                     backgroundColor: "error/5",
-                    borderColor: "error/10",
-                    borderLeftColor: "error",
+                    borderColor: "error/20",
                 },
                 icon: { stroke: "error" },
                 label: { color: "error" },
@@ -63,8 +61,7 @@ const docTipRecipe = sva({
             info: {
                 container: {
                     backgroundColor: "information/5",
-                    borderColor: "information/10",
-                    borderLeftColor: "information",
+                    borderColor: "information/20",
                 },
                 icon: { stroke: "information" },
                 label: { color: "information" },
@@ -72,8 +69,7 @@ const docTipRecipe = sva({
             success: {
                 container: {
                     backgroundColor: "success/5",
-                    borderColor: "success/10",
-                    borderLeftColor: "success",
+                    borderColor: "success/20",
                 },
                 icon: { stroke: "success" },
                 label: { color: "success" },

@@ -4,7 +4,7 @@ export function DocParagraph(props: { children: React.ReactNode }) {
     return (
         <p
             className={css({
-                color: "neutral/70",
+                color: "neutral",
                 lineHeight: "1.75",
                 fontSize: "sm",
             })}

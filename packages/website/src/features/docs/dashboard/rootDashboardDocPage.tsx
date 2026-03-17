@@ -11,7 +11,7 @@ export function RootDashboardDocPage() {
     return (
         <DocRoot>
             <DocHeader
-                title="Guide d'utilisation"
+                title="Guide d'utilisation du dashboard"
                 description="Découvrez comment utiliser Arrhes au quotidien pour gérer votre comptabilité de manière simple et efficace."
             />
 
@@ -28,15 +28,6 @@ export function RootDashboardDocPage() {
                     backgroundColor: "white",
                 })}
             >
-                <h2
-                    className={css({
-                        fontSize: "md",
-                        fontWeight: "semibold",
-                        color: "neutral",
-                    })}
-                >
-                    Nouveau sur Arrhes ?
-                </h2>
                 <p
                     className={css({
                         fontSize: "sm",
@@ -60,13 +51,11 @@ export function RootDashboardDocPage() {
             </div>
 
             <DocTip variant="info">
-                <span>
-                    Vous avez trouvé un bug ? Vous souhaitez ajouter une fonctionnalité ?{" "}
-                    <a href="https://github.com/arrhes/application/issues" target="_blank" rel="noopener noreferrer">
-                        <LinkContent>Ouvrez un ticket sur GitHub</LinkContent>
-                    </a>{" "}
-                    pour que nous puissions discuter de ça rapidement.
-                </span>
+                Vous avez trouvé un bug ? Vous souhaitez ajouter une fonctionnalité ?{" "}
+                <a href="https://github.com/arrhes/application/issues" target="_blank" rel="noopener noreferrer">
+                    <LinkContent>Ouvrez un ticket sur GitHub</LinkContent>
+                </a>{" "}
+                pour que nous puissions discuter de ça rapidement.
             </DocTip>
 
             {/* Tip box */}

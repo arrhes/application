@@ -15,6 +15,7 @@ import type { ValidParams, ValidRoutes } from "../routes/applicationRouter.js"
 export function LinkButton(props: {
     to: ValidRoutes
     params?: ValidParams
+    hash?: string
     target?: ComponentProps<typeof Link>["target"]
     rel?: ComponentProps<typeof Link>["rel"]
     title?: string
@@ -27,6 +28,7 @@ export function LinkButton(props: {
         <Link
             to={props.to}
             params={props.params}
+            hash={props.hash}
             target={props.target}
             rel={props.rel}
             className={cx(

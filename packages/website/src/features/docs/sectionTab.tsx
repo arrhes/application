@@ -11,9 +11,9 @@ export interface DocSection {
     navigation: Record<
         string,
         {
-            title: string
-            icon: ReactElement<IconProps & React.RefAttributes<Icon>>
-            items: { path: string; label: string }[]
+            title?: string
+            icon?: ReactElement<IconProps & React.RefAttributes<Icon>>
+            items: { path: string; hash?: string; label: string }[]
         }
     >
 }

@@ -1,12 +1,12 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconBookmark } from "@tabler/icons-react"
-import type { ReactNode } from "react"
+import { css } from "@arrhes/ui/utilities/cn.js";
+import { IconBookmark } from "@tabler/icons-react";
+import type { ReactNode } from "react";
 
 export function DocDefinition(props: { term: string; definition: ReactNode }) {
     return (
         <div
             className={css({
-                padding: "1.25rem",
+                padding: "1rem",
                 borderRadius: "lg",
                 backgroundColor: "white",
                 border: "1px solid",
@@ -15,22 +15,20 @@ export function DocDefinition(props: { term: string; definition: ReactNode }) {
                 borderLeftColor: "neutral/15",
                 display: "flex",
                 flexDirection: "column",
-                gap: "0.25rem",
+                gap: "1rem",
             })}
         >
             <div
                 className={css({
                     display: "flex",
                     alignItems: "center",
-                    gap: "0.375rem",
-                    marginBottom: "0.25rem",
+                    gap: "0.5rem",
                 })}
             >
                 <IconBookmark
+                    size={12}
                     className={css({
-                        width: "0.875rem",
-                        height: "0.875rem",
-                        color: "primary/50",
+                        stroke: "neutral/50",
                         flexShrink: 0,
                     })}
                 />
@@ -38,7 +36,7 @@ export function DocDefinition(props: { term: string; definition: ReactNode }) {
                     className={css({
                         fontSize: "xs",
                         fontWeight: "medium",
-                        color: "primary/60",
+                        color: "neutral/50",
                         textTransform: "uppercase",
                         letterSpacing: "0.05em",
                     })}
@@ -46,24 +44,34 @@ export function DocDefinition(props: { term: string; definition: ReactNode }) {
                     Définition
                 </span>
             </div>
-            <dt
+            <div
                 className={css({
-                    fontWeight: "semibold",
-                    color: "neutral",
-                    fontSize: "sm",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "start",
+                    alignItems: "start",
+                    gap: "0.5rem",
                 })}
             >
-                {props.term}
-            </dt>
-            <dd
-                className={css({
-                    fontSize: "sm",
-                    color: "neutral/60",
-                    lineHeight: "1.6",
-                })}
-            >
-                {props.definition}
-            </dd>
+                <dt
+                    className={css({
+                        fontWeight: "semibold",
+                        color: "neutral",
+                        fontSize: "sm",
+                    })}
+                >
+                    {props.term}
+                </dt>
+                <dd
+                    className={css({
+                        fontSize: "sm",
+                        color: "neutral/60",
+                        lineHeight: "1.6",
+                    })}
+                >
+                    {props.definition}
+                </dd>
+            </div>
         </div>
     )
 }

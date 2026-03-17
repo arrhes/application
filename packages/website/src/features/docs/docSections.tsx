@@ -38,17 +38,55 @@ export const docSections: Record<string, DocSection> = {
         path: "/documentation/comptabilité",
         icon: <IconBook />,
         navigation: {
-            cours: {
-                title: "Cours de comptabilité",
+            introduction: {
+                title: "Introduction",
                 icon: <IconBook className={css({ width: "1rem", height: "1rem" })} />,
                 items: [
                     { path: "/documentation/comptabilité", label: "Accueil" },
                     { path: "/documentation/comptabilité/introduction", label: "Introduction" },
-                    { path: "/documentation/comptabilité/comptes", label: "Les comptes" },
+                    { path: "/documentation/comptabilité/partie-double", label: "La partie double" },
                     { path: "/documentation/comptabilité/écritures", label: "Les écritures" },
-                    { path: "/documentation/comptabilité/documents", label: "Les documents" },
-                    { path: "/documentation/comptabilité/glossaire", label: "Glossaire" },
                 ],
+            },
+            comptes: {
+                title: "Comptes",
+                icon: <IconBook className={css({ width: "1rem", height: "1rem" })} />,
+                items: [
+                    { path: "/documentation/comptabilité/comptes", label: "Introduction" },
+                    { path: "/documentation/comptabilité/comptes/classes", label: "Classes de comptes" },
+                    { path: "/documentation/comptabilité/comptes/liste", label: "Rechercher un compte" },
+                ],
+            },
+            documents: {
+                title: "Documents",
+                icon: <IconBook className={css({ width: "1rem", height: "1rem" })} />,
+                items: [
+                    { path: "/documentation/comptabilité/documents", label: "Introduction" },
+                    {
+                        path: "/documentation/comptabilité/documents/journal",
+                        label: "Journal",
+                    },
+                    {
+                        path: "/documentation/comptabilité/documents/grand-livre",
+                        label: "Grand livre",
+                    },
+                    {
+                        path: "/documentation/comptabilité/documents/balance",
+                        label: "Balance",
+                    },
+                    { path: "/documentation/comptabilité/documents/bilan", label: "Bilan" },
+                    {
+                        path: "/documentation/comptabilité/documents/compte-de-resultat",
+                        label: "Compte de résultat",
+                    },
+                    {
+                        path: "/documentation/comptabilité/documents/annexe",
+                        label: "Annexe",
+                    },
+                ],
+            },
+            glossaire: {
+                items: [{ path: "/documentation/comptabilité/glossaire", label: "Glossaire" }],
             },
         },
     },

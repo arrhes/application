@@ -12,7 +12,7 @@ export function RootApiDocPage() {
         <DocRoot>
             <DocHeader
                 title="API"
-                description="Documentation technique de l'API d'Arrhes. Toutes les routes, leurs paramètres et leurs réponses."
+                description="Documentation technique de l'API. Toutes les routes, leurs paramètres et leurs réponses."
             />
 
             {/* About section */}
@@ -28,15 +28,6 @@ export function RootApiDocPage() {
                     backgroundColor: "white",
                 })}
             >
-                <h2
-                    className={css({
-                        fontSize: "md",
-                        fontWeight: "semibold",
-                        color: "neutral",
-                    })}
-                >
-                    Vue d'ensemble
-                </h2>
                 <p
                     className={css({
                         fontSize: "sm",

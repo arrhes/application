@@ -1,5 +1,5 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconInfoCircle } from "@tabler/icons-react"
+import { css } from "@arrhes/ui/utilities/cn.js";
+import { IconInfoCircle } from "@tabler/icons-react";
 
 export function DocExample(props: { title?: string; children: React.ReactNode }) {
     return (
@@ -18,33 +18,31 @@ export function DocExample(props: { title?: string; children: React.ReactNode })
                 gap: "1rem",
             })}
         >
-            {props.title && (
-                <div
+            <div
+                className={css({
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                })}
+            >
+                <IconInfoCircle
                     className={css({
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "0.5rem",
+                        flexShrink: "0",
+                        width: "1rem",
+                        height: "1rem",
+                        color: "information",
+                    })}
+                />
+                <span
+                    className={css({
+                        fontSize: "sm",
+                        fontWeight: "semibold",
+                        color: "information",
                     })}
                 >
-                    <IconInfoCircle
-                        className={css({
-                            flexShrink: "0",
-                            width: "1rem",
-                            height: "1rem",
-                            color: "information",
-                        })}
-                    />
-                    <span
-                        className={css({
-                            fontSize: "sm",
-                            fontWeight: "semibold",
-                            color: "information",
-                        })}
-                    >
-                        {props.title}
-                    </span>
-                </div>
-            )}
+                    {props.title ?? "Exemple"}
+                </span>
+            </div>
             <div
                 className={css({
                     display: "flex",

@@ -1,6 +1,3 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
-import { DocDefinition } from "../../../components/document/docDefinition.js"
-import { DocExample } from "../../../components/document/docExample.js"
 import { DocHeader } from "../../../components/document/docHeader.js"
 import { DocLink } from "../../../components/document/docLink.js"
 import { DocList } from "../../../components/document/docList.js"
@@ -21,22 +18,66 @@ export function IntroductionAccountingDocPage() {
             <DocSection title="Qu'est-ce que la comptabilité ?">
                 <DocParagraph>
                     La comptabilité est un système d'organisation de l'information financière. Elle permet
-                    d'enregistrer, classer et analyser toutes les opérations économiques d'une organisation (entreprise,
-                    association, etc.).
-                </DocParagraph>
-                <DocParagraph>
-                    À l'origine, la comptabilité est née du besoin de contrôler les mouvements d'argent et de limiter
-                    les risques de détournement. Pour cela, seule une personne désignée (le caissier) est habilitée à
-                    percevoir et verser de l'argent, et toutes les opérations doivent être justifiées par des pièces.
+                    d'enregistrer, classer et analyser toutes les opérations économiques d'une{" "}
+                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "organisation" }}>
+                        organisation
+                    </DocLink>{" "}
+                    (entreprise, association, etc.).
                 </DocParagraph>
                 <DocParagraph>En termes simples, la comptabilité répond à deux questions essentielles :</DocParagraph>
                 <DocList items={["D'où vient l'argent ? (les ressources)", "Où va l'argent ? (les emplois)"]} />
             </DocSection>
 
+            <DocSection title="Un peu d'histoire">
+                <DocParagraph>
+                    La comptabilité est l'une des plus anciennes pratiques de gestion. Les premières traces remontent à
+                    l'Antiquité : les Sumériens enregistraient déjà les transactions commerciales sur des tablettes
+                    d'argile, et le Code de Hammurabi (vers 1750 av. J.-C.) imposait aux commerçants de tenir des
+                    registres.
+                </DocParagraph>
+                <DocParagraph>
+                    Le tournant majeur intervient à la fin du XV<sup>e</sup> siècle. En 1494, le mathématicien italien{" "}
+                    <strong>Luca Pacioli</strong> publie la <em>Summa de arithmetica</em>, dans laquelle il codifie le
+                    système de la{" "}
+                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "partie-double" }}>
+                        partie double
+                    </DocLink>
+                    , déjà utilisé par les banques italiennes depuis la fin du XIII<sup>e</sup> siècle. Ce système, où
+                    chaque opération est enregistrée simultanément au débit et au crédit, reste le fondement de toute
+                    comptabilité moderne.
+                </DocParagraph>
+                <DocParagraph>
+                    En France, c'est l'ordonnance de Colbert de 1673 qui impose pour la première fois la tenue de livres
+                    comptables aux commerçants. Puis, en 1947, la France adopte son premier{" "}
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{ term: "plan-comptable-general-pcg" }}
+                    >
+                        Plan Comptable Général (PCG)
+                    </DocLink>
+                    , unifiant les pratiques comptables à l'échelle nationale. Ce plan a été révisé plusieurs fois
+                    (1957, 1982) et est aujourd'hui défini par le règlement n°2014-03 de l'Autorité des Normes
+                    Comptables (ANC).
+                </DocParagraph>
+            </DocSection>
+
             <DocSection title="Pourquoi tenir une comptabilité ?">
                 <DocParagraph>
-                    La tenue d'une comptabilité est obligatoire pour la plupart des structures en France. Au-delà de
-                    l'obligation légale, elle offre plusieurs avantages :
+                    La tenue d'une comptabilité est une <strong>obligation légale</strong> pour la plupart des
+                    structures en France. Le Code de commerce (articles L.123-12 à L.123-28) impose à toute personne
+                    physique ou morale ayant la qualité de commerçant d'enregistrer chronologiquement les mouvements
+                    affectant le patrimoine de l'entreprise, de contrôler par inventaire l'existence et la valeur de ses
+                    éléments, et d'établir des comptes annuels à la clôture de chaque exercice.
+                </DocParagraph>
+
+                <DocTip variant="info">
+                    Les très petites entreprises (TPE) relevant du régime micro peuvent bénéficier d'une comptabilité
+                    simplifiée, dite <strong>comptabilité de caisse</strong> : elles n'enregistrent que les
+                    encaissements et les décaissements, sans comptabiliser les créances et les dettes.
+                </DocTip>
+
+                <DocParagraph>
+                    Au-delà de l'obligation légale, la comptabilité offre plusieurs avantages concrets :
                 </DocParagraph>
                 <DocList
                     items={[
@@ -49,80 +90,12 @@ export function IntroductionAccountingDocPage() {
                 />
             </DocSection>
 
-            <DocSection title="L'exercice comptable">
-                <DocParagraph>
-                    Le temps est découpé en périodes appelées <strong>exercices</strong>, généralement d'un an. À la fin
-                    de chaque exercice, l'entreprise doit calculer son résultat (bénéfice ou perte) et présenter ses
-                    comptes.
-                </DocParagraph>
-                <DocDefinition
-                    term="Exercice comptable"
-                    definition="Période de 12 mois (généralement l'année civile) pendant laquelle on enregistre les opérations. À la fin de l'exercice, on établit les documents de synthèse (bilan, compte de résultat)."
-                />
-                <DocParagraph>
-                    Le bénéfice de l'exercice est la différence entre le patrimoine de fin d'exercice et le patrimoine
-                    initial. Si l'entreprise a réussi dans ses activités, elle dispose à la fin de l'exercice d'un
-                    patrimoine supérieur à celui du début.
-                </DocParagraph>
-            </DocSection>
-
-            <DocSection title="Les principes fondamentaux">
-                <DocDefinition
-                    term="Partie double"
-                    definition="Chaque opération comptable affecte au moins deux comptes : l'un est débité, l'autre est crédité. Le total des débits doit toujours être égal au total des crédits. Ce principe garantit l'équilibre de la comptabilité."
-                />
-                <DocDefinition
-                    term="Pièce justificative"
-                    definition="Document qui prouve la réalité d'une opération (facture, relevé bancaire, ticket de caisse...). Chaque écriture comptable doit être justifiée par une pièce. C'est le fondement du contrôle comptable."
-                />
-                <DocDefinition
-                    term="Enregistrement chronologique"
-                    definition="Les écritures doivent être passées régulièrement dans l'ordre chronologique. Tout retour en arrière est impossible : les erreurs sont corrigées par des écritures de sens contraire, jamais effacées."
-                />
-
-                <DocExample title="La partie double en action">
-                    <p>Vous achetez des fournitures de bureau pour 100 euros en espèces.</p>
-                    <p className={css({ marginTop: "3" })}>Cette opération se traduit par :</p>
-                    <ul className={css({ marginTop: "2", ml: "4", spaceY: "1" })}>
-                        <li>Débit du compte Fournitures : +100 euros (vous avez plus de fournitures)</li>
-                        <li>Crédit du compte Caisse : -100 euros (vous avez moins d'espèces)</li>
-                    </ul>
-                    <p className={css({ marginTop: "3", fontWeight: "medium" })}>
-                        Total débits = Total crédits = 100 euros
-                    </p>
-                </DocExample>
-            </DocSection>
-
-            <DocSection title="Vocabulaire essentiel">
-                <DocDefinition
-                    term="Débit"
-                    definition="Côté gauche d'un compte. Le mot vient du latin debere (devoir) : il indique que le caissier doit pouvoir rendre l'argent entré dans sa caisse. Pour les comptes d'actif et de charges, un débit représente une augmentation."
-                />
-                <DocDefinition
-                    term="Crédit"
-                    definition="Côté droit d'un compte. Le mot vient du latin credere (croire) : en échange d'une sortie d'argent, le caissier reçoit une pièce justificative qui lui permet d'être cru lors d'un contrôle. Pour les comptes de passif et de produits, un crédit représente une augmentation."
-                />
-                <DocDefinition
-                    term="Solde"
-                    definition="Différence entre le total des débits et le total des crédits d'un compte. Un compte est débiteur si les débits sont supérieurs aux crédits, créditeur dans le cas contraire."
-                />
-            </DocSection>
-
-            <DocSection title="Lien avec Arrhes">
-                <DocParagraph>
-                    Ces concepts sont directement appliqués dans Arrhes. Lorsque vous{" "}
-                    <DocLink to="/documentation/dashboard/écritures">saisissez une écriture</DocLink>, le logiciel vous
-                    demande de spécifier les comptes à débiter et à créditer, et vérifie automatiquement que l'équilibre
-                    est respecté.
-                </DocParagraph>
-            </DocSection>
-
             <DocTip variant="info">
-                Maintenant que vous connaissez les bases de la comptabilité, découvrez comment les comptes sont
-                organisés dans la page suivante.
+                Maintenant que vous connaissez les bases de la comptabilité, découvrez le principe fondamental qui régit
+                toute écriture comptable dans la page suivante.
             </DocTip>
 
-            <DocNextPage to="/documentation/comptabilité/comptes" label="Les comptes comptables" />
+            <DocNextPage to="/documentation/comptabilité/partie-double" label="La partie double" />
         </DocRoot>
     )
 }

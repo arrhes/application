@@ -1,10 +1,10 @@
 import { ButtonOutlineContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconChevronRight } from "@tabler/icons-react"
-import type { ValidRoutes } from "../../routes/applicationRouter.js"
+import type { ValidParams, ValidRoutes } from "../../routes/applicationRouter.js"
 import { LinkButton } from "../linkButton.js"
 
-export function DocNextPage(props: { to: ValidRoutes; label: string }) {
+export function DocNextPage(props: { to: ValidRoutes; params?: ValidParams; label: string }) {
     return (
         <div
             className={css({
@@ -26,7 +26,7 @@ export function DocNextPage(props: { to: ValidRoutes; label: string }) {
             >
                 Page suivante
             </span>
-            <LinkButton to={props.to}>
+            <LinkButton to={props.to} params={props.params}>
                 <ButtonOutlineContent text={props.label} rightIcon={<IconChevronRight />} />
             </LinkButton>
         </div>

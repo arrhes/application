@@ -1,14 +1,14 @@
 import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { accountingDocLayoutRoute } from "./accountingDocLayoutRoute.js"
 
-export const glossaryAccountingDocRoute = createRoute({
+export const doubleEntryAccountingDocRoute = createRoute({
     getParentRoute: () => accountingDocLayoutRoute,
-    path: "/glossaire",
+    path: "/partie-double",
     beforeLoad: () => ({
-        title: "Glossaire comptable",
+        title: "La partie double",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../features/docs/accounting/glossaryAccountingDocPage.tsx"),
-        "GlossaryAccountingDocPage",
+        () => import("../../../../features/docs/accounting/doubleEntryAccountingDocPage.js"),
+        "DoubleEntryAccountingDocPage",
     ),
 })

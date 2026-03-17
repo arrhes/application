@@ -18,27 +18,41 @@ export function RecordsAccountingDocPage() {
 
             <DocSection title="Qu'est-ce qu'une écriture comptable ?">
                 <DocParagraph>
-                    Une écriture comptable est l'enregistrement d'une opération économique dans les comptes. Chaque
-                    écriture traduit un événement réel (achat, vente, paiement...) en langage comptable.
+                    Une{" "}
+                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "ecriture-comptable" }}>
+                        écriture comptable
+                    </DocLink>{" "}
+                    est la traduction d'une opération économique dans le langage de la comptabilité. C'est l'acte
+                    concret d'enregistrement : à chaque fois que votre organisation effectue une opération (achat,
+                    vente, encaissement, paiement…), celle-ci doit être consignée sous forme d'écriture.
                 </DocParagraph>
                 <DocParagraph>
-                    Comme vu dans l'<DocLink to="/documentation/comptabilité/introduction">introduction</DocLink>,
-                    chaque écriture respecte le principe de la partie double : elle affecte au moins deux comptes et le
-                    total des débits égale le total des crédits.
+                    Comme vu dans la page sur la{" "}
+                    <DocLink to="/documentation/comptabilité/partie-double">partie double</DocLink>, chaque écriture
+                    respecte le principe de la{" "}
+                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "partie-double" }}>
+                        partie double
+                    </DocLink>{" "}
+                    : elle est composée d'au moins deux lignes, chacune associée à un{" "}
+                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "compte" }}>
+                        compte comptable
+                    </DocLink>
+                    . Une ligne enregistre un montant au débit, l'autre au crédit. Le total des débits égale toujours le
+                    total des crédits.
                 </DocParagraph>
-            </DocSection>
+                <DocParagraph>
+                    Les écritures sont le lien entre les opérations réelles et les comptes. Sans écriture, un compte ne
+                    bouge pas. Les comptes ne sont que le reflet cumulé de toutes les écritures qui les ont affectés.
+                </DocParagraph>
 
-            <DocSection title="Le journal : registre chronologique">
-                <DocParagraph>
-                    Le <strong>journal</strong> est le document fondamental de la comptabilité. Il enregistre toutes les
-                    écritures dans l'ordre chronologique, créant ainsi une trace complète et inaltérable de l'activité
-                    de l'entreprise.
-                </DocParagraph>
-                <DocParagraph>
-                    Le journal a une valeur juridique : il constitue une preuve en cas de litige ou de contrôle fiscal.
-                    C'est pourquoi les écritures ne doivent jamais être effacées, mais corrigées par des écritures de
-                    contre-passation si nécessaire.
-                </DocParagraph>
+                <DocDefinition
+                    term="Pièce justificative"
+                    definition="Chaque écriture doit être appuyée par un document qui prouve la réalité de l'opération (facture, relevé bancaire, ticket de caisse…). C'est le fondement du contrôle comptable."
+                />
+                <DocDefinition
+                    term="Enregistrement chronologique"
+                    definition="Les écritures doivent être passées dans l'ordre chronologique. On ne revient jamais en arrière : les erreurs sont corrigées par des écritures de sens contraire, jamais effacées."
+                />
             </DocSection>
 
             <DocSection title="Structure d'une écriture">
@@ -69,34 +83,6 @@ export function RecordsAccountingDocPage() {
                         Total débit = Total crédit = 120,00 euros
                     </p>
                 </DocExample>
-            </DocSection>
-
-            <DocSection title="Les journaux auxiliaires">
-                <DocParagraph>
-                    Pour faciliter l'organisation, les écritures sont regroupées dans des journaux auxiliaires selon
-                    leur nature. Cela permet de répartir le travail et de vérifier plus facilement les opérations.
-                </DocParagraph>
-
-                <DocDefinition
-                    term="Journal des achats (HA)"
-                    definition="Enregistre toutes les factures fournisseurs reçues. On y trouve les achats à crédit avant leur règlement."
-                />
-                <DocDefinition
-                    term="Journal des ventes (VE)"
-                    definition="Enregistre toutes les factures clients émises. On y trouve les ventes à crédit avant leur encaissement."
-                />
-                <DocDefinition
-                    term="Journal de banque (BQ)"
-                    definition="Enregistre tous les mouvements du compte bancaire : encaissements, décaissements, virements."
-                />
-                <DocDefinition
-                    term="Journal de caisse (CA)"
-                    definition="Enregistre tous les mouvements d'espèces : recettes et dépenses en liquide."
-                />
-                <DocDefinition
-                    term="Journal des opérations diverses (OD)"
-                    definition="Enregistre les opérations qui ne rentrent pas dans les autres journaux : salaires, amortissements, régularisations, écritures de clôture."
-                />
             </DocSection>
 
             <DocSection title="Opérations à crédit vs au comptant">
@@ -194,8 +180,12 @@ export function RecordsAccountingDocPage() {
 
             <DocSection title="La TVA dans les écritures">
                 <DocParagraph>
-                    Si votre organisation est assujettie à la TVA, chaque opération doit distinguer le montant hors
-                    taxes (HT) et la TVA. Le compte État joue un rôle central.
+                    Si votre{" "}
+                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "organisation" }}>
+                        organisation
+                    </DocLink>{" "}
+                    est assujettie à la TVA, chaque opération doit distinguer le montant hors taxes (HT) et la TVA. Le
+                    compte État joue un rôle central.
                 </DocParagraph>
 
                 <DocList
@@ -231,8 +221,13 @@ export function RecordsAccountingDocPage() {
 
             <DocSection title="Contrôle des écritures">
                 <DocParagraph>
-                    La <strong>balance</strong> permet de vérifier que toutes les écritures sont équilibrées. Elle liste
-                    tous les comptes avec :
+                    La{" "}
+                    <strong>
+                        <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "balance" }}>
+                            balance
+                        </DocLink>
+                    </strong>{" "}
+                    permet de vérifier que toutes les écritures sont équilibrées. Elle liste tous les comptes avec :
                 </DocParagraph>
                 <DocList
                     items={[
@@ -260,7 +255,7 @@ export function RecordsAccountingDocPage() {
                 vérifie automatiquement cet équilibre lors de la saisie.
             </DocTip>
 
-            <DocNextPage to="/documentation/comptabilité/documents" label="Les documents comptables" />
+            <DocNextPage to="/documentation/comptabilité/comptes" label="Les comptes comptables" />
         </DocRoot>
     )
 }
