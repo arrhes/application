@@ -18,7 +18,7 @@ const plainRecipe = sva({
             transitionDuration: "200ms",
             transitionTimingFunction: "ease-in-out",
             border: "1px solid",
-            borderColor: "rgba(31, 35, 40, 0.15)",
+            borderColor: "primary",
             backgroundColor: "primary",
             color: "white",
             stroke: "white",

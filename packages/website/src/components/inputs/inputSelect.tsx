@@ -13,11 +13,11 @@ export function InputSelect<TValue extends string>(
         defaultValue?: TValue | null
         onChange?: (value?: TValue | null | undefined) => void
         options:
-            | Array<{
-                  key: TValue
-                  label: string
-              }>
-            | undefined
+        | Array<{
+            key: TValue
+            label: string
+        }>
+        | undefined
         autoFocus?: boolean
         allowEmpty?: boolean
         isDisabled?: boolean
@@ -73,7 +73,10 @@ export function InputSelect<TValue extends string>(
                     />
                 </Button>
             </Popover.Trigger>
-            <Popover.Content align="start">
+            <Popover.Content
+                align="start"
+                className={css({ padding: "0.5rem", })}
+            >
                 <div
                     className={css({
                         height: "fit-content",
@@ -83,6 +86,7 @@ export function InputSelect<TValue extends string>(
                         flexDirection: "column",
                         justifyContent: "start",
                         alignItems: "start",
+                        gap: "0.125rem",
                     })}
                 >
                     {props.isLoading === true ? (

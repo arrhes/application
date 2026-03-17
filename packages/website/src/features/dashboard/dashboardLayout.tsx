@@ -84,7 +84,10 @@ export function DashboardLayout() {
                                     <ButtonOutlineContent leftIcon={<IconUser />} />
                                 </Button>
                             </Popover.Trigger>
-                            <Popover.Content align="end">
+                            <Popover.Content
+                                align="end"
+                                className={css({ padding: "0.5rem", })}
+                            >
                                 <LinkButton to="/dashboard/support" className={css({ width: "100%" })}>
                                     <ButtonGhostContent
                                         leftIcon={<IconLifebuoy />}

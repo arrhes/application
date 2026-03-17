@@ -146,7 +146,10 @@ export function InputComboboxMultiple<TValue extends string>(props: InputCombobo
                     </Button>
                 </Popover.Trigger>
                 {!open ? null : (
-                    <Popover.Content align="start">
+                    <Popover.Content
+                        align="start"
+                        className={css({ padding: "0.5rem", })}
+                    >
                         <Command
                             className={cx(css({ width: "100%" }), props.className)}
                             filter={(value, search) => {
@@ -222,14 +225,14 @@ export function InputComboboxMultiple<TValue extends string>(props: InputCombobo
                                                     justifyContent: "space-between",
                                                     alignItems: "center",
                                                     overflowY: "auto",
-                                                    gap: "3",
+                                                    gap: "1rem",
                                                 }),
                                                 isSelected
                                                     ? css({ backgroundColor: "neutral/10" })
                                                     : css({
-                                                          backgroundColor: "none",
-                                                          _hover: { backgroundColor: "neutral/5" },
-                                                      }),
+                                                        backgroundColor: "none",
+                                                        _hover: { backgroundColor: "neutral/5" },
+                                                    }),
                                             )}
                                         >
                                             <span className={css({ fontSize: "sm", color: "neutral" })}>

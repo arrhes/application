@@ -47,9 +47,27 @@ export function HomePage() {
                         gap: "1rem",
                     })}
                 >
-                    <LinkButton to="/">
-                        <Logo withText />
-                    </LinkButton>
+                    <div
+                        className={css({
+                            display: "flex",
+                            justifyContent: "start",
+                            alignItems: "center",
+                            gap: "0.5rem",
+                        })}
+                    >
+                        <LinkButton to="/">
+                            <Logo />
+                        </LinkButton>
+                        <span
+                            className={css({
+                                fontSize: "0.875rem",
+                                fontFamily: "mono",
+                                color: "neutral",
+                            })}
+                        >
+                            Arrhes
+                        </span>
+                    </div>
                     <nav
                         className={css({
                             display: "flex",

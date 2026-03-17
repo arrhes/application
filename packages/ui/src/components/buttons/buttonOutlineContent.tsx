@@ -20,6 +20,7 @@ const outlineRecipe = sva({
             border: "1px solid",
             borderColor: "neutral/20",
             backgroundColor: "transparent",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.25)",
             _hover: { backgroundColor: "neutral/5", borderColor: "neutral/30" },
             _active: { backgroundColor: "neutral/10" },
             _disabled: {

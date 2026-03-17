@@ -80,58 +80,64 @@ export function InputCombobox<TValue extends string>(props: {
                     />
                 </Button>
             </Popover.Trigger>
-            {open === false ? null : (
-                <Popover.Content align="start">
-                    <InputText value={rawQuery} onChange={(value) => setRawQuery(value)} />
-                    <div
-                        className={css({
-                            height: "fit-content",
-                            maxHeight: "256px",
-                            width: "100%",
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "start",
-                            alignItems: "start",
-                        })}
+            {open === false
+                ? null
+                : (
+                    <Popover.Content
+                        align="start"
+                        className={css({ padding: "0.5rem", })}
                     >
-                        {props.isLoading === false ? null : <CircularLoader />}
-                        {currentOptions.length > 0 ? null : (
-                            <FormatNull text="Pas de résultat" className={css({ padding: "0.5rem" })} />
-                        )}
-                        <Virtualizer data={currentOptions}>
-                            {(option) => {
-                                const isSelected = currentOption?.key === option.key
-                                return (
-                                    <Button
-                                        key={option.key}
-                                        className={css({ width: "100%" })}
-                                        onClick={() => {
-                                            if (props.isDisabled) return
-                                            if (props.allowEmpty === true && option.key === props.value) {
-                                                props.onChange(undefined)
+                        <InputText value={rawQuery} onChange={(value) => setRawQuery(value)} />
+                        <div
+                            className={css({
+                                height: "fit-content",
+                                maxHeight: "256px",
+                                width: "100%",
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "start",
+                                alignItems: "start",
+                                gap: "0.125rem",
+                            })}
+                        >
+                            {props.isLoading === false ? null : <CircularLoader />}
+                            {currentOptions.length > 0 ? null : (
+                                <FormatNull text="Pas de résultat" className={css({ padding: "0.5rem" })} />
+                            )}
+                            <Virtualizer data={currentOptions}>
+                                {(option) => {
+                                    const isSelected = currentOption?.key === option.key
+                                    return (
+                                        <Button
+                                            key={option.key}
+                                            className={css({ width: "100%" })}
+                                            onClick={() => {
+                                                if (props.isDisabled) return
+                                                if (props.allowEmpty === true && option.key === props.value) {
+                                                    props.onChange(undefined)
+                                                    setOpen(false)
+                                                    return
+                                                }
+                                                props.onChange(option.key)
                                                 setOpen(false)
-                                                return
-                                            }
-                                            props.onChange(option.key)
-                                            setOpen(false)
-                                        }}
-                                    >
-                                        <ButtonGhostContent
-                                            text={option.label}
-                                            rightIcon={isSelected ? <IconCheck /> : undefined}
-                                            className={cx(
-                                                css({ width: "100%", justifyContent: "space-between" }),
-                                                isSelected ? css({ backgroundColor: "background" }) : "",
-                                            )}
-                                            isCurrent={isSelected}
-                                        />
-                                    </Button>
-                                )
-                            }}
-                        </Virtualizer>
-                    </div>
-                </Popover.Content>
-            )}
+                                            }}
+                                        >
+                                            <ButtonGhostContent
+                                                text={option.label}
+                                                rightIcon={isSelected ? <IconCheck /> : undefined}
+                                                className={cx(
+                                                    css({ width: "100%", justifyContent: "space-between" }),
+                                                    isSelected ? css({ backgroundColor: "background" }) : "",
+                                                )}
+                                                isCurrent={isSelected}
+                                            />
+                                        </Button>
+                                    )
+                                }}
+                            </Virtualizer>
+                        </div>
+                    </Popover.Content>
+                )}
         </Popover.Root>
     )
 }

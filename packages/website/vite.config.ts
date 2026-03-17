@@ -29,6 +29,7 @@ export default defineConfig(() => {
         plugins: [react({ include: "**/*.tsx" }), fontPreloadPlugin()],
         assetsInclude: ["**/*.md"],
         root: "./src",
+        publicDir: "../public",
         base: "/",
         envDir: "../",
         server: {

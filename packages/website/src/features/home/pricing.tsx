@@ -176,6 +176,7 @@ export function Pricing() {
                             "Automatiser les actions",
                             "Utiliser la détection automatique du contenu des documents",
                         ]}
+                        isDev
                     />
                     <FeatureItem icon={<IconLifebuoy />} text="Support prioritaire" highlighted />
                 </div>
