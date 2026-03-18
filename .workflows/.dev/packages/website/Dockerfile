@@ -21,5 +21,5 @@ RUN npm install -g "pnpm@${PNPM_VERSION}"
 
 WORKDIR /workspace/packages/website
 
-# Generate .env from compose environment variables, then start Vite
-CMD ["sh", "-c", "printenv | grep '^VITE_' > .env && pnpm dev -- --host 0.0.0.0"]
+# Generate .env from compose environment variables, run Panda codegen, then start Vite
+CMD ["sh", "-c", "printenv | grep '^VITE_' > .env && cd /workspace/packages/ui && pnpm panda codegen && cd /workspace/packages/website && pnpm panda codegen && pnpm dev -- --host 0.0.0.0"]

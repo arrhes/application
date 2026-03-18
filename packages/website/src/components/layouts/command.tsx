@@ -87,7 +87,7 @@ export const CommandInput = React.forwardRef<
             gap: "0.5rem",
             padding: "1rem",
             borderBottom: "1px solid",
-            borderColor: "neutral/10",
+            borderBottomColor: "neutral/10",
         })}
         cmdk-input-wrapper=""
     >

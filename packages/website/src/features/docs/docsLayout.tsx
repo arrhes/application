@@ -44,7 +44,7 @@ export function DocsLayout() {
                     justifyContent: "start",
                     alignItems: "center",
                     borderBottom: "1px solid",
-                    borderColor: "neutral/10",
+                    borderBottomColor: "neutral/10",
                     backgroundColor: "white",
                     position: "sticky",
                     top: "0",
@@ -60,7 +60,7 @@ export function DocsLayout() {
                         alignItems: "center",
                         padding: "1rem",
                         borderBottom: "1px solid",
-                        borderColor: "neutral/10",
+                        borderBottomColor: "neutral/10",
                     })}
                 >
                     <div
@@ -215,7 +215,7 @@ export function DocsLayout() {
                                 width: "100%",
                                 padding: "1rem",
                                 borderBottom: "1px solid",
-                                borderColor: "neutral/10",
+                                borderBottomColor: "neutral/10",
                             })}
                         >
                             <Button

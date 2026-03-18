@@ -295,7 +295,7 @@ export function FilesGrid(props: {
                                     flexDirection: "column",
                                     gap: "0.125rem",
                                     borderTop: "1px solid",
-                                    borderColor: "amber.100",
+                                    borderTopColor: "amber.100",
                                 })}
                             >
                                 <span
@@ -396,7 +396,7 @@ export function FilesGrid(props: {
                                         flexDirection: "column",
                                         gap: "0.125rem",
                                         borderTop: "1px solid",
-                                        borderColor: "neutral/8",
+                                        borderTopColor: "neutral/8",
                                     })}
                                 >
                                     <span

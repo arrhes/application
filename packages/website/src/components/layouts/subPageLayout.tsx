@@ -181,7 +181,7 @@ export function SubPageLayout(props: {
                             width: "100%",
                             padding: "1rem",
                             borderBottom: "1px solid",
-                            borderColor: "neutral/10",
+                            borderBottomColor: "neutral/10",
                         })}
                     >
                         <Button

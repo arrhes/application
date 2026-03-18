@@ -29,7 +29,7 @@ export function HomePage() {
                     alignItems: "center",
                     padding: "1rem",
                     borderBottom: "1px solid",
-                    borderColor: "neutral/10",
+                    borderBottomColor: "neutral/10",
                     backgroundColor: "white",
                     position: "sticky",
                     top: "0",

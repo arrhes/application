@@ -1,25 +1,25 @@
-import type { AnyRoute } from "@tanstack/react-router"
-import { accountDetailAccountingDocRoute } from "./accounting/accountDetailAccountingDocRoute.js"
+import { type AnyRoute } from "@tanstack/react-router"
 import { accountingDocLayoutRoute } from "./accounting/accountingDocLayoutRoute.js"
-import { accountsAccountingDocIndexRoute } from "./accounting/accountsAccountingDocIndexRoute.js"
-import { accountsAccountingDocLayoutRoute } from "./accounting/accountsAccountingDocLayoutRoute.js"
-import { accountsClassesAccountingDocRoute } from "./accounting/accountsClassesAccountingDocRoute.js"
-import { accountsListAccountingDocRoute } from "./accounting/accountsListAccountingDocRoute.js"
-import { annexeAccountingDocRoute } from "./accounting/annexeAccountingDocRoute.js"
-import { balanceAccountingDocRoute } from "./accounting/balanceAccountingDocRoute.js"
-import { bilanAccountingDocRoute } from "./accounting/bilanAccountingDocRoute.js"
-import { compteDeResultatAccountingDocRoute } from "./accounting/compteDeResultatAccountingDocRoute.js"
-import { doubleEntryAccountingDocRoute } from "./accounting/doubleEntryAccountingDocRoute.js"
-import { glossaryAccountingDocIndexRoute } from "./accounting/glossaryAccountingDocIndexRoute.js"
-import { glossaryAccountingDocLayoutRoute } from "./accounting/glossaryAccountingDocLayoutRoute.js"
-import { glossaryTermAccountingDocRoute } from "./accounting/glossaryTermAccountingDocRoute.js"
-import { grandLivreAccountingDocRoute } from "./accounting/grandLivreAccountingDocRoute.js"
-import { introductionAccountingDocRoute } from "./accounting/introductionAccountingDocRoute.js"
-import { journalAccountingDocRoute } from "./accounting/journalAccountingDocRoute.js"
-import { recordsAccountingDocRoute } from "./accounting/recordsAccountingDocRoute.js"
-import { reportsAccountingDocIndexRoute } from "./accounting/reportsAccountingDocIndexRoute.js"
-import { reportsAccountingDocLayoutRoute } from "./accounting/reportsAccountingDocLayoutRoute.js"
-import { rootAccountingDocRoute } from "./accounting/rootAccountingDocRoute.js"
+import { accountAccountingDocRoute } from "./accounting/accounts/accountAccountingDocRoute.js"
+import { accountsAccountingDocLayoutRoute } from "./accounting/accounts/accountsAccountingDocLayoutRoute.js"
+import { accountsAccountingDocRoute } from "./accounting/accounts/accountsAccountingDocRoute.js"
+import { accountsListAccountingDocRoute } from "./accounting/accounts/accountsListAccountingDocRoute.js"
+import { classesAccountingDocRoute } from "./accounting/accounts/classesAccountingDocRoute.js"
+import { glossaryAccountingDocLayoutRoute } from "./accounting/glossary/glossaryAccountingDocLayoutRoute.js"
+import { glossaryAccountingDocIndexRoute } from "./accounting/glossary/glossaryAccountingDocRoute.js"
+import { glossaryTermAccountingDocRoute } from "./accounting/glossary/glossaryTermAccountingDocRoute.js"
+import { doubleEntryAccountingDocRoute } from "./accounting/introduction/doubleEntryAccountingDocRoute.js"
+import { introductionAccountingDocRoute } from "./accounting/introduction/introductionAccountingDocRoute.js"
+import { recordsAccountingDocRoute } from "./accounting/introduction/recordsAccountingDocRoute.js"
+import { rootAccountingDocRoute } from "./accounting/introduction/rootAccountingDocRoute.js"
+import { balanceAccountingDocRoute } from "./accounting/reports/balanceAccountingDocRoute.js"
+import { balanceSheetAccountingDocRoute } from "./accounting/reports/balanceSheetAccountingDocRoute.js"
+import { incomeStatementAccountingDocRoute } from "./accounting/reports/incomeStatementAccountingDocRoute.js"
+import { journalAccountingDocRoute } from "./accounting/reports/journalAccountingDocRoute.js"
+import { ledgerAccountingDocRoute } from "./accounting/reports/ledgerAccountingDocRoute.js"
+import { notesAccountingDocRoute } from "./accounting/reports/notesAccountingDocRoute.js"
+import { reportsAccountingDocLayoutRoute } from "./accounting/reports/reportsAccountingDocLayoutRoute.js"
+import { reportsAccountingDocRoute } from "./accounting/reports/reportsAccountingDocRoute.js"
 import { apiDocLayoutRoute } from "./api/apiDocLayoutRoute.js"
 import { authenticationApiDocRoute } from "./api/authenticationApiDocRoute.js"
 import { filesApiDocRoute } from "./api/filesApiDocRoute.js"
@@ -66,19 +66,19 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
         doubleEntryAccountingDocRoute,
         recordsAccountingDocRoute,
         accountsAccountingDocLayoutRoute.addChildren([
-            accountsAccountingDocIndexRoute,
-            accountsClassesAccountingDocRoute,
+            accountsAccountingDocRoute,
+            classesAccountingDocRoute,
             accountsListAccountingDocRoute,
-            accountDetailAccountingDocRoute,
+            accountAccountingDocRoute,
         ]),
         reportsAccountingDocLayoutRoute.addChildren([
-            reportsAccountingDocIndexRoute,
-            bilanAccountingDocRoute,
-            compteDeResultatAccountingDocRoute,
+            reportsAccountingDocRoute,
+            balanceSheetAccountingDocRoute,
+            incomeStatementAccountingDocRoute,
             balanceAccountingDocRoute,
             journalAccountingDocRoute,
-            grandLivreAccountingDocRoute,
-            annexeAccountingDocRoute,
+            ledgerAccountingDocRoute,
+            notesAccountingDocRoute,
         ]),
         glossaryAccountingDocLayoutRoute.addChildren([glossaryAccountingDocIndexRoute, glossaryTermAccountingDocRoute]),
     ]),

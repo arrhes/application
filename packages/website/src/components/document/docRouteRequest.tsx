@@ -86,31 +86,27 @@ function FieldTable(props: { fields: { name: string; type: string; required?: bo
                     className={css({
                         backgroundColor: "neutral/5",
                         borderBottom: "1px solid",
-                        borderColor: "neutral/10",
+                        borderBottomColor: "neutral/10",
                     })}
                 >
                     <th
                         className={css({
                             padding: "0.5rem 0.75rem",
-                            textAlign: "left",
                             fontSize: "xs",
                             fontWeight: "semibold",
-                            color: "neutral/60",
-                            textTransform: "uppercase",
-                            letterSpacing: "wider",
+                            color: "neutral/50",
+                            textAlign: "left",
                         })}
                     >
-                        Champ
+                        Nom
                     </th>
                     <th
                         className={css({
                             padding: "0.5rem 0.75rem",
-                            textAlign: "left",
                             fontSize: "xs",
                             fontWeight: "semibold",
-                            color: "neutral/60",
-                            textTransform: "uppercase",
-                            letterSpacing: "wider",
+                            color: "neutral/50",
+                            textAlign: "left",
                         })}
                     >
                         Type
@@ -119,12 +115,10 @@ function FieldTable(props: { fields: { name: string; type: string; required?: bo
                         <th
                             className={css({
                                 padding: "0.5rem 0.75rem",
-                                textAlign: "left",
                                 fontSize: "xs",
                                 fontWeight: "semibold",
-                                color: "neutral/60",
-                                textTransform: "uppercase",
-                                letterSpacing: "wider",
+                                color: "neutral/50",
+                                textAlign: "left",
                             })}
                         >
                             Requis
@@ -138,7 +132,7 @@ function FieldTable(props: { fields: { name: string; type: string; required?: bo
                         key={field.name}
                         className={css({
                             borderBottom: "1px solid",
-                            borderColor: "neutral/10",
+                            borderBottomColor: "neutral/10",
                             _last: { borderBottom: "none" },
                             _hover: { backgroundColor: "neutral/3" },
                             transition: "colors",
@@ -211,7 +205,7 @@ export function DocRouteRequest(props: { routeDefinition: ReturnType<typeof rout
                     padding: "0.75rem",
                     backgroundColor: "neutral/3",
                     borderBottom: "1px solid",
-                    borderColor: "neutral/10",
+                    borderBottomColor: "neutral/10",
                 })}
             >
                 <div
@@ -272,7 +266,7 @@ export function DocRouteRequest(props: { routeDefinition: ReturnType<typeof rout
                         color: "neutral/70",
                         lineHeight: "1.75",
                         borderBottom: "1px solid",
-                        borderColor: "neutral/10",
+                        borderBottomColor: "neutral/10",
                     })}
                 >
                     {props.description}
@@ -284,7 +278,7 @@ export function DocRouteRequest(props: { routeDefinition: ReturnType<typeof rout
                 className={css({
                     display: "flex",
                     borderBottom: "1px solid",
-                    borderColor: "neutral/10",
+                    borderBottomColor: "neutral/10",
                 })}
             >
                 <button
@@ -296,7 +290,7 @@ export function DocRouteRequest(props: { routeDefinition: ReturnType<typeof rout
                         fontWeight: "semibold",
                         color: activeTab === "body" ? "primary" : "neutral/50",
                         borderBottom: "2px solid",
-                        borderColor: activeTab === "body" ? "primary" : "transparent",
+                        borderBottomColor: activeTab === "body" ? "primary" : "transparent",
                         backgroundColor: "transparent",
                         cursor: "pointer",
                         transition: "all 0.15s",
@@ -314,7 +308,7 @@ export function DocRouteRequest(props: { routeDefinition: ReturnType<typeof rout
                         fontWeight: "semibold",
                         color: activeTab === "response" ? "primary" : "neutral/50",
                         borderBottom: "2px solid",
-                        borderColor: activeTab === "response" ? "primary" : "transparent",
+                        borderBottomColor: activeTab === "response" ? "primary" : "transparent",
                         backgroundColor: "transparent",
                         cursor: "pointer",
                         transition: "all 0.15s",

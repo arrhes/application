@@ -11,7 +11,7 @@ export function PageSeparator(props: PageSeparator) {
                     width: "100%",
                     height: "1px",
                     borderBottom: "1px solid",
-                    borderColor: "neutral/10",
+                    borderBottomColor: "neutral/10",
                 }),
                 props.className,
             )}

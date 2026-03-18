@@ -52,9 +52,9 @@ export const docSections: Record<string, DocSection> = {
                 title: "Comptes",
                 icon: <IconBook className={css({ width: "1rem", height: "1rem" })} />,
                 items: [
-                    { path: "/documentation/comptabilité/comptes", label: "Introduction" },
+                    { path: "/documentation/comptabilité/comptes/introduction", label: "Introduction" },
                     { path: "/documentation/comptabilité/comptes/classes", label: "Classes de comptes" },
-                    { path: "/documentation/comptabilité/comptes/liste", label: "Rechercher un compte" },
+                    { path: "/documentation/comptabilité/comptes/liste", label: "Liste des comptes" },
                 ],
             },
             documents: {
@@ -76,7 +76,7 @@ export const docSections: Record<string, DocSection> = {
                     },
                     { path: "/documentation/comptabilité/documents/bilan", label: "Bilan" },
                     {
-                        path: "/documentation/comptabilité/documents/compte-de-resultat",
+                        path: "/documentation/comptabilité/documents/compte-de-résultat",
                         label: "Compte de résultat",
                     },
                     {

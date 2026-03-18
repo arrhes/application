@@ -9,14 +9,6 @@ export interface AccountEntry {
     side: "actif" | "passif" | "actif ou passif" | "charge" | "produit"
     system: "minimal" | "facultatif"
     parent: string | null
-    /** Compte supprimé du PCG 2026 (existait dans le PCG 2025) */
-    removed?: true
-    /** Compte ajouté dans le PCG 2026 (n'existait pas dans le PCG 2025) */
-    added?: true
-    /** Ancien intitulé du compte dans le PCG 2025 (si modifié) */
-    previousLabel?: string
-    /** Ancien système du compte dans le PCG 2025 (si modifié) */
-    previousSystem?: "minimal" | "facultatif"
 }
 
 function toSlug(number: string): string {
@@ -34,10 +26,6 @@ function defineAccount(
         side: "actif" | "passif" | "actif ou passif" | "charge" | "produit"
         system: "minimal" | "facultatif"
         parent: string | null
-        removed?: true
-        added?: true
-        previousLabel?: string
-        previousSystem?: "minimal" | "facultatif"
     },
 ): AccountEntry {
     return {
@@ -51,10 +39,6 @@ function defineAccount(
         side: options.side,
         system: options.system,
         parent: options.parent,
-        ...(options.removed && { removed: true }),
-        ...(options.added && { added: true }),
-        ...(options.previousLabel && { previousLabel: options.previousLabel }),
-        ...(options.previousSystem && { previousSystem: options.previousSystem }),
     }
 }
 
@@ -190,7 +174,6 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         system: "facultatif",
         parent: "104",
-        previousLabel: "Bons de souscription d'actions",
     }),
     defineAccount("105", "Écarts de réévaluation", {
         classNumber: 1,
@@ -523,7 +506,6 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         system: "minimal",
         parent: "1",
-        previousLabel: "Emprunts et dettes assimilées",
     }),
     defineAccount("161", "Emprunts obligataires convertibles si non-inscrits dans le compte 167", {
         classNumber: 1,
@@ -532,7 +514,6 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         system: "minimal",
         parent: "16",
-        previousLabel: "Emprunts obligataires convertibles",
     }),
     defineAccount("1618", "Intérêts courus sur emprunts obligataires convertibles", {
         classNumber: 1,
@@ -552,8 +533,6 @@ export const accountEntries: AccountEntry[] = [
             side: "passif",
             system: "minimal",
             parent: "16",
-            previousLabel: "Obligations représentatives de passifs nets remis en fiducie",
-            previousSystem: "facultatif",
         },
     ),
     defineAccount("163", "Autres emprunts obligataires si non-inscrits dans le compte 167", {
@@ -563,7 +542,6 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         system: "minimal",
         parent: "16",
-        previousLabel: "Autres emprunts obligataires",
     }),
     defineAccount("1638", "Intérêts courus sur autres emprunts obligataires", {
         classNumber: 1,
@@ -580,7 +558,6 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         system: "minimal",
         parent: "16",
-        previousLabel: "Emprunts auprès des établissements de crédit",
     }),
     defineAccount("1648", "Intérêts courus sur emprunts auprès des établissements de crédit", {
         classNumber: 1,
@@ -661,7 +638,6 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         system: "minimal",
         parent: "16",
-        previousLabel: "Emprunts et dettes assortis de conditions particulières",
     }),
     defineAccount("1671", "Fonds non remboursables montant principal", {
         classNumber: 1,
@@ -670,7 +646,6 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         system: "minimal",
         parent: "167",
-        previousLabel: "Émissions de titres participatifs",
     }),
     defineAccount("16711", "Titres participatifs montant principal", {
         description:
@@ -681,7 +656,6 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         system: "facultatif",
         parent: "1671",
-        added: true,
     }),
     defineAccount("16712", "Autres fonds non remboursables montant principal", {
         description:
@@ -692,7 +666,6 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         system: "facultatif",
         parent: "1671",
-        added: true,
     }),
     defineAccount("16718", "Intérêts courus sur titres participatifs", {
         description:
@@ -703,7 +676,6 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         system: "facultatif",
         parent: "1671",
-        removed: true,
     }),
     defineAccount("1673", "Avances conditionnées montant principal", {
         description:
@@ -714,7 +686,6 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         system: "minimal",
         parent: "167",
-        added: true,
     }),
     defineAccount("1674", "Avances conditionnées intérêts courus", {
         classNumber: 1,
@@ -723,7 +694,6 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         system: "minimal",
         parent: "167",
-        previousLabel: "Avances conditionnées de l'État",
     }),
     defineAccount("16748", "Intérêts courus sur avances conditionnées", {
         description:
@@ -734,7 +704,6 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         system: "facultatif",
         parent: "1674",
-        removed: true,
     }),
     defineAccount("1675", "Emprunts participatifs", {
         description:
@@ -745,7 +714,6 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         system: "minimal",
         parent: "167",
-        removed: true,
     }),
     defineAccount("16758", "Intérêts courus sur emprunts participatifs", {
         description:
@@ -756,7 +724,6 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         system: "facultatif",
         parent: "1675",
-        removed: true,
     }),
     defineAccount("168", "Autres emprunts et dettes assimilées", {
         classNumber: 1,
@@ -783,7 +750,6 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         system: "facultatif",
         parent: "168",
-        added: true,
     }),
     defineAccount("1685", "Rentes viagères capitalisées", {
         classNumber: 1,
@@ -1277,7 +1243,6 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         system: "minimal",
         parent: "22",
-        previousLabel: "Droits du concédant",
     }),
     defineAccount("23", "Immobilisations en cours, avances et acomptes", {
         classNumber: 2,

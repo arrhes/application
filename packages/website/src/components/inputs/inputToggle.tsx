@@ -43,7 +43,7 @@ export function InputToggle<TValue extends string | boolean>(
                         }}
                         className={css({
                             borderRight: "1px solid",
-                            borderColor: "neutral/5",
+                            borderRightColor: "neutral/5",
                             _last: { borderRight: "none" },
                         })}
                     >

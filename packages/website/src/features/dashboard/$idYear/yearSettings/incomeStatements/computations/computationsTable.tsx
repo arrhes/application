@@ -62,7 +62,7 @@ export function ComputationsTable(props: {
                                         gap: "0.5rem",
                                         _hover: { backgroundColor: "neutral/5" },
                                         borderBottom: "1px solid",
-                                        borderColor: "neutral/5",
+                                        borderBottomColor: "neutral/5",
                                         _last: { borderBottom: "0" },
                                     })}
                                 >

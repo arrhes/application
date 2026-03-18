@@ -84,7 +84,7 @@ export function BalanceSheetAssetsReportTable(props: {
                         <Table.Body.Root
                             className={css({
                                 borderBottom: "1px solid",
-                                borderColor: "neutral/10",
+                                borderBottomColor: "neutral/10",
                                 _last: { borderBottom: "0" },
                             })}
                         >
