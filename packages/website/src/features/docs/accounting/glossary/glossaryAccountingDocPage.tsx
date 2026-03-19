@@ -6,6 +6,7 @@ import { DocLink } from "../../../../components/document/docLink.js"
 import { DocNextPage } from "../../../../components/document/docNextPage.js"
 import { DocParagraph } from "../../../../components/document/docParagraph.js"
 import { DocRoot } from "../../../../components/document/docRoot.js"
+import { DocSources } from "../../../../components/document/docSources.js"
 import { DocTip } from "../../../../components/document/docTip.js"
 import { LinkButton } from "../../../../components/linkButton.js"
 import { getGlossaryTermsByLetter, searchGlossaryTerms } from "./glossaryData.js"
@@ -163,6 +164,19 @@ export function GlossaryAccountingDocPage() {
             </DocTip>
 
             <DocNextPage to="/documentation/dashboard/démarrage" label="Guide : Démarrer avec Arrhes" />
+
+            <DocSources
+                sources={[
+                    {
+                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
+                    },
+                    {
+                        label: "Comptabilité — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Comptabilit%C3%A9",
+                    },
+                ]}
+            />
         </DocRoot>
     )
 }

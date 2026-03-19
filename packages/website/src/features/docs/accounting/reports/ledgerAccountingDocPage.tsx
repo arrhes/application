@@ -8,6 +8,7 @@ import { DocNextPage } from "../../../../components/document/docNextPage.js"
 import { DocParagraph } from "../../../../components/document/docParagraph.js"
 import { DocRoot } from "../../../../components/document/docRoot.js"
 import { DocSection } from "../../../../components/document/docSection.js"
+import { DocSources } from "../../../../components/document/docSources.js"
 import { DocTable } from "../../../../components/document/docTable.js"
 import { DocTip } from "../../../../components/document/docTip.js"
 
@@ -167,6 +168,19 @@ export function LedgerAccountingDocPage() {
             </DocSection>
 
             <DocNextPage to="/documentation/comptabilité/documents/annexe" label="L'annexe comptable" />
+
+            <DocSources
+                sources={[
+                    {
+                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
+                    },
+                    {
+                        label: "Grand livre — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Grand_livre",
+                    },
+                ]}
+            />
         </DocRoot>
     )
 }

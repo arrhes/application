@@ -1,12 +1,12 @@
-import { DocHeader } from "../../../../components/document/docHeader.tsx";
-import { DocLink } from "../../../../components/document/docLink.tsx";
-import { DocList } from "../../../../components/document/docList.tsx";
-import { DocNextPage } from "../../../../components/document/docNextPage.tsx";
-import { DocParagraph } from "../../../../components/document/docParagraph.tsx";
-import { DocRoot } from "../../../../components/document/docRoot.tsx";
-import { DocSection } from "../../../../components/document/docSection.tsx";
-import { DocTip } from "../../../../components/document/docTip.tsx";
-
+import { DocHeader } from "../../../../components/document/docHeader.tsx"
+import { DocLink } from "../../../../components/document/docLink.tsx"
+import { DocList } from "../../../../components/document/docList.tsx"
+import { DocNextPage } from "../../../../components/document/docNextPage.tsx"
+import { DocParagraph } from "../../../../components/document/docParagraph.tsx"
+import { DocRoot } from "../../../../components/document/docRoot.tsx"
+import { DocSection } from "../../../../components/document/docSection.tsx"
+import { DocSources } from "../../../../components/document/docSources.tsx"
+import { DocTip } from "../../../../components/document/docTip.tsx"
 
 export function IntroductionAccountingDocPage() {
     return (
@@ -91,12 +91,40 @@ export function IntroductionAccountingDocPage() {
                 />
             </DocSection>
 
-            <DocTip variant="info">
-                Maintenant que vous connaissez les bases de la comptabilité, découvrez le principe fondamental qui régit
-                toute écriture comptable dans la page suivante.
-            </DocTip>
-
             <DocNextPage to="/documentation/comptabilité/partie-double" label="La partie double" />
+
+            <DocSources
+                sources={[
+                    {
+                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
+                    },
+                    {
+                        label: "Comptabilité — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Comptabilit%C3%A9",
+                    },
+                    {
+                        label: "Luca Pacioli — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Luca_Pacioli",
+                    },
+                    {
+                        label: "Code de Hammurabi — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Code_de_Hammurabi",
+                    },
+                    {
+                        label: "Ordonnance de Colbert (1673) — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Ordonnance_de_Colbert",
+                    },
+                    {
+                        label: "Plan comptable général (France) — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Plan_comptable_g%C3%A9n%C3%A9ral_(France)",
+                    },
+                    {
+                        label: "Code de commerce, article L.123-12 — Légifrance",
+                        url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006219316",
+                    },
+                ]}
+            />
         </DocRoot>
     )
 }

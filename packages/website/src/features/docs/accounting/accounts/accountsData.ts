@@ -425,7 +425,9 @@ export const accountEntries: AccountEntry[] = [
     defineAccount("145", "Amortissements dérogatoires", {
         description:
             "Amortissements excédentaires par rapport à l'amortissement comptable, comptabilisés en application de textes particuliers.",
-        examples: ["Amortissement dérogatoire sur matériel industriel amorti en dégressif fiscalement et linéaire comptablement"],
+        examples: [
+            "Amortissement dérogatoire sur matériel industriel amorti en dégressif fiscalement et linéaire comptablement",
+        ],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",

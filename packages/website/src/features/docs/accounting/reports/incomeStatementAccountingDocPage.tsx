@@ -8,6 +8,7 @@ import { DocNextPage } from "../../../../components/document/docNextPage.js"
 import { DocParagraph } from "../../../../components/document/docParagraph.js"
 import { DocRoot } from "../../../../components/document/docRoot.js"
 import { DocSection } from "../../../../components/document/docSection.js"
+import { DocSources } from "../../../../components/document/docSources.js"
 import { DocTip } from "../../../../components/document/docTip.js"
 
 export function IncomeStatementAccountingDocPage() {
@@ -287,6 +288,27 @@ export function IncomeStatementAccountingDocPage() {
             </DocSection>
 
             <DocNextPage to="/documentation/comptabilité/documents/balance" label="La balance" />
+
+            <DocSources
+                sources={[
+                    {
+                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
+                    },
+                    {
+                        label: "Compte de résultat — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Compte_de_r%C3%A9sultat",
+                    },
+                    {
+                        label: "Soldes intermédiaires de gestion — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Soldes_interm%C3%A9diaires_de_gestion",
+                    },
+                    {
+                        label: "Normes internationales d'information financière (IFRS) — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Normes_internationales_d%27information_financi%C3%A8re",
+                    },
+                ]}
+            />
         </DocRoot>
     )
 }

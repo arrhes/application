@@ -7,6 +7,7 @@ import { DocNextPage } from "../../../../components/document/docNextPage.js"
 import { DocParagraph } from "../../../../components/document/docParagraph.js"
 import { DocRoot } from "../../../../components/document/docRoot.js"
 import { DocSection } from "../../../../components/document/docSection.js"
+import { DocSources } from "../../../../components/document/docSources.js"
 import { DocTip } from "../../../../components/document/docTip.js"
 import { LinkButton } from "../../../../components/linkButton.js"
 import { type AccountEntry, accountEntries, searchAccounts } from "./accountsData.js"
@@ -14,7 +15,6 @@ import { type AccountEntry, accountEntries, searchAccounts } from "./accountsDat
 // ── Account row ─────────────────────────────────────────────────────────────
 
 const ROW_HEIGHT = 36
-
 
 function AccountRow(props: { account: AccountEntry }) {
     const { account } = props
@@ -258,6 +258,19 @@ export function AccountsListAccountingDocPage() {
             </DocTip>
 
             <DocNextPage to="/documentation/comptabilité/documents" label="Les documents comptables" />
+
+            <DocSources
+                sources={[
+                    {
+                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
+                    },
+                    {
+                        label: "Plan comptable général (France) — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Plan_comptable_g%C3%A9n%C3%A9ral_(France)",
+                    },
+                ]}
+            />
         </DocRoot>
     )
 }

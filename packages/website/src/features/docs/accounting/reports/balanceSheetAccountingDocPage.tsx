@@ -8,6 +8,7 @@ import { DocNextPage } from "../../../../components/document/docNextPage.js"
 import { DocParagraph } from "../../../../components/document/docParagraph.js"
 import { DocRoot } from "../../../../components/document/docRoot.js"
 import { DocSection } from "../../../../components/document/docSection.js"
+import { DocSources } from "../../../../components/document/docSources.js"
 import { DocTable } from "../../../../components/document/docTable.js"
 import { DocTip } from "../../../../components/document/docTip.js"
 
@@ -296,6 +297,27 @@ export function BalanceSheetAccountingDocPage() {
             </DocSection>
 
             <DocNextPage to="/documentation/comptabilité/documents/compte-de-résultat" label="Le compte de résultat" />
+
+            <DocSources
+                sources={[
+                    {
+                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
+                    },
+                    {
+                        label: "Bilan comptable — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Bilan_comptable",
+                    },
+                    {
+                        label: "Besoin en fonds de roulement — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Besoin_en_fonds_de_roulement",
+                    },
+                    {
+                        label: "Normes internationales d'information financière (IFRS) — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Normes_internationales_d%27information_financi%C3%A8re",
+                    },
+                ]}
+            />
         </DocRoot>
     )
 }

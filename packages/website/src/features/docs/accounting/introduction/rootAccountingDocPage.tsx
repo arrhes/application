@@ -5,7 +5,7 @@ import { DocNextPage } from "../../../../components/document/docNextPage.tsx"
 import { DocParagraph } from "../../../../components/document/docParagraph.tsx"
 import { DocRoot } from "../../../../components/document/docRoot.tsx"
 import { DocSection } from "../../../../components/document/docSection.tsx"
-import { DocTip } from "../../../../components/document/docTip.tsx"
+import { DocSources } from "../../../../components/document/docSources.tsx"
 
 export function RootAccountingDocPage() {
     return (
@@ -17,9 +17,9 @@ export function RootAccountingDocPage() {
 
             <DocSection title="À propos de ce cours">
                 <DocParagraph>
-                    Ce cours est conçu pour les débutants qui souhaitent comprendre les fondamentaux de la comptabilité
-                    française. Il peut également servir de rappel aux professionnels. Chaque page contient des exemples
-                    concrets et des définitions claires pour faciliter l'apprentissage.
+                    Ce cours est conçu pour ceux qui souhaitent comprendre les fondamentaux de la comptabilité
+                    française. Il peut également servir de rappel aux professionnels. Chaque page contient des
+                    définitions claires et des exemples concrets pour faciliter l'apprentissage.
                 </DocParagraph>
 
                 <DocParagraph>
@@ -41,19 +41,26 @@ export function RootAccountingDocPage() {
 
             <DocSection title="Lien avec Arrhes">
                 <DocParagraph>
-                    Arrhes est un logiciel de comptabilité conçu pour les petites structures et les associations
-                    françaises. Ce cours reprend les mêmes concepts que ceux utilisés dans le logiciel. En le suivant,
-                    vous comprendrez comment <DocLink to="/documentation/dashboard/démarrage">utiliser Arrhes</DocLink>{" "}
-                    efficacement.
+                    Arrhes est un logiciel de comptabilité conçu pour les entreprises et les associations françaises. Ce
+                    cours reprend des concepts directement utilisés dans le logiciel. En le suivant, vous comprendrez
+                    comment <DocLink to="/documentation/dashboard/démarrage">utiliser Arrhes</DocLink> efficacement.
                 </DocParagraph>
             </DocSection>
 
-            <DocTip variant="tip">
-                Les pages se suivent dans un ordre logique. Utilisez le bouton en bas de chaque page pour passer à la
-                suivante, ou naviguez librement via le menu latéral.
-            </DocTip>
-
             <DocNextPage to="/documentation/comptabilité/introduction" label="Introduction à la comptabilité" />
+
+            <DocSources
+                sources={[
+                    {
+                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
+                    },
+                    {
+                        label: "Comptabilité — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Comptabilit%C3%A9",
+                    },
+                ]}
+            />
         </DocRoot>
     )
 }

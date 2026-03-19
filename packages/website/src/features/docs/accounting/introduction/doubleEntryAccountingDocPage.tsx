@@ -7,9 +7,9 @@ import { DocNextPage } from "../../../../components/document/docNextPage.tsx"
 import { DocParagraph } from "../../../../components/document/docParagraph.tsx"
 import { DocRoot } from "../../../../components/document/docRoot.tsx"
 import { DocSection } from "../../../../components/document/docSection.tsx"
+import { DocSources } from "../../../../components/document/docSources.tsx"
 import { DocTable } from "../../../../components/document/docTable.tsx"
 import { DocTip } from "../../../../components/document/docTip.tsx"
-
 
 export function DoubleEntryAccountingDocPage() {
     return (
@@ -21,8 +21,8 @@ export function DoubleEntryAccountingDocPage() {
                     La vie d'une organisation est faite d'opérations économiques : achats, ventes, encaissements,
                     paiements, etc. Une opération est un événement qui modifie la situation financière de
                     l'organisation. Cette opération peut autant traduire un flux réel d'argent (ex : paiement d'une
-                    facture) qu'un flux virtuel à venir, comme la simple reconnaissance d'une créance ou d'une dette (ex
-                    : émission d'une facture).
+                    facture) qu'un flux virtuel à venir, comme la reconnaissance d'une créance ou d'une dette (ex :
+                    émission d'une facture).
                 </DocParagraph>
                 <DocParagraph>
                     Le principe de la partie double est le fondement de toute comptabilité moderne, codifié par Luca
@@ -61,7 +61,9 @@ export function DoubleEntryAccountingDocPage() {
                     <p>
                         Voici deux écritures extraites du journal, correspondant à deux opérations de l'organisation :
                     </p>
-                    <p className={css({ marginTop: "2" })}>Achat de fournitures de bureau pour 100,00€ en espèces.</p>
+                    <p className={css({ marginTop: "2" })}>
+                        Achat en espèces de fournitures de bureau pour la somme de 100,00€.
+                    </p>
                     <DocTable
                         headers={["Date", "Compte", "Libellé", "Débit", "Crédit"]}
                         rows={[
@@ -82,7 +84,7 @@ export function DoubleEntryAccountingDocPage() {
                         ]}
                     />
                     <p className={css({ marginTop: "3", fontWeight: "medium" })}>
-                        Pour chaque écriture, total débits = total crédits.
+                        Pour chaque écriture, on a bien le total des débits qui est égal au total des crédits.
                     </p>
                 </DocExample>
 
@@ -125,6 +127,23 @@ export function DoubleEntryAccountingDocPage() {
             </DocTip>
 
             <DocNextPage to="/documentation/comptabilité/écritures" label="Les écritures comptables" />
+
+            <DocSources
+                sources={[
+                    {
+                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
+                    },
+                    {
+                        label: "Comptabilité en partie double — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Comptabilit%C3%A9_en_partie_double",
+                    },
+                    {
+                        label: "Luca Pacioli — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Luca_Pacioli",
+                    },
+                ]}
+            />
         </DocRoot>
     )
 }

@@ -8,6 +8,7 @@ import { DocNextPage } from "../../../../components/document/docNextPage.tsx"
 import { DocParagraph } from "../../../../components/document/docParagraph.tsx"
 import { DocRoot } from "../../../../components/document/docRoot.tsx"
 import { DocSection } from "../../../../components/document/docSection.tsx"
+import { DocSources } from "../../../../components/document/docSources.tsx"
 import { DocTable } from "../../../../components/document/docTable.tsx"
 import { DocTip } from "../../../../components/document/docTip.tsx"
 
@@ -273,6 +274,23 @@ export function RecordsAccountingDocPage() {
             </DocTip>
 
             <DocNextPage to="/documentation/comptabilité/comptes" label="Les comptes comptables" />
+
+            <DocSources
+                sources={[
+                    {
+                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
+                    },
+                    {
+                        label: "Comptabilité — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Comptabilit%C3%A9",
+                    },
+                    {
+                        label: "Taxe sur la valeur ajoutée en France — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Taxe_sur_la_valeur_ajout%C3%A9e_en_France",
+                    },
+                ]}
+            />
         </DocRoot>
     )
 }

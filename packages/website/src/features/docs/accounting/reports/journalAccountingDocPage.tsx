@@ -8,6 +8,7 @@ import { DocNextPage } from "../../../../components/document/docNextPage.js"
 import { DocParagraph } from "../../../../components/document/docParagraph.js"
 import { DocRoot } from "../../../../components/document/docRoot.js"
 import { DocSection } from "../../../../components/document/docSection.js"
+import { DocSources } from "../../../../components/document/docSources.js"
 import { DocTable } from "../../../../components/document/docTable.js"
 import { DocTip } from "../../../../components/document/docTip.js"
 
@@ -210,6 +211,23 @@ export function JournalAccountingDocPage() {
             </DocSection>
 
             <DocNextPage to="/documentation/comptabilité/documents/grand-livre" label="Le grand livre" />
+
+            <DocSources
+                sources={[
+                    {
+                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
+                    },
+                    {
+                        label: "Journal (comptabilité) — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Journal_(comptabilit%C3%A9)",
+                    },
+                    {
+                        label: "Code de commerce, Article L123-12 — Légifrance",
+                        url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006219316",
+                    },
+                ]}
+            />
         </DocRoot>
     )
 }

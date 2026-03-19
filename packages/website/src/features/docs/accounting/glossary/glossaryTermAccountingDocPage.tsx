@@ -6,6 +6,7 @@ import { DocLink } from "../../../../components/document/docLink.js"
 import { DocParagraph } from "../../../../components/document/docParagraph.js"
 import { DocRoot } from "../../../../components/document/docRoot.js"
 import { DocSection } from "../../../../components/document/docSection.js"
+import { DocSources } from "../../../../components/document/docSources.js"
 import { LinkButton } from "../../../../components/linkButton.js"
 import { getGlossaryTermBySlug, glossaryTerms } from "./glossaryData.js"
 
@@ -172,6 +173,19 @@ export function GlossaryTermAccountingDocPage() {
                     </DocParagraph>
                 </DocSection>
             )}
+
+            <DocSources
+                sources={[
+                    {
+                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
+                    },
+                    {
+                        label: "Comptabilité — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Comptabilit%C3%A9",
+                    },
+                ]}
+            />
         </DocRoot>
     )
 }
