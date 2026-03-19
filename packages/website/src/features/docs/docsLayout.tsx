@@ -82,7 +82,7 @@ export function DocsLayout() {
                             })}
                         >
                             <LinkButton to="/">
-                                <Logo withText />
+                                <Logo />
                             </LinkButton>
 
                             <span className={css({ color: "neutral/20", display: { base: "none", sm: "block" } })}>

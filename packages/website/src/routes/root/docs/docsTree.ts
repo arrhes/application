@@ -1,4 +1,4 @@
-import { type AnyRoute } from "@tanstack/react-router"
+import type { AnyRoute } from "@tanstack/react-router"
 import { accountingDocLayoutRoute } from "./accounting/accountingDocLayoutRoute.js"
 import { accountAccountingDocRoute } from "./accounting/accounts/accountAccountingDocRoute.js"
 import { accountsAccountingDocLayoutRoute } from "./accounting/accounts/accountsAccountingDocLayoutRoute.js"

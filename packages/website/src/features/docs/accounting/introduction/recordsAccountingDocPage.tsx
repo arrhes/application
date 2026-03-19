@@ -67,6 +67,23 @@ export function RecordsAccountingDocPage() {
                     ]}
                 />
 
+                <DocTip variant="warning">
+                    Seuls les comptes à 3 chiffres ou plus peuvent être utilisés dans les écritures comptables. Les
+                    comptes à 1 ou 2 chiffres (par exemple{" "}
+                    <DocLink to="/documentation/comptabilité/comptes/liste/$account" params={{ account: "1" }}>
+                        1
+                    </DocLink>
+                    ,{" "}
+                    <DocLink to="/documentation/comptabilité/comptes/liste/$account" params={{ account: "10" }}>
+                        10
+                    </DocLink>
+                    ,{" "}
+                    <DocLink to="/documentation/comptabilité/comptes/liste/$account" params={{ account: "60" }}>
+                        60
+                    </DocLink>
+                    ) sont des comptes de regroupement servant uniquement à la classification dans le plan comptable.
+                </DocTip>
+
                 <DocExample title="Écriture d'achat de fournitures">
                     <p className={css({ fontWeight: "medium", mb: "2" })}>
                         Achat de fournitures de bureau - 120 euros TTC payé par chèque

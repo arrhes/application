@@ -3,6 +3,7 @@ export interface AccountEntry {
     slug: string
     label: string
     description?: string
+    examples?: string[]
     classNumber: number
     className: string
     type: "bilan" | "résultat"
@@ -20,6 +21,7 @@ function defineAccount(
     label: string,
     options: {
         description?: string
+        examples?: string[]
         classNumber: number
         className: string
         type: "bilan" | "résultat"
@@ -33,6 +35,7 @@ function defineAccount(
         slug: toSlug(number),
         label,
         description: options.description,
+        examples: options.examples,
         classNumber: options.classNumber,
         className: options.className,
         type: options.type,
@@ -45,6 +48,7 @@ function defineAccount(
 export const accountEntries: AccountEntry[] = [
     // Classe 1 - Comptes de capitaux
     defineAccount("1", "Comptes de capitaux", {
+        examples: ["Ensemble des capitaux propres et dettes financières d'une entreprise"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -53,6 +57,8 @@ export const accountEntries: AccountEntry[] = [
         parent: null,
     }),
     defineAccount("10", "Capital et réserves", {
+        description: "Apports des associés et bénéfices accumulés conservés dans l'entité.",
+        examples: ["Augmentation de capital de 50 000 € par émission de nouvelles actions"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -62,6 +68,7 @@ export const accountEntries: AccountEntry[] = [
     }),
     defineAccount("101", "Capital", {
         description: "Capital social ou individuel de l'organisation.",
+        examples: ["Capital social de 10 000 € d'une SARL"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -70,6 +77,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "10",
     }),
     defineAccount("1011", "Capital souscrit - non appelé", {
+        description: "Part du capital souscrit par les associés mais non encore appelée par la société.",
+        examples: ["Souscription de 100 000 € dont 25 000 € non encore appelés"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -78,6 +87,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "101",
     }),
     defineAccount("1012", "Capital souscrit - appelé, non versé", {
+        description: "Part du capital appelée par la société mais non encore versée par les associés.",
+        examples: ["Appel du 2e quart du capital : 25 000 € appelés, en attente de versement"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -86,6 +97,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "101",
     }),
     defineAccount("1013", "Capital souscrit - appelé, versé", {
+        description: "Part du capital appelée et effectivement versée par les associés.",
+        examples: ["Versement des 75 000 € appelés par les actionnaires sur le compte bancaire"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -94,6 +107,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "101",
     }),
     defineAccount("10131", "Capital non amorti", {
+        examples: ["Part du capital non encore amortie d'une SA à capital variable"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -102,6 +116,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "1013",
     }),
     defineAccount("10132", "Capital amorti", {
+        examples: ["Part du capital amorti par prélèvement sur les réserves"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -110,6 +125,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "1013",
     }),
     defineAccount("1018", "Capital souscrit soumis à des réglementations particulières", {
+        description:
+            "Capital provenant d'opérations particulières isolées en application de dispositions législatives et réglementaires.",
+        examples: ["Capital provenant d'une opération de nationalisation"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -118,6 +136,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "101",
     }),
     defineAccount("102", "Fonds fiduciaires", {
+        examples: ["Fonds transférés dans le cadre d'un contrat de fiducie"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -126,6 +145,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "10",
     }),
     defineAccount("104", "Primes liées au capital", {
+        description: "Primes d'émission, de fusion, d'apport et de conversion d'obligations en actions.",
+        examples: ["Prime d'émission de 5 € par action lors d'une augmentation de capital"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -134,6 +155,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "10",
     }),
     defineAccount("1041", "Primes d'émission", {
+        description:
+            "Différence entre le prix d'émission et la valeur nominale des actions lors d'une augmentation de capital.",
+        examples: ["Actions émises à 15 € (nominal 10 €) : prime d'émission de 5 € par action"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -142,6 +166,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "104",
     }),
     defineAccount("1042", "Primes de fusion", {
+        description:
+            "Différence entre la valeur des titres remis et la valeur nominale des actions émises lors d'une fusion.",
+        examples: ["Fusion-absorption : prime de fusion de 200 000 €"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -150,6 +177,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "104",
     }),
     defineAccount("1043", "Primes d'apport", {
+        examples: ["Prime versée par un associé au-delà de la valeur nominale des parts lors d'un apport en nature"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -158,6 +186,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "104",
     }),
     defineAccount("1044", "Primes de conversion d'obligations en actions", {
+        examples: ["Prime résultant de la conversion d'obligations en actions dans une SA"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -168,6 +197,7 @@ export const accountEntries: AccountEntry[] = [
     defineAccount("1045", "Bons de souscription de titres en capital", {
         description:
             "Un bon de souscription est un instrument financier dérivé permettant de souscrire pendant une période déterminée à un autre titre financier à un prix fixé à l'avance. Il est émis par la société et peut porter sur de nouvelles actions (augmentation de capital) ou obligations.",
+        examples: ["Bons de souscription d'actions attachés à une émission obligataire"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -176,6 +206,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "104",
     }),
     defineAccount("105", "Écarts de réévaluation", {
+        description:
+            "Écarts constatés à l'occasion d'opérations de réévaluation des actifs, pouvant être incorporés au capital.",
+        examples: ["Réévaluation libre des terrains détenus par la société"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -185,6 +218,7 @@ export const accountEntries: AccountEntry[] = [
     }),
     defineAccount("106", "Réserves", {
         description: "Bénéfices antérieurs conservés dans l'organisation.",
+        examples: ["Affectation de 50 000 € du bénéfice en réserves"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -193,6 +227,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "10",
     }),
     defineAccount("1061", "Réserve légale", {
+        description: "Fraction du bénéfice affectée obligatoirement à la réserve en application de la loi.",
+        examples: ["Dotation de 5 % du bénéfice à la réserve légale"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -201,6 +237,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "106",
     }),
     defineAccount("1062", "Réserves indisponibles", {
+        description: "Réserves dont la distribution est interdite, par exemple les réserves pour actions propres.",
+        examples: ["Réserve constituée pour couvrir le rachat d'actions propres"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -209,6 +247,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "106",
     }),
     defineAccount("1063", "Réserves statutaires ou contractuelles", {
+        examples: ["Réserve prévue par les statuts de la société à hauteur de 5 % du bénéfice"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -217,6 +256,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "106",
     }),
     defineAccount("1064", "Réserves réglementées", {
+        examples: ["Réserve constituée en application d'une disposition légale spécifique (plus-values à long terme)"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -225,6 +265,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "106",
     }),
     defineAccount("1068", "Autres réserves", {
+        examples: ["Réserve facultative de 20 000 € constituée par décision de l'assemblée générale"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -233,6 +274,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "106",
     }),
     defineAccount("107", "Écart d'équivalence", {
+        description:
+            "Écart constaté lorsque la valeur globale des titres évalués par équivalence est supérieure à leur coût d'acquisition.",
+        examples: ["Écart positif entre la valeur d'équivalence des titres d'une filiale et leur coût d'acquisition"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -242,6 +286,7 @@ export const accountEntries: AccountEntry[] = [
     }),
     defineAccount("108", "Compte de l'exploitant", {
         description: "Mouvements entre le patrimoine professionnel et personnel de l'exploitant individuel.",
+        examples: ["Prélèvement personnel de l'exploitant individuel pour ses besoins privés"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -250,6 +295,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "10",
     }),
     defineAccount("109", "Actionnaires : capital souscrit - non appelé", {
+        description: "Créance de la société sur ses actionnaires pour la part du capital souscrit non encore appelée.",
+        examples: ["Créance de la société sur les actionnaires pour 25 000 € de capital non appelé"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -258,6 +305,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "10",
     }),
     defineAccount("11", "Report à nouveau", {
+        description: "Bénéfices ou pertes des exercices antérieurs non encore affectés.",
+        examples: ["Report à nouveau créditeur de 12 000 € issu de l'exercice précédent"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -266,6 +315,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "1",
     }),
     defineAccount("110", "Report à nouveau - solde créditeur", {
+        description: "Bénéfices antérieurs non distribués et non affectés à un compte de réserves.",
+        examples: ["Bénéfice de 30 000 € non distribué ni affecté en réserves"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -274,6 +325,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "11",
     }),
     defineAccount("119", "Report à nouveau - solde débiteur", {
+        description: "Pertes antérieures non encore absorbées.",
+        examples: ["Perte de 15 000 € reportée dans l'attente d'une décision d'affectation"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -283,6 +336,7 @@ export const accountEntries: AccountEntry[] = [
     }),
     defineAccount("12", "Résultat de l'exercice", {
         description: "Bénéfice ou perte de l'exercice en cours.",
+        examples: ["Bénéfice net de l'exercice de 45 000 €"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -291,6 +345,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "1",
     }),
     defineAccount("120", "Résultat de l'exercice - bénéfice", {
+        examples: ["Bénéfice net de 45 000 € dégagé sur l'exercice comptable"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -299,6 +354,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "12",
     }),
     defineAccount("1209", "Acomptes sur dividendes", {
+        description: "Acomptes de dividendes versés avant l'approbation des comptes de l'exercice.",
+        examples: ["Acompte sur dividendes de 10 000 € versé en novembre avant la clôture"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -307,6 +364,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "120",
     }),
     defineAccount("129", "Résultat de l'exercice – perte", {
+        examples: ["Perte nette de 12 000 € constatée sur l'exercice comptable"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -315,6 +373,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "12",
     }),
     defineAccount("13", "Subventions d'investissement", {
+        description: "Subventions reçues pour acquérir ou créer des immobilisations.",
+        examples: ["Subvention régionale de 80 000 € pour l'achat d'une machine industrielle"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -323,6 +383,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "1",
     }),
     defineAccount("131", "Subventions d'investissement octroyées", {
+        description: "Montant des subventions d'investissement accordées à l'entité.",
+        examples: ["Subvention d'équipement de 50 000 € accordée par la région"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -331,6 +393,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "13",
     }),
     defineAccount("139", "Subventions d'investissement inscrites au compte de résultat", {
+        description: "Quote-part des subventions d'investissement virée au résultat de l'exercice.",
+        examples: ["Reprise annuelle de 10 000 € de subvention au rythme de l'amortissement du bien financé"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -339,6 +403,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "13",
     }),
     defineAccount("14", "Provisions réglementées", {
+        description:
+            "Provisions constituées en application de dispositions légales, dont le fonctionnement est identique aux provisions classiques.",
+        examples: ["Amortissements dérogatoires liés à un amortissement fiscal accéléré"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -347,6 +414,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "1",
     }),
     defineAccount("143", "Provisions réglementées pour hausse de prix", {
+        examples: ["Provision constituée pour compenser la hausse des prix des matières premières stockées"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -355,6 +423,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "14",
     }),
     defineAccount("145", "Amortissements dérogatoires", {
+        description:
+            "Amortissements excédentaires par rapport à l'amortissement comptable, comptabilisés en application de textes particuliers.",
+        examples: ["Amortissement dérogatoire sur matériel industriel amorti en dégressif fiscalement et linéaire comptablement"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -363,6 +434,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "14",
     }),
     defineAccount("148", "Autres provisions réglementées", {
+        examples: ["Provision réglementée pour investissement dans les DOM-TOM"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -371,6 +443,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "14",
     }),
     defineAccount("15", "Provisions", {
+        description:
+            "Passifs dont l'échéance ou le montant n'est pas fixé de façon précise, constitués pour couvrir des risques et charges probables.",
+        examples: ["Provision pour litige commercial avec un client"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -379,6 +454,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "1",
     }),
     defineAccount("151", "Provisions pour risques", {
+        description:
+            "Provisions destinées à couvrir des risques identifiés liés à l'exploitation, aux finances ou à des événements exceptionnels.",
+        examples: ["Provision de 20 000 € pour un litige prud'homal en cours"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -387,6 +465,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "15",
     }),
     defineAccount("1511", "Provisions pour litiges", {
+        examples: ["Provision de 15 000 € pour un litige en cours avec un ancien salarié aux prud'hommes"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -395,6 +474,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "151",
     }),
     defineAccount("1512", "Provisions pour garanties données aux clients", {
+        examples: ["Provision de 8 000 € pour garantie contractuelle de 2 ans sur les produits vendus"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -403,6 +483,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "151",
     }),
     defineAccount("1514", "Provisions pour amendes et pénalités", {
+        examples: ["Provision de 5 000 € pour une amende potentielle de l'administration fiscale"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -411,6 +492,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "151",
     }),
     defineAccount("1515", "Provisions pour pertes de change", {
+        examples: ["Provision pour risque de perte de change sur une créance en dollars US"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -419,6 +501,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "151",
     }),
     defineAccount("1516", "Provisions pour pertes sur contrats", {
+        examples: ["Provision pour perte probable sur un contrat de construction à long terme"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -427,6 +510,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "151",
     }),
     defineAccount("1518", "Autres provisions pour risques", {
+        examples: ["Provision pour risque environnemental lié à la dépollution d'un site industriel"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -435,6 +519,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "151",
     }),
     defineAccount("152", "Provisions pour charges", {
+        description:
+            "Provisions destinées à couvrir des charges futures probables comme les pensions, restructurations ou gros entretien.",
+        examples: ["Provision de 50 000 € pour grosse réparation de toiture prévue dans 3 ans"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -443,6 +530,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "15",
     }),
     defineAccount("1521", "Provisions pour pensions et obligations similaires", {
+        examples: ["Provision de 50 000 € pour engagements de retraite envers les salariés"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -451,6 +539,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "152",
     }),
     defineAccount("1522", "Provisions pour restructurations", {
+        examples: ["Provision de 100 000 € pour plan de restructuration avec fermeture d'un site"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -459,6 +548,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "152",
     }),
     defineAccount("1523", "Provisions pour impôts", {
+        examples: ["Provision pour rappel d'impôt sur les sociétés suite à un contrôle fiscal"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -467,6 +557,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "152",
     }),
     defineAccount("1524", "Provisions pour renouvellement des immobilisations - entreprises concessionnaires", {
+        examples: ["Provision pour renouvellement du matériel d'une concession autoroutière"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -475,6 +566,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "152",
     }),
     defineAccount("1525", "Provisions pour gros entretien ou grandes révisions", {
+        examples: ["Provision de 30 000 € pour révision décennale d'une chaudière industrielle"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -483,6 +575,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "152",
     }),
     defineAccount("1526", "Provisions pour remise en état", {
+        examples: ["Provision pour remise en état d'un site minier en fin d'exploitation"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -491,6 +584,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "152",
     }),
     defineAccount("1527", "Autres provisions pour charges", {
+        examples: ["Provision pour charges de déménagement prévu de l'entreprise"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -500,6 +594,7 @@ export const accountEntries: AccountEntry[] = [
     }),
     defineAccount("16", "Emprunts et dettes assimilées, fonds non remboursables et avances conditionnées", {
         description: "Emprunts bancaires et autres dettes à long terme.",
+        examples: ["Emprunt bancaire de 200 000 € sur 10 ans pour financer un local"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -508,6 +603,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "1",
     }),
     defineAccount("161", "Emprunts obligataires convertibles si non-inscrits dans le compte 167", {
+        examples: ["Emprunt obligataire convertible de 500 000 € émis par une SA cotée"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -516,6 +612,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "16",
     }),
     defineAccount("1618", "Intérêts courus sur emprunts obligataires convertibles", {
+        examples: ["Intérêts courus non échus de 3 000 € sur emprunt obligataire convertible"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -527,6 +624,7 @@ export const accountEntries: AccountEntry[] = [
         "162",
         "Obligations représentatives de passifs nets remis en fiducie si non-inscrites dans le compte 167",
         {
+            examples: ["Obligations émises en contrepartie de passifs nets transférés en fiducie"],
             classNumber: 1,
             className: "Comptes de capitaux",
             type: "bilan",
@@ -536,6 +634,7 @@ export const accountEntries: AccountEntry[] = [
         },
     ),
     defineAccount("163", "Autres emprunts obligataires si non-inscrits dans le compte 167", {
+        examples: ["Emprunt obligataire classique de 1 000 000 € à taux fixe sur 7 ans"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -544,6 +643,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "16",
     }),
     defineAccount("1638", "Intérêts courus sur autres emprunts obligataires", {
+        examples: ["Intérêts courus de 5 000 € sur emprunt obligataire classique"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -552,6 +652,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "163",
     }),
     defineAccount("164", "Emprunts auprès des établissements de crédit si non-inscrits dans le compte 167", {
+        examples: ["Emprunt bancaire de 200 000 € contracté auprès du Crédit Agricole"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -560,6 +661,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "16",
     }),
     defineAccount("1648", "Intérêts courus sur emprunts auprès des établissements de crédit", {
+        examples: ["Intérêts courus de 1 500 € sur emprunt bancaire à long terme"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -568,6 +670,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "164",
     }),
     defineAccount("165", "Dépôts et cautionnements reçus", {
+        description: "Sommes reçues de tiers à titre de garantie ou de caution.",
+        examples: ["Dépôt de garantie de 3 000 € reçu d'un locataire"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -576,6 +680,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "16",
     }),
     defineAccount("1651", "Dépôts", {
+        examples: ["Dépôt de garantie de 10 000 € reçu d'un locataire commercial"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -584,6 +689,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "165",
     }),
     defineAccount("1655", "Cautionnements", {
+        examples: ["Cautionnement de 5 000 € reçu dans le cadre d'un marché public"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -592,6 +698,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "165",
     }),
     defineAccount("1658", "Intérêts courus sur dépôts et cautionnements reçus", {
+        examples: ["Intérêts courus de 200 € sur dépôts de garantie reçus"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -600,6 +707,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "165",
     }),
     defineAccount("166", "Participation des salariés aux résultats", {
+        description:
+            "Fonds relatifs à la participation des salariés, incluant les comptes bloqués et les fonds de participation.",
+        examples: ["Réserve spéciale de participation des salariés de 15 000 €"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -608,6 +718,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "16",
     }),
     defineAccount("1661", "Comptes bloqués", {
+        description: "Fonds de participation non utilisés par suite d'absence d'accord entre employeurs et salariés.",
+        examples: ["Fonds de participation bloqués faute d'accord d'intéressement"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -616,6 +728,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "166",
     }),
     defineAccount("1662", "Fonds de participation", {
+        examples: ["Fonds de participation des salariés aux résultats de l'entreprise"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -624,6 +737,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "166",
     }),
     defineAccount("1668", "Intérêts courus sur participation des salariés aux résultats", {
+        examples: ["Intérêts courus sur la participation des salariés bloquée pendant 5 ans"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -632,6 +746,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "166",
     }),
     defineAccount("167", "Fonds non remboursables et avances conditionnées", {
+        examples: ["Subvention de 80 000 € non remboursable reçue de la Région"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -640,6 +755,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "16",
     }),
     defineAccount("1671", "Fonds non remboursables montant principal", {
+        examples: ["Montant principal d'une subvention non remboursable de 50 000 €"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -650,6 +766,7 @@ export const accountEntries: AccountEntry[] = [
     defineAccount("16711", "Titres participatifs montant principal", {
         description:
             "Nouveau compte du PCG 2026. Le titre participatif est une valeur mobilière créée par la loi du 3 janvier 1983, émise principalement par les coopératives et les sociétés du secteur public. Il ne confère ni droit de vote ni part dans le capital, mais donne droit à une rémunération fixe et variable. Il est assimilé aux fonds propres et n'est remboursable qu'après un délai minimal de 7 ans.",
+        examples: ["Émission de titres participatifs par une coopérative agricole"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -660,6 +777,7 @@ export const accountEntries: AccountEntry[] = [
     defineAccount("16712", "Autres fonds non remboursables montant principal", {
         description:
             "Nouveau compte du PCG 2026. Ce compte enregistre le montant principal des fonds non remboursables autres que les titres participatifs, reçus par l'entité.",
+        examples: ["Fonds non remboursables reçus d'un organisme public pour la recherche"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -670,6 +788,7 @@ export const accountEntries: AccountEntry[] = [
     defineAccount("16718", "Intérêts courus sur titres participatifs", {
         description:
             "Ancien compte du PCG 2025, supprimé dans le PCG 2026. Il enregistrait les intérêts courus sur les titres participatifs émis par l'entité.",
+        examples: ["Intérêts courus sur titres participatifs émis avant 2026"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -680,6 +799,7 @@ export const accountEntries: AccountEntry[] = [
     defineAccount("1673", "Avances conditionnées montant principal", {
         description:
             "Nouveau compte du PCG 2026. Ce compte enregistre le montant principal des avances conditionnées reçues par l'entité, c'est-à-dire des avances dont le remboursement dépend de la réalisation de certaines conditions (par exemple, le succès commercial d'un projet de recherche).",
+        examples: ["Avance conditionnée de 100 000 € reçue de Bpifrance pour un projet R&D"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -688,6 +808,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "167",
     }),
     defineAccount("1674", "Avances conditionnées intérêts courus", {
+        examples: ["Intérêts courus sur avance conditionnée de BPI France"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -698,6 +819,7 @@ export const accountEntries: AccountEntry[] = [
     defineAccount("16748", "Intérêts courus sur avances conditionnées", {
         description:
             "Ancien compte du PCG 2025, supprimé dans le PCG 2026. Il enregistrait les intérêts courus non échus sur les avances conditionnées reçues par l'entité.",
+        examples: ["Intérêts courus sur avances conditionnées Bpifrance avant 2026"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -708,6 +830,7 @@ export const accountEntries: AccountEntry[] = [
     defineAccount("1675", "Emprunts participatifs", {
         description:
             "Ancien compte du PCG 2025, supprimé dans le PCG 2026. Un emprunt participatif est un prêt dont la rémunération comporte une partie fixe et une partie variable indexée sur le résultat de l'entreprise. Il est assimilé à des quasi-fonds propres dans l'analyse financière.",
+        examples: ["Emprunt participatif contracté auprès de Bpifrance avant 2026"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -718,6 +841,7 @@ export const accountEntries: AccountEntry[] = [
     defineAccount("16758", "Intérêts courus sur emprunts participatifs", {
         description:
             "Ancien compte du PCG 2025, supprimé dans le PCG 2026. Il enregistrait les intérêts courus non échus sur les emprunts participatifs contractés par l'entité.",
+        examples: ["Intérêts courus sur l'emprunt participatif Bpifrance avant 2026"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -726,6 +850,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "1675",
     }),
     defineAccount("168", "Autres emprunts et dettes assimilées", {
+        examples: ["Emprunt de 30 000 € auprès d'un associé de la SARL"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -734,6 +859,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "16",
     }),
     defineAccount("1681", "Autres emprunts", {
+        examples: ["Emprunt en compte courant d'associé de 25 000 €"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -744,6 +870,7 @@ export const accountEntries: AccountEntry[] = [
     defineAccount("1682", "Emprunts participatifs", {
         description:
             "Nouveau compte du PCG 2026. Un emprunt participatif est un prêt dont la rémunération comporte une partie fixe et une partie variable indexée sur le résultat ou le chiffre d'affaires de l'entreprise. Il est assimilé à des quasi-fonds propres dans l'analyse financière. Ce compte remplace l'ancien compte 1675 du PCG 2025.",
+        examples: ["Emprunt participatif de 500 000 € avec rémunération indexée sur le chiffre d'affaires"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -752,6 +879,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "168",
     }),
     defineAccount("1685", "Rentes viagères capitalisées", {
+        description:
+            "Contrepartie d'un bien acquis contre paiement de rentes viagères, apuré au fur et à mesure des arrérages versés.",
+        examples: ["Acquisition d'un immeuble moyennant une rente viagère de 1 500 €/mois"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -760,6 +890,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "168",
     }),
     defineAccount("1687", "Autres dettes", {
+        examples: ["Dette de 15 000 € envers un fournisseur d'immobilisations à plus d'un an"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -768,6 +899,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "168",
     }),
     defineAccount("1688", "Intérêts courus sur autres emprunts et dettes assimilées", {
+        examples: ["Intérêts courus de 800 € sur compte courant d'associé"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -776,6 +908,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "168",
     }),
     defineAccount("169", "Primes de remboursement des emprunts", {
+        description: "Différence entre la valeur de remboursement et la valeur d'émission des emprunts obligataires.",
+        examples: ["Prime de remboursement de 2 € par obligation (remboursement à 102 € pour un nominal de 100 €)"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -784,6 +918,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "16",
     }),
     defineAccount("17", "Dettes rattachées à des participations", {
+        description: "Dettes financières envers des entités dans lesquelles l'organisation détient une participation.",
+        examples: ["Prêt de 100 000 € consenti par la société mère"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -792,6 +928,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "1",
     }),
     defineAccount("171", "Dettes rattachées à des participations - groupe", {
+        examples: ["Dette de 100 000 € envers une filiale du même groupe"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -800,6 +937,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "17",
     }),
     defineAccount("174", "Dettes rattachées à des participations - hors groupe", {
+        examples: ["Dette de 50 000 € envers une société avec laquelle existe un lien de participation"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -808,6 +946,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "17",
     }),
     defineAccount("178", "Dettes rattachées à des sociétés en participation", {
+        description:
+            "Droits des coparticipants non gérants sur les biens acquis ou créés dans le cadre d'une société en participation.",
+        examples: ["Dette envers un coparticipant non-gérant dans une société en participation"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -816,6 +957,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "17",
     }),
     defineAccount("18", "Comptes de liaison des établissements et sociétés en participation", {
+        description:
+            "Comptes utilisés pour comptabiliser les cessions entre établissements d'une même entité tenant des comptabilités autonomes.",
+        examples: ["Cession de marchandises entre l'établissement de Paris et celui de Lyon"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -824,6 +968,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "1",
     }),
     defineAccount("181", "Comptes de liaison des établissements", {
+        examples: ["Compte de liaison entre le siège social et une succursale"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -832,6 +977,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "18",
     }),
     defineAccount("186", "Biens et prestations de services échangés entre établissements - charges", {
+        examples: ["Charges de personnel refacturées entre le siège et un établissement secondaire"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -840,6 +986,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "18",
     }),
     defineAccount("187", "Biens et prestations de services échangés entre établissements - produits", {
+        examples: ["Produits de vente transférés d'un établissement à un autre"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -848,6 +995,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "18",
     }),
     defineAccount("188", "Comptes de liaison des sociétés en participation", {
+        examples: ["Compte de liaison dans le cadre d'une société en participation (SEP)"],
         classNumber: 1,
         className: "Comptes de capitaux",
         type: "bilan",
@@ -858,6 +1006,7 @@ export const accountEntries: AccountEntry[] = [
 
     // Classe 2 - Comptes d'immobilisations
     defineAccount("2", "Comptes d'immobilisations", {
+        examples: ["Ensemble des immobilisations incorporelles, corporelles et financières de l'entreprise"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -866,6 +1015,7 @@ export const accountEntries: AccountEntry[] = [
         parent: null,
     }),
     defineAccount("20", "Immobilisations incorporelles et frais d’établissement", {
+        examples: ["Brevet industriel acquis pour 50 000 €, logiciel ERP pour 30 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -874,6 +1024,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "2",
     }),
     defineAccount("201", "Frais d'établissement", {
+        description: "Frais de constitution, de premier établissement et d'augmentation de capital de l'entité.",
+        examples: ["Frais de notaire pour la création d'une SARL"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -882,6 +1034,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "20",
     }),
     defineAccount("2011", "Frais de constitution", {
+        examples: ["Frais de notaire de 2 000 € lors de la création de la société"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -890,6 +1043,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "201",
     }),
     defineAccount("2012", "Frais de premier établissement", {
+        examples: ["Frais de prospection de 5 000 € pour le lancement d'une nouvelle activité"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -898,6 +1052,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "201",
     }),
     defineAccount("20121", "Frais de prospection", {
+        examples: ["Frais d'étude de marché de 8 000 € pour une nouvelle zone géographique"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -906,6 +1061,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "2012",
     }),
     defineAccount("20122", "Frais de publicité", {
+        examples: ["Campagne publicitaire de lancement de 15 000 € pour un nouveau produit"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -917,6 +1073,7 @@ export const accountEntries: AccountEntry[] = [
         "2013",
         "Frais d'augmentation de capital et d'opérations diverses - fusions, scissions, transformations",
         {
+            examples: ["Frais de notaire et d'avocat de 7 000 € pour une augmentation de capital"],
             classNumber: 2,
             className: "Comptes d'immobilisations",
             type: "bilan",
@@ -926,6 +1083,8 @@ export const accountEntries: AccountEntry[] = [
         },
     ),
     defineAccount("203", "Frais de développement", {
+        description: "Frais de développement inscrits en immobilisations incorporelles.",
+        examples: ["Coûts de développement d'un nouveau prototype de produit"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -938,6 +1097,7 @@ export const accountEntries: AccountEntry[] = [
         "Concessions et droits similaires, brevets, licences, marques, procédés, solutions informatiques, droits et valeurs similaires",
         {
             description: "Logiciels, brevets, licences.",
+            examples: ["Acquisition d'une licence de logiciel ERP pour 15 000 €", "Dépôt d'un brevet industriel"],
             classNumber: 2,
             className: "Comptes d'immobilisations",
             type: "bilan",
@@ -947,6 +1107,9 @@ export const accountEntries: AccountEntry[] = [
         },
     ),
     defineAccount("206", "Droit au bail", {
+        description:
+            "Montant versé au locataire précédent pour le transfert des droits liés à la propriété commerciale.",
+        examples: ["Versement de 30 000 € au précédent locataire pour reprendre un bail commercial"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -955,6 +1118,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "20",
     }),
     defineAccount("207", "Fonds commercial", {
+        description:
+            "Éléments incorporels du fonds de commerce acquis qui ne font pas l'objet d'une évaluation séparée.",
+        examples: ["Fonds de commerce acquis pour 120 000 € incluant clientèle et enseigne"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -963,6 +1129,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "20",
     }),
     defineAccount("208", "Autres immobilisations incorporelles", {
+        examples: ["Mali technique de fusion affecté à un brevet évalué à 20 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -971,6 +1138,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "20",
     }),
     defineAccount("2081", "Mali de fusion sur actifs incorporels", {
+        examples: ["Mali de fusion de 30 000 € affecté à une marque incorporelle"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -979,6 +1147,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "208",
     }),
     defineAccount("21", "Immobilisations corporelles", {
+        examples: ["Terrain, bâtiment, véhicule, machine de production"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -987,6 +1156,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "2",
     }),
     defineAccount("211", "Terrains", {
+        examples: ["Terrain de 500 m² acquis pour 150 000 € en zone industrielle"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -995,6 +1165,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "21",
     }),
     defineAccount("2111", "Terrains nus", {
+        examples: ["Terrain non bâti de 2 000 m² acquis pour 80 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1003,6 +1174,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "211",
     }),
     defineAccount("2112", "Terrains aménagés", {
+        examples: ["Terrain viabilisé avec voirie et réseaux pour 120 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1011,6 +1183,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "211",
     }),
     defineAccount("2113", "Sous-sols et sur-sols", {
+        examples: ["Droit d'exploitation du sous-sol pour extraction de gravier"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1019,6 +1192,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "211",
     }),
     defineAccount("2114", "Terrains de carrières (Tréfonds)", {
+        examples: ["Terrain de carrière acquis pour 200 000 € en vue d'exploitation"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1027,6 +1201,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "211",
     }),
     defineAccount("2115", "Terrains bâtis", {
+        examples: ["Terrain supportant un bâtiment industriel, valorisé à 100 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1035,6 +1210,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "211",
     }),
     defineAccount("212", "Agencements et aménagements de terrains (même ventilation que celle du compte 211)", {
+        examples: ["Travaux de terrassement et de drainage d'un terrain pour 25 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1044,6 +1220,7 @@ export const accountEntries: AccountEntry[] = [
     }),
     defineAccount("213", "Constructions", {
         description: "Bâtiments et aménagements.",
+        examples: ["Achat d'un entrepôt pour 250 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1052,6 +1229,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "21",
     }),
     defineAccount("2131", "Bâtiments", {
+        examples: ["Bâtiment industriel acquis pour 300 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1060,6 +1238,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "213",
     }),
     defineAccount("2135", "Installations générales - agencements - aménagements des constructions", {
+        examples: ["Installation électrique et climatisation d'un entrepôt pour 45 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1068,6 +1247,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "213",
     }),
     defineAccount("2138", "Ouvrages d'infrastructure", {
+        examples: ["Pont d'accès privé au site industriel construit pour 80 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1076,6 +1256,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "213",
     }),
     defineAccount("214", "Constructions sur sol d'autrui (même ventilation que celle du compte 213)", {
+        examples: ["Bâtiment construit sur un terrain en location (bail emphytéotique) pour 200 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1084,6 +1265,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "21",
     }),
     defineAccount("215", "Installations techniques, matériels et outillages industriels", {
+        examples: ["Chaîne de production automatisée acquise pour 500 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1092,6 +1274,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "21",
     }),
     defineAccount("2151", "Installations complexes spécialisées", {
+        examples: ["Ligne de fabrication intégrée comprenant plusieurs machines pour 400 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1100,6 +1283,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "215",
     }),
     defineAccount("21511", "Installations complexes spécialisées sur sol propre", {
+        examples: ["Chaîne d'embouteillage installée dans l'usine propre pour 350 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1108,6 +1292,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "2151",
     }),
     defineAccount("21514", "Installations complexes spécialisées sur sol d'autrui", {
+        examples: ["Installation de production montée sur un site loué en bail longue durée"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1116,6 +1301,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "2151",
     }),
     defineAccount("2153", "Installations à caractère spécifique", {
+        examples: ["Four industriel spécifique à la fabrication de céramique pour 120 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1124,6 +1310,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "215",
     }),
     defineAccount("21531", "Installations à caractère spécifique sur sol propre", {
+        examples: ["Chambre froide installée dans les locaux propres du restaurateur"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1132,6 +1319,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "2153",
     }),
     defineAccount("21534", "Installations à caractère spécifique sur sol d'autrui", {
+        examples: ["Laboratoire installé dans des locaux loués pour 60 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1140,6 +1328,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "2153",
     }),
     defineAccount("2154", "Matériels industriels", {
+        examples: ["Machine-outil à commande numérique achetée 75 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1148,6 +1337,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "215",
     }),
     defineAccount("2155", "Outillages industriels", {
+        examples: ["Moules et matrices de fabrication pour 15 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1156,6 +1346,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "215",
     }),
     defineAccount("2157", "Agencements et aménagements des matériels et outillages industriels", {
+        examples: ["Aménagement d'un atelier pour accueillir une nouvelle machine pour 10 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1165,6 +1356,7 @@ export const accountEntries: AccountEntry[] = [
     }),
     defineAccount("218", "Autres immobilisations corporelles", {
         description: "Mobilier, matériel de bureau, matériel informatique.",
+        examples: ["Achat de 10 ordinateurs portables pour le personnel", "Acquisition de mobilier de bureau"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1173,6 +1365,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "21",
     }),
     defineAccount("2181", "Installations générales, agencements, aménagements divers", {
+        examples: ["Aménagement des bureaux (cloisons, peinture, moquette) pour 20 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1181,6 +1374,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "218",
     }),
     defineAccount("2182", "Matériel de transport", {
+        examples: ["Camion de livraison acquis pour 45 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1189,6 +1383,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "218",
     }),
     defineAccount("2183", "Matériel de bureau et matériel informatique", {
+        examples: ["Serveur informatique pour 8 000 € et imprimante professionnelle pour 2 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1197,6 +1392,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "218",
     }),
     defineAccount("2184", "Mobilier", {
+        examples: ["Bureau, chaises et armoires pour 5 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1205,6 +1401,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "218",
     }),
     defineAccount("2185", "Cheptel", {
+        examples: ["Troupeau de 50 vaches laitières évalué à 75 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1213,6 +1410,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "218",
     }),
     defineAccount("2186", "Emballages récupérables", {
+        examples: ["Palettes et containers réutilisables pour 3 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1221,6 +1419,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "218",
     }),
     defineAccount("2187", "Mali de fusion sur actifs corporels", {
+        examples: ["Mali de fusion de 40 000 € affecté à un bâtiment industriel"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1229,6 +1428,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "218",
     }),
     defineAccount("22", "Immobilisations mises en concession", {
+        description:
+            "Immobilisations incorporelles ou corporelles mises en concession par le concédant ou le concessionnaire.",
+        examples: ["Réseau d'eau ou d'électricité mis en concession par une collectivité"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1237,6 +1439,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "2",
     }),
     defineAccount("229", "Droits du concédant (présentés dans la rubrique autres fonds propres)", {
+        description: "Contrepartie de la valeur des biens mis gratuitement dans la concession par le concédant.",
+        examples: ["Valeur des canalisations mises gratuitement dans la concession par la commune"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1245,6 +1449,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "22",
     }),
     defineAccount("23", "Immobilisations en cours, avances et acomptes", {
+        description: "Valeur des immobilisations non terminées à la fin de chaque exercice.",
+        examples: ["Construction d'un nouveau siège social en cours de réalisation"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1253,6 +1459,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "2",
     }),
     defineAccount("231", "Immobilisations corporelles en cours", {
+        examples: ["Construction d'un entrepôt en cours, 150 000 € déjà versés sur un coût total estimé de 300 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1261,6 +1468,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "23",
     }),
     defineAccount("232", "Immobilisations incorporelles en cours", {
+        examples: ["Développement d'un logiciel interne en cours pour 60 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1269,6 +1477,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "23",
     }),
     defineAccount("237", "Avances et acomptes versés sur commandes d'immobilisations incorporelles", {
+        examples: ["Acompte de 10 000 € versé pour le développement d'un logiciel sur mesure"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1277,6 +1486,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "23",
     }),
     defineAccount("238", "Avances et acomptes versés sur commandes d'immobilisations corporelles", {
+        examples: ["Acompte de 50 000 € versé pour une machine-outil en commande"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1285,6 +1495,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "23",
     }),
     defineAccount("26", "Participations et créances rattachées à des participations", {
+        description:
+            "Titres de participation et créances liées à des entités dans lesquelles l'entreprise détient une participation.",
+        examples: ["Prise de participation de 40 % dans une PME partenaire"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1293,6 +1506,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "2",
     }),
     defineAccount("261", "Titres de participation", {
+        description: "Actions et parts détenues durablement dans d'autres entités pour en influencer la gestion.",
+        examples: ["Achat de 51 % des actions d'un fournisseur stratégique"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1301,6 +1516,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "26",
     }),
     defineAccount("2611", "Actions", {
+        examples: ["Actions détenues dans une filiale représentant 60 % du capital"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1309,6 +1525,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "261",
     }),
     defineAccount("2618", "Autres titres", {
+        examples: ["Parts sociales d'une SARL dans laquelle l'entreprise détient 30 %"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1317,6 +1534,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "261",
     }),
     defineAccount("262", "Titres évalués par équivalence", {
+        description: "Titres de sociétés contrôlées de manière exclusive évalués par équivalence.",
+        examples: ["Évaluation par équivalence des titres d'une filiale contrôlée à 100 %"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1325,6 +1544,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "26",
     }),
     defineAccount("266", "Autres formes de participation", {
+        description:
+            "Parts de GIE et autres formes de participation ne relevant pas des titres de participation classiques.",
+        examples: ["Parts détenues dans un GIE logistique"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1333,6 +1555,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "26",
     }),
     defineAccount("2661", "Droits représentatifs d'actifs nets remis en fiducie", {
+        examples: ["Droits sur les actifs nets transférés à un fiduciaire"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1341,6 +1564,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "266",
     }),
     defineAccount("267", "Créances rattachées à des participations", {
+        description:
+            "Créances nées de prêts octroyés à des entités dans lesquelles le prêteur détient une participation.",
+        examples: ["Prêt de 50 000 € consenti à une filiale"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1349,6 +1575,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "26",
     }),
     defineAccount("2671", "Créances rattachées à des participations - groupe", {
+        examples: ["Prêt de 100 000 € accordé à une filiale du groupe"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1357,6 +1584,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "267",
     }),
     defineAccount("2674", "Créances rattachées à des participations - hors groupe", {
+        examples: ["Avance de 50 000 € accordée à une société associée hors groupe"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1365,6 +1593,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "267",
     }),
     defineAccount("2675", "Versements représentatifs d'apports non capitalisés - appel de fonds", {
+        examples: ["Versement de 20 000 € en réponse à un appel de fonds non capitalisé"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1373,6 +1602,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "267",
     }),
     defineAccount("2676", "Avances consolidables", {
+        examples: ["Avance consolidable de 30 000 € consentie à une filiale"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1381,6 +1611,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "267",
     }),
     defineAccount("2677", "Autres créances rattachées à des participations", {
+        examples: ["Créance de 15 000 € sur une participation minoritaire"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1389,6 +1620,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "267",
     }),
     defineAccount("2678", "Intérêts courus", {
+        examples: ["Intérêts courus de 2 000 € sur créances rattachées à des participations"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1397,6 +1629,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "267",
     }),
     defineAccount("268", "Créances rattachées à des sociétés en participation", {
+        description:
+            "Droits détenus par l'entité coparticipante sur les biens acquis ou créés par le gérant de la société en participation.",
+        examples: ["Droits sur les biens d'une société en participation gérée par un tiers"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1405,6 +1640,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "26",
     }),
     defineAccount("2681", "Principal", {
+        examples: ["Principal d'une créance de 80 000 € liée à une société en participation"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1413,6 +1649,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "268",
     }),
     defineAccount("2688", "Intérêts courus", {
+        examples: ["Intérêts courus de 1 500 € sur créances liées à une SEP"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1421,6 +1658,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "268",
     }),
     defineAccount("269", "Versements restant à effectuer sur titres de participation non libérés", {
+        examples: ["Versement restant de 25 000 € sur des titres de participation non entièrement libérés"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1429,6 +1667,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "26",
     }),
     defineAccount("27", "Autres immobilisations financières", {
+        description:
+            "Titres immobilisés, prêts, dépôts et cautionnements, et autres créances financières à long terme.",
+        examples: ["Obligations détenues en portefeuille à long terme", "Dépôt de garantie versé au bailleur"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1440,6 +1681,8 @@ export const accountEntries: AccountEntry[] = [
         "271",
         "Titres immobilisés autres que les titres immobilisés de l'activité de portefeuille (droit de propriété)",
         {
+            description: "Titres conférant un droit de propriété, nantis ou bloqués pour une durée supérieure à un an.",
+            examples: ["Actions d'une société cotée bloquées pour 2 ans suite à un nantissement"],
             classNumber: 2,
             className: "Comptes d'immobilisations",
             type: "bilan",
@@ -1449,6 +1692,7 @@ export const accountEntries: AccountEntry[] = [
         },
     ),
     defineAccount("2711", "Actions", {
+        examples: ["Actions cotées détenues à long terme pour 50 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1457,6 +1701,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "271",
     }),
     defineAccount("2718", "Autres titres", {
+        examples: ["Parts de SCPI détenues comme placement à long terme pour 30 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1465,6 +1710,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "271",
     }),
     defineAccount("272", "Titres immobilisés (droit de créance)", {
+        description: "Obligations, bons et autres titres de créance détenus durablement.",
+        examples: ["Obligations d'une entreprise détenues jusqu'à l'échéance"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1473,6 +1720,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "27",
     }),
     defineAccount("2721", "Obligations", {
+        examples: ["Obligations à taux fixe souscrites pour 100 000 € à échéance 5 ans"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1481,6 +1729,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "272",
     }),
     defineAccount("2722", "Bons", {
+        examples: ["Bons du Trésor acquis pour 20 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1489,6 +1738,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "272",
     }),
     defineAccount("273", "Titres immobilisés de l'activité de portefeuille", {
+        description:
+            "Titres détenus dans le cadre d'une activité de portefeuille visant à en tirer un revenu à long terme.",
+        examples: ["Portefeuille de titres diversifiés géré dans une optique de rendement à long terme"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1497,6 +1749,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "27",
     }),
     defineAccount("274", "Prêts", {
+        description: "Prêts accordés par l'entité à des tiers (participatifs, aux associés, au personnel, etc.).",
+        examples: ["Prêt de 20 000 € accordé à un salarié pour l'acquisition de son logement"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1505,6 +1759,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "27",
     }),
     defineAccount("2741", "Prêts participatifs", {
+        examples: ["Prêt participatif de 40 000 € accordé à une PME partenaire"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1513,6 +1768,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "274",
     }),
     defineAccount("2742", "Prêts aux associés", {
+        examples: ["Prêt de 15 000 € consenti à un associé de la SARL"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1521,6 +1777,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "274",
     }),
     defineAccount("2743", "Prêts au personnel", {
+        examples: ["Prêt de 3 000 € accordé à un salarié pour l'achat d'un véhicule"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1529,6 +1786,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "274",
     }),
     defineAccount("2748", "Autres prêts", {
+        examples: ["Prêt de 10 000 € accordé à un fournisseur en difficulté"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1537,6 +1795,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "274",
     }),
     defineAccount("275", "Dépôts et cautionnements versés", {
+        description: "Sommes versées à des tiers à titre de garantie ou de caution.",
+        examples: ["Dépôt de garantie de 2 mois de loyer versé au bailleur des locaux professionnels"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1545,6 +1805,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "27",
     }),
     defineAccount("2751", "Dépôts", {
+        examples: ["Dépôt de garantie de 5 000 € versé au bailleur des locaux"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1553,6 +1814,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "275",
     }),
     defineAccount("2755", "Cautionnements", {
+        examples: ["Cautionnement de 8 000 € versé dans le cadre d'un marché public"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1561,6 +1823,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "275",
     }),
     defineAccount("276", "Autres créances immobilisées", {
+        examples: ["Créance de 12 000 € sur un tiers liée à une cession d'immobilisation"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1569,6 +1832,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "27",
     }),
     defineAccount("2761", "Créances diverses", {
+        examples: ["Créance diverse de 7 000 € sur un ancien associé"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1577,6 +1841,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "276",
     }),
     defineAccount("2768", "Intérêts courus", {
+        examples: ["Intérêts courus de 500 € sur créances immobilisées diverses"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1585,6 +1850,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "276",
     }),
     defineAccount("27682", "Intérêts courus sur titres immobilisés (droit de créance)", {
+        examples: ["Intérêts courus de 1 200 € sur obligations détenues"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1593,6 +1859,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "2768",
     }),
     defineAccount("27684", "Intérêts courus sur prêts", {
+        examples: ["Intérêts courus de 800 € sur prêt au personnel"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1601,6 +1868,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "2768",
     }),
     defineAccount("27685", "Intérêts courus sur dépôts et cautionnements", {
+        examples: ["Intérêts courus de 300 € sur dépôt de garantie versé au bailleur"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1609,6 +1877,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "2768",
     }),
     defineAccount("27688", "Intérêts courus sur créances diverses", {
+        examples: ["Intérêts courus de 400 € sur créance immobilisée diverse"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1617,6 +1886,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "2768",
     }),
     defineAccount("277", "Actions propres ou parts propres", {
+        description: "Actions ou parts de l'entité rachetées par elle-même.",
+        examples: ["Rachat par la société de 500 de ses propres actions"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1625,6 +1896,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "27",
     }),
     defineAccount("2771", "Actions propres ou parts propres", {
+        description: "Actions ou parts propres détenues sans intention d'annulation.",
+        examples: ["Actions propres détenues pour régulation du cours de bourse"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1633,6 +1906,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "277",
     }),
     defineAccount("2772", "Actions propres ou parts propres en voie d’annulation", {
+        description: "Titres rachetés explicitement en vue de leur annulation et de la réduction du capital.",
+        examples: ["Rachat de 1 000 actions en vue d'une réduction de capital"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1641,6 +1916,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "277",
     }),
     defineAccount("278", "Mali de fusion sur actifs financiers", {
+        examples: ["Mali de fusion de 25 000 € affecté à des titres de participation"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1649,6 +1925,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "27",
     }),
     defineAccount("279", "Versements restant à effectuer sur titres immobilisés non libérés", {
+        examples: ["Versement restant de 10 000 € sur des titres immobilisés non libérés"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1658,6 +1935,7 @@ export const accountEntries: AccountEntry[] = [
     }),
     defineAccount("28", "Amortissements des immobilisations", {
         description: "Cumul des dépréciations constatées sur les immobilisations.",
+        examples: ["Amortissement cumulé de 40 000 € sur un véhicule utilitaire"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1669,6 +1947,7 @@ export const accountEntries: AccountEntry[] = [
         "280",
         "Amortissements des immobilisations incorporelles et des frais d’établissement (même ventilation que celle du compte 20)",
         {
+            examples: ["Amortissement cumulé de 15 000 € sur frais d'établissement"],
             classNumber: 2,
             className: "Comptes d'immobilisations",
             type: "bilan",
@@ -1678,6 +1957,7 @@ export const accountEntries: AccountEntry[] = [
         },
     ),
     defineAccount("2801", "Frais d'établissement (même ventilation que celle du compte 201)", {
+        examples: ["Amortissement des frais de constitution de 2 000 € sur 5 ans"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1686,6 +1966,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "280",
     }),
     defineAccount("2803", "Frais de développement", {
+        examples: ["Amortissement cumulé de 20 000 € sur des frais de développement"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1697,6 +1978,7 @@ export const accountEntries: AccountEntry[] = [
         "2805",
         "Concessions et droits similaires, brevets, licences, solutions informatiques, droits et valeurs similaires",
         {
+            examples: ["Amortissement d'un brevet industriel de 50 000 € sur 10 ans"],
             classNumber: 2,
             className: "Comptes d'immobilisations",
             type: "bilan",
@@ -1706,6 +1988,7 @@ export const accountEntries: AccountEntry[] = [
         },
     ),
     defineAccount("2806", "Droit au bail", {
+        examples: ["Amortissement du droit au bail de 30 000 € sur la durée du contrat"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1714,6 +1997,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "280",
     }),
     defineAccount("2807", "Fonds commercial", {
+        examples: ["Amortissement du fonds commercial acquis dans le cadre d'une fusion"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1722,6 +2006,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "280",
     }),
     defineAccount("2808", "Autres immobilisations incorporelles", {
+        examples: ["Amortissement du mali de fusion sur actifs incorporels"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1730,6 +2015,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "280",
     }),
     defineAccount("281", "Amortissements des immobilisations corporelles (même ventilation que celle du compte 21)", {
+        examples: ["Amortissement cumulé de 80 000 € sur les immobilisations corporelles"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1738,6 +2024,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "28",
     }),
     defineAccount("2812", "Agencements, aménagements de terrains (même ventilation que celle du compte 212)", {
+        examples: ["Amortissement des aménagements de terrain pour 5 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1746,6 +2033,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "281",
     }),
     defineAccount("2813", "Constructions (même ventilation que celle du compte 213)", {
+        examples: ["Amortissement cumulé de 60 000 € sur un bâtiment industriel"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1754,6 +2042,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "281",
     }),
     defineAccount("2814", "Constructions sur sol d'autrui (même ventilation que celle du compte 214)", {
+        examples: ["Amortissement d'une construction sur sol d'autrui pour 40 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1765,6 +2054,7 @@ export const accountEntries: AccountEntry[] = [
         "2815",
         "Installations, matériel et outillage industriels (même ventilation que celle du compte 215)",
         {
+            examples: ["Amortissement d'une ligne de production pour 100 000 €"],
             classNumber: 2,
             className: "Comptes d'immobilisations",
             type: "bilan",
@@ -1774,6 +2064,7 @@ export const accountEntries: AccountEntry[] = [
         },
     ),
     defineAccount("2818", "Autres immobilisations corporelles (même ventilation que celle du compte 218)", {
+        examples: ["Amortissement cumulé de 12 000 € sur le mobilier de bureau"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1782,6 +2073,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "281",
     }),
     defineAccount("28187", "Amortissement du mali de fusion sur actifs corporels", {
+        examples: ["Amortissement du mali de fusion affecté à un bâtiment pour 10 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1790,6 +2082,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "2818",
     }),
     defineAccount("282", "Amortissements des immobilisations mises en concession", {
+        examples: ["Amortissement d'infrastructures mises en concession pour 200 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1798,6 +2091,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "28",
     }),
     defineAccount("29", "Dépréciations des immobilisations", {
+        description: "Pertes de valeur réversibles constatées sur les immobilisations.",
+        examples: ["Dépréciation de 15 000 € constatée sur un fonds de commerce"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1806,6 +2101,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "2",
     }),
     defineAccount("290", "Dépréciations des immobilisations incorporelles", {
+        examples: ["Dépréciation d'une marque évaluée à 30 000 € ramenée à 20 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1814,6 +2110,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "29",
     }),
     defineAccount("2901", "Frais d’établissement", {
+        examples: ["Dépréciation des frais d'établissement devenus sans valeur"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1822,6 +2119,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "290",
     }),
     defineAccount("2903", "Frais de développement", {
+        examples: ["Dépréciation de 10 000 € sur un projet de développement abandonné"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1830,6 +2128,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "290",
     }),
     defineAccount("2905", "Marques, procédés, droits et valeurs similaires", {
+        examples: ["Dépréciation d'un brevet dont la valeur de marché a baissé de 15 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1838,6 +2137,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "290",
     }),
     defineAccount("2906", "Droit au bail", {
+        examples: ["Dépréciation du droit au bail suite à la baisse du marché locatif"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1846,6 +2146,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "290",
     }),
     defineAccount("2907", "Fonds commercial", {
+        examples: ["Dépréciation de 25 000 € du fonds commercial après perte de clientèle"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1854,6 +2155,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "290",
     }),
     defineAccount("2908", "Autres immobilisations incorporelles", {
+        examples: ["Dépréciation d'une immobilisation incorporelle diverse"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1862,6 +2164,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "290",
     }),
     defineAccount("29081", "Dépréciation du mali de fusion sur actifs incorporels", {
+        examples: ["Dépréciation du mali de fusion sur un brevet devenu obsolète"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1870,6 +2173,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "2908",
     }),
     defineAccount("291", "Dépréciations des immobilisations corporelles", {
+        examples: ["Dépréciation de 50 000 € sur un terrain contaminé"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1878,6 +2182,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "29",
     }),
     defineAccount("2911", "Terrains", {
+        examples: ["Dépréciation d'un terrain dont la valeur vénale a chuté de 30 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1886,6 +2191,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "291",
     }),
     defineAccount("2912", "Agencements et aménagements de terrains", {
+        examples: ["Dépréciation d'aménagements de terrains suite à une inondation"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1894,6 +2200,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "291",
     }),
     defineAccount("2913", "Constructions", {
+        examples: ["Dépréciation d'un bâtiment endommagé estimée à 40 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1902,6 +2209,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "291",
     }),
     defineAccount("2914", "Constructions sur sol d'autrui", {
+        examples: ["Dépréciation d'une construction sur sol d'autrui pour 20 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1910,6 +2218,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "291",
     }),
     defineAccount("2915", "Installations techniques, matériels et outillages industriels", {
+        examples: ["Dépréciation d'une machine de production obsolète pour 35 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1918,6 +2227,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "291",
     }),
     defineAccount("2918", "Autres immobilisations corporelles", {
+        examples: ["Dépréciation de matériel informatique obsolète pour 5 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1926,6 +2236,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "291",
     }),
     defineAccount("29187", "Dépréciation du mali de fusion sur actifs corporels", {
+        examples: ["Dépréciation du mali de fusion affecté à un équipement industriel"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1934,6 +2245,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "2918",
     }),
     defineAccount("292", "Dépréciations des immobilisations mises en concession", {
+        examples: ["Dépréciation d'infrastructures concédées suite à une dégradation"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1942,6 +2254,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "29",
     }),
     defineAccount("293", "Dépréciations des immobilisations en cours", {
+        examples: ["Dépréciation d'un projet de construction en cours abandonné partiellement"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1950,6 +2263,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "29",
     }),
     defineAccount("2931", "Immobilisations corporelles en cours", {
+        examples: ["Dépréciation d'un chantier de construction en cours pour 60 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1958,6 +2272,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "293",
     }),
     defineAccount("2932", "Immobilisations incorporelles en cours", {
+        examples: ["Dépréciation d'un logiciel en cours de développement suspendu"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1966,6 +2281,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "293",
     }),
     defineAccount("296", "Dépréciations des participations et créances rattachées à des participations", {
+        examples: ["Dépréciation de 40 000 € sur des titres de participation d'une filiale en difficulté"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1974,6 +2290,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "29",
     }),
     defineAccount("2961", "Titres de participation", {
+        examples: ["Dépréciation de titres de participation dont la valeur a chuté de 20 %"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1982,6 +2299,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "296",
     }),
     defineAccount("2962", "Titres évalués par équivalence", {
+        examples: ["Dépréciation de titres mis en équivalence d'une société associée"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1990,6 +2308,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "296",
     }),
     defineAccount("2966", "Autres formes de participation", {
+        examples: ["Dépréciation de parts dans un GIE en difficulté financière"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -1998,6 +2317,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "296",
     }),
     defineAccount("2967", "Créances rattachées à des participations (même ventilation que celle du compte 267)", {
+        examples: ["Dépréciation d'une créance rattachée à une participation douteuse"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -2009,6 +2329,7 @@ export const accountEntries: AccountEntry[] = [
         "2968",
         "Créances rattachées à des sociétés en participation (même ventilation que celle du compte 268)",
         {
+            examples: ["Dépréciation d'une créance sur une société en participation en difficulté"],
             classNumber: 2,
             className: "Comptes d'immobilisations",
             type: "bilan",
@@ -2018,6 +2339,7 @@ export const accountEntries: AccountEntry[] = [
         },
     ),
     defineAccount("297", "Dépréciations des autres immobilisations financières", {
+        examples: ["Dépréciation de 15 000 € sur des titres immobilisés cotés en baisse"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -2029,6 +2351,7 @@ export const accountEntries: AccountEntry[] = [
         "2971",
         "Titres immobilisés autres que les titres immobilisés de l'activité de portefeuille (droit de propriété)",
         {
+            examples: ["Dépréciation d'actions cotées détenues à long terme pour 10 000 €"],
             classNumber: 2,
             className: "Comptes d'immobilisations",
             type: "bilan",
@@ -2038,6 +2361,7 @@ export const accountEntries: AccountEntry[] = [
         },
     ),
     defineAccount("2972", "Titres immobilisés (droit de créance)", {
+        examples: ["Dépréciation d'obligations dont la valeur de marché a baissé"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -2046,6 +2370,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "297",
     }),
     defineAccount("2973", "Titres immobilisés de l'activité de portefeuille", {
+        examples: ["Dépréciation de titres de portefeuille suite à la baisse des marchés"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -2054,6 +2379,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "297",
     }),
     defineAccount("2974", "Prêts", {
+        examples: ["Dépréciation d'un prêt accordé à un partenaire en difficulté"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -2062,6 +2388,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "297",
     }),
     defineAccount("2975", "Dépôts et cautionnements versés", {
+        examples: ["Dépréciation d'un dépôt de garantie devenu irrécouvrable"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -2070,6 +2397,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "297",
     }),
     defineAccount("2976", "Autres créances immobilisées", {
+        examples: ["Dépréciation d'une créance immobilisée douteuse de 8 000 €"],
         classNumber: 2,
         className: "Comptes d'immobilisations",
         type: "bilan",
@@ -2080,6 +2408,7 @@ export const accountEntries: AccountEntry[] = [
 
     // Classe 3 - Comptes de stocks et en-cours
     defineAccount("3", "Comptes de stocks et en-cours", {
+        examples: ["Ensemble des stocks de matières, produits et marchandises de l'entreprise"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2088,6 +2417,9 @@ export const accountEntries: AccountEntry[] = [
         parent: null,
     }),
     defineAccount("31", "Matières premières et fournitures", {
+        description:
+            "Stocks de matières premières et fournitures destinées à être transformées ou consommées dans le processus de production.",
+        examples: ["Stock de farine chez un boulanger", "Stock de tôles d'acier dans une usine automobile"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2096,6 +2428,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "3",
     }),
     defineAccount("32", "Autres approvisionnements", {
+        examples: ["Stock de fournitures de bureau et de produits d'entretien"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2104,6 +2437,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "3",
     }),
     defineAccount("321", "Matières consommables", {
+        examples: ["Stock de peinture et solvants pour 5 000 € dans une entreprise de BTP"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2112,6 +2446,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "32",
     }),
     defineAccount("322", "Fournitures consommables", {
+        examples: ["Stock de fournitures diverses consommables pour 3 000 €"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2120,6 +2455,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "32",
     }),
     defineAccount("3221", "Combustibles", {
+        examples: ["Stock de fioul de chauffage pour 2 000 €"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2128,6 +2464,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "322",
     }),
     defineAccount("3222", "Produits d'entretien", {
+        examples: ["Stock de produits de nettoyage industriel pour 800 €"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2136,6 +2473,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "322",
     }),
     defineAccount("3223", "Fournitures d'atelier et d'usine", {
+        examples: ["Stock de vis, boulons et consommables d'atelier pour 1 500 €"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2144,6 +2482,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "322",
     }),
     defineAccount("3224", "Fournitures de magasin", {
+        examples: ["Stock d'emballages et de matériel de conditionnement en magasin pour 1 200 €"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2152,6 +2491,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "322",
     }),
     defineAccount("3225", "Fournitures de bureau", {
+        examples: ["Stock de ramettes de papier et cartouches d'encre pour 600 €"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2160,6 +2500,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "322",
     }),
     defineAccount("326", "Emballages", {
+        examples: ["Stock d'emballages de tous types pour 4 000 €"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2168,6 +2509,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "32",
     }),
     defineAccount("3261", "Emballages perdus", {
+        examples: ["Stock de cartons d'expédition jetables pour 1 000 €"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2176,6 +2518,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "326",
     }),
     defineAccount("3265", "Emballages récupérables non identifiables", {
+        examples: ["Stock de palettes Europe réutilisables non identifiées individuellement"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2184,6 +2527,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "326",
     }),
     defineAccount("3267", "Emballages à usage mixte", {
+        examples: ["Stock de fûts pouvant être réutilisés ou jetés selon leur état"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2192,6 +2536,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "326",
     }),
     defineAccount("33", "En-cours de production de biens", {
+        examples: ["Production de biens non encore terminée en fin d'exercice"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2200,6 +2545,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "3",
     }),
     defineAccount("331", "Produits en cours", {
+        examples: ["Meubles en cours de fabrication évalués à 15 000 € en fin d'exercice"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2208,6 +2554,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "33",
     }),
     defineAccount("335", "Travaux en cours", {
+        examples: ["Chantier de rénovation en cours évalué à 40 000 € en fin d'exercice"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2216,6 +2563,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "33",
     }),
     defineAccount("34", "En-cours de production de services", {
+        examples: ["Prestations de services commencées mais non achevées en fin d'exercice"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2224,6 +2572,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "3",
     }),
     defineAccount("341", "Études en cours", {
+        examples: ["Étude de marché en cours pour un client, avancement à 60 %, valorisée 12 000 €"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2232,6 +2581,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "34",
     }),
     defineAccount("345", "Prestations de services en cours", {
+        examples: ["Mission d'audit en cours pour un client, valorisée à 8 000 € à la clôture"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2240,6 +2590,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "34",
     }),
     defineAccount("35", "Stocks de produits", {
+        description: "Produits intermédiaires, finis et résiduels en stock.",
+        examples: ["Stock de pièces assemblées prêtes à être vendues"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2248,6 +2600,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "3",
     }),
     defineAccount("351", "Produits intermédiaires", {
+        examples: ["Stock de composants semi-finis destinés à être intégrés dans un produit final"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2256,6 +2609,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "35",
     }),
     defineAccount("355", "Produits finis", {
+        examples: ["Stock de 500 unités de produit fini valorisé à 25 000 €"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2264,6 +2618,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "35",
     }),
     defineAccount("358", "Produits résiduels ou matières de récupération", {
+        examples: ["Stock de chutes de métal récupérables valorisé à 2 000 €"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2272,6 +2627,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "35",
     }),
     defineAccount("3581", "Déchets", {
+        examples: ["Déchets de fabrication de bois valorisés à 500 €"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2280,6 +2636,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "358",
     }),
     defineAccount("3585", "Rebuts", {
+        examples: ["Pièces défectueuses revendables en l'état à prix réduit pour 300 €"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2288,6 +2645,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "358",
     }),
     defineAccount("3586", "Matières de récupération", {
+        examples: ["Métaux récupérés de machines démantelées pour 1 500 €"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2296,6 +2654,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "358",
     }),
     defineAccount("36", "(Compte à ouvrir, le cas échéant, sous l'intitulé « Stocks provenant d'immobilisations »)", {
+        description: "Éléments démontés ou récupérés sur des immobilisations corporelles, entrés en stock.",
+        examples: ["Machine retirée du service et mise en stock pour revente"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2304,6 +2664,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "3",
     }),
     defineAccount("37", "Stocks de marchandises", {
+        examples: ["Stock de marchandises achetées pour revente en l'état pour 60 000 €"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2315,6 +2676,7 @@ export const accountEntries: AccountEntry[] = [
         "38",
         "(Le compte 38 peut être utilisé pour comptabiliser les stocks en voie d'acheminement, mis en dépôt ou donnés en consignation)",
         {
+            examples: ["Marchandises en transit entre le fournisseur et l'entrepôt pour 10 000 €"],
             classNumber: 3,
             className: "Comptes de stocks et en-cours",
             type: "bilan",
@@ -2324,6 +2686,8 @@ export const accountEntries: AccountEntry[] = [
         },
     ),
     defineAccount("39", "Dépréciations des stocks et en-cours", {
+        description: "Pertes de valeur réversibles constatées sur les stocks et en-cours de production.",
+        examples: ["Dépréciation d'un lot de matières premières obsolètes"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2332,6 +2696,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "3",
     }),
     defineAccount("391", "Dépréciations des matières premières et fournitures", {
+        examples: ["Dépréciation de 3 000 € sur un stock de matières premières périmées"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2340,6 +2705,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "39",
     }),
     defineAccount("392", "Dépréciations des autres approvisionnements", {
+        examples: ["Dépréciation de 500 € sur des fournitures d'atelier obsolètes"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2348,6 +2714,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "39",
     }),
     defineAccount("393", "Dépréciations des en-cours de production de biens", {
+        examples: ["Dépréciation de 8 000 € sur un en-cours de production abandonné"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2356,6 +2723,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "39",
     }),
     defineAccount("394", "Dépréciations des en-cours de production de services", {
+        examples: ["Dépréciation de 4 000 € sur une étude en cours dont le client est en difficulté"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2364,6 +2732,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "39",
     }),
     defineAccount("395", "Dépréciations des stocks de produits", {
+        examples: ["Dépréciation de 6 000 € sur un stock de produits finis invendables"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2372,6 +2741,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "39",
     }),
     defineAccount("397", "Dépréciations des stocks de marchandises", {
+        examples: ["Dépréciation de 10 000 € sur des marchandises démodées en stock"],
         classNumber: 3,
         className: "Comptes de stocks et en-cours",
         type: "bilan",
@@ -2382,6 +2752,7 @@ export const accountEntries: AccountEntry[] = [
 
     // Classe 4 - Comptes de tiers
     defineAccount("4", "Comptes de tiers", {
+        examples: ["Ensemble des créances et dettes envers les tiers (fournisseurs, clients, État, salariés)"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2390,6 +2761,8 @@ export const accountEntries: AccountEntry[] = [
         parent: null,
     }),
     defineAccount("40", "Fournisseurs et comptes rattachés", {
+        description: "Dettes et avances liées à l'acquisition de biens ou de services.",
+        examples: ["Facture fournisseur de 5 000 € à régler sous 30 jours"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2399,6 +2772,7 @@ export const accountEntries: AccountEntry[] = [
     }),
     defineAccount("401", "Fournisseurs", {
         description: "Dettes envers les fournisseurs de biens et services.",
+        examples: ["Facture du fournisseur de matières premières"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2407,6 +2781,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "40",
     }),
     defineAccount("4011", "Fournisseurs - Achats de biens et prestations de services", {
+        examples: ["Facture fournisseur de 5 000 € HT pour achat de marchandises"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2415,6 +2790,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "401",
     }),
     defineAccount("4017", "Fournisseurs - Retenues de garantie", {
+        examples: ["Retenue de garantie de 5 % sur facture d'un sous-traitant BTP"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2423,6 +2799,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "401",
     }),
     defineAccount("403", "Fournisseurs - Effets à payer", {
+        examples: ["Lettre de change de 8 000 € acceptée en faveur d'un fournisseur"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2431,6 +2808,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "40",
     }),
     defineAccount("404", "Fournisseurs d'immobilisations", {
+        description: "Dettes envers les fournisseurs d'immobilisations incorporelles et corporelles.",
+        examples: ["Facture pour l'achat d'une machine-outil"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2439,6 +2818,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "40",
     }),
     defineAccount("4041", "Fournisseurs - Achats d'immobilisations", {
+        examples: ["Facture de 50 000 € pour l'achat d'une machine de production"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2447,6 +2827,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "404",
     }),
     defineAccount("4047", "Fournisseurs d'immobilisations - Retenues de garantie", {
+        examples: ["Retenue de garantie de 10 000 € sur l'achat d'un équipement industriel"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2455,6 +2836,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "404",
     }),
     defineAccount("405", "Fournisseurs d'immobilisations - Effets à payer", {
+        examples: ["Billet à ordre de 30 000 € pour l'acquisition d'un véhicule utilitaire"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2463,6 +2845,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "40",
     }),
     defineAccount("408", "Fournisseurs - Factures non parvenues", {
+        description: "Dettes fournisseurs dont les factures ne sont pas encore parvenues à la clôture de l'exercice.",
+        examples: ["Livraison reçue en décembre, facture reçue en janvier"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2471,6 +2855,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "40",
     }),
     defineAccount("4081", "Fournisseurs", {
+        examples: ["Facture non parvenue de 2 000 € pour une livraison de matières premières reçue"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2479,6 +2864,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "408",
     }),
     defineAccount("4084", "Fournisseurs d'immobilisations", {
+        examples: ["Facture non parvenue de 15 000 € pour des travaux d'aménagement réalisés"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2487,6 +2873,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "408",
     }),
     defineAccount("4088", "Fournisseurs - Intérêts courus", {
+        examples: ["Intérêts courus de 200 € sur une dette fournisseur à terme"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2495,6 +2882,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "408",
     }),
     defineAccount("409", "Fournisseurs débiteurs", {
+        examples: ["Avance de 3 000 € versée à un fournisseur sur une commande en cours"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2503,6 +2891,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "40",
     }),
     defineAccount("4091", "Fournisseurs - Avances et acomptes versés sur commandes", {
+        description: "Avances et acomptes versés aux fournisseurs sur commandes d'exploitation.",
+        examples: ["Acompte de 2 000 € versé à un fournisseur avant livraison"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2511,6 +2901,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "409",
     }),
     defineAccount("4096", "Fournisseurs - Créances pour emballages et matériel à rendre", {
+        description: "Créances correspondant aux emballages ou matériels consignés par les fournisseurs.",
+        examples: ["Palettes consignées à restituer au fournisseur"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2519,6 +2911,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "409",
     }),
     defineAccount("4097", "Fournisseurs - Autres avoirs", {
+        examples: ["Avoir de 1 000 € à recevoir d'un fournisseur pour retour de marchandises"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2527,6 +2920,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "409",
     }),
     defineAccount("40971", "Fournisseurs d'exploitation", {
+        examples: ["Avoir à recevoir de 500 € d'un fournisseur de fournitures de bureau"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2535,6 +2929,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "4097",
     }),
     defineAccount("40974", "Fournisseurs d'immobilisations", {
+        examples: ["Avoir à recevoir de 2 000 € d'un fournisseur de matériel informatique"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2543,6 +2938,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "4097",
     }),
     defineAccount("4098", "Rabais, remises, ristournes à obtenir et autres avoirs non encore reçus", {
+        examples: ["Ristourne annuelle de 3 000 € à recevoir d'un fournisseur en fin d'exercice"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2551,6 +2947,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "409",
     }),
     defineAccount("41", "Clients et comptes rattachés", {
+        description: "Créances liées à la vente de biens ou services rattachés au cycle d'exploitation.",
+        examples: ["Facture de vente de 8 000 € à encaisser sous 60 jours"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2560,6 +2958,7 @@ export const accountEntries: AccountEntry[] = [
     }),
     defineAccount("411", "Clients", {
         description: "Créances envers les clients pour les ventes réalisées.",
+        examples: ["Facture de vente de marchandises à un client"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2568,6 +2967,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "41",
     }),
     defineAccount("4111", "Clients - Ventes de biens ou de prestations de services", {
+        examples: ["Facture client de 10 000 € HT pour vente de marchandises"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2576,6 +2976,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "411",
     }),
     defineAccount("4117", "Clients - Retenues de garantie", {
+        examples: ["Retenue de garantie de 2 000 € sur un marché de travaux facturé"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2584,6 +2985,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "411",
     }),
     defineAccount("413", "Clients - Effets à recevoir", {
+        description: "Lettres de change acceptées ou billets à ordre reçus des clients.",
+        examples: ["Lettre de change acceptée par le client pour 10 000 €"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2592,6 +2995,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "41",
     }),
     defineAccount("416", "Clients douteux ou litigieux", {
+        description: "Créances clients dont le recouvrement est incertain ou fait l'objet d'un litige.",
+        examples: ["Créance de 5 000 € sur un client en difficulté financière"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2600,6 +3005,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "41",
     }),
     defineAccount("418", "Clients - Produits non encore facturés", {
+        description:
+            "Créances imputables à la période close pour lesquelles les factures n'ont pas encore été établies.",
+        examples: ["Livraison effectuée en décembre, facture émise en janvier"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2608,6 +3016,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "41",
     }),
     defineAccount("4181", "Clients - Factures à établir", {
+        examples: ["Facture à établir de 5 000 € pour une prestation livrée mais non encore facturée"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2616,6 +3025,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "418",
     }),
     defineAccount("4188", "Clients - Intérêts courus", {
+        examples: ["Intérêts courus de 150 € sur une créance client à terme"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2624,6 +3034,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "418",
     }),
     defineAccount("419", "Clients créditeurs", {
+        examples: ["Acompte de 4 000 € reçu d'un client sur une commande en cours"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2632,6 +3043,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "41",
     }),
     defineAccount("4191", "Clients - Avances et acomptes reçus sur commandes", {
+        description: "Avances et acomptes reçus des clients sur commandes à livrer ou services à rendre.",
+        examples: ["Acompte de 3 000 € reçu d'un client avant livraison"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2640,6 +3053,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "419",
     }),
     defineAccount("4196", "Clients - Dettes sur emballages et matériels consignés", {
+        description: "Sommes facturées aux clients au titre des consignations d'emballages ou de matériel.",
+        examples: ["Consigne de 200 € facturée au client pour des conteneurs"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2648,6 +3063,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "419",
     }),
     defineAccount("4197", "Clients - Autres avoirs", {
+        examples: ["Avoir de 800 € à émettre au client pour retour de produits défectueux"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2656,6 +3072,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "419",
     }),
     defineAccount("4198", "Rabais, remises, ristournes à accorder et autres avoirs à établir", {
+        examples: ["Ristourne de fin d'année de 2 500 € à accorder à un client fidèle"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2664,6 +3081,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "419",
     }),
     defineAccount("42", "Personnel et comptes rattachés", {
+        description: "Dettes et créances liées aux rémunérations du personnel et charges sociales associées.",
+        examples: ["Salaire net de 2 500 € à verser au salarié"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2673,6 +3092,7 @@ export const accountEntries: AccountEntry[] = [
     }),
     defineAccount("421", "Personnel - Rémunérations dues", {
         description: "Salaires nets à payer aux employés.",
+        examples: ["Salaire net de mars à verser le 5 avril"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2681,6 +3101,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "42",
     }),
     defineAccount("422", "Comité social et économique", {
+        description: "Sommes mises à disposition du comité social et économique de l'entité.",
+        examples: ["Subvention de fonctionnement versée au CSE"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2689,6 +3111,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "42",
     }),
     defineAccount("424", "Participation des salariés aux résultats", {
+        description: "Sommes attribuées aux salariés au titre de la participation aux résultats de l'entité.",
+        examples: ["Crédit de la réserve de participation de 15 000 €"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2697,6 +3121,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "42",
     }),
     defineAccount("4246", "Réserve spéciale", {
+        examples: ["Réserve spéciale de participation des salariés aux résultats"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2705,6 +3130,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "424",
     }),
     defineAccount("4248", "Comptes courants", {
+        examples: ["Compte courant d'associé de 20 000 € dans une SARL"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2713,6 +3139,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "424",
     }),
     defineAccount("425", "Personnel - Avances et acomptes et autres comptes débiteurs", {
+        description: "Avances et acomptes versés au personnel et autres créances liées aux charges de personnel.",
+        examples: ["Avance sur salaire de 500 € versée à un employé"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2721,6 +3149,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "42",
     }),
     defineAccount("426", "Personnel - Dépôts", {
+        description: "Sommes confiées en dépôt à l'entité par les membres de son personnel.",
+        examples: ["Dépôt de garantie de 1 000 € versé par un salarié pour un véhicule de fonction"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2729,6 +3159,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "42",
     }),
     defineAccount("427", "Personnel - Oppositions", {
+        description: "Sommes faisant l'objet d'oppositions obtenues par des tiers à l'encontre du personnel.",
+        examples: ["Retenue sur salaire de 300 €/mois suite à une saisie sur rémunération"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2737,6 +3169,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "42",
     }),
     defineAccount("428", "Personnel - Charges à payer", {
+        examples: ["Charges de personnel à payer en fin d'exercice"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2745,6 +3178,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "42",
     }),
     defineAccount("4282", "Dettes provisionnées pour congés à payer", {
+        examples: ["Provision pour congés payés acquis non pris de 15 000 €"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2753,6 +3187,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "428",
     }),
     defineAccount("4284", "Dettes provisionnées pour participation des salariés aux résultats", {
+        examples: ["Provision pour participation des salariés de 8 000 € à verser"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2761,6 +3196,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "428",
     }),
     defineAccount("4286", "Autres charges à payer", {
+        examples: ["Prime de 13e mois à payer de 25 000 € provisionnée en fin d'exercice"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2769,6 +3205,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "428",
     }),
     defineAccount("43", "Sécurité sociale et autres organismes sociaux", {
+        description: "Cotisations sociales dues à la Sécurité sociale et aux organismes sociaux.",
+        examples: ["Cotisations URSSAF à verser pour le mois de mars"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2777,6 +3215,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "4",
     }),
     defineAccount("431", "Sécurité sociale", {
+        examples: ["Cotisations URSSAF dues de 12 000 € sur les salaires du mois"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2785,6 +3224,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "43",
     }),
     defineAccount("437", "Autres organismes sociaux", {
+        examples: ["Cotisations retraite complémentaire AGIRC-ARRCO de 5 000 € dues"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2793,6 +3233,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "43",
     }),
     defineAccount("438", "Organismes sociaux - Charges à payer", {
+        examples: ["Charges sociales à payer sur congés payés provisionnés"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2801,6 +3242,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "43",
     }),
     defineAccount("4382", "Charges sociales sur congés à payer", {
+        examples: ["Charges patronales de 6 000 € calculées sur les congés payés à payer"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2809,6 +3251,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "438",
     }),
     defineAccount("4386", "Autres charges à payer", {
+        examples: ["Charges sociales à payer sur primes de fin d'année provisionnées"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2817,6 +3260,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "438",
     }),
     defineAccount("439", "Organismes sociaux - Produits à recevoir", {
+        examples: ["Remboursement d'indemnités journalières de 1 500 € à recevoir de la CPAM"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2825,6 +3269,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "43",
     }),
     defineAccount("44", "État et autres collectivités publiques", {
+        description: "Opérations avec l'État et les collectivités publiques (impôts, taxes, subventions).",
+        examples: ["TVA collectée à reverser à l'État", "Impôt sur les sociétés dû"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2833,6 +3279,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "4",
     }),
     defineAccount("441", "État - Subventions et aides à recevoir", {
+        description: "Subventions d'investissement, d'exploitation ou d'équilibre accordées mais non encore perçues.",
+        examples: ["Subvention d'exploitation de 10 000 € accordée par l'État, à recevoir"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2841,6 +3289,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "44",
     }),
     defineAccount("442", "Contributions, impôts et taxes recouvrés pour le compte de l'État", {
+        description: "Retenues effectuées par l'entité pour le compte de l'État (prélèvement à la source, etc.).",
+        examples: ["Taxe d'apprentissage collectée pour le compte de l'État"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2849,6 +3299,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "44",
     }),
     defineAccount("4421", "Prélèvements à la source (Impôt sur le revenu)", {
+        examples: ["Prélèvement à la source de 2 000 € retenu sur les salaires du mois"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2857,6 +3308,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "442",
     }),
     defineAccount("4422", "Prélèvements forfaitaires non libératoires", {
+        examples: ["Prélèvement forfaitaire de 500 € sur des dividendes versés aux associés"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2865,6 +3317,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "442",
     }),
     defineAccount("4423", "Retenues et prélèvements sur les distributions", {
+        examples: ["Retenue à la source de 1 200 € sur distribution de dividendes à un non-résident"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2873,6 +3326,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "442",
     }),
     defineAccount("444", "État - Impôts sur les bénéfices", {
+        description: "Impôt sur les sociétés ou impôt sur le revenu dû au titre des bénéfices de l'entité.",
+        examples: ["Acompte d'impôt sur les sociétés de 8 000 €"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2881,6 +3336,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "44",
     }),
     defineAccount("445", "État - Taxes sur le chiffre d'affaires", {
+        description: "TVA collectée pour le compte de l'État et TVA déductible à récupérer.",
+        examples: ["TVA à déclarer au titre du mois de mars"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2889,6 +3346,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "44",
     }),
     defineAccount("4452", "TVA due intracommunautaire", {
+        examples: ["TVA autoliquidée de 4 000 € sur une acquisition intracommunautaire"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2897,6 +3355,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "445",
     }),
     defineAccount("4455", "Taxes sur le chiffre d'affaires à décaisser", {
+        description: "TVA nette à verser au Trésor public au titre de la période.",
+        examples: ["TVA collectée de 4 000 € à reverser après déduction de la TVA déductible"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2905,6 +3365,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "445",
     }),
     defineAccount("44551", "TVA à décaisser", {
+        examples: ["TVA nette à décaisser de 3 500 € au titre du mois de janvier"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2913,6 +3374,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "4455",
     }),
     defineAccount("44558", "Taxes assimilées à la TVA", {
+        examples: ["Taxe sur les conventions d'assurances à reverser à l'État"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2922,6 +3384,7 @@ export const accountEntries: AccountEntry[] = [
     }),
     defineAccount("4456", "Taxes sur le chiffre d'affaires déductibles", {
         description: "TVA payée sur les achats, que l'État vous doit ou que vous pouvez déduire de la TVA collectée.",
+        examples: ["TVA déductible de 1 200 € sur une facture d'achat de marchandises"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2930,6 +3393,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "445",
     }),
     defineAccount("44562", "TVA sur immobilisations", {
+        examples: ["TVA déductible de 10 000 € sur l'achat d'un véhicule utilitaire"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2938,6 +3402,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "4456",
     }),
     defineAccount("44563", "TVA transférée par d'autres entités", {
+        examples: ["TVA de 1 000 € transférée par une filiale dans le cadre d'un groupe TVA"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2946,6 +3411,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "4456",
     }),
     defineAccount("44566", "TVA sur autres biens et services", {
+        examples: ["TVA déductible de 800 € sur facture de fournitures de bureau"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2954,6 +3420,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "4456",
     }),
     defineAccount("44567", "Crédit de TVA à reporter", {
+        examples: ["Crédit de TVA de 2 000 € reporté au mois suivant"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2962,6 +3429,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "4456",
     }),
     defineAccount("44568", "Taxes assimilées à la TVA", {
+        examples: ["Taxe assimilée à la TVA déductible sur achats de biens"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2971,6 +3439,7 @@ export const accountEntries: AccountEntry[] = [
     }),
     defineAccount("4457", "Taxes sur le chiffre d'affaires collectées", {
         description: "TVA facturée sur les ventes, que vous devez reverser à l'État.",
+        examples: ["TVA de 2 000 € collectée sur les ventes du mois"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2979,6 +3448,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "445",
     }),
     defineAccount("44571", "TVA collectée", {
+        examples: ["TVA collectée de 6 000 € sur les ventes du mois"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2987,6 +3457,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "4457",
     }),
     defineAccount("44578", "Taxes assimilées à la TVA", {
+        examples: ["Taxe assimilée à la TVA collectée sur les ventes"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -2995,6 +3466,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "4457",
     }),
     defineAccount("4458", "Taxes sur le chiffre d'affaires à régulariser ou en attente", {
+        examples: ["TVA en attente de régularisation de 1 500 €"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3003,6 +3475,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "445",
     }),
     defineAccount("44581", "Acomptes - Régime simplifié d'imposition", {
+        examples: ["Acompte de TVA de 2 500 € versé dans le cadre du régime simplifié"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3011,6 +3484,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "4458",
     }),
     defineAccount("44583", "Remboursement de taxes sur le chiffre d'affaires demandé", {
+        examples: ["Demande de remboursement de crédit de TVA de 5 000 €"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3019,6 +3493,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "4458",
     }),
     defineAccount("44584", "TVA récupérée d’avance", {
+        examples: ["TVA de 3 000 € récupérée d'avance sur immobilisation en cours"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3027,6 +3502,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "4458",
     }),
     defineAccount("44586", "Taxes sur le chiffre d’affaires sur factures non parvenues", {
+        examples: ["TVA de 400 € sur facture fournisseur non encore parvenue"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3035,6 +3511,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "4458",
     }),
     defineAccount("44587", "Taxes sur le chiffre d’affaires sur factures à établir", {
+        examples: ["TVA de 600 € sur facture client à établir"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3043,6 +3520,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "4458",
     }),
     defineAccount("446", "Obligations cautionnées", {
+        description: "Obligations cautionnées souscrites en règlement de taxes.",
+        examples: ["Obligations cautionnées souscrites pour différer le paiement de droits de douane"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3051,6 +3530,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "44",
     }),
     defineAccount("447", "Autres impôts, taxes et versements assimilés", {
+        description: "Tous impôts et taxes dus par l'entité autres que l'impôt sur les bénéfices et la TVA.",
+        examples: ["Taxe foncière à payer", "CFE (cotisation foncière des entreprises) due"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3059,6 +3540,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "44",
     }),
     defineAccount("448", "État - Charges à payer et produits à recevoir", {
+        examples: ["Crédit d'impôt recherche de 10 000 € à recevoir de l'État"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3067,6 +3549,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "44",
     }),
     defineAccount("4481", "État - Charges à Payer", {
+        examples: ["IS estimé à payer de 8 000 € au titre de l'exercice en cours"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3075,6 +3558,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "448",
     }),
     defineAccount("44811", "Charges fiscales sur congés à payer", {
+        examples: ["Charges fiscales de 1 200 € calculées sur les congés payés à payer"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3083,6 +3567,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "4481",
     }),
     defineAccount("44812", "Charges à payer", {
+        examples: ["Taxe sur les véhicules de société à payer de 2 000 €"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3091,6 +3576,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "4481",
     }),
     defineAccount("4482", "État - Produits à recevoir", {
+        examples: ["Crédit d'impôt formation de 1 500 € à recevoir"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3099,6 +3585,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "448",
     }),
     defineAccount("449", "Quotas d’émission à acquérir", {
+        examples: ["Quotas d'émission de CO2 à acquérir pour régularisation"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3107,6 +3594,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "44",
     }),
     defineAccount("45", "Groupe et associés", {
+        description: "Opérations financières avec les sociétés du groupe et les associés.",
+        examples: ["Compte courant d'associé créditeur de 50 000 €"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3115,6 +3604,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "4",
     }),
     defineAccount("451", "Groupe", {
+        description: "Fonds avancés ou reçus temporairement entre l'entité et les sociétés du groupe.",
+        examples: ["Créance de 30 000 € sur la société mère dans le cadre d'une convention de trésorerie"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3123,6 +3614,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "45",
     }),
     defineAccount("455", "Associés - Comptes courants", {
+        description: "Fonds mis ou laissés temporairement à la disposition de l'entité par les associés.",
+        examples: ["Avance en compte courant de 20 000 € d'un associé"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3131,6 +3624,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "45",
     }),
     defineAccount("4551", "Principal", {
+        examples: ["Principal de la dette de 5 000 € envers un associé pour son compte courant"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3139,6 +3633,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "455",
     }),
     defineAccount("4558", "Intérêts courus", {
+        examples: ["Intérêts courus de 300 € sur un compte courant d'associé"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3147,6 +3642,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "455",
     }),
     defineAccount("456", "Associés - Opérations sur le capital", {
+        description: "Opérations relatives à la création de l'entité ou à la modification de son capital.",
+        examples: ["Appel du 2e quart du capital : créance de 25 000 € sur les associés"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3155,6 +3652,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "45",
     }),
     defineAccount("4561", "Associés - Comptes d'apport en société", {
+        examples: ["Apport en nature d'un véhicule de 15 000 € par un associé fondateur"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3163,6 +3661,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "456",
     }),
     defineAccount("45611", "Apports en nature", {
+        examples: ["Apport en nature d'un fonds de commerce évalué à 50 000 €"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3171,6 +3670,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "4561",
     }),
     defineAccount("45615", "Apports en numéraire", {
+        examples: ["Apport en numéraire de 10 000 € par un nouvel associé"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3179,6 +3679,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "4561",
     }),
     defineAccount("4562", "Apporteurs - Capital appelé, non versé", {
+        examples: ["Capital souscrit de 20 000 € appelé mais non encore versé par les actionnaires"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3187,6 +3688,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "456",
     }),
     defineAccount("45621", "Actionnaires - Capital souscrit et appelé, non versé", {
+        examples: ["Appel de fonds de 5 000 € auprès des actionnaires d'une SA"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3195,6 +3697,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "4562",
     }),
     defineAccount("45625", "Associés - Capital appelé, non versé", {
+        examples: ["Capital de 8 000 € appelé non versé par un associé de SARL"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3203,6 +3706,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "4562",
     }),
     defineAccount("4563", "Associés - Versements reçus sur augmentation de capital", {
+        examples: ["Versement de 12 000 € reçu d'un associé lors d'une augmentation de capital"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3211,6 +3715,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "456",
     }),
     defineAccount("4564", "Associés - Versements anticipés", {
+        examples: ["Versement anticipé de 3 000 € par un actionnaire avant l'appel de fonds"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3219,6 +3724,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "456",
     }),
     defineAccount("4566", "Actionnaires défaillants", {
+        examples: ["Actionnaire défaillant n'ayant pas versé 5 000 € de capital appelé"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3227,6 +3733,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "456",
     }),
     defineAccount("4567", "Associés - Capital à rembourser", {
+        examples: ["Capital de 10 000 € à rembourser aux associés suite à une réduction de capital"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3235,6 +3742,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "456",
     }),
     defineAccount("457", "Associés - Dividendes à payer", {
+        description: "Dividendes dont la distribution a été décidée par les organes compétents.",
+        examples: ["Dividendes de 3 € par action à verser aux actionnaires"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3243,6 +3752,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "45",
     }),
     defineAccount("458", "Associés - Opérations faites en commun et en GIE", {
+        description:
+            "Mises de fonds et opérations courantes entre coparticipants d'une société en participation ou d'un GIE.",
+        examples: ["Part de charges communes dans un GIE à répartir entre les membres"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3251,6 +3763,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "45",
     }),
     defineAccount("4581", "Opérations courantes", {
+        examples: ["Opérations courantes de 7 000 € avec une société en participation"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3259,6 +3772,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "458",
     }),
     defineAccount("4588", "Intérêts courus", {
+        examples: ["Intérêts courus de 400 € sur opérations avec une société en participation"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3267,6 +3781,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "458",
     }),
     defineAccount("46", "Débiteurs divers et créditeurs divers", {
+        description: "Créances et dettes diverses ne relevant pas des comptes fournisseurs, clients ou personnel.",
+        examples: ["Créance de 5 000 € sur la vente d'un véhicule d'occasion"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3275,6 +3791,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "4",
     }),
     defineAccount("462", "Créances sur cessions d'immobilisations", {
+        description: "Prix de cession des immobilisations cédées, en attente de règlement.",
+        examples: ["Prix de cession de 80 000 € pour la vente d'un terrain"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3283,6 +3801,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "46",
     }),
     defineAccount("464", "Dettes sur acquisitions de valeurs mobilières de placement", {
+        examples: ["Achat de SICAV monétaires pour 50 000 € en attente de règlement"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3291,6 +3810,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "46",
     }),
     defineAccount("465", "Créances sur cessions de valeurs mobilières de placement", {
+        examples: ["Cession de 100 actions pour 15 000 €, créance en attente d'encaissement"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3299,6 +3819,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "46",
     }),
     defineAccount("467", "Divers comptes débiteurs et produits à recevoir", {
+        examples: ["Créance de 3 000 € sur un tiers pour cession d'un bien d'occasion"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3307,6 +3828,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "46",
     }),
     defineAccount("468", "Divers comptes créditeurs et charges à payer", {
+        examples: ["Dette de 2 000 € envers un tiers pour un dépôt reçu temporairement"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3315,6 +3837,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "46",
     }),
     defineAccount("47", "Comptes transitoires ou d'attente", {
+        description: "Opérations en attente d'imputation définitive à un compte déterminé.",
+        examples: ["Paiement reçu non identifié en attente d'imputation"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3323,6 +3847,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "4",
     }),
     defineAccount("471", "Comptes d'attente", {
+        examples: ["Chèque de 1 500 € reçu en attente d'identification du client"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3331,6 +3856,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "47",
     }),
     defineAccount("472", "Comptes d'attente", {
+        examples: ["Paiement de 800 € en attente d'affectation à un compte définitif"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3339,6 +3865,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "47",
     }),
     defineAccount("473", "Comptes d'attente", {
+        examples: ["Opération de 2 000 € à ventiler entre plusieurs comptes de charges"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3347,6 +3874,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "47",
     }),
     defineAccount("474", "Différences d’évaluation – Actif", {
+        examples: ["Gain latent de 5 000 € sur un contrat de couverture de taux"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3355,6 +3883,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "47",
     }),
     defineAccount("4741", "Différences d'évaluation sur instruments financiers à terme - Actif", {
+        examples: ["Plus-value latente de 3 000 € sur un swap de taux d'intérêt"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3363,6 +3892,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "474",
     }),
     defineAccount("4742", "Différences d'évaluation sur jetons détenus - Actif", {
+        examples: ["Gain latent de 1 000 € sur des jetons numériques détenus"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3371,6 +3901,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "474",
     }),
     defineAccount("4746", "Différences d’évaluation de jetons sur des passifs - Actif", {
+        examples: ["Gain latent sur réévaluation de jetons adossés à un passif"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3379,6 +3910,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "474",
     }),
     defineAccount("475", "Différences d’évaluation – Passif", {
+        examples: ["Perte latente de 4 000 € sur un contrat à terme de devises"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3387,6 +3919,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "47",
     }),
     defineAccount("4751", "Différences d'évaluation sur instruments financiers à terme - Passif", {
+        examples: ["Moins-value latente de 2 500 € sur un contrat de couverture de change"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3395,6 +3928,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "475",
     }),
     defineAccount("4752", "Différences d'évaluation sur jetons détenus - Passif", {
+        examples: ["Perte latente de 800 € sur des jetons numériques détenus"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3403,6 +3937,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "475",
     }),
     defineAccount("4756", "Différences d’évaluation de jetons sur des passifs - Passif", {
+        examples: ["Perte latente sur réévaluation de jetons adossés à un passif"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3411,6 +3946,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "475",
     }),
     defineAccount("476", "Différence de conversion - Actif", {
+        description: "Pertes latentes de change sur créances et dettes en devises à la clôture de l'exercice.",
+        examples: ["Perte de change latente de 1 500 € sur une créance en dollars à la clôture"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3419,6 +3956,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "47",
     }),
     defineAccount("4761", "Diminution des créances", {
+        examples: ["Perte latente de change de 1 500 € sur une créance en dollars US"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3427,6 +3965,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "476",
     }),
     defineAccount("4762", "Augmentation des dettes", {
+        examples: ["Perte latente de change de 2 000 € sur une dette en livres sterling"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3435,6 +3974,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "476",
     }),
     defineAccount("4768", "Différences compensées par couverture de change", {
+        examples: ["Gain de couverture de 1 000 € compensant une perte de change sur créance"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3443,6 +3983,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "476",
     }),
     defineAccount("477", "Différences de conversion - Passif", {
+        description: "Gains latents de change sur créances et dettes en devises à la clôture de l'exercice.",
+        examples: ["Gain de change latent de 800 € sur une dette en livres sterling à la clôture"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3451,6 +3993,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "47",
     }),
     defineAccount("4771", "Augmentation des créances", {
+        examples: ["Gain latent de change de 3 000 € sur une créance en francs suisses"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3459,6 +4002,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "477",
     }),
     defineAccount("4772", "Diminution des dettes", {
+        examples: ["Gain latent de change de 1 800 € sur une dette en yens"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3467,6 +4011,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "477",
     }),
     defineAccount("4778", "Différences compensées par couverture de change", {
+        examples: ["Perte de couverture compensant un gain de change sur dette"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3475,6 +4020,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "477",
     }),
     defineAccount("478", "Autres comptes transitoires", {
+        examples: ["Opération transitoire de 5 000 € en attente de régularisation en fin d'exercice"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3483,6 +4029,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "47",
     }),
     defineAccount("4781", "Mali de fusion sur actif circulant", {
+        examples: ["Mali de fusion de 2 000 € affecté à un stock de marchandises"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3491,6 +4038,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "478",
     }),
     defineAccount("48", "Comptes de régularisation", {
+        description: "Charges et produits constatés d'avance, frais d'émission d'emprunts et répartitions périodiques.",
+        examples: ["Loyer trimestriel payé d'avance en décembre pour janvier-mars"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3499,6 +4048,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "4",
     }),
     defineAccount("481", "Frais d’émission des emprunts", {
+        description: "Frais engagés lors de l’émission d’emprunts, amortis sur la durée de l’emprunt.",
+        examples: ["Frais de dossier de 3 000 € liés à l'émission d'un emprunt obligataire"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3507,6 +4058,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "48",
     }),
     defineAccount("486", "Charges constatées d'avance", {
+        description:
+            "Charges correspondant à des achats de biens ou services dont la fourniture interviendra ultérieurement.",
+        examples: ["Prime d'assurance annuelle payée en octobre, reportée pour 9 mois"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3515,6 +4069,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "48",
     }),
     defineAccount("487", "Produits constatés d'avance", {
+        description:
+            "Produits perçus ou comptabilisés avant que les prestations ou fournitures les justifiant aient été effectuées.",
+        examples: ["Abonnement annuel encaissé en avance, reporté sur les mois restants"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3523,6 +4080,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "48",
     }),
     defineAccount("4871", "Produits constatés d’avance sur jetons émis", {
+        examples: ["Produit constaté d'avance de 10 000 € sur jetons émis non encore utilisés"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3531,6 +4089,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "487",
     }),
     defineAccount("488", "Comptes de répartition périodique des charges et des produits", {
+        description:
+            "Charges et produits répartis par fractions égales entre les périodes comptables de l'exercice (système de l'abonnement).",
+        examples: ["Répartition mensuelle d'une prime d'assurance annuelle"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3539,6 +4100,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "48",
     }),
     defineAccount("4886", "Charges", {
+        examples: ["Charges constatées d'avance de 3 000 € (loyer payé d'avance)"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3547,6 +4109,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "488",
     }),
     defineAccount("4887", "Produits", {
+        examples: ["Produits constatés d'avance de 4 000 € (abonnement facturé d'avance)"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3555,6 +4118,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "488",
     }),
     defineAccount("49", "Dépréciations des comptes de tiers", {
+        description: "Pertes de valeur réversibles constatées sur les créances de tiers.",
+        examples: ["Dépréciation de 3 000 € sur la créance d'un client douteux"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3563,6 +4128,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "4",
     }),
     defineAccount("491", "Dépréciations des comptes de clients", {
+        examples: ["Dépréciation de 5 000 € sur créance douteuse d'un client en difficulté"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3571,6 +4137,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "49",
     }),
     defineAccount("495", "Dépréciations des comptes du groupe et des associés", {
+        examples: ["Dépréciation de 8 000 € sur un compte courant d'une filiale en difficulté"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3579,6 +4146,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "49",
     }),
     defineAccount("4951", "Comptes du groupe", {
+        examples: ["Dépréciation de 10 000 € sur créance envers une société du groupe"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3587,6 +4155,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "495",
     }),
     defineAccount("4955", "Comptes courants des associés", {
+        examples: ["Dépréciation de 6 000 € sur compte courant d'un associé insolvable"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3595,6 +4164,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "495",
     }),
     defineAccount("4958", "Opérations faites en commun et en GIE", {
+        examples: ["Dépréciation de 3 000 € sur créance liée à un GIE en liquidation"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3603,6 +4173,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "495",
     }),
     defineAccount("496", "Dépréciations des comptes de débiteurs divers", {
+        examples: ["Dépréciation de 2 000 € sur créance diverse douteuse"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3611,6 +4182,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "49",
     }),
     defineAccount("4962", "Créances sur cessions d'immobilisations", {
+        examples: ["Dépréciation de 4 000 € sur créance de cession d'un terrain"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3619,6 +4191,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "496",
     }),
     defineAccount("4965", "Créances sur cessions de valeurs mobilières de placement", {
+        examples: ["Dépréciation de 1 500 € sur créance de cession de titres de placement"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3627,6 +4200,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "496",
     }),
     defineAccount("4967", "Autres comptes débiteurs", {
+        examples: ["Dépréciation de 1 000 € sur créance diverse envers un débiteur douteux"],
         classNumber: 4,
         className: "Comptes de tiers",
         type: "bilan",
@@ -3637,6 +4211,7 @@ export const accountEntries: AccountEntry[] = [
 
     // Classe 5 - Comptes financiers
     defineAccount("5", "Comptes financiers", {
+        examples: ["Ensemble des comptes de trésorerie : banque, caisse, placements à court terme"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3645,6 +4220,8 @@ export const accountEntries: AccountEntry[] = [
         parent: null,
     }),
     defineAccount("50", "Valeurs mobilières de placement", {
+        description: "Titres acquis en vue de réaliser un gain à brève échéance.",
+        examples: ["Achat de 100 actions Société Générale pour un placement à court terme"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3653,6 +4230,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "5",
     }),
     defineAccount("502", "Actions propres", {
+        description:
+            "Actions de la société rachetées par elle-même, pour régularisation des cours ou attribution aux salariés.",
+        examples: ["Rachat de 200 actions propres pour réguler le cours en bourse"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3661,6 +4241,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "50",
     }),
     defineAccount("5021", "Actions destinées à être attribuées aux employés et affectées à des plans déterminés", {
+        examples: ["Actions propres de 20 000 € destinées à un plan d'attribution aux salariés"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3672,6 +4253,7 @@ export const accountEntries: AccountEntry[] = [
         "5022",
         "Actions disponibles pour être attribuées aux employés ou pour la régularisation des cours de bourse",
         {
+            examples: ["Actions propres de 15 000 € rachetées pour régulariser le cours de bourse"],
             classNumber: 5,
             className: "Comptes financiers",
             type: "bilan",
@@ -3681,6 +4263,7 @@ export const accountEntries: AccountEntry[] = [
         },
     ),
     defineAccount("503", "Actions", {
+        examples: ["Portefeuille d'actions cotées de placement à court terme pour 30 000 €"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3689,6 +4272,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "50",
     }),
     defineAccount("5031", "Titres cotés", {
+        examples: ["Actions Société Générale détenues en placement court terme pour 10 000 €"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3697,6 +4281,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "503",
     }),
     defineAccount("5035", "Titres non cotés", {
+        examples: ["Actions non cotées d'une PME acquises pour 5 000 € en placement"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3705,6 +4290,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "503",
     }),
     defineAccount("504", "Autres titres conférant un droit de propriété", {
+        examples: ["Parts de SCPI acquises pour 20 000 € en placement à court terme"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3713,6 +4299,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "50",
     }),
     defineAccount("505", "Obligations et bons émis par la société et rachetés par elle", {
+        examples: ["Obligations propres rachetées pour 50 000 € en vue de leur annulation"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3721,6 +4308,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "50",
     }),
     defineAccount("506", "Obligations", {
+        examples: ["Obligations d'État achetées pour 40 000 € en placement de trésorerie"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3729,6 +4317,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "50",
     }),
     defineAccount("5061", "Titres cotés", {
+        examples: ["Obligations cotées Renault détenues pour 15 000 €"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3737,6 +4326,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "506",
     }),
     defineAccount("5065", "Titres non cotés", {
+        examples: ["Obligations non cotées d'une PME souscrites pour 8 000 €"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3745,6 +4335,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "506",
     }),
     defineAccount("507", "Bons du Trésor et bons de caisse à court terme", {
+        examples: ["Bons du Trésor de 25 000 € acquis pour placement de trésorerie à 3 mois"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3753,6 +4344,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "50",
     }),
     defineAccount("508", "Autres valeurs mobilières de placement et autres créances assimilées", {
+        examples: ["Parts de FCP monétaire de 60 000 € en placement de trésorerie"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3761,6 +4353,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "50",
     }),
     defineAccount("5081", "Autres valeurs mobilières", {
+        examples: ["Parts de SICAV obligataires pour 35 000 €"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3769,6 +4362,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "508",
     }),
     defineAccount("5082", "Bons de souscription", {
+        examples: ["Bons de souscription d'actions acquis pour 2 000 €"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3777,6 +4371,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "508",
     }),
     defineAccount("5088", "Intérêts courus sur obligations, bons et valeurs assimilés", {
+        examples: ["Intérêts courus de 500 € sur obligations détenues en portefeuille"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3785,6 +4380,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "508",
     }),
     defineAccount("509", "Versements restant à effectuer sur valeurs mobilières de placement non libérées", {
+        examples: ["Versement restant de 3 000 € sur des parts de SICAV non entièrement libérées"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3793,6 +4389,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "50",
     }),
     defineAccount("51", "Banques, établissements financiers et assimilés", {
+        examples: ["Solde du compte bancaire principal de l'entreprise"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3801,6 +4398,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "5",
     }),
     defineAccount("511", "Valeurs à l'encaissement", {
+        description: "Coupons, chèques et effets remis à l'encaissement ou à l'escompte.",
+        examples: ["Chèque client de 5 000 € remis à l'encaissement"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3809,6 +4408,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "51",
     }),
     defineAccount("5111", "Coupons échus à l'encaissement", {
+        examples: ["Coupons d'obligations échus de 1 200 € en attente d'encaissement"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3817,6 +4417,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "511",
     }),
     defineAccount("5112", "Chèques à encaisser", {
+        examples: ["Chèques clients de 4 500 € remis en banque en attente d'encaissement"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3825,6 +4426,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "511",
     }),
     defineAccount("5113", "Effets à l'encaissement", {
+        examples: ["Effets de commerce de 8 000 € remis à l'encaissement"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3833,6 +4435,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "511",
     }),
     defineAccount("5114", "Effets à l'escompte", {
+        examples: ["Lettre de change de 6 000 € remise à l'escompte auprès de la banque"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3842,6 +4445,7 @@ export const accountEntries: AccountEntry[] = [
     }),
     defineAccount("512", "Banques", {
         description: "Compte courant bancaire de l'organisation.",
+        examples: ["Virement de 10 000 € reçu d'un client sur le compte bancaire"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3850,6 +4454,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "51",
     }),
     defineAccount("5121", "Comptes en euros", {
+        examples: ["Solde du compte courant en euros au Crédit Mutuel de 45 000 €"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3858,6 +4463,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "512",
     }),
     defineAccount("5124", "Comptes en devises", {
+        examples: ["Solde du compte en dollars US de 10 000 $ auprès de BNP Paribas"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3866,6 +4472,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "512",
     }),
     defineAccount("517", "Autres organismes financiers", {
+        examples: ["Compte ouvert auprès de la Caisse des Dépôts et Consignations"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3874,6 +4481,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "51",
     }),
     defineAccount("518", "Intérêts courus", {
+        examples: ["Intérêts courus sur les comptes et concours bancaires"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3882,6 +4490,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "51",
     }),
     defineAccount("5181", "Intérêts courus à payer", {
+        examples: ["Intérêts courus à payer de 600 € sur un découvert bancaire"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3890,6 +4499,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "518",
     }),
     defineAccount("5188", "Intérêts courus à recevoir", {
+        examples: ["Intérêts courus à recevoir de 200 € sur un compte à terme"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3898,6 +4508,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "518",
     }),
     defineAccount("519", "Concours bancaires courants", {
+        description:
+            "Crédits de trésorerie à court terme consentis par les banques, y compris mobilisation de créances.",
+        examples: ["Découvert bancaire de 15 000 € accordé par la banque"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3906,6 +4519,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "51",
     }),
     defineAccount("5191", "Crédit de mobilisation de créances commerciales", {
+        examples: ["Mobilisation de créances commerciales (CMCC) de 30 000 € auprès de la banque"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3914,6 +4528,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "519",
     }),
     defineAccount("5193", "Mobilisation de créances nées à l'étranger", {
+        examples: ["Mobilisation de créances export de 20 000 € nées à l'étranger"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3922,6 +4537,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "519",
     }),
     defineAccount("5198", "Intérêts courus sur concours bancaires courants", {
+        examples: ["Intérêts courus de 150 € sur facilité de caisse bancaire"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3930,6 +4546,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "519",
     }),
     defineAccount("52", "Instruments financiers à terme et jetons détenus", {
+        description:
+            "Opérations sur instruments financiers à terme et jetons numériques détenus, auto-détenus ou empruntés.",
+        examples: ["Contrat d'option de change pour couvrir une opération en dollars"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3938,6 +4557,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "5",
     }),
     defineAccount("521", "Instruments financiers à terme", {
+        examples: ["Contrat à terme sur devises pour couvrir un risque de change de 50 000 €"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3946,6 +4566,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "52",
     }),
     defineAccount("522", "Jetons détenus", {
+        examples: ["Jetons numériques (tokens) détenus pour 5 000 € en trésorerie"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3954,6 +4575,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "52",
     }),
     defineAccount("523", "Jetons auto-détenus", {
+        examples: ["Jetons propres auto-détenus par l'émetteur pour 8 000 €"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3962,6 +4584,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "52",
     }),
     defineAccount("524", "Jetons empruntés", {
+        examples: ["Jetons empruntés pour 3 000 € dans le cadre d'une opération de DeFi"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3971,6 +4594,7 @@ export const accountEntries: AccountEntry[] = [
     }),
     defineAccount("53", "Caisse", {
         description: "Espèces détenues par l'organisation.",
+        examples: ["Encaissement de 150 € en espèces pour une vente au comptoir"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3979,6 +4603,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "5",
     }),
     defineAccount("58", "Virements internes", {
+        description:
+            "Comptes de passage utilisés pour les virements de fonds entre comptes de banque ou de caisse, soldés en fin d'opération.",
+        examples: ["Virement de 5 000 € du compte bancaire vers la caisse"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3987,6 +4614,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "5",
     }),
     defineAccount("59", "Dépréciations des comptes financiers", {
+        description: "Pertes de valeur réversibles constatées sur les valeurs mobilières de placement.",
+        examples: ["Dépréciation de 2 000 € sur des actions de placement dont le cours a baissé"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -3995,6 +4624,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "5",
     }),
     defineAccount("590", "Dépréciations des valeurs mobilières de placement", {
+        examples: ["Dépréciation de 2 000 € sur un portefeuille de SICAV en moins-value"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -4003,6 +4633,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "59",
     }),
     defineAccount("5903", "Actions", {
+        examples: ["Dépréciation de 3 000 € sur des actions cotées en portefeuille"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -4011,6 +4642,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "590",
     }),
     defineAccount("5904", "Autres titres conférant un droit de propriété", {
+        examples: ["Dépréciation de 1 500 € sur des parts de SCPI en placement"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -4019,6 +4651,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "590",
     }),
     defineAccount("5906", "Obligations", {
+        examples: ["Dépréciation de 1 000 € sur des obligations en portefeuille"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -4027,6 +4660,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "590",
     }),
     defineAccount("5908", "Autres valeurs mobilières de placement et créances assimilées", {
+        examples: ["Dépréciation de 500 € sur des parts de FCP monétaire"],
         classNumber: 5,
         className: "Comptes financiers",
         type: "bilan",
@@ -4037,6 +4671,7 @@ export const accountEntries: AccountEntry[] = [
 
     // Classe 6 - Comptes de charges
     defineAccount("6", "Comptes de charges", {
+        examples: ["Ensemble des charges d'exploitation, financières et exceptionnelles de l'exercice"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4045,6 +4680,9 @@ export const accountEntries: AccountEntry[] = [
         parent: null,
     }),
     defineAccount("60", "Achats (sauf 603)", {
+        description:
+            "Achats de matières, marchandises, études et prestations de services intégrés au cycle de production.",
+        examples: ["Achat de matières premières pour 12 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4053,6 +4691,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6",
     }),
     defineAccount("601", "Achats stockés - Matières premières et fournitures", {
+        examples: ["Achat de 20 000 € de matières premières stockées (acier, bois, tissu)"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4061,6 +4700,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "60",
     }),
     defineAccount("602", "Achats stockés - Autres approvisionnements", {
+        examples: ["Achat de fournitures consommables stockées pour 5 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4069,6 +4709,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "60",
     }),
     defineAccount("6021", "Matières consommables", {
+        examples: ["Achat de peinture et solvants pour 3 000 € pour la production"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4077,6 +4718,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "602",
     }),
     defineAccount("6022", "Fournitures consommables", {
+        examples: ["Achat de fournitures consommables diverses pour 2 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4085,6 +4727,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "602",
     }),
     defineAccount("60221", "Combustibles", {
+        examples: ["Achat de fioul pour le chauffage de l'atelier pour 1 500 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4093,6 +4736,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6022",
     }),
     defineAccount("60222", "Produits d'entretien", {
+        examples: ["Achat de produits de nettoyage industriel pour 400 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4101,6 +4745,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6022",
     }),
     defineAccount("60223", "Fournitures d'atelier et d'usine", {
+        examples: ["Achat de consommables d'atelier (disques de meulage, forets) pour 800 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4109,6 +4754,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6022",
     }),
     defineAccount("60224", "Fournitures de magasin", {
+        examples: ["Achat de matériel d'emballage et de conditionnement pour 600 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4117,6 +4763,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6022",
     }),
     defineAccount("60225", "Fourniture de bureau", {
+        examples: ["Achat de ramettes de papier et cartouches d'encre pour 350 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4125,6 +4772,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6022",
     }),
     defineAccount("6026", "Emballages", {
+        examples: ["Achat d'emballages de conditionnement pour 1 200 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4133,6 +4781,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "602",
     }),
     defineAccount("60261", "Emballages perdus", {
+        examples: ["Achat de cartons d'expédition jetables pour 500 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4141,6 +4790,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6026",
     }),
     defineAccount("60262", "Malis sur emballage", {
+        examples: ["Perte sur emballages consignés non restitués par les clients"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4149,6 +4799,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6026",
     }),
     defineAccount("60265", "Emballages récupérables non identifiables", {
+        examples: ["Achat de palettes Europe réutilisables pour 800 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4157,6 +4808,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6026",
     }),
     defineAccount("60267", "Emballages à usage mixte", {
+        examples: ["Achat de fûts à usage mixte (réutilisables ou jetables) pour 400 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4165,6 +4817,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "6026",
     }),
     defineAccount("604", "Achats d'études et prestations de services", {
+        description: "Études et prestations sous-traitées s'intégrant directement dans le cycle de production.",
+        examples: ["Étude technique commandée à un bureau d'ingénierie"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4173,6 +4827,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "60",
     }),
     defineAccount("605", "Achats de matériel, équipements et travaux", {
+        description:
+            "Matériel, équipements et travaux sous-traités s'intégrant directement dans le cycle de production.",
+        examples: ["Achat de pièces détachées pour la maintenance d'équipements"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4182,6 +4839,7 @@ export const accountEntries: AccountEntry[] = [
     }),
     defineAccount("606", "Achats non stockés de matière et fournitures", {
         description: "Fournitures de bureau, petites fournitures consommables.",
+        examples: ["Achat de fournitures de bureau (papier, cartouches d'encre)", "Facture d'électricité des locaux"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4190,6 +4848,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "60",
     }),
     defineAccount("6061", "Fournitures non stockables (eau, énergie, etc.)", {
+        examples: ["Facture EDF de 3 000 € pour l'électricité et facture d'eau de 500 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4198,6 +4857,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "606",
     }),
     defineAccount("6063", "Fournitures d'entretien et de petit équipement", {
+        examples: ["Achat de petit outillage et fournitures d'entretien pour 1 200 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4206,6 +4866,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "606",
     }),
     defineAccount("6064", "Fournitures administratives", {
+        examples: ["Achat de fournitures de bureau non stockées pour 300 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4214,6 +4875,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "606",
     }),
     defineAccount("6068", "Autres matières et fournitures", {
+        examples: ["Achat de vêtements de travail pour le personnel pour 800 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4222,6 +4884,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "606",
     }),
     defineAccount("607", "Achats de marchandises", {
+        description: "Achats de biens destinés à être revendus en l'état.",
+        examples: ["Achat de marchandises pour revente à un grossiste"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4233,6 +4897,7 @@ export const accountEntries: AccountEntry[] = [
         "608",
         "(Compte réservé, le cas échéant, au regroupement des frais accessoires incorporés aux achats)",
         {
+            examples: ["Frais de transport de 500 € incorporés au coût d'achat des matières premières"],
             classNumber: 6,
             className: "Comptes de charges",
             type: "résultat",
@@ -4242,6 +4907,8 @@ export const accountEntries: AccountEntry[] = [
         },
     ),
     defineAccount("609", "Rabais, remises et ristournes obtenus sur achats (même ventilation que celle du compte 60)", {
+        description: "Réductions obtenues des fournisseurs, non déduites des factures d'achats initiales.",
+        examples: ["Remise de 5 % obtenue sur une commande importante de matières premières"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4250,6 +4917,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "60",
     }),
     defineAccount("6098", "Rabais, remises et ristournes non affectés", {
+        examples: ["Rabais de 1 000 € non affecté à un achat spécifique"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4258,6 +4926,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "609",
     }),
     defineAccount("603", "Variation des stocks d'approvisionnements et de marchandises", {
+        description:
+            "Différence entre la valeur du stock final et du stock initial d'approvisionnements et de marchandises.",
+        examples: ["Augmentation du stock de marchandises de 5 000 € en fin d'exercice"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4266,6 +4937,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "60",
     }),
     defineAccount("6031", "Variation des stocks de matières premières et fournitures", {
+        examples: ["Variation de stock de matières premières : stock initial 10 000 €, stock final 8 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4274,6 +4946,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "603",
     }),
     defineAccount("6032", "Variation des stocks des autres approvisionnements", {
+        examples: ["Variation de stock de fournitures : stock initial 3 000 €, stock final 3 500 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4282,6 +4955,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "603",
     }),
     defineAccount("6037", "Variation des stocks de marchandises 61/62 Autres charges externes", {
+        examples: ["Variation de stock de marchandises : stock initial 50 000 €, stock final 45 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4290,6 +4964,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "603",
     }),
     defineAccount("61", "Services extérieurs", {
+        examples: ["Charges de sous-traitance, locations, assurances et entretien"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4298,6 +4973,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "6",
     }),
     defineAccount("611", "Sous-traitance générale", {
+        description: "Sous-traitance autre que celle inscrite aux comptes 604 et 605.",
+        examples: ["Sous-traitance de la fabrication d'un composant à un prestataire"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4306,6 +4983,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "61",
     }),
     defineAccount("612", "Redevances de crédit-bail", {
+        description: "Loyers versés dans le cadre de contrats de crédit-bail mobilier ou immobilier.",
+        examples: ["Loyer mensuel de 800 € pour un véhicule utilitaire en crédit-bail"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4314,6 +4993,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "61",
     }),
     defineAccount("6122", "Crédit-bail mobilier", {
+        examples: ["Redevance mensuelle de crédit-bail de 1 500 € pour un véhicule utilitaire"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4322,6 +5002,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "612",
     }),
     defineAccount("6125", "Crédit-bail immobilier", {
+        examples: ["Redevance trimestrielle de crédit-bail de 8 000 € pour des locaux commerciaux"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4331,6 +5012,7 @@ export const accountEntries: AccountEntry[] = [
     }),
     defineAccount("613", "Locations", {
         description: "Loyers et charges locatives.",
+        examples: ["Loyer mensuel des bureaux de 3 000 €", "Location d'un photocopieur"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4339,6 +5021,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "61",
     }),
     defineAccount("6132", "Locations immobilières", {
+        examples: ["Loyer mensuel de 3 000 € pour les bureaux de l'entreprise"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4347,6 +5030,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "613",
     }),
     defineAccount("6135", "Locations mobilières", {
+        examples: ["Location mensuelle de 500 € pour une photocopieuse professionnelle"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4355,6 +5039,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "613",
     }),
     defineAccount("614", "Charges locatives et de copropriété", {
+        examples: ["Charges de copropriété de 2 000 € par trimestre pour les bureaux"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4363,6 +5048,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "61",
     }),
     defineAccount("615", "Entretien et réparation", {
+        examples: ["Réparation de la toiture de l'entrepôt pour 5 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4371,6 +5057,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "61",
     }),
     defineAccount("6152", "Entretien et réparation sur biens immobiliers", {
+        examples: ["Réfection de la peinture des bureaux pour 3 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4379,6 +5066,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "615",
     }),
     defineAccount("6155", "Entretien et réparation sur biens mobiliers", {
+        examples: ["Réparation d'une machine de production pour 2 500 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4387,6 +5075,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "615",
     }),
     defineAccount("6156", "Maintenance", {
+        examples: ["Contrat de maintenance annuel du système informatique pour 4 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4395,6 +5084,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "615",
     }),
     defineAccount("616", "Primes d'assurances", {
+        examples: ["Primes d'assurance totales de l'entreprise pour 6 000 € par an"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4403,6 +5093,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "61",
     }),
     defineAccount("6161", "Multirisques", {
+        examples: ["Prime d'assurance multirisques professionnelle de 3 000 € par an"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4411,6 +5102,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "616",
     }),
     defineAccount("6162", "Assurance obligatoire dommage construction", {
+        examples: ["Assurance dommage-ouvrage de 5 000 € pour un chantier de construction"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4419,6 +5111,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "616",
     }),
     defineAccount("6163", "Assurance - transport", {
+        examples: ["Prime d'assurance transport de marchandises de 1 200 € par an"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4427,6 +5120,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "616",
     }),
     defineAccount("61636", "sur achats", {
+        examples: ["Assurance transport sur achats de matières premières importées"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4435,6 +5129,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6163",
     }),
     defineAccount("61637", "sur ventes", {
+        examples: ["Assurance transport sur ventes de produits expédiés aux clients"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4443,6 +5138,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6163",
     }),
     defineAccount("61638", "sur autres biens", {
+        examples: ["Assurance transport sur transfert de matériel entre établissements"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4451,6 +5147,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6163",
     }),
     defineAccount("6164", "Risques d'exploitation", {
+        examples: ["Assurance perte d'exploitation de 2 500 € par an"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4459,6 +5156,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "616",
     }),
     defineAccount("6165", "Insolvabilité clients", {
+        examples: ["Assurance-crédit contre l'insolvabilité des clients pour 1 800 € par an"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4467,6 +5165,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "616",
     }),
     defineAccount("617", "Études et recherches", {
+        examples: ["Sous-traitance d'une étude de marché pour 10 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4475,6 +5174,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "61",
     }),
     defineAccount("618", "Divers", {
+        examples: ["Documentation et frais divers de services extérieurs"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4483,6 +5183,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "61",
     }),
     defineAccount("6181", "Documentation générale", {
+        examples: ["Abonnement annuel à une revue économique pour 500 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4491,6 +5192,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "618",
     }),
     defineAccount("6183", "Documentation technique", {
+        examples: ["Abonnement à une base de données technique pour 1 200 € par an"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4499,6 +5201,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "618",
     }),
     defineAccount("6185", "Frais de colloques, séminaires, conférences", {
+        examples: ["Inscription à un séminaire professionnel pour 800 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4507,6 +5210,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "618",
     }),
     defineAccount("619", "Rabais, remises et ristournes obtenus sur services extérieurs", {
+        examples: ["Ristourne annuelle de 2 000 € obtenue d'un prestataire de services"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4515,6 +5219,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "61",
     }),
     defineAccount("62", "Autres services extérieurs", {
+        examples: ["Honoraires, publicité, transport, déplacements et frais bancaires"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4523,6 +5228,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6",
     }),
     defineAccount("621", "Personnel extérieur à l'entité", {
+        examples: ["Facture de 8 000 € pour du personnel intérimaire sur un mois"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4531,6 +5237,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "62",
     }),
     defineAccount("6211", "Personnel intérimaire", {
+        examples: ["Facture d'agence d'intérim de 5 000 € pour un opérateur de production"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4539,6 +5246,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "621",
     }),
     defineAccount("6214", "Personnel détaché ou prêté à l'entité", {
+        examples: ["Facture de 3 000 € pour un ingénieur détaché par une société partenaire"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4547,6 +5255,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "621",
     }),
     defineAccount("622", "Rémunérations d'intermédiaires et honoraires", {
+        description: "Commissions, courtages, honoraires et rémunérations d'affacturage versés à des tiers.",
+        examples: ["Honoraires de l'expert-comptable pour 4 000 €", "Commission d'un agent commercial"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4555,6 +5265,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "62",
     }),
     defineAccount("6221", "Commissions et courtages sur achats", {
+        examples: ["Commission de 500 € versée à un courtier pour un achat de matières premières"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4563,6 +5274,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "622",
     }),
     defineAccount("6222", "Commissions et courtages sur ventes", {
+        examples: ["Commission de 2 % sur ventes versée à un agent commercial soit 3 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4571,6 +5283,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "622",
     }),
     defineAccount("6224", "Rémunérations des transitaires", {
+        examples: ["Honoraires de 1 500 € versés à un transitaire pour dédouanement"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4579,6 +5292,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "622",
     }),
     defineAccount("6225", "Rémunérations d'affacturage", {
+        examples: ["Commission d'affacturage de 1 000 € pour la gestion des créances clients"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4587,6 +5301,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "622",
     }),
     defineAccount("6226", "Honoraires", {
+        examples: ["Honoraires d'expert-comptable de 4 000 € pour la tenue des comptes annuels"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4595,6 +5310,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "622",
     }),
     defineAccount("6227", "Frais d'actes et de contentieux", {
+        examples: ["Frais d'avocat de 2 500 € pour la rédaction d'un contrat commercial"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4603,6 +5319,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "622",
     }),
     defineAccount("6228", "Divers", {
+        examples: ["Honoraires divers de 800 € pour un conseil en stratégie"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4611,6 +5328,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "622",
     }),
     defineAccount("623", "Publicité, publications, relations publiques", {
+        examples: ["Budget publicitaire annuel de 15 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4619,6 +5337,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "62",
     }),
     defineAccount("6231", "Annonces et insertions", {
+        examples: ["Annonce de recrutement dans un journal professionnel pour 600 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4627,6 +5346,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "623",
     }),
     defineAccount("6232", "Échantillons", {
+        examples: ["Échantillons de produits envoyés à des prospects pour 1 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4635,6 +5355,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "623",
     }),
     defineAccount("6233", "Foires et expositions", {
+        examples: ["Stand au salon professionnel de Lyon pour 5 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4643,6 +5364,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "623",
     }),
     defineAccount("6234", "Cadeaux à la clientèle", {
+        examples: ["Cadeaux de fin d'année aux clients pour 2 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4651,6 +5373,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "623",
     }),
     defineAccount("6235", "Primes", {
+        examples: ["Primes promotionnelles versées aux distributeurs pour 3 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4659,6 +5382,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "623",
     }),
     defineAccount("6236", "Catalogues et imprimés", {
+        examples: ["Impression de catalogues commerciaux pour 1 500 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4667,6 +5391,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "623",
     }),
     defineAccount("6237", "Publications", {
+        examples: ["Publication d'un article sponsorisé dans une revue pour 800 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4675,6 +5400,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "623",
     }),
     defineAccount("6238", "Divers (pourboires, dons courants)", {
+        examples: ["Pourboires et dons courants pour 200 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4683,6 +5409,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "623",
     }),
     defineAccount("624", "Transports de biens et transports collectifs du personnel", {
+        examples: ["Frais de transport total de 6 000 € sur l'exercice"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4691,6 +5418,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "62",
     }),
     defineAccount("6241", "Transports sur achats", {
+        examples: ["Transport de marchandises achetées pour 2 000 € (livraison fournisseur)"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4699,6 +5427,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "624",
     }),
     defineAccount("6242", "Transports sur ventes", {
+        examples: ["Frais d'expédition de 3 000 € pour livrer les produits aux clients"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4707,6 +5436,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "624",
     }),
     defineAccount("6243", "Transports entre établissements ou chantiers", {
+        examples: ["Transport de matériel entre l'usine et un chantier pour 800 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4715,6 +5445,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "624",
     }),
     defineAccount("6244", "Transports administratifs", {
+        examples: ["Frais de coursier pour envoi de documents administratifs pour 200 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4723,6 +5454,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "624",
     }),
     defineAccount("6247", "Transports collectifs du personnel", {
+        examples: ["Navette de transport collectif du personnel pour 1 500 € par mois"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4731,6 +5463,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "624",
     }),
     defineAccount("6248", "Divers", {
+        examples: ["Frais de transport divers de 400 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4739,6 +5472,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "624",
     }),
     defineAccount("625", "Déplacements, missions et réceptions", {
+        examples: ["Frais de déplacements et réceptions de 8 000 € sur l'exercice"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4747,6 +5481,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "62",
     }),
     defineAccount("6251", "Voyages et déplacements", {
+        examples: ["Billets de train Paris-Lyon pour 350 € et hôtel pour 150 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4755,6 +5490,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "625",
     }),
     defineAccount("6255", "Frais de déménagement", {
+        examples: ["Frais de déménagement des bureaux pour 5 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4763,6 +5499,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "625",
     }),
     defineAccount("6256", "Missions", {
+        examples: ["Mission de 3 jours chez un client : transport, hôtel et repas pour 900 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4771,6 +5508,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "625",
     }),
     defineAccount("6257", "Réceptions", {
+        examples: ["Repas d'affaires avec un client pour 250 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4779,6 +5517,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "625",
     }),
     defineAccount("626", "Frais postaux et de télécommunications", {
+        examples: ["Abonnement téléphonique et internet de 300 € par mois"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4787,6 +5526,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "62",
     }),
     defineAccount("627", "Services bancaires et assimilés", {
+        examples: ["Frais bancaires totaux de 2 000 € sur l'exercice"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4795,6 +5535,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "62",
     }),
     defineAccount("6271", "Frais sur titres (achat, vente, garde)", {
+        examples: ["Frais de courtage de 150 € pour achat/vente de titres de placement"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4803,6 +5544,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "627",
     }),
     defineAccount("6272", "Commissions et frais sur émission d'emprunts", {
+        examples: ["Commission bancaire de 3 000 € sur émission d'un emprunt obligataire"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4811,6 +5553,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "627",
     }),
     defineAccount("6275", "Frais sur effets", {
+        examples: ["Frais d'escompte de 200 € sur une lettre de change"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4819,6 +5562,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "627",
     }),
     defineAccount("6276", "Location de coffres", {
+        examples: ["Location annuelle d'un coffre-fort bancaire pour 300 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4827,6 +5571,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "627",
     }),
     defineAccount("6278", "Autres frais et commissions sur prestations de services", {
+        examples: ["Commission de tenue de compte bancaire de 100 € par trimestre"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4835,6 +5580,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "627",
     }),
     defineAccount("628", "Divers", {
+        examples: ["Cotisations professionnelles et frais divers pour 1 500 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4843,6 +5589,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "62",
     }),
     defineAccount("6281", "Concours divers (cotisations)", {
+        examples: ["Cotisation annuelle à un syndicat professionnel de 800 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4851,6 +5598,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "628",
     }),
     defineAccount("6284", "Frais de recrutement de personnel", {
+        examples: ["Frais de recrutement de 3 000 € versés à un cabinet de chasse de têtes"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4859,6 +5607,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "628",
     }),
     defineAccount("629", "Rabais, remises et ristournes obtenus sur autres services extérieurs", {
+        examples: ["Ristourne de 500 € obtenue sur les frais de publicité annuels"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4867,6 +5616,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "62",
     }),
     defineAccount("63", "Impôts, taxes et versements assimilés", {
+        description: "Impôts et taxes à la charge de l'entité, hors impôts sur les bénéfices.",
+        examples: ["Taxe foncière de 2 500 € sur les locaux professionnels"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4875,6 +5626,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "6",
     }),
     defineAccount("631", "Impôts, taxes et versements assimilés sur rémunérations (administrations des impôts)", {
+        description:
+            "Taxes et participations assises sur les salaires versées au Trésor (taxe sur les salaires, etc.).",
+        examples: ["Taxe sur les salaires due par un employeur non assujetti à la TVA"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4883,6 +5637,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "63",
     }),
     defineAccount("6311", "Taxe sur les salaires", {
+        examples: ["Taxe sur les salaires de 4 000 € due par un employeur non assujetti à la TVA"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4891,6 +5646,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "631",
     }),
     defineAccount("6314", "Cotisation pour défaut d'investissement obligatoire dans la construction", {
+        examples: ["Cotisation de 1 % sur les salaires pour défaut d'investissement construction"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4899,6 +5655,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "631",
     }),
     defineAccount("6318", "Autres", {
+        examples: ["Taxe d'apprentissage complémentaire de 500 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4907,6 +5664,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "631",
     }),
     defineAccount("633", "Impôts, taxes et versements assimilés sur rémunérations (autres organismes)", {
+        description:
+            "Versements à fonds perdus ou subventions liés aux taxes assises sur les salaires (formation, apprentissage, construction).",
+        examples: ["Contribution à la formation professionnelle continue"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4915,6 +5675,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "63",
     }),
     defineAccount("6331", "Versement de transport", {
+        examples: ["Versement mobilité de 2 000 € dû au titre du transport en commun"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4923,6 +5684,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "633",
     }),
     defineAccount("6332", "Allocations logement", {
+        examples: ["Participation de l'employeur au financement du logement (Action Logement)"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4931,6 +5693,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "633",
     }),
     defineAccount("6333", "Contribution unique des employeurs à la formation professionnelle", {
+        examples: ["Contribution unique de 1 600 € à la formation professionnelle continue"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4939,6 +5702,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "633",
     }),
     defineAccount("6334", "Participation des employeurs à l'effort de construction", {
+        examples: ["Participation employeur de 0,45 % de la masse salariale à l'effort de construction"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4947,6 +5711,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "633",
     }),
     defineAccount("6335", "Versements libératoires ouvrant droit à l'exonération de la taxe d'apprentissage", {
+        examples: ["Versement libératoire de 2 000 € au titre de la taxe d'apprentissage"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4955,6 +5720,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "633",
     }),
     defineAccount("6338", "Autres", {
+        examples: ["Contribution supplémentaire à l'apprentissage de 500 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4963,6 +5729,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "633",
     }),
     defineAccount("635", "Autres impôts, taxes et versements assimilés (administrations des impôts)", {
+        examples: ["Ensemble des impôts et taxes dus à l'administration fiscale (hors IS)"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4971,6 +5738,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "63",
     }),
     defineAccount("6351", "Impôts directs (sauf impôts sur les bénéfices)", {
+        examples: ["Contribution économique territoriale (CET) de 3 000 € et taxes foncières de 5 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4979,6 +5747,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "635",
     }),
     defineAccount("63511", "Contribution économique territoriale", {
+        examples: ["CET (CFE + CVAE) de 4 500 € pour l'exercice"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4987,6 +5756,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6351",
     }),
     defineAccount("63512", "Taxes foncières", {
+        examples: ["Taxe foncière de 6 000 € sur les locaux professionnels"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -4995,6 +5765,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6351",
     }),
     defineAccount("63513", "Autres impôts locaux", {
+        examples: ["Taxe d'enlèvement des ordures ménagères de 800 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5003,6 +5774,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6351",
     }),
     defineAccount("63514", "Taxe sur les véhicules des sociétés", {
+        examples: ["Taxe sur les véhicules de société de 2 000 € pour 3 véhicules"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5011,6 +5783,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6351",
     }),
     defineAccount("6352", "Taxe sur le chiffre d'affaires non récupérables", {
+        examples: ["TVA non récupérable de 500 € sur un véhicule de tourisme"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5019,6 +5792,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "635",
     }),
     defineAccount("6353", "Impôts indirects", {
+        examples: ["Droits de douane de 1 500 € sur des marchandises importées"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5027,6 +5801,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "635",
     }),
     defineAccount("6354", "Droits d'enregistrement et de timbre", {
+        examples: ["Droits d'enregistrement de 3 000 € pour l'achat d'un fonds de commerce"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5035,6 +5810,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "635",
     }),
     defineAccount("63541", "Droits de mutation", {
+        examples: ["Droits de mutation de 8 000 € sur l'acquisition d'un immeuble"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5043,6 +5819,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6354",
     }),
     defineAccount("6358", "Autres droits", {
+        examples: ["Droit de timbre de 100 € sur un acte administratif"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5051,6 +5828,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "635",
     }),
     defineAccount("637", "Autres impôts, taxes et versements assimilés (autres organismes)", {
+        examples: ["Contribution sociale de solidarité et taxes internationales"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5059,6 +5837,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "63",
     }),
     defineAccount("6371", "Contribution sociale de solidarité à la charge des sociétés", {
+        examples: ["C3S (contribution sociale de solidarité des sociétés) de 1 500 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5067,6 +5846,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "637",
     }),
     defineAccount("6372", "Taxes perçues par les organismes publics internationaux", {
+        examples: ["Taxe versée à un organisme public international de 300 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5075,6 +5855,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "637",
     }),
     defineAccount("6374", "Impôts et taxes exigibles à l'étranger", {
+        examples: ["Impôt sur les bénéfices dû à l'étranger de 5 000 € (hors IS français)"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5083,6 +5864,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "637",
     }),
     defineAccount("6378", "Taxes diverses", {
+        examples: ["Taxe sur les bureaux en Île-de-France de 2 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5091,6 +5873,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "637",
     }),
     defineAccount("638", "Rappel d’impôts (autres qu’impôts sur les bénéfices)", {
+        examples: ["Rappel de CFE de 800 € suite à un contrôle fiscal"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5099,6 +5882,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "63",
     }),
     defineAccount("64", "Charges de personnel", {
+        description: "Rémunérations et charges sociales du personnel de l'entité.",
+        examples: ["Masse salariale mensuelle de 45 000 € brut"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5108,6 +5893,7 @@ export const accountEntries: AccountEntry[] = [
     }),
     defineAccount("641", "Rémunérations du personnel", {
         description: "Salaires bruts versés aux employés.",
+        examples: ["Salaire brut de 3 200 € d'un employé"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5116,6 +5902,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "64",
     }),
     defineAccount("6411", "Salaires, appointements", {
+        examples: ["Salaires bruts de 25 000 € versés au personnel pour le mois"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5124,6 +5911,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "641",
     }),
     defineAccount("6412", "Congés payés", {
+        examples: ["Indemnités de congés payés de 8 000 € versées pendant l'été"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5132,6 +5920,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "641",
     }),
     defineAccount("6413", "Primes et gratifications", {
+        examples: ["Prime de 13e mois de 2 500 € versée en décembre"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5140,6 +5929,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "641",
     }),
     defineAccount("6414", "Indemnités et avantages divers", {
+        examples: ["Indemnités de transport de 200 € et titres-restaurant de 150 € par mois"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5148,6 +5938,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "641",
     }),
     defineAccount("6415", "Supplément familial", {
+        examples: ["Supplément familial versé à un salarié ayant 3 enfants à charge"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5156,6 +5947,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "641",
     }),
     defineAccount("644", "Rémunération du travail de l'exploitant", {
+        description: "Rémunération et cotisations sociales de l'exploitant individuel et de sa famille.",
+        examples: ["Rémunération de l'exploitant individuel pour 2 500 €/mois"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5165,6 +5958,7 @@ export const accountEntries: AccountEntry[] = [
     }),
     defineAccount("645", "Cotisations de sécurité sociale et de prévoyance", {
         description: "Cotisations patronales.",
+        examples: ["Cotisations patronales URSSAF de 1 400 €", "Cotisations de retraite complémentaire"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5173,6 +5967,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "64",
     }),
     defineAccount("6451", "Cotisations à l'Urssaf", {
+        examples: ["Cotisations patronales URSSAF de 10 000 € sur les salaires du mois"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5181,6 +5976,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "645",
     }),
     defineAccount("6452", "Cotisations aux mutuelles", {
+        examples: ["Cotisations patronales de mutuelle complémentaire de 1 500 € par mois"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5189,6 +5985,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "645",
     }),
     defineAccount("6453", "Cotisations aux caisses de retraites", {
+        examples: ["Cotisations patronales de retraite complémentaire AGIRC-ARRCO de 3 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5197,6 +5994,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "645",
     }),
     defineAccount("6454", "Cotisations à Pôle emploi", {
+        examples: ["Cotisations patronales France Travail de 1 200 € sur les salaires"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5205,6 +6003,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "645",
     }),
     defineAccount("6458", "Cotisations aux autres organismes sociaux", {
+        examples: ["Cotisation patronale au régime de prévoyance de 800 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5213,6 +6012,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "645",
     }),
     defineAccount("646", "Cotisations sociales personnelles de l'exploitant", {
+        examples: ["Cotisations sociales personnelles RSI de l'exploitant individuel de 5 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5221,6 +6021,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "64",
     }),
     defineAccount("647", "Autres cotisations sociales", {
+        examples: ["Prestations et versements au comité social et économique"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5229,6 +6030,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "64",
     }),
     defineAccount("6471", "Prestations directes", {
+        examples: ["Aide financière directe de 500 € versée à un salarié en difficulté"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5237,6 +6039,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "647",
     }),
     defineAccount("6472", "Versements au comité social et économique", {
+        examples: ["Subvention de 2 000 € versée au comité social et économique"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5245,6 +6048,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "647",
     }),
     defineAccount("6474", "Versements aux autres œuvres sociales", {
+        examples: ["Contribution de 1 000 € aux activités sociales et culturelles"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5253,6 +6057,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "647",
     }),
     defineAccount("6475", "Médecine du travail, pharmacie", {
+        examples: ["Cotisation au service de médecine du travail de 1 500 € par an"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5261,6 +6066,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "647",
     }),
     defineAccount("648", "Autres charges de personnel", {
+        examples: ["Indemnités de départ à la retraite de 10 000 € versées à un salarié"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5269,6 +6075,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "64",
     }),
     defineAccount("649", "Remboursements de charges de personnel", {
+        description: "Remboursements reçus en compensation directe de charges de personnel.",
+        examples: ["Remboursement par la Sécurité sociale des indemnités journalières versées à un salarié"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5277,6 +6085,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "64",
     }),
     defineAccount("65", "Autres charges de gestion courante", {
+        description:
+            "Charges de gestion courante autres que les achats, services extérieurs, impôts et charges de personnel.",
+        examples: ["Redevance de franchise annuelle de 8 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5288,6 +6099,7 @@ export const accountEntries: AccountEntry[] = [
         "651",
         "Redevances pour concessions, brevets, licences, marques, procédés, solutions informatiques, droits et valeurs similaires",
         {
+            examples: ["Redevance annuelle de 5 000 € pour l'utilisation d'un brevet industriel"],
             classNumber: 6,
             className: "Comptes de charges",
             type: "résultat",
@@ -5300,6 +6112,7 @@ export const accountEntries: AccountEntry[] = [
         "6511",
         "Redevances pour concessions, brevets, licences, marques, procédés, solutions informatiques",
         {
+            examples: ["Licence d'utilisation d'un logiciel SaaS pour 3 000 € par an"],
             classNumber: 6,
             className: "Comptes de charges",
             type: "résultat",
@@ -5309,6 +6122,7 @@ export const accountEntries: AccountEntry[] = [
         },
     ),
     defineAccount("6516", "Droits d'auteur et de reproduction", {
+        examples: ["Droits d'auteur de 1 500 € versés pour l'utilisation d'images"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5317,6 +6131,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "651",
     }),
     defineAccount("6518", "Autres droits et valeurs similaires", {
+        examples: ["Redevance de 800 € pour l'utilisation d'une marque sous franchise"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5325,6 +6140,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "651",
     }),
     defineAccount("653", "Rémunérations de l’activité des administrateurs et des gérants", {
+        examples: ["Rémunération du gérant de SARL de 4 000 € par mois"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5333,6 +6149,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "65",
     }),
     defineAccount("654", "Pertes sur créances irrécouvrables", {
+        description: "Créances définitivement perdues, de caractère habituel eu égard à l'activité.",
+        examples: ["Créance de 3 000 € définitivement irrécouvrable passée en perte"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5341,6 +6159,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "65",
     }),
     defineAccount("6541", "Créances de l'exercice", {
+        examples: ["Créance client de 3 000 € devenue irrécouvrable pendant l'exercice"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5349,6 +6168,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "654",
     }),
     defineAccount("6544", "Créances des exercices antérieurs", {
+        examples: ["Perte définitive de 5 000 € sur une créance d'un exercice antérieur"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5357,6 +6177,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "654",
     }),
     defineAccount("655", "Quote-part de résultat sur opérations faites en commun", {
+        description:
+            "Part de pertes supportée (non-gérant) ou de bénéfices répartis aux associés (gérant) sur opérations en commun.",
+        examples: ["Quote-part de perte supportée dans une opération en commun avec un partenaire"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5365,6 +6188,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "65",
     }),
     defineAccount("6551", "Quote-part de bénéfice transférée - comptabilité du gérant", {
+        examples: ["Quote-part de bénéfice de 10 000 € transférée au gérant de la SEP"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5373,6 +6197,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "655",
     }),
     defineAccount("6555", "Quote-part de perte supportée - comptabilité des associés non gérants", {
+        examples: ["Quote-part de perte de 4 000 € supportée en tant qu'associé non gérant"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5381,6 +6206,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "655",
     }),
     defineAccount("656", "Pertes de change sur créances et dettes commerciales", {
+        description: "Pertes de change réalisées sur des opérations commerciales.",
+        examples: ["Perte de change de 500 € sur le règlement d'une facture fournisseur en dollars"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5389,6 +6216,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "65",
     }),
     defineAccount("657", "Valeurs comptables des immobilisations incorporelles et corporelles cédées", {
+        description:
+            "Valeur nette comptable des immobilisations incorporelles et corporelles sorties de l'actif lors d'une cession.",
+        examples: ["Valeur nette comptable de 25 000 € d'une machine cédée"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5397,6 +6227,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "65",
     }),
     defineAccount("658", "Pénalités et autres charges", {
+        examples: ["Pénalités et amendes diverses de l'exercice"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5405,6 +6236,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "65",
     }),
     defineAccount("6581", "Pénalités sur marchés (et dédits payés sur achats et ventes)", {
+        examples: ["Pénalité de retard de 2 000 € sur un marché public"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5413,6 +6245,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "658",
     }),
     defineAccount("6582", "Pénalités, amendes fiscales et pénales", {
+        examples: ["Amende fiscale de 1 500 € pour retard de déclaration de TVA"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5421,6 +6254,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "658",
     }),
     defineAccount("6583", "Malis provenant de clauses d’indexation", {
+        examples: ["Perte de 800 € résultant d'une clause d'indexation défavorable"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5429,6 +6263,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "658",
     }),
     defineAccount("6584", "Lots", {
+        examples: ["Lots offerts aux clients dans le cadre d'un jeu-concours pour 500 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5437,6 +6272,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "658",
     }),
     defineAccount("6588", "Opérations de constitution ou liquidation des fiducies", {
+        examples: ["Frais de constitution d'une fiducie pour 2 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5445,6 +6281,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "658",
     }),
     defineAccount("66", "Charges financières", {
+        description: "Charges rattachées à la gestion financière de l'entité.",
+        examples: ["Intérêts sur emprunt bancaire de 6 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5454,6 +6292,7 @@ export const accountEntries: AccountEntry[] = [
     }),
     defineAccount("661", "Charges d'intérêts", {
         description: "Intérêts payés sur les emprunts.",
+        examples: ["Intérêts annuels de 4 500 € sur un emprunt immobilier professionnel"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5462,6 +6301,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "66",
     }),
     defineAccount("6611", "Intérêts des emprunts et dettes", {
+        examples: ["Intérêts de 5 000 € sur un emprunt bancaire à long terme"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5470,6 +6310,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "661",
     }),
     defineAccount("66116", "Intérêts des emprunts et dettes assimilées", {
+        examples: ["Intérêts de 8 000 € sur un emprunt obligataire"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5478,6 +6319,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6611",
     }),
     defineAccount("66117", "Intérêts des dettes rattachées à des participations", {
+        examples: ["Intérêts de 2 000 € sur une dette envers une filiale"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5486,6 +6328,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6611",
     }),
     defineAccount("6612", "Charges de la fiducie, résultat de la période", {
+        examples: ["Charge de 3 000 € supportée par la fiducie sur la période"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5494,6 +6337,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "661",
     }),
     defineAccount("6615", "Intérêts des comptes courants et des dépôts créditeurs", {
+        examples: ["Intérêts de 500 € versés sur le compte courant d'un associé"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5502,6 +6346,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "661",
     }),
     defineAccount("6616", "Intérêts bancaires et sur opérations de financement (escompte…)", {
+        examples: ["Agios bancaires de 300 € et frais d'escompte de 200 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5510,6 +6355,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "661",
     }),
     defineAccount("6617", "Intérêts des obligations cautionnées", {
+        examples: ["Intérêts de 150 € sur des obligations cautionnées de TVA"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5518,6 +6364,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "661",
     }),
     defineAccount("6618", "Intérêts des autres dettes", {
+        examples: ["Intérêts divers de 400 € sur dettes commerciales et autres"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5526,6 +6373,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "661",
     }),
     defineAccount("66181", "Intérêts des dettes commerciales", {
+        examples: ["Intérêts de retard de 200 € versés à un fournisseur"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5534,6 +6382,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6618",
     }),
     defineAccount("66188", "Intérêts des dettes diverses", {
+        examples: ["Intérêts de 300 € sur une dette diverse envers un tiers"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5542,6 +6391,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6618",
     }),
     defineAccount("664", "Pertes sur créances liées à des participations", {
+        examples: ["Perte de 5 000 € sur une créance liée à une participation devenue irrécouvrable"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5550,6 +6400,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "66",
     }),
     defineAccount("665", "Escomptes accordés", {
+        description: "Escomptes de règlement accordés aux clients pour paiement anticipé.",
+        examples: ["Escompte de 2 % accordé à un client pour paiement anticipé"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5558,6 +6410,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "66",
     }),
     defineAccount("666", "Pertes de change financières", {
+        description: "Pertes de change sur des opérations de nature financière.",
+        examples: ["Perte de change de 1 200 € sur le remboursement d'un emprunt en devises"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5566,6 +6420,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "66",
     }),
     defineAccount("667", "Charges sur cession d’éléments financiers", {
+        examples: ["Moins-value de 3 000 € sur cession de titres de placement"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5574,6 +6429,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "66",
     }),
     defineAccount("6671", "Valeurs comptables des immobilisations financières cédées", {
+        description:
+            "Valeur comptable des immobilisations financières cédées, hors titres de l'activité de portefeuille.",
+        examples: ["Valeur comptable de 80 000 € de titres de participation cédés"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5582,6 +6440,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "667",
     }),
     defineAccount("6672", "Charges nettes sur cessions de titres immobilisés de l’activité de portefeuille", {
+        examples: ["Moins-value nette de 4 000 € sur cession de titres de portefeuille"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5590,6 +6449,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "667",
     }),
     defineAccount("6673", "Charges nettes sur cessions de valeurs mobilières de placement", {
+        examples: ["Moins-value nette de 1 500 € sur cession de SICAV monétaires"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5598,6 +6458,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "667",
     }),
     defineAccount("6674", "Charges nettes sur cessions de jetons", {
+        examples: ["Perte de 2 000 € sur cession de jetons numériques"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5606,6 +6467,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "667",
     }),
     defineAccount("668", "Autres charges financières", {
+        examples: ["Charges financières diverses de l'exercice"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5614,6 +6476,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "66",
     }),
     defineAccount("6683", "Mali provenant du rachat par l’entité d’actions et obligations émises par elle- même", {
+        examples: ["Mali de 1 000 € sur rachat par la société de ses propres obligations"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5622,6 +6485,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "668",
     }),
     defineAccount("67", "Charges exceptionnelles", {
+        description: "Charges ne se rapportant pas à la gestion courante ou financière de l'entité.",
+        examples: ["Pénalité fiscale de 1 500 € pour retard de déclaration"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5633,6 +6498,7 @@ export const accountEntries: AccountEntry[] = [
         "672",
         "(Compte à la disposition des entités pour enregistrer, en cours d'exercice, les charges sur exercices antérieurs)",
         {
+            examples: ["Charge de loyer de 6 000 € omise lors de l'exercice précédent"],
             classNumber: 6,
             className: "Comptes de charges",
             type: "résultat",
@@ -5642,6 +6508,7 @@ export const accountEntries: AccountEntry[] = [
         },
     ),
     defineAccount("678", "Autres charges exceptionnelles", {
+        examples: ["Pénalité exceptionnelle de 5 000 € suite à un litige commercial"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5650,6 +6517,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "67",
     }),
     defineAccount("68", "Dotations aux amortissements, aux dépréciations et aux provisions", {
+        description: "Charges calculées constatant la dépréciation des actifs ou les risques et charges prévisibles.",
+        examples: ["Dotation aux amortissements de 10 000 € sur le matériel informatique"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5662,6 +6531,7 @@ export const accountEntries: AccountEntry[] = [
         "Dotations aux amortissements, aux dépréciations et aux provisions (à inscrire dans les charges d'exploitation)",
         {
             description: "Amortissement annuel des immobilisations.",
+            examples: ["Dotation annuelle aux amortissements des immobilisations corporelles"],
             classNumber: 6,
             className: "Comptes de charges",
             type: "résultat",
@@ -5671,6 +6541,7 @@ export const accountEntries: AccountEntry[] = [
         },
     ),
     defineAccount("6811", "Dotations aux amortissements sur immobilisations incorporelles et corporelles", {
+        examples: ["Dotation aux amortissements de 15 000 € sur les immobilisations de l'exercice"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5679,6 +6550,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "681",
     }),
     defineAccount("68111", "Immobilisations incorporelles et frais d’établissement", {
+        examples: ["Dotation aux amortissements de 5 000 € sur un brevet (10 ans)"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5687,6 +6559,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6811",
     }),
     defineAccount("68112", "Immobilisations corporelles", {
+        examples: ["Dotation aux amortissements de 10 000 € sur le matériel de production"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5695,6 +6568,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6811",
     }),
     defineAccount("6815", "Dotations aux provisions d'exploitation", {
+        examples: ["Dotation de 8 000 € aux provisions pour risques et charges d'exploitation"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5703,6 +6577,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "681",
     }),
     defineAccount("6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", {
+        examples: ["Dotation de 5 000 € pour dépréciation d'un brevet devenu obsolète"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5711,6 +6586,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "681",
     }),
     defineAccount("68161", "Immobilisations incorporelles", {
+        examples: ["Dotation pour dépréciation d'une marque dont la valeur a baissé"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5719,6 +6595,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6816",
     }),
     defineAccount("68162", "Immobilisations corporelles", {
+        examples: ["Dotation pour dépréciation d'un bâtiment endommagé de 20 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5727,6 +6604,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6816",
     }),
     defineAccount("6817", "Dotations pour dépréciations des actifs circulants", {
+        examples: ["Dotation pour dépréciation de 3 000 € sur des stocks et créances"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5735,6 +6613,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "681",
     }),
     defineAccount("68173", "Stocks et en-cours", {
+        examples: ["Dotation pour dépréciation de 2 000 € sur un stock de produits obsolètes"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5743,6 +6622,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6817",
     }),
     defineAccount("68174", "Créances", {
+        examples: ["Dotation pour dépréciation de 4 000 € sur une créance client douteuse"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5754,6 +6634,8 @@ export const accountEntries: AccountEntry[] = [
         "686",
         "Dotations aux amortissements, aux dépréciations et aux provisions (à inscrire dans les charges financières)",
         {
+            description: "Dotations aux amortissements et dépréciations relatives aux éléments financiers.",
+            examples: ["Dotation aux dépréciations des titres de participation"],
             classNumber: 6,
             className: "Comptes de charges",
             type: "résultat",
@@ -5763,6 +6645,7 @@ export const accountEntries: AccountEntry[] = [
         },
     ),
     defineAccount("6861", "Dotations aux amortissements des primes de remboursement des emprunts", {
+        examples: ["Dotation de 500 € aux amortissements des primes de remboursement d'un emprunt"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5771,6 +6654,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "686",
     }),
     defineAccount("6862", "Dotations aux amortissements des frais d'émission des emprunts", {
+        examples: ["Dotation de 300 € aux amortissements des frais d'émission d'un emprunt"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5779,6 +6663,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "686",
     }),
     defineAccount("6865", "Dotations aux provisions financières", {
+        examples: ["Dotation de 2 000 € aux provisions pour risques financiers"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5787,6 +6672,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "686",
     }),
     defineAccount("6866", "Dotations pour dépréciation des éléments financiers", {
+        examples: ["Dotation de 3 000 € pour dépréciation de titres de participation"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5795,6 +6681,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "686",
     }),
     defineAccount("68662", "Immobilisations financières", {
+        examples: ["Dotation de 5 000 € pour dépréciation d'immobilisations financières"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5803,6 +6690,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6866",
     }),
     defineAccount("68665", "Valeurs mobilières de placement", {
+        examples: ["Dotation de 1 500 € pour dépréciation de valeurs mobilières de placement"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5814,6 +6702,8 @@ export const accountEntries: AccountEntry[] = [
         "687",
         "Dotations aux amortissements, aux dépréciations et aux provisions (à inscrire dans les charges exceptionnelles)",
         {
+            description: "Dotations aux amortissements dérogatoires et provisions réglementées ou exceptionnelles.",
+            examples: ["Dotation aux provisions pour amendes et pénalités exceptionnelles"],
             classNumber: 6,
             className: "Comptes de charges",
             type: "résultat",
@@ -5823,6 +6713,7 @@ export const accountEntries: AccountEntry[] = [
         },
     ),
     defineAccount("6871", "Dotations aux amortissements exceptionnels des immobilisations", {
+        examples: ["Amortissement exceptionnel de 10 000 € sur une immobilisation mise au rebut"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5831,6 +6722,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "687",
     }),
     defineAccount("6872", "Dotations aux provisions réglementées (immobilisations)", {
+        examples: ["Dotation aux provisions réglementées sur immobilisations"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5839,6 +6731,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "687",
     }),
     defineAccount("68725", "Amortissements dérogatoires", {
+        examples: ["Dotation aux amortissements dérogatoires de 4 000 € (part fiscale)"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5847,6 +6740,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "6872",
     }),
     defineAccount("6873", "Dotations aux provisions réglementées (stocks)", {
+        examples: ["Dotation de 2 000 € aux provisions pour hausse des prix des stocks"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5855,6 +6749,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "687",
     }),
     defineAccount("6874", "Dotations aux autres provisions réglementées", {
+        examples: ["Dotation de 3 000 € aux provisions réglementées pour investissement"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5863,6 +6758,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "687",
     }),
     defineAccount("6875", "Dotations aux provisions exceptionnelles", {
+        examples: ["Dotation de 5 000 € aux provisions exceptionnelles pour restructuration"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5871,6 +6767,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "687",
     }),
     defineAccount("6876", "Dotations pour dépréciations exceptionnelles", {
+        examples: ["Dotation de 8 000 € pour dépréciation exceptionnelle d'une immobilisation sinistrée"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5879,6 +6776,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "687",
     }),
     defineAccount("69", "Participation des salariés - Impôts sur les bénéfices et assimilés", {
+        description: "Participation des salariés aux résultats et impôts sur les bénéfices de l'entité.",
+        examples: ["Participation des salariés de 8 000 €", "Impôt sur les sociétés de 25 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5887,6 +6786,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "6",
     }),
     defineAccount("691", "Participation des salariés aux résultats", {
+        description: "Droits des salariés sur les résultats de l'exercice, provisionnés à la clôture.",
+        examples: ["Participation des salariés aux résultats de 12 000 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5895,6 +6796,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "69",
     }),
     defineAccount("695", "Impôts sur les bénéfices", {
+        description: "Montant dû au titre des bénéfices imposables en France et à l'étranger.",
+        examples: ["Impôt sur les sociétés de 15 000 € calculé sur le bénéfice fiscal"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5903,6 +6806,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "69",
     }),
     defineAccount("6951", "Impôts dus en France", {
+        examples: ["Impôt sur les sociétés de 15 000 € dû au titre de l'exercice"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5911,6 +6815,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "695",
     }),
     defineAccount("6952", "Contribution additionnelle à l'impôt sur les bénéfices", {
+        examples: ["Contribution sociale sur les bénéfices de 1 500 €"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5919,6 +6824,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "695",
     }),
     defineAccount("6954", "Impôts dus à l'étranger", {
+        examples: ["Impôt sur les bénéfices de 3 000 € dû à un État étranger"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5927,6 +6833,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "695",
     }),
     defineAccount("696", "Suppléments d'impôt sur les sociétés liés aux distributions", {
+        description: "Supplément d'impôt sur les sociétés dû en raison des distributions de dividendes.",
+        examples: ["Supplément d'IS de 1 500 € lié à une distribution de dividendes"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5935,6 +6843,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "69",
     }),
     defineAccount("698", "Intégration fiscale", {
+        description: "Charges et produits afférents au régime d'intégration fiscale.",
+        examples: ["Impôt du groupe intégré de 50 000 € réparti entre les filiales"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5943,6 +6853,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "69",
     }),
     defineAccount("6981", "Intégration fiscale - Charges", {
+        examples: ["Charge d'intégration fiscale de 5 000 € refacturée par la société mère"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5951,6 +6862,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "698",
     }),
     defineAccount("6989", "Intégration fiscale - Produits", {
+        examples: ["Produit d'intégration fiscale de 2 000 € reçu de la société mère"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5959,6 +6871,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "698",
     }),
     defineAccount("699", "Produits - Reports en arrière des déficits", {
+        description: "Produit résultant du report en arrière de déficits fiscaux (carry-back).",
+        examples: ["Produit de carry-back de 10 000 € lié au report en arrière d'un déficit fiscal"],
         classNumber: 6,
         className: "Comptes de charges",
         type: "résultat",
@@ -5969,6 +6883,7 @@ export const accountEntries: AccountEntry[] = [
 
     // Classe 7 - Comptes de produits
     defineAccount("7", "Comptes de produits", {
+        examples: ["Ensemble des produits d'exploitation, financiers et exceptionnels de l'exercice"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -5977,6 +6892,8 @@ export const accountEntries: AccountEntry[] = [
         parent: null,
     }),
     defineAccount("70", "Ventes de produits fabriqués, prestations de services, marchandises", {
+        description: "Chiffre d'affaires de l'entité : ventes de produits, prestations de services et marchandises.",
+        examples: ["Vente de 500 unités de produit fini pour 25 000 €"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -5985,6 +6902,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "7",
     }),
     defineAccount("701", "Ventes de produits finis", {
+        examples: ["Vente de 500 unités de meubles finis pour 75 000 €"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -5993,6 +6911,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "70",
     }),
     defineAccount("702", "Ventes de produits intermédiaires", {
+        examples: ["Vente de composants semi-finis à une autre usine du groupe pour 20 000 €"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6001,6 +6920,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "70",
     }),
     defineAccount("703", "Ventes de produits résiduels", {
+        examples: ["Vente de chutes de métal et déchets de production pour 3 000 €"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6009,6 +6929,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "70",
     }),
     defineAccount("704", "Travaux", {
+        examples: ["Facturation de travaux de rénovation d'un bâtiment pour 50 000 €"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6017,6 +6938,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "70",
     }),
     defineAccount("705", "Études", {
+        examples: ["Facturation d'une étude de marché réalisée pour un client pour 15 000 €"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6025,6 +6947,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "70",
     }),
     defineAccount("706", "Prestations de services", {
+        examples: ["Facturation de prestations de conseil pour 8 000 €"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6033,6 +6956,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "70",
     }),
     defineAccount("707", "Ventes de marchandises", {
+        examples: ["Vente de marchandises achetées pour revente pour 120 000 €"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6041,6 +6965,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "70",
     }),
     defineAccount("708", "Produits des activités annexes", {
+        examples: ["Produits annexes à l'activité principale (locations, commissions)"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6049,6 +6974,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "70",
     }),
     defineAccount("7081", "Produits des services exploités dans l'intérêt du personnel", {
+        examples: ["Recettes de la cantine d'entreprise pour 2 000 € par mois"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6057,6 +6983,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "708",
     }),
     defineAccount("7082", "Commissions et courtages", {
+        examples: ["Commission de 1 500 € perçue pour avoir mis en relation deux sociétés"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6065,6 +6992,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "708",
     }),
     defineAccount("7083", "Locations diverses", {
+        examples: ["Loyer de 800 € perçu pour la location d'un local inutilisé"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6073,6 +7001,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "708",
     }),
     defineAccount("7084", "Mise à disposition de personnel facturée", {
+        examples: ["Facturation de 3 000 € pour mise à disposition d'un salarié"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6081,6 +7010,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "708",
     }),
     defineAccount("7085", "Ports et frais accessoires facturés", {
+        examples: ["Frais de port de 500 € refacturés aux clients"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6089,6 +7019,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "708",
     }),
     defineAccount("7086", "Bonis sur reprises d'emballages consignés", {
+        examples: ["Boni de 200 € sur emballages consignés non restitués par les clients"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6097,6 +7028,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "708",
     }),
     defineAccount("7087", "Bonifications obtenues des clients et primes sur ventes", {
+        examples: ["Bonification de 300 € obtenue d'un client pour paiement anticipé"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6105,6 +7037,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "708",
     }),
     defineAccount("7088", "Autres produits d'activités annexes (cessions d'approvisionnements)", {
+        examples: ["Cession de fournitures excédentaires à un tiers pour 1 000 €"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6113,6 +7046,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "708",
     }),
     defineAccount("709", "Rabais, remises et ristournes accordés", {
+        description: "Réductions accordées aux clients, non déduites des factures de vente initiales.",
+        examples: ["Avoir de 500 € accordé à un client pour défaut de qualité"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6121,6 +7056,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "70",
     }),
     defineAccount("7091", "Rabais, remises et ristournes accordés sur ventes de produits finis", {
+        examples: ["Ristourne de 2 000 € accordée à un distributeur sur les ventes de produits finis"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6129,6 +7065,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "709",
     }),
     defineAccount("7092", "Rabais, remises et ristournes accordés sur ventes de produits intermédiaires", {
+        examples: ["Remise de 500 € accordée sur des produits intermédiaires vendus"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6137,6 +7074,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "709",
     }),
     defineAccount("7094", "Rabais, remises et ristournes accordés sur travaux", {
+        examples: ["Rabais de 1 000 € accordé à un client sur des travaux réalisés"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6145,6 +7083,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "709",
     }),
     defineAccount("7095", "Rabais, remises et ristournes accordés sur études", {
+        examples: ["Remise de 800 € accordée sur une étude facturée"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6153,6 +7092,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "709",
     }),
     defineAccount("7096", "Rabais, remises et ristournes accordés sur prestations de services", {
+        examples: ["Ristourne de 1 500 € accordée à un client fidèle sur des prestations"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6161,6 +7101,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "709",
     }),
     defineAccount("7097", "Rabais, remises et ristournes accordés sur ventes de marchandises", {
+        examples: ["Remise de 3 000 € accordée sur un volume important de marchandises vendues"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6169,6 +7110,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "709",
     }),
     defineAccount("7098", "Rabais, remises et ristournes accordés sur produits des activités annexes", {
+        examples: ["Ristourne de 200 € accordée sur des produits d'activités annexes"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6177,6 +7119,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "709",
     }),
     defineAccount("71", "Production stockée (ou déstockage)", {
+        description: "Variation globale de la valeur de la production stockée entre le début et la fin de l'exercice.",
+        examples: ["Augmentation du stock de produits finis de 8 000 € en fin d'exercice"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6185,6 +7129,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "7",
     }),
     defineAccount("713", "Variation des stocks des en-cours de production et de produits", {
+        description: "Différence entre la valeur de la production stockée en fin et en début d'exercice.",
+        examples: ["Variation positive des en-cours de production de 12 000 €"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6193,6 +7139,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "71",
     }),
     defineAccount("7133", "Variation des en-cours de production de biens", {
+        examples: ["Augmentation des en-cours de production de biens de 10 000 € sur l'exercice"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6201,6 +7148,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "713",
     }),
     defineAccount("71331", "Produits en cours", {
+        examples: ["Variation positive de 5 000 € des produits en cours de fabrication"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6209,6 +7157,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "7133",
     }),
     defineAccount("71335", "Travaux en cours", {
+        examples: ["Augmentation de 8 000 € des travaux en cours sur chantiers"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6217,6 +7166,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "7133",
     }),
     defineAccount("7134", "Variation des en-cours de production de services", {
+        examples: ["Augmentation de 6 000 € des en-cours de production de services"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6225,6 +7175,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "713",
     }),
     defineAccount("71341", "Études en cours", {
+        examples: ["Variation positive de 4 000 € des études en cours pour clients"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6233,6 +7184,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "7134",
     }),
     defineAccount("71345", "Prestations de services en cours", {
+        examples: ["Augmentation de 3 000 € des prestations de services en cours"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6241,6 +7193,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "7134",
     }),
     defineAccount("7135", "Variation des stocks de produits", {
+        examples: ["Variation positive de 12 000 € des stocks de produits finis"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6249,6 +7202,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "713",
     }),
     defineAccount("71351", "Produits intermédiaires", {
+        examples: ["Augmentation de 5 000 € du stock de produits intermédiaires"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6257,6 +7211,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "7135",
     }),
     defineAccount("71355", "Produits finis", {
+        examples: ["Augmentation de 15 000 € du stock de produits finis"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6265,6 +7220,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "7135",
     }),
     defineAccount("71358", "Produits résiduels", {
+        examples: ["Variation de 1 000 € du stock de produits résiduels (déchets récupérables)"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6273,6 +7229,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "7135",
     }),
     defineAccount("72", "Production immobilisée", {
+        description: "Coût des travaux réalisés par l'entité pour elle-même et inscrits à l'actif immobilisé.",
+        examples: ["Production d'un logiciel interne évaluée à 30 000 € et immobilisée"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6281,6 +7239,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "7",
     }),
     defineAccount("721", "Immobilisations incorporelles", {
+        examples: ["Production immobilisée de 30 000 € pour un logiciel développé en interne"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6289,6 +7248,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "72",
     }),
     defineAccount("722", "Immobilisations corporelles", {
+        examples: ["Production immobilisée de 50 000 € pour la construction d'un hangar par les salariés"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6297,6 +7257,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "72",
     }),
     defineAccount("74", "Subventions", {
+        description:
+            "Subventions d'exploitation, d'équilibre et quote-part des subventions d'investissement virée au résultat.",
+        examples: ["Subvention d'exploitation de 10 000 € reçue de la région"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6305,6 +7268,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "7",
     }),
     defineAccount("741", "Subventions d’exploitation", {
+        description: "Subventions reçues pour compenser des charges d'exploitation ou un niveau de prix insuffisant.",
+        examples: ["Subvention régionale de 15 000 € pour compenser la hausse des coûts énergétiques"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6313,6 +7278,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "74",
     }),
     defineAccount("742", "Subventions d’équilibre", {
+        description: "Subventions destinées à compenser un déficit d'exploitation.",
+        examples: ["Subvention de 20 000 € reçue de l'État pour compenser un déficit structurel"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6321,6 +7288,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "74",
     }),
     defineAccount("747", "Quote-part des subventions d’investissement virée au résultat de l’exercice", {
+        description: "Part des subventions d'investissement rapportée au résultat de l'exercice.",
+        examples: ["Reprise de 5 000 € de subvention d'investissement au rythme de l'amortissement du bien"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6329,6 +7298,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "74",
     }),
     defineAccount("75", "Autres produits de gestion courante", {
+        description:
+            "Produits de gestion courante autres que les ventes, la production stockée ou immobilisée et les subventions.",
+        examples: ["Redevance de brevet perçue pour 6 000 €/an"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6340,6 +7312,9 @@ export const accountEntries: AccountEntry[] = [
         "751",
         "Redevances pour concessions, brevets, licences, marques, procédés, solutions informatiques, droits et valeurs similaires",
         {
+            description:
+                "Redevances acquises pour l'utilisation de concessions, brevets, licences, marques et droits similaires.",
+            examples: ["Redevance annuelle de 10 000 € perçue pour l'utilisation d'une licence logicielle"],
             classNumber: 7,
             className: "Comptes de produits",
             type: "résultat",
@@ -6352,6 +7327,7 @@ export const accountEntries: AccountEntry[] = [
         "7511",
         "Redevances pour concessions, brevets, licences, marques, procédés, solutions informatiques",
         {
+            examples: ["Redevance de 5 000 € perçue pour l'exploitation d'un brevet concédé"],
             classNumber: 7,
             className: "Comptes de produits",
             type: "résultat",
@@ -6361,6 +7337,7 @@ export const accountEntries: AccountEntry[] = [
         },
     ),
     defineAccount("7516", "Droits d'auteur et de reproduction", {
+        examples: ["Droits d'auteur de 2 000 € perçus pour la reproduction d'un ouvrage"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6369,6 +7346,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "751",
     }),
     defineAccount("7518", "Autres droits et valeurs similaires", {
+        examples: ["Redevance de 1 000 € perçue pour la concession d'un savoir-faire"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6377,6 +7355,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "751",
     }),
     defineAccount("752", "Revenus des immeubles non affectés à des activités professionnelles", {
+        examples: ["Loyer de 12 000 € perçu pour un immeuble non affecté à l'exploitation"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6385,6 +7364,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "75",
     }),
     defineAccount("753", "Rémunérations de l’activité des administrateurs et des gérants", {
+        examples: ["Jetons de présence de 3 000 € perçus en tant qu'administrateur d'une autre société"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6393,6 +7373,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "75",
     }),
     defineAccount("754", "Ristournes perçues des coopératives provenant des excédents", {
+        description: "Quote-part des excédents de coopératives répartis entre les associés coopérateurs.",
+        examples: ["Ristourne de 2 000 € perçue de la coopérative d'achat"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6401,6 +7383,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "75",
     }),
     defineAccount("755", "Quote-part de résultat sur opérations faites en commun", {
+        description:
+            "Part de bénéfices reçue (non-gérant) ou de pertes imputées aux associés (gérant) sur opérations en commun.",
+        examples: ["Bénéfice de 5 000 € reçu en tant que coparticipant non-gérant"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6409,6 +7394,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "75",
     }),
     defineAccount("7551", "Quote-part de perte transférée - comptabilité du gérant", {
+        examples: ["Quote-part de perte de 4 000 € transférée aux associés (comptabilité du gérant)"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6417,6 +7403,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "755",
     }),
     defineAccount("7555", "Quote-part de bénéfice attribuée - comptabilité des associés non-gérants", {
+        examples: ["Quote-part de bénéfice de 8 000 € attribuée en tant qu'associé non gérant"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6426,6 +7413,7 @@ export const accountEntries: AccountEntry[] = [
     }),
     defineAccount("756", "Gains de change sur créances et dettes commerciales", {
         description: "Cotisations des membres (pour les associations).",
+        examples: ["Gain de change de 300 € sur l'encaissement d'une facture client en dollars"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6434,6 +7422,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "75",
     }),
     defineAccount("757", "Produits des cessions d’immobilisations incorporelles et corporelles", {
+        description: "Prix de cession des immobilisations incorporelles et corporelles sorties de l'actif.",
+        examples: ["Prix de cession de 40 000 € pour la vente d'une machine-outil"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6442,6 +7432,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "75",
     }),
     defineAccount("758", "Indemnités et autres produits", {
+        examples: ["Indemnités d'assurance et autres produits divers"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6450,6 +7441,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "75",
     }),
     defineAccount("7581", "Dédits et pénalités perçus sur achats et ventes", {
+        examples: ["Pénalité de 1 500 € perçue d'un fournisseur pour retard de livraison"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6458,6 +7450,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "758",
     }),
     defineAccount("7582", "Libéralités reçues", {
+        examples: ["Don de 500 € reçu d'une entreprise partenaire"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6466,6 +7459,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "758",
     }),
     defineAccount("7583", "Rentrées sur créances amorties", {
+        examples: ["Recouvrement de 2 000 € sur une créance précédemment passée en perte"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6474,6 +7468,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "758",
     }),
     defineAccount("7584", "Dégrèvements d’impôts autres qu’impôts sur les bénéfices", {
+        examples: ["Dégrèvement de taxe foncière de 800 € obtenu après réclamation"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6482,6 +7477,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "758",
     }),
     defineAccount("7585", "Bonis provenant de clauses d’indexation", {
+        examples: ["Boni de 600 € résultant d'une clause d'indexation favorable"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6490,6 +7486,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "758",
     }),
     defineAccount("7586", "Lots", {
+        examples: ["Gain de 300 € sur un lot reçu dans le cadre d'une opération commerciale"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6498,6 +7495,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "758",
     }),
     defineAccount("7587", "Indemnités d’assurance", {
+        examples: ["Indemnité d'assurance de 10 000 € perçue après un sinistre"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6506,6 +7504,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "758",
     }),
     defineAccount("7588", "Opérations de constitution ou liquidation des fiducies", {
+        examples: ["Produit de 2 000 € lié à la liquidation d'une fiducie"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6514,6 +7513,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "758",
     }),
     defineAccount("76", "Produits financiers", {
+        description: "Produits rattachés à la gestion financière de l'entité.",
+        examples: ["Dividendes reçus d'une filiale pour 8 000 €"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6522,6 +7523,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "7",
     }),
     defineAccount("761", "Produits de participations", {
+        description: "Dividendes et revenus tirés des titres de participation et créances rattachées.",
+        examples: ["Dividendes de 12 000 € reçus de la filiale commerciale"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6530,6 +7533,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "76",
     }),
     defineAccount("7611", "Revenus des titres de participation", {
+        examples: ["Dividendes de 5 000 € reçus d'une filiale détenue à 60 %"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6538,6 +7542,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "761",
     }),
     defineAccount("7612", "Produits de la fiducie, résultat de la période", {
+        examples: ["Produit de 3 000 € issu de la fiducie sur la période"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6546,6 +7551,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "761",
     }),
     defineAccount("7616", "Revenus sur autres formes de participation", {
+        examples: ["Revenus de 1 500 € sur des parts dans un GIE"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6554,6 +7560,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "761",
     }),
     defineAccount("7617", "Revenus des créances rattachées à des participations", {
+        examples: ["Intérêts de 2 000 € perçus sur un prêt accordé à une filiale"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6562,6 +7569,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "761",
     }),
     defineAccount("762", "Produits des autres immobilisations financières", {
+        description: "Revenus des titres immobilisés, prêts et créances immobilisées.",
+        examples: ["Intérêts de 3 000 € perçus sur un prêt immobilisé"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6570,6 +7579,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "76",
     }),
     defineAccount("7621", "Revenus des titres immobilisés", {
+        examples: ["Revenus de 1 200 € sur des obligations détenues à long terme"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6578,6 +7588,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "762",
     }),
     defineAccount("7626", "Revenus des prêts", {
+        examples: ["Intérêts de 800 € perçus sur un prêt au personnel"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6586,6 +7597,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "762",
     }),
     defineAccount("7627", "Revenus des créances immobilisées", {
+        examples: ["Intérêts de 500 € perçus sur une créance immobilisée"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6594,6 +7606,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "762",
     }),
     defineAccount("763", "Revenus des autres créances", {
+        description: "Intérêts et revenus des créances commerciales et diverses.",
+        examples: ["Intérêts de retard de 500 € perçus sur une créance commerciale"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6602,6 +7616,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "76",
     }),
     defineAccount("7631", "Revenus des créances commerciales", {
+        examples: ["Intérêts de retard de 300 € perçus d'un client payant en retard"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6610,6 +7625,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "763",
     }),
     defineAccount("7638", "Revenus des créances diverses", {
+        examples: ["Intérêts de 200 € perçus sur une créance diverse"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6618,6 +7634,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "763",
     }),
     defineAccount("764", "Revenus des valeurs mobilières de placement", {
+        examples: ["Revenus de 1 500 € sur des SICAV monétaires de trésorerie"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6626,6 +7643,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "76",
     }),
     defineAccount("765", "Escomptes obtenus", {
+        description: "Escomptes de règlement obtenus des fournisseurs pour paiement anticipé.",
+        examples: ["Escompte de 1 % obtenu d'un fournisseur pour règlement anticipé"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6634,6 +7653,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "76",
     }),
     defineAccount("766", "Gains de change financiers", {
+        description: "Gains de change sur des opérations de nature financière.",
+        examples: ["Gain de change de 2 000 € sur le remboursement d'un emprunt en devises"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6642,6 +7663,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "76",
     }),
     defineAccount("767", "Produits sur cession d’éléments financiers", {
+        description: "Produits des cessions d'immobilisations financières et de valeurs mobilières de placement.",
+        examples: ["Plus-value de 15 000 € sur la cession d'actions détenues en placement"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6650,6 +7673,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "76",
     }),
     defineAccount("7671", "Produits des cessions d’immobilisations financières", {
+        description: "Prix de cession des immobilisations financières, hors titres de l'activité de portefeuille.",
+        examples: ["Prix de cession de 90 000 € pour la vente de titres de participation"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6658,6 +7683,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "767",
     }),
     defineAccount("7672", "Produits nets sur cessions de titres immobilisés de l’activité de portefeuille", {
+        examples: ["Plus-value nette de 4 000 € sur cession de titres de portefeuille"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6666,6 +7692,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "767",
     }),
     defineAccount("7673", "Produits nets sur cessions de valeurs mobilières de placement", {
+        examples: ["Plus-value nette de 2 000 € sur cession de parts de FCP"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6674,6 +7701,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "767",
     }),
     defineAccount("7674", "Produits nets sur cessions de jetons", {
+        examples: ["Plus-value de 1 000 € sur cession de jetons numériques"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6682,6 +7710,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "767",
     }),
     defineAccount("768", "Autres produits financiers", {
+        examples: ["Produits financiers divers de l'exercice"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6693,6 +7722,7 @@ export const accountEntries: AccountEntry[] = [
         "7683",
         "Bonis provenant du rachat par l’entreprise d’actions et d’obligations émises par elle-même",
         {
+            examples: ["Boni de 500 € sur rachat par la société de ses propres obligations"],
             classNumber: 7,
             className: "Comptes de produits",
             type: "résultat",
@@ -6702,6 +7732,8 @@ export const accountEntries: AccountEntry[] = [
         },
     ),
     defineAccount("77", "Produits exceptionnels", {
+        description: "Produits ne se rapportant pas à la gestion courante ou financière de l'entité.",
+        examples: ["Indemnité d'assurance de 20 000 € reçue suite à un sinistre"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6713,6 +7745,7 @@ export const accountEntries: AccountEntry[] = [
         "772",
         "(Compte à la disposition des entités pour enregistrer, en cours d'exercice, les produits sur exercices antérieurs)",
         {
+            examples: ["Produit de 4 000 € correspondant à un loyer omis sur l'exercice précédent"],
             classNumber: 7,
             className: "Comptes de produits",
             type: "résultat",
@@ -6722,6 +7755,7 @@ export const accountEntries: AccountEntry[] = [
         },
     ),
     defineAccount("778", "Autres produits exceptionnels", {
+        examples: ["Produit exceptionnel de 6 000 € suite à un gain de procès"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6730,6 +7764,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "77",
     }),
     defineAccount("78", "Reprises sur amortissements, dépréciations et provisions", {
+        description:
+            "Reprises de charges calculées antérieurement, distinguées par nature (exploitation, financier, exceptionnel).",
+        examples: ["Reprise d'une provision pour litige devenu sans objet"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6741,6 +7778,8 @@ export const accountEntries: AccountEntry[] = [
         "781",
         "Reprises sur amortissements, dépréciations et provisions (à inscrire dans les produits d'exploitation)",
         {
+            description: "Reprises sur charges calculées relatives à l'exploitation.",
+            examples: ["Reprise de la dépréciation d'un stock de matières premières revalorisé"],
             classNumber: 7,
             className: "Comptes de produits",
             type: "résultat",
@@ -6750,6 +7789,7 @@ export const accountEntries: AccountEntry[] = [
         },
     ),
     defineAccount("7811", "Reprises sur amortissements des immobilisations incorporelles et corporelles", {
+        examples: ["Reprise sur amortissements de 3 000 € suite à changement de plan"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6758,6 +7798,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "781",
     }),
     defineAccount("78111", "Immobilisations incorporelles", {
+        examples: ["Reprise sur amortissements d'un brevet suite à réévaluation de sa durée d'utilité"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6766,6 +7807,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "7811",
     }),
     defineAccount("78112", "Immobilisations corporelles", {
+        examples: ["Reprise sur amortissements d'une machine suite à révision du plan"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6774,6 +7816,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "7811",
     }),
     defineAccount("7815", "Reprises sur provisions d'exploitation", {
+        examples: ["Reprise de 5 000 € sur provision pour risques devenue sans objet"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6782,6 +7825,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "781",
     }),
     defineAccount("7816", "Reprises sur dépréciations des immobilisations incorporelles et corporelles", {
+        examples: ["Reprise de 4 000 € sur dépréciation d'un brevet dont la valeur a remonté"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6790,6 +7834,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "781",
     }),
     defineAccount("78161", "Immobilisations incorporelles", {
+        examples: ["Reprise sur dépréciation d'une marque dont la valeur s'est appréciée"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6798,6 +7843,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "7816",
     }),
     defineAccount("78162", "Immobilisations corporelles", {
+        examples: ["Reprise de 8 000 € sur dépréciation d'un bâtiment après travaux"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6806,6 +7852,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "7816",
     }),
     defineAccount("7817", "Reprises sur dépréciations des actifs circulants", {
+        examples: ["Reprise sur dépréciation de stocks et créances"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6814,6 +7861,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "781",
     }),
     defineAccount("78173", "Stocks et en-cours", {
+        examples: ["Reprise de 2 000 € sur dépréciation de stocks suite à vente au-dessus de la provision"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6822,6 +7870,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "7817",
     }),
     defineAccount("78174", "Créances", {
+        examples: ["Reprise de 3 000 € sur dépréciation d'une créance client recouvrée"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6830,6 +7879,8 @@ export const accountEntries: AccountEntry[] = [
         parent: "7817",
     }),
     defineAccount("786", "Reprises sur dépréciations et provisions (à inscrire dans les produits financiers)", {
+        description: "Reprises sur dépréciations et provisions relatives aux éléments financiers.",
+        examples: ["Reprise de la dépréciation des titres de participation revalorisés"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6838,6 +7889,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "78",
     }),
     defineAccount("7865", "Reprises sur provisions financières", {
+        examples: ["Reprise de 1 500 € sur provision pour risques financiers devenue sans objet"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6846,6 +7898,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "786",
     }),
     defineAccount("7866", "Reprises sur dépréciations des éléments financiers", {
+        examples: ["Reprise de 2 500 € sur dépréciation de titres dont la valeur a remonté"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6854,6 +7907,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "786",
     }),
     defineAccount("78662", "Immobilisations financières", {
+        examples: ["Reprise sur dépréciation de titres de participation d'une filiale redressée"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6862,6 +7916,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "7866",
     }),
     defineAccount("78665", "Valeurs mobilières de placement", {
+        examples: ["Reprise de 1 000 € sur dépréciation de SICAV en portefeuille"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6870,6 +7925,9 @@ export const accountEntries: AccountEntry[] = [
         parent: "7866",
     }),
     defineAccount("787", "Reprises sur dépréciations et provisions (à inscrire dans les produits exceptionnels)", {
+        description:
+            "Reprises sur dépréciations et provisions de nature exceptionnelle, y compris provisions réglementées.",
+        examples: ["Reprise d'une provision pour amendes devenue sans objet"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6878,6 +7936,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "78",
     }),
     defineAccount("7872", "Reprises sur provisions réglementées (immobilisations)", {
+        examples: ["Reprise sur provisions réglementées pour amortissements dérogatoires"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6886,6 +7945,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "787",
     }),
     defineAccount("78725", "Amortissements dérogatoires", {
+        examples: ["Reprise de 4 000 € sur amortissements dérogatoires arrivés à terme"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6894,6 +7954,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "7872",
     }),
     defineAccount("7873", "Reprises sur provisions réglementées (stocks)", {
+        examples: ["Reprise de 2 000 € sur provision pour hausse des prix des stocks"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6902,6 +7963,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "787",
     }),
     defineAccount("7874", "Reprises sur autres provisions réglementées", {
+        examples: ["Reprise de 3 000 € sur provision réglementée pour investissement"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6910,6 +7972,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "787",
     }),
     defineAccount("7875", "Reprises sur provisions exceptionnelles", {
+        examples: ["Reprise de 5 000 € sur provision exceptionnelle devenue sans objet"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6918,6 +7981,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "787",
     }),
     defineAccount("7876", "Reprises sur dépréciations exceptionnelles", {
+        examples: ["Reprise de 6 000 € sur dépréciation exceptionnelle après remise en état"],
         classNumber: 7,
         className: "Comptes de produits",
         type: "résultat",
@@ -6930,6 +7994,7 @@ export const accountEntries: AccountEntry[] = [
     defineAccount("8", "Comptes spéciaux", {
         description:
             "Les comptes spéciaux enregistrent les engagements hors bilan et les opérations particulières qui ne figurent pas directement dans le bilan ou le compte de résultat.",
+        examples: ["Engagement de caution donné pour une filiale"],
         classNumber: 8,
         className: "Comptes spéciaux",
         type: "bilan",
@@ -6940,6 +8005,7 @@ export const accountEntries: AccountEntry[] = [
     defineAccount("80", "Engagements donnés et reçus", {
         description:
             "Comptes retraçant les engagements hors bilan, c'est-à-dire les droits et obligations qui n'entraînent pas immédiatement de flux financiers mais qui peuvent en générer à l'avenir.",
+        examples: ["Caution de 100 000 € donnée à la banque pour garantir le prêt d'une filiale"],
         classNumber: 8,
         className: "Comptes spéciaux",
         type: "bilan",
@@ -6950,6 +8016,7 @@ export const accountEntries: AccountEntry[] = [
     defineAccount("801", "Engagements donnés par l'entité", {
         description:
             "Engagements que l'entité a accordés à des tiers : cautions, avals, garanties et autres promesses pouvant entraîner une sortie de ressources.",
+        examples: ["Caution de 50 000 € accordée en faveur d'un fournisseur"],
         classNumber: 8,
         className: "Comptes spéciaux",
         type: "bilan",
@@ -6958,6 +8025,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "80",
     }),
     defineAccount("8011", "Avals, cautions et garanties donnés", {
+        examples: ["Caution de 50 000 € donnée à une banque pour garantir l'emprunt d'une filiale"],
         classNumber: 8,
         className: "Comptes spéciaux",
         type: "bilan",
@@ -6966,6 +8034,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "801",
     }),
     defineAccount("8014", "Effets circulant sous l'endos de l'entité", {
+        examples: ["Lettres de change de 20 000 € endossées et circulant chez des tiers"],
         classNumber: 8,
         className: "Comptes spéciaux",
         type: "bilan",
@@ -6975,6 +8044,7 @@ export const accountEntries: AccountEntry[] = [
     }),
     defineAccount("8016", "Redevances crédit-bail restant à courir", {
         description: "Montant des redevances de crédit-bail restant à payer sur la durée résiduelle du contrat.",
+        examples: ["Redevances de crédit-bail restant à courir de 36 000 € sur 3 ans"],
         classNumber: 8,
         className: "Comptes spéciaux",
         type: "bilan",
@@ -6983,6 +8053,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "801",
     }),
     defineAccount("8017", "Dettes garanties par des sûretés réelles", {
+        examples: ["Hypothèque de 200 000 € inscrite sur un immeuble en garantie d'un emprunt"],
         classNumber: 8,
         className: "Comptes spéciaux",
         type: "bilan",
@@ -6991,6 +8062,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "801",
     }),
     defineAccount("8018", "Autres engagements donnés", {
+        examples: ["Engagement de rachat de 30 000 € donné dans le cadre d'un contrat commercial"],
         classNumber: 8,
         className: "Comptes spéciaux",
         type: "bilan",
@@ -7001,6 +8073,7 @@ export const accountEntries: AccountEntry[] = [
     defineAccount("802", "Engagements reçus par l'entité", {
         description:
             "Engagements que des tiers ont accordés à l'entité : garanties reçues, avals et cautions dont l'entité bénéficie.",
+        examples: ["Promesse de vente reçue d'un partenaire pour un immeuble"],
         classNumber: 8,
         className: "Comptes spéciaux",
         type: "bilan",
@@ -7009,6 +8082,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "80",
     }),
     defineAccount("8021", "Avals, cautions et garanties reçus", {
+        examples: ["Caution bancaire de 100 000 € reçue d'un établissement de crédit"],
         classNumber: 8,
         className: "Comptes spéciaux",
         type: "bilan",
@@ -7017,6 +8091,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "802",
     }),
     defineAccount("8024", "Créances escomptées non échues", {
+        examples: ["Créances de 15 000 € escomptées auprès de la banque et non encore échues"],
         classNumber: 8,
         className: "Comptes spéciaux",
         type: "bilan",
@@ -7025,6 +8100,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "802",
     }),
     defineAccount("8026", "Engagements reçus pour utilisation en crédit-bail", {
+        examples: ["Engagement de crédit-bail de 80 000 € pour un véhicule utilitaire sur 5 ans"],
         classNumber: 8,
         className: "Comptes spéciaux",
         type: "bilan",
@@ -7033,6 +8109,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "802",
     }),
     defineAccount("8028", "Autres engagements reçus", {
+        examples: ["Promesse de subvention de 40 000 € reçue d'une collectivité locale"],
         classNumber: 8,
         className: "Comptes spéciaux",
         type: "bilan",
@@ -7043,6 +8120,7 @@ export const accountEntries: AccountEntry[] = [
     defineAccount("803", "Engagements réciproques", {
         description:
             "Engagements mutuels liant l'entité et un tiers, tels que les commandes fermes passées ou reçues et les contrats à exécution successive.",
+        examples: ["Contrat de vente à terme portant sur des matières premières"],
         classNumber: 8,
         className: "Comptes spéciaux",
         type: "bilan",
@@ -7053,6 +8131,7 @@ export const accountEntries: AccountEntry[] = [
     defineAccount("809", "Contrepartie des engagements", {
         description:
             "Compte de contrepartie technique utilisé pour équilibrer les écritures d'engagements hors bilan en partie double.",
+        examples: ["Écriture de contrepartie d'un engagement de caution donné"],
         classNumber: 8,
         className: "Comptes spéciaux",
         type: "bilan",
@@ -7063,6 +8142,7 @@ export const accountEntries: AccountEntry[] = [
     defineAccount("86", "Emplois des contributions volontaires en nature", {
         description:
             "Comptes utilisés par les associations pour valoriser les contributions volontaires (bénévolat, dons en nature, mises à disposition gratuites) dans leurs comptes.",
+        examples: ["Coût évalué des repas servis bénévolement lors d'un événement caritatif"],
         classNumber: 8,
         className: "Comptes spéciaux",
         type: "bilan",
@@ -7071,6 +8151,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "8",
     }),
     defineAccount("860", "Secours en nature", {
+        examples: ["Distribution de repas aux bénéficiaires d'une association caritative"],
         classNumber: 8,
         className: "Comptes spéciaux",
         type: "bilan",
@@ -7079,6 +8160,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "86",
     }),
     defineAccount("861", "Mise à disposition gratuite de biens", {
+        examples: ["Mise à disposition gratuite de locaux par la mairie à une association"],
         classNumber: 8,
         className: "Comptes spéciaux",
         type: "bilan",
@@ -7087,6 +8169,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "86",
     }),
     defineAccount("862", "Prestations", {
+        examples: ["Prestations de formation gratuites assurées par un bénévole qualifié"],
         classNumber: 8,
         className: "Comptes spéciaux",
         type: "bilan",
@@ -7095,6 +8178,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "86",
     }),
     defineAccount("864", "Personnel bénévole", {
+        examples: ["200 heures de bénévolat valorisées à 15 € de l'heure"],
         classNumber: 8,
         className: "Comptes spéciaux",
         type: "bilan",
@@ -7105,6 +8189,7 @@ export const accountEntries: AccountEntry[] = [
     defineAccount("87", "Contributions volontaires en nature", {
         description:
             "Contrepartie des emplois des contributions volontaires, enregistrant la source des contributions reçues par les associations.",
+        examples: ["Heures de bénévolat valorisées à 15 €/h pour un total de 3 000 €"],
         classNumber: 8,
         className: "Comptes spéciaux",
         type: "bilan",
@@ -7113,6 +8198,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "8",
     }),
     defineAccount("870", "Bénévolat", {
+        examples: ["Bénévolat valorisé à 3 000 € pour l'organisation d'un événement caritatif"],
         classNumber: 8,
         className: "Comptes spéciaux",
         type: "bilan",
@@ -7121,6 +8207,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "87",
     }),
     defineAccount("871", "Prestations en nature", {
+        examples: ["Prestations en nature reçues gratuitement d'une entreprise partenaire pour 5 000 €"],
         classNumber: 8,
         className: "Comptes spéciaux",
         type: "bilan",
@@ -7129,6 +8216,7 @@ export const accountEntries: AccountEntry[] = [
         parent: "87",
     }),
     defineAccount("875", "Dons en nature", {
+        examples: ["Don de matériel informatique d'une valeur de 2 000 € par une entreprise mécène"],
         classNumber: 8,
         className: "Comptes spéciaux",
         type: "bilan",

@@ -52,10 +52,12 @@ export function HomePage() {
                             display: "flex",
                             justifyContent: "start",
                             alignItems: "center",
-                            gap: "0.5rem",
+                            gap: "0.25rem",
                         })}
                     >
-                        <LinkButton to="/">
+                        <LinkButton
+                            to="/"
+                        >
                             <Logo />
                         </LinkButton>
                         <span

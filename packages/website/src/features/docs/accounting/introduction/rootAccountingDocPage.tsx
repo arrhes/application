@@ -7,7 +7,6 @@ import { DocRoot } from "../../../../components/document/docRoot.tsx"
 import { DocSection } from "../../../../components/document/docSection.tsx"
 import { DocTip } from "../../../../components/document/docTip.tsx"
 
-
 export function RootAccountingDocPage() {
     return (
         <DocRoot>
@@ -58,5 +57,3 @@ export function RootAccountingDocPage() {
         </DocRoot>
     )
 }
-
-type ValidRoutes = Parameters<typeof DocLink>[0]["to"]

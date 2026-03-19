@@ -1,5 +1,12 @@
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconArrowLeft, IconBookmark, IconChevronRight, IconCornerDownRight } from "@tabler/icons-react"
+import {
+    IconArrowLeft,
+    IconBookmark,
+    IconChevronRight,
+    IconCornerDownRight,
+    IconInfoCircle,
+    IconSparkles,
+} from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { DocHeader } from "../../../../components/document/docHeader.js"
 import { DocLink } from "../../../../components/document/docLink.js"
@@ -19,7 +26,7 @@ export function AccountAccountingDocPage() {
         return (
             <DocRoot>
                 <DocHeader title="Compte introuvable" description="Ce compte n'existe pas dans le plan comptable." />
-                <LinkButton to="/documentation/comptabilité/comptes">
+                <LinkButton to="/documentation/comptabilité/comptes/liste">
                     <span
                         className={css({
                             display: "flex",
@@ -39,19 +46,20 @@ export function AccountAccountingDocPage() {
 
     const parentAccount = entry.parent ? getAccount(entry.parent) : null
     const children = getDirectChildren(entry.number)
+    const isSummaryAccount = entry.number.length <= 2
 
     const debitMeaning =
         entry.side === "actif" || entry.side === "charge"
             ? "Augmentation"
             : entry.side === "actif ou passif"
-                ? "Variable"
-                : "Diminution"
+              ? "Variable"
+              : "Diminution"
     const creditMeaning =
         entry.side === "passif" || entry.side === "produit"
             ? "Augmentation"
             : entry.side === "actif ou passif"
-                ? "Variable"
-                : "Diminution"
+              ? "Variable"
+              : "Diminution"
 
     return (
         <DocRoot>
@@ -154,62 +162,174 @@ export function AccountAccountingDocPage() {
                 )}
             </div>
 
-            {/* How debit/credit works */}
-            <DocSection title="Fonctionnement">
-                <DocTable
-                    headers={["Mouvement", "Signification"]}
-                    rows={[
-                        ["Débit", debitMeaning],
-                        ["Crédit", creditMeaning],
-                    ]}
-                />
-                <DocParagraph>
-                    Ce compte est un compte{" "}
-                    {entry.side === "actif ou passif" ? (
-                        <>
-                            d'
-                            <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "actif" }}>
-                                actif
-                            </DocLink>{" "}
-                            ou de{" "}
-                            <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "passif" }}>
-                                passif
-                            </DocLink>
-                        </>
-                    ) : (
-                        <>
-                            de{" "}
-                            <DocLink
-                                to="/documentation/comptabilité/glossaire/$term"
-                                params={{
-                                    term:
-                                        entry.side === "charge"
-                                            ? "charges-classe-6"
-                                            : entry.side === "produit"
-                                                ? "produits-classe-7"
-                                                : entry.side,
-                                }}
-                            >
-                                {entry.side}
-                            </DocLink>
-                        </>
-                    )}
-                    . Il figure dans le{" "}
-                    <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
-                        params={{ term: entry.type === "bilan" ? "bilan" : "compte-de-résultat" }}
+            {/* Summary account banner */}
+            {isSummaryAccount && (
+                <div
+                    className={css({
+                        display: "flex",
+                        gap: "0.75rem",
+                        padding: "1rem 1.25rem",
+                        borderRadius: "lg",
+                        backgroundColor: "information/5",
+                        border: "1px solid",
+                        borderColor: "information/15",
+                    })}
+                >
+                    <IconInfoCircle
+                        size={18}
+                        className={css({
+                            stroke: "information",
+                            flexShrink: 0,
+                            marginTop: "0.125rem",
+                        })}
+                    />
+                    <div className={css({ display: "flex", flexDirection: "column", gap: "0.25rem" })}>
+                        <span
+                            className={css({
+                                fontSize: "sm",
+                                fontWeight: "semibold",
+                                color: "information",
+                            })}
+                        >
+                            Compte de regroupement
+                        </span>
+                        <span
+                            className={css({
+                                fontSize: "sm",
+                                color: "neutral/70",
+                                lineHeight: "1.6",
+                            })}
+                        >
+                            Ce compte à {entry.number.length} chiffre{entry.number.length > 1 ? "s" : ""} est un compte
+                            de classification. Il ne peut pas être utilisé directement dans une{" "}
+                            <DocLink to="/documentation/comptabilité/écritures">écriture comptable</DocLink>. Les
+                            écritures doivent être passées dans les sous-comptes à 3 chiffres ou plus.
+                        </span>
+                    </div>
+                </div>
+            )}
+
+            {/* Examples as journal entries */}
+            {!isSummaryAccount && entry.examples && entry.examples.length > 0 && (
+                <DocSection title="Exemples d'écritures">
+                    <div
+                        className={css({
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "1.25rem",
+                        })}
                     >
-                        {entry.type === "bilan" ? "bilan" : "compte de résultat"}
-                    </DocLink>
-                    .
-                </DocParagraph>
-            </DocSection>
+                        {entry.examples.map((example) => {
+                            const journalEntry = getExampleJournalEntry(entry, example)
+                            return (
+                                <div
+                                    key={example}
+                                    className={css({
+                                        borderRadius: "lg",
+                                        border: "1px solid",
+                                        borderColor: "success/15",
+                                        overflow: "hidden",
+                                    })}
+                                >
+                                    <div
+                                        className={css({
+                                            display: "flex",
+                                            alignItems: "baseline",
+                                            gap: "0.5rem",
+                                            padding: "0.75rem 1rem",
+                                            backgroundColor: "success/5",
+                                            borderBottom: "1px solid",
+                                            borderBottomColor: "success/15",
+                                        })}
+                                    >
+                                        <IconSparkles
+                                            size={14}
+                                            className={css({
+                                                stroke: "success",
+                                                flexShrink: 0,
+                                                position: "relative",
+                                                top: "0.125rem",
+                                            })}
+                                        />
+                                        <span
+                                            className={css({
+                                                fontSize: "sm",
+                                                color: "neutral/80",
+                                                lineHeight: "1.6",
+                                            })}
+                                        >
+                                            {example}
+                                        </span>
+                                    </div>
+                                    <DocTable
+                                        headers={["Compte", "Intitulé", "Débit", "Crédit"]}
+                                        rows={journalEntry.rows}
+                                    />
+                                </div>
+                            )
+                        })}
+                    </div>
+                </DocSection>
+            )}
+
+            {/* How debit/credit works */}
+            {!isSummaryAccount && (
+                <DocSection title="Fonctionnement">
+                    <DocTable
+                        headers={["Mouvement", "Signification"]}
+                        rows={[
+                            ["Débit", debitMeaning],
+                            ["Crédit", creditMeaning],
+                        ]}
+                    />
+                    <DocParagraph>
+                        Ce compte est un compte{" "}
+                        {entry.side === "actif ou passif" ? (
+                            <>
+                                d'
+                                <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "actif" }}>
+                                    actif
+                                </DocLink>{" "}
+                                ou de{" "}
+                                <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "passif" }}>
+                                    passif
+                                </DocLink>
+                            </>
+                        ) : (
+                            <>
+                                de{" "}
+                                <DocLink
+                                    to="/documentation/comptabilité/glossaire/$term"
+                                    params={{
+                                        term:
+                                            entry.side === "charge"
+                                                ? "charges-classe-6"
+                                                : entry.side === "produit"
+                                                  ? "produits-classe-7"
+                                                  : entry.side,
+                                    }}
+                                >
+                                    {entry.side}
+                                </DocLink>
+                            </>
+                        )}
+                        . Il figure dans le{" "}
+                        <DocLink
+                            to="/documentation/comptabilité/glossaire/$term"
+                            params={{ term: entry.type === "bilan" ? "bilan" : "compte-de-résultat" }}
+                        >
+                            {entry.type === "bilan" ? "bilan" : "compte de résultat"}
+                        </DocLink>
+                        .
+                    </DocParagraph>
+                </DocSection>
+            )}
 
             {/* Parent account */}
             {parentAccount && (
                 <DocSection title="Compte parent">
                     <LinkButton
-                        to="/documentation/comptabilité/comptes/$account"
+                        to="/documentation/comptabilité/comptes/liste/$account"
                         params={{ account: parentAccount.slug }}
                     >
                         <div
@@ -255,7 +375,7 @@ export function AccountAccountingDocPage() {
                         {children.map((child) => (
                             <LinkButton
                                 key={child.slug}
-                                to="/documentation/comptabilité/comptes/$account"
+                                to="/documentation/comptabilité/comptes/liste/$account"
                                 params={{ account: child.slug }}
                             >
                                 <div
@@ -292,9 +412,7 @@ export function AccountAccountingDocPage() {
                                     </span>
                                     <span
                                         className={css({
-                                            color: child.system === "facultatif"
-                                                ? "neutral/50"
-                                                : "neutral",
+                                            color: child.system === "facultatif" ? "neutral/50" : "neutral",
                                             fontStyle: child.system === "facultatif" ? "italic" : "normal",
                                             flex: 1,
                                             minWidth: 0,
@@ -313,9 +431,11 @@ export function AccountAccountingDocPage() {
             )}
 
             {/* Practical usage section */}
-            <DocSection title="Utilisation pratique">
-                <PracticalUsage entry={entry} debitMeaning={debitMeaning} creditMeaning={creditMeaning} />
-            </DocSection>
+            {!isSummaryAccount && (
+                <DocSection title="Utilisation pratique">
+                    <PracticalUsage entry={entry} debitMeaning={debitMeaning} creditMeaning={creditMeaning} />
+                </DocSection>
+            )}
 
             <DocTip variant="tip">
                 Pour approfondir le fonctionnement des comptes, consultez le{" "}
@@ -323,30 +443,6 @@ export function AccountAccountingDocPage() {
                 <DocLink to="/documentation/comptabilité/écritures">les écritures comptables</DocLink>.
             </DocTip>
         </DocRoot>
-    )
-}
-
-function ChildDiffTag(props: { label: string; color: "error" | "success" | "information" }) {
-    const { label, color } = props
-    return (
-        <span
-            className={css({
-                fontSize: "2xs",
-                fontWeight: "bold",
-                textTransform: "uppercase",
-                letterSpacing: "0.05em",
-                padding: "0.0625rem 0.375rem",
-                borderRadius: "full",
-                flexShrink: 0,
-                lineHeight: "1.4",
-                color: `${color}`,
-                backgroundColor: `${color}/10`,
-                border: "1px solid",
-                borderColor: `${color}/20`,
-            })}
-        >
-            {label}
-        </span>
     )
 }
 
@@ -382,6 +478,234 @@ function InfoRow(props: { label: string; value: string }) {
             </span>
         </div>
     )
+}
+
+// ── Example journal entries ──────────────────────────────────────────────────
+
+function extractAmount(text: string): string | null {
+    const match = text.match(/([\d\s]+(?:\.\d+)?)\s*€/)
+    if (!match) return null
+    const raw = match[1].trim().replace(/\s/g, " ")
+    return `${raw},00`
+}
+
+function formatAmount(amount: string | null): string {
+    return amount ?? "X"
+}
+
+type CounterpartInfo = { number: string; label: string }
+
+function getCounterpartForAccount(entry: AccountEntry): CounterpartInfo {
+    const { number, classNumber, side } = entry
+
+    // Amortissements (28x) → dotations aux amortissements
+    if (number.startsWith("28")) {
+        const dotation = getAccount("6811")
+        return dotation
+            ? { number: dotation.number, label: dotation.label }
+            : { number: "6811", label: "Dotations aux amortissements sur immobilisations incorporelles et corporelles" }
+    }
+
+    // Dépréciations d'immobilisations (29x) → dotations aux dépréciations
+    if (number.startsWith("29")) {
+        const dotation = getAccount("6816")
+        return dotation
+            ? { number: dotation.number, label: dotation.label }
+            : { number: "6816", label: "Dotations aux dépréciations des immobilisations incorporelles et corporelles" }
+    }
+
+    // Dépréciations de stocks (39x) → dotations aux dépréciations
+    if (number.startsWith("39")) {
+        const dotation = getAccount("6817")
+        return dotation
+            ? { number: dotation.number, label: dotation.label }
+            : { number: "6817", label: "Dotations aux dépréciations des actifs circulants" }
+    }
+
+    // Dépréciations de comptes de tiers (49x) → dotations aux dépréciations
+    if (number.startsWith("49")) {
+        const dotation = getAccount("6817")
+        return dotation
+            ? { number: dotation.number, label: dotation.label }
+            : { number: "6817", label: "Dotations aux dépréciations des actifs circulants" }
+    }
+
+    // Class 1 - Capitaux → Banque
+    if (classNumber === 1) {
+        const banque = getAccount("512")
+        return banque ? { number: banque.number, label: banque.label } : { number: "512", label: "Banques" }
+    }
+
+    // Class 2 - Immobilisations → Fournisseurs d'immobilisations
+    if (classNumber === 2) {
+        const fournisseurImmo = getAccount("404")
+        if (fournisseurImmo) return { number: fournisseurImmo.number, label: fournisseurImmo.label }
+        return { number: "404", label: "Fournisseurs d'immobilisations" }
+    }
+
+    // Class 3 - Stocks → Variation des stocks
+    if (classNumber === 3) {
+        if (number.startsWith("31") || number.startsWith("35")) {
+            const variation = getAccount("6031")
+            return variation
+                ? { number: variation.number, label: variation.label }
+                : { number: "6031", label: "Variation des stocks de matières premières (et fournitures)" }
+        }
+        if (number.startsWith("32")) {
+            const variation = getAccount("6032")
+            return variation
+                ? { number: variation.number, label: variation.label }
+                : { number: "6032", label: "Variation des stocks des autres approvisionnements" }
+        }
+        if (number.startsWith("33") || number.startsWith("34")) {
+            const variation = getAccount("7133")
+            return variation
+                ? { number: variation.number, label: variation.label }
+                : { number: "7133", label: "Variation des en-cours de production de biens" }
+        }
+        if (number.startsWith("37")) {
+            const variation = getAccount("6037")
+            return variation
+                ? { number: variation.number, label: variation.label }
+                : { number: "6037", label: "Variation des stocks de marchandises" }
+        }
+        const variation = getAccount("603")
+        return variation
+            ? { number: variation.number, label: variation.label }
+            : { number: "603", label: "Variation des stocks" }
+    }
+
+    // Class 4 - Tiers
+    if (classNumber === 4) {
+        // Fournisseurs (40x) → Banque
+        if (number.startsWith("40")) {
+            const banque = getAccount("512")
+            return banque ? { number: banque.number, label: banque.label } : { number: "512", label: "Banques" }
+        }
+        // Clients (41x) → Banque
+        if (number.startsWith("41")) {
+            const banque = getAccount("512")
+            return banque ? { number: banque.number, label: banque.label } : { number: "512", label: "Banques" }
+        }
+        // Personnel (42x) → Banque
+        if (number.startsWith("42")) {
+            const banque = getAccount("512")
+            return banque ? { number: banque.number, label: banque.label } : { number: "512", label: "Banques" }
+        }
+        // Organismes sociaux (43x) → Banque
+        if (number.startsWith("43")) {
+            const banque = getAccount("512")
+            return banque ? { number: banque.number, label: banque.label } : { number: "512", label: "Banques" }
+        }
+        // TVA déductible (4456x) → Fournisseurs
+        if (number.startsWith("4456")) {
+            const fournisseur = getAccount("401")
+            return fournisseur
+                ? { number: fournisseur.number, label: fournisseur.label }
+                : { number: "401", label: "Fournisseurs" }
+        }
+        // TVA collectée (4457x) → Clients
+        if (number.startsWith("4457")) {
+            const client = getAccount("411")
+            return client ? { number: client.number, label: client.label } : { number: "411", label: "Clients" }
+        }
+        // État (44x) → Banque
+        if (number.startsWith("44")) {
+            const banque = getAccount("512")
+            return banque ? { number: banque.number, label: banque.label } : { number: "512", label: "Banques" }
+        }
+        // Default tiers → Banque
+        const banque = getAccount("512")
+        return banque ? { number: banque.number, label: banque.label } : { number: "512", label: "Banques" }
+    }
+
+    // Class 5 - Financiers → Clients or Fournisseurs depending on side
+    if (classNumber === 5) {
+        if (side === "actif") {
+            const client = getAccount("411")
+            return client ? { number: client.number, label: client.label } : { number: "411", label: "Clients" }
+        }
+        const fournisseur = getAccount("401")
+        return fournisseur
+            ? { number: fournisseur.number, label: fournisseur.label }
+            : { number: "401", label: "Fournisseurs" }
+    }
+
+    // Class 6 - Charges → Fournisseurs
+    if (classNumber === 6) {
+        // Dotations (68x) → counterpart is the asset depreciation/amortization account
+        if (number.startsWith("68")) {
+            const amort = getAccount("28")
+            return amort
+                ? { number: amort.number, label: amort.label }
+                : { number: "28", label: "Amortissements des immobilisations" }
+        }
+        // Salaires (641) → Personnel
+        if (number.startsWith("641")) {
+            const personnel = getAccount("421")
+            return personnel
+                ? { number: personnel.number, label: personnel.label }
+                : { number: "421", label: "Personnel - Rémunérations dues" }
+        }
+        // Charges sociales (645) → Organismes sociaux
+        if (number.startsWith("645")) {
+            const orga = getAccount("43")
+            return orga
+                ? { number: orga.number, label: orga.label }
+                : { number: "43", label: "Sécurité sociale et autres organismes sociaux" }
+        }
+        const fournisseur = getAccount("401")
+        return fournisseur
+            ? { number: fournisseur.number, label: fournisseur.label }
+            : { number: "401", label: "Fournisseurs" }
+    }
+
+    // Class 7 - Produits → Clients
+    if (classNumber === 7) {
+        // Reprises (78x) → counterpart is the depreciation/amortization account
+        if (number.startsWith("78")) {
+            const deprec = getAccount("29")
+            return deprec
+                ? { number: deprec.number, label: deprec.label }
+                : { number: "29", label: "Dépréciations des immobilisations" }
+        }
+        const client = getAccount("411")
+        return client ? { number: client.number, label: client.label } : { number: "411", label: "Clients" }
+    }
+
+    // Class 8 - Spéciaux → generic counterpart
+    if (classNumber === 8) {
+        return { number: "8", label: "Comptes spéciaux (contrepartie)" }
+    }
+
+    // Fallback
+    const banque = getAccount("512")
+    return banque ? { number: banque.number, label: banque.label } : { number: "512", label: "Banques" }
+}
+
+function getExampleJournalEntry(entry: AccountEntry, exampleText: string): { rows: string[][] } {
+    const amount = formatAmount(extractAmount(exampleText))
+    const counterpart = getCounterpartForAccount(entry)
+    const { side, number, label } = entry
+
+    // Determine which side the current account goes on
+    const currentIsDebit = side === "actif" || side === "charge" || side === "actif ou passif"
+
+    if (currentIsDebit) {
+        return {
+            rows: [
+                [number, label, amount, ""],
+                [counterpart.number, counterpart.label, "", amount],
+            ],
+        }
+    }
+
+    return {
+        rows: [
+            [counterpart.number, counterpart.label, amount, ""],
+            [number, label, "", amount],
+        ],
+    }
 }
 
 // ── Practical usage ─────────────────────────────────────────────────────────
