@@ -6,6 +6,8 @@ export const journalAccountingDocRoute = createRoute({
     path: "/journal",
     beforeLoad: () => ({
         title: "Journal",
+        description:
+            "Le journal comptable : document chronologique enregistrant toutes les opérations comptables de l'entreprise.",
     }),
     component: lazyRouteComponent(
         () => import("../../../../../features/docs/accounting/reports/journalAccountingDocPage.tsx"),

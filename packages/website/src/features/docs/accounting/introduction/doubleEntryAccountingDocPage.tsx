@@ -7,6 +7,7 @@ import { DocNextPage } from "../../../../components/document/docNextPage.tsx"
 import { DocParagraph } from "../../../../components/document/docParagraph.tsx"
 import { DocRoot } from "../../../../components/document/docRoot.tsx"
 import { DocSection } from "../../../../components/document/docSection.tsx"
+import { DocSourceRef } from "../../../../components/document/docSourceRef.tsx"
 import { DocSources } from "../../../../components/document/docSources.tsx"
 import { DocTable } from "../../../../components/document/docTable.tsx"
 import { DocTip } from "../../../../components/document/docTip.tsx"
@@ -26,11 +27,13 @@ export function DoubleEntryAccountingDocPage() {
                 </DocParagraph>
                 <DocParagraph>
                     Le principe de la partie double est le fondement de toute comptabilité moderne, codifié par Luca
-                    Pacioli en 1494. Il repose sur une idée simple : chaque opération de l'organisation est un flux qui
-                    a une <strong>origine</strong> (d'où viennent les fonds) et une <strong>destination</strong> (où
-                    vont les fonds). Origine et destination sont par définition d'un même montant : le flux est
-                    équilibré. La comptabilité garantit ainsi que chaque mouvement d'argent (réel ou virtuel) est
-                    correctement enregistré et équilibré.
+                    Pacioli en 1494.
+                    <DocSourceRef n={1} /> Il repose sur une idée simple : chaque opération de l'organisation est un
+                    flux qui a une <strong>origine</strong> et une <strong>destination</strong> . Origine et destination
+                    sont par définition d'un même montant : le flux est équilibré. La comptabilité garantit ainsi que
+                    chaque mouvement de ressource (argent, matériaux, service, etc.) est correctement enregistré et
+                    équilibré.
+                    <DocSourceRef n={2} />
                 </DocParagraph>
                 <DocParagraph>
                     Concrètement, chaque opération de l'organisation est notée dans ce qu'on appelle un{" "}
@@ -55,6 +58,7 @@ export function DoubleEntryAccountingDocPage() {
                     </DocLink>
                     . Peu importe le nombre de lignes, la somme des montants débités doit toujours être égale à la somme
                     des montants crédités. C'est ce qui garantit l'équilibre permanent de la comptabilité.
+                    <DocSourceRef n={3} />
                 </DocParagraph>
 
                 <DocExample>
@@ -98,18 +102,96 @@ export function DoubleEntryAccountingDocPage() {
             </DocSection>
 
             <DocSection title="Vocabulaire essentiel">
-                <DocDefinition
-                    term="Débit"
-                    definition="Côté gauche d'un compte. Le mot vient du latin debere (devoir) : il indique que le caissier doit pouvoir rendre l'argent entré dans sa caisse. Pour les comptes d'actif et de charges, un débit représente une augmentation."
-                />
-                <DocDefinition
-                    term="Crédit"
-                    definition="Côté droit d'un compte. Le mot vient du latin credere (croire) : en échange d'une sortie d'argent, le caissier reçoit une pièce justificative qui lui permet d'être cru lors d'un contrôle. Pour les comptes de passif et de produits, un crédit représente une augmentation."
-                />
-                <DocDefinition
-                    term="Solde"
-                    definition="Différence entre le total des débits et le total des crédits d'un compte. Un compte est débiteur si les débits sont supérieurs aux crédits, créditeur dans le cas contraire."
-                />
+                <DocDefinition term="Écriture">
+                    Une écriture comptable est l'enregistrement d'une opération économique dans les comptes de
+                    l'organisation. Elle se compose d'une date, d'un libellé décrivant l'opération, et d'au moins deux
+                    lignes : chaque ligne associe un compte à un montant, inscrit au débit ou au crédit.
+                    <br />
+                    <br />
+                    Le total des débits d'une écriture est toujours égal au total de ses crédits : c'est le principe de
+                    la partie double appliqué à chaque opération. Une écriture doit être justifiée par une pièce
+                    justificative (facture, relevé bancaire, ticket de caisse, etc.).
+                </DocDefinition>
+                <DocDefinition term="Compte">
+                    Un compte est un registre qui suit l'évolution d'un élément précis du patrimoine ou de l'activité de
+                    l'organisation. Son montant est modifié à chaque fois qu'il est impliqué dans une opération
+                    comptable (on parle d'écriture), soit au débit, soit au crédit. On dit que le compte est mouvementé
+                    (par l'écriture).
+                    <br />
+                    Chaque compte a un numéro et un intitulé qui précisent ce qu'il suit.
+                    <br />
+                    <br />
+                    Il existe quatre grands types de comptes : les comptes d'actif (ce que l'organisation possède), de
+                    passif (ce qu'elle doit), de charges (ce qu'elle dépense) et de produits (ce qu'elle gagne).
+                    <br />
+                    <br />
+                    Par exemple, le compte « Banque » (numéro 512) suit l'argent disponible sur le compte bancaire. Le
+                    compte « Fournisseurs » (numéro 401) suit les dettes envers les fournisseurs. Le compte « Ventes »
+                    (numéro 706) suit le montant des ventes réalisées.
+                </DocDefinition>
+                <DocDefinition term="Débit">
+                    Débiter un compte, c'est enregistrer que ce compte est la destination d'un flux. Les ressources vont
+                    vers ce compte.
+                    <br />
+                    <br />
+                    Actif (ex : 512 - Banque) — un client paie par virement : l'argent arrive sur le compte bancaire, on
+                    débite le compte 512.
+                    <br />
+                    Charges (ex : 601 - Achats stockés) — l'organisation reçoit des matières premières : la charge
+                    augmente, on débite le compte 601.
+                    <br />
+                    Passif (ex : 164 - Emprunt) — l'organisation rembourse une partie de son emprunt : le remboursement
+                    est dirigé vers la dette pour la réduire, on débite le compte 164.
+                    <br />
+                    Produits (ex : 706 - Ventes) — un client retourne un article : l'annulation est dirigée vers le
+                    compte de ventes pour le réduire, on débite le compte 706.
+                </DocDefinition>
+                <DocDefinition term="Crédit">
+                    Créditer un compte, c'est enregistrer que ce compte est l'origine d'un flux. Les ressources partent
+                    de ce compte.
+                    <ul
+                        className={css({
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "0.375rem",
+                            paddingLeft: "1rem",
+                            listStyleType: "disc",
+                            width: "100%",
+                        })}
+                    >
+                        <li className={css({ fontSize: "sm", color: "neutral/60", lineHeight: "1.6" })}>
+                            <span className={css({ fontWeight: "medium", color: "neutral/70" })}>
+                                Passif (ex : Emprunt)
+                            </span>{" "}
+                            — l'organisation contracte un emprunt : la dette est la source des fonds reçus, on crédite
+                            Emprunt.
+                        </li>
+                        <li className={css({ fontSize: "sm", color: "neutral/60", lineHeight: "1.6" })}>
+                            <span className={css({ fontWeight: "medium", color: "neutral/70" })}>
+                                Produits (ex : Ventes)
+                            </span>{" "}
+                            — l'organisation réalise une vente : le revenu est la source de la valeur créée, on crédite
+                            Ventes.
+                        </li>
+                        <li className={css({ fontSize: "sm", color: "neutral/60", lineHeight: "1.6" })}>
+                            <span className={css({ fontWeight: "medium", color: "neutral/70" })}>
+                                Actif (ex : Caisse)
+                            </span>{" "}
+                            — l'organisation paie en espèces : l'argent part de la caisse, on crédite Caisse.
+                        </li>
+                        <li className={css({ fontSize: "sm", color: "neutral/60", lineHeight: "1.6" })}>
+                            <span className={css({ fontWeight: "medium", color: "neutral/70" })}>
+                                Charges (ex : Fournitures)
+                            </span>{" "}
+                            — le fournisseur accorde un avoir : la charge est annulée, on crédite Fournitures.
+                        </li>
+                    </ul>
+                </DocDefinition>
+                <DocDefinition term="Solde">
+                    Le solde d'un compte résume en un seul chiffre tout ce qui y est entré et sorti. C'est la différence
+                    entre le total de ses débits et le total de ses crédits. Si les débits sont supérieurs, le solde est
+                    débiteur. Dans le cas contraire, il est créditeur.
+                </DocDefinition>
             </DocSection>
 
             <DocSection title="Lien avec Arrhes">
@@ -121,26 +203,25 @@ export function DoubleEntryAccountingDocPage() {
                 </DocParagraph>
             </DocSection>
 
-            <DocTip variant="info">
-                Maintenant que vous connaissez le principe de la partie double, découvrez comment les opérations sont
-                concrètement enregistrées sous forme d'écritures comptables dans la page suivante.
-            </DocTip>
-
-            <DocNextPage to="/documentation/comptabilité/écritures" label="Les écritures comptables" />
+            <DocNextPage
+                to="/documentation/comptabilité/écritures"
+                label="Les écritures comptables"
+                description="Maintenant que vous connaissez le principe de la partie double, découvrez comment les opérations sont concrètement enregistrées sous forme d'écritures comptables."
+            />
 
             <DocSources
                 sources={[
                     {
-                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
-                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
+                        label: "Luca Pacioli — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Luca_Pacioli",
                     },
                     {
                         label: "Comptabilité en partie double — Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Comptabilit%C3%A9_en_partie_double",
                     },
                     {
-                        label: "Luca Pacioli — Wikipédia",
-                        url: "https://fr.wikipedia.org/wiki/Luca_Pacioli",
+                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        url: "https://www.anc.gouv.fr/normes-comptables-francaises/recueils-des-normes-comptables",
                     },
                 ]}
             />

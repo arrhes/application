@@ -7,6 +7,8 @@ export const applicationRouter = createRouter({
     routeTree: applicationTree,
     context: {
         title: undefined,
+        description: undefined,
+        robots: undefined,
         isAuthenticated: getIsAuthenticated(),
         userSession: getUserSession(),
     },

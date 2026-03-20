@@ -6,6 +6,7 @@ export const legalGeneralDocRoute = createRoute({
     path: "/mentions-légales",
     beforeLoad: () => ({
         title: "Mentions légales",
+        description: "Mentions légales du logiciel de comptabilité Arrhes. Informations sur l'éditeur et l'hébergeur.",
     }),
     component: lazyRouteComponent(
         () => import("../../../../features/docs/general/legalGeneralDocPage.tsx"),

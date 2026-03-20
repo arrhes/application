@@ -5,6 +5,7 @@ import { DocNextPage } from "../../../../components/document/docNextPage.tsx"
 import { DocParagraph } from "../../../../components/document/docParagraph.tsx"
 import { DocRoot } from "../../../../components/document/docRoot.tsx"
 import { DocSection } from "../../../../components/document/docSection.tsx"
+import { DocSourceRef } from "../../../../components/document/docSourceRef.tsx"
 import { DocSources } from "../../../../components/document/docSources.tsx"
 import { DocTip } from "../../../../components/document/docTip.tsx"
 
@@ -24,6 +25,7 @@ export function IntroductionAccountingDocPage() {
                         organisation
                     </DocLink>{" "}
                     (entreprise, association, etc.).
+                    <DocSourceRef n={1} />
                 </DocParagraph>
                 <DocParagraph>En termes simples, la comptabilité répond à deux questions essentielles :</DocParagraph>
                 <DocList items={["D'où vient l'argent ? (les ressources)", "Où va l'argent ? (les emplois)"]} />
@@ -35,11 +37,12 @@ export function IntroductionAccountingDocPage() {
                     l'Antiquité : les Sumériens enregistraient déjà les transactions commerciales sur des tablettes
                     d'argile, et le Code de Hammurabi (vers 1750 av. J.-C.) imposait aux commerçants de tenir des
                     registres.
+                    <DocSourceRef n={2} />
                 </DocParagraph>
                 <DocParagraph>
                     Le tournant majeur intervient à la fin du XV<sup>e</sup> siècle. En 1494, le mathématicien italien{" "}
-                    <strong>Luca Pacioli</strong> publie la <em>Summa de arithmetica</em>, dans laquelle il codifie le
-                    système de la{" "}
+                    <strong>Luca Pacioli</strong> publie la <em>Summa de arithmetica</em>
+                    <DocSourceRef n={3} />, dans laquelle il codifie le système de la{" "}
                     <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "partie-double" }}>
                         partie double
                     </DocLink>
@@ -49,7 +52,8 @@ export function IntroductionAccountingDocPage() {
                 </DocParagraph>
                 <DocParagraph>
                     En France, c'est l'ordonnance de Colbert de 1673 qui impose pour la première fois la tenue de livres
-                    comptables aux commerçants. Puis, en 1947, la France adopte son premier{" "}
+                    comptables aux commerçants.
+                    <DocSourceRef n={4} /> Puis, en 1947, la France adopte son premier{" "}
                     <DocLink
                         to="/documentation/comptabilité/glossaire/$term"
                         params={{ term: "plan-comptable-general-pcg" }}
@@ -59,6 +63,7 @@ export function IntroductionAccountingDocPage() {
                     , unifiant les pratiques comptables à l'échelle nationale. Ce plan a été révisé plusieurs fois
                     (1957, 1982) et est aujourd'hui défini par le règlement n°2014-03 de l'Autorité des Normes
                     Comptables (ANC).
+                    <DocSourceRef n={5} />
                 </DocParagraph>
             </DocSection>
 
@@ -69,6 +74,7 @@ export function IntroductionAccountingDocPage() {
                     physique ou morale ayant la qualité de commerçant d'enregistrer chronologiquement les mouvements
                     affectant le patrimoine de l'entreprise, de contrôler par inventaire l'existence et la valeur de ses
                     éléments, et d'établir des comptes annuels à la clôture de chaque exercice.
+                    <DocSourceRef n={6} />
                 </DocParagraph>
 
                 <DocTip variant="info">
@@ -96,24 +102,20 @@ export function IntroductionAccountingDocPage() {
             <DocSources
                 sources={[
                     {
-                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
-                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
-                    },
-                    {
                         label: "Comptabilité — Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Comptabilit%C3%A9",
-                    },
-                    {
-                        label: "Luca Pacioli — Wikipédia",
-                        url: "https://fr.wikipedia.org/wiki/Luca_Pacioli",
                     },
                     {
                         label: "Code de Hammurabi — Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Code_de_Hammurabi",
                     },
                     {
+                        label: "Luca Pacioli — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Luca_Pacioli",
+                    },
+                    {
                         label: "Ordonnance de Colbert (1673) — Wikipédia",
-                        url: "https://fr.wikipedia.org/wiki/Ordonnance_de_Colbert",
+                        url: "https://fr.wikipedia.org/wiki/Code_de_commerce_(France)",
                     },
                     {
                         label: "Plan comptable général (France) — Wikipédia",
@@ -121,7 +123,7 @@ export function IntroductionAccountingDocPage() {
                     },
                     {
                         label: "Code de commerce, article L.123-12 — Légifrance",
-                        url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006219316",
+                        url: "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000005634379/LEGISCTA000006161250/",
                     },
                 ]}
             />

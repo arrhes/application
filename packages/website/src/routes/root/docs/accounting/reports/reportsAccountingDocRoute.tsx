@@ -6,6 +6,8 @@ export const reportsAccountingDocRoute = createRoute({
     path: "/",
     beforeLoad: () => ({
         title: "Documents comptables",
+        description:
+            "Les documents comptables obligatoires : journal, grand livre, balance, bilan, compte de résultat et annexe.",
     }),
     component: lazyRouteComponent(
         () => import("../../../../../features/docs/accounting/reports/reportsAccountingDocPage.tsx"),

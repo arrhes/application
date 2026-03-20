@@ -8,6 +8,7 @@ import { DocNextPage } from "../../../../components/document/docNextPage.js"
 import { DocParagraph } from "../../../../components/document/docParagraph.js"
 import { DocRoot } from "../../../../components/document/docRoot.js"
 import { DocSection } from "../../../../components/document/docSection.js"
+import { DocSourceRef } from "../../../../components/document/docSourceRef.js"
 import { DocSources } from "../../../../components/document/docSources.js"
 import { DocTable } from "../../../../components/document/docTable.js"
 import { DocTip } from "../../../../components/document/docTip.js"
@@ -38,13 +39,16 @@ export function AccountsAccountingDocPage() {
                     </DocLink>
                     , qui définit une structure commune à toutes les organisations. Le PCG est aujourd'hui défini par le
                     règlement n°2014-03 de l'Autorité des Normes Comptables (ANC).
+                    <DocSourceRef n={1} />
                 </DocParagraph>
 
                 <DocTip variant="info">
                     Le premier Plan Comptable Général a été adopté en France en 1943, puis maintenu après la Seconde
                     Guerre mondiale pour servir d'outil de planification économique lors de la reconstruction. Il a été
-                    révisé en 1947, 1957, puis profondément refondu en 1982. L'ANC, créée par ordonnance en 2009, est
-                    aujourd'hui l'organisme chargé de le faire évoluer.
+                    révisé en 1947, 1957, puis profondément refondu en 1982.
+                    <DocSourceRef n={2} /> L'ANC, créée par ordonnance en 2009, est aujourd'hui l'organisme chargé de le
+                    faire évoluer.
+                    <DocSourceRef n={3} />
                 </DocTip>
             </DocSection>
 
@@ -69,14 +73,14 @@ export function AccountsAccountingDocPage() {
                     .
                 </DocParagraph>
 
-                <DocDefinition
-                    term="Comptes d'opérations"
-                    definition="Ces comptes enregistrent les opérations économiques du point de vue de l'entreprise : achats, ventes, charges, produits. Ils décrivent ce que fait l'entreprise."
-                />
-                <DocDefinition
-                    term="Comptes d'agents"
-                    definition="Ces comptes enregistrent les relations avec les tiers du point de vue de ces tiers : clients, fournisseurs, banque, caisse, État. Ils décrivent qui doit quoi à qui."
-                />
+                <DocDefinition term="Comptes d'opérations">
+                    Ces comptes enregistrent les opérations économiques du point de vue de l'entreprise : achats,
+                    ventes, charges, produits. Ils décrivent ce que fait l'entreprise.
+                </DocDefinition>
+                <DocDefinition term="Comptes d'agents">
+                    Ces comptes enregistrent les relations avec les tiers du point de vue de ces tiers : clients,
+                    fournisseurs, banque, caisse, État. Ils décrivent qui doit quoi à qui.
+                </DocDefinition>
 
                 <DocExample title="Point de vue des comptes d'agents">
                     <p>Le compte Clients est tenu du point de vue des clients :</p>
@@ -126,8 +130,8 @@ export function AccountsAccountingDocPage() {
 
             <DocSection title="Les classes de comptes">
                 <DocParagraph>
-                    Les comptes sont regroupés en 8 classes, numérotées de 1 à 8. Le premier chiffre du numéro de compte
-                    indique sa classe.
+                    Les comptes sont regroupés en 8 classes, numérotées de 1 à 8.
+                    <DocSourceRef n={1} /> Le premier chiffre du numéro de compte indique sa classe.
                 </DocParagraph>
 
                 <DocTable
@@ -195,14 +199,14 @@ export function AccountsAccountingDocPage() {
                     on distingue deux comptes principaux :
                 </DocParagraph>
 
-                <DocDefinition
-                    term="4456 - TVA déductible"
-                    definition="TVA payée sur les achats. L'État vous doit cette somme (ou vous pouvez la déduire de la TVA collectée). Le compte est débité quand la TVA déductible augmente."
-                />
-                <DocDefinition
-                    term="4457 - TVA collectée"
-                    definition="TVA facturée sur les ventes. Vous devez cette somme à l'État. Le compte est crédité quand la TVA collectée augmente."
-                />
+                <DocDefinition term="4456 - TVA déductible">
+                    TVA payée sur les achats. L'État vous doit cette somme (ou vous pouvez la déduire de la TVA
+                    collectée). Le compte est débité quand la TVA déductible augmente.
+                </DocDefinition>
+                <DocDefinition term="4457 - TVA collectée">
+                    TVA facturée sur les ventes. Vous devez cette somme à l'État. Le compte est crédité quand la TVA
+                    collectée augmente.
+                </DocDefinition>
 
                 <DocExample title="Mécanisme de la TVA">
                     <p>À la fin de la période :</p>
@@ -216,6 +220,7 @@ export function AccountsAccountingDocPage() {
             <DocSection title="Règles de numérotation des comptes">
                 <DocParagraph>
                     Le numéro d'un compte n'est pas choisi au hasard. Le PCG suit des règles de numérotation précises
+                    <DocSourceRef n={1} />
                     qui facilitent la lecture et la classification :
                 </DocParagraph>
 
@@ -258,14 +263,16 @@ export function AccountsAccountingDocPage() {
                     Le PCG distingue deux catégories de comptes selon leur caractère obligatoire :
                 </DocParagraph>
 
-                <DocDefinition
-                    term="Comptes du système minimal"
-                    definition="Ces comptes constituent le socle obligatoire du plan comptable. Ils doivent être utilisés par toutes les entités, quelle que soit leur taille. Ils couvrent les opérations courantes et permettent d'établir les documents de synthèse essentiels."
-                />
-                <DocDefinition
-                    term="Comptes facultatifs"
-                    definition="Ces comptes offrent un niveau de détail supplémentaire. Leur utilisation est optionnelle et dépend des besoins de l'entité et de la complexité de son activité. Ils permettent un suivi plus fin de certaines opérations."
-                />
+                <DocDefinition term="Comptes du système minimal">
+                    Ces comptes constituent le socle obligatoire du plan comptable. Ils doivent être utilisés par toutes
+                    les entités, quelle que soit leur taille. Ils couvrent les opérations courantes et permettent
+                    d'établir les documents de synthèse essentiels.
+                </DocDefinition>
+                <DocDefinition term="Comptes facultatifs">
+                    Ces comptes offrent un niveau de détail supplémentaire. Leur utilisation est optionnelle et dépend
+                    des besoins de l'entité et de la complexité de son activité. Ils permettent un suivi plus fin de
+                    certaines opérations.
+                </DocDefinition>
             </DocSection>
 
             <DocSection title="Lien avec Arrhes">
@@ -281,12 +288,11 @@ export function AccountsAccountingDocPage() {
                 </DocParagraph>
             </DocSection>
 
-            <DocTip variant="tip">
-                Retenez que le premier chiffre d'un compte indique toujours sa classe. Avec un peu de pratique, vous
-                reconnaîtrez rapidement les comptes courants.
-            </DocTip>
-
-            <DocNextPage to="/documentation/comptabilité/comptes/classes" label="Les classes de comptes" />
+            <DocNextPage
+                to="/documentation/comptabilité/comptes/classes"
+                label="Les classes de comptes"
+                description="Retenez que le premier chiffre d'un compte indique toujours sa classe. Avec un peu de pratique, vous reconnaîtrez rapidement les comptes courants."
+            />
 
             <DocSources
                 sources={[

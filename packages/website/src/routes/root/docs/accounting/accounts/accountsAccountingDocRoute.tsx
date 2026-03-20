@@ -6,6 +6,8 @@ export const accountsAccountingDocRoute = createRoute({
     path: "/introduction",
     beforeLoad: () => ({
         title: "Comptes",
+        description:
+            "Présentation des comptes comptables : structure, numérotation et fonctionnement du plan comptable général français.",
     }),
     component: lazyRouteComponent(
         () => import("../../../../../features/docs/accounting/accounts/accountsAccountingDocPage.tsx"),

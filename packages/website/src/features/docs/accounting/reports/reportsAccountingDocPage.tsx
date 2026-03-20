@@ -6,6 +6,7 @@ import { DocNextPage } from "../../../../components/document/docNextPage.js"
 import { DocParagraph } from "../../../../components/document/docParagraph.js"
 import { DocRoot } from "../../../../components/document/docRoot.js"
 import { DocSection } from "../../../../components/document/docSection.js"
+import { DocSourceRef } from "../../../../components/document/docSourceRef.js"
 import { DocSources } from "../../../../components/document/docSources.js"
 import { DocTip } from "../../../../components/document/docTip.js"
 
@@ -50,7 +51,8 @@ export function ReportsAccountingDocPage() {
             <DocSection title="Les comptes annuels">
                 <DocParagraph>
                     En droit français, les <strong>comptes annuels</strong> désignent les trois documents obligatoires
-                    que toute organisation doit produire à la clôture de chaque exercice :
+                    que toute organisation doit produire à la clôture de chaque exercice
+                    <DocSourceRef n={1} /> :
                 </DocParagraph>
 
                 <DocList
@@ -65,8 +67,8 @@ export function ReportsAccountingDocPage() {
                     Ces trois documents forment un tout indissociable. Le bilan et le compte de résultat donnent les
                     chiffres ; l'
                     <DocLink to="/documentation/comptabilité/documents/annexe">annexe</DocLink> fournit les clés pour
-                    les interpréter. Leur objectif commun est de donner une <strong>image fidèle</strong> du patrimoine,
-                    de la situation financière et du résultat de l'organisation.
+                    les interpréter. Leur objectif commun est de donner une <strong>image fidèle</strong>
+                    <DocSourceRef n={2} /> du patrimoine, de la situation financière et du résultat de l'organisation.
                 </DocParagraph>
 
                 <DocTip variant="info">
@@ -79,7 +81,8 @@ export function ReportsAccountingDocPage() {
                 <DocParagraph>
                     Pour les sociétés, les comptes annuels doivent être présentés et approuvés par l'assemblée générale
                     des associés ou actionnaires dans les six mois suivant la clôture de l'exercice, puis déposés au
-                    greffe du tribunal de commerce.
+                    greffe du tribunal de commerce
+                    <DocSourceRef n={1} />.
                 </DocParagraph>
             </DocSection>
 
@@ -89,18 +92,18 @@ export function ReportsAccountingDocPage() {
                     l'année pour contrôler et piloter l'activité :
                 </DocParagraph>
 
-                <DocDefinition
-                    term="Journal"
-                    definition="Registre chronologique de toutes les écritures passées. C'est le document de base de la comptabilité."
-                />
-                <DocDefinition
-                    term="Grand livre"
-                    definition="Reprise des mêmes écritures que le journal, mais classées par compte. Il permet d'analyser chaque compte individuellement."
-                />
-                <DocDefinition
-                    term="Balance"
-                    definition="Liste de tous les comptes avec leurs totaux et soldes. C'est l'outil de contrôle qui vérifie que la comptabilité est équilibrée."
-                />
+                <DocDefinition term="Journal">
+                    Registre chronologique de toutes les écritures passées. C'est le document de base de la
+                    comptabilité.
+                </DocDefinition>
+                <DocDefinition term="Grand livre">
+                    Reprise des mêmes écritures que le journal, mais classées par compte. Il permet d'analyser chaque
+                    compte individuellement.
+                </DocDefinition>
+                <DocDefinition term="Balance">
+                    Liste de tous les comptes avec leurs totaux et soldes. C'est l'outil de contrôle qui vérifie que la
+                    comptabilité est équilibrée.
+                </DocDefinition>
             </DocSection>
 
             <DocSection title="Le calcul du bénéfice">
@@ -117,14 +120,13 @@ export function ReportsAccountingDocPage() {
                     fondamental de la comptabilité :
                 </DocParagraph>
 
-                <DocDefinition
-                    term="Par le patrimoine"
-                    definition="Bénéfice = Patrimoine à la fin - Patrimoine au début. Si l'entreprise possède plus à la fin qu'au début, elle s'est enrichie."
-                />
-                <DocDefinition
-                    term="Par les opérations"
-                    definition="Bénéfice = Produits - Charges. La somme de ce qu'on a gagné moins la somme de ce qu'on a dépensé."
-                />
+                <DocDefinition term="Par le patrimoine">
+                    Bénéfice = Patrimoine à la fin - Patrimoine au début. Si l'entreprise possède plus à la fin qu'au
+                    début, elle s'est enrichie.
+                </DocDefinition>
+                <DocDefinition term="Par les opérations">
+                    Bénéfice = Produits - Charges. La somme de ce qu'on a gagné moins la somme de ce qu'on a dépensé.
+                </DocDefinition>
 
                 <DocParagraph>
                     Ces deux calculs doivent donner le même résultat. C'est la cohérence entre le{" "}
@@ -148,16 +150,12 @@ export function ReportsAccountingDocPage() {
             <DocSources
                 sources={[
                     {
-                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
-                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
-                    },
-                    {
-                        label: "Comptabilité — Wikipédia",
-                        url: "https://fr.wikipedia.org/wiki/Comptabilit%C3%A9",
-                    },
-                    {
                         label: "Code de commerce, Article L123-12 — Légifrance",
                         url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006219316",
+                    },
+                    {
+                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
                     },
                 ]}
             />

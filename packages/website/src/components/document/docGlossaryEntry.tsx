@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
 import { DocDefinition } from "./docDefinition.js"
 
-export function DocGlossaryEntry(props: { term: string; definition: ReactNode }) {
+export function DocGlossaryEntry(props: { term: string; children: ReactNode }) {
     const id = props.term
         .toLowerCase()
         .normalize("NFD")
@@ -11,7 +11,7 @@ export function DocGlossaryEntry(props: { term: string; definition: ReactNode })
 
     return (
         <div id={id}>
-            <DocDefinition term={props.term} definition={props.definition} />
+            <DocDefinition term={props.term}>{props.children}</DocDefinition>
         </div>
     )
 }

@@ -3,6 +3,7 @@ import { DocNextPage } from "../../../../components/document/docNextPage.js"
 import { DocParagraph } from "../../../../components/document/docParagraph.js"
 import { DocRoot } from "../../../../components/document/docRoot.js"
 import { DocSection } from "../../../../components/document/docSection.js"
+import { DocSourceRef } from "../../../../components/document/docSourceRef.js"
 import { DocSources } from "../../../../components/document/docSources.js"
 import { DocTip } from "../../../../components/document/docTip.js"
 import { accountClasses } from "./accountsData.js"
@@ -156,8 +157,9 @@ export function ClassesAccountingDocPage() {
             <DocHeader title="Les classes de comptes" description="Les 8 classes du Plan Comptable Général" />
 
             <DocParagraph>
-                Le Plan Comptable Général organise les comptes en 8 classes. Les classes 1 à 5 concernent les comptes de
-                bilan, les classes 6 et 7 les comptes de résultat, et la classe 8 les comptes spéciaux.
+                Le Plan Comptable Général organise les comptes en 8 classes.
+                <DocSourceRef n={1} /> Les classes 1 à 5 concernent les comptes de bilan, les classes 6 et 7 les comptes
+                de résultat, et la classe 8 les comptes spéciaux.
             </DocParagraph>
 
             {accountClasses.map((cls) => {

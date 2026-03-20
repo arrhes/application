@@ -6,6 +6,8 @@ export const introductionAccountingDocRoute = createRoute({
     path: "/introduction",
     beforeLoad: () => ({
         title: "Introduction au cours de comptabilité",
+        description:
+            "Introduction aux fondamentaux de la comptabilité française : principes, obligations légales et concepts de base.",
     }),
     component: lazyRouteComponent(
         () => import("../../../../../features/docs/accounting/introduction/introductionAccountingDocPage.js"),

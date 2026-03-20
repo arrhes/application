@@ -1,6 +1,6 @@
 import { sva } from "@arrhes/ui/css"
 import { IconAlertTriangle, IconBulb, IconCircleCheck, IconInfoCircle } from "@tabler/icons-react"
-import type { ReactNode } from "react"
+import type { ComponentType, ReactNode } from "react"
 
 const docTipRecipe = sva({
     slots: ["container", "header", "iconWrapper", "icon", "label", "content"],
@@ -38,6 +38,11 @@ const docTipRecipe = sva({
             fontSize: "sm",
             color: "neutral/70",
             lineHeight: "1.6",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "start",
+            alignItems: "start",
+            gap: "1rem",
         },
     },
     variants: {
@@ -74,6 +79,14 @@ const docTipRecipe = sva({
                 icon: { stroke: "success" },
                 label: { color: "success" },
             },
+            neutral: {
+                container: {
+                    backgroundColor: "white",
+                    borderColor: "neutral/15",
+                },
+                icon: { stroke: "neutral/50" },
+                label: { color: "neutral/50" },
+            },
         },
     },
     defaultVariants: {
@@ -86,6 +99,7 @@ const variantIcons = {
     warning: IconAlertTriangle,
     info: IconInfoCircle,
     success: IconCircleCheck,
+    neutral: IconInfoCircle,
 } as const
 
 const variantLabels = {
@@ -93,17 +107,19 @@ const variantLabels = {
     warning: "Attention",
     info: "Information",
     success: "Félicitations",
+    neutral: "Note",
 } as const
 
 export function DocTip(props: {
-    variant?: "tip" | "warning" | "info" | "success"
-    label?: string
+    variant?: "tip" | "warning" | "info" | "success" | "neutral"
+    title?: string
+    icon?: ComponentType<{ className?: string }>
     children: ReactNode
 }) {
     const variant = props.variant ?? "tip"
     const classes = docTipRecipe({ variant })
-    const Icon = variantIcons[variant]
-    const label = props.label ?? variantLabels[variant]
+    const Icon = props.icon ?? variantIcons[variant]
+    const label = props.title ?? variantLabels[variant]
 
     return (
         <div className={classes.container}>
@@ -113,7 +129,7 @@ export function DocTip(props: {
                 </div>
                 <span className={classes.label}>{label}</span>
             </div>
-            <span className={classes.content}>{props.children}</span>
+            <div className={classes.content}>{props.children}</div>
         </div>
     )
 }

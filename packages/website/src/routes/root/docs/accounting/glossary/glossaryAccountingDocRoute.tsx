@@ -6,6 +6,8 @@ export const glossaryAccountingDocIndexRoute = createRoute({
     path: "/",
     beforeLoad: () => ({
         title: "Glossaire comptable",
+        description:
+            "Glossaire de la comptabilité française : définitions claires des termes comptables essentiels, de A à Z.",
     }),
     component: lazyRouteComponent(
         () => import("../../../../../features/docs/accounting/glossary/glossaryAccountingDocPage.tsx"),

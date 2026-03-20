@@ -8,6 +8,7 @@ import { DocNextPage } from "../../../../components/document/docNextPage.js"
 import { DocParagraph } from "../../../../components/document/docParagraph.js"
 import { DocRoot } from "../../../../components/document/docRoot.js"
 import { DocSection } from "../../../../components/document/docSection.js"
+import { DocSourceRef } from "../../../../components/document/docSourceRef.js"
 import { DocSources } from "../../../../components/document/docSources.js"
 import { DocTable } from "../../../../components/document/docTable.js"
 import { DocTip } from "../../../../components/document/docTip.js"
@@ -18,15 +19,18 @@ export function LedgerAccountingDocPage() {
             <DocHeader title="Le grand livre" description="Détail de tous les mouvements compte par compte" />
 
             <DocSection title="Définition">
-                <DocDefinition
-                    term="Grand livre"
-                    definition="Document qui reprend l'ensemble des comptes de l'organisation avec le détail de tous leurs mouvements. C'est la vue par compte de la comptabilité, là où le journal offre une vue chronologique."
-                />
+                <DocDefinition term="Grand livre">
+                    Document qui reprend l'ensemble des comptes de l'organisation avec le détail de tous leurs
+                    mouvements. C'est la vue par compte de la comptabilité, là où le journal offre une vue
+                    chronologique.
+                </DocDefinition>
 
                 <DocParagraph>
-                    Le grand livre et le <DocLink to="/documentation/comptabilité/documents/journal">journal</DocLink>{" "}
-                    contiennent exactement les mêmes informations, mais présentées différemment. Le journal classe les
-                    écritures par date ; le grand livre les classe par{" "}
+                    Le grand livre
+                    <DocSourceRef n={1} /> et le{" "}
+                    <DocLink to="/documentation/comptabilité/documents/journal">journal</DocLink> contiennent exactement
+                    les mêmes informations, mais présentées différemment. Le journal classe les écritures par date ; le
+                    grand livre les classe par{" "}
                     <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "compte" }}>
                         compte
                     </DocLink>
@@ -35,9 +39,9 @@ export function LedgerAccountingDocPage() {
 
                 <DocParagraph>
                     Bien que le grand livre ne soit pas explicitement mentionné comme document obligatoire au même titre
-                    que le journal, il est indispensable en pratique : c'est lui qui permet de justifier le solde de
-                    chaque compte et donc de construire la{" "}
-                    <DocLink to="/documentation/comptabilité/documents/balance">balance</DocLink>, le{" "}
+                    que le journal, il est indispensable en pratique
+                    <DocSourceRef n={2} /> : c'est lui qui permet de justifier le solde de chaque compte et donc de
+                    construire la <DocLink to="/documentation/comptabilité/documents/balance">balance</DocLink>, le{" "}
                     <DocLink to="/documentation/comptabilité/documents/bilan">bilan</DocLink> et le{" "}
                     <DocLink to="/documentation/comptabilité/documents/compte-de-résultat">compte de résultat</DocLink>.
                     Il fait partie des documents pouvant être exigés lors d'un contrôle fiscal.
@@ -127,10 +131,11 @@ export function LedgerAccountingDocPage() {
                     ou par fournisseur).
                 </DocParagraph>
 
-                <DocDefinition
-                    term="Grand livre auxiliaire"
-                    definition="Déclinaison du grand livre qui détaille un compte collectif (clients, fournisseurs) en sous-comptes individuels. Il permet de connaître le solde dû par chaque tiers sans consulter les écritures une par une."
-                />
+                <DocDefinition term="Grand livre auxiliaire">
+                    Déclinaison du grand livre qui détaille un compte collectif (clients, fournisseurs) en sous-comptes
+                    individuels. Il permet de connaître le solde dû par chaque tiers sans consulter les écritures une
+                    par une.
+                </DocDefinition>
 
                 <DocTip variant="tip">
                     Le total du grand livre auxiliaire doit toujours correspondre au solde du compte collectif dans le
@@ -172,12 +177,12 @@ export function LedgerAccountingDocPage() {
             <DocSources
                 sources={[
                     {
-                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
-                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
-                    },
-                    {
                         label: "Grand livre — Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Grand_livre",
+                    },
+                    {
+                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
                     },
                 ]}
             />

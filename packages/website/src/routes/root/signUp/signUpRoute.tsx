@@ -14,7 +14,8 @@ export const signUpRoute = createRoute({
         }
         return {
             title: "Inscription",
-            description: "Veuillez entrer les informations nécessaires à l'inscription",
+            description:
+                "Créez votre compte Arrhes gratuitement et commencez à gérer votre comptabilité en quelques minutes.",
         }
     },
     component: lazyRouteComponent(() => import("../../../features/signUp/signUpPage.js"), "SignUpPage"),

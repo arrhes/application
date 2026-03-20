@@ -6,6 +6,8 @@ export const termsGeneralDocRoute = createRoute({
     path: "/cgu",
     beforeLoad: () => ({
         title: "CGU",
+        description:
+            "Conditions Générales d'Utilisation d'Arrhes. Consultez les règles et conditions d'utilisation du logiciel.",
     }),
     component: lazyRouteComponent(
         () => import("../../../../features/docs/general/termsGeneralDocPage.tsx"),

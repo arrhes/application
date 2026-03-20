@@ -14,7 +14,7 @@ export function DocSources(props: { sources: Source[] }) {
                 flexDirection: "column",
                 gap: "0.75rem",
                 borderTop: "1px solid",
-                borderColor: "neutral/10",
+                borderTopColor: "neutral/10",
                 paddingTop: "1.5rem",
                 marginTop: "0.5rem",
             })}
@@ -25,7 +25,7 @@ export function DocSources(props: { sources: Source[] }) {
                     fontWeight: "medium",
                     textTransform: "uppercase",
                     letterSpacing: "0.05em",
-                    color: "neutral/40",
+                    color: "neutral/50",
                 })}
             >
                 Sources
@@ -39,9 +39,10 @@ export function DocSources(props: { sources: Source[] }) {
                     paddingLeft: "1.25rem",
                 })}
             >
-                {props.sources.map((source) => (
+                {props.sources.map((source, index) => (
                     <li
                         key={source.url}
+                        id={`source-${index + 1}`}
                         className={css({
                             fontSize: "xs",
                             color: "neutral/50",
@@ -52,26 +53,32 @@ export function DocSources(props: { sources: Source[] }) {
                             target="_blank"
                             rel="noopener noreferrer"
                             className={css({
-                                color: "neutral/50",
-                                textDecoration: "underline",
-                                textDecorationColor: "neutral/20",
-                                textUnderlineOffset: "2px",
-                                transition: "all 0.15s",
                                 display: "inline-flex",
                                 alignItems: "center",
                                 gap: "0.25rem",
-                                _hover: {
-                                    color: "primary",
-                                    textDecorationColor: "primary/30",
-                                },
                             })}
                         >
-                            {source.label}
+                            <span
+                                className={css({
+                                    color: "neutral/50",
+                                    textDecoration: "underline",
+                                    textDecorationColor: "neutral/20",
+                                    textUnderlineOffset: "2px",
+                                    transition: "all 0.15s",
+                                    _hover: {
+                                        color: "primary",
+                                        textDecorationColor: "primary/30",
+                                    },
+                                })}
+                            >
+                                {source.label}
+                            </span>
                             <IconExternalLink
                                 className={css({
                                     width: "0.75rem",
                                     height: "0.75rem",
                                     flexShrink: 0,
+                                    stroke: "neutral/50",
                                 })}
                             />
                         </a>

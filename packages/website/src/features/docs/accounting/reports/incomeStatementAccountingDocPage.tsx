@@ -8,6 +8,7 @@ import { DocNextPage } from "../../../../components/document/docNextPage.js"
 import { DocParagraph } from "../../../../components/document/docParagraph.js"
 import { DocRoot } from "../../../../components/document/docRoot.js"
 import { DocSection } from "../../../../components/document/docSection.js"
+import { DocSourceRef } from "../../../../components/document/docSourceRef.js"
 import { DocSources } from "../../../../components/document/docSources.js"
 import { DocTip } from "../../../../components/document/docTip.js"
 
@@ -20,10 +21,10 @@ export function IncomeStatementAccountingDocPage() {
             />
 
             <DocSection title="Définition">
-                <DocDefinition
-                    term="Compte de résultat"
-                    definition="Document qui récapitule l'ensemble des produits et des charges d'un exercice. La différence entre les deux donne le résultat : bénéfice ou perte."
-                />
+                <DocDefinition term="Compte de résultat">
+                    Document qui récapitule l'ensemble des produits et des charges d'un exercice. La différence entre
+                    les deux donne le résultat : bénéfice ou perte.
+                </DocDefinition>
 
                 <DocParagraph>
                     Alors que le <DocLink to="/documentation/comptabilité/documents/bilan">bilan</DocLink> est une
@@ -33,6 +34,7 @@ export function IncomeStatementAccountingDocPage() {
                         exercice comptable
                     </DocLink>
                     . Il répond à la question : l'organisation a-t-elle gagné ou perdu de l'argent sur la période ?
+                    <DocSourceRef n={1} />
                 </DocParagraph>
             </DocSection>
 
@@ -54,7 +56,8 @@ export function IncomeStatementAccountingDocPage() {
                     >
                         plan comptable
                     </DocLink>
-                    ). Les comptes de classe 6 enregistrent les{" "}
+                    )
+                    <DocSourceRef n={2} />. Les comptes de classe 6 enregistrent les{" "}
                     <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "charges-classe-6" }}>
                         charges
                     </DocLink>{" "}
@@ -80,18 +83,18 @@ export function IncomeStatementAccountingDocPage() {
                     performance de l'organisation :
                 </DocParagraph>
 
-                <DocDefinition
-                    term="Résultat d'exploitation"
-                    definition="Différence entre les produits et les charges liés à l'activité courante (ventes, achats, salaires, loyer...). C'est l'indicateur principal de la performance opérationnelle."
-                />
-                <DocDefinition
-                    term="Résultat financier"
-                    definition="Différence entre les produits financiers (intérêts reçus, gains de change) et les charges financières (intérêts d'emprunts, pertes de change)."
-                />
-                <DocDefinition
-                    term="Résultat exceptionnel"
-                    definition="Différence entre les produits et charges qui ne relèvent ni de l'exploitation ni du financier : cessions d'immobilisations, pénalités, subventions exceptionnelles."
-                />
+                <DocDefinition term="Résultat d'exploitation">
+                    Différence entre les produits et les charges liés à l'activité courante (ventes, achats, salaires,
+                    loyer...). C'est l'indicateur principal de la performance opérationnelle.
+                </DocDefinition>
+                <DocDefinition term="Résultat financier">
+                    Différence entre les produits financiers (intérêts reçus, gains de change) et les charges
+                    financières (intérêts d'emprunts, pertes de change).
+                </DocDefinition>
+                <DocDefinition term="Résultat exceptionnel">
+                    Différence entre les produits et charges qui ne relèvent ni de l'exploitation ni du financier :
+                    cessions d'immobilisations, pénalités, subventions exceptionnelles.
+                </DocDefinition>
 
                 <DocParagraph>
                     Le <strong>résultat net</strong> est la somme de ces trois résultats, après déduction de l'impôt sur
@@ -103,7 +106,9 @@ export function IncomeStatementAccountingDocPage() {
 
                 <DocTip variant="info">
                     La distinction exploitation / financier / exceptionnel est propre au droit comptable français. Les
-                    normes IFRS n'utilisent pas cette catégorisation et présentent le compte de résultat différemment.
+                    normes IFRS
+                    <DocSourceRef n={3} /> n'utilisent pas cette catégorisation et présentent le compte de résultat
+                    différemment.
                 </DocTip>
             </DocSection>
 
@@ -148,23 +153,23 @@ export function IncomeStatementAccountingDocPage() {
             <DocSection title="Les Soldes Intermédiaires de Gestion (SIG)">
                 <DocParagraph>
                     Pour analyser plus finement la performance d'une entreprise, on calcule des indicateurs
-                    intermédiaires appelés <strong>Soldes Intermédiaires de Gestion (SIG)</strong>. Chaque solde
-                    s'obtient en cascade à partir du précédent, permettant de comprendre étape par étape comment se
-                    forme le résultat :
+                    intermédiaires appelés <strong>Soldes Intermédiaires de Gestion (SIG)</strong>
+                    <DocSourceRef n={4} />. Chaque solde s'obtient en cascade à partir du précédent, permettant de
+                    comprendre étape par étape comment se forme le résultat :
                 </DocParagraph>
 
-                <DocDefinition
-                    term="Marge commerciale"
-                    definition="Ventes de marchandises - Coût d'achat des marchandises vendues. Indicateur clé pour les activités de négoce."
-                />
-                <DocDefinition
-                    term="Valeur ajoutée"
-                    definition="Marge commerciale + Production - Consommations intermédiaires. Mesure la richesse créée par l'entreprise grâce à son activité."
-                />
-                <DocDefinition
-                    term="Excédent Brut d'Exploitation (EBE)"
-                    definition="Valeur ajoutée + Subventions d'exploitation - Impôts et taxes - Charges de personnel. Indicateur de la rentabilité opérationnelle avant amortissements et provisions."
-                />
+                <DocDefinition term="Marge commerciale">
+                    Ventes de marchandises - Coût d'achat des marchandises vendues. Indicateur clé pour les activités de
+                    négoce.
+                </DocDefinition>
+                <DocDefinition term="Valeur ajoutée">
+                    Marge commerciale + Production - Consommations intermédiaires. Mesure la richesse créée par
+                    l'entreprise grâce à son activité.
+                </DocDefinition>
+                <DocDefinition term="Excédent Brut d'Exploitation (EBE)">
+                    Valeur ajoutée + Subventions d'exploitation - Impôts et taxes - Charges de personnel. Indicateur de
+                    la rentabilité opérationnelle avant amortissements et provisions.
+                </DocDefinition>
 
                 <DocParagraph>
                     L'EBE est un indicateur particulièrement surveillé car il reflète la capacité de l'entreprise à
@@ -210,22 +215,19 @@ export function IncomeStatementAccountingDocPage() {
                     représentent ce que l'entreprise doit à ses propriétaires. Ils comprennent plusieurs éléments :
                 </DocParagraph>
 
-                <DocDefinition
-                    term="Capital"
-                    definition="Apports initiaux des associés ou fondateurs. Il reste généralement stable sauf augmentation ou réduction de capital."
-                />
-                <DocDefinition
-                    term="Réserves"
-                    definition="Bénéfices des années passées qui ont été conservés dans l'entreprise (non distribués aux associés)."
-                />
-                <DocDefinition
-                    term="Report à nouveau"
-                    definition="Résultat de l'exercice précédent en attente d'affectation (mise en réserve ou distribution)."
-                />
-                <DocDefinition
-                    term="Résultat de l'exercice"
-                    definition="Bénéfice ou perte de l'année en cours, tel que calculé par le compte de résultat."
-                />
+                <DocDefinition term="Capital">
+                    Apports initiaux des associés ou fondateurs. Il reste généralement stable sauf augmentation ou
+                    réduction de capital.
+                </DocDefinition>
+                <DocDefinition term="Réserves">
+                    Bénéfices des années passées qui ont été conservés dans l'entreprise (non distribués aux associés).
+                </DocDefinition>
+                <DocDefinition term="Report à nouveau">
+                    Résultat de l'exercice précédent en attente d'affectation (mise en réserve ou distribution).
+                </DocDefinition>
+                <DocDefinition term="Résultat de l'exercice">
+                    Bénéfice ou perte de l'année en cours, tel que calculé par le compte de résultat.
+                </DocDefinition>
 
                 <DocExample title="Affectation du résultat">
                     <p className={css({ fontSize: "sm" })}>
@@ -292,20 +294,20 @@ export function IncomeStatementAccountingDocPage() {
             <DocSources
                 sources={[
                     {
-                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
-                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
-                    },
-                    {
                         label: "Compte de résultat — Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Compte_de_r%C3%A9sultat",
                     },
                     {
-                        label: "Soldes intermédiaires de gestion — Wikipédia",
-                        url: "https://fr.wikipedia.org/wiki/Soldes_interm%C3%A9diaires_de_gestion",
+                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
                     },
                     {
                         label: "Normes internationales d'information financière (IFRS) — Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Normes_internationales_d%27information_financi%C3%A8re",
+                    },
+                    {
+                        label: "Soldes intermédiaires de gestion — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Soldes_interm%C3%A9diaires_de_gestion",
                     },
                 ]}
             />

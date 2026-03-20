@@ -6,6 +6,8 @@ export const ledgerAccountingDocRoute = createRoute({
     path: "/grand-livre",
     beforeLoad: () => ({
         title: "Grand livre",
+        description:
+            "Le grand livre comptable : regroupement de toutes les écritures par compte, outil essentiel de suivi comptable.",
     }),
     component: lazyRouteComponent(
         () => import("../../../../../features/docs/accounting/reports/ledgerAccountingDocPage.tsx"),

@@ -8,6 +8,7 @@ import { DocNextPage } from "../../../../components/document/docNextPage.js"
 import { DocParagraph } from "../../../../components/document/docParagraph.js"
 import { DocRoot } from "../../../../components/document/docRoot.js"
 import { DocSection } from "../../../../components/document/docSection.js"
+import { DocSourceRef } from "../../../../components/document/docSourceRef.js"
 import { DocSources } from "../../../../components/document/docSources.js"
 import { DocTable } from "../../../../components/document/docTable.js"
 import { DocTip } from "../../../../components/document/docTip.js"
@@ -18,14 +19,16 @@ export function JournalAccountingDocPage() {
             <DocHeader title="Le journal" description="Registre chronologique de toutes les écritures comptables" />
 
             <DocSection title="Définition">
-                <DocDefinition
-                    term="Journal comptable"
-                    definition="Registre dans lequel sont inscrites, par ordre chronologique, toutes les écritures comptables de l'organisation. Chaque écriture y est enregistrée avec sa date, ses comptes mouvementés, ses montants et un libellé explicatif."
-                />
+                <DocDefinition term="Journal comptable">
+                    Registre dans lequel sont inscrites, par ordre chronologique, toutes les écritures comptables de
+                    l'organisation. Chaque écriture y est enregistrée avec sa date, ses comptes mouvementés, ses
+                    montants et un libellé explicatif.
+                </DocDefinition>
 
                 <DocParagraph>
-                    Le journal est le point d'entrée de la comptabilité : c'est ici que chaque opération est enregistrée
-                    pour la première fois. Il constitue la trace originale et chronologique de l'ensemble des{" "}
+                    Le journal est le point d'entrée de la comptabilité
+                    <DocSourceRef n={1} /> : c'est ici que chaque opération est enregistrée pour la première fois. Il
+                    constitue la trace originale et chronologique de l'ensemble des{" "}
                     <DocLink to="/documentation/comptabilité/écritures">écritures</DocLink> passées au cours d'un{" "}
                     <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "exercice-comptable" }}>
                         exercice comptable
@@ -84,26 +87,24 @@ export function JournalAccountingDocPage() {
                     type d'opération. Cela permet de répartir le travail et de vérifier plus facilement les opérations.
                 </DocParagraph>
 
-                <DocDefinition
-                    term="Journal des achats (HA)"
-                    definition="Enregistre toutes les factures fournisseurs reçues. On y trouve les achats à crédit avant leur règlement."
-                />
-                <DocDefinition
-                    term="Journal des ventes (VE)"
-                    definition="Enregistre toutes les factures clients émises. On y trouve les ventes à crédit avant leur encaissement."
-                />
-                <DocDefinition
-                    term="Journal de banque (BQ)"
-                    definition="Enregistre tous les mouvements du compte bancaire : encaissements, décaissements, virements."
-                />
-                <DocDefinition
-                    term="Journal de caisse (CA)"
-                    definition="Enregistre tous les mouvements d'espèces : recettes et dépenses en liquide."
-                />
-                <DocDefinition
-                    term="Journal des opérations diverses (OD)"
-                    definition="Enregistre les opérations qui ne rentrent pas dans les autres journaux : salaires, amortissements, régularisations, écritures de clôture."
-                />
+                <DocDefinition term="Journal des achats (HA)">
+                    Enregistre toutes les factures fournisseurs reçues. On y trouve les achats à crédit avant leur
+                    règlement.
+                </DocDefinition>
+                <DocDefinition term="Journal des ventes (VE)">
+                    Enregistre toutes les factures clients émises. On y trouve les ventes à crédit avant leur
+                    encaissement.
+                </DocDefinition>
+                <DocDefinition term="Journal de banque (BQ)">
+                    Enregistre tous les mouvements du compte bancaire : encaissements, décaissements, virements.
+                </DocDefinition>
+                <DocDefinition term="Journal de caisse (CA)">
+                    Enregistre tous les mouvements d'espèces : recettes et dépenses en liquide.
+                </DocDefinition>
+                <DocDefinition term="Journal des opérations diverses (OD)">
+                    Enregistre les opérations qui ne rentrent pas dans les autres journaux : salaires, amortissements,
+                    régularisations, écritures de clôture.
+                </DocDefinition>
 
                 <DocParagraph>
                     L'ensemble de ces journaux auxiliaires forme le <strong>journal général</strong>, qui centralise
@@ -143,10 +144,10 @@ export function JournalAccountingDocPage() {
                     <strong>journal des À-Nouveaux (AN)</strong>.
                 </DocParagraph>
 
-                <DocDefinition
-                    term="Journal des À-Nouveaux"
-                    definition="Journal spécial qui enregistre les écritures de report des soldes de l'exercice précédent vers le nouvel exercice. Il porte les soldes de tous les comptes de bilan non soldés."
-                />
+                <DocDefinition term="Journal des À-Nouveaux">
+                    Journal spécial qui enregistre les écritures de report des soldes de l'exercice précédent vers le
+                    nouvel exercice. Il porte les soldes de tous les comptes de bilan non soldés.
+                </DocDefinition>
 
                 <DocParagraph>
                     Les comptes de{" "}
@@ -181,9 +182,16 @@ export function JournalAccountingDocPage() {
 
                 <DocList
                     items={[
-                        "Le Code de commerce impose la tenue d'un livre-journal à toute personne ayant la qualité de commerçant",
+                        <>
+                            Le Code de commerce impose la tenue d'un livre-journal à toute personne ayant la qualité de
+                            commerçant
+                            <DocSourceRef n={2} />
+                        </>,
                         "Le Code Général des Impôts (CGI) reprend cette obligation pour les besoins fiscaux",
-                        "Le Plan Comptable Général (PCG) définit les règles de forme du journal",
+                        <>
+                            Le Plan Comptable Général (PCG) définit les règles de forme du journal
+                            <DocSourceRef n={3} />
+                        </>,
                         "L'article R.123-173 du Code de commerce autorise la tenue du journal sur support informatique, à condition de garantir l'authenticité et l'intégrité des écritures",
                     ]}
                 />
@@ -215,16 +223,16 @@ export function JournalAccountingDocPage() {
             <DocSources
                 sources={[
                     {
-                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
-                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
-                    },
-                    {
                         label: "Journal (comptabilité) — Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Journal_(comptabilit%C3%A9)",
                     },
                     {
                         label: "Code de commerce, Article L123-12 — Légifrance",
                         url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006219316",
+                    },
+                    {
+                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
                     },
                 ]}
             />

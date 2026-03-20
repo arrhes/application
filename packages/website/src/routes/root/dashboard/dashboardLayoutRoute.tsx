@@ -12,6 +12,9 @@ export const dashboardLayoutRoute = createRoute({
                 to: "/connexion",
             })
         }
+        return {
+            robots: "noindex, nofollow",
+        }
     },
     component: lazyRouteComponent(() => import("../../../features/dashboard/dashboardLayout.js"), "DashboardLayout"),
 })

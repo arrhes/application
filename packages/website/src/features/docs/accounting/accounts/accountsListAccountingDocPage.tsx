@@ -7,8 +7,8 @@ import { DocNextPage } from "../../../../components/document/docNextPage.js"
 import { DocParagraph } from "../../../../components/document/docParagraph.js"
 import { DocRoot } from "../../../../components/document/docRoot.js"
 import { DocSection } from "../../../../components/document/docSection.js"
+import { DocSourceRef } from "../../../../components/document/docSourceRef.js"
 import { DocSources } from "../../../../components/document/docSources.js"
-import { DocTip } from "../../../../components/document/docTip.js"
 import { LinkButton } from "../../../../components/linkButton.js"
 import { type AccountEntry, accountEntries, searchAccounts } from "./accountsData.js"
 
@@ -105,9 +105,10 @@ export function AccountsListAccountingDocPage() {
 
             <DocSection title="Plan comptable">
                 <DocParagraph>
-                    Parcourez les {accountEntries.length} comptes du Plan Comptable Général. Utilisez la barre de
-                    recherche pour filtrer par numéro, intitulé ou description. Les comptes en <em>italique</em> sont
-                    facultatifs. Pour une présentation détaillée de chaque classe, consultez la page{" "}
+                    Parcourez les {accountEntries.length} comptes du Plan Comptable Général.
+                    <DocSourceRef n={1} /> Utilisez la barre de recherche pour filtrer par numéro, intitulé ou
+                    description. Les comptes en <em>italique</em> sont facultatifs. Pour une présentation détaillée de
+                    chaque classe, consultez la page{" "}
                     <LinkButton
                         to="/documentation/comptabilité/comptes/classes"
                         className={css({
@@ -252,12 +253,11 @@ export function AccountsListAccountingDocPage() {
                 )
             )}
 
-            <DocTip variant="tip">
-                Vous pouvez rechercher par numéro (ex : 512), par intitulé (ex : banque) ou par description. La
-                recherche ignore les accents et la casse.
-            </DocTip>
-
-            <DocNextPage to="/documentation/comptabilité/documents" label="Les documents comptables" />
+            <DocNextPage
+                to="/documentation/comptabilité/documents"
+                label="Les documents comptables"
+                description="Vous pouvez rechercher par numéro (ex : 512), par intitulé (ex : banque) ou par description. La recherche ignore les accents et la casse."
+            />
 
             <DocSources
                 sources={[

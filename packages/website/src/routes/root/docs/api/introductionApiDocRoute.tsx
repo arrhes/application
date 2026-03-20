@@ -6,6 +6,8 @@ export const introductionApiDocRoute = createRoute({
     path: "/introduction",
     beforeLoad: () => ({
         title: "Introduction",
+        description:
+            "Introduction à l'API Arrhes : authentification, format des requêtes, gestion des erreurs et bonnes pratiques.",
     }),
     component: lazyRouteComponent(
         () => import("../../../../features/docs/api/introductionApiDocPage.tsx"),

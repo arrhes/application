@@ -8,6 +8,7 @@ import { DocNextPage } from "../../../../components/document/docNextPage.js"
 import { DocParagraph } from "../../../../components/document/docParagraph.js"
 import { DocRoot } from "../../../../components/document/docRoot.js"
 import { DocSection } from "../../../../components/document/docSection.js"
+import { DocSourceRef } from "../../../../components/document/docSourceRef.js"
 import { DocSources } from "../../../../components/document/docSources.js"
 import { DocTip } from "../../../../components/document/docTip.js"
 
@@ -17,23 +18,25 @@ export function NotesAccountingDocPage() {
             <DocHeader title="L'annexe comptable" description="Complément indispensable aux comptes annuels" />
 
             <DocSection title="Définition">
-                <DocDefinition
-                    term="Annexe"
-                    definition="Document obligatoire qui complète le bilan et le compte de résultat. L'annexe fournit les informations nécessaires à la compréhension des comptes : méthodes comptables utilisées, détail de certains postes, engagements hors bilan."
-                />
+                <DocDefinition term="Annexe">
+                    Document obligatoire qui complète le bilan et le compte de résultat. L'annexe fournit les
+                    informations nécessaires à la compréhension des comptes : méthodes comptables utilisées, détail de
+                    certains postes, engagements hors bilan.
+                </DocDefinition>
 
                 <DocParagraph>
                     Le <DocLink to="/documentation/comptabilité/documents/bilan">bilan</DocLink> et le{" "}
                     <DocLink to="/documentation/comptabilité/documents/compte-de-résultat">compte de résultat</DocLink>{" "}
-                    donnent des chiffres, mais pas toujours les clés pour les interpréter. C'est le rôle de l'annexe :
-                    expliquer comment ces chiffres ont été construits et quelles informations complémentaires sont
-                    nécessaires à leur lecture.
+                    donnent des chiffres, mais pas toujours les clés pour les interpréter
+                    <DocSourceRef n={1} />. C'est le rôle de l'annexe : expliquer comment ces chiffres ont été
+                    construits et quelles informations complémentaires sont nécessaires à leur lecture.
                 </DocParagraph>
 
                 <DocParagraph>
-                    L'annexe est obligatoire en France depuis la réforme du Plan Comptable Général de 1982 (article 511
-                    du PCG). D'inspiration anglo-saxonne (les <em>notes to the financial statements</em>), elle
-                    répondait au besoin croissant de transparence financière. Son objectif principal est de garantir l'
+                    L'annexe est obligatoire en France depuis la réforme du Plan Comptable Général de 1982
+                    <DocSourceRef n={2} /> (article 511 du PCG). D'inspiration anglo-saxonne (les{" "}
+                    <em>notes to the financial statements</em>), elle répondait au besoin croissant de transparence
+                    financière. Son objectif principal est de garantir l'
                     <strong>image fidèle</strong> de la situation de l'organisation : les comptes annuels doivent
                     refléter la réalité économique et pas seulement la stricte application des règles comptables.
                 </DocParagraph>
@@ -55,22 +58,23 @@ export function NotesAccountingDocPage() {
                     , mais elle comprend généralement :
                 </DocParagraph>
 
-                <DocDefinition
-                    term="Règles et méthodes comptables"
-                    definition="Les conventions appliquées pour évaluer les éléments du bilan et du compte de résultat : méthodes d'amortissement, règles de comptabilisation des stocks, traitement des opérations en devises étrangères, etc."
-                />
-                <DocDefinition
-                    term="Compléments d'information sur le bilan"
-                    definition="Détail des immobilisations et de leurs amortissements, état des provisions, échéancier des créances et des dettes, variation des capitaux propres."
-                />
-                <DocDefinition
-                    term="Compléments d'information sur le compte de résultat"
-                    definition="Détail des produits et charges exceptionnels, ventilation du chiffre d'affaires, information sur les impôts."
-                />
-                <DocDefinition
-                    term="Engagements hors bilan"
-                    definition="Obligations qui n'apparaissent pas au bilan mais qui représentent un risque ou un avantage potentiel : cautions données, crédits-baux, engagements de retraite."
-                />
+                <DocDefinition term="Règles et méthodes comptables">
+                    Les conventions appliquées pour évaluer les éléments du bilan et du compte de résultat : méthodes
+                    d'amortissement, règles de comptabilisation des stocks, traitement des opérations en devises
+                    étrangères, etc.
+                </DocDefinition>
+                <DocDefinition term="Compléments d'information sur le bilan">
+                    Détail des immobilisations et de leurs amortissements, état des provisions, échéancier des créances
+                    et des dettes, variation des capitaux propres.
+                </DocDefinition>
+                <DocDefinition term="Compléments d'information sur le compte de résultat">
+                    Détail des produits et charges exceptionnels, ventilation du chiffre d'affaires, information sur les
+                    impôts.
+                </DocDefinition>
+                <DocDefinition term="Engagements hors bilan">
+                    Obligations qui n'apparaissent pas au bilan mais qui représentent un risque ou un avantage potentiel
+                    : cautions données, crédits-baux, engagements de retraite.
+                </DocDefinition>
 
                 <DocParagraph>Parmi les informations fréquemment requises, on trouve notamment :</DocParagraph>
 
@@ -148,8 +152,8 @@ export function NotesAccountingDocPage() {
 
             <DocSection title="Annexe et normes internationales">
                 <DocParagraph>
-                    En normes IFRS, la norme IAS 1 impose des exigences similaires mais plus structurées. L'annexe doit
-                    notamment inclure :
+                    En normes IFRS, la norme IAS 1<DocSourceRef n={3} /> impose des exigences similaires mais plus
+                    structurées. L'annexe doit notamment inclure :
                 </DocParagraph>
 
                 <DocList
@@ -181,12 +185,12 @@ export function NotesAccountingDocPage() {
             <DocSources
                 sources={[
                     {
-                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
-                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
-                    },
-                    {
                         label: "Annexe (comptabilité) — Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Annexe_(comptabilit%C3%A9)",
+                    },
+                    {
+                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
                     },
                     {
                         label: "Normes internationales d'information financière (IFRS) — Wikipédia",

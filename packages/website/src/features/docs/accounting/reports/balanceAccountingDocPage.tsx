@@ -8,6 +8,7 @@ import { DocNextPage } from "../../../../components/document/docNextPage.js"
 import { DocParagraph } from "../../../../components/document/docParagraph.js"
 import { DocRoot } from "../../../../components/document/docRoot.js"
 import { DocSection } from "../../../../components/document/docSection.js"
+import { DocSourceRef } from "../../../../components/document/docSourceRef.js"
 import { DocSources } from "../../../../components/document/docSources.js"
 import { DocTable } from "../../../../components/document/docTable.js"
 import { DocTip } from "../../../../components/document/docTip.js"
@@ -18,13 +19,14 @@ export function BalanceAccountingDocPage() {
             <DocHeader title="La balance" description="Document de contrôle essentiel de la comptabilité" />
 
             <DocSection title="Définition">
-                <DocDefinition
-                    term="Balance"
-                    definition="Tableau récapitulatif de tous les comptes utilisés pendant l'exercice, avec pour chacun le total des débits, le total des crédits et le solde. C'est l'outil de contrôle fondamental de la comptabilité."
-                />
+                <DocDefinition term="Balance">
+                    Tableau récapitulatif de tous les comptes utilisés pendant l'exercice, avec pour chacun le total des
+                    débits, le total des crédits et le solde. C'est l'outil de contrôle fondamental de la comptabilité.
+                </DocDefinition>
 
                 <DocParagraph>
-                    La balance est un résumé du{" "}
+                    La balance
+                    <DocSourceRef n={1} /> est un résumé du{" "}
                     <DocLink to="/documentation/comptabilité/documents/grand-livre">grand livre</DocLink> : elle reprend
                     chaque{" "}
                     <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "compte" }}>
@@ -47,8 +49,8 @@ export function BalanceAccountingDocPage() {
                     La balance permet de vérifier plusieurs équilibres qui découlent du principe de la{" "}
                     <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "partie-double" }}>
                         partie double
-                    </DocLink>{" "}
-                    :
+                    </DocLink>
+                    <DocSourceRef n={2} /> :
                 </DocParagraph>
                 <DocList
                     items={[
@@ -68,18 +70,17 @@ export function BalanceAccountingDocPage() {
             </DocSection>
 
             <DocSection title="Les différents types de balances">
-                <DocDefinition
-                    term="Balance générale"
-                    definition="Reprend tous les comptes utilisés pendant l'exercice. C'est le document de contrôle principal."
-                />
-                <DocDefinition
-                    term="Balance auxiliaire"
-                    definition="Détaille un compte collectif (clients ou fournisseurs) en montrant le solde de chaque tiers individuellement. Par exemple, la balance auxiliaire clients liste le solde dû par chaque client."
-                />
-                <DocDefinition
-                    term="Balance âgée"
-                    definition="Ventile les soldes par ancienneté (moins de 30 jours, 30 à 60 jours, etc.). Elle est particulièrement utile pour suivre les retards de paiement des clients ou des fournisseurs."
-                />
+                <DocDefinition term="Balance générale">
+                    Reprend tous les comptes utilisés pendant l'exercice. C'est le document de contrôle principal.
+                </DocDefinition>
+                <DocDefinition term="Balance auxiliaire">
+                    Détaille un compte collectif (clients ou fournisseurs) en montrant le solde de chaque tiers
+                    individuellement. Par exemple, la balance auxiliaire clients liste le solde dû par chaque client.
+                </DocDefinition>
+                <DocDefinition term="Balance âgée">
+                    Ventile les soldes par ancienneté (moins de 30 jours, 30 à 60 jours, etc.). Elle est
+                    particulièrement utile pour suivre les retards de paiement des clients ou des fournisseurs.
+                </DocDefinition>
             </DocSection>
 
             <DocSection title="Exemple">
@@ -144,12 +145,12 @@ export function BalanceAccountingDocPage() {
             <DocSources
                 sources={[
                     {
-                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
-                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
-                    },
-                    {
                         label: "Balance comptable — Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Balance_comptable",
+                    },
+                    {
+                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
                     },
                 ]}
             />

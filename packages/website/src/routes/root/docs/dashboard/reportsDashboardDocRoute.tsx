@@ -6,6 +6,8 @@ export const reportsDashboardDocRoute = createRoute({
     path: "/documents",
     beforeLoad: () => ({
         title: "Documents de synthèse",
+        description:
+            "Générez vos documents comptables de synthèse dans Arrhes : journal, grand livre, balance, bilan et compte de résultat.",
     }),
     component: lazyRouteComponent(
         () => import("../../../../features/docs/dashboard/reportsDashboardDocPage.tsx"),

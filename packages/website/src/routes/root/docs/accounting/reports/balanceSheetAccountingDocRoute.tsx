@@ -6,6 +6,8 @@ export const balanceSheetAccountingDocRoute = createRoute({
     path: "/bilan",
     beforeLoad: () => ({
         title: "Bilan",
+        description:
+            "Le bilan comptable : document de synthèse présentant le patrimoine de l'entreprise (actif et passif) à la clôture de l'exercice.",
     }),
     component: lazyRouteComponent(
         () => import("../../../../../features/docs/accounting/reports/balanceSheetAccountingDocPage.tsx"),

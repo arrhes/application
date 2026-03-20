@@ -6,6 +6,8 @@ export const notesAccountingDocRoute = createRoute({
     path: "/annexe",
     beforeLoad: () => ({
         title: "Annexe comptable",
+        description:
+            "L'annexe comptable : document complémentaire au bilan et au compte de résultat, fournissant des informations détaillées.",
     }),
     component: lazyRouteComponent(
         () => import("../../../../../features/docs/accounting/reports/notesAccountingDocPage.tsx"),

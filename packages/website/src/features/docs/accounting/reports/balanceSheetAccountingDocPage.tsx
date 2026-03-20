@@ -8,6 +8,7 @@ import { DocNextPage } from "../../../../components/document/docNextPage.js"
 import { DocParagraph } from "../../../../components/document/docParagraph.js"
 import { DocRoot } from "../../../../components/document/docRoot.js"
 import { DocSection } from "../../../../components/document/docSection.js"
+import { DocSourceRef } from "../../../../components/document/docSourceRef.js"
 import { DocSources } from "../../../../components/document/docSources.js"
 import { DocTable } from "../../../../components/document/docTable.js"
 import { DocTip } from "../../../../components/document/docTip.js"
@@ -18,14 +19,15 @@ export function BalanceSheetAccountingDocPage() {
             <DocHeader title="Le bilan" description="Photographie du patrimoine de l'organisation à une date donnée" />
 
             <DocSection title="Définition">
-                <DocDefinition
-                    term="Bilan"
-                    definition="Photographie du patrimoine de l'organisation à une date donnée. Il montre ce que l'organisation possède (actif) et comment elle l'a financé (passif)."
-                />
+                <DocDefinition term="Bilan">
+                    Photographie du patrimoine de l'organisation à une date donnée. Il montre ce que l'organisation
+                    possède (actif) et comment elle l'a financé (passif).
+                </DocDefinition>
 
                 <DocParagraph>
-                    Le bilan est toujours établi à une <strong>date précise</strong>, généralement la date de clôture de
-                    l'{" "}
+                    Le bilan
+                    <DocSourceRef n={1} /> est toujours établi à une <strong>date précise</strong>, généralement la date
+                    de clôture de l'{" "}
                     <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "exercice-comptable" }}>
                         exercice comptable
                     </DocLink>
@@ -52,7 +54,8 @@ export function BalanceSheetAccountingDocPage() {
                     >
                         plan comptable
                     </DocLink>
-                    ) :
+                    )
+                    <DocSourceRef n={2} /> :
                 </DocParagraph>
                 <DocList
                     items={[
@@ -84,22 +87,21 @@ export function BalanceSheetAccountingDocPage() {
                     ]}
                 />
 
-                <DocDefinition
-                    term="Actif immobilisé"
-                    definition="Biens destinés à rester durablement dans l'organisation : terrains, bâtiments, matériel, brevets. Ils sont enregistrés dans les comptes de classe 2."
-                />
-                <DocDefinition
-                    term="Actif circulant"
-                    definition="Éléments qui se renouvellent au cours du cycle d'exploitation : stocks de marchandises (classe 3), créances clients (classe 4), trésorerie (classe 5)."
-                />
-                <DocDefinition
-                    term="Capitaux propres"
-                    definition="Ressources appartenant aux propriétaires : capital social, réserves, résultat de l'exercice. Ils représentent ce que l'organisation doit à ses propriétaires."
-                />
-                <DocDefinition
-                    term="Dettes"
-                    definition="Sommes dues à des tiers : emprunts bancaires, dettes fournisseurs, dettes fiscales et sociales."
-                />
+                <DocDefinition term="Actif immobilisé">
+                    Biens destinés à rester durablement dans l'organisation : terrains, bâtiments, matériel, brevets.
+                    Ils sont enregistrés dans les comptes de classe 2.
+                </DocDefinition>
+                <DocDefinition term="Actif circulant">
+                    Éléments qui se renouvellent au cours du cycle d'exploitation : stocks de marchandises (classe 3),
+                    créances clients (classe 4), trésorerie (classe 5).
+                </DocDefinition>
+                <DocDefinition term="Capitaux propres">
+                    Ressources appartenant aux propriétaires : capital social, réserves, résultat de l'exercice. Ils
+                    représentent ce que l'organisation doit à ses propriétaires.
+                </DocDefinition>
+                <DocDefinition term="Dettes">
+                    Sommes dues à des tiers : emprunts bancaires, dettes fournisseurs, dettes fiscales et sociales.
+                </DocDefinition>
             </DocSection>
 
             <DocSection title="L'équation fondamentale">
@@ -151,14 +153,15 @@ export function BalanceSheetAccountingDocPage() {
                     de l'organisation :
                 </DocParagraph>
 
-                <DocDefinition
-                    term="Haut de bilan"
-                    definition="Éléments permanents : à l'actif, les immobilisations (biens durables) ; au passif, les capitaux propres et les dettes à long terme (emprunts). Ces éléments constituent le socle stable du financement."
-                />
-                <DocDefinition
-                    term="Bas de bilan"
-                    definition="Éléments circulants : à l'actif, les stocks, créances et trésorerie ; au passif, les dettes à court terme (fournisseurs, dettes fiscales). Ces éléments se renouvellent au fil de l'activité."
-                />
+                <DocDefinition term="Haut de bilan">
+                    Éléments permanents : à l'actif, les immobilisations (biens durables) ; au passif, les capitaux
+                    propres et les dettes à long terme (emprunts). Ces éléments constituent le socle stable du
+                    financement.
+                </DocDefinition>
+                <DocDefinition term="Bas de bilan">
+                    Éléments circulants : à l'actif, les stocks, créances et trésorerie ; au passif, les dettes à court
+                    terme (fournisseurs, dettes fiscales). Ces éléments se renouvellent au fil de l'activité.
+                </DocDefinition>
 
                 <DocParagraph>
                     L'équilibre entre haut et bas de bilan est un indicateur clé de la santé financière. Idéalement, les
@@ -168,16 +171,17 @@ export function BalanceSheetAccountingDocPage() {
             </DocSection>
 
             <DocSection title="Le Besoin en Fonds de Roulement (BFR)">
-                <DocDefinition
-                    term="Besoin en Fonds de Roulement (BFR)"
-                    definition="Différence entre l'actif circulant (hors trésorerie) et les dettes à court terme. Il mesure le besoin de financement lié au cycle d'exploitation de l'entreprise."
-                />
+                <DocDefinition term="Besoin en Fonds de Roulement (BFR)">
+                    Différence entre l'actif circulant (hors trésorerie) et les dettes à court terme. Il mesure le
+                    besoin de financement lié au cycle d'exploitation de l'entreprise.
+                </DocDefinition>
 
                 <DocParagraph>
-                    Le BFR apparaît lorsque l'entreprise doit financer ses stocks et ses créances clients avant de
-                    recevoir les paiements correspondants. Un BFR positif signifie que l'entreprise a besoin de
-                    trésorerie pour fonctionner ; un BFR négatif (rare) signifie que le cycle d'exploitation génère de
-                    la trésorerie.
+                    Le BFR
+                    <DocSourceRef n={3} /> apparaît lorsque l'entreprise doit financer ses stocks et ses créances
+                    clients avant de recevoir les paiements correspondants. Un BFR positif signifie que l'entreprise a
+                    besoin de trésorerie pour fonctionner ; un BFR négatif (rare) signifie que le cycle d'exploitation
+                    génère de la trésorerie.
                 </DocParagraph>
 
                 <DocExample title="Calcul du BFR">
@@ -199,18 +203,18 @@ export function BalanceSheetAccountingDocPage() {
             <DocSection title="Les différents types de bilan">
                 <DocParagraph>Il existe en pratique plusieurs présentations du bilan selon l'usage :</DocParagraph>
 
-                <DocDefinition
-                    term="Bilan comptable (officiel)"
-                    definition="Le bilan au sens strict, établi selon les règles du PCG et déposé au greffe du tribunal de commerce. C'est le document obligatoire qui fait partie des comptes annuels."
-                />
-                <DocDefinition
-                    term="Bilan fonctionnel"
-                    definition="Présentation analytique qui reclasse les postes par fonction (exploitation, investissement, financement). Il sert à l'analyse financière interne et au calcul du BFR."
-                />
-                <DocDefinition
-                    term="Bilan fiscal"
-                    definition="Bilan établi pour les besoins de la déclaration fiscale (liasse fiscale). Il reprend les mêmes données que le bilan comptable avec des retraitements spécifiques."
-                />
+                <DocDefinition term="Bilan comptable (officiel)">
+                    Le bilan au sens strict, établi selon les règles du PCG et déposé au greffe du tribunal de commerce.
+                    C'est le document obligatoire qui fait partie des comptes annuels.
+                </DocDefinition>
+                <DocDefinition term="Bilan fonctionnel">
+                    Présentation analytique qui reclasse les postes par fonction (exploitation, investissement,
+                    financement). Il sert à l'analyse financière interne et au calcul du BFR.
+                </DocDefinition>
+                <DocDefinition term="Bilan fiscal">
+                    Bilan établi pour les besoins de la déclaration fiscale (liasse fiscale). Il reprend les mêmes
+                    données que le bilan comptable avec des retraitements spécifiques.
+                </DocDefinition>
             </DocSection>
 
             <DocSection title="Engagements hors bilan">
@@ -236,10 +240,10 @@ export function BalanceSheetAccountingDocPage() {
                 </DocParagraph>
 
                 <DocTip variant="info">
-                    En normes IFRS (normes internationales), le bilan s'appelle « état de la situation financière » et
-                    sa présentation est différente : les postes sont classés en éléments courants et non courants plutôt
-                    qu'en actif immobilisé et circulant. Les crédits-baux sont également intégrés au bilan (norme IFRS
-                    16).
+                    En normes IFRS (normes internationales)
+                    <DocSourceRef n={4} />, le bilan s'appelle « état de la situation financière » et sa présentation
+                    est différente : les postes sont classés en éléments courants et non courants plutôt qu'en actif
+                    immobilisé et circulant. Les crédits-baux sont également intégrés au bilan (norme IFRS 16).
                 </DocTip>
             </DocSection>
 
@@ -301,12 +305,12 @@ export function BalanceSheetAccountingDocPage() {
             <DocSources
                 sources={[
                     {
-                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
-                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
-                    },
-                    {
                         label: "Bilan comptable — Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Bilan_comptable",
+                    },
+                    {
+                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
                     },
                     {
                         label: "Besoin en fonds de roulement — Wikipédia",

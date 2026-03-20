@@ -6,6 +6,8 @@ export const yearApiDocRoute = createRoute({
     path: "/exercice",
     beforeLoad: () => ({
         title: "Exercice",
+        description:
+            "Endpoints API pour la gestion des exercices comptables : création, ouverture, clôture et consultation.",
     }),
     component: lazyRouteComponent(() => import("../../../../features/docs/api/yearApiDocPage.tsx"), "YearApiDocPage"),
 })

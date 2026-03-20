@@ -8,6 +8,7 @@ import { DocNextPage } from "../../../../components/document/docNextPage.tsx"
 import { DocParagraph } from "../../../../components/document/docParagraph.tsx"
 import { DocRoot } from "../../../../components/document/docRoot.tsx"
 import { DocSection } from "../../../../components/document/docSection.tsx"
+import { DocSourceRef } from "../../../../components/document/docSourceRef.tsx"
 import { DocSources } from "../../../../components/document/docSources.tsx"
 import { DocTable } from "../../../../components/document/docTable.tsx"
 import { DocTip } from "../../../../components/document/docTip.tsx"
@@ -26,6 +27,7 @@ export function RecordsAccountingDocPage() {
                     est la traduction d'une opération économique dans le langage de la comptabilité. C'est l'acte
                     concret d'enregistrement : à chaque fois que votre organisation effectue une opération (achat,
                     vente, encaissement, paiement…), celle-ci doit être consignée sous forme d'écriture.
+                    <DocSourceRef n={1} />
                 </DocParagraph>
                 <DocParagraph>
                     Comme vu dans la page sur la{" "}
@@ -46,14 +48,14 @@ export function RecordsAccountingDocPage() {
                     bouge pas. Les comptes ne sont que le reflet cumulé de toutes les écritures qui les ont affectés.
                 </DocParagraph>
 
-                <DocDefinition
-                    term="Pièce justificative"
-                    definition="Chaque écriture doit être appuyée par un document qui prouve la réalité de l'opération (facture, relevé bancaire, ticket de caisse…). C'est le fondement du contrôle comptable."
-                />
-                <DocDefinition
-                    term="Enregistrement chronologique"
-                    definition="Les écritures doivent être passées dans l'ordre chronologique. On ne revient jamais en arrière : les erreurs sont corrigées par des écritures de sens contraire, jamais effacées."
-                />
+                <DocDefinition term="Pièce justificative">
+                    Chaque écriture doit être appuyée par un document qui prouve la réalité de l'opération (facture,
+                    relevé bancaire, ticket de caisse…). C'est le fondement du contrôle comptable.
+                </DocDefinition>
+                <DocDefinition term="Enregistrement chronologique">
+                    Les écritures doivent être passées dans l'ordre chronologique. On ne revient jamais en arrière : les
+                    erreurs sont corrigées par des écritures de sens contraire, jamais effacées.
+                </DocDefinition>
             </DocSection>
 
             <DocSection title="Structure d'une écriture">
@@ -83,6 +85,7 @@ export function RecordsAccountingDocPage() {
                         60
                     </DocLink>
                     ) sont des comptes de regroupement servant uniquement à la classification dans le plan comptable.
+                    <DocSourceRef n={1} />
                 </DocTip>
 
                 <DocExample title="Écriture d'achat de fournitures">
@@ -202,8 +205,8 @@ export function RecordsAccountingDocPage() {
                     <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "organisation" }}>
                         organisation
                     </DocLink>{" "}
-                    est assujettie à la TVA, chaque opération doit distinguer le montant hors taxes (HT) et la TVA. Le
-                    compte État joue un rôle central.
+                    est assujettie à la TVA, chaque opération doit distinguer le montant hors taxes (HT) et la TVA.
+                    <DocSourceRef n={2} /> Le compte État joue un rôle central.
                 </DocParagraph>
 
                 <DocList
@@ -268,22 +271,17 @@ export function RecordsAccountingDocPage() {
                 </DocParagraph>
             </DocSection>
 
-            <DocTip variant="warning">
-                N'oubliez pas : chaque écriture doit toujours être équilibrée (total débits = total crédits). Arrhes
-                vérifie automatiquement cet équilibre lors de la saisie.
-            </DocTip>
-
-            <DocNextPage to="/documentation/comptabilité/comptes" label="Les comptes comptables" />
+            <DocNextPage
+                to="/documentation/comptabilité/comptes"
+                label="Les comptes comptables"
+                description="N'oubliez pas : chaque écriture doit toujours être équilibrée (total débits = total crédits). Arrhes vérifie automatiquement cet équilibre lors de la saisie."
+            />
 
             <DocSources
                 sources={[
                     {
                         label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
                         url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
-                    },
-                    {
-                        label: "Comptabilité — Wikipédia",
-                        url: "https://fr.wikipedia.org/wiki/Comptabilit%C3%A9",
                     },
                     {
                         label: "Taxe sur la valeur ajoutée en France — Wikipédia",

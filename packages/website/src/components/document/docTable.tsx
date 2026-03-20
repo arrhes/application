@@ -1,11 +1,11 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@arrhes/ui/utilities/cn.js";
 
 export function DocTable(props: { headers: string[]; rows: string[][] }) {
     return (
         <div
             className={css({
                 overflowX: "auto",
-                borderRadius: "lg",
+                // borderRadius: "lg",
                 border: "1px solid",
                 borderColor: "neutral/10",
                 backgroundColor: "white",
