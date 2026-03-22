@@ -9,7 +9,6 @@ import { ChildrenListSection } from "./components/childrenListSection.js"
 import { DebitCreditSection } from "./components/debitCreditSection.js"
 import { JournalEntryExamples } from "./components/journalEntryExamples.js"
 import { ParentAccountSection } from "./components/parentAccountSection.js"
-import { PracticalUsageSection } from "./components/practicalUsageSection.js"
 import { SummaryAccountBanner } from "./components/summaryAccountBanner.js"
 
 export function AccountAccountingDocPage() {
@@ -44,7 +43,6 @@ export function AccountAccountingDocPage() {
                     <DebitCreditSection entry={entry} />
                     {parentAccount && <ParentAccountSection parentAccount={parentAccount} />}
                     {children.length > 0 && <ChildrenListSection children={children} />}
-                    <PracticalUsageSection entry={entry} />
                 </>
             )}
 

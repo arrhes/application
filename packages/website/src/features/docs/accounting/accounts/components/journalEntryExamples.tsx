@@ -2,6 +2,7 @@ import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconSparkles } from "@tabler/icons-react"
 import { DocSection } from "../../../../../components/document/docSection.js"
 import { DocTable } from "../../../../../components/document/docTable.js"
+import { DocTip } from "../../../../../components/document/docTip.js"
 import type { AccountEntry } from "../accountsData.js"
 import { getExampleJournalEntry } from "./accountUtilities.js"
 
@@ -12,6 +13,21 @@ export function JournalEntryExamples(props: { entry: AccountEntry }) {
 
     return (
         <DocSection title="Exemples d'écritures">
+            {entry.usageTips.length > 0 && (
+                <div
+                    className={css({
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "0.5rem",
+                    })}
+                >
+                    {entry.usageTips.map((tip) => (
+                        <DocTip key={tip} variant="tip">
+                            {tip}
+                        </DocTip>
+                    ))}
+                </div>
+            )}
             <div
                 className={css({
                     display: "flex",

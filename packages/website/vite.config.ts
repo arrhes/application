@@ -91,7 +91,7 @@ function sitemapPlugin(): Plugin {
             // Extract dynamic account slugs from source
             const accountsDataPath = resolve(__dirname, "src/features/docs/accounting/accounts/accountsData.ts")
             const accountsSrc = readFileSync(accountsDataPath, "utf-8")
-            const accountSlugs = [...accountsSrc.matchAll(/defineAccount\("([^"]+)"/g)].map((m) => m[1])
+            const accountSlugs = [...accountsSrc.matchAll(/defineAccount\(\s*\n?\s*"([^"]+)"/g)].map((m) => m[1])
 
             // Extract dynamic glossary slugs from source
             const glossaryDataPath = resolve(__dirname, "src/features/docs/accounting/glossary/glossaryData.ts")
