@@ -21,7 +21,7 @@ En participant a ce projet, vous vous engagez a maintenir un environnement respe
 
 - Respect et courtoisie envers les autres contributeurs
 - Ouverture d'esprit face aux critiques constructives
-- Concentration sur ce qui est le mieux pour la communaute
+- Concentration sur ce qui est bien pour la communaute
 - Empathie envers les autres membres de la communaute
 
 Les comportements inacceptables incluent le harcelement, les insultes, et tout comportement discriminatoire.
