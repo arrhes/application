@@ -4,16 +4,13 @@ import { DocSection } from "../../../../../components/document/docSection.js"
 import { DocTable } from "../../../../../components/document/docTable.js"
 import { DocTip } from "../../../../../components/document/docTip.js"
 import type { AccountEntry } from "../accountsData.js"
-import { getJournalExample, getUsageTips } from "./accountUtilities.js"
 
-export function PracticalUsageSection(props: { entry: AccountEntry; debitMeaning: string; creditMeaning: string }) {
+export function PracticalUsageSection(props: { entry: AccountEntry }) {
     const { entry } = props
-    const example = getJournalExample(entry)
-    const tips = getUsageTips(entry)
 
     return (
         <DocSection title="Utilisation pratique">
-            <DocParagraph>{example.description}</DocParagraph>
+            <DocParagraph>{entry.journalExample.description}</DocParagraph>
 
             <div
                 className={css({
@@ -37,10 +34,10 @@ export function PracticalUsageSection(props: { entry: AccountEntry; debitMeaning
                 >
                     Schéma d'écriture type
                 </span>
-                <DocTable headers={["Compte", "Intitulé", "Débit", "Crédit"]} rows={example.rows} />
+                <DocTable headers={["Compte", "Intitulé", "Débit", "Crédit"]} rows={entry.journalExample.rows} />
             </div>
 
-            {tips.length > 0 && (
+            {entry.usageTips.length > 0 && (
                 <div
                     className={css({
                         display: "flex",
@@ -48,7 +45,7 @@ export function PracticalUsageSection(props: { entry: AccountEntry; debitMeaning
                         gap: "0.5rem",
                     })}
                 >
-                    {tips.map((tip) => (
+                    {entry.usageTips.map((tip) => (
                         <DocTip key={tip} variant="tip">
                             {tip}
                         </DocTip>
