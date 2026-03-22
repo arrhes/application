@@ -5,6 +5,7 @@ import { applicationTree } from "./applicationTree.js"
 
 export const applicationRouter = createRouter({
     routeTree: applicationTree,
+    scrollRestoration: true,
     context: {
         title: undefined,
         description: undefined,
