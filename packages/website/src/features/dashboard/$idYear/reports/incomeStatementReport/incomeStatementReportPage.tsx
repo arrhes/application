@@ -13,7 +13,7 @@ import { IncomeStatementsReportTable } from "./incomeStatementsReportTable.tsx"
 
 const requiredKeys = [
     "accounts",
-    "recordRows",
+    "entryLines",
     "incomeStatements",
     "computations",
     "computationIncomeStatements",
@@ -24,7 +24,7 @@ export function IncomeStatementReportPage() {
 
     return (
         <YearDataWrapper idYear={params.idYear} requiredKeys={requiredKeys}>
-            {({ accounts, recordRows, incomeStatements, computations, computationIncomeStatements }) => (
+            {({ accounts, entryLines, incomeStatements, computations, computationIncomeStatements }) => (
                 <Page.Root>
                     <Page.Content>
                         <Section.Root>
@@ -50,8 +50,8 @@ export function IncomeStatementReportPage() {
                                         incomeStatements={incomeStatements}
                                         computations={computations}
                                         computationIncomeStatements={computationIncomeStatements}
-                                        recordRows={recordRows.filter(
-                                            (recordRow) => recordRow.isComputedForIncomeStatementReport === true,
+                                        entryLines={entryLines.filter(
+                                            (entryLine) => entryLine.isComputedForIncomeStatementReport === true,
                                         )}
                                         accounts={accounts.filter((account) => account.type === "income-statement")}
                                     />

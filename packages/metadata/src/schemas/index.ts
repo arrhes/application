@@ -6,6 +6,9 @@ import {
     computationIncomeStatementSchema,
     computationIncomeStatementSchemaReturn,
 } from "./computationIncomeStatement.js"
+import { entrySchema, entrySchemaReturn } from "./entry.js"
+import { entryLineSchema, entryLineSchemaReturn } from "./entryLine.js"
+import { entryTagSchema, entryTagSchemaReturn } from "./entryTag.js"
 import { fileSchema, fileSchemaReturn } from "./file.js"
 import { folderSchema, folderSchemaReturn } from "./folder.js"
 import { incomeStatementSchema, incomeStatementSchemaReturn } from "./incomeStatement.js"
@@ -13,9 +16,7 @@ import { journalSchema, journalSchemaReturn } from "./journal.js"
 import { organizationSchema, organizationSchemaReturn } from "./organization.js"
 import { organizationPaymentSchema, organizationPaymentSchemaReturn } from "./organizationPayment.js"
 import { organizationUserSchema, organizationUserSchemaReturn } from "./organizationUser.js"
-import { recordSchema, recordSchemaReturn } from "./record.js"
-import { recordLabelSchema, recordLabelSchemaReturn } from "./recordLabel.js"
-import { recordRowSchema, recordRowSchemaReturn } from "./recordRow.js"
+import { tagSchema, tagSchemaReturn } from "./tag.js"
 import { userSchema, userSchemaReturn } from "./user.js"
 import { userSessionSchema, userSessionSchemaReturn } from "./userSession.js"
 import { yearSchema, yearSchemaReturn } from "./year.js"
@@ -23,6 +24,9 @@ import { yearSchema, yearSchemaReturn } from "./year.js"
 export const schemas = {
     apiKey: apiKeySchema,
     account: accountSchema,
+    entry: entrySchema,
+    entryLine: entryLineSchema,
+    entryTag: entryTagSchema,
     file: fileSchema,
     folder: folderSchema,
     balanceSheet: balanceSheetSchema,
@@ -33,9 +37,7 @@ export const schemas = {
     organization: organizationSchema,
     organizationPayment: organizationPaymentSchema,
     organizationUser: organizationUserSchema,
-    record: recordSchema,
-    recordLabel: recordLabelSchema,
-    recordRow: recordRowSchema,
+    tag: tagSchema,
     user: userSchema,
     userSession: userSessionSchema,
     year: yearSchema,
@@ -44,6 +46,9 @@ export const schemas = {
 export const returnedSchemas = {
     apiKey: apiKeySchemaReturn,
     account: accountSchemaReturn,
+    entry: entrySchemaReturn,
+    entryLine: entryLineSchemaReturn,
+    entryTag: entryTagSchemaReturn,
     file: fileSchemaReturn,
     folder: folderSchemaReturn,
     balanceSheet: balanceSheetSchemaReturn,
@@ -54,9 +59,7 @@ export const returnedSchemas = {
     organization: organizationSchemaReturn,
     organizationPayment: organizationPaymentSchemaReturn,
     organizationUser: organizationUserSchemaReturn,
-    record: recordSchemaReturn,
-    recordLabel: recordLabelSchemaReturn,
-    recordRow: recordRowSchemaReturn,
+    tag: tagSchemaReturn,
     user: userSchemaReturn,
     userSession: userSessionSchemaReturn,
     year: yearSchemaReturn,

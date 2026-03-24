@@ -116,12 +116,12 @@ describe("Journals", () => {
     })
 })
 
-describe("Record Labels", () => {
-    describe("POST /auth/read-all-record-labels", () => {
-        it("returns all record labels for the year", async () => {
+describe("Tags", () => {
+    describe("POST /auth/read-all-tags", () => {
+        it("returns all tags for the year", async () => {
             const response = await authenticatedRequest({
                 session,
-                path: "/auth/read-all-record-labels",
+                path: "/auth/read-all-tags",
                 body: { idOrganization, idYear },
             })
             expect(response.status).toBe(200)
@@ -131,12 +131,12 @@ describe("Record Labels", () => {
         })
     })
 
-    describe("POST /auth/create-one-record-label", () => {
-        it("creates a new record label", async () => {
-            const label = `Test Label ${Date.now()}`
+    describe("POST /auth/create-one-tag", () => {
+        it("creates a new tag", async () => {
+            const label = `Test Tag ${Date.now()}`
             const response = await authenticatedRequest({
                 session,
-                path: "/auth/create-one-record-label",
+                path: "/auth/create-one-tag",
                 body: {
                     idOrganization,
                     idYear,

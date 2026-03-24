@@ -55,9 +55,7 @@ export function HomePage() {
                             gap: "0.25rem",
                         })}
                     >
-                        <LinkButton
-                            to="/"
-                        >
+                        <LinkButton to="/">
                             <Logo />
                         </LinkButton>
                         <span

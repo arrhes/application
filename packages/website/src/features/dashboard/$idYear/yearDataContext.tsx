@@ -3,13 +3,14 @@ import {
     readAllBalanceSheetsRouteDefinition,
     readAllComputationIncomeStatementsRouteDefinition,
     readAllComputationsRouteDefinition,
+    readAllEntriesRouteDefinition,
+    readAllEntryLinesRouteDefinition,
+    readAllEntryTagsRouteDefinition,
     readAllFilesRouteDefinition,
     readAllFoldersRouteDefinition,
     readAllIncomeStatementsRouteDefinition,
     readAllJournalsRouteDefinition,
-    readAllRecordLabelsRouteDefinition,
-    readAllRecordRowsRouteDefinition,
-    readAllRecordsRouteDefinition,
+    readAllTagsRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import { type UseQueryResult, useQuery } from "@tanstack/react-query"
 import { createContext, type ReactNode, useContext, useMemo } from "react"
@@ -19,10 +20,11 @@ import { getResponseBodyFromAPI } from "../../../utilities/getResponseBodyFromAP
 
 const yearQueries = {
     accounts: readAllAccountsRouteDefinition,
-    records: readAllRecordsRouteDefinition,
-    recordRows: readAllRecordRowsRouteDefinition,
+    entries: readAllEntriesRouteDefinition,
+    entryLines: readAllEntryLinesRouteDefinition,
+    entryTags: readAllEntryTagsRouteDefinition,
     journals: readAllJournalsRouteDefinition,
-    recordLabels: readAllRecordLabelsRouteDefinition,
+    tags: readAllTagsRouteDefinition,
     files: readAllFilesRouteDefinition,
     folders: readAllFoldersRouteDefinition,
     balanceSheets: readAllBalanceSheetsRouteDefinition,
@@ -87,10 +89,11 @@ export function YearDataProvider(props: { idYear: string; children: ReactNode })
     )
 
     const accounts = useYearQuery("accounts", body)
-    const records = useYearQuery("records", body)
-    const recordRows = useYearQuery("recordRows", body)
+    const entries = useYearQuery("entries", body)
+    const entryLines = useYearQuery("entryLines", body)
+    const entryTags = useYearQuery("entryTags", body)
     const journals = useYearQuery("journals", body)
-    const recordLabels = useYearQuery("recordLabels", body)
+    const tags = useYearQuery("tags", body)
     const files = useYearQuery("files", body)
     const folders = useYearQuery("folders", body)
     const balanceSheets = useYearQuery("balanceSheets", body)
@@ -101,10 +104,11 @@ export function YearDataProvider(props: { idYear: string; children: ReactNode })
     const value = useMemo<YearDataContextValue>(
         () => ({
             accounts,
-            records,
-            recordRows,
+            entries,
+            entryLines,
+            entryTags,
             journals,
-            recordLabels,
+            tags,
             files,
             folders,
             balanceSheets,
@@ -114,10 +118,11 @@ export function YearDataProvider(props: { idYear: string; children: ReactNode })
         }),
         [
             accounts,
-            records,
-            recordRows,
+            entries,
+            entryLines,
+            entryTags,
             journals,
-            recordLabels,
+            tags,
             files,
             folders,
             balanceSheets,

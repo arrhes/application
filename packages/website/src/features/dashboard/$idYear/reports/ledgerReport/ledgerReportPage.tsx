@@ -7,22 +7,22 @@ import type { YearDataKey } from "../../yearDataWrapper.tsx"
 import { YearDataWrapper } from "../../yearDataWrapper.tsx"
 import { LedgerReportTable } from "./ledgerReportTable.tsx"
 
-const requiredKeys = ["accounts", "recordRows"] as const satisfies readonly YearDataKey[]
+const requiredKeys = ["accounts", "entryLines"] as const satisfies readonly YearDataKey[]
 
 export function LedgerReportPage() {
     const params = useParams({ from: ledgerReportRoute.id })
 
     return (
         <YearDataWrapper idYear={params.idYear} requiredKeys={requiredKeys}>
-            {({ accounts, recordRows }) => (
+            {({ accounts, entryLines }) => (
                 <Page.Root>
                     <Page.Content>
                         <Section.Root>
                             <Section.Item>
                                 <Box>
                                     <LedgerReportTable
-                                        recordRows={recordRows.filter(
-                                            (recordRow) => recordRow.isComputedForLedgerReport === true,
+                                        entryLines={entryLines.filter(
+                                            (entryLine) => entryLine.isComputedForLedgerReport === true,
                                         )}
                                         accounts={accounts}
                                     />

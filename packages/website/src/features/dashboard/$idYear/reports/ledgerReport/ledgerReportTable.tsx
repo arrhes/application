@@ -9,27 +9,27 @@ import { FormatText } from "../../../../../components/formats/formatText.tsx"
 import { Table } from "../../../../../components/layouts/table/table.tsx"
 
 export function LedgerReportTable(props: {
-    recordRows: Array<v.InferOutput<typeof returnedSchemas.recordRow>>
+    entryLines: Array<v.InferOutput<typeof returnedSchemas.entryLine>>
     accounts: Array<v.InferOutput<typeof returnedSchemas.account>>
 }) {
-    const accountsTotalDebit = props.recordRows.reduce((acc, recordRow) => acc + Number(recordRow.debit), 0)
-    const accountsTotalCredit = props.recordRows.reduce((acc, recordRow) => acc + Number(recordRow.credit), 0)
+    const accountsTotalDebit = props.entryLines.reduce((acc, entryLine) => acc + Number(entryLine.debit), 0)
+    const accountsTotalCredit = props.entryLines.reduce((acc, entryLine) => acc + Number(entryLine.credit), 0)
 
     const sortedAccounts = useMemo(() => {
-        const recordRowsByAccount = new Map<string, Array<v.InferOutput<typeof returnedSchemas.recordRow>>>()
-        for (const recordRow of props.recordRows) {
-            let rows = recordRowsByAccount.get(recordRow.idAccount)
+        const entryLinesByAccount = new Map<string, Array<v.InferOutput<typeof returnedSchemas.entryLine>>>()
+        for (const entryLine of props.entryLines) {
+            let rows = entryLinesByAccount.get(entryLine.idAccount)
             if (!rows) {
                 rows = []
-                recordRowsByAccount.set(recordRow.idAccount, rows)
+                entryLinesByAccount.set(entryLine.idAccount, rows)
             }
-            rows.push(recordRow)
+            rows.push(entryLine)
         }
 
         return [...props.accounts]
             .sort((a, b) => a.number.localeCompare(b.number))
-            .filter((account) => recordRowsByAccount.has(account.id))
-    }, [props.accounts, props.recordRows])
+            .filter((account) => entryLinesByAccount.has(account.id))
+    }, [props.accounts, props.entryLines])
 
     const scrollContainerRef = useRef<HTMLDivElement>(null)
 
@@ -117,16 +117,16 @@ export function LedgerReportTable(props: {
                         )}
                         {virtualItems.map((virtualItem) => {
                             const account = sortedAccounts[virtualItem.index]
-                            const filteredRecordRows = props.recordRows.filter(
-                                (recordRow) => recordRow.idAccount === account.id,
+                            const filteredEntryLines = props.entryLines.filter(
+                                (entryLine) => entryLine.idAccount === account.id,
                             )
 
-                            const accountTotalDebit = filteredRecordRows.reduce(
-                                (acc, recordRow) => acc + Number(recordRow.debit),
+                            const accountTotalDebit = filteredEntryLines.reduce(
+                                (acc, entryLine) => acc + Number(entryLine.debit),
                                 0,
                             )
-                            const accountTotalCredit = filteredRecordRows.reduce(
-                                (acc, recordRow) => acc + Number(recordRow.credit),
+                            const accountTotalCredit = filteredEntryLines.reduce(
+                                (acc, entryLine) => acc + Number(entryLine.credit),
                                 0,
                             )
 
@@ -176,21 +176,21 @@ export function LedgerReportTable(props: {
                                     </Table.Body.Row>
                                     {/* biome-ignore lint/complexity/noUselessFragments: Fragment needed for TypeScript type compatibility with Table.Body.Root children */}
                                     <Fragment>
-                                        {filteredRecordRows.map((recordRow) => {
+                                        {filteredEntryLines.map((entryLine) => {
                                             return (
                                                 <Table.Body.Row
-                                                    key={recordRow.id}
+                                                    key={entryLine.id}
                                                     className={css({ borderColor: "neutral/5" })}
                                                 >
                                                     <Table.Body.Cell />
                                                     <Table.Body.Cell>
-                                                        <FormatText wrap={true}>{recordRow.label}</FormatText>
+                                                        <FormatText wrap={true}>{entryLine.label}</FormatText>
                                                     </Table.Body.Cell>
                                                     <Table.Body.Cell className={css({ width: "[1%]" })} align="right">
-                                                        <FormatPrice price={recordRow.debit} />
+                                                        <FormatPrice price={entryLine.debit} />
                                                     </Table.Body.Cell>
                                                     <Table.Body.Cell className={css({ width: "[1%]" })} align="right">
-                                                        <FormatPrice price={recordRow.credit} />
+                                                        <FormatPrice price={entryLine.credit} />
                                                     </Table.Body.Cell>
                                                 </Table.Body.Row>
                                             )

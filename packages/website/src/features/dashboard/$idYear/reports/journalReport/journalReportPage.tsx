@@ -13,7 +13,7 @@ import { JournalReportTable } from "./journalReportTable.tsx"
 
 const PAGE_SIZE = 20
 
-const requiredKeys = ["records", "recordRows", "accounts"] as const satisfies readonly YearDataKey[]
+const requiredKeys = ["entries", "entryLines", "accounts"] as const satisfies readonly YearDataKey[]
 
 export function JournalReportPage() {
     const params = useParams({ from: journalReportRoute.id })
@@ -21,17 +21,17 @@ export function JournalReportPage() {
 
     return (
         <YearDataWrapper idYear={params.idYear} requiredKeys={requiredKeys}>
-            {({ records, recordRows, accounts }) => {
+            {({ entries, entryLines, accounts }) => {
                 const accountsMap = new Map(accounts.map((account) => [account.id, account]))
 
-                const filteredRecordRows = recordRows.filter(
-                    (recordRow) => recordRow.isComputedForJournalReport === true,
+                const filteredEntryLines = entryLines.filter(
+                    (entryLine) => entryLine.isComputedForJournalReport === true,
                 )
-                const sortedRecords = [...records].sort((a, b) => b.date.localeCompare(a.date))
+                const sortedEntries = [...entries].sort((a, b) => b.date.localeCompare(a.date))
 
-                const pageCount = Math.max(1, Math.ceil(sortedRecords.length / PAGE_SIZE))
+                const pageCount = Math.max(1, Math.ceil(sortedEntries.length / PAGE_SIZE))
                 const clampedPageIndex = Math.min(pageIndex, pageCount - 1)
-                const paginatedRecords = sortedRecords.slice(
+                const paginatedEntries = sortedEntries.slice(
                     clampedPageIndex * PAGE_SIZE,
                     (clampedPageIndex + 1) * PAGE_SIZE,
                 )
@@ -46,8 +46,8 @@ export function JournalReportPage() {
                                 <Section.Item>
                                     <Box>
                                         <JournalReportTable
-                                            records={paginatedRecords}
-                                            recordRows={filteredRecordRows}
+                                            entries={paginatedEntries}
+                                            entryLines={filteredEntryLines}
                                             accounts={accountsMap}
                                         />
                                     </Box>
@@ -69,7 +69,7 @@ export function JournalReportPage() {
                                                     color: "neutral/50",
                                                 })}
                                             >
-                                                {sortedRecords.length} écriture{sortedRecords.length > 1 ? "s" : ""}
+                                                {sortedEntries.length} écriture{sortedEntries.length > 1 ? "s" : ""}
                                             </span>
                                             <div
                                                 className={css({

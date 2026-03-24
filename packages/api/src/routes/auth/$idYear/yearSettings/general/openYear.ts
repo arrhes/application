@@ -16,18 +16,18 @@ export const openYearRoute = apiFactory.createApp().post(openYearRouteDefinition
 
     // await db.transaction(async (tx) => {
 
-    //     // We delete, if existing, the previous opening record
+    //     // We delete, if existing, the previous opening entry
     //     await tx
-    //         .delete(records)
+    //         .delete(entries)
     //         .where(and(
-    //             eq(records.idOrganization, user.idOrganization),
-    //             eq(records.idYear, c.var.currentYear.id),
-    //             eq(records.idAutomatic, "OPEN_SHEET")
+    //             eq(entries.idOrganization, user.idOrganization),
+    //             eq(entries.idYear, c.var.currentYear.id),
+    //             eq(entries.idAutomatic, "OPEN_SHEET")
     //         ))
 
-    //     // We create the new opening record
-    //     const [createRecord] = await tx
-    //         .insert(records)
+    //     // We create the new opening entry
+    //     const [createEntry] = await tx
+    //         .insert(entries)
     //         .values({
     //             id: generateId(),
     //             idOrganization: c.var.organization.id,
@@ -44,50 +44,50 @@ export const openYearRoute = apiFactory.createApp().post(openYearRouteDefinition
     //         .returning()
 
     //     // We read the current accounts
-    //     const readRecord = await tx.query.records.findFirst({
+    //     const readEntry = await tx.query.entries.findFirst({
     //         where: and(
-    //             eq(records.idOrganization, user.idOrganization),
-    //             eq(records.idYear, idPreviousYear),
-    //             eq(records.idAutomatic, "SETTLE_SHEET")
+    //             eq(entries.idOrganization, user.idOrganization),
+    //             eq(entries.idYear, idPreviousYear),
+    //             eq(entries.idAutomatic, "SETTLE_SHEET")
     //         ),
     //         with: {
-    //             rows: {
+    //             lines: {
     //                 with: {
     //                     account: true
     //                 }
     //             },
     //         }
     //     })
-    //     if (!readRecord) throw new HTTPException(400, { message: "Le solde du bilan de l'exercice précédent n'a pas été trouvé" })
+    //     if (!readEntry) throw new HTTPException(400, { message: "Le solde du bilan de l'exercice précédent n'a pas été trouvé" })
 
     //     const readAccounts = await tx.query.accounts.findMany({
     //         where: and(
-    //             eq(records.idOrganization, user.idOrganization),
-    //             eq(records.idYear, c.var.currentYear.id)
+    //             eq(entries.idOrganization, user.idOrganization),
+    //             eq(entries.idYear, c.var.currentYear.id)
     //         )
     //     })
 
-    //     // We create the new rows
-    //     const sheetRows: Array<(typeof rows.$inferInsert)> = []
-    //     readRecord.rows.forEach((row) => {
-    //         const account = readAccounts.find((_account) => _account.number === row.account.number)
+    //     // We create the new lines
+    //     const sheetLines: Array<(typeof lines.$inferInsert)> = []
+    //     readEntry.lines.forEach((line) => {
+    //         const account = readAccounts.find((_account) => _account.number === line.account.number)
     //         if (!account) throw new HTTPException(400, { message: "Les comptes liés n'ont pas été rapprochés" })
-    //         sheetRows.push({
+    //         sheetLines.push({
     //             id: generateId(),
     //             idOrganization: c.var.organization.id,
     //             idYear: c.var.currentYear.id,
-    //             idRecord: createRecord.id,
+    //             idEntry: createEntry.id,
     //             idAccount: account.id,
-    //             debit: row.credit.toString(),
-    //             credit: row.debit.toString(),
+    //             debit: line.credit.toString(),
+    //             credit: line.debit.toString(),
     //             label: "Report du compte",
     //             lastUpdatedBy: user.id,
     //             createdBy: user.id
     //         })
     //     })
     //     await tx
-    //         .insert(rows)
-    //         .values(sheetRows)
+    //         .insert(lines)
+    //         .values(sheetLines)
 
     // })
 

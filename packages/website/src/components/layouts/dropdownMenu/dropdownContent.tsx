@@ -13,6 +13,7 @@ export function DropdownContent(props: ComponentPropsWithRef<typeof DropdownMenu
                 sideOffset={props.sideOffset || 6}
                 className={cx(
                     css({
+                        zIndex: "10",
                         backgroundColor: "white",
                         borderRadius: "lg",
                         padding: "0.5em",

@@ -27,7 +27,7 @@ export function IntroductionApiDocPage() {
                     ]}
                 />
                 <DocTip variant="info">
-                    Les identifiants d'entités (idYear, idRecord, idAccount, etc.) sont passés dans le corps de la
+                    Les identifiants d'entités (idYear, idEntry, idAccount, etc.) sont passés dans le corps de la
                     requête. L'organisation est identifiée via le token d'authentification, et non dans le corps de la
                     requête, ni dans l'URL.
                 </DocTip>

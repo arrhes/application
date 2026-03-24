@@ -8,7 +8,7 @@ import { BalanceSheetAssetsReportRow } from "./balanceSheetAssetsReportRow.js"
 
 export function BalanceSheetAssetsReportItem(props: {
     accounts: Array<v.InferOutput<typeof returnedSchemas.account>>
-    recordRows: Array<v.InferOutput<typeof returnedSchemas.recordRow>>
+    entryLines: Array<v.InferOutput<typeof returnedSchemas.entryLine>>
     balanceSheet: v.InferOutput<typeof returnedSchemas.balanceSheet>
     balanceSheetChildren: Array<v.InferOutput<typeof returnedSchemas.balanceSheet>>
     level: number
@@ -30,11 +30,11 @@ export function BalanceSheetAssetsReportItem(props: {
             return hasAccount || hasChildrenAccount
         })
         .forEach((account) => {
-            props.recordRows
-                .filter((recordRow) => recordRow.idAccount === account.id)
-                .forEach((recordRow) => {
-                    const debit = Number(recordRow.debit)
-                    const credit = Number(recordRow.credit)
+            props.entryLines
+                .filter((entryLine) => entryLine.idAccount === account.id)
+                .forEach((entryLine) => {
+                    const debit = Number(entryLine.debit)
+                    const credit = Number(entryLine.credit)
 
                     if (account.balanceSheetAssetColumn === "gross") {
                         grossAmount += debit - credit
@@ -69,7 +69,7 @@ export function BalanceSheetAssetsReportItem(props: {
                         <BalanceSheetAssetsReportItem
                             key={balanceSheet.id}
                             accounts={props.accounts}
-                            recordRows={props.recordRows}
+                            entryLines={props.entryLines}
                             balanceSheet={balanceSheet}
                             balanceSheetChildren={balanceSheetChildren}
                             level={props.level + 1}

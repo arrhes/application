@@ -7,22 +7,22 @@ import type { YearDataKey } from "../../yearDataWrapper.tsx"
 import { YearDataWrapper } from "../../yearDataWrapper.tsx"
 import { BalanceReportTable } from "./balanceReportTable.tsx"
 
-const requiredKeys = ["accounts", "recordRows"] as const satisfies readonly YearDataKey[]
+const requiredKeys = ["accounts", "entryLines"] as const satisfies readonly YearDataKey[]
 
 export function BalanceReportPage() {
     const params = useParams({ from: balanceReportRoute.id })
 
     return (
         <YearDataWrapper idYear={params.idYear} requiredKeys={requiredKeys}>
-            {({ accounts, recordRows }) => (
+            {({ accounts, entryLines }) => (
                 <Page.Root>
                     <Page.Content>
                         <Section.Root>
                             <Section.Item>
                                 <Box>
                                     <BalanceReportTable
-                                        recordRows={recordRows.filter(
-                                            (recordRow) => recordRow.isComputedForBalanceReport === true,
+                                        entryLines={entryLines.filter(
+                                            (entryLine) => entryLine.isComputedForBalanceReport === true,
                                         )}
                                         accounts={accounts}
                                     />

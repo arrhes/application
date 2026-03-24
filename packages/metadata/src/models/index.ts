@@ -4,6 +4,9 @@ import * as balanceSheetModel from "./balanceSheet.js"
 import * as computationModel from "./computation.js"
 import * as computationIncomeStatementModel from "./computationIncomeStatement.js"
 import * as documentModel from "./document.js"
+import * as entryModel from "./entry.js"
+import * as entryLineModel from "./entryLine.js"
+import * as entryTagModel from "./entryTag.js"
 import * as fileModel from "./file.js"
 import * as folderModel from "./folder.js"
 import * as incomeStatementModel from "./incomeStatement.js"
@@ -11,9 +14,7 @@ import * as journalModel from "./journal.js"
 import * as organizationModel from "./organization.js"
 import * as organizationPaymentModel from "./organizationPayment.js"
 import * as organizationUserModel from "./organizationUser.js"
-import * as recordModel from "./record.js"
-import * as recordLabelModel from "./recordLabel.js"
-import * as recordRowModel from "./recordRow.js"
+import * as tagModel from "./tag.js"
 import * as userModel from "./user.js"
 import * as userSessionModel from "./userSession.js"
 import * as yearModel from "./year.js"
@@ -27,14 +28,15 @@ export const models = {
     computation: computationModel.computationModel,
     computationIncomeStatement: computationIncomeStatementModel.computationIncomeStatementModel,
     document: documentModel.documentModel,
+    entry: entryModel.entryModel,
+    entryLine: entryLineModel.entryLineModel,
+    entryTag: entryTagModel.entryTagModel,
     incomeStatement: incomeStatementModel.incomeStatementModel,
     journal: journalModel.journalModel,
     organization: organizationModel.organizationModel,
     organizationPayment: organizationPaymentModel.organizationPaymentModel,
     organizationUser: organizationUserModel.organizationUserModel,
-    record: recordModel.recordModel,
-    recordLabel: recordLabelModel.recordLabelModel,
-    recordRow: recordRowModel.recordRowModel,
+    tag: tagModel.tagModel,
     user: userModel.userModel,
     userSession: userSessionModel.userSessionModel,
     year: yearModel.yearModel,
@@ -49,14 +51,15 @@ export const modelSchemas = {
     ...computationModel,
     ...computationIncomeStatementModel,
     ...documentModel,
+    ...entryModel,
+    ...entryLineModel,
+    ...entryTagModel,
     ...incomeStatementModel,
     ...journalModel,
     ...organizationModel,
     ...organizationPaymentModel,
     ...organizationUserModel,
-    ...recordModel,
-    ...recordLabelModel,
-    ...recordRowModel,
+    ...tagModel,
     ...userModel,
     ...userSessionModel,
     ...yearModel,

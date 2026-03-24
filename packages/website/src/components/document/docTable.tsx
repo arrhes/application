@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js";
+import { css } from "@arrhes/ui/utilities/cn.js"
 
 export function DocTable(props: { headers: string[]; rows: string[][] }) {
     return (

@@ -9,7 +9,7 @@ export function IncomeStatementReportItem(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
     idYear: v.InferOutput<typeof returnedSchemas.year>["id"]
     accounts: Array<v.InferOutput<typeof returnedSchemas.account>>
-    recordRows: Array<v.InferOutput<typeof returnedSchemas.recordRow>>
+    entryLines: Array<v.InferOutput<typeof returnedSchemas.entryLine>>
     incomeStatement: v.InferOutput<typeof returnedSchemas.incomeStatement>
     incomeStatementChildren: Array<v.InferOutput<typeof returnedSchemas.incomeStatement>>
     level: number
@@ -34,11 +34,11 @@ export function IncomeStatementReportItem(props: {
             let accountTotalDebit = 0
             let accountTotalCredit = 0
 
-            props.recordRows
-                .filter((recordRow) => recordRow.idAccount === account.id)
-                .forEach((recordRow) => {
-                    accountTotalDebit += Number(recordRow.debit)
-                    accountTotalCredit += Number(recordRow.credit)
+            props.entryLines
+                .filter((entryLine) => entryLine.idAccount === account.id)
+                .forEach((entryLine) => {
+                    accountTotalDebit += Number(entryLine.debit)
+                    accountTotalCredit += Number(entryLine.credit)
                 })
 
             const accountBalance = accountTotalDebit - accountTotalCredit
@@ -70,7 +70,7 @@ export function IncomeStatementReportItem(props: {
                             idOrganization={props.idOrganization}
                             idYear={props.idYear}
                             accounts={props.accounts}
-                            recordRows={props.recordRows}
+                            entryLines={props.entryLines}
                             incomeStatement={incomeStatement}
                             incomeStatementChildren={incomeStatementChildren}
                             level={props.level + 1}

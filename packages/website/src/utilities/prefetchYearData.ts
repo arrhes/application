@@ -3,13 +3,14 @@ import {
     readAllBalanceSheetsRouteDefinition,
     readAllComputationIncomeStatementsRouteDefinition,
     readAllComputationsRouteDefinition,
+    readAllEntriesRouteDefinition,
+    readAllEntryLinesRouteDefinition,
+    readAllEntryTagsRouteDefinition,
     readAllFilesRouteDefinition,
     readAllFoldersRouteDefinition,
     readAllIncomeStatementsRouteDefinition,
     readAllJournalsRouteDefinition,
-    readAllRecordLabelsRouteDefinition,
-    readAllRecordRowsRouteDefinition,
-    readAllRecordsRouteDefinition,
+    readAllTagsRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import type * as v from "valibot"
 import { dataClient } from "../contexts/data/queryClient.js"
@@ -29,10 +30,11 @@ type YearScopedRouteDefinition = {
 
 const yearScopedRouteDefinitions: YearScopedRouteDefinition[] = [
     readAllAccountsRouteDefinition,
-    readAllRecordsRouteDefinition,
-    readAllRecordRowsRouteDefinition,
+    readAllEntriesRouteDefinition,
+    readAllEntryLinesRouteDefinition,
+    readAllEntryTagsRouteDefinition,
     readAllJournalsRouteDefinition,
-    readAllRecordLabelsRouteDefinition,
+    readAllTagsRouteDefinition,
     readAllFilesRouteDefinition,
     readAllFoldersRouteDefinition,
     readAllBalanceSheetsRouteDefinition,

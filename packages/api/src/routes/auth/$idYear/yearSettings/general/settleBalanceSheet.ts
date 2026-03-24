@@ -15,18 +15,18 @@ export const settleBalanceSheetRoute = apiFactory
 
         //  await db.transaction(async (tx) => {
 
-        //     // We delete previous record if existing
+        //     // We delete previous entry if existing
         //     await tx
-        //         .delete(records)
+        //         .delete(entries)
         //         .where(and(
-        //             eq(records.idOrganization, user.idOrganization),
-        //             eq(records.idYear, c.var.currentYear.id),
-        //             eq(records.idAutomatic, "SETTLE_SHEET")
+        //             eq(entries.idOrganization, user.idOrganization),
+        //             eq(entries.idYear, c.var.currentYear.id),
+        //             eq(entries.idAutomatic, "SETTLE_SHEET")
         //         ))
 
-        //     // We create the new record
-        //     const [createRecord] = await tx
-        //         .insert(records)
+        //     // We create the new entry
+        //     const [createEntry] = await tx
+        //         .insert(entries)
         //         .values({
         //             id: generateId(),
         //             idOrganization: c.var.organization.id,
@@ -51,27 +51,27 @@ export const settleBalanceSheetRoute = apiFactory
         //             eq(accounts.type, "sheet")
         //         ),
         //         with: {
-        //             rows: {
+        //             lines: {
         //                 with: {
-        //                     record: true
+        //                     entry: true
         //                 }
         //             },
         //             accountSheets: true
         //         }
         //     })
 
-        //     // We create the new rows
-        //     const sheetRows: Array<(typeof rows.$inferInsert)> = []
+        //     // We create the new lines
+        //     const sheetLines: Array<(typeof lines.$inferInsert)> = []
         //     readAccounts.forEach((account) => {
 
         //         const sum = {
         //             debit: 0,
         //             credit: 0
         //         }
-        //         account.rows.forEach((row) => {
-        //             if (!row.record.isComputed && row.record.idAutomatic === null) return
-        //             sum.debit += Number(row.debit)
-        //             sum.credit += Number(row.credit)
+        //         account.lines.forEach((line) => {
+        //             if (!line.entry.isComputed && line.entry.idAutomatic === null) return
+        //             sum.debit += Number(line.debit)
+        //             sum.credit += Number(line.credit)
         //         })
 
         //         const algebricBalance = Number(sum.debit) - Number(sum.credit)
@@ -80,11 +80,11 @@ export const settleBalanceSheetRoute = apiFactory
         //             debit: (algebricBalance > 0) ? algebricBalance : 0,
         //             credit: (algebricBalance < 0) ? -algebricBalance : 0
         //         }
-        //         sheetRows.push({
+        //         sheetLines.push({
         //             id: generateId(),
         //             idOrganization: c.var.organization.id,
         //             idYear: c.var.currentYear.id,
-        //             idRecord: createRecord.id,
+        //             idEntry: createEntry.id,
         //             idAccount: account.id,
         //             debit: balance.credit.toString(),
         //             credit: balance.debit.toString(),
@@ -93,10 +93,10 @@ export const settleBalanceSheetRoute = apiFactory
         //             createdBy: user.id
         //         })
         //     })
-        //     if (sheetRows.length === 0) throw new HTTPException(400, { message: "Aucune écriture ne peut être passée" })
+        //     if (sheetLines.length === 0) throw new HTTPException(400, { message: "Aucune écriture ne peut être passée" })
         //     await tx
-        //         .insert(rows)
-        //         .values(sheetRows)
+        //         .insert(lines)
+        //         .values(sheetLines)
         // })
 
         return response({

@@ -1,0 +1,294 @@
+import { css } from "@arrhes/ui/utilities/cn.js"
+import { DocDefinition } from "../../../../components/document/docDefinition.tsx"
+import { DocExample } from "../../../../components/document/docExample.tsx"
+import { DocHeader } from "../../../../components/document/docHeader.tsx"
+import { DocLink } from "../../../../components/document/docLink.tsx"
+import { DocList } from "../../../../components/document/docList.tsx"
+import { DocNextPage } from "../../../../components/document/docNextPage.tsx"
+import { DocParagraph } from "../../../../components/document/docParagraph.tsx"
+import { DocRoot } from "../../../../components/document/docRoot.tsx"
+import { DocSection } from "../../../../components/document/docSection.tsx"
+import { DocSourceRef } from "../../../../components/document/docSourceRef.tsx"
+import { DocSources } from "../../../../components/document/docSources.tsx"
+import { DocTable } from "../../../../components/document/docTable.tsx"
+import { DocTip } from "../../../../components/document/docTip.tsx"
+
+export function EntriesAccountingDocPage() {
+    return (
+        <DocRoot>
+            <DocHeader title="Les écritures comptables" description="Enregistrer les opérations dans les comptes" />
+
+            <DocSection title="Qu'est-ce qu'une écriture comptable ?">
+                <DocParagraph>
+                    Une{" "}
+                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "ecriture-comptable" }}>
+                        écriture comptable
+                    </DocLink>{" "}
+                    est la traduction d'une opération économique dans le langage de la comptabilité. C'est l'acte
+                    concret d'enregistrement : à chaque fois que votre organisation effectue une opération (achat,
+                    vente, encaissement, paiement…), celle-ci doit être consignée sous forme d'écriture.
+                    <DocSourceRef n={1} />
+                </DocParagraph>
+                <DocParagraph>
+                    Comme vu dans la page sur la{" "}
+                    <DocLink to="/documentation/comptabilité/partie-double">partie double</DocLink>, chaque écriture
+                    respecte le principe de la{" "}
+                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "partie-double" }}>
+                        partie double
+                    </DocLink>{" "}
+                    : elle est composée d'au moins deux lignes, chacune associée à un{" "}
+                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "compte" }}>
+                        compte comptable
+                    </DocLink>
+                    . Une ligne enregistre un montant au débit, l'autre au crédit. Le total des débits égale toujours le
+                    total des crédits.
+                </DocParagraph>
+                <DocParagraph>
+                    Les écritures sont le lien entre les opérations réelles et les comptes. Sans écriture, un compte ne
+                    bouge pas. Les comptes ne sont que le reflet cumulé de toutes les écritures qui les ont affectés.
+                </DocParagraph>
+
+                <DocDefinition term="Pièce justificative">
+                    Chaque écriture doit être appuyée par un document qui prouve la réalité de l'opération (facture,
+                    relevé bancaire, ticket de caisse…). C'est le fondement du contrôle comptable.
+                </DocDefinition>
+                <DocDefinition term="Enregistrement chronologique">
+                    Les écritures doivent être passées dans l'ordre chronologique. On ne revient jamais en arrière : les
+                    erreurs sont corrigées par des écritures de sens contraire, jamais effacées.
+                </DocDefinition>
+            </DocSection>
+
+            <DocSection title="Structure d'une écriture">
+                <DocParagraph>Une écriture comptable complète contient les éléments suivants :</DocParagraph>
+                <DocList
+                    items={[
+                        "La date de l'opération",
+                        "Le numéro de pièce justificative",
+                        "Le libellé (description de l'opération)",
+                        "Les comptes mouvementés avec leurs montants au débit ou au crédit",
+                        "Le journal dans lequel elle est enregistrée",
+                    ]}
+                />
+
+                <DocTip variant="warning">
+                    Seuls les comptes à 3 chiffres ou plus peuvent être utilisés dans les écritures comptables. Les
+                    comptes à 1 ou 2 chiffres (par exemple{" "}
+                    <DocLink to="/documentation/comptabilité/comptes/liste/$account" params={{ account: "1" }}>
+                        1
+                    </DocLink>
+                    ,{" "}
+                    <DocLink to="/documentation/comptabilité/comptes/liste/$account" params={{ account: "10" }}>
+                        10
+                    </DocLink>
+                    ,{" "}
+                    <DocLink to="/documentation/comptabilité/comptes/liste/$account" params={{ account: "60" }}>
+                        60
+                    </DocLink>
+                    ) sont des comptes de regroupement servant uniquement à la classification dans le plan comptable.
+                    <DocSourceRef n={1} />
+                </DocTip>
+
+                <DocExample title="Écriture d'achat de fournitures">
+                    <p className={css({ fontWeight: "medium", mb: "2" })}>
+                        Achat de fournitures de bureau - 120 euros TTC payé par chèque
+                    </p>
+                    <DocTable
+                        headers={["Compte", "Libellé", "Débit", "Crédit"]}
+                        rows={[
+                            ["606100", "Fournitures de bureau", "100,00", ""],
+                            ["445660", "TVA déductible", "20,00", ""],
+                            ["512000", "Banque", "", "120,00"],
+                        ]}
+                    />
+                    <p className={css({ marginTop: "2", fontSize: "xs", color: "neutral/60" })}>
+                        Total débit = Total crédit = 120,00 euros
+                    </p>
+                </DocExample>
+            </DocSection>
+
+            <DocSection title="Opérations à crédit vs au comptant">
+                <DocParagraph>
+                    Une distinction importante existe entre les opérations <strong>à crédit</strong> (paiement différé)
+                    et les opérations <strong>au comptant</strong> (paiement immédiat).
+                </DocParagraph>
+
+                <DocExample title="Achat à crédit (deux écritures)">
+                    <p className={css({ fontWeight: "medium", mb: "2" })}>
+                        1. Réception de la facture fournisseur (journal HA)
+                    </p>
+                    <DocTable
+                        headers={["Compte", "Libellé", "Débit", "Crédit"]}
+                        rows={[
+                            ["607000", "Achats de marchandises", "1 000,00", ""],
+                            ["445660", "TVA déductible", "200,00", ""],
+                            ["401000", "Fournisseurs", "", "1 200,00"],
+                        ]}
+                    />
+                    <p className={css({ marginTop: "4", fontWeight: "medium", mb: "2" })}>
+                        2. Règlement de la facture (journal BQ)
+                    </p>
+                    <DocTable
+                        headers={["Compte", "Libellé", "Débit", "Crédit"]}
+                        rows={[
+                            ["401000", "Fournisseurs", "1 200,00", ""],
+                            ["512000", "Banque", "", "1 200,00"],
+                        ]}
+                    />
+                    <p className={css({ marginTop: "2", fontSize: "xs", color: "neutral/60" })}>
+                        La première écriture crée la dette, la seconde l'éteint.
+                    </p>
+                </DocExample>
+
+                <DocExample title="Achat au comptant (une seule écriture)">
+                    <p className={css({ fontWeight: "medium", mb: "2" })}>
+                        Achat payé immédiatement par carte bancaire
+                    </p>
+                    <DocTable
+                        headers={["Compte", "Libellé", "Débit", "Crédit"]}
+                        rows={[
+                            ["607000", "Achats de marchandises", "1 000,00", ""],
+                            ["445660", "TVA déductible", "200,00", ""],
+                            ["512000", "Banque", "", "1 200,00"],
+                        ]}
+                    />
+                    <p className={css({ marginTop: "2", fontSize: "xs", color: "neutral/60" })}>
+                        Pas de passage par le compte fournisseur car le paiement est immédiat.
+                    </p>
+                </DocExample>
+            </DocSection>
+
+            <DocSection title="Types d'opérations courantes">
+                <DocExample title="Vente à crédit puis encaissement">
+                    <p className={css({ fontWeight: "medium", mb: "2" })}>
+                        1. Émission de la facture client (journal VE)
+                    </p>
+                    <DocTable
+                        headers={["Compte", "Libellé", "Débit", "Crédit"]}
+                        rows={[
+                            ["411000", "Clients", "600,00", ""],
+                            ["706000", "Prestations de services", "", "500,00"],
+                            ["445710", "TVA collectée", "", "100,00"],
+                        ]}
+                    />
+                    <p className={css({ marginTop: "4", fontWeight: "medium", mb: "2" })}>
+                        2. Encaissement du client (journal BQ)
+                    </p>
+                    <DocTable
+                        headers={["Compte", "Libellé", "Débit", "Crédit"]}
+                        rows={[
+                            ["512000", "Banque", "600,00", ""],
+                            ["411000", "Clients", "", "600,00"],
+                        ]}
+                    />
+                </DocExample>
+
+                <DocExample title="Réception d'une cotisation (association)">
+                    <p className={css({ fontSize: "sm" })}>
+                        Un adhérent paye sa cotisation annuelle de 50 euros en espèces.
+                    </p>
+                    <DocTable
+                        headers={["Compte", "Libellé", "Débit", "Crédit"]}
+                        rows={[
+                            ["530000", "Caisse", "50,00", ""],
+                            ["756000", "Cotisations", "", "50,00"],
+                        ]}
+                    />
+                    <p className={css({ marginTop: "2", fontSize: "xs", color: "neutral/60" })}>
+                        La caisse augmente (débit), les produits augmentent (crédit).
+                    </p>
+                </DocExample>
+            </DocSection>
+
+            <DocSection title="La TVA dans les écritures">
+                <DocParagraph>
+                    Si votre{" "}
+                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "organisation" }}>
+                        organisation
+                    </DocLink>{" "}
+                    est assujettie à la TVA, chaque opération doit distinguer le montant hors taxes (HT) et la TVA.
+                    <DocSourceRef n={2} /> Le compte État joue un rôle central.
+                </DocParagraph>
+
+                <DocList
+                    items={[
+                        "Sur les achats : la TVA payée est déductible (compte 4456) - l'État vous doit cette somme",
+                        "Sur les ventes : la TVA facturée est collectée (compte 4457) - vous devez cette somme à l'État",
+                        "La différence (collectée - déductible) est versée à l'État (ou remboursée si négative)",
+                    ]}
+                />
+
+                <DocExample title="Déclaration de TVA">
+                    <p className={css({ mb: "2", fontSize: "sm" })}>À la fin du mois, vous avez :</p>
+                    <ul className={css({ ml: "4", fontSize: "sm", color: "neutral/70" })}>
+                        <li>TVA collectée (4457) : 500 euros (créditeur)</li>
+                        <li>TVA déductible (4456) : 300 euros (débiteur)</li>
+                    </ul>
+                    <p className={css({ marginTop: "3", fontWeight: "medium", mb: "2" })}>
+                        Écriture de liquidation de TVA :
+                    </p>
+                    <DocTable
+                        headers={["Compte", "Libellé", "Débit", "Crédit"]}
+                        rows={[
+                            ["445710", "TVA collectée", "500,00", ""],
+                            ["445660", "TVA déductible", "", "300,00"],
+                            ["445510", "TVA à décaisser", "", "200,00"],
+                        ]}
+                    />
+                    <p className={css({ marginTop: "2", fontSize: "xs", color: "neutral/60" })}>
+                        Vous devez 200 euros à l'État (différence entre collectée et déductible).
+                    </p>
+                </DocExample>
+            </DocSection>
+
+            <DocSection title="Contrôle des écritures">
+                <DocParagraph>
+                    La{" "}
+                    <strong>
+                        <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "balance" }}>
+                            balance
+                        </DocLink>
+                    </strong>{" "}
+                    permet de vérifier que toutes les écritures sont équilibrées. Elle liste tous les comptes avec :
+                </DocParagraph>
+                <DocList
+                    items={[
+                        "Le total des mouvements au débit",
+                        "Le total des mouvements au crédit",
+                        "Le solde (débiteur ou créditeur)",
+                    ]}
+                />
+                <DocParagraph>
+                    Si le total des débits n'égale pas le total des crédits, c'est qu'une erreur s'est glissée quelque
+                    part. La balance doit toujours être équilibrée.
+                </DocParagraph>
+            </DocSection>
+
+            <DocSection title="Lien avec Arrhes">
+                <DocParagraph>
+                    Dans Arrhes, la <DocLink to="/documentation/dashboard/écritures">saisie des écritures</DocLink> est
+                    simplifiée. Le logiciel vérifie automatiquement l'équilibre débit/crédit et vous guide dans le choix
+                    des comptes. Vous pouvez également créer des modèles d'écritures pour les opérations répétitives.
+                </DocParagraph>
+            </DocSection>
+
+            <DocNextPage
+                to="/documentation/comptabilité/comptes"
+                label="Les comptes comptables"
+                description="N'oubliez pas : chaque écriture doit toujours être équilibrée (total débits = total crédits). Arrhes vérifie automatiquement cet équilibre lors de la saisie."
+            />
+
+            <DocSources
+                sources={[
+                    {
+                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
+                    },
+                    {
+                        label: "Taxe sur la valeur ajoutée en France — Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Taxe_sur_la_valeur_ajout%C3%A9e_en_France",
+                    },
+                ]}
+            />
+        </DocRoot>
+    )
+}

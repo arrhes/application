@@ -24,18 +24,18 @@ export const settleIncomeStatementRoute = apiFactory
 
         // await db.transaction(async (tx) => {
 
-        //     // We delete the previsou record if existing
+        //     // We delete the previous entry if existing
         //     await tx
-        //         .delete(records)
+        //         .delete(entries)
         //         .where(and(
-        //             eq(records.idOrganization, user.idOrganization),
-        //             eq(records.idYear, c.var.currentYear.id),
-        //             eq(records.idAutomatic, "COMPUTE_RESULT")
+        //             eq(entries.idOrganization, user.idOrganization),
+        //             eq(entries.idYear, c.var.currentYear.id),
+        //             eq(entries.idAutomatic, "COMPUTE_RESULT")
         //         ))
 
-        //     // Add result record
-        //     const [createRecord] = await tx
-        //         .insert(records)
+        //     // Add result entry
+        //     const [createEntry] = await tx
+        //         .insert(entries)
         //         .values({
         //             id: generateId(),
         //             idOrganization: c.var.organization.id,
@@ -60,17 +60,17 @@ export const settleIncomeStatementRoute = apiFactory
         //             eq(accounts.type, "statement")
         //         ),
         //         with: {
-        //             rows: {
+        //             lines: {
         //                 with: {
-        //                     record: true
+        //                     entry: true
         //                 }
         //             },
         //             accountStatements: true
         //         }
         //     })
 
-        //     // Add closing rows
-        //     const statementRows: Array<(typeof rows.$inferInsert)> = []
+        //     // Add closing lines
+        //     const statementLines: Array<(typeof lines.$inferInsert)> = []
         //     readAccounts.forEach((account) => {
 
         //         const sum = {
@@ -78,10 +78,10 @@ export const settleIncomeStatementRoute = apiFactory
         //             credit: 0
         //         }
 
-        //         account.rows.forEach((row) => {
-        //             if (!row.record.isComputed) return
-        //             sum.debit += Number(row.debit)
-        //             sum.credit += Number(row.credit)
+        //         account.lines.forEach((line) => {
+        //             if (!line.entry.isComputed) return
+        //             sum.debit += Number(line.debit)
+        //             sum.credit += Number(line.credit)
         //         })
 
         //         const algebricBalance = Number(sum.debit) - Number(sum.credit)
@@ -90,11 +90,11 @@ export const settleIncomeStatementRoute = apiFactory
         //             debit: (algebricBalance > 0) ? algebricBalance : 0,
         //             credit: (algebricBalance < 0) ? -algebricBalance : 0
         //         }
-        //         statementRows.push({
+        //         statementLines.push({
         //             id: generateId(),
         //             idOrganization: c.var.organization.id,
         //             idYear: c.var.currentYear.id,
-        //             idRecord: createRecord.id,
+        //             idEntry: createEntry.id,
         //             idAccount: account.id,
         //             debit: balance.credit.toString(),
         //             credit: balance.debit.toString(),
@@ -103,22 +103,22 @@ export const settleIncomeStatementRoute = apiFactory
         //             createdBy: user.id
         //         })
         //     })
-        //     const algebricBalance = statementRows.reduce((sum, row) => sum + Number(row.debit), 0) - statementRows.reduce((sum, row) => sum + Number(row.credit), 0)
+        //     const algebricBalance = statementLines.reduce((sum, line) => sum + Number(line.debit), 0) - statementLines.reduce((sum, line) => sum + Number(line.credit), 0)
         //     const balance = {
         //         debit: (algebricBalance > 0) ? algebricBalance : 0,
         //         credit: (algebricBalance < 0) ? -algebricBalance : 0
         //     }
 
-        //     if (statementRows.length === 0) throw new HTTPException(400, { message: "Aucune écriture ne peut être passée" })
+        //     if (statementLines.length === 0) throw new HTTPException(400, { message: "Aucune écriture ne peut être passée" })
         //     await tx
-        //         .insert(rows)
+        //         .insert(lines)
         //         .values([
-        //             ...statementRows,
+        //             ...statementLines,
         //             {
         //                 id: generateId(),
         //                 idOrganization: c.var.organization.id,
         //                 idYear: c.var.currentYear.id,
-        //                 idRecord: createRecord.id,
+        //                 idEntry: createEntry.id,
         //                 idAccount: (algebricBalance < 0) ? body.idAccountLoss : body.idAccountProfit,
         //                 debit: balance.credit.toString(),
         //                 credit: balance.debit.toString(),

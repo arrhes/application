@@ -13,14 +13,14 @@ import { BalanceSheetAssetsReportTable } from "./balanceSheetAsset/balanceSheetA
 import { BalanceSheetLiabilitiesReportTable } from "./balanceSheetLiability/balanceSheetLiabilitiesReportTable.tsx"
 import { DownloadBalanceSheetReport } from "./downloadBalanceSheetReport.tsx"
 
-const requiredKeys = ["accounts", "recordRows", "balanceSheets"] as const satisfies readonly YearDataKey[]
+const requiredKeys = ["accounts", "entryLines", "balanceSheets"] as const satisfies readonly YearDataKey[]
 
 export function BalanceSheetReportPage() {
     const params = useParams({ from: balanceSheetReportRoute.id })
 
     return (
         <YearDataWrapper idYear={params.idYear} requiredKeys={requiredKeys}>
-            {({ accounts, recordRows, balanceSheets }) => (
+            {({ accounts, entryLines, balanceSheets }) => (
                 <Page.Root>
                     <Page.Content>
                         <Section.Root>
@@ -58,8 +58,8 @@ export function BalanceSheetReportPage() {
                                             balanceSheets={balanceSheets.filter(
                                                 (balanceSheet) => balanceSheet.side === "asset",
                                             )}
-                                            recordRows={recordRows.filter(
-                                                (recordRow) => recordRow.isComputedForBalanceSheetReport === true,
+                                            entryLines={entryLines.filter(
+                                                (entryLine) => entryLine.isComputedForBalanceSheetReport === true,
                                             )}
                                             accounts={accounts.filter((account) => account.type === "balance-sheet")}
                                         />
@@ -70,8 +70,8 @@ export function BalanceSheetReportPage() {
                                             balanceSheets={balanceSheets.filter(
                                                 (balanceSheet) => balanceSheet.side === "liability",
                                             )}
-                                            recordRows={recordRows.filter(
-                                                (recordRow) => recordRow.isComputedForBalanceSheetReport === true,
+                                            entryLines={entryLines.filter(
+                                                (entryLine) => entryLine.isComputedForBalanceSheetReport === true,
                                             )}
                                             accounts={accounts.filter((account) => account.type === "balance-sheet")}
                                         />

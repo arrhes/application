@@ -8,7 +8,7 @@ import { BalanceSheetLiabilitiesReportRow } from "./balanceSheetLiabilitiesRepor
 
 export function BalanceSheetLiabilitiesReportItem(props: {
     accounts: Array<v.InferOutput<typeof returnedSchemas.account>>
-    recordRows: Array<v.InferOutput<typeof returnedSchemas.recordRow>>
+    entryLines: Array<v.InferOutput<typeof returnedSchemas.entryLine>>
     balanceSheet: v.InferOutput<typeof returnedSchemas.balanceSheet>
     balanceSheetChildren: Array<v.InferOutput<typeof returnedSchemas.balanceSheet>>
     level: number
@@ -29,11 +29,11 @@ export function BalanceSheetLiabilitiesReportItem(props: {
             return hasAccount || hasChildrenAccount
         })
         .forEach((account) => {
-            props.recordRows
-                .filter((recordRow) => recordRow.idAccount === account.id)
-                .forEach((recordRow) => {
-                    const debit = Number(recordRow.debit)
-                    const credit = Number(recordRow.credit)
+            props.entryLines
+                .filter((entryLine) => entryLine.idAccount === account.id)
+                .forEach((entryLine) => {
+                    const debit = Number(entryLine.debit)
+                    const credit = Number(entryLine.credit)
 
                     netAmount += debit - credit
                 })
@@ -62,7 +62,7 @@ export function BalanceSheetLiabilitiesReportItem(props: {
                         <BalanceSheetLiabilitiesReportItem
                             key={balanceSheet.id}
                             accounts={props.accounts}
-                            recordRows={props.recordRows}
+                            entryLines={props.entryLines}
                             balanceSheet={balanceSheet}
                             balanceSheetChildren={balanceSheetChildren}
                             level={props.level + 1}

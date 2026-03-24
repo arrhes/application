@@ -5,9 +5,9 @@ import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
 import { balanceSheetColumn } from "../components/values/balanceSheetColumn.js"
 import { balanceSheetModel } from "./balanceSheet.js"
+import { entryLineModel } from "./entryLine.js"
 import { incomeStatementModel } from "./incomeStatement.js"
 import { organizationModel } from "./organization.js"
-import { recordRowModel } from "./recordRow.js"
 import { userModel } from "./user.js"
 import { yearModel } from "./year.js"
 
@@ -86,5 +86,5 @@ export const accountRelations = relations(accountModel, ({ one, many }) => ({
         fields: [accountModel.idIncomeStatement],
         references: [incomeStatementModel.id],
     }),
-    rows: many(recordRowModel),
+    lines: many(entryLineModel),
 }))

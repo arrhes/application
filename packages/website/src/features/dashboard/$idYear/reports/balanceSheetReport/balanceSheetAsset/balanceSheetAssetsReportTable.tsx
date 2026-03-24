@@ -10,7 +10,7 @@ import { BalanceSheetAssetsReportRow } from "./balanceSheetAssetsReportRow.tsx"
 
 export function BalanceSheetAssetsReportTable(props: {
     balanceSheets: Array<v.InferOutput<typeof returnedSchemas.balanceSheet>>
-    recordRows: Array<v.InferOutput<typeof returnedSchemas.recordRow>>
+    entryLines: Array<v.InferOutput<typeof returnedSchemas.entryLine>>
     accounts: Array<v.InferOutput<typeof returnedSchemas.account>>
 }) {
     let grossTotalAmount = 0
@@ -19,11 +19,11 @@ export function BalanceSheetAssetsReportTable(props: {
         let accountTotalDebit = 0
         let accountTotalCredit = 0
 
-        props.recordRows
-            .filter((recordRow) => recordRow.idAccount === account.id)
-            .forEach((recordRow) => {
-                accountTotalDebit += Number(recordRow.debit)
-                accountTotalCredit += Number(recordRow.credit)
+        props.entryLines
+            .filter((entryLine) => entryLine.idAccount === account.id)
+            .forEach((entryLine) => {
+                accountTotalDebit += Number(entryLine.debit)
+                accountTotalCredit += Number(entryLine.credit)
             })
 
         const accountBalance = accountTotalDebit - accountTotalCredit
@@ -111,7 +111,7 @@ export function BalanceSheetAssetsReportTable(props: {
                                             idOrganization={balanceSheet.idOrganization}
                                             idYear={balanceSheet.idYear}
                                             accounts={props.accounts}
-                                            recordRows={props.recordRows}
+                                            entryLines={props.entryLines}
                                             balanceSheet={balanceSheet}
                                             balanceSheetChildren={balanceSheetChildren}
                                             level={0}

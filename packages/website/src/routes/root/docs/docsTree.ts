@@ -9,8 +9,8 @@ import { glossaryAccountingDocLayoutRoute } from "./accounting/glossary/glossary
 import { glossaryAccountingDocIndexRoute } from "./accounting/glossary/glossaryAccountingDocRoute.js"
 import { glossaryTermAccountingDocRoute } from "./accounting/glossary/glossaryTermAccountingDocRoute.js"
 import { doubleEntryAccountingDocRoute } from "./accounting/introduction/doubleEntryAccountingDocRoute.js"
+import { entriesAccountingDocRoute } from "./accounting/introduction/entriesAccountingDocRoute.js"
 import { introductionAccountingDocRoute } from "./accounting/introduction/introductionAccountingDocRoute.js"
-import { recordsAccountingDocRoute } from "./accounting/introduction/recordsAccountingDocRoute.js"
 import { rootAccountingDocRoute } from "./accounting/introduction/rootAccountingDocRoute.js"
 import { balanceAccountingDocRoute } from "./accounting/reports/balanceAccountingDocRoute.js"
 import { balanceSheetAccountingDocRoute } from "./accounting/reports/balanceSheetAccountingDocRoute.js"
@@ -28,10 +28,10 @@ import { organizationApiDocRoute } from "./api/organizationApiDocRoute.js"
 import { rootApiDocRoute } from "./api/rootApiDocRoute.js"
 import { yearApiDocRoute } from "./api/yearApiDocRoute.js"
 import { dashboardDocLayoutRoute } from "./dashboard/dashboardDocLayoutRoute.js"
+import { entriesDashboardDocRoute } from "./dashboard/entriesDashboardDocRoute.js"
 import { filesDashboardDocRoute } from "./dashboard/filesDashboardDocRoute.js"
 import { gettingStartedDashboardDocRoute } from "./dashboard/gettingStartedDashboardDocRoute.js"
 import { organizationsDashboardDocRoute } from "./dashboard/organizationsDashboardDocRoute.js"
-import { recordsDashboardDocRoute } from "./dashboard/recordsDashboardDocRoute.js"
 import { reportsDashboardDocRoute } from "./dashboard/reportsDashboardDocRoute.js"
 import { rootDashboardDocRoute } from "./dashboard/rootDashboardDocRoute.js"
 import { yearsDashboardDocRoute } from "./dashboard/yearsDashboardDocRoute.js"
@@ -64,7 +64,7 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
         rootAccountingDocRoute,
         introductionAccountingDocRoute,
         doubleEntryAccountingDocRoute,
-        recordsAccountingDocRoute,
+        entriesAccountingDocRoute,
         accountsAccountingDocLayoutRoute.addChildren([
             accountsAccountingDocRoute,
             classesAccountingDocRoute,
@@ -89,7 +89,7 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
         gettingStartedDashboardDocRoute,
         organizationsDashboardDocRoute,
         yearsDashboardDocRoute,
-        recordsDashboardDocRoute,
+        entriesDashboardDocRoute,
         filesDashboardDocRoute,
         reportsDashboardDocRoute,
     ]),

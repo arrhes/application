@@ -3,13 +3,14 @@ import {
     readAllBalanceSheetsRouteDefinition,
     readAllComputationIncomeStatementsRouteDefinition,
     readAllComputationsRouteDefinition,
+    readAllEntriesRouteDefinition,
+    readAllEntryLinesRouteDefinition,
+    readAllEntryTagsRouteDefinition,
     readAllFilesRouteDefinition,
     readAllFoldersRouteDefinition,
     readAllIncomeStatementsRouteDefinition,
     readAllJournalsRouteDefinition,
-    readAllRecordLabelsRouteDefinition,
-    readAllRecordRowsRouteDefinition,
-    readAllRecordsRouteDefinition,
+    readAllTagsRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import { CircularLoader } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
@@ -23,10 +24,11 @@ import { getResponseBodyFromAPI } from "../../../utilities/getResponseBodyFromAP
 
 const yearQueries = {
     accounts: readAllAccountsRouteDefinition,
-    records: readAllRecordsRouteDefinition,
-    recordRows: readAllRecordRowsRouteDefinition,
+    entries: readAllEntriesRouteDefinition,
+    entryLines: readAllEntryLinesRouteDefinition,
+    entryTags: readAllEntryTagsRouteDefinition,
     journals: readAllJournalsRouteDefinition,
-    recordLabels: readAllRecordLabelsRouteDefinition,
+    tags: readAllTagsRouteDefinition,
     files: readAllFilesRouteDefinition,
     folders: readAllFoldersRouteDefinition,
     balanceSheets: readAllBalanceSheetsRouteDefinition,

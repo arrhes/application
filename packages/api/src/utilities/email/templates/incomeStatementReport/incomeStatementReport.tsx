@@ -5,7 +5,7 @@ import { IncomeStatementsReportTable } from "./incomeStatementsReportTable.js"
 
 function IncomeStatementReport(props: {
     accounts: Array<v.InferOutput<typeof returnedSchemas.account>>
-    recordRows: Array<v.InferOutput<typeof returnedSchemas.recordRow>>
+    entryLines: Array<v.InferOutput<typeof returnedSchemas.entryLine>>
     incomeStatements: Array<v.InferOutput<typeof returnedSchemas.incomeStatement>>
     computations: Array<v.InferOutput<typeof returnedSchemas.computation>>
     computationIncomeStatements: Array<v.InferOutput<typeof returnedSchemas.computationIncomeStatement>>
@@ -22,7 +22,7 @@ function IncomeStatementReport(props: {
                 >
                     <IncomeStatementsReportTable
                         accounts={props.accounts}
-                        recordRows={props.recordRows}
+                        entryLines={props.entryLines}
                         incomeStatements={props.incomeStatements}
                         computations={props.computations}
                         computationIncomeStatements={props.computationIncomeStatements}

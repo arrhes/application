@@ -24,9 +24,9 @@ export const generateIncomeStatementReportDocumentRoute = apiFactory
             schema: generateIncomeStatementReportDocumentRouteDefinition.schemas.body,
         })
 
-        const readAllRecordRows = await selectMany({
+        const readAllEntryLines = await selectMany({
             database: c.var.clients.sql,
-            table: models.recordRow,
+            table: models.entryLine,
             where: (table) => and(eq(table.idOrganization, idOrganization), eq(table.idYear, body.idYear)),
         })
 
@@ -63,7 +63,7 @@ export const generateIncomeStatementReportDocumentRoute = apiFactory
         const htmlResponse = await c.html(
             incomeStatementReportTemplate({
                 accounts: readAllAccounts,
-                recordRows: readAllRecordRows,
+                entryLines: readAllEntryLines,
                 incomeStatements: readAllIncomeStatements,
                 computations: readAllComputations,
                 computationIncomeStatements: readAllComputationIncomeStatements,
