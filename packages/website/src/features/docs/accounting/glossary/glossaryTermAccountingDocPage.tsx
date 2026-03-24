@@ -1,12 +1,14 @@
+import { ButtonOutlineContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconArrowLeft, IconBookmark, IconLink } from "@tabler/icons-react"
+import { IconArrowLeft, IconLanguage, IconLink } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
+import { DocDefinition } from "../../../../components/document/docDefinition.js"
 import { DocHeader } from "../../../../components/document/docHeader.js"
-import { DocLink } from "../../../../components/document/docLink.js"
 import { DocParagraph } from "../../../../components/document/docParagraph.js"
 import { DocRoot } from "../../../../components/document/docRoot.js"
 import { DocSection } from "../../../../components/document/docSection.js"
 import { DocSources } from "../../../../components/document/docSources.js"
+import { DocTip } from "../../../../components/document/docTip.js"
 import { LinkButton } from "../../../../components/linkButton.js"
 import { getGlossaryTermBySlug, glossaryTerms } from "./glossaryData.js"
 
@@ -38,79 +40,24 @@ export function GlossaryTermAccountingDocPage() {
 
     return (
         <DocRoot>
-            <div>
-                <LinkButton to="/documentation/comptabilité/glossaire">
-                    <span
-                        className={css({
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "0.5rem",
-                            fontSize: "sm",
-                            color: "primary",
-                            fontWeight: "medium",
-                            textDecoration: "underline",
-                            textDecorationColor: "primary/30",
-                            textUnderlineOffset: "2px",
-                            _hover: { textDecorationColor: "primary" },
-                            transition: "all 0.15s",
-                            mb: "4",
-                        })}
-                    >
-                        <IconArrowLeft size={14} />
-                        Glossaire
-                    </span>
-                </LinkButton>
-                <DocHeader title={entry.term} description="Glossaire comptable" />
-            </div>
+            <DocHeader title={entry.term} description="Glossaire comptable" />
 
             {/* Definition card */}
             <div
                 className={css({
-                    padding: "1.5rem",
-                    borderRadius: "lg",
-                    backgroundColor: "white",
-                    border: "1px solid",
-                    borderColor: "neutral/15",
                     display: "flex",
                     flexDirection: "column",
-                    gap: "1rem",
+                    justifyContent: "start",
+                    alignItems: "stretch",
+                    gap: "0.5rem",
                 })}
             >
-                <div
-                    className={css({
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "0.5rem",
-                    })}
-                >
-                    <IconBookmark
-                        size={12}
-                        className={css({
-                            stroke: "neutral/50",
-                            flexShrink: 0,
-                        })}
-                    />
-                    <span
-                        className={css({
-                            fontSize: "xs",
-                            fontWeight: "medium",
-                            color: "neutral/50",
-                            textTransform: "uppercase",
-                            letterSpacing: "0.05em",
-                        })}
-                    >
-                        Définition
-                    </span>
-                </div>
-                <p
-                    className={css({
-                        fontSize: "sm",
-                        color: "neutral",
-                        lineHeight: "1.75",
-                    })}
-                >
+                <DocDefinition >
                     {entry.definition}
-                </p>
+                </DocDefinition>
+                <DocTip variant="neutral" title="Traduction" icon={IconLanguage}>
+                    {entry.englishTranslation}
+                </DocTip>
             </div>
 
             {/* Related terms */}
@@ -132,25 +79,10 @@ export function GlossaryTermAccountingDocPage() {
                                     to="/documentation/comptabilité/glossaire/$term"
                                     params={{ term: relatedEntry.slug }}
                                 >
-                                    <span
-                                        className={css({
-                                            display: "flex",
-                                            alignItems: "center",
-                                            gap: "0.375rem",
-                                            fontSize: "sm",
-                                            color: "primary",
-                                            padding: "0.375rem 0.75rem",
-                                            borderRadius: "md",
-                                            border: "1px solid",
-                                            borderColor: "primary/20",
-                                            backgroundColor: "primary/5",
-                                            _hover: { backgroundColor: "primary/10" },
-                                            transition: "all 0.15s",
-                                        })}
-                                    >
-                                        <IconLink size={12} />
-                                        {relatedEntry.term}
-                                    </span>
+                                    <ButtonOutlineContent
+                                        leftIcon={<IconLink />}
+                                        text={relatedEntry.term}
+                                    />
                                 </LinkButton>
                             )
                         })}
@@ -162,14 +94,17 @@ export function GlossaryTermAccountingDocPage() {
             {entry.relatedPages && entry.relatedPages.length > 0 && (
                 <DocSection title="Pages associées">
                     <DocParagraph>
-                        Pour approfondir ce concept, consultez :{" "}
                         {entry.relatedPages.map((page, i) => (
-                            <span key={page.path}>
-                                {i > 0 && ", "}
-                                <DocLink to={page.path}>{page.label}</DocLink>
-                            </span>
+                            <LinkButton
+                                key={page.path}
+                                to={page.path}
+                            >
+                                <ButtonOutlineContent
+                                    leftIcon={<IconLink />}
+                                    text={page.label}
+                                />
+                            </LinkButton>
                         ))}
-                        .
                     </DocParagraph>
                 </DocSection>
             )}
@@ -178,12 +113,9 @@ export function GlossaryTermAccountingDocPage() {
                 sources={[
                     {
                         label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
-                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
+                        url: "https://www.anc.gouv.fr/normes-comptables-francaises/recueils-des-normes-comptables",
                     },
-                    {
-                        label: "Comptabilité — Wikipédia",
-                        url: "https://fr.wikipedia.org/wiki/Comptabilit%C3%A9",
-                    },
+                    ...entry.sources,
                 ]}
             />
         </DocRoot>

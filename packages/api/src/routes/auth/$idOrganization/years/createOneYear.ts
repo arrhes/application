@@ -53,7 +53,7 @@ function buildAccountRows(parameters: {
             isMandatory: account.isMandatory,
             isClass: account.isClass,
             isDefault: true,
-            isSelectable: account.isSelectable,
+            isSelectable: account.number.toString().length >= 3,
             label: account.label,
             type: account.type,
             createdAt: new Date().toISOString(),

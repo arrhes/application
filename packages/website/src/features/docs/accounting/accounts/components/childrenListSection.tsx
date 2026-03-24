@@ -1,3 +1,4 @@
+import { ButtonOutlineContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconCornerDownRight } from "@tabler/icons-react"
 import { DocSection } from "../../../../../components/document/docSection.js"
@@ -15,7 +16,7 @@ export function ChildrenListSection(props: { children: AccountEntry[] }) {
                 className={css({
                     display: "flex",
                     flexDirection: "column",
-                    gap: "0.375rem",
+                    gap: "0.25rem",
                 })}
             >
                 {children.map((child) => (
@@ -24,49 +25,47 @@ export function ChildrenListSection(props: { children: AccountEntry[] }) {
                         to="/documentation/comptabilité/comptes/liste/$account"
                         params={{ account: child.slug }}
                     >
-                        <div
-                            className={css({
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "0.5rem",
-                                fontSize: "sm",
-                                padding: "0.375rem 0.75rem",
-                                borderRadius: "md",
-                                border: "1px solid",
-                                borderColor: "neutral/10",
-                                backgroundColor: "white",
-                                _hover: {
-                                    borderColor: "primary/30",
-                                    backgroundColor: "primary/5",
-                                },
-                                transition: "all 0.15s",
-                            })}
+                        <ButtonOutlineContent
+                            leftIcon={<IconCornerDownRight />}
+                            text={undefined}
                         >
-                            <IconCornerDownRight size={14} className={css({ stroke: "neutral/30", flexShrink: 0 })} />
-                            <span
+                            <div
                                 className={css({
-                                    fontFamily: "mono",
-                                    fontWeight: "bold",
-                                    color: "primary",
-                                    fontStyle: child.system === "facultatif" ? "italic" : "normal",
+                                    display: "flex",
+                                    justifyContent: "start",
+                                    alignItems: "center",
+                                    gap: "0.5rem",
                                 })}
                             >
-                                {child.number}
-                            </span>
-                            <span
-                                className={css({
-                                    color: child.system === "facultatif" ? "neutral/50" : "neutral",
-                                    fontStyle: child.system === "facultatif" ? "italic" : "normal",
-                                    flex: 1,
-                                    minWidth: 0,
-                                    overflow: "hidden",
-                                    textOverflow: "ellipsis",
-                                    whiteSpace: "nowrap",
-                                })}
-                            >
-                                {child.label}
-                            </span>
-                        </div>
+                                <span
+                                    className={css({
+                                        fontSize: "0.875rem",
+                                        lineHeight: "1rem",
+                                        fontFamily: "mono",
+                                        fontWeight: "bold",
+                                        color: "primary",
+                                        fontStyle: child.system === "facultatif" ? "italic" : "normal",
+                                    })}
+                                >
+                                    {child.number}
+                                </span>
+                                <span
+                                    className={css({
+                                        fontSize: "0.875rem",
+                                        lineHeight: "1rem",
+                                        color: child.system === "facultatif" ? "neutral/50" : "neutral",
+                                        fontStyle: child.system === "facultatif" ? "italic" : "normal",
+                                        flex: 1,
+                                        minWidth: 0,
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
+                                        whiteSpace: "nowrap",
+                                    })}
+                                >
+                                    {child.label}
+                                </span>
+                            </div>
+                        </ButtonOutlineContent>
                     </LinkButton>
                 ))}
             </div>

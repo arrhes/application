@@ -8,8 +8,8 @@ import { DocParagraph } from "../../../../components/document/docParagraph.js"
 import { DocRoot } from "../../../../components/document/docRoot.js"
 import { DocSources } from "../../../../components/document/docSources.js"
 import { DocTip } from "../../../../components/document/docTip.js"
-import { LinkButton } from "../../../../components/linkButton.js"
 import { getGlossaryTermsByLetter, searchGlossaryTerms } from "./glossaryData.js"
+import { GlossaryListItem } from "./glossaryListItem.js"
 
 export function GlossaryAccountingDocPage() {
     const [query, setQuery] = useState("")
@@ -95,6 +95,7 @@ export function GlossaryAccountingDocPage() {
                         <GlossaryListItem
                             key={term.slug}
                             term={term.term}
+                            englishTranslation={term.englishTranslation}
                             slug={term.slug}
                             definition={term.definition}
                         />
@@ -146,6 +147,7 @@ export function GlossaryAccountingDocPage() {
                                 <GlossaryListItem
                                     key={term.slug}
                                     term={term.term}
+                                    englishTranslation={term.englishTranslation}
                                     slug={term.slug}
                                     definition={term.definition}
                                 />
@@ -169,7 +171,7 @@ export function GlossaryAccountingDocPage() {
                 sources={[
                     {
                         label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
-                        url: "https://www.anc.gouv.fr/normes-francaises/reglementation-comptable/recueil-des-normes-comptables-francaises",
+                        url: "https://www.anc.gouv.fr/normes-comptables-francaises/recueils-des-normes-comptables",
                     },
                     {
                         label: "Comptabilité — Wikipédia",
@@ -181,53 +183,3 @@ export function GlossaryAccountingDocPage() {
     )
 }
 
-function GlossaryListItem(props: { term: string; slug: string; definition: string }) {
-    return (
-        <LinkButton
-            to="/documentation/comptabilité/glossaire/$term"
-            params={{ term: props.slug }}
-            className={css({ width: "100%" })}
-        >
-            <div
-                className={css({
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "0.25rem",
-                    padding: "0.75rem 1rem",
-                    borderRadius: "lg",
-                    border: "1px solid",
-                    borderColor: "neutral/10",
-                    backgroundColor: "white",
-                    _hover: {
-                        borderColor: "primary/30",
-                        backgroundColor: "primary/5",
-                    },
-                    transition: "all 0.15s",
-                    cursor: "pointer",
-                    width: "100%",
-                    maxWidth: "100%",
-                })}
-            >
-                <span
-                    className={css({
-                        fontSize: "sm",
-                        fontWeight: "semibold",
-                        color: "neutral",
-                    })}
-                >
-                    {props.term}
-                </span>
-                <span
-                    className={css({
-                        fontSize: "sm",
-                        color: "neutral/50",
-                        lineHeight: "1.5",
-                        lineClamp: 2,
-                    })}
-                >
-                    {props.definition}
-                </span>
-            </div>
-        </LinkButton>
-    )
-}

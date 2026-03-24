@@ -1,10 +1,10 @@
 import { useParams } from "@tanstack/react-router"
+import { DocHeader } from "../../../../components/document/docHeader.js"
 import { DocRoot } from "../../../../components/document/docRoot.js"
 import { getAccount, getAccountBySlug, getDirectChildren } from "./accountsData.js"
 import { AccountDataError } from "./components/accountDataError.js"
 import { AccountInfoCard } from "./components/accountInfoCard.js"
 import { AccountNotFound } from "./components/accountNotFound.js"
-import { AccountPageHeader } from "./components/accountPageHeader.js"
 import { ChildrenListSection } from "./components/childrenListSection.js"
 import { DebitCreditSection } from "./components/debitCreditSection.js"
 import { JournalEntryExamples } from "./components/journalEntryExamples.js"
@@ -25,7 +25,10 @@ export function AccountAccountingDocPage() {
 
     return (
         <DocRoot>
-            <AccountPageHeader entry={entry} />
+            <DocHeader
+                title={`${entry.number} - ${entry.label}`}
+                description={`Classe ${entry.classNumber} - ${entry.className}`}
+            />
 
             <AccountInfoCard entry={entry} />
 

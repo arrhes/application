@@ -1,4 +1,4 @@
-import type { Icon, IconProps } from "@tabler/icons-react"
+import type { Icon, IconProps, ReactNode } from "@tabler/icons-react"
 import { cloneElement, type ReactElement } from "react"
 import { css, cx } from "../../utilities/cn.ts"
 import { CircularLoader } from "../layouts/circularLoader"
@@ -16,6 +16,7 @@ export type ButtonContentProps = {
     isDisabled?: boolean
     isCurrent?: boolean
     className?: string
+    children?: ReactNode
 }
 
 export function renderButtonContent(
@@ -29,9 +30,9 @@ export function renderButtonContent(
     const iconOnlyStyles =
         props.text === undefined
             ? css({
-                  width: "auto",
-                  justifyContent: "center",
-              })
+                width: "auto",
+                justifyContent: "center",
+            })
             : ""
 
     // const activeContainerStyles = props.isActive ? css({ backgroundColor: "neutral/5" }) : ""
@@ -63,6 +64,8 @@ export function renderButtonContent(
                     {props.text}
                 </span>
             )}
+
+            {props.children}
 
             {props.rightIcon && (
                 <div className={css({ display: "flex", alignItems: "center", justifyContent: "center" })}>

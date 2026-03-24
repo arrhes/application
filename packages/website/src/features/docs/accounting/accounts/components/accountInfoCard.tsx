@@ -1,6 +1,5 @@
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconBookmark } from "@tabler/icons-react"
-import { DocSourceRef } from "../../../../../components/document/docSourceRef.js"
 import type { AccountEntry } from "../accountsData.js"
 import { InfoRow } from "./infoRow.js"
 
@@ -44,7 +43,6 @@ export function AccountInfoCard(props: { entry: AccountEntry }) {
                     })}
                 >
                     Fiche du compte
-                    <DocSourceRef n={1} />
                 </span>
             </div>
 
