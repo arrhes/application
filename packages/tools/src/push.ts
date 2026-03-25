@@ -20,7 +20,7 @@ const connection = postgres(env()?.SQL_DATABASE_URL ?? "", { max: 1 })
 const db = drizzle(connection)
 
 // Check if tables already exist (idempotency guard)
-// If any application table exists, skip the push — the schema is already in place.
+// If any application table exists, skip the push - the schema is already in place.
 const existingTables = await db.execute(
     sql.raw(
         `SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_name LIKE 'table_%'`,

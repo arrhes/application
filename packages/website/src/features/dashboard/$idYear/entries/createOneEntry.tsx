@@ -1,8 +1,11 @@
 import {
+    addOneEntryTagRouteDefinition,
     createOneEntryFromTemplateRouteDefinition,
     readAllEntriesRouteDefinition,
+    readAllEntryTagsRouteDefinition,
     readAllFilesRouteDefinition,
     readAllJournalsRouteDefinition,
+    readAllTagsRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { css } from "@arrhes/ui/utilities/cn.js"
@@ -17,6 +20,7 @@ import { FormGroup } from "../../../../components/forms/formGroup.js"
 import { FormItem } from "../../../../components/forms/formItem.js"
 import { FormLabel } from "../../../../components/forms/formLabel.js"
 import { FormRoot } from "../../../../components/forms/formRoot.js"
+import { InputComboboxMultiple } from "../../../../components/inputs/inputComboboxMultiple.js"
 import { InputDataCombobox } from "../../../../components/inputs/inputDataCombobox.js"
 import { InputDate } from "../../../../components/inputs/inputDate.js"
 import { InputSelect } from "../../../../components/inputs/inputSelect.js"
@@ -26,6 +30,7 @@ import { toast } from "../../../../contexts/toasts/useToast.js"
 import { applicationRouter } from "../../../../routes/applicationRouter.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
+import { useDataFromAPI } from "../../../../utilities/useHTTPData.js"
 import { type EntryTemplateKey, entryTemplates } from "./entryTemplates/entryTemplates.js"
 
 export function CreateOneEntry(props: {
@@ -36,6 +41,12 @@ export function CreateOneEntry(props: {
     const [open, setOpen] = useState(false)
     const [selectedTemplate, setSelectedTemplate] = useState<EntryTemplateKey | "empty">("empty")
     const [isTemplateReady, setIsTemplateReady] = useState(false)
+    const [selectedTags, setSelectedTags] = useState<Array<{ key: string; label: string }>>([])
+
+    const tagsResponse = useDataFromAPI({
+        routeDefinition: readAllTagsRouteDefinition,
+        body: { idYear: props.idYear },
+    })
 
     const activeTemplate = entryTemplates.find((t) => t.key === selectedTemplate)
     const isSubmitDisabled = activeTemplate?.hasActionButton === true && isTemplateReady === false
@@ -48,6 +59,7 @@ export function CreateOneEntry(props: {
                 if (value === false) {
                     setSelectedTemplate("empty")
                     setIsTemplateReady(false)
+                    setSelectedTags([])
                 }
             }}
         >
@@ -79,6 +91,21 @@ export function CreateOneEntry(props: {
                                 return false
                             }
 
+                            if (selectedTags.length > 0) {
+                                await Promise.all(
+                                    selectedTags.map((tag) =>
+                                        getResponseBodyFromAPI({
+                                            routeDefinition: addOneEntryTagRouteDefinition,
+                                            body: {
+                                                idYear: props.idYear,
+                                                idEntry: createEntryResponse.data.id,
+                                                idTag: tag.key,
+                                            },
+                                        }),
+                                    ),
+                                )
+                            }
+
                             toast({ title: "Écriture ajoutée avec succès", variant: "success" })
                             applicationRouter.navigate({
                                 to: "/dashboard/organisations/$idOrganization/exercices/$idYear/écritures/$idEntry",
@@ -92,12 +119,20 @@ export function CreateOneEntry(props: {
                         }}
                         onCancel={undefined}
                         onSuccess={async () => {
-                            await invalidateData({
-                                routeDefinition: readAllEntriesRouteDefinition,
-                                body: {
-                                    idYear: props.idYear,
-                                },
-                            })
+                            await Promise.all([
+                                invalidateData({
+                                    routeDefinition: readAllEntriesRouteDefinition,
+                                    body: {
+                                        idYear: props.idYear,
+                                    },
+                                }),
+                                invalidateData({
+                                    routeDefinition: readAllEntryTagsRouteDefinition,
+                                    body: {
+                                        idYear: props.idYear,
+                                    },
+                                }),
+                            ])
 
                             setOpen(false)
                         }}
@@ -184,6 +219,24 @@ export function CreateOneEntry(props: {
                                         </FormItem>
                                     )}
                                 />
+                                <FormItem>
+                                    <FormLabel label="Catégories" isRequired={false} />
+                                    <InputComboboxMultiple
+                                        placeholder="Ajouter une catégorie"
+                                        emptyLabel="Aucune catégorie sélectionnée"
+                                        options={
+                                            tagsResponse.data === undefined
+                                                ? []
+                                                : tagsResponse.data.map((tag) => ({
+                                                      key: tag.id,
+                                                      label: tag.label,
+                                                  }))
+                                        }
+                                        selectedOptions={selectedTags}
+                                        onChange={setSelectedTags}
+                                        loading={tagsResponse.isPending}
+                                    />
+                                </FormItem>
                                 <FormGroup title="Modèle d'écriture">
                                     <FormItem>
                                         <span className={css({ fontSize: "xs", color: "neutral/50" })}>

@@ -262,11 +262,11 @@ export function AccountsListAccountingDocPage() {
             <DocSources
                 sources={[
                     {
-                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        label: "Plan Comptable Général - Autorité des Normes Comptables (ANC)",
                         url: "https://www.anc.gouv.fr/normes-comptables-francaises/recueils-des-normes-comptables",
                     },
                     {
-                        label: "Plan comptable général (France) — Wikipédia",
+                        label: "Plan comptable général (France) - Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Plan_comptable_g%C3%A9n%C3%A9ral_(France)",
                     },
                 ]}

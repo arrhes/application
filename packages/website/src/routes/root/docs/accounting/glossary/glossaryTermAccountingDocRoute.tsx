@@ -8,7 +8,7 @@ export const glossaryTermAccountingDocRoute = createRoute({
     beforeLoad: ({ params }) => {
         const entry = getGlossaryTermBySlug(params.term)
         return {
-            title: entry ? `${entry.term} — Glossaire comptable` : "Glossaire comptable",
+            title: entry ? `${entry.term} - Glossaire comptable` : "Glossaire comptable",
             description: entry
                 ? `Définition de « ${entry.term} » : ${entry.definition.slice(0, 140)}${entry.definition.length > 140 ? "…" : ""}`
                 : "Terme comptable introuvable dans le glossaire.",

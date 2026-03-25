@@ -145,11 +145,11 @@ export function BalanceAccountingDocPage() {
             <DocSources
                 sources={[
                     {
-                        label: "Balance comptable — Wikipédia",
+                        label: "Balance comptable - Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Balance_comptable",
                     },
                     {
-                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        label: "Plan Comptable Général - Autorité des Normes Comptables (ANC)",
                         url: "https://www.anc.gouv.fr/normes-comptables-francaises/recueils-des-normes-comptables",
                     },
                 ]}

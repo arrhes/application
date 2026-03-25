@@ -62,7 +62,7 @@ export function LedgerAccountingDocPage() {
                     , ainsi que le solde progressif.
                 </DocParagraph>
 
-                <DocExample title="Extrait du grand livre — Compte 512 Banque">
+                <DocExample title="Extrait du grand livre - Compte 512 Banque">
                     <DocTable
                         headers={["Date", "Libellé", "Débit", "Crédit", "Solde"]}
                         rows={[
@@ -78,7 +78,7 @@ export function LedgerAccountingDocPage() {
                     </p>
                 </DocExample>
 
-                <DocExample title="Extrait du grand livre — Compte 401 Fournisseurs">
+                <DocExample title="Extrait du grand livre - Compte 401 Fournisseurs">
                     <DocTable
                         headers={["Date", "Libellé", "Débit", "Crédit", "Solde"]}
                         rows={[
@@ -177,11 +177,11 @@ export function LedgerAccountingDocPage() {
             <DocSources
                 sources={[
                     {
-                        label: "Grand livre — Wikipédia",
+                        label: "Grand livre - Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Grand_livre",
                     },
                     {
-                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        label: "Plan Comptable Général - Autorité des Normes Comptables (ANC)",
                         url: "https://www.anc.gouv.fr/normes-comptables-francaises/recueils-des-normes-comptables",
                     },
                 ]}

@@ -19,7 +19,7 @@ export const tagModel = pgTable(
             .references(() => yearModel.id, { onDelete: "cascade", onUpdate: "cascade" })
             .notNull(),
 
-        label: varchar("label", { length: 256 }).notNull().unique(),
+        label: varchar("label", { length: 256 }).notNull(),
         createdAt: dateTimeColumn("created_at").notNull(),
         lastUpdatedAt: dateTimeColumn("last_updated_at"),
         createdBy: idColumn("created_by").references((): AnyPgColumn => userModel.id, {

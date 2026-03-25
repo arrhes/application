@@ -1,4 +1,5 @@
 import type { AnyRoute } from "@tanstack/react-router"
+import { dashboardCatchRoute } from "./dashboardCatchRoute.tsx"
 import { dashboardLayoutRoute } from "./dashboardLayoutRoute.tsx"
 import { dashboardRootRoute } from "./dashboardRootRoute.tsx"
 import { organizationApiKeysRoute } from "./organizations/$idOrganization/organizationApi/organizationApiKeysRoute.tsx"
@@ -17,13 +18,19 @@ import { organizationSubscriptionRoute } from "./organizations/$idOrganization/o
 import { organizationUsersLayoutRoute } from "./organizations/$idOrganization/organizationUsers/organizationUsersLayoutRoute.tsx"
 import { organizationUsersRoute } from "./organizations/$idOrganization/organizationUsers/organizationUsersRoute.tsx"
 import { entryLineLayoutRoute } from "./organizations/$idOrganization/years/$idYear/entries/$idEntry/$idEntryLine/entryLineLayoutRoute.tsx"
+import { entryLineMetadataRoute } from "./organizations/$idOrganization/years/$idYear/entries/$idEntry/$idEntryLine/entryLineMetadataRoute.tsx"
 import { entryLineRoute } from "./organizations/$idOrganization/years/$idYear/entries/$idEntry/$idEntryLine/entryLineRoute.tsx"
+import { entryCategoriesRoute } from "./organizations/$idOrganization/years/$idYear/entries/$idEntry/entryCategoriesRoute.tsx"
 import { entryLayoutRoute } from "./organizations/$idOrganization/years/$idYear/entries/$idEntry/entryLayoutRoute.tsx"
+import { entryLinesRoute } from "./organizations/$idOrganization/years/$idYear/entries/$idEntry/entryLinesRoute.tsx"
+import { entryMetadataRoute } from "./organizations/$idOrganization/years/$idYear/entries/$idEntry/entryMetadataRoute.tsx"
 import { entryRoute } from "./organizations/$idOrganization/years/$idYear/entries/$idEntry/entryRoute.tsx"
 import { entriesLayoutRoute } from "./organizations/$idOrganization/years/$idYear/entries/entriesLayoutRoute.tsx"
 import { entriesRoute } from "./organizations/$idOrganization/years/$idYear/entries/entriesRoute.tsx"
 import { fileLayoutRoute } from "./organizations/$idOrganization/years/$idYear/files/$idFile/fileLayoutRoute.tsx"
+import { fileMetadataRoute } from "./organizations/$idOrganization/years/$idYear/files/$idFile/fileMetadataRoute.tsx"
 import { fileRoute } from "./organizations/$idOrganization/years/$idYear/files/$idFile/fileRoute.tsx"
+import { fileVisualisationRoute } from "./organizations/$idOrganization/years/$idYear/files/$idFile/fileVisualisationRoute.tsx"
 import { filesLayoutRoute } from "./organizations/$idOrganization/years/$idYear/files/filesLayoutRoute.tsx"
 import { filesRoute } from "./organizations/$idOrganization/years/$idYear/files/filesRoute.tsx"
 import { balanceReportRoute } from "./organizations/$idOrganization/years/$idYear/reports/balanceReportRoute.tsx"
@@ -37,28 +44,36 @@ import { yearLayoutRoute } from "./organizations/$idOrganization/years/$idYear/y
 import { yearPathRoute } from "./organizations/$idOrganization/years/$idYear/yearPathRoute.tsx"
 import { yearRoute } from "./organizations/$idOrganization/years/$idYear/yearRoute.tsx"
 import { accountLayoutRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/accounts/$idAccount/accountLayoutRoute.tsx"
+import { accountMetadataRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/accounts/$idAccount/accountMetadataRoute.tsx"
 import { accountRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/accounts/$idAccount/accountRoute.tsx"
 import { accountsLayoutRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/accounts/accountsLayoutRoute.tsx"
 import { accountsRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/accounts/accountsRoute.tsx"
 import { balanceSheetLayoutRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/balanceSheets/$idBalanceSheet/balanceSheetLayoutRoute.tsx"
+import { balanceSheetMetadataRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/balanceSheets/$idBalanceSheet/balanceSheetMetadataRoute.tsx"
 import { balanceSheetRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/balanceSheets/$idBalanceSheet/balanceSheetRoute.tsx"
 import { balanceSheetsLayoutRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/balanceSheets/balanceSheetsLayoutRoute.tsx"
 import { balanceSheetsRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/balanceSheets/balanceSheetsRoute.tsx"
 import { incomeStatementLayoutRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/$idIncomeStatement/incomeStatementLayoutRoute.tsx"
+import { incomeStatementMetadataRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/$idIncomeStatement/incomeStatementMetadataRoute.tsx"
 import { incomeStatementRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/$idIncomeStatement/incomeStatementRoute.tsx"
 import { computationIncomeStatementLayoutRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/computations/$idComputation/$idComputationIncomeStatement/computationIncomeStatementLayoutRoute.tsx"
+import { computationIncomeStatementMetadataRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/computations/$idComputation/$idComputationIncomeStatement/computationIncomeStatementMetadataRoute.tsx"
 import { computationIncomeStatementRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/computations/$idComputation/$idComputationIncomeStatement/computationIncomeStatementRoute.tsx"
 import { computationLayoutRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/computations/$idComputation/computationLayoutRoute.tsx"
+import { computationMetadataRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/computations/$idComputation/computationMetadataRoute.tsx"
+import { computationPostesRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/computations/$idComputation/computationPostesRoute.tsx"
 import { computationRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/computations/$idComputation/computationRoute.tsx"
 import { computationsLayoutRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/computations/computationsLayoutRoute.tsx"
 import { computationsRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/computations/computationsRoute.tsx"
 import { incomeStatementsLayoutRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/incomeStatementsLayoutRoute.tsx"
 import { incomeStatementsRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/incomeStatementsRoute.tsx"
 import { journalLayoutRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/journals/$idJournal/journalLayoutRoute.tsx"
+import { journalMetadataRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/journals/$idJournal/journalMetadataRoute.tsx"
 import { journalRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/journals/$idJournal/journalRoute.tsx"
 import { journalsLayoutRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/journals/journalsLayoutRoute.tsx"
 import { journalsRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/journals/journalsRoute.tsx"
 import { tagLayoutRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/tags/$idTag/tagLayoutRoute.tsx"
+import { tagMetadataRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/tags/$idTag/tagMetadataRoute.tsx"
 import { tagRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/tags/$idTag/tagRoute.tsx"
 import { tagsLayoutRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/tags/tagsLayoutRoute.tsx"
 import { tagsRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/tags/tagsRoute.tsx"
@@ -101,10 +116,16 @@ export const dashboardTree: AnyRoute = dashboardLayoutRoute.addChildren([
                             entriesRoute,
                             entryLayoutRoute.addChildren([
                                 entryRoute,
-                                entryLineLayoutRoute.addChildren([entryLineRoute]),
+                                entryLinesRoute,
+                                entryCategoriesRoute,
+                                entryMetadataRoute,
                             ]),
+                            entryLineLayoutRoute.addChildren([entryLineRoute, entryLineMetadataRoute]),
                         ]),
-                        filesLayoutRoute.addChildren([filesRoute, fileLayoutRoute.addChildren([fileRoute])]),
+                        filesLayoutRoute.addChildren([
+                            filesRoute,
+                            fileLayoutRoute.addChildren([fileRoute, fileMetadataRoute, fileVisualisationRoute]),
+                        ]),
                         reportsLayoutRoute.addChildren([
                             reportsRoute,
                             journalReportRoute,
@@ -117,27 +138,36 @@ export const dashboardTree: AnyRoute = dashboardLayoutRoute.addChildren([
                             yearSettingsRoute,
                             accountsLayoutRoute.addChildren([
                                 accountsRoute,
-                                accountLayoutRoute.addChildren([accountRoute]),
+                                accountLayoutRoute.addChildren([accountRoute, accountMetadataRoute]),
                             ]),
                             journalsLayoutRoute.addChildren([
                                 journalsRoute,
-                                journalLayoutRoute.addChildren([journalRoute]),
+                                journalLayoutRoute.addChildren([journalRoute, journalMetadataRoute]),
                             ]),
-                            tagsLayoutRoute.addChildren([tagsRoute, tagLayoutRoute.addChildren([tagRoute])]),
+                            tagsLayoutRoute.addChildren([
+                                tagsRoute,
+                                tagLayoutRoute.addChildren([tagRoute, tagMetadataRoute]),
+                            ]),
                             balanceSheetsLayoutRoute.addChildren([
                                 balanceSheetsRoute,
-                                balanceSheetLayoutRoute.addChildren([balanceSheetRoute]),
+                                balanceSheetLayoutRoute.addChildren([balanceSheetRoute, balanceSheetMetadataRoute]),
                             ]),
                             incomeStatementsLayoutRoute.addChildren([
                                 incomeStatementsRoute,
-                                incomeStatementLayoutRoute.addChildren([incomeStatementRoute]),
+                                incomeStatementLayoutRoute.addChildren([
+                                    incomeStatementRoute,
+                                    incomeStatementMetadataRoute,
+                                ]),
                                 computationsLayoutRoute.addChildren([
                                     computationsRoute,
                                     computationLayoutRoute.addChildren([
                                         computationRoute,
-                                        computationIncomeStatementLayoutRoute.addChildren([
-                                            computationIncomeStatementRoute,
-                                        ]),
+                                        computationPostesRoute,
+                                        computationMetadataRoute,
+                                    ]),
+                                    computationIncomeStatementLayoutRoute.addChildren([
+                                        computationIncomeStatementRoute,
+                                        computationIncomeStatementMetadataRoute,
                                     ]),
                                 ]),
                             ]),
@@ -149,4 +179,5 @@ export const dashboardTree: AnyRoute = dashboardLayoutRoute.addChildren([
     ]),
     settingsLayoutRoute.addChildren([settingsRoute]),
     supportRoute,
+    dashboardCatchRoute,
 ])

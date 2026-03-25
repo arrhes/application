@@ -170,11 +170,11 @@ export function GlossaryAccountingDocPage() {
             <DocSources
                 sources={[
                     {
-                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        label: "Plan Comptable Général - Autorité des Normes Comptables (ANC)",
                         url: "https://www.anc.gouv.fr/normes-comptables-francaises/recueils-des-normes-comptables",
                     },
                     {
-                        label: "Comptabilité — Wikipédia",
+                        label: "Comptabilité - Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Comptabilit%C3%A9",
                     },
                 ]}

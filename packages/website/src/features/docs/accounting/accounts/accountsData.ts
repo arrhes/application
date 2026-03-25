@@ -87,7 +87,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de comptes de capitaux",
         creditMeaning: "Augmentation de comptes de capitaux",
         journalExample: {
-            description: "Écriture type pour le compte 1 — Comptes de capitaux",
+            description: "Écriture type pour le compte 1 - Comptes de capitaux",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1", "Comptes de capitaux", "", "X"],
@@ -110,7 +110,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de capital et réserves",
         creditMeaning: "Augmentation de capital et réserves",
         journalExample: {
-            description: "Écriture type pour le compte 10 — Capital et réserves",
+            description: "Écriture type pour le compte 10 - Capital et réserves",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["10", "Capital et réserves", "", "X"],
@@ -133,7 +133,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de capital",
         creditMeaning: "Augmentation de capital",
         journalExample: {
-            description: "Écriture type pour le compte 101 — Capital",
+            description: "Écriture type pour le compte 101 - Capital",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["101", "Capital", "", "X"],
@@ -157,7 +157,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de capital souscrit - non appelé",
         creditMeaning: "Augmentation de capital souscrit - non appelé",
         journalExample: {
-            description: "Écriture type pour le compte 1011 — Capital souscrit - non appelé",
+            description: "Écriture type pour le compte 1011 - Capital souscrit - non appelé",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1011", "Capital souscrit - non appelé", "", "X"],
@@ -181,7 +181,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de capital souscrit - appelé, non versé",
         creditMeaning: "Augmentation de capital souscrit - appelé, non versé",
         journalExample: {
-            description: "Écriture type pour le compte 1012 — Capital souscrit - appelé, non versé",
+            description: "Écriture type pour le compte 1012 - Capital souscrit - appelé, non versé",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1012", "Capital souscrit - appelé, non versé", "", "X"],
@@ -205,7 +205,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de capital souscrit - appelé, versé",
         creditMeaning: "Augmentation de capital souscrit - appelé, versé",
         journalExample: {
-            description: "Écriture type pour le compte 1013 — Capital souscrit - appelé, versé",
+            description: "Écriture type pour le compte 1013 - Capital souscrit - appelé, versé",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1013", "Capital souscrit - appelé, versé", "", "X"],
@@ -228,7 +228,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de capital non amorti",
         creditMeaning: "Augmentation de capital non amorti",
         journalExample: {
-            description: "Écriture type pour le compte 10131 — Capital non amorti",
+            description: "Écriture type pour le compte 10131 - Capital non amorti",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["10131", "Capital non amorti", "", "X"],
@@ -251,7 +251,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de capital amorti",
         creditMeaning: "Augmentation de capital amorti",
         journalExample: {
-            description: "Écriture type pour le compte 10132 — Capital amorti",
+            description: "Écriture type pour le compte 10132 - Capital amorti",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["10132", "Capital amorti", "", "X"],
@@ -277,7 +277,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Augmentation de capital souscrit soumis à des réglementations particulières",
         journalExample: {
             description:
-                "Écriture type pour le compte 1018 — Capital souscrit soumis à des réglementations particulières",
+                "Écriture type pour le compte 1018 - Capital souscrit soumis à des réglementations particulières",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1018", "Capital souscrit soumis à des réglementations particulières", "", "X"],
@@ -300,7 +300,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de fonds fiduciaires",
         creditMeaning: "Augmentation de fonds fiduciaires",
         journalExample: {
-            description: "Écriture type pour le compte 102 — Fonds fiduciaires",
+            description: "Écriture type pour le compte 102 - Fonds fiduciaires",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["102", "Fonds fiduciaires", "", "X"],
@@ -323,7 +323,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de primes liées au capital",
         creditMeaning: "Augmentation de primes liées au capital",
         journalExample: {
-            description: "Écriture type pour le compte 104 — Primes liées au capital",
+            description: "Écriture type pour le compte 104 - Primes liées au capital",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["104", "Primes liées au capital", "", "X"],
@@ -348,7 +348,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de primes d'émission",
         creditMeaning: "Augmentation de primes d'émission",
         journalExample: {
-            description: "Écriture type pour le compte 1041 — Primes d'émission",
+            description: "Écriture type pour le compte 1041 - Primes d'émission",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1041", "Primes d'émission", "", "X"],
@@ -373,7 +373,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de primes de fusion",
         creditMeaning: "Augmentation de primes de fusion",
         journalExample: {
-            description: "Écriture type pour le compte 1042 — Primes de fusion",
+            description: "Écriture type pour le compte 1042 - Primes de fusion",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1042", "Primes de fusion", "", "X"],
@@ -396,7 +396,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de primes d'apport",
         creditMeaning: "Augmentation de primes d'apport",
         journalExample: {
-            description: "Écriture type pour le compte 1043 — Primes d'apport",
+            description: "Écriture type pour le compte 1043 - Primes d'apport",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1043", "Primes d'apport", "", "X"],
@@ -419,7 +419,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de primes de conversion d'obligations en actions",
         creditMeaning: "Augmentation de primes de conversion d'obligations en actions",
         journalExample: {
-            description: "Écriture type pour le compte 1044 — Primes de conversion d'obligations en actions",
+            description: "Écriture type pour le compte 1044 - Primes de conversion d'obligations en actions",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1044", "Primes de conversion d'obligations en actions", "", "X"],
@@ -444,7 +444,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de bons de souscription de titres en capital",
         creditMeaning: "Augmentation de bons de souscription de titres en capital",
         journalExample: {
-            description: "Écriture type pour le compte 1045 — Bons de souscription de titres en capital",
+            description: "Écriture type pour le compte 1045 - Bons de souscription de titres en capital",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1045", "Bons de souscription de titres en capital", "", "X"],
@@ -468,7 +468,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de écarts de réévaluation",
         creditMeaning: "Augmentation de écarts de réévaluation",
         journalExample: {
-            description: "Écriture type pour le compte 105 — Écarts de réévaluation",
+            description: "Écriture type pour le compte 105 - Écarts de réévaluation",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["105", "Écarts de réévaluation", "", "X"],
@@ -491,7 +491,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de réserves",
         creditMeaning: "Augmentation de réserves",
         journalExample: {
-            description: "Écriture type pour le compte 106 — Réserves",
+            description: "Écriture type pour le compte 106 - Réserves",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["106", "Réserves", "", "X"],
@@ -514,7 +514,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de réserve légale",
         creditMeaning: "Augmentation de réserve légale",
         journalExample: {
-            description: "Écriture type pour le compte 1061 — Réserve légale",
+            description: "Écriture type pour le compte 1061 - Réserve légale",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1061", "Réserve légale", "", "X"],
@@ -537,7 +537,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de réserves indisponibles",
         creditMeaning: "Augmentation de réserves indisponibles",
         journalExample: {
-            description: "Écriture type pour le compte 1062 — Réserves indisponibles",
+            description: "Écriture type pour le compte 1062 - Réserves indisponibles",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1062", "Réserves indisponibles", "", "X"],
@@ -559,7 +559,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de réserves statutaires ou contractuelles",
         creditMeaning: "Augmentation de réserves statutaires ou contractuelles",
         journalExample: {
-            description: "Écriture type pour le compte 1063 — Réserves statutaires ou contractuelles",
+            description: "Écriture type pour le compte 1063 - Réserves statutaires ou contractuelles",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1063", "Réserves statutaires ou contractuelles", "", "X"],
@@ -581,7 +581,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de réserves réglementées",
         creditMeaning: "Augmentation de réserves réglementées",
         journalExample: {
-            description: "Écriture type pour le compte 1064 — Réserves réglementées",
+            description: "Écriture type pour le compte 1064 - Réserves réglementées",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1064", "Réserves réglementées", "", "X"],
@@ -603,7 +603,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de autres réserves",
         creditMeaning: "Augmentation de autres réserves",
         journalExample: {
-            description: "Écriture type pour le compte 1068 — Autres réserves",
+            description: "Écriture type pour le compte 1068 - Autres réserves",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1068", "Autres réserves", "", "X"],
@@ -627,7 +627,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de écart d'équivalence",
         creditMeaning: "Augmentation de écart d'équivalence",
         journalExample: {
-            description: "Écriture type pour le compte 107 — Écart d'équivalence",
+            description: "Écriture type pour le compte 107 - Écart d'équivalence",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["107", "Écart d'équivalence", "", "X"],
@@ -650,7 +650,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de compte de l'exploitant",
         creditMeaning: "Augmentation de compte de l'exploitant",
         journalExample: {
-            description: "Écriture type pour le compte 108 — Compte de l'exploitant",
+            description: "Écriture type pour le compte 108 - Compte de l'exploitant",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["108", "Compte de l'exploitant", "", "X"],
@@ -673,7 +673,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de actionnaires : capital souscrit - non appelé",
         creditMeaning: "Augmentation de actionnaires : capital souscrit - non appelé",
         journalExample: {
-            description: "Écriture type pour le compte 109 — Actionnaires : capital souscrit - non appelé",
+            description: "Écriture type pour le compte 109 - Actionnaires : capital souscrit - non appelé",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["109", "Actionnaires : capital souscrit - non appelé", "", "X"],
@@ -696,7 +696,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de report à nouveau",
         creditMeaning: "Augmentation de report à nouveau",
         journalExample: {
-            description: "Écriture type pour le compte 11 — Report à nouveau",
+            description: "Écriture type pour le compte 11 - Report à nouveau",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["11", "Report à nouveau", "", "X"],
@@ -719,7 +719,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de report à nouveau - solde créditeur",
         creditMeaning: "Augmentation de report à nouveau - solde créditeur",
         journalExample: {
-            description: "Écriture type pour le compte 110 — Report à nouveau - solde créditeur",
+            description: "Écriture type pour le compte 110 - Report à nouveau - solde créditeur",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["110", "Report à nouveau - solde créditeur", "", "X"],
@@ -742,7 +742,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de report à nouveau - solde débiteur",
         creditMeaning: "Augmentation de report à nouveau - solde débiteur",
         journalExample: {
-            description: "Écriture type pour le compte 119 — Report à nouveau - solde débiteur",
+            description: "Écriture type pour le compte 119 - Report à nouveau - solde débiteur",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["119", "Report à nouveau - solde débiteur", "", "X"],
@@ -765,7 +765,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de résultat de l'exercice",
         creditMeaning: "Augmentation de résultat de l'exercice",
         journalExample: {
-            description: "Écriture type pour le compte 12 — Résultat de l'exercice",
+            description: "Écriture type pour le compte 12 - Résultat de l'exercice",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["12", "Résultat de l'exercice", "", "X"],
@@ -787,7 +787,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de résultat de l'exercice - bénéfice",
         creditMeaning: "Augmentation de résultat de l'exercice - bénéfice",
         journalExample: {
-            description: "Écriture type pour le compte 120 — Résultat de l'exercice - bénéfice",
+            description: "Écriture type pour le compte 120 - Résultat de l'exercice - bénéfice",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["120", "Résultat de l'exercice - bénéfice", "", "X"],
@@ -811,7 +811,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de acomptes sur dividendes",
         creditMeaning: "Augmentation de acomptes sur dividendes",
         journalExample: {
-            description: "Écriture type pour le compte 1209 — Acomptes sur dividendes",
+            description: "Écriture type pour le compte 1209 - Acomptes sur dividendes",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1209", "Acomptes sur dividendes", "", "X"],
@@ -833,7 +833,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de résultat de l'exercice – perte",
         creditMeaning: "Augmentation de résultat de l'exercice – perte",
         journalExample: {
-            description: "Écriture type pour le compte 129 — Résultat de l'exercice – perte",
+            description: "Écriture type pour le compte 129 - Résultat de l'exercice – perte",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["129", "Résultat de l'exercice – perte", "", "X"],
@@ -856,7 +856,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de subventions d'investissement",
         creditMeaning: "Augmentation de subventions d'investissement",
         journalExample: {
-            description: "Écriture type pour le compte 13 — Subventions d'investissement",
+            description: "Écriture type pour le compte 13 - Subventions d'investissement",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["13", "Subventions d'investissement", "", "X"],
@@ -879,7 +879,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de subventions d'investissement octroyées",
         creditMeaning: "Augmentation de subventions d'investissement octroyées",
         journalExample: {
-            description: "Écriture type pour le compte 131 — Subventions d'investissement octroyées",
+            description: "Écriture type pour le compte 131 - Subventions d'investissement octroyées",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["131", "Subventions d'investissement octroyées", "", "X"],
@@ -903,7 +903,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Augmentation de subventions d'investissement inscrites au compte de résultat",
         journalExample: {
             description:
-                "Écriture type pour le compte 139 — Subventions d'investissement inscrites au compte de résultat",
+                "Écriture type pour le compte 139 - Subventions d'investissement inscrites au compte de résultat",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["139", "Subventions d'investissement inscrites au compte de résultat", "", "X"],
@@ -927,7 +927,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de provisions réglementées",
         creditMeaning: "Augmentation de provisions réglementées",
         journalExample: {
-            description: "Écriture type pour le compte 14 — Provisions réglementées",
+            description: "Écriture type pour le compte 14 - Provisions réglementées",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["14", "Provisions réglementées", "", "X"],
@@ -949,7 +949,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de provisions réglementées pour hausse de prix",
         creditMeaning: "Augmentation de provisions réglementées pour hausse de prix",
         journalExample: {
-            description: "Écriture type pour le compte 143 — Provisions réglementées pour hausse de prix",
+            description: "Écriture type pour le compte 143 - Provisions réglementées pour hausse de prix",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["143", "Provisions réglementées pour hausse de prix", "", "X"],
@@ -975,7 +975,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de amortissements dérogatoires",
         creditMeaning: "Augmentation de amortissements dérogatoires",
         journalExample: {
-            description: "Écriture type pour le compte 145 — Amortissements dérogatoires",
+            description: "Écriture type pour le compte 145 - Amortissements dérogatoires",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["145", "Amortissements dérogatoires", "", "X"],
@@ -997,7 +997,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de autres provisions réglementées",
         creditMeaning: "Augmentation de autres provisions réglementées",
         journalExample: {
-            description: "Écriture type pour le compte 148 — Autres provisions réglementées",
+            description: "Écriture type pour le compte 148 - Autres provisions réglementées",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["148", "Autres provisions réglementées", "", "X"],
@@ -1021,7 +1021,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de provisions",
         creditMeaning: "Augmentation de provisions",
         journalExample: {
-            description: "Écriture type pour le compte 15 — Provisions",
+            description: "Écriture type pour le compte 15 - Provisions",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["15", "Provisions", "", "X"],
@@ -1045,7 +1045,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de provisions pour risques",
         creditMeaning: "Augmentation de provisions pour risques",
         journalExample: {
-            description: "Écriture type pour le compte 151 — Provisions pour risques",
+            description: "Écriture type pour le compte 151 - Provisions pour risques",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["151", "Provisions pour risques", "", "X"],
@@ -1068,7 +1068,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de provisions pour litiges",
         creditMeaning: "Augmentation de provisions pour litiges",
         journalExample: {
-            description: "Écriture type pour le compte 1511 — Provisions pour litiges",
+            description: "Écriture type pour le compte 1511 - Provisions pour litiges",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1511", "Provisions pour litiges", "", "X"],
@@ -1091,7 +1091,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de provisions pour garanties données aux clients",
         creditMeaning: "Augmentation de provisions pour garanties données aux clients",
         journalExample: {
-            description: "Écriture type pour le compte 1512 — Provisions pour garanties données aux clients",
+            description: "Écriture type pour le compte 1512 - Provisions pour garanties données aux clients",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1512", "Provisions pour garanties données aux clients", "", "X"],
@@ -1114,7 +1114,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de provisions pour amendes et pénalités",
         creditMeaning: "Augmentation de provisions pour amendes et pénalités",
         journalExample: {
-            description: "Écriture type pour le compte 1514 — Provisions pour amendes et pénalités",
+            description: "Écriture type pour le compte 1514 - Provisions pour amendes et pénalités",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1514", "Provisions pour amendes et pénalités", "", "X"],
@@ -1137,7 +1137,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de provisions pour pertes de change",
         creditMeaning: "Augmentation de provisions pour pertes de change",
         journalExample: {
-            description: "Écriture type pour le compte 1515 — Provisions pour pertes de change",
+            description: "Écriture type pour le compte 1515 - Provisions pour pertes de change",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1515", "Provisions pour pertes de change", "", "X"],
@@ -1160,7 +1160,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de provisions pour pertes sur contrats",
         creditMeaning: "Augmentation de provisions pour pertes sur contrats",
         journalExample: {
-            description: "Écriture type pour le compte 1516 — Provisions pour pertes sur contrats",
+            description: "Écriture type pour le compte 1516 - Provisions pour pertes sur contrats",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1516", "Provisions pour pertes sur contrats", "", "X"],
@@ -1183,7 +1183,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de autres provisions pour risques",
         creditMeaning: "Augmentation de autres provisions pour risques",
         journalExample: {
-            description: "Écriture type pour le compte 1518 — Autres provisions pour risques",
+            description: "Écriture type pour le compte 1518 - Autres provisions pour risques",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1518", "Autres provisions pour risques", "", "X"],
@@ -1207,7 +1207,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de provisions pour charges",
         creditMeaning: "Augmentation de provisions pour charges",
         journalExample: {
-            description: "Écriture type pour le compte 152 — Provisions pour charges",
+            description: "Écriture type pour le compte 152 - Provisions pour charges",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["152", "Provisions pour charges", "", "X"],
@@ -1230,7 +1230,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de provisions pour pensions et obligations similaires",
         creditMeaning: "Augmentation de provisions pour pensions et obligations similaires",
         journalExample: {
-            description: "Écriture type pour le compte 1521 — Provisions pour pensions et obligations similaires",
+            description: "Écriture type pour le compte 1521 - Provisions pour pensions et obligations similaires",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1521", "Provisions pour pensions et obligations similaires", "", "X"],
@@ -1253,7 +1253,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de provisions pour restructurations",
         creditMeaning: "Augmentation de provisions pour restructurations",
         journalExample: {
-            description: "Écriture type pour le compte 1522 — Provisions pour restructurations",
+            description: "Écriture type pour le compte 1522 - Provisions pour restructurations",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1522", "Provisions pour restructurations", "", "X"],
@@ -1276,7 +1276,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de provisions pour impôts",
         creditMeaning: "Augmentation de provisions pour impôts",
         journalExample: {
-            description: "Écriture type pour le compte 1523 — Provisions pour impôts",
+            description: "Écriture type pour le compte 1523 - Provisions pour impôts",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1523", "Provisions pour impôts", "", "X"],
@@ -1301,7 +1301,7 @@ export const accountEntries: AccountEntry[] = [
             "Augmentation de provisions pour renouvellement des immobilisations - entreprises concessionnaires",
         journalExample: {
             description:
-                "Écriture type pour le compte 1524 — Provisions pour renouvellement des immobilisations - entreprises concessionnaires",
+                "Écriture type pour le compte 1524 - Provisions pour renouvellement des immobilisations - entreprises concessionnaires",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1524", "Provisions pour renouvellement des immobilisations - entreprises concessionnaires", "", "X"],
@@ -1324,7 +1324,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de provisions pour gros entretien ou grandes révisions",
         creditMeaning: "Augmentation de provisions pour gros entretien ou grandes révisions",
         journalExample: {
-            description: "Écriture type pour le compte 1525 — Provisions pour gros entretien ou grandes révisions",
+            description: "Écriture type pour le compte 1525 - Provisions pour gros entretien ou grandes révisions",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1525", "Provisions pour gros entretien ou grandes révisions", "", "X"],
@@ -1347,7 +1347,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de provisions pour remise en état",
         creditMeaning: "Augmentation de provisions pour remise en état",
         journalExample: {
-            description: "Écriture type pour le compte 1526 — Provisions pour remise en état",
+            description: "Écriture type pour le compte 1526 - Provisions pour remise en état",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1526", "Provisions pour remise en état", "", "X"],
@@ -1370,7 +1370,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de autres provisions pour charges",
         creditMeaning: "Augmentation de autres provisions pour charges",
         journalExample: {
-            description: "Écriture type pour le compte 1527 — Autres provisions pour charges",
+            description: "Écriture type pour le compte 1527 - Autres provisions pour charges",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1527", "Autres provisions pour charges", "", "X"],
@@ -1395,7 +1395,7 @@ export const accountEntries: AccountEntry[] = [
             "Augmentation de emprunts et dettes assimilées, fonds non remboursables et avances conditionnées",
         journalExample: {
             description:
-                "Écriture type pour le compte 16 — Emprunts et dettes assimilées, fonds non remboursables et avances conditionnées",
+                "Écriture type pour le compte 16 - Emprunts et dettes assimilées, fonds non remboursables et avances conditionnées",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["16", "Emprunts et dettes assimilées, fonds non remboursables et avances conditionnées", "", "X"],
@@ -1418,7 +1418,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Augmentation de emprunts obligataires convertibles si non-inscrits dans le compte 167",
         journalExample: {
             description:
-                "Écriture type pour le compte 161 — Emprunts obligataires convertibles si non-inscrits dans le compte 167",
+                "Écriture type pour le compte 161 - Emprunts obligataires convertibles si non-inscrits dans le compte 167",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["161", "Emprunts obligataires convertibles si non-inscrits dans le compte 167", "", "X"],
@@ -1441,7 +1441,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de intérêts courus sur emprunts obligataires convertibles",
         creditMeaning: "Augmentation de intérêts courus sur emprunts obligataires convertibles",
         journalExample: {
-            description: "Écriture type pour le compte 1618 — Intérêts courus sur emprunts obligataires convertibles",
+            description: "Écriture type pour le compte 1618 - Intérêts courus sur emprunts obligataires convertibles",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1618", "Intérêts courus sur emprunts obligataires convertibles", "", "X"],
@@ -1469,7 +1469,7 @@ export const accountEntries: AccountEntry[] = [
                 "Augmentation de obligations représentatives de passifs nets remis en fiducie si non-inscrites dans le compte 167",
             journalExample: {
                 description:
-                    "Écriture type pour le compte 162 — Obligations représentatives de passifs nets remis en fiducie si non-inscrites dans le compte 167",
+                    "Écriture type pour le compte 162 - Obligations représentatives de passifs nets remis en fiducie si non-inscrites dans le compte 167",
                 rows: [
                     ["512", "Banques", "X", ""],
                     [
@@ -1498,7 +1498,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Augmentation de autres emprunts obligataires si non-inscrits dans le compte 167",
         journalExample: {
             description:
-                "Écriture type pour le compte 163 — Autres emprunts obligataires si non-inscrits dans le compte 167",
+                "Écriture type pour le compte 163 - Autres emprunts obligataires si non-inscrits dans le compte 167",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["163", "Autres emprunts obligataires si non-inscrits dans le compte 167", "", "X"],
@@ -1521,7 +1521,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de intérêts courus sur autres emprunts obligataires",
         creditMeaning: "Augmentation de intérêts courus sur autres emprunts obligataires",
         journalExample: {
-            description: "Écriture type pour le compte 1638 — Intérêts courus sur autres emprunts obligataires",
+            description: "Écriture type pour le compte 1638 - Intérêts courus sur autres emprunts obligataires",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1638", "Intérêts courus sur autres emprunts obligataires", "", "X"],
@@ -1545,7 +1545,7 @@ export const accountEntries: AccountEntry[] = [
             "Augmentation de emprunts auprès des établissements de crédit si non-inscrits dans le compte 167",
         journalExample: {
             description:
-                "Écriture type pour le compte 164 — Emprunts auprès des établissements de crédit si non-inscrits dans le compte 167",
+                "Écriture type pour le compte 164 - Emprunts auprès des établissements de crédit si non-inscrits dans le compte 167",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["164", "Emprunts auprès des établissements de crédit si non-inscrits dans le compte 167", "", "X"],
@@ -1569,7 +1569,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Augmentation de intérêts courus sur emprunts auprès des établissements de crédit",
         journalExample: {
             description:
-                "Écriture type pour le compte 1648 — Intérêts courus sur emprunts auprès des établissements de crédit",
+                "Écriture type pour le compte 1648 - Intérêts courus sur emprunts auprès des établissements de crédit",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1648", "Intérêts courus sur emprunts auprès des établissements de crédit", "", "X"],
@@ -1592,7 +1592,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de dépôts et cautionnements reçus",
         creditMeaning: "Augmentation de dépôts et cautionnements reçus",
         journalExample: {
-            description: "Écriture type pour le compte 165 — Dépôts et cautionnements reçus",
+            description: "Écriture type pour le compte 165 - Dépôts et cautionnements reçus",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["165", "Dépôts et cautionnements reçus", "", "X"],
@@ -1615,7 +1615,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de dépôts",
         creditMeaning: "Augmentation de dépôts",
         journalExample: {
-            description: "Écriture type pour le compte 1651 — Dépôts",
+            description: "Écriture type pour le compte 1651 - Dépôts",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1651", "Dépôts", "", "X"],
@@ -1638,7 +1638,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de cautionnements",
         creditMeaning: "Augmentation de cautionnements",
         journalExample: {
-            description: "Écriture type pour le compte 1655 — Cautionnements",
+            description: "Écriture type pour le compte 1655 - Cautionnements",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1655", "Cautionnements", "", "X"],
@@ -1661,7 +1661,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de intérêts courus sur dépôts et cautionnements reçus",
         creditMeaning: "Augmentation de intérêts courus sur dépôts et cautionnements reçus",
         journalExample: {
-            description: "Écriture type pour le compte 1658 — Intérêts courus sur dépôts et cautionnements reçus",
+            description: "Écriture type pour le compte 1658 - Intérêts courus sur dépôts et cautionnements reçus",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1658", "Intérêts courus sur dépôts et cautionnements reçus", "", "X"],
@@ -1685,7 +1685,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de participation des salariés aux résultats",
         creditMeaning: "Augmentation de participation des salariés aux résultats",
         journalExample: {
-            description: "Écriture type pour le compte 166 — Participation des salariés aux résultats",
+            description: "Écriture type pour le compte 166 - Participation des salariés aux résultats",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["166", "Participation des salariés aux résultats", "", "X"],
@@ -1709,7 +1709,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de comptes bloqués",
         creditMeaning: "Augmentation de comptes bloqués",
         journalExample: {
-            description: "Écriture type pour le compte 1661 — Comptes bloqués",
+            description: "Écriture type pour le compte 1661 - Comptes bloqués",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1661", "Comptes bloqués", "", "X"],
@@ -1732,7 +1732,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de fonds de participation",
         creditMeaning: "Augmentation de fonds de participation",
         journalExample: {
-            description: "Écriture type pour le compte 1662 — Fonds de participation",
+            description: "Écriture type pour le compte 1662 - Fonds de participation",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1662", "Fonds de participation", "", "X"],
@@ -1756,7 +1756,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Augmentation de intérêts courus sur participation des salariés aux résultats",
         journalExample: {
             description:
-                "Écriture type pour le compte 1668 — Intérêts courus sur participation des salariés aux résultats",
+                "Écriture type pour le compte 1668 - Intérêts courus sur participation des salariés aux résultats",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1668", "Intérêts courus sur participation des salariés aux résultats", "", "X"],
@@ -1778,7 +1778,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de fonds non remboursables et avances conditionnées",
         creditMeaning: "Augmentation de fonds non remboursables et avances conditionnées",
         journalExample: {
-            description: "Écriture type pour le compte 167 — Fonds non remboursables et avances conditionnées",
+            description: "Écriture type pour le compte 167 - Fonds non remboursables et avances conditionnées",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["167", "Fonds non remboursables et avances conditionnées", "", "X"],
@@ -1800,7 +1800,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de fonds non remboursables montant principal",
         creditMeaning: "Augmentation de fonds non remboursables montant principal",
         journalExample: {
-            description: "Écriture type pour le compte 1671 — Fonds non remboursables montant principal",
+            description: "Écriture type pour le compte 1671 - Fonds non remboursables montant principal",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1671", "Fonds non remboursables montant principal", "", "X"],
@@ -1825,7 +1825,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de titres participatifs montant principal",
         creditMeaning: "Augmentation de titres participatifs montant principal",
         journalExample: {
-            description: "Écriture type pour le compte 16711 — Titres participatifs montant principal",
+            description: "Écriture type pour le compte 16711 - Titres participatifs montant principal",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["16711", "Titres participatifs montant principal", "", "X"],
@@ -1850,7 +1850,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de autres fonds non remboursables montant principal",
         creditMeaning: "Augmentation de autres fonds non remboursables montant principal",
         journalExample: {
-            description: "Écriture type pour le compte 16712 — Autres fonds non remboursables montant principal",
+            description: "Écriture type pour le compte 16712 - Autres fonds non remboursables montant principal",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["16712", "Autres fonds non remboursables montant principal", "", "X"],
@@ -1875,7 +1875,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de intérêts courus sur titres participatifs",
         creditMeaning: "Augmentation de intérêts courus sur titres participatifs",
         journalExample: {
-            description: "Écriture type pour le compte 16718 — Intérêts courus sur titres participatifs",
+            description: "Écriture type pour le compte 16718 - Intérêts courus sur titres participatifs",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["16718", "Intérêts courus sur titres participatifs", "", "X"],
@@ -1899,7 +1899,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de avances conditionnées montant principal",
         creditMeaning: "Augmentation de avances conditionnées montant principal",
         journalExample: {
-            description: "Écriture type pour le compte 1673 — Avances conditionnées montant principal",
+            description: "Écriture type pour le compte 1673 - Avances conditionnées montant principal",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1673", "Avances conditionnées montant principal", "", "X"],
@@ -1921,7 +1921,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de avances conditionnées intérêts courus",
         creditMeaning: "Augmentation de avances conditionnées intérêts courus",
         journalExample: {
-            description: "Écriture type pour le compte 1674 — Avances conditionnées intérêts courus",
+            description: "Écriture type pour le compte 1674 - Avances conditionnées intérêts courus",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1674", "Avances conditionnées intérêts courus", "", "X"],
@@ -1946,7 +1946,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de intérêts courus sur avances conditionnées",
         creditMeaning: "Augmentation de intérêts courus sur avances conditionnées",
         journalExample: {
-            description: "Écriture type pour le compte 16748 — Intérêts courus sur avances conditionnées",
+            description: "Écriture type pour le compte 16748 - Intérêts courus sur avances conditionnées",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["16748", "Intérêts courus sur avances conditionnées", "", "X"],
@@ -1970,7 +1970,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de emprunts participatifs",
         creditMeaning: "Augmentation de emprunts participatifs",
         journalExample: {
-            description: "Écriture type pour le compte 1675 — Emprunts participatifs",
+            description: "Écriture type pour le compte 1675 - Emprunts participatifs",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1675", "Emprunts participatifs", "", "X"],
@@ -1995,7 +1995,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de intérêts courus sur emprunts participatifs",
         creditMeaning: "Augmentation de intérêts courus sur emprunts participatifs",
         journalExample: {
-            description: "Écriture type pour le compte 16758 — Intérêts courus sur emprunts participatifs",
+            description: "Écriture type pour le compte 16758 - Intérêts courus sur emprunts participatifs",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["16758", "Intérêts courus sur emprunts participatifs", "", "X"],
@@ -2017,7 +2017,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de autres emprunts et dettes assimilées",
         creditMeaning: "Augmentation de autres emprunts et dettes assimilées",
         journalExample: {
-            description: "Écriture type pour le compte 168 — Autres emprunts et dettes assimilées",
+            description: "Écriture type pour le compte 168 - Autres emprunts et dettes assimilées",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["168", "Autres emprunts et dettes assimilées", "", "X"],
@@ -2040,7 +2040,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de autres emprunts",
         creditMeaning: "Augmentation de autres emprunts",
         journalExample: {
-            description: "Écriture type pour le compte 1681 — Autres emprunts",
+            description: "Écriture type pour le compte 1681 - Autres emprunts",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1681", "Autres emprunts", "", "X"],
@@ -2065,7 +2065,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de emprunts participatifs",
         creditMeaning: "Augmentation de emprunts participatifs",
         journalExample: {
-            description: "Écriture type pour le compte 1682 — Emprunts participatifs",
+            description: "Écriture type pour le compte 1682 - Emprunts participatifs",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1682", "Emprunts participatifs", "", "X"],
@@ -2090,7 +2090,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de rentes viagères capitalisées",
         creditMeaning: "Augmentation de rentes viagères capitalisées",
         journalExample: {
-            description: "Écriture type pour le compte 1685 — Rentes viagères capitalisées",
+            description: "Écriture type pour le compte 1685 - Rentes viagères capitalisées",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1685", "Rentes viagères capitalisées", "", "X"],
@@ -2113,7 +2113,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de autres dettes",
         creditMeaning: "Augmentation de autres dettes",
         journalExample: {
-            description: "Écriture type pour le compte 1687 — Autres dettes",
+            description: "Écriture type pour le compte 1687 - Autres dettes",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1687", "Autres dettes", "", "X"],
@@ -2136,7 +2136,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de intérêts courus sur autres emprunts et dettes assimilées",
         creditMeaning: "Augmentation de intérêts courus sur autres emprunts et dettes assimilées",
         journalExample: {
-            description: "Écriture type pour le compte 1688 — Intérêts courus sur autres emprunts et dettes assimilées",
+            description: "Écriture type pour le compte 1688 - Intérêts courus sur autres emprunts et dettes assimilées",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["1688", "Intérêts courus sur autres emprunts et dettes assimilées", "", "X"],
@@ -2159,7 +2159,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de primes de remboursement des emprunts",
         creditMeaning: "Augmentation de primes de remboursement des emprunts",
         journalExample: {
-            description: "Écriture type pour le compte 169 — Primes de remboursement des emprunts",
+            description: "Écriture type pour le compte 169 - Primes de remboursement des emprunts",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["169", "Primes de remboursement des emprunts", "", "X"],
@@ -2182,7 +2182,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de dettes rattachées à des participations",
         creditMeaning: "Augmentation de dettes rattachées à des participations",
         journalExample: {
-            description: "Écriture type pour le compte 17 — Dettes rattachées à des participations",
+            description: "Écriture type pour le compte 17 - Dettes rattachées à des participations",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["17", "Dettes rattachées à des participations", "", "X"],
@@ -2205,7 +2205,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de dettes rattachées à des participations - groupe",
         creditMeaning: "Augmentation de dettes rattachées à des participations - groupe",
         journalExample: {
-            description: "Écriture type pour le compte 171 — Dettes rattachées à des participations - groupe",
+            description: "Écriture type pour le compte 171 - Dettes rattachées à des participations - groupe",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["171", "Dettes rattachées à des participations - groupe", "", "X"],
@@ -2228,7 +2228,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de dettes rattachées à des participations - hors groupe",
         creditMeaning: "Augmentation de dettes rattachées à des participations - hors groupe",
         journalExample: {
-            description: "Écriture type pour le compte 174 — Dettes rattachées à des participations - hors groupe",
+            description: "Écriture type pour le compte 174 - Dettes rattachées à des participations - hors groupe",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["174", "Dettes rattachées à des participations - hors groupe", "", "X"],
@@ -2253,7 +2253,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de dettes rattachées à des sociétés en participation",
         creditMeaning: "Augmentation de dettes rattachées à des sociétés en participation",
         journalExample: {
-            description: "Écriture type pour le compte 178 — Dettes rattachées à des sociétés en participation",
+            description: "Écriture type pour le compte 178 - Dettes rattachées à des sociétés en participation",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["178", "Dettes rattachées à des sociétés en participation", "", "X"],
@@ -2278,7 +2278,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Augmentation de comptes de liaison des établissements et sociétés en participation",
         journalExample: {
             description:
-                "Écriture type pour le compte 18 — Comptes de liaison des établissements et sociétés en participation",
+                "Écriture type pour le compte 18 - Comptes de liaison des établissements et sociétés en participation",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["18", "Comptes de liaison des établissements et sociétés en participation", "", "X"],
@@ -2301,7 +2301,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de comptes de liaison des établissements",
         creditMeaning: "Augmentation de comptes de liaison des établissements",
         journalExample: {
-            description: "Écriture type pour le compte 181 — Comptes de liaison des établissements",
+            description: "Écriture type pour le compte 181 - Comptes de liaison des établissements",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["181", "Comptes de liaison des établissements", "", "X"],
@@ -2325,7 +2325,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Augmentation de biens et prestations de services échangés entre établissements - charges",
         journalExample: {
             description:
-                "Écriture type pour le compte 186 — Biens et prestations de services échangés entre établissements - charges",
+                "Écriture type pour le compte 186 - Biens et prestations de services échangés entre établissements - charges",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["186", "Biens et prestations de services échangés entre établissements - charges", "", "X"],
@@ -2349,7 +2349,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Augmentation de biens et prestations de services échangés entre établissements - produits",
         journalExample: {
             description:
-                "Écriture type pour le compte 187 — Biens et prestations de services échangés entre établissements - produits",
+                "Écriture type pour le compte 187 - Biens et prestations de services échangés entre établissements - produits",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["187", "Biens et prestations de services échangés entre établissements - produits", "", "X"],
@@ -2372,7 +2372,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de comptes de liaison des sociétés en participation",
         creditMeaning: "Augmentation de comptes de liaison des sociétés en participation",
         journalExample: {
-            description: "Écriture type pour le compte 188 — Comptes de liaison des sociétés en participation",
+            description: "Écriture type pour le compte 188 - Comptes de liaison des sociétés en participation",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["188", "Comptes de liaison des sociétés en participation", "", "X"],
@@ -2396,7 +2396,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de comptes d'immobilisations",
         creditMeaning: "Diminution de comptes d'immobilisations",
         journalExample: {
-            description: "Écriture type pour le compte 2 — Comptes d'immobilisations",
+            description: "Écriture type pour le compte 2 - Comptes d'immobilisations",
             rows: [
                 ["2", "Comptes d'immobilisations", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -2418,7 +2418,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de immobilisations incorporelles et frais d’établissement",
         creditMeaning: "Diminution de immobilisations incorporelles et frais d’établissement",
         journalExample: {
-            description: "Écriture type pour le compte 20 — Immobilisations incorporelles et frais d’établissement",
+            description: "Écriture type pour le compte 20 - Immobilisations incorporelles et frais d’établissement",
             rows: [
                 ["20", "Immobilisations incorporelles et frais d’établissement", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -2441,7 +2441,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de frais d'établissement",
         creditMeaning: "Diminution de frais d'établissement",
         journalExample: {
-            description: "Écriture type pour le compte 201 — Frais d'établissement",
+            description: "Écriture type pour le compte 201 - Frais d'établissement",
             rows: [
                 ["201", "Frais d'établissement", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -2464,7 +2464,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de frais de constitution",
         creditMeaning: "Diminution de frais de constitution",
         journalExample: {
-            description: "Écriture type pour le compte 2011 — Frais de constitution",
+            description: "Écriture type pour le compte 2011 - Frais de constitution",
             rows: [
                 ["2011", "Frais de constitution", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -2487,7 +2487,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de frais de premier établissement",
         creditMeaning: "Diminution de frais de premier établissement",
         journalExample: {
-            description: "Écriture type pour le compte 2012 — Frais de premier établissement",
+            description: "Écriture type pour le compte 2012 - Frais de premier établissement",
             rows: [
                 ["2012", "Frais de premier établissement", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -2510,7 +2510,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de frais de prospection",
         creditMeaning: "Diminution de frais de prospection",
         journalExample: {
-            description: "Écriture type pour le compte 20121 — Frais de prospection",
+            description: "Écriture type pour le compte 20121 - Frais de prospection",
             rows: [
                 ["20121", "Frais de prospection", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -2533,7 +2533,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de frais de publicité",
         creditMeaning: "Diminution de frais de publicité",
         journalExample: {
-            description: "Écriture type pour le compte 20122 — Frais de publicité",
+            description: "Écriture type pour le compte 20122 - Frais de publicité",
             rows: [
                 ["20122", "Frais de publicité", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -2562,7 +2562,7 @@ export const accountEntries: AccountEntry[] = [
                 "Diminution de frais d'augmentation de capital et d'opérations diverses - fusions, scissions, transformations",
             journalExample: {
                 description:
-                    "Écriture type pour le compte 2013 — Frais d'augmentation de capital et d'opérations diverses - fusions, scissions, transformations",
+                    "Écriture type pour le compte 2013 - Frais d'augmentation de capital et d'opérations diverses - fusions, scissions, transformations",
                 rows: [
                     [
                         "2013",
@@ -2591,7 +2591,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de frais de développement",
         creditMeaning: "Diminution de frais de développement",
         journalExample: {
-            description: "Écriture type pour le compte 203 — Frais de développement",
+            description: "Écriture type pour le compte 203 - Frais de développement",
             rows: [
                 ["203", "Frais de développement", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -2620,7 +2620,7 @@ export const accountEntries: AccountEntry[] = [
                 "Diminution de concessions et droits similaires, brevets, licences, marques, procédés, solutions informatiques, droits et valeurs similaires",
             journalExample: {
                 description:
-                    "Écriture type pour le compte 205 — Concessions et droits similaires, brevets, licences, marques, procédés, solutions informatiques, droits et valeurs similaires",
+                    "Écriture type pour le compte 205 - Concessions et droits similaires, brevets, licences, marques, procédés, solutions informatiques, droits et valeurs similaires",
                 rows: [
                     [
                         "205",
@@ -2650,7 +2650,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de droit au bail",
         creditMeaning: "Diminution de droit au bail",
         journalExample: {
-            description: "Écriture type pour le compte 206 — Droit au bail",
+            description: "Écriture type pour le compte 206 - Droit au bail",
             rows: [
                 ["206", "Droit au bail", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -2674,7 +2674,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de fonds commercial",
         creditMeaning: "Diminution de fonds commercial",
         journalExample: {
-            description: "Écriture type pour le compte 207 — Fonds commercial",
+            description: "Écriture type pour le compte 207 - Fonds commercial",
             rows: [
                 ["207", "Fonds commercial", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -2696,7 +2696,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de autres immobilisations incorporelles",
         creditMeaning: "Diminution de autres immobilisations incorporelles",
         journalExample: {
-            description: "Écriture type pour le compte 208 — Autres immobilisations incorporelles",
+            description: "Écriture type pour le compte 208 - Autres immobilisations incorporelles",
             rows: [
                 ["208", "Autres immobilisations incorporelles", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -2719,7 +2719,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de mali de fusion sur actifs incorporels",
         creditMeaning: "Diminution de mali de fusion sur actifs incorporels",
         journalExample: {
-            description: "Écriture type pour le compte 2081 — Mali de fusion sur actifs incorporels",
+            description: "Écriture type pour le compte 2081 - Mali de fusion sur actifs incorporels",
             rows: [
                 ["2081", "Mali de fusion sur actifs incorporels", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -2741,7 +2741,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de immobilisations corporelles",
         creditMeaning: "Diminution de immobilisations corporelles",
         journalExample: {
-            description: "Écriture type pour le compte 21 — Immobilisations corporelles",
+            description: "Écriture type pour le compte 21 - Immobilisations corporelles",
             rows: [
                 ["21", "Immobilisations corporelles", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -2763,7 +2763,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de terrains",
         creditMeaning: "Diminution de terrains",
         journalExample: {
-            description: "Écriture type pour le compte 211 — Terrains",
+            description: "Écriture type pour le compte 211 - Terrains",
             rows: [
                 ["211", "Terrains", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -2786,7 +2786,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de terrains nus",
         creditMeaning: "Diminution de terrains nus",
         journalExample: {
-            description: "Écriture type pour le compte 2111 — Terrains nus",
+            description: "Écriture type pour le compte 2111 - Terrains nus",
             rows: [
                 ["2111", "Terrains nus", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -2809,7 +2809,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de terrains aménagés",
         creditMeaning: "Diminution de terrains aménagés",
         journalExample: {
-            description: "Écriture type pour le compte 2112 — Terrains aménagés",
+            description: "Écriture type pour le compte 2112 - Terrains aménagés",
             rows: [
                 ["2112", "Terrains aménagés", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -2832,7 +2832,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de sous-sols et sur-sols",
         creditMeaning: "Diminution de sous-sols et sur-sols",
         journalExample: {
-            description: "Écriture type pour le compte 2113 — Sous-sols et sur-sols",
+            description: "Écriture type pour le compte 2113 - Sous-sols et sur-sols",
             rows: [
                 ["2113", "Sous-sols et sur-sols", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -2855,7 +2855,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de terrains de carrières (tréfonds)",
         creditMeaning: "Diminution de terrains de carrières (tréfonds)",
         journalExample: {
-            description: "Écriture type pour le compte 2114 — Terrains de carrières (Tréfonds)",
+            description: "Écriture type pour le compte 2114 - Terrains de carrières (Tréfonds)",
             rows: [
                 ["2114", "Terrains de carrières (Tréfonds)", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -2878,7 +2878,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de terrains bâtis",
         creditMeaning: "Diminution de terrains bâtis",
         journalExample: {
-            description: "Écriture type pour le compte 2115 — Terrains bâtis",
+            description: "Écriture type pour le compte 2115 - Terrains bâtis",
             rows: [
                 ["2115", "Terrains bâtis", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -2903,7 +2903,7 @@ export const accountEntries: AccountEntry[] = [
             "Diminution de agencements et aménagements de terrains (même ventilation que celle du compte 211)",
         journalExample: {
             description:
-                "Écriture type pour le compte 212 — Agencements et aménagements de terrains (même ventilation que celle du compte 211)",
+                "Écriture type pour le compte 212 - Agencements et aménagements de terrains (même ventilation que celle du compte 211)",
             rows: [
                 ["212", "Agencements et aménagements de terrains (même ventilation que celle du compte 211)", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -2926,7 +2926,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de constructions",
         creditMeaning: "Diminution de constructions",
         journalExample: {
-            description: "Écriture type pour le compte 213 — Constructions",
+            description: "Écriture type pour le compte 213 - Constructions",
             rows: [
                 ["213", "Constructions", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -2949,7 +2949,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de bâtiments",
         creditMeaning: "Diminution de bâtiments",
         journalExample: {
-            description: "Écriture type pour le compte 2131 — Bâtiments",
+            description: "Écriture type pour le compte 2131 - Bâtiments",
             rows: [
                 ["2131", "Bâtiments", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -2973,7 +2973,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Diminution de installations générales - agencements - aménagements des constructions",
         journalExample: {
             description:
-                "Écriture type pour le compte 2135 — Installations générales - agencements - aménagements des constructions",
+                "Écriture type pour le compte 2135 - Installations générales - agencements - aménagements des constructions",
             rows: [
                 ["2135", "Installations générales - agencements - aménagements des constructions", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -2996,7 +2996,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de ouvrages d'infrastructure",
         creditMeaning: "Diminution de ouvrages d'infrastructure",
         journalExample: {
-            description: "Écriture type pour le compte 2138 — Ouvrages d'infrastructure",
+            description: "Écriture type pour le compte 2138 - Ouvrages d'infrastructure",
             rows: [
                 ["2138", "Ouvrages d'infrastructure", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3019,7 +3019,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Diminution de constructions sur sol d'autrui (même ventilation que celle du compte 213)",
         journalExample: {
             description:
-                "Écriture type pour le compte 214 — Constructions sur sol d'autrui (même ventilation que celle du compte 213)",
+                "Écriture type pour le compte 214 - Constructions sur sol d'autrui (même ventilation que celle du compte 213)",
             rows: [
                 ["214", "Constructions sur sol d'autrui (même ventilation que celle du compte 213)", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3042,7 +3042,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Diminution de installations techniques, matériels et outillages industriels",
         journalExample: {
             description:
-                "Écriture type pour le compte 215 — Installations techniques, matériels et outillages industriels",
+                "Écriture type pour le compte 215 - Installations techniques, matériels et outillages industriels",
             rows: [
                 ["215", "Installations techniques, matériels et outillages industriels", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3065,7 +3065,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de installations complexes spécialisées",
         creditMeaning: "Diminution de installations complexes spécialisées",
         journalExample: {
-            description: "Écriture type pour le compte 2151 — Installations complexes spécialisées",
+            description: "Écriture type pour le compte 2151 - Installations complexes spécialisées",
             rows: [
                 ["2151", "Installations complexes spécialisées", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3088,7 +3088,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de installations complexes spécialisées sur sol propre",
         creditMeaning: "Diminution de installations complexes spécialisées sur sol propre",
         journalExample: {
-            description: "Écriture type pour le compte 21511 — Installations complexes spécialisées sur sol propre",
+            description: "Écriture type pour le compte 21511 - Installations complexes spécialisées sur sol propre",
             rows: [
                 ["21511", "Installations complexes spécialisées sur sol propre", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3111,7 +3111,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de installations complexes spécialisées sur sol d'autrui",
         creditMeaning: "Diminution de installations complexes spécialisées sur sol d'autrui",
         journalExample: {
-            description: "Écriture type pour le compte 21514 — Installations complexes spécialisées sur sol d'autrui",
+            description: "Écriture type pour le compte 21514 - Installations complexes spécialisées sur sol d'autrui",
             rows: [
                 ["21514", "Installations complexes spécialisées sur sol d'autrui", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3134,7 +3134,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de installations à caractère spécifique",
         creditMeaning: "Diminution de installations à caractère spécifique",
         journalExample: {
-            description: "Écriture type pour le compte 2153 — Installations à caractère spécifique",
+            description: "Écriture type pour le compte 2153 - Installations à caractère spécifique",
             rows: [
                 ["2153", "Installations à caractère spécifique", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3157,7 +3157,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de installations à caractère spécifique sur sol propre",
         creditMeaning: "Diminution de installations à caractère spécifique sur sol propre",
         journalExample: {
-            description: "Écriture type pour le compte 21531 — Installations à caractère spécifique sur sol propre",
+            description: "Écriture type pour le compte 21531 - Installations à caractère spécifique sur sol propre",
             rows: [
                 ["21531", "Installations à caractère spécifique sur sol propre", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3180,7 +3180,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de installations à caractère spécifique sur sol d'autrui",
         creditMeaning: "Diminution de installations à caractère spécifique sur sol d'autrui",
         journalExample: {
-            description: "Écriture type pour le compte 21534 — Installations à caractère spécifique sur sol d'autrui",
+            description: "Écriture type pour le compte 21534 - Installations à caractère spécifique sur sol d'autrui",
             rows: [
                 ["21534", "Installations à caractère spécifique sur sol d'autrui", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3203,7 +3203,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de matériels industriels",
         creditMeaning: "Diminution de matériels industriels",
         journalExample: {
-            description: "Écriture type pour le compte 2154 — Matériels industriels",
+            description: "Écriture type pour le compte 2154 - Matériels industriels",
             rows: [
                 ["2154", "Matériels industriels", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3226,7 +3226,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de outillages industriels",
         creditMeaning: "Diminution de outillages industriels",
         journalExample: {
-            description: "Écriture type pour le compte 2155 — Outillages industriels",
+            description: "Écriture type pour le compte 2155 - Outillages industriels",
             rows: [
                 ["2155", "Outillages industriels", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3250,7 +3250,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Diminution de agencements et aménagements des matériels et outillages industriels",
         journalExample: {
             description:
-                "Écriture type pour le compte 2157 — Agencements et aménagements des matériels et outillages industriels",
+                "Écriture type pour le compte 2157 - Agencements et aménagements des matériels et outillages industriels",
             rows: [
                 ["2157", "Agencements et aménagements des matériels et outillages industriels", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3273,7 +3273,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de autres immobilisations corporelles",
         creditMeaning: "Diminution de autres immobilisations corporelles",
         journalExample: {
-            description: "Écriture type pour le compte 218 — Autres immobilisations corporelles",
+            description: "Écriture type pour le compte 218 - Autres immobilisations corporelles",
             rows: [
                 ["218", "Autres immobilisations corporelles", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3297,7 +3297,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Diminution de installations générales, agencements, aménagements divers",
         journalExample: {
             description:
-                "Écriture type pour le compte 2181 — Installations générales, agencements, aménagements divers",
+                "Écriture type pour le compte 2181 - Installations générales, agencements, aménagements divers",
             rows: [
                 ["2181", "Installations générales, agencements, aménagements divers", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3320,7 +3320,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de matériel de transport",
         creditMeaning: "Diminution de matériel de transport",
         journalExample: {
-            description: "Écriture type pour le compte 2182 — Matériel de transport",
+            description: "Écriture type pour le compte 2182 - Matériel de transport",
             rows: [
                 ["2182", "Matériel de transport", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3343,7 +3343,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de matériel de bureau et matériel informatique",
         creditMeaning: "Diminution de matériel de bureau et matériel informatique",
         journalExample: {
-            description: "Écriture type pour le compte 2183 — Matériel de bureau et matériel informatique",
+            description: "Écriture type pour le compte 2183 - Matériel de bureau et matériel informatique",
             rows: [
                 ["2183", "Matériel de bureau et matériel informatique", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3366,7 +3366,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de mobilier",
         creditMeaning: "Diminution de mobilier",
         journalExample: {
-            description: "Écriture type pour le compte 2184 — Mobilier",
+            description: "Écriture type pour le compte 2184 - Mobilier",
             rows: [
                 ["2184", "Mobilier", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3389,7 +3389,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de cheptel",
         creditMeaning: "Diminution de cheptel",
         journalExample: {
-            description: "Écriture type pour le compte 2185 — Cheptel",
+            description: "Écriture type pour le compte 2185 - Cheptel",
             rows: [
                 ["2185", "Cheptel", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3412,7 +3412,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de emballages récupérables",
         creditMeaning: "Diminution de emballages récupérables",
         journalExample: {
-            description: "Écriture type pour le compte 2186 — Emballages récupérables",
+            description: "Écriture type pour le compte 2186 - Emballages récupérables",
             rows: [
                 ["2186", "Emballages récupérables", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3435,7 +3435,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de mali de fusion sur actifs corporels",
         creditMeaning: "Diminution de mali de fusion sur actifs corporels",
         journalExample: {
-            description: "Écriture type pour le compte 2187 — Mali de fusion sur actifs corporels",
+            description: "Écriture type pour le compte 2187 - Mali de fusion sur actifs corporels",
             rows: [
                 ["2187", "Mali de fusion sur actifs corporels", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3459,7 +3459,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de immobilisations mises en concession",
         creditMeaning: "Diminution de immobilisations mises en concession",
         journalExample: {
-            description: "Écriture type pour le compte 22 — Immobilisations mises en concession",
+            description: "Écriture type pour le compte 22 - Immobilisations mises en concession",
             rows: [
                 ["22", "Immobilisations mises en concession", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3483,7 +3483,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Diminution de droits du concédant (présentés dans la rubrique autres fonds propres)",
         journalExample: {
             description:
-                "Écriture type pour le compte 229 — Droits du concédant (présentés dans la rubrique autres fonds propres)",
+                "Écriture type pour le compte 229 - Droits du concédant (présentés dans la rubrique autres fonds propres)",
             rows: [
                 ["229", "Droits du concédant (présentés dans la rubrique autres fonds propres)", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3506,7 +3506,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de immobilisations en cours, avances et acomptes",
         creditMeaning: "Diminution de immobilisations en cours, avances et acomptes",
         journalExample: {
-            description: "Écriture type pour le compte 23 — Immobilisations en cours, avances et acomptes",
+            description: "Écriture type pour le compte 23 - Immobilisations en cours, avances et acomptes",
             rows: [
                 ["23", "Immobilisations en cours, avances et acomptes", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3528,7 +3528,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de immobilisations corporelles en cours",
         creditMeaning: "Diminution de immobilisations corporelles en cours",
         journalExample: {
-            description: "Écriture type pour le compte 231 — Immobilisations corporelles en cours",
+            description: "Écriture type pour le compte 231 - Immobilisations corporelles en cours",
             rows: [
                 ["231", "Immobilisations corporelles en cours", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3550,7 +3550,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de immobilisations incorporelles en cours",
         creditMeaning: "Diminution de immobilisations incorporelles en cours",
         journalExample: {
-            description: "Écriture type pour le compte 232 — Immobilisations incorporelles en cours",
+            description: "Écriture type pour le compte 232 - Immobilisations incorporelles en cours",
             rows: [
                 ["232", "Immobilisations incorporelles en cours", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3573,7 +3573,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Diminution de avances et acomptes versés sur commandes d'immobilisations incorporelles",
         journalExample: {
             description:
-                "Écriture type pour le compte 237 — Avances et acomptes versés sur commandes d'immobilisations incorporelles",
+                "Écriture type pour le compte 237 - Avances et acomptes versés sur commandes d'immobilisations incorporelles",
             rows: [
                 ["237", "Avances et acomptes versés sur commandes d'immobilisations incorporelles", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3596,7 +3596,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Diminution de avances et acomptes versés sur commandes d'immobilisations corporelles",
         journalExample: {
             description:
-                "Écriture type pour le compte 238 — Avances et acomptes versés sur commandes d'immobilisations corporelles",
+                "Écriture type pour le compte 238 - Avances et acomptes versés sur commandes d'immobilisations corporelles",
             rows: [
                 ["238", "Avances et acomptes versés sur commandes d'immobilisations corporelles", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3620,7 +3620,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de participations et créances rattachées à des participations",
         creditMeaning: "Diminution de participations et créances rattachées à des participations",
         journalExample: {
-            description: "Écriture type pour le compte 26 — Participations et créances rattachées à des participations",
+            description: "Écriture type pour le compte 26 - Participations et créances rattachées à des participations",
             rows: [
                 ["26", "Participations et créances rattachées à des participations", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3643,7 +3643,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de titres de participation",
         creditMeaning: "Diminution de titres de participation",
         journalExample: {
-            description: "Écriture type pour le compte 261 — Titres de participation",
+            description: "Écriture type pour le compte 261 - Titres de participation",
             rows: [
                 ["261", "Titres de participation", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3666,7 +3666,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de actions",
         creditMeaning: "Diminution de actions",
         journalExample: {
-            description: "Écriture type pour le compte 2611 — Actions",
+            description: "Écriture type pour le compte 2611 - Actions",
             rows: [
                 ["2611", "Actions", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3689,7 +3689,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de autres titres",
         creditMeaning: "Diminution de autres titres",
         journalExample: {
-            description: "Écriture type pour le compte 2618 — Autres titres",
+            description: "Écriture type pour le compte 2618 - Autres titres",
             rows: [
                 ["2618", "Autres titres", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3712,7 +3712,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de titres évalués par équivalence",
         creditMeaning: "Diminution de titres évalués par équivalence",
         journalExample: {
-            description: "Écriture type pour le compte 262 — Titres évalués par équivalence",
+            description: "Écriture type pour le compte 262 - Titres évalués par équivalence",
             rows: [
                 ["262", "Titres évalués par équivalence", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3736,7 +3736,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de autres formes de participation",
         creditMeaning: "Diminution de autres formes de participation",
         journalExample: {
-            description: "Écriture type pour le compte 266 — Autres formes de participation",
+            description: "Écriture type pour le compte 266 - Autres formes de participation",
             rows: [
                 ["266", "Autres formes de participation", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3759,7 +3759,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de droits représentatifs d'actifs nets remis en fiducie",
         creditMeaning: "Diminution de droits représentatifs d'actifs nets remis en fiducie",
         journalExample: {
-            description: "Écriture type pour le compte 2661 — Droits représentatifs d'actifs nets remis en fiducie",
+            description: "Écriture type pour le compte 2661 - Droits représentatifs d'actifs nets remis en fiducie",
             rows: [
                 ["2661", "Droits représentatifs d'actifs nets remis en fiducie", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3783,7 +3783,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de créances rattachées à des participations",
         creditMeaning: "Diminution de créances rattachées à des participations",
         journalExample: {
-            description: "Écriture type pour le compte 267 — Créances rattachées à des participations",
+            description: "Écriture type pour le compte 267 - Créances rattachées à des participations",
             rows: [
                 ["267", "Créances rattachées à des participations", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3806,7 +3806,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de créances rattachées à des participations - groupe",
         creditMeaning: "Diminution de créances rattachées à des participations - groupe",
         journalExample: {
-            description: "Écriture type pour le compte 2671 — Créances rattachées à des participations - groupe",
+            description: "Écriture type pour le compte 2671 - Créances rattachées à des participations - groupe",
             rows: [
                 ["2671", "Créances rattachées à des participations - groupe", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3829,7 +3829,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de créances rattachées à des participations - hors groupe",
         creditMeaning: "Diminution de créances rattachées à des participations - hors groupe",
         journalExample: {
-            description: "Écriture type pour le compte 2674 — Créances rattachées à des participations - hors groupe",
+            description: "Écriture type pour le compte 2674 - Créances rattachées à des participations - hors groupe",
             rows: [
                 ["2674", "Créances rattachées à des participations - hors groupe", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3853,7 +3853,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Diminution de versements représentatifs d'apports non capitalisés - appel de fonds",
         journalExample: {
             description:
-                "Écriture type pour le compte 2675 — Versements représentatifs d'apports non capitalisés - appel de fonds",
+                "Écriture type pour le compte 2675 - Versements représentatifs d'apports non capitalisés - appel de fonds",
             rows: [
                 ["2675", "Versements représentatifs d'apports non capitalisés - appel de fonds", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3876,7 +3876,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de avances consolidables",
         creditMeaning: "Diminution de avances consolidables",
         journalExample: {
-            description: "Écriture type pour le compte 2676 — Avances consolidables",
+            description: "Écriture type pour le compte 2676 - Avances consolidables",
             rows: [
                 ["2676", "Avances consolidables", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3899,7 +3899,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de autres créances rattachées à des participations",
         creditMeaning: "Diminution de autres créances rattachées à des participations",
         journalExample: {
-            description: "Écriture type pour le compte 2677 — Autres créances rattachées à des participations",
+            description: "Écriture type pour le compte 2677 - Autres créances rattachées à des participations",
             rows: [
                 ["2677", "Autres créances rattachées à des participations", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3922,7 +3922,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de intérêts courus",
         creditMeaning: "Diminution de intérêts courus",
         journalExample: {
-            description: "Écriture type pour le compte 2678 — Intérêts courus",
+            description: "Écriture type pour le compte 2678 - Intérêts courus",
             rows: [
                 ["2678", "Intérêts courus", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3946,7 +3946,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de créances rattachées à des sociétés en participation",
         creditMeaning: "Diminution de créances rattachées à des sociétés en participation",
         journalExample: {
-            description: "Écriture type pour le compte 268 — Créances rattachées à des sociétés en participation",
+            description: "Écriture type pour le compte 268 - Créances rattachées à des sociétés en participation",
             rows: [
                 ["268", "Créances rattachées à des sociétés en participation", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3969,7 +3969,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de principal",
         creditMeaning: "Diminution de principal",
         journalExample: {
-            description: "Écriture type pour le compte 2681 — Principal",
+            description: "Écriture type pour le compte 2681 - Principal",
             rows: [
                 ["2681", "Principal", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -3992,7 +3992,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de intérêts courus",
         creditMeaning: "Diminution de intérêts courus",
         journalExample: {
-            description: "Écriture type pour le compte 2688 — Intérêts courus",
+            description: "Écriture type pour le compte 2688 - Intérêts courus",
             rows: [
                 ["2688", "Intérêts courus", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4015,7 +4015,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Diminution de versements restant à effectuer sur titres de participation non libérés",
         journalExample: {
             description:
-                "Écriture type pour le compte 269 — Versements restant à effectuer sur titres de participation non libérés",
+                "Écriture type pour le compte 269 - Versements restant à effectuer sur titres de participation non libérés",
             rows: [
                 ["269", "Versements restant à effectuer sur titres de participation non libérés", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4039,7 +4039,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de autres immobilisations financières",
         creditMeaning: "Diminution de autres immobilisations financières",
         journalExample: {
-            description: "Écriture type pour le compte 27 — Autres immobilisations financières",
+            description: "Écriture type pour le compte 27 - Autres immobilisations financières",
             rows: [
                 ["27", "Autres immobilisations financières", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4068,7 +4068,7 @@ export const accountEntries: AccountEntry[] = [
                 "Diminution de titres immobilisés autres que les titres immobilisés de l'activité de portefeuille (droit de propriété)",
             journalExample: {
                 description:
-                    "Écriture type pour le compte 271 — Titres immobilisés autres que les titres immobilisés de l'activité de portefeuille (droit de propriété)",
+                    "Écriture type pour le compte 271 - Titres immobilisés autres que les titres immobilisés de l'activité de portefeuille (droit de propriété)",
                 rows: [
                     [
                         "271",
@@ -4097,7 +4097,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de actions",
         creditMeaning: "Diminution de actions",
         journalExample: {
-            description: "Écriture type pour le compte 2711 — Actions",
+            description: "Écriture type pour le compte 2711 - Actions",
             rows: [
                 ["2711", "Actions", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4120,7 +4120,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de autres titres",
         creditMeaning: "Diminution de autres titres",
         journalExample: {
-            description: "Écriture type pour le compte 2718 — Autres titres",
+            description: "Écriture type pour le compte 2718 - Autres titres",
             rows: [
                 ["2718", "Autres titres", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4143,7 +4143,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de titres immobilisés (droit de créance)",
         creditMeaning: "Diminution de titres immobilisés (droit de créance)",
         journalExample: {
-            description: "Écriture type pour le compte 272 — Titres immobilisés (droit de créance)",
+            description: "Écriture type pour le compte 272 - Titres immobilisés (droit de créance)",
             rows: [
                 ["272", "Titres immobilisés (droit de créance)", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4166,7 +4166,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de obligations",
         creditMeaning: "Diminution de obligations",
         journalExample: {
-            description: "Écriture type pour le compte 2721 — Obligations",
+            description: "Écriture type pour le compte 2721 - Obligations",
             rows: [
                 ["2721", "Obligations", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4189,7 +4189,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de bons",
         creditMeaning: "Diminution de bons",
         journalExample: {
-            description: "Écriture type pour le compte 2722 — Bons",
+            description: "Écriture type pour le compte 2722 - Bons",
             rows: [
                 ["2722", "Bons", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4213,7 +4213,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de titres immobilisés de l'activité de portefeuille",
         creditMeaning: "Diminution de titres immobilisés de l'activité de portefeuille",
         journalExample: {
-            description: "Écriture type pour le compte 273 — Titres immobilisés de l'activité de portefeuille",
+            description: "Écriture type pour le compte 273 - Titres immobilisés de l'activité de portefeuille",
             rows: [
                 ["273", "Titres immobilisés de l'activité de portefeuille", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4236,7 +4236,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de prêts",
         creditMeaning: "Diminution de prêts",
         journalExample: {
-            description: "Écriture type pour le compte 274 — Prêts",
+            description: "Écriture type pour le compte 274 - Prêts",
             rows: [
                 ["274", "Prêts", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4259,7 +4259,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de prêts participatifs",
         creditMeaning: "Diminution de prêts participatifs",
         journalExample: {
-            description: "Écriture type pour le compte 2741 — Prêts participatifs",
+            description: "Écriture type pour le compte 2741 - Prêts participatifs",
             rows: [
                 ["2741", "Prêts participatifs", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4282,7 +4282,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de prêts aux associés",
         creditMeaning: "Diminution de prêts aux associés",
         journalExample: {
-            description: "Écriture type pour le compte 2742 — Prêts aux associés",
+            description: "Écriture type pour le compte 2742 - Prêts aux associés",
             rows: [
                 ["2742", "Prêts aux associés", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4305,7 +4305,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de prêts au personnel",
         creditMeaning: "Diminution de prêts au personnel",
         journalExample: {
-            description: "Écriture type pour le compte 2743 — Prêts au personnel",
+            description: "Écriture type pour le compte 2743 - Prêts au personnel",
             rows: [
                 ["2743", "Prêts au personnel", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4328,7 +4328,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de autres prêts",
         creditMeaning: "Diminution de autres prêts",
         journalExample: {
-            description: "Écriture type pour le compte 2748 — Autres prêts",
+            description: "Écriture type pour le compte 2748 - Autres prêts",
             rows: [
                 ["2748", "Autres prêts", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4351,7 +4351,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de dépôts et cautionnements versés",
         creditMeaning: "Diminution de dépôts et cautionnements versés",
         journalExample: {
-            description: "Écriture type pour le compte 275 — Dépôts et cautionnements versés",
+            description: "Écriture type pour le compte 275 - Dépôts et cautionnements versés",
             rows: [
                 ["275", "Dépôts et cautionnements versés", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4374,7 +4374,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de dépôts",
         creditMeaning: "Diminution de dépôts",
         journalExample: {
-            description: "Écriture type pour le compte 2751 — Dépôts",
+            description: "Écriture type pour le compte 2751 - Dépôts",
             rows: [
                 ["2751", "Dépôts", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4397,7 +4397,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de cautionnements",
         creditMeaning: "Diminution de cautionnements",
         journalExample: {
-            description: "Écriture type pour le compte 2755 — Cautionnements",
+            description: "Écriture type pour le compte 2755 - Cautionnements",
             rows: [
                 ["2755", "Cautionnements", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4419,7 +4419,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de autres créances immobilisées",
         creditMeaning: "Diminution de autres créances immobilisées",
         journalExample: {
-            description: "Écriture type pour le compte 276 — Autres créances immobilisées",
+            description: "Écriture type pour le compte 276 - Autres créances immobilisées",
             rows: [
                 ["276", "Autres créances immobilisées", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4441,7 +4441,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de créances diverses",
         creditMeaning: "Diminution de créances diverses",
         journalExample: {
-            description: "Écriture type pour le compte 2761 — Créances diverses",
+            description: "Écriture type pour le compte 2761 - Créances diverses",
             rows: [
                 ["2761", "Créances diverses", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4463,7 +4463,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de intérêts courus",
         creditMeaning: "Diminution de intérêts courus",
         journalExample: {
-            description: "Écriture type pour le compte 2768 — Intérêts courus",
+            description: "Écriture type pour le compte 2768 - Intérêts courus",
             rows: [
                 ["2768", "Intérêts courus", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4486,7 +4486,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Diminution de intérêts courus sur titres immobilisés (droit de créance)",
         journalExample: {
             description:
-                "Écriture type pour le compte 27682 — Intérêts courus sur titres immobilisés (droit de créance)",
+                "Écriture type pour le compte 27682 - Intérêts courus sur titres immobilisés (droit de créance)",
             rows: [
                 ["27682", "Intérêts courus sur titres immobilisés (droit de créance)", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4508,7 +4508,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de intérêts courus sur prêts",
         creditMeaning: "Diminution de intérêts courus sur prêts",
         journalExample: {
-            description: "Écriture type pour le compte 27684 — Intérêts courus sur prêts",
+            description: "Écriture type pour le compte 27684 - Intérêts courus sur prêts",
             rows: [
                 ["27684", "Intérêts courus sur prêts", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4530,7 +4530,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de intérêts courus sur dépôts et cautionnements",
         creditMeaning: "Diminution de intérêts courus sur dépôts et cautionnements",
         journalExample: {
-            description: "Écriture type pour le compte 27685 — Intérêts courus sur dépôts et cautionnements",
+            description: "Écriture type pour le compte 27685 - Intérêts courus sur dépôts et cautionnements",
             rows: [
                 ["27685", "Intérêts courus sur dépôts et cautionnements", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4552,7 +4552,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de intérêts courus sur créances diverses",
         creditMeaning: "Diminution de intérêts courus sur créances diverses",
         journalExample: {
-            description: "Écriture type pour le compte 27688 — Intérêts courus sur créances diverses",
+            description: "Écriture type pour le compte 27688 - Intérêts courus sur créances diverses",
             rows: [
                 ["27688", "Intérêts courus sur créances diverses", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4575,7 +4575,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de actions propres ou parts propres",
         creditMeaning: "Diminution de actions propres ou parts propres",
         journalExample: {
-            description: "Écriture type pour le compte 277 — Actions propres ou parts propres",
+            description: "Écriture type pour le compte 277 - Actions propres ou parts propres",
             rows: [
                 ["277", "Actions propres ou parts propres", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4599,7 +4599,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de actions propres ou parts propres",
         creditMeaning: "Diminution de actions propres ou parts propres",
         journalExample: {
-            description: "Écriture type pour le compte 2771 — Actions propres ou parts propres",
+            description: "Écriture type pour le compte 2771 - Actions propres ou parts propres",
             rows: [
                 ["2771", "Actions propres ou parts propres", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4623,7 +4623,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de actions propres ou parts propres en voie d’annulation",
         creditMeaning: "Diminution de actions propres ou parts propres en voie d’annulation",
         journalExample: {
-            description: "Écriture type pour le compte 2772 — Actions propres ou parts propres en voie d’annulation",
+            description: "Écriture type pour le compte 2772 - Actions propres ou parts propres en voie d’annulation",
             rows: [
                 ["2772", "Actions propres ou parts propres en voie d’annulation", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4646,7 +4646,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de mali de fusion sur actifs financiers",
         creditMeaning: "Diminution de mali de fusion sur actifs financiers",
         journalExample: {
-            description: "Écriture type pour le compte 278 — Mali de fusion sur actifs financiers",
+            description: "Écriture type pour le compte 278 - Mali de fusion sur actifs financiers",
             rows: [
                 ["278", "Mali de fusion sur actifs financiers", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4669,7 +4669,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Diminution de versements restant à effectuer sur titres immobilisés non libérés",
         journalExample: {
             description:
-                "Écriture type pour le compte 279 — Versements restant à effectuer sur titres immobilisés non libérés",
+                "Écriture type pour le compte 279 - Versements restant à effectuer sur titres immobilisés non libérés",
             rows: [
                 ["279", "Versements restant à effectuer sur titres immobilisés non libérés", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -4696,7 +4696,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des amortissements (sortie d'immobilisation, correction)",
         creditMeaning: "Augmentation des amortissements (dotation aux amortissements)",
         journalExample: {
-            description: "Écriture type pour le compte 28 — Amortissements des immobilisations",
+            description: "Écriture type pour le compte 28 - Amortissements des immobilisations",
             rows: [
                 ["6811", "Dotations aux amortissements sur immobilisations incorporelles et corporelles", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -4726,7 +4726,7 @@ export const accountEntries: AccountEntry[] = [
             creditMeaning: "Augmentation des amortissements (dotation aux amortissements)",
             journalExample: {
                 description:
-                    "Écriture type pour le compte 280 — Amortissements des immobilisations incorporelles et des frais d’établissement (même ventilation que celle du compte 20)",
+                    "Écriture type pour le compte 280 - Amortissements des immobilisations incorporelles et des frais d’établissement (même ventilation que celle du compte 20)",
                 rows: [
                     ["6811", "Dotations aux amortissements sur immobilisations incorporelles et corporelles", "X", ""],
                     [
@@ -4759,7 +4759,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Augmentation des amortissements (dotation aux amortissements)",
         journalExample: {
             description:
-                "Écriture type pour le compte 2801 — Frais d'établissement (même ventilation que celle du compte 201)",
+                "Écriture type pour le compte 2801 - Frais d'établissement (même ventilation que celle du compte 201)",
             rows: [
                 ["6811", "Dotations aux amortissements sur immobilisations incorporelles et corporelles", "X", ""],
                 ["2801", "Frais d'établissement (même ventilation que celle du compte 201)", "", "X"],
@@ -4785,7 +4785,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des amortissements (sortie d'immobilisation, correction)",
         creditMeaning: "Augmentation des amortissements (dotation aux amortissements)",
         journalExample: {
-            description: "Écriture type pour le compte 2803 — Frais de développement",
+            description: "Écriture type pour le compte 2803 - Frais de développement",
             rows: [
                 ["6811", "Dotations aux amortissements sur immobilisations incorporelles et corporelles", "X", ""],
                 ["2803", "Frais de développement", "", "X"],
@@ -4815,7 +4815,7 @@ export const accountEntries: AccountEntry[] = [
             creditMeaning: "Augmentation des amortissements (dotation aux amortissements)",
             journalExample: {
                 description:
-                    "Écriture type pour le compte 2805 — Concessions et droits similaires, brevets, licences, solutions informatiques, droits et valeurs similaires",
+                    "Écriture type pour le compte 2805 - Concessions et droits similaires, brevets, licences, solutions informatiques, droits et valeurs similaires",
                 rows: [
                     ["6811", "Dotations aux amortissements sur immobilisations incorporelles et corporelles", "X", ""],
                     [
@@ -4847,7 +4847,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des amortissements (sortie d'immobilisation, correction)",
         creditMeaning: "Augmentation des amortissements (dotation aux amortissements)",
         journalExample: {
-            description: "Écriture type pour le compte 2806 — Droit au bail",
+            description: "Écriture type pour le compte 2806 - Droit au bail",
             rows: [
                 ["6811", "Dotations aux amortissements sur immobilisations incorporelles et corporelles", "X", ""],
                 ["2806", "Droit au bail", "", "X"],
@@ -4873,7 +4873,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des amortissements (sortie d'immobilisation, correction)",
         creditMeaning: "Augmentation des amortissements (dotation aux amortissements)",
         journalExample: {
-            description: "Écriture type pour le compte 2807 — Fonds commercial",
+            description: "Écriture type pour le compte 2807 - Fonds commercial",
             rows: [
                 ["6811", "Dotations aux amortissements sur immobilisations incorporelles et corporelles", "X", ""],
                 ["2807", "Fonds commercial", "", "X"],
@@ -4899,7 +4899,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des amortissements (sortie d'immobilisation, correction)",
         creditMeaning: "Augmentation des amortissements (dotation aux amortissements)",
         journalExample: {
-            description: "Écriture type pour le compte 2808 — Autres immobilisations incorporelles",
+            description: "Écriture type pour le compte 2808 - Autres immobilisations incorporelles",
             rows: [
                 ["6811", "Dotations aux amortissements sur immobilisations incorporelles et corporelles", "X", ""],
                 ["2808", "Autres immobilisations incorporelles", "", "X"],
@@ -4926,7 +4926,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Augmentation des amortissements (dotation aux amortissements)",
         journalExample: {
             description:
-                "Écriture type pour le compte 281 — Amortissements des immobilisations corporelles (même ventilation que celle du compte 21)",
+                "Écriture type pour le compte 281 - Amortissements des immobilisations corporelles (même ventilation que celle du compte 21)",
             rows: [
                 ["6811", "Dotations aux amortissements sur immobilisations incorporelles et corporelles", "X", ""],
                 [
@@ -4958,7 +4958,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Augmentation des amortissements (dotation aux amortissements)",
         journalExample: {
             description:
-                "Écriture type pour le compte 2812 — Agencements, aménagements de terrains (même ventilation que celle du compte 212)",
+                "Écriture type pour le compte 2812 - Agencements, aménagements de terrains (même ventilation que celle du compte 212)",
             rows: [
                 ["6811", "Dotations aux amortissements sur immobilisations incorporelles et corporelles", "X", ""],
                 ["2812", "Agencements, aménagements de terrains (même ventilation que celle du compte 212)", "", "X"],
@@ -4984,7 +4984,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des amortissements (sortie d'immobilisation, correction)",
         creditMeaning: "Augmentation des amortissements (dotation aux amortissements)",
         journalExample: {
-            description: "Écriture type pour le compte 2813 — Constructions (même ventilation que celle du compte 213)",
+            description: "Écriture type pour le compte 2813 - Constructions (même ventilation que celle du compte 213)",
             rows: [
                 ["6811", "Dotations aux amortissements sur immobilisations incorporelles et corporelles", "X", ""],
                 ["2813", "Constructions (même ventilation que celle du compte 213)", "", "X"],
@@ -5011,7 +5011,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Augmentation des amortissements (dotation aux amortissements)",
         journalExample: {
             description:
-                "Écriture type pour le compte 2814 — Constructions sur sol d'autrui (même ventilation que celle du compte 214)",
+                "Écriture type pour le compte 2814 - Constructions sur sol d'autrui (même ventilation que celle du compte 214)",
             rows: [
                 ["6811", "Dotations aux amortissements sur immobilisations incorporelles et corporelles", "X", ""],
                 ["2814", "Constructions sur sol d'autrui (même ventilation que celle du compte 214)", "", "X"],
@@ -5041,7 +5041,7 @@ export const accountEntries: AccountEntry[] = [
             creditMeaning: "Augmentation des amortissements (dotation aux amortissements)",
             journalExample: {
                 description:
-                    "Écriture type pour le compte 2815 — Installations, matériel et outillage industriels (même ventilation que celle du compte 215)",
+                    "Écriture type pour le compte 2815 - Installations, matériel et outillage industriels (même ventilation que celle du compte 215)",
                 rows: [
                     ["6811", "Dotations aux amortissements sur immobilisations incorporelles et corporelles", "X", ""],
                     [
@@ -5074,7 +5074,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Augmentation des amortissements (dotation aux amortissements)",
         journalExample: {
             description:
-                "Écriture type pour le compte 2818 — Autres immobilisations corporelles (même ventilation que celle du compte 218)",
+                "Écriture type pour le compte 2818 - Autres immobilisations corporelles (même ventilation que celle du compte 218)",
             rows: [
                 ["6811", "Dotations aux amortissements sur immobilisations incorporelles et corporelles", "X", ""],
                 ["2818", "Autres immobilisations corporelles (même ventilation que celle du compte 218)", "", "X"],
@@ -5101,7 +5101,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des amortissements (sortie d'immobilisation, correction)",
         creditMeaning: "Augmentation des amortissements (dotation aux amortissements)",
         journalExample: {
-            description: "Écriture type pour le compte 28187 — Amortissement du mali de fusion sur actifs corporels",
+            description: "Écriture type pour le compte 28187 - Amortissement du mali de fusion sur actifs corporels",
             rows: [
                 ["6811", "Dotations aux amortissements sur immobilisations incorporelles et corporelles", "X", ""],
                 ["28187", "Amortissement du mali de fusion sur actifs corporels", "", "X"],
@@ -5127,7 +5127,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des amortissements (sortie d'immobilisation, correction)",
         creditMeaning: "Augmentation des amortissements (dotation aux amortissements)",
         journalExample: {
-            description: "Écriture type pour le compte 282 — Amortissements des immobilisations mises en concession",
+            description: "Écriture type pour le compte 282 - Amortissements des immobilisations mises en concession",
             rows: [
                 ["6811", "Dotations aux amortissements sur immobilisations incorporelles et corporelles", "X", ""],
                 ["282", "Amortissements des immobilisations mises en concession", "", "X"],
@@ -5154,7 +5154,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 29 — Dépréciations des immobilisations",
+            description: "Écriture type pour le compte 29 - Dépréciations des immobilisations",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["29", "Dépréciations des immobilisations", "", "X"],
@@ -5180,7 +5180,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 290 — Dépréciations des immobilisations incorporelles",
+            description: "Écriture type pour le compte 290 - Dépréciations des immobilisations incorporelles",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["290", "Dépréciations des immobilisations incorporelles", "", "X"],
@@ -5206,7 +5206,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 2901 — Frais d’établissement",
+            description: "Écriture type pour le compte 2901 - Frais d’établissement",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["2901", "Frais d’établissement", "", "X"],
@@ -5232,7 +5232,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 2903 — Frais de développement",
+            description: "Écriture type pour le compte 2903 - Frais de développement",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["2903", "Frais de développement", "", "X"],
@@ -5258,7 +5258,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 2905 — Marques, procédés, droits et valeurs similaires",
+            description: "Écriture type pour le compte 2905 - Marques, procédés, droits et valeurs similaires",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["2905", "Marques, procédés, droits et valeurs similaires", "", "X"],
@@ -5284,7 +5284,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 2906 — Droit au bail",
+            description: "Écriture type pour le compte 2906 - Droit au bail",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["2906", "Droit au bail", "", "X"],
@@ -5310,7 +5310,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 2907 — Fonds commercial",
+            description: "Écriture type pour le compte 2907 - Fonds commercial",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["2907", "Fonds commercial", "", "X"],
@@ -5336,7 +5336,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 2908 — Autres immobilisations incorporelles",
+            description: "Écriture type pour le compte 2908 - Autres immobilisations incorporelles",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["2908", "Autres immobilisations incorporelles", "", "X"],
@@ -5363,7 +5363,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 29081 — Dépréciation du mali de fusion sur actifs incorporels",
+            description: "Écriture type pour le compte 29081 - Dépréciation du mali de fusion sur actifs incorporels",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["29081", "Dépréciation du mali de fusion sur actifs incorporels", "", "X"],
@@ -5389,7 +5389,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 291 — Dépréciations des immobilisations corporelles",
+            description: "Écriture type pour le compte 291 - Dépréciations des immobilisations corporelles",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["291", "Dépréciations des immobilisations corporelles", "", "X"],
@@ -5415,7 +5415,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 2911 — Terrains",
+            description: "Écriture type pour le compte 2911 - Terrains",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["2911", "Terrains", "", "X"],
@@ -5441,7 +5441,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 2912 — Agencements et aménagements de terrains",
+            description: "Écriture type pour le compte 2912 - Agencements et aménagements de terrains",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["2912", "Agencements et aménagements de terrains", "", "X"],
@@ -5467,7 +5467,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 2913 — Constructions",
+            description: "Écriture type pour le compte 2913 - Constructions",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["2913", "Constructions", "", "X"],
@@ -5493,7 +5493,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 2914 — Constructions sur sol d'autrui",
+            description: "Écriture type pour le compte 2914 - Constructions sur sol d'autrui",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["2914", "Constructions sur sol d'autrui", "", "X"],
@@ -5520,7 +5520,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
             description:
-                "Écriture type pour le compte 2915 — Installations techniques, matériels et outillages industriels",
+                "Écriture type pour le compte 2915 - Installations techniques, matériels et outillages industriels",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["2915", "Installations techniques, matériels et outillages industriels", "", "X"],
@@ -5546,7 +5546,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 2918 — Autres immobilisations corporelles",
+            description: "Écriture type pour le compte 2918 - Autres immobilisations corporelles",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["2918", "Autres immobilisations corporelles", "", "X"],
@@ -5573,7 +5573,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 29187 — Dépréciation du mali de fusion sur actifs corporels",
+            description: "Écriture type pour le compte 29187 - Dépréciation du mali de fusion sur actifs corporels",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["29187", "Dépréciation du mali de fusion sur actifs corporels", "", "X"],
@@ -5599,7 +5599,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 292 — Dépréciations des immobilisations mises en concession",
+            description: "Écriture type pour le compte 292 - Dépréciations des immobilisations mises en concession",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["292", "Dépréciations des immobilisations mises en concession", "", "X"],
@@ -5625,7 +5625,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 293 — Dépréciations des immobilisations en cours",
+            description: "Écriture type pour le compte 293 - Dépréciations des immobilisations en cours",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["293", "Dépréciations des immobilisations en cours", "", "X"],
@@ -5651,7 +5651,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 2931 — Immobilisations corporelles en cours",
+            description: "Écriture type pour le compte 2931 - Immobilisations corporelles en cours",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["2931", "Immobilisations corporelles en cours", "", "X"],
@@ -5677,7 +5677,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 2932 — Immobilisations incorporelles en cours",
+            description: "Écriture type pour le compte 2932 - Immobilisations incorporelles en cours",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["2932", "Immobilisations incorporelles en cours", "", "X"],
@@ -5704,7 +5704,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
             description:
-                "Écriture type pour le compte 296 — Dépréciations des participations et créances rattachées à des participations",
+                "Écriture type pour le compte 296 - Dépréciations des participations et créances rattachées à des participations",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["296", "Dépréciations des participations et créances rattachées à des participations", "", "X"],
@@ -5730,7 +5730,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 2961 — Titres de participation",
+            description: "Écriture type pour le compte 2961 - Titres de participation",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["2961", "Titres de participation", "", "X"],
@@ -5756,7 +5756,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 2962 — Titres évalués par équivalence",
+            description: "Écriture type pour le compte 2962 - Titres évalués par équivalence",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["2962", "Titres évalués par équivalence", "", "X"],
@@ -5782,7 +5782,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 2966 — Autres formes de participation",
+            description: "Écriture type pour le compte 2966 - Autres formes de participation",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["2966", "Autres formes de participation", "", "X"],
@@ -5809,7 +5809,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
             description:
-                "Écriture type pour le compte 2967 — Créances rattachées à des participations (même ventilation que celle du compte 267)",
+                "Écriture type pour le compte 2967 - Créances rattachées à des participations (même ventilation que celle du compte 267)",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 [
@@ -5844,7 +5844,7 @@ export const accountEntries: AccountEntry[] = [
             creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
             journalExample: {
                 description:
-                    "Écriture type pour le compte 2968 — Créances rattachées à des sociétés en participation (même ventilation que celle du compte 268)",
+                    "Écriture type pour le compte 2968 - Créances rattachées à des sociétés en participation (même ventilation que celle du compte 268)",
                 rows: [
                     ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                     [
@@ -5876,7 +5876,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 297 — Dépréciations des autres immobilisations financières",
+            description: "Écriture type pour le compte 297 - Dépréciations des autres immobilisations financières",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["297", "Dépréciations des autres immobilisations financières", "", "X"],
@@ -5906,7 +5906,7 @@ export const accountEntries: AccountEntry[] = [
             creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
             journalExample: {
                 description:
-                    "Écriture type pour le compte 2971 — Titres immobilisés autres que les titres immobilisés de l'activité de portefeuille (droit de propriété)",
+                    "Écriture type pour le compte 2971 - Titres immobilisés autres que les titres immobilisés de l'activité de portefeuille (droit de propriété)",
                 rows: [
                     ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                     [
@@ -5938,7 +5938,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 2972 — Titres immobilisés (droit de créance)",
+            description: "Écriture type pour le compte 2972 - Titres immobilisés (droit de créance)",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["2972", "Titres immobilisés (droit de créance)", "", "X"],
@@ -5964,7 +5964,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 2973 — Titres immobilisés de l'activité de portefeuille",
+            description: "Écriture type pour le compte 2973 - Titres immobilisés de l'activité de portefeuille",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["2973", "Titres immobilisés de l'activité de portefeuille", "", "X"],
@@ -5990,7 +5990,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 2974 — Prêts",
+            description: "Écriture type pour le compte 2974 - Prêts",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["2974", "Prêts", "", "X"],
@@ -6016,7 +6016,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 2975 — Dépôts et cautionnements versés",
+            description: "Écriture type pour le compte 2975 - Dépôts et cautionnements versés",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["2975", "Dépôts et cautionnements versés", "", "X"],
@@ -6042,7 +6042,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations (reprise de dépréciation)",
         creditMeaning: "Augmentation des dépréciations (dotation aux dépréciations)",
         journalExample: {
-            description: "Écriture type pour le compte 2976 — Autres créances immobilisées",
+            description: "Écriture type pour le compte 2976 - Autres créances immobilisées",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["2976", "Autres créances immobilisées", "", "X"],
@@ -6066,7 +6066,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de comptes de stocks et en-cours",
         creditMeaning: "Diminution de comptes de stocks et en-cours",
         journalExample: {
-            description: "Écriture type pour le compte 3 — Comptes de stocks et en-cours",
+            description: "Écriture type pour le compte 3 - Comptes de stocks et en-cours",
             rows: [
                 ["3", "Comptes de stocks et en-cours", "X", ""],
                 ["603", "Variation des stocks d'approvisionnements et de marchandises", "", "X"],
@@ -6090,7 +6090,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de matières premières et fournitures",
         creditMeaning: "Diminution de matières premières et fournitures",
         journalExample: {
-            description: "Écriture type pour le compte 31 — Matières premières et fournitures",
+            description: "Écriture type pour le compte 31 - Matières premières et fournitures",
             rows: [
                 ["31", "Matières premières et fournitures", "X", ""],
                 ["6031", "Variation des stocks de matières premières et fournitures", "", "X"],
@@ -6112,7 +6112,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de autres approvisionnements",
         creditMeaning: "Diminution de autres approvisionnements",
         journalExample: {
-            description: "Écriture type pour le compte 32 — Autres approvisionnements",
+            description: "Écriture type pour le compte 32 - Autres approvisionnements",
             rows: [
                 ["32", "Autres approvisionnements", "X", ""],
                 ["6032", "Variation des stocks des autres approvisionnements", "", "X"],
@@ -6134,7 +6134,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de matières consommables",
         creditMeaning: "Diminution de matières consommables",
         journalExample: {
-            description: "Écriture type pour le compte 321 — Matières consommables",
+            description: "Écriture type pour le compte 321 - Matières consommables",
             rows: [
                 ["321", "Matières consommables", "X", ""],
                 ["6032", "Variation des stocks des autres approvisionnements", "", "X"],
@@ -6156,7 +6156,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de fournitures consommables",
         creditMeaning: "Diminution de fournitures consommables",
         journalExample: {
-            description: "Écriture type pour le compte 322 — Fournitures consommables",
+            description: "Écriture type pour le compte 322 - Fournitures consommables",
             rows: [
                 ["322", "Fournitures consommables", "X", ""],
                 ["6032", "Variation des stocks des autres approvisionnements", "", "X"],
@@ -6179,7 +6179,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de combustibles",
         creditMeaning: "Diminution de combustibles",
         journalExample: {
-            description: "Écriture type pour le compte 3221 — Combustibles",
+            description: "Écriture type pour le compte 3221 - Combustibles",
             rows: [
                 ["3221", "Combustibles", "X", ""],
                 ["6032", "Variation des stocks des autres approvisionnements", "", "X"],
@@ -6202,7 +6202,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de produits d'entretien",
         creditMeaning: "Diminution de produits d'entretien",
         journalExample: {
-            description: "Écriture type pour le compte 3222 — Produits d'entretien",
+            description: "Écriture type pour le compte 3222 - Produits d'entretien",
             rows: [
                 ["3222", "Produits d'entretien", "X", ""],
                 ["6032", "Variation des stocks des autres approvisionnements", "", "X"],
@@ -6225,7 +6225,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de fournitures d'atelier et d'usine",
         creditMeaning: "Diminution de fournitures d'atelier et d'usine",
         journalExample: {
-            description: "Écriture type pour le compte 3223 — Fournitures d'atelier et d'usine",
+            description: "Écriture type pour le compte 3223 - Fournitures d'atelier et d'usine",
             rows: [
                 ["3223", "Fournitures d'atelier et d'usine", "X", ""],
                 ["6032", "Variation des stocks des autres approvisionnements", "", "X"],
@@ -6248,7 +6248,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de fournitures de magasin",
         creditMeaning: "Diminution de fournitures de magasin",
         journalExample: {
-            description: "Écriture type pour le compte 3224 — Fournitures de magasin",
+            description: "Écriture type pour le compte 3224 - Fournitures de magasin",
             rows: [
                 ["3224", "Fournitures de magasin", "X", ""],
                 ["6032", "Variation des stocks des autres approvisionnements", "", "X"],
@@ -6271,7 +6271,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de fournitures de bureau",
         creditMeaning: "Diminution de fournitures de bureau",
         journalExample: {
-            description: "Écriture type pour le compte 3225 — Fournitures de bureau",
+            description: "Écriture type pour le compte 3225 - Fournitures de bureau",
             rows: [
                 ["3225", "Fournitures de bureau", "X", ""],
                 ["6032", "Variation des stocks des autres approvisionnements", "", "X"],
@@ -6293,7 +6293,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de emballages",
         creditMeaning: "Diminution de emballages",
         journalExample: {
-            description: "Écriture type pour le compte 326 — Emballages",
+            description: "Écriture type pour le compte 326 - Emballages",
             rows: [
                 ["326", "Emballages", "X", ""],
                 ["6032", "Variation des stocks des autres approvisionnements", "", "X"],
@@ -6316,7 +6316,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de emballages perdus",
         creditMeaning: "Diminution de emballages perdus",
         journalExample: {
-            description: "Écriture type pour le compte 3261 — Emballages perdus",
+            description: "Écriture type pour le compte 3261 - Emballages perdus",
             rows: [
                 ["3261", "Emballages perdus", "X", ""],
                 ["6032", "Variation des stocks des autres approvisionnements", "", "X"],
@@ -6339,7 +6339,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de emballages récupérables non identifiables",
         creditMeaning: "Diminution de emballages récupérables non identifiables",
         journalExample: {
-            description: "Écriture type pour le compte 3265 — Emballages récupérables non identifiables",
+            description: "Écriture type pour le compte 3265 - Emballages récupérables non identifiables",
             rows: [
                 ["3265", "Emballages récupérables non identifiables", "X", ""],
                 ["6032", "Variation des stocks des autres approvisionnements", "", "X"],
@@ -6362,7 +6362,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de emballages à usage mixte",
         creditMeaning: "Diminution de emballages à usage mixte",
         journalExample: {
-            description: "Écriture type pour le compte 3267 — Emballages à usage mixte",
+            description: "Écriture type pour le compte 3267 - Emballages à usage mixte",
             rows: [
                 ["3267", "Emballages à usage mixte", "X", ""],
                 ["6032", "Variation des stocks des autres approvisionnements", "", "X"],
@@ -6384,7 +6384,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de en-cours de production de biens",
         creditMeaning: "Diminution de en-cours de production de biens",
         journalExample: {
-            description: "Écriture type pour le compte 33 — En-cours de production de biens",
+            description: "Écriture type pour le compte 33 - En-cours de production de biens",
             rows: [
                 ["33", "En-cours de production de biens", "X", ""],
                 ["7133", "Variation des en-cours de production de biens", "", "X"],
@@ -6406,7 +6406,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de produits en cours",
         creditMeaning: "Diminution de produits en cours",
         journalExample: {
-            description: "Écriture type pour le compte 331 — Produits en cours",
+            description: "Écriture type pour le compte 331 - Produits en cours",
             rows: [
                 ["331", "Produits en cours", "X", ""],
                 ["7133", "Variation des en-cours de production de biens", "", "X"],
@@ -6428,7 +6428,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de travaux en cours",
         creditMeaning: "Diminution de travaux en cours",
         journalExample: {
-            description: "Écriture type pour le compte 335 — Travaux en cours",
+            description: "Écriture type pour le compte 335 - Travaux en cours",
             rows: [
                 ["335", "Travaux en cours", "X", ""],
                 ["7133", "Variation des en-cours de production de biens", "", "X"],
@@ -6450,7 +6450,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de en-cours de production de services",
         creditMeaning: "Diminution de en-cours de production de services",
         journalExample: {
-            description: "Écriture type pour le compte 34 — En-cours de production de services",
+            description: "Écriture type pour le compte 34 - En-cours de production de services",
             rows: [
                 ["34", "En-cours de production de services", "X", ""],
                 ["7133", "Variation des en-cours de production de biens", "", "X"],
@@ -6472,7 +6472,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de études en cours",
         creditMeaning: "Diminution de études en cours",
         journalExample: {
-            description: "Écriture type pour le compte 341 — Études en cours",
+            description: "Écriture type pour le compte 341 - Études en cours",
             rows: [
                 ["341", "Études en cours", "X", ""],
                 ["7133", "Variation des en-cours de production de biens", "", "X"],
@@ -6494,7 +6494,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de prestations de services en cours",
         creditMeaning: "Diminution de prestations de services en cours",
         journalExample: {
-            description: "Écriture type pour le compte 345 — Prestations de services en cours",
+            description: "Écriture type pour le compte 345 - Prestations de services en cours",
             rows: [
                 ["345", "Prestations de services en cours", "X", ""],
                 ["7133", "Variation des en-cours de production de biens", "", "X"],
@@ -6517,7 +6517,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de stocks de produits",
         creditMeaning: "Diminution de stocks de produits",
         journalExample: {
-            description: "Écriture type pour le compte 35 — Stocks de produits",
+            description: "Écriture type pour le compte 35 - Stocks de produits",
             rows: [
                 ["35", "Stocks de produits", "X", ""],
                 ["6031", "Variation des stocks de matières premières et fournitures", "", "X"],
@@ -6539,7 +6539,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de produits intermédiaires",
         creditMeaning: "Diminution de produits intermédiaires",
         journalExample: {
-            description: "Écriture type pour le compte 351 — Produits intermédiaires",
+            description: "Écriture type pour le compte 351 - Produits intermédiaires",
             rows: [
                 ["351", "Produits intermédiaires", "X", ""],
                 ["6031", "Variation des stocks de matières premières et fournitures", "", "X"],
@@ -6561,7 +6561,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de produits finis",
         creditMeaning: "Diminution de produits finis",
         journalExample: {
-            description: "Écriture type pour le compte 355 — Produits finis",
+            description: "Écriture type pour le compte 355 - Produits finis",
             rows: [
                 ["355", "Produits finis", "X", ""],
                 ["6031", "Variation des stocks de matières premières et fournitures", "", "X"],
@@ -6583,7 +6583,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de produits résiduels ou matières de récupération",
         creditMeaning: "Diminution de produits résiduels ou matières de récupération",
         journalExample: {
-            description: "Écriture type pour le compte 358 — Produits résiduels ou matières de récupération",
+            description: "Écriture type pour le compte 358 - Produits résiduels ou matières de récupération",
             rows: [
                 ["358", "Produits résiduels ou matières de récupération", "X", ""],
                 ["6031", "Variation des stocks de matières premières et fournitures", "", "X"],
@@ -6606,7 +6606,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de déchets",
         creditMeaning: "Diminution de déchets",
         journalExample: {
-            description: "Écriture type pour le compte 3581 — Déchets",
+            description: "Écriture type pour le compte 3581 - Déchets",
             rows: [
                 ["3581", "Déchets", "X", ""],
                 ["6031", "Variation des stocks de matières premières et fournitures", "", "X"],
@@ -6629,7 +6629,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de rebuts",
         creditMeaning: "Diminution de rebuts",
         journalExample: {
-            description: "Écriture type pour le compte 3585 — Rebuts",
+            description: "Écriture type pour le compte 3585 - Rebuts",
             rows: [
                 ["3585", "Rebuts", "X", ""],
                 ["6031", "Variation des stocks de matières premières et fournitures", "", "X"],
@@ -6652,7 +6652,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de matières de récupération",
         creditMeaning: "Diminution de matières de récupération",
         journalExample: {
-            description: "Écriture type pour le compte 3586 — Matières de récupération",
+            description: "Écriture type pour le compte 3586 - Matières de récupération",
             rows: [
                 ["3586", "Matières de récupération", "X", ""],
                 ["6031", "Variation des stocks de matières premières et fournitures", "", "X"],
@@ -6678,7 +6678,7 @@ export const accountEntries: AccountEntry[] = [
             "Diminution de (compte à ouvrir, le cas échéant, sous l'intitulé « stocks provenant d'immobilisations »)",
         journalExample: {
             description:
-                "Écriture type pour le compte 36 — (Compte à ouvrir, le cas échéant, sous l'intitulé « Stocks provenant d'immobilisations »)",
+                "Écriture type pour le compte 36 - (Compte à ouvrir, le cas échéant, sous l'intitulé « Stocks provenant d'immobilisations »)",
             rows: [
                 [
                     "36",
@@ -6705,7 +6705,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de stocks de marchandises",
         creditMeaning: "Diminution de stocks de marchandises",
         journalExample: {
-            description: "Écriture type pour le compte 37 — Stocks de marchandises",
+            description: "Écriture type pour le compte 37 - Stocks de marchandises",
             rows: [
                 ["37", "Stocks de marchandises", "X", ""],
                 ["6037", "Variation des stocks de marchandises 61/62 Autres charges externes", "", "X"],
@@ -6733,7 +6733,7 @@ export const accountEntries: AccountEntry[] = [
                 "Diminution de (le compte 38 peut être utilisé pour comptabiliser les stocks en voie d'acheminement, mis en dépôt ou donnés en consignation)",
             journalExample: {
                 description:
-                    "Écriture type pour le compte 38 — (Le compte 38 peut être utilisé pour comptabiliser les stocks en voie d'acheminement, mis en dépôt ou donnés en consignation)",
+                    "Écriture type pour le compte 38 - (Le compte 38 peut être utilisé pour comptabiliser les stocks en voie d'acheminement, mis en dépôt ou donnés en consignation)",
                 rows: [
                     [
                         "38",
@@ -6763,7 +6763,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations de stocks (reprise)",
         creditMeaning: "Augmentation des dépréciations de stocks (dotation)",
         journalExample: {
-            description: "Écriture type pour le compte 39 — Dépréciations des stocks et en-cours",
+            description: "Écriture type pour le compte 39 - Dépréciations des stocks et en-cours",
             rows: [
                 ["6817", "Dotations pour dépréciations des actifs circulants", "X", ""],
                 ["39", "Dépréciations des stocks et en-cours", "", "X"],
@@ -6786,7 +6786,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations de stocks (reprise)",
         creditMeaning: "Augmentation des dépréciations de stocks (dotation)",
         journalExample: {
-            description: "Écriture type pour le compte 391 — Dépréciations des matières premières et fournitures",
+            description: "Écriture type pour le compte 391 - Dépréciations des matières premières et fournitures",
             rows: [
                 ["6817", "Dotations pour dépréciations des actifs circulants", "X", ""],
                 ["391", "Dépréciations des matières premières et fournitures", "", "X"],
@@ -6809,7 +6809,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations de stocks (reprise)",
         creditMeaning: "Augmentation des dépréciations de stocks (dotation)",
         journalExample: {
-            description: "Écriture type pour le compte 392 — Dépréciations des autres approvisionnements",
+            description: "Écriture type pour le compte 392 - Dépréciations des autres approvisionnements",
             rows: [
                 ["6817", "Dotations pour dépréciations des actifs circulants", "X", ""],
                 ["392", "Dépréciations des autres approvisionnements", "", "X"],
@@ -6832,7 +6832,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations de stocks (reprise)",
         creditMeaning: "Augmentation des dépréciations de stocks (dotation)",
         journalExample: {
-            description: "Écriture type pour le compte 393 — Dépréciations des en-cours de production de biens",
+            description: "Écriture type pour le compte 393 - Dépréciations des en-cours de production de biens",
             rows: [
                 ["6817", "Dotations pour dépréciations des actifs circulants", "X", ""],
                 ["393", "Dépréciations des en-cours de production de biens", "", "X"],
@@ -6855,7 +6855,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations de stocks (reprise)",
         creditMeaning: "Augmentation des dépréciations de stocks (dotation)",
         journalExample: {
-            description: "Écriture type pour le compte 394 — Dépréciations des en-cours de production de services",
+            description: "Écriture type pour le compte 394 - Dépréciations des en-cours de production de services",
             rows: [
                 ["6817", "Dotations pour dépréciations des actifs circulants", "X", ""],
                 ["394", "Dépréciations des en-cours de production de services", "", "X"],
@@ -6878,7 +6878,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations de stocks (reprise)",
         creditMeaning: "Augmentation des dépréciations de stocks (dotation)",
         journalExample: {
-            description: "Écriture type pour le compte 395 — Dépréciations des stocks de produits",
+            description: "Écriture type pour le compte 395 - Dépréciations des stocks de produits",
             rows: [
                 ["6817", "Dotations pour dépréciations des actifs circulants", "X", ""],
                 ["395", "Dépréciations des stocks de produits", "", "X"],
@@ -6901,7 +6901,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations de stocks (reprise)",
         creditMeaning: "Augmentation des dépréciations de stocks (dotation)",
         journalExample: {
-            description: "Écriture type pour le compte 397 — Dépréciations des stocks de marchandises",
+            description: "Écriture type pour le compte 397 - Dépréciations des stocks de marchandises",
             rows: [
                 ["6817", "Dotations pour dépréciations des actifs circulants", "X", ""],
                 ["397", "Dépréciations des stocks de marchandises", "", "X"],
@@ -6925,7 +6925,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de comptes de tiers",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de comptes de tiers",
         journalExample: {
-            description: "Écriture type pour le compte 4 — Comptes de tiers",
+            description: "Écriture type pour le compte 4 - Comptes de tiers",
             rows: [
                 ["4", "Comptes de tiers", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -6948,7 +6948,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de fournisseurs et comptes rattachés",
         creditMeaning: "Augmentation de fournisseurs et comptes rattachés",
         journalExample: {
-            description: "Écriture type pour le compte 40 — Fournisseurs et comptes rattachés",
+            description: "Écriture type pour le compte 40 - Fournisseurs et comptes rattachés",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["40", "Fournisseurs et comptes rattachés", "", "X"],
@@ -6971,7 +6971,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de fournisseurs",
         creditMeaning: "Augmentation de fournisseurs",
         journalExample: {
-            description: "Écriture type pour le compte 401 — Fournisseurs",
+            description: "Écriture type pour le compte 401 - Fournisseurs",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -6995,7 +6995,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Augmentation de fournisseurs - achats de biens et prestations de services",
         journalExample: {
             description:
-                "Écriture type pour le compte 4011 — Fournisseurs - Achats de biens et prestations de services",
+                "Écriture type pour le compte 4011 - Fournisseurs - Achats de biens et prestations de services",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["4011", "Fournisseurs - Achats de biens et prestations de services", "", "X"],
@@ -7018,7 +7018,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de fournisseurs - retenues de garantie",
         creditMeaning: "Augmentation de fournisseurs - retenues de garantie",
         journalExample: {
-            description: "Écriture type pour le compte 4017 — Fournisseurs - Retenues de garantie",
+            description: "Écriture type pour le compte 4017 - Fournisseurs - Retenues de garantie",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["4017", "Fournisseurs - Retenues de garantie", "", "X"],
@@ -7040,7 +7040,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de fournisseurs - effets à payer",
         creditMeaning: "Augmentation de fournisseurs - effets à payer",
         journalExample: {
-            description: "Écriture type pour le compte 403 — Fournisseurs - Effets à payer",
+            description: "Écriture type pour le compte 403 - Fournisseurs - Effets à payer",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["403", "Fournisseurs - Effets à payer", "", "X"],
@@ -7063,7 +7063,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de fournisseurs d'immobilisations",
         creditMeaning: "Augmentation de fournisseurs d'immobilisations",
         journalExample: {
-            description: "Écriture type pour le compte 404 — Fournisseurs d'immobilisations",
+            description: "Écriture type pour le compte 404 - Fournisseurs d'immobilisations",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["404", "Fournisseurs d'immobilisations", "", "X"],
@@ -7086,7 +7086,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de fournisseurs - achats d'immobilisations",
         creditMeaning: "Augmentation de fournisseurs - achats d'immobilisations",
         journalExample: {
-            description: "Écriture type pour le compte 4041 — Fournisseurs - Achats d'immobilisations",
+            description: "Écriture type pour le compte 4041 - Fournisseurs - Achats d'immobilisations",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["4041", "Fournisseurs - Achats d'immobilisations", "", "X"],
@@ -7109,7 +7109,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de fournisseurs d'immobilisations - retenues de garantie",
         creditMeaning: "Augmentation de fournisseurs d'immobilisations - retenues de garantie",
         journalExample: {
-            description: "Écriture type pour le compte 4047 — Fournisseurs d'immobilisations - Retenues de garantie",
+            description: "Écriture type pour le compte 4047 - Fournisseurs d'immobilisations - Retenues de garantie",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["4047", "Fournisseurs d'immobilisations - Retenues de garantie", "", "X"],
@@ -7131,7 +7131,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de fournisseurs d'immobilisations - effets à payer",
         creditMeaning: "Augmentation de fournisseurs d'immobilisations - effets à payer",
         journalExample: {
-            description: "Écriture type pour le compte 405 — Fournisseurs d'immobilisations - Effets à payer",
+            description: "Écriture type pour le compte 405 - Fournisseurs d'immobilisations - Effets à payer",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["405", "Fournisseurs d'immobilisations - Effets à payer", "", "X"],
@@ -7154,7 +7154,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de fournisseurs - factures non parvenues",
         creditMeaning: "Augmentation de fournisseurs - factures non parvenues",
         journalExample: {
-            description: "Écriture type pour le compte 408 — Fournisseurs - Factures non parvenues",
+            description: "Écriture type pour le compte 408 - Fournisseurs - Factures non parvenues",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["408", "Fournisseurs - Factures non parvenues", "", "X"],
@@ -7176,7 +7176,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de fournisseurs",
         creditMeaning: "Augmentation de fournisseurs",
         journalExample: {
-            description: "Écriture type pour le compte 4081 — Fournisseurs",
+            description: "Écriture type pour le compte 4081 - Fournisseurs",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["4081", "Fournisseurs", "", "X"],
@@ -7198,7 +7198,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de fournisseurs d'immobilisations",
         creditMeaning: "Augmentation de fournisseurs d'immobilisations",
         journalExample: {
-            description: "Écriture type pour le compte 4084 — Fournisseurs d'immobilisations",
+            description: "Écriture type pour le compte 4084 - Fournisseurs d'immobilisations",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["4084", "Fournisseurs d'immobilisations", "", "X"],
@@ -7220,7 +7220,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de fournisseurs - intérêts courus",
         creditMeaning: "Augmentation de fournisseurs - intérêts courus",
         journalExample: {
-            description: "Écriture type pour le compte 4088 — Fournisseurs - Intérêts courus",
+            description: "Écriture type pour le compte 4088 - Fournisseurs - Intérêts courus",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["4088", "Fournisseurs - Intérêts courus", "", "X"],
@@ -7242,7 +7242,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de fournisseurs débiteurs",
         creditMeaning: "Diminution de fournisseurs débiteurs",
         journalExample: {
-            description: "Écriture type pour le compte 409 — Fournisseurs débiteurs",
+            description: "Écriture type pour le compte 409 - Fournisseurs débiteurs",
             rows: [
                 ["409", "Fournisseurs débiteurs", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -7265,7 +7265,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de fournisseurs - avances et acomptes versés sur commandes",
         creditMeaning: "Diminution de fournisseurs - avances et acomptes versés sur commandes",
         journalExample: {
-            description: "Écriture type pour le compte 4091 — Fournisseurs - Avances et acomptes versés sur commandes",
+            description: "Écriture type pour le compte 4091 - Fournisseurs - Avances et acomptes versés sur commandes",
             rows: [
                 ["4091", "Fournisseurs - Avances et acomptes versés sur commandes", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -7289,7 +7289,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Diminution de fournisseurs - créances pour emballages et matériel à rendre",
         journalExample: {
             description:
-                "Écriture type pour le compte 4096 — Fournisseurs - Créances pour emballages et matériel à rendre",
+                "Écriture type pour le compte 4096 - Fournisseurs - Créances pour emballages et matériel à rendre",
             rows: [
                 ["4096", "Fournisseurs - Créances pour emballages et matériel à rendre", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -7311,7 +7311,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de fournisseurs - autres avoirs",
         creditMeaning: "Diminution de fournisseurs - autres avoirs",
         journalExample: {
-            description: "Écriture type pour le compte 4097 — Fournisseurs - Autres avoirs",
+            description: "Écriture type pour le compte 4097 - Fournisseurs - Autres avoirs",
             rows: [
                 ["4097", "Fournisseurs - Autres avoirs", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -7334,7 +7334,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de fournisseurs d'exploitation",
         creditMeaning: "Diminution de fournisseurs d'exploitation",
         journalExample: {
-            description: "Écriture type pour le compte 40971 — Fournisseurs d'exploitation",
+            description: "Écriture type pour le compte 40971 - Fournisseurs d'exploitation",
             rows: [
                 ["40971", "Fournisseurs d'exploitation", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -7357,7 +7357,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de fournisseurs d'immobilisations",
         creditMeaning: "Diminution de fournisseurs d'immobilisations",
         journalExample: {
-            description: "Écriture type pour le compte 40974 — Fournisseurs d'immobilisations",
+            description: "Écriture type pour le compte 40974 - Fournisseurs d'immobilisations",
             rows: [
                 ["40974", "Fournisseurs d'immobilisations", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -7380,7 +7380,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Diminution de rabais, remises, ristournes à obtenir et autres avoirs non encore reçus",
         journalExample: {
             description:
-                "Écriture type pour le compte 4098 — Rabais, remises, ristournes à obtenir et autres avoirs non encore reçus",
+                "Écriture type pour le compte 4098 - Rabais, remises, ristournes à obtenir et autres avoirs non encore reçus",
             rows: [
                 ["4098", "Rabais, remises, ristournes à obtenir et autres avoirs non encore reçus", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -7403,7 +7403,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de clients et comptes rattachés",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de clients et comptes rattachés",
         journalExample: {
-            description: "Écriture type pour le compte 41 — Clients et comptes rattachés",
+            description: "Écriture type pour le compte 41 - Clients et comptes rattachés",
             rows: [
                 ["41", "Clients et comptes rattachés", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -7426,7 +7426,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de clients",
         creditMeaning: "Diminution de clients",
         journalExample: {
-            description: "Écriture type pour le compte 411 — Clients",
+            description: "Écriture type pour le compte 411 - Clients",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -7449,7 +7449,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de clients - ventes de biens ou de prestations de services",
         creditMeaning: "Diminution de clients - ventes de biens ou de prestations de services",
         journalExample: {
-            description: "Écriture type pour le compte 4111 — Clients - Ventes de biens ou de prestations de services",
+            description: "Écriture type pour le compte 4111 - Clients - Ventes de biens ou de prestations de services",
             rows: [
                 ["4111", "Clients - Ventes de biens ou de prestations de services", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -7472,7 +7472,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de clients - retenues de garantie",
         creditMeaning: "Diminution de clients - retenues de garantie",
         journalExample: {
-            description: "Écriture type pour le compte 4117 — Clients - Retenues de garantie",
+            description: "Écriture type pour le compte 4117 - Clients - Retenues de garantie",
             rows: [
                 ["4117", "Clients - Retenues de garantie", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -7495,7 +7495,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de clients - effets à recevoir",
         creditMeaning: "Diminution de clients - effets à recevoir",
         journalExample: {
-            description: "Écriture type pour le compte 413 — Clients - Effets à recevoir",
+            description: "Écriture type pour le compte 413 - Clients - Effets à recevoir",
             rows: [
                 ["413", "Clients - Effets à recevoir", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -7518,7 +7518,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de clients douteux ou litigieux",
         creditMeaning: "Diminution de clients douteux ou litigieux",
         journalExample: {
-            description: "Écriture type pour le compte 416 — Clients douteux ou litigieux",
+            description: "Écriture type pour le compte 416 - Clients douteux ou litigieux",
             rows: [
                 ["416", "Clients douteux ou litigieux", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -7542,7 +7542,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de clients - produits non encore facturés",
         creditMeaning: "Diminution de clients - produits non encore facturés",
         journalExample: {
-            description: "Écriture type pour le compte 418 — Clients - Produits non encore facturés",
+            description: "Écriture type pour le compte 418 - Clients - Produits non encore facturés",
             rows: [
                 ["418", "Clients - Produits non encore facturés", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -7565,7 +7565,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de clients - factures à établir",
         creditMeaning: "Diminution de clients - factures à établir",
         journalExample: {
-            description: "Écriture type pour le compte 4181 — Clients - Factures à établir",
+            description: "Écriture type pour le compte 4181 - Clients - Factures à établir",
             rows: [
                 ["4181", "Clients - Factures à établir", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -7588,7 +7588,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de clients - intérêts courus",
         creditMeaning: "Diminution de clients - intérêts courus",
         journalExample: {
-            description: "Écriture type pour le compte 4188 — Clients - Intérêts courus",
+            description: "Écriture type pour le compte 4188 - Clients - Intérêts courus",
             rows: [
                 ["4188", "Clients - Intérêts courus", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -7610,7 +7610,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de clients créditeurs",
         creditMeaning: "Augmentation de clients créditeurs",
         journalExample: {
-            description: "Écriture type pour le compte 419 — Clients créditeurs",
+            description: "Écriture type pour le compte 419 - Clients créditeurs",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["419", "Clients créditeurs", "", "X"],
@@ -7633,7 +7633,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de clients - avances et acomptes reçus sur commandes",
         creditMeaning: "Augmentation de clients - avances et acomptes reçus sur commandes",
         journalExample: {
-            description: "Écriture type pour le compte 4191 — Clients - Avances et acomptes reçus sur commandes",
+            description: "Écriture type pour le compte 4191 - Clients - Avances et acomptes reçus sur commandes",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["4191", "Clients - Avances et acomptes reçus sur commandes", "", "X"],
@@ -7656,7 +7656,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de clients - dettes sur emballages et matériels consignés",
         creditMeaning: "Augmentation de clients - dettes sur emballages et matériels consignés",
         journalExample: {
-            description: "Écriture type pour le compte 4196 — Clients - Dettes sur emballages et matériels consignés",
+            description: "Écriture type pour le compte 4196 - Clients - Dettes sur emballages et matériels consignés",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["4196", "Clients - Dettes sur emballages et matériels consignés", "", "X"],
@@ -7678,7 +7678,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de clients - autres avoirs",
         creditMeaning: "Augmentation de clients - autres avoirs",
         journalExample: {
-            description: "Écriture type pour le compte 4197 — Clients - Autres avoirs",
+            description: "Écriture type pour le compte 4197 - Clients - Autres avoirs",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["4197", "Clients - Autres avoirs", "", "X"],
@@ -7701,7 +7701,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Augmentation de rabais, remises, ristournes à accorder et autres avoirs à établir",
         journalExample: {
             description:
-                "Écriture type pour le compte 4198 — Rabais, remises, ristournes à accorder et autres avoirs à établir",
+                "Écriture type pour le compte 4198 - Rabais, remises, ristournes à accorder et autres avoirs à établir",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["4198", "Rabais, remises, ristournes à accorder et autres avoirs à établir", "", "X"],
@@ -7724,7 +7724,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de personnel et comptes rattachés",
         creditMeaning: "Augmentation de personnel et comptes rattachés",
         journalExample: {
-            description: "Écriture type pour le compte 42 — Personnel et comptes rattachés",
+            description: "Écriture type pour le compte 42 - Personnel et comptes rattachés",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["42", "Personnel et comptes rattachés", "", "X"],
@@ -7747,7 +7747,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de personnel - rémunérations dues",
         creditMeaning: "Augmentation de personnel - rémunérations dues",
         journalExample: {
-            description: "Écriture type pour le compte 421 — Personnel - Rémunérations dues",
+            description: "Écriture type pour le compte 421 - Personnel - Rémunérations dues",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["421", "Personnel - Rémunérations dues", "", "X"],
@@ -7770,7 +7770,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de comité social et économique",
         creditMeaning: "Augmentation de comité social et économique",
         journalExample: {
-            description: "Écriture type pour le compte 422 — Comité social et économique",
+            description: "Écriture type pour le compte 422 - Comité social et économique",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["422", "Comité social et économique", "", "X"],
@@ -7793,7 +7793,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de participation des salariés aux résultats",
         creditMeaning: "Augmentation de participation des salariés aux résultats",
         journalExample: {
-            description: "Écriture type pour le compte 424 — Participation des salariés aux résultats",
+            description: "Écriture type pour le compte 424 - Participation des salariés aux résultats",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["424", "Participation des salariés aux résultats", "", "X"],
@@ -7816,7 +7816,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de réserve spéciale",
         creditMeaning: "Augmentation de réserve spéciale",
         journalExample: {
-            description: "Écriture type pour le compte 4246 — Réserve spéciale",
+            description: "Écriture type pour le compte 4246 - Réserve spéciale",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["4246", "Réserve spéciale", "", "X"],
@@ -7839,7 +7839,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de comptes courants",
         creditMeaning: "Augmentation de comptes courants",
         journalExample: {
-            description: "Écriture type pour le compte 4248 — Comptes courants",
+            description: "Écriture type pour le compte 4248 - Comptes courants",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["4248", "Comptes courants", "", "X"],
@@ -7863,7 +7863,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Diminution de personnel - avances et acomptes et autres comptes débiteurs",
         journalExample: {
             description:
-                "Écriture type pour le compte 425 — Personnel - Avances et acomptes et autres comptes débiteurs",
+                "Écriture type pour le compte 425 - Personnel - Avances et acomptes et autres comptes débiteurs",
             rows: [
                 ["425", "Personnel - Avances et acomptes et autres comptes débiteurs", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -7886,7 +7886,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de personnel - dépôts",
         creditMeaning: "Augmentation de personnel - dépôts",
         journalExample: {
-            description: "Écriture type pour le compte 426 — Personnel - Dépôts",
+            description: "Écriture type pour le compte 426 - Personnel - Dépôts",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["426", "Personnel - Dépôts", "", "X"],
@@ -7909,7 +7909,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de personnel - oppositions",
         creditMeaning: "Augmentation de personnel - oppositions",
         journalExample: {
-            description: "Écriture type pour le compte 427 — Personnel - Oppositions",
+            description: "Écriture type pour le compte 427 - Personnel - Oppositions",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["427", "Personnel - Oppositions", "", "X"],
@@ -7931,7 +7931,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de personnel - charges à payer",
         creditMeaning: "Augmentation de personnel - charges à payer",
         journalExample: {
-            description: "Écriture type pour le compte 428 — Personnel - Charges à payer",
+            description: "Écriture type pour le compte 428 - Personnel - Charges à payer",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["428", "Personnel - Charges à payer", "", "X"],
@@ -7954,7 +7954,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de dettes provisionnées pour congés à payer",
         creditMeaning: "Augmentation de dettes provisionnées pour congés à payer",
         journalExample: {
-            description: "Écriture type pour le compte 4282 — Dettes provisionnées pour congés à payer",
+            description: "Écriture type pour le compte 4282 - Dettes provisionnées pour congés à payer",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["4282", "Dettes provisionnées pour congés à payer", "", "X"],
@@ -7978,7 +7978,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Augmentation de dettes provisionnées pour participation des salariés aux résultats",
         journalExample: {
             description:
-                "Écriture type pour le compte 4284 — Dettes provisionnées pour participation des salariés aux résultats",
+                "Écriture type pour le compte 4284 - Dettes provisionnées pour participation des salariés aux résultats",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["4284", "Dettes provisionnées pour participation des salariés aux résultats", "", "X"],
@@ -8001,7 +8001,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de autres charges à payer",
         creditMeaning: "Augmentation de autres charges à payer",
         journalExample: {
-            description: "Écriture type pour le compte 4286 — Autres charges à payer",
+            description: "Écriture type pour le compte 4286 - Autres charges à payer",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["4286", "Autres charges à payer", "", "X"],
@@ -8024,7 +8024,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de sécurité sociale et autres organismes sociaux",
         creditMeaning: "Augmentation de sécurité sociale et autres organismes sociaux",
         journalExample: {
-            description: "Écriture type pour le compte 43 — Sécurité sociale et autres organismes sociaux",
+            description: "Écriture type pour le compte 43 - Sécurité sociale et autres organismes sociaux",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["43", "Sécurité sociale et autres organismes sociaux", "", "X"],
@@ -8046,7 +8046,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de sécurité sociale",
         creditMeaning: "Augmentation de sécurité sociale",
         journalExample: {
-            description: "Écriture type pour le compte 431 — Sécurité sociale",
+            description: "Écriture type pour le compte 431 - Sécurité sociale",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["431", "Sécurité sociale", "", "X"],
@@ -8068,7 +8068,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de autres organismes sociaux",
         creditMeaning: "Augmentation de autres organismes sociaux",
         journalExample: {
-            description: "Écriture type pour le compte 437 — Autres organismes sociaux",
+            description: "Écriture type pour le compte 437 - Autres organismes sociaux",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["437", "Autres organismes sociaux", "", "X"],
@@ -8090,7 +8090,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de organismes sociaux - charges à payer",
         creditMeaning: "Augmentation de organismes sociaux - charges à payer",
         journalExample: {
-            description: "Écriture type pour le compte 438 — Organismes sociaux - Charges à payer",
+            description: "Écriture type pour le compte 438 - Organismes sociaux - Charges à payer",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["438", "Organismes sociaux - Charges à payer", "", "X"],
@@ -8113,7 +8113,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de charges sociales sur congés à payer",
         creditMeaning: "Augmentation de charges sociales sur congés à payer",
         journalExample: {
-            description: "Écriture type pour le compte 4382 — Charges sociales sur congés à payer",
+            description: "Écriture type pour le compte 4382 - Charges sociales sur congés à payer",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["4382", "Charges sociales sur congés à payer", "", "X"],
@@ -8136,7 +8136,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de autres charges à payer",
         creditMeaning: "Augmentation de autres charges à payer",
         journalExample: {
-            description: "Écriture type pour le compte 4386 — Autres charges à payer",
+            description: "Écriture type pour le compte 4386 - Autres charges à payer",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["4386", "Autres charges à payer", "", "X"],
@@ -8158,7 +8158,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de organismes sociaux - produits à recevoir",
         creditMeaning: "Diminution de organismes sociaux - produits à recevoir",
         journalExample: {
-            description: "Écriture type pour le compte 439 — Organismes sociaux - Produits à recevoir",
+            description: "Écriture type pour le compte 439 - Organismes sociaux - Produits à recevoir",
             rows: [
                 ["439", "Organismes sociaux - Produits à recevoir", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -8181,7 +8181,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de état et autres collectivités publiques",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de état et autres collectivités publiques",
         journalExample: {
-            description: "Écriture type pour le compte 44 — État et autres collectivités publiques",
+            description: "Écriture type pour le compte 44 - État et autres collectivités publiques",
             rows: [
                 ["44", "État et autres collectivités publiques", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -8204,7 +8204,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de état - subventions et aides à recevoir",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de état - subventions et aides à recevoir",
         journalExample: {
-            description: "Écriture type pour le compte 441 — État - Subventions et aides à recevoir",
+            description: "Écriture type pour le compte 441 - État - Subventions et aides à recevoir",
             rows: [
                 ["441", "État - Subventions et aides à recevoir", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -8230,7 +8230,7 @@ export const accountEntries: AccountEntry[] = [
             "Diminution (si actif) ou augmentation (si passif) de contributions, impôts et taxes recouvrés pour le compte de l'état",
         journalExample: {
             description:
-                "Écriture type pour le compte 442 — Contributions, impôts et taxes recouvrés pour le compte de l'État",
+                "Écriture type pour le compte 442 - Contributions, impôts et taxes recouvrés pour le compte de l'État",
             rows: [
                 ["442", "Contributions, impôts et taxes recouvrés pour le compte de l'État", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -8255,7 +8255,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning:
             "Diminution (si actif) ou augmentation (si passif) de prélèvements à la source (impôt sur le revenu)",
         journalExample: {
-            description: "Écriture type pour le compte 4421 — Prélèvements à la source (Impôt sur le revenu)",
+            description: "Écriture type pour le compte 4421 - Prélèvements à la source (Impôt sur le revenu)",
             rows: [
                 ["4421", "Prélèvements à la source (Impôt sur le revenu)", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -8279,7 +8279,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning:
             "Diminution (si actif) ou augmentation (si passif) de prélèvements forfaitaires non libératoires",
         journalExample: {
-            description: "Écriture type pour le compte 4422 — Prélèvements forfaitaires non libératoires",
+            description: "Écriture type pour le compte 4422 - Prélèvements forfaitaires non libératoires",
             rows: [
                 ["4422", "Prélèvements forfaitaires non libératoires", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -8304,7 +8304,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning:
             "Diminution (si actif) ou augmentation (si passif) de retenues et prélèvements sur les distributions",
         journalExample: {
-            description: "Écriture type pour le compte 4423 — Retenues et prélèvements sur les distributions",
+            description: "Écriture type pour le compte 4423 - Retenues et prélèvements sur les distributions",
             rows: [
                 ["4423", "Retenues et prélèvements sur les distributions", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -8327,7 +8327,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de état - impôts sur les bénéfices",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de état - impôts sur les bénéfices",
         journalExample: {
-            description: "Écriture type pour le compte 444 — État - Impôts sur les bénéfices",
+            description: "Écriture type pour le compte 444 - État - Impôts sur les bénéfices",
             rows: [
                 ["444", "État - Impôts sur les bénéfices", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -8350,7 +8350,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de état - taxes sur le chiffre d'affaires",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de état - taxes sur le chiffre d'affaires",
         journalExample: {
-            description: "Écriture type pour le compte 445 — État - Taxes sur le chiffre d'affaires",
+            description: "Écriture type pour le compte 445 - État - Taxes sur le chiffre d'affaires",
             rows: [
                 ["445", "État - Taxes sur le chiffre d'affaires", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -8372,7 +8372,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de tva due intracommunautaire",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de tva due intracommunautaire",
         journalExample: {
-            description: "Écriture type pour le compte 4452 — TVA due intracommunautaire",
+            description: "Écriture type pour le compte 4452 - TVA due intracommunautaire",
             rows: [
                 ["4452", "TVA due intracommunautaire", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -8395,7 +8395,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de taxes sur le chiffre d'affaires à décaisser",
         creditMeaning: "Augmentation de taxes sur le chiffre d'affaires à décaisser",
         journalExample: {
-            description: "Écriture type pour le compte 4455 — Taxes sur le chiffre d'affaires à décaisser",
+            description: "Écriture type pour le compte 4455 - Taxes sur le chiffre d'affaires à décaisser",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["4455", "Taxes sur le chiffre d'affaires à décaisser", "", "X"],
@@ -8418,7 +8418,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de tva à décaisser",
         creditMeaning: "Augmentation de tva à décaisser",
         journalExample: {
-            description: "Écriture type pour le compte 44551 — TVA à décaisser",
+            description: "Écriture type pour le compte 44551 - TVA à décaisser",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["44551", "TVA à décaisser", "", "X"],
@@ -8441,7 +8441,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de taxes assimilées à la tva",
         creditMeaning: "Augmentation de taxes assimilées à la tva",
         journalExample: {
-            description: "Écriture type pour le compte 44558 — Taxes assimilées à la TVA",
+            description: "Écriture type pour le compte 44558 - Taxes assimilées à la TVA",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["44558", "Taxes assimilées à la TVA", "", "X"],
@@ -8465,7 +8465,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de taxes sur le chiffre d'affaires déductibles",
         creditMeaning: "Diminution de taxes sur le chiffre d'affaires déductibles",
         journalExample: {
-            description: "Écriture type pour le compte 4456 — Taxes sur le chiffre d'affaires déductibles",
+            description: "Écriture type pour le compte 4456 - Taxes sur le chiffre d'affaires déductibles",
             rows: [
                 ["4456", "Taxes sur le chiffre d'affaires déductibles", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -8489,7 +8489,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de tva sur immobilisations",
         creditMeaning: "Diminution de tva sur immobilisations",
         journalExample: {
-            description: "Écriture type pour le compte 44562 — TVA sur immobilisations",
+            description: "Écriture type pour le compte 44562 - TVA sur immobilisations",
             rows: [
                 ["44562", "TVA sur immobilisations", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -8513,7 +8513,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de tva transférée par d'autres entités",
         creditMeaning: "Diminution de tva transférée par d'autres entités",
         journalExample: {
-            description: "Écriture type pour le compte 44563 — TVA transférée par d'autres entités",
+            description: "Écriture type pour le compte 44563 - TVA transférée par d'autres entités",
             rows: [
                 ["44563", "TVA transférée par d'autres entités", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -8537,7 +8537,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de tva sur autres biens et services",
         creditMeaning: "Diminution de tva sur autres biens et services",
         journalExample: {
-            description: "Écriture type pour le compte 44566 — TVA sur autres biens et services",
+            description: "Écriture type pour le compte 44566 - TVA sur autres biens et services",
             rows: [
                 ["44566", "TVA sur autres biens et services", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -8561,7 +8561,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de crédit de tva à reporter",
         creditMeaning: "Diminution de crédit de tva à reporter",
         journalExample: {
-            description: "Écriture type pour le compte 44567 — Crédit de TVA à reporter",
+            description: "Écriture type pour le compte 44567 - Crédit de TVA à reporter",
             rows: [
                 ["44567", "Crédit de TVA à reporter", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -8585,7 +8585,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de taxes assimilées à la tva",
         creditMeaning: "Diminution de taxes assimilées à la tva",
         journalExample: {
-            description: "Écriture type pour le compte 44568 — Taxes assimilées à la TVA",
+            description: "Écriture type pour le compte 44568 - Taxes assimilées à la TVA",
             rows: [
                 ["44568", "Taxes assimilées à la TVA", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -8609,7 +8609,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de taxes sur le chiffre d'affaires collectées",
         creditMeaning: "Augmentation de taxes sur le chiffre d'affaires collectées",
         journalExample: {
-            description: "Écriture type pour le compte 4457 — Taxes sur le chiffre d'affaires collectées",
+            description: "Écriture type pour le compte 4457 - Taxes sur le chiffre d'affaires collectées",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["4457", "Taxes sur le chiffre d'affaires collectées", "", "X"],
@@ -8633,7 +8633,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de tva collectée",
         creditMeaning: "Augmentation de tva collectée",
         journalExample: {
-            description: "Écriture type pour le compte 44571 — TVA collectée",
+            description: "Écriture type pour le compte 44571 - TVA collectée",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["44571", "TVA collectée", "", "X"],
@@ -8657,7 +8657,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution de taxes assimilées à la tva",
         creditMeaning: "Augmentation de taxes assimilées à la tva",
         journalExample: {
-            description: "Écriture type pour le compte 44578 — Taxes assimilées à la TVA",
+            description: "Écriture type pour le compte 44578 - Taxes assimilées à la TVA",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["44578", "Taxes assimilées à la TVA", "", "X"],
@@ -8682,7 +8682,7 @@ export const accountEntries: AccountEntry[] = [
             "Diminution (si actif) ou augmentation (si passif) de taxes sur le chiffre d'affaires à régulariser ou en attente",
         journalExample: {
             description:
-                "Écriture type pour le compte 4458 — Taxes sur le chiffre d'affaires à régulariser ou en attente",
+                "Écriture type pour le compte 4458 - Taxes sur le chiffre d'affaires à régulariser ou en attente",
             rows: [
                 ["4458", "Taxes sur le chiffre d'affaires à régulariser ou en attente", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -8705,7 +8705,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de acomptes - régime simplifié d'imposition",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de acomptes - régime simplifié d'imposition",
         journalExample: {
-            description: "Écriture type pour le compte 44581 — Acomptes - Régime simplifié d'imposition",
+            description: "Écriture type pour le compte 44581 - Acomptes - Régime simplifié d'imposition",
             rows: [
                 ["44581", "Acomptes - Régime simplifié d'imposition", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -8731,7 +8731,7 @@ export const accountEntries: AccountEntry[] = [
             "Diminution (si actif) ou augmentation (si passif) de remboursement de taxes sur le chiffre d'affaires demandé",
         journalExample: {
             description:
-                "Écriture type pour le compte 44583 — Remboursement de taxes sur le chiffre d'affaires demandé",
+                "Écriture type pour le compte 44583 - Remboursement de taxes sur le chiffre d'affaires demandé",
             rows: [
                 ["44583", "Remboursement de taxes sur le chiffre d'affaires demandé", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -8754,7 +8754,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de tva récupérée d’avance",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de tva récupérée d’avance",
         journalExample: {
-            description: "Écriture type pour le compte 44584 — TVA récupérée d’avance",
+            description: "Écriture type pour le compte 44584 - TVA récupérée d’avance",
             rows: [
                 ["44584", "TVA récupérée d’avance", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -8780,7 +8780,7 @@ export const accountEntries: AccountEntry[] = [
             "Diminution (si actif) ou augmentation (si passif) de taxes sur le chiffre d’affaires sur factures non parvenues",
         journalExample: {
             description:
-                "Écriture type pour le compte 44586 — Taxes sur le chiffre d’affaires sur factures non parvenues",
+                "Écriture type pour le compte 44586 - Taxes sur le chiffre d’affaires sur factures non parvenues",
             rows: [
                 ["44586", "Taxes sur le chiffre d’affaires sur factures non parvenues", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -8805,7 +8805,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning:
             "Diminution (si actif) ou augmentation (si passif) de taxes sur le chiffre d’affaires sur factures à établir",
         journalExample: {
-            description: "Écriture type pour le compte 44587 — Taxes sur le chiffre d’affaires sur factures à établir",
+            description: "Écriture type pour le compte 44587 - Taxes sur le chiffre d’affaires sur factures à établir",
             rows: [
                 ["44587", "Taxes sur le chiffre d’affaires sur factures à établir", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -8828,7 +8828,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de obligations cautionnées",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de obligations cautionnées",
         journalExample: {
-            description: "Écriture type pour le compte 446 — Obligations cautionnées",
+            description: "Écriture type pour le compte 446 - Obligations cautionnées",
             rows: [
                 ["446", "Obligations cautionnées", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -8853,7 +8853,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning:
             "Diminution (si actif) ou augmentation (si passif) de autres impôts, taxes et versements assimilés",
         journalExample: {
-            description: "Écriture type pour le compte 447 — Autres impôts, taxes et versements assimilés",
+            description: "Écriture type pour le compte 447 - Autres impôts, taxes et versements assimilés",
             rows: [
                 ["447", "Autres impôts, taxes et versements assimilés", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -8877,7 +8877,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning:
             "Diminution (si actif) ou augmentation (si passif) de état - charges à payer et produits à recevoir",
         journalExample: {
-            description: "Écriture type pour le compte 448 — État - Charges à payer et produits à recevoir",
+            description: "Écriture type pour le compte 448 - État - Charges à payer et produits à recevoir",
             rows: [
                 ["448", "État - Charges à payer et produits à recevoir", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -8899,7 +8899,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de état - charges à payer",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de état - charges à payer",
         journalExample: {
-            description: "Écriture type pour le compte 4481 — État - Charges à Payer",
+            description: "Écriture type pour le compte 4481 - État - Charges à Payer",
             rows: [
                 ["4481", "État - Charges à Payer", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -8922,7 +8922,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de charges fiscales sur congés à payer",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de charges fiscales sur congés à payer",
         journalExample: {
-            description: "Écriture type pour le compte 44811 — Charges fiscales sur congés à payer",
+            description: "Écriture type pour le compte 44811 - Charges fiscales sur congés à payer",
             rows: [
                 ["44811", "Charges fiscales sur congés à payer", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -8945,7 +8945,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de charges à payer",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de charges à payer",
         journalExample: {
-            description: "Écriture type pour le compte 44812 — Charges à payer",
+            description: "Écriture type pour le compte 44812 - Charges à payer",
             rows: [
                 ["44812", "Charges à payer", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -8967,7 +8967,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de état - produits à recevoir",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de état - produits à recevoir",
         journalExample: {
-            description: "Écriture type pour le compte 4482 — État - Produits à recevoir",
+            description: "Écriture type pour le compte 4482 - État - Produits à recevoir",
             rows: [
                 ["4482", "État - Produits à recevoir", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -8990,7 +8990,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de quotas d’émission à acquérir",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de quotas d’émission à acquérir",
         journalExample: {
-            description: "Écriture type pour le compte 449 — Quotas d’émission à acquérir",
+            description: "Écriture type pour le compte 449 - Quotas d’émission à acquérir",
             rows: [
                 ["449", "Quotas d’émission à acquérir", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9013,7 +9013,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de groupe et associés",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de groupe et associés",
         journalExample: {
-            description: "Écriture type pour le compte 45 — Groupe et associés",
+            description: "Écriture type pour le compte 45 - Groupe et associés",
             rows: [
                 ["45", "Groupe et associés", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9036,7 +9036,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de groupe",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de groupe",
         journalExample: {
-            description: "Écriture type pour le compte 451 — Groupe",
+            description: "Écriture type pour le compte 451 - Groupe",
             rows: [
                 ["451", "Groupe", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9059,7 +9059,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de associés - comptes courants",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de associés - comptes courants",
         journalExample: {
-            description: "Écriture type pour le compte 455 — Associés - Comptes courants",
+            description: "Écriture type pour le compte 455 - Associés - Comptes courants",
             rows: [
                 ["455", "Associés - Comptes courants", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9082,7 +9082,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de principal",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de principal",
         journalExample: {
-            description: "Écriture type pour le compte 4551 — Principal",
+            description: "Écriture type pour le compte 4551 - Principal",
             rows: [
                 ["4551", "Principal", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9105,7 +9105,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de intérêts courus",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de intérêts courus",
         journalExample: {
-            description: "Écriture type pour le compte 4558 — Intérêts courus",
+            description: "Écriture type pour le compte 4558 - Intérêts courus",
             rows: [
                 ["4558", "Intérêts courus", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9128,7 +9128,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de associés - opérations sur le capital",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de associés - opérations sur le capital",
         journalExample: {
-            description: "Écriture type pour le compte 456 — Associés - Opérations sur le capital",
+            description: "Écriture type pour le compte 456 - Associés - Opérations sur le capital",
             rows: [
                 ["456", "Associés - Opérations sur le capital", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9151,7 +9151,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de associés - comptes d'apport en société",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de associés - comptes d'apport en société",
         journalExample: {
-            description: "Écriture type pour le compte 4561 — Associés - Comptes d'apport en société",
+            description: "Écriture type pour le compte 4561 - Associés - Comptes d'apport en société",
             rows: [
                 ["4561", "Associés - Comptes d'apport en société", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9174,7 +9174,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de apports en nature",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de apports en nature",
         journalExample: {
-            description: "Écriture type pour le compte 45611 — Apports en nature",
+            description: "Écriture type pour le compte 45611 - Apports en nature",
             rows: [
                 ["45611", "Apports en nature", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9197,7 +9197,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de apports en numéraire",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de apports en numéraire",
         journalExample: {
-            description: "Écriture type pour le compte 45615 — Apports en numéraire",
+            description: "Écriture type pour le compte 45615 - Apports en numéraire",
             rows: [
                 ["45615", "Apports en numéraire", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9219,7 +9219,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de apporteurs - capital appelé, non versé",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de apporteurs - capital appelé, non versé",
         journalExample: {
-            description: "Écriture type pour le compte 4562 — Apporteurs - Capital appelé, non versé",
+            description: "Écriture type pour le compte 4562 - Apporteurs - Capital appelé, non versé",
             rows: [
                 ["4562", "Apporteurs - Capital appelé, non versé", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9244,7 +9244,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning:
             "Diminution (si actif) ou augmentation (si passif) de actionnaires - capital souscrit et appelé, non versé",
         journalExample: {
-            description: "Écriture type pour le compte 45621 — Actionnaires - Capital souscrit et appelé, non versé",
+            description: "Écriture type pour le compte 45621 - Actionnaires - Capital souscrit et appelé, non versé",
             rows: [
                 ["45621", "Actionnaires - Capital souscrit et appelé, non versé", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9267,7 +9267,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de associés - capital appelé, non versé",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de associés - capital appelé, non versé",
         journalExample: {
-            description: "Écriture type pour le compte 45625 — Associés - Capital appelé, non versé",
+            description: "Écriture type pour le compte 45625 - Associés - Capital appelé, non versé",
             rows: [
                 ["45625", "Associés - Capital appelé, non versé", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9292,7 +9292,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning:
             "Diminution (si actif) ou augmentation (si passif) de associés - versements reçus sur augmentation de capital",
         journalExample: {
-            description: "Écriture type pour le compte 4563 — Associés - Versements reçus sur augmentation de capital",
+            description: "Écriture type pour le compte 4563 - Associés - Versements reçus sur augmentation de capital",
             rows: [
                 ["4563", "Associés - Versements reçus sur augmentation de capital", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9315,7 +9315,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de associés - versements anticipés",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de associés - versements anticipés",
         journalExample: {
-            description: "Écriture type pour le compte 4564 — Associés - Versements anticipés",
+            description: "Écriture type pour le compte 4564 - Associés - Versements anticipés",
             rows: [
                 ["4564", "Associés - Versements anticipés", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9338,7 +9338,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de actionnaires défaillants",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de actionnaires défaillants",
         journalExample: {
-            description: "Écriture type pour le compte 4566 — Actionnaires défaillants",
+            description: "Écriture type pour le compte 4566 - Actionnaires défaillants",
             rows: [
                 ["4566", "Actionnaires défaillants", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9361,7 +9361,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de associés - capital à rembourser",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de associés - capital à rembourser",
         journalExample: {
-            description: "Écriture type pour le compte 4567 — Associés - Capital à rembourser",
+            description: "Écriture type pour le compte 4567 - Associés - Capital à rembourser",
             rows: [
                 ["4567", "Associés - Capital à rembourser", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9384,7 +9384,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de associés - dividendes à payer",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de associés - dividendes à payer",
         journalExample: {
-            description: "Écriture type pour le compte 457 — Associés - Dividendes à payer",
+            description: "Écriture type pour le compte 457 - Associés - Dividendes à payer",
             rows: [
                 ["457", "Associés - Dividendes à payer", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9410,7 +9410,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning:
             "Diminution (si actif) ou augmentation (si passif) de associés - opérations faites en commun et en gie",
         journalExample: {
-            description: "Écriture type pour le compte 458 — Associés - Opérations faites en commun et en GIE",
+            description: "Écriture type pour le compte 458 - Associés - Opérations faites en commun et en GIE",
             rows: [
                 ["458", "Associés - Opérations faites en commun et en GIE", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9433,7 +9433,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de opérations courantes",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de opérations courantes",
         journalExample: {
-            description: "Écriture type pour le compte 4581 — Opérations courantes",
+            description: "Écriture type pour le compte 4581 - Opérations courantes",
             rows: [
                 ["4581", "Opérations courantes", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9456,7 +9456,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de intérêts courus",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de intérêts courus",
         journalExample: {
-            description: "Écriture type pour le compte 4588 — Intérêts courus",
+            description: "Écriture type pour le compte 4588 - Intérêts courus",
             rows: [
                 ["4588", "Intérêts courus", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9479,7 +9479,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de débiteurs divers et créditeurs divers",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de débiteurs divers et créditeurs divers",
         journalExample: {
-            description: "Écriture type pour le compte 46 — Débiteurs divers et créditeurs divers",
+            description: "Écriture type pour le compte 46 - Débiteurs divers et créditeurs divers",
             rows: [
                 ["46", "Débiteurs divers et créditeurs divers", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9502,7 +9502,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de créances sur cessions d'immobilisations",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de créances sur cessions d'immobilisations",
         journalExample: {
-            description: "Écriture type pour le compte 462 — Créances sur cessions d'immobilisations",
+            description: "Écriture type pour le compte 462 - Créances sur cessions d'immobilisations",
             rows: [
                 ["462", "Créances sur cessions d'immobilisations", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9527,7 +9527,7 @@ export const accountEntries: AccountEntry[] = [
             "Diminution (si actif) ou augmentation (si passif) de dettes sur acquisitions de valeurs mobilières de placement",
         journalExample: {
             description:
-                "Écriture type pour le compte 464 — Dettes sur acquisitions de valeurs mobilières de placement",
+                "Écriture type pour le compte 464 - Dettes sur acquisitions de valeurs mobilières de placement",
             rows: [
                 ["464", "Dettes sur acquisitions de valeurs mobilières de placement", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9551,7 +9551,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning:
             "Diminution (si actif) ou augmentation (si passif) de créances sur cessions de valeurs mobilières de placement",
         journalExample: {
-            description: "Écriture type pour le compte 465 — Créances sur cessions de valeurs mobilières de placement",
+            description: "Écriture type pour le compte 465 - Créances sur cessions de valeurs mobilières de placement",
             rows: [
                 ["465", "Créances sur cessions de valeurs mobilières de placement", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9575,7 +9575,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning:
             "Diminution (si actif) ou augmentation (si passif) de divers comptes débiteurs et produits à recevoir",
         journalExample: {
-            description: "Écriture type pour le compte 467 — Divers comptes débiteurs et produits à recevoir",
+            description: "Écriture type pour le compte 467 - Divers comptes débiteurs et produits à recevoir",
             rows: [
                 ["467", "Divers comptes débiteurs et produits à recevoir", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9599,7 +9599,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning:
             "Diminution (si actif) ou augmentation (si passif) de divers comptes créditeurs et charges à payer",
         journalExample: {
-            description: "Écriture type pour le compte 468 — Divers comptes créditeurs et charges à payer",
+            description: "Écriture type pour le compte 468 - Divers comptes créditeurs et charges à payer",
             rows: [
                 ["468", "Divers comptes créditeurs et charges à payer", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9622,7 +9622,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de comptes transitoires ou d'attente",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de comptes transitoires ou d'attente",
         journalExample: {
-            description: "Écriture type pour le compte 47 — Comptes transitoires ou d'attente",
+            description: "Écriture type pour le compte 47 - Comptes transitoires ou d'attente",
             rows: [
                 ["47", "Comptes transitoires ou d'attente", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9645,7 +9645,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de comptes d'attente",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de comptes d'attente",
         journalExample: {
-            description: "Écriture type pour le compte 471 — Comptes d'attente",
+            description: "Écriture type pour le compte 471 - Comptes d'attente",
             rows: [
                 ["471", "Comptes d'attente", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9668,7 +9668,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de comptes d'attente",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de comptes d'attente",
         journalExample: {
-            description: "Écriture type pour le compte 472 — Comptes d'attente",
+            description: "Écriture type pour le compte 472 - Comptes d'attente",
             rows: [
                 ["472", "Comptes d'attente", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9691,7 +9691,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de comptes d'attente",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de comptes d'attente",
         journalExample: {
-            description: "Écriture type pour le compte 473 — Comptes d'attente",
+            description: "Écriture type pour le compte 473 - Comptes d'attente",
             rows: [
                 ["473", "Comptes d'attente", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9713,7 +9713,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de différences d’évaluation – actif",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de différences d’évaluation – actif",
         journalExample: {
-            description: "Écriture type pour le compte 474 — Différences d’évaluation – Actif",
+            description: "Écriture type pour le compte 474 - Différences d’évaluation – Actif",
             rows: [
                 ["474", "Différences d’évaluation – Actif", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9739,7 +9739,7 @@ export const accountEntries: AccountEntry[] = [
             "Diminution (si actif) ou augmentation (si passif) de différences d'évaluation sur instruments financiers à terme - actif",
         journalExample: {
             description:
-                "Écriture type pour le compte 4741 — Différences d'évaluation sur instruments financiers à terme - Actif",
+                "Écriture type pour le compte 4741 - Différences d'évaluation sur instruments financiers à terme - Actif",
             rows: [
                 ["4741", "Différences d'évaluation sur instruments financiers à terme - Actif", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9764,7 +9764,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning:
             "Diminution (si actif) ou augmentation (si passif) de différences d'évaluation sur jetons détenus - actif",
         journalExample: {
-            description: "Écriture type pour le compte 4742 — Différences d'évaluation sur jetons détenus - Actif",
+            description: "Écriture type pour le compte 4742 - Différences d'évaluation sur jetons détenus - Actif",
             rows: [
                 ["4742", "Différences d'évaluation sur jetons détenus - Actif", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9790,7 +9790,7 @@ export const accountEntries: AccountEntry[] = [
             "Diminution (si actif) ou augmentation (si passif) de différences d’évaluation de jetons sur des passifs - actif",
         journalExample: {
             description:
-                "Écriture type pour le compte 4746 — Différences d’évaluation de jetons sur des passifs - Actif",
+                "Écriture type pour le compte 4746 - Différences d’évaluation de jetons sur des passifs - Actif",
             rows: [
                 ["4746", "Différences d’évaluation de jetons sur des passifs - Actif", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9812,7 +9812,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de différences d’évaluation – passif",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de différences d’évaluation – passif",
         journalExample: {
-            description: "Écriture type pour le compte 475 — Différences d’évaluation – Passif",
+            description: "Écriture type pour le compte 475 - Différences d’évaluation – Passif",
             rows: [
                 ["475", "Différences d’évaluation – Passif", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9838,7 +9838,7 @@ export const accountEntries: AccountEntry[] = [
             "Diminution (si actif) ou augmentation (si passif) de différences d'évaluation sur instruments financiers à terme - passif",
         journalExample: {
             description:
-                "Écriture type pour le compte 4751 — Différences d'évaluation sur instruments financiers à terme - Passif",
+                "Écriture type pour le compte 4751 - Différences d'évaluation sur instruments financiers à terme - Passif",
             rows: [
                 ["4751", "Différences d'évaluation sur instruments financiers à terme - Passif", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9863,7 +9863,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning:
             "Diminution (si actif) ou augmentation (si passif) de différences d'évaluation sur jetons détenus - passif",
         journalExample: {
-            description: "Écriture type pour le compte 4752 — Différences d'évaluation sur jetons détenus - Passif",
+            description: "Écriture type pour le compte 4752 - Différences d'évaluation sur jetons détenus - Passif",
             rows: [
                 ["4752", "Différences d'évaluation sur jetons détenus - Passif", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9889,7 +9889,7 @@ export const accountEntries: AccountEntry[] = [
             "Diminution (si actif) ou augmentation (si passif) de différences d’évaluation de jetons sur des passifs - passif",
         journalExample: {
             description:
-                "Écriture type pour le compte 4756 — Différences d’évaluation de jetons sur des passifs - Passif",
+                "Écriture type pour le compte 4756 - Différences d’évaluation de jetons sur des passifs - Passif",
             rows: [
                 ["4756", "Différences d’évaluation de jetons sur des passifs - Passif", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9912,7 +9912,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de différence de conversion - actif",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de différence de conversion - actif",
         journalExample: {
-            description: "Écriture type pour le compte 476 — Différence de conversion - Actif",
+            description: "Écriture type pour le compte 476 - Différence de conversion - Actif",
             rows: [
                 ["476", "Différence de conversion - Actif", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9935,7 +9935,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de diminution des créances",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de diminution des créances",
         journalExample: {
-            description: "Écriture type pour le compte 4761 — Diminution des créances",
+            description: "Écriture type pour le compte 4761 - Diminution des créances",
             rows: [
                 ["4761", "Diminution des créances", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9958,7 +9958,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de augmentation des dettes",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de augmentation des dettes",
         journalExample: {
-            description: "Écriture type pour le compte 4762 — Augmentation des dettes",
+            description: "Écriture type pour le compte 4762 - Augmentation des dettes",
             rows: [
                 ["4762", "Augmentation des dettes", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -9983,7 +9983,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning:
             "Diminution (si actif) ou augmentation (si passif) de différences compensées par couverture de change",
         journalExample: {
-            description: "Écriture type pour le compte 4768 — Différences compensées par couverture de change",
+            description: "Écriture type pour le compte 4768 - Différences compensées par couverture de change",
             rows: [
                 ["4768", "Différences compensées par couverture de change", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -10006,7 +10006,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de différences de conversion - passif",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de différences de conversion - passif",
         journalExample: {
-            description: "Écriture type pour le compte 477 — Différences de conversion - Passif",
+            description: "Écriture type pour le compte 477 - Différences de conversion - Passif",
             rows: [
                 ["477", "Différences de conversion - Passif", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -10029,7 +10029,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de augmentation des créances",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de augmentation des créances",
         journalExample: {
-            description: "Écriture type pour le compte 4771 — Augmentation des créances",
+            description: "Écriture type pour le compte 4771 - Augmentation des créances",
             rows: [
                 ["4771", "Augmentation des créances", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -10052,7 +10052,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de diminution des dettes",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de diminution des dettes",
         journalExample: {
-            description: "Écriture type pour le compte 4772 — Diminution des dettes",
+            description: "Écriture type pour le compte 4772 - Diminution des dettes",
             rows: [
                 ["4772", "Diminution des dettes", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -10077,7 +10077,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning:
             "Diminution (si actif) ou augmentation (si passif) de différences compensées par couverture de change",
         journalExample: {
-            description: "Écriture type pour le compte 4778 — Différences compensées par couverture de change",
+            description: "Écriture type pour le compte 4778 - Différences compensées par couverture de change",
             rows: [
                 ["4778", "Différences compensées par couverture de change", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -10099,7 +10099,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de autres comptes transitoires",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de autres comptes transitoires",
         journalExample: {
-            description: "Écriture type pour le compte 478 — Autres comptes transitoires",
+            description: "Écriture type pour le compte 478 - Autres comptes transitoires",
             rows: [
                 ["478", "Autres comptes transitoires", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -10122,7 +10122,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de mali de fusion sur actif circulant",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de mali de fusion sur actif circulant",
         journalExample: {
-            description: "Écriture type pour le compte 4781 — Mali de fusion sur actif circulant",
+            description: "Écriture type pour le compte 4781 - Mali de fusion sur actif circulant",
             rows: [
                 ["4781", "Mali de fusion sur actif circulant", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -10145,7 +10145,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de comptes de régularisation",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de comptes de régularisation",
         journalExample: {
-            description: "Écriture type pour le compte 48 — Comptes de régularisation",
+            description: "Écriture type pour le compte 48 - Comptes de régularisation",
             rows: [
                 ["48", "Comptes de régularisation", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -10168,7 +10168,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de frais d’émission des emprunts",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de frais d’émission des emprunts",
         journalExample: {
-            description: "Écriture type pour le compte 481 — Frais d’émission des emprunts",
+            description: "Écriture type pour le compte 481 - Frais d’émission des emprunts",
             rows: [
                 ["481", "Frais d’émission des emprunts", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -10192,7 +10192,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de charges constatées d'avance",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de charges constatées d'avance",
         journalExample: {
-            description: "Écriture type pour le compte 486 — Charges constatées d'avance",
+            description: "Écriture type pour le compte 486 - Charges constatées d'avance",
             rows: [
                 ["486", "Charges constatées d'avance", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -10216,7 +10216,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de produits constatés d'avance",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de produits constatés d'avance",
         journalExample: {
-            description: "Écriture type pour le compte 487 — Produits constatés d'avance",
+            description: "Écriture type pour le compte 487 - Produits constatés d'avance",
             rows: [
                 ["487", "Produits constatés d'avance", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -10241,7 +10241,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning:
             "Diminution (si actif) ou augmentation (si passif) de produits constatés d’avance sur jetons émis",
         journalExample: {
-            description: "Écriture type pour le compte 4871 — Produits constatés d’avance sur jetons émis",
+            description: "Écriture type pour le compte 4871 - Produits constatés d’avance sur jetons émis",
             rows: [
                 ["4871", "Produits constatés d’avance sur jetons émis", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -10269,7 +10269,7 @@ export const accountEntries: AccountEntry[] = [
             "Diminution (si actif) ou augmentation (si passif) de comptes de répartition périodique des charges et des produits",
         journalExample: {
             description:
-                "Écriture type pour le compte 488 — Comptes de répartition périodique des charges et des produits",
+                "Écriture type pour le compte 488 - Comptes de répartition périodique des charges et des produits",
             rows: [
                 ["488", "Comptes de répartition périodique des charges et des produits", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -10292,7 +10292,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de charges",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de charges",
         journalExample: {
-            description: "Écriture type pour le compte 4886 — Charges",
+            description: "Écriture type pour le compte 4886 - Charges",
             rows: [
                 ["4886", "Charges", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -10315,7 +10315,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de produits",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de produits",
         journalExample: {
-            description: "Écriture type pour le compte 4887 — Produits",
+            description: "Écriture type pour le compte 4887 - Produits",
             rows: [
                 ["4887", "Produits", "X", ""],
                 ["512", "Banques", "", "X"],
@@ -10338,7 +10338,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations de comptes de tiers (reprise)",
         creditMeaning: "Augmentation des dépréciations de comptes de tiers (dotation)",
         journalExample: {
-            description: "Écriture type pour le compte 49 — Dépréciations des comptes de tiers",
+            description: "Écriture type pour le compte 49 - Dépréciations des comptes de tiers",
             rows: [
                 ["6817", "Dotations pour dépréciations des actifs circulants", "X", ""],
                 ["49", "Dépréciations des comptes de tiers", "", "X"],
@@ -10360,7 +10360,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations de comptes de tiers (reprise)",
         creditMeaning: "Augmentation des dépréciations de comptes de tiers (dotation)",
         journalExample: {
-            description: "Écriture type pour le compte 491 — Dépréciations des comptes de clients",
+            description: "Écriture type pour le compte 491 - Dépréciations des comptes de clients",
             rows: [
                 ["6817", "Dotations pour dépréciations des actifs circulants", "X", ""],
                 ["491", "Dépréciations des comptes de clients", "", "X"],
@@ -10382,7 +10382,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations de comptes de tiers (reprise)",
         creditMeaning: "Augmentation des dépréciations de comptes de tiers (dotation)",
         journalExample: {
-            description: "Écriture type pour le compte 495 — Dépréciations des comptes du groupe et des associés",
+            description: "Écriture type pour le compte 495 - Dépréciations des comptes du groupe et des associés",
             rows: [
                 ["6817", "Dotations pour dépréciations des actifs circulants", "X", ""],
                 ["495", "Dépréciations des comptes du groupe et des associés", "", "X"],
@@ -10405,7 +10405,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations de comptes de tiers (reprise)",
         creditMeaning: "Augmentation des dépréciations de comptes de tiers (dotation)",
         journalExample: {
-            description: "Écriture type pour le compte 4951 — Comptes du groupe",
+            description: "Écriture type pour le compte 4951 - Comptes du groupe",
             rows: [
                 ["6817", "Dotations pour dépréciations des actifs circulants", "X", ""],
                 ["4951", "Comptes du groupe", "", "X"],
@@ -10428,7 +10428,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations de comptes de tiers (reprise)",
         creditMeaning: "Augmentation des dépréciations de comptes de tiers (dotation)",
         journalExample: {
-            description: "Écriture type pour le compte 4955 — Comptes courants des associés",
+            description: "Écriture type pour le compte 4955 - Comptes courants des associés",
             rows: [
                 ["6817", "Dotations pour dépréciations des actifs circulants", "X", ""],
                 ["4955", "Comptes courants des associés", "", "X"],
@@ -10451,7 +10451,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations de comptes de tiers (reprise)",
         creditMeaning: "Augmentation des dépréciations de comptes de tiers (dotation)",
         journalExample: {
-            description: "Écriture type pour le compte 4958 — Opérations faites en commun et en GIE",
+            description: "Écriture type pour le compte 4958 - Opérations faites en commun et en GIE",
             rows: [
                 ["6817", "Dotations pour dépréciations des actifs circulants", "X", ""],
                 ["4958", "Opérations faites en commun et en GIE", "", "X"],
@@ -10473,7 +10473,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations de comptes de tiers (reprise)",
         creditMeaning: "Augmentation des dépréciations de comptes de tiers (dotation)",
         journalExample: {
-            description: "Écriture type pour le compte 496 — Dépréciations des comptes de débiteurs divers",
+            description: "Écriture type pour le compte 496 - Dépréciations des comptes de débiteurs divers",
             rows: [
                 ["6817", "Dotations pour dépréciations des actifs circulants", "X", ""],
                 ["496", "Dépréciations des comptes de débiteurs divers", "", "X"],
@@ -10496,7 +10496,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations de comptes de tiers (reprise)",
         creditMeaning: "Augmentation des dépréciations de comptes de tiers (dotation)",
         journalExample: {
-            description: "Écriture type pour le compte 4962 — Créances sur cessions d'immobilisations",
+            description: "Écriture type pour le compte 4962 - Créances sur cessions d'immobilisations",
             rows: [
                 ["6817", "Dotations pour dépréciations des actifs circulants", "X", ""],
                 ["4962", "Créances sur cessions d'immobilisations", "", "X"],
@@ -10519,7 +10519,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations de comptes de tiers (reprise)",
         creditMeaning: "Augmentation des dépréciations de comptes de tiers (dotation)",
         journalExample: {
-            description: "Écriture type pour le compte 4965 — Créances sur cessions de valeurs mobilières de placement",
+            description: "Écriture type pour le compte 4965 - Créances sur cessions de valeurs mobilières de placement",
             rows: [
                 ["6817", "Dotations pour dépréciations des actifs circulants", "X", ""],
                 ["4965", "Créances sur cessions de valeurs mobilières de placement", "", "X"],
@@ -10542,7 +10542,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Diminution des dépréciations de comptes de tiers (reprise)",
         creditMeaning: "Augmentation des dépréciations de comptes de tiers (dotation)",
         journalExample: {
-            description: "Écriture type pour le compte 4967 — Autres comptes débiteurs",
+            description: "Écriture type pour le compte 4967 - Autres comptes débiteurs",
             rows: [
                 ["6817", "Dotations pour dépréciations des actifs circulants", "X", ""],
                 ["4967", "Autres comptes débiteurs", "", "X"],
@@ -10566,7 +10566,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de comptes financiers",
         creditMeaning: "Diminution de comptes financiers",
         journalExample: {
-            description: "Écriture type pour le compte 5 — Comptes financiers",
+            description: "Écriture type pour le compte 5 - Comptes financiers",
             rows: [
                 ["5", "Comptes financiers", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -10589,7 +10589,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de valeurs mobilières de placement",
         creditMeaning: "Diminution de valeurs mobilières de placement",
         journalExample: {
-            description: "Écriture type pour le compte 50 — Valeurs mobilières de placement",
+            description: "Écriture type pour le compte 50 - Valeurs mobilières de placement",
             rows: [
                 ["50", "Valeurs mobilières de placement", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -10613,7 +10613,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de actions propres",
         creditMeaning: "Diminution de actions propres",
         journalExample: {
-            description: "Écriture type pour le compte 502 — Actions propres",
+            description: "Écriture type pour le compte 502 - Actions propres",
             rows: [
                 ["502", "Actions propres", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -10639,7 +10639,7 @@ export const accountEntries: AccountEntry[] = [
             "Diminution de actions destinées à être attribuées aux employés et affectées à des plans déterminés",
         journalExample: {
             description:
-                "Écriture type pour le compte 5021 — Actions destinées à être attribuées aux employés et affectées à des plans déterminés",
+                "Écriture type pour le compte 5021 - Actions destinées à être attribuées aux employés et affectées à des plans déterminés",
             rows: [
                 [
                     "5021",
@@ -10673,7 +10673,7 @@ export const accountEntries: AccountEntry[] = [
                 "Diminution de actions disponibles pour être attribuées aux employés ou pour la régularisation des cours de bourse",
             journalExample: {
                 description:
-                    "Écriture type pour le compte 5022 — Actions disponibles pour être attribuées aux employés ou pour la régularisation des cours de bourse",
+                    "Écriture type pour le compte 5022 - Actions disponibles pour être attribuées aux employés ou pour la régularisation des cours de bourse",
                 rows: [
                     [
                         "5022",
@@ -10701,7 +10701,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de actions",
         creditMeaning: "Diminution de actions",
         journalExample: {
-            description: "Écriture type pour le compte 503 — Actions",
+            description: "Écriture type pour le compte 503 - Actions",
             rows: [
                 ["503", "Actions", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -10724,7 +10724,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de titres cotés",
         creditMeaning: "Diminution de titres cotés",
         journalExample: {
-            description: "Écriture type pour le compte 5031 — Titres cotés",
+            description: "Écriture type pour le compte 5031 - Titres cotés",
             rows: [
                 ["5031", "Titres cotés", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -10747,7 +10747,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de titres non cotés",
         creditMeaning: "Diminution de titres non cotés",
         journalExample: {
-            description: "Écriture type pour le compte 5035 — Titres non cotés",
+            description: "Écriture type pour le compte 5035 - Titres non cotés",
             rows: [
                 ["5035", "Titres non cotés", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -10769,7 +10769,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de autres titres conférant un droit de propriété",
         creditMeaning: "Diminution de autres titres conférant un droit de propriété",
         journalExample: {
-            description: "Écriture type pour le compte 504 — Autres titres conférant un droit de propriété",
+            description: "Écriture type pour le compte 504 - Autres titres conférant un droit de propriété",
             rows: [
                 ["504", "Autres titres conférant un droit de propriété", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -10792,7 +10792,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Diminution de obligations et bons émis par la société et rachetés par elle",
         journalExample: {
             description:
-                "Écriture type pour le compte 505 — Obligations et bons émis par la société et rachetés par elle",
+                "Écriture type pour le compte 505 - Obligations et bons émis par la société et rachetés par elle",
             rows: [
                 ["505", "Obligations et bons émis par la société et rachetés par elle", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -10814,7 +10814,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de obligations",
         creditMeaning: "Diminution de obligations",
         journalExample: {
-            description: "Écriture type pour le compte 506 — Obligations",
+            description: "Écriture type pour le compte 506 - Obligations",
             rows: [
                 ["506", "Obligations", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -10837,7 +10837,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de titres cotés",
         creditMeaning: "Diminution de titres cotés",
         journalExample: {
-            description: "Écriture type pour le compte 5061 — Titres cotés",
+            description: "Écriture type pour le compte 5061 - Titres cotés",
             rows: [
                 ["5061", "Titres cotés", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -10860,7 +10860,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de titres non cotés",
         creditMeaning: "Diminution de titres non cotés",
         journalExample: {
-            description: "Écriture type pour le compte 5065 — Titres non cotés",
+            description: "Écriture type pour le compte 5065 - Titres non cotés",
             rows: [
                 ["5065", "Titres non cotés", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -10882,7 +10882,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de bons du trésor et bons de caisse à court terme",
         creditMeaning: "Diminution de bons du trésor et bons de caisse à court terme",
         journalExample: {
-            description: "Écriture type pour le compte 507 — Bons du Trésor et bons de caisse à court terme",
+            description: "Écriture type pour le compte 507 - Bons du Trésor et bons de caisse à court terme",
             rows: [
                 ["507", "Bons du Trésor et bons de caisse à court terme", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -10905,7 +10905,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Diminution de autres valeurs mobilières de placement et autres créances assimilées",
         journalExample: {
             description:
-                "Écriture type pour le compte 508 — Autres valeurs mobilières de placement et autres créances assimilées",
+                "Écriture type pour le compte 508 - Autres valeurs mobilières de placement et autres créances assimilées",
             rows: [
                 ["508", "Autres valeurs mobilières de placement et autres créances assimilées", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -10928,7 +10928,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de autres valeurs mobilières",
         creditMeaning: "Diminution de autres valeurs mobilières",
         journalExample: {
-            description: "Écriture type pour le compte 5081 — Autres valeurs mobilières",
+            description: "Écriture type pour le compte 5081 - Autres valeurs mobilières",
             rows: [
                 ["5081", "Autres valeurs mobilières", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -10951,7 +10951,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de bons de souscription",
         creditMeaning: "Diminution de bons de souscription",
         journalExample: {
-            description: "Écriture type pour le compte 5082 — Bons de souscription",
+            description: "Écriture type pour le compte 5082 - Bons de souscription",
             rows: [
                 ["5082", "Bons de souscription", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -10975,7 +10975,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Diminution de intérêts courus sur obligations, bons et valeurs assimilés",
         journalExample: {
             description:
-                "Écriture type pour le compte 5088 — Intérêts courus sur obligations, bons et valeurs assimilés",
+                "Écriture type pour le compte 5088 - Intérêts courus sur obligations, bons et valeurs assimilés",
             rows: [
                 ["5088", "Intérêts courus sur obligations, bons et valeurs assimilés", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -10998,7 +10998,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Diminution de versements restant à effectuer sur valeurs mobilières de placement non libérées",
         journalExample: {
             description:
-                "Écriture type pour le compte 509 — Versements restant à effectuer sur valeurs mobilières de placement non libérées",
+                "Écriture type pour le compte 509 - Versements restant à effectuer sur valeurs mobilières de placement non libérées",
             rows: [
                 ["509", "Versements restant à effectuer sur valeurs mobilières de placement non libérées", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11020,7 +11020,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de banques, établissements financiers et assimilés",
         creditMeaning: "Diminution de banques, établissements financiers et assimilés",
         journalExample: {
-            description: "Écriture type pour le compte 51 — Banques, établissements financiers et assimilés",
+            description: "Écriture type pour le compte 51 - Banques, établissements financiers et assimilés",
             rows: [
                 ["51", "Banques, établissements financiers et assimilés", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11043,7 +11043,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de valeurs à l'encaissement",
         creditMeaning: "Diminution de valeurs à l'encaissement",
         journalExample: {
-            description: "Écriture type pour le compte 511 — Valeurs à l'encaissement",
+            description: "Écriture type pour le compte 511 - Valeurs à l'encaissement",
             rows: [
                 ["511", "Valeurs à l'encaissement", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11066,7 +11066,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de coupons échus à l'encaissement",
         creditMeaning: "Diminution de coupons échus à l'encaissement",
         journalExample: {
-            description: "Écriture type pour le compte 5111 — Coupons échus à l'encaissement",
+            description: "Écriture type pour le compte 5111 - Coupons échus à l'encaissement",
             rows: [
                 ["5111", "Coupons échus à l'encaissement", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11089,7 +11089,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de chèques à encaisser",
         creditMeaning: "Diminution de chèques à encaisser",
         journalExample: {
-            description: "Écriture type pour le compte 5112 — Chèques à encaisser",
+            description: "Écriture type pour le compte 5112 - Chèques à encaisser",
             rows: [
                 ["5112", "Chèques à encaisser", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11112,7 +11112,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de effets à l'encaissement",
         creditMeaning: "Diminution de effets à l'encaissement",
         journalExample: {
-            description: "Écriture type pour le compte 5113 — Effets à l'encaissement",
+            description: "Écriture type pour le compte 5113 - Effets à l'encaissement",
             rows: [
                 ["5113", "Effets à l'encaissement", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11135,7 +11135,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de effets à l'escompte",
         creditMeaning: "Diminution de effets à l'escompte",
         journalExample: {
-            description: "Écriture type pour le compte 5114 — Effets à l'escompte",
+            description: "Écriture type pour le compte 5114 - Effets à l'escompte",
             rows: [
                 ["5114", "Effets à l'escompte", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11159,7 +11159,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de banques",
         creditMeaning: "Diminution de banques",
         journalExample: {
-            description: "Écriture type pour le compte 512 — Banques",
+            description: "Écriture type pour le compte 512 - Banques",
             rows: [
                 ["512", "Banques", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11182,7 +11182,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de comptes en euros",
         creditMeaning: "Diminution de comptes en euros",
         journalExample: {
-            description: "Écriture type pour le compte 5121 — Comptes en euros",
+            description: "Écriture type pour le compte 5121 - Comptes en euros",
             rows: [
                 ["5121", "Comptes en euros", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11205,7 +11205,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de comptes en devises",
         creditMeaning: "Diminution de comptes en devises",
         journalExample: {
-            description: "Écriture type pour le compte 5124 — Comptes en devises",
+            description: "Écriture type pour le compte 5124 - Comptes en devises",
             rows: [
                 ["5124", "Comptes en devises", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11227,7 +11227,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de autres organismes financiers",
         creditMeaning: "Diminution de autres organismes financiers",
         journalExample: {
-            description: "Écriture type pour le compte 517 — Autres organismes financiers",
+            description: "Écriture type pour le compte 517 - Autres organismes financiers",
             rows: [
                 ["517", "Autres organismes financiers", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11249,7 +11249,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de intérêts courus",
         creditMeaning: "Diminution de intérêts courus",
         journalExample: {
-            description: "Écriture type pour le compte 518 — Intérêts courus",
+            description: "Écriture type pour le compte 518 - Intérêts courus",
             rows: [
                 ["518", "Intérêts courus", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11272,7 +11272,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de intérêts courus à payer",
         creditMeaning: "Diminution de intérêts courus à payer",
         journalExample: {
-            description: "Écriture type pour le compte 5181 — Intérêts courus à payer",
+            description: "Écriture type pour le compte 5181 - Intérêts courus à payer",
             rows: [
                 ["5181", "Intérêts courus à payer", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11295,7 +11295,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de intérêts courus à recevoir",
         creditMeaning: "Diminution de intérêts courus à recevoir",
         journalExample: {
-            description: "Écriture type pour le compte 5188 — Intérêts courus à recevoir",
+            description: "Écriture type pour le compte 5188 - Intérêts courus à recevoir",
             rows: [
                 ["5188", "Intérêts courus à recevoir", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11319,7 +11319,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de concours bancaires courants",
         creditMeaning: "Diminution de concours bancaires courants",
         journalExample: {
-            description: "Écriture type pour le compte 519 — Concours bancaires courants",
+            description: "Écriture type pour le compte 519 - Concours bancaires courants",
             rows: [
                 ["519", "Concours bancaires courants", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11342,7 +11342,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de crédit de mobilisation de créances commerciales",
         creditMeaning: "Diminution de crédit de mobilisation de créances commerciales",
         journalExample: {
-            description: "Écriture type pour le compte 5191 — Crédit de mobilisation de créances commerciales",
+            description: "Écriture type pour le compte 5191 - Crédit de mobilisation de créances commerciales",
             rows: [
                 ["5191", "Crédit de mobilisation de créances commerciales", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11365,7 +11365,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de mobilisation de créances nées à l'étranger",
         creditMeaning: "Diminution de mobilisation de créances nées à l'étranger",
         journalExample: {
-            description: "Écriture type pour le compte 5193 — Mobilisation de créances nées à l'étranger",
+            description: "Écriture type pour le compte 5193 - Mobilisation de créances nées à l'étranger",
             rows: [
                 ["5193", "Mobilisation de créances nées à l'étranger", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11388,7 +11388,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de intérêts courus sur concours bancaires courants",
         creditMeaning: "Diminution de intérêts courus sur concours bancaires courants",
         journalExample: {
-            description: "Écriture type pour le compte 5198 — Intérêts courus sur concours bancaires courants",
+            description: "Écriture type pour le compte 5198 - Intérêts courus sur concours bancaires courants",
             rows: [
                 ["5198", "Intérêts courus sur concours bancaires courants", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11412,7 +11412,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de instruments financiers à terme et jetons détenus",
         creditMeaning: "Diminution de instruments financiers à terme et jetons détenus",
         journalExample: {
-            description: "Écriture type pour le compte 52 — Instruments financiers à terme et jetons détenus",
+            description: "Écriture type pour le compte 52 - Instruments financiers à terme et jetons détenus",
             rows: [
                 ["52", "Instruments financiers à terme et jetons détenus", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11434,7 +11434,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de instruments financiers à terme",
         creditMeaning: "Diminution de instruments financiers à terme",
         journalExample: {
-            description: "Écriture type pour le compte 521 — Instruments financiers à terme",
+            description: "Écriture type pour le compte 521 - Instruments financiers à terme",
             rows: [
                 ["521", "Instruments financiers à terme", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11456,7 +11456,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de jetons détenus",
         creditMeaning: "Diminution de jetons détenus",
         journalExample: {
-            description: "Écriture type pour le compte 522 — Jetons détenus",
+            description: "Écriture type pour le compte 522 - Jetons détenus",
             rows: [
                 ["522", "Jetons détenus", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11478,7 +11478,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de jetons auto-détenus",
         creditMeaning: "Diminution de jetons auto-détenus",
         journalExample: {
-            description: "Écriture type pour le compte 523 — Jetons auto-détenus",
+            description: "Écriture type pour le compte 523 - Jetons auto-détenus",
             rows: [
                 ["523", "Jetons auto-détenus", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11500,7 +11500,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de jetons empruntés",
         creditMeaning: "Diminution de jetons empruntés",
         journalExample: {
-            description: "Écriture type pour le compte 524 — Jetons empruntés",
+            description: "Écriture type pour le compte 524 - Jetons empruntés",
             rows: [
                 ["524", "Jetons empruntés", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11523,7 +11523,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de caisse",
         creditMeaning: "Diminution de caisse",
         journalExample: {
-            description: "Écriture type pour le compte 53 — Caisse",
+            description: "Écriture type pour le compte 53 - Caisse",
             rows: [
                 ["53", "Caisse", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11547,7 +11547,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de virements internes",
         creditMeaning: "Diminution de virements internes",
         journalExample: {
-            description: "Écriture type pour le compte 58 — Virements internes",
+            description: "Écriture type pour le compte 58 - Virements internes",
             rows: [
                 ["58", "Virements internes", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11570,7 +11570,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de dépréciations des comptes financiers",
         creditMeaning: "Diminution de dépréciations des comptes financiers",
         journalExample: {
-            description: "Écriture type pour le compte 59 — Dépréciations des comptes financiers",
+            description: "Écriture type pour le compte 59 - Dépréciations des comptes financiers",
             rows: [
                 ["59", "Dépréciations des comptes financiers", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11592,7 +11592,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de dépréciations des valeurs mobilières de placement",
         creditMeaning: "Diminution de dépréciations des valeurs mobilières de placement",
         journalExample: {
-            description: "Écriture type pour le compte 590 — Dépréciations des valeurs mobilières de placement",
+            description: "Écriture type pour le compte 590 - Dépréciations des valeurs mobilières de placement",
             rows: [
                 ["590", "Dépréciations des valeurs mobilières de placement", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11615,7 +11615,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de actions",
         creditMeaning: "Diminution de actions",
         journalExample: {
-            description: "Écriture type pour le compte 5903 — Actions",
+            description: "Écriture type pour le compte 5903 - Actions",
             rows: [
                 ["5903", "Actions", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11638,7 +11638,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de autres titres conférant un droit de propriété",
         creditMeaning: "Diminution de autres titres conférant un droit de propriété",
         journalExample: {
-            description: "Écriture type pour le compte 5904 — Autres titres conférant un droit de propriété",
+            description: "Écriture type pour le compte 5904 - Autres titres conférant un droit de propriété",
             rows: [
                 ["5904", "Autres titres conférant un droit de propriété", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11661,7 +11661,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation de obligations",
         creditMeaning: "Diminution de obligations",
         journalExample: {
-            description: "Écriture type pour le compte 5906 — Obligations",
+            description: "Écriture type pour le compte 5906 - Obligations",
             rows: [
                 ["5906", "Obligations", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11685,7 +11685,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Diminution de autres valeurs mobilières de placement et créances assimilées",
         journalExample: {
             description:
-                "Écriture type pour le compte 5908 — Autres valeurs mobilières de placement et créances assimilées",
+                "Écriture type pour le compte 5908 - Autres valeurs mobilières de placement et créances assimilées",
             rows: [
                 ["5908", "Autres valeurs mobilières de placement et créances assimilées", "X", ""],
                 ["411", "Clients", "", "X"],
@@ -11709,7 +11709,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6 — Comptes de charges",
+            description: "Écriture type pour le compte 6 - Comptes de charges",
             rows: [
                 ["6", "Comptes de charges", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -11733,7 +11733,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 60 — Achats (sauf 603)",
+            description: "Écriture type pour le compte 60 - Achats (sauf 603)",
             rows: [
                 ["60", "Achats (sauf 603)", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -11755,7 +11755,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 601 — Achats stockés - Matières premières et fournitures",
+            description: "Écriture type pour le compte 601 - Achats stockés - Matières premières et fournitures",
             rows: [
                 ["601", "Achats stockés - Matières premières et fournitures", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -11777,7 +11777,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 602 — Achats stockés - Autres approvisionnements",
+            description: "Écriture type pour le compte 602 - Achats stockés - Autres approvisionnements",
             rows: [
                 ["602", "Achats stockés - Autres approvisionnements", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -11800,7 +11800,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6021 — Matières consommables",
+            description: "Écriture type pour le compte 6021 - Matières consommables",
             rows: [
                 ["6021", "Matières consommables", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -11823,7 +11823,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6022 — Fournitures consommables",
+            description: "Écriture type pour le compte 6022 - Fournitures consommables",
             rows: [
                 ["6022", "Fournitures consommables", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -11846,7 +11846,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 60221 — Combustibles",
+            description: "Écriture type pour le compte 60221 - Combustibles",
             rows: [
                 ["60221", "Combustibles", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -11869,7 +11869,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 60222 — Produits d'entretien",
+            description: "Écriture type pour le compte 60222 - Produits d'entretien",
             rows: [
                 ["60222", "Produits d'entretien", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -11892,7 +11892,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 60223 — Fournitures d'atelier et d'usine",
+            description: "Écriture type pour le compte 60223 - Fournitures d'atelier et d'usine",
             rows: [
                 ["60223", "Fournitures d'atelier et d'usine", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -11915,7 +11915,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 60224 — Fournitures de magasin",
+            description: "Écriture type pour le compte 60224 - Fournitures de magasin",
             rows: [
                 ["60224", "Fournitures de magasin", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -11938,7 +11938,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 60225 — Fourniture de bureau",
+            description: "Écriture type pour le compte 60225 - Fourniture de bureau",
             rows: [
                 ["60225", "Fourniture de bureau", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -11961,7 +11961,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6026 — Emballages",
+            description: "Écriture type pour le compte 6026 - Emballages",
             rows: [
                 ["6026", "Emballages", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -11984,7 +11984,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 60261 — Emballages perdus",
+            description: "Écriture type pour le compte 60261 - Emballages perdus",
             rows: [
                 ["60261", "Emballages perdus", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12007,7 +12007,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 60262 — Malis sur emballage",
+            description: "Écriture type pour le compte 60262 - Malis sur emballage",
             rows: [
                 ["60262", "Malis sur emballage", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12030,7 +12030,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 60265 — Emballages récupérables non identifiables",
+            description: "Écriture type pour le compte 60265 - Emballages récupérables non identifiables",
             rows: [
                 ["60265", "Emballages récupérables non identifiables", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12053,7 +12053,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 60267 — Emballages à usage mixte",
+            description: "Écriture type pour le compte 60267 - Emballages à usage mixte",
             rows: [
                 ["60267", "Emballages à usage mixte", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12076,7 +12076,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 604 — Achats d'études et prestations de services",
+            description: "Écriture type pour le compte 604 - Achats d'études et prestations de services",
             rows: [
                 ["604", "Achats d'études et prestations de services", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12100,7 +12100,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 605 — Achats de matériel, équipements et travaux",
+            description: "Écriture type pour le compte 605 - Achats de matériel, équipements et travaux",
             rows: [
                 ["605", "Achats de matériel, équipements et travaux", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12123,7 +12123,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 606 — Achats non stockés de matière et fournitures",
+            description: "Écriture type pour le compte 606 - Achats non stockés de matière et fournitures",
             rows: [
                 ["606", "Achats non stockés de matière et fournitures", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12146,7 +12146,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6061 — Fournitures non stockables (eau, énergie, etc.)",
+            description: "Écriture type pour le compte 6061 - Fournitures non stockables (eau, énergie, etc.)",
             rows: [
                 ["6061", "Fournitures non stockables (eau, énergie, etc.)", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12169,7 +12169,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6063 — Fournitures d'entretien et de petit équipement",
+            description: "Écriture type pour le compte 6063 - Fournitures d'entretien et de petit équipement",
             rows: [
                 ["6063", "Fournitures d'entretien et de petit équipement", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12192,7 +12192,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6064 — Fournitures administratives",
+            description: "Écriture type pour le compte 6064 - Fournitures administratives",
             rows: [
                 ["6064", "Fournitures administratives", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12215,7 +12215,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6068 — Autres matières et fournitures",
+            description: "Écriture type pour le compte 6068 - Autres matières et fournitures",
             rows: [
                 ["6068", "Autres matières et fournitures", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12238,7 +12238,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 607 — Achats de marchandises",
+            description: "Écriture type pour le compte 607 - Achats de marchandises",
             rows: [
                 ["607", "Achats de marchandises", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12264,7 +12264,7 @@ export const accountEntries: AccountEntry[] = [
             creditMeaning: "Annulation ou diminution de la charge",
             journalExample: {
                 description:
-                    "Écriture type pour le compte 608 — (Compte réservé, le cas échéant, au regroupement des frais accessoires incorporés aux achats)",
+                    "Écriture type pour le compte 608 - (Compte réservé, le cas échéant, au regroupement des frais accessoires incorporés aux achats)",
                 rows: [
                     [
                         "608",
@@ -12294,7 +12294,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 609 — Rabais, remises et ristournes obtenus sur achats (même ventilation que celle du compte 60)",
+                "Écriture type pour le compte 609 - Rabais, remises et ristournes obtenus sur achats (même ventilation que celle du compte 60)",
             rows: [
                 [
                     "609",
@@ -12322,7 +12322,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6098 — Rabais, remises et ristournes non affectés",
+            description: "Écriture type pour le compte 6098 - Rabais, remises et ristournes non affectés",
             rows: [
                 ["6098", "Rabais, remises et ristournes non affectés", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12347,7 +12347,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 603 — Variation des stocks d'approvisionnements et de marchandises",
+                "Écriture type pour le compte 603 - Variation des stocks d'approvisionnements et de marchandises",
             rows: [
                 ["603", "Variation des stocks d'approvisionnements et de marchandises", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12370,7 +12370,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 6031 — Variation des stocks de matières premières et fournitures",
+                "Écriture type pour le compte 6031 - Variation des stocks de matières premières et fournitures",
             rows: [
                 ["6031", "Variation des stocks de matières premières et fournitures", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12392,7 +12392,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6032 — Variation des stocks des autres approvisionnements",
+            description: "Écriture type pour le compte 6032 - Variation des stocks des autres approvisionnements",
             rows: [
                 ["6032", "Variation des stocks des autres approvisionnements", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12415,7 +12415,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 6037 — Variation des stocks de marchandises 61/62 Autres charges externes",
+                "Écriture type pour le compte 6037 - Variation des stocks de marchandises 61/62 Autres charges externes",
             rows: [
                 ["6037", "Variation des stocks de marchandises 61/62 Autres charges externes", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12437,7 +12437,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 61 — Services extérieurs",
+            description: "Écriture type pour le compte 61 - Services extérieurs",
             rows: [
                 ["61", "Services extérieurs", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12460,7 +12460,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 611 — Sous-traitance générale",
+            description: "Écriture type pour le compte 611 - Sous-traitance générale",
             rows: [
                 ["611", "Sous-traitance générale", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12483,7 +12483,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 612 — Redevances de crédit-bail",
+            description: "Écriture type pour le compte 612 - Redevances de crédit-bail",
             rows: [
                 ["612", "Redevances de crédit-bail", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12505,7 +12505,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6122 — Crédit-bail mobilier",
+            description: "Écriture type pour le compte 6122 - Crédit-bail mobilier",
             rows: [
                 ["6122", "Crédit-bail mobilier", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12527,7 +12527,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6125 — Crédit-bail immobilier",
+            description: "Écriture type pour le compte 6125 - Crédit-bail immobilier",
             rows: [
                 ["6125", "Crédit-bail immobilier", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12550,7 +12550,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 613 — Locations",
+            description: "Écriture type pour le compte 613 - Locations",
             rows: [
                 ["613", "Locations", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12573,7 +12573,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6132 — Locations immobilières",
+            description: "Écriture type pour le compte 6132 - Locations immobilières",
             rows: [
                 ["6132", "Locations immobilières", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12596,7 +12596,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6135 — Locations mobilières",
+            description: "Écriture type pour le compte 6135 - Locations mobilières",
             rows: [
                 ["6135", "Locations mobilières", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12618,7 +12618,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 614 — Charges locatives et de copropriété",
+            description: "Écriture type pour le compte 614 - Charges locatives et de copropriété",
             rows: [
                 ["614", "Charges locatives et de copropriété", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12640,7 +12640,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 615 — Entretien et réparation",
+            description: "Écriture type pour le compte 615 - Entretien et réparation",
             rows: [
                 ["615", "Entretien et réparation", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12663,7 +12663,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6152 — Entretien et réparation sur biens immobiliers",
+            description: "Écriture type pour le compte 6152 - Entretien et réparation sur biens immobiliers",
             rows: [
                 ["6152", "Entretien et réparation sur biens immobiliers", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12686,7 +12686,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6155 — Entretien et réparation sur biens mobiliers",
+            description: "Écriture type pour le compte 6155 - Entretien et réparation sur biens mobiliers",
             rows: [
                 ["6155", "Entretien et réparation sur biens mobiliers", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12709,7 +12709,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6156 — Maintenance",
+            description: "Écriture type pour le compte 6156 - Maintenance",
             rows: [
                 ["6156", "Maintenance", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12731,7 +12731,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 616 — Primes d'assurances",
+            description: "Écriture type pour le compte 616 - Primes d'assurances",
             rows: [
                 ["616", "Primes d'assurances", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12754,7 +12754,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6161 — Multirisques",
+            description: "Écriture type pour le compte 6161 - Multirisques",
             rows: [
                 ["6161", "Multirisques", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12777,7 +12777,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6162 — Assurance obligatoire dommage construction",
+            description: "Écriture type pour le compte 6162 - Assurance obligatoire dommage construction",
             rows: [
                 ["6162", "Assurance obligatoire dommage construction", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12800,7 +12800,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6163 — Assurance - transport",
+            description: "Écriture type pour le compte 6163 - Assurance - transport",
             rows: [
                 ["6163", "Assurance - transport", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12823,7 +12823,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 61636 — sur achats",
+            description: "Écriture type pour le compte 61636 - sur achats",
             rows: [
                 ["61636", "sur achats", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12846,7 +12846,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 61637 — sur ventes",
+            description: "Écriture type pour le compte 61637 - sur ventes",
             rows: [
                 ["61637", "sur ventes", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12869,7 +12869,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 61638 — sur autres biens",
+            description: "Écriture type pour le compte 61638 - sur autres biens",
             rows: [
                 ["61638", "sur autres biens", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12892,7 +12892,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6164 — Risques d'exploitation",
+            description: "Écriture type pour le compte 6164 - Risques d'exploitation",
             rows: [
                 ["6164", "Risques d'exploitation", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12915,7 +12915,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6165 — Insolvabilité clients",
+            description: "Écriture type pour le compte 6165 - Insolvabilité clients",
             rows: [
                 ["6165", "Insolvabilité clients", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12937,7 +12937,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 617 — Études et recherches",
+            description: "Écriture type pour le compte 617 - Études et recherches",
             rows: [
                 ["617", "Études et recherches", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12959,7 +12959,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 618 — Divers",
+            description: "Écriture type pour le compte 618 - Divers",
             rows: [
                 ["618", "Divers", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -12982,7 +12982,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6181 — Documentation générale",
+            description: "Écriture type pour le compte 6181 - Documentation générale",
             rows: [
                 ["6181", "Documentation générale", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13005,7 +13005,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6183 — Documentation technique",
+            description: "Écriture type pour le compte 6183 - Documentation technique",
             rows: [
                 ["6183", "Documentation technique", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13028,7 +13028,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6185 — Frais de colloques, séminaires, conférences",
+            description: "Écriture type pour le compte 6185 - Frais de colloques, séminaires, conférences",
             rows: [
                 ["6185", "Frais de colloques, séminaires, conférences", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13051,7 +13051,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 619 — Rabais, remises et ristournes obtenus sur services extérieurs",
+                "Écriture type pour le compte 619 - Rabais, remises et ristournes obtenus sur services extérieurs",
             rows: [
                 ["619", "Rabais, remises et ristournes obtenus sur services extérieurs", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13073,7 +13073,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 62 — Autres services extérieurs",
+            description: "Écriture type pour le compte 62 - Autres services extérieurs",
             rows: [
                 ["62", "Autres services extérieurs", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13095,7 +13095,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 621 — Personnel extérieur à l'entité",
+            description: "Écriture type pour le compte 621 - Personnel extérieur à l'entité",
             rows: [
                 ["621", "Personnel extérieur à l'entité", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13118,7 +13118,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6211 — Personnel intérimaire",
+            description: "Écriture type pour le compte 6211 - Personnel intérimaire",
             rows: [
                 ["6211", "Personnel intérimaire", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13141,7 +13141,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6214 — Personnel détaché ou prêté à l'entité",
+            description: "Écriture type pour le compte 6214 - Personnel détaché ou prêté à l'entité",
             rows: [
                 ["6214", "Personnel détaché ou prêté à l'entité", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13164,7 +13164,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 622 — Rémunérations d'intermédiaires et honoraires",
+            description: "Écriture type pour le compte 622 - Rémunérations d'intermédiaires et honoraires",
             rows: [
                 ["622", "Rémunérations d'intermédiaires et honoraires", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13187,7 +13187,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6221 — Commissions et courtages sur achats",
+            description: "Écriture type pour le compte 6221 - Commissions et courtages sur achats",
             rows: [
                 ["6221", "Commissions et courtages sur achats", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13210,7 +13210,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6222 — Commissions et courtages sur ventes",
+            description: "Écriture type pour le compte 6222 - Commissions et courtages sur ventes",
             rows: [
                 ["6222", "Commissions et courtages sur ventes", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13233,7 +13233,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6224 — Rémunérations des transitaires",
+            description: "Écriture type pour le compte 6224 - Rémunérations des transitaires",
             rows: [
                 ["6224", "Rémunérations des transitaires", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13256,7 +13256,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6225 — Rémunérations d'affacturage",
+            description: "Écriture type pour le compte 6225 - Rémunérations d'affacturage",
             rows: [
                 ["6225", "Rémunérations d'affacturage", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13279,7 +13279,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6226 — Honoraires",
+            description: "Écriture type pour le compte 6226 - Honoraires",
             rows: [
                 ["6226", "Honoraires", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13302,7 +13302,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6227 — Frais d'actes et de contentieux",
+            description: "Écriture type pour le compte 6227 - Frais d'actes et de contentieux",
             rows: [
                 ["6227", "Frais d'actes et de contentieux", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13325,7 +13325,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6228 — Divers",
+            description: "Écriture type pour le compte 6228 - Divers",
             rows: [
                 ["6228", "Divers", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13347,7 +13347,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 623 — Publicité, publications, relations publiques",
+            description: "Écriture type pour le compte 623 - Publicité, publications, relations publiques",
             rows: [
                 ["623", "Publicité, publications, relations publiques", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13370,7 +13370,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6231 — Annonces et insertions",
+            description: "Écriture type pour le compte 6231 - Annonces et insertions",
             rows: [
                 ["6231", "Annonces et insertions", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13393,7 +13393,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6232 — Échantillons",
+            description: "Écriture type pour le compte 6232 - Échantillons",
             rows: [
                 ["6232", "Échantillons", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13416,7 +13416,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6233 — Foires et expositions",
+            description: "Écriture type pour le compte 6233 - Foires et expositions",
             rows: [
                 ["6233", "Foires et expositions", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13439,7 +13439,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6234 — Cadeaux à la clientèle",
+            description: "Écriture type pour le compte 6234 - Cadeaux à la clientèle",
             rows: [
                 ["6234", "Cadeaux à la clientèle", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13462,7 +13462,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6235 — Primes",
+            description: "Écriture type pour le compte 6235 - Primes",
             rows: [
                 ["6235", "Primes", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13485,7 +13485,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6236 — Catalogues et imprimés",
+            description: "Écriture type pour le compte 6236 - Catalogues et imprimés",
             rows: [
                 ["6236", "Catalogues et imprimés", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13508,7 +13508,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6237 — Publications",
+            description: "Écriture type pour le compte 6237 - Publications",
             rows: [
                 ["6237", "Publications", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13531,7 +13531,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6238 — Divers (pourboires, dons courants)",
+            description: "Écriture type pour le compte 6238 - Divers (pourboires, dons courants)",
             rows: [
                 ["6238", "Divers (pourboires, dons courants)", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13553,7 +13553,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 624 — Transports de biens et transports collectifs du personnel",
+            description: "Écriture type pour le compte 624 - Transports de biens et transports collectifs du personnel",
             rows: [
                 ["624", "Transports de biens et transports collectifs du personnel", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13576,7 +13576,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6241 — Transports sur achats",
+            description: "Écriture type pour le compte 6241 - Transports sur achats",
             rows: [
                 ["6241", "Transports sur achats", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13599,7 +13599,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6242 — Transports sur ventes",
+            description: "Écriture type pour le compte 6242 - Transports sur ventes",
             rows: [
                 ["6242", "Transports sur ventes", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13622,7 +13622,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6243 — Transports entre établissements ou chantiers",
+            description: "Écriture type pour le compte 6243 - Transports entre établissements ou chantiers",
             rows: [
                 ["6243", "Transports entre établissements ou chantiers", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13645,7 +13645,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6244 — Transports administratifs",
+            description: "Écriture type pour le compte 6244 - Transports administratifs",
             rows: [
                 ["6244", "Transports administratifs", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13668,7 +13668,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6247 — Transports collectifs du personnel",
+            description: "Écriture type pour le compte 6247 - Transports collectifs du personnel",
             rows: [
                 ["6247", "Transports collectifs du personnel", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13691,7 +13691,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6248 — Divers",
+            description: "Écriture type pour le compte 6248 - Divers",
             rows: [
                 ["6248", "Divers", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13713,7 +13713,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 625 — Déplacements, missions et réceptions",
+            description: "Écriture type pour le compte 625 - Déplacements, missions et réceptions",
             rows: [
                 ["625", "Déplacements, missions et réceptions", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13736,7 +13736,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6251 — Voyages et déplacements",
+            description: "Écriture type pour le compte 6251 - Voyages et déplacements",
             rows: [
                 ["6251", "Voyages et déplacements", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13759,7 +13759,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6255 — Frais de déménagement",
+            description: "Écriture type pour le compte 6255 - Frais de déménagement",
             rows: [
                 ["6255", "Frais de déménagement", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13782,7 +13782,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6256 — Missions",
+            description: "Écriture type pour le compte 6256 - Missions",
             rows: [
                 ["6256", "Missions", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13805,7 +13805,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6257 — Réceptions",
+            description: "Écriture type pour le compte 6257 - Réceptions",
             rows: [
                 ["6257", "Réceptions", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13827,7 +13827,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 626 — Frais postaux et de télécommunications",
+            description: "Écriture type pour le compte 626 - Frais postaux et de télécommunications",
             rows: [
                 ["626", "Frais postaux et de télécommunications", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13849,7 +13849,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 627 — Services bancaires et assimilés",
+            description: "Écriture type pour le compte 627 - Services bancaires et assimilés",
             rows: [
                 ["627", "Services bancaires et assimilés", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13872,7 +13872,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6271 — Frais sur titres (achat, vente, garde)",
+            description: "Écriture type pour le compte 6271 - Frais sur titres (achat, vente, garde)",
             rows: [
                 ["6271", "Frais sur titres (achat, vente, garde)", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13895,7 +13895,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6272 — Commissions et frais sur émission d'emprunts",
+            description: "Écriture type pour le compte 6272 - Commissions et frais sur émission d'emprunts",
             rows: [
                 ["6272", "Commissions et frais sur émission d'emprunts", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13918,7 +13918,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6275 — Frais sur effets",
+            description: "Écriture type pour le compte 6275 - Frais sur effets",
             rows: [
                 ["6275", "Frais sur effets", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13941,7 +13941,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6276 — Location de coffres",
+            description: "Écriture type pour le compte 6276 - Location de coffres",
             rows: [
                 ["6276", "Location de coffres", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13964,7 +13964,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6278 — Autres frais et commissions sur prestations de services",
+            description: "Écriture type pour le compte 6278 - Autres frais et commissions sur prestations de services",
             rows: [
                 ["6278", "Autres frais et commissions sur prestations de services", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -13986,7 +13986,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 628 — Divers",
+            description: "Écriture type pour le compte 628 - Divers",
             rows: [
                 ["628", "Divers", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14009,7 +14009,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6281 — Concours divers (cotisations)",
+            description: "Écriture type pour le compte 6281 - Concours divers (cotisations)",
             rows: [
                 ["6281", "Concours divers (cotisations)", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14032,7 +14032,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6284 — Frais de recrutement de personnel",
+            description: "Écriture type pour le compte 6284 - Frais de recrutement de personnel",
             rows: [
                 ["6284", "Frais de recrutement de personnel", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14055,7 +14055,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 629 — Rabais, remises et ristournes obtenus sur autres services extérieurs",
+                "Écriture type pour le compte 629 - Rabais, remises et ristournes obtenus sur autres services extérieurs",
             rows: [
                 ["629", "Rabais, remises et ristournes obtenus sur autres services extérieurs", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14078,7 +14078,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 63 — Impôts, taxes et versements assimilés",
+            description: "Écriture type pour le compte 63 - Impôts, taxes et versements assimilés",
             rows: [
                 ["63", "Impôts, taxes et versements assimilés", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14103,7 +14103,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 631 — Impôts, taxes et versements assimilés sur rémunérations (administrations des impôts)",
+                "Écriture type pour le compte 631 - Impôts, taxes et versements assimilés sur rémunérations (administrations des impôts)",
             rows: [
                 [
                     "631",
@@ -14131,7 +14131,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6311 — Taxe sur les salaires",
+            description: "Écriture type pour le compte 6311 - Taxe sur les salaires",
             rows: [
                 ["6311", "Taxe sur les salaires", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14155,7 +14155,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 6314 — Cotisation pour défaut d'investissement obligatoire dans la construction",
+                "Écriture type pour le compte 6314 - Cotisation pour défaut d'investissement obligatoire dans la construction",
             rows: [
                 ["6314", "Cotisation pour défaut d'investissement obligatoire dans la construction", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14178,7 +14178,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6318 — Autres",
+            description: "Écriture type pour le compte 6318 - Autres",
             rows: [
                 ["6318", "Autres", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14203,7 +14203,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 633 — Impôts, taxes et versements assimilés sur rémunérations (autres organismes)",
+                "Écriture type pour le compte 633 - Impôts, taxes et versements assimilés sur rémunérations (autres organismes)",
             rows: [
                 ["633", "Impôts, taxes et versements assimilés sur rémunérations (autres organismes)", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14226,7 +14226,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6331 — Versement de transport",
+            description: "Écriture type pour le compte 6331 - Versement de transport",
             rows: [
                 ["6331", "Versement de transport", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14249,7 +14249,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6332 — Allocations logement",
+            description: "Écriture type pour le compte 6332 - Allocations logement",
             rows: [
                 ["6332", "Allocations logement", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14273,7 +14273,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 6333 — Contribution unique des employeurs à la formation professionnelle",
+                "Écriture type pour le compte 6333 - Contribution unique des employeurs à la formation professionnelle",
             rows: [
                 ["6333", "Contribution unique des employeurs à la formation professionnelle", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14296,7 +14296,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6334 — Participation des employeurs à l'effort de construction",
+            description: "Écriture type pour le compte 6334 - Participation des employeurs à l'effort de construction",
             rows: [
                 ["6334", "Participation des employeurs à l'effort de construction", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14320,7 +14320,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 6335 — Versements libératoires ouvrant droit à l'exonération de la taxe d'apprentissage",
+                "Écriture type pour le compte 6335 - Versements libératoires ouvrant droit à l'exonération de la taxe d'apprentissage",
             rows: [
                 ["6335", "Versements libératoires ouvrant droit à l'exonération de la taxe d'apprentissage", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14343,7 +14343,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6338 — Autres",
+            description: "Écriture type pour le compte 6338 - Autres",
             rows: [
                 ["6338", "Autres", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14366,7 +14366,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 635 — Autres impôts, taxes et versements assimilés (administrations des impôts)",
+                "Écriture type pour le compte 635 - Autres impôts, taxes et versements assimilés (administrations des impôts)",
             rows: [
                 ["635", "Autres impôts, taxes et versements assimilés (administrations des impôts)", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14389,7 +14389,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6351 — Impôts directs (sauf impôts sur les bénéfices)",
+            description: "Écriture type pour le compte 6351 - Impôts directs (sauf impôts sur les bénéfices)",
             rows: [
                 ["6351", "Impôts directs (sauf impôts sur les bénéfices)", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14412,7 +14412,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 63511 — Contribution économique territoriale",
+            description: "Écriture type pour le compte 63511 - Contribution économique territoriale",
             rows: [
                 ["63511", "Contribution économique territoriale", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14435,7 +14435,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 63512 — Taxes foncières",
+            description: "Écriture type pour le compte 63512 - Taxes foncières",
             rows: [
                 ["63512", "Taxes foncières", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14458,7 +14458,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 63513 — Autres impôts locaux",
+            description: "Écriture type pour le compte 63513 - Autres impôts locaux",
             rows: [
                 ["63513", "Autres impôts locaux", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14481,7 +14481,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 63514 — Taxe sur les véhicules des sociétés",
+            description: "Écriture type pour le compte 63514 - Taxe sur les véhicules des sociétés",
             rows: [
                 ["63514", "Taxe sur les véhicules des sociétés", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14504,7 +14504,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6352 — Taxe sur le chiffre d'affaires non récupérables",
+            description: "Écriture type pour le compte 6352 - Taxe sur le chiffre d'affaires non récupérables",
             rows: [
                 ["6352", "Taxe sur le chiffre d'affaires non récupérables", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14527,7 +14527,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6353 — Impôts indirects",
+            description: "Écriture type pour le compte 6353 - Impôts indirects",
             rows: [
                 ["6353", "Impôts indirects", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14550,7 +14550,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6354 — Droits d'enregistrement et de timbre",
+            description: "Écriture type pour le compte 6354 - Droits d'enregistrement et de timbre",
             rows: [
                 ["6354", "Droits d'enregistrement et de timbre", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14573,7 +14573,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 63541 — Droits de mutation",
+            description: "Écriture type pour le compte 63541 - Droits de mutation",
             rows: [
                 ["63541", "Droits de mutation", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14596,7 +14596,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6358 — Autres droits",
+            description: "Écriture type pour le compte 6358 - Autres droits",
             rows: [
                 ["6358", "Autres droits", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14619,7 +14619,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 637 — Autres impôts, taxes et versements assimilés (autres organismes)",
+                "Écriture type pour le compte 637 - Autres impôts, taxes et versements assimilés (autres organismes)",
             rows: [
                 ["637", "Autres impôts, taxes et versements assimilés (autres organismes)", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14643,7 +14643,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 6371 — Contribution sociale de solidarité à la charge des sociétés",
+                "Écriture type pour le compte 6371 - Contribution sociale de solidarité à la charge des sociétés",
             rows: [
                 ["6371", "Contribution sociale de solidarité à la charge des sociétés", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14666,7 +14666,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6372 — Taxes perçues par les organismes publics internationaux",
+            description: "Écriture type pour le compte 6372 - Taxes perçues par les organismes publics internationaux",
             rows: [
                 ["6372", "Taxes perçues par les organismes publics internationaux", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14689,7 +14689,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6374 — Impôts et taxes exigibles à l'étranger",
+            description: "Écriture type pour le compte 6374 - Impôts et taxes exigibles à l'étranger",
             rows: [
                 ["6374", "Impôts et taxes exigibles à l'étranger", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14712,7 +14712,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6378 — Taxes diverses",
+            description: "Écriture type pour le compte 6378 - Taxes diverses",
             rows: [
                 ["6378", "Taxes diverses", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14734,7 +14734,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 638 — Rappel d’impôts (autres qu’impôts sur les bénéfices)",
+            description: "Écriture type pour le compte 638 - Rappel d’impôts (autres qu’impôts sur les bénéfices)",
             rows: [
                 ["638", "Rappel d’impôts (autres qu’impôts sur les bénéfices)", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14757,7 +14757,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 64 — Charges de personnel",
+            description: "Écriture type pour le compte 64 - Charges de personnel",
             rows: [
                 ["64", "Charges de personnel", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14780,7 +14780,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 641 — Rémunérations du personnel",
+            description: "Écriture type pour le compte 641 - Rémunérations du personnel",
             rows: [
                 ["641", "Rémunérations du personnel", "X", ""],
                 ["421", "Personnel - Rémunérations dues", "", "X"],
@@ -14803,7 +14803,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6411 — Salaires, appointements",
+            description: "Écriture type pour le compte 6411 - Salaires, appointements",
             rows: [
                 ["6411", "Salaires, appointements", "X", ""],
                 ["421", "Personnel - Rémunérations dues", "", "X"],
@@ -14826,7 +14826,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6412 — Congés payés",
+            description: "Écriture type pour le compte 6412 - Congés payés",
             rows: [
                 ["6412", "Congés payés", "X", ""],
                 ["421", "Personnel - Rémunérations dues", "", "X"],
@@ -14849,7 +14849,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6413 — Primes et gratifications",
+            description: "Écriture type pour le compte 6413 - Primes et gratifications",
             rows: [
                 ["6413", "Primes et gratifications", "X", ""],
                 ["421", "Personnel - Rémunérations dues", "", "X"],
@@ -14872,7 +14872,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6414 — Indemnités et avantages divers",
+            description: "Écriture type pour le compte 6414 - Indemnités et avantages divers",
             rows: [
                 ["6414", "Indemnités et avantages divers", "X", ""],
                 ["421", "Personnel - Rémunérations dues", "", "X"],
@@ -14895,7 +14895,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6415 — Supplément familial",
+            description: "Écriture type pour le compte 6415 - Supplément familial",
             rows: [
                 ["6415", "Supplément familial", "X", ""],
                 ["421", "Personnel - Rémunérations dues", "", "X"],
@@ -14919,7 +14919,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 644 — Rémunération du travail de l'exploitant",
+            description: "Écriture type pour le compte 644 - Rémunération du travail de l'exploitant",
             rows: [
                 ["644", "Rémunération du travail de l'exploitant", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -14942,7 +14942,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 645 — Cotisations de sécurité sociale et de prévoyance",
+            description: "Écriture type pour le compte 645 - Cotisations de sécurité sociale et de prévoyance",
             rows: [
                 ["645", "Cotisations de sécurité sociale et de prévoyance", "X", ""],
                 ["43", "Sécurité sociale et autres organismes sociaux", "", "X"],
@@ -14965,7 +14965,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6451 — Cotisations à l'Urssaf",
+            description: "Écriture type pour le compte 6451 - Cotisations à l'Urssaf",
             rows: [
                 ["6451", "Cotisations à l'Urssaf", "X", ""],
                 ["43", "Sécurité sociale et autres organismes sociaux", "", "X"],
@@ -14988,7 +14988,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6452 — Cotisations aux mutuelles",
+            description: "Écriture type pour le compte 6452 - Cotisations aux mutuelles",
             rows: [
                 ["6452", "Cotisations aux mutuelles", "X", ""],
                 ["43", "Sécurité sociale et autres organismes sociaux", "", "X"],
@@ -15011,7 +15011,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6453 — Cotisations aux caisses de retraites",
+            description: "Écriture type pour le compte 6453 - Cotisations aux caisses de retraites",
             rows: [
                 ["6453", "Cotisations aux caisses de retraites", "X", ""],
                 ["43", "Sécurité sociale et autres organismes sociaux", "", "X"],
@@ -15034,7 +15034,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6454 — Cotisations à Pôle emploi",
+            description: "Écriture type pour le compte 6454 - Cotisations à Pôle emploi",
             rows: [
                 ["6454", "Cotisations à Pôle emploi", "X", ""],
                 ["43", "Sécurité sociale et autres organismes sociaux", "", "X"],
@@ -15057,7 +15057,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6458 — Cotisations aux autres organismes sociaux",
+            description: "Écriture type pour le compte 6458 - Cotisations aux autres organismes sociaux",
             rows: [
                 ["6458", "Cotisations aux autres organismes sociaux", "X", ""],
                 ["43", "Sécurité sociale et autres organismes sociaux", "", "X"],
@@ -15080,7 +15080,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 646 — Cotisations sociales personnelles de l'exploitant",
+            description: "Écriture type pour le compte 646 - Cotisations sociales personnelles de l'exploitant",
             rows: [
                 ["646", "Cotisations sociales personnelles de l'exploitant", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15102,7 +15102,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 647 — Autres cotisations sociales",
+            description: "Écriture type pour le compte 647 - Autres cotisations sociales",
             rows: [
                 ["647", "Autres cotisations sociales", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15125,7 +15125,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6471 — Prestations directes",
+            description: "Écriture type pour le compte 6471 - Prestations directes",
             rows: [
                 ["6471", "Prestations directes", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15148,7 +15148,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6472 — Versements au comité social et économique",
+            description: "Écriture type pour le compte 6472 - Versements au comité social et économique",
             rows: [
                 ["6472", "Versements au comité social et économique", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15171,7 +15171,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6474 — Versements aux autres œuvres sociales",
+            description: "Écriture type pour le compte 6474 - Versements aux autres œuvres sociales",
             rows: [
                 ["6474", "Versements aux autres œuvres sociales", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15194,7 +15194,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6475 — Médecine du travail, pharmacie",
+            description: "Écriture type pour le compte 6475 - Médecine du travail, pharmacie",
             rows: [
                 ["6475", "Médecine du travail, pharmacie", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15216,7 +15216,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 648 — Autres charges de personnel",
+            description: "Écriture type pour le compte 648 - Autres charges de personnel",
             rows: [
                 ["648", "Autres charges de personnel", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15239,7 +15239,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 649 — Remboursements de charges de personnel",
+            description: "Écriture type pour le compte 649 - Remboursements de charges de personnel",
             rows: [
                 ["649", "Remboursements de charges de personnel", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15263,7 +15263,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 65 — Autres charges de gestion courante",
+            description: "Écriture type pour le compte 65 - Autres charges de gestion courante",
             rows: [
                 ["65", "Autres charges de gestion courante", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15289,7 +15289,7 @@ export const accountEntries: AccountEntry[] = [
             creditMeaning: "Annulation ou diminution de la charge",
             journalExample: {
                 description:
-                    "Écriture type pour le compte 651 — Redevances pour concessions, brevets, licences, marques, procédés, solutions informatiques, droits et valeurs similaires",
+                    "Écriture type pour le compte 651 - Redevances pour concessions, brevets, licences, marques, procédés, solutions informatiques, droits et valeurs similaires",
                 rows: [
                     [
                         "651",
@@ -15322,7 +15322,7 @@ export const accountEntries: AccountEntry[] = [
             creditMeaning: "Annulation ou diminution de la charge",
             journalExample: {
                 description:
-                    "Écriture type pour le compte 6511 — Redevances pour concessions, brevets, licences, marques, procédés, solutions informatiques",
+                    "Écriture type pour le compte 6511 - Redevances pour concessions, brevets, licences, marques, procédés, solutions informatiques",
                 rows: [
                     [
                         "6511",
@@ -15351,7 +15351,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6516 — Droits d'auteur et de reproduction",
+            description: "Écriture type pour le compte 6516 - Droits d'auteur et de reproduction",
             rows: [
                 ["6516", "Droits d'auteur et de reproduction", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15374,7 +15374,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6518 — Autres droits et valeurs similaires",
+            description: "Écriture type pour le compte 6518 - Autres droits et valeurs similaires",
             rows: [
                 ["6518", "Autres droits et valeurs similaires", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15397,7 +15397,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 653 — Rémunérations de l’activité des administrateurs et des gérants",
+                "Écriture type pour le compte 653 - Rémunérations de l’activité des administrateurs et des gérants",
             rows: [
                 ["653", "Rémunérations de l’activité des administrateurs et des gérants", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15420,7 +15420,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 654 — Pertes sur créances irrécouvrables",
+            description: "Écriture type pour le compte 654 - Pertes sur créances irrécouvrables",
             rows: [
                 ["654", "Pertes sur créances irrécouvrables", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15443,7 +15443,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6541 — Créances de l'exercice",
+            description: "Écriture type pour le compte 6541 - Créances de l'exercice",
             rows: [
                 ["6541", "Créances de l'exercice", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15466,7 +15466,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6544 — Créances des exercices antérieurs",
+            description: "Écriture type pour le compte 6544 - Créances des exercices antérieurs",
             rows: [
                 ["6544", "Créances des exercices antérieurs", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15490,7 +15490,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 655 — Quote-part de résultat sur opérations faites en commun",
+            description: "Écriture type pour le compte 655 - Quote-part de résultat sur opérations faites en commun",
             rows: [
                 ["655", "Quote-part de résultat sur opérations faites en commun", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15514,7 +15514,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 6551 — Quote-part de bénéfice transférée - comptabilité du gérant",
+                "Écriture type pour le compte 6551 - Quote-part de bénéfice transférée - comptabilité du gérant",
             rows: [
                 ["6551", "Quote-part de bénéfice transférée - comptabilité du gérant", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15538,7 +15538,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 6555 — Quote-part de perte supportée - comptabilité des associés non gérants",
+                "Écriture type pour le compte 6555 - Quote-part de perte supportée - comptabilité des associés non gérants",
             rows: [
                 ["6555", "Quote-part de perte supportée - comptabilité des associés non gérants", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15561,7 +15561,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 656 — Pertes de change sur créances et dettes commerciales",
+            description: "Écriture type pour le compte 656 - Pertes de change sur créances et dettes commerciales",
             rows: [
                 ["656", "Pertes de change sur créances et dettes commerciales", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15586,7 +15586,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 657 — Valeurs comptables des immobilisations incorporelles et corporelles cédées",
+                "Écriture type pour le compte 657 - Valeurs comptables des immobilisations incorporelles et corporelles cédées",
             rows: [
                 ["657", "Valeurs comptables des immobilisations incorporelles et corporelles cédées", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15608,7 +15608,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 658 — Pénalités et autres charges",
+            description: "Écriture type pour le compte 658 - Pénalités et autres charges",
             rows: [
                 ["658", "Pénalités et autres charges", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15632,7 +15632,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 6581 — Pénalités sur marchés (et dédits payés sur achats et ventes)",
+                "Écriture type pour le compte 6581 - Pénalités sur marchés (et dédits payés sur achats et ventes)",
             rows: [
                 ["6581", "Pénalités sur marchés (et dédits payés sur achats et ventes)", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15655,7 +15655,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6582 — Pénalités, amendes fiscales et pénales",
+            description: "Écriture type pour le compte 6582 - Pénalités, amendes fiscales et pénales",
             rows: [
                 ["6582", "Pénalités, amendes fiscales et pénales", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15678,7 +15678,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6583 — Malis provenant de clauses d’indexation",
+            description: "Écriture type pour le compte 6583 - Malis provenant de clauses d’indexation",
             rows: [
                 ["6583", "Malis provenant de clauses d’indexation", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15701,7 +15701,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6584 — Lots",
+            description: "Écriture type pour le compte 6584 - Lots",
             rows: [
                 ["6584", "Lots", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15724,7 +15724,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6588 — Opérations de constitution ou liquidation des fiducies",
+            description: "Écriture type pour le compte 6588 - Opérations de constitution ou liquidation des fiducies",
             rows: [
                 ["6588", "Opérations de constitution ou liquidation des fiducies", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15747,7 +15747,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 66 — Charges financières",
+            description: "Écriture type pour le compte 66 - Charges financières",
             rows: [
                 ["66", "Charges financières", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15770,7 +15770,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 661 — Charges d'intérêts",
+            description: "Écriture type pour le compte 661 - Charges d'intérêts",
             rows: [
                 ["661", "Charges d'intérêts", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15793,7 +15793,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6611 — Intérêts des emprunts et dettes",
+            description: "Écriture type pour le compte 6611 - Intérêts des emprunts et dettes",
             rows: [
                 ["6611", "Intérêts des emprunts et dettes", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15816,7 +15816,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 66116 — Intérêts des emprunts et dettes assimilées",
+            description: "Écriture type pour le compte 66116 - Intérêts des emprunts et dettes assimilées",
             rows: [
                 ["66116", "Intérêts des emprunts et dettes assimilées", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15839,7 +15839,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 66117 — Intérêts des dettes rattachées à des participations",
+            description: "Écriture type pour le compte 66117 - Intérêts des dettes rattachées à des participations",
             rows: [
                 ["66117", "Intérêts des dettes rattachées à des participations", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15862,7 +15862,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6612 — Charges de la fiducie, résultat de la période",
+            description: "Écriture type pour le compte 6612 - Charges de la fiducie, résultat de la période",
             rows: [
                 ["6612", "Charges de la fiducie, résultat de la période", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15885,7 +15885,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6615 — Intérêts des comptes courants et des dépôts créditeurs",
+            description: "Écriture type pour le compte 6615 - Intérêts des comptes courants et des dépôts créditeurs",
             rows: [
                 ["6615", "Intérêts des comptes courants et des dépôts créditeurs", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15909,7 +15909,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 6616 — Intérêts bancaires et sur opérations de financement (escompte…)",
+                "Écriture type pour le compte 6616 - Intérêts bancaires et sur opérations de financement (escompte…)",
             rows: [
                 ["6616", "Intérêts bancaires et sur opérations de financement (escompte…)", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15932,7 +15932,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6617 — Intérêts des obligations cautionnées",
+            description: "Écriture type pour le compte 6617 - Intérêts des obligations cautionnées",
             rows: [
                 ["6617", "Intérêts des obligations cautionnées", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15955,7 +15955,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6618 — Intérêts des autres dettes",
+            description: "Écriture type pour le compte 6618 - Intérêts des autres dettes",
             rows: [
                 ["6618", "Intérêts des autres dettes", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -15978,7 +15978,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 66181 — Intérêts des dettes commerciales",
+            description: "Écriture type pour le compte 66181 - Intérêts des dettes commerciales",
             rows: [
                 ["66181", "Intérêts des dettes commerciales", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -16001,7 +16001,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 66188 — Intérêts des dettes diverses",
+            description: "Écriture type pour le compte 66188 - Intérêts des dettes diverses",
             rows: [
                 ["66188", "Intérêts des dettes diverses", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -16023,7 +16023,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 664 — Pertes sur créances liées à des participations",
+            description: "Écriture type pour le compte 664 - Pertes sur créances liées à des participations",
             rows: [
                 ["664", "Pertes sur créances liées à des participations", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -16046,7 +16046,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 665 — Escomptes accordés",
+            description: "Écriture type pour le compte 665 - Escomptes accordés",
             rows: [
                 ["665", "Escomptes accordés", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -16069,7 +16069,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 666 — Pertes de change financières",
+            description: "Écriture type pour le compte 666 - Pertes de change financières",
             rows: [
                 ["666", "Pertes de change financières", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -16091,7 +16091,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 667 — Charges sur cession d’éléments financiers",
+            description: "Écriture type pour le compte 667 - Charges sur cession d’éléments financiers",
             rows: [
                 ["667", "Charges sur cession d’éléments financiers", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -16116,7 +16116,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 6671 — Valeurs comptables des immobilisations financières cédées",
+                "Écriture type pour le compte 6671 - Valeurs comptables des immobilisations financières cédées",
             rows: [
                 ["6671", "Valeurs comptables des immobilisations financières cédées", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -16139,7 +16139,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 6672 — Charges nettes sur cessions de titres immobilisés de l’activité de portefeuille",
+                "Écriture type pour le compte 6672 - Charges nettes sur cessions de titres immobilisés de l’activité de portefeuille",
             rows: [
                 ["6672", "Charges nettes sur cessions de titres immobilisés de l’activité de portefeuille", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -16162,7 +16162,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 6673 — Charges nettes sur cessions de valeurs mobilières de placement",
+                "Écriture type pour le compte 6673 - Charges nettes sur cessions de valeurs mobilières de placement",
             rows: [
                 ["6673", "Charges nettes sur cessions de valeurs mobilières de placement", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -16184,7 +16184,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6674 — Charges nettes sur cessions de jetons",
+            description: "Écriture type pour le compte 6674 - Charges nettes sur cessions de jetons",
             rows: [
                 ["6674", "Charges nettes sur cessions de jetons", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -16206,7 +16206,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 668 — Autres charges financières",
+            description: "Écriture type pour le compte 668 - Autres charges financières",
             rows: [
                 ["668", "Autres charges financières", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -16230,7 +16230,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 6683 — Mali provenant du rachat par l’entité d’actions et obligations émises par elle- même",
+                "Écriture type pour le compte 6683 - Mali provenant du rachat par l’entité d’actions et obligations émises par elle- même",
             rows: [
                 [
                     "6683",
@@ -16258,7 +16258,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 67 — Charges exceptionnelles",
+            description: "Écriture type pour le compte 67 - Charges exceptionnelles",
             rows: [
                 ["67", "Charges exceptionnelles", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -16284,7 +16284,7 @@ export const accountEntries: AccountEntry[] = [
             creditMeaning: "Annulation ou diminution de la charge",
             journalExample: {
                 description:
-                    "Écriture type pour le compte 672 — (Compte à la disposition des entités pour enregistrer, en cours d'exercice, les charges sur exercices antérieurs)",
+                    "Écriture type pour le compte 672 - (Compte à la disposition des entités pour enregistrer, en cours d'exercice, les charges sur exercices antérieurs)",
                 rows: [
                     [
                         "672",
@@ -16312,7 +16312,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 678 — Autres charges exceptionnelles",
+            description: "Écriture type pour le compte 678 - Autres charges exceptionnelles",
             rows: [
                 ["678", "Autres charges exceptionnelles", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -16336,7 +16336,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 68 — Dotations aux amortissements, aux dépréciations et aux provisions",
+                "Écriture type pour le compte 68 - Dotations aux amortissements, aux dépréciations et aux provisions",
             rows: [
                 ["68", "Dotations aux amortissements, aux dépréciations et aux provisions", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -16363,7 +16363,7 @@ export const accountEntries: AccountEntry[] = [
             creditMeaning: "Annulation ou diminution de la charge",
             journalExample: {
                 description:
-                    "Écriture type pour le compte 681 — Dotations aux amortissements, aux dépréciations et aux provisions (à inscrire dans les charges d'exploitation)",
+                    "Écriture type pour le compte 681 - Dotations aux amortissements, aux dépréciations et aux provisions (à inscrire dans les charges d'exploitation)",
                 rows: [
                     [
                         "681",
@@ -16392,7 +16392,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 6811 — Dotations aux amortissements sur immobilisations incorporelles et corporelles",
+                "Écriture type pour le compte 6811 - Dotations aux amortissements sur immobilisations incorporelles et corporelles",
             rows: [
                 ["6811", "Dotations aux amortissements sur immobilisations incorporelles et corporelles", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -16415,7 +16415,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 68111 — Immobilisations incorporelles et frais d’établissement",
+            description: "Écriture type pour le compte 68111 - Immobilisations incorporelles et frais d’établissement",
             rows: [
                 ["68111", "Immobilisations incorporelles et frais d’établissement", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -16438,7 +16438,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 68112 — Immobilisations corporelles",
+            description: "Écriture type pour le compte 68112 - Immobilisations corporelles",
             rows: [
                 ["68112", "Immobilisations corporelles", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -16460,7 +16460,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6815 — Dotations aux provisions d'exploitation",
+            description: "Écriture type pour le compte 6815 - Dotations aux provisions d'exploitation",
             rows: [
                 ["6815", "Dotations aux provisions d'exploitation", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -16483,7 +16483,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 6816 — Dotations pour dépréciations des immobilisations incorporelles et corporelles",
+                "Écriture type pour le compte 6816 - Dotations pour dépréciations des immobilisations incorporelles et corporelles",
             rows: [
                 ["6816", "Dotations pour dépréciations des immobilisations incorporelles et corporelles", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -16506,7 +16506,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 68161 — Immobilisations incorporelles",
+            description: "Écriture type pour le compte 68161 - Immobilisations incorporelles",
             rows: [
                 ["68161", "Immobilisations incorporelles", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -16529,7 +16529,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 68162 — Immobilisations corporelles",
+            description: "Écriture type pour le compte 68162 - Immobilisations corporelles",
             rows: [
                 ["68162", "Immobilisations corporelles", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -16551,7 +16551,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6817 — Dotations pour dépréciations des actifs circulants",
+            description: "Écriture type pour le compte 6817 - Dotations pour dépréciations des actifs circulants",
             rows: [
                 ["6817", "Dotations pour dépréciations des actifs circulants", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -16574,7 +16574,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 68173 — Stocks et en-cours",
+            description: "Écriture type pour le compte 68173 - Stocks et en-cours",
             rows: [
                 ["68173", "Stocks et en-cours", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -16597,7 +16597,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 68174 — Créances",
+            description: "Écriture type pour le compte 68174 - Créances",
             rows: [
                 ["68174", "Créances", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -16624,7 +16624,7 @@ export const accountEntries: AccountEntry[] = [
             creditMeaning: "Annulation ou diminution de la charge",
             journalExample: {
                 description:
-                    "Écriture type pour le compte 686 — Dotations aux amortissements, aux dépréciations et aux provisions (à inscrire dans les charges financières)",
+                    "Écriture type pour le compte 686 - Dotations aux amortissements, aux dépréciations et aux provisions (à inscrire dans les charges financières)",
                 rows: [
                     [
                         "686",
@@ -16653,7 +16653,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 6861 — Dotations aux amortissements des primes de remboursement des emprunts",
+                "Écriture type pour le compte 6861 - Dotations aux amortissements des primes de remboursement des emprunts",
             rows: [
                 ["6861", "Dotations aux amortissements des primes de remboursement des emprunts", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -16676,7 +16676,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 6862 — Dotations aux amortissements des frais d'émission des emprunts",
+                "Écriture type pour le compte 6862 - Dotations aux amortissements des frais d'émission des emprunts",
             rows: [
                 ["6862", "Dotations aux amortissements des frais d'émission des emprunts", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -16698,7 +16698,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6865 — Dotations aux provisions financières",
+            description: "Écriture type pour le compte 6865 - Dotations aux provisions financières",
             rows: [
                 ["6865", "Dotations aux provisions financières", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -16720,7 +16720,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6866 — Dotations pour dépréciation des éléments financiers",
+            description: "Écriture type pour le compte 6866 - Dotations pour dépréciation des éléments financiers",
             rows: [
                 ["6866", "Dotations pour dépréciation des éléments financiers", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -16743,7 +16743,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 68662 — Immobilisations financières",
+            description: "Écriture type pour le compte 68662 - Immobilisations financières",
             rows: [
                 ["68662", "Immobilisations financières", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -16766,7 +16766,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 68665 — Valeurs mobilières de placement",
+            description: "Écriture type pour le compte 68665 - Valeurs mobilières de placement",
             rows: [
                 ["68665", "Valeurs mobilières de placement", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -16793,7 +16793,7 @@ export const accountEntries: AccountEntry[] = [
             creditMeaning: "Annulation ou diminution de la charge",
             journalExample: {
                 description:
-                    "Écriture type pour le compte 687 — Dotations aux amortissements, aux dépréciations et aux provisions (à inscrire dans les charges exceptionnelles)",
+                    "Écriture type pour le compte 687 - Dotations aux amortissements, aux dépréciations et aux provisions (à inscrire dans les charges exceptionnelles)",
                 rows: [
                     [
                         "687",
@@ -16822,7 +16822,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 6871 — Dotations aux amortissements exceptionnels des immobilisations",
+                "Écriture type pour le compte 6871 - Dotations aux amortissements exceptionnels des immobilisations",
             rows: [
                 ["6871", "Dotations aux amortissements exceptionnels des immobilisations", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -16844,7 +16844,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6872 — Dotations aux provisions réglementées (immobilisations)",
+            description: "Écriture type pour le compte 6872 - Dotations aux provisions réglementées (immobilisations)",
             rows: [
                 ["6872", "Dotations aux provisions réglementées (immobilisations)", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -16867,7 +16867,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 68725 — Amortissements dérogatoires",
+            description: "Écriture type pour le compte 68725 - Amortissements dérogatoires",
             rows: [
                 ["68725", "Amortissements dérogatoires", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -16889,7 +16889,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6873 — Dotations aux provisions réglementées (stocks)",
+            description: "Écriture type pour le compte 6873 - Dotations aux provisions réglementées (stocks)",
             rows: [
                 ["6873", "Dotations aux provisions réglementées (stocks)", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -16911,7 +16911,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6874 — Dotations aux autres provisions réglementées",
+            description: "Écriture type pour le compte 6874 - Dotations aux autres provisions réglementées",
             rows: [
                 ["6874", "Dotations aux autres provisions réglementées", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -16933,7 +16933,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6875 — Dotations aux provisions exceptionnelles",
+            description: "Écriture type pour le compte 6875 - Dotations aux provisions exceptionnelles",
             rows: [
                 ["6875", "Dotations aux provisions exceptionnelles", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -16955,7 +16955,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6876 — Dotations pour dépréciations exceptionnelles",
+            description: "Écriture type pour le compte 6876 - Dotations pour dépréciations exceptionnelles",
             rows: [
                 ["6876", "Dotations pour dépréciations exceptionnelles", "X", ""],
                 ["28", "Amortissements des immobilisations", "", "X"],
@@ -16979,7 +16979,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 69 — Participation des salariés - Impôts sur les bénéfices et assimilés",
+                "Écriture type pour le compte 69 - Participation des salariés - Impôts sur les bénéfices et assimilés",
             rows: [
                 ["69", "Participation des salariés - Impôts sur les bénéfices et assimilés", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -17002,7 +17002,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 691 — Participation des salariés aux résultats",
+            description: "Écriture type pour le compte 691 - Participation des salariés aux résultats",
             rows: [
                 ["691", "Participation des salariés aux résultats", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -17025,7 +17025,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 695 — Impôts sur les bénéfices",
+            description: "Écriture type pour le compte 695 - Impôts sur les bénéfices",
             rows: [
                 ["695", "Impôts sur les bénéfices", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -17048,7 +17048,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6951 — Impôts dus en France",
+            description: "Écriture type pour le compte 6951 - Impôts dus en France",
             rows: [
                 ["6951", "Impôts dus en France", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -17071,7 +17071,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6952 — Contribution additionnelle à l'impôt sur les bénéfices",
+            description: "Écriture type pour le compte 6952 - Contribution additionnelle à l'impôt sur les bénéfices",
             rows: [
                 ["6952", "Contribution additionnelle à l'impôt sur les bénéfices", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -17094,7 +17094,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6954 — Impôts dus à l'étranger",
+            description: "Écriture type pour le compte 6954 - Impôts dus à l'étranger",
             rows: [
                 ["6954", "Impôts dus à l'étranger", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -17118,7 +17118,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
             description:
-                "Écriture type pour le compte 696 — Suppléments d'impôt sur les sociétés liés aux distributions",
+                "Écriture type pour le compte 696 - Suppléments d'impôt sur les sociétés liés aux distributions",
             rows: [
                 ["696", "Suppléments d'impôt sur les sociétés liés aux distributions", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -17141,7 +17141,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 698 — Intégration fiscale",
+            description: "Écriture type pour le compte 698 - Intégration fiscale",
             rows: [
                 ["698", "Intégration fiscale", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -17163,7 +17163,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6981 — Intégration fiscale - Charges",
+            description: "Écriture type pour le compte 6981 - Intégration fiscale - Charges",
             rows: [
                 ["6981", "Intégration fiscale - Charges", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -17185,7 +17185,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 6989 — Intégration fiscale - Produits",
+            description: "Écriture type pour le compte 6989 - Intégration fiscale - Produits",
             rows: [
                 ["6989", "Intégration fiscale - Produits", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -17208,7 +17208,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Constatation ou augmentation de la charge",
         creditMeaning: "Annulation ou diminution de la charge",
         journalExample: {
-            description: "Écriture type pour le compte 699 — Produits - Reports en arrière des déficits",
+            description: "Écriture type pour le compte 699 - Produits - Reports en arrière des déficits",
             rows: [
                 ["699", "Produits - Reports en arrière des déficits", "X", ""],
                 ["401", "Fournisseurs", "", "X"],
@@ -17232,7 +17232,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7 — Comptes de produits",
+            description: "Écriture type pour le compte 7 - Comptes de produits",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7", "Comptes de produits", "", "X"],
@@ -17256,7 +17256,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
             description:
-                "Écriture type pour le compte 70 — Ventes de produits fabriqués, prestations de services, marchandises",
+                "Écriture type pour le compte 70 - Ventes de produits fabriqués, prestations de services, marchandises",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["70", "Ventes de produits fabriqués, prestations de services, marchandises", "", "X"],
@@ -17278,7 +17278,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 701 — Ventes de produits finis",
+            description: "Écriture type pour le compte 701 - Ventes de produits finis",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["701", "Ventes de produits finis", "", "X"],
@@ -17300,7 +17300,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 702 — Ventes de produits intermédiaires",
+            description: "Écriture type pour le compte 702 - Ventes de produits intermédiaires",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["702", "Ventes de produits intermédiaires", "", "X"],
@@ -17322,7 +17322,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 703 — Ventes de produits résiduels",
+            description: "Écriture type pour le compte 703 - Ventes de produits résiduels",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["703", "Ventes de produits résiduels", "", "X"],
@@ -17344,7 +17344,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 704 — Travaux",
+            description: "Écriture type pour le compte 704 - Travaux",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["704", "Travaux", "", "X"],
@@ -17366,7 +17366,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 705 — Études",
+            description: "Écriture type pour le compte 705 - Études",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["705", "Études", "", "X"],
@@ -17388,7 +17388,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 706 — Prestations de services",
+            description: "Écriture type pour le compte 706 - Prestations de services",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["706", "Prestations de services", "", "X"],
@@ -17410,7 +17410,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 707 — Ventes de marchandises",
+            description: "Écriture type pour le compte 707 - Ventes de marchandises",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["707", "Ventes de marchandises", "", "X"],
@@ -17432,7 +17432,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 708 — Produits des activités annexes",
+            description: "Écriture type pour le compte 708 - Produits des activités annexes",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["708", "Produits des activités annexes", "", "X"],
@@ -17456,7 +17456,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
             description:
-                "Écriture type pour le compte 7081 — Produits des services exploités dans l'intérêt du personnel",
+                "Écriture type pour le compte 7081 - Produits des services exploités dans l'intérêt du personnel",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7081", "Produits des services exploités dans l'intérêt du personnel", "", "X"],
@@ -17479,7 +17479,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7082 — Commissions et courtages",
+            description: "Écriture type pour le compte 7082 - Commissions et courtages",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7082", "Commissions et courtages", "", "X"],
@@ -17502,7 +17502,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7083 — Locations diverses",
+            description: "Écriture type pour le compte 7083 - Locations diverses",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7083", "Locations diverses", "", "X"],
@@ -17525,7 +17525,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7084 — Mise à disposition de personnel facturée",
+            description: "Écriture type pour le compte 7084 - Mise à disposition de personnel facturée",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7084", "Mise à disposition de personnel facturée", "", "X"],
@@ -17548,7 +17548,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7085 — Ports et frais accessoires facturés",
+            description: "Écriture type pour le compte 7085 - Ports et frais accessoires facturés",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7085", "Ports et frais accessoires facturés", "", "X"],
@@ -17571,7 +17571,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7086 — Bonis sur reprises d'emballages consignés",
+            description: "Écriture type pour le compte 7086 - Bonis sur reprises d'emballages consignés",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7086", "Bonis sur reprises d'emballages consignés", "", "X"],
@@ -17594,7 +17594,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7087 — Bonifications obtenues des clients et primes sur ventes",
+            description: "Écriture type pour le compte 7087 - Bonifications obtenues des clients et primes sur ventes",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7087", "Bonifications obtenues des clients et primes sur ventes", "", "X"],
@@ -17618,7 +17618,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
             description:
-                "Écriture type pour le compte 7088 — Autres produits d'activités annexes (cessions d'approvisionnements)",
+                "Écriture type pour le compte 7088 - Autres produits d'activités annexes (cessions d'approvisionnements)",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7088", "Autres produits d'activités annexes (cessions d'approvisionnements)", "", "X"],
@@ -17641,7 +17641,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 709 — Rabais, remises et ristournes accordés",
+            description: "Écriture type pour le compte 709 - Rabais, remises et ristournes accordés",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["709", "Rabais, remises et ristournes accordés", "", "X"],
@@ -17664,7 +17664,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
             description:
-                "Écriture type pour le compte 7091 — Rabais, remises et ristournes accordés sur ventes de produits finis",
+                "Écriture type pour le compte 7091 - Rabais, remises et ristournes accordés sur ventes de produits finis",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7091", "Rabais, remises et ristournes accordés sur ventes de produits finis", "", "X"],
@@ -17687,7 +17687,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
             description:
-                "Écriture type pour le compte 7092 — Rabais, remises et ristournes accordés sur ventes de produits intermédiaires",
+                "Écriture type pour le compte 7092 - Rabais, remises et ristournes accordés sur ventes de produits intermédiaires",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7092", "Rabais, remises et ristournes accordés sur ventes de produits intermédiaires", "", "X"],
@@ -17709,7 +17709,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7094 — Rabais, remises et ristournes accordés sur travaux",
+            description: "Écriture type pour le compte 7094 - Rabais, remises et ristournes accordés sur travaux",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7094", "Rabais, remises et ristournes accordés sur travaux", "", "X"],
@@ -17731,7 +17731,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7095 — Rabais, remises et ristournes accordés sur études",
+            description: "Écriture type pour le compte 7095 - Rabais, remises et ristournes accordés sur études",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7095", "Rabais, remises et ristournes accordés sur études", "", "X"],
@@ -17754,7 +17754,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
             description:
-                "Écriture type pour le compte 7096 — Rabais, remises et ristournes accordés sur prestations de services",
+                "Écriture type pour le compte 7096 - Rabais, remises et ristournes accordés sur prestations de services",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7096", "Rabais, remises et ristournes accordés sur prestations de services", "", "X"],
@@ -17777,7 +17777,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
             description:
-                "Écriture type pour le compte 7097 — Rabais, remises et ristournes accordés sur ventes de marchandises",
+                "Écriture type pour le compte 7097 - Rabais, remises et ristournes accordés sur ventes de marchandises",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7097", "Rabais, remises et ristournes accordés sur ventes de marchandises", "", "X"],
@@ -17800,7 +17800,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
             description:
-                "Écriture type pour le compte 7098 — Rabais, remises et ristournes accordés sur produits des activités annexes",
+                "Écriture type pour le compte 7098 - Rabais, remises et ristournes accordés sur produits des activités annexes",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7098", "Rabais, remises et ristournes accordés sur produits des activités annexes", "", "X"],
@@ -17823,7 +17823,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 71 — Production stockée (ou déstockage)",
+            description: "Écriture type pour le compte 71 - Production stockée (ou déstockage)",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["71", "Production stockée (ou déstockage)", "", "X"],
@@ -17847,7 +17847,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
             description:
-                "Écriture type pour le compte 713 — Variation des stocks des en-cours de production et de produits",
+                "Écriture type pour le compte 713 - Variation des stocks des en-cours de production et de produits",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["713", "Variation des stocks des en-cours de production et de produits", "", "X"],
@@ -17869,7 +17869,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7133 — Variation des en-cours de production de biens",
+            description: "Écriture type pour le compte 7133 - Variation des en-cours de production de biens",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7133", "Variation des en-cours de production de biens", "", "X"],
@@ -17892,7 +17892,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 71331 — Produits en cours",
+            description: "Écriture type pour le compte 71331 - Produits en cours",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["71331", "Produits en cours", "", "X"],
@@ -17915,7 +17915,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 71335 — Travaux en cours",
+            description: "Écriture type pour le compte 71335 - Travaux en cours",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["71335", "Travaux en cours", "", "X"],
@@ -17937,7 +17937,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7134 — Variation des en-cours de production de services",
+            description: "Écriture type pour le compte 7134 - Variation des en-cours de production de services",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7134", "Variation des en-cours de production de services", "", "X"],
@@ -17960,7 +17960,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 71341 — Études en cours",
+            description: "Écriture type pour le compte 71341 - Études en cours",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["71341", "Études en cours", "", "X"],
@@ -17983,7 +17983,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 71345 — Prestations de services en cours",
+            description: "Écriture type pour le compte 71345 - Prestations de services en cours",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["71345", "Prestations de services en cours", "", "X"],
@@ -18005,7 +18005,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7135 — Variation des stocks de produits",
+            description: "Écriture type pour le compte 7135 - Variation des stocks de produits",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7135", "Variation des stocks de produits", "", "X"],
@@ -18028,7 +18028,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 71351 — Produits intermédiaires",
+            description: "Écriture type pour le compte 71351 - Produits intermédiaires",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["71351", "Produits intermédiaires", "", "X"],
@@ -18051,7 +18051,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 71355 — Produits finis",
+            description: "Écriture type pour le compte 71355 - Produits finis",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["71355", "Produits finis", "", "X"],
@@ -18074,7 +18074,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 71358 — Produits résiduels",
+            description: "Écriture type pour le compte 71358 - Produits résiduels",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["71358", "Produits résiduels", "", "X"],
@@ -18097,7 +18097,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 72 — Production immobilisée",
+            description: "Écriture type pour le compte 72 - Production immobilisée",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["72", "Production immobilisée", "", "X"],
@@ -18119,7 +18119,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 721 — Immobilisations incorporelles",
+            description: "Écriture type pour le compte 721 - Immobilisations incorporelles",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["721", "Immobilisations incorporelles", "", "X"],
@@ -18141,7 +18141,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 722 — Immobilisations corporelles",
+            description: "Écriture type pour le compte 722 - Immobilisations corporelles",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["722", "Immobilisations corporelles", "", "X"],
@@ -18165,7 +18165,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 74 — Subventions",
+            description: "Écriture type pour le compte 74 - Subventions",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["74", "Subventions", "", "X"],
@@ -18188,7 +18188,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 741 — Subventions d’exploitation",
+            description: "Écriture type pour le compte 741 - Subventions d’exploitation",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["741", "Subventions d’exploitation", "", "X"],
@@ -18211,7 +18211,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 742 — Subventions d’équilibre",
+            description: "Écriture type pour le compte 742 - Subventions d’équilibre",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["742", "Subventions d’équilibre", "", "X"],
@@ -18235,7 +18235,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
             description:
-                "Écriture type pour le compte 747 — Quote-part des subventions d’investissement virée au résultat de l’exercice",
+                "Écriture type pour le compte 747 - Quote-part des subventions d’investissement virée au résultat de l’exercice",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["747", "Quote-part des subventions d’investissement virée au résultat de l’exercice", "", "X"],
@@ -18259,7 +18259,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 75 — Autres produits de gestion courante",
+            description: "Écriture type pour le compte 75 - Autres produits de gestion courante",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["75", "Autres produits de gestion courante", "", "X"],
@@ -18287,7 +18287,7 @@ export const accountEntries: AccountEntry[] = [
             creditMeaning: "Constatation ou augmentation du produit",
             journalExample: {
                 description:
-                    "Écriture type pour le compte 751 — Redevances pour concessions, brevets, licences, marques, procédés, solutions informatiques, droits et valeurs similaires",
+                    "Écriture type pour le compte 751 - Redevances pour concessions, brevets, licences, marques, procédés, solutions informatiques, droits et valeurs similaires",
                 rows: [
                     ["411", "Clients", "X", ""],
                     [
@@ -18320,7 +18320,7 @@ export const accountEntries: AccountEntry[] = [
             creditMeaning: "Constatation ou augmentation du produit",
             journalExample: {
                 description:
-                    "Écriture type pour le compte 7511 — Redevances pour concessions, brevets, licences, marques, procédés, solutions informatiques",
+                    "Écriture type pour le compte 7511 - Redevances pour concessions, brevets, licences, marques, procédés, solutions informatiques",
                 rows: [
                     ["411", "Clients", "X", ""],
                     [
@@ -18349,7 +18349,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7516 — Droits d'auteur et de reproduction",
+            description: "Écriture type pour le compte 7516 - Droits d'auteur et de reproduction",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7516", "Droits d'auteur et de reproduction", "", "X"],
@@ -18372,7 +18372,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7518 — Autres droits et valeurs similaires",
+            description: "Écriture type pour le compte 7518 - Autres droits et valeurs similaires",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7518", "Autres droits et valeurs similaires", "", "X"],
@@ -18395,7 +18395,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
             description:
-                "Écriture type pour le compte 752 — Revenus des immeubles non affectés à des activités professionnelles",
+                "Écriture type pour le compte 752 - Revenus des immeubles non affectés à des activités professionnelles",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["752", "Revenus des immeubles non affectés à des activités professionnelles", "", "X"],
@@ -18418,7 +18418,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
             description:
-                "Écriture type pour le compte 753 — Rémunérations de l’activité des administrateurs et des gérants",
+                "Écriture type pour le compte 753 - Rémunérations de l’activité des administrateurs et des gérants",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["753", "Rémunérations de l’activité des administrateurs et des gérants", "", "X"],
@@ -18442,7 +18442,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
             description:
-                "Écriture type pour le compte 754 — Ristournes perçues des coopératives provenant des excédents",
+                "Écriture type pour le compte 754 - Ristournes perçues des coopératives provenant des excédents",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["754", "Ristournes perçues des coopératives provenant des excédents", "", "X"],
@@ -18466,7 +18466,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 755 — Quote-part de résultat sur opérations faites en commun",
+            description: "Écriture type pour le compte 755 - Quote-part de résultat sur opérations faites en commun",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["755", "Quote-part de résultat sur opérations faites en commun", "", "X"],
@@ -18489,7 +18489,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7551 — Quote-part de perte transférée - comptabilité du gérant",
+            description: "Écriture type pour le compte 7551 - Quote-part de perte transférée - comptabilité du gérant",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7551", "Quote-part de perte transférée - comptabilité du gérant", "", "X"],
@@ -18513,7 +18513,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
             description:
-                "Écriture type pour le compte 7555 — Quote-part de bénéfice attribuée - comptabilité des associés non-gérants",
+                "Écriture type pour le compte 7555 - Quote-part de bénéfice attribuée - comptabilité des associés non-gérants",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7555", "Quote-part de bénéfice attribuée - comptabilité des associés non-gérants", "", "X"],
@@ -18536,7 +18536,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 756 — Gains de change sur créances et dettes commerciales",
+            description: "Écriture type pour le compte 756 - Gains de change sur créances et dettes commerciales",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["756", "Gains de change sur créances et dettes commerciales", "", "X"],
@@ -18560,7 +18560,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
             description:
-                "Écriture type pour le compte 757 — Produits des cessions d’immobilisations incorporelles et corporelles",
+                "Écriture type pour le compte 757 - Produits des cessions d’immobilisations incorporelles et corporelles",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["757", "Produits des cessions d’immobilisations incorporelles et corporelles", "", "X"],
@@ -18582,7 +18582,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 758 — Indemnités et autres produits",
+            description: "Écriture type pour le compte 758 - Indemnités et autres produits",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["758", "Indemnités et autres produits", "", "X"],
@@ -18605,7 +18605,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7581 — Dédits et pénalités perçus sur achats et ventes",
+            description: "Écriture type pour le compte 7581 - Dédits et pénalités perçus sur achats et ventes",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7581", "Dédits et pénalités perçus sur achats et ventes", "", "X"],
@@ -18628,7 +18628,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7582 — Libéralités reçues",
+            description: "Écriture type pour le compte 7582 - Libéralités reçues",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7582", "Libéralités reçues", "", "X"],
@@ -18651,7 +18651,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7583 — Rentrées sur créances amorties",
+            description: "Écriture type pour le compte 7583 - Rentrées sur créances amorties",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7583", "Rentrées sur créances amorties", "", "X"],
@@ -18674,7 +18674,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7584 — Dégrèvements d’impôts autres qu’impôts sur les bénéfices",
+            description: "Écriture type pour le compte 7584 - Dégrèvements d’impôts autres qu’impôts sur les bénéfices",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7584", "Dégrèvements d’impôts autres qu’impôts sur les bénéfices", "", "X"],
@@ -18697,7 +18697,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7585 — Bonis provenant de clauses d’indexation",
+            description: "Écriture type pour le compte 7585 - Bonis provenant de clauses d’indexation",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7585", "Bonis provenant de clauses d’indexation", "", "X"],
@@ -18720,7 +18720,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7586 — Lots",
+            description: "Écriture type pour le compte 7586 - Lots",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7586", "Lots", "", "X"],
@@ -18743,7 +18743,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7587 — Indemnités d’assurance",
+            description: "Écriture type pour le compte 7587 - Indemnités d’assurance",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7587", "Indemnités d’assurance", "", "X"],
@@ -18766,7 +18766,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7588 — Opérations de constitution ou liquidation des fiducies",
+            description: "Écriture type pour le compte 7588 - Opérations de constitution ou liquidation des fiducies",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7588", "Opérations de constitution ou liquidation des fiducies", "", "X"],
@@ -18789,7 +18789,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 76 — Produits financiers",
+            description: "Écriture type pour le compte 76 - Produits financiers",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["76", "Produits financiers", "", "X"],
@@ -18812,7 +18812,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 761 — Produits de participations",
+            description: "Écriture type pour le compte 761 - Produits de participations",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["761", "Produits de participations", "", "X"],
@@ -18835,7 +18835,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7611 — Revenus des titres de participation",
+            description: "Écriture type pour le compte 7611 - Revenus des titres de participation",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7611", "Revenus des titres de participation", "", "X"],
@@ -18858,7 +18858,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7612 — Produits de la fiducie, résultat de la période",
+            description: "Écriture type pour le compte 7612 - Produits de la fiducie, résultat de la période",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7612", "Produits de la fiducie, résultat de la période", "", "X"],
@@ -18881,7 +18881,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7616 — Revenus sur autres formes de participation",
+            description: "Écriture type pour le compte 7616 - Revenus sur autres formes de participation",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7616", "Revenus sur autres formes de participation", "", "X"],
@@ -18904,7 +18904,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7617 — Revenus des créances rattachées à des participations",
+            description: "Écriture type pour le compte 7617 - Revenus des créances rattachées à des participations",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7617", "Revenus des créances rattachées à des participations", "", "X"],
@@ -18927,7 +18927,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 762 — Produits des autres immobilisations financières",
+            description: "Écriture type pour le compte 762 - Produits des autres immobilisations financières",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["762", "Produits des autres immobilisations financières", "", "X"],
@@ -18950,7 +18950,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7621 — Revenus des titres immobilisés",
+            description: "Écriture type pour le compte 7621 - Revenus des titres immobilisés",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7621", "Revenus des titres immobilisés", "", "X"],
@@ -18973,7 +18973,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7626 — Revenus des prêts",
+            description: "Écriture type pour le compte 7626 - Revenus des prêts",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7626", "Revenus des prêts", "", "X"],
@@ -18996,7 +18996,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7627 — Revenus des créances immobilisées",
+            description: "Écriture type pour le compte 7627 - Revenus des créances immobilisées",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7627", "Revenus des créances immobilisées", "", "X"],
@@ -19019,7 +19019,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 763 — Revenus des autres créances",
+            description: "Écriture type pour le compte 763 - Revenus des autres créances",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["763", "Revenus des autres créances", "", "X"],
@@ -19042,7 +19042,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7631 — Revenus des créances commerciales",
+            description: "Écriture type pour le compte 7631 - Revenus des créances commerciales",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7631", "Revenus des créances commerciales", "", "X"],
@@ -19065,7 +19065,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7638 — Revenus des créances diverses",
+            description: "Écriture type pour le compte 7638 - Revenus des créances diverses",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7638", "Revenus des créances diverses", "", "X"],
@@ -19087,7 +19087,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 764 — Revenus des valeurs mobilières de placement",
+            description: "Écriture type pour le compte 764 - Revenus des valeurs mobilières de placement",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["764", "Revenus des valeurs mobilières de placement", "", "X"],
@@ -19110,7 +19110,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 765 — Escomptes obtenus",
+            description: "Écriture type pour le compte 765 - Escomptes obtenus",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["765", "Escomptes obtenus", "", "X"],
@@ -19133,7 +19133,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 766 — Gains de change financiers",
+            description: "Écriture type pour le compte 766 - Gains de change financiers",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["766", "Gains de change financiers", "", "X"],
@@ -19156,7 +19156,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 767 — Produits sur cession d’éléments financiers",
+            description: "Écriture type pour le compte 767 - Produits sur cession d’éléments financiers",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["767", "Produits sur cession d’éléments financiers", "", "X"],
@@ -19179,7 +19179,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7671 — Produits des cessions d’immobilisations financières",
+            description: "Écriture type pour le compte 7671 - Produits des cessions d’immobilisations financières",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7671", "Produits des cessions d’immobilisations financières", "", "X"],
@@ -19202,7 +19202,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
             description:
-                "Écriture type pour le compte 7672 — Produits nets sur cessions de titres immobilisés de l’activité de portefeuille",
+                "Écriture type pour le compte 7672 - Produits nets sur cessions de titres immobilisés de l’activité de portefeuille",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7672", "Produits nets sur cessions de titres immobilisés de l’activité de portefeuille", "", "X"],
@@ -19225,7 +19225,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
             description:
-                "Écriture type pour le compte 7673 — Produits nets sur cessions de valeurs mobilières de placement",
+                "Écriture type pour le compte 7673 - Produits nets sur cessions de valeurs mobilières de placement",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7673", "Produits nets sur cessions de valeurs mobilières de placement", "", "X"],
@@ -19247,7 +19247,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7674 — Produits nets sur cessions de jetons",
+            description: "Écriture type pour le compte 7674 - Produits nets sur cessions de jetons",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["7674", "Produits nets sur cessions de jetons", "", "X"],
@@ -19269,7 +19269,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 768 — Autres produits financiers",
+            description: "Écriture type pour le compte 768 - Autres produits financiers",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["768", "Autres produits financiers", "", "X"],
@@ -19296,7 +19296,7 @@ export const accountEntries: AccountEntry[] = [
             creditMeaning: "Constatation ou augmentation du produit",
             journalExample: {
                 description:
-                    "Écriture type pour le compte 7683 — Bonis provenant du rachat par l’entreprise d’actions et d’obligations émises par elle-même",
+                    "Écriture type pour le compte 7683 - Bonis provenant du rachat par l’entreprise d’actions et d’obligations émises par elle-même",
                 rows: [
                     ["411", "Clients", "X", ""],
                     [
@@ -19325,7 +19325,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 77 — Produits exceptionnels",
+            description: "Écriture type pour le compte 77 - Produits exceptionnels",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["77", "Produits exceptionnels", "", "X"],
@@ -19351,7 +19351,7 @@ export const accountEntries: AccountEntry[] = [
             creditMeaning: "Constatation ou augmentation du produit",
             journalExample: {
                 description:
-                    "Écriture type pour le compte 772 — (Compte à la disposition des entités pour enregistrer, en cours d'exercice, les produits sur exercices antérieurs)",
+                    "Écriture type pour le compte 772 - (Compte à la disposition des entités pour enregistrer, en cours d'exercice, les produits sur exercices antérieurs)",
                 rows: [
                     ["411", "Clients", "X", ""],
                     [
@@ -19379,7 +19379,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 778 — Autres produits exceptionnels",
+            description: "Écriture type pour le compte 778 - Autres produits exceptionnels",
             rows: [
                 ["411", "Clients", "X", ""],
                 ["778", "Autres produits exceptionnels", "", "X"],
@@ -19403,7 +19403,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 78 — Reprises sur amortissements, dépréciations et provisions",
+            description: "Écriture type pour le compte 78 - Reprises sur amortissements, dépréciations et provisions",
             rows: [
                 ["29", "Dépréciations des immobilisations", "X", ""],
                 ["78", "Reprises sur amortissements, dépréciations et provisions", "", "X"],
@@ -19430,7 +19430,7 @@ export const accountEntries: AccountEntry[] = [
             creditMeaning: "Constatation ou augmentation du produit",
             journalExample: {
                 description:
-                    "Écriture type pour le compte 781 — Reprises sur amortissements, dépréciations et provisions (à inscrire dans les produits d'exploitation)",
+                    "Écriture type pour le compte 781 - Reprises sur amortissements, dépréciations et provisions (à inscrire dans les produits d'exploitation)",
                 rows: [
                     ["29", "Dépréciations des immobilisations", "X", ""],
                     [
@@ -19459,7 +19459,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
             description:
-                "Écriture type pour le compte 7811 — Reprises sur amortissements des immobilisations incorporelles et corporelles",
+                "Écriture type pour le compte 7811 - Reprises sur amortissements des immobilisations incorporelles et corporelles",
             rows: [
                 ["29", "Dépréciations des immobilisations", "X", ""],
                 ["7811", "Reprises sur amortissements des immobilisations incorporelles et corporelles", "", "X"],
@@ -19482,7 +19482,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 78111 — Immobilisations incorporelles",
+            description: "Écriture type pour le compte 78111 - Immobilisations incorporelles",
             rows: [
                 ["29", "Dépréciations des immobilisations", "X", ""],
                 ["78111", "Immobilisations incorporelles", "", "X"],
@@ -19505,7 +19505,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 78112 — Immobilisations corporelles",
+            description: "Écriture type pour le compte 78112 - Immobilisations corporelles",
             rows: [
                 ["29", "Dépréciations des immobilisations", "X", ""],
                 ["78112", "Immobilisations corporelles", "", "X"],
@@ -19527,7 +19527,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7815 — Reprises sur provisions d'exploitation",
+            description: "Écriture type pour le compte 7815 - Reprises sur provisions d'exploitation",
             rows: [
                 ["29", "Dépréciations des immobilisations", "X", ""],
                 ["7815", "Reprises sur provisions d'exploitation", "", "X"],
@@ -19550,7 +19550,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
             description:
-                "Écriture type pour le compte 7816 — Reprises sur dépréciations des immobilisations incorporelles et corporelles",
+                "Écriture type pour le compte 7816 - Reprises sur dépréciations des immobilisations incorporelles et corporelles",
             rows: [
                 ["29", "Dépréciations des immobilisations", "X", ""],
                 ["7816", "Reprises sur dépréciations des immobilisations incorporelles et corporelles", "", "X"],
@@ -19573,7 +19573,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 78161 — Immobilisations incorporelles",
+            description: "Écriture type pour le compte 78161 - Immobilisations incorporelles",
             rows: [
                 ["29", "Dépréciations des immobilisations", "X", ""],
                 ["78161", "Immobilisations incorporelles", "", "X"],
@@ -19596,7 +19596,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 78162 — Immobilisations corporelles",
+            description: "Écriture type pour le compte 78162 - Immobilisations corporelles",
             rows: [
                 ["29", "Dépréciations des immobilisations", "X", ""],
                 ["78162", "Immobilisations corporelles", "", "X"],
@@ -19618,7 +19618,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7817 — Reprises sur dépréciations des actifs circulants",
+            description: "Écriture type pour le compte 7817 - Reprises sur dépréciations des actifs circulants",
             rows: [
                 ["29", "Dépréciations des immobilisations", "X", ""],
                 ["7817", "Reprises sur dépréciations des actifs circulants", "", "X"],
@@ -19641,7 +19641,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 78173 — Stocks et en-cours",
+            description: "Écriture type pour le compte 78173 - Stocks et en-cours",
             rows: [
                 ["29", "Dépréciations des immobilisations", "X", ""],
                 ["78173", "Stocks et en-cours", "", "X"],
@@ -19664,7 +19664,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 78174 — Créances",
+            description: "Écriture type pour le compte 78174 - Créances",
             rows: [
                 ["29", "Dépréciations des immobilisations", "X", ""],
                 ["78174", "Créances", "", "X"],
@@ -19688,7 +19688,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
             description:
-                "Écriture type pour le compte 786 — Reprises sur dépréciations et provisions (à inscrire dans les produits financiers)",
+                "Écriture type pour le compte 786 - Reprises sur dépréciations et provisions (à inscrire dans les produits financiers)",
             rows: [
                 ["29", "Dépréciations des immobilisations", "X", ""],
                 ["786", "Reprises sur dépréciations et provisions (à inscrire dans les produits financiers)", "", "X"],
@@ -19710,7 +19710,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7865 — Reprises sur provisions financières",
+            description: "Écriture type pour le compte 7865 - Reprises sur provisions financières",
             rows: [
                 ["29", "Dépréciations des immobilisations", "X", ""],
                 ["7865", "Reprises sur provisions financières", "", "X"],
@@ -19732,7 +19732,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7866 — Reprises sur dépréciations des éléments financiers",
+            description: "Écriture type pour le compte 7866 - Reprises sur dépréciations des éléments financiers",
             rows: [
                 ["29", "Dépréciations des immobilisations", "X", ""],
                 ["7866", "Reprises sur dépréciations des éléments financiers", "", "X"],
@@ -19755,7 +19755,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 78662 — Immobilisations financières",
+            description: "Écriture type pour le compte 78662 - Immobilisations financières",
             rows: [
                 ["29", "Dépréciations des immobilisations", "X", ""],
                 ["78662", "Immobilisations financières", "", "X"],
@@ -19778,7 +19778,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 78665 — Valeurs mobilières de placement",
+            description: "Écriture type pour le compte 78665 - Valeurs mobilières de placement",
             rows: [
                 ["29", "Dépréciations des immobilisations", "X", ""],
                 ["78665", "Valeurs mobilières de placement", "", "X"],
@@ -19803,7 +19803,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
             description:
-                "Écriture type pour le compte 787 — Reprises sur dépréciations et provisions (à inscrire dans les produits exceptionnels)",
+                "Écriture type pour le compte 787 - Reprises sur dépréciations et provisions (à inscrire dans les produits exceptionnels)",
             rows: [
                 ["29", "Dépréciations des immobilisations", "X", ""],
                 [
@@ -19830,7 +19830,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7872 — Reprises sur provisions réglementées (immobilisations)",
+            description: "Écriture type pour le compte 7872 - Reprises sur provisions réglementées (immobilisations)",
             rows: [
                 ["29", "Dépréciations des immobilisations", "X", ""],
                 ["7872", "Reprises sur provisions réglementées (immobilisations)", "", "X"],
@@ -19853,7 +19853,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 78725 — Amortissements dérogatoires",
+            description: "Écriture type pour le compte 78725 - Amortissements dérogatoires",
             rows: [
                 ["29", "Dépréciations des immobilisations", "X", ""],
                 ["78725", "Amortissements dérogatoires", "", "X"],
@@ -19875,7 +19875,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7873 — Reprises sur provisions réglementées (stocks)",
+            description: "Écriture type pour le compte 7873 - Reprises sur provisions réglementées (stocks)",
             rows: [
                 ["29", "Dépréciations des immobilisations", "X", ""],
                 ["7873", "Reprises sur provisions réglementées (stocks)", "", "X"],
@@ -19897,7 +19897,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7874 — Reprises sur autres provisions réglementées",
+            description: "Écriture type pour le compte 7874 - Reprises sur autres provisions réglementées",
             rows: [
                 ["29", "Dépréciations des immobilisations", "X", ""],
                 ["7874", "Reprises sur autres provisions réglementées", "", "X"],
@@ -19919,7 +19919,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7875 — Reprises sur provisions exceptionnelles",
+            description: "Écriture type pour le compte 7875 - Reprises sur provisions exceptionnelles",
             rows: [
                 ["29", "Dépréciations des immobilisations", "X", ""],
                 ["7875", "Reprises sur provisions exceptionnelles", "", "X"],
@@ -19941,7 +19941,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Annulation ou diminution du produit",
         creditMeaning: "Constatation ou augmentation du produit",
         journalExample: {
-            description: "Écriture type pour le compte 7876 — Reprises sur dépréciations exceptionnelles",
+            description: "Écriture type pour le compte 7876 - Reprises sur dépréciations exceptionnelles",
             rows: [
                 ["29", "Dépréciations des immobilisations", "X", ""],
                 ["7876", "Reprises sur dépréciations exceptionnelles", "", "X"],
@@ -19968,7 +19968,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de comptes spéciaux",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de comptes spéciaux",
         journalExample: {
-            description: "Écriture type pour le compte 8 — Comptes spéciaux",
+            description: "Écriture type pour le compte 8 - Comptes spéciaux",
             rows: [
                 ["8", "Comptes spéciaux", "X", ""],
                 ["8", "Comptes spéciaux (contrepartie)", "", "X"],
@@ -19993,7 +19993,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de engagements donnés et reçus",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de engagements donnés et reçus",
         journalExample: {
-            description: "Écriture type pour le compte 80 — Engagements donnés et reçus",
+            description: "Écriture type pour le compte 80 - Engagements donnés et reçus",
             rows: [
                 ["80", "Engagements donnés et reçus", "X", ""],
                 ["8", "Comptes spéciaux (contrepartie)", "", "X"],
@@ -20018,7 +20018,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de engagements donnés par l'entité",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de engagements donnés par l'entité",
         journalExample: {
-            description: "Écriture type pour le compte 801 — Engagements donnés par l'entité",
+            description: "Écriture type pour le compte 801 - Engagements donnés par l'entité",
             rows: [
                 ["801", "Engagements donnés par l'entité", "X", ""],
                 ["8", "Comptes spéciaux (contrepartie)", "", "X"],
@@ -20041,7 +20041,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de avals, cautions et garanties donnés",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de avals, cautions et garanties donnés",
         journalExample: {
-            description: "Écriture type pour le compte 8011 — Avals, cautions et garanties donnés",
+            description: "Écriture type pour le compte 8011 - Avals, cautions et garanties donnés",
             rows: [
                 ["8011", "Avals, cautions et garanties donnés", "X", ""],
                 ["8", "Comptes spéciaux (contrepartie)", "", "X"],
@@ -20064,7 +20064,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de effets circulant sous l'endos de l'entité",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de effets circulant sous l'endos de l'entité",
         journalExample: {
-            description: "Écriture type pour le compte 8014 — Effets circulant sous l'endos de l'entité",
+            description: "Écriture type pour le compte 8014 - Effets circulant sous l'endos de l'entité",
             rows: [
                 ["8014", "Effets circulant sous l'endos de l'entité", "X", ""],
                 ["8", "Comptes spéciaux (contrepartie)", "", "X"],
@@ -20088,7 +20088,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de redevances crédit-bail restant à courir",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de redevances crédit-bail restant à courir",
         journalExample: {
-            description: "Écriture type pour le compte 8016 — Redevances crédit-bail restant à courir",
+            description: "Écriture type pour le compte 8016 - Redevances crédit-bail restant à courir",
             rows: [
                 ["8016", "Redevances crédit-bail restant à courir", "X", ""],
                 ["8", "Comptes spéciaux (contrepartie)", "", "X"],
@@ -20111,7 +20111,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de dettes garanties par des sûretés réelles",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de dettes garanties par des sûretés réelles",
         journalExample: {
-            description: "Écriture type pour le compte 8017 — Dettes garanties par des sûretés réelles",
+            description: "Écriture type pour le compte 8017 - Dettes garanties par des sûretés réelles",
             rows: [
                 ["8017", "Dettes garanties par des sûretés réelles", "X", ""],
                 ["8", "Comptes spéciaux (contrepartie)", "", "X"],
@@ -20134,7 +20134,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de autres engagements donnés",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de autres engagements donnés",
         journalExample: {
-            description: "Écriture type pour le compte 8018 — Autres engagements donnés",
+            description: "Écriture type pour le compte 8018 - Autres engagements donnés",
             rows: [
                 ["8018", "Autres engagements donnés", "X", ""],
                 ["8", "Comptes spéciaux (contrepartie)", "", "X"],
@@ -20159,7 +20159,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de engagements reçus par l'entité",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de engagements reçus par l'entité",
         journalExample: {
-            description: "Écriture type pour le compte 802 — Engagements reçus par l'entité",
+            description: "Écriture type pour le compte 802 - Engagements reçus par l'entité",
             rows: [
                 ["802", "Engagements reçus par l'entité", "X", ""],
                 ["8", "Comptes spéciaux (contrepartie)", "", "X"],
@@ -20182,7 +20182,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de avals, cautions et garanties reçus",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de avals, cautions et garanties reçus",
         journalExample: {
-            description: "Écriture type pour le compte 8021 — Avals, cautions et garanties reçus",
+            description: "Écriture type pour le compte 8021 - Avals, cautions et garanties reçus",
             rows: [
                 ["8021", "Avals, cautions et garanties reçus", "X", ""],
                 ["8", "Comptes spéciaux (contrepartie)", "", "X"],
@@ -20205,7 +20205,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de créances escomptées non échues",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de créances escomptées non échues",
         journalExample: {
-            description: "Écriture type pour le compte 8024 — Créances escomptées non échues",
+            description: "Écriture type pour le compte 8024 - Créances escomptées non échues",
             rows: [
                 ["8024", "Créances escomptées non échues", "X", ""],
                 ["8", "Comptes spéciaux (contrepartie)", "", "X"],
@@ -20230,7 +20230,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning:
             "Diminution (si actif) ou augmentation (si passif) de engagements reçus pour utilisation en crédit-bail",
         journalExample: {
-            description: "Écriture type pour le compte 8026 — Engagements reçus pour utilisation en crédit-bail",
+            description: "Écriture type pour le compte 8026 - Engagements reçus pour utilisation en crédit-bail",
             rows: [
                 ["8026", "Engagements reçus pour utilisation en crédit-bail", "X", ""],
                 ["8", "Comptes spéciaux (contrepartie)", "", "X"],
@@ -20253,7 +20253,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de autres engagements reçus",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de autres engagements reçus",
         journalExample: {
-            description: "Écriture type pour le compte 8028 — Autres engagements reçus",
+            description: "Écriture type pour le compte 8028 - Autres engagements reçus",
             rows: [
                 ["8028", "Autres engagements reçus", "X", ""],
                 ["8", "Comptes spéciaux (contrepartie)", "", "X"],
@@ -20278,7 +20278,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de engagements réciproques",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de engagements réciproques",
         journalExample: {
-            description: "Écriture type pour le compte 803 — Engagements réciproques",
+            description: "Écriture type pour le compte 803 - Engagements réciproques",
             rows: [
                 ["803", "Engagements réciproques", "X", ""],
                 ["8", "Comptes spéciaux (contrepartie)", "", "X"],
@@ -20303,7 +20303,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de contrepartie des engagements",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de contrepartie des engagements",
         journalExample: {
-            description: "Écriture type pour le compte 809 — Contrepartie des engagements",
+            description: "Écriture type pour le compte 809 - Contrepartie des engagements",
             rows: [
                 ["809", "Contrepartie des engagements", "X", ""],
                 ["8", "Comptes spéciaux (contrepartie)", "", "X"],
@@ -20330,7 +20330,7 @@ export const accountEntries: AccountEntry[] = [
         creditMeaning:
             "Diminution (si actif) ou augmentation (si passif) de emplois des contributions volontaires en nature",
         journalExample: {
-            description: "Écriture type pour le compte 86 — Emplois des contributions volontaires en nature",
+            description: "Écriture type pour le compte 86 - Emplois des contributions volontaires en nature",
             rows: [
                 ["86", "Emplois des contributions volontaires en nature", "X", ""],
                 ["8", "Comptes spéciaux (contrepartie)", "", "X"],
@@ -20353,7 +20353,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de secours en nature",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de secours en nature",
         journalExample: {
-            description: "Écriture type pour le compte 860 — Secours en nature",
+            description: "Écriture type pour le compte 860 - Secours en nature",
             rows: [
                 ["860", "Secours en nature", "X", ""],
                 ["8", "Comptes spéciaux (contrepartie)", "", "X"],
@@ -20376,7 +20376,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de mise à disposition gratuite de biens",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de mise à disposition gratuite de biens",
         journalExample: {
-            description: "Écriture type pour le compte 861 — Mise à disposition gratuite de biens",
+            description: "Écriture type pour le compte 861 - Mise à disposition gratuite de biens",
             rows: [
                 ["861", "Mise à disposition gratuite de biens", "X", ""],
                 ["8", "Comptes spéciaux (contrepartie)", "", "X"],
@@ -20399,7 +20399,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de prestations",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de prestations",
         journalExample: {
-            description: "Écriture type pour le compte 862 — Prestations",
+            description: "Écriture type pour le compte 862 - Prestations",
             rows: [
                 ["862", "Prestations", "X", ""],
                 ["8", "Comptes spéciaux (contrepartie)", "", "X"],
@@ -20422,7 +20422,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de personnel bénévole",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de personnel bénévole",
         journalExample: {
-            description: "Écriture type pour le compte 864 — Personnel bénévole",
+            description: "Écriture type pour le compte 864 - Personnel bénévole",
             rows: [
                 ["864", "Personnel bénévole", "X", ""],
                 ["8", "Comptes spéciaux (contrepartie)", "", "X"],
@@ -20447,7 +20447,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de contributions volontaires en nature",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de contributions volontaires en nature",
         journalExample: {
-            description: "Écriture type pour le compte 87 — Contributions volontaires en nature",
+            description: "Écriture type pour le compte 87 - Contributions volontaires en nature",
             rows: [
                 ["87", "Contributions volontaires en nature", "X", ""],
                 ["8", "Comptes spéciaux (contrepartie)", "", "X"],
@@ -20470,7 +20470,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de bénévolat",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de bénévolat",
         journalExample: {
-            description: "Écriture type pour le compte 870 — Bénévolat",
+            description: "Écriture type pour le compte 870 - Bénévolat",
             rows: [
                 ["870", "Bénévolat", "X", ""],
                 ["8", "Comptes spéciaux (contrepartie)", "", "X"],
@@ -20493,7 +20493,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de prestations en nature",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de prestations en nature",
         journalExample: {
-            description: "Écriture type pour le compte 871 — Prestations en nature",
+            description: "Écriture type pour le compte 871 - Prestations en nature",
             rows: [
                 ["871", "Prestations en nature", "X", ""],
                 ["8", "Comptes spéciaux (contrepartie)", "", "X"],
@@ -20516,7 +20516,7 @@ export const accountEntries: AccountEntry[] = [
         debitMeaning: "Augmentation (si actif) ou diminution (si passif) de dons en nature",
         creditMeaning: "Diminution (si actif) ou augmentation (si passif) de dons en nature",
         journalExample: {
-            description: "Écriture type pour le compte 875 — Dons en nature",
+            description: "Écriture type pour le compte 875 - Dons en nature",
             rows: [
                 ["875", "Dons en nature", "X", ""],
                 ["8", "Comptes spéciaux (contrepartie)", "", "X"],

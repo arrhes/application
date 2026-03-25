@@ -294,19 +294,19 @@ export function IncomeStatementAccountingDocPage() {
             <DocSources
                 sources={[
                     {
-                        label: "Compte de résultat — Wikipédia",
+                        label: "Compte de résultat - Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Compte_de_r%C3%A9sultat",
                     },
                     {
-                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        label: "Plan Comptable Général - Autorité des Normes Comptables (ANC)",
                         url: "https://www.anc.gouv.fr/normes-comptables-francaises/recueils-des-normes-comptables",
                     },
                     {
-                        label: "Normes internationales d'information financière (IFRS) — Wikipédia",
+                        label: "Normes internationales d'information financière (IFRS) - Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Normes_internationales_d%27information_financi%C3%A8re",
                     },
                     {
-                        label: "Soldes intermédiaires de gestion — Wikipédia",
+                        label: "Soldes intermédiaires de gestion - Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Soldes_interm%C3%A9diaires_de_gestion",
                     },
                 ]}

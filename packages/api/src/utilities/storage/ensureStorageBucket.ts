@@ -13,9 +13,9 @@ export async function ensureStorageBucket(client: S3, bucketName: string) {
         const name = error instanceof Object && "name" in error ? (error as { name: string }).name : undefined
         const httpStatusCode =
             error instanceof Object &&
-            "$metadata" in error &&
-            error.$metadata instanceof Object &&
-            "httpStatusCode" in error.$metadata
+                "$metadata" in error &&
+                error.$metadata instanceof Object &&
+                "httpStatusCode" in error.$metadata
                 ? (error.$metadata as { httpStatusCode: number }).httpStatusCode
                 : undefined
 
@@ -28,11 +28,11 @@ export async function ensureStorageBucket(client: S3, bucketName: string) {
 
         // Some S3-compatible providers (OpenStack Swift, etc.) return 400
         // or other non-standard codes for HeadBucket. Log and continue
-        // rather than crashing the server — actual storage operations
+        // rather than crashing the server - actual storage operations
         // will surface real errors at request time.
         console.warn(
             `HeadBucket check failed (HTTP ${httpStatusCode ?? "unknown"}, name: ${name ?? "unknown"}). ` +
-                `Assuming bucket "${bucketName}" exists. Storage errors will surface at request time if misconfigured.`,
+            `Assuming bucket "${bucketName}" exists. Storage errors will surface at request time if misconfigured.`,
         )
         return
     }

@@ -214,7 +214,7 @@ export function ExportFecFile(props: {
                             </Banner>
                         )}
                         <p className={css({ fontSize: "sm", color: "neutral/50" })}>
-                            {props.entries.length} écriture{props.entries.length > 1 ? "s" : ""} —{" "}
+                            {props.entries.length} écriture{props.entries.length > 1 ? "s" : ""} -{" "}
                             {props.entryLines.length} mouvement{props.entryLines.length > 1 ? "s" : ""}
                         </p>
                         <Button hasLoader onClick={handleExport}>

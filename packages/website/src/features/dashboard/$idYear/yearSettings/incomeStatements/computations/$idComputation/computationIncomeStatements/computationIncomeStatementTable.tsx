@@ -35,7 +35,7 @@ export function ComputationIncomeStatementsTable(props: {
                                 header: " ",
                                 cell: ({ row }) => (
                                     <LinkButton
-                                        to="/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/compte-de-résultat/calculs/$idComputation/$idComputationIncomeStatement"
+                                        to="/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/compte-de-résultat/calculs/$idComputation/postes/$idComputationIncomeStatement"
                                         params={{
                                             idOrganization: row.original.idOrganization,
                                             idYear: row.original.idYear,

@@ -35,7 +35,7 @@ async function uploadOneFile(params: {
         return false
     }
 
-    // Step 1 — create the database record
+    // Step 1 - create the database record
     const createResponse = await getResponseBodyFromAPI({
         routeDefinition: createOneFileRouteDefinition,
         body: {
@@ -50,7 +50,7 @@ async function uploadOneFile(params: {
         return false
     }
 
-    // Step 2 — obtain a pre-signed PUT URL and update storage metadata
+    // Step 2 - obtain a pre-signed PUT URL and update storage metadata
     const signedUrlResponse = await getResponseBodyFromAPI({
         routeDefinition: generateFilePutSignedUrlRouteDefinition,
         body: {
@@ -65,7 +65,7 @@ async function uploadOneFile(params: {
         return false
     }
 
-    // Step 3 — upload the binary directly to object storage
+    // Step 3 - upload the binary directly to object storage
     const uploadResponse = await fetch(signedUrlResponse.data.url, {
         method: "PUT",
         body: file,

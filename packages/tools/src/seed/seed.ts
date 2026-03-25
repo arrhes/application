@@ -1,4 +1,3 @@
-import { pbkdf2Sync, randomBytes } from "node:crypto"
 import {
     type DefaultAccount,
     defaultCompanyAccounts,
@@ -10,6 +9,7 @@ import {
 import { models } from "@arrhes/application-metadata/models"
 import { generateId } from "@arrhes/application-metadata/utilities"
 import { randFirstName } from "@ngneat/falso"
+import { pbkdf2Sync, randomBytes } from "node:crypto"
 import { dbClient } from "../dbClient.js"
 
 // Helper: Flatten hierarchical accounts into a flat array
@@ -518,7 +518,7 @@ async function seed() {
 
             // ---- SALES (VT) ----
             if (journalVT && acc(411) && acc(706) && acc(707) && acc(44571)) {
-                // FC001 — Prestation de services (January)
+                // FC001 - Prestation de services (January)
                 sampleEntries.push(
                     makeEntry(journalVT, "Facture client FC001", new Date(y, 0, 15), tagIdsFor("Vente client"), [
                         {
@@ -536,7 +536,7 @@ async function seed() {
                         { idAccount: acc(44571)!.id, label: "TVA collectee 20%", debit: "0.00", credit: "200.00" },
                     ]),
                 )
-                // FC002 — Vente de marchandises (February)
+                // FC002 - Vente de marchandises (February)
                 sampleEntries.push(
                     makeEntry(journalVT, "Facture client FC002", new Date(y, 1, 3), tagIdsFor("Vente client"), [
                         {
@@ -554,7 +554,7 @@ async function seed() {
                         { idAccount: acc(44571)!.id, label: "TVA collectee 20%", debit: "0.00", credit: "600.00" },
                     ]),
                 )
-                // FC003 — Prestation (March)
+                // FC003 - Prestation (March)
                 sampleEntries.push(
                     makeEntry(journalVT, "Facture client FC003", new Date(y, 2, 10), tagIdsFor("Vente client"), [
                         {
@@ -572,7 +572,7 @@ async function seed() {
                         { idAccount: acc(44571)!.id, label: "TVA collectee 20%", debit: "0.00", credit: "400.00" },
                     ]),
                 )
-                // FC004 — Vente de marchandises (May)
+                // FC004 - Vente de marchandises (May)
                 sampleEntries.push(
                     makeEntry(journalVT, "Facture client FC004", new Date(y, 4, 20), tagIdsFor("Vente client"), [
                         {
@@ -590,7 +590,7 @@ async function seed() {
                         { idAccount: acc(44571)!.id, label: "TVA collectee 20%", debit: "0.00", credit: "160.00" },
                     ]),
                 )
-                // FC005 — Prestation (July)
+                // FC005 - Prestation (July)
                 sampleEntries.push(
                     makeEntry(journalVT, "Facture client FC005", new Date(y, 6, 8), tagIdsFor("Vente client"), [
                         {
@@ -608,7 +608,7 @@ async function seed() {
                         { idAccount: acc(44571)!.id, label: "TVA collectee 20%", debit: "0.00", credit: "900.00" },
                     ]),
                 )
-                // FC006 — Vente (September)
+                // FC006 - Vente (September)
                 sampleEntries.push(
                     makeEntry(journalVT, "Facture client FC006", new Date(y, 8, 12), tagIdsFor("Vente client"), [
                         {
@@ -626,7 +626,7 @@ async function seed() {
                         { idAccount: acc(44571)!.id, label: "TVA collectee 20%", debit: "0.00", credit: "300.00" },
                     ]),
                 )
-                // FC007 — Prestation (November)
+                // FC007 - Prestation (November)
                 sampleEntries.push(
                     makeEntry(journalVT, "Facture client FC007", new Date(y, 10, 5), tagIdsFor("Vente client"), [
                         {
@@ -679,7 +679,7 @@ async function seed() {
                         ),
                     )
                 }
-                // Loyer mensuel — January to June (monthly)
+                // Loyer mensuel - January to June (monthly)
                 if (acc(613)) {
                     for (let m = 0; m < 6; m++) {
                         sampleEntries.push(
@@ -794,7 +794,7 @@ async function seed() {
                         ),
                     )
                 }
-                // Abonnement internet — January to June (monthly)
+                // Abonnement internet - January to June (monthly)
                 if (acc(626)) {
                     for (let m = 0; m < 6; m++) {
                         sampleEntries.push(
@@ -888,7 +888,7 @@ async function seed() {
 
             // ---- SALAIRES (OD) ----
             if (journalOD && acc(641) && acc(645) && acc(421) && acc(431)) {
-                // Monthly payroll — January to June
+                // Monthly payroll - January to June
                 for (let m = 0; m < 6; m++) {
                     const monthStr = String(m + 1).padStart(2, "0")
                     sampleEntries.push(
@@ -938,7 +938,7 @@ async function seed() {
                 }
             }
 
-            // ---- BANK (BQ) — Receipts and payments ----
+            // ---- BANK (BQ) - Receipts and payments ----
             if (journalBQ && acc(512)) {
                 // Client payments (matching sales invoices)
                 if (acc(411)) {
@@ -1050,7 +1050,7 @@ async function seed() {
                             ],
                         ),
                     )
-                    // Loyer payments — January to June
+                    // Loyer payments - January to June
                     for (let m = 0; m < 6; m++) {
                         sampleEntries.push(
                             makeEntry(
@@ -1098,7 +1098,7 @@ async function seed() {
                             ],
                         ),
                     )
-                    // Internet payments — January to June
+                    // Internet payments - January to June
                     for (let m = 0; m < 6; m++) {
                         sampleEntries.push(
                             makeEntry(
@@ -1183,7 +1183,7 @@ async function seed() {
                         ),
                     )
                 }
-                // Salary payments — January to June
+                // Salary payments - January to June
                 if (acc(421)) {
                     for (let m = 0; m < 6; m++) {
                         sampleEntries.push(
@@ -1210,7 +1210,7 @@ async function seed() {
                         )
                     }
                 }
-                // Social charges payments — quarterly
+                // Social charges payments - quarterly
                 if (acc(431)) {
                     for (const quarter of [0, 3]) {
                         const qLabel = quarter === 0 ? "T1" : "T2"
@@ -1238,7 +1238,7 @@ async function seed() {
                         )
                     }
                 }
-                // Electricite — bimonthly
+                // Electricite - bimonthly
                 if (acc(606) && acc(401)) {
                     for (const m of [1, 3, 5]) {
                         sampleEntries.push(

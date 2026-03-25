@@ -32,7 +32,7 @@ export function EntryLinesTable(props: {
                                 <ButtonGhostContent leftIcon={<IconPencil />} text={undefined} />
                             </UpdateOneEntryLine>
                             <LinkButton
-                                to="/dashboard/organisations/$idOrganization/exercices/$idYear/écritures/$idEntry/$idEntryLine"
+                                to="/dashboard/organisations/$idOrganization/exercices/$idYear/écritures/$idEntry/mouvements/$idEntryLine"
                                 params={{
                                     idOrganization: props.entry.idOrganization,
                                     idYear: props.entry.idYear,

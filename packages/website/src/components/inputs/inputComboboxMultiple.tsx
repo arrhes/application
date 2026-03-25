@@ -1,6 +1,6 @@
 import { Button, ButtonGhostContent, CircularLoader } from "@arrhes/ui"
 import { css, cx } from "@arrhes/ui/utilities/cn.js"
-import { IconCheck, IconSelector, IconX } from "@tabler/icons-react"
+import { IconSelector, IconX } from "@tabler/icons-react"
 import { CommandEmpty, CommandLoading } from "cmdk"
 import { Fragment, useState } from "react"
 import { FormatNull } from "../formats/formatNull.js"
@@ -199,51 +199,32 @@ export function InputComboboxMultiple<TValue extends string>(props: InputCombobo
                                         </span>
                                     </div>
                                 </CommandEmpty>
-                                {options.map((option) => {
-                                    const isSelected = !!props.selectedOptions.find((x) => x.key === option.key)
-                                    return (
-                                        <CommandItem
-                                            key={option.key}
-                                            value={option.key}
-                                            onSelect={() => {
-                                                if (props.isDisabled) return
-                                                props.onChange(
-                                                    isSelected
-                                                        ? props.selectedOptions.filter((x) => x.key !== option.key)
-                                                        : [...props.selectedOptions, option],
-                                                )
-                                                setOpen(false)
-                                            }}
-                                            className={cx(
-                                                css({
-                                                    padding: "3",
-                                                    height: "40px",
-                                                    display: "flex",
-                                                    justifyContent: "space-between",
-                                                    alignItems: "center",
-                                                    overflowY: "auto",
-                                                    gap: "1rem",
-                                                }),
-                                                isSelected
-                                                    ? css({ backgroundColor: "neutral/10" })
-                                                    : css({
-                                                          backgroundColor: "none",
-                                                          _hover: { backgroundColor: "neutral/5" },
-                                                      }),
-                                            )}
-                                        >
-                                            <span className={css({ fontSize: "sm", color: "neutral" })}>
-                                                {option.label}
-                                            </span>
-                                            <IconCheck
-                                                className={cx(
-                                                    css({ height: "4", width: "4", stroke: "neutral" }),
-                                                    isSelected ? css({ opacity: "100" }) : css({ opacity: "0" }),
-                                                )}
-                                            />
-                                        </CommandItem>
-                                    )
-                                })}
+                                {options.map((option) => (
+                                    <CommandItem
+                                        key={option.key}
+                                        value={option.key}
+                                        onSelect={() => {
+                                            if (props.isDisabled) return
+                                            props.onChange([...props.selectedOptions, option])
+                                            setOpen(false)
+                                        }}
+                                        className={css({
+                                            padding: "3",
+                                            height: "40px",
+                                            display: "flex",
+                                            justifyContent: "space-between",
+                                            alignItems: "center",
+                                            overflowY: "auto",
+                                            gap: "1rem",
+                                            backgroundColor: "none",
+                                            _hover: { backgroundColor: "neutral/5" },
+                                        })}
+                                    >
+                                        <span className={css({ fontSize: "sm", color: "neutral" })}>
+                                            {option.label}
+                                        </span>
+                                    </CommandItem>
+                                ))}
                             </CommandList>
                         </Command>
                     </Popover.Content>

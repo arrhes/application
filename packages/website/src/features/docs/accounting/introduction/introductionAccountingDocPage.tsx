@@ -102,27 +102,27 @@ export function IntroductionAccountingDocPage() {
             <DocSources
                 sources={[
                     {
-                        label: "Comptabilité — Wikipédia",
+                        label: "Comptabilité - Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Comptabilit%C3%A9",
                     },
                     {
-                        label: "Code de Hammurabi — Wikipédia",
+                        label: "Code de Hammurabi - Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Code_de_Hammurabi",
                     },
                     {
-                        label: "Luca Pacioli — Wikipédia",
+                        label: "Luca Pacioli - Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Luca_Pacioli",
                     },
                     {
-                        label: "Ordonnance de Colbert (1673) — Wikipédia",
+                        label: "Ordonnance de Colbert (1673) - Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Code_de_commerce_(France)",
                     },
                     {
-                        label: "Plan comptable général (France) — Wikipédia",
+                        label: "Plan comptable général (France) - Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Plan_comptable_g%C3%A9n%C3%A9ral_(France)",
                     },
                     {
-                        label: "Code de commerce, article L.123-12 — Légifrance",
+                        label: "Code de commerce, article L.123-12 - Légifrance",
                         url: "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000005634379/LEGISCTA000006161250/",
                     },
                 ]}

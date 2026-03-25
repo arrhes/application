@@ -1,4 +1,4 @@
-import { createRoute, Outlet } from "@tanstack/react-router"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { tagsLayoutRoute } from "../tagsLayoutRoute.js"
 
 export const tagLayoutRoute = createRoute({
@@ -7,5 +7,8 @@ export const tagLayoutRoute = createRoute({
     beforeLoad: () => ({
         title: "Catégorie",
     }),
-    component: () => <Outlet />,
+    component: lazyRouteComponent(
+        () => import("../../../../../../../../../../features/dashboard/$idYear/yearSettings/tags/$idTag/tagLayout.js"),
+        "TagLayout",
+    ),
 })

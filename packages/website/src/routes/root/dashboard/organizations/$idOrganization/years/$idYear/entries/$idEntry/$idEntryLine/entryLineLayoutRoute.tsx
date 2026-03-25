@@ -1,11 +1,17 @@
-import { createRoute, Outlet } from "@tanstack/react-router"
-import { entryLayoutRoute } from "../entryLayoutRoute.js"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { entriesLayoutRoute } from "../../entriesLayoutRoute.js"
 
 export const entryLineLayoutRoute = createRoute({
-    getParentRoute: () => entryLayoutRoute,
-    path: "/$idEntryLine",
+    getParentRoute: () => entriesLayoutRoute,
+    path: "/$idEntry/mouvements/$idEntryLine",
     beforeLoad: () => ({
         title: "Ligne d'écriture",
     }),
-    component: () => <Outlet />,
+    component: lazyRouteComponent(
+        () =>
+            import(
+                "../../../../../../../../../../features/dashboard/$idYear/entries/$idEntry/$idEntryLine/entryLineLayout.js"
+            ),
+        "EntryLineLayout",
+    ),
 })

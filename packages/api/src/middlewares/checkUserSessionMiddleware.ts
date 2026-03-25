@@ -1,7 +1,7 @@
-import { createHash } from "node:crypto"
 import { models } from "@arrhes/application-metadata"
 import { and, eq } from "drizzle-orm"
 import type { Context } from "hono"
+import { createHash } from "node:crypto"
 import { parseCookies } from "../utilities/cookies/parseCookies.js"
 import { unsignString } from "../utilities/cookies/unsignString.js"
 import { Exception } from "../utilities/exception.js"
@@ -80,7 +80,7 @@ async function tryAuthWithCookie(context: Context<any>) {
         try {
             idOrganization = await resolveOrganizationMiddleware({ context })
         } catch {
-            // idOrganization is optional — some routes don't need it
+            // idOrganization is optional - some routes don't need it
             idOrganization = undefined
         }
 

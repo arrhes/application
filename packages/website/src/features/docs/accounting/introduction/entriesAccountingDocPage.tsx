@@ -280,11 +280,11 @@ export function EntriesAccountingDocPage() {
             <DocSources
                 sources={[
                     {
-                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        label: "Plan Comptable Général - Autorité des Normes Comptables (ANC)",
                         url: "https://www.anc.gouv.fr/normes-comptables-francaises/recueils-des-normes-comptables",
                     },
                     {
-                        label: "Taxe sur la valeur ajoutée en France — Wikipédia",
+                        label: "Taxe sur la valeur ajoutée en France - Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Taxe_sur_la_valeur_ajout%C3%A9e_en_France",
                     },
                 ]}

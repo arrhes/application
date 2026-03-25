@@ -305,19 +305,19 @@ export function BalanceSheetAccountingDocPage() {
             <DocSources
                 sources={[
                     {
-                        label: "Bilan comptable — Wikipédia",
+                        label: "Bilan comptable - Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Bilan_comptable",
                     },
                     {
-                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        label: "Plan Comptable Général - Autorité des Normes Comptables (ANC)",
                         url: "https://www.anc.gouv.fr/normes-comptables-francaises/recueils-des-normes-comptables",
                     },
                     {
-                        label: "Besoin en fonds de roulement — Wikipédia",
+                        label: "Besoin en fonds de roulement - Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Besoin_en_fonds_de_roulement",
                     },
                     {
-                        label: "Normes internationales d'information financière (IFRS) — Wikipédia",
+                        label: "Normes internationales d'information financière (IFRS) - Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Normes_internationales_d%27information_financi%C3%A8re",
                     },
                 ]}

@@ -185,15 +185,15 @@ export function NotesAccountingDocPage() {
             <DocSources
                 sources={[
                     {
-                        label: "Annexe (comptabilité) — Wikipédia",
+                        label: "Annexe (comptabilité) - Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Annexe_(comptabilit%C3%A9)",
                     },
                     {
-                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        label: "Plan Comptable Général - Autorité des Normes Comptables (ANC)",
                         url: "https://www.anc.gouv.fr/normes-comptables-francaises/recueils-des-normes-comptables",
                     },
                     {
-                        label: "Normes internationales d'information financière (IFRS) — Wikipédia",
+                        label: "Normes internationales d'information financière (IFRS) - Wikipédia",
                         url: "https://fr.wikipedia.org/wiki/Normes_internationales_d%27information_financi%C3%A8re",
                     },
                 ]}

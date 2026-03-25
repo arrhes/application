@@ -35,7 +35,7 @@ export async function resolveOrganizationMiddleware(parameters: { context: Conte
             return body.idOrganization
         }
     } catch {
-        // Body parsing failed or no body — continue to throw
+        // Body parsing failed or no body - continue to throw
     }
 
     throw new Exception({

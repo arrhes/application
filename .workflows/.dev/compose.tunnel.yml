@@ -12,7 +12,7 @@
 #   2. Waits for cloudflared to print the *.trycloudflare.com URL
 #   3. Starts all remaining services with API_BASE_URL set to the tunnel URL
 #
-# The tunnel container does NOT depend on the API — cloudflared establishes
+# The tunnel container does NOT depend on the API - cloudflared establishes
 # the tunnel immediately and retries backend connections as needed.
 # ==============================================================================
 

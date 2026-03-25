@@ -150,11 +150,11 @@ export function ReportsAccountingDocPage() {
             <DocSources
                 sources={[
                     {
-                        label: "Code de commerce, Article L123-12 — Légifrance",
+                        label: "Code de commerce, Article L123-12 - Légifrance",
                         url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006219316",
                     },
                     {
-                        label: "Plan Comptable Général — Autorité des Normes Comptables (ANC)",
+                        label: "Plan Comptable Général - Autorité des Normes Comptables (ANC)",
                         url: "https://www.anc.gouv.fr/normes-comptables-francaises/recueils-des-normes-comptables",
                     },
                 ]}

@@ -59,7 +59,7 @@ export function YearListTableRow(props: {
                 </div>
                 <div className={css({ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" })}>
                     <span className={css({ fontSize: "xs", color: "neutral/50" })}>
-                        {startDate} — {endDate}
+                        {startDate} - {endDate}
                     </span>
                 </div>
             </div>

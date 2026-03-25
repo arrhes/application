@@ -1,4 +1,4 @@
-import { createRoute, Outlet } from "@tanstack/react-router"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { entriesLayoutRoute } from "../entriesLayoutRoute.js"
 
 export const entryLayoutRoute = createRoute({
@@ -7,5 +7,8 @@ export const entryLayoutRoute = createRoute({
     beforeLoad: () => ({
         title: "Écriture",
     }),
-    component: () => <Outlet />,
+    component: lazyRouteComponent(
+        () => import("../../../../../../../../../features/dashboard/$idYear/entries/$idEntry/entryLayout.js"),
+        "EntryLayout",
+    ),
 })

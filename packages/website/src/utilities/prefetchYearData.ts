@@ -23,8 +23,8 @@ type YearScopedRouteDefinition = {
     schemas: {
         body: v.ObjectSchema<v.ObjectEntries, undefined>
         return:
-            | v.ObjectSchema<v.ObjectEntries, undefined>
-            | v.ArraySchema<v.ObjectSchema<v.ObjectEntries, undefined>, undefined>
+        | v.ObjectSchema<v.ObjectEntries, undefined>
+        | v.ArraySchema<v.ObjectSchema<v.ObjectEntries, undefined>, undefined>
     }
 }
 
@@ -49,7 +49,7 @@ const yearScopedRouteDefinitions: YearScopedRouteDefinition[] = [
  * Called when entering a year layout. Each query is set to `staleTime: Infinity`
  * so it is only refetched on explicit invalidation (after mutations) or hard refresh.
  *
- * This is fire-and-forget — it does not block navigation.
+ * This is fire-and-forget - it does not block navigation.
  */
 export function prefetchYearData(params: YearScopedBody) {
     const body: YearScopedBody = {

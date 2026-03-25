@@ -34,7 +34,7 @@ export function FilesPage() {
         })
     }
 
-    // Breadcrumb drag-and-drop — move files to a specific breadcrumb folder (or root)
+    // Breadcrumb drag-and-drop - move files to a specific breadcrumb folder (or root)
     const [breadcrumbDragOver, setBreadcrumbDragOver] = useState<string | null>(null)
 
     function handleBreadcrumbDragOver(event: DragEvent, targetId: string) {
