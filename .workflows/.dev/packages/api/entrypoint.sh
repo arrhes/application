@@ -5,6 +5,9 @@
 # Runs on container startup to initialize and start the API service.
 # Generates .env files from Docker Compose environment variables so that
 # package scripts using --env-file=.env work correctly.
+#
+# Database setup (push/seed) is NOT run automatically on startup.
+# Use `just db push`, `just db seed`, or `just db reset` instead.
 # ==============================================================================
 set -e
 
@@ -38,10 +41,6 @@ cat > /workspace/packages/tools/.env <<EOF
 NODE_ENV=$NODE_ENV
 SQL_DATABASE_URL=$SQL_DATABASE_URL
 EOF
-
-# Run setup tasks
-bash "$SCRIPT_DIR/migrate.sh"
-bash "$SCRIPT_DIR/seed.sh"
 
 # Start the API server (exec replaces shell process)
 exec bash "$SCRIPT_DIR/start.sh"

@@ -1,2 +1,3 @@
-export * from "./auth/index.js"
-export * from "./public/index.js"
+export * from "./admin/index.js"
+export * from "./dashboard/auth/index.js"
+export * from "./dashboard/public/index.js"

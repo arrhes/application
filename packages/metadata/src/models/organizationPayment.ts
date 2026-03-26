@@ -4,7 +4,7 @@ import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
 import { organizationPaymentStatus } from "../components/values/organizationPaymentStatus.js"
 import { organizationModel } from "./organization.js"
-import { userModel } from "./user.js"
+import { dashboardUserModel } from "./dashboardUser.js"
 
 // Model
 export const organizationPaymentStatusEnum = pgEnum("enum_organization_payment_status", organizationPaymentStatus)
@@ -26,11 +26,11 @@ export const organizationPaymentModel = pgTable("table_organization_payment", {
     paidAt: dateTimeColumn("paid_at"),
     createdAt: dateTimeColumn("created_at").notNull(),
     lastUpdatedAt: dateTimeColumn("last_updated_at"),
-    createdBy: idColumn("created_by").references((): AnyPgColumn => userModel.id, {
+    createdBy: idColumn("created_by").references((): AnyPgColumn => dashboardUserModel.id, {
         onDelete: "set null",
         onUpdate: "cascade",
     }),
-    lastUpdatedBy: idColumn("last_updated_by").references((): AnyPgColumn => userModel.id, {
+    lastUpdatedBy: idColumn("last_updated_by").references((): AnyPgColumn => dashboardUserModel.id, {
         onDelete: "set null",
         onUpdate: "cascade",
     }),

@@ -15,11 +15,10 @@ import { FormField } from "../../../../../components/forms/formField.js"
 import { FormItem } from "../../../../../components/forms/formItem.js"
 import { FormLabel } from "../../../../../components/forms/formLabel.js"
 import { FormRoot } from "../../../../../components/forms/formRoot.js"
-import { InputFile } from "../../../../../components/inputs/inputFile.js"
-import { InputText } from "../../../../../components/inputs/inputText.js"
 import { toast } from "../../../../../contexts/toasts/useToast.js"
 import { getResponseBodyFromAPI } from "../../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../../utilities/invalidateData.js"
+import { InputFile, InputText } from "@arrhes/ui"
 
 export function UpdateOneFileForm(props: { file: v.InferOutput<typeof returnedSchemas.file>; onSuccess?: () => void }) {
     return (

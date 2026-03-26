@@ -3,7 +3,7 @@ import type { ComponentProps } from "react"
 import { FormatNull } from "./formatNull.js"
 import { FormatText } from "./formatText.js"
 
-export function formatDate(rawDate?: string | Date | undefined | null) {
+export function formatDate(rawDate?: string | Date | undefined | null, options?: { includeTime?: boolean }) {
     if (!rawDate || String(new Date(rawDate)) === "Invalid Date") return undefined
 
     const date = new Date(rawDate)
@@ -14,7 +14,17 @@ export function formatDate(rawDate?: string | Date | undefined | null) {
     if (date.getDate() < 10) day = `0${day}`
     if (date.getMonth() + 1 < 10) month = `0${month}`
 
-    return `${[day, month, year].join("/")}`
+    const dateStr = `${[day, month, year].join("/")}`
+
+    if (options?.includeTime) {
+        let hours = String(date.getHours())
+        let minutes = String(date.getMinutes())
+        if (date.getHours() < 10) hours = `0${hours}`
+        if (date.getMinutes() < 10) minutes = `0${minutes}`
+        return `${dateStr} à ${hours}:${minutes}`
+    }
+
+    return dateStr
 }
 
 export function FormatDate(props: {

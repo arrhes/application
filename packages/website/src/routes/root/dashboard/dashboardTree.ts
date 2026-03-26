@@ -86,7 +86,10 @@ import { organizationsLayoutRoute } from "./organizations/organizationsLayoutRou
 import { organizationsRoute } from "./organizations/organizationsRoute.tsx"
 import { settingsLayoutRoute } from "./settings/settingsLayoutRoute.tsx"
 import { settingsRoute } from "./settings/settingsRoute.tsx"
+import { supportLayoutRoute } from "./support/supportLayoutRoute.tsx"
 import { supportRoute } from "./support/supportRoute.tsx"
+import { ticketLayoutRoute } from "./support/ticketLayoutRoute.tsx"
+import { ticketRoute } from "./support/ticketRoute.tsx"
 
 export const dashboardTree: AnyRoute = dashboardLayoutRoute.addChildren([
     dashboardRootRoute,
@@ -178,6 +181,6 @@ export const dashboardTree: AnyRoute = dashboardLayoutRoute.addChildren([
         ]),
     ]),
     settingsLayoutRoute.addChildren([settingsRoute]),
-    supportRoute,
+    supportLayoutRoute.addChildren([supportRoute, ticketLayoutRoute.addChildren([ticketRoute])]),
     dashboardCatchRoute,
 ])

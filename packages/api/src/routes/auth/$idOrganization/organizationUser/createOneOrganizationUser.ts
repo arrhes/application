@@ -34,7 +34,7 @@ export const createOneOrganizationUserRoute = apiFactory
         // the user must exist
         const toAddUser = await selectOne({
             database: c.var.clients.sql,
-            table: models.user,
+            table: models.dashboardUser,
             where: (table) => eq(table.email, body.user.email),
         })
         if (toAddUser === undefined) {

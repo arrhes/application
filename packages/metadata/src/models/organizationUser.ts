@@ -4,7 +4,7 @@ import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
 import { organizationUserStatus } from "../components/values/organizationUserStatus.js"
 import { organizationModel } from "./organization.js"
-import { userModel } from "./user.js"
+import { dashboardUserModel } from "./dashboardUser.js"
 
 // Model
 export const organizationUserStatusEnum = pgEnum("enum_organization_user_status", organizationUserStatus)
@@ -17,18 +17,18 @@ export const organizationUserModel = pgTable(
             .references(() => organizationModel.id, { onDelete: "cascade", onUpdate: "cascade" })
             .notNull(),
         idUser: idColumn("id_user")
-            .references(() => userModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => dashboardUserModel.id, { onDelete: "cascade", onUpdate: "cascade" })
             .notNull(),
         isOwner: boolean("is_owner").notNull(),
         isAdmin: boolean("is_admin").notNull(),
         status: organizationUserStatusEnum("status").notNull(),
         createdAt: dateTimeColumn("created_at").notNull(),
         lastUpdatedAt: dateTimeColumn("last_updated_at"),
-        createdBy: idColumn("created_by").references((): AnyPgColumn => userModel.id, {
+        createdBy: idColumn("created_by").references((): AnyPgColumn => dashboardUserModel.id, {
             onDelete: "set null",
             onUpdate: "cascade",
         }),
-        lastUpdatedBy: idColumn("last_updated_by").references((): AnyPgColumn => userModel.id, {
+        lastUpdatedBy: idColumn("last_updated_by").references((): AnyPgColumn => dashboardUserModel.id, {
             onDelete: "set null",
             onUpdate: "cascade",
         }),
@@ -42,8 +42,8 @@ export const organizationUserRelations = relations(organizationUserModel, ({ one
         fields: [organizationUserModel.idOrganization],
         references: [organizationModel.id],
     }),
-    user: one(userModel, {
+    user: one(dashboardUserModel, {
         fields: [organizationUserModel.idUser],
-        references: [userModel.id],
+        references: [dashboardUserModel.id],
     }),
 }))

@@ -43,7 +43,7 @@ const outlineRecipe = sva({
             fontSize: "0.875rem",
             lineHeight: "1rem",
             fontWeight: "400",
-            color: "neutral",
+            color: "neutral/75",
         },
         rightIcon: {
             minWidth: "1rem",

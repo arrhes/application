@@ -32,7 +32,7 @@ export const signOutRoute = apiFactory.createApp().post(signOutRouteDefinition.p
 
         await updateOne({
             database: c.var.clients.sql,
-            table: models.userSession,
+            table: models.dashboardUserSession,
             data: {
                 lastUpdatedAt: new Date().toISOString(),
                 isActive: false,

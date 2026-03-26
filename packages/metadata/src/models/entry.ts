@@ -7,7 +7,7 @@ import { entryTagModel } from "./entryTag.js"
 import { fileModel } from "./file.js"
 import { journalModel } from "./journal.js"
 import { organizationModel } from "./organization.js"
-import { userModel } from "./user.js"
+import { dashboardUserModel } from "./dashboardUser.js"
 import { yearModel } from "./year.js"
 
 // Model
@@ -33,11 +33,11 @@ export const entryModel = pgTable(
         date: dateTimeColumn("date").notNull(),
         createdAt: dateTimeColumn("created_at").notNull(),
         lastUpdatedAt: dateTimeColumn("last_updated_at"),
-        createdBy: idColumn("created_by").references((): AnyPgColumn => userModel.id, {
+        createdBy: idColumn("created_by").references((): AnyPgColumn => dashboardUserModel.id, {
             onDelete: "set null",
             onUpdate: "cascade",
         }),
-        lastUpdatedBy: idColumn("last_updated_by").references((): AnyPgColumn => userModel.id, {
+        lastUpdatedBy: idColumn("last_updated_by").references((): AnyPgColumn => dashboardUserModel.id, {
             onDelete: "set null",
             onUpdate: "cascade",
         }),

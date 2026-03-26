@@ -4,12 +4,11 @@ import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconReportMoney } from "@tabler/icons-react"
 import { useState } from "react"
 import type * as v from "valibot"
-import { InputDebounced } from "../../../../../components/inputs/inputDebounced.tsx"
-import { InputText } from "../../../../../components/inputs/inputText.tsx"
 import { DataWrapper } from "../../../../../components/layouts/dataWrapper.tsx"
 import { EmptyState } from "../../../../../components/layouts/emptyState.tsx"
 import { getIncomeStatementChildren } from "./getIncomeStatementChildren.tsx"
 import { IncomeStatementItem } from "./incomeStatementItem.tsx"
+import { InputDebounced, InputText } from "@arrhes/ui"
 
 export function IncomeStatementsTable(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]

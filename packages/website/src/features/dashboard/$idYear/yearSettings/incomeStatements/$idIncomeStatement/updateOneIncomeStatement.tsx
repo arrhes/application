@@ -14,12 +14,12 @@ import { FormField } from "../../../../../../components/forms/formField.tsx"
 import { FormItem } from "../../../../../../components/forms/formItem.tsx"
 import { FormLabel } from "../../../../../../components/forms/formLabel.tsx"
 import { FormRoot } from "../../../../../../components/forms/formRoot.tsx"
-import { InputDataCombobox } from "../../../../../../components/inputs/inputDataCombobox.tsx"
-import { InputText } from "../../../../../../components/inputs/inputText.tsx"
+import { InputDataCombobox } from "../../../../../../components/inputDataCombobox.tsx"
 import { Drawer } from "../../../../../../components/overlays/drawer/drawer.tsx"
 import { toast } from "../../../../../../contexts/toasts/useToast.ts"
 import { getResponseBodyFromAPI } from "../../../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../../../utilities/invalidateData.ts"
+import { InputText } from "@arrhes/ui"
 
 export function UpdateOneIncomeStatement(props: {
     incomeStatement: v.InferOutput<typeof returnedSchemas.incomeStatement>

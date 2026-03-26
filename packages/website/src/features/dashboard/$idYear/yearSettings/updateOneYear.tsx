@@ -10,13 +10,12 @@ import { FormField } from "../../../../components/forms/formField.tsx"
 import { FormItem } from "../../../../components/forms/formItem.tsx"
 import { FormLabel } from "../../../../components/forms/formLabel.tsx"
 import { FormRoot } from "../../../../components/forms/formRoot.tsx"
-import { InputDate } from "../../../../components/inputs/inputDate.tsx"
-import { InputText } from "../../../../components/inputs/inputText.tsx"
 import { Drawer } from "../../../../components/overlays/drawer/drawer.tsx"
 import { toast } from "../../../../contexts/toasts/useToast.ts"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
 import { YearSelect } from "../../$idOrganization/years/yearSelect.tsx"
+import { InputDate, InputText } from "@arrhes/ui"
 
 export function UpdateOneYear(props: { year: v.InferOutput<typeof returnedSchemas.year>; children: JSX.Element }) {
     const [open, setOpen] = useState(false)

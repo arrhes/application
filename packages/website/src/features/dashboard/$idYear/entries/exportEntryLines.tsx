@@ -17,11 +17,11 @@ import { FormGroup } from "../../../../components/forms/formGroup.js"
 import { FormItem } from "../../../../components/forms/formItem.js"
 import { FormLabel } from "../../../../components/forms/formLabel.js"
 import { FormRoot } from "../../../../components/forms/formRoot.js"
-import { InputDataCombobox } from "../../../../components/inputs/inputDataCombobox.js"
-import { InputDate } from "../../../../components/inputs/inputDate.js"
+import { InputDataCombobox } from "../../../../components/inputDataCombobox.js"
 import { Drawer } from "../../../../components/overlays/drawer/drawer.js"
 import { toast } from "../../../../contexts/toasts/useToast.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
+import { InputDate } from "@arrhes/ui"
 
 export function ExportEntryLines(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]

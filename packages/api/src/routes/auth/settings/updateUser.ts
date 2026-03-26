@@ -15,7 +15,7 @@ export const updateUserRoute = apiFactory.createApp().post(updateUserRouteDefini
 
     const updateUser = await updateOne({
         database: c.var.clients.sql,
-        table: models.user,
+        table: models.dashboardUser,
         data: {
             alias: body.alias,
             lastUpdatedAt: new Date().toISOString(),

@@ -82,7 +82,10 @@ export function DocsLayout() {
                             })}
                         >
                             <LinkButton to="/">
-                                <Logo />
+                                <ButtonGhostContent
+                                    leftIcon={<Logo />}
+                                    text="Arrhes"
+                                />
                             </LinkButton>
 
                             <span className={css({ color: "neutral/20", display: { base: "none", sm: "block" } })}>

@@ -57,16 +57,16 @@ async function tryAuthWithCookie(context: Context<any>) {
             return null
         }
 
-        const userSession = await context.var.clients.sql.query.userSessionModel.findFirst({
-            where: eq(models.userSession.id, idUserSession),
+        const userSession = await context.var.clients.sql.query.dashboardUserSessionModel.findFirst({
+            where: eq(models.dashboardUserSession.id, idUserSession),
         })
 
         if (!userSession || userSession.isActive === false) {
             return null
         }
 
-        const user = await context.var.clients.sql.query.userModel.findFirst({
-            where: eq(models.user.id, userSession.idUser),
+        const user = await context.var.clients.sql.query.dashboardUserModel.findFirst({
+            where: eq(models.dashboardUser.id, userSession.idUser),
         })
 
         if (!user) {
@@ -115,8 +115,8 @@ async function tryAuthWithBearer(context: Context<any>) {
         return null
     }
 
-    const user = await context.var.clients.sql.query.userModel.findFirst({
-        where: eq(models.user.id, apiKey.idUser),
+    const user = await context.var.clients.sql.query.dashboardUserModel.findFirst({
+        where: eq(models.dashboardUser.id, apiKey.idUser),
     })
 
     if (!user) {

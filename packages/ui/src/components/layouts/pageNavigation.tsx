@@ -1,0 +1,71 @@
+import { ButtonGhostContent } from "../buttons/buttonGhostContent.js"
+import { LinkButton } from "../buttons/linkButton.js"
+import { css } from "../../utilities/cn.js"
+import { useMatches, useRouterState } from "@tanstack/react-router"
+import type { JSX } from "react"
+
+export function PageNavigation(props: {
+    tabs:
+        | Array<{
+              label: string
+              icon: JSX.Element
+              to: any
+              params?: any
+          }>
+        | undefined
+}) {
+    const routeMatches = useMatches()
+    const currentPath = useRouterState({
+        select: (state) => state.matches.at(-1)?.routeId,
+    }) as unknown as string | undefined
+
+    return (
+        <div
+            className={css({
+                flexShrink: "0",
+                width: "100%",
+                minHeight: "fit",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "start",
+                alignItems: "center",
+                paddingX: "1rem",
+                paddingY: "0.5rem",
+                borderBottom: "1px solid",
+                borderBottomColor: "neutral/5",
+                backgroundColor: "background",
+            })}
+        >
+            {props.tabs === undefined ? null : (
+                <div
+                    className={css({
+                        width: "100%",
+                        maxWidth: "xl",
+                        display: "flex",
+                        justifyContent: "flex-start",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                        flexWrap: "wrap",
+                    })}
+                >
+                    {props.tabs.map((tab) => {
+                        const matchRoute = routeMatches.find((match) => match.fullPath === tab.to)
+                        const isActive =
+                            matchRoute === undefined || !currentPath ? false : currentPath.includes(matchRoute.routeId)
+
+                        return (
+                            <LinkButton key={String(tab.to)} to={tab.to} params={tab.params}>
+                                <ButtonGhostContent
+                                    leftIcon={tab.icon}
+                                    text={tab.label}
+                                    color="neutral"
+                                    isCurrent={isActive}
+                                />
+                            </LinkButton>
+                        )
+                    })}
+                </div>
+            )}
+        </div>
+    )
+}

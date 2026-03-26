@@ -13,6 +13,8 @@ export {
     accountRelations,
     accountTypeEnum,
 } from "../../metadata/src/models/account.ts"
+export { adminUserModel, adminUserRelations } from "../../metadata/src/models/adminUser.ts"
+export { adminUserSessionModel, adminUserSessionRelations } from "../../metadata/src/models/adminUserSession.ts"
 export { apiKeyModel, apiKeyRelations } from "../../metadata/src/models/apiKey.ts"
 export { balanceSheetModel, balanceSheetRelations } from "../../metadata/src/models/balanceSheet.ts"
 export { computationModel, computationRelations } from "../../metadata/src/models/computation.ts"
@@ -40,6 +42,11 @@ export {
     organizationUserStatusEnum,
 } from "../../metadata/src/models/organizationUser.ts"
 export { tagModel, tagRelations } from "../../metadata/src/models/tag.ts"
-export { userModel, userRelations } from "../../metadata/src/models/user.ts"
-export { userSessionModel, userSessionRelations } from "../../metadata/src/models/userSession.ts"
+export { ticketModel, ticketRelations, ticketStatusEnum, ticketTypeEnum } from "../../metadata/src/models/ticket.ts"
+export { ticketMessageModel, ticketMessageRelations } from "../../metadata/src/models/ticketMessage.ts"
+export { dashboardUserModel, dashboardUserRelations } from "../../metadata/src/models/dashboardUser.ts"
+export {
+    dashboardUserSessionModel,
+    dashboardUserSessionsRelations,
+} from "../../metadata/src/models/dashboardUserSession.ts"
 export { yearModel, yearRelations, yearStateEnum } from "../../metadata/src/models/year.ts"

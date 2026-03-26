@@ -13,6 +13,7 @@ export const dashboardLayoutRoute = createRoute({
             })
         }
         return {
+            section: "Dashboard",
             robots: "noindex, nofollow",
         }
     },

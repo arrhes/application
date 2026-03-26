@@ -1,8 +1,14 @@
-import { Button, ButtonGhostContent, ButtonOutlineContent, ButtonPlainContent, Separator } from "@arrhes/ui"
+import {
+    Button,
+    ButtonGhostContent,
+    ButtonOutlineContent,
+    ButtonPlainContent,
+    InputDebounced,
+    InputText,
+    Separator,
+} from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconFilter, IconX } from "@tabler/icons-react"
-import { InputDebounced } from "../inputs/inputDebounced.js"
-import { InputText } from "../inputs/inputText.js"
 import { Popover } from "../overlays/popover/popover.js"
 
 export type FilterColumn = {

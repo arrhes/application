@@ -59,7 +59,10 @@ export function DashboardLayout() {
                         })}
                     >
                         <LinkButton to="/dashboard">
-                            <Logo />
+                            <ButtonGhostContent
+                                leftIcon={<Logo />}
+                            // text="Dashboard"
+                            />
                         </LinkButton>
                         <Breadcrumbs />
                     </div>

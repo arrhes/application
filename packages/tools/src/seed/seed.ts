@@ -49,7 +49,7 @@ function findParentNumber(accountNumber: number, allAccounts: DefaultAccount[]):
 async function seed() {
     try {
         // Check if data already exists
-        const existingUsers = await dbClient.select().from(models.user).limit(1)
+        const existingUsers = await dbClient.select().from(models.dashboardUser).limit(1)
         if (existingUsers.length > 0) {
             console.log("Database already seeded, skipping...")
             return
@@ -64,7 +64,7 @@ async function seed() {
             console.log("Creating user...")
             const passwordSalt = randomBytes(16).toString("hex")
             const passwordHash = pbkdf2Sync("demo", passwordSalt, 128000, 64, `sha512`).toString(`hex`)
-            const newUser: typeof models.user.$inferInsert = {
+            const newUser: typeof models.dashboardUser.$inferInsert = {
                 id: generateId(),
                 isActive: true,
                 email: "demo@arrhes.com",
@@ -74,7 +74,23 @@ async function seed() {
                 isEmailValidated: true,
                 createdAt: createdAt,
             }
-            await tx.insert(models.user).values(newUser)
+            await tx.insert(models.dashboardUser).values(newUser)
+
+            // ==========================================
+            // ADMIN USER
+            // ==========================================
+            console.log("Creating admin user...")
+            const adminPasswordSalt = randomBytes(16).toString("hex")
+            const adminPasswordHash = pbkdf2Sync("admin", adminPasswordSalt, 128000, 64, "sha512").toString("hex")
+            const newAdminUser: typeof models.adminUser.$inferInsert = {
+                id: generateId(),
+                isActive: true,
+                email: "admin@arrhes.com",
+                passwordHash: adminPasswordHash,
+                passwordSalt: adminPasswordSalt,
+                createdAt: createdAt,
+            }
+            await tx.insert(models.adminUser).values(newAdminUser)
 
             // ==========================================
             // ORGANIZATION 1: Empty organization

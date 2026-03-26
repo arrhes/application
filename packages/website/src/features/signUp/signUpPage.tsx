@@ -1,5 +1,5 @@
 import { signUpRouteDefinition } from "@arrhes/application-metadata/routes"
-import { ButtonGhostContent, ButtonOutlineContent, Logo, Separator } from "@arrhes/ui"
+import { ButtonGhostContent, ButtonOutlineContent, InputPassword, InputText, Logo, Separator } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconBook2, IconLogin2, IconUserPlus } from "@tabler/icons-react"
 import { Fragment } from "react/jsx-runtime"
@@ -9,8 +9,6 @@ import { FormField } from "../../components/forms/formField.js"
 import { FormItem } from "../../components/forms/formItem.js"
 import { FormLabel } from "../../components/forms/formLabel.js"
 import { FormRoot } from "../../components/forms/formRoot.js"
-import { InputPassword } from "../../components/inputs/inputPassword.js"
-import { InputText } from "../../components/inputs/inputText.js"
 import { LinkButton } from "../../components/linkButton.js"
 import { toast } from "../../contexts/toasts/useToast.js"
 import { applicationRouter } from "../../routes/applicationRouter.js"
@@ -66,7 +64,10 @@ export function SignUpPage() {
                         })}
                     >
                         <LinkButton to="/">
-                            <Logo />
+                            <ButtonGhostContent
+                                leftIcon={<Logo />}
+                                text="Dashboard"
+                            />
                         </LinkButton>
                         <LinkButton to="/documentation" title="Documentation">
                             <ButtonGhostContent

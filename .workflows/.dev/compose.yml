@@ -7,7 +7,7 @@
 # - Full workspace: bind-mounted from host (including node_modules)
 # - Dependencies must be installed on the host (`pnpm install`)
 # - Infrastructure: PostgreSQL, RustFS (S3), Mailpit (SMTP)
-# - Services: API, Website
+# - Services: API, Website, Admin
 #
 # Usage:
 #   docker compose -f .workflows/.dev/compose.yml up -d     # Start all services
@@ -98,7 +98,7 @@ services:
       ENV: development
       VERBOSE: "true"
       PORT: "3000"
-      CORS_ORIGIN: http://localhost:5173
+      CORS_ORIGIN: http://localhost:5173,http://localhost:5174
       COOKIES_DOMAIN: localhost
       COOKIES_KEY: development-secret-key-change-in-production-min-32-chars
       API_BASE_URL: http://localhost:3000
@@ -143,6 +143,25 @@ services:
       VITE_ENV: development
       VITE_API_BASE_URL: http://localhost:3000
       VITE_WEBSITE_BASE_URL: http://localhost:5173
+
+  # Admin - Admin panel interface (React + Vite)
+  admin:
+    container_name: arrhes-admin
+    image: arrhes-dev-admin:latest
+    build:
+      context: ../..
+      dockerfile: .workflows/.dev/packages/admin/Dockerfile
+      args:
+        NODE_VERSION: "25.2.1"
+        PNPM_VERSION: "10.26.1"
+    ports:
+      - "5174:5174"
+    volumes:
+      - ../..:/workspace:cached
+    environment:
+      # Vite reads VITE_* from .env files, not process.env.
+      # The entrypoint writes these to packages/admin/.env at startup.
+      VITE_API_BASE_URL: http://localhost:3000
 
 # ==============================================================================
 # Named Volumes (Persistent infrastructure data)

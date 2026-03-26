@@ -5,7 +5,7 @@ import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
 import { organizationPaymentModel } from "./organizationPayment.js"
 import { organizationUserModel } from "./organizationUser.js"
-import { userModel } from "./user.js"
+import { dashboardUserModel } from "./dashboardUser.js"
 
 // Model
 export const organizationScopeEnum = pgEnum("enum_organization_scope", organizationScope)
@@ -24,11 +24,11 @@ export const organizationModel = pgTable("table_organization", {
     storageCurrentUsage: integer("storage_current_usage").notNull().default(0),
     createdAt: dateTimeColumn("created_at").notNull(),
     lastUpdatedAt: dateTimeColumn("last_updated_at"),
-    createdBy: idColumn("created_by").references((): AnyPgColumn => userModel.id, {
+    createdBy: idColumn("created_by").references((): AnyPgColumn => dashboardUserModel.id, {
         onDelete: "set null",
         onUpdate: "cascade",
     }),
-    lastUpdatedBy: idColumn("last_updated_by").references((): AnyPgColumn => userModel.id, {
+    lastUpdatedBy: idColumn("last_updated_by").references((): AnyPgColumn => dashboardUserModel.id, {
         onDelete: "set null",
         onUpdate: "cascade",
     }),

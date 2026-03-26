@@ -5,7 +5,7 @@ import { idColumn } from "../components/models/idColumn.js"
 import { accountModel } from "./account.js"
 import { computationIncomeStatementModel } from "./computationIncomeStatement.js"
 import { organizationModel } from "./organization.js"
-import { userModel } from "./user.js"
+import { dashboardUserModel } from "./dashboardUser.js"
 import { yearModel } from "./year.js"
 
 // Model
@@ -29,11 +29,11 @@ export const incomeStatementModel = pgTable(
         label: varchar("label", { length: 256 }).notNull(),
         createdAt: dateTimeColumn("created_at").notNull(),
         lastUpdatedAt: dateTimeColumn("last_updated_at"),
-        createdBy: idColumn("created_by").references((): AnyPgColumn => userModel.id, {
+        createdBy: idColumn("created_by").references((): AnyPgColumn => dashboardUserModel.id, {
             onDelete: "set null",
             onUpdate: "cascade",
         }),
-        lastUpdatedBy: idColumn("last_updated_by").references((): AnyPgColumn => userModel.id, {
+        lastUpdatedBy: idColumn("last_updated_by").references((): AnyPgColumn => dashboardUserModel.id, {
             onDelete: "set null",
             onUpdate: "cascade",
         }),

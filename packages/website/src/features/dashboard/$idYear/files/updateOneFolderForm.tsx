@@ -8,10 +8,10 @@ import { FormField } from "../../../../components/forms/formField.js"
 import { FormItem } from "../../../../components/forms/formItem.js"
 import { FormLabel } from "../../../../components/forms/formLabel.js"
 import { FormRoot } from "../../../../components/forms/formRoot.js"
-import { InputText } from "../../../../components/inputs/inputText.js"
 import { toast } from "../../../../contexts/toasts/useToast.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
+import { InputText } from "@arrhes/ui"
 
 export function UpdateOneFolderForm(props: {
     folder: v.InferOutput<typeof returnedSchemas.folder>

@@ -4,13 +4,11 @@ import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconScale } from "@tabler/icons-react"
 import { useState } from "react"
 import type * as v from "valibot"
-import { InputDebounced } from "../../../../../components/inputs/inputDebounced.tsx"
-import { InputText } from "../../../../../components/inputs/inputText.tsx"
-import { InputToggle } from "../../../../../components/inputs/inputToggle.tsx"
 import { DataWrapper } from "../../../../../components/layouts/dataWrapper.tsx"
 import { EmptyState } from "../../../../../components/layouts/emptyState.tsx"
 import { BalanceSheetItem } from "./balanceSheetItem.tsx"
 import { getBalanceSheetChildren } from "./getBalanceSheetChildren.tsx"
+import { InputDebounced, InputText, InputToggle } from "@arrhes/ui"
 
 export function BalanceSheetTable(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]

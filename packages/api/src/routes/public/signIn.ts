@@ -20,7 +20,7 @@ export const signInRoute = apiFactory.createApp().post(signInRouteDefinition.pat
 
     const user = await selectOne({
         database: c.var.clients.sql,
-        table: models.user,
+        table: models.dashboardUser,
         where: (table) => eq(table.email, body.email.trim().toLowerCase()),
     })
 
@@ -37,7 +37,7 @@ export const signInRoute = apiFactory.createApp().post(signInRouteDefinition.pat
     // Store the session
     const createUserSession = await insertOne({
         database: c.var.clients.sql,
-        table: models.userSession,
+        table: models.dashboardUserSession,
         data: {
             id: generateId(),
             idUser: user.id,

@@ -3,7 +3,7 @@ import { boolean, index, pgTable, text, varchar } from "drizzle-orm/pg-core"
 import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
 import { organizationModel } from "./organization.js"
-import { userModel } from "./user.js"
+import { dashboardUserModel } from "./dashboardUser.js"
 
 // Model
 export const apiKeyModel = pgTable(
@@ -14,7 +14,7 @@ export const apiKeyModel = pgTable(
             .references(() => organizationModel.id, { onDelete: "cascade", onUpdate: "cascade" })
             .notNull(),
         idUser: idColumn("id_user")
-            .references(() => userModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => dashboardUserModel.id, { onDelete: "cascade", onUpdate: "cascade" })
             .notNull(),
         keyHash: text("key_hash").notNull(),
         name: varchar("name", { length: 256 }).notNull(),
@@ -32,8 +32,8 @@ export const apiKeyRelations = relations(apiKeyModel, ({ one }) => ({
         fields: [apiKeyModel.idOrganization],
         references: [organizationModel.id],
     }),
-    user: one(userModel, {
+    user: one(dashboardUserModel, {
         fields: [apiKeyModel.idUser],
-        references: [userModel.id],
+        references: [dashboardUserModel.id],
     }),
 }))

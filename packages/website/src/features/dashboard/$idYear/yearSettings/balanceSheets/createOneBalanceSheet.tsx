@@ -13,13 +13,12 @@ import { FormField } from "../../../../../components/forms/formField.tsx"
 import { FormItem } from "../../../../../components/forms/formItem.tsx"
 import { FormLabel } from "../../../../../components/forms/formLabel.tsx"
 import { FormRoot } from "../../../../../components/forms/formRoot.tsx"
-import { InputText } from "../../../../../components/inputs/inputText.tsx"
-import { InputToggle } from "../../../../../components/inputs/inputToggle.tsx"
 import { Drawer } from "../../../../../components/overlays/drawer/drawer.tsx"
 import { toast } from "../../../../../contexts/toasts/useToast.ts"
 import { getResponseBodyFromAPI } from "../../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../../utilities/invalidateData.ts"
 import { BalanceSheetsSelect } from "./balanceSheetSelect.tsx"
+import { InputText, InputToggle } from "@arrhes/ui"
 
 export function CreateOneBalanceSheet(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]

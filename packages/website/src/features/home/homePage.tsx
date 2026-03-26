@@ -56,17 +56,11 @@ export function HomePage() {
                         })}
                     >
                         <LinkButton to="/">
-                            <Logo />
+                            <ButtonGhostContent
+                                leftIcon={<Logo />}
+                                text="Arrhes"
+                            />
                         </LinkButton>
-                        <span
-                            className={css({
-                                fontSize: "0.875rem",
-                                fontFamily: "mono",
-                                color: "neutral",
-                            })}
-                        >
-                            Arrhes
-                        </span>
                     </div>
                     <nav
                         className={css({
@@ -322,7 +316,7 @@ export function HomePage() {
                     </span>*/}
                     {/* <Button
                         onClick={() => {
-                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                            window.scrollTo({ top: 0, behavior: 'smooth' }); 
                         }}
                     >
                         <Logo withText />

@@ -18,6 +18,61 @@ importers:
         specifier: 1.58.2
         version: 1.58.2
 
+  packages/admin:
+    dependencies:
+      '@arrhes/application-metadata':
+        specifier: workspace:*
+        version: link:../metadata
+      '@arrhes/ui':
+        specifier: workspace:*
+        version: link:../ui
+      '@hookform/resolvers':
+        specifier: 5.2.2
+        version: 5.2.2(react-hook-form@7.66.1(react@19.2.0))
+      '@tabler/icons-react':
+        specifier: 3.35.0
+        version: 3.35.0(react@19.2.0)
+      '@tanstack/react-query':
+        specifier: 5.90.11
+        version: 5.90.11(react@19.2.0)
+      '@tanstack/react-router':
+        specifier: 1.139.10
+        version: 1.139.10(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      react:
+        specifier: 19.2.0
+        version: 19.2.0
+      react-dom:
+        specifier: 19.2.0
+        version: 19.2.0(react@19.2.0)
+      react-hook-form:
+        specifier: 7.66.1
+        version: 7.66.1(react@19.2.0)
+      valibot:
+        specifier: 1.2.0
+        version: 1.2.0(typescript@5.9.3)
+    devDependencies:
+      '@pandacss/dev':
+        specifier: 1.8.1
+        version: 1.8.1(hono@4.10.7)(typescript@5.9.3)
+      '@types/node':
+        specifier: 24.10.1
+        version: 24.10.1
+      '@types/react':
+        specifier: 19.2.7
+        version: 19.2.7
+      '@types/react-dom':
+        specifier: 19.2.3
+        version: 19.2.3(@types/react@19.2.7)
+      '@vitejs/plugin-react':
+        specifier: 5.1.1
+        version: 5.1.1(vite@7.2.4(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.20.6))
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+      vite:
+        specifier: 7.2.4
+        version: 7.2.4(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.20.6)
+
   packages/api:
     dependencies:
       '@arrhes/application-metadata':
@@ -125,12 +180,36 @@ importers:
       '@pandacss/dev':
         specifier: 1.8.1
         version: 1.8.1(hono@4.10.7)(typescript@5.9.3)
+      '@radix-ui/react-dialog':
+        specifier: 1.1.15
+        version: 1.1.15(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@radix-ui/react-popover':
+        specifier: 1.1.15
+        version: 1.1.15(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@radix-ui/react-switch':
+        specifier: 1.2.6
+        version: 1.2.6(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@tabler/icons-react':
         specifier: 3.35.0
         version: 3.35.0(react@19.2.0)
+      '@tanstack/react-router':
+        specifier: 1.139.10
+        version: 1.139.10(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@tanstack/react-virtual':
+        specifier: 3.13.12
+        version: 3.13.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      cmdk:
+        specifier: 1.1.1
+        version: 1.1.1(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       react:
         specifier: 19.2.0
         version: 19.2.0
+      react-hook-form:
+        specifier: 7.66.1
+        version: 7.66.1(react@19.2.0)
+      react-imask:
+        specifier: 7.6.1
+        version: 7.6.1(react@19.2.0)
     devDependencies:
       '@types/react':
         specifier: 19.2.7

@@ -1,8 +1,8 @@
 import { readAllTagsRouteDefinition } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import type * as v from "valibot"
-import { InputCombobox } from "../../../../../components/inputs/inputCombobox.tsx"
 import { useDataFromAPI } from "../../../../../utilities/useHTTPData.ts"
+import { InputCombobox } from "@arrhes/ui"
 
 export function TagSelect(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]

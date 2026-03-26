@@ -24,7 +24,7 @@ export const activateUserRoute = apiFactory.createApp().post(activateUserRouteDe
 
     const updatedUser = await updateOne({
         database: c.var.clients.sql,
-        table: models.user,
+        table: models.dashboardUser,
         data: {
             isActive: true,
             emailToValidate: null,

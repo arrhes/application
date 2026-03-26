@@ -20,11 +20,7 @@ import { FormGroup } from "../../../../components/forms/formGroup.js"
 import { FormItem } from "../../../../components/forms/formItem.js"
 import { FormLabel } from "../../../../components/forms/formLabel.js"
 import { FormRoot } from "../../../../components/forms/formRoot.js"
-import { InputComboboxMultiple } from "../../../../components/inputs/inputComboboxMultiple.js"
-import { InputDataCombobox } from "../../../../components/inputs/inputDataCombobox.js"
-import { InputDate } from "../../../../components/inputs/inputDate.js"
-import { InputSelect } from "../../../../components/inputs/inputSelect.js"
-import { InputText } from "../../../../components/inputs/inputText.js"
+import { InputDataCombobox } from "../../../../components/inputDataCombobox.js"
 import { Drawer } from "../../../../components/overlays/drawer/drawer.js"
 import { toast } from "../../../../contexts/toasts/useToast.js"
 import { applicationRouter } from "../../../../routes/applicationRouter.js"
@@ -32,6 +28,7 @@ import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFro
 import { invalidateData } from "../../../../utilities/invalidateData.js"
 import { useDataFromAPI } from "../../../../utilities/useHTTPData.js"
 import { type EntryTemplateKey, entryTemplates } from "./entryTemplates/entryTemplates.js"
+import { InputComboboxMultiple, InputDate, InputSelect, InputText } from "@arrhes/ui"
 
 export function CreateOneEntry(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]

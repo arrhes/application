@@ -40,7 +40,7 @@ export const updateUserPasswordRoute = apiFactory
 
         const updatePassword = await updateOne({
             database: c.var.clients.sql,
-            table: models.user,
+            table: models.dashboardUser,
             data: {
                 passwordHash: newPasswordHash,
                 lastUpdatedAt: new Date().toISOString(),

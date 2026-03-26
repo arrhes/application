@@ -1,8 +1,8 @@
 import { readAllYearsRouteDefinition } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import type * as v from "valibot"
-import { InputSelect } from "../../../../components/inputs/inputSelect.tsx"
 import { useDataFromAPI } from "../../../../utilities/useHTTPData.ts"
+import { InputSelect } from "@arrhes/ui"
 
 export function YearSelect(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
