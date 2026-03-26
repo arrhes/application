@@ -38,7 +38,7 @@ export function EntryLayout() {
 
     return (
         <YearDataWrapper idYear={params.idYear} requiredKeys={requiredKeys}>
-            {({ entries, entryLines: allEntryLines, entryTags, accounts, tags, files }) => {
+            {({ entries, entryLines: allEntryLines }) => {
                 const entry = entries.find((r) => r.id === params.idEntry)
 
                 if (entry === undefined) {
@@ -104,8 +104,8 @@ export function EntryLayout() {
                                 b: totalCredit,
                             }) ? null : (
                                 <Banner variant="error">
-                                    Les montants au débit et au crédit sont différents, veuillez corriger pour
-                                    pouvoir valider. ({formatPrice({ price: totalDebit - totalCredit })})
+                                    Les montants au débit et au crédit sont différents, veuillez corriger pour pouvoir
+                                    valider. ({formatPrice({ price: totalDebit - totalCredit })})
                                 </Banner>
                             )}
                             <Tab.Root

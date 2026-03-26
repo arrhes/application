@@ -172,7 +172,10 @@ export function LedgerAccountingDocPage() {
                 </DocParagraph>
             </DocSection>
 
-            <DocNextPage to="/documentation/comptabilité/documents/annexe" label="L'annexe comptable" />
+            <DocNextPage
+                to="/documentation/comptabilité/documents/fec"
+                label="Le Fichier des Écritures Comptables (FEC)"
+            />
 
             <DocSources
                 sources={[

@@ -197,6 +197,26 @@ export function ExportFecFile(props: {
                             Le Fichier des Écritures Comptables (FEC) est un export normé de toutes les écritures de
                             l'exercice, au format requis par l'administration fiscale.
                         </p>
+                        <p className={css({ fontSize: "sm", color: "neutral/70", lineHeight: "relaxed" })}>
+                            Nous avons créé également un outil de validation de conformité du FEC, disponible gratuitement en ligne sur{" "}
+                            <a
+                                href="https://fec.arrhes.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={css({
+                                    color: "primary",
+                                    fontWeight: "medium",
+                                    textDecoration: "underline",
+                                    textDecorationColor: "primary/30",
+                                    textUnderlineOffset: "2px",
+                                    _hover: { textDecorationColor: "primary" },
+                                    transition: "all 0.15s",
+                                })}
+                            >
+                                fec.arrhes.com
+                            </a>
+                            .
+                        </p>
                         {siren === "" && (
                             <Banner variant="warning">
                                 Le numéro SIREN de l'organisation n'est pas renseigné. Le nom du fichier FEC ne sera pas

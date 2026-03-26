@@ -52,9 +52,7 @@ export function GlossaryTermAccountingDocPage() {
                     gap: "0.5rem",
                 })}
             >
-                <DocDefinition >
-                    {entry.definition}
-                </DocDefinition>
+                <DocDefinition>{entry.definition}</DocDefinition>
                 <DocTip variant="neutral" title="Traduction" icon={IconLanguage}>
                     {entry.englishTranslation}
                 </DocTip>
@@ -79,10 +77,7 @@ export function GlossaryTermAccountingDocPage() {
                                     to="/documentation/comptabilité/glossaire/$term"
                                     params={{ term: relatedEntry.slug }}
                                 >
-                                    <ButtonOutlineContent
-                                        leftIcon={<IconLink />}
-                                        text={relatedEntry.term}
-                                    />
+                                    <ButtonOutlineContent leftIcon={<IconLink />} text={relatedEntry.term} />
                                 </LinkButton>
                             )
                         })}
@@ -94,15 +89,9 @@ export function GlossaryTermAccountingDocPage() {
             {entry.relatedPages && entry.relatedPages.length > 0 && (
                 <DocSection title="Pages associées">
                     <DocParagraph>
-                        {entry.relatedPages.map((page, i) => (
-                            <LinkButton
-                                key={page.path}
-                                to={page.path}
-                            >
-                                <ButtonOutlineContent
-                                    leftIcon={<IconLink />}
-                                    text={page.label}
-                                />
+                        {entry.relatedPages.map((page) => (
+                            <LinkButton key={page.path} to={page.path}>
+                                <ButtonOutlineContent leftIcon={<IconLink />} text={page.label} />
                             </LinkButton>
                         ))}
                     </DocParagraph>

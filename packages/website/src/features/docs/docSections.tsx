@@ -83,6 +83,10 @@ export const docSections: Record<string, DocSection> = {
                         path: "/documentation/comptabilité/documents/annexe",
                         label: "Annexe",
                     },
+                    {
+                        path: "/documentation/comptabilité/documents/fec",
+                        label: "FEC",
+                    },
                 ],
             },
             glossaire: {

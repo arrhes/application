@@ -1,3 +1,4 @@
+import { pbkdf2Sync, randomBytes } from "node:crypto"
 import {
     type DefaultAccount,
     defaultCompanyAccounts,
@@ -9,7 +10,6 @@ import {
 import { models } from "@arrhes/application-metadata/models"
 import { generateId } from "@arrhes/application-metadata/utilities"
 import { randFirstName } from "@ngneat/falso"
-import { pbkdf2Sync, randomBytes } from "node:crypto"
 import { dbClient } from "../dbClient.js"
 
 // Helper: Flatten hierarchical accounts into a flat array

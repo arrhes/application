@@ -14,6 +14,7 @@ import { introductionAccountingDocRoute } from "./accounting/introduction/introd
 import { rootAccountingDocRoute } from "./accounting/introduction/rootAccountingDocRoute.js"
 import { balanceAccountingDocRoute } from "./accounting/reports/balanceAccountingDocRoute.js"
 import { balanceSheetAccountingDocRoute } from "./accounting/reports/balanceSheetAccountingDocRoute.js"
+import { fecAccountingDocRoute } from "./accounting/reports/fecAccountingDocRoute.js"
 import { incomeStatementAccountingDocRoute } from "./accounting/reports/incomeStatementAccountingDocRoute.js"
 import { journalAccountingDocRoute } from "./accounting/reports/journalAccountingDocRoute.js"
 import { ledgerAccountingDocRoute } from "./accounting/reports/ledgerAccountingDocRoute.js"
@@ -78,6 +79,7 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
             balanceAccountingDocRoute,
             journalAccountingDocRoute,
             ledgerAccountingDocRoute,
+            fecAccountingDocRoute,
             notesAccountingDocRoute,
         ]),
         glossaryAccountingDocLayoutRoute.addChildren([glossaryAccountingDocIndexRoute, glossaryTermAccountingDocRoute]),
