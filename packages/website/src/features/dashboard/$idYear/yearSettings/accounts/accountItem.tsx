@@ -5,9 +5,12 @@ import type * as v from "valibot"
 
 const INDENT_PER_LEVEL = 16
 
+export const ACCOUNT_ITEM_HEIGHT = 32
+
 const rowStyle = css({
     minWidth: "fit",
     width: "100%",
+    height: "[32px]",
     display: "flex",
     justifyContent: "flex-start",
     alignItems: "center",

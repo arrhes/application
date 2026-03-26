@@ -3,12 +3,12 @@ import { CircularLoader } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconListNumbers } from "@tabler/icons-react"
 import { useNavigate } from "@tanstack/react-router"
-import { type MouseEvent, useCallback, useDeferredValue, useMemo } from "react"
+import { type MouseEvent, useCallback, useMemo } from "react"
 import { FormatError } from "../../../../../components/formats/formatError.tsx"
 import { EmptyState } from "../../../../../components/layouts/emptyState.tsx"
 import { Virtualizer } from "../../../../../components/layouts/virtualizer.tsx"
 import { useDataFromAPI } from "../../../../../utilities/useHTTPData.ts"
-import { AccountItem } from "./accountItem.tsx"
+import { ACCOUNT_ITEM_HEIGHT, AccountItem } from "./accountItem.tsx"
 import { sortAccounts } from "./sortAccounts.tsx"
 
 export function AccountsTable(props: { idOrganization: string; idYear: string; globalFilter: string }) {
@@ -21,12 +21,10 @@ export function AccountsTable(props: { idOrganization: string; idYear: string; g
         },
     })
 
-    const deferredFilter = useDeferredValue(props.globalFilter)
-
     const structuredAccounts = useMemo(() => {
         if (!response.data) return []
 
-        const normalizedFilter = deferredFilter.trim().toLowerCase()
+        const normalizedFilter = props.globalFilter.trim().toLowerCase()
         const filtered =
             normalizedFilter === ""
                 ? response.data
@@ -38,9 +36,7 @@ export function AccountsTable(props: { idOrganization: string; idYear: string; g
         const sorted = [...filtered].sort((a, b) => a.number.toString().localeCompare(b.number.toString()))
 
         return sortAccounts({ accounts: sorted })
-    }, [response.data, deferredFilter])
-
-    const deferredAccounts = useDeferredValue(structuredAccounts)
+    }, [response.data, props.globalFilter])
 
     const hrefBase = `/dashboard/organisations/${props.idOrganization}/exercices/${props.idYear}/param%C3%A8tres/comptes/`
 
@@ -71,7 +67,7 @@ export function AccountsTable(props: { idOrganization: string; idYear: string; g
     )
 
     const renderAccount = useCallback(
-        (sortedAccount: (typeof deferredAccounts)[number]) => (
+        (sortedAccount: (typeof structuredAccounts)[number]) => (
             <AccountItem
                 account={sortedAccount.account}
                 level={sortedAccount.level}
@@ -112,7 +108,7 @@ export function AccountsTable(props: { idOrganization: string; idYear: string; g
                 />
             ) : (
                 <div onClick={handleContainerClick} className={css({ width: "100%", height: "100%" })}>
-                    <Virtualizer data={deferredAccounts} childSize={32}>
+                    <Virtualizer data={structuredAccounts} childSize={ACCOUNT_ITEM_HEIGHT}>
                         {renderAccount}
                     </Virtualizer>
                 </div>

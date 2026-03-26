@@ -2,6 +2,18 @@ import { css, cx } from "@arrhes/ui/utilities/cn.js"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { type ComponentProps, type ReactElement, useRef } from "react"
 
+const containerStyle = css({
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    overflowY: "auto",
+})
+
+const rowStyle = css({ width: "100%" })
+
 export function Virtualizer<TData>(props: {
     data: Array<TData>
     children: (data: TData, index: number) => ReactElement | Array<ReactElement> | null
@@ -14,26 +26,12 @@ export function Virtualizer<TData>(props: {
         count: props.data.length,
         getScrollElement: () => parentRef.current,
         estimateSize: () => props.childSize ?? 45,
-        measureElement: (element) => element.getBoundingClientRect().height,
+        measureElement: props.childSize ? undefined : (element) => element.getBoundingClientRect().height,
         overscan: 5,
     })
 
     return (
-        <div
-            ref={parentRef}
-            className={cx(
-                css({
-                    width: "100%",
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "flex-start",
-                    alignItems: "flex-start",
-                    overflowY: "auto",
-                }),
-                props.className,
-            )}
-        >
+        <div ref={parentRef} className={cx(containerStyle, props.className)}>
             <div
                 style={{
                     position: "relative",
@@ -54,8 +52,8 @@ export function Virtualizer<TData>(props: {
                         <div
                             key={virtualItem.key}
                             data-index={virtualItem.index}
-                            ref={rowVirtualizer.measureElement}
-                            className={css({ width: "100%" })}
+                            ref={props.childSize ? undefined : rowVirtualizer.measureElement}
+                            className={rowStyle}
                         >
                             {props.children(props.data[virtualItem.index], virtualItem.index)}
                         </div>
