@@ -8,15 +8,10 @@ import type {
     readAllTagsRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { LinkContent } from "@arrhes/ui"
+import { FormatDate, FormatDateTime, FormatNull, FormatPrice, FormatText, LinkContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { useMemo } from "react"
 import type * as v from "valibot"
-import { FormatDate } from "../../../../components/formats/formatDate.js"
-import { FormatDateTime } from "../../../../components/formats/formatDateTime.js"
-import { FormatNull } from "../../../../components/formats/formatNull.js"
-import { FormatPrice } from "../../../../components/formats/formatPrice.js"
-import { FormatText } from "../../../../components/formats/formatText.js"
 import { DataTable } from "../../../../components/layouts/dataTable.js"
 import { LinkButton } from "../../../../components/linkButton.js"
 

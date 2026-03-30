@@ -1,10 +1,9 @@
 import type { routeDefinition } from "@arrhes/application-metadata/utilities"
-import { CircularLoader } from "@arrhes/ui"
+import { CircularLoader, FormatError } from "@arrhes/ui"
 import { css, cx } from "@arrhes/ui/utilities/cn.js"
 import { type ComponentProps, type ReactElement, Suspense } from "react"
 import type * as v from "valibot"
 import { useDataFromAPI } from "../../utilities/useHTTPData.js"
-import { FormatError } from "../formats/formatError.js"
 
 export function DataWrapper<TRouteDefinition extends ReturnType<typeof routeDefinition>>(props: {
     routeDefinition: TRouteDefinition

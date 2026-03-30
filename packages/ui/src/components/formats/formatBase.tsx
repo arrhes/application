@@ -1,5 +1,5 @@
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
 import type { ComponentProps, ReactNode } from "react"
+import { css, cx } from "../../utilities/cn.js"
 
 type FormatBase = {
     children: ReactNode

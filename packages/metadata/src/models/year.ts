@@ -1,8 +1,8 @@
 import { type AnyPgColumn, boolean, pgTable, unique, varchar } from "drizzle-orm/pg-core"
 import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
-import { organizationModel } from "./organization.js"
 import { dashboardUserModel } from "./dashboardUser.js"
+import { organizationModel } from "./organization.js"
 
 // Model
 export const yearModel = pgTable(

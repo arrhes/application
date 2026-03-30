@@ -4,9 +4,9 @@ import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
 import { operation } from "../components/values/operation.js"
 import { computationModel } from "./computation.js"
+import { dashboardUserModel } from "./dashboardUser.js"
 import { incomeStatementModel } from "./incomeStatement.js"
 import { organizationModel } from "./organization.js"
-import { dashboardUserModel } from "./dashboardUser.js"
 import { yearModel } from "./year.js"
 
 // Model

@@ -1,4 +1,4 @@
-import { readAllTicketsRouteDefinition, models } from "@arrhes/application-metadata"
+import { models, readAllTicketsRouteDefinition } from "@arrhes/application-metadata"
 import { eq } from "drizzle-orm"
 import { checkUserSessionMiddleware } from "../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"

@@ -2,6 +2,7 @@ import {
     addNewOrganizationRouteDefinition,
     getAllMyOrganizationsRouteDefinition,
 } from "@arrhes/application-metadata/routes"
+import { InputText, InputToggle, toast } from "@arrhes/ui"
 import { IconPlus } from "@tabler/icons-react"
 import { type JSX, useState } from "react"
 import { Fragment } from "react/jsx-runtime"
@@ -12,10 +13,8 @@ import { FormItem } from "../../../components/forms/formItem.tsx"
 import { FormLabel } from "../../../components/forms/formLabel.tsx"
 import { FormRoot } from "../../../components/forms/formRoot.tsx"
 import { Drawer } from "../../../components/overlays/drawer/drawer.tsx"
-import { toast } from "../../../contexts/toasts/useToast.ts"
 import { getResponseBodyFromAPI } from "../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../utilities/invalidateData.ts"
-import { InputText, InputToggle } from "@arrhes/ui"
 
 export function AddNewOrganization(props: { children: JSX.Element }) {
     const [open, setOpen] = useState(false)

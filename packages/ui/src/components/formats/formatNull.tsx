@@ -1,5 +1,5 @@
-import { css, cx } from "../../utilities/cn.js"
 import type { ComponentProps } from "react"
+import { css, cx } from "../../utilities/cn.js"
 
 export function FormatNull(props: { text?: string; className?: ComponentProps<"span">["className"] }) {
     return (

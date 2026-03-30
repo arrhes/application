@@ -1,8 +1,7 @@
 import type { getAllMyOrganizationsRouteDefinition } from "@arrhes/application-metadata/routes"
-import { LinkContent } from "@arrhes/ui"
+import { Chip, LinkContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import type * as v from "valibot"
-import { Chip } from "../../../components/layouts/chip.tsx"
 import { ListTable } from "../../../components/layouts/listTable/listTable.tsx"
 import { LinkButton } from "../../../components/linkButton.tsx"
 

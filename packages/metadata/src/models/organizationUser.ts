@@ -3,8 +3,8 @@ import { type AnyPgColumn, boolean, index, pgEnum, pgTable, unique } from "drizz
 import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
 import { organizationUserStatus } from "../components/values/organizationUserStatus.js"
-import { organizationModel } from "./organization.js"
 import { dashboardUserModel } from "./dashboardUser.js"
+import { organizationModel } from "./organization.js"
 
 // Model
 export const organizationUserStatusEnum = pgEnum("enum_organization_user_status", organizationUserStatus)

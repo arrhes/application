@@ -5,6 +5,7 @@ import {
     updateOneComputationIncomeStatementRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { InputToggle, toast } from "@arrhes/ui"
 import { IconPlus } from "@tabler/icons-react"
 import { type JSX, useState } from "react"
 import { Fragment } from "react/jsx-runtime"
@@ -17,10 +18,8 @@ import { FormLabel } from "../../../../../../../../../components/forms/formLabel
 import { FormRoot } from "../../../../../../../../../components/forms/formRoot.tsx"
 import { InputDataCombobox } from "../../../../../../../../../components/inputDataCombobox.tsx"
 import { Drawer } from "../../../../../../../../../components/overlays/drawer/drawer.tsx"
-import { toast } from "../../../../../../../../../contexts/toasts/useToast.ts"
 import { getResponseBodyFromAPI } from "../../../../../../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../../../../../../utilities/invalidateData.ts"
-import { InputToggle } from "@arrhes/ui"
 
 export function UpdateOneComputationIncomeStatement(props: {
     computationIncomeStatement: v.InferOutput<typeof returnedSchemas.computationIncomeStatement>

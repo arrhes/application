@@ -1,5 +1,5 @@
 import { adminReadAllTicketsRouteDefinition } from "@arrhes/application-metadata/routes"
-import { Badge, CircularLoader } from "@arrhes/ui"
+import { Badge, CircularLoader, formatDate } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconExternalLink } from "@tabler/icons-react"
 import type * as v from "valibot"
@@ -19,16 +19,6 @@ const categoryLabels: Record<string, string> = {
 }
 
 type Ticket = v.InferOutput<(typeof adminReadAllTicketsRouteDefinition)["schemas"]["return"]>[number]
-
-function formatDate(dateString: string) {
-    return new Date(dateString).toLocaleDateString("fr-FR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-    })
-}
 
 function TicketRow(props: { ticket: Ticket }) {
     const { ticket } = props
@@ -78,8 +68,10 @@ function TicketRow(props: { ticket: Ticket }) {
                         <Badge>{categoryLabels[ticket.category] ?? ticket.category}</Badge>
                     </div>
                     <span className={css({ fontSize: "xs", color: "neutral/50" })}>
-                        {`Créé le ${formatDate(ticket.createdAt)}`}
-                        {ticket.lastUpdatedAt ? ` · Mis à jour le ${formatDate(ticket.lastUpdatedAt)}` : ""}
+                        {`Créé le ${formatDate(ticket.createdAt, { includeTime: true })}`}
+                        {ticket.lastUpdatedAt
+                            ? ` · Mis à jour le ${formatDate(ticket.lastUpdatedAt, { includeTime: true })}`
+                            : ""}
                     </span>
                 </div>
                 <IconExternalLink size={16} className={css({ color: "neutral/40", flexShrink: 0 })} />

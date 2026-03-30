@@ -3,12 +3,9 @@ import {
     readOneIncomeStatementRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { ButtonGhostContent } from "@arrhes/ui"
+import { ButtonGhostContent, Chip, FormatDateTime, FormatText } from "@arrhes/ui"
 import { IconEye } from "@tabler/icons-react"
 import type * as v from "valibot"
-import { FormatDateTime } from "../../../../../../../../components/formats/formatDateTime.tsx"
-import { FormatText } from "../../../../../../../../components/formats/formatText.tsx"
-import { Chip } from "../../../../../../../../components/layouts/chip.tsx"
 import { DataTable } from "../../../../../../../../components/layouts/dataTable.tsx"
 import { DataWrapper } from "../../../../../../../../components/layouts/dataWrapper.tsx"
 import { LinkButton } from "../../../../../../../../components/linkButton.tsx"

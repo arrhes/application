@@ -1,7 +1,6 @@
+import { FormatFileSize, FormatText } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { useParams } from "@tanstack/react-router"
-import { FormatFileSize } from "../../../../../components/formats/formatFileSize.tsx"
-import { FormatText } from "../../../../../components/formats/formatText.tsx"
 import { DataBlock } from "../../../../../components/layouts/dataBlock/dataBlock.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
 import { fileLayoutRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/files/$idFile/fileLayoutRoute.tsx"

@@ -4,11 +4,10 @@ import {
     readAllFilesRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button } from "@arrhes/ui"
+import { Button, toast } from "@arrhes/ui"
 import type { JSX } from "react"
 import { useRef } from "react"
 import type * as v from "valibot"
-import { toast } from "../../../../contexts/toasts/useToast.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
 

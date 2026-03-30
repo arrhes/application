@@ -1,9 +1,8 @@
 import { readOneFileRouteDefinition } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { CircularLoader } from "@arrhes/ui"
+import { CircularLoader, FormatError } from "@arrhes/ui"
 import type { ReactElement } from "react"
 import type * as v from "valibot"
-import { FormatError } from "../../../../../components/formats/formatError.tsx"
 import { useDataFromAPI } from "../../../../../utilities/useHTTPData.ts"
 
 export function FileData(props: {

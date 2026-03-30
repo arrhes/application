@@ -1,7 +1,6 @@
+import { FormatDateTime, FormatText } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { useParams } from "@tanstack/react-router"
-import { FormatDateTime } from "../../../../../components/formats/formatDateTime.tsx"
-import { FormatText } from "../../../../../components/formats/formatText.tsx"
 import { DataBlock } from "../../../../../components/layouts/dataBlock/dataBlock.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
 import { entryLayoutRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/entries/$idEntry/entryLayoutRoute.tsx"

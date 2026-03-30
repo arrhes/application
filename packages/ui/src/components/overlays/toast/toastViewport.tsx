@@ -1,6 +1,6 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
 import type { ReactNode } from "react"
 import { createPortal } from "react-dom"
+import { css } from "../../../utilities/cn.js"
 
 type ToastViewportProps = {
     children: ReactNode

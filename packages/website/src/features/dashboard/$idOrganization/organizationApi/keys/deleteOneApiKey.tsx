@@ -1,9 +1,9 @@
 import type { readAllApiKeysRouteDefinition as ReadAllApiKeysRouteDefinition } from "@arrhes/application-metadata/routes"
 import { deleteOneApiKeyRouteDefinition, readAllApiKeysRouteDefinition } from "@arrhes/application-metadata/routes"
+import { toast } from "@arrhes/ui"
 import type { ComponentPropsWithRef, ReactElement } from "react"
 import type * as v from "valibot"
 import { DeleteConfirmation } from "../../../../../components/overlays/dialog/deleteConfirmation.tsx"
-import { toast } from "../../../../../contexts/toasts/useToast.ts"
 import { getResponseBodyFromAPI } from "../../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../../utilities/invalidateData.ts"
 

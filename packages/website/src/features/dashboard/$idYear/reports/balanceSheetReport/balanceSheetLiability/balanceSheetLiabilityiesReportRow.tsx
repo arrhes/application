@@ -1,6 +1,5 @@
+import { FormatPrice, FormatText } from "@arrhes/ui"
 import { css, cx } from "@arrhes/ui/utilities/cn.js"
-import { FormatPrice } from "../../../../../../components/formats/formatPrice.tsx"
-import { FormatText } from "../../../../../../components/formats/formatText.tsx"
 import { Table } from "../../../../../../components/layouts/table/table.tsx"
 
 export function BalanceSheetLiabilitiesReportRow(props: {

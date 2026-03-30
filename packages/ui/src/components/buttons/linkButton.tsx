@@ -1,6 +1,6 @@
-import { css, cx } from "../../utilities/cn.js"
 import { Link } from "@tanstack/react-router"
 import type { MouseEventHandler, ReactNode } from "react"
+import { css, cx } from "../../utilities/cn.js"
 
 /**
  * LinkButton - a neutral container wrapping TanStack Router's Link

@@ -1,4 +1,4 @@
-import { Button, ButtonGhostContent, ButtonOutlineContent, CircularLoader } from "@arrhes/ui"
+import { Button, ButtonGhostContent, ButtonOutlineContent, CircularLoader, FormatNull } from "@arrhes/ui"
 import { css, cx } from "@arrhes/ui/utilities/cn.js"
 import {
     IconChevronDown,
@@ -21,7 +21,6 @@ import {
     useReactTable,
 } from "@tanstack/react-table"
 import { Fragment, type ReactElement, useMemo, useState } from "react"
-import { FormatNull } from "../formats/formatNull.js"
 import { type FilterColumn, FilterPopover } from "./filterPopover.js"
 import { SearchBar } from "./searchBar.js"
 import { type SortDirection, SortPopover } from "./sortPopover.js"

@@ -1,5 +1,5 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
 import type { ComponentProps } from "react"
+import { css } from "../../utilities/cn.js"
 import { FormatNull } from "./formatNull.js"
 
 export function formatDateTime(rawDate?: string | Date | undefined | null) {

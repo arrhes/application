@@ -14,10 +14,7 @@ export function ParentAccountSection(props: { parentAccount: AccountEntry }) {
                 to="/documentation/comptabilité/comptes/liste/$account"
                 params={{ account: parentAccount.slug }}
             >
-                <ButtonOutlineContent
-                    leftIcon={<IconCornerUpLeft />}
-                    text={undefined}
-                >
+                <ButtonOutlineContent leftIcon={<IconCornerUpLeft />} text={undefined}>
                     <div
                         className={css({
                             display: "flex",
@@ -26,8 +23,17 @@ export function ParentAccountSection(props: { parentAccount: AccountEntry }) {
                             gap: "0.5rem",
                         })}
                     >
-                        <span className={css({ fontSize: "0.875rem", lineHeight: "1rem", fontFamily: "mono", fontWeight: "bold" })}>{parentAccount.number}</span>
-                        <span className={css({ fontSize: "0.875rem", lineHeight: "1rem", })}>{parentAccount.label}</span>
+                        <span
+                            className={css({
+                                fontSize: "0.875rem",
+                                lineHeight: "1rem",
+                                fontFamily: "mono",
+                                fontWeight: "bold",
+                            })}
+                        >
+                            {parentAccount.number}
+                        </span>
+                        <span className={css({ fontSize: "0.875rem", lineHeight: "1rem" })}>{parentAccount.label}</span>
                     </div>
                 </ButtonOutlineContent>
             </LinkButton>

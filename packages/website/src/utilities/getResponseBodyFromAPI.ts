@@ -1,6 +1,6 @@
 import type { routeDefinition } from "@arrhes/application-metadata/utilities"
+import { toast } from "@arrhes/ui"
 import type * as v from "valibot"
-import { toast } from "../contexts/toasts/useToast.js"
 import { ClientError } from "./clientError.js"
 import { getCookie } from "./cookies/getCookie.js"
 import { validate } from "./validate.js"

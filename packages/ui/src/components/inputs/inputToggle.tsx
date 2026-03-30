@@ -1,8 +1,8 @@
-import { Button } from "../buttons/button.js"
-import { ButtonGhostContent } from "../buttons/buttonGhostContent.js"
-import { css, cx } from "../../utilities/cn.js"
 import type * as SwitchPrimitives from "@radix-ui/react-switch"
 import type { ComponentProps, JSX } from "react"
+import { css, cx } from "../../utilities/cn.js"
+import { Button } from "../buttons/button.js"
+import { ButtonGhostContent } from "../buttons/buttonGhostContent.js"
 
 export function InputToggle<TValue extends string | boolean>(
     props: Omit<ComponentProps<typeof SwitchPrimitives.Root>, "value" | "onChange"> & {

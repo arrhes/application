@@ -1,18 +1,12 @@
-import {
-    readAllTicketMessagesRouteDefinition,
-    readOneTicketRouteDefinition
-} from "@arrhes/application-metadata/routes"
-import { Separator } from "@arrhes/ui"
+import { readAllTicketMessagesRouteDefinition, readOneTicketRouteDefinition } from "@arrhes/application-metadata/routes"
+import { Chip, formatDate, Separator } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconCheck } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
-import { formatDate } from "../../../../components/formats/formatDate.tsx"
-import { Chip } from "../../../../components/layouts/chip.tsx"
+import { Banner } from "../../../../components/layouts/banner.tsx"
 import { DataWrapper } from "../../../../components/layouts/dataWrapper.tsx"
 import { Section } from "../../../../components/layouts/section/section.tsx"
 import { ticketLayoutRoute } from "../../../../routes/root/dashboard/support/ticketLayoutRoute.tsx"
 import { CreateOneTicketMessage } from "./createOneTicketMessage.tsx"
-import { StatusToggle } from "./statusToggle.tsx"
 import { TicketMessageList } from "./ticketMessageList.tsx"
 
 const categoryLabels: Record<string, string> = {
@@ -55,14 +49,25 @@ export function TicketPage() {
                                 borderRadius: "lg",
                             })}
                         >
-                            <div className={css({ display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "1rem" })}>
-                                <div className={css({ display: "flex", flexDirection: "row", justifyContent: "flex-start", alignItems: "center", gap: "0.5rem" })}>
-                                    <h1 className={css({ fontSize: "lg", color: "neutral" })}>
-                                        Ticket
-                                    </h1>
-                                    <span className={css({ fontSize: "lg", color: "neutral/50" })}>
-                                        {ticket.id}
-                                    </span>
+                            <div
+                                className={css({
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    justifyContent: "space-between",
+                                    gap: "1rem",
+                                })}
+                            >
+                                <div
+                                    className={css({
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        justifyContent: "flex-start",
+                                        alignItems: "center",
+                                        gap: "0.5rem",
+                                    })}
+                                >
+                                    <h1 className={css({ fontSize: "lg", color: "neutral" })}>Ticket</h1>
+                                    <span className={css({ fontSize: "lg", color: "neutral/50" })}>{ticket.id}</span>
                                 </div>
                                 <Chip text={status.text} color={status.color} />
                             </div>
@@ -76,12 +81,8 @@ export function TicketPage() {
                                     gap: "0.5rem",
                                 })}
                             >
-                                <span className={css({ fontSize: "sm", color: "neutral/50" })}>
-                                    Catégorie :{" "}
-                                </span>
-                                <span className={css({ fontSize: "sm", color: "neutral" })}>
-                                    {categoryLabel}
-                                </span>
+                                <span className={css({ fontSize: "sm", color: "neutral/50" })}>Catégorie : </span>
+                                <span className={css({ fontSize: "sm", color: "neutral" })}>{categoryLabel}</span>
                             </div>
 
                             {/* Dates */}
@@ -89,14 +90,11 @@ export function TicketPage() {
                                 {`Créé le ${formatDate(ticket.createdAt, { includeTime: true })}`}
                             </span>
 
-                            {ticket.lastUpdatedAt
-                                ? (
-                                    <span className={css({ fontSize: "xs", color: "neutral/50" })}>
-                                        {`Mis à jour le ${formatDate(ticket.lastUpdatedAt, { includeTime: true })}`}
-                                    </span>
-                                )
-                                : (null)
-                            }
+                            {ticket.lastUpdatedAt ? (
+                                <span className={css({ fontSize: "xs", color: "neutral/50" })}>
+                                    {`Mis à jour le ${formatDate(ticket.lastUpdatedAt, { includeTime: true })}`}
+                                </span>
+                            ) : null}
 
                             <Separator />
 
@@ -122,7 +120,7 @@ export function TicketPage() {
                                             {lastMessage ? (
                                                 <span className={css({ fontSize: "sm", color: "neutral/60" })}>
                                                     {lastMessage.idAdminUser !== null
-                                                        ? "Dernier message : Arrhes (en attente de votre réponse)"
+                                                        ? "Dernier message : Support (en attente de votre réponse)"
                                                         : "Dernier message : Vous (en attente d'une réponse)"}
                                                 </span>
                                             ) : (
@@ -130,7 +128,6 @@ export function TicketPage() {
                                                     Aucun message
                                                 </span>
                                             )}
-                                            <StatusToggle idTicket={params.idTicket} currentStatus={ticket.status} />
                                         </div>
                                     )
                                 }}
@@ -146,23 +143,9 @@ export function TicketPage() {
                     ticket.status === "open" ? (
                         <CreateOneTicketMessage idTicket={params.idTicket} />
                     ) : (
-                        <div
-                            className={css({
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "0.5rem",
-                                padding: "0.75rem",
-                                borderRadius: "md",
-                                backgroundColor: "neutral/5",
-                                border: "1px solid",
-                                borderColor: "neutral/10",
-                            })}
-                        >
-                            <IconCheck size={16} className={css({ color: "neutral/50" })} />
-                            <span className={css({ fontSize: "sm", color: "neutral/60" })}>
-                                Ce ticket est fermé. Rouvrez-le pour envoyer un message.
-                            </span>
-                        </div>
+                        <Banner variant="error" title="Ticket fermé">
+                            Ce ticket est fermé. Ouvrez-le de nouveau pour envoyer un message.
+                        </Banner>
                     )
                 }
             </DataWrapper>

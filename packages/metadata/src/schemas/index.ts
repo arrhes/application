@@ -1,6 +1,6 @@
+import { accountSchema, accountSchemaReturn } from "./account.js"
 import { adminUserSchema, adminUserSchemaReturn } from "./adminUser.js"
 import { adminUserSessionSchema, adminUserSessionSchemaReturn } from "./adminUserSession.js"
-import { accountSchema, accountSchemaReturn } from "./account.js"
 import { apiKeySchema, apiKeySchemaReturn } from "./apiKey.js"
 import { balanceSheetSchema, balanceSheetSchemaReturn } from "./balanceSheet.js"
 import { computationSchema, computationSchemaReturn } from "./computation.js"
@@ -8,6 +8,8 @@ import {
     computationIncomeStatementSchema,
     computationIncomeStatementSchemaReturn,
 } from "./computationIncomeStatement.js"
+import { dashboardUserSchema, dashboardUserSchemaReturn } from "./dashboardUser.js"
+import { dashboardUserSessionSchema, dashboardUserSessionSchemaReturn } from "./dashboardUserSession.js"
 import { entrySchema, entrySchemaReturn } from "./entry.js"
 import { entryLineSchema, entryLineSchemaReturn } from "./entryLine.js"
 import { entryTagSchema, entryTagSchemaReturn } from "./entryTag.js"
@@ -21,8 +23,6 @@ import { organizationUserSchema, organizationUserSchemaReturn } from "./organiza
 import { tagSchema, tagSchemaReturn } from "./tag.js"
 import { ticketSchema, ticketSchemaReturn } from "./ticket.js"
 import { ticketMessageSchema, ticketMessageSchemaReturn } from "./ticketMessage.js"
-import { dashboardUserSchema, dashboardUserSchemaReturn } from "./dashboardUser.js"
-import { dashboardUserSessionSchema, dashboardUserSessionSchemaReturn } from "./dashboardUserSession.js"
 import { yearSchema, yearSchemaReturn } from "./year.js"
 
 export const schemas = {

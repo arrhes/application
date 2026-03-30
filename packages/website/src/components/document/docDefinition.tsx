@@ -1,7 +1,7 @@
-import { css } from "@arrhes/ui/utilities/cn.js";
-import { IconBookmark } from "@tabler/icons-react";
-import type { ReactNode } from "react";
-import { DocTip } from "./docTip.js";
+import { css } from "@arrhes/ui/utilities/cn.js"
+import { IconBookmark } from "@tabler/icons-react"
+import type { ReactNode } from "react"
+import { DocTip } from "./docTip.js"
 
 export function DocDefinition(props: { term?: string; children: ReactNode }) {
     return (

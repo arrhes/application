@@ -3,7 +3,7 @@ import {
     readAllTicketMessagesRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { InputTextArea } from "@arrhes/ui"
+import { InputTextArea, toast } from "@arrhes/ui"
 import { IconSend } from "@tabler/icons-react"
 import { Fragment } from "react/jsx-runtime"
 import type * as v from "valibot"
@@ -13,7 +13,6 @@ import { FormField } from "../../../../components/forms/formField.tsx"
 import { FormItem } from "../../../../components/forms/formItem.tsx"
 import { FormLabel } from "../../../../components/forms/formLabel.tsx"
 import { FormRoot } from "../../../../components/forms/formRoot.tsx"
-import { toast } from "../../../../contexts/toasts/useToast.ts"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
 

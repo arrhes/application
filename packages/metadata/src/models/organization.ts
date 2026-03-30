@@ -3,9 +3,9 @@ import { type AnyPgColumn, boolean, integer, pgEnum, pgTable, text, varchar } fr
 import { organizationScope } from "../components/index.js"
 import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
+import { dashboardUserModel } from "./dashboardUser.js"
 import { organizationPaymentModel } from "./organizationPayment.js"
 import { organizationUserModel } from "./organizationUser.js"
-import { dashboardUserModel } from "./dashboardUser.js"
 
 // Model
 export const organizationScopeEnum = pgEnum("enum_organization_scope", organizationScope)

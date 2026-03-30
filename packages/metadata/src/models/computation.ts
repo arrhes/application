@@ -3,8 +3,8 @@ import { type AnyPgColumn, integer, pgTable, unique, varchar } from "drizzle-orm
 import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
 import { computationIncomeStatementModel } from "./computationIncomeStatement.js"
-import { organizationModel } from "./organization.js"
 import { dashboardUserModel } from "./dashboardUser.js"
+import { organizationModel } from "./organization.js"
 import { yearModel } from "./year.js"
 
 // Model

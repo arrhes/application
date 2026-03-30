@@ -1,11 +1,10 @@
 import { signOutRouteDefinition } from "@arrhes/application-metadata/routes"
-import { Button, ButtonGhostContent, ButtonOutlineContent, Logo, Separator } from "@arrhes/ui"
+import { Button, ButtonGhostContent, ButtonOutlineContent, Logo, Separator, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconBook2, IconBuildings, IconLifebuoy, IconLogout, IconUser } from "@tabler/icons-react"
 import { Outlet } from "@tanstack/react-router"
 import { LinkButton } from "../../components/linkButton.js"
 import { Popover } from "../../components/overlays/popover/popover.js"
-import { toast } from "../../contexts/toasts/useToast.js"
 import { applicationRouter } from "../../routes/applicationRouter.js"
 import { deleteCookies } from "../../utilities/cookies/deleteCookies.js"
 import { getResponseBodyFromAPI } from "../../utilities/getResponseBodyFromAPI.js"
@@ -61,7 +60,7 @@ export function DashboardLayout() {
                         <LinkButton to="/dashboard">
                             <ButtonGhostContent
                                 leftIcon={<Logo />}
-                            // text="Dashboard"
+                                // text="Dashboard"
                             />
                         </LinkButton>
                         <Breadcrumbs />

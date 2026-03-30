@@ -1,8 +1,7 @@
 import { readOneTicketRouteDefinition, updateOneTicketRouteDefinition } from "@arrhes/application-metadata/routes"
-import { Button, ButtonOutlineContent } from "@arrhes/ui"
+import { Button, ButtonOutlineContent, toast } from "@arrhes/ui"
 import { IconLock, IconLockOpen } from "@tabler/icons-react"
 import { useState } from "react"
-import { toast } from "../../../../contexts/toasts/useToast.ts"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
 

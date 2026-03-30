@@ -1,4 +1,4 @@
-import { ButtonOutlineContent } from "@arrhes/ui"
+import { ButtonOutlineContent, FormatError, formatPrice } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import {
     IconChevronLeft,
@@ -10,8 +10,6 @@ import {
     IconTrash,
 } from "@tabler/icons-react"
 import { Outlet, useParams } from "@tanstack/react-router"
-import { FormatError } from "../../../../../components/formats/formatError.tsx"
-import { formatPrice } from "../../../../../components/formats/formatPrice.tsx"
 import { Banner } from "../../../../../components/layouts/banner.tsx"
 import { Page } from "../../../../../components/layouts/page/page.tsx"
 import { Tab } from "../../../../../components/layouts/tab/tab.tsx"

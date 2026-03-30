@@ -3,8 +3,8 @@ import { type AnyPgColumn, index, pgTable, text } from "drizzle-orm/pg-core"
 import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
 import { adminUserModel } from "./adminUser.js"
-import { ticketModel } from "./ticket.js"
 import { dashboardUserModel } from "./dashboardUser.js"
+import { ticketModel } from "./ticket.js"
 
 // Model
 export const ticketMessageModel = pgTable(

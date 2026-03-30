@@ -1,6 +1,6 @@
-import type { ComponentProps } from "react";
-import { token } from "../../../styled-system/tokens/index";
-import { css, cx } from "../../utilities/cn.ts";
+import type { ComponentProps } from "react"
+import { token } from "../../../styled-system/tokens/index"
+import { css, cx } from "../../utilities/cn.ts"
 
 export function Logo(props: { className?: ComponentProps<"svg">["className"]; withText?: boolean }) {
     return (

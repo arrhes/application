@@ -6,7 +6,7 @@ export const rootRoute = createRoute({
     getParentRoute: () => rootLayoutRoute,
     path: "/",
     pendingComponent: () => <CircularLoader />,
-    beforeLoad: ({ }) => {
+    beforeLoad: () => {
         throw redirect({ to: "/connexion" })
     },
 })

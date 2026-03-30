@@ -12,13 +12,12 @@ import {
     readAllJournalsRouteDefinition,
     readAllTagsRouteDefinition,
 } from "@arrhes/application-metadata/routes"
-import { CircularLoader } from "@arrhes/ui"
+import { CircularLoader, FormatError } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { useQueries } from "@tanstack/react-query"
 import type { ReactElement } from "react"
 import { useMemo } from "react"
 import type * as v from "valibot"
-import { FormatError } from "../../../components/formats/formatError.tsx"
 import { ClientError } from "../../../utilities/clientError.ts"
 import { getResponseBodyFromAPI } from "../../../utilities/getResponseBodyFromAPI.ts"
 

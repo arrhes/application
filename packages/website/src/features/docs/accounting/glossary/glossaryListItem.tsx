@@ -1,8 +1,12 @@
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { LinkButton } from "../../../../components/linkButton.js"
 
-
-export function GlossaryListItem(props: { term: string; englishTranslation: string; slug: string; definition: string }) {
+export function GlossaryListItem(props: {
+    term: string
+    englishTranslation: string
+    slug: string
+    definition: string
+}) {
     return (
         <LinkButton
             to="/documentation/comptabilité/glossaire/$term"

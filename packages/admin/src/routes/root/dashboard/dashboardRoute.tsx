@@ -4,7 +4,7 @@ import { dashboardLayoutRoute } from "./dashboardLayoutRoute.js"
 export const dashboardRoute = createRoute({
     getParentRoute: () => dashboardLayoutRoute,
     path: "/",
-    beforeLoad: ({ }) => {
+    beforeLoad: () => {
         throw redirect({ to: "/dashboard/tickets" })
     },
 })

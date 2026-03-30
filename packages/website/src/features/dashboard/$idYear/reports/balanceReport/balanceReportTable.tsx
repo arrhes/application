@@ -1,11 +1,9 @@
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { FormatNull, FormatPrice, FormatText } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { Fragment, useMemo, useRef } from "react"
 import type * as v from "valibot"
-import { FormatNull } from "../../../../../components/formats/formatNull.tsx"
-import { FormatPrice } from "../../../../../components/formats/formatPrice.tsx"
-import { FormatText } from "../../../../../components/formats/formatText.tsx"
 import { Table } from "../../../../../components/layouts/table/table.tsx"
 
 export function BalanceReportTable(props: {

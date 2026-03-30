@@ -1,7 +1,7 @@
-import { css, cx } from "../../utilities/cn.js"
 import type { InputHTMLAttributes } from "react"
 import type { FieldError } from "react-hook-form"
 import { IMask, IMaskInput } from "react-imask"
+import { css, cx } from "../../utilities/cn.js"
 
 export function InputPrice(
     props: Omit<InputHTMLAttributes<HTMLInputElement>, "defaultValue" | "value" | "onChange"> & {

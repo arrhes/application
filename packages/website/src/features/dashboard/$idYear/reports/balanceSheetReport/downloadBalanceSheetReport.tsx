@@ -3,9 +3,9 @@ import {
     generateDocumentGetSignedUrlRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { toast } from "@arrhes/ui"
 import { type ButtonHTMLAttributes, cloneElement, type ReactElement } from "react"
 import type * as v from "valibot"
-import { toast } from "../../../../../contexts/toasts/useToast.ts"
 import { getResponseBodyFromAPI } from "../../../../../utilities/getResponseBodyFromAPI.ts"
 
 export function DownloadBalanceSheetReport(props: {

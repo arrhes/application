@@ -1,8 +1,8 @@
 import { readAllFilesRouteDefinition } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { InputCombobox } from "@arrhes/ui"
 import type * as v from "valibot"
 import { useDataFromAPI } from "../../../../utilities/useHTTPData.ts"
-import { InputCombobox } from "@arrhes/ui"
 
 export function FileSelect(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]

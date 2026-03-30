@@ -2,10 +2,9 @@ import {
     readOneComputationIncomeStatementRouteDefinition,
     readOneComputationRouteDefinition,
 } from "@arrhes/application-metadata/routes"
+import { Chip, FormatText } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { useParams } from "@tanstack/react-router"
-import { FormatText } from "../../../../../../../../../components/formats/formatText.tsx"
-import { Chip } from "../../../../../../../../../components/layouts/chip.tsx"
 import { DataBlock } from "../../../../../../../../../components/layouts/dataBlock/dataBlock.tsx"
 import { DataWrapper } from "../../../../../../../../../components/layouts/dataWrapper.tsx"
 import { Section } from "../../../../../../../../../components/layouts/section/section.tsx"

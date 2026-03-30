@@ -1,8 +1,7 @@
 import type { schemas } from "@arrhes/application-metadata/schemas"
-import { LinkContent } from "@arrhes/ui"
+import { formatDate, LinkContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import type * as v from "valibot"
-import { formatDate } from "../../../../../components/formats/formatDate.tsx"
 import { ListTable } from "../../../../../components/layouts/listTable/listTable.tsx"
 import { LinkButton } from "../../../../../components/linkButton.tsx"
 

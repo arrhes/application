@@ -3,8 +3,8 @@ import { type AnyPgColumn, index, pgEnum, pgTable, text } from "drizzle-orm/pg-c
 import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
 import { documentType } from "../components/values/documentType.js"
-import { organizationModel } from "./organization.js"
 import { dashboardUserModel } from "./dashboardUser.js"
+import { organizationModel } from "./organization.js"
 import { yearModel } from "./year.js"
 
 // Model

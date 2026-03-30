@@ -1,16 +1,16 @@
-import { css, cx } from "../../utilities/cn.js"
 import { IconCheck, IconChevronDown } from "@tabler/icons-react"
 import { type ComponentProps, useEffect, useState } from "react"
 import type { FieldError } from "react-hook-form"
+import { css, cx } from "../../utilities/cn.js"
+import { debounce } from "../../utilities/debounce.js"
 import { Button } from "../buttons/button.js"
 import { ButtonGhostContent } from "../buttons/buttonGhostContent.js"
 import { ButtonOutlineContent } from "../buttons/buttonOutlineContent.js"
-import { CircularLoader } from "../layouts/circularLoader.js"
 import { FormatNull } from "../formats/formatNull.js"
-import { InputText } from "./inputText.js"
-import { Popover } from "../overlays/popover/popover.js"
+import { CircularLoader } from "../layouts/circularLoader.js"
 import { Virtualizer } from "../layouts/virtualizer.js"
-import { debounce } from "../../utilities/debounce.js"
+import { Popover } from "../overlays/popover/popover.js"
+import { InputText } from "./inputText.js"
 
 export function InputCombobox<TValue extends string>(props: {
     error?: FieldError

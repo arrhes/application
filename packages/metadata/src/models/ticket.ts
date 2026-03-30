@@ -4,8 +4,8 @@ import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
 import { ticketStatus } from "../components/values/ticketStatus.js"
 import { ticketType } from "../components/values/ticketType.js"
-import { ticketMessageModel } from "./ticketMessage.js"
 import { dashboardUserModel } from "./dashboardUser.js"
+import { ticketMessageModel } from "./ticketMessage.js"
 
 // Enums
 export const ticketStatusEnum = pgEnum("enum_ticket_status", ticketStatus)

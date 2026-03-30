@@ -1,12 +1,9 @@
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { FormatDate, FormatNull, FormatPrice, FormatText } from "@arrhes/ui"
 import { css, cx } from "@arrhes/ui/utilities/cn.js"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { Fragment, useRef } from "react"
 import type * as v from "valibot"
-import { FormatDate } from "../../../../../components/formats/formatDate.tsx"
-import { FormatNull } from "../../../../../components/formats/formatNull.tsx"
-import { FormatPrice } from "../../../../../components/formats/formatPrice.tsx"
-import { FormatText } from "../../../../../components/formats/formatText.tsx"
 import { Table } from "../../../../../components/layouts/table/table.tsx"
 import { compareAmounts } from "../../../../../utilities/compareAmounts.ts"
 

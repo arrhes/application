@@ -3,8 +3,8 @@ import { type AnyPgColumn, integer, pgEnum, pgTable, text, varchar } from "drizz
 import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
 import { organizationPaymentStatus } from "../components/values/organizationPaymentStatus.js"
-import { organizationModel } from "./organization.js"
 import { dashboardUserModel } from "./dashboardUser.js"
+import { organizationModel } from "./organization.js"
 
 // Model
 export const organizationPaymentStatusEnum = pgEnum("enum_organization_payment_status", organizationPaymentStatus)

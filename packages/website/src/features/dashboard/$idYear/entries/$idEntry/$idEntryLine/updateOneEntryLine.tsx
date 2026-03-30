@@ -5,6 +5,7 @@ import {
     updateOneEntryLineRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { InputPrice, InputText, InputToggle, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconPencil } from "@tabler/icons-react"
 import { type JSX, useState } from "react"
@@ -18,10 +19,8 @@ import { FormLabel } from "../../../../../../components/forms/formLabel.tsx"
 import { FormRoot } from "../../../../../../components/forms/formRoot.tsx"
 import { InputDataCombobox } from "../../../../../../components/inputDataCombobox.tsx"
 import { Drawer } from "../../../../../../components/overlays/drawer/drawer.tsx"
-import { toast } from "../../../../../../contexts/toasts/useToast.ts"
 import { getResponseBodyFromAPI } from "../../../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../../../utilities/invalidateData.ts"
-import { InputPrice, InputText, InputToggle } from "@arrhes/ui"
 
 export function UpdateOneEntryLine(props: {
     entryLine: v.InferOutput<typeof returnedSchemas.entryLine>

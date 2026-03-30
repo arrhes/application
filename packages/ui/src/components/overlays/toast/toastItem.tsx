@@ -1,5 +1,3 @@
-import { Button, ButtonGhostContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
 import {
     type Icon,
     IconAlertTriangle,
@@ -9,7 +7,10 @@ import {
     IconX,
 } from "@tabler/icons-react"
 import type { ReactElement } from "react"
-import type { ToasterToast, ToastVariant } from "../../../contexts/toasts/useToast.js"
+import { css } from "../../../utilities/cn.js"
+import { Button } from "../../buttons/button.js"
+import { ButtonGhostContent } from "../../buttons/buttonGhostContent.js"
+import type { ToasterToast, ToastVariant } from "./useToast.js"
 
 const toastIcons: Record<ToastVariant, ReactElement<IconProps & React.RefAttributes<Icon>>> = {
     error: <IconAlertTriangle size={20} className={css({ color: "error" })} />,

@@ -2,12 +2,12 @@ import { relations } from "drizzle-orm"
 import { type AnyPgColumn, index, pgTable, varchar } from "drizzle-orm/pg-core"
 import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
+import { dashboardUserModel } from "./dashboardUser.js"
 import { entryLineModel } from "./entryLine.js"
 import { entryTagModel } from "./entryTag.js"
 import { fileModel } from "./file.js"
 import { journalModel } from "./journal.js"
 import { organizationModel } from "./organization.js"
-import { dashboardUserModel } from "./dashboardUser.js"
 import { yearModel } from "./year.js"
 
 // Model

@@ -25,10 +25,7 @@ export function ChildrenListSection(props: { children: AccountEntry[] }) {
                         to="/documentation/comptabilité/comptes/liste/$account"
                         params={{ account: child.slug }}
                     >
-                        <ButtonOutlineContent
-                            leftIcon={<IconCornerDownRight />}
-                            text={undefined}
-                        >
+                        <ButtonOutlineContent leftIcon={<IconCornerDownRight />} text={undefined}>
                             <div
                                 className={css({
                                     display: "flex",

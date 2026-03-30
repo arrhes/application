@@ -6,7 +6,7 @@ import {
     readOneOrganizationRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button, ButtonPlainContent, LinkContent } from "@arrhes/ui"
+import { Button, ButtonPlainContent, LinkContent, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconFileExport } from "@tabler/icons-react"
 import { useEffect, useMemo, useState } from "react"
@@ -14,7 +14,6 @@ import type * as v from "valibot"
 import { Banner } from "../../../../components/layouts/banner.js"
 import { LinkButton } from "../../../../components/linkButton.js"
 import { Drawer } from "../../../../components/overlays/drawer/drawer.js"
-import { toast } from "../../../../contexts/toasts/useToast.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 
 /**
@@ -198,7 +197,8 @@ export function ExportFecFile(props: {
                             l'exercice, au format requis par l'administration fiscale.
                         </p>
                         <p className={css({ fontSize: "sm", color: "neutral/70", lineHeight: "relaxed" })}>
-                            Nous avons créé également un outil de validation de conformité du FEC, disponible gratuitement en ligne sur{" "}
+                            Nous avons créé également un outil de validation de conformité du FEC, disponible
+                            gratuitement en ligne sur{" "}
                             <a
                                 href="https://fec.arrhes.com"
                                 target="_blank"

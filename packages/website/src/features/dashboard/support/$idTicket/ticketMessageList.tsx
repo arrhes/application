@@ -1,15 +1,26 @@
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { formatDate } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import type * as v from "valibot"
-import { formatDate } from "../../../../components/formats/formatDate.tsx"
 
 export function TicketMessageList(props: { messages: v.InferOutput<typeof returnedSchemas.ticketMessage>[] }) {
     const sortedMessages = [...props.messages].sort((a, b) => b.createdAt.localeCompare(a.createdAt))
 
     return (
-        <div className={css({ width: "100%", display: "flex", flexDirection: "column", gap: "0.75rem" })}>
+        <div
+            className={css({
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.75rem",
+                border: "1px solid",
+                borderColor: "neutral/10",
+                borderRadius: "lg",
+                padding: "1rem",
+            })}
+        >
             {sortedMessages.map((message) => {
-                const createdAt = formatDate(message.createdAt)
+                const createdAt = formatDate(message.createdAt, { includeTime: true })
                 const isAdmin = message.idAdminUser !== null
 
                 return (
@@ -18,7 +29,7 @@ export function TicketMessageList(props: { messages: v.InferOutput<typeof return
                         className={css({
                             width: "100%",
                             display: "flex",
-                            justifyContent: isAdmin ? "flex-end" : "flex-start",
+                            justifyContent: isAdmin ? "flex-start" : "flex-end",
                         })}
                     >
                         <div
@@ -28,13 +39,18 @@ export function TicketMessageList(props: { messages: v.InferOutput<typeof return
                                 flexDirection: "column",
                                 gap: "0.25rem",
                                 padding: "0.75rem",
-                                border: "1px solid",
-                                borderColor: isAdmin ? "primary/20" : "neutral/10",
-                                borderRadius: "lg",
-                                backgroundColor: isAdmin ? "primary/5" : "white",
+                                borderRadius: "md",
+                                backgroundColor: isAdmin ? "primary/2" : "neutral/2",
                             })}
                         >
-                            <div className={css({ display: "flex", alignItems: "center", gap: "0.5rem" })}>
+                            <div
+                                className={css({
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                    gap: "1rem",
+                                })}
+                            >
                                 <span
                                     className={css({
                                         fontSize: "xs",
@@ -44,9 +60,7 @@ export function TicketMessageList(props: { messages: v.InferOutput<typeof return
                                 >
                                     {isAdmin ? "Support" : "Vous"}
                                 </span>
-                                <span className={css({ fontSize: "xs", color: "neutral/40" })}>
-                                    {`Le ${createdAt}`}
-                                </span>
+                                <span className={css({ fontSize: "xs", color: "neutral/40" })}>{createdAt}</span>
                             </div>
                             <span
                                 className={css({

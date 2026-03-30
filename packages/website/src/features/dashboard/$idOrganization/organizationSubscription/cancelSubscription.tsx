@@ -2,10 +2,9 @@ import {
     cancelSubscriptionRouteDefinition,
     readOrganizationSubscriptionRouteDefinition,
 } from "@arrhes/application-metadata/routes"
-import { ButtonOutlineContent } from "@arrhes/ui"
+import { ButtonOutlineContent, toast } from "@arrhes/ui"
 import { IconX } from "@tabler/icons-react"
 import { DeleteConfirmation } from "../../../../components/overlays/dialog/deleteConfirmation.tsx"
-import { toast } from "../../../../contexts/toasts/useToast.ts"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
 

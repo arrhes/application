@@ -1,7 +1,7 @@
-import { Button } from "../buttons/button.js"
-import { css } from "../../utilities/cn.js"
 import { type InputHTMLAttributes, useRef } from "react"
 import type { FieldError } from "react-hook-form"
+import { css } from "../../utilities/cn.js"
+import { Button } from "../buttons/button.js"
 
 export function InputFile(
     props: Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "onChange"> & {

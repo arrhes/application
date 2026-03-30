@@ -1,5 +1,5 @@
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
 import type { ComponentProps } from "react"
+import { css, cx } from "../../utilities/cn.js"
 
 export type ChipColors = keyof typeof chipColors
 

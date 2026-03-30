@@ -1,4 +1,4 @@
-import { Toast } from "../../components/overlays/toast/toast.js"
+import { Toast } from "./toast.js"
 import { useToast } from "./useToast.js"
 
 export function ToasterProvider() {

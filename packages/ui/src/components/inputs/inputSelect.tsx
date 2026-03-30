@@ -1,12 +1,12 @@
-import { css, cx } from "../../utilities/cn.js"
 import { IconCheck, IconChevronDown } from "@tabler/icons-react"
 import { type InputHTMLAttributes, useState } from "react"
 import type { FieldError } from "react-hook-form"
+import { css, cx } from "../../utilities/cn.js"
 import { Button } from "../buttons/button.js"
 import { ButtonGhostContent } from "../buttons/buttonGhostContent.js"
 import { ButtonOutlineContent } from "../buttons/buttonOutlineContent.js"
-import { CircularLoader } from "../layouts/circularLoader.js"
 import { FormatNull } from "../formats/formatNull.js"
+import { CircularLoader } from "../layouts/circularLoader.js"
 import { Popover } from "../overlays/popover/popover.js"
 
 export function InputSelect<TValue extends string>(

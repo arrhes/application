@@ -1,5 +1,5 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
 import type { ComponentProps } from "react"
+import { css } from "../../utilities/cn.js"
 import { FormatBase } from "./formatBase.js"
 
 export function FormatError(props: { text: string; className?: ComponentProps<"div">["className"] }) {

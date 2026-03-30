@@ -56,10 +56,7 @@ export function HomePage() {
                         })}
                     >
                         <LinkButton to="/">
-                            <ButtonGhostContent
-                                leftIcon={<Logo />}
-                                text="Arrhes"
-                            />
+                            <ButtonGhostContent leftIcon={<Logo />} text="Arrhes" />
                         </LinkButton>
                     </div>
                     <nav

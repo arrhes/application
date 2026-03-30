@@ -1,9 +1,8 @@
 import { generateFileGetSignedUrlRouteDefinition } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { CircularLoader } from "@arrhes/ui"
+import { CircularLoader, FormatError } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import type * as v from "valibot"
-import { FormatError } from "../../../../../components/formats/formatError.tsx"
 import { useDataFromAPI } from "../../../../../utilities/useHTTPData.ts"
 
 export function FileFile(props: { file: v.InferOutput<typeof returnedSchemas.file> }) {

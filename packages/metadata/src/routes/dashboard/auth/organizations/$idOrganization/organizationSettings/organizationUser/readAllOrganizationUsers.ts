@@ -1,7 +1,7 @@
 import * as v from "valibot"
 import { routePath } from "../../../../../../../components/index.js"
-import { organizationUserSchemaReturn } from "../../../../../../../schemas/organizationUser.js"
 import { dashboardUserSchemaReturn } from "../../../../../../../schemas/dashboardUser.js"
+import { organizationUserSchemaReturn } from "../../../../../../../schemas/organizationUser.js"
 import { routeDefinition } from "../../../../../../../utilities/routeDefinition.js"
 
 export const readAllOrganizationUsersRouteDefinition = routeDefinition({

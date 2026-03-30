@@ -4,8 +4,8 @@ import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
 import { accountModel } from "./account.js"
 import { computationIncomeStatementModel } from "./computationIncomeStatement.js"
-import { organizationModel } from "./organization.js"
 import { dashboardUserModel } from "./dashboardUser.js"
+import { organizationModel } from "./organization.js"
 import { yearModel } from "./year.js"
 
 // Model
