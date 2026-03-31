@@ -1,16 +1,32 @@
 import { signOutRouteDefinition } from "@arrhes/application-metadata/routes"
 import { Button, ButtonGhostContent, ButtonOutlineContent, Logo, Separator, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconBook2, IconBuildings, IconLifebuoy, IconLogout, IconUser } from "@tabler/icons-react"
-import { Outlet } from "@tanstack/react-router"
+import { IconBook2, IconBuildings, IconLifebuoy, IconLogout, IconMessageChatbot, IconUser } from "@tabler/icons-react"
+import { Outlet, useNavigate } from "@tanstack/react-router"
 import { LinkButton } from "../../components/linkButton.js"
 import { Popover } from "../../components/overlays/popover/popover.js"
 import { applicationRouter } from "../../routes/applicationRouter.js"
 import { deleteCookies } from "../../utilities/cookies/deleteCookies.js"
+import { getCookie } from "../../utilities/cookies/getCookie.js"
 import { getResponseBodyFromAPI } from "../../utilities/getResponseBodyFromAPI.js"
+import { cookiePrefix } from "../../utilities/variables.js"
 import { Breadcrumbs } from "../breadcrumbs.js"
 
 export function DashboardLayout() {
+    const navigate = useNavigate()
+
+    function handleAgentClick() {
+        const storedOrganizationId = getCookie(`${cookiePrefix}_id_organization`)
+        if (storedOrganizationId) {
+            navigate({
+                to: "/dashboard/agent/$idOrganization",
+                params: { idOrganization: storedOrganizationId },
+            })
+        } else {
+            navigate({ to: "/dashboard/agent" })
+        }
+    }
+
     return (
         <div
             className={css({
@@ -77,6 +93,9 @@ export function DashboardLayout() {
                         <LinkButton to="/documentation" target="_blank" rel="noopener noreferrer" title="Documentation">
                             <ButtonGhostContent leftIcon={<IconBook2 />} />
                         </LinkButton>
+                        <Button onClick={handleAgentClick} title="Assistant">
+                            <ButtonOutlineContent leftIcon={<IconMessageChatbot />} text="Assistant" />
+                        </Button>
                         <LinkButton to="/dashboard/organisations" title="Organisations">
                             <ButtonOutlineContent leftIcon={<IconBuildings />} />
                         </LinkButton>

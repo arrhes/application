@@ -1,5 +1,7 @@
 import * as accountModel from "./account.js"
 import * as adminUserModel from "./adminUser.js"
+import * as agentMessageModel from "./agentMessage.js"
+import * as agentSessionModel from "./agentSession.js"
 import * as adminUserSessionModel from "./adminUserSession.js"
 import * as apiKeyModel from "./apiKey.js"
 import * as balanceSheetModel from "./balanceSheet.js"
@@ -28,6 +30,8 @@ export const models = {
     adminUserSession: adminUserSessionModel.adminUserSessionModel,
     apiKey: apiKeyModel.apiKeyModel,
     account: accountModel.accountModel,
+    agentMessage: agentMessageModel.agentMessageModel,
+    agentSession: agentSessionModel.agentSessionModel,
     file: fileModel.fileModel,
     folder: folderModel.folderModel,
     balanceSheet: balanceSheetModel.balanceSheetModel,
@@ -55,6 +59,8 @@ export const modelSchemas = {
     ...adminUserSessionModel,
     ...apiKeyModel,
     ...accountModel,
+    ...agentMessageModel,
+    ...agentSessionModel,
     ...fileModel,
     ...folderModel,
     ...balanceSheetModel,

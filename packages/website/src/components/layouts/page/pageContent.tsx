@@ -1,5 +1,5 @@
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
-import type { ComponentProps, ReactNode } from "react"
+import { css, cx } from "@arrhes/ui/utilities/cn.js";
+import type { ComponentProps, ReactNode } from "react";
 
 export function PageContent(props: { className?: ComponentProps<"div">["className"]; children: ReactNode }) {
     return (
@@ -13,7 +13,7 @@ export function PageContent(props: { className?: ComponentProps<"div">["classNam
                     flexDirection: "column",
                     justifyContent: "flex-start",
                     alignItems: "flex-start",
-                    gap: "1rem",
+                    gap: "2rem",
                 }),
                 props.className,
             )}

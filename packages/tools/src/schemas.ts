@@ -14,6 +14,13 @@ export {
     accountTypeEnum,
 } from "../../metadata/src/models/account.ts"
 export { adminUserModel, adminUserRelations } from "../../metadata/src/models/adminUser.ts"
+export {
+    agentMessageModel,
+    agentMessageRelations,
+    agentMessageRoleEnum,
+    agentMessageStateEnum,
+} from "../../metadata/src/models/agentMessage.ts"
+export { agentSessionModel, agentSessionRelations } from "../../metadata/src/models/agentSession.ts"
 export { adminUserSessionModel, adminUserSessionRelations } from "../../metadata/src/models/adminUserSession.ts"
 export { apiKeyModel, apiKeyRelations } from "../../metadata/src/models/apiKey.ts"
 export { balanceSheetModel, balanceSheetRelations } from "../../metadata/src/models/balanceSheet.ts"

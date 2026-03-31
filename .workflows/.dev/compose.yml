@@ -113,6 +113,11 @@ services:
       EMAIL_USER: test
       EMAIL_PASSWORD: test
       MOLLIE_API_KEY: test_z8gjjnezmRNx7dretKbEr5vcCfADh9
+      # LLM environment (AI agent)
+      LLM_PROVIDER: mistral-api
+      LLM_BASE_URL: https://api.mistral.ai/v1
+      LLM_MODEL: mistral-small-2603
+      LLM_API_KEY: OwMSblegsAyAWd3AzCZbJkbaMQLCCj7y
       # Tools environment (packages/tools) - used by migrate/seed
       NODE_ENV: development
     depends_on:

@@ -1,5 +1,5 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
-import type { ComponentProps } from "react"
+import { css } from "@arrhes/ui/utilities/cn.js";
+import type { ComponentProps } from "react";
 
 export function PageDescription(props: { children: string; className?: ComponentProps<"div">["className"] }) {
     return (
@@ -7,6 +7,7 @@ export function PageDescription(props: { children: string; className?: Component
             className={css({
                 color: "neutral/50",
                 fontSize: "md",
+                lineHeight: 1,
             })}
         >
             {props.children}

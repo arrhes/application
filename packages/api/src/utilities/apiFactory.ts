@@ -7,6 +7,7 @@ export type ApiEnv = Env & {
     Variables: {
         env: ReturnType<typeof getEnv>
         clients: Awaited<ReturnType<typeof getClients>>
+        appFetch?: (request: Request) => Promise<Response>
     }
 }
 

@@ -130,6 +130,11 @@ async function seed() {
                 siren: "222222222",
                 name: "Demo company",
                 email: "demo@arrhes.com",
+                subcriptionEndingAt: new Date(
+                    new Date().getFullYear() + 10,
+                    new Date().getMonth(),
+                    new Date().getDate(),
+                ).toISOString(),
                 createdAt: createdAt,
             }
             await tx.insert(models.organization).values(populatedOrganization)
@@ -1324,7 +1329,7 @@ async function seed() {
 
             console.log("Seed completed successfully!")
             console.log(`- 1 user created`)
-            console.log(`- 2 organizations created (1 empty, 1 populated)`)
+            console.log(`- 2 organizations created (1 empty, 1 populated with premium subscription)`)
             console.log(`- 1 year created`)
             console.log(`- ${newJournals.length} journals created`)
             console.log(`- ${newBalanceSheets.length} balance sheets created`)
