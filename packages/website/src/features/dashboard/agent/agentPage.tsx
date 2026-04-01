@@ -1,26 +1,21 @@
 import { readOrganizationSubscriptionRouteDefinition } from "@arrhes/application-metadata/routes"
+import { Button, ButtonGhostContent, LinkButton } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconMessageChatbot } from "@tabler/icons-react"
-import { Link, Outlet, useParams } from "@tanstack/react-router"
+import { IconPlus, IconRobot } from "@tabler/icons-react"
+import { Outlet, useNavigate, useParams } from "@tanstack/react-router"
 import { useCallback, useState } from "react"
 import { Banner } from "../../../components/layouts/banner.tsx"
 import { Page } from "../../../components/layouts/page/page.tsx"
-import { agentOrganizationPathRoute } from "../../../routes/root/dashboard/agent/agentOrganizationPathRoute.tsx"
+import { organizationPathRoute } from "../../../routes/root/dashboard/organizations/$idOrganization/organizationPathRoute.tsx"
 import { useDataFromAPI } from "../../../utilities/useHTTPData.ts"
-import { AgentSessionList } from "../../agent/agentSessionList.tsx"
 import { AgentActiveSessionContext } from "./agentActiveSessionContext.tsx"
+import { AgentSessionList } from "./agentSessionList.tsx"
 
-function AgentBanner() {
-    return (
-        <Banner variant="information" title="Assistant IA">
-            L'assistant comptable est une fonctionnalité premium. Abonnez-vous au plan Avancé pour y accéder.
-        </Banner>
-    )
-}
 
 export function AgentPage() {
-    const { idOrganization } = useParams({ from: agentOrganizationPathRoute.id })
+    const { idOrganization } = useParams({ from: organizationPathRoute.id })
     const [activeSessionId, setActiveSessionId] = useState<string | undefined>(undefined)
+    const navigate = useNavigate()
 
     const handleSetActiveSessionId = useCallback((id: string | undefined) => {
         setActiveSessionId(id)
@@ -58,7 +53,9 @@ export function AgentPage() {
         return (
             <Page.Root>
                 <Page.Content>
-                    <AgentBanner />
+                    <Banner variant="information" title="Assistant IA">
+                        L'assistant comptable est une fonctionnalité premium. Abonnez-vous au plan Avancé pour y accéder.
+                    </Banner>
                 </Page.Content>
             </Page.Root>
         )
@@ -66,78 +63,82 @@ export function AgentPage() {
 
     return (
         <AgentActiveSessionContext.Provider value={{ activeSessionId, setActiveSessionId: handleSetActiveSessionId }}>
-            <Page.Root>
-                <Page.Content>
+            <div
+                className={css({
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%",
+                    flex: 1,
+                    minHeight: 0,
+                    overflow: "hidden",
+                })}
+            >
+                {/* Sidebar */}
+                <div
+                    className={css({
+                        width: "16rem",
+                        flexShrink: 0,
+                        display: { base: "none", lg: "flex" },
+                        flexDirection: "column",
+                        borderRight: "1px solid",
+                        borderRightColor: "neutral/10",
+                        overflow: "hidden",
+                    })}
+                >
                     <div
                         className={css({
                             display: "flex",
-                            flexDirection: "row",
-                            gap: "1rem",
-                            height: "calc(100vh - 12rem)",
-                            minHeight: "24rem",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            gap: "0.5rem",
+                            borderBottom: "1px solid",
+                            borderBottomColor: "neutral/10",
+                            flexShrink: 0,
+                            padding: "1rem",
                         })}
                     >
-                        {/* Session sidebar */}
-                        <div
-                            className={css({
-                                width: "16rem",
-                                flexShrink: 0,
-                                display: "flex",
-                                flexDirection: "column",
-                                borderRight: "1px solid",
-                                borderColor: "neutral/10",
-                                paddingRight: "1rem",
-                                overflowY: "auto",
-                            })}
+                        <LinkButton
+                            to="/dashboard/organisations/$idOrganization/agent"
+                            params={{ idOrganization }}
                         >
-                            <div
-                                className={css({
-                                    display: "flex",
-                                    alignItems: "center",
-                                    gap: "0.5rem",
-                                    paddingBottom: "0.75rem",
-                                    borderBottom: "1px solid",
-                                    borderColor: "neutral/10",
-                                    marginBottom: "0.5rem",
-                                })}
-                            >
-                                <IconMessageChatbot size={16} className={css({ color: "neutral/50" })} />
-                                <span className={css({ fontSize: "sm", fontWeight: "semibold", color: "neutral" })}>
-                                    Conversations
-                                </span>
-                            </div>
-                            <Link
-                                to="/dashboard/agent/outils"
-                                className={css({
-                                    fontSize: "xs",
-                                    color: "primary",
-                                    textDecoration: "underline",
-                                    marginBottom: "0.5rem",
-                                })}
-                            >
-                                Voir la liste des outils
-                            </Link>
-                            <AgentSessionList idOrganization={idOrganization} />
-                        </div>
-
-                        {/* Chat area — rendered by child route */}
-                        <div
-                            className={css({
-                                flex: 1,
-                                display: "flex",
-                                flexDirection: "column",
-                                minWidth: 0,
-                                border: "1px solid",
-                                borderColor: "neutral/10",
-                                borderRadius: "md",
-                                overflow: "hidden",
-                            })}
+                            <ButtonGhostContent
+                                leftIcon={<IconRobot />}
+                                text="Assistant"
+                            />
+                        </LinkButton>
+                        <Button
+                            onClick={() => {
+                                setActiveSessionId(undefined)
+                                navigate({
+                                    to: "/dashboard/organisations/$idOrganization/agent",
+                                    params: { idOrganization: idOrganization },
+                                })
+                            }}
                         >
-                            <Outlet />
-                        </div>
+                            <ButtonGhostContent
+                                leftIcon={<IconPlus />}
+                            />
+                        </Button>
                     </div>
-                </Page.Content>
-            </Page.Root>
+                    <div className={css({ flex: 1, overflowY: "auto", minHeight: 0, padding: "1rem" })}>
+                        <AgentSessionList idOrganization={idOrganization} />
+                    </div>
+                </div>
+
+                {/* Content area — rendered by child route */}
+                <div
+                    className={css({
+                        flex: 1,
+                        display: "flex",
+                        flexDirection: "column",
+                        minWidth: 0,
+                        minHeight: 0,
+                        overflow: "hidden",
+                    })}
+                >
+                    <Outlet />
+                </div>
+            </div>
         </AgentActiveSessionContext.Provider>
     )
 }

@@ -1,15 +1,19 @@
 import {
+    deleteOneAgentSessionRouteDefinition,
     readAllAgentSessionsRouteDefinition,
     readAllYearsRouteDefinition,
     readOneAgentSessionRouteDefinition,
 } from "@arrhes/application-metadata"
 import { CircularLoader } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconCalendar, IconChevronDown, IconChevronRight, IconSend, IconSettings } from "@tabler/icons-react"
+import { IconCalendar, IconChevronDown, IconChevronRight, IconSend, IconSettings, IconTrash } from "@tabler/icons-react"
 import { fetchServerSentEvents, useChat } from "@tanstack/ai-react"
+import { Link, useNavigate } from "@tanstack/react-router"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { invalidateData } from "../../utilities/invalidateData.js"
-import { useDataFromAPI } from "../../utilities/useHTTPData.js"
+import { dataClient } from "../../../contexts/data/queryClient.js"
+import { getResponseBodyFromAPI } from "../../../utilities/getResponseBodyFromAPI.js"
+import { useDataFromAPI } from "../../../utilities/useHTTPData.js"
+import { consumePendingAgentMessage, useAgentActiveSession } from "./agentActiveSessionContext.tsx"
 import { AgentMessage } from "./agentMessage.js"
 import { convertStoredMessagesToUIMessages } from "./convertStoredMessagesToUIMessages.js"
 
@@ -21,6 +25,17 @@ export function AgentChat(props: {
     const [input, setInput] = useState("")
     const messagesEndRef = useRef<HTMLDivElement>(null)
     const sessionCreatedRef = useRef(false)
+    const navigate = useNavigate()
+    const { setActiveSessionId } = useAgentActiveSession()
+    const [isDeleting, setIsDeleting] = useState(false)
+
+    // Read pending first message from module-level store (set by AgentNewSessionPage).
+    // Uses useState initializer (not useMemo) because the initializer only runs ONCE
+    // even in React StrictMode, whereas useMemo runs on every render — the second
+    // StrictMode render would get undefined after the first render consumed the store.
+    const [pending] = useState(() => consumePendingAgentMessage())
+    const pendingMessageRef = useRef(pending.message)
+    const pendingYearIdRef = useRef(pending.yearId)
 
     // Track the effective session ID — starts as props value, updated when server creates one
     const [effectiveSessionId, setEffectiveSessionId] = useState(props.idAgentSession)
@@ -33,9 +48,9 @@ export function AgentChat(props: {
         body: {},
     })
 
-    // Year selection state — auto-select if only one year exists
-    const [selectedYearId, setSelectedYearId] = useState<string | undefined>(undefined)
-    const autoSelectedRef = useRef(false)
+    // Year selection state — auto-select if only one year exists, or use pending year from context
+    const [selectedYearId, setSelectedYearId] = useState<string | undefined>(pendingYearIdRef.current)
+    const autoSelectedRef = useRef(!!pendingYearIdRef.current)
     useEffect(() => {
         if (autoSelectedRef.current || !yearsData) return
         if (yearsData.length === 1 && yearsData[0]) {
@@ -52,11 +67,13 @@ export function AgentChat(props: {
     // Collapsible context panel state
     const [contextOpen, setContextOpen] = useState(false)
 
-    // Load existing messages when resuming a session (only when we have a session ID from props)
+    // Load existing messages when resuming a session (only when we have a session ID from props
+    // AND there's no pending first message — pending means we just created this session)
+    const hasPendingMessage = !!pendingMessageRef.current
     const { data: sessionData, isPending: isSessionPending } = useDataFromAPI({
         routeDefinition: readOneAgentSessionRouteDefinition,
         body: { idAgentSession: props.idAgentSession ?? "" },
-        enabled: props.idAgentSession !== undefined && props.idAgentSession !== "",
+        enabled: props.idAgentSession !== undefined && props.idAgentSession !== "" && !hasPendingMessage,
     })
 
     const handleSessionCreated = useCallback(
@@ -68,19 +85,59 @@ export function AgentChat(props: {
             setEffectiveSessionId(idAgentSession)
 
             // Invalidate session list so the new session appears in the sidebar
-            invalidateData({
-                routeDefinition: readAllAgentSessionsRouteDefinition,
-                body: { idOrganization: props.idOrganization },
+            dataClient.invalidateQueries({
+                queryKey: [readAllAgentSessionsRouteDefinition.path],
+                exact: false,
             })
 
+            // Re-invalidate after a delay so the generated title appears in the sidebar.
+            // The backend generates the title asynchronously after the stream completes,
+            // so the first invalidation above will still show `null` title.
+            setTimeout(() => {
+                dataClient.invalidateQueries({
+                    queryKey: [readAllAgentSessionsRouteDefinition.path],
+                    exact: false,
+                })
+            }, 5000)
+
             // Notify parent so it can track the created session (for sidebar highlighting)
-            // Do NOT update the URL here — TanStack Router monkey-patches history.replaceState
-            // and would trigger a full route re-evaluation, remounting the component and
-            // destroying the active SSE stream.
             props.onSessionCreated?.(idAgentSession)
+
+            // New-session page should transition to the concrete session URL
+            // so the experience matches classic chat interfaces.
+            if (!props.idAgentSession) {
+                navigate({
+                    to: "/dashboard/organisations/$idOrganization/agent/$idAgentSession",
+                    params: { idOrganization: props.idOrganization, idAgentSession },
+                })
+            }
         },
-        [props.idOrganization, props.onSessionCreated],
+        [navigate, props.idAgentSession, props.idOrganization, props.onSessionCreated],
     )
+
+    const handleDeleteSession = useCallback(async () => {
+        const sessionId = effectiveSessionId
+        if (!sessionId) return
+
+        setIsDeleting(true)
+        try {
+            await getResponseBodyFromAPI({
+                routeDefinition: deleteOneAgentSessionRouteDefinition,
+                body: { idAgentSession: sessionId },
+            })
+            await dataClient.invalidateQueries({
+                queryKey: [readAllAgentSessionsRouteDefinition.path],
+                exact: false,
+            })
+            setActiveSessionId(undefined)
+            navigate({
+                to: "/dashboard/organisations/$idOrganization/agent",
+                params: { idOrganization: props.idOrganization },
+            })
+        } finally {
+            setIsDeleting(false)
+        }
+    }, [effectiveSessionId, navigate, props.idOrganization, setActiveSessionId])
 
     const { messages, sendMessage, setMessages, isLoading, error } = useChat({
         connection: fetchServerSentEvents(`${apiBaseUrl}/auth/agent/chat`, {
@@ -119,6 +176,27 @@ export function AgentChat(props: {
             setMessages(uiMessages as any)
         }
     }, [sessionData, messages.length, setMessages])
+
+    // Send pending first message via useChat on mount (set by AgentNewSessionPage).
+    // StrictMode runs: effect → cleanup → effect. A setTimeout with cleanup would be
+    // cleared before it fires. We use hasSentPendingRef to ensure only the first
+    // effect execution initiates the send, and we DON'T return a cleanup function
+    // so the setTimeout survives StrictMode's unmount/remount cycle.
+    const hasSentPendingRef = useRef(false)
+    useEffect(() => {
+        if (hasSentPendingRef.current) return
+        if (!pendingMessageRef.current) return
+
+        hasSentPendingRef.current = true
+        const messageText = pendingMessageRef.current
+        pendingMessageRef.current = undefined
+
+        // Small delay to ensure useChat's internal ChatClient is fully initialized.
+        // No cleanup returned — the timeout must survive StrictMode's effect re-run.
+        setTimeout(() => {
+            sendMessage(messageText)
+        }, 100)
+    }, [sendMessage])
 
     // Auto-scroll to bottom on new messages
     const previousMessageCountRef = useRef(messages.length)
@@ -178,7 +256,8 @@ export function AgentChat(props: {
 
     // While loading session data for resume, show a loader
     // Only show for sessions loaded from URL (props.idAgentSession), not mid-stream created ones
-    if (props.idAgentSession && isSessionPending) {
+    // Also skip when there's a pending first message (we're about to send, not loading from DB)
+    if (props.idAgentSession && isSessionPending && !hasPendingMessage) {
         return (
             <div
                 className={css({
@@ -331,6 +410,31 @@ export function AgentChat(props: {
                                 })}
                             />
                         </div>
+
+                        {/* Delete session */}
+                        {effectiveSessionId && (
+                            <button
+                                type="button"
+                                onClick={handleDeleteSession}
+                                disabled={isDeleting}
+                                className={css({
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: "0.375rem",
+                                    padding: "0.25rem 0",
+                                    border: "none",
+                                    backgroundColor: "transparent",
+                                    cursor: "pointer",
+                                    fontSize: "xs",
+                                    color: "error/60",
+                                    _hover: { color: "error" },
+                                    _disabled: { opacity: 0.4, cursor: "not-allowed" },
+                                })}
+                            >
+                                <IconTrash size={13} />
+                                <span>{isDeleting ? "Suppression..." : "Supprimer la conversation"}</span>
+                            </button>
+                        )}
                     </div>
                 )}
             </div>
@@ -339,6 +443,7 @@ export function AgentChat(props: {
             <div
                 className={css({
                     flex: 1,
+                    minHeight: 0,
                     overflowY: "auto",
                     padding: "1rem",
                     display: "flex",
@@ -357,17 +462,23 @@ export function AgentChat(props: {
                             fontSize: "sm",
                         })}
                     >
-                        Posez une question sur votre comptabilite...
+                        Aucun message dans cette conversation.
                     </div>
                 )}
 
                 {displayMessages.map((message) => (
-                    <AgentMessage key={message.id} message={message} />
+                    <AgentMessage key={message.id} message={message} createdAt={message.createdAt} />
                 ))}
 
                 {isLoading && messages.at(-1)?.role !== "assistant" && (
                     <div className={css({ padding: "0.5rem" })}>
                         <CircularLoader text="Reflexion en cours..." />
+                    </div>
+                )}
+
+                {isLoading && messages.at(-1)?.role === "assistant" && (
+                    <div className={css({ padding: "0.25rem 0.5rem" })}>
+                        <CircularLoader text="En cours de generation..." />
                     </div>
                 )}
 
@@ -396,7 +507,7 @@ export function AgentChat(props: {
                     gap: "0.5rem",
                     padding: "0.75rem 1rem",
                     borderTop: "1px solid",
-                    borderColor: "neutral/10",
+                    borderTopColor: "neutral/10",
                     backgroundColor: "white",
                 })}
             >
@@ -450,6 +561,37 @@ export function AgentChat(props: {
                     <IconSend size={16} />
                 </button>
             </form>
+
+            {/* Disclaimer */}
+            <div
+                className={css({
+                    padding: "0.25rem 1rem 0.375rem",
+                    textAlign: "center",
+                    flexShrink: 0,
+                })}
+            >
+                <p
+                    className={css({
+                        fontSize: "xs",
+                        color: "neutral/25",
+                        margin: 0,
+                        lineHeight: "1.4",
+                    })}
+                >
+                    L'assistant peut faire des erreurs.{" "}
+                    <Link
+                        to="/documentation/dashboard/assistant"
+                        target="_blank"
+                        className={css({
+                            color: "primary/40",
+                            textDecoration: "underline",
+                            _hover: { color: "primary" },
+                        })}
+                    >
+                        En savoir plus
+                    </Link>
+                </p>
+            </div>
         </div>
     )
 }

@@ -6,7 +6,7 @@ import {
     readAllAgentSessionsRouteDefinition,
     readOneAgentSessionRouteDefinition,
 } from "@arrhes/application-metadata"
-import { and, desc, eq } from "drizzle-orm"
+import { and, asc, desc, eq, ilike, or } from "drizzle-orm"
 import { checkUserSessionMiddleware } from "../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../utilities/apiFactory.js"
@@ -58,6 +58,41 @@ export const readAllAgentSessionsRoute = apiFactory
             schema: readAllAgentSessionsRouteDefinition.schemas.body,
         })
 
+        const searchQuery = body.search?.trim()
+
+        // When a search query is provided, join with messages and filter by content
+        if (searchQuery) {
+            const pattern = `%${searchQuery}%`
+
+            const rows = await c.var.clients.sql
+                .selectDistinctOn([models.agentSession.id], {
+                    id: models.agentSession.id,
+                    idOrganization: models.agentSession.idOrganization,
+                    idUser: models.agentSession.idUser,
+                    title: models.agentSession.title,
+                    createdAt: models.agentSession.createdAt,
+                    lastUpdatedAt: models.agentSession.lastUpdatedAt,
+                    matchedContent: models.agentMessage.content,
+                })
+                .from(models.agentSession)
+                .leftJoin(models.agentMessage, eq(models.agentMessage.idAgentSession, models.agentSession.id))
+                .where(
+                    and(
+                        eq(models.agentSession.idOrganization, body.idOrganization),
+                        eq(models.agentSession.idUser, user.id),
+                        or(ilike(models.agentSession.title, pattern), ilike(models.agentMessage.content, pattern)),
+                    ),
+                )
+                .orderBy(models.agentSession.id, desc(models.agentSession.createdAt))
+
+            return response({
+                context: c,
+                statusCode: 200,
+                schema: readAllAgentSessionsRouteDefinition.schemas.return,
+                data: rows,
+            })
+        }
+
         const sessions = await selectMany({
             database: c.var.clients.sql,
             table: models.agentSession,
@@ -69,7 +104,7 @@ export const readAllAgentSessionsRoute = apiFactory
             context: c,
             statusCode: 200,
             schema: readAllAgentSessionsRouteDefinition.schemas.return,
-            data: sessions,
+            data: sessions.map((s) => ({ ...s, matchedContent: null })),
         })
     })
 
@@ -92,6 +127,7 @@ export const readOneAgentSessionRoute = apiFactory
             database: c.var.clients.sql,
             table: models.agentMessage,
             where: (table) => eq(table.idAgentSession, session.id),
+            orderBy: (table) => asc(table.createdAt),
         })
 
         return response({

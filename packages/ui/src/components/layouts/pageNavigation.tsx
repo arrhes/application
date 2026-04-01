@@ -58,7 +58,7 @@ export function PageNavigation(props: {
                                 <ButtonGhostContent
                                     leftIcon={tab.icon}
                                     text={tab.label}
-                                    color="neutral"
+                                    color="default"
                                     isCurrent={isActive}
                                 />
                             </LinkButton>

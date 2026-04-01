@@ -1,29 +1,48 @@
 import { signOutRouteDefinition } from "@arrhes/application-metadata/routes"
 import { Button, ButtonGhostContent, ButtonOutlineContent, Logo, Separator, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconBook2, IconBuildings, IconLifebuoy, IconLogout, IconMessageChatbot, IconUser } from "@tabler/icons-react"
-import { Outlet, useNavigate } from "@tanstack/react-router"
+import {
+    IconBook2,
+    IconBuildings,
+    IconLayoutDashboard,
+    IconLifebuoy,
+    IconLogout,
+    IconMessageChatbot,
+    IconUser,
+} from "@tabler/icons-react"
+import { Outlet, useMatchRoute, useNavigate, useParams } from "@tanstack/react-router"
 import { LinkButton } from "../../components/linkButton.js"
 import { Popover } from "../../components/overlays/popover/popover.js"
 import { applicationRouter } from "../../routes/applicationRouter.js"
 import { deleteCookies } from "../../utilities/cookies/deleteCookies.js"
-import { getCookie } from "../../utilities/cookies/getCookie.js"
 import { getResponseBodyFromAPI } from "../../utilities/getResponseBodyFromAPI.js"
-import { cookiePrefix } from "../../utilities/variables.js"
 import { Breadcrumbs } from "../breadcrumbs.js"
 
 export function DashboardLayout() {
     const navigate = useNavigate()
+    const params = useParams({ strict: false }) as { idOrganization?: string }
+    const idOrganization = params.idOrganization
+    const matchRoute = useMatchRoute()
+    const isOnAgentPage = idOrganization
+        ? !!matchRoute({
+            to: "/dashboard/organisations/$idOrganization/agent",
+            params: { idOrganization },
+            fuzzy: true,
+        })
+        : false
 
     function handleAgentClick() {
-        const storedOrganizationId = getCookie(`${cookiePrefix}_id_organization`)
-        if (storedOrganizationId) {
+        if (!idOrganization) return
+        if (isOnAgentPage) {
             navigate({
-                to: "/dashboard/agent/$idOrganization",
-                params: { idOrganization: storedOrganizationId },
+                to: "/dashboard/organisations/$idOrganization",
+                params: { idOrganization },
             })
         } else {
-            navigate({ to: "/dashboard/agent" })
+            navigate({
+                to: "/dashboard/organisations/$idOrganization/agent",
+                params: { idOrganization },
+            })
         }
     }
 
@@ -31,12 +50,13 @@ export function DashboardLayout() {
         <div
             className={css({
                 width: "100%",
-                minHeight: "100vh",
+                height: "100vh",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "start",
                 alignItems: "stretch",
                 backgroundColor: "background",
+                overflow: "hidden",
             })}
         >
             {/* Header */}
@@ -51,12 +71,13 @@ export function DashboardLayout() {
                     borderBottom: "1px solid",
                     borderBottomColor: "neutral/10",
                     backgroundColor: "white",
+                    flexShrink: 0,
                 })}
             >
                 <div
                     className={css({
                         width: "100%",
-                        maxWidth: "xl",
+                        // maxWidth: "xl",
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "center",
@@ -76,7 +97,7 @@ export function DashboardLayout() {
                         <LinkButton to="/dashboard">
                             <ButtonGhostContent
                                 leftIcon={<Logo />}
-                                // text="Dashboard"
+                            // text="Dashboard"
                             />
                         </LinkButton>
                         <Breadcrumbs />
@@ -93,9 +114,14 @@ export function DashboardLayout() {
                         <LinkButton to="/documentation" target="_blank" rel="noopener noreferrer" title="Documentation">
                             <ButtonGhostContent leftIcon={<IconBook2 />} />
                         </LinkButton>
-                        <Button onClick={handleAgentClick} title="Assistant">
-                            <ButtonOutlineContent leftIcon={<IconMessageChatbot />} text="Assistant" />
-                        </Button>
+                        {idOrganization && (
+                            <Button onClick={handleAgentClick} title={isOnAgentPage ? "Dashboard" : "Assistant"}>
+                                <ButtonOutlineContent
+                                    leftIcon={isOnAgentPage ? <IconLayoutDashboard /> : <IconMessageChatbot />}
+                                    text={isOnAgentPage ? "Dashboard" : "Assistant"}
+                                />
+                            </Button>
+                        )}
                         <LinkButton to="/dashboard/organisations" title="Organisations">
                             <ButtonOutlineContent leftIcon={<IconBuildings />} />
                         </LinkButton>
@@ -159,6 +185,8 @@ export function DashboardLayout() {
                     justifyContent: "start",
                     alignItems: "center",
                     backgroundColor: "white",
+                    minHeight: 0,
+                    overflow: "hidden",
                 })}
             >
                 <div
@@ -168,6 +196,8 @@ export function DashboardLayout() {
                         flex: "1",
                         display: "flex",
                         flexDirection: "column",
+                        minHeight: 0,
+                        overflow: "auto",
                     })}
                 >
                     <Outlet />

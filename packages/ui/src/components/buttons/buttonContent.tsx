@@ -4,7 +4,7 @@ import { css, cx } from "../../utilities/cn.ts"
 import { CircularLoader } from "../layouts/circularLoader"
 import { useButtonLoading } from "./button"
 
-export type ButtonColor = "default" | "danger" | "success"
+export type ButtonColor = "default" | "neutral" | "danger" | "success"
 
 export type ButtonContentProps = {
     color?: ButtonColor
@@ -30,9 +30,9 @@ export function renderButtonContent(
     const iconOnlyStyles =
         props.text === undefined
             ? css({
-                width: "auto",
-                justifyContent: "center",
-            })
+                  width: "auto",
+                  justifyContent: "center",
+              })
             : ""
 
     // const activeContainerStyles = props.isActive ? css({ backgroundColor: "neutral/5" }) : ""

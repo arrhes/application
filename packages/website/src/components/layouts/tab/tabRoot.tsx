@@ -41,7 +41,7 @@ export function TabRoot(props: {
 
                 return (
                     <LinkButton key={tab.to} to={tab.to} params={tab.params}>
-                        <ButtonGhostContent leftIcon={tab.icon} text={tab.label} color="neutral" isCurrent={isActive} />
+                        <ButtonGhostContent leftIcon={tab.icon} text={tab.label} color="default" isCurrent={isActive} />
                     </LinkButton>
                 )
             })}

@@ -1,5 +1,5 @@
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconBook, IconCode, IconGavel, IconHome, IconInfoCircle, IconLayout } from "@tabler/icons-react"
+import { IconBook, IconCode, IconGavel, IconHome, IconInfoCircle, IconLayout, IconRobot } from "@tabler/icons-react"
 import type { DocSection } from "./sectionTab.tsx"
 
 // Documentation sections configuration
@@ -113,6 +113,16 @@ export const docSections: Record<string, DocSection> = {
                     { path: "/documentation/dashboard/documents", label: "Documents comptables" },
                 ],
             },
+            assistant: {
+                title: "Assistant IA",
+                icon: <IconRobot className={css({ width: "1rem", height: "1rem" })} />,
+                items: [
+                    { path: "/documentation/dashboard/assistant", label: "Introduction" },
+                    { path: "/documentation/dashboard/assistant/modèles", label: "Modèles" },
+                    { path: "/documentation/dashboard/assistant/outils", label: "Outils" },
+                    // { path: "/documentation/dashboard/assistant/ocr", label: "OCR" },
+                ],
+            },
         },
     },
     api: {
@@ -135,21 +145,4 @@ export const docSections: Record<string, DocSection> = {
             },
         },
     },
-    // ai: {
-    //     id: "ai",
-    //     label: "Assistant IA",
-    //     path: "/documentation/ai",
-    //     icon: <IconRobot />,
-    //     navigation: {
-    //         assistant: {
-    //             title: "Assistant IA",
-    //             icon: <IconRobot className={css({ width: "1rem", height: "1rem" })} />,
-    //             items: [
-    //                 { path: "/documentation/ai", label: "Introduction" },
-    //                 { path: "/documentation/ai/assistant", label: "Assistant comptable" },
-    //                 { path: "/documentation/ai/analyse", label: "Analyse des données" },
-    //             ]
-    //         }
-    //     }
-    // }
 }

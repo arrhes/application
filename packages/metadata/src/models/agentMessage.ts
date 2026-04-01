@@ -20,6 +20,7 @@ export const agentMessageModel = pgTable(
         content: text("content"),
         toolCalls: jsonb("tool_calls"),
         toolResults: jsonb("tool_results"),
+        usedTools: text("used_tools").array(),
         state: agentMessageStateEnum("state").notNull(),
         createdAt: dateTimeColumn("created_at").notNull(),
     },

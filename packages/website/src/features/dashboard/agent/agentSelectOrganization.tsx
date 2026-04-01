@@ -36,7 +36,7 @@ export function AgentSelectOrganization() {
                             key={organizationUser.organization.id}
                             onClick={() => {
                                 navigate({
-                                    to: "/dashboard/agent/$idOrganization",
+                                    to: "/dashboard/organisations/$idOrganization/agent",
                                     params: { idOrganization: organizationUser.organization.id },
                                 })
                             }}
@@ -57,11 +57,7 @@ export function AgentSelectOrganization() {
                         </Button>
                     ))}
 
-                    {organizationUsers.length === 0 && (
-                        <FormatNull
-                            text="Aucune organisation disponible."
-                        />
-                    )}
+                    {organizationUsers.length === 0 && <FormatNull text="Aucune organisation disponible." />}
                 </div>
             </Page.Content>
         </Page.Root>

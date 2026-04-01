@@ -1,5 +1,5 @@
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconRobot, IconUser } from "@tabler/icons-react"
+import { IconRobot } from "@tabler/icons-react"
 import { gfmTableFromMarkdown, gfmTableToMarkdown } from "mdast-util-gfm-table"
 import { gfmTable } from "micromark-extension-gfm-table"
 import Markdown from "react-markdown"
@@ -124,8 +124,57 @@ const markdownStyles = css({
     },
 })
 
-export function AgentMessage(props: { message: Message }) {
+/**
+ * Format a Date to "HH:MM" string.
+ */
+function formatTime(date: Date | undefined): string | undefined {
+    if (!date || Number.isNaN(date.getTime())) return undefined
+    const h = String(date.getHours()).padStart(2, "0")
+    const m = String(date.getMinutes()).padStart(2, "0")
+    return `${h}:${m}`
+}
+
+export function AgentMessage(props: { message: Message; createdAt?: Date }) {
     const isUser = props.message.role === "user"
+    const time = formatTime(props.createdAt)
+
+    if (isUser) {
+        return (
+            <div
+                className={css({
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-end",
+                    width: "100%",
+                })}
+            >
+                <div
+                    className={css({
+                        maxWidth: "80%",
+                        backgroundColor: "primary/10",
+                        borderRadius: "lg",
+                        borderBottomRightRadius: "sm",
+                        padding: "0.5rem 0.75rem",
+                    })}
+                >
+                    {props.message.parts.map((part, index) => (
+                        <AgentMessagePart key={`${props.message.id}-${index}`} part={part} isUser />
+                    ))}
+                </div>
+                {time && (
+                    <span
+                        className={css({
+                            fontSize: "xs",
+                            color: "neutral/30",
+                            marginTop: "0.125rem",
+                        })}
+                    >
+                        {time}
+                    </span>
+                )}
+            </div>
+        )
+    }
 
     return (
         <div
@@ -146,12 +195,12 @@ export function AgentMessage(props: { message: Message }) {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    backgroundColor: isUser ? "primary" : "neutral/10",
-                    color: isUser ? "white" : "neutral",
+                    backgroundColor: "neutral/10",
+                    color: "neutral",
                     marginTop: "0.125rem",
                 })}
             >
-                {isUser ? <IconUser size={14} /> : <IconRobot size={14} />}
+                <IconRobot size={14} />
             </div>
             <div
                 className={css({
@@ -163,8 +212,19 @@ export function AgentMessage(props: { message: Message }) {
                 })}
             >
                 {props.message.parts.map((part, index) => (
-                    <AgentMessagePart key={`${props.message.id}-${index}`} part={part} isUser={isUser} />
+                    <AgentMessagePart key={`${props.message.id}-${index}`} part={part} isUser={false} />
                 ))}
+                {time && (
+                    <span
+                        className={css({
+                            fontSize: "xs",
+                            color: "neutral/30",
+                            marginTop: "0.125rem",
+                        })}
+                    >
+                        {time}
+                    </span>
+                )}
             </div>
         </div>
     )

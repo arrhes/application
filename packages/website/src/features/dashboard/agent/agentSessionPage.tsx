@@ -1,12 +1,12 @@
 import { useParams } from "@tanstack/react-router"
 import { useEffect } from "react"
-import { agentOrganizationPathRoute } from "../../../routes/root/dashboard/agent/agentOrganizationPathRoute.tsx"
+import { organizationPathRoute } from "../../../routes/root/dashboard/organizations/$idOrganization/organizationPathRoute.tsx"
 import { agentSessionPathRoute } from "../../../routes/root/dashboard/agent/agentSessionPathRoute.tsx"
-import { AgentChat } from "../../agent/agentChat.tsx"
 import { useAgentActiveSession } from "./agentActiveSessionContext.tsx"
+import { AgentChat } from "./agentChat.tsx"
 
 export function AgentSessionPage() {
-    const { idOrganization } = useParams({ from: agentOrganizationPathRoute.id })
+    const { idOrganization } = useParams({ from: organizationPathRoute.id })
     const { idAgentSession } = useParams({ from: agentSessionPathRoute.id })
     const { setActiveSessionId } = useAgentActiveSession()
 

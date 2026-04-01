@@ -22,6 +22,8 @@ ${categoryList}
 Réponds UNIQUEMENT avec un JSON contenant un tableau de 1 à 3 noms de catégories parmi celles listées ci-dessus.
 Format de réponse : {"categories": ["nom1", "nom2"]}
 
+RÈGLE IMPORTANTE : quand l'utilisateur pose une question qui commence par "comment", "pourquoi", "qu'est-ce que", "c'est quoi", "explique", "aide-moi à comprendre" ou toute question théorique/explicative sur la comptabilité ou l'utilisation de l'application, tu DOIS inclure "documentation" dans les catégories. Même si la question mentionne des écritures, comptes ou journaux, si elle demande une explication ou un mode d'emploi, ajoute "documentation" en plus des catégories métier concernées.
+
 Exemples :
 - "Crée une écriture de vente" -> {"categories": ["entries", "entryLines"]}
 - "Liste tous les comptes" -> {"categories": ["accounts"]}
@@ -30,6 +32,12 @@ Exemples :
 - "Qu'est-ce que la partie double ?" -> {"categories": ["documentation"]}
 - "Comment saisir une écriture dans Arrhes ?" -> {"categories": ["documentation"]}
 - "Explique-moi le compte 411" -> {"categories": ["documentation", "accounts"]}
+- "Comment ajouter une écriture pour une facture ?" -> {"categories": ["documentation", "entries"]}
+- "Comment fonctionne le bilan ?" -> {"categories": ["documentation", "balanceSheets"]}
+- "C'est quoi un journal comptable ?" -> {"categories": ["documentation"]}
+- "Comment utiliser l'assistant ?" -> {"categories": ["documentation"]}
+- "Comment utiliser l'API pour créer un compte ?" -> {"categories": ["documentation", "accounts"]}
+- "Aide-moi à comprendre le compte de résultat" -> {"categories": ["documentation", "incomeStatements"]}
 `
 
 const validCategoryNames = new Set(toolCategories.map((c) => c.name))

@@ -58,6 +58,7 @@ const plainRecipe = sva({
     },
     variants: {
         color: {
+            default: {},
             neutral: {},
             danger: {
                 container: {
@@ -71,11 +72,11 @@ const plainRecipe = sva({
         },
     },
     defaultVariants: {
-        color: "neutral",
+        color: "default",
     },
 })
 
 export function ButtonPlainContent(props: ButtonContentProps) {
-    const classes = plainRecipe({ color: props.color ?? "neutral" })
+    const classes = plainRecipe({ color: props.color ?? "default" })
     return renderButtonContent(props, classes)
 }

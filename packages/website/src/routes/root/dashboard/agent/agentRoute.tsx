@@ -1,9 +1,9 @@
 import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
-import { agentLayoutRoute } from "./agentLayoutRoute.js"
+import { dashboardLayoutRoute } from "../dashboardLayoutRoute.js"
 
 export const agentRoute = createRoute({
-    getParentRoute: () => agentLayoutRoute,
-    path: "/",
+    getParentRoute: () => dashboardLayoutRoute,
+    path: "/agent",
     beforeLoad: () => ({
         title: undefined,
     }),

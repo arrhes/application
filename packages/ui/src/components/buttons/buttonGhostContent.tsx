@@ -59,6 +59,9 @@ const ghostRecipe = sva({
     },
     variants: {
         color: {
+            default: {
+                container: {},
+            },
             neutral: {
                 container: {},
             },
@@ -82,11 +85,11 @@ const ghostRecipe = sva({
         },
     },
     defaultVariants: {
-        color: "neutral",
+        color: "default",
     },
 })
 
 export function ButtonGhostContent(props: ButtonContentProps) {
-    const classes = ghostRecipe({ color: props.color ?? "neutral" })
+    const classes = ghostRecipe({ color: props.color ?? "default" })
     return renderButtonContent(props, classes)
 }

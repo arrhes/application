@@ -1,9 +1,7 @@
 import type { AnyRoute } from "@tanstack/react-router"
 import { agentLayoutRoute } from "./agent/agentLayoutRoute.tsx"
-import { agentOrganizationPathRoute } from "./agent/agentOrganizationPathRoute.tsx"
 import { agentOrganizationRoute } from "./agent/agentOrganizationRoute.tsx"
 import { agentRoute } from "./agent/agentRoute.tsx"
-import { agentToolsRoute } from "./agent/agentToolsRoute.tsx"
 import { agentSessionPathRoute } from "./agent/agentSessionPathRoute.tsx"
 import { agentSessionRoute } from "./agent/agentSessionRoute.tsx"
 import { dashboardCatchRoute } from "./dashboardCatchRoute.tsx"
@@ -185,17 +183,14 @@ export const dashboardTree: AnyRoute = dashboardLayoutRoute.addChildren([
                     ]),
                 ]),
             ]),
+            agentLayoutRoute.addChildren([
+                agentOrganizationRoute,
+                agentSessionPathRoute.addChildren([agentSessionRoute]),
+            ]),
         ]),
     ]),
     settingsLayoutRoute.addChildren([settingsRoute]),
     supportLayoutRoute.addChildren([supportRoute, ticketLayoutRoute.addChildren([ticketRoute])]),
-    agentLayoutRoute.addChildren([
-        agentRoute,
-        agentToolsRoute,
-        agentOrganizationPathRoute.addChildren([
-            agentOrganizationRoute,
-            agentSessionPathRoute.addChildren([agentSessionRoute]),
-        ]),
-    ]),
+    agentRoute,
     dashboardCatchRoute,
 ])

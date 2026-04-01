@@ -1,8 +1,8 @@
 import { createRoute } from "@tanstack/react-router"
-import { agentOrganizationPathRoute } from "./agentOrganizationPathRoute.js"
+import { agentLayoutRoute } from "./agentLayoutRoute.js"
 
 export const agentSessionPathRoute = createRoute({
-    getParentRoute: () => agentOrganizationPathRoute,
+    getParentRoute: () => agentLayoutRoute,
     path: "/$idAgentSession",
     beforeLoad: () => ({
         title: undefined,

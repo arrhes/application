@@ -56,6 +56,7 @@ const outlineRecipe = sva({
     variants: {
         color: {
             default: {},
+            neutral: {},
             danger: {
                 container: {
                     borderColor: "error/40",

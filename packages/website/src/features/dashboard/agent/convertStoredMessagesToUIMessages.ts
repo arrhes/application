@@ -1,6 +1,5 @@
 import { reconstructToolCallParts } from "./reconstructToolCallParts.js"
 
-
 /**
  * Convert server-stored messages (flat role+content) into TanStack AI UIMessage format.
  * Reconstructs tool-call parts from stored toolCalls AG-UI events and places them
@@ -19,6 +18,7 @@ export function convertStoredMessagesToUIMessages(
 ): Array<{
     id: string
     role: "user" | "assistant" | "system"
+    createdAt: Date
     parts: Array<{ type: string; content?: string; id?: string; name?: string; state?: string; args?: unknown }>
 }> {
     return (
@@ -54,6 +54,7 @@ export function convertStoredMessagesToUIMessages(
                 return {
                     id: m.id,
                     role: m.role as "user" | "assistant",
+                    createdAt: new Date(m.createdAt),
                     parts,
                 }
             })

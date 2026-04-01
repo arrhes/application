@@ -36,6 +36,11 @@ import { organizationsDashboardDocRoute } from "./dashboard/organizationsDashboa
 import { reportsDashboardDocRoute } from "./dashboard/reportsDashboardDocRoute.js"
 import { rootDashboardDocRoute } from "./dashboard/rootDashboardDocRoute.js"
 import { yearsDashboardDocRoute } from "./dashboard/yearsDashboardDocRoute.js"
+import { aiDocLayoutRoute } from "./ai/aiDocLayoutRoute.js"
+import { modelsAiDocRoute } from "./ai/modelsAiDocRoute.js"
+import { ocrAiDocRoute } from "./ai/ocrAiDocRoute.js"
+import { rootAiDocRoute } from "./ai/rootAiDocRoute.js"
+import { toolsAiDocRoute } from "./ai/toolsAiDocRoute.js"
 import { docsLayoutRoute } from "./docsLayoutRoute.js"
 import { featuresGeneralDocRoute } from "./root/featuresGeneralDocRoute.js"
 import { generalDocLayoutRoute } from "./root/generalDocLayoutRoute.js"
@@ -94,6 +99,8 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
         entriesDashboardDocRoute,
         filesDashboardDocRoute,
         reportsDashboardDocRoute,
+        // AI sub-section (assistant IA)
+        aiDocLayoutRoute.addChildren([rootAiDocRoute, modelsAiDocRoute, toolsAiDocRoute, ocrAiDocRoute]),
     ]),
 
     // API section (documentation technique)

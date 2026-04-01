@@ -1,10 +1,10 @@
-import { chat, convertMessagesToModelMessages, maxIterations, toolDefinition } from "@tanstack/ai"
 import { generateId, models } from "@arrhes/application-metadata"
+import { chat, convertMessagesToModelMessages, maxIterations, toolDefinition } from "@tanstack/ai"
 import { eq } from "drizzle-orm"
 import type { Context } from "hono"
 import type { ApiEnv } from "../apiFactory.js"
 import type { getEnv } from "../getEnv.js"
-import { type ToolResultStore, buildToolsFromCategories } from "./buildTools.js"
+import { buildToolsFromCategories, type ToolResultStore } from "./buildTools.js"
 import { getAdapter } from "./provider.js"
 import { searchDocumentation } from "./searchDocumentation.js"
 import { type AgentContext, buildSystemPrompt } from "./systemPrompt.js"
@@ -408,6 +408,7 @@ export async function persistAssistantMessage(parameters: {
     content: string
     toolCalls?: unknown
     toolResults?: unknown
+    usedTools?: string[]
     state: "completed" | "streaming" | "error"
 }): Promise<string> {
     const id = generateId()
@@ -418,6 +419,7 @@ export async function persistAssistantMessage(parameters: {
         content: parameters.content,
         toolCalls: parameters.toolCalls ?? null,
         toolResults: parameters.toolResults ?? null,
+        usedTools: parameters.usedTools ?? null,
         state: parameters.state,
         createdAt: new Date().toISOString(),
     })
@@ -433,6 +435,7 @@ export async function updateAssistantMessage(parameters: {
     content: string
     toolCalls?: unknown
     toolResults?: unknown
+    usedTools?: string[]
     state: "completed" | "streaming" | "error"
 }): Promise<void> {
     await parameters.context.var.clients.sql
@@ -441,6 +444,7 @@ export async function updateAssistantMessage(parameters: {
             content: parameters.content,
             toolCalls: parameters.toolCalls ?? null,
             toolResults: parameters.toolResults ?? null,
+            usedTools: parameters.usedTools ?? null,
             state: parameters.state,
         })
         .where(eq(models.agentMessage.id, parameters.messageId))
