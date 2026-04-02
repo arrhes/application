@@ -53,7 +53,7 @@ export function AgentSessionList(props: { idOrganization: string }) {
     function handleSelectSession(idAgentSession: string) {
         setActiveSessionId(undefined)
         navigate({
-            to: "/dashboard/organisations/$idOrganization/agent/$idAgentSession",
+            to: "/dashboard/organisations/$idOrganization/agent/sessions/$idAgentSession",
             params: { idOrganization: props.idOrganization, idAgentSession },
         })
     }

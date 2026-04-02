@@ -1,11 +1,10 @@
 import { generateId, models, routePath } from "@arrhes/application-metadata"
-import { chat, toServerSentEventsResponse } from "@tanstack/ai"
+import { toServerSentEventsResponse } from "@tanstack/ai"
 import { and, eq } from "drizzle-orm"
 import * as v from "valibot"
 import { checkOrganizationSubscriptionSessionMiddleware } from "../../../middlewares/checkOrganizationSubscriptionSessionMiddleware.js"
 import { checkUserSessionMiddleware } from "../../../middlewares/checkUserSessionMiddleware.js"
 import { executeAgent, persistAssistantMessage, updateAssistantMessage } from "../../../utilities/agent/executor.js"
-import { getAdapter } from "../../../utilities/agent/provider.js"
 import { classifyIntent } from "../../../utilities/agent/router.js"
 import { buildYearDataCache } from "../../../utilities/agent/yearDataCache.js"
 import { apiFactory } from "../../../utilities/apiFactory.js"
@@ -80,7 +79,12 @@ export const agentChatRoute = apiFactory.createApp().post(`${routePath.auth}/age
 
     // Create or resume session
     let idAgentSession = body.data.idAgentSession
+    let isNewSession = false
     if (!idAgentSession) {
+        isNewSession = true
+        const firstUserMessage = messages.at(-1)
+        const userText = firstUserMessage?.role === "user" ? extractTextFromParts(firstUserMessage.parts) : ""
+        const title = userText.length > 0 ? userText.slice(0, 128) : null
         const now = new Date().toISOString()
         const session = await insertOne({
             database: c.var.clients.sql,
@@ -89,7 +93,7 @@ export const agentChatRoute = apiFactory.createApp().post(`${routePath.auth}/age
                 id: generateId(),
                 idOrganization,
                 idUser: user.id,
-                title: null,
+                title,
                 createdAt: now,
                 lastUpdatedAt: null,
             },
@@ -181,57 +185,16 @@ export const agentChatRoute = apiFactory.createApp().post(`${routePath.auth}/age
     })
 
     // Wrap stream to persist the assistant response and emit session ID
-    const userText = lastMessage?.role === "user" ? extractTextFromParts(lastMessage.parts) : ""
     const wrappedStream = wrapStreamWithPersistence({
         stream,
         context: c,
         idAgentSession,
-        isNewSession: !body.data.idAgentSession,
-        userMessage: userText,
-        env: c.var.env,
+        isNewSession,
     })
 
     // Return SSE response
     return toServerSentEventsResponse(wrappedStream)
 })
-
-/**
- * Generate a short title for a new session based on the user's first message.
- * Uses a lightweight LLM call. Falls back to a truncated user message on failure.
- */
-async function generateSessionTitle(
-    userMessage: string,
-    env: ReturnType<typeof import("../../../utilities/getEnv.js").getEnv>,
-): Promise<string> {
-    const fallback = userMessage.length > 60 ? `${userMessage.slice(0, 57)}...` : userMessage
-
-    try {
-        const adapter = getAdapter(env)
-        const stream = chat({
-            adapter,
-            messages: [{ role: "user", content: userMessage }],
-            systemPrompts: [
-                "Tu génères un titre court (5 mots maximum) pour une conversation. Le titre doit résumer le sujet principal de la question. Réponds UNIQUEMENT avec le titre, sans guillemets, sans ponctuation finale, sans explication.",
-            ],
-        })
-
-        let title = ""
-        for await (const chunk of stream) {
-            if (chunk.type === "TEXT_MESSAGE_CONTENT") {
-                title += chunk.delta ?? ""
-            }
-        }
-
-        title = title
-            .trim()
-            .replace(/^["«]|["»]$/g, "")
-            .replace(/\.+$/, "")
-            .trim()
-        return title.length > 0 && title.length <= 80 ? title : fallback
-    } catch {
-        return fallback
-    }
-}
 
 /**
  * Wrap the chat stream to persist assistant messages to the database
@@ -242,8 +205,6 @@ async function* wrapStreamWithPersistence(parameters: {
     context: any
     idAgentSession: string
     isNewSession: boolean
-    userMessage: string
-    env: ReturnType<typeof import("../../../utilities/getEnv.js").getEnv>
 }): AsyncIterable<any> {
     // Emit session ID as a CUSTOM AG-UI event so the client can track it
     if (parameters.isNewSession) {
@@ -333,21 +294,6 @@ async function* wrapStreamWithPersistence(parameters: {
             .update(models.agentSession)
             .set({ lastUpdatedAt: new Date().toISOString() })
             .where(eq(models.agentSession.id, parameters.idAgentSession))
-
-        // Generate a title for new sessions (fire-and-forget to not block the response)
-        if (parameters.isNewSession && parameters.userMessage.length > 0) {
-            generateSessionTitle(parameters.userMessage, parameters.env)
-                .then(async (title) => {
-                    await parameters.context.var.clients.sql
-                        .update(models.agentSession)
-                        .set({ title })
-                        .where(eq(models.agentSession.id, parameters.idAgentSession))
-                })
-                .catch(() => {
-                    // Silently ignore title generation failures — the session will
-                    // display without a title and the sidebar falls back to createdAt
-                })
-        }
     } catch (error) {
         // Mark message as error if we had one
         if (messageId) {

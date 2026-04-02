@@ -4,6 +4,7 @@ import { agentOrganizationRoute } from "./agent/agentOrganizationRoute.tsx"
 import { agentRoute } from "./agent/agentRoute.tsx"
 import { agentSessionPathRoute } from "./agent/agentSessionPathRoute.tsx"
 import { agentSessionRoute } from "./agent/agentSessionRoute.tsx"
+import { agentSessionsLayoutRoute } from "./agent/agentSessionsLayoutRoute.tsx"
 import { dashboardCatchRoute } from "./dashboardCatchRoute.tsx"
 import { dashboardLayoutRoute } from "./dashboardLayoutRoute.tsx"
 import { dashboardRootRoute } from "./dashboardRootRoute.tsx"
@@ -115,6 +116,10 @@ export const dashboardTree: AnyRoute = dashboardLayoutRoute.addChildren([
                     organizationSecurityRoute,
                     organizationStorageRoute,
                 ]),
+                agentLayoutRoute.addChildren([
+                    agentOrganizationRoute,
+                    agentSessionsLayoutRoute.addChildren([agentSessionPathRoute.addChildren([agentSessionRoute])]),
+                ]),
             ]),
             yearsPathRoute.addChildren([
                 yearPathRoute.addChildren([
@@ -182,10 +187,6 @@ export const dashboardTree: AnyRoute = dashboardLayoutRoute.addChildren([
                         ]),
                     ]),
                 ]),
-            ]),
-            agentLayoutRoute.addChildren([
-                agentOrganizationRoute,
-                agentSessionPathRoute.addChildren([agentSessionRoute]),
             ]),
         ]),
     ]),

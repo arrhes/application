@@ -1,8 +1,8 @@
 import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
-import { organizationPathRoute } from "../organizations/$idOrganization/organizationPathRoute.js"
+import { organizationLayoutRoute } from "../organizations/$idOrganization/organizationLayoutRoute.js"
 
 export const agentLayoutRoute = createRoute({
-    getParentRoute: () => organizationPathRoute,
+    getParentRoute: () => organizationLayoutRoute,
     path: "/agent",
     beforeLoad: () => ({
         title: "Assistant",

@@ -24,6 +24,8 @@ export function convertStoredMessagesToUIMessages(
     return (
         storedMessages
             .filter((m) => m.role === "user" || m.role === "assistant")
+            // Skip assistant messages that were interrupted mid-stream (never finalized)
+            .filter((m) => m.role !== "assistant" || m.state !== "streaming")
             .map((m) => {
                 const parts: Array<{
                     type: string

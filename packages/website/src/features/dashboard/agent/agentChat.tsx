@@ -17,6 +17,13 @@ import { consumePendingAgentMessage, useAgentActiveSession } from "./agentActive
 import { AgentMessage } from "./agentMessage.js"
 import { convertStoredMessagesToUIMessages } from "./convertStoredMessagesToUIMessages.js"
 
+const suggestionChips = [
+    "Montre-moi mes écritures récentes",
+    "Combien de comptes ai-je dans mon plan comptable ?",
+    "Génère le journal du mois en cours",
+    "Quels sont mes exercices ouverts ?",
+]
+
 export function AgentChat(props: {
     idOrganization: string
     idAgentSession: string | undefined
@@ -90,29 +97,16 @@ export function AgentChat(props: {
                 exact: false,
             })
 
-            // Re-invalidate after a delay so the generated title appears in the sidebar.
-            // The backend generates the title asynchronously after the stream completes,
-            // so the first invalidation above will still show `null` title.
-            setTimeout(() => {
-                dataClient.invalidateQueries({
-                    queryKey: [readAllAgentSessionsRouteDefinition.path],
-                    exact: false,
-                })
-            }, 5000)
-
             // Notify parent so it can track the created session (for sidebar highlighting)
             props.onSessionCreated?.(idAgentSession)
 
-            // New-session page should transition to the concrete session URL
-            // so the experience matches classic chat interfaces.
-            if (!props.idAgentSession) {
-                navigate({
-                    to: "/dashboard/organisations/$idOrganization/agent/$idAgentSession",
-                    params: { idOrganization: props.idOrganization, idAgentSession },
-                })
-            }
+            // Navigate to the concrete session URL
+            navigate({
+                to: "/dashboard/organisations/$idOrganization/agent/sessions/$idAgentSession",
+                params: { idOrganization: props.idOrganization, idAgentSession },
+            })
         },
-        [navigate, props.idAgentSession, props.idOrganization, props.onSessionCreated],
+        [navigate, props.idOrganization, props.onSessionCreated],
     )
 
     const handleDeleteSession = useCallback(async () => {
@@ -270,6 +264,211 @@ export function AgentChat(props: {
                 })}
             >
                 <CircularLoader text="Chargement de la conversation..." />
+            </div>
+        )
+    }
+
+    // Welcome screen — shown when there is no session, no pending message, and no messages yet
+    const showWelcome = !props.idAgentSession && messages.length === 0 && !isLoading && !hasPendingMessage
+
+    function handleWelcomeSubmit(e: React.FormEvent) {
+        e.preventDefault()
+        if (input.trim() === "" || isLoading) return
+        sendMessage(input)
+        setInput("")
+    }
+
+    function handleChipClick(text: string) {
+        sendMessage(text)
+    }
+
+    function handleWelcomeKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault()
+            if (input.trim() !== "" && !isLoading) {
+                sendMessage(input)
+                setInput("")
+            }
+        }
+    }
+
+    if (showWelcome) {
+        return (
+            <div
+                className={css({
+                    flex: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "2rem",
+                    gap: "2rem",
+                    minHeight: 0,
+                    overflowY: "auto",
+                    height: "100%",
+                })}
+            >
+                {/* Greeting */}
+                <div
+                    className={css({
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                        textAlign: "center",
+                    })}
+                >
+                    <h1
+                        className={css({
+                            fontSize: "2xl",
+                            fontWeight: "semibold",
+                            color: "neutral",
+                            margin: 0,
+                        })}
+                    >
+                        Comment puis-je vous aider ?
+                    </h1>
+                    <p
+                        className={css({
+                            fontSize: "sm",
+                            color: "neutral/50",
+                            margin: 0,
+                            maxWidth: "28rem",
+                        })}
+                    >
+                        Posez une question sur votre comptabilité, demandez une action ou explorez vos données.
+                    </p>
+                </div>
+
+                {/* Input area */}
+                <form
+                    onSubmit={handleWelcomeSubmit}
+                    className={css({
+                        width: "100%",
+                        maxWidth: "40rem",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "0.75rem",
+                    })}
+                >
+                    <div
+                        className={css({
+                            display: "flex",
+                            gap: "0.5rem",
+                            border: "1px solid",
+                            borderColor: "neutral/20",
+                            borderRadius: "lg",
+                            padding: "0.75rem",
+                            backgroundColor: "white",
+                            boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
+                            _focusWithin: { borderColor: "primary", boxShadow: "0 2px 12px rgba(0,0,0,0.08)" },
+                            transition: "all 0.15s",
+                        })}
+                    >
+                        <textarea
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                            onKeyDown={handleWelcomeKeyDown}
+                            placeholder="Votre message..."
+                            disabled={isLoading}
+                            rows={1}
+                            className={css({
+                                flex: 1,
+                                padding: "0.25rem 0",
+                                border: "none",
+                                fontSize: "sm",
+                                outline: "none",
+                                color: "neutral",
+                                resize: "none",
+                                lineHeight: "1.5",
+                                _disabled: { opacity: 0.5, cursor: "not-allowed" },
+                                _placeholder: { color: "neutral/30" },
+                            })}
+                        />
+                        <button
+                            type="submit"
+                            disabled={isLoading || input.trim() === ""}
+                            className={css({
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                padding: "0.5rem",
+                                borderRadius: "md",
+                                border: "none",
+                                backgroundColor: "primary",
+                                color: "white",
+                                cursor: "pointer",
+                                flexShrink: 0,
+                                alignSelf: "flex-end",
+                                _hover: { opacity: 0.9 },
+                                _disabled: { opacity: 0.4, cursor: "not-allowed" },
+                            })}
+                        >
+                            <IconSend size={16} />
+                        </button>
+                    </div>
+                </form>
+
+                {/* Suggestion chips */}
+                <div
+                    className={css({
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: "0.5rem",
+                        justifyContent: "center",
+                        maxWidth: "40rem",
+                    })}
+                >
+                    {suggestionChips.map((chip) => (
+                        <button
+                            key={chip}
+                            type="button"
+                            onClick={() => handleChipClick(chip)}
+                            disabled={isLoading}
+                            className={css({
+                                padding: "0.375rem 0.75rem",
+                                borderRadius: "full",
+                                border: "1px solid",
+                                borderColor: "neutral/15",
+                                backgroundColor: "white",
+                                fontSize: "xs",
+                                color: "neutral/70",
+                                cursor: "pointer",
+                                whiteSpace: "nowrap",
+                                transition: "all 0.15s",
+                                _hover: { borderColor: "primary/30", color: "primary", backgroundColor: "primary/5" },
+                                _disabled: { opacity: 0.5, cursor: "not-allowed" },
+                            })}
+                        >
+                            {chip}
+                        </button>
+                    ))}
+                </div>
+
+                {/* Disclaimer */}
+                <p
+                    className={css({
+                        fontSize: "xs",
+                        color: "neutral/30",
+                        textAlign: "center",
+                        maxWidth: "40rem",
+                        lineHeight: "1.5",
+                        margin: 0,
+                    })}
+                >
+                    L'assistant peut faire des erreurs. Vérifiez les informations importantes.{" "}
+                    <Link
+                        to="/documentation/dashboard/assistant"
+                        target="_blank"
+                        className={css({
+                            color: "primary/60",
+                            textDecoration: "underline",
+                            _hover: { color: "primary" },
+                        })}
+                    >
+                        En savoir plus
+                    </Link>
+                </p>
             </div>
         )
     }
@@ -451,21 +650,6 @@ export function AgentChat(props: {
                     gap: "1rem",
                 })}
             >
-                {displayMessages.length === 0 && !isLoading && (
-                    <div
-                        className={css({
-                            flex: 1,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            color: "neutral/30",
-                            fontSize: "sm",
-                        })}
-                    >
-                        Aucun message dans cette conversation.
-                    </div>
-                )}
-
                 {displayMessages.map((message) => (
                     <AgentMessage key={message.id} message={message} createdAt={message.createdAt} />
                 ))}
