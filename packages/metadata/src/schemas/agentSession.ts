@@ -8,6 +8,8 @@ export const agentSessionSchema = v.object({
     idOrganization: v.nonNullable(idSchema, "Ce champ est requis"),
     idUser: v.nonNullable(idSchema, "Ce champ est requis"),
     title: v.nullable(v.string()),
+    idYear: v.nullable(v.string()),
+    customInstructions: v.nullable(v.string()),
     createdAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),
     lastUpdatedAt: v.nullable(dateTimeSchema),
 }) satisfies v.GenericSchema<typeof agentSessionModel.$inferSelect>
@@ -17,6 +19,8 @@ export const agentSessionSchemaReturn = v.pick(agentSessionSchema, [
     "idOrganization",
     "idUser",
     "title",
+    "idYear",
+    "customInstructions",
     "createdAt",
     "lastUpdatedAt",
 ])

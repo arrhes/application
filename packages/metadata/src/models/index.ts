@@ -1,8 +1,8 @@
 import * as accountModel from "./account.js"
 import * as adminUserModel from "./adminUser.js"
+import * as adminUserSessionModel from "./adminUserSession.js"
 import * as agentMessageModel from "./agentMessage.js"
 import * as agentSessionModel from "./agentSession.js"
-import * as adminUserSessionModel from "./adminUserSession.js"
 import * as apiKeyModel from "./apiKey.js"
 import * as balanceSheetModel from "./balanceSheet.js"
 import * as computationModel from "./computation.js"
@@ -23,6 +23,7 @@ import * as organizationUserModel from "./organizationUser.js"
 import * as tagModel from "./tag.js"
 import * as ticketModel from "./ticket.js"
 import * as ticketMessageModel from "./ticketMessage.js"
+import * as workerJobModel from "./workerJob.js"
 import * as yearModel from "./year.js"
 
 export const models = {
@@ -51,6 +52,7 @@ export const models = {
     ticketMessage: ticketMessageModel.ticketMessageModel,
     dashboardUser: dashboardUserModel.dashboardUserModel,
     dashboardUserSession: dashboardUserSessionModel.dashboardUserSessionModel,
+    workerJob: workerJobModel.workerJobModel,
     year: yearModel.yearModel,
 }
 
@@ -80,5 +82,6 @@ export const modelSchemas = {
     ...ticketMessageModel,
     ...dashboardUserModel,
     ...dashboardUserSessionModel,
+    ...workerJobModel,
     ...yearModel,
 }

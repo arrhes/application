@@ -98,8 +98,8 @@ export function RootAiDocPage() {
 
             <DocTip variant="tip">
                 Pour en savoir plus sur les modèles utilisés, consultez la page{" "}
-                <DocLink to="/documentation/dashboard/assistant/modèles">Modèles</DocLink>. Pour la liste complète
-                des outils disponibles, consultez la page{" "}
+                <DocLink to="/documentation/dashboard/assistant/modèles">Modèles</DocLink>. Pour la liste complète des
+                outils disponibles, consultez la page{" "}
                 <DocLink to="/documentation/dashboard/assistant/outils">Outils</DocLink>.
             </DocTip>
         </DocRoot>

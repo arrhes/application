@@ -40,7 +40,7 @@ export function PageNavigation(props: {
                 <div
                     className={css({
                         width: "100%",
-                        maxWidth: "xl",
+                        // maxWidth: "xl",
                         display: "flex",
                         justifyContent: "flex-start",
                         alignItems: "center",

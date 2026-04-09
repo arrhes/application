@@ -6,7 +6,7 @@ import { DocParagraph } from "../../../components/document/docParagraph.tsx"
 import { DocRoot } from "../../../components/document/docRoot.tsx"
 import { DocSection } from "../../../components/document/docSection.tsx"
 import { DocTip } from "../../../components/document/docTip.tsx"
-import { type AgentToolDefinition, agentToolsCatalog } from "../../dashboard/agent/agentToolsCatalog.ts"
+import { type AgentToolDefinition, agentToolsCatalog } from "../../dashboard/$idOrganization/agent/agentToolsCatalog.ts"
 
 const categoryOrder = [
     "Exercices fiscaux",

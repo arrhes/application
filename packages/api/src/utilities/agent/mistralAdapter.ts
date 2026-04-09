@@ -1,7 +1,7 @@
-import OpenAI from "openai"
-import { BaseTextAdapter } from "@tanstack/ai/adapters"
 import type { StreamChunk, TextOptions, Tool } from "@tanstack/ai"
 import type { StructuredOutputOptions, StructuredOutputResult } from "@tanstack/ai/adapters"
+import { BaseTextAdapter } from "@tanstack/ai/adapters"
+import OpenAI from "openai"
 
 const MAX_RETRIES = 5
 const BASE_DELAY_MS = 2000

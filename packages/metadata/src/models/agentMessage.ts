@@ -22,6 +22,7 @@ export const agentMessageModel = pgTable(
         toolResults: jsonb("tool_results"),
         usedTools: text("used_tools").array(),
         state: agentMessageStateEnum("state").notNull(),
+        streamKey: text("stream_key"),
         createdAt: dateTimeColumn("created_at").notNull(),
     },
     (t) => [index().on(t.idAgentSession)],

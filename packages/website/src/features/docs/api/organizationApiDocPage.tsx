@@ -104,7 +104,7 @@ export function OrganizationApiDocPage() {
                 <DocRouteRequest routeDefinition={readAllYearsRouteDefinition} />
             </DocSection>
 
-            <DocNextPage to="/documentation/api/comptabilité" label="Comptabilité" />
+            <DocNextPage to="/documentation/comptabilité" label="Comptabilité" />
         </DocRoot>
     )
 }

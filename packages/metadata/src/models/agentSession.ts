@@ -18,6 +18,8 @@ export const agentSessionModel = pgTable(
             .references(() => dashboardUserModel.id, { onDelete: "cascade", onUpdate: "cascade" })
             .notNull(),
         title: text("title"),
+        idYear: idColumn("id_year"),
+        customInstructions: text("custom_instructions"),
         createdAt: dateTimeColumn("created_at").notNull(),
         lastUpdatedAt: dateTimeColumn("last_updated_at"),
     },

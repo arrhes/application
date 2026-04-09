@@ -1,16 +1,28 @@
-import { type ComponentPropsWithRef, useRef } from "react"
+import type { ComponentPropsWithRef } from "react"
 import type { FieldError } from "react-hook-form"
 import { css, cx } from "../../utilities/cn.js"
 
+const sharedStyles = css({
+    width: "100%",
+    padding: "1rem",
+    border: "1px solid",
+    borderRadius: "md",
+    fontSize: "sm",
+    outline: "none",
+    resize: "none",
+    overflowWrap: "break-word",
+    whiteSpace: "pre-wrap",
+    gridArea: "1 / 1 / 2 / 2",
+    boxSizing: "border-box",
+})
+
 export function InputTextArea(
-    props: Omit<ComponentPropsWithRef<"textarea">, "value" | "onChange"> & {
+    props: Omit<ComponentPropsWithRef<"textarea">, "value" | "onChange" | "rows"> & {
         error?: FieldError
         value?: string | null
         onChange: (value?: string | null | undefined) => void
     },
 ) {
-    const textAreaRef = useRef<HTMLTextAreaElement | null>(null)
-
     function input(value: string | undefined | null) {
         if (!value) return ""
         return value
@@ -21,43 +33,52 @@ export function InputTextArea(
         return value
     }
 
-    return (
-        <textarea
-            {...props}
-            ref={textAreaRef}
-            className={cx(
-                css({
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                    padding: "1rem",
-                    border: "1px solid",
-                    borderRadius: "md",
-                    fontSize: "sm",
-                    _placeholder: { color: "neutral/25" },
-                    _hover: { borderColor: "neutral/50" },
-                    _focusWithin: { borderColor: "neutral/50", boxShadow: "inset" },
-                    outline: "none",
-                    flexShrink: "0",
-                    resize: "vertical",
-                    minHeight: "3.5rem",
-                    height: "fit-content",
-                    overflowY: "auto",
-                }),
-                css(props.error ? { borderColor: "error" } : { borderColor: "neutral/20" }),
-                props.className,
-            )}
-            value={input(props.value)}
-            onChange={(e) => {
-                if (!props.onChange) return
-                props?.onChange(output(e.currentTarget.value))
+    const borderClass = css(props.error ? { borderColor: "error" } : { borderColor: "neutral/20" })
 
-                if (!textAreaRef.current) return
-                textAreaRef.current.style.height = "auto" // will not work without this!
-                textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`
-            }}
-        />
+    return (
+        <div
+            className={css({
+                display: "grid",
+                width: "100%",
+                minHeight: "3.5rem",
+                flexShrink: "0",
+            })}
+        >
+            {/* Invisible replica that drives the height */}
+            <span
+                aria-hidden="true"
+                className={cx(
+                    sharedStyles,
+                    borderClass,
+                    css({
+                        visibility: "hidden",
+                        pointerEvents: "none",
+                        userSelect: "none",
+                    }),
+                )}
+            >
+                {input(props.value)}{" "}
+            </span>
+
+            <textarea
+                {...props}
+                className={cx(
+                    sharedStyles,
+                    borderClass,
+                    css({
+                        _placeholder: { color: "neutral/25" },
+                        _hover: { borderColor: "neutral/50" },
+                        _focusWithin: { borderColor: "neutral/50", boxShadow: "inset" },
+                        overflow: "hidden",
+                    }),
+                    props.className,
+                )}
+                value={input(props.value)}
+                onChange={(e) => {
+                    if (!props.onChange) return
+                    props.onChange(output(e.currentTarget.value))
+                }}
+            />
+        </div>
     )
 }

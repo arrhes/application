@@ -1,9 +1,9 @@
-import { toolDefinition } from "@tanstack/ai"
 import type { JSONSchema } from "@tanstack/ai"
+import { toolDefinition } from "@tanstack/ai"
 import { toJsonSchema } from "@valibot/to-json-schema"
 import type * as v from "valibot"
 import type { ToolCategory } from "./toolCategories.js"
-import { type YearDataCache, getCachedYearData } from "./yearDataCache.js"
+import { getCachedYearData, type YearDataCache } from "./yearDataCache.js"
 
 // Tool descriptions in French, keyed by route path suffix
 const toolDescriptions: Record<string, string> = {

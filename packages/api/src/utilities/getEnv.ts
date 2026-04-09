@@ -36,6 +36,11 @@ const envSchema = v.object({
     LLM_BASE_URL: v.optional(v.string(), "http://localhost:11434"),
     LLM_MODEL: v.optional(v.string(), "mistral-small3.1"),
     LLM_API_KEY: v.optional(v.string(), ""),
+
+    REDIS_HOST: v.string(),
+    REDIS_PORT: v.string(),
+    REDIS_USERNAME: v.optional(v.string(), ""),
+    REDIS_PASSWORD: v.optional(v.string(), ""),
 })
 
 export function getEnv() {

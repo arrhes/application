@@ -135,7 +135,7 @@ export function SubPageLayout(props: {
                     flex: "1",
                     flexShrink: "1",
                     width: "100%",
-                    maxWidth: "xl",
+                    // maxWidth: "xl",
                     height: "fit",
                     display: "flex",
                     justifyContent: "flex-start",

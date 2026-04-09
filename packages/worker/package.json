@@ -1,0 +1,36 @@
+{
+    "name": "@evidensy/worker",
+    "type": "module",
+    "private": true,
+    "scripts": {
+        "dev": "tsx watch --env-file=.env ./src/main.ts",
+        "build": "tsc --build",
+        "start": "node --env-file=.env ./build/main.js"
+    },
+    "devDependencies": {
+        "@types/node": "24.2.1",
+        "tsx": "4.20.4",
+        "typescript": "5.9.2"
+    },
+    "dependencies": {
+        "@arrhes/application-metadata": "workspace:*",
+        "@aws-sdk/client-s3": "3.864.0",
+        "@evidencesystem/schemas": "workspace:*",
+        "@google-cloud/aiplatform": "5.5.0",
+        "@google-cloud/vertexai": "1.10.0",
+        "@huggingface/inference": "4.7.0",
+        "@qdrant/qdrant-js": "1.15.0",
+        "@tanstack/ai": "0.9.1",
+        "@tanstack/ai-ollama": "0.6.3",
+        "@valibot/to-json-schema": "1.2.0",
+        "bull": "4.16.5",
+        "drizzle-orm": "0.44.7",
+        "ioredis": "5.7.0",
+        "openai": "5.12.2",
+        "postgres": "3.4.7",
+        "valibot": "1.2.0"
+    },
+    "imports": {
+        "#src/*": "./build/*"
+    }
+}

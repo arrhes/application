@@ -15,6 +15,7 @@ export const agentMessageSchema = v.object({
     toolResults: v.nullable(v.any()),
     usedTools: v.nullable(v.array(v.string())),
     state: v.nonNullable(v.picklist(agentMessageState, "Valeur invalide"), "Ce champ est requis"),
+    streamKey: v.nullable(v.string()),
     createdAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),
 }) satisfies v.GenericSchema<typeof agentMessageModel.$inferSelect>
 
@@ -27,5 +28,6 @@ export const agentMessageSchemaReturn = v.pick(agentMessageSchema, [
     "toolResults",
     "usedTools",
     "state",
+    "streamKey",
     "createdAt",
 ])

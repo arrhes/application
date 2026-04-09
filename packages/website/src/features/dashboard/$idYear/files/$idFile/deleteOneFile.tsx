@@ -41,6 +41,7 @@ export function DeleteOneFile(props: {
                 idOrganization: props.file.idOrganization,
                 idYear: props.file.idYear,
             },
+            search: { idFolder: undefined },
         })
     }
 

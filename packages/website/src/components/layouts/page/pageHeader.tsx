@@ -1,5 +1,5 @@
-import { css, cx } from "@arrhes/ui/utilities/cn.js";
-import type { ComponentProps, ReactNode } from "react";
+import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import type { ComponentProps, ReactNode } from "react"
 
 export function PageHeader(props: { children?: ReactNode; className?: ComponentProps<"div">["className"] }) {
     return (

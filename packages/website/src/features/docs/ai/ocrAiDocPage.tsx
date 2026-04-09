@@ -39,8 +39,8 @@ export function OcrAiDocPage() {
 
             <DocTip variant="tip">
                 En attendant l'OCR, vous pouvez utiliser l'assistant IA pour{" "}
-                <DocLink to="/documentation/dashboard/assistant/outils">créer des écritures</DocLink> manuellement
-                via des commandes en langage naturel.
+                <DocLink to="/documentation/dashboard/assistant/outils">créer des écritures</DocLink> manuellement via
+                des commandes en langage naturel.
             </DocTip>
         </DocRoot>
     )

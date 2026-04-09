@@ -7,5 +7,8 @@ export const agentLayoutRoute = createRoute({
     beforeLoad: () => ({
         title: "Assistant",
     }),
-    component: lazyRouteComponent(() => import("../../../../features/dashboard/agent/agentPage.js"), "AgentPage"),
+    component: lazyRouteComponent(
+        () => import("../../../../features/dashboard/$idOrganization/agent/agentLayout.js"),
+        "AgentLayout",
+    ),
 })

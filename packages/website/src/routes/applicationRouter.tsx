@@ -8,6 +8,7 @@ export const applicationRouter = createRouter({
     scrollRestoration: true,
     context: {
         title: undefined,
+        section: undefined,
         description: undefined,
         robots: undefined,
         isAuthenticated: getIsAuthenticated(),

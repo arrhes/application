@@ -1,7 +1,7 @@
 import {
     IconCalendarEvent,
-    IconMessageChatbot,
     IconPlug,
+    IconRobot,
     IconRosetteDiscountCheck,
     IconSettings,
     IconUsers,
@@ -28,7 +28,7 @@ export function OrganizationLayout() {
                     },
                     {
                         label: "Assistant",
-                        icon: <IconMessageChatbot />,
+                        icon: <IconRobot />,
                         to: "/dashboard/organisations/$idOrganization/agent",
                         params: {
                             idOrganization: params.idOrganization,
