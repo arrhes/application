@@ -5,7 +5,6 @@ import { idColumn } from "../components/models/idColumn.js"
 import { agentSessionModel } from "./agentSession.js"
 
 // Enums
-export const agentMessageRoleEnum = pgEnum("enum_agent_message_role", ["user", "assistant", "tool"])
 export const agentMessageStateEnum = pgEnum("enum_agent_message_state", ["completed", "streaming", "error"])
 
 // Model
@@ -16,7 +15,7 @@ export const agentMessageModel = pgTable(
         idAgentSession: idColumn("id_agent_session")
             .references(() => agentSessionModel.id, { onDelete: "cascade", onUpdate: "cascade" })
             .notNull(),
-        role: agentMessageRoleEnum("role").notNull(),
+        userMessage: text("user_message").notNull(),
         content: text("content"),
         toolCalls: jsonb("tool_calls"),
         toolResults: jsonb("tool_results"),

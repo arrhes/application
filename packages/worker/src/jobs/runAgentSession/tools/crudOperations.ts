@@ -72,7 +72,7 @@ export async function duplicateOneEntry(db: DB, idOrganization: string, body: Re
     return newRows.at(0) ?? { error: "Not duplicated" }
 }
 
-export async function computeOneEntry(db: DB, idOrganization: string, body: Record<string, unknown>) {
+export async function computeOneEntry(db: DB, _idOrganization: string, body: Record<string, unknown>) {
     const { id } = body as any
     const lines = await db.select().from(models.entryLine).where(eq(models.entryLine.idEntry, id))
     const debit = lines.reduce((sum: number, l: any) => sum + Number(l.debit ?? 0), 0)
@@ -360,7 +360,7 @@ export async function deleteOneBalanceSheet(db: DB, idOrganization: string, body
     return { success: true, id }
 }
 
-export async function settleBalanceSheet(db: DB, idOrganization: string, body: Record<string, unknown>) {
+export async function settleBalanceSheet(_db: DB, idOrganization: string, body: Record<string, unknown>) {
     const { idYear } = body as any
     return { success: true, idOrganization, idYear, message: "Balance sheet settled" }
 }
@@ -414,7 +414,7 @@ export async function deleteOneIncomeStatement(db: DB, idOrganization: string, b
     return { success: true, id }
 }
 
-export async function settleIncomeStatement(db: DB, idOrganization: string, body: Record<string, unknown>) {
+export async function settleIncomeStatement(_db: DB, idOrganization: string, body: Record<string, unknown>) {
     const { idYear } = body as any
     return { success: true, idOrganization, idYear, message: "Income statement settled" }
 }
@@ -641,9 +641,9 @@ export async function readOneDocument(db: DB, idOrganization: string, body: Reco
 }
 
 export async function generateBalanceSheetReportDocument(
-    db: DB,
-    idOrganization: string,
-    body: Record<string, unknown>,
+    _db: DB,
+    _idOrganization: string,
+    _body: Record<string, unknown>,
 ) {
     // Report generation requires the full API pipeline; return a stub that informs the LLM
     return {
@@ -652,9 +652,9 @@ export async function generateBalanceSheetReportDocument(
 }
 
 export async function generateIncomeStatementReportDocument(
-    db: DB,
-    idOrganization: string,
-    body: Record<string, unknown>,
+    _db: DB,
+    _idOrganization: string,
+    _body: Record<string, unknown>,
 ) {
     return {
         error: "Report generation is not available in the worker context. Please use the web interface to generate reports.",

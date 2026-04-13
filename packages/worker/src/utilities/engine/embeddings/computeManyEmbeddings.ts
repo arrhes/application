@@ -40,6 +40,6 @@ export async function computeManyEmbeddings(parameters: {
 
     return {
         embeddings: parsedResponse,
-        duration: new Date().getTime() - startTime.getTime(),
+        duration: Date.now() - startTime.getTime(),
     }
 }

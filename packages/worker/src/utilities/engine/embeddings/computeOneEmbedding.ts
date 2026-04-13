@@ -32,6 +32,6 @@ export async function computeOneEmbedding(parameters: {
 
     return {
         embedding: parsedResponse,
-        duration: new Date().getTime() - startTime.getTime(),
+        duration: Date.now() - startTime.getTime(),
     }
 }

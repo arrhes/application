@@ -1,7 +1,4 @@
-import {
-    models,
-    readAllAgentSessionsRouteDefinition
-} from "@arrhes/application-metadata"
+import { models, readAllAgentSessionsRouteDefinition } from "@arrhes/application-metadata"
 import { and, desc, eq, ilike, or } from "drizzle-orm"
 import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
@@ -40,7 +37,11 @@ export const readAllAgentSessionsRoute = apiFactory
                     and(
                         eq(models.agentSession.idOrganization, body.idOrganization),
                         eq(models.agentSession.idUser, user.id),
-                        or(ilike(models.agentSession.title, pattern), ilike(models.agentMessage.content, pattern)),
+                        or(
+                            ilike(models.agentSession.title, pattern),
+                            ilike(models.agentMessage.content, pattern),
+                            ilike(models.agentMessage.userMessage, pattern),
+                        ),
                     ),
                 )
                 .orderBy(models.agentSession.id, desc(models.agentSession.createdAt))

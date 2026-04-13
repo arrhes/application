@@ -1,9 +1,4 @@
-import {
-    createOneAgentSessionRouteDefinition,
-    generateId,
-    models
-} from "@arrhes/application-metadata"
-import { checkOrganizationSubscriptionSessionMiddleware } from "../../../../middlewares/checkOrganizationSubscriptionSessionMiddleware.js"
+import { createOneAgentSessionRouteDefinition, generateId, models } from "@arrhes/application-metadata"
 import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"

@@ -9,8 +9,8 @@ import { cookiePrefix } from "./variables.js"
 export async function getResponseBodyFromAPI<
     TSchemaBody extends v.ObjectSchema<v.ObjectEntries, undefined>,
     TSchemaReturn extends
-    | v.ObjectSchema<v.ObjectEntries, undefined>
-    | v.ArraySchema<v.ObjectSchema<v.ObjectEntries, undefined>, undefined>,
+        | v.ObjectSchema<v.ObjectEntries, undefined>
+        | v.ArraySchema<v.ObjectSchema<v.ObjectEntries, undefined>, undefined>,
 >(parameters: {
     routeDefinition: ReturnType<typeof routeDefinition<string, TSchemaBody, TSchemaReturn>>
     body: v.InferOutput<TSchemaBody>
@@ -21,7 +21,7 @@ export async function getResponseBodyFromAPI<
     if (!apiBaseUrl) {
         console.error(
             "VITE_API_BASE_URL is not defined. The request will not be sent. " +
-            "Make sure the environment variable is set at build time.",
+                "Make sure the environment variable is set at build time.",
         )
         return <const>{
             ok: false,
@@ -116,8 +116,8 @@ export async function getResponseBodyFromAPI<
                 error instanceof ClientError
                     ? error
                     : new ClientError({
-                        rawError: error,
-                    }),
+                          rawError: error,
+                      }),
         }
     }
 }

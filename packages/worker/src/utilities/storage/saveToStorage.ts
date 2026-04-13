@@ -8,7 +8,7 @@ export async function saveToStorage<
 >(parameters: { storageKey: string; schema: TSchema; data: TData; metadata: Record<string, string> }) {
     const buffer = Buffer.from(JSON.stringify(parameters.data), "utf-8")
 
-    const storageResponse = await putObject({
+    const _storageResponse = await putObject({
         storageKey: parameters.storageKey,
         body: buffer,
         contentLength: buffer.length,

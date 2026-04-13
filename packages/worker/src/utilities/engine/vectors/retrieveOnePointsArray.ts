@@ -26,6 +26,6 @@ export async function retrieveOnePointsArray(parameters: {
 
     return {
         points: points,
-        duration: new Date().getTime() - startTime.getTime(),
+        duration: Date.now() - startTime.getTime(),
     }
 }

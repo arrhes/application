@@ -4,7 +4,7 @@ import { gfmTableFromMarkdown, gfmTableToMarkdown } from "mdast-util-gfm-table"
 import { gfmTable } from "micromark-extension-gfm-table"
 import Markdown from "react-markdown"
 import { getAgentToolLabel } from "./agentToolsCatalog.ts"
-import { getAgentMessageParts } from "./getAgentMessageParts.ts"
+import type { getAgentMessageParts } from "./getAgentMessageParts.ts"
 
 /** Minimal remark plugin: only GFM tables (no strikethrough, task lists, autolinks, footnotes). */
 function remarkTable() {
@@ -14,7 +14,7 @@ function remarkTable() {
         if (!data[field]) {
             data[field] = []
         }
-        ; (data[field] as unknown[]).push(value)
+        ;(data[field] as unknown[]).push(value)
     }
     add("micromarkExtensions", gfmTable())
     add("fromMarkdownExtensions", gfmTableFromMarkdown())
@@ -110,17 +110,10 @@ const markdownStyles = css({
     },
 })
 
-
-export function AgentMessagePart(props: {
-    part: ReturnType<typeof getAgentMessageParts>[number]
-}) {
+export function AgentMessagePart(props: { part: ReturnType<typeof getAgentMessageParts>[number] }) {
     if (props.part.type === "text") {
         if (props.part.content === null) {
-            return (
-                <FormatNull
-                    text="Aucun contenu à afficher"
-                />
-            )
+            return <FormatNull text="Aucun contenu à afficher" />
         }
 
         return (
@@ -160,6 +153,25 @@ export function AgentMessagePart(props: {
 
     if (props.part.type === "tool-result") {
         return null
+    }
+
+    if (props.part.type === "error") {
+        return (
+            <div
+                className={css({
+                    fontSize: "sm",
+                    padding: "0.5rem 0.75rem",
+                    borderRadius: "sm",
+                    backgroundColor: "error/5",
+                    border: "1px solid",
+                    borderColor: "error/20",
+                    color: "error",
+                    lineHeight: "1.5",
+                })}
+            >
+                {props.part.content ?? "Une erreur est survenue lors de la génération de la réponse."}
+            </div>
+        )
     }
 
     return null

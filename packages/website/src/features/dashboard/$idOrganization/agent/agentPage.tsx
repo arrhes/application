@@ -4,11 +4,13 @@ import {
     readAllAgentSessionsRouteDefinition,
     readAllYearsRouteDefinition,
 } from "@arrhes/application-metadata"
-import { Button, ButtonOutlineContent, ButtonPlainContent, toast } from "@arrhes/ui"
+import { Button, ButtonOutlineContent, ButtonPlainContent, InputSelect, InputTextArea, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconSend } from "@tabler/icons-react"
+import { IconNotebook, IconSend } from "@tabler/icons-react"
 import { Link, useNavigate, useParams } from "@tanstack/react-router"
+import type { KeyboardEvent } from "react"
 import { useEffect, useRef, useState } from "react"
+import { Popover } from "../../../../components/overlays/popover/popover.tsx"
 import { dataClient } from "../../../../contexts/data/queryClient.js"
 import { organizationPathRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/organizationPathRoute.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
@@ -34,6 +36,7 @@ export function AgentPage() {
 
     // Auto-select if only one year exists
     const [selectedYearId, setSelectedYearId] = useState<string | undefined>(undefined)
+    const [customInstructions, setCustomInstructions] = useState("")
     const autoSelectedRef = useRef(false)
     useEffect(() => {
         if (autoSelectedRef.current || !yearsData) return
@@ -60,6 +63,8 @@ export function AgentPage() {
                 body: {
                     idOrganization: params.idOrganization,
                     message: text.trim(),
+                    idYear: selectedYearId || null,
+                    customInstructions: customInstructions.trim() || null,
                 },
             })
 
@@ -92,8 +97,7 @@ export function AgentPage() {
                 to: "/dashboard/organisations/$idOrganization/agent/sessions/$idAgentSession",
                 params: { idOrganization: params.idOrganization, idAgentSession: agentSessionResponse.data.id },
             })
-        }
-        finally {
+        } finally {
             setIsLoading(false)
         }
     }
@@ -157,52 +161,130 @@ export function AgentPage() {
             >
                 <div
                     className={css({
+                        width: "100%",
                         display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "start",
+                        alignItems: "end",
                         gap: "0.5rem",
-                        border: "1px solid",
-                        borderColor: "neutral/20",
-                        borderRadius: "lg",
-                        padding: "0.75rem",
+                        padding: "1rem",
                         backgroundColor: "white",
-                        boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
-                        _focusWithin: { borderColor: "primary", boxShadow: "0 2px 12px rgba(0,0,0,0.08)" },
-                        transition: "all 0.15s",
                     })}
                 >
-                    <textarea
+                    <InputTextArea
                         value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        onKeyDown={(event) => {
-                            if (event.key === "Enter" && !event.shiftKey) {
+                        onChange={(value) => setInput(value ?? "")}
+                        onKeyDown={(event: KeyboardEvent<HTMLTextAreaElement>) => {
+                            if (event.key === "Enter" && !event.shiftKey && !event.ctrlKey) {
                                 event.preventDefault()
                                 createNewSession(input)
                             }
                         }}
                         placeholder="Votre message..."
                         disabled={isLoading}
-                        rows={1}
-                        className={css({
-                            flex: 1,
-                            padding: "0.25rem 0",
-                            border: "none",
-                            fontSize: "sm",
-                            outline: "none",
-                            color: "neutral",
-                            resize: "none",
-                            lineHeight: "1.5",
-                            _disabled: { opacity: 0.5, cursor: "not-allowed" },
-                            _placeholder: { color: "neutral/30" },
-                        })}
+                        className={css({ flex: 1 })}
                     />
-                    <Button
-                        isDisabled={isLoading}
-                        onClick={(event) => {
-                            event.preventDefault()
-                            createNewSession(input)
-                        }}
+                    <div
+                        className={css({
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.5rem",
+                        })}
                     >
-                        <ButtonPlainContent isLoading={isLoading} leftIcon={<IconSend />} />
-                    </Button>
+                        <Popover.Root>
+                            <Popover.Trigger asChild>
+                                <Button title="Contexte de la session">
+                                    <ButtonOutlineContent
+                                        leftIcon={<IconNotebook />}
+                                        // text="Contexte"
+                                    />
+                                </Button>
+                            </Popover.Trigger>
+                            <Popover.Content
+                                side="top"
+                                align="end"
+                                className={css({
+                                    width: "320px",
+                                    maxWidth: "calc(100vw - 2rem)",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "0.75rem",
+                                    padding: "0.75rem",
+                                })}
+                            >
+                                <div className={css({ display: "flex", flexDirection: "column", gap: "0.25rem" })}>
+                                    <span className={css({ fontSize: "sm", fontWeight: "medium", color: "neutral" })}>
+                                        Contexte de la session
+                                    </span>
+                                    <span className={css({ fontSize: "xs", color: "neutral/60" })}>
+                                        Ce contexte guide les réponses de l'assistant pour la session.
+                                    </span>
+                                </div>
+
+                                <div className={css({ display: "flex", flexDirection: "column", gap: "0.75rem" })}>
+                                    <div className={css({ display: "flex", flexDirection: "column", gap: "0.25rem" })}>
+                                        <span
+                                            className={css({
+                                                display: "flex",
+                                                alignItems: "center",
+                                                gap: "0.375rem",
+                                                fontSize: "xs",
+                                                fontWeight: "medium",
+                                                color: "neutral/70",
+                                                textTransform: "uppercase",
+                                            })}
+                                        >
+                                            Exercice
+                                        </span>
+                                        <InputSelect
+                                            value={selectedYearId}
+                                            onChange={(value) => setSelectedYearId(value ?? undefined)}
+                                            allowEmpty={true}
+                                            placeholder="Sélectionner un exercice"
+                                            options={
+                                                yearsData === undefined
+                                                    ? []
+                                                    : yearsData.map((year) => ({
+                                                          key: year.id,
+                                                          label: year.label,
+                                                      }))
+                                            }
+                                        />
+                                    </div>
+
+                                    <div className={css({ display: "flex", flexDirection: "column", gap: "0.25rem" })}>
+                                        <span
+                                            className={css({
+                                                display: "flex",
+                                                alignItems: "center",
+                                                gap: "0.375rem",
+                                                fontSize: "xs",
+                                                fontWeight: "medium",
+                                                color: "neutral/70",
+                                                textTransform: "uppercase",
+                                            })}
+                                        >
+                                            Instructions
+                                        </span>
+                                        <InputTextArea
+                                            value={customInstructions}
+                                            onChange={(value) => setCustomInstructions(value ?? "")}
+                                            placeholder="Ex: Réponds de manière détaillée, utilise le compte 411 pour les clients..."
+                                        />
+                                    </div>
+                                </div>
+                            </Popover.Content>
+                        </Popover.Root>
+                        <Button
+                            isDisabled={isLoading}
+                            onClick={(event) => {
+                                event.preventDefault()
+                                createNewSession(input)
+                            }}
+                        >
+                            <ButtonPlainContent isLoading={isLoading} leftIcon={<IconSend />} text="Envoyer" />
+                        </Button>
+                    </div>
                 </div>
             </form>
 

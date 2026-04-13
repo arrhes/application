@@ -1,22 +1,23 @@
-import { readAllAgentMessagesRouteDefinition } from "@arrhes/application-metadata"
+import type { readAllAgentMessagesRouteDefinition } from "@arrhes/application-metadata"
 import { formatDateTime } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconRobot, IconUser } from "@tabler/icons-react"
-import { InferOutput } from "valibot"
+import type { InferOutput } from "valibot"
 import { AgentMessagePart } from "./agentMessagePart.tsx"
 import { getAgentMessageParts } from "./getAgentMessageParts.ts"
 
 /**
  * Format a Date to "HH:MM" string.
  */
-function formatTime(date: Date | undefined): string | undefined {
+function _formatTime(date: Date | undefined): string | undefined {
     if (!date || Number.isNaN(date.getTime())) return undefined
     const h = String(date.getHours()).padStart(2, "0")
     const m = String(date.getMinutes()).padStart(2, "0")
     return `${h}:${m}`
 }
 
-export function AgentMessage(props: { agentMessage: (InferOutput<typeof readAllAgentMessagesRouteDefinition.schemas.return>)[number] }) {
+export function AgentMessage(props: {
+    agentMessage: InferOutput<typeof readAllAgentMessagesRouteDefinition.schemas.return>[number]
+}) {
     const parts = getAgentMessageParts(props.agentMessage)
 
     return (
@@ -29,6 +30,7 @@ export function AgentMessage(props: { agentMessage: (InferOutput<typeof readAllA
                 width: "100%",
             })}
         >
+            {/* User question */}
             <div
                 className={css({
                     width: "100%",
@@ -42,44 +44,14 @@ export function AgentMessage(props: { agentMessage: (InferOutput<typeof readAllA
                     backgroundColor: "background",
                 })}
             >
-                <div
+                <span
                     className={css({
-                        display: "flex",
-                        justifyContent: "start",
-                        alignItems: "center",
-                        gap: "0.5rem",
+                        fontSize: "sm",
+                        color: "neutral/75",
                     })}
                 >
-                    {
-                        props.agentMessage.role === "assistant" ? (
-                            <IconRobot
-                                size={16}
-                                className={css({
-                                    stroke: "neutral/50",
-                                })}
-                            />
-                        ) : (
-                            <IconUser
-                                size={16}
-                                className={css({
-                                    stroke: "neutral/50",
-                                })}
-                            />
-                        )
-                    }
-                    <span
-                        className={css({
-                            fontSize: "xs",
-                            color: "neutral/75",
-                        })}
-                    >
-                        {
-                            props.agentMessage.role === "assistant"
-                                ? "Assistant"
-                                : "User"
-                        }
-                    </span>
-                </div>
+                    {props.agentMessage.userMessage}
+                </span>
                 <span
                     className={css({
                         fontSize: "xs",
@@ -89,6 +61,7 @@ export function AgentMessage(props: { agentMessage: (InferOutput<typeof readAllA
                     {formatDateTime(new Date(props.agentMessage.createdAt))}
                 </span>
             </div>
+
             <div
                 className={css({
                     flex: 1,

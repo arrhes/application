@@ -22,6 +22,6 @@ export async function retrieveManyPointsArrays(parameters: {
 
     return {
         pointsArray: flattenedResults,
-        duration: new Date().getTime() - startTime.getTime(),
+        duration: Date.now() - startTime.getTime(),
     }
 }

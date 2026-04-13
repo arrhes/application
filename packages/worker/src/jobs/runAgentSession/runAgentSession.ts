@@ -1,6 +1,6 @@
 import { models } from "@arrhes/application-metadata"
 import { chat, convertMessagesToModelMessages, maxIterations, toolDefinition } from "@tanstack/ai"
-import { eq } from "drizzle-orm"
+import { asc, eq } from "drizzle-orm"
 import { ContextClients } from "#src/clients/contextClients.js"
 import { buildWorkerTools, type ToolResultStore } from "./buildWorkerTools.js"
 import { getAdapter } from "./provider.js"
@@ -152,10 +152,83 @@ function processArray(args: ProcessArrayArgs, store: ToolResultStore): unknown {
     }
 }
 
+// ─── UIMessage reconstruction ────────────────────────────────────────────────
+
+/**
+ * Reconstruct proper UIMessage parts from a DB row.
+ * For assistant messages with stored AG-UI tool events, converts them to the
+ * tool-call / tool-result format expected by convertMessagesToModelMessages.
+ */
+function buildAssistantParts(m: { content: string | null; toolCalls: unknown | null }): unknown[] {
+    const parts: unknown[] = []
+
+    // Add text content if present
+    if (m.content) {
+        parts.push({ type: "text", content: m.content })
+    }
+
+    // Reconstruct tool-call and tool-result parts from stored AG-UI events
+    if (m.toolCalls && Array.isArray(m.toolCalls)) {
+        const events = m.toolCalls as Array<Record<string, unknown>>
+        // Group events by toolCallId
+        const toolCallMap = new Map<string, { name: string; input?: unknown; result?: string }>()
+        // Preserve insertion order for deterministic part ordering
+        const toolCallOrder: string[] = []
+
+        for (const event of events) {
+            const id = event.toolCallId as string | undefined
+            if (!id) continue
+
+            if (!toolCallMap.has(id)) {
+                toolCallMap.set(id, { name: (event.toolName as string) ?? "" })
+                toolCallOrder.push(id)
+            }
+            const entry = toolCallMap.get(id)!
+
+            if (event.type === "TOOL_CALL_END" && "input" in event) {
+                entry.input = event.input
+            }
+            if (event.type === "TOOL_CALL_END" && "result" in event) {
+                entry.result = event.result as string
+            }
+        }
+
+        for (const id of toolCallOrder) {
+            const info = toolCallMap.get(id)!
+            parts.push({
+                type: "tool-call",
+                id,
+                name: info.name,
+                arguments: typeof info.input === "string" ? info.input : JSON.stringify(info.input ?? {}),
+                state: "input-complete",
+            })
+        }
+        for (const id of toolCallOrder) {
+            const info = toolCallMap.get(id)!
+            if (info.result !== undefined) {
+                parts.push({
+                    type: "tool-result",
+                    toolCallId: id,
+                    content: info.result,
+                    state: "complete",
+                })
+            }
+        }
+    }
+
+    // Fallback: if no parts were built, add empty text
+    if (parts.length === 0) {
+        parts.push({ type: "text", content: m.content ?? "" })
+    }
+
+    return parts
+}
+
 // ─── Main job ────────────────────────────────────────────────────────────────
 
 export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<void> {
     const { idAgentMessage, idWorkerJob } = args
+    console.log("[runAgentSession] Starting job", { idAgentMessage, idWorkerJob })
     const db = ContextClients.sql
     const redis = ContextClients.redis
 
@@ -187,28 +260,43 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
     if (!session) throw new Error(`Agent session not found: ${agentMessage.idAgentSession}`)
 
     const { idOrganization, idYear, customInstructions } = session
+    console.log("[runAgentSession] Session loaded", { idOrganization })
 
     // Load conversation history (all completed messages before this one, ordered ASC)
     const historyRows = await db
         .select()
         .from(models.agentMessage)
         .where(eq(models.agentMessage.idAgentSession, agentMessage.idAgentSession))
-        .orderBy(models.agentMessage.createdAt)
+        .orderBy(asc(models.agentMessage.createdAt))
 
-    // Build UIMessages from DB rows (excluding the current assistant placeholder)
-    const uiMessages = historyRows
-        .filter((m) => m.id !== idAgentMessage && (m.state === "completed" || m.role === "user"))
-        .map((m) => ({
-            id: m.id,
-            role: m.role as "user" | "assistant" | "tool",
-            parts:
-                m.role === "user"
-                    ? [{ type: "text", content: m.content ?? "" }]
-                    : m.toolCalls
-                      ? [{ type: "tool-call", toolCalls: m.toolCalls }]
-                      : [{ type: "text", content: m.content ?? "" }],
+    // Build UIMessages from DB rows. Each row contains a user question (userMessage)
+    // and an assistant response (content/toolCalls). We produce two UIMessages per row
+    // so that convertMessagesToModelMessages gets a proper user→assistant alternation.
+    const uiMessages: Array<{ id: string; role: "user" | "assistant"; parts: unknown[]; createdAt?: Date }> = []
+    for (const m of historyRows) {
+        // Always add the user question from every row (including the current one)
+        uiMessages.push({
+            id: `${m.id}-user`,
+            role: "user",
+            parts: [{ type: "text", content: m.userMessage }],
             createdAt: m.createdAt ? new Date(m.createdAt) : undefined,
-        }))
+        })
+
+        // Skip the current message's assistant response (it's still streaming/empty)
+        if (m.id === idAgentMessage) continue
+
+        // Only add the assistant response if it completed with content or tool calls
+        if (m.state === "completed" && (m.content || m.toolCalls)) {
+            uiMessages.push({
+                id: m.id,
+                role: "assistant",
+                parts: buildAssistantParts(m),
+                createdAt: m.createdAt ? new Date(m.createdAt) : undefined,
+            })
+        }
+    }
+
+    console.log(`[runAgentSession] uiMessages count: ${uiMessages.length}`)
 
     // Classify intent using all categories (same as router.ts in API does)
     // For simplicity in worker we use all categories — avoids the router LLM call
@@ -269,13 +357,18 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
     })
 
     const adapter = getAdapter()
+    console.log("[runAgentSession] Calling convertMessagesToModelMessages")
     const modelMessages = convertMessagesToModelMessages(uiMessages as any)
+    console.log(`[runAgentSession] modelMessages count: ${modelMessages.length}, tools count: ${tools.length}`)
 
     let accumulatedContent = ""
     const accumulatedToolCalls: unknown[] = []
     const usedToolNames = new Set<string>()
+    let lastBoundaryContentLength = 0
+    let runError: string | null = null
 
     try {
+        console.log("[runAgentSession] Starting chat() stream")
         const stream = chat({
             adapter,
             messages: modelMessages as any,
@@ -285,12 +378,27 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
         })
 
         for await (const chunk of stream) {
+            console.log(`[runAgentSession] chunk: ${chunk.type}`)
             // Publish every chunk as a Redis message for the SSE subscriber
             await redis.publish(streamKey, JSON.stringify(chunk))
+
+            if (chunk.type === "RUN_ERROR") {
+                const errorMsg = (chunk as any).message ?? (chunk as any).error ?? "Unknown error"
+                console.error("[runAgentSession] RUN_ERROR details:", JSON.stringify(chunk))
+                runError = typeof errorMsg === "string" ? errorMsg : JSON.stringify(errorMsg)
+            }
 
             // Accumulate content for final DB persist
             if (chunk.type === "TEXT_MESSAGE_CONTENT" && "delta" in chunk) {
                 accumulatedContent += (chunk as any).delta ?? ""
+            }
+            if (chunk.type === "TOOL_CALL_START" && "toolName" in chunk) {
+                // Emit text boundary if text has been accumulated since the last boundary
+                if (accumulatedContent.length > lastBoundaryContentLength) {
+                    accumulatedToolCalls.push({ type: "TEXT_BOUNDARY", contentLength: accumulatedContent.length })
+                    lastBoundaryContentLength = accumulatedContent.length
+                }
+                accumulatedToolCalls.push(chunk)
             }
             if (chunk.type === "TOOL_CALL_END" && "toolName" in chunk) {
                 usedToolNames.add((chunk as any).toolName)
@@ -298,35 +406,57 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
             }
         }
 
-        // Persist the completed assistant message
-        await db
-            .update(models.agentMessage)
-            .set({
-                state: "completed",
-                content: accumulatedContent || null,
-                toolCalls: accumulatedToolCalls.length > 0 ? accumulatedToolCalls : null,
-                usedTools: usedToolNames.size > 0 ? [...usedToolNames] : null,
-            })
-            .where(eq(models.agentMessage.id, idAgentMessage))
+        console.log(
+            `[runAgentSession] Stream ended. content=${accumulatedContent.length} chars, toolCalls=${accumulatedToolCalls.length}, usedTools=${[...usedToolNames].join(",")}${runError ? `, error=${runError}` : ""}`,
+        )
 
-        // Mark worker job completed
-        await db
-            .update(models.workerJob)
-            .set({ status: "completed", lastUpdatedAt: new Date().toISOString() })
-            .where(eq(models.workerJob.id, idWorkerJob))
+        if (runError) {
+            // Stream completed but with a RUN_ERROR (rate limit, model error, etc.)
+            await db
+                .update(models.agentMessage)
+                .set({
+                    state: "error",
+                    content: accumulatedContent || runError,
+                    toolCalls: accumulatedToolCalls.length > 0 ? accumulatedToolCalls : null,
+                    usedTools: usedToolNames.size > 0 ? [...usedToolNames] : null,
+                })
+                .where(eq(models.agentMessage.id, idAgentMessage))
 
-        // Update session lastUpdatedAt
-        await db
-            .update(models.agentSession)
-            .set({ lastUpdatedAt: new Date().toISOString() })
-            .where(eq(models.agentSession.id, agentMessage.idAgentSession))
+            await db
+                .update(models.workerJob)
+                .set({ status: "error", lastUpdatedAt: new Date().toISOString() })
+                .where(eq(models.workerJob.id, idWorkerJob))
+        } else {
+            // Persist the completed assistant message
+            await db
+                .update(models.agentMessage)
+                .set({
+                    state: "completed",
+                    content: accumulatedContent || null,
+                    toolCalls: accumulatedToolCalls.length > 0 ? accumulatedToolCalls : null,
+                    usedTools: usedToolNames.size > 0 ? [...usedToolNames] : null,
+                })
+                .where(eq(models.agentMessage.id, idAgentMessage))
+
+            // Mark worker job completed
+            await db
+                .update(models.workerJob)
+                .set({ status: "completed", lastUpdatedAt: new Date().toISOString() })
+                .where(eq(models.workerJob.id, idWorkerJob))
+
+            // Update session lastUpdatedAt
+            await db
+                .update(models.agentSession)
+                .set({ lastUpdatedAt: new Date().toISOString() })
+                .where(eq(models.agentSession.id, agentMessage.idAgentSession))
+        }
     } catch (error: unknown) {
         const msg = error instanceof Error ? error.message : String(error)
         console.error(`[runAgentSession] Error for message ${idAgentMessage}:`, msg)
 
         await db
             .update(models.agentMessage)
-            .set({ state: "error", content: null })
+            .set({ state: "error", content: msg })
             .where(eq(models.agentMessage.id, idAgentMessage))
 
         await db

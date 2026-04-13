@@ -85,6 +85,6 @@ export function computeScores(parameters: {
 
     return {
         scoreOrderedPapers: enginePapers,
-        duration: new Date().getTime() - startTime.getTime(),
+        duration: Date.now() - startTime.getTime(),
     }
 }

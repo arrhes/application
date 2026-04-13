@@ -1,14 +1,14 @@
 import { reconstructToolCallParts } from "./reconstructToolCallParts.js"
 
 /**
- * Convert server-stored messages (flat role+content) into TanStack AI UIMessage format.
- * Reconstructs tool-call parts from stored toolCalls AG-UI events and places them
- * before the text content part.
+ * Convert server-stored messages into TanStack AI UIMessage format.
+ * Each stored row represents a user question + assistant response pair.
+ * We produce two UIMessages per row (user + assistant) for proper alternation.
  */
 export function convertStoredMessagesToUIMessages(
     storedMessages: Array<{
         id: string
-        role: string
+        userMessage: string
         content: string | null
         toolCalls: unknown
         toolResults: unknown
@@ -19,48 +19,67 @@ export function convertStoredMessagesToUIMessages(
     id: string
     role: "user" | "assistant" | "system"
     createdAt: Date
-    parts: Array<{ type: string; content?: string; id?: string; name?: string; state?: string; args?: unknown }>
+    parts: Array<{ type: string; content?: string | null; id?: string; name?: string; state?: string; args?: unknown }>
 }> {
-    return (
-        storedMessages
-            .filter((m) => m.role === "user" || m.role === "assistant")
-            // Skip assistant messages that were interrupted mid-stream (never finalized)
-            .filter((m) => m.role !== "assistant" || m.state !== "streaming")
-            .map((m) => {
-                const parts: Array<{
-                    type: string
-                    content?: string
-                    id?: string
-                    name?: string
-                    state?: string
-                    args?: unknown
-                }> = []
+    const result: Array<{
+        id: string
+        role: "user" | "assistant" | "system"
+        createdAt: Date
+        parts: Array<{
+            type: string
+            content?: string | null
+            id?: string
+            name?: string
+            state?: string
+            args?: unknown
+        }>
+    }> = []
 
-                // Reconstruct tool-call parts from stored AG-UI events (before text content)
-                const toolCallParts = reconstructToolCallParts(m.toolCalls)
-                parts.push(...toolCallParts)
+    for (const m of storedMessages) {
+        // User message
+        result.push({
+            id: `${m.id}-user`,
+            role: "user",
+            createdAt: new Date(m.createdAt),
+            parts: [{ type: "text", content: m.userMessage }],
+        })
 
-                // For errored messages with no content, show an error indicator
-                if (m.state === "error" && !m.content) {
-                    parts.push({
-                        type: "text",
-                        content: "Une erreur est survenue lors de la génération de la réponse.",
-                    })
-                } else if (m.state === "error" && m.content) {
-                    // Error with content (e.g. rate limit error message from the server)
-                    parts.push({ type: "text", content: m.content })
-                } else if (m.content) {
-                    parts.push({ type: "text", content: m.content })
-                }
+        // Skip assistant messages still streaming (not finalized)
+        if (m.state === "streaming") continue
 
-                return {
-                    id: m.id,
-                    role: m.role as "user" | "assistant",
-                    createdAt: new Date(m.createdAt),
-                    parts,
-                }
+        // Assistant message
+        const parts: Array<{
+            type: string
+            content?: string | null
+            id?: string
+            name?: string
+            state?: string
+            args?: unknown
+        }> = []
+
+        // Reconstruct tool-call parts from stored AG-UI events (before text content)
+        const toolCallParts = reconstructToolCallParts(m.toolCalls)
+        parts.push(...toolCallParts)
+
+        if (m.state === "error" && !m.content) {
+            parts.push({
+                type: "text",
+                content: "Une erreur est survenue lors de la génération de la réponse.",
             })
-            // Filter out assistant messages with no visible parts (empty content, no tool calls, not an error)
-            .filter((m) => m.role === "user" || m.parts.length > 0)
-    )
+        } else if (m.content) {
+            parts.push({ type: "text", content: m.content })
+        }
+
+        // Only add assistant message if it has visible parts
+        if (parts.length > 0) {
+            result.push({
+                id: m.id,
+                role: "assistant",
+                createdAt: new Date(m.createdAt),
+                parts,
+            })
+        }
+    }
+
+    return result
 }

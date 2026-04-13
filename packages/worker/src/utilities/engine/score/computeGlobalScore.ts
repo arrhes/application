@@ -6,7 +6,7 @@ export function computeGlobalScore(parameters: {
 }) {
     if (parameters.scores.length === 0) return 0
 
-    const score = parameters.scores.reduce((acc, score, index) => {
+    const score = parameters.scores.reduce((acc, score, _index) => {
         if (Number.isNaN(score.value)) return acc
         if (Number.isNaN(score.weight)) return acc
         return acc + score.weight * score.value

@@ -1,4 +1,7 @@
-import { readAllAgentSessionsRouteDefinition, readOrganizationSubscriptionRouteDefinition } from "@arrhes/application-metadata/routes"
+import {
+    readAllAgentSessionsRouteDefinition,
+    readOrganizationSubscriptionRouteDefinition,
+} from "@arrhes/application-metadata/routes"
 import { Button, ButtonGhostContent, ButtonOutlineContent, formatDateTime } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconMenu, IconPlus } from "@tabler/icons-react"

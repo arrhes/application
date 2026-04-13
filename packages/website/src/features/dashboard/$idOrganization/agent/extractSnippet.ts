@@ -1,4 +1,3 @@
-
 /**
  * Extract a short snippet around the first occurrence of `query` in `content`.
  * Returns `...before**match**after...` or undefined if not found.

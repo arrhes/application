@@ -1,8 +1,5 @@
-import {
-    models,
-    readAllAgentMessagesRouteDefinition
-} from "@arrhes/application-metadata"
-import { and, eq } from "drizzle-orm"
+import { models, readAllAgentMessagesRouteDefinition } from "@arrhes/application-metadata"
+import { and, asc, eq } from "drizzle-orm"
 import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
@@ -12,7 +9,7 @@ import { selectMany } from "../../../../utilities/sql/selectMany.js"
 export const readAllAgentMessagesRoute = apiFactory
     .createApp()
     .post(readAllAgentMessagesRouteDefinition.path, async (c) => {
-        const { user } = await checkUserSessionMiddleware({ context: c })
+        await checkUserSessionMiddleware({ context: c })
         const body = await validateBodyMiddleware({
             context: c,
             schema: readAllAgentMessagesRouteDefinition.schemas.body,
@@ -22,7 +19,7 @@ export const readAllAgentMessagesRoute = apiFactory
             database: c.var.clients.sql,
             table: models.agentMessage,
             where: (table) => and(eq(table.idAgentSession, body.idAgentSession)),
-            // orderBy: (table) => desc(table.createdAt),
+            orderBy: (table) => asc(table.createdAt),
         })
 
         return response({

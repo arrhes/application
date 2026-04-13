@@ -1,7 +1,6 @@
 import { css } from "@arrhes/ui/css"
 import { AgentSessionContent } from "./agentSessionContent.tsx"
 
-
 export function AgentSessionPage() {
     return (
         <div

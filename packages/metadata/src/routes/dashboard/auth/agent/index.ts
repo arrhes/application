@@ -5,5 +5,6 @@ export { createOneAgentSessionRouteDefinition } from "./agentSession/createOneAg
 export { deleteOneAgentSessionRouteDefinition } from "./agentSession/deleteOneAgentSession.js"
 export { readAllAgentSessionsRouteDefinition } from "./agentSession/readAllAgentSessions.js"
 export { readOneAgentSessionRouteDefinition } from "./agentSession/readOneAgentSession.js"
+export { updateOneAgentSessionRouteDefinition } from "./agentSession/updateOneAgentSession.js"
 export { undoAgentActionRouteDefinition } from "./undoAgentAction.js"
 

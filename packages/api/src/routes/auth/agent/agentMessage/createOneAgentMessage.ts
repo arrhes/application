@@ -1,8 +1,4 @@
-import {
-    createOneAgentMessageRouteDefinition,
-    generateId,
-    models
-} from "@arrhes/application-metadata"
+import { createOneAgentMessageRouteDefinition, generateId, models } from "@arrhes/application-metadata"
 import { checkOrganizationSubscriptionSessionMiddleware } from "../../../../middlewares/checkOrganizationSubscriptionSessionMiddleware.js"
 import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
@@ -13,41 +9,22 @@ import { insertOne } from "../../../../utilities/sql/insertOne.js"
 export const createOneAgentMessageRoute = apiFactory
     .createApp()
     .post(createOneAgentMessageRouteDefinition.path, async (c) => {
-        const { user } = await checkUserSessionMiddleware({ context: c })
+        await checkUserSessionMiddleware({ context: c })
         const body = await validateBodyMiddleware({
             context: c,
             schema: createOneAgentMessageRouteDefinition.schemas.body,
         })
-        await checkOrganizationSubscriptionSessionMiddleware({ context: c, idOrganization: body.idOrganization, })
+        await checkOrganizationSubscriptionSessionMiddleware({ context: c, idOrganization: body.idOrganization })
 
-        const newMessage = await c.var.clients.sql.transaction(async (transaction) => {
-
-            // Add the initial user message as the first message of the session
-            const newMessage = await insertOne({
-                database: transaction,
-                table: models.agentMessage,
-                data: {
-                    id: generateId(),
-                    idAgentSession: body.idAgentSession,
-                    role: "user",
-                    content: body.message,
-                    toolCalls: null,
-                    toolResults: null,
-                    usedTools: null,
-                    state: "completed",
-                    streamKey: null,
-                    createdAt: new Date().toISOString(),
-                },
-            })
-
-            // Add the assistant message placeholder with a streamKey
+        const { assistantMessage, workerJob } = await c.var.clients.sql.transaction(async (transaction) => {
+            // Create a single message row with the user's question and an assistant streaming placeholder
             const assistantMessage = await insertOne({
                 database: transaction,
                 table: models.agentMessage,
                 data: {
                     id: generateId(),
                     idAgentSession: body.idAgentSession,
-                    role: "assistant",
+                    userMessage: body.message,
                     content: null,
                     toolCalls: null,
                     toolResults: null,
@@ -71,25 +48,26 @@ export const createOneAgentMessageRoute = apiFactory
                 },
             })
 
-            // Enqueue the job to Bull
-            await c.var.clients.queue.add(
-                {
-                    fn: "runAgentSession",
-                    args: [{ idAgentMessage: assistantMessage.id, idWorkerJob: workerJob.id }],
-                },
-                {
-                    jobId: workerJob.id,
-                    priority: 1,
-                },
-            )
-
-            return newMessage
+            return { assistantMessage, workerJob }
         })
+
+        // Enqueue the job to Bull AFTER the transaction commits
+        // so the worker can find the rows in the database
+        await c.var.clients.queue.add(
+            {
+                fn: "runAgentSession",
+                args: [{ idAgentMessage: assistantMessage.id, idWorkerJob: workerJob.id }],
+            },
+            {
+                jobId: workerJob.id,
+                priority: 1,
+            },
+        )
 
         return response({
             context: c,
             statusCode: 200,
             schema: createOneAgentMessageRouteDefinition.schemas.return,
-            data: newMessage,
+            data: assistantMessage,
         })
     })
