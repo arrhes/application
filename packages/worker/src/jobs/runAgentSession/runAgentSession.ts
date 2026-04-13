@@ -1,7 +1,10 @@
-import { models } from "@arrhes/application-metadata"
+import { generateId, models } from "@arrhes/application-metadata"
 import { chat, convertMessagesToModelMessages, maxIterations, toolDefinition } from "@tanstack/ai"
-import { asc, eq } from "drizzle-orm"
+import { and, asc, eq, sql } from "drizzle-orm"
 import { ContextClients } from "#src/clients/contextClients.js"
+import { ContextEnv } from "#src/utilities/contextEnv.js"
+import { getObject } from "#src/utilities/storage/getObject.js"
+import { putObject } from "#src/utilities/storage/putObject.js"
 import { buildWorkerTools, type ToolResultStore } from "./buildWorkerTools.js"
 import { getAdapter } from "./provider.js"
 import { buildSystemPrompt } from "./systemPrompt.js"
@@ -54,6 +57,16 @@ function matchesValue(fieldVal: unknown, comparison: string): boolean {
     if (comparison.startsWith(">") && isNumeric) return numVal > Number(comparison.slice(1))
     if (comparison.startsWith("<") && isNumeric) return numVal < Number(comparison.slice(1))
     return strVal.toLowerCase().includes(comparison.toLowerCase())
+}
+
+function fixCommonMojibake(text: string) {
+    // Heuristic: repair common UTF-8 text interpreted as Latin-1 (e.g. "NumÃ©ro" -> "Numéro").
+    if (!/[Ãâ€]/.test(text)) {
+        return text
+    }
+
+    const repaired = Buffer.from(text, "latin1").toString("utf-8")
+    return repaired.includes("�") ? text : repaired
 }
 
 function resolveArray(
@@ -350,6 +363,130 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
         },
     }).server(async (args) => processArray(args as ProcessArrayArgs, toolResultStore))
     tools.push(arrayTool)
+
+    // Add ocr_file tool (premium feature — extracts text from a file and saves it as markdown)
+    const ocrTool = toolDefinition({
+        name: "ocr_file",
+        description:
+            "Extraire le texte d'un fichier (image ou PDF) via OCR et sauvegarder le résultat en Markdown. Retourne le nouveau fichier créé. Nécessite l'identifiant du fichier source et de l'exercice.",
+        inputSchema: {
+            type: "object",
+            properties: {
+                idFile: { type: "string", description: "L'identifiant du fichier source à traiter." },
+                idYear: { type: "string", description: "L'identifiant de l'exercice." },
+            },
+            required: ["idFile", "idYear"],
+        },
+    }).server(async (args) => {
+        const { idFile, idYear } = args as { idFile: string; idYear: string }
+        try {
+            const fileRows = await db
+                .select()
+                .from(models.file)
+                .where(
+                    and(
+                        eq(models.file.idOrganization, idOrganization),
+                        eq(models.file.idYear, idYear),
+                        eq(models.file.id, idFile),
+                    ),
+                )
+                .limit(1)
+            const sourceFile = fileRows.at(0)
+            if (!sourceFile) return { error: "Fichier non trouvé." }
+            if (!sourceFile.storageKey) return { error: "Le fichier source n'a pas de contenu associé." }
+
+            const storageResponse = await getObject({ storageKey: sourceFile.storageKey })
+            const fileBytes = await storageResponse.Body?.transformToByteArray()
+            if (!fileBytes) return { error: "Impossible de lire le fichier source." }
+
+            const base64Content = Buffer.from(fileBytes).toString("base64")
+            const mimeType = sourceFile.type ?? "application/octet-stream"
+            const isImage = mimeType.startsWith("image/")
+            const isPdf = mimeType === "application/pdf"
+            if (!isImage && !isPdf) {
+                return {
+                    error: "Le format du fichier n'est pas compatible avec l'OCR (image ou PDF uniquement).",
+                }
+            }
+            const dataUri = `data:${mimeType};base64,${base64Content}`
+
+            const mistralApiKey = ContextEnv.LLM_API_KEY
+            if (!mistralApiKey) return { error: "La clé API Mistral n'est pas configurée." }
+
+            const document = isImage
+                ? { type: "image_url" as const, image_url: dataUri }
+                : { type: "document_url" as const, document_url: dataUri }
+
+            const ocrResponse = await fetch("https://api.mistral.ai/v1/ocr", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${mistralApiKey}`,
+                },
+                body: JSON.stringify({
+                    model: "mistral-ocr-latest",
+                    document,
+                }),
+            })
+
+            if (!ocrResponse.ok) {
+                const errorText = await ocrResponse.text().catch(() => "")
+                return { error: `Erreur Mistral OCR: ${ocrResponse.status} ${errorText}` }
+            }
+
+            const ocrResult = (await ocrResponse.json()) as {
+                pages?: Array<{ markdown: string }>
+            }
+
+            const markdownContent = ocrResult.pages?.map((p) => p.markdown).join("\n\n---\n\n")
+            if (!markdownContent) return { error: "L'extraction de texte n'a retourné aucun résultat." }
+
+            const normalizedMarkdownContent = fixCommonMojibake(markdownContent)
+            const markdownBuffer = Buffer.from(normalizedMarkdownContent, "utf-8")
+            const newFileId = generateId()
+            const originalName = sourceFile.name ?? sourceFile.reference ?? "document"
+            const baseName = originalName.replace(/\.[^.]+$/, "")
+            const markdownName = `${baseName}.md`
+            const storageKey = `organizations/${idOrganization}/${idYear}/files/${newFileId}`
+
+            const [newFile] = await db
+                .insert(models.file)
+                .values({
+                    id: newFileId,
+                    idOrganization: idOrganization,
+                    idYear: idYear,
+                    idFolder: sourceFile.idFolder,
+                    reference: sourceFile.reference,
+                    name: markdownName,
+                    storageKey: storageKey,
+                    type: "text/markdown",
+                    size: markdownBuffer.length,
+                    createdAt: new Date().toISOString(),
+                })
+                .returning()
+
+            await putObject({
+                storageKey: storageKey,
+                contentLength: markdownBuffer.length,
+                contentType: "text/markdown; charset=utf-8",
+                metadata: { idOrganization, idYear },
+                body: markdownBuffer,
+            })
+
+            await db
+                .update(models.organization)
+                .set({
+                    storageCurrentUsage: sql`${models.organization.storageCurrentUsage} + ${markdownBuffer.length}`,
+                })
+                .where(eq(models.organization.id, idOrganization))
+
+            toolResultStore.set("ocr_file", newFile)
+            return newFile
+        } catch (err) {
+            return { error: `Erreur OCR : ${err instanceof Error ? err.message : String(err)}` }
+        }
+    })
+    tools.push(ocrTool)
 
     const systemPrompt = buildSystemPrompt({
         idYear: idYear ?? undefined,

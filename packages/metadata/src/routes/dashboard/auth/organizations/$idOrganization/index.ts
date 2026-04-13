@@ -35,6 +35,7 @@ export { readAllEntryTagsRouteDefinition } from "./years/$idYear/entries/readAll
 export { deleteOneFileRouteDefinition } from "./years/$idYear/files/$idFile/deleteOneFile.js"
 export { generateFileGetSignedUrlRouteDefinition } from "./years/$idYear/files/$idFile/generateFileGetSignedUrl.js"
 export { generateFilePutSignedUrlRouteDefinition } from "./years/$idYear/files/$idFile/generateFilePutSignedUrl.js"
+export { ocrFileRouteDefinition } from "./years/$idYear/files/$idFile/ocrFile.js"
 export { readOneFileRouteDefinition } from "./years/$idYear/files/$idFile/readOneFile.js"
 export { updateOneFileRouteDefinition } from "./years/$idYear/files/$idFile/updateOneFile.js"
 export { createOneFileRouteDefinition } from "./years/$idYear/files/createOneFile.js"
@@ -103,3 +104,4 @@ export { readAllTagsRouteDefinition } from "./years/$idYear/yearSettings/tags/re
 // years
 export { createOneYearRouteDefinition } from "./years/createOneYear.js"
 export { readAllYearsRouteDefinition } from "./years/readAllYears.js"
+

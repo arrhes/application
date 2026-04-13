@@ -14,7 +14,7 @@ function remarkTable() {
         if (!data[field]) {
             data[field] = []
         }
-        ;(data[field] as unknown[]).push(value)
+        ; (data[field] as unknown[]).push(value)
     }
     add("micromarkExtensions", gfmTable())
     add("fromMarkdownExtensions", gfmTableFromMarkdown())
