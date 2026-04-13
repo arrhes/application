@@ -6,7 +6,7 @@
 # ==============================================================================
 set -e
 
-SCRIPT_DIR="/workspace/.workflows/.dev/packages/worker"
+SCRIPT_DIR="/workspace/.workflows/dev/packages/worker"
 
 # Generate .env file from environment variables set in compose.yml
 cat > /workspace/packages/worker/.env <<EOF

@@ -10,9 +10,9 @@
 # - Services: API, Website, Admin
 #
 # Usage:
-#   docker compose -f .workflows/.dev/compose.yml up -d     # Start all services
-#   docker compose -f .workflows/.dev/compose.yml down      # Stop all services
-#   docker compose -f .workflows/.dev/compose.yml logs -f   # View logs
+#   docker compose -f .workflows/dev/compose.yml up -d     # Start all services
+#   docker compose -f .workflows/dev/compose.yml down      # Stop all services
+#   docker compose -f .workflows/dev/compose.yml logs -f   # View logs
 # ==============================================================================
 
 services:
@@ -98,7 +98,7 @@ services:
     image: arrhes-dev-api:latest
     build:
       context: ../..
-      dockerfile: .workflows/.dev/packages/api/Dockerfile
+      dockerfile: .workflows/dev/packages/api/Dockerfile
       args:
         NODE_VERSION: "25.2.1"
         PNPM_VERSION: "10.26.1"
@@ -154,7 +154,7 @@ services:
     image: arrhes-dev-website:latest
     build:
       context: ../..
-      dockerfile: .workflows/.dev/packages/website/Dockerfile
+      dockerfile: .workflows/dev/packages/website/Dockerfile
       args:
         NODE_VERSION: "25.2.1"
         PNPM_VERSION: "10.26.1"
@@ -175,7 +175,7 @@ services:
     image: arrhes-dev-admin:latest
     build:
       context: ../..
-      dockerfile: .workflows/.dev/packages/admin/Dockerfile
+      dockerfile: .workflows/dev/packages/admin/Dockerfile
       args:
         NODE_VERSION: "25.2.1"
         PNPM_VERSION: "10.26.1"
@@ -194,7 +194,7 @@ services:
     image: arrhes-dev-worker:latest
     build:
       context: ../..
-      dockerfile: .workflows/.dev/packages/worker/Dockerfile
+      dockerfile: .workflows/dev/packages/worker/Dockerfile
       args:
         NODE_VERSION: "25.2.1"
         PNPM_VERSION: "10.26.1"

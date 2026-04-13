@@ -81,7 +81,7 @@ Avant de commencer a contribuer, configurez votre environnement de developpement
    # Lancer les services
    just dev up
    # ou
-   docker compose -f .workflows/.dev/compose.yml up -d --build
+   docker compose -f .workflows/dev/compose.yml up -d --build
    
    # Configurer l'environnement
    # Suivez les instructions dans DEVELOPMENT.md

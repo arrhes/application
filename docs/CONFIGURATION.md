@@ -26,7 +26,7 @@ Ces fichiers ne sont **pas versionnes** (`.gitignore`) pour des raisons de secur
 
 **Option 1 : Avec Docker Compose (Recommande)**
 
-Le fichier `.workflows/.dev/compose.yml` lance automatiquement PostgreSQL, RustFS et Mailpit avec des valeurs par defaut pretes a l'emploi. Cette option simplifie la configuration.
+Le fichier `.workflows/dev/compose.yml` lance automatiquement PostgreSQL, RustFS et Mailpit avec des valeurs par defaut pretes a l'emploi. Cette option simplifie la configuration.
 
 **Option 2 : Installation native**
 
@@ -98,11 +98,11 @@ Fichier : `packages/tools/.env`
 
 ### Option 1 : Avec Docker Compose (Recommande)
 
-Aucune installation manuelle requise ! Le fichier `.workflows/.dev/compose.yml` configure automatiquement PostgreSQL.
+Aucune installation manuelle requise ! Le fichier `.workflows/dev/compose.yml` configure automatiquement PostgreSQL.
 
 **Lancer PostgreSQL :**
 ```bash
-docker compose -f .workflows/.dev/compose.yml up -d postgres
+docker compose -f .workflows/dev/compose.yml up -d postgres
 ```
 
 **Configuration par defaut :**
@@ -121,13 +121,13 @@ psql postgres://postgres:admin@localhost:5432/default
 **Commandes utiles :**
 ```bash
 # Voir les logs
-docker compose -f .workflows/.dev/compose.yml logs postgres
+docker compose -f .workflows/dev/compose.yml logs postgres
 
 # Redemarrer
-docker compose -f .workflows/.dev/compose.yml restart postgres
+docker compose -f .workflows/dev/compose.yml restart postgres
 
 # Arreter
-docker compose -f .workflows/.dev/compose.yml stop postgres
+docker compose -f .workflows/dev/compose.yml stop postgres
 ```
 
 ### Option 2 : Installation native
@@ -183,11 +183,11 @@ Le systeme de stockage utilise l'API AWS S3 mais fonctionne avec n'importe quel 
 
 ### Option 1 : Avec Docker Compose (Recommande)
 
-Le fichier `.workflows/.dev/compose.yml` lance automatiquement RustFS.
+Le fichier `.workflows/dev/compose.yml` lance automatiquement RustFS.
 
 **Lancer RustFS :**
 ```bash
-docker compose -f .workflows/.dev/compose.yml up -d rustfs
+docker compose -f .workflows/dev/compose.yml up -d rustfs
 ```
 
 **Configuration par defaut :**
@@ -216,10 +216,10 @@ Via l'interface web :
 **Commandes utiles :**
 ```bash
 # Voir les logs
-docker compose -f .workflows/.dev/compose.yml logs rustfs
+docker compose -f .workflows/dev/compose.yml logs rustfs
 
 # Redemarrer
-docker compose -f .workflows/.dev/compose.yml restart rustfs
+docker compose -f .workflows/dev/compose.yml restart rustfs
 ```
 
 ### Option 2 : RustFS standalone (sans Docker Compose)
@@ -268,11 +268,11 @@ L'application envoie des emails pour :
 
 ### Option 1 : Avec Docker Compose (Recommande pour le developpement)
 
-Le fichier `.workflows/.dev/compose.yml` lance automatiquement Mailpit, un serveur SMTP de test.
+Le fichier `.workflows/dev/compose.yml` lance automatiquement Mailpit, un serveur SMTP de test.
 
 **Lancer Mailpit :**
 ```bash
-docker compose -f .workflows/.dev/compose.yml up -d mailpit
+docker compose -f .workflows/dev/compose.yml up -d mailpit
 ```
 
 **Configuration par defaut :**
@@ -297,10 +297,10 @@ Accedez a http://localhost:8025 pour voir tous les emails envoyes par l'applicat
 **Commandes utiles :**
 ```bash
 # Voir les logs
-docker compose -f .workflows/.dev/compose.yml logs mailpit
+docker compose -f .workflows/dev/compose.yml logs mailpit
 
 # Redemarrer
-docker compose -f .workflows/.dev/compose.yml restart mailpit
+docker compose -f .workflows/dev/compose.yml restart mailpit
 ```
 
 ### Option 2 : Mailpit standalone (sans Docker Compose)
@@ -352,11 +352,11 @@ EMAIL_PASSWORD=your-smtp-password
 
 ### Configuration avec Docker Compose (Recommande)
 
-Cette configuration utilise tous les services lances par `.workflows/.dev/compose.yml`.
+Cette configuration utilise tous les services lances par `.workflows/dev/compose.yml`.
 
 **Etape 1 : Lancer les services**
 ```bash
-docker compose -f .workflows/.dev/compose.yml up -d
+docker compose -f .workflows/dev/compose.yml up -d
 ```
 
 **Etape 2 : `packages/api/.env`**

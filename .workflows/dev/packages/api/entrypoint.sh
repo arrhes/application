@@ -11,7 +11,7 @@
 # ==============================================================================
 set -e
 
-SCRIPT_DIR="/workspace/.workflows/.dev/packages/api"
+SCRIPT_DIR="/workspace/.workflows/dev/packages/api"
 
 # Generate .env files from environment variables set in compose.yml.
 # The package scripts use --env-file=.env, which reads from these files.

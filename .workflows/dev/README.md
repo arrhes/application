@@ -5,7 +5,7 @@ Docker-based development environment for the Arrhes application.
 ## Architecture
 
 ```
-.workflows/.dev/
+.workflows/dev/
 ├── compose.yml              # Docker Compose config (services + env vars)
 ├── compose.tunnel.yml       # Cloudflare tunnel overlay
 ├── .dockerignore            # Build context exclusions
@@ -63,22 +63,22 @@ pnpm install
 just dev up
 
 # Or with Docker Compose directly
-docker compose -f .workflows/.dev/compose.yml up -d
+docker compose -f .workflows/dev/compose.yml up -d
 ```
 
 ### Rebuild images (after Node.js or PNPM version changes)
 ```bash
-docker compose -f .workflows/.dev/compose.yml build
-docker compose -f .workflows/.dev/compose.yml up -d
+docker compose -f .workflows/dev/compose.yml build
+docker compose -f .workflows/dev/compose.yml up -d
 ```
 
 ### View logs
 ```bash
 # All services
-docker compose -f .workflows/.dev/compose.yml logs -f
+docker compose -f .workflows/dev/compose.yml logs -f
 
 # Specific service
-docker compose -f .workflows/.dev/compose.yml logs -f api
+docker compose -f .workflows/dev/compose.yml logs -f api
 ```
 
 ### Stop services
@@ -86,7 +86,7 @@ docker compose -f .workflows/.dev/compose.yml logs -f api
 just dev down
 
 # Or with Docker Compose directly
-docker compose -f .workflows/.dev/compose.yml down
+docker compose -f .workflows/dev/compose.yml down
 ```
 
 ### Reset database
@@ -96,7 +96,7 @@ just dev reset
 
 ### Access running containers
 ```bash
-docker compose -f .workflows/.dev/compose.yml exec api bash
+docker compose -f .workflows/dev/compose.yml exec api bash
 ```
 
 ## How It Works
@@ -133,20 +133,20 @@ lsof -i :3000
 pnpm install
 
 # Restart containers to pick up changes
-docker compose -f .workflows/.dev/compose.yml restart api
+docker compose -f .workflows/dev/compose.yml restart api
 ```
 
 ### Database reset
 ```bash
 # Remove database volume (WARNING: deletes all data)
-docker compose -f .workflows/.dev/compose.yml down
+docker compose -f .workflows/dev/compose.yml down
 docker volume rm application_postgres_data
-docker compose -f .workflows/.dev/compose.yml up -d
+docker compose -f .workflows/dev/compose.yml up -d
 ```
 
 ### Clean slate
 ```bash
 # Remove all containers and volumes, then rebuild
-docker compose -f .workflows/.dev/compose.yml down -v
-docker compose -f .workflows/.dev/compose.yml up -d --build
+docker compose -f .workflows/dev/compose.yml down -v
+docker compose -f .workflows/dev/compose.yml up -d --build
 ```

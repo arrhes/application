@@ -24,7 +24,7 @@ RUN pnpm run build
 # Start application
 FROM nginx:alpine AS deploy
 WORKDIR /
-COPY .workflows/.build/packages/admin/nginx/default.conf /etc/nginx/nginx.conf
+COPY .workflows/build/packages/admin/nginx/default.conf /etc/nginx/nginx.conf
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=build /root/packages/admin/build /usr/share/nginx/html
 EXPOSE 3102

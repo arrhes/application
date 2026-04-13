@@ -52,13 +52,13 @@ git clone https://github.com/arrhes/application.git
 cd application
 
 # Demarrer les services
-docker compose -f .workflows/.dev/compose.yml up -d --build
+docker compose -f .workflows/dev/compose.yml up -d --build
 
 # Arreter les services
-docker compose -f .workflows/.dev/compose.yml down
+docker compose -f .workflows/dev/compose.yml down
 
 # Consulter les logs
-docker compose -f .workflows/.dev/compose.yml logs -f
+docker compose -f .workflows/dev/compose.yml logs -f
 ```
 
 ### Acces

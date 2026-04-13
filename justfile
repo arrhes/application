@@ -1,8 +1,8 @@
 set shell := ["bash", "-cu"]
-COMPOSE_FILE := ".workflows/.dev/compose.yml"
-TUNNEL_FILE := ".workflows/.dev/compose.tunnel.yml"
+COMPOSE_FILE := ".workflows/dev/compose.yml"
+TUNNEL_FILE := ".workflows/dev/compose.tunnel.yml"
 PROJECT := "application"
-DC := "docker compose --project-directory=.workflows/.dev --file=" + COMPOSE_FILE + " --project-name=" + PROJECT
+DC := "docker compose --project-directory=.workflows/dev --file=" + COMPOSE_FILE + " --project-name=" + PROJECT
 DC_TUNNEL := DC + " --file=" + TUNNEL_FILE
 
 dev cmd:
@@ -45,7 +45,7 @@ dev-up:
 #   2. Wait for cloudflared to print the *.trycloudflare.com URL
 #   3. Start all remaining services with the tunnel URL as API_BASE_URL
 dev-tunnel:
-    @bash .workflows/.dev/tunnel.sh '{{DC_TUNNEL}}' '{{COMPOSE_FILE}}'
+    @bash .workflows/dev/tunnel.sh '{{DC_TUNNEL}}' '{{COMPOSE_FILE}}'
 
 dev-down:
     {{DC}} down --remove-orphans
@@ -89,7 +89,7 @@ db-reset:
 #   just build        - Run CI checks only
 #   just build-all    - Run CI checks + build production images
 
-COMPOSE_BUILD := "docker compose -f .workflows/.build/compose.yml"
+COMPOSE_BUILD := "docker compose -f .workflows/build/compose.yml"
 
 build:
     @echo "=============================================="
