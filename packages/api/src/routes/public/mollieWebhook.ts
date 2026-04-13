@@ -89,6 +89,7 @@ export const mollieWebhookRoute = apiFactory.createApp().post(mollieWebhookRoute
                     organization.mollieSubscriptionId === null
                 ) {
                     const now = new Date()
+                    const subscriptionDescription = `Arrhes abonnement ${organization.id} ${now.getTime()}`
 
                     // The first payment covers the pro-rata period up to periodEnd (last day of current month)
                     // The recurring subscription starts on the 1st of the next month
@@ -107,7 +108,7 @@ export const mollieWebhookRoute = apiFactory.createApp().post(mollieWebhookRoute
                         },
                         interval: "1 month",
                         startDate: startDate,
-                        description: "Arrhes - Abonnement mensuel",
+                        description: subscriptionDescription,
                         webhookUrl: `${c.var.env.API_BASE_URL}/public/mollie-webhook`,
                     })
 

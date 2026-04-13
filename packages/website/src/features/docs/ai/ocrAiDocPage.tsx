@@ -14,33 +14,40 @@ export function OcrAiDocPage() {
                 description="Reconnaissance optique de caractères pour l'extraction automatique de données comptables."
             />
 
-            <DocSection title="Fonctionnalité à venir">
+            <DocSection title="Présentation">
                 <DocParagraph>
-                    La reconnaissance optique de caractères (OCR) permettra d'extraire automatiquement les données
-                    comptables depuis des documents scannés : factures, reçus, relevés bancaires et autres pièces
-                    justificatives.
+                    La fonctionnalité OCR permet d'extraire automatiquement le texte depuis un document source
+                    (image ou PDF) et de créer un nouveau fichier au format Markdown dans votre espace de stockage.
                 </DocParagraph>
-                <DocTip variant="info">
-                    Cette fonctionnalité est actuellement en cours de développement. Elle sera disponible dans une
-                    prochaine mise à jour de l'assistant IA.
-                </DocTip>
+                <DocParagraph>
+                    L'OCR est disponible depuis l'interface de stockage et via l'outil assistant <code>ocr_file</code>.
+                </DocParagraph>
             </DocSection>
 
-            <DocSection title="Cas d'usage prévus">
-                <DocParagraph>L'OCR pourra être utilisé pour :</DocParagraph>
+            <DocSection title="Cas d'usage">
+                <DocParagraph>L'OCR peut être utilisé pour :</DocParagraph>
                 <DocList
                     items={[
-                        "Extraire les montants, dates et libellés depuis des factures numérisées",
-                        "Pré-remplir les écritures comptables à partir de pièces justificatives",
-                        "Associer automatiquement les fichiers importés aux écritures correspondantes",
+                        "Extraire rapidement le texte d'une facture numérisée",
+                        "Rendre un document scanné exploitable dans l'assistant IA",
+                        "Conserver une version texte d'un justificatif dans le dossier de l'exercice",
+                    ]}
+                />
+            </DocSection>
+
+            <DocSection title="Limites et conditions">
+                <DocList
+                    items={[
+                        "Fonctionnalité réservée au plan Avancé",
+                        "Formats supportés: image/* et application/pdf",
+                        "Quota mensuel: 1000 pages OCR par organisation",
                     ]}
                 />
             </DocSection>
 
             <DocTip variant="tip">
-                En attendant l'OCR, vous pouvez utiliser l'assistant IA pour{" "}
-                <DocLink to="/documentation/dashboard/assistant/outils">créer des écritures</DocLink> manuellement via
-                des commandes en langage naturel.
+                Pour voir la liste complète des capacités de l'assistant, consultez la page{" "}
+                <DocLink to="/documentation/dashboard/assistant/outils">Outils</DocLink>.
             </DocTip>
         </DocRoot>
     )

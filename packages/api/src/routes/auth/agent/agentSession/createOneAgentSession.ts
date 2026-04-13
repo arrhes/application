@@ -1,4 +1,5 @@
 import { createOneAgentSessionRouteDefinition, generateId, models } from "@arrhes/application-metadata"
+import { checkOrganizationSubscriptionSessionMiddleware } from "../../../../middlewares/checkOrganizationSubscriptionSessionMiddleware.js"
 import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
@@ -13,6 +14,7 @@ export const createOneAgentSessionRoute = apiFactory
             context: c,
             schema: createOneAgentSessionRouteDefinition.schemas.body,
         })
+        await checkOrganizationSubscriptionSessionMiddleware({ context: c, idOrganization: body.idOrganization })
 
         const newSession = await insertOne({
             database: c.var.clients.sql,

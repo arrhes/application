@@ -108,6 +108,7 @@ export function Pricing() {
 
             {/* Pro Plan */}
             <div
+                id="plan-avance"
                 className={css({
                     display: "flex",
                     flexDirection: "column",
@@ -168,18 +169,28 @@ export function Pricing() {
                     <FeatureItem icon={<IconCloudUpload />} text="Stockage de documents (jusqu'à 1To)" highlighted />
                     <FeatureItem
                         icon={<IconSparkles />}
-                        text="Assistant IA"
+                        text="Assistant IA*"
                         highlighted
                         description={[
                             "Poser des questions générales sur la comptabilité",
                             "Interroger la documentation",
                             "Automatiser les actions",
-                            "Utiliser la détection automatique du contenu des documents",
+                            "Détection automatique du contenu des documents",
                         ]}
-                        isDev
                     />
                     <FeatureItem icon={<IconLifebuoy />} text="Support prioritaire" highlighted />
                 </div>
+                <LinkButton to="/documentation/tarifs" hash="fair-use-policy">
+                    <span
+                        className={css({
+                            fontSize: "xs",
+                            color: "neutral/60",
+                            textDecoration: "underline",
+                        })}
+                    >
+                        * Voir la politique d'usage raisonnable
+                    </span>
+                </LinkButton>
                 {/* <LinkButton to="/inscription">
                         <ButtonContent
                             variant="primary"

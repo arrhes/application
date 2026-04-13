@@ -37,6 +37,67 @@ export function PricingGeneralDocPage() {
             {/* Pricing cards */}
             <Pricing />
 
+            {/* Fair use policy */}
+            <div
+                id="fair-use-policy"
+                className={css({
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.75rem",
+                    padding: "1.5rem",
+                    borderRadius: "lg",
+                    border: "1px solid",
+                    borderColor: "neutral/10",
+                    backgroundColor: "white",
+                })}
+            >
+                <h2
+                    className={css({
+                        fontSize: "md",
+                        fontWeight: "semibold",
+                        color: "neutral",
+                    })}
+                >
+                    Politique d'usage raisonnable (Fair Use)
+                </h2>
+                <p
+                    className={css({
+                        color: "neutral/70",
+                        fontSize: "sm",
+                        lineHeight: "relaxed",
+                    })}
+                >
+                    Pour garantir un service stable et équitable pour toutes les organisations, le plan Avancé inclut
+                    une politique d'usage raisonnable sur les fonctionnalités IA. Ces limites sont réinitialisées
+                    chaque mois calendaire.
+                </p>
+                <ul
+                    className={css({
+                        margin: 0,
+                        paddingLeft: "1rem",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "0.375rem",
+                        color: "neutral/75",
+                        fontSize: "sm",
+                        lineHeight: "relaxed",
+                    })}
+                >
+                    <li>OCR: 1000 pages maximum par mois et par organisation.</li>
+                    <li>Assistant IA: 500 messages maximum par mois et par organisation.</li>
+                </ul>
+                <p
+                    className={css({
+                        color: "neutral/60",
+                        fontSize: "xs",
+                        lineHeight: "relaxed",
+                    })}
+                >
+                    En cas d'atteinte du quota, les fonctionnalités restent indisponibles jusqu'au début du mois
+                    suivant.
+                </p>
+            </div>
+
             {/* FAQ */}
             <div
                 className={css({

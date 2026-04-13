@@ -12,6 +12,7 @@ import { updateOne } from "../../../../utilities/sql/updateOne.js"
 import { productName } from "../../../../utilities/variables.js"
 
 const MONTHLY_PRICE_CENTS = 3000
+const MONTHLY_PRICE = "30.00"
 
 /**
  * Calculate the number of days in the month for a given date.
@@ -25,6 +26,24 @@ function getDaysInMonth(date: Date): number {
  */
 function getLastDayOfMonth(from: Date): Date {
     return new Date(Date.UTC(from.getUTCFullYear(), from.getUTCMonth() + 1, 0, 23, 59, 59, 999))
+}
+
+/**
+ * Get the first day of the next month from a given date.
+ */
+function getFirstOfNextMonth(from: Date): Date {
+    return new Date(Date.UTC(from.getUTCFullYear(), from.getUTCMonth() + 1, 1))
+}
+
+/**
+ * Format a date as YYYY-MM-DD for Mollie.
+ */
+function formatMollieDate(date: Date): string {
+    const year = date.getUTCFullYear()
+    const month = String(date.getUTCMonth() + 1).padStart(2, "0")
+    const day = String(date.getUTCDate()).padStart(2, "0")
+
+    return `${year}-${month}-${day}`
 }
 
 /**
@@ -77,6 +96,14 @@ export const createFirstPaymentRoute = apiFactory
             where: (table) => eq(table.id, idOrganization),
         })
 
+        if (organization.mollieSubscriptionId !== null) {
+            throw new Exception({
+                statusCode: 400,
+                internalMessage: "Subscription is already active",
+                externalMessage: "L'abonnement est déjà actif",
+            })
+        }
+
         // Create or retrieve Mollie customer
         let mollieCustomerId = organization.mollieCustomerId
 
@@ -109,8 +136,51 @@ export const createFirstPaymentRoute = apiFactory
             })
         }
 
-        // Calculate pro-rata amount for the remaining days of the current month (including today)
         const now = new Date()
+        const hasPremiumAccess =
+            organization.subcriptionEndingAt !== null && new Date(organization.subcriptionEndingAt).getTime() > now.getTime()
+
+        // Generic restart path: if premium access is still active but payments were cancelled,
+        // recreate recurring payments for the next billing cycle without charging a new first payment.
+        if (hasPremiumAccess) {
+            const anchorDate = new Date(organization.subcriptionEndingAt ?? now.toISOString())
+            const startDate = formatMollieDate(getFirstOfNextMonth(anchorDate))
+            const subscriptionDescription = `Arrhes abonnement ${organization.id} ${now.getTime()}`
+
+            const subscription = await c.var.clients.mollie.customerSubscriptions.create({
+                customerId: mollieCustomerId,
+                amount: {
+                    currency: "EUR",
+                    value: MONTHLY_PRICE,
+                },
+                interval: "1 month",
+                startDate: startDate,
+                description: subscriptionDescription,
+                webhookUrl: `${c.var.env.API_BASE_URL}/public/mollie-webhook`,
+            })
+
+            await updateOne({
+                database: c.var.clients.sql,
+                table: models.organization,
+                data: {
+                    mollieSubscriptionId: subscription.id,
+                    lastUpdatedAt: now.toISOString(),
+                    lastUpdatedBy: user.id,
+                },
+                where: (table) => eq(table.id, organization.id),
+            })
+
+            return response({
+                context: c,
+                statusCode: 200,
+                schema: createFirstPaymentRouteDefinition.schemas.return,
+                data: {
+                    checkoutUrl: `${c.var.env.WEBSITE_BASE_URL}/dashboard/organisations/${organization.id}/abonnement`,
+                },
+            })
+        }
+
+        // Calculate pro-rata amount for the remaining days of the current month (including today)
         const proRataCents = calculateProRataAmountCents(now)
         const lastDayOfMonth = getLastDayOfMonth(now)
 

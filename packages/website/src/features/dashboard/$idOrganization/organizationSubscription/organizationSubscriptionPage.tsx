@@ -73,10 +73,10 @@ export function OrganizationSubscriptionPage() {
                                             subscription.subscriptionStatus === "active"
                                                 ? "Votre organisation bénéficie du plan Avancé."
                                                 : subscription.subscriptionStatus === "cancelled"
-                                                  ? "Votre abonnement a été annulé. L'accès Premium reste actif jusqu'à la fin de la période payée."
-                                                  : subscription.subscriptionStatus === "expired"
-                                                    ? "Votre abonnement a expiré."
-                                                    : "Votre organisation utilise le plan basique."
+                                                    ? "Votre abonnement a été annulé. L'accès Premium reste actif jusqu'à la fin de la période payée."
+                                                    : subscription.subscriptionStatus === "expired"
+                                                        ? "Votre abonnement a expiré."
+                                                        : "Votre organisation utilise le plan basique."
                                         }
                                     >
                                         <Chip
@@ -84,15 +84,15 @@ export function OrganizationSubscriptionPage() {
                                                 subscription.subscriptionStatus === "active"
                                                     ? "Avancé"
                                                     : subscription.subscriptionStatus === "cancelled"
-                                                      ? "Annulé"
-                                                      : "Basique"
+                                                        ? "Annulé"
+                                                        : "Basique"
                                             }
                                             color={
                                                 (subscription.subscriptionStatus === "active"
                                                     ? "success"
                                                     : subscription.subscriptionStatus === "cancelled"
-                                                      ? "warning"
-                                                      : "neutral") as ChipColors
+                                                        ? "warning"
+                                                        : "neutral") as ChipColors
                                             }
                                         />
                                     </SettingsSection.Row>
@@ -105,6 +105,19 @@ export function OrganizationSubscriptionPage() {
                                                 <ButtonOutlineContent
                                                     leftIcon={<IconCreditCard />}
                                                     text={isSubscribing ? "Redirection..." : "S'abonner"}
+                                                />
+                                            </Button>
+                                        </SettingsSection.Row>
+                                    )}
+                                    {subscription.subscriptionStatus === "cancelled" && (
+                                        <SettingsSection.Row
+                                            title="Reprendre les paiements"
+                                            description="Les prélèvements mensuels automatiques reprendront à partir de la prochaine échéance, sans nouveau paiement immédiat."
+                                        >
+                                            <Button onClick={handleSubscribe} hasLoader>
+                                                <ButtonOutlineContent
+                                                    leftIcon={<IconCreditCard />}
+                                                    text={isSubscribing ? "Activation..." : "Reprendre les paiements"}
                                                 />
                                             </Button>
                                         </SettingsSection.Row>
@@ -126,6 +139,18 @@ export function OrganizationSubscriptionPage() {
                                             <CancelSubscription idOrganization={params.idOrganization} />
                                         </SettingsSection.Row>
                                     )}
+                                    <SettingsSection.Row
+                                        title="OCR mensuel"
+                                        description="Nombre de pages traitées par OCR ce mois-ci."
+                                    >
+                                        {`${subscription.ocrCurrentMonthUsage} / ${subscription.ocrMonthlyLimit}`}
+                                    </SettingsSection.Row>
+                                    <SettingsSection.Row
+                                        title="Messages agent mensuels"
+                                        description="Nombre de messages agent consommés ce mois-ci."
+                                    >
+                                        {`${subscription.agentMessagesCurrentMonthUsage} / ${subscription.agentMessagesMonthlyLimit}`}
+                                    </SettingsSection.Row>
                                 </SettingsSection.Root>
                             </div>
                         )

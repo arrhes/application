@@ -57,6 +57,11 @@ export function RootAiDocPage() {
                 L'assistant IA est une fonctionnalité premium. Un abonnement au plan Avancé est requis pour y accéder.
             </DocTip>
 
+            <DocTip variant="warning">
+                Politique d'usage raisonnable: les requêtes assistant sont limitées à 500 messages par mois et par
+                organisation (réinitialisation au début de chaque mois calendaire).
+            </DocTip>
+
             <DocSection title="Fonctionnalités">
                 <DocParagraph>L'assistant comptable peut vous aider pour :</DocParagraph>
                 <DocList

@@ -13,6 +13,10 @@ export const readOrganizationSubscriptionRouteDefinition = routeDefinition({
             mollieSubscriptionId: v.nullable(v.string()),
             status: v.nullable(v.picklist(organizationPaymentStatus)),
             subscriptionStatus: v.picklist(["active", "cancelled", "expired", "none"]),
+            ocrCurrentMonthUsage: v.number(),
+            ocrMonthlyLimit: v.number(),
+            agentMessagesCurrentMonthUsage: v.number(),
+            agentMessagesMonthlyLimit: v.number(),
         }),
     },
 })

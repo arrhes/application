@@ -1,4 +1,11 @@
-import { generateId, models, ocrFileRouteDefinition } from "@arrhes/application-metadata"
+import {
+    generateId,
+    getCurrentMonthStartISO,
+    isUsageMonthOutdated,
+    models,
+    ocrFileRouteDefinition,
+    premiumOrganizationUsageLimits,
+} from "@arrhes/application-metadata"
 import { and, eq, sql } from "drizzle-orm"
 import { checkOrganizationSubscriptionSessionMiddleware } from "../../../../../middlewares/checkOrganizationSubscriptionSessionMiddleware.js"
 import { checkUserSessionMiddleware } from "../../../../../middlewares/checkUserSessionMiddleware.js"
@@ -29,6 +36,19 @@ export const ocrFileRoute = apiFactory.createApp().post(ocrFileRouteDefinition.p
         schema: ocrFileRouteDefinition.schemas.body,
     })
     await checkOrganizationSubscriptionSessionMiddleware({ context: c, idOrganization })
+
+    const monthStartISO = getCurrentMonthStartISO()
+    const organization = await selectOne({
+        database: c.var.clients.sql,
+        table: models.organization,
+        where: (table) => eq(table.id, idOrganization),
+    })
+
+    const shouldResetUsageCounters = isUsageMonthOutdated({
+        usageMonthStartAt: organization.usageMonthStartAt,
+        monthStartISO,
+    })
+    const currentMonthPagesUsage = shouldResetUsageCounters ? 0 : organization.ocrCurrentMonthPagesUsage
 
     const sourceFile = await selectOne({
         database: c.var.clients.sql,
@@ -112,6 +132,23 @@ export const ocrFileRoute = apiFactory.createApp().post(ocrFileRouteDefinition.p
         pages?: Array<{ markdown: string }>
     }
 
+    const extractedPagesCount = ocrResult.pages?.length ?? 0
+    if (extractedPagesCount <= 0) {
+        throw new Exception({
+            internalMessage: "Mistral OCR returned no pages",
+            statusCode: 500,
+            externalMessage: "L'extraction OCR n'a retourné aucune page",
+        })
+    }
+
+    if (currentMonthPagesUsage + extractedPagesCount > premiumOrganizationUsageLimits.ocrPagesPerMonth) {
+        throw new Exception({
+            statusCode: 429,
+            internalMessage: "OCR monthly page limit reached",
+            externalMessage: "Limite mensuelle de pages OCR atteinte pour votre organisation",
+        })
+    }
+
     const markdownContent = ocrResult.pages?.map((p) => p.markdown).join("\n\n---\n\n")
     if (!markdownContent) {
         throw new Exception({
@@ -166,6 +203,11 @@ export const ocrFileRoute = apiFactory.createApp().post(ocrFileRouteDefinition.p
         table: models.organization,
         data: {
             storageCurrentUsage: sql`${models.organization.storageCurrentUsage} + ${markdownBuffer.length}`,
+            usageMonthStartAt: monthStartISO,
+            ocrCurrentMonthPagesUsage: currentMonthPagesUsage + extractedPagesCount,
+            agentMessagesCurrentMonthUsage: shouldResetUsageCounters
+                ? 0
+                : organization.agentMessagesCurrentMonthUsage,
         },
         where: (table) => eq(table.id, idOrganization),
     })

@@ -120,7 +120,7 @@ export const docSections: Record<string, DocSection> = {
                     { path: "/documentation/dashboard/assistant", label: "Introduction" },
                     { path: "/documentation/dashboard/assistant/modèles", label: "Modèles" },
                     { path: "/documentation/dashboard/assistant/outils", label: "Outils" },
-                    // { path: "/documentation/dashboard/assistant/ocr", label: "OCR" },
+                    { path: "/documentation/dashboard/assistant/ocr", label: "OCR" },
                 ],
             },
         },

@@ -219,6 +219,12 @@ export const agentToolsCatalog: AgentToolDefinition[] = [
     { name: "read_one_file", labelFr: "Lire un fichier", descriptionFr: "Lire le détail d'un fichier." },
     { name: "update_one_file", labelFr: "Modifier un fichier", descriptionFr: "Modifier un fichier." },
     { name: "delete_one_file", labelFr: "Supprimer un fichier", descriptionFr: "Supprimer un fichier." },
+    {
+        name: "ocr_file",
+        labelFr: "Extraire le texte d'un fichier (OCR)",
+        descriptionFr:
+            "Extraire le texte d'un PDF ou d'une image et créer un fichier Markdown. Le quota mensuel est compté en nombre de pages OCR.",
+    },
 
     { name: "create_one_folder", labelFr: "Créer un dossier", descriptionFr: "Créer un nouveau dossier." },
     { name: "read_all_folders", labelFr: "Lister les dossiers", descriptionFr: "Lister tous les dossiers." },

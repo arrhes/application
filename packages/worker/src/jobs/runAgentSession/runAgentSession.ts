@@ -1,10 +1,10 @@
-import { generateId, models } from "@arrhes/application-metadata"
-import { chat, convertMessagesToModelMessages, maxIterations, toolDefinition } from "@tanstack/ai"
-import { and, asc, eq, sql } from "drizzle-orm"
 import { ContextClients } from "#src/clients/contextClients.js"
 import { ContextEnv } from "#src/utilities/contextEnv.js"
 import { getObject } from "#src/utilities/storage/getObject.js"
 import { putObject } from "#src/utilities/storage/putObject.js"
+import { generateId, isUsageMonthOutdated, models } from "@arrhes/application-metadata"
+import { chat, convertMessagesToModelMessages, maxIterations, toolDefinition } from "@tanstack/ai"
+import { and, asc, eq, sql } from "drizzle-orm"
 import { buildWorkerTools, type ToolResultStore } from "./buildWorkerTools.js"
 import { getAdapter } from "./provider.js"
 import { buildSystemPrompt } from "./systemPrompt.js"
@@ -67,6 +67,31 @@ function fixCommonMojibake(text: string) {
 
     const repaired = Buffer.from(text, "latin1").toString("utf-8")
     return repaired.includes("�") ? text : repaired
+}
+
+const MAX_MESSAGE_CHARACTERS = 16_000
+const ORGANIZATION_USAGE_LIMITS = {
+    agentMessagesPerMonth: 500,
+    ocrPagesPerMonth: 1000,
+} as const
+
+function getCurrentMonthStartISO(date = new Date()) {
+    return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1)).toISOString()
+}
+
+function compressTextForContext(text: string, maxCharacters = MAX_MESSAGE_CHARACTERS) {
+    if (text.length <= maxCharacters) {
+        return text
+    }
+
+    const head = Math.floor(maxCharacters * 0.7)
+    const tail = Math.floor(maxCharacters * 0.3)
+    return `${text.slice(0, head)}\n\n[...contenu tronqué pour respecter la limite de contexte...]\n\n${text.slice(-tail)}`
+}
+
+function stringifyAndCompressForContext(value: unknown, maxCharacters = MAX_MESSAGE_CHARACTERS) {
+    const stringValue = typeof value === "string" ? value : JSON.stringify(value ?? {})
+    return compressTextForContext(stringValue, maxCharacters)
 }
 
 function resolveArray(
@@ -177,7 +202,7 @@ function buildAssistantParts(m: { content: string | null; toolCalls: unknown | n
 
     // Add text content if present
     if (m.content) {
-        parts.push({ type: "text", content: m.content })
+        parts.push({ type: "text", content: compressTextForContext(m.content) })
     }
 
     // Reconstruct tool-call and tool-result parts from stored AG-UI events
@@ -212,7 +237,7 @@ function buildAssistantParts(m: { content: string | null; toolCalls: unknown | n
                 type: "tool-call",
                 id,
                 name: info.name,
-                arguments: typeof info.input === "string" ? info.input : JSON.stringify(info.input ?? {}),
+                arguments: stringifyAndCompressForContext(info.input),
                 state: "input-complete",
             })
         }
@@ -222,7 +247,7 @@ function buildAssistantParts(m: { content: string | null; toolCalls: unknown | n
                 parts.push({
                     type: "tool-result",
                     toolCallId: id,
-                    content: info.result,
+                    content: compressTextForContext(info.result),
                     state: "complete",
                 })
             }
@@ -231,7 +256,7 @@ function buildAssistantParts(m: { content: string | null; toolCalls: unknown | n
 
     // Fallback: if no parts were built, add empty text
     if (parts.length === 0) {
-        parts.push({ type: "text", content: m.content ?? "" })
+        parts.push({ type: "text", content: compressTextForContext(m.content ?? "") })
     }
 
     return parts
@@ -291,7 +316,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
         uiMessages.push({
             id: `${m.id}-user`,
             role: "user",
-            parts: [{ type: "text", content: m.userMessage }],
+            parts: [{ type: "text", content: compressTextForContext(m.userMessage) }],
             createdAt: m.createdAt ? new Date(m.createdAt) : undefined,
         })
 
@@ -380,6 +405,25 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
     }).server(async (args) => {
         const { idFile, idYear } = args as { idFile: string; idYear: string }
         try {
+            const monthStartISO = getCurrentMonthStartISO()
+            const organizationRows = await db
+                .select({
+                    usageMonthStartAt: sql<string | null>`usage_month_start_at`,
+                    ocrCurrentMonthPagesUsage: sql<number>`ocr_current_month_pages_usage`,
+                    agentMessagesCurrentMonthUsage: sql<number>`agent_messages_current_month_usage`,
+                })
+                .from(models.organization)
+                .where(eq(models.organization.id, idOrganization))
+                .limit(1)
+            const organization = organizationRows.at(0)
+            if (!organization) return { error: "Organisation introuvable." }
+
+            const shouldResetUsageCounters = isUsageMonthOutdated({
+                usageMonthStartAt: organization.usageMonthStartAt,
+                monthStartISO,
+            })
+            const currentMonthPagesUsage = shouldResetUsageCounters ? 0 : organization.ocrCurrentMonthPagesUsage
+
             const fileRows = await db
                 .select()
                 .from(models.file)
@@ -438,6 +482,15 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                 pages?: Array<{ markdown: string }>
             }
 
+            const extractedPagesCount = ocrResult.pages?.length ?? 0
+            if (extractedPagesCount <= 0) {
+                return { error: "L'extraction OCR n'a retourné aucune page." }
+            }
+
+            if (currentMonthPagesUsage + extractedPagesCount > ORGANIZATION_USAGE_LIMITS.ocrPagesPerMonth) {
+                return { error: "Limite mensuelle de pages OCR atteinte pour votre organisation." }
+            }
+
             const markdownContent = ocrResult.pages?.map((p) => p.markdown).join("\n\n---\n\n")
             if (!markdownContent) return { error: "L'extraction de texte n'a retourné aucun résultat." }
 
@@ -473,12 +526,16 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                 body: markdownBuffer,
             })
 
-            await db
-                .update(models.organization)
-                .set({
-                    storageCurrentUsage: sql`${models.organization.storageCurrentUsage} + ${markdownBuffer.length}`,
-                })
-                .where(eq(models.organization.id, idOrganization))
+            await db.execute(sql`
+                UPDATE table_organization
+                SET
+                    storage_current_usage = storage_current_usage + ${markdownBuffer.length},
+                    usage_month_start_at = ${monthStartISO},
+                    ocr_current_month_pages_usage = ${currentMonthPagesUsage + extractedPagesCount},
+                    agent_messages_current_month_usage = ${shouldResetUsageCounters ? 0 : organization.agentMessagesCurrentMonthUsage
+                }
+                WHERE id = ${idOrganization}
+            `)
 
             toolResultStore.set("ocr_file", newFile)
             return newFile
