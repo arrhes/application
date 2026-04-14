@@ -13,6 +13,7 @@ import { SettingsSection } from "../../../../components/layouts/settingsSection/
 import { organizationSubscriptionRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/organizationSubscription/organizationSubscriptionRoute.tsx"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { CancelSubscription } from "./cancelSubscription.js"
+import { ResumeSubscription } from "./resumeSubscription.js"
 
 const MONTHLY_PRICE_CENTS = 3000
 
@@ -73,7 +74,7 @@ export function OrganizationSubscriptionPage() {
                                             subscription.subscriptionStatus === "active"
                                                 ? "Votre organisation bénéficie du plan Avancé."
                                                 : subscription.subscriptionStatus === "cancelled"
-                                                    ? "Votre abonnement a été annulé. L'accès Premium reste actif jusqu'à la fin de la période payée."
+                                                    ? "Votre abonnement a été mis en pause. L'accès Premium reste actif jusqu'à la fin de la période payée."
                                                     : subscription.subscriptionStatus === "expired"
                                                         ? "Votre abonnement a expiré."
                                                         : "Votre organisation utilise le plan basique."
@@ -84,7 +85,7 @@ export function OrganizationSubscriptionPage() {
                                                 subscription.subscriptionStatus === "active"
                                                     ? "Avancé"
                                                     : subscription.subscriptionStatus === "cancelled"
-                                                        ? "Annulé"
+                                                        ? "En pause"
                                                         : "Basique"
                                             }
                                             color={
@@ -99,25 +100,12 @@ export function OrganizationSubscriptionPage() {
                                     {!subscription.isPremium && (
                                         <SettingsSection.Row
                                             title="Passer au plan Avancé"
-                                            description={`Un premier paiement de ${getProRataAmount()}\u202f\u20ac sera prélevé pour la fin du mois en cours, puis 30\u202f\u20ac par mois à partir du 1er du mois suivant.`}
+                                            description={`Un premier paiement de ${getProRataAmount()}\u202f\u20ac sera prélevé pour la fin du mois en cours, puis 30\u202f\u20ac par mois.`}
                                         >
                                             <Button onClick={handleSubscribe} hasLoader>
                                                 <ButtonOutlineContent
                                                     leftIcon={<IconCreditCard />}
                                                     text={isSubscribing ? "Redirection..." : "S'abonner"}
-                                                />
-                                            </Button>
-                                        </SettingsSection.Row>
-                                    )}
-                                    {subscription.subscriptionStatus === "cancelled" && (
-                                        <SettingsSection.Row
-                                            title="Reprendre les paiements"
-                                            description="Les prélèvements mensuels automatiques reprendront à partir de la prochaine échéance, sans nouveau paiement immédiat."
-                                        >
-                                            <Button onClick={handleSubscribe} hasLoader>
-                                                <ButtonOutlineContent
-                                                    leftIcon={<IconCreditCard />}
-                                                    text={isSubscribing ? "Activation..." : "Reprendre les paiements"}
                                                 />
                                             </Button>
                                         </SettingsSection.Row>
@@ -130,9 +118,17 @@ export function OrganizationSubscriptionPage() {
                                             <FormatDateTime date={subscription.subcriptionEndingAt} />
                                         </SettingsSection.Row>
                                     )}
+                                    {subscription.subscriptionStatus === "cancelled" && (
+                                        <SettingsSection.Row
+                                            title="S'abonner de nouveau"
+                                            description="Les prélèvements mensuels automatiques reprendront à partir de la prochaine échéance, sans nouveau paiement immédiat."
+                                        >
+                                            <ResumeSubscription />
+                                        </SettingsSection.Row>
+                                    )}
                                     {subscription.subscriptionStatus === "active" && (
                                         <SettingsSection.Row
-                                            title="Annuler l'abonnement"
+                                            title="Mettre en pause l'abonnement"
                                             description="Vous conserverez l'accès jusqu'à la fin de la période en cours."
                                             variant="danger"
                                         >

@@ -24,7 +24,7 @@ import { useNavigate, useParams } from "@tanstack/react-router"
 import { useCallback, useEffect, useRef, useState } from "react"
 import { DataWrapper } from "../../../../components/layouts/dataWrapper.tsx"
 import { Dropdown } from "../../../../components/layouts/dropdownMenu/dropdown.tsx"
-import { DeleteConfirmation } from "../../../../components/overlays/dialog/deleteConfirmation.tsx"
+import { ConfirmationModal } from "../../../../components/overlays/dialog/confirmationModal.tsx"
 import { Popover } from "../../../../components/overlays/popover/popover.tsx"
 import { dataClient } from "../../../../contexts/data/queryClient.ts"
 import { agentSessionRoute } from "../../../../routes/root/dashboard/agent/agentSessionRoute.tsx"
@@ -194,100 +194,100 @@ export function AgentSessionContent() {
             setStreamMessageId(undefined)
         }
 
-        // SSE stream
-        ;(async () => {
-            let streamCompleted = false
-            try {
-                const headers: Record<string, string> = { "Content-Type": "application/json" }
-                const orgCookie = getCookie(`${cookiePrefix}_id_organization`)
-                if (orgCookie) {
-                    headers["X-Organization-Id"] = orgCookie
-                }
+            // SSE stream
+            ; (async () => {
+                let streamCompleted = false
+                try {
+                    const headers: Record<string, string> = { "Content-Type": "application/json" }
+                    const orgCookie = getCookie(`${cookiePrefix}_id_organization`)
+                    if (orgCookie) {
+                        headers["X-Organization-Id"] = orgCookie
+                    }
 
-                const response = await fetch(
-                    new URL(`${import.meta.env.VITE_API_BASE_URL}${getStreamForAgentMessageRouteDefinition.path}`),
-                    {
-                        method: "POST",
-                        credentials: "include",
-                        signal: controller.signal,
-                        headers,
-                        body: JSON.stringify({
-                            idOrganization: params.idOrganization,
-                            idAgentMessage: streamMessageId,
-                        }),
-                    },
-                )
+                    const response = await fetch(
+                        new URL(`${import.meta.env.VITE_API_BASE_URL}${getStreamForAgentMessageRouteDefinition.path}`),
+                        {
+                            method: "POST",
+                            credentials: "include",
+                            signal: controller.signal,
+                            headers,
+                            body: JSON.stringify({
+                                idOrganization: params.idOrganization,
+                                idAgentMessage: streamMessageId,
+                            }),
+                        },
+                    )
 
-                if (!response.ok || !response.body) {
-                    // SSE failed — polling will pick it up
-                    return
-                }
+                    if (!response.ok || !response.body) {
+                        // SSE failed — polling will pick it up
+                        return
+                    }
 
-                const reader = response.body.getReader()
-                const decoder = new TextDecoder()
-                let buffer = ""
+                    const reader = response.body.getReader()
+                    const decoder = new TextDecoder()
+                    let buffer = ""
 
-                while (true) {
-                    const { done, value } = await reader.read()
-                    if (done) break
+                    while (true) {
+                        const { done, value } = await reader.read()
+                        if (done) break
 
-                    buffer += decoder.decode(value, { stream: true })
+                        buffer += decoder.decode(value, { stream: true })
 
-                    const parts = buffer.split("\n\n")
-                    buffer = parts.pop() ?? ""
+                        const parts = buffer.split("\n\n")
+                        buffer = parts.pop() ?? ""
 
-                    for (const part of parts) {
-                        for (const line of part.split("\n")) {
-                            if (!line.startsWith("data: ")) continue
-                            const jsonStr = line.slice(6).trim()
-                            if (!jsonStr) continue
+                        for (const part of parts) {
+                            for (const line of part.split("\n")) {
+                                if (!line.startsWith("data: ")) continue
+                                const jsonStr = line.slice(6).trim()
+                                if (!jsonStr) continue
 
-                            try {
-                                const chunk = JSON.parse(jsonStr)
-                                if (chunk.type === "TEXT_MESSAGE_CONTENT" && typeof chunk.delta === "string") {
-                                    accumulated += chunk.delta
-                                    setStreamingContent(accumulated)
-                                }
-                                if (chunk.type === "TOOL_CALL_START") {
-                                    // Emit text boundary if text accumulated since last boundary
-                                    if (accumulated.length > lastBoundaryLen) {
-                                        accumulatedToolCalls.push({
-                                            type: "TEXT_BOUNDARY",
-                                            contentLength: accumulated.length,
-                                        })
-                                        lastBoundaryLen = accumulated.length
+                                try {
+                                    const chunk = JSON.parse(jsonStr)
+                                    if (chunk.type === "TEXT_MESSAGE_CONTENT" && typeof chunk.delta === "string") {
+                                        accumulated += chunk.delta
+                                        setStreamingContent(accumulated)
                                     }
-                                    accumulatedToolCalls.push(chunk)
-                                    setStreamingToolCalls([...accumulatedToolCalls])
+                                    if (chunk.type === "TOOL_CALL_START") {
+                                        // Emit text boundary if text accumulated since last boundary
+                                        if (accumulated.length > lastBoundaryLen) {
+                                            accumulatedToolCalls.push({
+                                                type: "TEXT_BOUNDARY",
+                                                contentLength: accumulated.length,
+                                            })
+                                            lastBoundaryLen = accumulated.length
+                                        }
+                                        accumulatedToolCalls.push(chunk)
+                                        setStreamingToolCalls([...accumulatedToolCalls])
+                                    }
+                                    if (chunk.type === "TOOL_CALL_END") {
+                                        // Deduplicate: framework re-emits TOOL_CALL_END after RUN_FINISHED
+                                        const tcId = chunk.toolCallId as string | undefined
+                                        if (tcId && seenEnds.has(tcId)) continue
+                                        if (tcId) seenEnds.add(tcId)
+                                        accumulatedToolCalls.push(chunk)
+                                        setStreamingToolCalls([...accumulatedToolCalls])
+                                    }
+                                } catch {
+                                    // ignore malformed chunks
                                 }
-                                if (chunk.type === "TOOL_CALL_END") {
-                                    // Deduplicate: framework re-emits TOOL_CALL_END after RUN_FINISHED
-                                    const tcId = chunk.toolCallId as string | undefined
-                                    if (tcId && seenEnds.has(tcId)) continue
-                                    if (tcId) seenEnds.add(tcId)
-                                    accumulatedToolCalls.push(chunk)
-                                    setStreamingToolCalls([...accumulatedToolCalls])
-                                }
-                            } catch {
-                                // ignore malformed chunks
                             }
                         }
                     }
-                }
 
-                streamCompleted = true
-            } catch (err: unknown) {
-                if (err instanceof Error && err.name === "AbortError") return
-                console.error("[stream] SSE error — falling back to polling", err)
-            } finally {
-                // Only finish when the stream completed naturally.
-                // If the SSE failed (network/auth error), let the polling
-                // fallback continue running so it can detect completion.
-                if (streamCompleted && !controller.signal.aborted) {
-                    finish()
+                    streamCompleted = true
+                } catch (err: unknown) {
+                    if (err instanceof Error && err.name === "AbortError") return
+                    console.error("[stream] SSE error — falling back to polling", err)
+                } finally {
+                    // Only finish when the stream completed naturally.
+                    // If the SSE failed (network/auth error), let the polling
+                    // fallback continue running so it can detect completion.
+                    if (streamCompleted && !controller.signal.aborted) {
+                        finish()
+                    }
                 }
-            }
-        })()
+            })()
 
         // Polling failsafe: if SSE fails or is slow, periodically
         // check the DB for the completed message
@@ -524,7 +524,7 @@ export function AgentSessionContent() {
                                             <Button title="Contexte de la session">
                                                 <ButtonOutlineContent
                                                     leftIcon={<IconNotebook />}
-                                                    // text="Contexte"
+                                                // text="Contexte"
                                                 />
                                             </Button>
                                         </Popover.Trigger>
@@ -597,9 +597,9 @@ export function AgentSessionContent() {
                                                             yearsData === undefined
                                                                 ? []
                                                                 : yearsData.map((year) => ({
-                                                                      key: year.id,
-                                                                      label: year.label,
-                                                                  }))
+                                                                    key: year.id,
+                                                                    label: year.label,
+                                                                }))
                                                         }
                                                     />
                                                 </div>
@@ -660,10 +660,10 @@ export function AgentSessionContent() {
                                         />
                                     </Button>
                                 </div>
-                                <DeleteConfirmation
+                                <ConfirmationModal
                                     title="Voulez-vous supprimer cette session ?"
                                     description="Cette action supprimera définitivement la conversation et son historique. Cette action est irréversible."
-                                    submitText="Supprimer la session"
+                                    submitButtonProps={{ color: "danger", text: "Supprimer la session" }}
                                     onSubmit={handleDeleteSession}
                                     open={deleteOpen}
                                     onOpenChange={setDeleteOpen}

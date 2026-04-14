@@ -5,7 +5,7 @@ import { IconPencil, IconTrash } from "@tabler/icons-react"
 import { type ReactElement, useState } from "react"
 import type * as v from "valibot"
 import { ContextMenu } from "../../../../components/overlays/contextMenu/contextMenu.js"
-import { DeleteConfirmation } from "../../../../components/overlays/dialog/deleteConfirmation.js"
+import { ConfirmationModal } from "../../../../components/overlays/dialog/confirmationModal.js"
 import { Drawer } from "../../../../components/overlays/drawer/drawer.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
@@ -74,7 +74,7 @@ export function FolderContextMenu(props: {
             </Drawer.Root>
 
             {/* Delete dialog (controlled externally) */}
-            <DeleteConfirmation
+            <ConfirmationModal
                 title="Voulez-vous supprimer ce dossier ?"
                 description={
                     <>
@@ -85,7 +85,7 @@ export function FolderContextMenu(props: {
                         Cette action est irréversible.
                     </>
                 }
-                submitText="Supprimer le dossier"
+                submitButtonProps={{ color: "danger", text: "Supprimer le dossier" }}
                 onSubmit={handleDelete}
                 open={deleteOpen}
                 onOpenChange={setDeleteOpen}

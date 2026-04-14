@@ -1,10 +1,10 @@
+import { generateId, isUsageMonthOutdated, models } from "@arrhes/application-metadata"
+import { chat, convertMessagesToModelMessages, maxIterations, toolDefinition } from "@tanstack/ai"
+import { and, asc, eq, sql } from "drizzle-orm"
 import { ContextClients } from "#src/clients/contextClients.js"
 import { ContextEnv } from "#src/utilities/contextEnv.js"
 import { getObject } from "#src/utilities/storage/getObject.js"
 import { putObject } from "#src/utilities/storage/putObject.js"
-import { generateId, isUsageMonthOutdated, models } from "@arrhes/application-metadata"
-import { chat, convertMessagesToModelMessages, maxIterations, toolDefinition } from "@tanstack/ai"
-import { and, asc, eq, sql } from "drizzle-orm"
 import { buildWorkerTools, type ToolResultStore } from "./buildWorkerTools.js"
 import { getAdapter } from "./provider.js"
 import { buildSystemPrompt } from "./systemPrompt.js"
@@ -355,7 +355,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
     const arrayTool = toolDefinition({
         name: "process_array",
         description:
-            "Traiter un tableau de données retourné par un outil précédent. Référence le résultat d'un outil via son nom (source_tool). Utilise cet outil pour compter, trier, filtrer ou extraire des éléments.",
+            "Traiter une liste de données retourné par un outil précédent. Référence le résultat d'un outil via son nom (source_tool). Utilise cet outil pour compter, trier, filtrer ou extraire des éléments.",
         inputSchema: {
             type: "object",
             properties: {

@@ -6,7 +6,7 @@ import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { toast } from "@arrhes/ui"
 import type { ComponentPropsWithRef, ReactElement } from "react"
 import type * as v from "valibot"
-import { DeleteConfirmation } from "../../../../components/overlays/dialog/deleteConfirmation.tsx"
+import { ConfirmationModal } from "../../../../components/overlays/dialog/confirmationModal.tsx"
 import { applicationRouter } from "../../../../routes/applicationRouter.tsx"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
@@ -16,7 +16,7 @@ export function DeleteOneOrganization(props: {
     children: ReactElement<ComponentPropsWithRef<"div">>
 }) {
     return (
-        <DeleteConfirmation
+        <ConfirmationModal
             title="Voulez-vous supprimer cette organisation ?"
             description={
                 <>
@@ -25,7 +25,7 @@ export function DeleteOneOrganization(props: {
                     Cette action est irréversible.
                 </>
             }
-            submitText="Supprimer l'organisation"
+            submitButtonProps={{ color: "danger", text: "Supprimer l'organisation" }}
             onSubmit={async () => {
                 const deleteResponse = await getResponseBodyFromAPI({
                     routeDefinition: deleteOneOrganizationRouteDefinition,
@@ -48,6 +48,6 @@ export function DeleteOneOrganization(props: {
             }}
         >
             {props.children}
-        </DeleteConfirmation>
+        </ConfirmationModal>
     )
 }

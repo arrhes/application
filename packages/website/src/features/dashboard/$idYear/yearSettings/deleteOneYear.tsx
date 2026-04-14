@@ -3,7 +3,7 @@ import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { toast } from "@arrhes/ui"
 import type { ComponentPropsWithRef, ReactElement } from "react"
 import type * as v from "valibot"
-import { DeleteConfirmation } from "../../../../components/overlays/dialog/deleteConfirmation.tsx"
+import { ConfirmationModal } from "../../../../components/overlays/dialog/confirmationModal.tsx"
 import { applicationRouter } from "../../../../routes/applicationRouter.tsx"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
@@ -41,7 +41,7 @@ export function DeleteOneYear(props: {
     }
 
     return (
-        <DeleteConfirmation
+        <ConfirmationModal
             title="Voulez-vous supprimer cet exercice ?"
             description={
                 <>
@@ -50,10 +50,10 @@ export function DeleteOneYear(props: {
                     Cette action est irréversible.
                 </>
             }
-            submitText="Supprimer l'exercice"
+            submitButtonProps={{ color: "danger", text: "Supprimer l'exercice" }}
             onSubmit={onSubmit}
         >
             {props.children}
-        </DeleteConfirmation>
+        </ConfirmationModal>
     )
 }

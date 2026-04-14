@@ -3,7 +3,7 @@ import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { toast } from "@arrhes/ui"
 import type { ComponentPropsWithRef, ReactElement } from "react"
 import type * as v from "valibot"
-import { DeleteConfirmation } from "../../../../../components/overlays/dialog/deleteConfirmation.tsx"
+import { ConfirmationModal } from "../../../../../components/overlays/dialog/confirmationModal.tsx"
 import { applicationRouter } from "../../../../../routes/applicationRouter.tsx"
 import { getResponseBodyFromAPI } from "../../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../../utilities/invalidateData.ts"
@@ -46,7 +46,7 @@ export function DeleteOneFile(props: {
     }
 
     return (
-        <DeleteConfirmation
+        <ConfirmationModal
             title="Voulez-vous supprimer ce fichier ?"
             description={
                 <>
@@ -55,10 +55,10 @@ export function DeleteOneFile(props: {
                     Cette action est irréversible.
                 </>
             }
-            submitText="Supprimer le fichier"
+            submitButtonProps={{ color: "danger", text: "Supprimer le fichier" }}
             onSubmit={onSubmit}
         >
             {props.children}
-        </DeleteConfirmation>
+        </ConfirmationModal>
     )
 }

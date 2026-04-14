@@ -5,7 +5,7 @@ import { IconEye, IconPencil, IconTrash } from "@tabler/icons-react"
 import { type ReactElement, useState } from "react"
 import type * as v from "valibot"
 import { ContextMenu } from "../../../../components/overlays/contextMenu/contextMenu.js"
-import { DeleteConfirmation } from "../../../../components/overlays/dialog/deleteConfirmation.js"
+import { ConfirmationModal } from "../../../../components/overlays/dialog/confirmationModal.js"
 import { Drawer } from "../../../../components/overlays/drawer/drawer.js"
 import { applicationRouter } from "../../../../routes/applicationRouter.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
@@ -90,7 +90,7 @@ export function FileContextMenu(props: {
             </Drawer.Root>
 
             {/* Delete dialog (controlled externally) */}
-            <DeleteConfirmation
+            <ConfirmationModal
                 title="Voulez-vous supprimer ce fichier ?"
                 description={
                     <>
@@ -99,7 +99,7 @@ export function FileContextMenu(props: {
                         Cette action est irréversible.
                     </>
                 }
-                submitText="Supprimer le fichier"
+                submitButtonProps={{ color: "danger", text: "Supprimer le fichier" }}
                 onSubmit={handleDelete}
                 open={deleteOpen}
                 onOpenChange={setDeleteOpen}

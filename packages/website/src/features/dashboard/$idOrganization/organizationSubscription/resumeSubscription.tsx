@@ -1,40 +1,38 @@
 import {
-    cancelSubscriptionRouteDefinition,
+    createFirstPaymentRouteDefinition,
     readOrganizationSubscriptionRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import { ButtonOutlineContent, toast } from "@arrhes/ui"
-import { IconPlayerPause } from "@tabler/icons-react"
+import { IconPlayerPlay } from "@tabler/icons-react"
 import { ConfirmationModal } from "../../../../components/overlays/dialog/confirmationModal.tsx"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
 
-export function CancelSubscription(_props: { idOrganization: string }) {
+export function ResumeSubscription() {
     return (
         <ConfirmationModal
-            title="Voulez-vous mettre en pause votre abonnement ?"
+            title="Voulez-vous reprendre les paiements de votre abonnement ?"
             description={
                 <>
-                    Votre accès Premium sera maintenu jusqu'à la fin de la période en cours.
+                    Les prélèvements mensuels automatiques reprendront à partir de la prochaine échéance.
                     <br />
-                    Aucun nouveau paiement ne sera prélevé.
-                    <br />
-                    Vous pourrez vous abonner de nouveau à tout moment.
+                    Aucun nouveau paiement immédiat ne sera prélevé.
                 </>
             }
             submitButtonProps={{
-                text: "Mettre en pause l'abonnement",
-                color: "danger",
-                leftIcon: <IconPlayerPause />,
+                color: "default",
+                text: "Reprendre les paiements",
+                leftIcon: <IconPlayerPlay />,
             }}
             onSubmit={async () => {
                 const response = await getResponseBodyFromAPI({
-                    routeDefinition: cancelSubscriptionRouteDefinition,
+                    routeDefinition: createFirstPaymentRouteDefinition,
                     body: {},
                 })
 
                 if (response.ok === false) {
                     toast({
-                        title: "Erreur lors de la mise en pause de l'abonnement",
+                        title: "Erreur lors de la reprise des paiements",
                         variant: "error",
                     })
                     return
@@ -45,10 +43,10 @@ export function CancelSubscription(_props: { idOrganization: string }) {
                     body: {},
                 })
 
-                toast({ title: "Abonnement mis en pause", variant: "success" })
+                window.location.href = response.data.checkoutUrl
             }}
         >
-            <ButtonOutlineContent leftIcon={<IconPlayerPause />} text="Mettre en pause l'abonnement" color="danger" />
+            <ButtonOutlineContent leftIcon={<IconPlayerPlay />} text="Reprendre l'abonnement" />
         </ConfirmationModal>
     )
 }

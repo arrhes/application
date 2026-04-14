@@ -1,13 +1,13 @@
-import { Button, ButtonOutlineContent, ButtonPlainContent } from "@arrhes/ui"
+import { Button, type ButtonContentProps, ButtonOutlineContent, ButtonPlainContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconAlertTriangle, IconTrash } from "@tabler/icons-react"
+import { IconAlertTriangle } from "@tabler/icons-react"
 import { type ComponentPropsWithRef, type JSX, type ReactElement, useState } from "react"
 import { Dialog } from "./dialog.js"
 
-export function DeleteConfirmation(props: {
+export function ConfirmationModal(props: {
     title: string
     description: string | JSX.Element
-    submitText: string
+    submitButtonProps: ButtonContentProps
     onSubmit: () => Promise<void>
     children?: ReactElement<ComponentPropsWithRef<"div">>
     open?: boolean
@@ -16,7 +16,7 @@ export function DeleteConfirmation(props: {
     const [internalOpen, setInternalOpen] = useState(false)
     const isControlled = props.open !== undefined
     const open = isControlled ? props.open : internalOpen
-    const setOpen = isControlled ? (props.onOpenChange ?? (() => {})) : setInternalOpen
+    const setOpen = isControlled ? (props.onOpenChange ?? (() => { })) : setInternalOpen
 
     async function handleSubmit() {
         await props.onSubmit()
@@ -58,7 +58,11 @@ export function DeleteConfirmation(props: {
                             <ButtonOutlineContent text="Annuler" />
                         </Button>
                         <Button onClick={handleSubmit} hasLoader>
-                            <ButtonPlainContent leftIcon={<IconTrash />} color="danger" text={props.submitText} />
+                            <ButtonPlainContent
+                                leftIcon={props.submitButtonProps.leftIcon}
+                                color={props.submitButtonProps.color}
+                                text={props.submitButtonProps.text}
+                            />
                         </Button>
                     </Dialog.Footer>
                 </Dialog.Content>

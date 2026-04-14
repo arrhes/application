@@ -12,7 +12,7 @@ import { useState } from "react"
 import type * as v from "valibot"
 import { Dropdown } from "../../../../components/layouts/dropdownMenu/dropdown.js"
 import { LinkButton } from "../../../../components/linkButton.js"
-import { DeleteConfirmation } from "../../../../components/overlays/dialog/deleteConfirmation.js"
+import { ConfirmationModal } from "../../../../components/overlays/dialog/confirmationModal.js"
 import { Drawer } from "../../../../components/overlays/drawer/drawer.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
@@ -189,7 +189,7 @@ export function FileActions(props: {
                 </Drawer.Content>
             </Drawer.Root>
 
-            <DeleteConfirmation
+            <ConfirmationModal
                 title="Voulez-vous supprimer ce fichier ?"
                 description={
                     <>
@@ -198,7 +198,7 @@ export function FileActions(props: {
                         Cette action est irréversible.
                     </>
                 }
-                submitText="Supprimer le fichier"
+                submitButtonProps={{ color: "danger", text: "Supprimer le fichier" }}
                 onSubmit={handleDelete}
                 open={deleteOpen}
                 onOpenChange={setDeleteOpen}

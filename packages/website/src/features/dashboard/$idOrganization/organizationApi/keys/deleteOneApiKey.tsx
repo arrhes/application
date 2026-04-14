@@ -3,7 +3,7 @@ import { deleteOneApiKeyRouteDefinition, readAllApiKeysRouteDefinition } from "@
 import { toast } from "@arrhes/ui"
 import type { ComponentPropsWithRef, ReactElement } from "react"
 import type * as v from "valibot"
-import { DeleteConfirmation } from "../../../../../components/overlays/dialog/deleteConfirmation.tsx"
+import { ConfirmationModal } from "../../../../../components/overlays/dialog/confirmationModal.tsx"
 import { getResponseBodyFromAPI } from "../../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../../utilities/invalidateData.ts"
 
@@ -32,13 +32,13 @@ export function DeleteOneApiKey(props: {
     }
 
     return (
-        <DeleteConfirmation
+        <ConfirmationModal
             title="Voulez-vous supprimer cette clé API ?"
             description="Cette action est irréversible. Les applications utilisant cette clé ne pourront plus accéder à l'API."
-            submitText="Supprimer la clé"
+            submitButtonProps={{ color: "danger", text: "Supprimer la clé" }}
             onSubmit={onSubmit}
         >
             {props.children}
-        </DeleteConfirmation>
+        </ConfirmationModal>
     )
 }

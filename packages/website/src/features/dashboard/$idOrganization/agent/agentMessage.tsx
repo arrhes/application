@@ -64,6 +64,7 @@ export function AgentMessage(props: {
 
             <div
                 className={css({
+                    width: "100%",
                     flex: 1,
                     padding: "0.5rem",
                     display: "flex",

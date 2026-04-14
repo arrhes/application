@@ -6,7 +6,7 @@ import { IconDotsVertical, IconEye, IconPencil, IconTrash } from "@tabler/icons-
 import { useState } from "react"
 import type * as v from "valibot"
 import { Dropdown } from "../../../../components/layouts/dropdownMenu/dropdown.js"
-import { DeleteConfirmation } from "../../../../components/overlays/dialog/deleteConfirmation.js"
+import { ConfirmationModal } from "../../../../components/overlays/dialog/confirmationModal.js"
 import { Drawer } from "../../../../components/overlays/drawer/drawer.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
@@ -87,7 +87,7 @@ export function FolderActions(props: {
                 </Drawer.Content>
             </Drawer.Root>
 
-            <DeleteConfirmation
+            <ConfirmationModal
                 title="Voulez-vous supprimer ce dossier ?"
                 description={
                     <>
@@ -98,7 +98,7 @@ export function FolderActions(props: {
                         Cette action est irréversible.
                     </>
                 }
-                submitText="Supprimer le dossier"
+                submitButtonProps={{ color: "danger", text: "Supprimer le dossier" }}
                 onSubmit={handleDelete}
                 open={deleteOpen}
                 onOpenChange={setDeleteOpen}

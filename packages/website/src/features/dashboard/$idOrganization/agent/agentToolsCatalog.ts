@@ -276,9 +276,9 @@ export const agentToolsCatalog: AgentToolDefinition[] = [
     },
     {
         name: "process_array",
-        labelFr: "Traiter un tableau",
+        labelFr: "Traiter une liste",
         descriptionFr:
-            "Compter, trier, filtrer, extraire, rechercher, sommer ou obtenir des valeurs uniques à partir d'un tableau.",
+            "Compter, trier, filtrer, extraire, rechercher, sommer ou obtenir des valeurs uniques à partir d'une liste.",
     },
 ]
 

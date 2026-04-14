@@ -6,7 +6,7 @@ import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { toast } from "@arrhes/ui"
 import type { ComponentPropsWithRef, ReactElement } from "react"
 import type * as v from "valibot"
-import { DeleteConfirmation } from "../../../../../../components/overlays/dialog/deleteConfirmation.tsx"
+import { ConfirmationModal } from "../../../../../../components/overlays/dialog/confirmationModal.tsx"
 import { applicationRouter } from "../../../../../../routes/applicationRouter.tsx"
 import { getResponseBodyFromAPI } from "../../../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../../../utilities/invalidateData.ts"
@@ -48,7 +48,7 @@ export function DeleteOneBalanceSheet(props: {
     }
 
     return (
-        <DeleteConfirmation
+        <ConfirmationModal
             title="Voulez-vous supprimer cette ligne de bilan ?"
             description={
                 <>
@@ -57,10 +57,10 @@ export function DeleteOneBalanceSheet(props: {
                     Cette action est irréversible.
                 </>
             }
-            submitText="Supprimer la ligne de bilan"
+            submitButtonProps={{ color: "danger", text: "Supprimer la ligne de bilan" }}
             onSubmit={onSubmit}
         >
             {props.children}
-        </DeleteConfirmation>
+        </ConfirmationModal>
     )
 }
