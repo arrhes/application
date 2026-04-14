@@ -1,4 +1,5 @@
 import {
+    createOneAgentFileRouteDefinition,
     createOneAgentMessageRouteDefinition,
     deleteOneAgentSessionRouteDefinition,
     getStreamForAgentMessageRouteDefinition,
@@ -19,7 +20,15 @@ import {
     toast,
 } from "@arrhes/ui"
 import { css } from "@arrhes/ui/css"
-import { IconDotsVertical, IconNotebook, IconSend, IconTrash } from "@tabler/icons-react"
+import {
+    IconDotsVertical,
+    IconNotebook,
+    IconPaperclip,
+    IconPlus,
+    IconSend,
+    IconTrash,
+    IconX,
+} from "@tabler/icons-react"
 import { useNavigate, useParams } from "@tanstack/react-router"
 import { useCallback, useEffect, useRef, useState } from "react"
 import { DataWrapper } from "../../../../components/layouts/dataWrapper.tsx"
@@ -66,6 +75,8 @@ export function AgentSessionContent() {
     const [editInstructions, setEditInstructions] = useState<string | null | undefined>(undefined)
     const [isSavingContext, setIsSavingContext] = useState(false)
     const contextInitialisedRef = useRef(false)
+    const [pendingFiles, setPendingFiles] = useState<File[]>([])
+    const fileInputRef = useRef<HTMLInputElement>(null)
 
     const { data: yearsData } = useDataFromAPI({
         routeDefinition: readAllYearsRouteDefinition,
@@ -194,100 +205,107 @@ export function AgentSessionContent() {
             setStreamMessageId(undefined)
         }
 
-            // SSE stream
-            ; (async () => {
-                let streamCompleted = false
-                try {
-                    const headers: Record<string, string> = { "Content-Type": "application/json" }
-                    const orgCookie = getCookie(`${cookiePrefix}_id_organization`)
-                    if (orgCookie) {
-                        headers["X-Organization-Id"] = orgCookie
-                    }
+        // SSE stream
+        ;(async () => {
+            let streamCompleted = false
+            try {
+                const headers: Record<string, string> = { "Content-Type": "application/json" }
+                const orgCookie = getCookie(`${cookiePrefix}_id_organization`)
+                if (orgCookie) {
+                    headers["X-Organization-Id"] = orgCookie
+                }
 
-                    const response = await fetch(
-                        new URL(`${import.meta.env.VITE_API_BASE_URL}${getStreamForAgentMessageRouteDefinition.path}`),
-                        {
-                            method: "POST",
-                            credentials: "include",
-                            signal: controller.signal,
-                            headers,
-                            body: JSON.stringify({
-                                idOrganization: params.idOrganization,
-                                idAgentMessage: streamMessageId,
-                            }),
-                        },
-                    )
+                const response = await fetch(
+                    new URL(`${import.meta.env.VITE_API_BASE_URL}${getStreamForAgentMessageRouteDefinition.path}`),
+                    {
+                        method: "POST",
+                        credentials: "include",
+                        signal: controller.signal,
+                        headers,
+                        body: JSON.stringify({
+                            idOrganization: params.idOrganization,
+                            idAgentMessage: streamMessageId,
+                        }),
+                    },
+                )
 
-                    if (!response.ok || !response.body) {
-                        // SSE failed — polling will pick it up
-                        return
-                    }
+                if (!response.ok || !response.body) {
+                    // SSE failed — polling will pick it up
+                    return
+                }
 
-                    const reader = response.body.getReader()
-                    const decoder = new TextDecoder()
-                    let buffer = ""
+                const reader = response.body.getReader()
+                const decoder = new TextDecoder()
+                let buffer = ""
 
-                    while (true) {
-                        const { done, value } = await reader.read()
-                        if (done) break
+                while (true) {
+                    const { done, value } = await reader.read()
+                    if (done) break
 
-                        buffer += decoder.decode(value, { stream: true })
+                    buffer += decoder.decode(value, { stream: true })
 
-                        const parts = buffer.split("\n\n")
-                        buffer = parts.pop() ?? ""
+                    const parts = buffer.split("\n\n")
+                    buffer = parts.pop() ?? ""
 
-                        for (const part of parts) {
-                            for (const line of part.split("\n")) {
-                                if (!line.startsWith("data: ")) continue
-                                const jsonStr = line.slice(6).trim()
-                                if (!jsonStr) continue
+                    for (const part of parts) {
+                        for (const line of part.split("\n")) {
+                            if (!line.startsWith("data: ")) continue
+                            const jsonStr = line.slice(6).trim()
+                            if (!jsonStr) continue
 
-                                try {
-                                    const chunk = JSON.parse(jsonStr)
-                                    if (chunk.type === "TEXT_MESSAGE_CONTENT" && typeof chunk.delta === "string") {
-                                        accumulated += chunk.delta
-                                        setStreamingContent(accumulated)
-                                    }
-                                    if (chunk.type === "TOOL_CALL_START") {
-                                        // Emit text boundary if text accumulated since last boundary
-                                        if (accumulated.length > lastBoundaryLen) {
-                                            accumulatedToolCalls.push({
-                                                type: "TEXT_BOUNDARY",
-                                                contentLength: accumulated.length,
-                                            })
-                                            lastBoundaryLen = accumulated.length
-                                        }
-                                        accumulatedToolCalls.push(chunk)
-                                        setStreamingToolCalls([...accumulatedToolCalls])
-                                    }
-                                    if (chunk.type === "TOOL_CALL_END") {
-                                        // Deduplicate: framework re-emits TOOL_CALL_END after RUN_FINISHED
-                                        const tcId = chunk.toolCallId as string | undefined
-                                        if (tcId && seenEnds.has(tcId)) continue
-                                        if (tcId) seenEnds.add(tcId)
-                                        accumulatedToolCalls.push(chunk)
-                                        setStreamingToolCalls([...accumulatedToolCalls])
-                                    }
-                                } catch {
-                                    // ignore malformed chunks
+                            try {
+                                const chunk = JSON.parse(jsonStr)
+                                if (chunk.type === "TEXT_MESSAGE_CONTENT" && typeof chunk.delta === "string") {
+                                    accumulated += chunk.delta
+                                    setStreamingContent(accumulated)
                                 }
+                                if (chunk.type === "TOOL_CALL_START") {
+                                    // Emit text boundary if text accumulated since last boundary
+                                    if (accumulated.length > lastBoundaryLen) {
+                                        accumulatedToolCalls.push({
+                                            type: "TEXT_BOUNDARY",
+                                            contentLength: accumulated.length,
+                                        })
+                                        lastBoundaryLen = accumulated.length
+                                    }
+                                    accumulatedToolCalls.push(chunk)
+                                    setStreamingToolCalls([...accumulatedToolCalls])
+                                }
+                                if (chunk.type === "CONTEXT_LIMIT_WARNING") {
+                                    toast({
+                                        title: "La conversation approche de sa limite de contexte",
+                                        description: `${chunk.usage}% de la capacité utilisée. Envisagez de créer une nouvelle session.`,
+                                        variant: "warning",
+                                    })
+                                }
+                                if (chunk.type === "TOOL_CALL_END") {
+                                    // Deduplicate: framework re-emits TOOL_CALL_END after RUN_FINISHED
+                                    const tcId = chunk.toolCallId as string | undefined
+                                    if (tcId && seenEnds.has(tcId)) continue
+                                    if (tcId) seenEnds.add(tcId)
+                                    accumulatedToolCalls.push(chunk)
+                                    setStreamingToolCalls([...accumulatedToolCalls])
+                                }
+                            } catch {
+                                // ignore malformed chunks
                             }
                         }
                     }
-
-                    streamCompleted = true
-                } catch (err: unknown) {
-                    if (err instanceof Error && err.name === "AbortError") return
-                    console.error("[stream] SSE error — falling back to polling", err)
-                } finally {
-                    // Only finish when the stream completed naturally.
-                    // If the SSE failed (network/auth error), let the polling
-                    // fallback continue running so it can detect completion.
-                    if (streamCompleted && !controller.signal.aborted) {
-                        finish()
-                    }
                 }
-            })()
+
+                streamCompleted = true
+            } catch (err: unknown) {
+                if (err instanceof Error && err.name === "AbortError") return
+                console.error("[stream] SSE error — falling back to polling", err)
+            } finally {
+                // Only finish when the stream completed naturally.
+                // If the SSE failed (network/auth error), let the polling
+                // fallback continue running so it can detect completion.
+                if (streamCompleted && !controller.signal.aborted) {
+                    finish()
+                }
+            }
+        })()
 
         // Polling failsafe: if SSE fails or is slow, periodically
         // check the DB for the completed message
@@ -323,31 +341,63 @@ export function AgentSessionContent() {
             setIsSending(true)
 
             try {
+                // Upload pending files
+                const fileIds: string[] = []
+                const filesToUpload = [...pendingFiles]
+                setPendingFiles([])
+
+                for (const file of filesToUpload) {
+                    const hashBuffer = await crypto.subtle.digest("SHA-256", await file.arrayBuffer())
+                    const fileHash = Array.from(new Uint8Array(hashBuffer))
+                        .map((b) => b.toString(16).padStart(2, "0"))
+                        .join("")
+
+                    const createFileResponse = await getResponseBodyFromAPI({
+                        routeDefinition: createOneAgentFileRouteDefinition,
+                        body: {
+                            idOrganization: params.idOrganization,
+                            idAgentSession: params.idAgentSession,
+                            fileName: file.name,
+                            fileType: file.type || "application/octet-stream",
+                            fileSize: file.size,
+                            fileHash,
+                        },
+                    })
+
+                    if (createFileResponse.ok === false) {
+                        toast({ title: `Impossible d'importer ${file.name}`, variant: "error" })
+                        continue
+                    }
+
+                    // url is null when a duplicate was found — no upload needed
+                    if (createFileResponse.data.url) {
+                        const uploadResponse = await fetch(createFileResponse.data.url, {
+                            method: "PUT",
+                            headers: { "Content-Type": file.type || "application/octet-stream" },
+                            body: file,
+                        })
+
+                        if (!uploadResponse.ok) {
+                            toast({ title: `Échec de l'envoi de ${file.name}`, variant: "error" })
+                            continue
+                        }
+                    }
+
+                    fileIds.push(createFileResponse.data.file.id)
+                }
+
                 const result = await getResponseBodyFromAPI({
                     routeDefinition: createOneAgentMessageRouteDefinition,
                     body: {
                         idOrganization: params.idOrganization,
                         idAgentSession: params.idAgentSession,
                         message: text.trim(),
-                        // messages: [
-                        //     {
-                        //         id: tempUserMessage.id,
-                        //         role: "user",
-                        //         parts: [{ type: "text", content: text.trim() }],
-                        //     },
-                        // ],
-                        // data: {
-                        //     idOrganization: params.idOrganization,
-                        //     idAgentSession: effectiveSessionId ?? null,
-                        //     idYear: selectedYear?.id ?? null,
-                        //     yearLabel: selectedYear?.label ?? null,
-                        //     customInstructions: customInstructions.trim() || null,
-                        // },
+                        fileIds: fileIds.length > 0 ? fileIds : null,
                     },
                 })
 
                 if (!result.ok || !result.data) {
-                    console.error("[sendMessageToWorker] Failed", result.error)
+                    toast({ title: "Impossible de créer le message", variant: "error" })
                     return
                 }
 
@@ -364,11 +414,14 @@ export function AgentSessionContent() {
                     body: { idAgentSession: params.idAgentSession },
                 })
                 scrollToBottom()
+            } catch (error) {
+                console.error("[sendMessageToWorker]", error)
+                toast({ title: "Une erreur est survenue lors de l'envoi du message", variant: "error" })
             } finally {
                 setIsSending(false)
             }
         },
-        [isSending, params.idOrganization, params.idAgentSession, scrollToBottom],
+        [isSending, pendingFiles, params.idOrganization, params.idAgentSession, scrollToBottom],
     )
 
     const [_historyIndex, setHistoryIndex] = useState(-1)
@@ -494,6 +547,20 @@ export function AgentSessionContent() {
                                     disabled={isSubmitting}
                                     className={css({ flex: 1 })}
                                 />
+                                <input
+                                    ref={fileInputRef}
+                                    type="file"
+                                    multiple
+                                    style={{ display: "none" }}
+                                    accept="text/*,application/pdf,application/json,application/xml,application/csv,image/*"
+                                    onChange={(event) => {
+                                        const files = event.target.files
+                                        if (files && files.length > 0) {
+                                            setPendingFiles((prev) => [...prev, ...Array.from(files)])
+                                        }
+                                        event.target.value = ""
+                                    }}
+                                />
                                 <div
                                     className={css({
                                         display: "flex",
@@ -524,7 +591,7 @@ export function AgentSessionContent() {
                                             <Button title="Contexte de la session">
                                                 <ButtonOutlineContent
                                                     leftIcon={<IconNotebook />}
-                                                // text="Contexte"
+                                                    // text="Contexte"
                                                 />
                                             </Button>
                                         </Popover.Trigger>
@@ -597,9 +664,9 @@ export function AgentSessionContent() {
                                                             yearsData === undefined
                                                                 ? []
                                                                 : yearsData.map((year) => ({
-                                                                    key: year.id,
-                                                                    label: year.label,
-                                                                }))
+                                                                      key: year.id,
+                                                                      label: year.label,
+                                                                  }))
                                                         }
                                                     />
                                                 </div>
@@ -634,6 +701,114 @@ export function AgentSessionContent() {
 
                                             <Button onClick={handleSaveContext} isDisabled={isSavingContext}>
                                                 <ButtonPlainContent isLoading={isSavingContext} text="Enregistrer" />
+                                            </Button>
+                                        </Popover.Content>
+                                    </Popover.Root>
+                                    <Popover.Root>
+                                        <Popover.Trigger asChild>
+                                            <Button title="Fichiers joints">
+                                                <ButtonOutlineContent
+                                                    leftIcon={<IconPaperclip />}
+                                                    text={
+                                                        pendingFiles.length > 0
+                                                            ? String(pendingFiles.length)
+                                                            : undefined
+                                                    }
+                                                />
+                                            </Button>
+                                        </Popover.Trigger>
+                                        <Popover.Content
+                                            side="top"
+                                            align="end"
+                                            className={css({
+                                                width: "280px",
+                                                maxWidth: "calc(100vw - 2rem)",
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                gap: "0.5rem",
+                                                padding: "0.75rem",
+                                            })}
+                                        >
+                                            <span
+                                                className={css({
+                                                    fontSize: "sm",
+                                                    fontWeight: "medium",
+                                                    color: "neutral",
+                                                })}
+                                            >
+                                                Fichiers joints
+                                            </span>
+                                            {pendingFiles.length === 0 ? (
+                                                <span className={css({ fontSize: "xs", color: "neutral/50" })}>
+                                                    Aucun fichier ajouté.
+                                                </span>
+                                            ) : (
+                                                <div
+                                                    className={css({
+                                                        display: "flex",
+                                                        flexDirection: "column",
+                                                        gap: "0.25rem",
+                                                    })}
+                                                >
+                                                    {pendingFiles.map((file, index) => (
+                                                        <div
+                                                            key={`${file.name}-${index}`}
+                                                            className={css({
+                                                                display: "flex",
+                                                                alignItems: "center",
+                                                                gap: "0.375rem",
+                                                                fontSize: "xs",
+                                                                color: "neutral",
+                                                                padding: "0.25rem 0",
+                                                            })}
+                                                        >
+                                                            <IconPaperclip
+                                                                size={12}
+                                                                className={css({ flexShrink: 0, color: "neutral/50" })}
+                                                            />
+                                                            <span
+                                                                className={css({
+                                                                    flex: 1,
+                                                                    overflow: "hidden",
+                                                                    textOverflow: "ellipsis",
+                                                                    whiteSpace: "nowrap",
+                                                                })}
+                                                            >
+                                                                {file.name}
+                                                            </span>
+                                                            <button
+                                                                type="button"
+                                                                onClick={() =>
+                                                                    setPendingFiles((prev) =>
+                                                                        prev.filter((_, i) => i !== index),
+                                                                    )
+                                                                }
+                                                                className={css({
+                                                                    display: "inline-flex",
+                                                                    alignItems: "center",
+                                                                    cursor: "pointer",
+                                                                    color: "neutral/40",
+                                                                    _hover: { color: "danger" },
+                                                                    background: "none",
+                                                                    border: "none",
+                                                                    padding: 0,
+                                                                    flexShrink: 0,
+                                                                })}
+                                                            >
+                                                                <IconX size={14} />
+                                                            </button>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+                                            <Button
+                                                onClick={() => fileInputRef.current?.click()}
+                                                isDisabled={isSubmitting}
+                                            >
+                                                <ButtonOutlineContent
+                                                    leftIcon={<IconPlus size={16} />}
+                                                    text="Ajouter un fichier"
+                                                />
                                             </Button>
                                         </Popover.Content>
                                     </Popover.Root>

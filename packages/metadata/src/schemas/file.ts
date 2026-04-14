@@ -14,6 +14,7 @@ export const fileSchema = v.object({
     storageKey: v.nullable(stringSchema),
     type: v.nullable(stringSchema),
     size: v.nullable(integerSchema),
+    hash: v.nullable(stringSchema),
     createdAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),
     lastUpdatedAt: v.nullable(dateTimeSchema),
     createdBy: v.nullable(idSchema),
@@ -32,6 +33,7 @@ export const fileSchemaReturn = v.pick(fileSchema, [
     "size",
     "createdAt",
     "lastUpdatedAt",
+    "hash",
     "createdBy",
     "lastUpdatedBy",
 ])

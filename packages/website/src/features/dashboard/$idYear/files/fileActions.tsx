@@ -34,8 +34,7 @@ export function FileActions(props: {
         body: {},
     })
     const isPremium = subscription.data?.isPremium === true
-    const isOcrSupportedType =
-        props.file.type === "application/pdf" || (props.file.type?.startsWith("image/") ?? false)
+    const isOcrSupportedType = props.file.type === "application/pdf" || (props.file.type?.startsWith("image/") ?? false)
 
     async function handleDelete() {
         const deleteResponse = await getResponseBodyFromAPI({

@@ -104,4 +104,3 @@ export { readAllTagsRouteDefinition } from "./years/$idYear/yearSettings/tags/re
 // years
 export { createOneYearRouteDefinition } from "./years/createOneYear.js"
 export { readAllYearsRouteDefinition } from "./years/readAllYears.js"
-

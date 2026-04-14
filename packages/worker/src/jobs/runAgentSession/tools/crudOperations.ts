@@ -101,7 +101,19 @@ export async function createOneEntryFromTemplate(db: DB, idOrganization: string,
 export async function createOneEntryLine(db: DB, _idOrganization: string, body: Record<string, unknown>) {
     const rows = await db
         .insert(models.entryLine)
-        .values({ id: generateId(), ...body, createdAt: now() } as any)
+        .values({
+            id: generateId(),
+            ...body,
+            // Default boolean flags to true — the LLM should not need to know about these
+            isComputedForJournalReport: body.isComputedForJournalReport ?? true,
+            isComputedForLedgerReport: body.isComputedForLedgerReport ?? true,
+            isComputedForBalanceReport: body.isComputedForBalanceReport ?? true,
+            isComputedForBalanceSheetReport: body.isComputedForBalanceSheetReport ?? true,
+            isComputedForIncomeStatementReport: body.isComputedForIncomeStatementReport ?? true,
+            debit: body.debit ?? "0",
+            credit: body.credit ?? "0",
+            createdAt: now(),
+        } as any)
         .returning()
     return rows.at(0) ?? { error: "Not created" }
 }

@@ -2,7 +2,7 @@ import {
     readAllAgentSessionsRouteDefinition,
     readOrganizationSubscriptionRouteDefinition,
 } from "@arrhes/application-metadata/routes"
-import { Button, ButtonGhostContent, ButtonOutlineContent, formatDateTime } from "@arrhes/ui"
+import { Button, ButtonGhostContent, ButtonOutlineContent, formatDateTime, LinkButton } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconMenu, IconPlus } from "@tabler/icons-react"
 import { Outlet, useNavigate, useParams } from "@tanstack/react-router"
@@ -42,14 +42,6 @@ export function AgentLayout() {
     })
 
     const displaySessions = sessions ?? []
-
-    function handleSelectSession(idAgentSession: string) {
-        setActiveSessionId(undefined)
-        navigate({
-            to: "/dashboard/organisations/$idOrganization/agent/sessions/$idAgentSession",
-            params: { idOrganization: params.idOrganization, idAgentSession },
-        })
-    }
 
     const sidebarContent = (
         <div
@@ -108,7 +100,11 @@ export function AgentLayout() {
                                 : undefined
 
                         return (
-                            <Button key={session.id} onClick={() => handleSelectSession(session.id)}>
+                            <LinkButton
+                                key={session.id}
+                                to="/dashboard/organisations/$idOrganization/agent/sessions/$idAgentSession"
+                                params={{ idOrganization: params.idOrganization, idAgentSession: session.id }}
+                            >
                                 <div
                                     className={css({
                                         display: "flex",
@@ -167,7 +163,7 @@ export function AgentLayout() {
                                         </span>
                                     )}
                                 </div>
-                            </Button>
+                            </LinkButton>
                         )
                     })}
                 </div>

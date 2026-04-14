@@ -16,8 +16,8 @@ export function OcrAiDocPage() {
 
             <DocSection title="Présentation">
                 <DocParagraph>
-                    La fonctionnalité OCR permet d'extraire automatiquement le texte depuis un document source
-                    (image ou PDF) et de créer un nouveau fichier au format Markdown dans votre espace de stockage.
+                    La fonctionnalité OCR permet d'extraire automatiquement le texte depuis un document source (image ou
+                    PDF) et de créer un nouveau fichier au format Markdown dans votre espace de stockage.
                 </DocParagraph>
                 <DocParagraph>
                     L'OCR est disponible depuis l'interface de stockage et via l'outil assistant <code>ocr_file</code>.

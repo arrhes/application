@@ -5,6 +5,7 @@ import { ContextClients } from "#src/clients/contextClients.js"
 import { ContextEnv } from "#src/utilities/contextEnv.js"
 import { getObject } from "#src/utilities/storage/getObject.js"
 import { putObject } from "#src/utilities/storage/putObject.js"
+import { tokenLimit } from "#src/utilities/variables.js"
 import { buildWorkerTools, type ToolResultStore } from "./buildWorkerTools.js"
 import { getAdapter } from "./provider.js"
 import { buildSystemPrompt } from "./systemPrompt.js"
@@ -532,8 +533,9 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                     storage_current_usage = storage_current_usage + ${markdownBuffer.length},
                     usage_month_start_at = ${monthStartISO},
                     ocr_current_month_pages_usage = ${currentMonthPagesUsage + extractedPagesCount},
-                    agent_messages_current_month_usage = ${shouldResetUsageCounters ? 0 : organization.agentMessagesCurrentMonthUsage
-                }
+                    agent_messages_current_month_usage = ${
+                        shouldResetUsageCounters ? 0 : organization.agentMessagesCurrentMonthUsage
+                    }
                 WHERE id = ${idOrganization}
             `)
 
@@ -545,9 +547,108 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
     })
     tools.push(ocrTool)
 
+    // Load file context from all messages' attachedFiles
+    const MAX_FILE_CONTEXT_CHARACTERS = 32_000
+    let fileContext: string | undefined
+    let fileContextTruncated = false
+
+    const allAttachedFiles: Array<{ idFile: string; name: string; mimeType: string; idOcrFile: string | null }> = []
+    for (const m of historyRows) {
+        if (m.attachedFiles && Array.isArray(m.attachedFiles)) {
+            for (const f of m.attachedFiles as Array<{
+                idFile: string
+                name: string
+                mimeType: string
+                idOcrFile: string | null
+            }>) {
+                // Deduplicate by idFile
+                if (!allAttachedFiles.some((af) => af.idFile === f.idFile)) {
+                    allAttachedFiles.push(f)
+                }
+            }
+        }
+    }
+
+    console.log(
+        `[runAgentSession] Found ${allAttachedFiles.length} attached files across ${historyRows.length} messages`,
+    )
+
+    if (allAttachedFiles.length > 0) {
+        const fileContextParts: string[] = []
+        const failedFiles: string[] = []
+        let totalLength = 0
+
+        for (const attachedFile of allAttachedFiles) {
+            // Pick the file to read: OCR result for PDF/images, original for text
+            const fileIdToRead = attachedFile.idOcrFile ?? attachedFile.idFile
+            console.log(
+                `[runAgentSession] Reading file "${attachedFile.name}" (fileId=${fileIdToRead}, ocr=${!!attachedFile.idOcrFile})`,
+            )
+
+            const fileRows = await db.select().from(models.file).where(eq(models.file.id, fileIdToRead)).limit(1)
+            const file = fileRows.at(0)
+            if (!file?.storageKey) {
+                console.warn(`[runAgentSession] File record not found or no storageKey for id=${fileIdToRead}`)
+                failedFiles.push(attachedFile.name)
+                continue
+            }
+
+            try {
+                const storageResponse = await getObject({ storageKey: file.storageKey })
+                const body = await storageResponse.Body?.transformToString("utf-8")
+                if (!body) {
+                    console.warn(
+                        `[runAgentSession] Empty body for file "${attachedFile.name}" (storageKey=${file.storageKey})`,
+                    )
+                    failedFiles.push(attachedFile.name)
+                    continue
+                }
+
+                const remainingBudget = MAX_FILE_CONTEXT_CHARACTERS - totalLength
+                if (remainingBudget <= 0) {
+                    fileContextTruncated = true
+                    break
+                }
+
+                let content = body
+                if (content.length > remainingBudget) {
+                    content = `${content.slice(0, remainingBudget)}\n\n[...contenu tronqué]`
+                    fileContextTruncated = true
+                }
+
+                fileContextParts.push(`### ${attachedFile.name} (idFile: ${attachedFile.idFile})\n\n${content}`)
+                totalLength += content.length
+                console.log(`[runAgentSession] File "${attachedFile.name}" loaded: ${content.length} chars`)
+            } catch (error) {
+                console.error(
+                    `[runAgentSession] Failed to read file "${attachedFile.name}" (storageKey=${file.storageKey}):`,
+                    error,
+                )
+                failedFiles.push(attachedFile.name)
+            }
+        }
+
+        if (fileContextParts.length > 0) {
+            fileContext = fileContextParts.join("\n\n---\n\n")
+            if (fileContextTruncated) {
+                fileContext +=
+                    "\n\n> **Note :** Le contenu des fichiers importés a été tronqué car il dépasse la limite de contexte. Les fichiers les plus anciens sont prioritaires."
+            }
+            if (failedFiles.length > 0) {
+                fileContext += `\n\n> **Note :** Certains fichiers n'ont pas pu être lus : ${failedFiles.join(", ")}.`
+            }
+        } else if (failedFiles.length > 0) {
+            // All files failed to read — still tell the LLM they were attached
+            fileContext = `Les fichiers suivants ont été importés par l'utilisateur mais leur contenu n'a pas pu être lu : ${failedFiles.join(", ")}. Informe l'utilisateur qu'une erreur s'est produite lors de la lecture de ses fichiers.`
+        }
+    }
+
+    console.log(`[runAgentSession] fileContext: ${fileContext ? `${fileContext.length} chars` : "none"}`)
+
     const systemPrompt = buildSystemPrompt({
         idYear: idYear ?? undefined,
         customInstructions: customInstructions ?? undefined,
+        fileContext,
     })
 
     const adapter = getAdapter()
@@ -555,11 +656,61 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
     const modelMessages = convertMessagesToModelMessages(uiMessages as any)
     console.log(`[runAgentSession] modelMessages count: ${modelMessages.length}, tools count: ${tools.length}`)
 
+    // Estimate token usage and warn if approaching the limit
+    const estimatedChars = systemPrompt.length + JSON.stringify(modelMessages).length
+    const estimatedTokens = Math.ceil(estimatedChars / 4)
+    const contextUsageRatio = estimatedTokens / tokenLimit
+    console.log(
+        `[runAgentSession] Estimated tokens: ${estimatedTokens}/${tokenLimit} (${Math.round(contextUsageRatio * 100)}%)`,
+    )
+
+    if (contextUsageRatio >= 0.8) {
+        await redis.publish(
+            streamKey,
+            JSON.stringify({
+                type: "CONTEXT_LIMIT_WARNING",
+                estimatedTokens,
+                tokenLimit,
+                usage: Math.round(contextUsageRatio * 100),
+            }),
+        )
+    }
+
     let accumulatedContent = ""
     const accumulatedToolCalls: unknown[] = []
     const usedToolNames = new Set<string>()
     let lastBoundaryContentLength = 0
     let runError: string | null = null
+
+    // Periodic checkpoint: flush partial content to DB so page reloads
+    // can show already-generated text instead of "..."
+    let lastCheckpointLength = 0
+    let lastCheckpointTime = Date.now()
+    const CHECKPOINT_MIN_CHARS = 200
+    const CHECKPOINT_INTERVAL_MS = 3000
+
+    const maybeCheckpoint = () => {
+        const charsSinceCheckpoint = accumulatedContent.length - lastCheckpointLength
+        const msSinceCheckpoint = Date.now() - lastCheckpointTime
+        if (
+            charsSinceCheckpoint >= CHECKPOINT_MIN_CHARS ||
+            (charsSinceCheckpoint > 0 && msSinceCheckpoint >= CHECKPOINT_INTERVAL_MS)
+        ) {
+            const contentSnapshot = accumulatedContent
+            const toolCallsSnapshot = accumulatedToolCalls.length > 0 ? [...accumulatedToolCalls] : null
+            lastCheckpointLength = accumulatedContent.length
+            lastCheckpointTime = Date.now()
+            // Fire-and-forget — non-critical, don't block the stream
+            db.update(models.agentMessage)
+                .set({
+                    content: contentSnapshot || null,
+                    toolCalls: toolCallsSnapshot,
+                    usedTools: usedToolNames.size > 0 ? [...usedToolNames] : null,
+                })
+                .where(eq(models.agentMessage.id, idAgentMessage))
+                .catch(() => {})
+        }
+    }
 
     try {
         console.log("[runAgentSession] Starting chat() stream")
@@ -583,8 +734,9 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
             }
 
             // Accumulate content for final DB persist
-            if (chunk.type === "TEXT_MESSAGE_CONTENT" && "delta" in chunk) {
-                accumulatedContent += (chunk as any).delta ?? ""
+            if (chunk.type === "TEXT_MESSAGE_CONTENT" && "delta" in chunk && typeof (chunk as any).delta === "string") {
+                accumulatedContent += (chunk as any).delta
+                maybeCheckpoint()
             }
             if (chunk.type === "TOOL_CALL_START" && "toolName" in chunk) {
                 // Emit text boundary if text has been accumulated since the last boundary
@@ -597,6 +749,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
             if (chunk.type === "TOOL_CALL_END" && "toolName" in chunk) {
                 usedToolNames.add((chunk as any).toolName)
                 accumulatedToolCalls.push(chunk)
+                maybeCheckpoint()
             }
         }
 

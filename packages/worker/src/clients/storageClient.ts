@@ -11,6 +11,7 @@ export function storageClient() {
                 secretAccessKey: ContextEnv.STORAGE_SECRET_KEY,
             },
             region: "fr-par",
+            forcePathStyle: true,
         })
         return storageClient
     } catch (error) {

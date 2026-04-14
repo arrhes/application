@@ -1,4 +1,5 @@
 import {
+    createOneAgentFileRouteDefinition,
     createOneAgentMessageRouteDefinition,
     createOneAgentSessionRouteDefinition,
     readAllAgentSessionsRouteDefinition,
@@ -6,7 +7,7 @@ import {
 } from "@arrhes/application-metadata"
 import { Button, ButtonOutlineContent, ButtonPlainContent, InputSelect, InputTextArea, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconNotebook, IconSend } from "@tabler/icons-react"
+import { IconNotebook, IconPaperclip, IconPlus, IconSend, IconX } from "@tabler/icons-react"
 import { Link, useNavigate, useParams } from "@tanstack/react-router"
 import type { KeyboardEvent } from "react"
 import { useEffect, useRef, useState } from "react"
@@ -37,6 +38,8 @@ export function AgentPage() {
     // Auto-select if only one year exists
     const [selectedYearId, setSelectedYearId] = useState<string | undefined>(undefined)
     const [customInstructions, setCustomInstructions] = useState("")
+    const [pendingFiles, setPendingFiles] = useState<File[]>([])
+    const fileInputRef = useRef<HTMLInputElement>(null)
     const autoSelectedRef = useRef(false)
     useEffect(() => {
         if (autoSelectedRef.current || !yearsData) return
@@ -53,6 +56,10 @@ export function AgentPage() {
         }
         if (isLoading) {
             toast({ title: "Une session est déjà en cours de création", variant: "warning" })
+            return
+        }
+        if (pendingFiles.length > 0 && !selectedYearId) {
+            toast({ title: "Veuillez sélectionner un exercice pour importer des fichiers", variant: "warning" })
             return
         }
         setIsLoading(true)
@@ -73,12 +80,55 @@ export function AgentPage() {
                 return
             }
 
+            // Upload files if any
+            const fileIds: string[] = []
+            for (const file of pendingFiles) {
+                const hashBuffer = await crypto.subtle.digest("SHA-256", await file.arrayBuffer())
+                const fileHash = Array.from(new Uint8Array(hashBuffer))
+                    .map((b) => b.toString(16).padStart(2, "0"))
+                    .join("")
+
+                const createFileResponse = await getResponseBodyFromAPI({
+                    routeDefinition: createOneAgentFileRouteDefinition,
+                    body: {
+                        idOrganization: params.idOrganization,
+                        idAgentSession: agentSessionResponse.data.id,
+                        fileName: file.name,
+                        fileType: file.type || "application/octet-stream",
+                        fileSize: file.size,
+                        fileHash,
+                    },
+                })
+
+                if (createFileResponse.ok === false) {
+                    toast({ title: `Impossible d'importer ${file.name}`, variant: "error" })
+                    continue
+                }
+
+                // url is null when a duplicate was found — no upload needed
+                if (createFileResponse.data.url) {
+                    const uploadResponse = await fetch(createFileResponse.data.url, {
+                        method: "PUT",
+                        headers: { "Content-Type": file.type || "application/octet-stream" },
+                        body: file,
+                    })
+
+                    if (!uploadResponse.ok) {
+                        toast({ title: `Échec de l'envoi de ${file.name}`, variant: "error" })
+                        continue
+                    }
+                }
+
+                fileIds.push(createFileResponse.data.file.id)
+            }
+
             const agentMessageResponse = await getResponseBodyFromAPI({
                 routeDefinition: createOneAgentMessageRouteDefinition,
                 body: {
                     idOrganization: params.idOrganization,
                     idAgentSession: agentSessionResponse.data.id,
                     message: text.trim(),
+                    fileIds: fileIds.length > 0 ? fileIds : null,
                 },
             })
 
@@ -97,8 +147,12 @@ export function AgentPage() {
                 to: "/dashboard/organisations/$idOrganization/agent/sessions/$idAgentSession",
                 params: { idOrganization: params.idOrganization, idAgentSession: agentSessionResponse.data.id },
             })
+        } catch (error) {
+            console.error("[createNewSession]", error)
+            toast({ title: "Une erreur est survenue lors de la création de la session", variant: "error" })
         } finally {
             setIsLoading(false)
+            setPendingFiles([])
         }
     }
 
@@ -183,6 +237,20 @@ export function AgentPage() {
                         placeholder="Votre message..."
                         disabled={isLoading}
                         className={css({ flex: 1 })}
+                    />
+                    <input
+                        ref={fileInputRef}
+                        type="file"
+                        multiple
+                        style={{ display: "none" }}
+                        accept="text/*,application/pdf,application/json,application/xml,application/csv,image/*"
+                        onChange={(event) => {
+                            const files = event.target.files
+                            if (files && files.length > 0) {
+                                setPendingFiles((prev) => [...prev, ...Array.from(files)])
+                            }
+                            event.target.value = ""
+                        }}
                     />
                     <div
                         className={css({
@@ -273,6 +341,90 @@ export function AgentPage() {
                                         />
                                     </div>
                                 </div>
+                            </Popover.Content>
+                        </Popover.Root>
+                        <Popover.Root>
+                            <Popover.Trigger asChild>
+                                <Button title="Fichiers joints">
+                                    <ButtonOutlineContent
+                                        leftIcon={<IconPaperclip />}
+                                        text={pendingFiles.length > 0 ? String(pendingFiles.length) : undefined}
+                                    />
+                                </Button>
+                            </Popover.Trigger>
+                            <Popover.Content
+                                side="top"
+                                align="end"
+                                className={css({
+                                    width: "280px",
+                                    maxWidth: "calc(100vw - 2rem)",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "0.5rem",
+                                    padding: "0.75rem",
+                                })}
+                            >
+                                <span className={css({ fontSize: "sm", fontWeight: "medium", color: "neutral" })}>
+                                    Fichiers joints
+                                </span>
+                                {pendingFiles.length === 0 ? (
+                                    <span className={css({ fontSize: "xs", color: "neutral/50" })}>
+                                        Aucun fichier ajouté.
+                                    </span>
+                                ) : (
+                                    <div className={css({ display: "flex", flexDirection: "column", gap: "0.25rem" })}>
+                                        {pendingFiles.map((file, index) => (
+                                            <div
+                                                key={`${file.name}-${index}`}
+                                                className={css({
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    gap: "0.375rem",
+                                                    fontSize: "xs",
+                                                    color: "neutral",
+                                                    padding: "0.25rem 0",
+                                                })}
+                                            >
+                                                <IconPaperclip
+                                                    size={12}
+                                                    className={css({ flexShrink: 0, color: "neutral/50" })}
+                                                />
+                                                <span
+                                                    className={css({
+                                                        flex: 1,
+                                                        overflow: "hidden",
+                                                        textOverflow: "ellipsis",
+                                                        whiteSpace: "nowrap",
+                                                    })}
+                                                >
+                                                    {file.name}
+                                                </span>
+                                                <button
+                                                    type="button"
+                                                    onClick={() =>
+                                                        setPendingFiles((prev) => prev.filter((_, i) => i !== index))
+                                                    }
+                                                    className={css({
+                                                        display: "inline-flex",
+                                                        alignItems: "center",
+                                                        cursor: "pointer",
+                                                        color: "neutral/40",
+                                                        _hover: { color: "danger" },
+                                                        background: "none",
+                                                        border: "none",
+                                                        padding: 0,
+                                                        flexShrink: 0,
+                                                    })}
+                                                >
+                                                    <IconX size={14} />
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                                <Button onClick={() => fileInputRef.current?.click()} isDisabled={isLoading}>
+                                    <ButtonOutlineContent leftIcon={<IconPlus size={16} />} text="Ajouter un fichier" />
+                                </Button>
                             </Popover.Content>
                         </Popover.Root>
                         <Button

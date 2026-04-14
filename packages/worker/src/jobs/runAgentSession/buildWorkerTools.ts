@@ -124,14 +124,28 @@ function unwrapSchema(schema: any): any {
     return schema
 }
 
-function bodySchemaToJsonSchema(bodySchema: v.ObjectSchema<v.ObjectEntries, undefined>): JSONSchema {
+// Per-route fields the LLM should never see (handled by server-side defaults)
+const hiddenFieldsByRoute: Record<string, string[]> = {
+    "create-one-entry-line": [
+        "isComputedForJournalReport",
+        "isComputedForLedgerReport",
+        "isComputedForBalanceReport",
+        "isComputedForBalanceSheetReport",
+        "isComputedForIncomeStatementReport",
+    ],
+}
+
+function bodySchemaToJsonSchema(
+    bodySchema: v.ObjectSchema<v.ObjectEntries, undefined>,
+    pathSuffix?: string,
+): JSONSchema {
     const unwrappedSchema = unwrapSchema(bodySchema)
     const jsonSchema = toJsonSchema(unwrappedSchema) as {
         type: string
         properties?: Record<string, unknown>
         required?: string[]
     }
-    const fieldsToRemove = ["idOrganization"]
+    const fieldsToRemove = ["idOrganization", ...(pathSuffix ? (hiddenFieldsByRoute[pathSuffix] ?? []) : [])]
     if (jsonSchema.properties) {
         for (const field of fieldsToRemove) delete jsonSchema.properties[field]
     }
@@ -159,6 +173,7 @@ export function buildWorkerTools(parameters: {
             const description = toolDescriptions[pathSuffix] ?? `Executer l'action ${pathSuffix.replace(/-/g, " ")}.`
             const inputSchema = bodySchemaToJsonSchema(
                 routeDef.schemas.body as v.ObjectSchema<v.ObjectEntries, undefined>,
+                pathSuffix,
             )
 
             const def = toolDefinition({ name: toolName, description, inputSchema })

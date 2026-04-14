@@ -74,10 +74,10 @@ export function OrganizationSubscriptionPage() {
                                             subscription.subscriptionStatus === "active"
                                                 ? "Votre organisation bénéficie du plan Avancé."
                                                 : subscription.subscriptionStatus === "cancelled"
-                                                    ? "Votre abonnement a été mis en pause. L'accès Premium reste actif jusqu'à la fin de la période payée."
-                                                    : subscription.subscriptionStatus === "expired"
-                                                        ? "Votre abonnement a expiré."
-                                                        : "Votre organisation utilise le plan basique."
+                                                  ? "Votre abonnement a été mis en pause. L'accès Premium reste actif jusqu'à la fin de la période payée."
+                                                  : subscription.subscriptionStatus === "expired"
+                                                    ? "Votre abonnement a expiré."
+                                                    : "Votre organisation utilise le plan basique."
                                         }
                                     >
                                         <Chip
@@ -85,15 +85,15 @@ export function OrganizationSubscriptionPage() {
                                                 subscription.subscriptionStatus === "active"
                                                     ? "Avancé"
                                                     : subscription.subscriptionStatus === "cancelled"
-                                                        ? "En pause"
-                                                        : "Basique"
+                                                      ? "En pause"
+                                                      : "Basique"
                                             }
                                             color={
                                                 (subscription.subscriptionStatus === "active"
                                                     ? "success"
                                                     : subscription.subscriptionStatus === "cancelled"
-                                                        ? "warning"
-                                                        : "neutral") as ChipColors
+                                                      ? "warning"
+                                                      : "neutral") as ChipColors
                                             }
                                         />
                                     </SettingsSection.Row>

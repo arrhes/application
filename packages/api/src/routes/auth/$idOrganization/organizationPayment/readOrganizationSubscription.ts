@@ -66,8 +66,9 @@ export const readOrganizationSubscriptionRoute = apiFactory
         }
 
         const ocrCurrentMonthPagesUsage = shouldResetUsageCounters ? 0 : organization.ocrCurrentMonthPagesUsage
-        const agentMessagesCurrentMonthUsage =
-            shouldResetUsageCounters ? 0 : organization.agentMessagesCurrentMonthUsage
+        const agentMessagesCurrentMonthUsage = shouldResetUsageCounters
+            ? 0
+            : organization.agentMessagesCurrentMonthUsage
 
         // isPremium = subcriptionEndingAt is set AND is in the future
         const isPremium =

@@ -63,6 +63,11 @@ export const getStreamForAgentMessageRoute = apiFactory
             // (pub/sub requires a dedicated connection — the shared client cannot be used)
             const subscriberRedis = c.var.clients.redis.duplicate()
             let closed = false
+            // Track how much content the worker has streamed so far via Redis
+            // so we can skip deltas already covered by the DB checkpoint.
+            let redisContentLength = 0
+            let checkpointContentLength = 0
+            let checkpointSent = false
 
             const cleanup = async () => {
                 if (closed) return
@@ -92,8 +97,26 @@ export const getStreamForAgentMessageRoute = apiFactory
                         return
                     }
 
-                    // Forward the AG-UI event as an SSE data line
                     try {
+                        // Skip TEXT_MESSAGE_CONTENT deltas already covered by checkpoint
+                        if (checkpointSent && checkpointContentLength > 0) {
+                            const parsed = JSON.parse(message) as Record<string, unknown>
+                            if (parsed.type === "TEXT_MESSAGE_CONTENT" && typeof parsed.delta === "string") {
+                                redisContentLength += parsed.delta.length
+                                if (redisContentLength <= checkpointContentLength) {
+                                    return // Already covered
+                                }
+                                // Partial overlap: trim the delta
+                                const alreadyCovered =
+                                    checkpointContentLength - (redisContentLength - parsed.delta.length)
+                                if (alreadyCovered > 0) {
+                                    parsed.delta = parsed.delta.slice(alreadyCovered)
+                                    await stream.write(`data: ${JSON.stringify(parsed)}\n\n`)
+                                    return
+                                }
+                            }
+                        }
+                        // Forward the AG-UI event as an SSE data line
                         await stream.write(`data: ${message}\n\n`)
                     } catch {
                         // Client disconnected mid-stream
@@ -122,9 +145,29 @@ export const getStreamForAgentMessageRoute = apiFactory
                         `data: ${JSON.stringify({ type: "TEXT_MESSAGE_CONTENT", delta: freshMessage.content })}\n\n`,
                     )
                 }
+                if (freshMessage.toolCalls && Array.isArray(freshMessage.toolCalls)) {
+                    for (const tc of freshMessage.toolCalls) {
+                        await stream.write(`data: ${JSON.stringify(tc)}\n\n`)
+                    }
+                }
                 await cleanup()
                 return
             }
+
+            // Send any partial content already checkpointed to DB
+            // so the client can display it immediately on reconnect
+            if (freshMessage.content) {
+                checkpointContentLength = freshMessage.content.length
+                await stream.write(
+                    `data: ${JSON.stringify({ type: "TEXT_MESSAGE_CONTENT", delta: freshMessage.content })}\n\n`,
+                )
+            }
+            if (freshMessage.toolCalls && Array.isArray(freshMessage.toolCalls)) {
+                for (const tc of freshMessage.toolCalls) {
+                    await stream.write(`data: ${JSON.stringify(tc)}\n\n`)
+                }
+            }
+            checkpointSent = true
 
             await streamPromise
         })

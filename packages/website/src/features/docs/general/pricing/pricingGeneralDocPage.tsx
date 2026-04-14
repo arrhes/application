@@ -68,8 +68,8 @@ export function PricingGeneralDocPage() {
                     })}
                 >
                     Pour garantir un service stable et équitable pour toutes les organisations, le plan Avancé inclut
-                    une politique d'usage raisonnable sur les fonctionnalités IA. Ces limites sont réinitialisées
-                    chaque mois calendaire.
+                    une politique d'usage raisonnable sur les fonctionnalités IA. Ces limites sont réinitialisées chaque
+                    mois calendaire.
                 </p>
                 <ul
                     className={css({

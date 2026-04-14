@@ -138,7 +138,8 @@ export const createFirstPaymentRoute = apiFactory
 
         const now = new Date()
         const hasPremiumAccess =
-            organization.subcriptionEndingAt !== null && new Date(organization.subcriptionEndingAt).getTime() > now.getTime()
+            organization.subcriptionEndingAt !== null &&
+            new Date(organization.subcriptionEndingAt).getTime() > now.getTime()
 
         // Generic restart path: if premium access is still active but payments were cancelled,
         // recreate recurring payments for the next billing cycle without charging a new first payment.

@@ -16,7 +16,7 @@ export function ConfirmationModal(props: {
     const [internalOpen, setInternalOpen] = useState(false)
     const isControlled = props.open !== undefined
     const open = isControlled ? props.open : internalOpen
-    const setOpen = isControlled ? (props.onOpenChange ?? (() => { })) : setInternalOpen
+    const setOpen = isControlled ? (props.onOpenChange ?? (() => {})) : setInternalOpen
 
     async function handleSubmit() {
         await props.onSubmit()
