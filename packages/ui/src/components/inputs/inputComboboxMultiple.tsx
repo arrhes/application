@@ -1,13 +1,15 @@
-import { IconSelector, IconX } from "@tabler/icons-react"
-import { CommandEmpty, CommandLoading } from "cmdk"
-import { Fragment, useState } from "react"
+import { IconChevronDown, IconX } from "@tabler/icons-react"
+import { useEffect, useState } from "react"
 import { css, cx } from "../../utilities/cn.js"
+import { debounce } from "../../utilities/debounce.js"
 import { Button } from "../buttons/button.js"
 import { ButtonGhostContent } from "../buttons/buttonGhostContent.js"
+import { ButtonOutlineContent } from "../buttons/buttonOutlineContent.js"
 import { FormatNull } from "../formats/formatNull.js"
 import { CircularLoader } from "../layouts/circularLoader.js"
-import { Command, CommandInput, CommandItem, CommandList } from "../layouts/command.js"
+import { Virtualizer } from "../layouts/virtualizer.js"
 import { Popover } from "../overlays/popover/popover.js"
+import { InputText } from "./inputText.js"
 
 type InputComboboxMultiple<TValue extends string> = {
     placeholder: string
@@ -34,11 +36,25 @@ type InputComboboxMultiple<TValue extends string> = {
 
 export function InputComboboxMultiple<TValue extends string>(props: InputComboboxMultiple<TValue>) {
     const [open, setOpen] = useState(false)
+    const [rawQuery, setRawQuery] = useState<string | null | undefined>(undefined)
+    const [currentOptions, setCurrentOptions] = useState<Array<{ key: TValue; label: string }>>([])
 
     const handleUnselect = (index: number) =>
         props.onChange([...props.selectedOptions.slice(0, index), ...props.selectedOptions.slice(index + 1)])
 
-    const options = props.options.filter((option) => !props.selectedOptions.some((x) => x.key === option.key))
+    const availableOptions = props.options.filter((option) => !props.selectedOptions.some((x) => x.key === option.key))
+
+    useEffect(() => {
+        debounce({
+            function: () => {
+                setCurrentOptions(
+                    rawQuery === null || rawQuery === undefined || rawQuery === ""
+                        ? availableOptions
+                        : availableOptions.filter((x) => x.label.toLowerCase().includes(rawQuery.toLowerCase())),
+                )
+            },
+        })
+    }, [rawQuery, availableOptions])
 
     return (
         <div
@@ -47,7 +63,7 @@ export function InputComboboxMultiple<TValue extends string>(props: InputCombobo
                 flexDirection: "column",
                 justifyContent: "flex-start",
                 alignItems: "stretch",
-                gap: "1",
+                gap: "0.5rem",
             })}
         >
             <div
@@ -56,47 +72,35 @@ export function InputComboboxMultiple<TValue extends string>(props: InputCombobo
                     flexDirection: "column",
                     justifyContent: "flex-start",
                     alignItems: "stretch",
-                    padding: "1rem",
+                    padding: "0.5rem",
                     width: "100%",
-                    borderRadius: "md",
+                    borderRadius: "lg",
                     border: "1px solid",
                     borderColor: "neutral/20",
                     _disabled: { cursor: "not-allowed", opacity: "50" },
-                    maxH: "256px",
+                    maxHeight: "256px",
                     overflowY: "auto",
-                    minH: "40px",
                 })}
             >
                 {props.selectedOptions.length === 0 ? (
-                    <div
-                        className={css({
-                            width: "100%",
-                            height: "100%",
-                            display: "flex",
-                            justifyContent: "flex-start",
-                            alignItems: "center",
-                        })}
-                    >
-                        <FormatNull text={props.emptyLabel ?? "Nothing selected"} />
-                    </div>
+                    <FormatNull text={props.emptyLabel ?? "Aucune sélection"} />
                 ) : (
                     props.selectedOptions.map((option, index) => (
-                        <Fragment key={option.key}>
-                            <div
-                                className={css({
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    gap: "0.5rem",
-                                    borderRadius: "md",
-                                })}
-                            >
-                                <span className={css({ padding: "1rem", fontSize: "sm" })}>{option.label}</span>
-                                <Button onClick={() => handleUnselect(index)}>
-                                    <ButtonGhostContent leftIcon={<IconX />} />
-                                </Button>
-                            </div>
-                        </Fragment>
+                        <div
+                            key={option.key}
+                            className={css({
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                gap: "0.5rem",
+                                borderRadius: "md",
+                            })}
+                        >
+                            <span className={css({ padding: "0.5rem", fontSize: "sm" })}>{option.label}</span>
+                            <Button onClick={() => handleUnselect(index)}>
+                                <ButtonGhostContent leftIcon={<IconX />} />
+                            </Button>
+                        </div>
                     ))
                 )}
             </div>
@@ -105,130 +109,70 @@ export function InputComboboxMultiple<TValue extends string>(props: InputCombobo
                     <Button
                         role="combobox"
                         data-open={open}
-                        className={css({ width: "100%" })}
+                        className={cx(
+                            css({ width: "100%" }),
+                            props.isDisabled ? css({ cursor: "not-allowed" }) : "",
+                        )}
                         onClick={() => {
                             if (props.isDisabled) return
                             setOpen(!open)
                         }}
                         autoFocus={props.autoFocus}
+                        isDisabled={props.isDisabled}
                     >
-                        <div
+                        <ButtonOutlineContent
+                            text={props.placeholder}
+                            rightIcon={<IconChevronDown />}
                             className={cx(
                                 css({
                                     width: "100%",
-                                    height: "32px",
-                                    display: "grid",
-                                    gridTemplateColumns: "auto min-content",
-                                    alignItems: "center",
-                                    gap: "0.5rem",
-                                    padding: "1rem",
-                                    border: "1px solid",
-                                    borderColor: "neutral/20",
-                                    borderRadius: "md",
-                                    _hover: { borderColor: "neutral/30" },
+                                    justifyContent: "space-between",
+                                    _hover: { borderColor: "neutral/50" },
                                     _focusWithin: { borderColor: "neutral/50", boxShadow: "inset" },
                                 }),
+                                css({ "& span": { color: "neutral/50" } }),
                             )}
-                        >
-                            <span
-                                className={css({
-                                    width: "100%",
-                                    height: "fit-content",
-                                    textAlign: "left",
-                                    color: "neutral/50",
-                                    fontSize: "sm",
-                                })}
-                            >
-                                {props.placeholder}
-                            </span>
-                            <IconSelector
-                                className={css({ height: "4", width: "4", flexShrink: "0", opacity: "50" })}
-                            />
-                        </div>
+                        />
                     </Button>
                 </Popover.Trigger>
                 {!open ? null : (
                     <Popover.Content align="start" className={css({ padding: "0.5rem" })}>
-                        <Command
-                            className={cx(css({ width: "100%" }), props.className)}
-                            filter={(value, search) => {
-                                const option = options?.find((x) => x.key === value)?.label.toLowerCase()
-                                if (option?.includes(search.toLowerCase())) return 1
-                                return 0
-                            }}
+                        <InputText value={rawQuery} onChange={(value) => setRawQuery(value)} />
+                        <div
+                            className={css({
+                                height: "fit-content",
+                                maxHeight: "256px",
+                                width: "100%",
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "start",
+                                alignItems: "start",
+                                gap: "0.125rem",
+                            })}
                         >
-                            <CommandInput />
-                            {props.loading === true ? (
-                                <CommandLoading>
-                                    <CircularLoader />
-                                </CommandLoading>
-                            ) : null}
-                            <CommandList
-                                className={css({
-                                    maxH: "256px",
-                                    overflowY: "auto",
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    justifyContent: "flex-start",
-                                    alignItems: "stretch",
-                                })}
-                            >
-                                <CommandEmpty>
-                                    <div
-                                        className={css({
-                                            position: "relative",
-                                            height: "40px",
-                                            padding: "3",
-                                            display: "flex",
-                                            justifyContent: "flex-start",
-                                            alignItems: "center",
-                                            cursor: "default",
-                                            userSelect: "none",
-                                            borderRadius: "md",
-                                            outline: "none",
-                                            _disabled: { pointerEvents: "none", opacity: "50" },
-                                        })}
-                                    >
-                                        <span
-                                            className={css({
-                                                color: "neutral/10",
-                                                textAlign: "left",
-                                                fontStyle: "italic",
-                                                fontSize: "sm",
-                                            })}
-                                        >
-                                            No result
-                                        </span>
-                                    </div>
-                                </CommandEmpty>
-                                {options.map((option) => (
-                                    <CommandItem
+                            {props.loading === true ? <CircularLoader /> : null}
+                            {currentOptions.length > 0 ? null : (
+                                <FormatNull text="Pas de résultat" className={css({ padding: "0.5rem" })} />
+                            )}
+                            <Virtualizer data={currentOptions}>
+                                {(option) => (
+                                    <Button
                                         key={option.key}
-                                        value={option.key}
-                                        onSelect={() => {
+                                        className={css({ width: "100%" })}
+                                        onClick={() => {
                                             if (props.isDisabled) return
                                             props.onChange([...props.selectedOptions, option])
                                             setOpen(false)
                                         }}
-                                        className={css({
-                                            padding: "3",
-                                            height: "40px",
-                                            display: "flex",
-                                            justifyContent: "space-between",
-                                            alignItems: "center",
-                                            overflowY: "auto",
-                                            gap: "1rem",
-                                            backgroundColor: "none",
-                                            _hover: { backgroundColor: "neutral/5" },
-                                        })}
                                     >
-                                        <span className={css({ fontSize: "sm", color: "neutral" })}>
-                                            {option.label}
-                                        </span>
-                                    </CommandItem>
-                                ))}
-                            </CommandList>
-                        </Command>
+                                        <ButtonGhostContent
+                                            text={option.label}
+                                            className={css({ width: "100%", justifyContent: "space-between" })}
+                                        />
+                                    </Button>
+                                )}
+                            </Virtualizer>
+                        </div>
                     </Popover.Content>
                 )}
             </Popover.Root>

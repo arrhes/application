@@ -83,7 +83,7 @@ export function Button(
                         bg: "transparent",
                         border: "none",
                         padding: "0",
-                        _disabled: { cursor: "not-allowed", pointerEvents: "none" },
+                        _disabled: { cursor: "not-allowed" },
                     }),
                     className,
                 )}

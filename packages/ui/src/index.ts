@@ -41,17 +41,6 @@ export { InputToggle } from "./components/inputs/inputToggle.js"
 export { Badge } from "./components/layouts/badge.js"
 export { Chip, type ChipColors } from "./components/layouts/chip.js"
 export { CircularLoader } from "./components/layouts/circularLoader.js"
-export {
-    Command,
-    CommandDialog,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-    CommandList,
-    CommandSeparator,
-    CommandShortcut,
-} from "./components/layouts/command.js"
 export { Logo } from "./components/layouts/logo.js"
 export { PageNavigation } from "./components/layouts/pageNavigation.js"
 export { Separator } from "./components/layouts/separator.js"
@@ -65,3 +54,4 @@ export { toast, useToast } from "./components/overlays/toast/useToast.js"
 // Utilities
 export { cn } from "./utilities/cn.js"
 export { debounce } from "./utilities/debounce.js"
+
