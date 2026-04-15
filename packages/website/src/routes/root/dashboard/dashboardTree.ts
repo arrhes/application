@@ -88,6 +88,8 @@ import { yearsPathRoute } from "./organizations/$idOrganization/years/yearsPathR
 import { yearsRoute } from "./organizations/$idOrganization/years/yearsRoute.tsx"
 import { organizationsLayoutRoute } from "./organizations/organizationsLayoutRoute.tsx"
 import { organizationsRoute } from "./organizations/organizationsRoute.tsx"
+import { userProfileLayoutRoute } from "./profile/userProfileLayoutRoute.tsx"
+import { userProfileRoute } from "./profile/userProfileRoute.tsx"
 import { settingsLayoutRoute } from "./settings/settingsLayoutRoute.tsx"
 import { settingsRoute } from "./settings/settingsRoute.tsx"
 import { supportLayoutRoute } from "./support/supportLayoutRoute.tsx"
@@ -185,6 +187,7 @@ export const dashboardTree: AnyRoute = dashboardLayoutRoute.addChildren([
             ]),
         ]),
     ]),
+    userProfileLayoutRoute.addChildren([userProfileRoute]),
     settingsLayoutRoute.addChildren([settingsRoute]),
     supportLayoutRoute.addChildren([supportRoute, ticketLayoutRoute.addChildren([ticketRoute])]),
     dashboardCatchRoute,

@@ -1,7 +1,7 @@
 import { signOutRouteDefinition } from "@arrhes/application-metadata/routes"
 import { Button, ButtonGhostContent, ButtonOutlineContent, Logo, Separator, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconBook2, IconBuildings, IconLifebuoy, IconLogout, IconUser } from "@tabler/icons-react"
+import { IconBook2, IconBuildings, IconLifebuoy, IconLogout, IconSettings, IconUser } from "@tabler/icons-react"
 import { Outlet } from "@tanstack/react-router"
 import { LinkButton } from "../../components/linkButton.js"
 import { Popover } from "../../components/overlays/popover/popover.js"
@@ -62,7 +62,7 @@ export function DashboardLayout() {
                         <LinkButton to="/dashboard">
                             <ButtonGhostContent
                                 leftIcon={<Logo />}
-                                // text="Dashboard"
+                            // text="Dashboard"
                             />
                         </LinkButton>
                         <Breadcrumbs />
@@ -89,6 +89,13 @@ export function DashboardLayout() {
                                 </Button>
                             </Popover.Trigger>
                             <Popover.Content align="end" className={css({ padding: "0.5rem" })}>
+                                <LinkButton to="/dashboard/profil" className={css({ width: "100%" })}>
+                                    <ButtonGhostContent
+                                        leftIcon={<IconSettings />}
+                                        text="Profil"
+                                        className={css({ width: "100%", justifyContent: "start" })}
+                                    />
+                                </LinkButton>
                                 <LinkButton to="/dashboard/support" className={css({ width: "100%" })}>
                                     <ButtonGhostContent
                                         leftIcon={<IconLifebuoy />}
