@@ -44,6 +44,92 @@ import { useDataFromAPI } from "../../../../utilities/useHTTPData.ts"
 import { cookiePrefix } from "../../../../utilities/variables.js"
 import { AgentMessage } from "./agentMessage.tsx"
 
+const subagentRoleLabels: Record<string, string> = {
+    data_analyst: "Analyste de données",
+    entry_creator: "Créateur d'écritures",
+    document_processor: "Traitement de documents",
+    auditor: "Auditeur",
+}
+
+function SubagentIndicator(props: { subagents: Array<{ role: string; depth: number; content: string }> }) {
+    const [expanded, setExpanded] = useState<Record<number, boolean>>({})
+
+    return (
+        <div className={css({ display: "flex", flexDirection: "column", gap: "0.5rem", marginTop: "0.5rem" })}>
+            {props.subagents.map((subagent, index) => {
+                const isExpanded = expanded[index] ?? false
+                const label = subagentRoleLabels[subagent.role] ?? subagent.role
+
+                return (
+                    <div
+                        key={`${subagent.role}-${subagent.depth}-${index}`}
+                        className={css({
+                            marginLeft: `${subagent.depth * 1}rem`,
+                            border: "1px solid",
+                            borderColor: "border.default",
+                            borderRadius: "md",
+                            overflow: "hidden",
+                        })}
+                    >
+                        <button
+                            type="button"
+                            onClick={() => setExpanded((prev) => ({ ...prev, [index]: !prev[index] }))}
+                            className={css({
+                                width: "100%",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "0.5rem",
+                                padding: "0.5rem 0.75rem",
+                                cursor: "pointer",
+                                backgroundColor: "bg.muted",
+                                border: "none",
+                                fontSize: "0.8125rem",
+                                color: "fg.default",
+                            })}
+                        >
+                            <span
+                                className={css({
+                                    display: "inline-block",
+                                    transition: "transform 0.15s",
+                                    transform: isExpanded ? "rotate(90deg)" : "rotate(0deg)",
+                                })}
+                            >
+                                ▶
+                            </span>
+                            <span
+                                className={css({
+                                    padding: "0.125rem 0.375rem",
+                                    borderRadius: "sm",
+                                    backgroundColor: "bg.emphasized",
+                                    fontSize: "0.75rem",
+                                    fontWeight: "medium",
+                                })}
+                            >
+                                {label}
+                            </span>
+                            <CircularLoader />
+                        </button>
+                        {isExpanded && subagent.content && (
+                            <div
+                                className={css({
+                                    padding: "0.5rem 0.75rem",
+                                    fontSize: "0.8125rem",
+                                    whiteSpace: "pre-wrap",
+                                    color: "fg.muted",
+                                    maxHeight: "200px",
+                                    overflowY: "auto",
+                                })}
+                            >
+                                {subagent.content}
+                            </div>
+                        )}
+                    </div>
+                )
+            })}
+        </div>
+    )
+}
+
 function ContextInitialiser(props: {
     agentSession: { idYear: string | null; customInstructions: string | null }
     contextInitialisedRef: React.MutableRefObject<boolean>
@@ -137,6 +223,7 @@ export function AgentSessionContent() {
     const [streamingContent, setStreamingContent] = useState<string>("")
     const [streamingToolCalls, setStreamingToolCalls] = useState<unknown[]>([])
     const [isStreaming, setIsStreaming] = useState(false)
+    const [activeSubagents, setActiveSubagents] = useState<Array<{ role: string; depth: number; content: string }>>([])
     const abortStreamRef = useRef<AbortController | null>(null)
 
     // ── Auto-scroll to bottom on new content ────────────────────────────────
@@ -185,12 +272,14 @@ export function AgentSessionContent() {
         setIsStreaming(true)
         setStreamingContent("")
         setStreamingToolCalls([])
+        setActiveSubagents([])
 
         let accumulated = ""
         const accumulatedToolCalls: unknown[] = []
         let lastBoundaryLen = 0
         const seenEnds = new Set<string>()
         let finished = false
+        const subagentStack: Array<{ role: string; depth: number; content: string }> = []
 
         const finish = async () => {
             if (finished) return
@@ -256,8 +345,17 @@ export function AgentSessionContent() {
                             try {
                                 const chunk = JSON.parse(jsonStr)
                                 if (chunk.type === "TEXT_MESSAGE_CONTENT" && typeof chunk.delta === "string") {
-                                    accumulated += chunk.delta
-                                    setStreamingContent(accumulated)
+                                    if (chunk.subagentRole && subagentStack.length > 0) {
+                                        // Accumulate subagent content
+                                        const current = subagentStack[subagentStack.length - 1]
+                                        if (current) {
+                                            current.content += chunk.delta
+                                            setActiveSubagents([...subagentStack])
+                                        }
+                                    } else {
+                                        accumulated += chunk.delta
+                                        setStreamingContent(accumulated)
+                                    }
                                 }
                                 if (chunk.type === "TOOL_CALL_START") {
                                     // Emit text boundary if text accumulated since last boundary
@@ -285,6 +383,18 @@ export function AgentSessionContent() {
                                     if (tcId) seenEnds.add(tcId)
                                     accumulatedToolCalls.push(chunk)
                                     setStreamingToolCalls([...accumulatedToolCalls])
+                                }
+                                if (chunk.type === "SUBAGENT_RUN_START") {
+                                    subagentStack.push({
+                                        role: chunk.role as string,
+                                        depth: chunk.depth as number,
+                                        content: "",
+                                    })
+                                    setActiveSubagents([...subagentStack])
+                                }
+                                if (chunk.type === "SUBAGENT_RUN_END") {
+                                    subagentStack.pop()
+                                    setActiveSubagents([...subagentStack])
                                 }
                             } catch {
                                 // ignore malformed chunks
@@ -341,58 +451,12 @@ export function AgentSessionContent() {
             setIsSending(true)
 
             try {
-                // Upload pending files
-                const fileIds: string[] = []
-                const filesToUpload = [...pendingFiles]
-                setPendingFiles([])
-
-                for (const file of filesToUpload) {
-                    const hashBuffer = await crypto.subtle.digest("SHA-256", await file.arrayBuffer())
-                    const fileHash = Array.from(new Uint8Array(hashBuffer))
-                        .map((b) => b.toString(16).padStart(2, "0"))
-                        .join("")
-
-                    const createFileResponse = await getResponseBodyFromAPI({
-                        routeDefinition: createOneAgentFileRouteDefinition,
-                        body: {
-                            idOrganization: params.idOrganization,
-                            idAgentSession: params.idAgentSession,
-                            fileName: file.name,
-                            fileType: file.type || "application/octet-stream",
-                            fileSize: file.size,
-                            fileHash,
-                        },
-                    })
-
-                    if (createFileResponse.ok === false) {
-                        toast({ title: `Impossible d'importer ${file.name}`, variant: "error" })
-                        continue
-                    }
-
-                    // url is null when a duplicate was found — no upload needed
-                    if (createFileResponse.data.url) {
-                        const uploadResponse = await fetch(createFileResponse.data.url, {
-                            method: "PUT",
-                            headers: { "Content-Type": file.type || "application/octet-stream" },
-                            body: file,
-                        })
-
-                        if (!uploadResponse.ok) {
-                            toast({ title: `Échec de l'envoi de ${file.name}`, variant: "error" })
-                            continue
-                        }
-                    }
-
-                    fileIds.push(createFileResponse.data.file.id)
-                }
-
                 const result = await getResponseBodyFromAPI({
                     routeDefinition: createOneAgentMessageRouteDefinition,
                     body: {
                         idOrganization: params.idOrganization,
                         idAgentSession: params.idAgentSession,
                         message: text.trim(),
-                        fileIds: fileIds.length > 0 ? fileIds : null,
                     },
                 })
 
@@ -403,12 +467,8 @@ export function AgentSessionContent() {
 
                 const { id: idAgentMessage } = result.data
 
-                // Trigger SSE stream FIRST — before invalidating, so the SSE
-                // connection starts immediately and isn't killed by the detection effect
-                // seeing "completed" state in freshly-refetched data.
                 setStreamMessageId(idAgentMessage)
 
-                // Then refresh messages so the new user message + assistant placeholder appear
                 await invalidateData({
                     routeDefinition: readAllAgentMessagesRouteDefinition,
                     body: { idAgentSession: params.idAgentSession },
@@ -421,7 +481,7 @@ export function AgentSessionContent() {
                 setIsSending(false)
             }
         },
-        [isSending, pendingFiles, params.idOrganization, params.idAgentSession, scrollToBottom],
+        [isSending, params.idOrganization, params.idAgentSession, scrollToBottom],
     )
 
     const [_historyIndex, setHistoryIndex] = useState(-1)
@@ -479,17 +539,24 @@ export function AgentSessionContent() {
                                                 // If this is the message being streamed, show live content
                                                 if (agentMessage.id === streamMessageId && isStreaming) {
                                                     return (
-                                                        <AgentMessage
-                                                            key={agentMessage.id}
-                                                            agentMessage={{
-                                                                ...agentMessage,
-                                                                content: streamingContent || null,
-                                                                toolCalls:
-                                                                    streamingToolCalls.length > 0
-                                                                        ? streamingToolCalls
-                                                                        : agentMessage.toolCalls,
-                                                            }}
-                                                        />
+                                                        <div key={agentMessage.id}>
+                                                            <AgentMessage
+                                                                agentMessage={{
+                                                                    ...agentMessage,
+                                                                    content: streamingContent || null,
+                                                                    toolCalls:
+                                                                        streamingToolCalls.length > 0
+                                                                            ? streamingToolCalls
+                                                                            : agentMessage.toolCalls,
+                                                                }}
+                                                            />
+                                                            {activeSubagents.length > 0 && (
+                                                                <SubagentIndicator subagents={activeSubagents} />
+                                                            )}
+                                                            <div className={css({ padding: "0.25rem 0.5rem" })}>
+                                                                <CircularLoader />
+                                                            </div>
+                                                        </div>
                                                     )
                                                 }
                                                 return (
@@ -709,11 +776,12 @@ export function AgentSessionContent() {
                                             <Button title="Fichiers joints">
                                                 <ButtonOutlineContent
                                                     leftIcon={<IconPaperclip />}
-                                                    text={
-                                                        pendingFiles.length > 0
-                                                            ? String(pendingFiles.length)
-                                                            : undefined
-                                                    }
+                                                    text={(() => {
+                                                        const sessionFiles = (agentSession.attachedFiles ??
+                                                            []) as Array<{ idFile: string; name: string }>
+                                                        const count = sessionFiles.length + pendingFiles.length
+                                                        return count > 0 ? String(count) : undefined
+                                                    })()}
                                                 />
                                             </Button>
                                         </Popover.Trigger>
@@ -721,7 +789,7 @@ export function AgentSessionContent() {
                                             side="top"
                                             align="end"
                                             className={css({
-                                                width: "280px",
+                                                width: "320px",
                                                 maxWidth: "calc(100vw - 2rem)",
                                                 display: "flex",
                                                 flexDirection: "column",
@@ -736,80 +804,270 @@ export function AgentSessionContent() {
                                                     color: "neutral",
                                                 })}
                                             >
-                                                Fichiers joints
+                                                Fichiers de la session
                                             </span>
-                                            {pendingFiles.length === 0 ? (
-                                                <span className={css({ fontSize: "xs", color: "neutral/50" })}>
-                                                    Aucun fichier ajouté.
-                                                </span>
-                                            ) : (
-                                                <div
-                                                    className={css({
-                                                        display: "flex",
-                                                        flexDirection: "column",
-                                                        gap: "0.25rem",
-                                                    })}
-                                                >
-                                                    {pendingFiles.map((file, index) => (
-                                                        <div
-                                                            key={`${file.name}-${index}`}
-                                                            className={css({
-                                                                display: "flex",
-                                                                alignItems: "center",
-                                                                gap: "0.375rem",
-                                                                fontSize: "xs",
-                                                                color: "neutral",
-                                                                padding: "0.25rem 0",
-                                                            })}
-                                                        >
-                                                            <IconPaperclip
-                                                                size={12}
-                                                                className={css({ flexShrink: 0, color: "neutral/50" })}
-                                                            />
+                                            {(() => {
+                                                const sessionFiles = (agentSession.attachedFiles ?? []) as Array<{
+                                                    idFile: string
+                                                    name: string
+                                                }>
+                                                const hasFiles = sessionFiles.length > 0 || pendingFiles.length > 0
+                                                return (
+                                                    <>
+                                                        {!hasFiles && (
                                                             <span
-                                                                className={css({
-                                                                    flex: 1,
-                                                                    overflow: "hidden",
-                                                                    textOverflow: "ellipsis",
-                                                                    whiteSpace: "nowrap",
-                                                                })}
+                                                                className={css({ fontSize: "xs", color: "neutral/50" })}
                                                             >
-                                                                {file.name}
+                                                                Aucun fichier ajouté.
                                                             </span>
-                                                            <button
-                                                                type="button"
-                                                                onClick={() =>
-                                                                    setPendingFiles((prev) =>
-                                                                        prev.filter((_, i) => i !== index),
-                                                                    )
-                                                                }
+                                                        )}
+                                                        {hasFiles && (
+                                                            <div
                                                                 className={css({
-                                                                    display: "inline-flex",
-                                                                    alignItems: "center",
-                                                                    cursor: "pointer",
-                                                                    color: "neutral/40",
-                                                                    _hover: { color: "danger" },
-                                                                    background: "none",
-                                                                    border: "none",
-                                                                    padding: 0,
-                                                                    flexShrink: 0,
+                                                                    display: "flex",
+                                                                    flexDirection: "column",
+                                                                    gap: "0.25rem",
+                                                                    maxHeight: "200px",
+                                                                    overflowY: "auto",
                                                                 })}
                                                             >
-                                                                <IconX size={14} />
-                                                            </button>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            )}
-                                            <Button
-                                                onClick={() => fileInputRef.current?.click()}
-                                                isDisabled={isSubmitting}
-                                            >
-                                                <ButtonOutlineContent
-                                                    leftIcon={<IconPlus size={16} />}
-                                                    text="Ajouter un fichier"
-                                                />
-                                            </Button>
+                                                                {sessionFiles.map((file) => (
+                                                                    <div
+                                                                        key={file.idFile}
+                                                                        className={css({
+                                                                            display: "flex",
+                                                                            alignItems: "center",
+                                                                            gap: "0.375rem",
+                                                                            fontSize: "xs",
+                                                                            color: "neutral",
+                                                                            padding: "0.25rem 0",
+                                                                        })}
+                                                                    >
+                                                                        <IconPaperclip
+                                                                            size={12}
+                                                                            className={css({
+                                                                                flexShrink: 0,
+                                                                                color: "neutral/50",
+                                                                            })}
+                                                                        />
+                                                                        <span
+                                                                            className={css({
+                                                                                flex: 1,
+                                                                                overflow: "hidden",
+                                                                                textOverflow: "ellipsis",
+                                                                                whiteSpace: "nowrap",
+                                                                            })}
+                                                                        >
+                                                                            {file.name}
+                                                                        </span>
+                                                                        <button
+                                                                            type="button"
+                                                                            onClick={async () => {
+                                                                                const remaining = sessionFiles.filter(
+                                                                                    (f) => f.idFile !== file.idFile,
+                                                                                )
+                                                                                const result =
+                                                                                    await getResponseBodyFromAPI({
+                                                                                        routeDefinition:
+                                                                                            updateOneAgentSessionRouteDefinition,
+                                                                                        body: {
+                                                                                            idAgentSession:
+                                                                                                params.idAgentSession,
+                                                                                            fileIds: remaining.map(
+                                                                                                (f) => f.idFile,
+                                                                                            ),
+                                                                                        },
+                                                                                    })
+                                                                                if (result.ok) {
+                                                                                    await invalidateData({
+                                                                                        routeDefinition:
+                                                                                            readOneAgentSessionRouteDefinition,
+                                                                                        body: {
+                                                                                            idAgentSession:
+                                                                                                params.idAgentSession,
+                                                                                        },
+                                                                                    })
+                                                                                }
+                                                                            }}
+                                                                            className={css({
+                                                                                display: "inline-flex",
+                                                                                alignItems: "center",
+                                                                                cursor: "pointer",
+                                                                                color: "neutral/40",
+                                                                                _hover: { color: "danger" },
+                                                                                background: "none",
+                                                                                border: "none",
+                                                                                padding: 0,
+                                                                                flexShrink: 0,
+                                                                            })}
+                                                                        >
+                                                                            <IconX size={14} />
+                                                                        </button>
+                                                                    </div>
+                                                                ))}
+                                                                {pendingFiles.map((file, index) => (
+                                                                    <div
+                                                                        key={`pending-${file.name}-${index}`}
+                                                                        className={css({
+                                                                            display: "flex",
+                                                                            alignItems: "center",
+                                                                            gap: "0.375rem",
+                                                                            fontSize: "xs",
+                                                                            color: "neutral/50",
+                                                                            fontStyle: "italic",
+                                                                            padding: "0.25rem 0",
+                                                                        })}
+                                                                    >
+                                                                        <IconPaperclip
+                                                                            size={12}
+                                                                            className={css({
+                                                                                flexShrink: 0,
+                                                                                color: "neutral/30",
+                                                                            })}
+                                                                        />
+                                                                        <span
+                                                                            className={css({
+                                                                                flex: 1,
+                                                                                overflow: "hidden",
+                                                                                textOverflow: "ellipsis",
+                                                                                whiteSpace: "nowrap",
+                                                                            })}
+                                                                        >
+                                                                            {file.name}
+                                                                        </span>
+                                                                        <button
+                                                                            type="button"
+                                                                            onClick={() =>
+                                                                                setPendingFiles((prev) =>
+                                                                                    prev.filter((_, i) => i !== index),
+                                                                                )
+                                                                            }
+                                                                            className={css({
+                                                                                display: "inline-flex",
+                                                                                alignItems: "center",
+                                                                                cursor: "pointer",
+                                                                                color: "neutral/40",
+                                                                                _hover: { color: "danger" },
+                                                                                background: "none",
+                                                                                border: "none",
+                                                                                padding: 0,
+                                                                                flexShrink: 0,
+                                                                            })}
+                                                                        >
+                                                                            <IconX size={14} />
+                                                                        </button>
+                                                                    </div>
+                                                                ))}
+                                                            </div>
+                                                        )}
+                                                    </>
+                                                )
+                                            })()}
+                                            <div className={css({ display: "flex", gap: "0.5rem" })}>
+                                                <Button
+                                                    onClick={() => fileInputRef.current?.click()}
+                                                    isDisabled={isSubmitting}
+                                                >
+                                                    <ButtonOutlineContent
+                                                        leftIcon={<IconPlus size={16} />}
+                                                        text="Ajouter"
+                                                    />
+                                                </Button>
+                                                {pendingFiles.length > 0 && (
+                                                    <Button
+                                                        onClick={async () => {
+                                                            const sessionFiles = (agentSession.attachedFiles ??
+                                                                []) as Array<{ idFile: string; name: string }>
+                                                            const existingIds = sessionFiles.map((f) => f.idFile)
+                                                            const newIds: string[] = []
+
+                                                            for (const file of pendingFiles) {
+                                                                const hashBuffer = await crypto.subtle.digest(
+                                                                    "SHA-256",
+                                                                    await file.arrayBuffer(),
+                                                                )
+                                                                const fileHash = Array.from(new Uint8Array(hashBuffer))
+                                                                    .map((b) => b.toString(16).padStart(2, "0"))
+                                                                    .join("")
+
+                                                                const createFileResponse = await getResponseBodyFromAPI(
+                                                                    {
+                                                                        routeDefinition:
+                                                                            createOneAgentFileRouteDefinition,
+                                                                        body: {
+                                                                            idOrganization: params.idOrganization,
+                                                                            idAgentSession: params.idAgentSession,
+                                                                            fileName: file.name,
+                                                                            fileType:
+                                                                                file.type || "application/octet-stream",
+                                                                            fileSize: file.size,
+                                                                            fileHash,
+                                                                        },
+                                                                    },
+                                                                )
+
+                                                                if (createFileResponse.ok === false) {
+                                                                    toast({
+                                                                        title: `Impossible d'importer ${file.name}`,
+                                                                        variant: "error",
+                                                                    })
+                                                                    continue
+                                                                }
+
+                                                                if (createFileResponse.data.url) {
+                                                                    const uploadResponse = await fetch(
+                                                                        createFileResponse.data.url,
+                                                                        {
+                                                                            method: "PUT",
+                                                                            headers: {
+                                                                                "Content-Type":
+                                                                                    file.type ||
+                                                                                    "application/octet-stream",
+                                                                            },
+                                                                            body: file,
+                                                                        },
+                                                                    )
+                                                                    if (!uploadResponse.ok) {
+                                                                        toast({
+                                                                            title: `Échec de l'envoi de ${file.name}`,
+                                                                            variant: "error",
+                                                                        })
+                                                                        continue
+                                                                    }
+                                                                }
+
+                                                                newIds.push(createFileResponse.data.file.id)
+                                                            }
+
+                                                            if (newIds.length > 0) {
+                                                                const result = await getResponseBodyFromAPI({
+                                                                    routeDefinition:
+                                                                        updateOneAgentSessionRouteDefinition,
+                                                                    body: {
+                                                                        idAgentSession: params.idAgentSession,
+                                                                        fileIds: [...existingIds, ...newIds],
+                                                                    },
+                                                                })
+                                                                if (result.ok) {
+                                                                    toast({
+                                                                        title: "Fichiers ajoutés",
+                                                                        variant: "success",
+                                                                    })
+                                                                    await invalidateData({
+                                                                        routeDefinition:
+                                                                            readOneAgentSessionRouteDefinition,
+                                                                        body: { idAgentSession: params.idAgentSession },
+                                                                    })
+                                                                }
+                                                            }
+
+                                                            setPendingFiles([])
+                                                        }}
+                                                    >
+                                                        <ButtonPlainContent text="Enregistrer" />
+                                                    </Button>
+                                                )}
+                                            </div>
                                         </Popover.Content>
                                     </Popover.Root>
                                     <Button

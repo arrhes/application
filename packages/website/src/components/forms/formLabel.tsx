@@ -94,7 +94,9 @@ export function FormLabel(props: FormLabel) {
                             />
                         </TooltipTrigger>
                         <TooltipPortal>
-                            <TooltipContent className={css({ backgroundColor: "neutral", padding: "0.5rem", zIndex: "9999" })}>
+                            <TooltipContent
+                                className={css({ backgroundColor: "neutral", padding: "0.5rem", zIndex: "9999" })}
+                            >
                                 <p
                                     className={css({
                                         overflowWrap: "break-word",

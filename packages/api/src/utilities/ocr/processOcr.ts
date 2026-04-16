@@ -199,9 +199,6 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
             data: {
                 usageMonthStartAt: monthStartISO,
                 ocrCurrentMonthPagesUsage: currentMonthPagesUsage + extractedPagesCount,
-                agentMessagesCurrentMonthUsage: shouldResetUsageCounters
-                    ? 0
-                    : organization.agentMessagesCurrentMonthUsage,
             },
             where: (table) => eq(table.id, idOrganization),
         })
@@ -254,7 +251,6 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
             storageCurrentUsage: sql`${models.organization.storageCurrentUsage} + ${markdownBuffer.length}`,
             usageMonthStartAt: monthStartISO,
             ocrCurrentMonthPagesUsage: currentMonthPagesUsage + extractedPagesCount,
-            agentMessagesCurrentMonthUsage: shouldResetUsageCounters ? 0 : organization.agentMessagesCurrentMonthUsage,
         },
         where: (table) => eq(table.id, idOrganization),
     })

@@ -6,13 +6,12 @@ import {
     models,
     premiumOrganizationUsageLimits,
 } from "@arrhes/application-metadata"
-import { and, eq, inArray } from "drizzle-orm"
+import { eq } from "drizzle-orm"
 import { checkOrganizationSubscriptionSessionMiddleware } from "../../../../middlewares/checkOrganizationSubscriptionSessionMiddleware.js"
 import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
 import { Exception } from "../../../../utilities/exception.js"
-import { processOcr } from "../../../../utilities/ocr/processOcr.js"
 import { response } from "../../../../utilities/response.js"
 import { insertOne } from "../../../../utilities/sql/insertOne.js"
 import { selectOne } from "../../../../utilities/sql/selectOne.js"
@@ -61,111 +60,16 @@ export const createOneAgentMessageRoute = apiFactory
             usageMonthStartAt: organization.usageMonthStartAt,
             monthStartISO,
         })
-        const currentMonthUsage = shouldResetUsageCounters ? 0 : organization.agentMessagesCurrentMonthUsage
+        const currentTokenUsage = shouldResetUsageCounters ? 0 : organization.agentTokensCurrentMonthUsage
 
-        if (currentMonthUsage >= premiumOrganizationUsageLimits.agentMessagesPerMonth) {
+        // Gate on token budget — reject only when nearly exhausted (less than 50K tokens remain)
+        const remainingTokenBudget = premiumOrganizationUsageLimits.agentTokensPerMonth - currentTokenUsage
+        if (remainingTokenBudget < 50_000) {
             throw new Exception({
                 statusCode: 429,
-                internalMessage: "Agent monthly message limit reached",
-                externalMessage: "Limite mensuelle de messages agent atteinte pour votre organisation",
+                internalMessage: "Agent monthly token limit reached",
+                externalMessage: "Limite mensuelle de tokens agent atteinte pour votre organisation",
             })
-        }
-
-        // Process attached files (OCR for PDF/images, text files pass through)
-        const fileIds = body.fileIds?.filter(Boolean) ?? []
-        let attachedFiles: Array<{ idFile: string; name: string; mimeType: string; idOcrFile: string | null }> | null =
-            null
-
-        console.log(`[createOneAgentMessage] fileIds: ${JSON.stringify(fileIds)}`)
-
-        if (fileIds.length > 0) {
-            if (!session.idYear) {
-                throw new Exception({
-                    statusCode: 400,
-                    internalMessage: "Agent session has no year for file import",
-                    externalMessage: "Veuillez sélectionner un exercice fiscal pour importer des fichiers",
-                })
-            }
-
-            const files = await c.var.clients.sql
-                .select()
-                .from(models.file)
-                .where(
-                    and(
-                        eq(models.file.idOrganization, session.idOrganization),
-                        eq(models.file.idYear, session.idYear),
-                        inArray(models.file.id, fileIds),
-                    ),
-                )
-
-            console.log(`[createOneAgentMessage] Found ${files.length} files in DB (expected ${fileIds.length})`)
-
-            if (files.length !== fileIds.length) {
-                throw new Exception({
-                    statusCode: 400,
-                    internalMessage: "Some file IDs not found",
-                    externalMessage: "Certains fichiers sont introuvables",
-                })
-            }
-
-            attachedFiles = []
-            for (const file of files) {
-                const mimeType = file.type ?? "application/octet-stream"
-                const isTextLike =
-                    mimeType.startsWith("text/") ||
-                    mimeType === "application/json" ||
-                    mimeType === "application/xml" ||
-                    mimeType === "application/csv"
-                const needsOcr = mimeType.startsWith("image/") || mimeType === "application/pdf"
-
-                console.log(
-                    `[createOneAgentMessage] Processing file "${file.name}" (type=${mimeType}, needsOcr=${needsOcr}, isTextLike=${isTextLike})`,
-                )
-
-                if (needsOcr) {
-                    try {
-                        const { ocrFile } = await processOcr({
-                            var: c.var,
-                            idOrganization: session.idOrganization,
-                            idYear: session.idYear,
-                            idUser: user.id,
-                            sourceFile: file,
-                        })
-                        console.log(
-                            `[createOneAgentMessage] OCR completed for "${file.name}" → ocrFile.id=${ocrFile.id}`,
-                        )
-                        attachedFiles.push({
-                            idFile: file.id,
-                            name: file.name ?? "fichier",
-                            mimeType,
-                            idOcrFile: ocrFile.id,
-                        })
-                    } catch (ocrError) {
-                        console.error(`[createOneAgentMessage] OCR failed for "${file.name}":`, ocrError)
-                        // Still attach the file without OCR so the worker knows it was attempted
-                        attachedFiles.push({
-                            idFile: file.id,
-                            name: file.name ?? "fichier",
-                            mimeType,
-                            idOcrFile: null,
-                        })
-                    }
-                } else if (isTextLike) {
-                    attachedFiles.push({
-                        idFile: file.id,
-                        name: file.name ?? "fichier",
-                        mimeType,
-                        idOcrFile: null,
-                    })
-                } else {
-                    // Unsupported type — skip but don't fail the whole request
-                    console.warn(
-                        `[createOneAgentMessage] Unsupported file type "${mimeType}" for "${file.name}", skipping`,
-                    )
-                }
-            }
-
-            console.log(`[createOneAgentMessage] attachedFiles result: ${JSON.stringify(attachedFiles)}`)
         }
 
         const { assistantMessage, workerJob } = await c.var.clients.sql.transaction(async (transaction) => {
@@ -181,7 +85,6 @@ export const createOneAgentMessageRoute = apiFactory
                     toolCalls: null,
                     toolResults: null,
                     usedTools: null,
-                    ...(attachedFiles ? { attachedFiles } : {}),
                     state: "streaming",
                     streamKey: generateId(),
                     createdAt: new Date().toISOString(),
@@ -207,7 +110,7 @@ export const createOneAgentMessageRoute = apiFactory
                 data: {
                     usageMonthStartAt: monthStartISO,
                     ocrCurrentMonthPagesUsage: shouldResetUsageCounters ? 0 : organization.ocrCurrentMonthPagesUsage,
-                    agentMessagesCurrentMonthUsage: currentMonthUsage + 1,
+                    agentTokensCurrentMonthUsage: currentTokenUsage,
                 },
                 where: (table) => eq(table.id, session.idOrganization),
             })

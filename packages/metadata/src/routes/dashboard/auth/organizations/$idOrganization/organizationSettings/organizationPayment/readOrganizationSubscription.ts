@@ -15,8 +15,8 @@ export const readOrganizationSubscriptionRouteDefinition = routeDefinition({
             subscriptionStatus: v.picklist(["active", "cancelled", "expired", "none"]),
             ocrCurrentMonthUsage: v.number(),
             ocrMonthlyLimit: v.number(),
-            agentMessagesCurrentMonthUsage: v.number(),
-            agentMessagesMonthlyLimit: v.number(),
+            agentTokensCurrentMonthUsage: v.number(),
+            agentTokensMonthlyLimit: v.number(),
         }),
     },
 })

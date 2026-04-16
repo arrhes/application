@@ -109,10 +109,7 @@ export function InputComboboxMultiple<TValue extends string>(props: InputCombobo
                     <Button
                         role="combobox"
                         data-open={open}
-                        className={cx(
-                            css({ width: "100%" }),
-                            props.isDisabled ? css({ cursor: "not-allowed" }) : "",
-                        )}
+                        className={cx(css({ width: "100%" }), props.isDisabled ? css({ cursor: "not-allowed" }) : "")}
                         onClick={() => {
                             if (props.isDisabled) return
                             setOpen(!open)

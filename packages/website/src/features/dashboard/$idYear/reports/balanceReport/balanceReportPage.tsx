@@ -10,7 +10,14 @@ import { YearDataWrapper } from "../../yearDataWrapper.tsx"
 import { ReportFilterPopover } from "../reportFilterPopover.tsx"
 import { BalanceReportTable } from "./balanceReportTable.tsx"
 
-const requiredKeys = ["accounts", "entries", "entryLines", "journals", "tags", "entryTags"] as const satisfies readonly YearDataKey[]
+const requiredKeys = [
+    "accounts",
+    "entries",
+    "entryLines",
+    "journals",
+    "tags",
+    "entryTags",
+] as const satisfies readonly YearDataKey[]
 
 export function BalanceReportPage() {
     const params = useParams({ from: balanceReportRoute.id })
@@ -20,9 +27,7 @@ export function BalanceReportPage() {
     return (
         <YearDataWrapper idYear={params.idYear} requiredKeys={requiredKeys}>
             {({ accounts, entries, entryLines, journals, tags, entryTags }) => {
-                let filteredEntryLines = entryLines.filter(
-                    (entryLine) => entryLine.isComputedForBalanceReport === true,
-                )
+                let filteredEntryLines = entryLines.filter((entryLine) => entryLine.isComputedForBalanceReport === true)
                 const filteredAccounts = accounts
 
                 const journalOptions = journals.map((j) => ({
@@ -34,25 +39,17 @@ export function BalanceReportPage() {
 
                 if (selectedJournalId) {
                     const matchingEntryIds = new Set(
-                        entries
-                            .filter((entry) => entry.idJournal === selectedJournalId)
-                            .map((entry) => entry.id),
+                        entries.filter((entry) => entry.idJournal === selectedJournalId).map((entry) => entry.id),
                     )
-                    filteredEntryLines = filteredEntryLines.filter((el) =>
-                        matchingEntryIds.has(el.idEntry),
-                    )
+                    filteredEntryLines = filteredEntryLines.filter((el) => matchingEntryIds.has(el.idEntry))
                 }
 
                 if (selectedTags.length > 0) {
                     const selectedTagIds = new Set(selectedTags.map((t) => t.key))
                     const matchingEntryIds = new Set(
-                        entryTags
-                            .filter((et) => selectedTagIds.has(et.idTag))
-                            .map((et) => et.idEntry),
+                        entryTags.filter((et) => selectedTagIds.has(et.idTag)).map((et) => et.idEntry),
                     )
-                    filteredEntryLines = filteredEntryLines.filter((el) =>
-                        matchingEntryIds.has(el.idEntry),
-                    )
+                    filteredEntryLines = filteredEntryLines.filter((el) => matchingEntryIds.has(el.idEntry))
                 }
 
                 return (

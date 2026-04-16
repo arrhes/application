@@ -59,16 +59,12 @@ export const readOrganizationSubscriptionRoute = apiFactory
                 data: {
                     usageMonthStartAt: monthStartISO,
                     ocrCurrentMonthPagesUsage: 0,
-                    agentMessagesCurrentMonthUsage: 0,
                 },
                 where: (table) => eq(table.id, idOrganization),
             })
         }
 
         const ocrCurrentMonthPagesUsage = shouldResetUsageCounters ? 0 : organization.ocrCurrentMonthPagesUsage
-        const agentMessagesCurrentMonthUsage = shouldResetUsageCounters
-            ? 0
-            : organization.agentMessagesCurrentMonthUsage
 
         // isPremium = subcriptionEndingAt is set AND is in the future
         const isPremium =
@@ -105,8 +101,8 @@ export const readOrganizationSubscriptionRoute = apiFactory
                 subscriptionStatus,
                 ocrCurrentMonthUsage: ocrCurrentMonthPagesUsage,
                 ocrMonthlyLimit: premiumOrganizationUsageLimits.ocrPagesPerMonth,
-                agentMessagesCurrentMonthUsage,
-                agentMessagesMonthlyLimit: premiumOrganizationUsageLimits.agentMessagesPerMonth,
+                agentTokensCurrentMonthUsage: shouldResetUsageCounters ? 0 : organization.agentTokensCurrentMonthUsage,
+                agentTokensMonthlyLimit: premiumOrganizationUsageLimits.agentTokensPerMonth,
             },
         })
     })

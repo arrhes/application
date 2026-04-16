@@ -38,7 +38,10 @@ export function DeleteUser(props: { children: JSX.Element }) {
                                 body: data,
                             })
                             if (response.ok === false) {
-                                toast({ title: response.error?.cause ?? "Impossible de supprimer le compte", variant: "error" })
+                                toast({
+                                    title: response.error?.cause ?? "Impossible de supprimer le compte",
+                                    variant: "error",
+                                })
                                 return false
                             }
                             toast({ title: "Compte supprimé", variant: "success" })

@@ -36,11 +36,7 @@ export const deleteUserRoute = apiFactory.createApp().post(deleteUserRouteDefini
         const otherAdmins = await selectMany({
             database: c.var.clients.sql,
             table: models.organizationUser,
-            where: (table) =>
-                and(
-                    eq(table.idOrganization, membership.idOrganization),
-                    eq(table.isAdmin, true),
-                ),
+            where: (table) => and(eq(table.idOrganization, membership.idOrganization), eq(table.isAdmin, true)),
         })
 
         if (otherAdmins.length <= 1) {

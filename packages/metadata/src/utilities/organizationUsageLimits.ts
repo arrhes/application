@@ -1,7 +1,6 @@
 export const premiumOrganizationUsageLimits = {
     // Conservative cap to stay under ~10 EUR/month at 0.15 EUR per 1M tokens.
-    // 10 EUR buys ~66.7M tokens, so 500 messages at 128k tokens/message = 64M.
-    agentMessagesPerMonth: 500,
+    agentTokensPerMonth: 64_000_000,
     ocrPagesPerMonth: 1000,
 } as const
 

@@ -8,6 +8,7 @@ import { putObject } from "#src/utilities/storage/putObject.js"
 import { tokenLimit } from "#src/utilities/variables.js"
 import { buildWorkerTools, type ToolResultStore } from "./buildWorkerTools.js"
 import { getAdapter } from "./provider.js"
+import { buildSubagentTool } from "./subagentTool.js"
 import { buildSystemPrompt } from "./systemPrompt.js"
 import { toolCategories } from "./toolCategories.js"
 import { executeWorkerRoute } from "./tools/routeExecutor.js"
@@ -72,7 +73,6 @@ function fixCommonMojibake(text: string) {
 
 const MAX_MESSAGE_CHARACTERS = 16_000
 const ORGANIZATION_USAGE_LIMITS = {
-    agentMessagesPerMonth: 500,
     ocrPagesPerMonth: 1000,
 } as const
 
@@ -411,7 +411,6 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                 .select({
                     usageMonthStartAt: sql<string | null>`usage_month_start_at`,
                     ocrCurrentMonthPagesUsage: sql<number>`ocr_current_month_pages_usage`,
-                    agentMessagesCurrentMonthUsage: sql<number>`agent_messages_current_month_usage`,
                 })
                 .from(models.organization)
                 .where(eq(models.organization.id, idOrganization))
@@ -533,9 +532,6 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                     storage_current_usage = storage_current_usage + ${markdownBuffer.length},
                     usage_month_start_at = ${monthStartISO},
                     ocr_current_month_pages_usage = ${currentMonthPagesUsage + extractedPagesCount},
-                    agent_messages_current_month_usage = ${
-                        shouldResetUsageCounters ? 0 : organization.agentMessagesCurrentMonthUsage
-                    }
                 WHERE id = ${idOrganization}
             `)
 
@@ -547,31 +543,31 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
     })
     tools.push(ocrTool)
 
-    // Load file context from all messages' attachedFiles
+    // Add subagent delegation tool
+    const subagentResult = buildSubagentTool({
+        db,
+        redis,
+        streamKey,
+        idOrganization,
+        idYear,
+        currentDepth: 0,
+        parentToolResultStore: toolResultStore,
+    })
+    tools.push(subagentResult.tool)
+
+    // Load file context from session attachedFiles
     const MAX_FILE_CONTEXT_CHARACTERS = 32_000
     let fileContext: string | undefined
     let fileContextTruncated = false
 
-    const allAttachedFiles: Array<{ idFile: string; name: string; mimeType: string; idOcrFile: string | null }> = []
-    for (const m of historyRows) {
-        if (m.attachedFiles && Array.isArray(m.attachedFiles)) {
-            for (const f of m.attachedFiles as Array<{
-                idFile: string
-                name: string
-                mimeType: string
-                idOcrFile: string | null
-            }>) {
-                // Deduplicate by idFile
-                if (!allAttachedFiles.some((af) => af.idFile === f.idFile)) {
-                    allAttachedFiles.push(f)
-                }
-            }
-        }
-    }
+    const allAttachedFiles = (session.attachedFiles ?? []) as Array<{
+        idFile: string
+        name: string
+        mimeType: string
+        idOcrFile: string | null
+    }>
 
-    console.log(
-        `[runAgentSession] Found ${allAttachedFiles.length} attached files across ${historyRows.length} messages`,
-    )
+    console.log(`[runAgentSession] Found ${allAttachedFiles.length} attached files on session`)
 
     if (allAttachedFiles.length > 0) {
         const fileContextParts: string[] = []
@@ -681,6 +677,9 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
     const usedToolNames = new Set<string>()
     let lastBoundaryContentLength = 0
     let runError: string | null = null
+    let capturedPromptTokens = 0
+    let capturedCompletionTokens = 0
+    let capturedTotalTokens = 0
 
     // Periodic checkpoint: flush partial content to DB so page reloads
     // can show already-generated text instead of "..."
@@ -719,7 +718,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
             messages: modelMessages as any,
             tools,
             systemPrompts: [systemPrompt],
-            agentLoopStrategy: maxIterations(10),
+            agentLoopStrategy: maxIterations(20),
         })
 
         for await (const chunk of stream) {
@@ -751,6 +750,14 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                 accumulatedToolCalls.push(chunk)
                 maybeCheckpoint()
             }
+            if (chunk.type === "RUN_FINISHED" && "usage" in chunk) {
+                const usage = (chunk as any).usage
+                if (usage) {
+                    capturedPromptTokens += Number(usage.promptTokens ?? 0)
+                    capturedCompletionTokens += Number(usage.completionTokens ?? 0)
+                    capturedTotalTokens += Number(usage.totalTokens ?? 0)
+                }
+            }
         }
 
         console.log(
@@ -774,7 +781,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                 .set({ status: "error", lastUpdatedAt: new Date().toISOString() })
                 .where(eq(models.workerJob.id, idWorkerJob))
         } else {
-            // Persist the completed assistant message
+            // Persist the completed assistant message with token usage
             await db
                 .update(models.agentMessage)
                 .set({
@@ -782,6 +789,9 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                     content: accumulatedContent || null,
                     toolCalls: accumulatedToolCalls.length > 0 ? accumulatedToolCalls : null,
                     usedTools: usedToolNames.size > 0 ? [...usedToolNames] : null,
+                    promptTokens: capturedPromptTokens || null,
+                    completionTokens: capturedCompletionTokens || null,
+                    totalTokens: capturedTotalTokens || null,
                 })
                 .where(eq(models.agentMessage.id, idAgentMessage))
 
@@ -791,11 +801,49 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                 .set({ status: "completed", lastUpdatedAt: new Date().toISOString() })
                 .where(eq(models.workerJob.id, idWorkerJob))
 
-            // Update session lastUpdatedAt
-            await db
-                .update(models.agentSession)
-                .set({ lastUpdatedAt: new Date().toISOString() })
-                .where(eq(models.agentSession.id, agentMessage.idAgentSession))
+            // Update session lastUpdatedAt and increment token counters
+            if (capturedTotalTokens > 0) {
+                await db
+                    .update(models.agentSession)
+                    .set({
+                        lastUpdatedAt: new Date().toISOString(),
+                        totalPromptTokens: sql`${models.agentSession.totalPromptTokens} + ${capturedPromptTokens}`,
+                        totalCompletionTokens: sql`${models.agentSession.totalCompletionTokens} + ${capturedCompletionTokens}`,
+                        totalTokens: sql`${models.agentSession.totalTokens} + ${capturedTotalTokens}`,
+                    })
+                    .where(eq(models.agentSession.id, agentMessage.idAgentSession))
+
+                // Increment organization-level monthly token usage
+                const monthStartISO2 = getCurrentMonthStartISO()
+                const orgRows = await db
+                    .select({
+                        usageMonthStartAt: models.organization.usageMonthStartAt,
+                        agentTokensCurrentMonthUsage: models.organization.agentTokensCurrentMonthUsage,
+                    })
+                    .from(models.organization)
+                    .where(eq(models.organization.id, idOrganization))
+                    .limit(1)
+                const org = orgRows.at(0)
+                if (org) {
+                    const shouldReset = isUsageMonthOutdated({
+                        usageMonthStartAt: org.usageMonthStartAt,
+                        monthStartISO: monthStartISO2,
+                    })
+                    const currentTokenUsage = shouldReset ? 0 : org.agentTokensCurrentMonthUsage
+                    await db
+                        .update(models.organization)
+                        .set({
+                            usageMonthStartAt: monthStartISO2,
+                            agentTokensCurrentMonthUsage: currentTokenUsage + capturedTotalTokens,
+                        })
+                        .where(eq(models.organization.id, idOrganization))
+                }
+            } else {
+                await db
+                    .update(models.agentSession)
+                    .set({ lastUpdatedAt: new Date().toISOString() })
+                    .where(eq(models.agentSession.id, agentMessage.idAgentSession))
+            }
         }
     } catch (error: unknown) {
         const msg = error instanceof Error ? error.message : String(error)

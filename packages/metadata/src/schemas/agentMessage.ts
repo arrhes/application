@@ -1,5 +1,5 @@
 import * as v from "valibot"
-import { dateTimeSchema } from "../components/index.js"
+import { dateTimeSchema, integerSchema } from "../components/index.js"
 import { idSchema } from "../components/schemas/idSchema.js"
 import type { agentMessageModel } from "../models/agentMessage.js"
 
@@ -16,6 +16,12 @@ export const agentMessageSchema = v.object({
     attachedFiles: v.nullable(v.any()),
     state: v.nonNullable(v.picklist(agentMessageState, "Valeur invalide"), "Ce champ est requis"),
     streamKey: v.nullable(v.string()),
+    promptTokens: v.nullable(integerSchema),
+    completionTokens: v.nullable(integerSchema),
+    totalTokens: v.nullable(integerSchema),
+    subagentRole: v.nullable(v.string()),
+    subagentDepth: v.nonNullable(integerSchema, "Ce champ est requis"),
+    idParentAgentMessage: v.nullable(idSchema),
     createdAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),
 }) satisfies v.GenericSchema<typeof agentMessageModel.$inferSelect>
 

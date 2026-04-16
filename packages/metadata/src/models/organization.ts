@@ -24,7 +24,7 @@ export const organizationModel = pgTable("table_organization", {
     storageCurrentUsage: integer("storage_current_usage").notNull().default(0),
     usageMonthStartAt: dateTimeColumn("usage_month_start_at"),
     ocrCurrentMonthPagesUsage: integer("ocr_current_month_pages_usage").notNull().default(0),
-    agentMessagesCurrentMonthUsage: integer("agent_messages_current_month_usage").notNull().default(0),
+    agentTokensCurrentMonthUsage: integer("agent_tokens_current_month_usage").notNull().default(0),
     createdAt: dateTimeColumn("created_at").notNull(),
     lastUpdatedAt: dateTimeColumn("last_updated_at"),
     createdBy: idColumn("created_by").references((): AnyPgColumn => dashboardUserModel.id, {

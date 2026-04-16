@@ -12,6 +12,7 @@ export const updateOneAgentSessionRouteDefinition = routeDefinition({
             idAgentSession: v.nonNullable(idSchema, "Ce champ est requis"),
             idYear: v.optional(v.nullable(idSchema)),
             customInstructions: v.optional(v.nullable(v.string())),
+            fileIds: v.optional(v.nullable(v.array(idSchema))),
         }),
         return: agentSessionSchemaReturn,
     },

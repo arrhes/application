@@ -4,6 +4,7 @@ import {
     createOneAgentSessionRouteDefinition,
     readAllAgentSessionsRouteDefinition,
     readAllYearsRouteDefinition,
+    updateOneAgentSessionRouteDefinition,
 } from "@arrhes/application-metadata"
 import { Button, ButtonOutlineContent, ButtonPlainContent, InputSelect, InputTextArea, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
@@ -122,13 +123,23 @@ export function AgentPage() {
                 fileIds.push(createFileResponse.data.file.id)
             }
 
+            // Attach files to session if any were uploaded
+            if (fileIds.length > 0) {
+                await getResponseBodyFromAPI({
+                    routeDefinition: updateOneAgentSessionRouteDefinition,
+                    body: {
+                        idAgentSession: agentSessionResponse.data.id,
+                        fileIds,
+                    },
+                })
+            }
+
             const agentMessageResponse = await getResponseBodyFromAPI({
                 routeDefinition: createOneAgentMessageRouteDefinition,
                 body: {
                     idOrganization: params.idOrganization,
                     idAgentSession: agentSessionResponse.data.id,
                     message: text.trim(),
-                    fileIds: fileIds.length > 0 ? fileIds : null,
                 },
             })
 

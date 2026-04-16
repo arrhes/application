@@ -280,6 +280,11 @@ export const agentToolsCatalog: AgentToolDefinition[] = [
         descriptionFr:
             "Compter, trier, filtrer, extraire, rechercher, sommer ou obtenir des valeurs uniques à partir d'une liste.",
     },
+    {
+        name: "delegate_to_subagent",
+        labelFr: "Déléguer à un sous-agent",
+        descriptionFr: "Déléguer une tâche à un sous-agent spécialisé (analyste, saisie, documents ou audit).",
+    },
 ]
 
 const agentToolsCatalogByName = new Map(agentToolsCatalog.map((tool) => [tool.name, tool]))

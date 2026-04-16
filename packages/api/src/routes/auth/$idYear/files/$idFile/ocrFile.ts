@@ -205,7 +205,6 @@ export const ocrFileRoute = apiFactory.createApp().post(ocrFileRouteDefinition.p
             storageCurrentUsage: sql`${models.organization.storageCurrentUsage} + ${markdownBuffer.length}`,
             usageMonthStartAt: monthStartISO,
             ocrCurrentMonthPagesUsage: currentMonthPagesUsage + extractedPagesCount,
-            agentMessagesCurrentMonthUsage: shouldResetUsageCounters ? 0 : organization.agentMessagesCurrentMonthUsage,
         },
         where: (table) => eq(table.id, idOrganization),
     })

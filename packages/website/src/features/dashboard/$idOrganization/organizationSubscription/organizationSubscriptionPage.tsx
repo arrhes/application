@@ -17,6 +17,52 @@ import { ResumeSubscription } from "./resumeSubscription.js"
 
 const MONTHLY_PRICE_CENTS = 3000
 
+function UsageBar(props: { current: number; limit: number; formatValue: (v: number) => string }) {
+    const percentage = Math.min((props.current / props.limit) * 100, 100)
+    const color = percentage >= 90 ? "danger" : percentage >= 70 ? "warning" : "success"
+
+    return (
+        <div
+            className={css({
+                minWidth: "180px",
+                width: "100%",
+                maxWidth: "512px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.25rem",
+            })}
+        >
+            <div
+                className={css({
+                    display: "flex",
+                    justifyContent: "space-between",
+                    fontSize: "xs",
+                    color: "neutral/70",
+                })}
+            >
+                <span>
+                    {props.formatValue(props.current)} / {props.formatValue(props.limit)}
+                </span>
+                <span>{percentage.toFixed(0)}%</span>
+            </div>
+            <div
+                className={css({
+                    width: "100%",
+                    height: "0.5rem",
+                    borderRadius: "full",
+                    backgroundColor: "neutral/10",
+                    overflow: "hidden",
+                })}
+            >
+                <div
+                    className={css({ height: "100%", borderRadius: "full", transition: "width 0.3s ease" })}
+                    style={{ width: `${percentage}%`, backgroundColor: `var(--colors-${color})` }}
+                />
+            </div>
+        </div>
+    )
+}
+
 /**
  * Calculate the pro-rata amount in euros for the remaining days of the current month (including today).
  * Must mirror the server-side logic in createFirstPayment.ts.
@@ -135,17 +181,34 @@ export function OrganizationSubscriptionPage() {
                                             <CancelSubscription idOrganization={params.idOrganization} />
                                         </SettingsSection.Row>
                                     )}
+                                </SettingsSection.Root>
+                                <SettingsSection.Root>
+                                    <SettingsSection.Header title="Utilisation mensuelle" />
                                     <SettingsSection.Row
-                                        title="OCR mensuel"
+                                        title="OCR"
                                         description="Nombre de pages traitées par OCR ce mois-ci."
                                     >
-                                        {`${subscription.ocrCurrentMonthUsage} / ${subscription.ocrMonthlyLimit}`}
+                                        <UsageBar
+                                            current={subscription.ocrCurrentMonthUsage}
+                                            limit={subscription.ocrMonthlyLimit}
+                                            formatValue={(v) => String(v)}
+                                        />
                                     </SettingsSection.Row>
                                     <SettingsSection.Row
-                                        title="Messages agent mensuels"
-                                        description="Nombre de messages agent consommés ce mois-ci."
+                                        title="Tokens utilisés"
+                                        description="Nombre de tokens consommés ce mois-ci."
                                     >
-                                        {`${subscription.agentMessagesCurrentMonthUsage} / ${subscription.agentMessagesMonthlyLimit}`}
+                                        <UsageBar
+                                            current={subscription.agentTokensCurrentMonthUsage}
+                                            limit={subscription.agentTokensMonthlyLimit}
+                                            formatValue={(v) =>
+                                                v >= 1_000_000
+                                                    ? `${(v / 1_000_000).toFixed(1)}M`
+                                                    : v >= 1_000
+                                                      ? `${(v / 1_000).toFixed(0)}k`
+                                                      : String(v)
+                                            }
+                                        />
                                     </SettingsSection.Row>
                                 </SettingsSection.Root>
                             </div>

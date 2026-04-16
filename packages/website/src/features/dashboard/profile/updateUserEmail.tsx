@@ -38,7 +38,10 @@ export function UpdateUserEmail(props: { children: JSX.Element }) {
                                 body: data,
                             })
                             if (response.ok === false) {
-                                toast({ title: response.error?.cause ?? "Impossible de mettre à jour l'email", variant: "error" })
+                                toast({
+                                    title: response.error?.cause ?? "Impossible de mettre à jour l'email",
+                                    variant: "error",
+                                })
                                 return false
                             }
                             toast({
@@ -63,11 +66,7 @@ export function UpdateUserEmail(props: { children: JSX.Element }) {
                                         <FormItem>
                                             <FormLabel label="Nouvelle adresse email" isRequired />
                                             <FormControl>
-                                                <InputText
-                                                    type="email"
-                                                    value={field.value}
-                                                    onChange={field.onChange}
-                                                />
+                                                <InputText type="email" value={field.value} onChange={field.onChange} />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>

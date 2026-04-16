@@ -1,6 +1,19 @@
 import type { InferOutput } from "valibot"
 import type { readAllAgentMessagesRouteDefinition } from "../../../../../../metadata/build/routes/dashboard/auth/index.js"
+import { agentToolsCatalog } from "./agentToolsCatalog.ts"
 import { reconstructToolCallParts } from "./reconstructToolCallParts.js"
+
+/** Strip raw tool call text the LLM may output (e.g. "read_all_years {}"). */
+const toolNamePattern = new RegExp(
+    `\\b(${agentToolsCatalog.map((t) => t.name.replace(/_/g, "_")).join("|")})\\s*\\{[^}]*\\}`,
+    "g",
+)
+function stripRawToolCalls(text: string): string {
+    return text
+        .replace(toolNamePattern, "")
+        .replace(/\n{3,}/g, "\n\n")
+        .trim()
+}
 
 type Part = {
     type: string
@@ -51,7 +64,7 @@ function buildInterleavedParts(events: unknown[], content: string, state: string
 
         if (e.type === "TEXT_BOUNDARY" || e.type === "TEXT_MESSAGE_END") {
             const endPos = typeof e.contentLength === "number" ? e.contentLength : content.length
-            const segment = content.slice(textOffset, endPos)
+            const segment = stripRawToolCalls(content.slice(textOffset, endPos))
             if (segment) {
                 parts.push({ type: "text", content: segment })
             }
@@ -61,6 +74,15 @@ function buildInterleavedParts(events: unknown[], content: string, state: string
         if (e.type === "TOOL_CALL_START" && typeof e.toolCallId === "string" && typeof e.toolName === "string") {
             if (!toolCallMap.has(e.toolCallId)) {
                 toolCallMap.set(e.toolCallId, { name: e.toolName, args: undefined, ended: false })
+                // Emit tool-call part immediately so it's visible during streaming
+                parts.push({
+                    type: "tool-call",
+                    id: e.toolCallId,
+                    name: e.toolName,
+                    content: null,
+                    state: "awaiting-input",
+                    args: undefined,
+                })
             }
         }
 
@@ -76,26 +98,32 @@ function buildInterleavedParts(events: unknown[], content: string, state: string
             } else {
                 toolCallMap.set(e.toolCallId, { name: e.toolName, args: e.input, ended: true })
             }
-            // Emit tool-call part after TOOL_CALL_END
-            const tc = toolCallMap.get(e.toolCallId)!
-            parts.push({
-                type: "tool-call",
-                id: e.toolCallId,
-                name: tc.name,
-                content: null,
-                state: tc.ended ? "result" : "awaiting-input",
-                args: tc.args,
-            })
+            // Update the existing part emitted at TOOL_CALL_START, or create a new one
+            const existingPart = parts.find((p) => p.type === "tool-call" && p.id === e.toolCallId)
+            if (existingPart) {
+                existingPart.state = "result"
+                existingPart.args = e.input
+            } else {
+                const tc = toolCallMap.get(e.toolCallId)!
+                parts.push({
+                    type: "tool-call",
+                    id: e.toolCallId,
+                    name: tc.name,
+                    content: null,
+                    state: "result",
+                    args: tc.args,
+                })
+            }
         }
     }
 
     // Remaining text after the last TEXT_MESSAGE_END (e.g. during streaming)
     if (textOffset < content.length) {
-        const remaining = content.slice(textOffset)
+        const remaining = stripRawToolCalls(content.slice(textOffset))
         // If the message errored and this is the only text, it's the error message
         if (state === "error" && parts.every((p) => p.type !== "text")) {
             parts.push({ type: "error", content: remaining })
-        } else {
+        } else if (remaining) {
             parts.push({ type: "text", content: remaining })
         }
     }
@@ -121,7 +149,8 @@ function buildLegacyParts(agentMessage: { content: string | null; state: string 
     const toolCallParts = reconstructToolCallParts(agentMessage.toolCalls)
     parts.push(...toolCallParts)
 
-    const text = getContentFallback(agentMessage.content ?? "", agentMessage.state)
+    const rawText = getContentFallback(agentMessage.content ?? "", agentMessage.state)
+    const text = rawText ? stripRawToolCalls(rawText) : rawText
     if (agentMessage.state === "error") {
         parts.push({ type: "error", content: text || "Une erreur est survenue lors de la génération de la réponse." })
     } else {

@@ -22,10 +22,7 @@ export function UserProfilePage() {
                         <>
                             <SettingsSection.Root>
                                 <SettingsSection.Header title="Informations du compte" />
-                                <SettingsSection.Row
-                                    title="Adresse email"
-                                    description={userSession.user.email}
-                                >
+                                <SettingsSection.Row title="Adresse email" description={userSession.user.email}>
                                     <UpdateUserEmail>
                                         <Button>
                                             <ButtonOutlineContent leftIcon={<IconMail />} text="Modifier" />

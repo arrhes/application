@@ -4,7 +4,7 @@ import { userProfileLayoutRoute } from "./userProfileLayoutRoute.js"
 export const userProfileRoute = createRoute({
     getParentRoute: () => userProfileLayoutRoute,
     path: "/",
-    beforeLoad: () => { },
+    beforeLoad: () => {},
     component: lazyRouteComponent(
         () => import("../../../../features/dashboard/profile/userProfilePage.js"),
         "UserProfilePage",

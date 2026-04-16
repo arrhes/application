@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm"
-import { index, jsonb, pgEnum, pgTable, text } from "drizzle-orm/pg-core"
+import { type AnyPgColumn, index, integer, jsonb, pgEnum, pgTable, text } from "drizzle-orm/pg-core"
 import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
 import { agentSessionModel } from "./agentSession.js"
@@ -23,15 +23,30 @@ export const agentMessageModel = pgTable(
         attachedFiles: jsonb("attached_files"),
         state: agentMessageStateEnum("state").notNull(),
         streamKey: text("stream_key"),
+        promptTokens: integer("prompt_tokens"),
+        completionTokens: integer("completion_tokens"),
+        totalTokens: integer("total_tokens"),
+        subagentRole: text("subagent_role"),
+        subagentDepth: integer("subagent_depth").notNull().default(0),
+        idParentAgentMessage: idColumn("id_parent_agent_message").references((): AnyPgColumn => agentMessageModel.id, {
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        }),
         createdAt: dateTimeColumn("created_at").notNull(),
     },
-    (t) => [index().on(t.idAgentSession)],
+    (t) => [index().on(t.idAgentSession), index().on(t.idParentAgentMessage)],
 )
 
 // Relations
-export const agentMessageRelations = relations(agentMessageModel, ({ one }) => ({
+export const agentMessageRelations = relations(agentMessageModel, ({ one, many }) => ({
     agentSession: one(agentSessionModel, {
         fields: [agentMessageModel.idAgentSession],
         references: [agentSessionModel.id],
     }),
+    parentMessage: one(agentMessageModel, {
+        fields: [agentMessageModel.idParentAgentMessage],
+        references: [agentMessageModel.id],
+        relationName: "parentChild",
+    }),
+    childMessages: many(agentMessageModel, { relationName: "parentChild" }),
 }))

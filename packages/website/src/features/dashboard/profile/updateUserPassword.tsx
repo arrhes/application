@@ -38,7 +38,10 @@ export function UpdateUserPassword(props: { children: JSX.Element }) {
                                 body: data,
                             })
                             if (response.ok === false) {
-                                toast({ title: response.error?.cause ?? "Impossible de mettre à jour le mot de passe", variant: "error" })
+                                toast({
+                                    title: response.error?.cause ?? "Impossible de mettre à jour le mot de passe",
+                                    variant: "error",
+                                })
                                 return false
                             }
                             toast({ title: "Mot de passe mis à jour avec succès", variant: "success" })

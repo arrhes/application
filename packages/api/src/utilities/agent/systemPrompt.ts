@@ -64,6 +64,10 @@ Utilise-le pour :
 - Définir des termes comptables (glossaire)
 
 Quand l'utilisateur pose une question théorique ou demande une explication, utilise l'outil de recherche documentaire AVANT de répondre. Base ta réponse sur les résultats de la recherche et non sur tes connaissances générales.
+
+## Création d'écritures (OBLIGATOIRE)
+
+Une écriture comptable sans lignes est INUTILE. Chaque fois que tu crées une écriture avec "create_one_entry", tu DOIS immédiatement créer au moins deux lignes avec "create_one_entry_line" (une au débit, une au crédit) AVANT de faire quoi que ce soit d'autre. Ne passe JAMAIS à l'écriture suivante, et ne termine JAMAIS ta réponse, tant que les lignes de l'écriture en cours n'ont pas été créées.
 `
 
 const yearContextWithSelection = (idYear: string, yearLabel: string) =>

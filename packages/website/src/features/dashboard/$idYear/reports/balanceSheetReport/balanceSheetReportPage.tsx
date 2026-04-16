@@ -15,7 +15,15 @@ import { BalanceSheetAssetsReportTable } from "./balanceSheetAsset/balanceSheetA
 import { BalanceSheetLiabilitiesReportTable } from "./balanceSheetLiability/balanceSheetLiabilitiesReportTable.tsx"
 import { DownloadBalanceSheetReport } from "./downloadBalanceSheetReport.tsx"
 
-const requiredKeys = ["accounts", "entries", "entryLines", "balanceSheets", "journals", "tags", "entryTags"] as const satisfies readonly YearDataKey[]
+const requiredKeys = [
+    "accounts",
+    "entries",
+    "entryLines",
+    "balanceSheets",
+    "journals",
+    "tags",
+    "entryTags",
+] as const satisfies readonly YearDataKey[]
 
 export function BalanceSheetReportPage() {
     const params = useParams({ from: balanceSheetReportRoute.id })
@@ -39,25 +47,17 @@ export function BalanceSheetReportPage() {
 
                 if (selectedJournalId) {
                     const matchingEntryIds = new Set(
-                        entries
-                            .filter((entry) => entry.idJournal === selectedJournalId)
-                            .map((entry) => entry.id),
+                        entries.filter((entry) => entry.idJournal === selectedJournalId).map((entry) => entry.id),
                     )
-                    filteredEntryLines = filteredEntryLines.filter((el) =>
-                        matchingEntryIds.has(el.idEntry),
-                    )
+                    filteredEntryLines = filteredEntryLines.filter((el) => matchingEntryIds.has(el.idEntry))
                 }
 
                 if (selectedTags.length > 0) {
                     const selectedTagIds = new Set(selectedTags.map((t) => t.key))
                     const matchingEntryIds = new Set(
-                        entryTags
-                            .filter((et) => selectedTagIds.has(et.idTag))
-                            .map((et) => et.idEntry),
+                        entryTags.filter((et) => selectedTagIds.has(et.idTag)).map((et) => et.idEntry),
                     )
-                    filteredEntryLines = filteredEntryLines.filter((el) =>
-                        matchingEntryIds.has(el.idEntry),
-                    )
+                    filteredEntryLines = filteredEntryLines.filter((el) => matchingEntryIds.has(el.idEntry))
                 }
 
                 return (
@@ -86,7 +86,10 @@ export function BalanceSheetReportPage() {
                                             idOrganization={params.idOrganization}
                                             idYear={params.idYear}
                                         >
-                                            <ButtonOutlineContent leftIcon={<IconDownload />} text="Télécharger en pdf" />
+                                            <ButtonOutlineContent
+                                                leftIcon={<IconDownload />}
+                                                text="Télécharger en pdf"
+                                            />
                                         </DownloadBalanceSheetReport>
                                     </div>
                                     <div

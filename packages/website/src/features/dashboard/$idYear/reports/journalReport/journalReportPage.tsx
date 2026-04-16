@@ -14,7 +14,14 @@ import { JournalReportTable } from "./journalReportTable.tsx"
 
 const PAGE_SIZE = 20
 
-const requiredKeys = ["entries", "entryLines", "accounts", "journals", "tags", "entryTags"] as const satisfies readonly YearDataKey[]
+const requiredKeys = [
+    "entries",
+    "entryLines",
+    "accounts",
+    "journals",
+    "tags",
+    "entryTags",
+] as const satisfies readonly YearDataKey[]
 
 export function JournalReportPage() {
     const params = useParams({ from: journalReportRoute.id })
@@ -41,27 +48,19 @@ export function JournalReportPage() {
                 let filteredEntries = [...entries]
 
                 if (selectedJournalId) {
-                    filteredEntries = filteredEntries.filter(
-                        (entry) => entry.idJournal === selectedJournalId,
-                    )
+                    filteredEntries = filteredEntries.filter((entry) => entry.idJournal === selectedJournalId)
                 }
 
                 if (selectedTags.length > 0) {
                     const selectedTagIds = new Set(selectedTags.map((t) => t.key))
                     const matchingEntryIds = new Set(
-                        entryTags
-                            .filter((et) => selectedTagIds.has(et.idTag))
-                            .map((et) => et.idEntry),
+                        entryTags.filter((et) => selectedTagIds.has(et.idTag)).map((et) => et.idEntry),
                     )
-                    filteredEntries = filteredEntries.filter((entry) =>
-                        matchingEntryIds.has(entry.id),
-                    )
+                    filteredEntries = filteredEntries.filter((entry) => matchingEntryIds.has(entry.id))
                 }
 
                 const filteredEntryIds = new Set(filteredEntries.map((e) => e.id))
-                const filteredEntryLinesForTable = filteredEntryLines.filter((el) =>
-                    filteredEntryIds.has(el.idEntry),
-                )
+                const filteredEntryLinesForTable = filteredEntryLines.filter((el) => filteredEntryIds.has(el.idEntry))
 
                 const sortedEntries = filteredEntries.sort((a, b) => b.date.localeCompare(a.date))
 

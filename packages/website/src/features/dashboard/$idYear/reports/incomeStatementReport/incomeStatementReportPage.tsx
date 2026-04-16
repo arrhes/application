@@ -32,7 +32,17 @@ export function IncomeStatementReportPage() {
 
     return (
         <YearDataWrapper idYear={params.idYear} requiredKeys={requiredKeys}>
-            {({ accounts, entries, entryLines, incomeStatements, computations, computationIncomeStatements, journals, tags, entryTags }) => {
+            {({
+                accounts,
+                entries,
+                entryLines,
+                incomeStatements,
+                computations,
+                computationIncomeStatements,
+                journals,
+                tags,
+                entryTags,
+            }) => {
                 let filteredEntryLines = entryLines.filter(
                     (entryLine) => entryLine.isComputedForIncomeStatementReport === true,
                 )
@@ -47,25 +57,17 @@ export function IncomeStatementReportPage() {
 
                 if (selectedJournalId) {
                     const matchingEntryIds = new Set(
-                        entries
-                            .filter((entry) => entry.idJournal === selectedJournalId)
-                            .map((entry) => entry.id),
+                        entries.filter((entry) => entry.idJournal === selectedJournalId).map((entry) => entry.id),
                     )
-                    filteredEntryLines = filteredEntryLines.filter((el) =>
-                        matchingEntryIds.has(el.idEntry),
-                    )
+                    filteredEntryLines = filteredEntryLines.filter((el) => matchingEntryIds.has(el.idEntry))
                 }
 
                 if (selectedTags.length > 0) {
                     const selectedTagIds = new Set(selectedTags.map((t) => t.key))
                     const matchingEntryIds = new Set(
-                        entryTags
-                            .filter((et) => selectedTagIds.has(et.idTag))
-                            .map((et) => et.idEntry),
+                        entryTags.filter((et) => selectedTagIds.has(et.idTag)).map((et) => et.idEntry),
                     )
-                    filteredEntryLines = filteredEntryLines.filter((el) =>
-                        matchingEntryIds.has(el.idEntry),
-                    )
+                    filteredEntryLines = filteredEntryLines.filter((el) => matchingEntryIds.has(el.idEntry))
                 }
 
                 return (
@@ -94,7 +96,10 @@ export function IncomeStatementReportPage() {
                                             idOrganization={params.idOrganization}
                                             idYear={params.idYear}
                                         >
-                                            <ButtonOutlineContent leftIcon={<IconDownload />} text="Télécharger en pdf" />
+                                            <ButtonOutlineContent
+                                                leftIcon={<IconDownload />}
+                                                text="Télécharger en pdf"
+                                            />
                                         </DownloadIncomeStatementReport>
                                     </div>
                                     <Box>
