@@ -550,6 +550,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
         streamKey,
         idOrganization,
         idYear,
+        customInstructions: customInstructions ?? null,
         currentDepth: 0,
         parentToolResultStore: toolResultStore,
     })

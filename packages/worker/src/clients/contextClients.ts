@@ -5,20 +5,20 @@ import { redisClient } from "#src/clients/redisClient.js"
 import { sqlClient } from "#src/clients/sqlClient.js"
 import { storageClient } from "#src/clients/storageClient.js"
 
-export class ContextClients {
-    static ai: ReturnType<typeof aiClient>
-    static qdrant: ReturnType<typeof qdrantClient>
-    static queue: ReturnType<typeof queueClient>
-    static redis: Awaited<ReturnType<typeof redisClient>>
-    static storage: ReturnType<typeof storageClient>
-    static sql: ReturnType<typeof sqlClient>
+export const ContextClients = {
+    ai: undefined as unknown as ReturnType<typeof aiClient>,
+    qdrant: undefined as unknown as ReturnType<typeof qdrantClient>,
+    queue: undefined as unknown as ReturnType<typeof queueClient>,
+    redis: undefined as unknown as Awaited<ReturnType<typeof redisClient>>,
+    storage: undefined as unknown as ReturnType<typeof storageClient>,
+    sql: undefined as unknown as ReturnType<typeof sqlClient>,
 
-    static async init() {
+    async init() {
         ContextClients.ai = aiClient()
         ContextClients.qdrant = qdrantClient()
         ContextClients.queue = queueClient()
         ContextClients.redis = await redisClient()
         ContextClients.storage = storageClient()
         ContextClients.sql = sqlClient()
-    }
+    },
 }

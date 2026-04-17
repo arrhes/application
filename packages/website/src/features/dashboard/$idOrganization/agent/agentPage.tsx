@@ -20,7 +20,7 @@ import { useDataFromAPI } from "../../../../utilities/useHTTPData.js"
 
 const suggestionChips = [
     "Montre-moi mes écritures récentes",
-    "Combien de comptes ai-je dans mon plan comptable ?",
+    "Ajoute une écriture d'achat en utilisant cette facture en pièce jointe",
     "Quels sont mes exercices ouverts ?",
 ]
 
@@ -275,7 +275,7 @@ export function AgentPage() {
                                 <Button title="Contexte de la session">
                                     <ButtonOutlineContent
                                         leftIcon={<IconNotebook />}
-                                        // text="Contexte"
+                                    // text="Contexte"
                                     />
                                 </Button>
                             </Popover.Trigger>
@@ -324,9 +324,9 @@ export function AgentPage() {
                                                 yearsData === undefined
                                                     ? []
                                                     : yearsData.map((year) => ({
-                                                          key: year.id,
-                                                          label: year.label,
-                                                      }))
+                                                        key: year.id,
+                                                        label: year.label,
+                                                    }))
                                             }
                                         />
                                     </div>

@@ -1,5 +1,5 @@
 import { models, readAllFilesRouteDefinition } from "@arrhes/application-metadata"
-import { and, eq } from "drizzle-orm"
+import { and, eq, isNull } from "drizzle-orm"
 import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
@@ -16,7 +16,7 @@ export const readAllFilesRoute = apiFactory.createApp().post(readAllFilesRouteDe
     const readAllFiles = await selectMany({
         database: c.var.clients.sql,
         table: models.file,
-        where: (table) => and(eq(table.idOrganization, idOrganization), eq(table.idYear, body.idYear)),
+        where: (table) => and(eq(table.idOrganization, idOrganization), body.idYear !== null ? eq(table.idYear, body.idYear) : isNull(table.idYear)),
     })
 
     return response({

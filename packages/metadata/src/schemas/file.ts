@@ -7,7 +7,7 @@ import type { fileModel } from "../models/file.js"
 export const fileSchema = v.object({
     id: v.nonNullable(idSchema, "Ce champ est requis"),
     idOrganization: v.nonNullable(idSchema, "Ce champ est requis"),
-    idYear: v.nonNullable(idSchema, "Ce champ est requis"),
+    idYear: v.nullable(idSchema),
     idFolder: v.nullable(idSchema),
     reference: v.nullable(varcharSchema({ maxLength: 256 })),
     name: v.nullable(varcharSchema({ maxLength: 256 })),

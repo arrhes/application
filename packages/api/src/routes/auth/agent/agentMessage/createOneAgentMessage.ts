@@ -63,8 +63,7 @@ export const createOneAgentMessageRoute = apiFactory
         const currentTokenUsage = shouldResetUsageCounters ? 0 : organization.agentTokensCurrentMonthUsage
 
         // Gate on token budget — reject only when nearly exhausted (less than 50K tokens remain)
-        const remainingTokenBudget = premiumOrganizationUsageLimits.agentTokensPerMonth - currentTokenUsage
-        if (remainingTokenBudget < 50_000) {
+        if (premiumOrganizationUsageLimits.agentTokensPerMonth - currentTokenUsage < 0) {
             throw new Exception({
                 statusCode: 429,
                 internalMessage: "Agent monthly token limit reached",

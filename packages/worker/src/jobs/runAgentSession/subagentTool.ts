@@ -1,12 +1,18 @@
 import { chat, convertMessagesToModelMessages, maxIterations, toolDefinition } from "@tanstack/ai"
+import {
+    agentSkillNames,
+    buildSkillInstructions,
+    getAgentSkills,
+    getToolCategoriesFromSkills
+} from "./agentSkills.js"
 import type { ToolResultStore } from "./buildWorkerTools.js"
 import { buildWorkerTools } from "./buildWorkerTools.js"
 import { getAdapter } from "./provider.js"
-import { getSubagentRole, subagentRoleNames } from "./subagentRoles.js"
 import { toolCategories } from "./toolCategories.js"
 import { executeWorkerRoute } from "./tools/routeExecutor.js"
 
 const MAX_SUBAGENT_DEPTH = 2
+const MAX_SUBAGENT_ITERATIONS = 5
 
 export interface SubagentContext {
     db: any
@@ -14,6 +20,7 @@ export interface SubagentContext {
     streamKey: string
     idOrganization: string
     idYear: string | null
+    customInstructions: string | null
     currentDepth: number
     parentToolResultStore: ToolResultStore
 }
@@ -25,24 +32,29 @@ export interface SubagentTokenUsage {
 }
 
 export function buildSubagentTool(context: SubagentContext) {
+    const allSkills = getAgentSkills([...agentSkillNames])
+    const skillsDescription = allSkills.map((s) => `- ${s.name} : ${s.description}`).join("\n")
+
     const def = toolDefinition({
         name: "delegate_to_subagent",
-        description: `Déléguer une tâche à un sous-agent spécialisé. Utilise cet outil quand la tâche nécessite une expertise spécifique.
+        description: `Déléguer une tâche à un sous-agent spécialisé. Choisis les compétences nécessaires pour la tâche.
 
-Rôles disponibles :
-- data_analyst : Analyse de données financières, requêtes, agrégations, tendances.
-- entry_creator : Création d'écritures comptables, catégorisation, ventilation.
-- document_processor : Extraction OCR, analyse de documents, classement de fichiers.
-- auditor : Audit comptable, détection d'anomalies, vérification d'équilibres.
+Compétences disponibles :
+${skillsDescription}
 
-Le sous-agent a accès uniquement aux outils pertinents pour son rôle. Il exécute la tâche et retourne le résultat.`,
+Le sous-agent a accès uniquement aux outils liés aux compétences choisies. Il exécute la tâche et retourne le résultat.
+Choisis le minimum de compétences nécessaires pour accomplir la tâche.
+Le sous-agent hérite de l'exercice fiscal sélectionné (idYear). Si aucun exercice n'est sélectionné, le sous-agent demandera confirmation avant de continuer.`,
         inputSchema: {
             type: "object" as const,
             properties: {
-                role: {
-                    type: "string" as const,
-                    enum: [...subagentRoleNames],
-                    description: "Le rôle du sous-agent spécialisé.",
+                skills: {
+                    type: "array" as const,
+                    items: {
+                        type: "string" as const,
+                        enum: [...agentSkillNames],
+                    },
+                    description: "Les compétences à attribuer au sous-agent.",
                 },
                 task: {
                     type: "string" as const,
@@ -53,31 +65,31 @@ Le sous-agent a accès uniquement aux outils pertinents pour son rôle. Il exéc
                     description: "Contexte additionnel utile pour le sous-agent (données, résultats précédents, etc.).",
                 },
             },
-            required: ["role", "task"] as const,
+            required: ["skills", "task"] as const,
         },
     })
 
     return {
         tool: def.server(async (args) => {
             const {
-                role: roleName,
+                skills: skillNames,
                 task,
                 context: taskContext,
             } = args as {
-                role: string
+                skills: string[]
                 task: string
                 context?: string
             }
-            return runSubagent({ ...context, roleName, task, taskContext })
+            return runSubagent({ ...context, skillNames, task, taskContext })
         }),
         tokenUsage: { promptTokens: 0, completionTokens: 0, totalTokens: 0 } as SubagentTokenUsage,
     }
 }
 
 async function runSubagent(
-    params: SubagentContext & { roleName: string; task: string; taskContext?: string },
+    params: SubagentContext & { skillNames: string[]; task: string; taskContext?: string },
 ): Promise<unknown> {
-    const { db, redis, streamKey, idOrganization, idYear, currentDepth, roleName, task, taskContext } = params
+    const { db, redis, streamKey, idOrganization, idYear, customInstructions, currentDepth, skillNames, task, taskContext } = params
 
     if (currentDepth >= MAX_SUBAGENT_DEPTH) {
         return {
@@ -85,21 +97,22 @@ async function runSubagent(
         }
     }
 
-    const role = getSubagentRole(roleName)
-    if (!role) {
+    const skills = getAgentSkills(skillNames)
+    if (skills.length === 0) {
         return {
-            error: `Rôle de sous-agent inconnu : "${roleName}". Rôles disponibles : ${subagentRoleNames.join(", ")}`,
+            error: `Aucune compétence valide fournie. Compétences disponibles : ${agentSkillNames.join(", ")}`,
         }
     }
 
     const subagentDepth = currentDepth + 1
+    const skillLabel = skills.map((s) => s.name).join(", ")
 
     // Publish subagent start event
     await redis.publish(
         streamKey,
         JSON.stringify({
             type: "SUBAGENT_RUN_START",
-            role: roleName,
+            skills: skillLabel,
             depth: subagentDepth,
             task,
             timestamp: Date.now(),
@@ -107,8 +120,8 @@ async function runSubagent(
     )
 
     try {
-        // Filter tool categories for this role
-        const filteredCategories = toolCategories.filter((c) => role.allowedToolCategories.includes(c.name))
+        // Compose tools from selected skills
+        const filteredCategories = getToolCategoriesFromSkills(skills, toolCategories)
         const toolResultStore: ToolResultStore = new Map()
 
         const tools = buildWorkerTools({
@@ -127,19 +140,26 @@ async function runSubagent(
                 streamKey,
                 idOrganization,
                 idYear,
+                customInstructions,
                 currentDepth: subagentDepth,
                 parentToolResultStore: toolResultStore,
             })
             tools.push(nestedSubagent.tool)
         }
 
-        // Build subagent system prompt
-        let systemPrompt = role.systemPrompt
+        // Build system prompt entirely from skill instructions
+        const skillInstructions = buildSkillInstructions(skills)
+        let systemPrompt = `Tu es un sous-agent comptable spécialisé. Exécute la tâche demandée de manière concise et professionnelle.\nRéponds toujours en français.\n\n${skillInstructions}`
         if (taskContext) {
             systemPrompt += `\n\n## Contexte fourni par l'agent parent\n\n${taskContext}`
         }
         if (idYear) {
-            systemPrompt += `\n\nL'exercice fiscal courant a l'identifiant : ${idYear}`
+            systemPrompt += `\n\n## Exercice fiscal\n\nL'exercice fiscal courant a l'identifiant : "${idYear}". Utilise cet identifiant pour tous les appels d'outil nécessitant un idYear.`
+        } else {
+            systemPrompt += `\n\n## Exercice fiscal (IMPORTANT)\n\nAucun exercice fiscal n'est sélectionné. Tu DOIS appeler "read_all_years" pour obtenir la liste des exercices disponibles avant tout appel d'outil nécessitant un idYear.\n- Si un seul exercice existe, utilise-le automatiquement.\n- Si plusieurs exercices existent, retourne la liste à l'agent parent et demande confirmation avant de continuer.`
+        }
+        if (params.customInstructions?.trim()) {
+            systemPrompt += `\n\n## Instructions personnalisées de l'utilisateur\n\n${params.customInstructions.trim()}`
         }
 
         // Build messages — subagent starts fresh with just the delegated task
@@ -159,7 +179,7 @@ async function runSubagent(
             messages: modelMessages as any,
             tools,
             systemPrompts: [systemPrompt],
-            agentLoopStrategy: maxIterations(role.maxIterations),
+            agentLoopStrategy: maxIterations(MAX_SUBAGENT_ITERATIONS),
         })
 
         let accumulatedContent = ""
@@ -171,7 +191,7 @@ async function runSubagent(
             // Forward chunks to Redis with subagent metadata
             const enrichedChunk = {
                 ...(chunk as any),
-                subagentRole: roleName,
+                subagentSkills: skillLabel,
                 subagentDepth,
             }
             await redis.publish(streamKey, JSON.stringify(enrichedChunk))
@@ -200,7 +220,7 @@ async function runSubagent(
             streamKey,
             JSON.stringify({
                 type: "SUBAGENT_RUN_END",
-                role: roleName,
+                skills: skillLabel,
                 depth: subagentDepth,
                 timestamp: Date.now(),
                 promptTokens,
@@ -210,7 +230,7 @@ async function runSubagent(
         )
 
         return {
-            role: roleName,
+            skills: skillLabel,
             result: accumulatedContent || "(Aucun résultat)",
             tokenUsage: { promptTokens, completionTokens, totalTokens },
         }
@@ -221,7 +241,7 @@ async function runSubagent(
             streamKey,
             JSON.stringify({
                 type: "SUBAGENT_RUN_END",
-                role: roleName,
+                skills: skillLabel,
                 depth: subagentDepth,
                 timestamp: Date.now(),
                 error: errorMsg,
@@ -231,6 +251,6 @@ async function runSubagent(
             }),
         )
 
-        return { error: `Erreur du sous-agent ${roleName} : ${errorMsg}` }
+        return { error: `Erreur du sous-agent : ${errorMsg}` }
     }
 }
