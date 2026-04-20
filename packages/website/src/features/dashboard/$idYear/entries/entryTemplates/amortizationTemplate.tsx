@@ -1,3 +1,4 @@
+import { amortizationTemplate, amortizationTemplateSchema } from "@arrhes/application-metadata/entryTemplates"
 import { readAllAccountsRouteDefinition } from "@arrhes/application-metadata/routes"
 import { Button, ButtonOutlineContent, InputPrice, InputText } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
@@ -5,7 +6,7 @@ import { valibotResolver } from "@hookform/resolvers/valibot"
 import { IconCalculator } from "@tabler/icons-react"
 import { useEffect, useRef } from "react"
 import { FormProvider, useForm } from "react-hook-form"
-import * as v from "valibot"
+import type * as v from "valibot"
 import { FormControl } from "../../../../../components/forms/formControl.tsx"
 import { FormError } from "../../../../../components/forms/formError.tsx"
 import { FormField } from "../../../../../components/forms/formField.tsx"
@@ -16,41 +17,6 @@ import { useDataFromAPI } from "../../../../../utilities/useHTTPData.ts"
 import type { EntryTemplateFormProps } from "./entryTemplates.tsx"
 
 const DEFAULT_TOTAL_YEARS = "3"
-
-const positiveNumericStringSchema = v.pipe(
-    v.string("Ce champ est requis"),
-    v.minLength(1, "Ce champ est requis"),
-    v.custom<string>((value) => !Number.isNaN(Number(value)) && Number(value) > 0, "Doit être un nombre positif"),
-)
-
-const positiveIntegerStringSchema = v.pipe(
-    v.string("Ce champ est requis"),
-    v.minLength(1, "Ce champ est requis"),
-    v.custom<string>((value) => {
-        const n = Number(value)
-        return Number.isInteger(n) && n > 0
-    }, "Doit être un entier positif"),
-)
-
-const nonNullableIdSchema = v.pipe(v.string("Ce champ est requis"), v.minLength(1, "Ce champ est requis"))
-
-const amortizationTemplateSchema = v.pipe(
-    v.object({
-        assetLabel: v.pipe(v.string("Ce champ est requis"), v.minLength(1, "Ce champ est requis")),
-        originalPrice: positiveNumericStringSchema,
-        currentYear: positiveIntegerStringSchema,
-        totalYears: positiveIntegerStringSchema,
-        idDotationAccount: nonNullableIdSchema,
-        idAmortizationAccount: nonNullableIdSchema,
-    }),
-    v.forward(
-        v.check(
-            (data) => Number.parseInt(data.currentYear, 10) <= Number.parseInt(data.totalYears, 10),
-            "L'année en cours ne peut pas dépasser le nombre total d'années",
-        ),
-        ["currentYear"],
-    ),
-)
 
 type AmortizationTemplateFormValues = v.InferOutput<typeof amortizationTemplateSchema>
 
@@ -99,7 +65,7 @@ export function AmortizationTemplateForm(props: EntryTemplateFormProps) {
     function invalidateRows() {
         if (isReadyRef.current) {
             isReadyRef.current = false
-            parentForm.setValue("rows", [])
+            parentForm.setValue("entryLines", [])
             onTemplateReadyChange(false)
         }
     }
@@ -107,43 +73,17 @@ export function AmortizationTemplateForm(props: EntryTemplateFormProps) {
     async function computeAndSetRows() {
         const isValid = await templateForm.trigger()
         if (!isValid) {
-            parentForm.setValue("rows", [])
+            parentForm.setValue("entryLines", [])
             isReadyRef.current = false
             onTemplateReadyChange(false)
             return
         }
 
         const data = templateForm.getValues()
-        const price = Number.parseFloat(data.originalPrice)
-        const total = Number.parseInt(data.totalYears, 10)
-        const annualAmount = (price / total).toFixed(2)
+        const result = amortizationTemplate.createEntries(data)
 
-        const rows = [
-            {
-                idAccount: data.idDotationAccount,
-                label: `Dotation ${data.assetLabel}`.trim(),
-                debit: annualAmount,
-                credit: "0",
-                isComputedForJournalReport: true,
-                isComputedForLedgerReport: true,
-                isComputedForBalanceReport: true,
-                isComputedForBalanceSheetReport: true,
-                isComputedForIncomeStatementReport: true,
-            },
-            {
-                idAccount: data.idAmortizationAccount,
-                label: `Amortissement ${data.assetLabel}`.trim(),
-                debit: "0",
-                credit: annualAmount,
-                isComputedForJournalReport: true,
-                isComputedForLedgerReport: true,
-                isComputedForBalanceReport: true,
-                isComputedForBalanceSheetReport: true,
-                isComputedForIncomeStatementReport: true,
-            },
-        ]
-
-        parentForm.setValue("rows", rows)
+        parentForm.setValue("label", result.label)
+        parentForm.setValue("entryLines", result.entryLines)
         isReadyRef.current = true
         onTemplateReadyChange(true)
     }
@@ -299,7 +239,7 @@ export function AmortizationTemplateForm(props: EntryTemplateFormProps) {
                 <Button onClick={computeAndSetRows}>
                     <ButtonOutlineContent leftIcon={<IconCalculator />} text="Calculer les mouvements" />
                 </Button>
-                {parentForm.watch("rows")?.length > 0 ? (
+                {parentForm.watch("entryLines")?.length > 0 ? (
                     <div
                         className={css({
                             width: "100%",
@@ -322,24 +262,24 @@ export function AmortizationTemplateForm(props: EntryTemplateFormProps) {
                         >
                             Mouvements générés
                         </span>
-                        {(parentForm.watch("rows") as Array<{ label?: string; debit?: string; credit?: string }>).map(
-                            (row, index) => (
-                                <div
-                                    key={`row_${index}`}
-                                    className={css({
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        fontSize: "sm",
-                                    })}
-                                >
-                                    <span className={css({ color: "neutral" })}>{row.label}</span>
-                                    <span className={css({ color: "neutral", fontWeight: "medium" })}>
-                                        {Number(row.debit) > 0 ? `${row.debit} (débit)` : `${row.credit} (crédit)`}
-                                    </span>
-                                </div>
-                            ),
-                        )}
+                        {(
+                            parentForm.watch("entryLines") as Array<{ label?: string; debit?: string; credit?: string }>
+                        ).map((row, index) => (
+                            <div
+                                key={`row_${index}`}
+                                className={css({
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                    fontSize: "sm",
+                                })}
+                            >
+                                <span className={css({ color: "neutral" })}>{row.label}</span>
+                                <span className={css({ color: "neutral", fontWeight: "medium" })}>
+                                    {Number(row.debit) > 0 ? `${row.debit} (débit)` : `${row.credit} (crédit)`}
+                                </span>
+                            </div>
+                        ))}
                     </div>
                 ) : null}
             </div>

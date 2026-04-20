@@ -70,7 +70,7 @@ export function CreateOneEntry(props: {
                             date: new Date().toISOString(),
                             idFile: null,
                             idJournal: null,
-                            lines: [],
+                            entryLines: [],
                         }}
                         submitButtonProps={{
                             leftIcon: <IconPlus />,
@@ -244,7 +244,7 @@ export function CreateOneEntry(props: {
                                                 const newValue = value ?? "empty"
                                                 setSelectedTemplate(newValue)
                                                 setIsTemplateReady(false)
-                                                form.setValue("lines", [])
+                                                form.setValue("entryLines", [])
                                             }}
                                             options={entryTemplates.map((template) => ({
                                                 key: template.key,

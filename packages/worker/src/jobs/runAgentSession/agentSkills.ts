@@ -76,7 +76,8 @@ Règles :
     },
     tags: {
         name: "tags",
-        description: "Gestion des étiquettes : créer, lire, modifier et supprimer des étiquettes pour classer les écritures.",
+        description:
+            "Gestion des étiquettes : créer, lire, modifier et supprimer des étiquettes pour classer les écritures.",
         instructions: `## Compétence : Étiquettes
 
 Tu peux gérer les étiquettes utilisées pour classer et catégoriser les écritures comptables.
@@ -87,8 +88,7 @@ Règles :
     },
     balance_sheets: {
         name: "balance_sheets",
-        description:
-            "Gestion des bilans : créer, lire, modifier et supprimer des postes de bilan, lettrage du bilan.",
+        description: "Gestion des bilans : créer, lire, modifier et supprimer des postes de bilan, lettrage du bilan.",
         instructions: `## Compétence : Bilans
 
 Tu peux gérer les postes de bilan (actif/passif) et générer des rapports de bilan.

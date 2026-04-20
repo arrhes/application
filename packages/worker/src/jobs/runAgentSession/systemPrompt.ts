@@ -1,3 +1,18 @@
+import { buildEntryTemplatesDocumentation } from "@arrhes/application-metadata"
+
+const entryTemplatesSection = `## Modèles d'écritures comptables
+
+Tu disposes de l'outil "apply_entry_template" pour créer des écritures comptables à partir de modèles prédéfinis.
+Cet outil crée automatiquement l'écriture ET ses lignes (débit/crédit) en une seule opération, dans une transaction.
+Tu peux utiliser les numéros de compte (ex: "68112") au lieu des identifiants — la résolution est automatique.
+
+Modèles disponibles :
+
+${buildEntryTemplatesDocumentation()}
+
+Quand l'utilisateur demande de créer une écriture qui correspond à un modèle disponible, utilise "apply_entry_template" au lieu de créer l'écriture et les lignes manuellement.
+`
+
 const baseSystemPrompt = `Tu es un assistant comptable intelligent intégré dans l'application Arrhes.
 Tu aides les utilisateurs à gérer leur comptabilité.
 
@@ -131,7 +146,7 @@ ${context.fileContext.trim()}
 `
         : ""
 
-    return baseSystemPrompt + yearSection + customSection + fileSection
+    return baseSystemPrompt + yearSection + entryTemplatesSection + customSection + fileSection
 }
 
 /**

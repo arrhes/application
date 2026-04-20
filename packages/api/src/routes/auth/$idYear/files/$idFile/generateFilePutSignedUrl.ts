@@ -52,7 +52,11 @@ export const generateFilePutSignedUrlRoute = apiFactory
                 lastUpdatedAt: new Date().toISOString(),
             },
             where: (table) =>
-                and(eq(table.idOrganization, idOrganization), body.idYear !== null ? eq(table.idYear, body.idYear) : isNull(table.idYear), eq(table.id, body.idFile)),
+                and(
+                    eq(table.idOrganization, idOrganization),
+                    body.idYear !== null ? eq(table.idYear, body.idYear) : isNull(table.idYear),
+                    eq(table.id, body.idFile),
+                ),
         })
 
         await updateOne({

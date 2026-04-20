@@ -14,7 +14,7 @@ export const createOneEntryFromTemplateRouteDefinition = routeDefinition({
             idFile: v.optional(entrySchema.entries.idFile),
             label: entrySchema.entries.label,
             date: entrySchema.entries.date,
-            lines: v.array(
+            entryLines: v.array(
                 v.object({
                     idAccount: entryLineSchema.entries.idAccount,
                     isComputedForJournalReport: entryLineSchema.entries.isComputedForJournalReport,

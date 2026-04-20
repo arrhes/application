@@ -1,10 +1,5 @@
 import { chat, convertMessagesToModelMessages, maxIterations, toolDefinition } from "@tanstack/ai"
-import {
-    agentSkillNames,
-    buildSkillInstructions,
-    getAgentSkills,
-    getToolCategoriesFromSkills
-} from "./agentSkills.js"
+import { agentSkillNames, buildSkillInstructions, getAgentSkills, getToolCategoriesFromSkills } from "./agentSkills.js"
 import type { ToolResultStore } from "./buildWorkerTools.js"
 import { buildWorkerTools } from "./buildWorkerTools.js"
 import { getAdapter } from "./provider.js"
@@ -89,7 +84,18 @@ Le sous-agent hérite de l'exercice fiscal sélectionné (idYear). Si aucun exer
 async function runSubagent(
     params: SubagentContext & { skillNames: string[]; task: string; taskContext?: string },
 ): Promise<unknown> {
-    const { db, redis, streamKey, idOrganization, idYear, customInstructions, currentDepth, skillNames, task, taskContext } = params
+    const {
+        db,
+        redis,
+        streamKey,
+        idOrganization,
+        idYear,
+        customInstructions,
+        currentDepth,
+        skillNames,
+        task,
+        taskContext,
+    } = params
 
     if (currentDepth >= MAX_SUBAGENT_DEPTH) {
         return {

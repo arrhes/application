@@ -34,11 +34,11 @@ export const createOneEntryFromTemplateRoute = apiFactory
                 },
             })
 
-            if (body.lines.length > 0) {
+            if (body.entryLines.length > 0) {
                 await insertMany({
                     database: tx,
                     table: models.entryLine,
-                    data: body.lines.map((line) => ({
+                    data: body.entryLines.map((line) => ({
                         id: generateId(),
                         idOrganization: idOrganization,
                         idYear: body.idYear,

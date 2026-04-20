@@ -16,7 +16,11 @@ export const readAllFilesRoute = apiFactory.createApp().post(readAllFilesRouteDe
     const readAllFiles = await selectMany({
         database: c.var.clients.sql,
         table: models.file,
-        where: (table) => and(eq(table.idOrganization, idOrganization), body.idYear !== null ? eq(table.idYear, body.idYear) : isNull(table.idYear)),
+        where: (table) =>
+            and(
+                eq(table.idOrganization, idOrganization),
+                body.idYear !== null ? eq(table.idYear, body.idYear) : isNull(table.idYear),
+            ),
     })
 
     return response({

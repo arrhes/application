@@ -20,7 +20,11 @@ export const deleteOneFileRoute = apiFactory.createApp().post(deleteOneFileRoute
         database: c.var.clients.sql,
         table: models.file,
         where: (table) =>
-            and(eq(table.idOrganization, idOrganization), body.idYear !== null ? eq(table.idYear, body.idYear) : isNull(table.idYear), eq(table.id, body.idFile)),
+            and(
+                eq(table.idOrganization, idOrganization),
+                body.idYear !== null ? eq(table.idYear, body.idYear) : isNull(table.idYear),
+                eq(table.id, body.idFile),
+            ),
     })
 
     if (readOneFile.storageKey !== null) {
@@ -45,7 +49,11 @@ export const deleteOneFileRoute = apiFactory.createApp().post(deleteOneFileRoute
         database: c.var.clients.sql,
         table: models.file,
         where: (table) =>
-            and(eq(table.idOrganization, idOrganization), body.idYear !== null ? eq(table.idYear, body.idYear) : isNull(table.idYear), eq(table.id, body.idFile)),
+            and(
+                eq(table.idOrganization, idOrganization),
+                body.idYear !== null ? eq(table.idYear, body.idYear) : isNull(table.idYear),
+                eq(table.id, body.idFile),
+            ),
     })
 
     return response({

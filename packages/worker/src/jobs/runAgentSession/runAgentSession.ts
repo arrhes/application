@@ -11,6 +11,7 @@ import { getAdapter } from "./provider.js"
 import { buildSubagentTool } from "./subagentTool.js"
 import { buildSystemPrompt } from "./systemPrompt.js"
 import { toolCategories } from "./toolCategories.js"
+import { buildEntryTemplateTool } from "./tools/entryTemplateTool.js"
 import { executeWorkerRoute } from "./tools/routeExecutor.js"
 
 export interface RunAgentSessionJobArgs {
@@ -325,17 +326,29 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                     let data: unknown = null
                     switch (ref.type) {
                         case "account": {
-                            const rows = await db.select().from(models.account).where(eq(models.account.id, ref.id)).limit(1)
+                            const rows = await db
+                                .select()
+                                .from(models.account)
+                                .where(eq(models.account.id, ref.id))
+                                .limit(1)
                             data = rows.at(0) ?? null
                             break
                         }
                         case "entry": {
-                            const rows = await db.select().from(models.entry).where(eq(models.entry.id, ref.id)).limit(1)
+                            const rows = await db
+                                .select()
+                                .from(models.entry)
+                                .where(eq(models.entry.id, ref.id))
+                                .limit(1)
                             data = rows.at(0) ?? null
                             break
                         }
                         case "journal": {
-                            const rows = await db.select().from(models.journal).where(eq(models.journal.id, ref.id)).limit(1)
+                            const rows = await db
+                                .select()
+                                .from(models.journal)
+                                .where(eq(models.journal.id, ref.id))
+                                .limit(1)
                             data = rows.at(0) ?? null
                             break
                         }
@@ -351,7 +364,9 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                         }
                     }
                     if (data) {
-                        resolvedParts.push(`### ${ref.type}: ${ref.label}\n\n\`\`\`json\n${JSON.stringify(data, null, 2)}\n\`\`\``)
+                        resolvedParts.push(
+                            `### ${ref.type}: ${ref.label}\n\n\`\`\`json\n${JSON.stringify(data, null, 2)}\n\`\`\``,
+                        )
                     }
                 } catch {
                     // Skip unresolvable references
@@ -592,6 +607,10 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
     })
     tools.push(ocrTool)
 
+    // Add entry template tool — creates an entry with lines from a predefined template
+    const entryTemplateTool = buildEntryTemplateTool({ db, idOrganization, toolResultStore })
+    tools.push(entryTemplateTool)
+
     // Add subagent delegation tool
     const subagentResult = buildSubagentTool({
         db,
@@ -757,7 +776,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                     usedTools: usedToolNames.size > 0 ? [...usedToolNames] : null,
                 })
                 .where(eq(models.agentMessage.id, idAgentMessage))
-                .catch(() => { })
+                .catch(() => {})
         }
     }
 

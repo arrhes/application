@@ -1,14 +1,7 @@
 import type { readAllAgentMessagesRouteDefinition } from "@arrhes/application-metadata"
 import { formatDateTime } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import {
-    IconCalculator,
-    IconFile,
-    IconFileText,
-    IconNotebook,
-    IconPaperclip,
-    IconTag,
-} from "@tabler/icons-react"
+import { IconCalculator, IconFile, IconFileText, IconNotebook, IconPaperclip, IconTag } from "@tabler/icons-react"
 import type { InferOutput } from "valibot"
 import { AgentMessagePart } from "./agentMessagePart.tsx"
 import { getAgentMessageParts } from "./getAgentMessageParts.ts"

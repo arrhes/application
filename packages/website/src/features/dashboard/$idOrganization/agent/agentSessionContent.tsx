@@ -20,14 +20,7 @@ import {
     toast,
 } from "@arrhes/ui"
 import { css } from "@arrhes/ui/css"
-import {
-    IconDotsVertical,
-    IconNotebook,
-    IconPaperclip,
-    IconSend,
-    IconTrash,
-    IconX,
-} from "@tabler/icons-react"
+import { IconDotsVertical, IconNotebook, IconPaperclip, IconSend, IconTrash, IconX } from "@tabler/icons-react"
 import { useNavigate, useParams } from "@tanstack/react-router"
 import { useCallback, useEffect, useRef, useState } from "react"
 import { DataWrapper } from "../../../../components/layouts/dataWrapper.tsx"
@@ -294,128 +287,128 @@ export function AgentSessionContent() {
             setStreamMessageId(undefined)
         }
 
-            // SSE stream
-            ; (async () => {
-                let streamCompleted = false
-                try {
-                    const headers: Record<string, string> = { "Content-Type": "application/json" }
-                    const orgCookie = getCookie(`${cookiePrefix}_id_organization`)
-                    if (orgCookie) {
-                        headers["X-Organization-Id"] = orgCookie
-                    }
+        // SSE stream
+        ;(async () => {
+            let streamCompleted = false
+            try {
+                const headers: Record<string, string> = { "Content-Type": "application/json" }
+                const orgCookie = getCookie(`${cookiePrefix}_id_organization`)
+                if (orgCookie) {
+                    headers["X-Organization-Id"] = orgCookie
+                }
 
-                    const response = await fetch(
-                        new URL(`${import.meta.env.VITE_API_BASE_URL}${getStreamForAgentMessageRouteDefinition.path}`),
-                        {
-                            method: "POST",
-                            credentials: "include",
-                            signal: controller.signal,
-                            headers,
-                            body: JSON.stringify({
-                                idOrganization: params.idOrganization,
-                                idAgentMessage: streamMessageId,
-                            }),
-                        },
-                    )
+                const response = await fetch(
+                    new URL(`${import.meta.env.VITE_API_BASE_URL}${getStreamForAgentMessageRouteDefinition.path}`),
+                    {
+                        method: "POST",
+                        credentials: "include",
+                        signal: controller.signal,
+                        headers,
+                        body: JSON.stringify({
+                            idOrganization: params.idOrganization,
+                            idAgentMessage: streamMessageId,
+                        }),
+                    },
+                )
 
-                    if (!response.ok || !response.body) {
-                        // SSE failed — polling will pick it up
-                        return
-                    }
+                if (!response.ok || !response.body) {
+                    // SSE failed — polling will pick it up
+                    return
+                }
 
-                    const reader = response.body.getReader()
-                    const decoder = new TextDecoder()
-                    let buffer = ""
+                const reader = response.body.getReader()
+                const decoder = new TextDecoder()
+                let buffer = ""
 
-                    while (true) {
-                        const { done, value } = await reader.read()
-                        if (done) break
+                while (true) {
+                    const { done, value } = await reader.read()
+                    if (done) break
 
-                        buffer += decoder.decode(value, { stream: true })
+                    buffer += decoder.decode(value, { stream: true })
 
-                        const parts = buffer.split("\n\n")
-                        buffer = parts.pop() ?? ""
+                    const parts = buffer.split("\n\n")
+                    buffer = parts.pop() ?? ""
 
-                        for (const part of parts) {
-                            for (const line of part.split("\n")) {
-                                if (!line.startsWith("data: ")) continue
-                                const jsonStr = line.slice(6).trim()
-                                if (!jsonStr) continue
+                    for (const part of parts) {
+                        for (const line of part.split("\n")) {
+                            if (!line.startsWith("data: ")) continue
+                            const jsonStr = line.slice(6).trim()
+                            if (!jsonStr) continue
 
-                                try {
-                                    const chunk = JSON.parse(jsonStr)
-                                    if (chunk.type === "TEXT_MESSAGE_CONTENT" && typeof chunk.delta === "string") {
-                                        if (chunk.subagentRole && subagentStack.length > 0) {
-                                            // Accumulate subagent content
-                                            const current = subagentStack[subagentStack.length - 1]
-                                            if (current) {
-                                                current.content += chunk.delta
-                                                setActiveSubagents([...subagentStack])
-                                            }
-                                        } else {
-                                            accumulated += chunk.delta
-                                            setStreamingContent(accumulated)
+                            try {
+                                const chunk = JSON.parse(jsonStr)
+                                if (chunk.type === "TEXT_MESSAGE_CONTENT" && typeof chunk.delta === "string") {
+                                    if (chunk.subagentRole && subagentStack.length > 0) {
+                                        // Accumulate subagent content
+                                        const current = subagentStack[subagentStack.length - 1]
+                                        if (current) {
+                                            current.content += chunk.delta
+                                            setActiveSubagents([...subagentStack])
                                         }
+                                    } else {
+                                        accumulated += chunk.delta
+                                        setStreamingContent(accumulated)
                                     }
-                                    if (chunk.type === "TOOL_CALL_START") {
-                                        // Emit text boundary if text accumulated since last boundary
-                                        if (accumulated.length > lastBoundaryLen) {
-                                            accumulatedToolCalls.push({
-                                                type: "TEXT_BOUNDARY",
-                                                contentLength: accumulated.length,
-                                            })
-                                            lastBoundaryLen = accumulated.length
-                                        }
-                                        accumulatedToolCalls.push(chunk)
-                                        setStreamingToolCalls([...accumulatedToolCalls])
-                                    }
-                                    if (chunk.type === "CONTEXT_LIMIT_WARNING") {
-                                        toast({
-                                            title: "La conversation approche de sa limite de contexte",
-                                            description: `${chunk.usage}% de la capacité utilisée. Envisagez de créer une nouvelle session.`,
-                                            variant: "warning",
-                                        })
-                                    }
-                                    if (chunk.type === "TOOL_CALL_END") {
-                                        // Deduplicate: framework re-emits TOOL_CALL_END after RUN_FINISHED
-                                        const tcId = chunk.toolCallId as string | undefined
-                                        if (tcId && seenEnds.has(tcId)) continue
-                                        if (tcId) seenEnds.add(tcId)
-                                        accumulatedToolCalls.push(chunk)
-                                        setStreamingToolCalls([...accumulatedToolCalls])
-                                    }
-                                    if (chunk.type === "SUBAGENT_RUN_START") {
-                                        subagentStack.push({
-                                            role: chunk.role as string,
-                                            depth: chunk.depth as number,
-                                            content: "",
-                                        })
-                                        setActiveSubagents([...subagentStack])
-                                    }
-                                    if (chunk.type === "SUBAGENT_RUN_END") {
-                                        subagentStack.pop()
-                                        setActiveSubagents([...subagentStack])
-                                    }
-                                } catch {
-                                    // ignore malformed chunks
                                 }
+                                if (chunk.type === "TOOL_CALL_START") {
+                                    // Emit text boundary if text accumulated since last boundary
+                                    if (accumulated.length > lastBoundaryLen) {
+                                        accumulatedToolCalls.push({
+                                            type: "TEXT_BOUNDARY",
+                                            contentLength: accumulated.length,
+                                        })
+                                        lastBoundaryLen = accumulated.length
+                                    }
+                                    accumulatedToolCalls.push(chunk)
+                                    setStreamingToolCalls([...accumulatedToolCalls])
+                                }
+                                if (chunk.type === "CONTEXT_LIMIT_WARNING") {
+                                    toast({
+                                        title: "La conversation approche de sa limite de contexte",
+                                        description: `${chunk.usage}% de la capacité utilisée. Envisagez de créer une nouvelle session.`,
+                                        variant: "warning",
+                                    })
+                                }
+                                if (chunk.type === "TOOL_CALL_END") {
+                                    // Deduplicate: framework re-emits TOOL_CALL_END after RUN_FINISHED
+                                    const tcId = chunk.toolCallId as string | undefined
+                                    if (tcId && seenEnds.has(tcId)) continue
+                                    if (tcId) seenEnds.add(tcId)
+                                    accumulatedToolCalls.push(chunk)
+                                    setStreamingToolCalls([...accumulatedToolCalls])
+                                }
+                                if (chunk.type === "SUBAGENT_RUN_START") {
+                                    subagentStack.push({
+                                        role: chunk.role as string,
+                                        depth: chunk.depth as number,
+                                        content: "",
+                                    })
+                                    setActiveSubagents([...subagentStack])
+                                }
+                                if (chunk.type === "SUBAGENT_RUN_END") {
+                                    subagentStack.pop()
+                                    setActiveSubagents([...subagentStack])
+                                }
+                            } catch {
+                                // ignore malformed chunks
                             }
                         }
                     }
-
-                    streamCompleted = true
-                } catch (err: unknown) {
-                    if (err instanceof Error && err.name === "AbortError") return
-                    console.error("[stream] SSE error — falling back to polling", err)
-                } finally {
-                    // Only finish when the stream completed naturally.
-                    // If the SSE failed (network/auth error), let the polling
-                    // fallback continue running so it can detect completion.
-                    if (streamCompleted && !controller.signal.aborted) {
-                        finish()
-                    }
                 }
-            })()
+
+                streamCompleted = true
+            } catch (err: unknown) {
+                if (err instanceof Error && err.name === "AbortError") return
+                console.error("[stream] SSE error — falling back to polling", err)
+            } finally {
+                // Only finish when the stream completed naturally.
+                // If the SSE failed (network/auth error), let the polling
+                // fallback continue running so it can detect completion.
+                if (streamCompleted && !controller.signal.aborted) {
+                    finish()
+                }
+            }
+        })()
 
         // Polling failsafe: if SSE fails or is slow, periodically
         // check the DB for the completed message
@@ -615,12 +608,18 @@ export function AgentSessionContent() {
 
                                         setPendingFiles((prev) => [...prev, ...newFiles])
 
-                                        const sessionFiles = (agentSession.attachedFiles ?? []) as Array<{ idFile: string; name: string }>
+                                        const sessionFiles = (agentSession.attachedFiles ?? []) as Array<{
+                                            idFile: string
+                                            name: string
+                                        }>
                                         const existingIds = sessionFiles.map((f) => f.idFile)
                                         const newIds: string[] = []
 
                                         for (const file of newFiles) {
-                                            const hashBuffer = await crypto.subtle.digest("SHA-256", await file.arrayBuffer())
+                                            const hashBuffer = await crypto.subtle.digest(
+                                                "SHA-256",
+                                                await file.arrayBuffer(),
+                                            )
                                             const fileHash = Array.from(new Uint8Array(hashBuffer))
                                                 .map((b) => b.toString(16).padStart(2, "0"))
                                                 .join("")
@@ -645,11 +644,16 @@ export function AgentSessionContent() {
                                             if (createFileResponse.data.url) {
                                                 const uploadResponse = await fetch(createFileResponse.data.url, {
                                                     method: "PUT",
-                                                    headers: { "Content-Type": file.type || "application/octet-stream" },
+                                                    headers: {
+                                                        "Content-Type": file.type || "application/octet-stream",
+                                                    },
                                                     body: file,
                                                 })
                                                 if (!uploadResponse.ok) {
-                                                    toast({ title: `Échec de l'envoi de ${file.name}`, variant: "error" })
+                                                    toast({
+                                                        title: `Échec de l'envoi de ${file.name}`,
+                                                        variant: "error",
+                                                    })
                                                     continue
                                                 }
                                             }
@@ -678,7 +682,10 @@ export function AgentSessionContent() {
                                 />
                                 {/* File chips */}
                                 {(() => {
-                                    const sessionFiles = (agentSession.attachedFiles ?? []) as Array<{ idFile: string; name: string }>
+                                    const sessionFiles = (agentSession.attachedFiles ?? []) as Array<{
+                                        idFile: string
+                                        name: string
+                                    }>
                                     const hasFiles = sessionFiles.length > 0 || pendingFiles.length > 0
                                     if (!hasFiles) return null
                                     return (
@@ -706,13 +713,21 @@ export function AgentSessionContent() {
                                                     })}
                                                 >
                                                     <IconPaperclip size={12} className={css({ flexShrink: 0 })} />
-                                                    <span className={css({ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" })}>
+                                                    <span
+                                                        className={css({
+                                                            overflow: "hidden",
+                                                            textOverflow: "ellipsis",
+                                                            whiteSpace: "nowrap",
+                                                        })}
+                                                    >
                                                         {file.name}
                                                     </span>
                                                     <button
                                                         type="button"
                                                         onClick={async () => {
-                                                            const remaining = sessionFiles.filter((f) => f.idFile !== file.idFile)
+                                                            const remaining = sessionFiles.filter(
+                                                                (f) => f.idFile !== file.idFile,
+                                                            )
                                                             const result = await getResponseBodyFromAPI({
                                                                 routeDefinition: updateOneAgentSessionRouteDefinition,
                                                                 body: {
@@ -760,7 +775,13 @@ export function AgentSessionContent() {
                                                     })}
                                                 >
                                                     <CircularLoader />
-                                                    <span className={css({ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" })}>
+                                                    <span
+                                                        className={css({
+                                                            overflow: "hidden",
+                                                            textOverflow: "ellipsis",
+                                                            whiteSpace: "nowrap",
+                                                        })}
+                                                    >
                                                         {file.name}
                                                     </span>
                                                 </span>
@@ -798,7 +819,7 @@ export function AgentSessionContent() {
                                             <Button title="Contexte de la session">
                                                 <ButtonOutlineContent
                                                     leftIcon={<IconNotebook />}
-                                                // text="Contexte"
+                                                    // text="Contexte"
                                                 />
                                             </Button>
                                         </Popover.Trigger>
@@ -871,9 +892,9 @@ export function AgentSessionContent() {
                                                             yearsData === undefined
                                                                 ? []
                                                                 : yearsData.map((year) => ({
-                                                                    key: year.id,
-                                                                    label: year.label,
-                                                                }))
+                                                                      key: year.id,
+                                                                      label: year.label,
+                                                                  }))
                                                         }
                                                     />
                                                 </div>
