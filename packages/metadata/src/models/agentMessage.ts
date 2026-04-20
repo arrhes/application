@@ -21,6 +21,7 @@ export const agentMessageModel = pgTable(
         toolResults: jsonb("tool_results"),
         usedTools: text("used_tools").array(),
         attachedFiles: jsonb("attached_files"),
+        references: jsonb("references"),
         state: agentMessageStateEnum("state").notNull(),
         streamKey: text("stream_key"),
         promptTokens: integer("prompt_tokens"),

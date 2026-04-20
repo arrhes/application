@@ -7,4 +7,6 @@ export { deleteOneAgentSessionRouteDefinition } from "./agentSession/deleteOneAg
 export { readAllAgentSessionsRouteDefinition } from "./agentSession/readAllAgentSessions.js"
 export { readOneAgentSessionRouteDefinition } from "./agentSession/readOneAgentSession.js"
 export { updateOneAgentSessionRouteDefinition } from "./agentSession/updateOneAgentSession.js"
+export { searchReferenceableRouteDefinition } from "./searchReferenceable.js"
 export { undoAgentActionRouteDefinition } from "./undoAgentAction.js"
+

@@ -12,6 +12,17 @@ export const createOneAgentMessageRouteDefinition = routeDefinition({
             idOrganization: v.nonNullable(idSchema, "Ce champ est requis"),
             idAgentSession: v.nonNullable(idSchema, "Ce champ est requis"),
             message: v.nonNullable(v.string(), "Ce champ est requis"),
+            references: v.optional(
+                v.nullable(
+                    v.array(
+                        v.object({
+                            id: v.nonNullable(idSchema, "Ce champ est requis"),
+                            type: v.picklist(["account", "entry", "journal", "tag", "file"]),
+                            label: v.string(),
+                        }),
+                    ),
+                ),
+            ),
         }),
         return: agentMessageSchemaReturn,
     },

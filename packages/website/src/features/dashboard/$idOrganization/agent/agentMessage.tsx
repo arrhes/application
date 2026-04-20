@@ -1,10 +1,25 @@
 import type { readAllAgentMessagesRouteDefinition } from "@arrhes/application-metadata"
 import { formatDateTime } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconPaperclip } from "@tabler/icons-react"
+import {
+    IconCalculator,
+    IconFile,
+    IconFileText,
+    IconNotebook,
+    IconPaperclip,
+    IconTag,
+} from "@tabler/icons-react"
 import type { InferOutput } from "valibot"
 import { AgentMessagePart } from "./agentMessagePart.tsx"
 import { getAgentMessageParts } from "./getAgentMessageParts.ts"
+
+const referenceTypeIcons: Record<string, typeof IconCalculator> = {
+    account: IconCalculator,
+    entry: IconFileText,
+    journal: IconNotebook,
+    tag: IconTag,
+    file: IconFile,
+}
 
 /**
  * Format a Date to "HH:MM" string.
@@ -91,6 +106,42 @@ export function AgentMessage(props: {
                             {file.name}
                         </span>
                     ))}
+                </div>
+            )}
+
+            {Array.isArray(props.agentMessage.references) && props.agentMessage.references.length > 0 && (
+                <div
+                    className={css({
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: "0.375rem",
+                        width: "100%",
+                        paddingInline: "0.5rem",
+                    })}
+                >
+                    {(props.agentMessage.references as Array<{ id: string; type: string; label: string }>).map(
+                        (ref) => {
+                            const Icon = referenceTypeIcons[ref.type] ?? IconFile
+                            return (
+                                <span
+                                    key={ref.id}
+                                    className={css({
+                                        display: "inline-flex",
+                                        alignItems: "center",
+                                        gap: "0.25rem",
+                                        fontSize: "xs",
+                                        color: "primary",
+                                        backgroundColor: "primary/10",
+                                        borderRadius: "sm",
+                                        padding: "0.125rem 0.5rem",
+                                    })}
+                                >
+                                    <Icon size={12} />
+                                    {ref.label}
+                                </span>
+                            )
+                        },
+                    )}
                 </div>
             )}
 

@@ -84,6 +84,7 @@ export const createOneAgentMessageRoute = apiFactory
                     toolCalls: null,
                     toolResults: null,
                     usedTools: null,
+                    references: body.references ?? null,
                     state: "streaming",
                     streamKey: generateId(),
                     createdAt: new Date().toISOString(),

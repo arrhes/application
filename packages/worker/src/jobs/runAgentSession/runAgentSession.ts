@@ -313,11 +313,60 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
     // so that convertMessagesToModelMessages gets a proper user→assistant alternation.
     const uiMessages: Array<{ id: string; role: "user" | "assistant"; parts: unknown[]; createdAt?: Date }> = []
     for (const m of historyRows) {
+        // Build the user message content, appending resolved references if present
+        let userContent = compressTextForContext(m.userMessage)
+
+        const refs = (m as any).references as Array<{ id: string; type: string; label: string }> | null
+        if (refs && refs.length > 0 && m.id === idAgentMessage) {
+            // Resolve references for the current message only
+            const resolvedParts: string[] = []
+            for (const ref of refs) {
+                try {
+                    let data: unknown = null
+                    switch (ref.type) {
+                        case "account": {
+                            const rows = await db.select().from(models.account).where(eq(models.account.id, ref.id)).limit(1)
+                            data = rows.at(0) ?? null
+                            break
+                        }
+                        case "entry": {
+                            const rows = await db.select().from(models.entry).where(eq(models.entry.id, ref.id)).limit(1)
+                            data = rows.at(0) ?? null
+                            break
+                        }
+                        case "journal": {
+                            const rows = await db.select().from(models.journal).where(eq(models.journal.id, ref.id)).limit(1)
+                            data = rows.at(0) ?? null
+                            break
+                        }
+                        case "tag": {
+                            const rows = await db.select().from(models.tag).where(eq(models.tag.id, ref.id)).limit(1)
+                            data = rows.at(0) ?? null
+                            break
+                        }
+                        case "file": {
+                            const rows = await db.select().from(models.file).where(eq(models.file.id, ref.id)).limit(1)
+                            data = rows.at(0) ?? null
+                            break
+                        }
+                    }
+                    if (data) {
+                        resolvedParts.push(`### ${ref.type}: ${ref.label}\n\n\`\`\`json\n${JSON.stringify(data, null, 2)}\n\`\`\``)
+                    }
+                } catch {
+                    // Skip unresolvable references
+                }
+            }
+            if (resolvedParts.length > 0) {
+                userContent += `\n\n---\n## Données référencées\n\n${resolvedParts.join("\n\n")}`
+            }
+        }
+
         // Always add the user question from every row (including the current one)
         uiMessages.push({
             id: `${m.id}-user`,
             role: "user",
-            parts: [{ type: "text", content: compressTextForContext(m.userMessage) }],
+            parts: [{ type: "text", content: userContent }],
             createdAt: m.createdAt ? new Date(m.createdAt) : undefined,
         })
 
@@ -708,7 +757,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                     usedTools: usedToolNames.size > 0 ? [...usedToolNames] : null,
                 })
                 .where(eq(models.agentMessage.id, idAgentMessage))
-                .catch(() => {})
+                .catch(() => { })
         }
     }
 
