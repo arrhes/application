@@ -42,13 +42,13 @@ export function StatusToggle(props: { idTicket: string; currentStatus: string })
         <Button onClick={handleToggle} isDisabled={isUpdating}>
             {isClosing ? (
                 <ButtonOutlineContent
-                    leftIcon={<IconLock size={16} />}
+                    leftIcon={<IconLock />}
                     text={isUpdating ? "Fermeture..." : "Fermer le ticket"}
                     color="danger"
                 />
             ) : (
                 <ButtonOutlineContent
-                    leftIcon={<IconLockOpen size={16} />}
+                    leftIcon={<IconLockOpen />}
                     text={isUpdating ? "Ouverture..." : "Rouvrir le ticket"}
                     color="success"
                 />

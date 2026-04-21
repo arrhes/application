@@ -40,7 +40,7 @@ export function EntriesPage() {
                                 <Dropdown.Root>
                                     <Dropdown.Trigger>
                                         <ButtonGhostContent
-                                            leftIcon={<IconDotsVertical size={16} />}
+                                            leftIcon={<IconDotsVertical />}
                                             text={undefined}
                                         />
                                     </Dropdown.Trigger>

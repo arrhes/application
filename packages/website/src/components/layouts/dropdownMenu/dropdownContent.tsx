@@ -22,7 +22,7 @@ export function DropdownContent(props: ComponentPropsWithRef<typeof DropdownMenu
                         flexDirection: "column",
                         justifyContent: "flex-start",
                         alignItems: "stretch",
-                        gap: "0.25rem",
+                        gap: "0.5rem",
                         border: "1px solid",
                         borderColor: "neutral/10",
                         minWidth: "var(--radix-dropdown-menu-trigger-width)",

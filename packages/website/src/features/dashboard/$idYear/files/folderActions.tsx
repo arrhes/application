@@ -49,7 +49,7 @@ export function FolderActions(props: {
         <>
             <Dropdown.Root>
                 <Dropdown.Trigger>
-                    <ButtonGhostContent leftIcon={<IconDotsVertical size={16} />} text={undefined} />
+                    <ButtonGhostContent leftIcon={<IconDotsVertical />} text={undefined} />
                 </Dropdown.Trigger>
                 <Dropdown.Content align="end">
                     <Dropdown.Item onSelect={() => props.onFolderOpen(props.folder.id)}>

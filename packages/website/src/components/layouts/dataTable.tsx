@@ -19,8 +19,10 @@ import {
     type Row,
     type SortingState,
     useReactTable,
+    type VisibilityState,
 } from "@tanstack/react-table"
 import { Fragment, type ReactElement, useMemo, useState } from "react"
+import { ColumnVisibilityPopover, type VisibilityColumn } from "./columnVisibilityPopover.js"
 import { type FilterColumn, FilterPopover } from "./filterPopover.js"
 import { SearchBar } from "./searchBar.js"
 import { type SortDirection, SortPopover } from "./sortPopover.js"
@@ -30,6 +32,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
     isLoading?: boolean
     columns: Array<ColumnDef<TData>>
     pageSize?: number
+    defaultColumnVisibility?: VisibilityState
     onRowClick?: (context: Row<TData>) => void
     renderSubComponent?: (context: { row: Row<TData> }) => ReactElement | null
     hideSearchBar?: boolean
@@ -38,6 +41,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
     const [globalFilter, setGlobalFilter] = useState("")
     const [sorting, setSorting] = useState<SortingState>([])
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+    const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(props.defaultColumnVisibility ?? {})
 
     const table = useReactTable<TData>({
         data: memoizedData,
@@ -54,6 +58,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
         onGlobalFilterChange: setGlobalFilter,
         onSortingChange: setSorting,
         onColumnFiltersChange: setColumnFilters,
+        onColumnVisibilityChange: setColumnVisibility,
         enableMultiSort: true,
         initialState: {
             pagination: {
@@ -64,6 +69,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
             globalFilter,
             sorting,
             columnFilters,
+            columnVisibility,
         },
     })
 
@@ -163,6 +169,41 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                             />
                         )
                     })()}
+                    {(() => {
+                        const visibilityColumns: Array<VisibilityColumn> = table
+                            .getAllLeafColumns()
+                            .filter((col) => col.columnDef.header && col.columnDef.header !== " ")
+                            .map((col) => ({
+                                id: col.id,
+                                header: col.columnDef.header?.toString() ?? "",
+                                isVisible: col.getIsVisible(),
+                                canHide: col.getCanHide(),
+                            }))
+
+                        const hasHideableColumns = visibilityColumns.some((column) => column.canHide)
+                        if (!hasHideableColumns) return null
+
+                        return (
+                            <ColumnVisibilityPopover
+                                columns={visibilityColumns}
+                                onColumnVisibilityChange={(columnId, isVisible) => {
+                                    table.getColumn(columnId)?.toggleVisibility(isVisible)
+                                }}
+                                onShowAll={() => {
+                                    for (const col of table.getAllLeafColumns()) {
+                                        if (!col.getCanHide()) continue
+                                        col.toggleVisibility(true)
+                                    }
+                                }}
+                                onDisableAll={() => {
+                                    for (const col of table.getAllLeafColumns()) {
+                                        if (!col.getCanHide()) continue
+                                        col.toggleVisibility(false)
+                                    }
+                                }}
+                            />
+                        )
+                    })()}
                 </div>
             )}
             <div
@@ -230,8 +271,8 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                                 <ButtonGhostContent
                                                     leftIcon={
                                                         {
-                                                            asc: <IconSortAscending size={16} />,
-                                                            desc: <IconSortDescending size={16} />,
+                                                            asc: <IconSortAscending />,
+                                                            desc: <IconSortDescending />,
                                                         }[String(header.column.getIsSorted())] ?? undefined
                                                     }
                                                     text={header.column.columnDef.header?.toString()}
@@ -275,13 +316,13 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                             !props.onRowClick
                                                 ? undefined
                                                 : css({
-                                                      cursor: "pointer",
-                                                      _hover: { backgroundColor: "neutral/5" },
-                                                  }),
+                                                    cursor: "pointer",
+                                                    _hover: { backgroundColor: "neutral/5" },
+                                                }),
                                             row.getIsExpanded()
                                                 ? css({
-                                                      borderBottomColor: "neutral/10",
-                                                  })
+                                                    borderBottomColor: "neutral/10",
+                                                })
                                                 : undefined,
                                         )}
                                     >
@@ -290,7 +331,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                                 <div
                                                     className={css({
                                                         display: "flex",
-                                                        justifyContent: "center",
+                                                        justifyContent: "flex-start",
                                                         alignItems: "center",
                                                         padding: "0.5rem",
                                                     })}
@@ -304,9 +345,9 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                                         <ButtonGhostContent
                                                             leftIcon={
                                                                 row.getIsExpanded() ? (
-                                                                    <IconChevronDown size={16} />
+                                                                    <IconChevronDown />
                                                                 ) : (
-                                                                    <IconChevronRight size={16} />
+                                                                    <IconChevronRight />
                                                                 )
                                                             }
                                                             text={undefined}
@@ -392,7 +433,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                     >
                         <Button onClick={() => table.previousPage()} isDisabled={!table.getCanPreviousPage()}>
                             <ButtonOutlineContent
-                                leftIcon={<IconChevronLeft size={16} />}
+                                leftIcon={<IconChevronLeft />}
                                 text={undefined}
                                 isDisabled={!table.getCanPreviousPage()}
                             />
@@ -407,7 +448,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                         </span>
                         <Button onClick={() => table.nextPage()} isDisabled={!table.getCanNextPage()}>
                             <ButtonOutlineContent
-                                leftIcon={<IconChevronRight size={16} />}
+                                leftIcon={<IconChevronRight />}
                                 text={undefined}
                                 isDisabled={!table.getCanNextPage()}
                             />

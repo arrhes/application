@@ -30,11 +30,15 @@ export function FilterPopover(props: {
                 <Button>
                     {activeFilterCount > 0 ? (
                         <ButtonPlainContent
-                            leftIcon={<IconFilter size={16} />}
-                            text={`Filtrer (${activeFilterCount})`}
+                            leftIcon={<IconFilter />}
+                            // text={`Filtrer (${activeFilterCount})`}
+                            text={`(${activeFilterCount})`}
                         />
                     ) : (
-                        <ButtonOutlineContent leftIcon={<IconFilter size={16} />} text="Filtrer" />
+                        <ButtonOutlineContent
+                            leftIcon={<IconFilter />}
+                        // text="Filtrer" 
+                        />
                     )}
                 </Button>
             </Popover.Trigger>
@@ -57,7 +61,7 @@ export function FilterPopover(props: {
                 >
                     <ButtonGhostContent
                         color="danger"
-                        leftIcon={<IconX size={16} />}
+                        leftIcon={<IconX />}
                         text="Effacer les filtres"
                         className={css({ width: "100%", justifyContent: "start" })}
                         isDisabled={activeFilterCount === 0}

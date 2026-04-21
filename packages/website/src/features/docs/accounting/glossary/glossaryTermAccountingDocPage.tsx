@@ -21,18 +21,10 @@ export function GlossaryTermAccountingDocPage() {
             <DocRoot>
                 <DocHeader title="Terme introuvable" description="Ce terme n'existe pas dans le glossaire." />
                 <LinkButton to="/documentation/comptabilité/glossaire">
-                    <span
-                        className={css({
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "0.5rem",
-                            fontSize: "sm",
-                            color: "primary",
-                        })}
-                    >
-                        <IconArrowLeft size={16} />
-                        Retour au glossaire
-                    </span>
+                    <ButtonOutlineContent
+                        leftIcon={<IconArrowLeft />}
+                        text="Retour au glossaire"
+                    />
                 </LinkButton>
             </DocRoot>
         )

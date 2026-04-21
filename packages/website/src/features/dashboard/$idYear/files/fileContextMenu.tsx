@@ -51,7 +51,7 @@ export function FileContextMenu(props: {
                 <ContextMenu.Trigger asChild>{props.children}</ContextMenu.Trigger>
                 <ContextMenu.Content>
                     <ContextMenu.Item
-                        leftIcon={<IconEye size={16} />}
+                        leftIcon={<IconEye />}
                         onSelect={() => {
                             applicationRouter.navigate({
                                 to: "/dashboard/organisations/$idOrganization/exercices/$idYear/stockage/$idFile",
@@ -63,14 +63,14 @@ export function FileContextMenu(props: {
                             })
                         }}
                     >
-                        Voir
+                        Ouvrir
                     </ContextMenu.Item>
-                    <ContextMenu.Item leftIcon={<IconPencil size={16} />} onSelect={() => setEditOpen(true)}>
+                    <ContextMenu.Item leftIcon={<IconPencil />} onSelect={() => setEditOpen(true)}>
                         Modifier
                     </ContextMenu.Item>
                     <ContextMenu.Separator />
                     <ContextMenu.Item
-                        leftIcon={<IconTrash size={16} />}
+                        leftIcon={<IconTrash />}
                         color="danger"
                         onSelect={() => setDeleteOpen(true)}
                     >

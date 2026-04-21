@@ -143,7 +143,7 @@ export function JournalReportPage() {
                                                     isDisabled={!canPreviousPage}
                                                 >
                                                     <ButtonOutlineContent
-                                                        leftIcon={<IconChevronLeft size={16} />}
+                                                        leftIcon={<IconChevronLeft />}
                                                         text={undefined}
                                                         isDisabled={!canPreviousPage}
                                                     />
@@ -161,7 +161,7 @@ export function JournalReportPage() {
                                                     isDisabled={!canNextPage}
                                                 >
                                                     <ButtonOutlineContent
-                                                        leftIcon={<IconChevronRight size={16} />}
+                                                        leftIcon={<IconChevronRight />}
                                                         text={undefined}
                                                         isDisabled={!canNextPage}
                                                     />

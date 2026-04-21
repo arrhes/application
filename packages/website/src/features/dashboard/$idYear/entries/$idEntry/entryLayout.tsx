@@ -88,7 +88,7 @@ export function EntryLayout() {
                                 >
                                     <Dropdown.Root>
                                         <Dropdown.Trigger>
-                                            <ButtonGhostContent leftIcon={<IconDotsVertical size={16} />} />
+                                            <ButtonGhostContent leftIcon={<IconDotsVertical />} />
                                         </Dropdown.Trigger>
                                         <Dropdown.Content align="end">
                                             <Dropdown.Item>

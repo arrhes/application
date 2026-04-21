@@ -90,7 +90,7 @@ export function FileActions(props: {
         <>
             <Dropdown.Root>
                 <Dropdown.Trigger>
-                    <ButtonGhostContent leftIcon={<IconDotsVertical size={16} />} text={undefined} />
+                    <ButtonGhostContent leftIcon={<IconDotsVertical />} text={undefined} />
                 </Dropdown.Trigger>
                 <Dropdown.Content align="end">
                     <Dropdown.Item asChild>
@@ -104,7 +104,7 @@ export function FileActions(props: {
                         >
                             <ButtonGhostContent
                                 leftIcon={<IconEye />}
-                                text="Voir"
+                                text="Ouvrir"
                                 className={css({ width: "100%", justifyContent: "start" })}
                             />
                         </LinkButton>
