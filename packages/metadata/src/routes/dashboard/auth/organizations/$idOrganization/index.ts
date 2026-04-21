@@ -27,6 +27,7 @@ export { updateManyEntryLinesRouteDefinition } from "./years/$idYear/entries/$id
 export { addOneEntryTagRouteDefinition } from "./years/$idYear/entries/$idEntry/entryTags/addOneEntryTag.js"
 export { removeOneEntryTagRouteDefinition } from "./years/$idYear/entries/$idEntry/entryTags/removeOneEntryTag.js"
 export { readOneEntryRouteDefinition } from "./years/$idYear/entries/$idEntry/readOneEntry.js"
+export { reverseOneEntryRouteDefinition } from "./years/$idYear/entries/$idEntry/reverseOneEntry.js"
 export { updateOneEntryRouteDefinition } from "./years/$idYear/entries/$idEntry/updateOneEntry.js"
 export { createOneEntryRouteDefinition } from "./years/$idYear/entries/createOneEntry.js"
 export { createOneEntryFromTemplateRouteDefinition } from "./years/$idYear/entries/createOneEntryFromTemplate.js"
@@ -104,3 +105,4 @@ export { readAllTagsRouteDefinition } from "./years/$idYear/yearSettings/tags/re
 // years
 export { createOneYearRouteDefinition } from "./years/createOneYear.js"
 export { readAllYearsRouteDefinition } from "./years/readAllYears.js"
+
