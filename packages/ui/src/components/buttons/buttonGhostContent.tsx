@@ -15,7 +15,7 @@ const ghostRecipe = sva({
             boxSizing: "border-box",
             cursor: "pointer",
             transition: "all",
-            transitionDuration: "200ms",
+            transitionDuration: "50ms",
             transitionTimingFunction: "ease-in-out",
             borderWidth: "1px",
             borderStyle: "solid",

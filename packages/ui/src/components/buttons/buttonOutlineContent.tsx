@@ -15,7 +15,7 @@ const outlineRecipe = sva({
             boxSizing: "border-box",
             cursor: "pointer",
             transition: "all",
-            transitionDuration: "100ms",
+            transitionDuration: "50ms",
             transitionTimingFunction: "ease-in-out",
             border: "1px solid",
             borderColor: "neutral/20",

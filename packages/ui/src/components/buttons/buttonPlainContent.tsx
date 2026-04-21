@@ -15,7 +15,7 @@ const plainRecipe = sva({
             boxSizing: "border-box",
             cursor: "pointer",
             transition: "all",
-            transitionDuration: "200ms",
+            transitionDuration: "50ms",
             transitionTimingFunction: "ease-in-out",
             border: "1px solid",
             borderColor: "primary",

@@ -51,17 +51,17 @@ export function InputToggle<TValue extends string | boolean>(
                         <ButtonGhostContent
                             className={cx(
                                 css({
-                                    transition: "all 200ms ease-in-out",
+                                    transition: "all 50ms ease-in-out",
                                     borderRadius: "none",
                                     border: "none",
                                 }),
                                 css(
                                     isSelected
                                         ? {
-                                              backgroundColor: "neutral/10",
-                                              outline: "1px solid",
-                                              outlineColor: "neutral",
-                                          }
+                                            backgroundColor: "neutral/10",
+                                            outline: "1px solid",
+                                            outlineColor: "neutral",
+                                        }
                                         : {},
                                 ),
                             )}
