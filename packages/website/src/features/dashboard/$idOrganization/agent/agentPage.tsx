@@ -335,7 +335,9 @@ export function AgentPage() {
                                         <button
                                             type="button"
                                             onClick={() =>
-                                                setPendingFiles((prev) => prev.filter((item) => item.id !== pendingFile.id))
+                                                setPendingFiles((prev) =>
+                                                    prev.filter((item) => item.id !== pendingFile.id),
+                                                )
                                             }
                                             className={css({
                                                 display: "inline-flex",
@@ -369,7 +371,7 @@ export function AgentPage() {
                                 <Button title="Contexte de la session">
                                     <ButtonOutlineContent
                                         leftIcon={<IconNotebook />}
-                                    // text="Contexte"
+                                        // text="Contexte"
                                     />
                                 </Button>
                             </Popover.Trigger>
@@ -418,9 +420,9 @@ export function AgentPage() {
                                                 yearsData === undefined
                                                     ? []
                                                     : yearsData.map((year) => ({
-                                                        key: year.id,
-                                                        label: year.label,
-                                                    }))
+                                                          key: year.id,
+                                                          label: year.label,
+                                                      }))
                                             }
                                         />
                                     </div>

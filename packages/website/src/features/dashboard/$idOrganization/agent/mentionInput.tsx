@@ -314,44 +314,47 @@ export function MentionInput(props: MentionInputProps) {
 
     // ── Insert mention ───────────────────────────────────────────────────
 
-    const insertMention = useCallback((ref: MentionReference) => {
-        const editor = editorRef.current
-        const start = mentionStartRef.current
-        if (!editor || !start) return
+    const insertMention = useCallback(
+        (ref: MentionReference) => {
+            const editor = editorRef.current
+            const start = mentionStartRef.current
+            if (!editor || !start) return
 
-        const textNode = start.node as Text
-        const text = textNode.textContent ?? ""
-        const sel = window.getSelection()
-        const cursorPos = sel?.getRangeAt(0).startOffset ?? text.length
+            const textNode = start.node as Text
+            const text = textNode.textContent ?? ""
+            const sel = window.getSelection()
+            const cursorPos = sel?.getRangeAt(0).startOffset ?? text.length
 
-        // Split the text node: before @, and after the query
-        const before = text.slice(0, start.offset)
-        const after = text.slice(cursorPos)
+            // Split the text node: before @, and after the query
+            const before = text.slice(0, start.offset)
+            const after = text.slice(cursorPos)
 
-        // Create the chip
-        const chip = createChipElement(ref)
+            // Create the chip
+            const chip = createChipElement(ref)
 
-        // Replace the text node
-        const beforeNode = document.createTextNode(before)
-        const afterNode = document.createTextNode(after.length > 0 ? after : "\u00A0")
+            // Replace the text node
+            const beforeNode = document.createTextNode(before)
+            const afterNode = document.createTextNode(after.length > 0 ? after : "\u00A0")
 
-        const parent = textNode.parentNode!
-        parent.insertBefore(beforeNode, textNode)
-        parent.insertBefore(chip, textNode)
-        parent.insertBefore(afterNode, textNode)
-        parent.removeChild(textNode)
+            const parent = textNode.parentNode!
+            parent.insertBefore(beforeNode, textNode)
+            parent.insertBefore(chip, textNode)
+            parent.insertBefore(afterNode, textNode)
+            parent.removeChild(textNode)
 
-        // Place cursor after the chip
-        placeCaretAfterNode(chip)
+            // Place cursor after the chip
+            placeCaretAfterNode(chip)
 
-        setShowDropdown(false)
-        mentionStartRef.current = null
-        setSearchQuery("")
-        setResults([])
+            setShowDropdown(false)
+            mentionStartRef.current = null
+            setSearchQuery("")
+            setResults([])
 
-        const { text: updatedText, references: updatedReferences } = extractContent()
-        props.onValueChange?.(updatedText, updatedReferences)
-    }, [extractContent, props])
+            const { text: updatedText, references: updatedReferences } = extractContent()
+            props.onValueChange?.(updatedText, updatedReferences)
+        },
+        [extractContent, props],
+    )
 
     // ── Keyboard handling ────────────────────────────────────────────────
 

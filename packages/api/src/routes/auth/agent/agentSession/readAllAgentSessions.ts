@@ -29,7 +29,7 @@ export const readAllAgentSessionsRoute = apiFactory
                     title: models.agentSession.title,
                     createdAt: models.agentSession.createdAt,
                     lastUpdatedAt: models.agentSession.lastUpdatedAt,
-                    matchedContent: models.agentMessage.content,
+                    matchedContent: models.agentMessage.output,
                 })
                 .from(models.agentSession)
                 .leftJoin(models.agentMessage, eq(models.agentMessage.idAgentSession, models.agentSession.id))
@@ -39,7 +39,7 @@ export const readAllAgentSessionsRoute = apiFactory
                         eq(models.agentSession.idUser, user.id),
                         or(
                             ilike(models.agentSession.title, pattern),
-                            ilike(models.agentMessage.content, pattern),
+                            ilike(models.agentMessage.output, pattern),
                             ilike(models.agentMessage.userMessage, pattern),
                         ),
                     ),

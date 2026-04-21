@@ -15,8 +15,9 @@ export const agentMessageModel = pgTable(
         idAgentSession: idColumn("id_agent_session")
             .references(() => agentSessionModel.id, { onDelete: "cascade", onUpdate: "cascade" })
             .notNull(),
-        userMessage: text("user_message").notNull(),
-        content: text("content"),
+        userMessage: text("user_message"),
+        input: text("input"),
+        output: text("output"),
         toolCalls: jsonb("tool_calls"),
         toolResults: jsonb("tool_results"),
         usedTools: text("used_tools").array(),
@@ -27,8 +28,7 @@ export const agentMessageModel = pgTable(
         promptTokens: integer("prompt_tokens"),
         completionTokens: integer("completion_tokens"),
         totalTokens: integer("total_tokens"),
-        subagentRole: text("subagent_role"),
-        subagentDepth: integer("subagent_depth").notNull().default(0),
+        depth: integer("depth").notNull().default(0),
         idParentAgentMessage: idColumn("id_parent_agent_message").references((): AnyPgColumn => agentMessageModel.id, {
             onDelete: "cascade",
             onUpdate: "cascade",

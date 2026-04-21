@@ -5,6 +5,7 @@ import { idColumn } from "../components/models/idColumn.js"
 import { agentMessageModel } from "./agentMessage.js"
 import { dashboardUserModel } from "./dashboardUser.js"
 import { organizationModel } from "./organization.js"
+import { yearModel } from "./year.js"
 
 // Model
 export const agentSessionModel = pgTable(
@@ -18,7 +19,7 @@ export const agentSessionModel = pgTable(
             .references(() => dashboardUserModel.id, { onDelete: "cascade", onUpdate: "cascade" })
             .notNull(),
         title: text("title"),
-        idYear: idColumn("id_year"),
+        idYear: idColumn("id_year").references(() => yearModel.id, { onDelete: "set null", onUpdate: "cascade" }),
         customInstructions: text("custom_instructions"),
         attachedFiles: jsonb("attached_files"),
         totalPromptTokens: integer("total_prompt_tokens").notNull().default(0),

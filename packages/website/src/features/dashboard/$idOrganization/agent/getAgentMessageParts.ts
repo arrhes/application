@@ -31,7 +31,7 @@ type Part = {
 export function getAgentMessageParts(
     agentMessage: InferOutput<typeof readAllAgentMessagesRouteDefinition.schemas.return>[number],
 ) {
-    const content = agentMessage.content ?? ""
+    const content = agentMessage.output ?? (agentMessage as { content?: string | null }).content ?? ""
     const events: unknown[] = Array.isArray(agentMessage.toolCalls) ? agentMessage.toolCalls : []
 
     // Check if we have interleaving markers
@@ -143,13 +143,16 @@ function buildInterleavedParts(events: unknown[], content: string, state: string
     return parts
 }
 
-function buildLegacyParts(agentMessage: { content: string | null; state: string | null; toolCalls: unknown }): Part[] {
+function buildLegacyParts(agentMessage: { output: string | null; state: string | null; toolCalls: unknown }): Part[] {
     const parts: Part[] = []
 
     const toolCallParts = reconstructToolCallParts(agentMessage.toolCalls)
     parts.push(...toolCallParts)
 
-    const rawText = getContentFallback(agentMessage.content ?? "", agentMessage.state)
+    const rawText = getContentFallback(
+        agentMessage.output ?? (agentMessage as { content?: string | null }).content ?? "",
+        agentMessage.state,
+    )
     const text = rawText ? stripRawToolCalls(rawText) : rawText
     if (agentMessage.state === "error") {
         parts.push({ type: "error", content: text || "Une erreur est survenue lors de la génération de la réponse." })

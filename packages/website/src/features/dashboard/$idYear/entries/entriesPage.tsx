@@ -1,6 +1,6 @@
 import { Button, ButtonGhostContent, ButtonPlainContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconDotsVertical, IconDownload, IconFileExport, IconPlus } from "@tabler/icons-react"
+import { IconDotsVertical, IconDownload, IconFileExport, IconFileImport, IconPlus } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { useState } from "react"
 import { Dropdown } from "../../../../components/layouts/dropdownMenu/dropdown.js"
@@ -11,11 +11,13 @@ import { CreateOneEntry } from "./createOneEntry.js"
 import { EntriesTable } from "./entriesTable.js"
 import { ExportEntryLines } from "./exportEntryLines.js"
 import { ExportFecFile } from "./exportFecFile.js"
+import { ImportFecFile } from "./importFecFile.js"
 
 export function EntriesPage() {
     const params = useParams({ from: entriesRoute.id })
     const [exportOpen, setExportOpen] = useState(false)
     const [fecOpen, setFecOpen] = useState(false)
+    const [importFecOpen, setImportFecOpen] = useState(false)
 
     return (
         <Page.Root>
@@ -57,6 +59,13 @@ export function EntriesPage() {
                                                 className={css({ width: "100%", justifyContent: "start" })}
                                             />
                                         </Dropdown.Item>
+                                        <Dropdown.Item onSelect={() => setImportFecOpen(true)}>
+                                            <ButtonGhostContent
+                                                leftIcon={<IconFileImport />}
+                                                text="Importer un FEC"
+                                                className={css({ width: "100%", justifyContent: "start" })}
+                                            />
+                                        </Dropdown.Item>
                                     </Dropdown.Content>
                                 </Dropdown.Root>
                                 <CreateOneEntry idOrganization={params.idOrganization} idYear={params.idYear}>
@@ -91,6 +100,13 @@ export function EntriesPage() {
                                 entryLines={data.entryLines}
                                 open={fecOpen}
                                 onOpenChange={setFecOpen}
+                            />
+                            <ImportFecFile
+                                idYear={params.idYear}
+                                journals={data.journals}
+                                accounts={data.accounts}
+                                open={importFecOpen}
+                                onOpenChange={setImportFecOpen}
                             />
                         </div>
                     )}

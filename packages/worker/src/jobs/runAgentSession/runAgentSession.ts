@@ -199,12 +199,12 @@ function processArray(args: ProcessArrayArgs, store: ToolResultStore): unknown {
  * For assistant messages with stored AG-UI tool events, converts them to the
  * tool-call / tool-result format expected by convertMessagesToModelMessages.
  */
-function buildAssistantParts(m: { content: string | null; toolCalls: unknown | null }): unknown[] {
+function buildAssistantParts(m: { output: string | null; toolCalls: unknown | null }): unknown[] {
     const parts: unknown[] = []
 
     // Add text content if present
-    if (m.content) {
-        parts.push({ type: "text", content: compressTextForContext(m.content) })
+    if (m.output) {
+        parts.push({ type: "text", content: compressTextForContext(m.output) })
     }
 
     // Reconstruct tool-call and tool-result parts from stored AG-UI events
@@ -258,7 +258,7 @@ function buildAssistantParts(m: { content: string | null; toolCalls: unknown | n
 
     // Fallback: if no parts were built, add empty text
     if (parts.length === 0) {
-        parts.push({ type: "text", content: compressTextForContext(m.content ?? "") })
+        parts.push({ type: "text", content: compressTextForContext(m.output ?? "") })
     }
 
     return parts
@@ -309,13 +309,13 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
         .where(eq(models.agentMessage.idAgentSession, agentMessage.idAgentSession))
         .orderBy(asc(models.agentMessage.createdAt))
 
-    // Build UIMessages from DB rows. Each row contains a user question (userMessage)
-    // and an assistant response (content/toolCalls). We produce two UIMessages per row
+    // Build UIMessages from DB rows. A row may have a nullable userMessage (e.g. delegated/subagent rows),
+    // so we only emit a user turn when present. Assistant output is still included when completed.
     // so that convertMessagesToModelMessages gets a proper user→assistant alternation.
     const uiMessages: Array<{ id: string; role: "user" | "assistant"; parts: unknown[]; createdAt?: Date }> = []
     for (const m of historyRows) {
         // Build the user message content, appending resolved references if present
-        let userContent = compressTextForContext(m.userMessage)
+        let userContent = compressTextForContext(m.userMessage ?? "")
 
         const refs = (m as any).references as Array<{ id: string; type: string; label: string }> | null
         if (refs && refs.length > 0 && m.id === idAgentMessage) {
@@ -377,19 +377,20 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
             }
         }
 
-        // Always add the user question from every row (including the current one)
-        uiMessages.push({
-            id: `${m.id}-user`,
-            role: "user",
-            parts: [{ type: "text", content: userContent }],
-            createdAt: m.createdAt ? new Date(m.createdAt) : undefined,
-        })
+        if (m.userMessage) {
+            uiMessages.push({
+                id: `${m.id}-user`,
+                role: "user",
+                parts: [{ type: "text", content: userContent }],
+                createdAt: m.createdAt ? new Date(m.createdAt) : undefined,
+            })
+        }
 
         // Skip the current message's assistant response (it's still streaming/empty)
         if (m.id === idAgentMessage) continue
 
-        // Only add the assistant response if it completed with content or tool calls
-        if (m.state === "completed" && (m.content || m.toolCalls)) {
+        // Only add the assistant response if it completed with output or tool calls
+        if (m.state === "completed" && (m.output || m.toolCalls)) {
             uiMessages.push({
                 id: m.id,
                 role: "assistant",
@@ -741,6 +742,16 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
         )
     }
 
+    const llmInputPayload = JSON.stringify({
+        systemPrompts: [systemPrompt],
+        messages: modelMessages,
+    })
+
+    await db
+        .update(models.agentMessage)
+        .set({ input: llmInputPayload })
+        .where(eq(models.agentMessage.id, idAgentMessage))
+
     let accumulatedContent = ""
     const accumulatedToolCalls: unknown[] = []
     const usedToolNames = new Set<string>()
@@ -771,7 +782,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
             // Fire-and-forget — non-critical, don't block the stream
             db.update(models.agentMessage)
                 .set({
-                    content: contentSnapshot || null,
+                    output: contentSnapshot || null,
                     toolCalls: toolCallsSnapshot,
                     usedTools: usedToolNames.size > 0 ? [...usedToolNames] : null,
                 })
@@ -839,7 +850,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                 .update(models.agentMessage)
                 .set({
                     state: "error",
-                    content: accumulatedContent || runError,
+                    output: accumulatedContent || runError,
                     toolCalls: accumulatedToolCalls.length > 0 ? accumulatedToolCalls : null,
                     usedTools: usedToolNames.size > 0 ? [...usedToolNames] : null,
                 })
@@ -855,7 +866,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                 .update(models.agentMessage)
                 .set({
                     state: "completed",
-                    content: accumulatedContent || null,
+                    output: accumulatedContent || null,
                     toolCalls: accumulatedToolCalls.length > 0 ? accumulatedToolCalls : null,
                     usedTools: usedToolNames.size > 0 ? [...usedToolNames] : null,
                     promptTokens: capturedPromptTokens || null,
@@ -920,7 +931,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
 
         await db
             .update(models.agentMessage)
-            .set({ state: "error", content: msg })
+            .set({ state: "error", output: msg })
             .where(eq(models.agentMessage.id, idAgentMessage))
 
         await db

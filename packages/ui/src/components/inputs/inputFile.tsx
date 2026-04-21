@@ -1,4 +1,4 @@
-import { type InputHTMLAttributes, useRef } from "react"
+import { type InputHTMLAttributes, useEffect, useRef, useState } from "react"
 import type { FieldError } from "react-hook-form"
 import { css } from "../../utilities/cn.js"
 import { Button } from "../buttons/button.js"
@@ -9,9 +9,22 @@ export function InputFile(
         value?: File | null
         onChange?: (value?: File | null | undefined) => void
         type?: "image"
+        accept?: string
     },
 ) {
     const inputRef = useRef<HTMLInputElement | null>(null)
+    const [selectedFile, setSelectedFile] = useState<File | null>(props.value ?? null)
+
+    useEffect(() => {
+        if (props.value === null) {
+            setSelectedFile(null)
+            return
+        }
+
+        if (props.value !== undefined) {
+            setSelectedFile(props.value)
+        }
+    }, [props.value])
 
     return (
         <div
@@ -28,9 +41,10 @@ export function InputFile(
             })}
             onDrop={(event) => {
                 event.preventDefault()
-                if (!props.onChange) return
                 if (event.dataTransfer.files) {
-                    props.onChange(event.dataTransfer.files[0])
+                    const file = event.dataTransfer.files[0]
+                    setSelectedFile(file ?? null)
+                    props.onChange?.(file)
                 }
             }}
             onDragOver={(event) => event.preventDefault()}
@@ -40,12 +54,13 @@ export function InputFile(
                 multiple={false}
                 type="file"
                 onChange={(event) => {
-                    if (!props.onChange) return
                     if (event.target.files) {
-                        props.onChange(event.target.files[0])
+                        const file = event.target.files[0]
+                        setSelectedFile(file ?? null)
+                        props.onChange?.(file)
                     }
                 }}
-                accept={!props.type ? "*" : "image/*"}
+                accept={props.accept ?? (!props.type ? "*" : "image/*")}
                 className={css({ display: "none", width: "100%", height: "100%" })}
             />
             <Button
@@ -56,14 +71,14 @@ export function InputFile(
                     cursor: "pointer",
                     width: "100%",
                     height: "100%",
-                    padding: { base: "2", md: "3" },
+                    padding: "1rem",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
                 })}
             >
                 <span className={css({ color: "neutral/75", fontSize: "sm" })}>
-                    {props.value?.name ?? props.placeholder ?? "Glissez-déposez ou cliquez pour ajouter un fichier"}
+                    {selectedFile?.name ?? props.placeholder ?? "Glissez-déposez ou cliquez pour ajouter un fichier"}
                 </span>
             </Button>
         </div>

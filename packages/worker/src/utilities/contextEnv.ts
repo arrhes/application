@@ -38,6 +38,7 @@ const envSchema = v.object({
     LLM_API_KEY: v.optional(v.string(), ""),
 })
 
+// biome-ignore lint/complexity/noStaticOnlyClass: singleton-style mutable environment container used at process startup.
 export class ContextEnv {
     static ENV: Env
     static VERBOSE: boolean

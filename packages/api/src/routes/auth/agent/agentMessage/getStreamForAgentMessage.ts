@@ -33,9 +33,9 @@ export const getStreamForAgentMessageRoute = apiFactory
         // return the content directly
         if (agentMessage.state === "completed") {
             return streamText(c, async (stream) => {
-                if (agentMessage.content) {
+                if (agentMessage.output) {
                     await stream.write(
-                        `data: ${JSON.stringify({ type: "TEXT_MESSAGE_CONTENT", delta: agentMessage.content })}\n\n`,
+                        `data: ${JSON.stringify({ type: "TEXT_MESSAGE_CONTENT", delta: agentMessage.output })}\n\n`,
                     )
                 }
             })
@@ -140,9 +140,9 @@ export const getStreamForAgentMessageRoute = apiFactory
             })
             if (freshMessage.state !== "streaming") {
                 // Worker already finished — send the completed content and close
-                if (freshMessage.content) {
+                if (freshMessage.output) {
                     await stream.write(
-                        `data: ${JSON.stringify({ type: "TEXT_MESSAGE_CONTENT", delta: freshMessage.content })}\n\n`,
+                        `data: ${JSON.stringify({ type: "TEXT_MESSAGE_CONTENT", delta: freshMessage.output })}\n\n`,
                     )
                 }
                 if (freshMessage.toolCalls && Array.isArray(freshMessage.toolCalls)) {
@@ -156,10 +156,10 @@ export const getStreamForAgentMessageRoute = apiFactory
 
             // Send any partial content already checkpointed to DB
             // so the client can display it immediately on reconnect
-            if (freshMessage.content) {
-                checkpointContentLength = freshMessage.content.length
+            if (freshMessage.output) {
+                checkpointContentLength = freshMessage.output.length
                 await stream.write(
-                    `data: ${JSON.stringify({ type: "TEXT_MESSAGE_CONTENT", delta: freshMessage.content })}\n\n`,
+                    `data: ${JSON.stringify({ type: "TEXT_MESSAGE_CONTENT", delta: freshMessage.output })}\n\n`,
                 )
             }
             if (freshMessage.toolCalls && Array.isArray(freshMessage.toolCalls)) {

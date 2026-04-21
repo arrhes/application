@@ -110,7 +110,7 @@ async function runSubagent(
         }
     }
 
-    const subagentDepth = currentDepth + 1
+    const depth = currentDepth + 1
     const skillLabel = skills.map((s) => s.name).join(", ")
 
     // Publish subagent start event
@@ -119,7 +119,7 @@ async function runSubagent(
         JSON.stringify({
             type: "SUBAGENT_RUN_START",
             skills: skillLabel,
-            depth: subagentDepth,
+            depth,
             task,
             timestamp: Date.now(),
         }),
@@ -139,7 +139,7 @@ async function runSubagent(
         })
 
         // If depth allows, add recursive subagent tool
-        if (subagentDepth < MAX_SUBAGENT_DEPTH) {
+        if (depth < MAX_SUBAGENT_DEPTH) {
             const nestedSubagent = buildSubagentTool({
                 db,
                 redis,
@@ -147,7 +147,7 @@ async function runSubagent(
                 idOrganization,
                 idYear,
                 customInstructions,
-                currentDepth: subagentDepth,
+                currentDepth: depth,
                 parentToolResultStore: toolResultStore,
             })
             tools.push(nestedSubagent.tool)
@@ -198,7 +198,7 @@ async function runSubagent(
             const enrichedChunk = {
                 ...(chunk as any),
                 subagentSkills: skillLabel,
-                subagentDepth,
+                depth,
             }
             await redis.publish(streamKey, JSON.stringify(enrichedChunk))
 
@@ -227,7 +227,7 @@ async function runSubagent(
             JSON.stringify({
                 type: "SUBAGENT_RUN_END",
                 skills: skillLabel,
-                depth: subagentDepth,
+                depth,
                 timestamp: Date.now(),
                 promptTokens,
                 completionTokens,
@@ -248,7 +248,7 @@ async function runSubagent(
             JSON.stringify({
                 type: "SUBAGENT_RUN_END",
                 skills: skillLabel,
-                depth: subagentDepth,
+                depth,
                 timestamp: Date.now(),
                 error: errorMsg,
                 promptTokens: 0,

@@ -8,8 +8,8 @@ import { reconstructToolCallParts } from "./reconstructToolCallParts.js"
 export function convertStoredMessagesToUIMessages(
     storedMessages: Array<{
         id: string
-        userMessage: string
-        content: string | null
+        userMessage: string | null
+        output: string | null
         toolCalls: unknown
         toolResults: unknown
         state: string
@@ -37,12 +37,14 @@ export function convertStoredMessagesToUIMessages(
 
     for (const m of storedMessages) {
         // User message
-        result.push({
-            id: `${m.id}-user`,
-            role: "user",
-            createdAt: new Date(m.createdAt),
-            parts: [{ type: "text", content: m.userMessage }],
-        })
+        if (m.userMessage) {
+            result.push({
+                id: `${m.id}-user`,
+                role: "user",
+                createdAt: new Date(m.createdAt),
+                parts: [{ type: "text", content: m.userMessage }],
+            })
+        }
 
         // Skip assistant messages still streaming (not finalized)
         if (m.state === "streaming") continue
@@ -61,13 +63,13 @@ export function convertStoredMessagesToUIMessages(
         const toolCallParts = reconstructToolCallParts(m.toolCalls)
         parts.push(...toolCallParts)
 
-        if (m.state === "error" && !m.content) {
+        if (m.state === "error" && !m.output) {
             parts.push({
                 type: "text",
                 content: "Une erreur est survenue lors de la génération de la réponse.",
             })
-        } else if (m.content) {
-            parts.push({ type: "text", content: m.content })
+        } else if (m.output) {
+            parts.push({ type: "text", content: m.output })
         }
 
         // Only add assistant message if it has visible parts

@@ -169,7 +169,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                 className={css({
                     width: "100%",
                     maxWidth: "100%",
-                    maxHeight: "[70vh]",
+                    // maxHeight: "70vh",
                     padding: "0",
                     overflowX: "auto",
                     overflowY: "auto",
