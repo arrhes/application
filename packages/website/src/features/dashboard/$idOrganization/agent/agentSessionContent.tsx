@@ -145,6 +145,7 @@ export function AgentSessionContent() {
     const params = useParams({ from: agentSessionRoute.id })
 
     const [input, setInput] = useState<string | null | undefined>(undefined)
+    const [draftReferences, setDraftReferences] = useState<MentionReference[]>([])
     const messagesEndRef = useRef<HTMLDivElement>(null)
     const _scrollContainerRef = useRef<HTMLDivElement>(null)
     const navigate = useNavigate()
@@ -287,128 +288,128 @@ export function AgentSessionContent() {
             setStreamMessageId(undefined)
         }
 
-        // SSE stream
-        ;(async () => {
-            let streamCompleted = false
-            try {
-                const headers: Record<string, string> = { "Content-Type": "application/json" }
-                const orgCookie = getCookie(`${cookiePrefix}_id_organization`)
-                if (orgCookie) {
-                    headers["X-Organization-Id"] = orgCookie
-                }
+            // SSE stream
+            ; (async () => {
+                let streamCompleted = false
+                try {
+                    const headers: Record<string, string> = { "Content-Type": "application/json" }
+                    const orgCookie = getCookie(`${cookiePrefix}_id_organization`)
+                    if (orgCookie) {
+                        headers["X-Organization-Id"] = orgCookie
+                    }
 
-                const response = await fetch(
-                    new URL(`${import.meta.env.VITE_API_BASE_URL}${getStreamForAgentMessageRouteDefinition.path}`),
-                    {
-                        method: "POST",
-                        credentials: "include",
-                        signal: controller.signal,
-                        headers,
-                        body: JSON.stringify({
-                            idOrganization: params.idOrganization,
-                            idAgentMessage: streamMessageId,
-                        }),
-                    },
-                )
+                    const response = await fetch(
+                        new URL(`${import.meta.env.VITE_API_BASE_URL}${getStreamForAgentMessageRouteDefinition.path}`),
+                        {
+                            method: "POST",
+                            credentials: "include",
+                            signal: controller.signal,
+                            headers,
+                            body: JSON.stringify({
+                                idOrganization: params.idOrganization,
+                                idAgentMessage: streamMessageId,
+                            }),
+                        },
+                    )
 
-                if (!response.ok || !response.body) {
-                    // SSE failed — polling will pick it up
-                    return
-                }
+                    if (!response.ok || !response.body) {
+                        // SSE failed — polling will pick it up
+                        return
+                    }
 
-                const reader = response.body.getReader()
-                const decoder = new TextDecoder()
-                let buffer = ""
+                    const reader = response.body.getReader()
+                    const decoder = new TextDecoder()
+                    let buffer = ""
 
-                while (true) {
-                    const { done, value } = await reader.read()
-                    if (done) break
+                    while (true) {
+                        const { done, value } = await reader.read()
+                        if (done) break
 
-                    buffer += decoder.decode(value, { stream: true })
+                        buffer += decoder.decode(value, { stream: true })
 
-                    const parts = buffer.split("\n\n")
-                    buffer = parts.pop() ?? ""
+                        const parts = buffer.split("\n\n")
+                        buffer = parts.pop() ?? ""
 
-                    for (const part of parts) {
-                        for (const line of part.split("\n")) {
-                            if (!line.startsWith("data: ")) continue
-                            const jsonStr = line.slice(6).trim()
-                            if (!jsonStr) continue
+                        for (const part of parts) {
+                            for (const line of part.split("\n")) {
+                                if (!line.startsWith("data: ")) continue
+                                const jsonStr = line.slice(6).trim()
+                                if (!jsonStr) continue
 
-                            try {
-                                const chunk = JSON.parse(jsonStr)
-                                if (chunk.type === "TEXT_MESSAGE_CONTENT" && typeof chunk.delta === "string") {
-                                    if (chunk.subagentRole && subagentStack.length > 0) {
-                                        // Accumulate subagent content
-                                        const current = subagentStack[subagentStack.length - 1]
-                                        if (current) {
-                                            current.content += chunk.delta
-                                            setActiveSubagents([...subagentStack])
+                                try {
+                                    const chunk = JSON.parse(jsonStr)
+                                    if (chunk.type === "TEXT_MESSAGE_CONTENT" && typeof chunk.delta === "string") {
+                                        if (chunk.subagentRole && subagentStack.length > 0) {
+                                            // Accumulate subagent content
+                                            const current = subagentStack[subagentStack.length - 1]
+                                            if (current) {
+                                                current.content += chunk.delta
+                                                setActiveSubagents([...subagentStack])
+                                            }
+                                        } else {
+                                            accumulated += chunk.delta
+                                            setStreamingContent(accumulated)
                                         }
-                                    } else {
-                                        accumulated += chunk.delta
-                                        setStreamingContent(accumulated)
                                     }
-                                }
-                                if (chunk.type === "TOOL_CALL_START") {
-                                    // Emit text boundary if text accumulated since last boundary
-                                    if (accumulated.length > lastBoundaryLen) {
-                                        accumulatedToolCalls.push({
-                                            type: "TEXT_BOUNDARY",
-                                            contentLength: accumulated.length,
+                                    if (chunk.type === "TOOL_CALL_START") {
+                                        // Emit text boundary if text accumulated since last boundary
+                                        if (accumulated.length > lastBoundaryLen) {
+                                            accumulatedToolCalls.push({
+                                                type: "TEXT_BOUNDARY",
+                                                contentLength: accumulated.length,
+                                            })
+                                            lastBoundaryLen = accumulated.length
+                                        }
+                                        accumulatedToolCalls.push(chunk)
+                                        setStreamingToolCalls([...accumulatedToolCalls])
+                                    }
+                                    if (chunk.type === "CONTEXT_LIMIT_WARNING") {
+                                        toast({
+                                            title: "La conversation approche de sa limite de contexte",
+                                            description: `${chunk.usage}% de la capacité utilisée. Envisagez de créer une nouvelle session.`,
+                                            variant: "warning",
                                         })
-                                        lastBoundaryLen = accumulated.length
                                     }
-                                    accumulatedToolCalls.push(chunk)
-                                    setStreamingToolCalls([...accumulatedToolCalls])
+                                    if (chunk.type === "TOOL_CALL_END") {
+                                        // Deduplicate: framework re-emits TOOL_CALL_END after RUN_FINISHED
+                                        const tcId = chunk.toolCallId as string | undefined
+                                        if (tcId && seenEnds.has(tcId)) continue
+                                        if (tcId) seenEnds.add(tcId)
+                                        accumulatedToolCalls.push(chunk)
+                                        setStreamingToolCalls([...accumulatedToolCalls])
+                                    }
+                                    if (chunk.type === "SUBAGENT_RUN_START") {
+                                        subagentStack.push({
+                                            role: chunk.role as string,
+                                            depth: chunk.depth as number,
+                                            content: "",
+                                        })
+                                        setActiveSubagents([...subagentStack])
+                                    }
+                                    if (chunk.type === "SUBAGENT_RUN_END") {
+                                        subagentStack.pop()
+                                        setActiveSubagents([...subagentStack])
+                                    }
+                                } catch {
+                                    // ignore malformed chunks
                                 }
-                                if (chunk.type === "CONTEXT_LIMIT_WARNING") {
-                                    toast({
-                                        title: "La conversation approche de sa limite de contexte",
-                                        description: `${chunk.usage}% de la capacité utilisée. Envisagez de créer une nouvelle session.`,
-                                        variant: "warning",
-                                    })
-                                }
-                                if (chunk.type === "TOOL_CALL_END") {
-                                    // Deduplicate: framework re-emits TOOL_CALL_END after RUN_FINISHED
-                                    const tcId = chunk.toolCallId as string | undefined
-                                    if (tcId && seenEnds.has(tcId)) continue
-                                    if (tcId) seenEnds.add(tcId)
-                                    accumulatedToolCalls.push(chunk)
-                                    setStreamingToolCalls([...accumulatedToolCalls])
-                                }
-                                if (chunk.type === "SUBAGENT_RUN_START") {
-                                    subagentStack.push({
-                                        role: chunk.role as string,
-                                        depth: chunk.depth as number,
-                                        content: "",
-                                    })
-                                    setActiveSubagents([...subagentStack])
-                                }
-                                if (chunk.type === "SUBAGENT_RUN_END") {
-                                    subagentStack.pop()
-                                    setActiveSubagents([...subagentStack])
-                                }
-                            } catch {
-                                // ignore malformed chunks
                             }
                         }
                     }
-                }
 
-                streamCompleted = true
-            } catch (err: unknown) {
-                if (err instanceof Error && err.name === "AbortError") return
-                console.error("[stream] SSE error — falling back to polling", err)
-            } finally {
-                // Only finish when the stream completed naturally.
-                // If the SSE failed (network/auth error), let the polling
-                // fallback continue running so it can detect completion.
-                if (streamCompleted && !controller.signal.aborted) {
-                    finish()
+                    streamCompleted = true
+                } catch (err: unknown) {
+                    if (err instanceof Error && err.name === "AbortError") return
+                    console.error("[stream] SSE error — falling back to polling", err)
+                } finally {
+                    // Only finish when the stream completed naturally.
+                    // If the SSE failed (network/auth error), let the polling
+                    // fallback continue running so it can detect completion.
+                    if (streamCompleted && !controller.signal.aborted) {
+                        finish()
+                    }
                 }
-            }
-        })()
+            })()
 
         // Polling failsafe: if SSE fails or is slow, periodically
         // check the DB for the completed message
@@ -439,11 +440,96 @@ export function AgentSessionContent() {
 
     // ── Send message ────────────────────────────────────────────────────────────
     const sendMessageToWorker = useCallback(
-        async (text: string, references?: MentionReference[]) => {
+        async (
+            text: string,
+            references?: MentionReference[],
+            options?: {
+                idYear?: string | null
+                attachedFiles?: Array<{ idFile: string; name: string }> | null
+            },
+        ) => {
             if (!text.trim() || isSending) return
             setIsSending(true)
 
             try {
+                if (pendingFiles.length > 0) {
+                    if (!options?.idYear) {
+                        toast({
+                            title: "Veuillez sélectionner un exercice pour importer des fichiers",
+                            variant: "warning",
+                        })
+                        return
+                    }
+
+                    const existingIds = (options.attachedFiles ?? []).map((file) => file.idFile)
+                    const newIds: string[] = []
+                    const failedFiles: File[] = []
+
+                    for (const file of pendingFiles) {
+                        const hashBuffer = await crypto.subtle.digest("SHA-256", await file.arrayBuffer())
+                        const fileHash = Array.from(new Uint8Array(hashBuffer))
+                            .map((b) => b.toString(16).padStart(2, "0"))
+                            .join("")
+
+                        const createFileResponse = await getResponseBodyFromAPI({
+                            routeDefinition: createOneAgentFileRouteDefinition,
+                            body: {
+                                idOrganization: params.idOrganization,
+                                idAgentSession: params.idAgentSession,
+                                fileName: file.name,
+                                fileType: file.type || "application/octet-stream",
+                                fileSize: file.size,
+                                fileHash,
+                            },
+                        })
+
+                        if (createFileResponse.ok === false) {
+                            toast({ title: `Impossible d'importer ${file.name}`, variant: "error" })
+                            failedFiles.push(file)
+                            continue
+                        }
+
+                        if (createFileResponse.data.url) {
+                            const uploadResponse = await fetch(createFileResponse.data.url, {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": file.type || "application/octet-stream",
+                                },
+                                body: file,
+                            })
+                            if (!uploadResponse.ok) {
+                                toast({ title: `Échec de l'envoi de ${file.name}`, variant: "error" })
+                                failedFiles.push(file)
+                                continue
+                            }
+                        }
+
+                        newIds.push(createFileResponse.data.file.id)
+                    }
+
+                    if (newIds.length > 0) {
+                        const attachResult = await getResponseBodyFromAPI({
+                            routeDefinition: updateOneAgentSessionRouteDefinition,
+                            body: {
+                                idAgentSession: params.idAgentSession,
+                                fileIds: [...existingIds, ...newIds],
+                            },
+                        })
+
+                        if (!attachResult.ok) {
+                            toast({ title: "Impossible d'attacher les fichiers a la session", variant: "error" })
+                            return
+                        }
+
+                        await invalidateData({
+                            routeDefinition: readOneAgentSessionRouteDefinition,
+                            body: { idAgentSession: params.idAgentSession },
+                        })
+                    }
+
+                    setPendingFiles(failedFiles)
+                }
+
                 const result = await getResponseBodyFromAPI({
                     routeDefinition: createOneAgentMessageRouteDefinition,
                     body: {
@@ -468,14 +554,16 @@ export function AgentSessionContent() {
                     body: { idAgentSession: params.idAgentSession },
                 })
                 scrollToBottom()
+                return true
             } catch (error) {
                 console.error("[sendMessageToWorker]", error)
                 toast({ title: "Une erreur est survenue lors de l'envoi du message", variant: "error" })
+                return false
             } finally {
                 setIsSending(false)
             }
         },
-        [isSending, params.idOrganization, params.idAgentSession, scrollToBottom],
+        [isSending, params.idOrganization, params.idAgentSession, pendingFiles, scrollToBottom],
     )
 
     const [_historyIndex, setHistoryIndex] = useState(-1)
@@ -578,7 +666,7 @@ export function AgentSessionContent() {
                                     display: "flex",
                                     flexDirection: "column",
                                     justifyContent: "start",
-                                    alignItems: "end",
+                                    alignItems: "stretch",
                                     gap: "0.5rem",
                                     padding: "1rem",
                                     borderTop: "1px solid",
@@ -588,7 +676,17 @@ export function AgentSessionContent() {
                             >
                                 <MentionInput
                                     onSubmit={(text, references) => {
-                                        sendMessageToWorker(text, references)
+                                        void sendMessageToWorker(text, references, {
+                                            idYear: agentSession.idYear,
+                                            attachedFiles: (agentSession.attachedFiles ?? []) as Array<{
+                                                idFile: string
+                                                name: string
+                                            }>,
+                                        })
+                                    }}
+                                    onValueChange={(text, references) => {
+                                        setInput(text)
+                                        setDraftReferences(references)
                                     }}
                                     disabled={isSubmitting}
                                     idOrganization={params.idOrganization}
@@ -600,84 +698,13 @@ export function AgentSessionContent() {
                                     multiple
                                     style={{ display: "none" }}
                                     accept="text/*,application/pdf,application/json,application/xml,application/csv,image/*"
-                                    onChange={async (event) => {
+                                    onChange={(event) => {
                                         const files = event.target.files
                                         if (!files || files.length === 0) return
                                         const newFiles = Array.from(files)
                                         event.target.value = ""
 
                                         setPendingFiles((prev) => [...prev, ...newFiles])
-
-                                        const sessionFiles = (agentSession.attachedFiles ?? []) as Array<{
-                                            idFile: string
-                                            name: string
-                                        }>
-                                        const existingIds = sessionFiles.map((f) => f.idFile)
-                                        const newIds: string[] = []
-
-                                        for (const file of newFiles) {
-                                            const hashBuffer = await crypto.subtle.digest(
-                                                "SHA-256",
-                                                await file.arrayBuffer(),
-                                            )
-                                            const fileHash = Array.from(new Uint8Array(hashBuffer))
-                                                .map((b) => b.toString(16).padStart(2, "0"))
-                                                .join("")
-
-                                            const createFileResponse = await getResponseBodyFromAPI({
-                                                routeDefinition: createOneAgentFileRouteDefinition,
-                                                body: {
-                                                    idOrganization: params.idOrganization,
-                                                    idAgentSession: params.idAgentSession,
-                                                    fileName: file.name,
-                                                    fileType: file.type || "application/octet-stream",
-                                                    fileSize: file.size,
-                                                    fileHash,
-                                                },
-                                            })
-
-                                            if (createFileResponse.ok === false) {
-                                                toast({ title: `Impossible d'importer ${file.name}`, variant: "error" })
-                                                continue
-                                            }
-
-                                            if (createFileResponse.data.url) {
-                                                const uploadResponse = await fetch(createFileResponse.data.url, {
-                                                    method: "PUT",
-                                                    headers: {
-                                                        "Content-Type": file.type || "application/octet-stream",
-                                                    },
-                                                    body: file,
-                                                })
-                                                if (!uploadResponse.ok) {
-                                                    toast({
-                                                        title: `Échec de l'envoi de ${file.name}`,
-                                                        variant: "error",
-                                                    })
-                                                    continue
-                                                }
-                                            }
-
-                                            newIds.push(createFileResponse.data.file.id)
-                                        }
-
-                                        if (newIds.length > 0) {
-                                            const result = await getResponseBodyFromAPI({
-                                                routeDefinition: updateOneAgentSessionRouteDefinition,
-                                                body: {
-                                                    idAgentSession: params.idAgentSession,
-                                                    fileIds: [...existingIds, ...newIds],
-                                                },
-                                            })
-                                            if (result.ok) {
-                                                await invalidateData({
-                                                    routeDefinition: readOneAgentSessionRouteDefinition,
-                                                    body: { idAgentSession: params.idAgentSession },
-                                                })
-                                            }
-                                        }
-
-                                        setPendingFiles([])
                                     }}
                                 />
                                 {/* File chips */}
@@ -692,100 +719,170 @@ export function AgentSessionContent() {
                                         <div
                                             className={css({
                                                 display: "flex",
-                                                flexWrap: "wrap",
+                                                flexDirection: "column",
                                                 gap: "0.375rem",
                                                 width: "100%",
                                             })}
                                         >
-                                            {sessionFiles.map((file) => (
-                                                <span
-                                                    key={file.idFile}
+                                            {sessionFiles.length > 0 && (
+                                                <div
                                                     className={css({
-                                                        display: "inline-flex",
-                                                        alignItems: "center",
-                                                        gap: "0.25rem",
-                                                        backgroundColor: "neutral/5",
-                                                        borderRadius: "sm",
-                                                        padding: "0.125rem 0.5rem",
-                                                        fontSize: "xs",
-                                                        color: "neutral/70",
-                                                        maxWidth: "200px",
+                                                        display: "flex",
+                                                        flexWrap: "wrap",
+                                                        gap: "0.375rem",
+                                                        width: "100%",
                                                     })}
                                                 >
-                                                    <IconPaperclip size={12} className={css({ flexShrink: 0 })} />
-                                                    <span
-                                                        className={css({
-                                                            overflow: "hidden",
-                                                            textOverflow: "ellipsis",
-                                                            whiteSpace: "nowrap",
-                                                        })}
-                                                    >
-                                                        {file.name}
-                                                    </span>
-                                                    <button
-                                                        type="button"
-                                                        onClick={async () => {
-                                                            const remaining = sessionFiles.filter(
-                                                                (f) => f.idFile !== file.idFile,
-                                                            )
-                                                            const result = await getResponseBodyFromAPI({
-                                                                routeDefinition: updateOneAgentSessionRouteDefinition,
-                                                                body: {
-                                                                    idAgentSession: params.idAgentSession,
-                                                                    fileIds: remaining.map((f) => f.idFile),
-                                                                },
-                                                            })
-                                                            if (result.ok) {
-                                                                await invalidateData({
-                                                                    routeDefinition: readOneAgentSessionRouteDefinition,
-                                                                    body: { idAgentSession: params.idAgentSession },
-                                                                })
-                                                            }
-                                                        }}
-                                                        className={css({
-                                                            display: "inline-flex",
-                                                            alignItems: "center",
-                                                            cursor: "pointer",
-                                                            color: "neutral/40",
-                                                            _hover: { color: "danger" },
-                                                            background: "none",
-                                                            border: "none",
-                                                            padding: 0,
-                                                            flexShrink: 0,
-                                                        })}
-                                                    >
-                                                        <IconX size={12} />
-                                                    </button>
-                                                </span>
-                                            ))}
-                                            {pendingFiles.map((file, index) => (
-                                                <span
-                                                    key={`pending-${file.name}-${index}`}
+                                                    {sessionFiles.map((file) => (
+                                                        <span
+                                                            key={file.idFile}
+                                                            className={css({
+                                                                display: "inline-flex",
+                                                                alignItems: "center",
+                                                                gap: "0.25rem",
+                                                                backgroundColor: "neutral/10",
+                                                                border: "1px solid",
+                                                                borderColor: "neutral/20",
+                                                                borderRadius: "sm",
+                                                                padding: "0.125rem 0.5rem",
+                                                                fontSize: "xs",
+                                                                color: "neutral/90",
+                                                                maxWidth: "200px",
+                                                            })}
+                                                        >
+                                                            <IconPaperclip size={12} className={css({ flexShrink: 0 })} />
+                                                            <span
+                                                                className={css({
+                                                                    overflow: "hidden",
+                                                                    textOverflow: "ellipsis",
+                                                                    whiteSpace: "nowrap",
+                                                                })}
+                                                            >
+                                                                {file.name}
+                                                            </span>
+                                                            <button
+                                                                type="button"
+                                                                onClick={async () => {
+                                                                    const remaining = sessionFiles.filter(
+                                                                        (f) => f.idFile !== file.idFile,
+                                                                    )
+                                                                    const result = await getResponseBodyFromAPI({
+                                                                        routeDefinition: updateOneAgentSessionRouteDefinition,
+                                                                        body: {
+                                                                            idAgentSession: params.idAgentSession,
+                                                                            fileIds: remaining.map((f) => f.idFile),
+                                                                        },
+                                                                    })
+                                                                    if (result.ok) {
+                                                                        await invalidateData({
+                                                                            routeDefinition: readOneAgentSessionRouteDefinition,
+                                                                            body: { idAgentSession: params.idAgentSession },
+                                                                        })
+                                                                    }
+                                                                }}
+                                                                className={css({
+                                                                    display: "inline-flex",
+                                                                    alignItems: "center",
+                                                                    cursor: "pointer",
+                                                                    color: "neutral/40",
+                                                                    _hover: { color: "danger" },
+                                                                    background: "none",
+                                                                    border: "none",
+                                                                    padding: 0,
+                                                                    flexShrink: 0,
+                                                                })}
+                                                            >
+                                                                <IconX size={12} />
+                                                            </button>
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            )}
+
+                                            {pendingFiles.length > 0 && (
+                                                <div
                                                     className={css({
-                                                        display: "inline-flex",
-                                                        alignItems: "center",
-                                                        gap: "0.25rem",
+                                                        width: "100%",
+                                                        display: "flex",
+                                                        flexDirection: "column",
+                                                        gap: "0.375rem",
+                                                        padding: "0.5rem",
+                                                        border: "1px solid",
+                                                        borderColor: "neutral/20",
+                                                        borderRadius: "md",
                                                         backgroundColor: "neutral/5",
-                                                        borderRadius: "sm",
-                                                        padding: "0.125rem 0.5rem",
-                                                        fontSize: "xs",
-                                                        color: "neutral/40",
-                                                        fontStyle: "italic",
-                                                        maxWidth: "200px",
                                                     })}
                                                 >
-                                                    <CircularLoader />
                                                     <span
                                                         className={css({
-                                                            overflow: "hidden",
-                                                            textOverflow: "ellipsis",
-                                                            whiteSpace: "nowrap",
+                                                            fontSize: "xs",
+                                                            color: "neutral/70",
+                                                            fontWeight: "medium",
                                                         })}
                                                     >
-                                                        {file.name}
+                                                        Fichiers ajoutés: {pendingFiles.length}
                                                     </span>
-                                                </span>
-                                            ))}
+                                                    <div
+                                                        className={css({
+                                                            display: "flex",
+                                                            flexWrap: "wrap",
+                                                            gap: "0.375rem",
+                                                            width: "100%",
+                                                        })}
+                                                    >
+                                                        {pendingFiles.map((file, index) => (
+                                                            <span
+                                                                key={`pending-${file.name}-${index}`}
+                                                                className={css({
+                                                                    display: "inline-flex",
+                                                                    alignItems: "center",
+                                                                    gap: "0.25rem",
+                                                                    backgroundColor: "neutral/10",
+                                                                    border: "1px solid",
+                                                                    borderColor: "neutral/20",
+                                                                    borderRadius: "sm",
+                                                                    padding: "0.125rem 0.5rem",
+                                                                    fontSize: "xs",
+                                                                    color: "neutral/90",
+                                                                    maxWidth: "260px",
+                                                                })}
+                                                            >
+                                                                <IconPaperclip size={12} className={css({ flexShrink: 0 })} />
+                                                                <span
+                                                                    className={css({
+                                                                        overflow: "hidden",
+                                                                        textOverflow: "ellipsis",
+                                                                        whiteSpace: "nowrap",
+                                                                    })}
+                                                                >
+                                                                    {file.name}
+                                                                </span>
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={() =>
+                                                                        setPendingFiles((prev) =>
+                                                                            prev.filter((_, i) => i !== index),
+                                                                        )
+                                                                    }
+                                                                    className={css({
+                                                                        display: "inline-flex",
+                                                                        alignItems: "center",
+                                                                        cursor: "pointer",
+                                                                        color: "neutral/40",
+                                                                        _hover: { color: "danger" },
+                                                                        background: "none",
+                                                                        border: "none",
+                                                                        padding: 0,
+                                                                        flexShrink: 0,
+                                                                    })}
+                                                                >
+                                                                    <IconX size={12} />
+                                                                </button>
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
                                     )
                                 })()}
@@ -793,6 +890,7 @@ export function AgentSessionContent() {
                                     className={css({
                                         display: "flex",
                                         alignItems: "center",
+                                        justifyContent: "flex-end",
                                         gap: "0.5rem",
                                     })}
                                 >
@@ -819,7 +917,7 @@ export function AgentSessionContent() {
                                             <Button title="Contexte de la session">
                                                 <ButtonOutlineContent
                                                     leftIcon={<IconNotebook />}
-                                                    // text="Contexte"
+                                                // text="Contexte"
                                                 />
                                             </Button>
                                         </Popover.Trigger>
@@ -892,9 +990,9 @@ export function AgentSessionContent() {
                                                             yearsData === undefined
                                                                 ? []
                                                                 : yearsData.map((year) => ({
-                                                                      key: year.id,
-                                                                      label: year.label,
-                                                                  }))
+                                                                    key: year.id,
+                                                                    label: year.label,
+                                                                }))
                                                         }
                                                     />
                                                 </div>
@@ -950,9 +1048,19 @@ export function AgentSessionContent() {
                                                 isSubmitting
                                             )
                                                 return
-                                            sendMessageToWorker(input)
-                                            setInput("")
-                                            setHistoryIndex(-1)
+                                            void sendMessageToWorker(input, draftReferences, {
+                                                idYear: agentSession.idYear,
+                                                attachedFiles: (agentSession.attachedFiles ?? []) as Array<{
+                                                    idFile: string
+                                                    name: string
+                                                }>,
+                                            }).then((wasSent) => {
+                                                if (wasSent) {
+                                                    setInput("")
+                                                    setDraftReferences([])
+                                                    setHistoryIndex(-1)
+                                                }
+                                            })
                                         }}
                                     >
                                         <ButtonPlainContent

@@ -15,6 +15,7 @@ export interface MentionReference {
 
 interface MentionInputProps {
     onSubmit: (text: string, references: MentionReference[]) => void
+    onValueChange?: (text: string, references: MentionReference[]) => void
     disabled?: boolean
     idOrganization: string
     idYear?: string | null
@@ -347,7 +348,10 @@ export function MentionInput(props: MentionInputProps) {
         mentionStartRef.current = null
         setSearchQuery("")
         setResults([])
-    }, [])
+
+        const { text: updatedText, references: updatedReferences } = extractContent()
+        props.onValueChange?.(updatedText, updatedReferences)
+    }, [extractContent, props])
 
     // ── Keyboard handling ────────────────────────────────────────────────
 
@@ -388,16 +392,19 @@ export function MentionInput(props: MentionInputProps) {
                 if (editorRef.current) {
                     editorRef.current.innerHTML = ""
                 }
+                props.onValueChange?.("", [])
             }
         },
-        [showDropdown, results, activeIndex, insertMention, extractContent, props.disabled, props.onSubmit],
+        [showDropdown, results, activeIndex, insertMention, extractContent, props],
     )
 
     // ── Input handler ────────────────────────────────────────────────────
 
     const handleInput = useCallback(() => {
         detectMention()
-    }, [detectMention])
+        const { text, references } = extractContent()
+        props.onValueChange?.(text, references)
+    }, [detectMention, extractContent, props])
 
     // ── Close dropdown on outside click ──────────────────────────────────
 
