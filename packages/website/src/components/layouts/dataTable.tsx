@@ -338,7 +338,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                             })}
                                         >
                                             {header.column.columnDef.header === undefined ? null : typeof header.column
-                                                .columnDef.header === "function" ? (
+                                                  .columnDef.header === "function" ? (
                                                 flexRender(header.column.columnDef.header, header.getContext())
                                             ) : (
                                                 <Button onClick={header.column.getToggleSortingHandler()}>
@@ -397,13 +397,13 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                             !props.onRowClick
                                                 ? undefined
                                                 : css({
-                                                    cursor: "pointer",
-                                                    _hover: { backgroundColor: "neutral/5" },
-                                                }),
+                                                      cursor: "pointer",
+                                                      _hover: { backgroundColor: "neutral/5" },
+                                                  }),
                                             row.getIsExpanded()
                                                 ? css({
-                                                    borderBottomColor: "neutral/10",
-                                                })
+                                                      borderBottomColor: "neutral/10",
+                                                  })
                                                 : undefined,
                                             rowExtraClassName,
                                         )}

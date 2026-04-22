@@ -55,8 +55,9 @@ export function EntriesTableSelectionActions(props: { selectedRows: Array<Row<En
                 open={deleteOpen}
                 onOpenChange={setDeleteOpen}
                 title="Supprimer les écritures sélectionnées"
-                description={`Voulez-vous supprimer ${props.selectedRows.length} écriture${props.selectedRows.length > 1 ? "s" : ""
-                    } ? Cette action est irréversible.`}
+                description={`Voulez-vous supprimer ${props.selectedRows.length} écriture${
+                    props.selectedRows.length > 1 ? "s" : ""
+                } ? Cette action est irréversible.`}
                 submitButtonProps={{
                     text: "Supprimer",
                     leftIcon: <IconTrash />,
