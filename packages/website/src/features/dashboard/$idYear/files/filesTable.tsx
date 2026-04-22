@@ -15,12 +15,9 @@ import { applicationRouter } from "../../../../routes/applicationRouter.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
 import { FileActions } from "./fileActions.js"
+import type { TableRow } from "./filesTableSelectionActions.js"
+import { FilesTableSelectionActions } from "./filesTableSelectionActions.js"
 import { FolderActions } from "./folderActions.js"
-
-type TableRow =
-    | { kind: "back" }
-    | { kind: "folder"; data: v.InferOutput<typeof returnedSchemas.folder> }
-    | { kind: "file"; data: v.InferOutput<typeof returnedSchemas.file> }
 
 type DragPayload =
     | { kind: "file"; id: string; sourceFolderId: string | null }
@@ -213,12 +210,12 @@ export function FilesTable(props: {
                 isDraggingThis ? css({ opacity: "0.4" }) : undefined,
                 isLongPressReady
                     ? css({
-                        outline: "2px solid",
-                        outlineColor: "primary/40",
-                        outlineOffset: "-2px",
-                        borderRadius: "sm",
-                        backgroundColor: "primary/4",
-                    })
+                          outline: "2px solid",
+                          outlineColor: "primary/40",
+                          outlineOffset: "-2px",
+                          borderRadius: "sm",
+                          backgroundColor: "primary/4",
+                      })
                     : undefined,
             ),
         }
@@ -305,6 +302,12 @@ export function FilesTable(props: {
             isLoading={false}
             getRowProps={(row) => getRowInteractionProps(row.original)}
             hideSearchBar
+            enableRowSelection={(row) => row.original.kind !== "back"}
+            getRowId={(row) => (row.kind === "back" ? "__back__" : row.data.id)}
+            resetSelectionTrigger={props.currentFolderId}
+            selectionActions={(selectedRows) => (
+                <FilesTableSelectionActions selectedRows={selectedRows} idYear={props.idYear} />
+            )}
             columns={[
                 {
                     accessorKey: "name",

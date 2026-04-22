@@ -14,6 +14,7 @@ import { useMemo } from "react"
 import type * as v from "valibot"
 import { DataTable } from "../../../../components/layouts/dataTable.js"
 import { LinkButton } from "../../../../components/linkButton.js"
+import { EntriesTableSelectionActions } from "./entriesTableSelectionActions.js"
 
 export function EntriesTable(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
@@ -93,6 +94,11 @@ export function EntriesTable(props: {
         <DataTable
             data={entriesData}
             isLoading={false}
+            enableRowSelection={true}
+            getRowId={(row) => row.id}
+            selectionActions={(selectedRows) => (
+                <EntriesTableSelectionActions selectedRows={selectedRows} idYear={props.idYear} />
+            )}
             columns={[
                 {
                     accessorKey: "label",

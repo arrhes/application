@@ -1,4 +1,4 @@
-import { Button, ButtonGhostContent, ButtonOutlineContent, CircularLoader, FormatNull } from "@arrhes/ui"
+import { Button, ButtonGhostContent, ButtonOutlineContent, CircularLoader, FormatNull, InputCheckbox } from "@arrhes/ui"
 import { css, cx } from "@arrhes/ui/utilities/cn.js"
 import {
     IconChevronDown,
@@ -17,15 +17,23 @@ import {
     getPaginationRowModel,
     getSortedRowModel,
     type Row,
+    type RowData,
+    type RowSelectionState,
     type SortingState,
     useReactTable,
     type VisibilityState,
 } from "@tanstack/react-table"
-import { type ComponentProps, Fragment, type ReactElement, useMemo, useState } from "react"
+import { type ComponentProps, Fragment, type ReactElement, useMemo, useRef, useState } from "react"
 import { ColumnVisibilityPopover, type VisibilityColumn } from "./columnVisibilityPopover.js"
 import { type FilterColumn, FilterPopover } from "./filterPopover.js"
 import { SearchBar } from "./searchBar.js"
 import { type SortDirection, SortPopover } from "./sortPopover.js"
+
+declare module "@tanstack/react-table" {
+    interface ColumnMeta<TData extends RowData, TValue> {
+        fit?: boolean
+    }
+}
 
 export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
     data: Array<TData>
@@ -37,19 +45,76 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
     renderSubComponent?: (context: { row: Row<TData> }) => ReactElement | null
     getRowProps?: (row: Row<TData>) => ComponentProps<"tr">
     hideSearchBar?: boolean
+    enableRowSelection?: boolean | ((row: Row<TData>) => boolean)
+    getRowId?: (row: TData, index: number) => string
+    selectionActions?: (selectedRows: Array<Row<TData>>) => ReactElement | null
+    resetSelectionTrigger?: unknown
 }) {
     const memoizedData = useMemo(() => props.data, [props.data])
     const [globalFilter, setGlobalFilter] = useState("")
     const [sorting, setSorting] = useState<SortingState>([])
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(props.defaultColumnVisibility ?? {})
+    const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
+
+    // Reset selection when the trigger changes (e.g. folder navigation)
+    const prevResetTriggerRef = useRef(props.resetSelectionTrigger)
+    if (props.resetSelectionTrigger !== undefined && prevResetTriggerRef.current !== props.resetSelectionTrigger) {
+        prevResetTriggerRef.current = props.resetSelectionTrigger
+        if (Object.keys(rowSelection).length > 0) setRowSelection({})
+    }
+
+    const selectColumnDef = useMemo<ColumnDef<TData>>(
+        () => ({
+            id: "__select",
+            meta: { fit: true },
+            enableSorting: false,
+            enableGlobalFilter: false,
+            header: ({ table }) => {
+                const selectedRows = table.getSelectedRowModel().rows
+                return (
+                    <div className={css({ display: "flex", alignItems: "center", gap: "0.25rem" })}>
+                        <InputCheckbox
+                            checked={table.getIsAllRowsSelected()}
+                            indeterminate={table.getIsSomeRowsSelected()}
+                            onChange={(checked) => table.toggleAllRowsSelected(checked)}
+                            onClick={(event) => event.stopPropagation()}
+                        />
+                        {selectedRows.length > 0 && props.selectionActions?.(selectedRows)}
+                    </div>
+                )
+            },
+            cell: ({ row }) =>
+                row.getCanSelect() ? (
+                    <InputCheckbox
+                        checked={row.getIsSelected()}
+                        onChange={(checked) => row.toggleSelected(checked)}
+                        onClick={(event) => event.stopPropagation()}
+                    />
+                ) : null,
+        }),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [props.selectionActions],
+    )
+
+    const memoizedUserColumns = useMemo(
+        () => props.columns.map((column) => ({ ...column, enableMultiSort: true })),
+        [props.columns],
+    )
+
+    const allColumns = useMemo(
+        () =>
+            props.enableRowSelection !== undefined && props.enableRowSelection !== false
+                ? [selectColumnDef, ...memoizedUserColumns]
+                : memoizedUserColumns,
+        [props.enableRowSelection, selectColumnDef, memoizedUserColumns],
+    )
 
     const table = useReactTable<TData>({
         data: memoizedData,
-        columns: props.columns.map((column) => ({
-            ...column,
-            enableMultiSort: true,
-        })),
+        columns: allColumns,
+        getRowId: props.getRowId,
+        enableRowSelection: props.enableRowSelection,
         getRowCanExpand: () => !!props.renderSubComponent,
         getCoreRowModel: getCoreRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
@@ -60,6 +125,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
         onSortingChange: setSorting,
         onColumnFiltersChange: setColumnFilters,
         onColumnVisibilityChange: setColumnVisibility,
+        onRowSelectionChange: setRowSelection,
         enableMultiSort: true,
         initialState: {
             pagination: {
@@ -71,6 +137,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
             sorting,
             columnFilters,
             columnVisibility,
+            rowSelection,
         },
     })
 
@@ -249,12 +316,14 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                 />
                             )}
                             {table.getFlatHeaders().map((header) => {
+                                const isFit = header.column.columnDef.meta?.fit === true
                                 return (
                                     <th
                                         key={header.id}
                                         colSpan={header.colSpan}
                                         className={css({
-                                            width: "fit",
+                                            width: isFit ? "1%" : "fit",
+                                            whiteSpace: isFit ? "nowrap" : undefined,
                                             borderBottom: "1px solid",
                                             borderBottomColor: "neutral/10",
                                         })}
@@ -268,17 +337,22 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                                 padding: "1rem",
                                             })}
                                         >
-                                            <Button onClick={header.column.getToggleSortingHandler()}>
-                                                <ButtonGhostContent
-                                                    leftIcon={
-                                                        {
-                                                            asc: <IconSortAscending />,
-                                                            desc: <IconSortDescending />,
-                                                        }[String(header.column.getIsSorted())] ?? undefined
-                                                    }
-                                                    text={header.column.columnDef.header?.toString()}
-                                                />
-                                            </Button>
+                                            {header.column.columnDef.header === undefined ? null : typeof header.column
+                                                .columnDef.header === "function" ? (
+                                                flexRender(header.column.columnDef.header, header.getContext())
+                                            ) : (
+                                                <Button onClick={header.column.getToggleSortingHandler()}>
+                                                    <ButtonGhostContent
+                                                        leftIcon={
+                                                            {
+                                                                asc: <IconSortAscending />,
+                                                                desc: <IconSortDescending />,
+                                                            }[String(header.column.getIsSorted())] ?? undefined
+                                                        }
+                                                        text={header.column.columnDef.header.toString()}
+                                                    />
+                                                </Button>
+                                            )}
                                         </div>
                                     </th>
                                 )
@@ -323,13 +397,13 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                             !props.onRowClick
                                                 ? undefined
                                                 : css({
-                                                      cursor: "pointer",
-                                                      _hover: { backgroundColor: "neutral/5" },
-                                                  }),
+                                                    cursor: "pointer",
+                                                    _hover: { backgroundColor: "neutral/5" },
+                                                }),
                                             row.getIsExpanded()
                                                 ? css({
-                                                      borderBottomColor: "neutral/10",
-                                                  })
+                                                    borderBottomColor: "neutral/10",
+                                                })
                                                 : undefined,
                                             rowExtraClassName,
                                         )}
@@ -365,15 +439,15 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                             </td>
                                         )}
                                         {row.getVisibleCells().map((cell) => {
+                                            const isFit = cell.column.columnDef.meta?.fit === true
                                             return (
                                                 <td
                                                     key={cell.id}
                                                     className={css({
-                                                        width: "fit",
-                                                        // maxWidth: 0 forces the cell to respect the table's
-                                                        // layout algorithm and not grow unboundedly.
-                                                        maxWidth: "0",
-                                                        overflow: "hidden",
+                                                        width: isFit ? "1%" : "fit",
+                                                        maxWidth: isFit ? "none" : "0",
+                                                        overflow: isFit ? "visible" : "hidden",
+                                                        whiteSpace: isFit ? "nowrap" : undefined,
                                                         _last: { width: "1%", maxWidth: "none" },
                                                     })}
                                                 >
