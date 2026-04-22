@@ -5,6 +5,7 @@ import { Outlet, useRouterState } from "@tanstack/react-router"
 import { useState } from "react"
 import { LinkButton } from "../../components/linkButton.js"
 import { docSections } from "./docSections.js"
+import { DocsSearch } from "./docsSearch.js"
 import { SectionTab } from "./sectionTab.js"
 import { SidebarNavigation } from "./sidebarNavigation.js"
 
@@ -67,7 +68,7 @@ export function DocsLayout() {
                             width: "100%",
                             maxWidth: "xl",
                             display: "flex",
-                            justifyContent: "space-between",
+                            justifyContent: "start",
                             alignItems: "center",
                             flexWrap: "wrap",
                             gap: "1rem",
@@ -78,6 +79,7 @@ export function DocsLayout() {
                                 display: "flex",
                                 alignItems: "center",
                                 gap: "0.5rem",
+                                flexShrink: 0,
                             })}
                         >
                             <LinkButton to="/">
@@ -103,11 +105,15 @@ export function DocsLayout() {
                             </LinkButton>
                         </div>
 
+                        <DocsSearch />
+
                         <nav
                             className={css({
+                                marginLeft: "auto",
                                 display: "flex",
                                 alignItems: "center",
                                 gap: "0.5rem",
+                                flexShrink: 0,
                             })}
                         >
                             <a href="https://github.com/arrhes" target="_blank" rel="noopener noreferrer">
