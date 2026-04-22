@@ -10,7 +10,6 @@ export function DialogContent(props: ComponentPropsWithRef<typeof DialogPrimitiv
             <DialogOverlay>
                 <DialogPrimitive.Content
                     {...props}
-                    onClick={(e) => e.preventDefault()}
                     className={cx(
                         css({
                             minWidth: "100%",

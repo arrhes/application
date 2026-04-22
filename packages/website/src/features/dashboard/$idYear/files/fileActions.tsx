@@ -7,17 +7,19 @@ import {
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { ButtonGhostContent, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/css"
-import { IconDotsVertical, IconEye, IconFileText, IconPencil, IconTrash } from "@tabler/icons-react"
+import { IconArrowsMove, IconDotsVertical, IconEye, IconFileText, IconPencil, IconTrash } from "@tabler/icons-react"
 import { useState } from "react"
 import type * as v from "valibot"
 import { Dropdown } from "../../../../components/layouts/dropdownMenu/dropdown.js"
 import { LinkButton } from "../../../../components/linkButton.js"
 import { ConfirmationModal } from "../../../../components/overlays/dialog/confirmationModal.js"
+import { Dialog } from "../../../../components/overlays/dialog/dialog.js"
 import { Drawer } from "../../../../components/overlays/drawer/drawer.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
 import { useDataFromAPI } from "../../../../utilities/useHTTPData.ts"
 import { UpdateOneFileForm } from "./$idFile/updateOneFileForm.js"
+import { MoveOneFileForm } from "./moveOneFileForm.js"
 
 export function FileActions(props: {
     file: v.InferOutput<typeof returnedSchemas.file>
@@ -25,6 +27,7 @@ export function FileActions(props: {
     idYear: string
 }) {
     const [editOpen, setEditOpen] = useState(false)
+    const [moveOpen, setMoveOpen] = useState(false)
     const [deleteOpen, setDeleteOpen] = useState(false)
     const [ocrLoading, setOcrLoading] = useState(false)
     const [ocrTooltipOpen, setOcrTooltipOpen] = useState(false)
@@ -116,6 +119,13 @@ export function FileActions(props: {
                             className={css({ width: "100%", justifyContent: "start" })}
                         />
                     </Dropdown.Item>
+                    <Dropdown.Item onSelect={() => setMoveOpen(true)}>
+                        <ButtonGhostContent
+                            leftIcon={<IconArrowsMove />}
+                            text="Déplacer"
+                            className={css({ width: "100%", justifyContent: "start" })}
+                        />
+                    </Dropdown.Item>
                     {props.file.storageKey && isOcrSupportedType && (
                         <div
                             className={css({ position: "relative" })}
@@ -187,6 +197,17 @@ export function FileActions(props: {
                     </Drawer.Body>
                 </Drawer.Content>
             </Drawer.Root>
+
+            <Dialog.Root open={moveOpen} onOpenChange={setMoveOpen}>
+                <Dialog.Content>
+                    <Dialog.Header>
+                        <Dialog.Title>Déplacer le fichier</Dialog.Title>
+                    </Dialog.Header>
+                    <Dialog.Body className={css({ alignItems: "stretch" })}>
+                        <MoveOneFileForm file={props.file} idYear={props.idYear} onSuccess={() => setMoveOpen(false)} />
+                    </Dialog.Body>
+                </Dialog.Content>
+            </Dialog.Root>
 
             <ConfirmationModal
                 title="Voulez-vous supprimer ce fichier ?"

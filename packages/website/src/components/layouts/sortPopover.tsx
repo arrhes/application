@@ -17,7 +17,6 @@ export function SortPopover(props: {
     onClearAll: () => void
     activeSortCount: number
 }) {
-
     return (
         <Popover.Root>
             <Popover.Trigger asChild>
@@ -31,7 +30,7 @@ export function SortPopover(props: {
                     ) : (
                         <ButtonOutlineContent
                             leftIcon={<IconArrowsSort />}
-                        // text="Trier"
+                            // text="Trier"
                         />
                     )}
                 </Button>
@@ -88,9 +87,11 @@ export function SortPopover(props: {
                                 >
                                     <ButtonGhostContent
                                         leftIcon={
-                                            direction === "asc" ? <IconSortAscendingLetters /> :
-                                                direction === "desc" ? <IconSortDescendingLetters /> :
-                                                    undefined
+                                            direction === "asc" ? (
+                                                <IconSortAscendingLetters />
+                                            ) : direction === "desc" ? (
+                                                <IconSortDescendingLetters />
+                                            ) : undefined
                                         }
                                         text={column.header}
                                         className={css({ width: "100%", justifyContent: "start" })}

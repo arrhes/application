@@ -21,20 +21,30 @@ function referenceFromFileName(name: string): string {
     return dotIndex > 0 ? name.slice(0, dotIndex) : name
 }
 
+async function computeSHA256(file: File): Promise<string> {
+    const buffer = await file.arrayBuffer()
+    const hashBuffer = await crypto.subtle.digest("SHA-256", buffer)
+    return Array.from(new Uint8Array(hashBuffer))
+        .map((b) => b.toString(16).padStart(2, "0"))
+        .join("")
+}
+
 async function uploadOneFile(params: {
     idOrganization: string
     idYear: string
     idFolder?: string | null
     file: File
-}): Promise<boolean> {
+}): Promise<"added" | "duplicate" | "error"> {
     const { file, idOrganization: _idOrganization, idYear, idFolder } = params
 
     if (file.size > MAX_FILE_SIZE) {
         toast({ title: `"${file.name}" dépasse la taille maximale de 50 Mo`, variant: "error" })
-        return false
+        return "error"
     }
 
-    // Step 1 - create the database record
+    const hash = await computeSHA256(file)
+
+    // Step 1 - create the database record (server deduplicates by hash)
     const createResponse = await getResponseBodyFromAPI({
         routeDefinition: createOneFileRouteDefinition,
         body: {
@@ -42,11 +52,17 @@ async function uploadOneFile(params: {
             idFolder: idFolder ?? undefined,
             reference: referenceFromFileName(file.name),
             name: file.name,
+            hash,
         },
     })
     if (createResponse.ok === false) {
         toast({ title: `Impossible de créer "${file.name}"`, variant: "error" })
-        return false
+        return "error"
+    }
+
+    // If the file already exists in storage (deduplication), skip upload
+    if (createResponse.data.storageKey !== null) {
+        return "duplicate"
     }
 
     // Step 2 - obtain a pre-signed PUT URL and update storage metadata
@@ -61,7 +77,7 @@ async function uploadOneFile(params: {
     })
     if (signedUrlResponse.ok === false) {
         toast({ title: `Impossible de télécharger "${file.name}"`, variant: "error" })
-        return false
+        return "error"
     }
 
     // Step 3 - upload the binary directly to object storage
@@ -71,10 +87,10 @@ async function uploadOneFile(params: {
     })
     if (uploadResponse.ok === false) {
         toast({ title: `Échec du téléchargement de "${file.name}"`, variant: "error" })
-        return false
+        return "error"
     }
 
-    return true
+    return "added"
 }
 
 export function CreateOneFile(props: {
@@ -100,10 +116,11 @@ export function CreateOneFile(props: {
             ),
         )
 
-        const succeeded = results.filter(Boolean).length
-        const failed = results.length - succeeded
+        const added = results.filter((r) => r === "added").length
+        const duplicates = results.filter((r) => r === "duplicate").length
+        const failed = results.filter((r) => r === "error").length
 
-        if (succeeded > 0) {
+        if (added > 0) {
             await invalidateData({
                 routeDefinition: readAllFilesRouteDefinition,
                 body: {
@@ -112,15 +129,25 @@ export function CreateOneFile(props: {
             })
         }
 
-        if (failed === 0) {
+        if (failed > 0) {
             toast({
-                title: succeeded === 1 ? "Fichier ajouté avec succès" : `${succeeded} fichiers ajoutés avec succès`,
+                title: `${added} fichier(s) ajouté(s), ${failed} en erreur`,
+                variant: "error",
+            })
+        } else if (duplicates > 0 && added === 0) {
+            toast({
+                title: duplicates === 1 ? "Ce fichier existe déjà" : `Ces ${duplicates} fichiers existent déjà`,
+                variant: "information",
+            })
+        } else if (duplicates > 0) {
+            toast({
+                title: `${added} fichier(s) ajouté(s), ${duplicates} déjà existant(s)`,
                 variant: "success",
             })
         } else {
             toast({
-                title: `${succeeded} fichier(s) ajouté(s), ${failed} en erreur`,
-                variant: "error",
+                title: added === 1 ? "Fichier ajouté avec succès" : `${added} fichiers ajoutés avec succès`,
+                variant: "success",
             })
         }
     }

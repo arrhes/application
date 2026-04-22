@@ -21,7 +21,7 @@ import {
     useReactTable,
     type VisibilityState,
 } from "@tanstack/react-table"
-import { Fragment, type ReactElement, useMemo, useState } from "react"
+import { type ComponentProps, Fragment, type ReactElement, useMemo, useState } from "react"
 import { ColumnVisibilityPopover, type VisibilityColumn } from "./columnVisibilityPopover.js"
 import { type FilterColumn, FilterPopover } from "./filterPopover.js"
 import { SearchBar } from "./searchBar.js"
@@ -35,6 +35,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
     defaultColumnVisibility?: VisibilityState
     onRowClick?: (context: Row<TData>) => void
     renderSubComponent?: (context: { row: Row<TData> }) => ReactElement | null
+    getRowProps?: (row: Row<TData>) => ComponentProps<"tr">
     hideSearchBar?: boolean
 }) {
     const memoizedData = useMemo(() => props.data, [props.data])
@@ -298,9 +299,15 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                             </tr>
                         )}
                         {table.getRowModel().rows.map((row) => {
+                            const {
+                                className: rowExtraClassName,
+                                onClick: _rowOnClick,
+                                ...rowExtraProps
+                            } = props.getRowProps?.(row) ?? {}
                             return (
                                 <Fragment key={row.id}>
                                     <tr
+                                        {...rowExtraProps}
                                         onClick={(event) => {
                                             event.stopPropagation()
                                             if (!props.onRowClick) return
@@ -316,14 +323,15 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                             !props.onRowClick
                                                 ? undefined
                                                 : css({
-                                                    cursor: "pointer",
-                                                    _hover: { backgroundColor: "neutral/5" },
-                                                }),
+                                                      cursor: "pointer",
+                                                      _hover: { backgroundColor: "neutral/5" },
+                                                  }),
                                             row.getIsExpanded()
                                                 ? css({
-                                                    borderBottomColor: "neutral/10",
-                                                })
+                                                      borderBottomColor: "neutral/10",
+                                                  })
                                                 : undefined,
+                                            rowExtraClassName,
                                         )}
                                     >
                                         {props.renderSubComponent && (
@@ -362,7 +370,11 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                                     key={cell.id}
                                                     className={css({
                                                         width: "fit",
-                                                        _last: { width: "1%" },
+                                                        // maxWidth: 0 forces the cell to respect the table's
+                                                        // layout algorithm and not grow unboundedly.
+                                                        maxWidth: "0",
+                                                        overflow: "hidden",
+                                                        _last: { width: "1%", maxWidth: "none" },
                                                     })}
                                                 >
                                                     <div
@@ -371,6 +383,9 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                                             justifyContent: "flex-start",
                                                             alignItems: "center",
                                                             padding: "1rem",
+                                                            overflow: "hidden",
+                                                            textOverflow: "ellipsis",
+                                                            whiteSpace: "nowrap",
                                                         })}
                                                     >
                                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}

@@ -39,10 +39,7 @@ export function EntriesPage() {
                             >
                                 <Dropdown.Root>
                                     <Dropdown.Trigger>
-                                        <ButtonGhostContent
-                                            leftIcon={<IconDotsVertical />}
-                                            text={undefined}
-                                        />
+                                        <ButtonGhostContent leftIcon={<IconDotsVertical />} text={undefined} />
                                     </Dropdown.Trigger>
                                     <Dropdown.Content align="end">
                                         <Dropdown.Item onSelect={() => setExportOpen(true)}>

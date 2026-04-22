@@ -31,10 +31,7 @@ export function ReportFilterPopover(props: {
             <Popover.Trigger asChild>
                 <Button>
                     {activeFilterCount > 0 ? (
-                        <ButtonPlainContent
-                            leftIcon={<IconFilter />}
-                            text={`Filtrer (${activeFilterCount})`}
-                        />
+                        <ButtonPlainContent leftIcon={<IconFilter />} text={`Filtrer (${activeFilterCount})`} />
                     ) : (
                         <ButtonOutlineContent leftIcon={<IconFilter />} text="Filtrer" />
                     )}

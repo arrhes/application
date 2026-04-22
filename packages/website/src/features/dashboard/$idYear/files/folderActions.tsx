@@ -2,14 +2,16 @@ import { deleteOneFolderRouteDefinition, readAllFoldersRouteDefinition } from "@
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { ButtonGhostContent, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/css"
-import { IconDotsVertical, IconEye, IconPencil, IconTrash } from "@tabler/icons-react"
+import { IconArrowsMove, IconDotsVertical, IconEye, IconPencil, IconTrash } from "@tabler/icons-react"
 import { useState } from "react"
 import type * as v from "valibot"
 import { Dropdown } from "../../../../components/layouts/dropdownMenu/dropdown.js"
 import { ConfirmationModal } from "../../../../components/overlays/dialog/confirmationModal.js"
+import { Dialog } from "../../../../components/overlays/dialog/dialog.js"
 import { Drawer } from "../../../../components/overlays/drawer/drawer.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
+import { MoveOneFolderForm } from "./moveOneFolderForm.js"
 import { UpdateOneFolderForm } from "./updateOneFolderForm.js"
 
 export function FolderActions(props: {
@@ -19,6 +21,7 @@ export function FolderActions(props: {
     onFolderOpen: (folderId: string | null) => void
 }) {
     const [editOpen, setEditOpen] = useState(false)
+    const [moveOpen, setMoveOpen] = useState(false)
     const [deleteOpen, setDeleteOpen] = useState(false)
 
     async function handleDelete() {
@@ -66,6 +69,13 @@ export function FolderActions(props: {
                             className={css({ width: "100%", justifyContent: "start" })}
                         />
                     </Dropdown.Item>
+                    <Dropdown.Item onSelect={() => setMoveOpen(true)}>
+                        <ButtonGhostContent
+                            leftIcon={<IconArrowsMove />}
+                            text="Déplacer"
+                            className={css({ width: "100%", justifyContent: "start" })}
+                        />
+                    </Dropdown.Item>
                     <Dropdown.Separator />
                     <Dropdown.Item onSelect={() => setDeleteOpen(true)}>
                         <ButtonGhostContent
@@ -86,6 +96,17 @@ export function FolderActions(props: {
                     </Drawer.Body>
                 </Drawer.Content>
             </Drawer.Root>
+
+            <Dialog.Root open={moveOpen} onOpenChange={setMoveOpen}>
+                <Dialog.Content>
+                    <Dialog.Header>
+                        <Dialog.Title>Déplacer le dossier</Dialog.Title>
+                    </Dialog.Header>
+                    <Dialog.Body className={css({ alignItems: "stretch" })}>
+                        <MoveOneFolderForm folder={props.folder} onSuccess={() => setMoveOpen(false)} />
+                    </Dialog.Body>
+                </Dialog.Content>
+            </Dialog.Root>
 
             <ConfirmationModal
                 title="Voulez-vous supprimer ce dossier ?"

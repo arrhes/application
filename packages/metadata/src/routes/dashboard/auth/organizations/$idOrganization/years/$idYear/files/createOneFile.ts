@@ -12,6 +12,7 @@ export const createOneFileRouteDefinition = routeDefinition({
             idFolder: v.optional(fileSchema.entries.idFolder),
             reference: fileSchema.entries.reference,
             name: v.optional(fileSchema.entries.name),
+            hash: v.nullable(fileSchema.entries.hash),
         }),
         return: fileSchemaReturn,
     },

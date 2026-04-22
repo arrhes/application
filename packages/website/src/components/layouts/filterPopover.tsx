@@ -37,7 +37,7 @@ export function FilterPopover(props: {
                     ) : (
                         <ButtonOutlineContent
                             leftIcon={<IconFilter />}
-                        // text="Filtrer" 
+                            // text="Filtrer"
                         />
                     )}
                 </Button>

@@ -28,12 +28,12 @@ export function ColumnVisibilityPopover(props: {
                         <ButtonPlainContent
                             leftIcon={<IconTableColumn />}
                             text={`(${hideableColumns.length - hiddenCount}/${hideableColumns.length})`}
-                        // text={`Colonnes (${hideableColumns.length - hiddenCount}/${hideableColumns.length})`}
+                            // text={`Colonnes (${hideableColumns.length - hiddenCount}/${hideableColumns.length})`}
                         />
                     ) : (
                         <ButtonOutlineContent
                             leftIcon={<IconTableColumn />}
-                        // text="Colonnes"
+                            // text="Colonnes"
                         />
                     )}
                 </Button>
@@ -50,39 +50,31 @@ export function ColumnVisibilityPopover(props: {
                     padding: "0.5rem",
                 })}
             >
-                {
-                    (hiddenCount === 0)
-                        ? null
-                        : (
-                            <Button onClick={props.onShowAll} className={css({ width: "100%" })} isDisabled={hiddenCount === 0}>
-                                <ButtonGhostContent
-                                    leftIcon={<IconTable />}
-                                    text="Afficher toutes les colonnes"
-                                    className={css({ width: "100%", justifyContent: "start" })}
-                                    isDisabled={hiddenCount === 0}
-                                />
-                            </Button>
-                        )
-                }
-                {
-                    (visibleCount === 0)
-                        ? null
-                        : (
-                            <Button
-                                onClick={props.onDisableAll}
-                                className={css({ width: "100%" })}
-                                isDisabled={visibleCount === 0}
-                            >
-                                <ButtonGhostContent
-                                    color="danger"
-                                    leftIcon={<IconTableOff />}
-                                    text="Masquer toutes les colonnes"
-                                    className={css({ width: "100%", justifyContent: "start" })}
-                                    isDisabled={visibleCount === 0}
-                                />
-                            </Button>
-                        )
-                }
+                {hiddenCount === 0 ? null : (
+                    <Button onClick={props.onShowAll} className={css({ width: "100%" })} isDisabled={hiddenCount === 0}>
+                        <ButtonGhostContent
+                            leftIcon={<IconTable />}
+                            text="Afficher toutes les colonnes"
+                            className={css({ width: "100%", justifyContent: "start" })}
+                            isDisabled={hiddenCount === 0}
+                        />
+                    </Button>
+                )}
+                {visibleCount === 0 ? null : (
+                    <Button
+                        onClick={props.onDisableAll}
+                        className={css({ width: "100%" })}
+                        isDisabled={visibleCount === 0}
+                    >
+                        <ButtonGhostContent
+                            color="danger"
+                            leftIcon={<IconTableOff />}
+                            text="Masquer toutes les colonnes"
+                            className={css({ width: "100%", justifyContent: "start" })}
+                            isDisabled={visibleCount === 0}
+                        />
+                    </Button>
+                )}
                 <Separator />
                 <div
                     className={css({
