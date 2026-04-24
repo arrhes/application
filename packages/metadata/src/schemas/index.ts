@@ -18,9 +18,11 @@ import { entryTagSchema, entryTagSchemaReturn } from "./entryTag.js"
 import { fileSchema, fileSchemaReturn } from "./file.js"
 import { folderSchema, folderSchemaReturn } from "./folder.js"
 import { incomeStatementSchema, incomeStatementSchemaReturn } from "./incomeStatement.js"
+import { invoiceSchema, invoiceSchemaReturn } from "./invoice.js"
 import { journalSchema, journalSchemaReturn } from "./journal.js"
 import { organizationSchema, organizationSchemaReturn } from "./organization.js"
 import { organizationPaymentSchema, organizationPaymentSchemaReturn } from "./organizationPayment.js"
+import { organizationSubscriptionSchema, organizationSubscriptionSchemaReturn } from "./organizationSubscription.js"
 import { organizationUserSchema, organizationUserSchemaReturn } from "./organizationUser.js"
 import { tagSchema, tagSchemaReturn } from "./tag.js"
 import { ticketSchema, ticketSchemaReturn } from "./ticket.js"
@@ -44,9 +46,11 @@ export const schemas = {
     computation: computationSchema,
     computationIncomeStatement: computationIncomeStatementSchema,
     incomeStatement: incomeStatementSchema,
+    invoice: invoiceSchema,
     journal: journalSchema,
     organization: organizationSchema,
     organizationPayment: organizationPaymentSchema,
+    organizationSubscription: organizationSubscriptionSchema,
     organizationUser: organizationUserSchema,
     tag: tagSchema,
     ticket: ticketSchema,
@@ -73,9 +77,11 @@ export const returnedSchemas = {
     computation: computationSchemaReturn,
     computationIncomeStatement: computationIncomeStatementSchemaReturn,
     incomeStatement: incomeStatementSchemaReturn,
+    invoice: invoiceSchemaReturn,
     journal: journalSchemaReturn,
     organization: organizationSchemaReturn,
     organizationPayment: organizationPaymentSchemaReturn,
+    organizationSubscription: organizationSubscriptionSchemaReturn,
     organizationUser: organizationUserSchemaReturn,
     tag: tagSchemaReturn,
     ticket: ticketSchemaReturn,

@@ -3,6 +3,7 @@ import { and, eq } from "drizzle-orm"
 import { checkUserSessionMiddleware } from "../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../utilities/apiFactory.js"
+import { Exception } from "../../../utilities/exception.js"
 import { response } from "../../../utilities/response.js"
 import { selectOne } from "../../../utilities/sql/selectOne.js"
 
@@ -10,15 +11,23 @@ export const readOneOrganizationRoute = apiFactory
     .createApp()
     .post(readOneOrganizationRouteDefinition.path, async (c) => {
         const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
-        const _body = await validateBodyMiddleware({
+        const body = await validateBodyMiddleware({
             context: c,
             schema: readOneOrganizationRouteDefinition.schemas.body,
         })
 
+        if (body.idOrganization !== idOrganization) {
+            throw new Exception({
+                statusCode: 403,
+                internalMessage: "Body organization id does not match active organization",
+                externalMessage: "L'organisation demandée ne correspond pas à l'organisation active.",
+            })
+        }
+
         const organizationUser = await selectOne({
             database: c.var.clients.sql,
             table: models.organizationUser,
-            where: (table) => and(eq(table.idOrganization, idOrganization), eq(table.idUser, user.id)),
+            where: (table) => and(eq(table.idOrganization, body.idOrganization), eq(table.idUser, user.id)),
         })
 
         const readOneOrganization = await selectOne({

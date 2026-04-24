@@ -1,12 +1,12 @@
-import { createFirstPaymentRouteDefinition, generateId, models } from "@arrhes/application-metadata"
+import { createFirstPaymentRouteDefinition, models } from "@arrhes/application-metadata"
 import { SequenceType } from "@mollie/api-client"
 import { and, eq } from "drizzle-orm"
 import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
+import { formatAmountFromCents, recordOrganizationPayment } from "../../../../utilities/billing/wallet.js"
 import { Exception } from "../../../../utilities/exception.js"
 import { response } from "../../../../utilities/response.js"
-import { insertOne } from "../../../../utilities/sql/insertOne.js"
 import { selectOne } from "../../../../utilities/sql/selectOne.js"
 import { updateOne } from "../../../../utilities/sql/updateOne.js"
 import { productName } from "../../../../utilities/variables.js"
@@ -57,13 +57,6 @@ function calculateProRataAmountCents(from: Date): number {
     const remainingDays = daysInMonth - from.getUTCDate() + 1 // +1 to include today
 
     return Math.round((remainingDays / daysInMonth) * MONTHLY_PRICE_CENTS)
-}
-
-/**
- * Format cents as a Mollie-compatible amount string (e.g. 1050 -> "10.50").
- */
-function formatAmountFromCents(cents: number): string {
-    return (cents / 100).toFixed(2)
 }
 
 export const createFirstPaymentRoute = apiFactory
@@ -199,26 +192,18 @@ export const createFirstPaymentRoute = apiFactory
         })
 
         // Store the payment in our database
-        await insertOne({
+        await recordOrganizationPayment({
             database: c.var.clients.sql,
-            table: models.organizationPayment,
-            data: {
-                id: generateId(),
-                idOrganization: organization.id,
-                status: "pending",
-                molliePaymentId: molliePayment.id,
-                sequenceType: "first",
-                amountInCents: proRataCents,
-                currency: "EUR",
-                description: "Activation de l'abonnement",
-                periodStart: now.toISOString(),
-                periodEnd: lastDayOfMonth.toISOString(),
-                paidAt: null,
-                createdAt: now.toISOString(),
-                lastUpdatedAt: null,
-                createdBy: user.id,
-                lastUpdatedBy: null,
-            },
+            idOrganization: organization.id,
+            category: "subscription",
+            status: "pending",
+            amountInCents: proRataCents,
+            description: "Activation de l'abonnement",
+            sequenceType: "first",
+            molliePaymentId: molliePayment.id,
+            periodStart: now.toISOString(),
+            periodEnd: lastDayOfMonth.toISOString(),
+            createdBy: user.id,
         })
 
         const checkoutUrl = molliePayment.getCheckoutUrl()

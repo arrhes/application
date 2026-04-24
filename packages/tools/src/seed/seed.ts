@@ -12,6 +12,48 @@ import { generateId } from "@arrhes/application-metadata/utilities"
 import { randFirstName } from "@ngneat/falso"
 import { dbClient } from "../dbClient.js"
 
+const MAX_STORAGE_BYTES = 2_147_483_647
+const SEED_INTERNAL_API_PATH = "/internal/generate-monthly-invoices"
+
+function getMonthRangeForOffset(from: Date, monthOffset: number) {
+    const periodStart = new Date(Date.UTC(from.getUTCFullYear(), from.getUTCMonth() + monthOffset, 1))
+    const periodEnd = new Date(
+        Date.UTC(from.getUTCFullYear(), from.getUTCMonth() + monthOffset + 1, 0, 23, 59, 59, 999),
+    )
+
+    return { periodStart, periodEnd }
+}
+
+function formatInvoicePrefix(date: Date) {
+    return `${String(date.getUTCFullYear())}-${String(date.getUTCMonth() + 1).padStart(2, "0")}`
+}
+
+async function triggerSeededMonthlyBilling() {
+    const apiBaseUrl = process.env.API_BASE_URL
+    const internalApiKey = process.env.INTERNAL_API_KEY
+
+    if (!apiBaseUrl || !internalApiKey) {
+        console.warn("Skipping seeded monthly billing generation: missing API_BASE_URL or INTERNAL_API_KEY.")
+        return
+    }
+
+    const response = await fetch(`${apiBaseUrl}${SEED_INTERNAL_API_PATH}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "x-internal-api-key": internalApiKey,
+        },
+    })
+
+    if (!response.ok) {
+        const body = await response.text()
+        throw new Error(`Monthly billing generation failed after seed: ${response.status} ${body}`)
+    }
+
+    const result = (await response.json()) as { generatedCount?: number }
+    console.log(`- ${result.generatedCount ?? 0} seeded billing cycle(s) generated`)
+}
+
 // Helper: Flatten hierarchical accounts into a flat array
 function flattenAccounts(accounts: DefaultAccount[]): DefaultAccount[] {
     const result: DefaultAccount[] = []
@@ -130,6 +172,17 @@ async function seed() {
                 siren: "222222222",
                 name: "Demo company",
                 email: "demo@arrhes.com",
+                licenceAmount: 2_900,
+                walletBalanceInCents: 21_470,
+                storageLimit: MAX_STORAGE_BYTES,
+                storageMaxUsage: MAX_STORAGE_BYTES,
+                storageCurrentUsage: 1_320_000_000,
+                ocrMonthlyLimit: 300,
+                agentTokensMonthlyLimit: 3_000_000,
+                ocrPagesTotalLeft: 220,
+                ocrPagesTotalUsed: 80,
+                tokensTotalLeft: 2_400_000,
+                tokensTotalUsed: 600_000,
                 subcriptionEndingAt: new Date(
                     new Date().getFullYear() + 10,
                     new Date().getMonth(),
@@ -1327,6 +1380,372 @@ async function seed() {
                 }
             }
 
+            // ==========================================
+            // BILLING HISTORY
+            // ==========================================
+            console.log("Creating billing history...")
+
+            const threeMonthsAgo = getMonthRangeForOffset(currentDate, -3)
+            const twoMonthsAgo = getMonthRangeForOffset(currentDate, -2)
+            const previousMonth = getMonthRangeForOffset(currentDate, -1)
+
+            const invoiceThreeMonthsAgoId = generateId()
+            const invoiceTwoMonthsAgoId = generateId()
+
+            const seededInvoices: (typeof models.invoice.$inferInsert)[] = [
+                {
+                    id: invoiceThreeMonthsAgoId,
+                    idOrganization: populatedOrganization.id,
+                    invoiceNumber: `${formatInvoicePrefix(threeMonthsAgo.periodStart)}-0001`,
+                    periodStart: threeMonthsAgo.periodStart.toISOString(),
+                    periodEnd: threeMonthsAgo.periodEnd.toISOString(),
+                    amountInCents: 2_610,
+                    currency: "EUR",
+                    storageKey: null,
+                    status: "paid",
+                    createdAt: new Date(threeMonthsAgo.periodEnd.getTime() + 60_000).toISOString(),
+                    lastUpdatedAt: null,
+                },
+                {
+                    id: invoiceTwoMonthsAgoId,
+                    idOrganization: populatedOrganization.id,
+                    invoiceNumber: `${formatInvoicePrefix(twoMonthsAgo.periodStart)}-0001`,
+                    periodStart: twoMonthsAgo.periodStart.toISOString(),
+                    periodEnd: twoMonthsAgo.periodEnd.toISOString(),
+                    amountInCents: 2_810,
+                    currency: "EUR",
+                    storageKey: null,
+                    status: "paid",
+                    createdAt: new Date(twoMonthsAgo.periodEnd.getTime() + 60_000).toISOString(),
+                    lastUpdatedAt: null,
+                },
+            ]
+
+            const januaryTopUpPaymentId = "tr_seed_topup_01"
+            const februaryTopUpPaymentId = "tr_seed_topup_02"
+            const marchTopUpPaymentId = "tr_seed_topup_03"
+
+            const seededPayments: (typeof models.organizationPayment.$inferInsert)[] = [
+                {
+                    id: generateId(),
+                    idOrganization: populatedOrganization.id,
+                    category: "setup",
+                    status: "paid",
+                    molliePaymentId: "tr_seed_setup_01",
+                    mollieSubscriptionId: null,
+                    sequenceType: "setup",
+                    serviceType: null,
+                    amountInCents: 1,
+                    currency: "EUR",
+                    description: "Ajout du moyen de paiement",
+                    periodStart: null,
+                    periodEnd: null,
+                    paidAt: new Date(threeMonthsAgo.periodStart.getTime() + 30 * 60_000).toISOString(),
+                    idInvoice: null,
+                    createdAt: new Date(threeMonthsAgo.periodStart.getTime() + 30 * 60_000).toISOString(),
+                    lastUpdatedAt: null,
+                    createdBy: newUser.id,
+                    lastUpdatedBy: null,
+                },
+                {
+                    id: generateId(),
+                    idOrganization: populatedOrganization.id,
+                    category: "top_up",
+                    status: "paid",
+                    molliePaymentId: januaryTopUpPaymentId,
+                    mollieSubscriptionId: null,
+                    sequenceType: "oneoff",
+                    serviceType: null,
+                    amountInCents: 15_000,
+                    currency: "EUR",
+                    description: "Recharge portefeuille",
+                    periodStart: null,
+                    periodEnd: null,
+                    paidAt: new Date(threeMonthsAgo.periodStart.getTime() + 60 * 60_000).toISOString(),
+                    idInvoice: null,
+                    createdAt: new Date(threeMonthsAgo.periodStart.getTime() + 60 * 60_000).toISOString(),
+                    lastUpdatedAt: null,
+                    createdBy: newUser.id,
+                    lastUpdatedBy: null,
+                },
+                {
+                    id: generateId(),
+                    idOrganization: populatedOrganization.id,
+                    category: "subscription",
+                    status: "paid",
+                    molliePaymentId: null,
+                    mollieSubscriptionId: null,
+                    sequenceType: "recurring",
+                    serviceType: "support",
+                    amountInCents: 2_500,
+                    currency: "EUR",
+                    description: "Licence mensuelle",
+                    periodStart: threeMonthsAgo.periodStart.toISOString(),
+                    periodEnd: threeMonthsAgo.periodEnd.toISOString(),
+                    paidAt: new Date(threeMonthsAgo.periodStart.getTime() + 2 * 60 * 60_000).toISOString(),
+                    idInvoice: invoiceThreeMonthsAgoId,
+                    createdAt: new Date(threeMonthsAgo.periodStart.getTime() + 2 * 60 * 60_000).toISOString(),
+                    lastUpdatedAt: null,
+                    createdBy: null,
+                    lastUpdatedBy: null,
+                },
+                {
+                    id: generateId(),
+                    idOrganization: populatedOrganization.id,
+                    category: "subscription",
+                    status: "paid",
+                    molliePaymentId: null,
+                    mollieSubscriptionId: null,
+                    sequenceType: "recurring",
+                    serviceType: "storage_gb",
+                    amountInCents: 10,
+                    currency: "EUR",
+                    description: "Stockage mensuel",
+                    periodStart: threeMonthsAgo.periodStart.toISOString(),
+                    periodEnd: threeMonthsAgo.periodEnd.toISOString(),
+                    paidAt: new Date(threeMonthsAgo.periodStart.getTime() + 2 * 60 * 60_000).toISOString(),
+                    idInvoice: invoiceThreeMonthsAgoId,
+                    createdAt: new Date(threeMonthsAgo.periodStart.getTime() + 2 * 60 * 60_000).toISOString(),
+                    lastUpdatedAt: null,
+                    createdBy: null,
+                    lastUpdatedBy: null,
+                },
+                {
+                    id: generateId(),
+                    idOrganization: populatedOrganization.id,
+                    category: "wallet_spending",
+                    status: "paid",
+                    molliePaymentId: null,
+                    mollieSubscriptionId: null,
+                    sequenceType: null,
+                    serviceType: "agent_tokens_million",
+                    amountInCents: 100,
+                    currency: "EUR",
+                    description: "Achat tokens Assistant IA",
+                    periodStart: null,
+                    periodEnd: null,
+                    paidAt: new Date(threeMonthsAgo.periodStart.getTime() + 10 * 24 * 60 * 60_000).toISOString(),
+                    idInvoice: invoiceThreeMonthsAgoId,
+                    createdAt: new Date(threeMonthsAgo.periodStart.getTime() + 10 * 24 * 60 * 60_000).toISOString(),
+                    lastUpdatedAt: null,
+                    createdBy: newUser.id,
+                    lastUpdatedBy: null,
+                },
+                {
+                    id: generateId(),
+                    idOrganization: populatedOrganization.id,
+                    category: "top_up",
+                    status: "paid",
+                    molliePaymentId: februaryTopUpPaymentId,
+                    mollieSubscriptionId: null,
+                    sequenceType: "oneoff",
+                    serviceType: null,
+                    amountInCents: 12_000,
+                    currency: "EUR",
+                    description: "Recharge portefeuille",
+                    periodStart: null,
+                    periodEnd: null,
+                    paidAt: new Date(twoMonthsAgo.periodStart.getTime() + 2 * 24 * 60 * 60_000).toISOString(),
+                    idInvoice: null,
+                    createdAt: new Date(twoMonthsAgo.periodStart.getTime() + 2 * 24 * 60 * 60_000).toISOString(),
+                    lastUpdatedAt: null,
+                    createdBy: newUser.id,
+                    lastUpdatedBy: null,
+                },
+                {
+                    id: generateId(),
+                    idOrganization: populatedOrganization.id,
+                    category: "subscription",
+                    status: "paid",
+                    molliePaymentId: null,
+                    mollieSubscriptionId: null,
+                    sequenceType: "recurring",
+                    serviceType: "support",
+                    amountInCents: 2_700,
+                    currency: "EUR",
+                    description: "Licence mensuelle",
+                    periodStart: twoMonthsAgo.periodStart.toISOString(),
+                    periodEnd: twoMonthsAgo.periodEnd.toISOString(),
+                    paidAt: new Date(twoMonthsAgo.periodStart.getTime() + 3 * 24 * 60 * 60_000).toISOString(),
+                    idInvoice: invoiceTwoMonthsAgoId,
+                    createdAt: new Date(twoMonthsAgo.periodStart.getTime() + 3 * 24 * 60 * 60_000).toISOString(),
+                    lastUpdatedAt: null,
+                    createdBy: null,
+                    lastUpdatedBy: null,
+                },
+                {
+                    id: generateId(),
+                    idOrganization: populatedOrganization.id,
+                    category: "subscription",
+                    status: "paid",
+                    molliePaymentId: null,
+                    mollieSubscriptionId: null,
+                    sequenceType: "recurring",
+                    serviceType: "storage_gb",
+                    amountInCents: 10,
+                    currency: "EUR",
+                    description: "Stockage mensuel",
+                    periodStart: twoMonthsAgo.periodStart.toISOString(),
+                    periodEnd: twoMonthsAgo.periodEnd.toISOString(),
+                    paidAt: new Date(twoMonthsAgo.periodStart.getTime() + 3 * 24 * 60 * 60_000).toISOString(),
+                    idInvoice: invoiceTwoMonthsAgoId,
+                    createdAt: new Date(twoMonthsAgo.periodStart.getTime() + 3 * 24 * 60 * 60_000).toISOString(),
+                    lastUpdatedAt: null,
+                    createdBy: null,
+                    lastUpdatedBy: null,
+                },
+                {
+                    id: generateId(),
+                    idOrganization: populatedOrganization.id,
+                    category: "wallet_spending",
+                    status: "paid",
+                    molliePaymentId: null,
+                    mollieSubscriptionId: null,
+                    sequenceType: null,
+                    serviceType: "ocr_pages_hundred",
+                    amountInCents: 100,
+                    currency: "EUR",
+                    description: "Achat pages OCR",
+                    periodStart: null,
+                    periodEnd: null,
+                    paidAt: new Date(twoMonthsAgo.periodStart.getTime() + 18 * 24 * 60 * 60_000).toISOString(),
+                    idInvoice: invoiceTwoMonthsAgoId,
+                    createdAt: new Date(twoMonthsAgo.periodStart.getTime() + 18 * 24 * 60 * 60_000).toISOString(),
+                    lastUpdatedAt: null,
+                    createdBy: newUser.id,
+                    lastUpdatedBy: null,
+                },
+                {
+                    id: generateId(),
+                    idOrganization: populatedOrganization.id,
+                    category: "top_up",
+                    status: "paid",
+                    molliePaymentId: marchTopUpPaymentId,
+                    mollieSubscriptionId: null,
+                    sequenceType: "oneoff",
+                    serviceType: null,
+                    amountInCents: 8_000,
+                    currency: "EUR",
+                    description: "Recharge portefeuille",
+                    periodStart: null,
+                    periodEnd: null,
+                    paidAt: new Date(previousMonth.periodStart.getTime() + 2 * 24 * 60 * 60_000).toISOString(),
+                    idInvoice: null,
+                    createdAt: new Date(previousMonth.periodStart.getTime() + 2 * 24 * 60 * 60_000).toISOString(),
+                    lastUpdatedAt: null,
+                    createdBy: newUser.id,
+                    lastUpdatedBy: null,
+                },
+                {
+                    id: generateId(),
+                    idOrganization: populatedOrganization.id,
+                    category: "withdrawal",
+                    status: "paid",
+                    molliePaymentId: marchTopUpPaymentId,
+                    mollieSubscriptionId: null,
+                    sequenceType: null,
+                    serviceType: null,
+                    amountInCents: 5_000,
+                    currency: "EUR",
+                    description: "Retrait portefeuille",
+                    periodStart: null,
+                    periodEnd: null,
+                    paidAt: new Date(previousMonth.periodStart.getTime() + 8 * 24 * 60 * 60_000).toISOString(),
+                    idInvoice: null,
+                    createdAt: new Date(previousMonth.periodStart.getTime() + 8 * 24 * 60 * 60_000).toISOString(),
+                    lastUpdatedAt: null,
+                    createdBy: newUser.id,
+                    lastUpdatedBy: null,
+                },
+                {
+                    id: generateId(),
+                    idOrganization: populatedOrganization.id,
+                    category: "subscription",
+                    status: "paid",
+                    molliePaymentId: null,
+                    mollieSubscriptionId: null,
+                    sequenceType: "recurring",
+                    serviceType: "support",
+                    amountInCents: 2_900,
+                    currency: "EUR",
+                    description: "Licence mensuelle",
+                    periodStart: previousMonth.periodStart.toISOString(),
+                    periodEnd: previousMonth.periodEnd.toISOString(),
+                    paidAt: new Date(previousMonth.periodStart.getTime() + 60 * 60_000).toISOString(),
+                    idInvoice: null,
+                    createdAt: new Date(previousMonth.periodStart.getTime() + 60 * 60_000).toISOString(),
+                    lastUpdatedAt: null,
+                    createdBy: null,
+                    lastUpdatedBy: null,
+                },
+                {
+                    id: generateId(),
+                    idOrganization: populatedOrganization.id,
+                    category: "subscription",
+                    status: "paid",
+                    molliePaymentId: null,
+                    mollieSubscriptionId: null,
+                    sequenceType: "recurring",
+                    serviceType: "storage_gb",
+                    amountInCents: 10,
+                    currency: "EUR",
+                    description: "Stockage mensuel",
+                    periodStart: previousMonth.periodStart.toISOString(),
+                    periodEnd: previousMonth.periodEnd.toISOString(),
+                    paidAt: new Date(previousMonth.periodStart.getTime() + 60 * 60_000).toISOString(),
+                    idInvoice: null,
+                    createdAt: new Date(previousMonth.periodStart.getTime() + 60 * 60_000).toISOString(),
+                    lastUpdatedAt: null,
+                    createdBy: null,
+                    lastUpdatedBy: null,
+                },
+                {
+                    id: generateId(),
+                    idOrganization: populatedOrganization.id,
+                    category: "wallet_spending",
+                    status: "paid",
+                    molliePaymentId: null,
+                    mollieSubscriptionId: null,
+                    sequenceType: null,
+                    serviceType: "agent_tokens_million",
+                    amountInCents: 100,
+                    currency: "EUR",
+                    description: "Achat tokens Assistant IA",
+                    periodStart: null,
+                    periodEnd: null,
+                    paidAt: new Date(previousMonth.periodStart.getTime() + 15 * 24 * 60 * 60_000).toISOString(),
+                    idInvoice: null,
+                    createdAt: new Date(previousMonth.periodStart.getTime() + 15 * 24 * 60 * 60_000).toISOString(),
+                    lastUpdatedAt: null,
+                    createdBy: newUser.id,
+                    lastUpdatedBy: null,
+                },
+                {
+                    id: generateId(),
+                    idOrganization: populatedOrganization.id,
+                    category: "wallet_spending",
+                    status: "paid",
+                    molliePaymentId: null,
+                    mollieSubscriptionId: null,
+                    sequenceType: null,
+                    serviceType: "ocr_pages_hundred",
+                    amountInCents: 100,
+                    currency: "EUR",
+                    description: "Achat pages OCR",
+                    periodStart: null,
+                    periodEnd: null,
+                    paidAt: new Date(previousMonth.periodStart.getTime() + 20 * 24 * 60 * 60_000).toISOString(),
+                    idInvoice: null,
+                    createdAt: new Date(previousMonth.periodStart.getTime() + 20 * 24 * 60 * 60_000).toISOString(),
+                    lastUpdatedAt: null,
+                    createdBy: newUser.id,
+                    lastUpdatedBy: null,
+                },
+            ]
+
+            await tx.insert(models.invoice).values(seededInvoices)
+            await tx.insert(models.organizationPayment).values(seededPayments)
+
             console.log("Seed completed successfully!")
             console.log(`- 1 user created`)
             console.log(`- 2 organizations created (1 empty, 1 populated with premium subscription)`)
@@ -1342,12 +1761,13 @@ async function seed() {
                 `- ${sampleEntries.length} sample entries created (${sampleEntries.reduce((sum, e) => sum + e.lines.length, 0)} entry lines, ${sampleEntries.reduce((sum, e) => sum + e.entryTags.length, 0)} entry tags)`,
             )
         })
+
+        await triggerSeededMonthlyBilling()
     } catch (error) {
-        console.log(error)
+        console.error(error)
+        process.exitCode = 1
     }
 }
 
 console.log("Seeding starting.")
 await seed()
-
-process.exit()

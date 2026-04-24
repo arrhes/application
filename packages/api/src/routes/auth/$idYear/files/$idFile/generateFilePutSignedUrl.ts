@@ -32,7 +32,7 @@ export const generateFilePutSignedUrlRoute = apiFactory
             where: (table) => eq(table.id, idOrganization),
         })
 
-        if (organization.storageCurrentUsage + body.size > organization.storageLimit) {
+        if (organization.storageCurrentUsage + body.size > organization.storageMaxUsage) {
             throw new Exception({
                 internalMessage: "Storage limit exceeded",
                 statusCode: 400,

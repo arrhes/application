@@ -16,9 +16,12 @@ import { organizationSecurityRoute } from "./organizations/$idOrganization/organ
 import { organizationSettingsLayoutRoute } from "./organizations/$idOrganization/organizationSettings/organizationSettingsLayoutRoute.tsx"
 import { organizationSettingsRoute } from "./organizations/$idOrganization/organizationSettings/organizationSettingsRoute.tsx"
 import { organizationStorageRoute } from "./organizations/$idOrganization/organizationSettings/organizationStorageRoute.tsx"
+import { organizationInvoicesRoute } from "./organizations/$idOrganization/organizationSubscription/organizationInvoicesRoute.tsx"
 import { organizationSubscriptionHistoryRoute } from "./organizations/$idOrganization/organizationSubscription/organizationSubscriptionHistoryRoute.tsx"
 import { organizationSubscriptionLayoutRoute } from "./organizations/$idOrganization/organizationSubscription/organizationSubscriptionLayoutRoute.tsx"
 import { organizationSubscriptionRoute } from "./organizations/$idOrganization/organizationSubscription/organizationSubscriptionRoute.tsx"
+import { organizationServicesRoute } from "./organizations/$idOrganization/organizationSubscription/organizationSubscriptionsRoute.tsx"
+import { organizationSubscriptionUsageRoute } from "./organizations/$idOrganization/organizationSubscription/organizationSubscriptionUsageRoute.tsx"
 import { organizationUsersLayoutRoute } from "./organizations/$idOrganization/organizationUsers/organizationUsersLayoutRoute.tsx"
 import { organizationUsersRoute } from "./organizations/$idOrganization/organizationUsers/organizationUsersRoute.tsx"
 import { entryLineLayoutRoute } from "./organizations/$idOrganization/years/$idYear/entries/$idEntry/$idEntryLine/entryLineLayoutRoute.tsx"
@@ -109,7 +112,10 @@ export const dashboardTree: AnyRoute = dashboardLayoutRoute.addChildren([
                 organizationApiLayoutRoute.addChildren([organizationApiRoute, organizationApiKeysRoute]),
                 organizationSubscriptionLayoutRoute.addChildren([
                     organizationSubscriptionRoute,
+                    organizationServicesRoute,
+                    organizationSubscriptionUsageRoute,
                     organizationSubscriptionHistoryRoute,
+                    organizationInvoicesRoute,
                 ]),
                 organizationSettingsLayoutRoute.addChildren([
                     organizationSettingsRoute,

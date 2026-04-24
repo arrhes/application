@@ -11,9 +11,16 @@
         "sourceMap": true,
         "target": "ES2022",
         "useDefineForClassFields": true,
-        "lib": ["ES2022", "DOM", "DOM.Iterable"],
+        "lib": [
+            "ES2022",
+            "DOM",
+            "DOM.Iterable"
+        ],
         "module": "ESNext",
-        "types": ["vite/client", "node"],
+        "types": [
+            "vite/client",
+            "node"
+        ],
         "skipLibCheck": true,
         /* Bundler mode */
         "moduleResolution": "bundler",
@@ -27,5 +34,12 @@
         /* Path aliases */
         "baseUrl": "."
     },
-    "include": ["src"]
+    "include": [
+        "src"
+    ],
+    "references": [
+        {
+            "path": "../metadata"
+        }
+    ]
 }

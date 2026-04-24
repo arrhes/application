@@ -27,6 +27,9 @@ const envSchema = v.object({
     STORAGE_ACCESS_KEY: v.string(),
     STORAGE_SECRET_KEY: v.string(),
 
+    API_BASE_URL: v.string(),
+    INTERNAL_API_KEY: v.optional(v.string(), ""),
+
     REDIS_HOST: v.string(),
     REDIS_PORT: v.string(),
     REDIS_USERNAME: v.string(),
@@ -59,6 +62,9 @@ export class ContextEnv {
     static STORAGE_NAME: string
     static STORAGE_ACCESS_KEY: string
     static STORAGE_SECRET_KEY: string
+
+    static API_BASE_URL: string
+    static INTERNAL_API_KEY: string
 
     static REDIS_HOST: string
     static REDIS_PORT: string
@@ -97,6 +103,9 @@ export class ContextEnv {
         ContextEnv.STORAGE_NAME = parsedEnv.STORAGE_NAME
         ContextEnv.STORAGE_ACCESS_KEY = parsedEnv.STORAGE_ACCESS_KEY
         ContextEnv.STORAGE_SECRET_KEY = parsedEnv.STORAGE_SECRET_KEY
+
+        ContextEnv.API_BASE_URL = parsedEnv.API_BASE_URL
+        ContextEnv.INTERNAL_API_KEY = parsedEnv.INTERNAL_API_KEY
 
         ContextEnv.REDIS_HOST = parsedEnv.REDIS_HOST
         ContextEnv.REDIS_PORT = parsedEnv.REDIS_PORT

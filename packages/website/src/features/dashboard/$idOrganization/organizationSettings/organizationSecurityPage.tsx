@@ -9,12 +9,15 @@ import { organizationSecurityRoute } from "../../../../routes/root/dashboard/org
 import { DeleteOneOrganization } from "./deleteOneOrganization.tsx"
 
 export function OrganizationSecurityPage() {
-    const _params = useParams({ from: organizationSecurityRoute.id })
+    const params = useParams({ from: organizationSecurityRoute.id })
 
     return (
         <Page.Root>
             <Page.Content>
-                <DataWrapper routeDefinition={readOneOrganizationRouteDefinition} body={{}}>
+                <DataWrapper
+                    routeDefinition={readOneOrganizationRouteDefinition}
+                    body={{ idOrganization: params.idOrganization }}
+                >
                     {(organization) => {
                         return (
                             <SettingsSection.Root variant="danger">

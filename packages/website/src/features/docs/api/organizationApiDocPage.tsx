@@ -40,7 +40,7 @@ export function OrganizationApiDocPage() {
                 </DocParagraph>
                 <DocRouteRequest
                     routeDefinition={readOneOrganizationRouteDefinition}
-                    description="Lire les détails de l'organisation active. Aucun champ requis dans le corps."
+                    description="Lire les détails de l'organisation active. Le corps doit contenir `idOrganization`."
                 />
                 <DocRouteRequest
                     routeDefinition={updateOneOrganizationRouteDefinition}

@@ -122,7 +122,7 @@ export const generateBalanceSheetReportDocumentRoute = apiFactory
             where: (table) => eq(table.id, idOrganization),
         })
 
-        if (organization.storageCurrentUsage + pdfBody.length > organization.storageLimit) {
+        if (organization.storageCurrentUsage + pdfBody.length > organization.storageMaxUsage) {
             throw new Exception({
                 internalMessage: "Storage limit exceeded",
                 statusCode: 400,

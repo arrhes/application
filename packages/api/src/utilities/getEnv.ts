@@ -31,6 +31,7 @@ const envSchema = v.object({
     EMAIL_PASSWORD: v.string(),
 
     MOLLIE_API_KEY: v.string(),
+    INTERNAL_API_KEY: v.optional(v.string(), ""),
 
     LLM_PROVIDER: v.optional(v.picklist(["mistral-api", "ollama"]), "ollama"),
     LLM_BASE_URL: v.optional(v.string(), "http://localhost:11434"),

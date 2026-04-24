@@ -1,18 +1,12 @@
-import {
-    getCurrentMonthStartISO,
-    isUsageMonthOutdated,
-    models,
-    premiumOrganizationUsageLimits,
-    readOrganizationSubscriptionRouteDefinition,
-} from "@arrhes/application-metadata"
+import { models, readOrganizationSubscriptionRouteDefinition } from "@arrhes/application-metadata"
 import { and, desc, eq } from "drizzle-orm"
 import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
+import { computeMonthlyTotal } from "../../../../utilities/billing/computeMonthlyTotal.js"
 import { response } from "../../../../utilities/response.js"
 import { selectMany } from "../../../../utilities/sql/selectMany.js"
 import { selectOne } from "../../../../utilities/sql/selectOne.js"
-import { updateOne } from "../../../../utilities/sql/updateOne.js"
 
 export const readOrganizationSubscriptionRoute = apiFactory
     .createApp()
@@ -46,25 +40,7 @@ export const readOrganizationSubscriptionRoute = apiFactory
         })
 
         const latestPayment = payments.at(0)
-        const monthStartISO = getCurrentMonthStartISO()
-        const shouldResetUsageCounters = isUsageMonthOutdated({
-            usageMonthStartAt: organization.usageMonthStartAt,
-            monthStartISO,
-        })
-
-        if (shouldResetUsageCounters) {
-            await updateOne({
-                database: c.var.clients.sql,
-                table: models.organization,
-                data: {
-                    usageMonthStartAt: monthStartISO,
-                    ocrCurrentMonthPagesUsage: 0,
-                },
-                where: (table) => eq(table.id, idOrganization),
-            })
-        }
-
-        const ocrCurrentMonthPagesUsage = shouldResetUsageCounters ? 0 : organization.ocrCurrentMonthPagesUsage
+        const totalSubscriptionAmountInCents = await computeMonthlyTotal({ var: c.var, idOrganization })
 
         // isPremium = subcriptionEndingAt is set AND is in the future
         const isPremium =
@@ -99,10 +75,13 @@ export const readOrganizationSubscriptionRoute = apiFactory
                 mollieSubscriptionId: organization.mollieSubscriptionId,
                 status: latestPayment?.status ?? null,
                 subscriptionStatus,
-                ocrCurrentMonthUsage: ocrCurrentMonthPagesUsage,
-                ocrMonthlyLimit: premiumOrganizationUsageLimits.ocrPagesPerMonth,
-                agentTokensCurrentMonthUsage: shouldResetUsageCounters ? 0 : organization.agentTokensCurrentMonthUsage,
-                agentTokensMonthlyLimit: premiumOrganizationUsageLimits.agentTokensPerMonth,
+                ocrCurrentMonthUsage: organization.ocrPagesTotalUsed,
+                ocrMonthlyLimit: organization.ocrPagesTotalLeft + organization.ocrPagesTotalUsed,
+                agentTokensCurrentMonthUsage: organization.tokensTotalUsed,
+                agentTokensMonthlyLimit: organization.tokensTotalLeft + organization.tokensTotalUsed,
+                storageLimit: organization.storageMaxUsage,
+                storageCurrentUsage: organization.storageCurrentUsage,
+                totalSubscriptionAmountInCents,
             },
         })
     })

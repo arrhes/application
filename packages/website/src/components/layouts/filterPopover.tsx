@@ -3,6 +3,7 @@ import {
     ButtonGhostContent,
     ButtonOutlineContent,
     ButtonPlainContent,
+    InputCombobox,
     InputDebounced,
     InputText,
     Separator,
@@ -14,6 +15,11 @@ import { Popover } from "../overlays/popover/popover.js"
 export type FilterColumn = {
     id: string
     header: string
+    filterVariant?: "text" | "combobox"
+    filterOptions?: Array<{
+        key: string
+        label: string
+    }>
 }
 
 export function FilterPopover(props: {
@@ -95,12 +101,22 @@ export function FilterPopover(props: {
                             >
                                 {column.header}
                             </span>
-                            <InputDebounced
-                                value={props.columnFilters[column.id] ?? ""}
-                                onChange={(value) => props.onFilterChange(column.id, value || undefined)}
-                            >
-                                <InputText placeholder={`Filtrer par ${column.header.toLowerCase()}`} />
-                            </InputDebounced>
+                            {column.filterVariant === "combobox" ? (
+                                <InputCombobox
+                                    value={props.columnFilters[column.id] ?? undefined}
+                                    onChange={(value) => props.onFilterChange(column.id, value ?? undefined)}
+                                    allowEmpty={true}
+                                    placeholder={`Choisir ${column.header.toLowerCase()}`}
+                                    options={column.filterOptions ?? []}
+                                />
+                            ) : (
+                                <InputDebounced
+                                    value={props.columnFilters[column.id] ?? ""}
+                                    onChange={(value) => props.onFilterChange(column.id, value || undefined)}
+                                >
+                                    <InputText placeholder={`Filtrer par ${column.header.toLowerCase()}`} />
+                                </InputDebounced>
+                            )}
                         </div>
                     ))}
                 </div>

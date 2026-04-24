@@ -9,12 +9,15 @@ import { organizationSettingsRoute } from "../../../../routes/root/dashboard/org
 import { UpdateOneOrganization } from "./updateOneOrganization.tsx"
 
 export function OrganizationSettingsPage() {
-    const _params = useParams({ from: organizationSettingsRoute.id })
+    const params = useParams({ from: organizationSettingsRoute.id })
 
     return (
         <Page.Root>
             <Page.Content>
-                <DataWrapper routeDefinition={readOneOrganizationRouteDefinition} body={{}}>
+                <DataWrapper
+                    routeDefinition={readOneOrganizationRouteDefinition}
+                    body={{ idOrganization: params.idOrganization }}
+                >
                     {(organization) => {
                         return (
                             <SettingsSection.Root>

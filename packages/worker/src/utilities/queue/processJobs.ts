@@ -1,5 +1,6 @@
 import * as v from "valibot"
 import { ContextClients } from "#src/clients/contextClients.js"
+import { generateMonthlyInvoices } from "#src/jobs/generateMonthlyInvoices/generateMonthlyInvoices.js"
 import { runAgentSession } from "#src/jobs/runAgentSession/runAgentSession.js"
 import { Exception } from "#src/utilities/exception.js"
 import { validate } from "#src/utilities/validate.js"
@@ -11,6 +12,7 @@ export const jobSchema = v.object({
 
 export const fnMap: Record<string, (...args: any[]) => Promise<unknown> | unknown> = {
     runAgentSession: runAgentSession,
+    generateMonthlyInvoices: generateMonthlyInvoices,
 }
 
 export async function processJobs() {

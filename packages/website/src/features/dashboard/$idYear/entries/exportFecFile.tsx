@@ -72,13 +72,13 @@ export function ExportFecFile(props: {
         if (!props.open) return
         getResponseBodyFromAPI({
             routeDefinition: readOneOrganizationRouteDefinition,
-            body: {},
+            body: { idOrganization: props.idOrganization },
         }).then((response) => {
             if (response.ok) {
                 setSiren(response.data.siren ?? "")
             }
         })
-    }, [props.open])
+    }, [props.idOrganization, props.open])
 
     const entriesMap = useMemo(() => {
         return new Map(props.entries.map((r) => [r.id, r]))

@@ -1,5 +1,10 @@
 import * as v from "valibot"
-import { dateTimeSchema, organizationPaymentStatus, routePath } from "../../../../../../../components/index.js"
+import {
+    dateTimeSchema,
+    integerSchema,
+    organizationPaymentStatus,
+    routePath,
+} from "../../../../../../../components/index.js"
 import { routeDefinition } from "../../../../../../../utilities/routeDefinition.js"
 
 export const readOrganizationSubscriptionRouteDefinition = routeDefinition({
@@ -17,6 +22,9 @@ export const readOrganizationSubscriptionRouteDefinition = routeDefinition({
             ocrMonthlyLimit: v.number(),
             agentTokensCurrentMonthUsage: v.number(),
             agentTokensMonthlyLimit: v.number(),
+            storageLimit: integerSchema,
+            storageCurrentUsage: integerSchema,
+            totalSubscriptionAmountInCents: integerSchema,
         }),
     },
 })

@@ -1,11 +1,5 @@
 import { createHash } from "node:crypto"
-import {
-    generateId,
-    getCurrentMonthStartISO,
-    isUsageMonthOutdated,
-    models,
-    premiumOrganizationUsageLimits,
-} from "@arrhes/application-metadata"
+import { generateId, models } from "@arrhes/application-metadata"
 import { and, eq, sql } from "drizzle-orm"
 import { Exception } from "../exception.js"
 import type { getClients } from "../getClients.js"
@@ -74,18 +68,11 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
         })
     }
 
-    const monthStartISO = getCurrentMonthStartISO()
     const organization = await selectOne({
         database: params.var.clients.sql,
         table: models.organization,
         where: (table) => eq(table.id, idOrganization),
     })
-
-    const shouldResetUsageCounters = isUsageMonthOutdated({
-        usageMonthStartAt: organization.usageMonthStartAt,
-        monthStartISO,
-    })
-    const currentMonthPagesUsage = shouldResetUsageCounters ? 0 : organization.ocrCurrentMonthPagesUsage
 
     console.log(`[processOcr] Downloading file from S3 (storageKey=${sourceFile.storageKey})`)
     const storageResponse = await getObject({
@@ -155,11 +142,11 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
         })
     }
 
-    if (currentMonthPagesUsage + extractedPagesCount > premiumOrganizationUsageLimits.ocrPagesPerMonth) {
+    if (extractedPagesCount > organization.ocrPagesTotalLeft) {
         throw new Exception({
             statusCode: 429,
-            internalMessage: "OCR monthly page limit reached",
-            externalMessage: "Limite mensuelle de pages OCR atteinte pour votre organisation",
+            internalMessage: "OCR balance exhausted",
+            externalMessage: "Le solde de pages OCR de votre organisation est insuffisant",
         })
     }
 
@@ -197,8 +184,9 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
             database: params.var.clients.sql,
             table: models.organization,
             data: {
-                usageMonthStartAt: monthStartISO,
-                ocrCurrentMonthPagesUsage: currentMonthPagesUsage + extractedPagesCount,
+                ocrCurrentMonthPagesUsage: organization.ocrPagesTotalUsed + extractedPagesCount,
+                ocrPagesTotalLeft: organization.ocrPagesTotalLeft - extractedPagesCount,
+                ocrPagesTotalUsed: organization.ocrPagesTotalUsed + extractedPagesCount,
             },
             where: (table) => eq(table.id, idOrganization),
         })
@@ -249,8 +237,9 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
         table: models.organization,
         data: {
             storageCurrentUsage: sql`${models.organization.storageCurrentUsage} + ${markdownBuffer.length}`,
-            usageMonthStartAt: monthStartISO,
-            ocrCurrentMonthPagesUsage: currentMonthPagesUsage + extractedPagesCount,
+            ocrCurrentMonthPagesUsage: organization.ocrPagesTotalUsed + extractedPagesCount,
+            ocrPagesTotalLeft: organization.ocrPagesTotalLeft - extractedPagesCount,
+            ocrPagesTotalUsed: organization.ocrPagesTotalUsed + extractedPagesCount,
         },
         where: (table) => eq(table.id, idOrganization),
     })

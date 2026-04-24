@@ -98,7 +98,7 @@ export function InputCombobox<TValue extends string>(props: {
                             gap: "0.125rem",
                         })}
                     >
-                        {props.isLoading === false ? null : <CircularLoader />}
+                        {props.isLoading === true ? <CircularLoader /> : null}
                         {currentOptions.length > 0 ? null : (
                             <FormatNull text="Pas de résultat" className={css({ padding: "0.5rem" })} />
                         )}

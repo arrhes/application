@@ -29,7 +29,7 @@ export function DeleteOneOrganizationUser(props: {
 
         await invalidateData({
             routeDefinition: readOneOrganizationRouteDefinition,
-            body: {},
+            body: { idOrganization: props.organizationUser.idOrganization },
         })
         toast({ title: "Utilisateur révoqué de l'organisation", variant: "success" })
     }

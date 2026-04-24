@@ -1,4 +1,4 @@
-import { IconReceipt, IconRosetteDiscountCheck } from "@tabler/icons-react"
+import { IconChartBar, IconFileInvoice, IconReceipt, IconWallet } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { SubPageLayout } from "../../../../components/layouts/subPageLayout.tsx"
 import { organizationSubscriptionLayoutRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/organizationSubscription/organizationSubscriptionLayoutRoute.tsx"
@@ -12,17 +12,41 @@ export function OrganizationSubscriptionLayout() {
                 subscription: {
                     items: [
                         {
-                            label: "Statut",
-                            icon: <IconRosetteDiscountCheck />,
+                            label: "Portefeuille",
+                            icon: <IconWallet />,
                             to: "/dashboard/organisations/$idOrganization/abonnement",
                             params: {
                                 idOrganization: params.idOrganization,
                             },
                         },
                         {
-                            label: "Historique",
+                            label: "Services",
+                            icon: <IconReceipt />,
+                            to: "/dashboard/organisations/$idOrganization/abonnement/services",
+                            params: {
+                                idOrganization: params.idOrganization,
+                            },
+                        },
+                        {
+                            label: "Utilisation",
+                            icon: <IconChartBar />,
+                            to: "/dashboard/organisations/$idOrganization/abonnement/utilisation",
+                            params: {
+                                idOrganization: params.idOrganization,
+                            },
+                        },
+                        {
+                            label: "Paiements",
                             icon: <IconReceipt />,
                             to: "/dashboard/organisations/$idOrganization/abonnement/historique",
+                            params: {
+                                idOrganization: params.idOrganization,
+                            },
+                        },
+                        {
+                            label: "Factures",
+                            icon: <IconFileInvoice />,
+                            to: "/dashboard/organisations/$idOrganization/abonnement/factures",
                             params: {
                                 idOrganization: params.idOrganization,
                             },

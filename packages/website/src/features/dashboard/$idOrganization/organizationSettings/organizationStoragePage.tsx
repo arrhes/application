@@ -28,11 +28,14 @@ export function OrganizationStoragePage() {
     return (
         <Page.Root>
             <Page.Content>
-                <DataWrapper routeDefinition={readOneOrganizationRouteDefinition} body={{}}>
+                <DataWrapper
+                    routeDefinition={readOneOrganizationRouteDefinition}
+                    body={{ idOrganization: params.idOrganization }}
+                >
                     {(organization) => {
                         const usagePercent =
-                            organization.storageLimit > 0
-                                ? Math.min((organization.storageCurrentUsage / organization.storageLimit) * 100, 100)
+                            organization.storageMaxUsage > 0
+                                ? Math.min((organization.storageCurrentUsage / organization.storageMaxUsage) * 100, 100)
                                 : 0
                         const isNearLimit = usagePercent >= 80
                         const isAtLimit = usagePercent >= 100
@@ -43,7 +46,7 @@ export function OrganizationStoragePage() {
                                     <SettingsSection.Header title="Utilisation du stockage" />
                                     <SettingsSection.Row
                                         title="Espace utilisé"
-                                        description={`${formatBytes(organization.storageCurrentUsage)} utilisés sur ${formatBytes(organization.storageLimit)}`}
+                                        description={`${formatBytes(organization.storageCurrentUsage)} utilisés sur ${formatBytes(organization.storageMaxUsage)}`}
                                     >
                                         <div
                                             className={css({
@@ -62,7 +65,7 @@ export function OrganizationStoragePage() {
                                                 })}
                                             >
                                                 <span>{formatBytes(organization.storageCurrentUsage)}</span>
-                                                <span>{formatBytes(organization.storageLimit)}</span>
+                                                <span>{formatBytes(organization.storageMaxUsage)}</span>
                                             </div>
                                             <div
                                                 className={css({

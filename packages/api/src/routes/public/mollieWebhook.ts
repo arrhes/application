@@ -1,13 +1,12 @@
-import { generateId, models, mollieWebhookRouteDefinition } from "@arrhes/application-metadata"
+import { models, mollieWebhookRouteDefinition } from "@arrhes/application-metadata"
 import { eq } from "drizzle-orm"
 import { apiFactory } from "../../utilities/apiFactory.js"
 import { apiLog } from "../../utilities/apiLog.js"
+import { computeMonthlyTotal } from "../../utilities/billing/computeMonthlyTotal.js"
+import { recordOrganizationPayment } from "../../utilities/billing/wallet.js"
 import { response } from "../../utilities/response.js"
-import { insertOne } from "../../utilities/sql/insertOne.js"
 import { updateOne } from "../../utilities/sql/updateOne.js"
 import { validate } from "../../utilities/validate.js"
-
-const MONTHLY_PRICE = "30.00"
 
 /**
  * Get the last day of a given month (e.g. 2026-02-01 -> 2026-02-28T23:59:59.999Z).
@@ -62,6 +61,8 @@ export const mollieWebhookRoute = apiFactory.createApp().post(mollieWebhookRoute
         const mappedStatus = statusMap[molliePayment.status] ?? "pending"
 
         if (organizationPayment !== undefined) {
+            const previousStatus = organizationPayment.status
+
             // Update existing payment
             await updateOne({
                 database: c.var.clients.sql,
@@ -74,7 +75,28 @@ export const mollieWebhookRoute = apiFactory.createApp().post(mollieWebhookRoute
                 where: (table) => eq(table.id, organizationPayment.id),
             })
 
-            // If first payment is paid, create a Mollie subscription
+            if (mappedStatus === "paid" && previousStatus !== "paid" && organizationPayment.category === "top_up") {
+                const organization = await c.var.clients.sql
+                    .select()
+                    .from(models.organization)
+                    .where(eq(models.organization.id, organizationPayment.idOrganization))
+                    .limit(1)
+                    .then((rows) => rows.at(0))
+
+                if (organization !== undefined) {
+                    await updateOne({
+                        database: c.var.clients.sql,
+                        table: models.organization,
+                        data: {
+                            walletBalanceInCents: organization.walletBalanceInCents + organizationPayment.amountInCents,
+                            lastUpdatedAt: new Date().toISOString(),
+                        },
+                        where: (table) => eq(table.id, organization.id),
+                    })
+                }
+            }
+
+            // Only activation first-payments should create a recurring subscription.
             if (mappedStatus === "paid" && organizationPayment.sequenceType === "first") {
                 const organization = await c.var.clients.sql
                     .select()
@@ -100,11 +122,17 @@ export const mollieWebhookRoute = apiFactory.createApp().post(mollieWebhookRoute
 
                     const startDate = `${firstOfNextMonth.getUTCFullYear()}-${String(firstOfNextMonth.getUTCMonth() + 1).padStart(2, "0")}-${String(firstOfNextMonth.getUTCDate()).padStart(2, "0")}`
 
+                    const totalMonthlyCents = await computeMonthlyTotal({
+                        var: c.var,
+                        idOrganization: organization.id,
+                    })
+                    const monthlyValue = (totalMonthlyCents / 100).toFixed(2)
+
                     const subscription = await c.var.clients.mollie.customerSubscriptions.create({
                         customerId: organization.mollieCustomerId,
                         amount: {
                             currency: "EUR",
-                            value: MONTHLY_PRICE,
+                            value: monthlyValue,
                         },
                         interval: "1 month",
                         startDate: startDate,
@@ -155,27 +183,21 @@ export const mollieWebhookRoute = apiFactory.createApp().post(mollieWebhookRoute
                     const periodEnd = getLastDayOfMonth(now)
 
                     // Create a new payment record for this subscription payment
-                    await insertOne({
+                    await recordOrganizationPayment({
                         database: c.var.clients.sql,
-                        table: models.organizationPayment,
-                        data: {
-                            id: generateId(),
-                            idOrganization: organization.id,
-                            status: mappedStatus,
-                            molliePaymentId: body.id,
-                            mollieSubscriptionId: molliePayment.subscriptionId ?? null,
-                            sequenceType: "recurring",
-                            amountInCents: Math.round(Number.parseFloat(molliePayment.amount.value) * 100),
-                            currency: molliePayment.amount.currency,
-                            description: molliePayment.description,
-                            periodStart: periodStart.toISOString(),
-                            periodEnd: periodEnd.toISOString(),
-                            paidAt: mappedStatus === "paid" ? now.toISOString() : null,
-                            createdAt: now.toISOString(),
-                            lastUpdatedAt: null,
-                            createdBy: null,
-                            lastUpdatedBy: null,
-                        },
+                        idOrganization: organization.id,
+                        category: "subscription",
+                        status: mappedStatus,
+                        amountInCents: Math.round(Number.parseFloat(molliePayment.amount.value) * 100),
+                        currency: molliePayment.amount.currency,
+                        description: molliePayment.description,
+                        sequenceType: "recurring",
+                        molliePaymentId: body.id,
+                        mollieSubscriptionId: molliePayment.subscriptionId ?? null,
+                        periodStart: periodStart.toISOString(),
+                        periodEnd: periodEnd.toISOString(),
+                        paidAt: mappedStatus === "paid" ? now.toISOString() : null,
+                        createdBy: null,
                     })
 
                     // If payment is paid, extend premium to the end of this billing period

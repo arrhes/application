@@ -1,11 +1,4 @@
-import {
-    createOneAgentMessageRouteDefinition,
-    generateId,
-    getCurrentMonthStartISO,
-    isUsageMonthOutdated,
-    models,
-    premiumOrganizationUsageLimits,
-} from "@arrhes/application-metadata"
+import { createOneAgentMessageRouteDefinition, generateId, models } from "@arrhes/application-metadata"
 import { eq } from "drizzle-orm"
 import { checkOrganizationSubscriptionSessionMiddleware } from "../../../../middlewares/checkOrganizationSubscriptionSessionMiddleware.js"
 import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
@@ -15,7 +8,6 @@ import { Exception } from "../../../../utilities/exception.js"
 import { response } from "../../../../utilities/response.js"
 import { insertOne } from "../../../../utilities/sql/insertOne.js"
 import { selectOne } from "../../../../utilities/sql/selectOne.js"
-import { updateOne } from "../../../../utilities/sql/updateOne.js"
 
 export const createOneAgentMessageRoute = apiFactory
     .createApp()
@@ -50,24 +42,17 @@ export const createOneAgentMessageRoute = apiFactory
 
         await checkOrganizationSubscriptionSessionMiddleware({ context: c, idOrganization: session.idOrganization })
 
-        const monthStartISO = getCurrentMonthStartISO()
         const organization = await selectOne({
             database: c.var.clients.sql,
             table: models.organization,
             where: (table) => eq(table.id, session.idOrganization),
         })
-        const shouldResetUsageCounters = isUsageMonthOutdated({
-            usageMonthStartAt: organization.usageMonthStartAt,
-            monthStartISO,
-        })
-        const currentTokenUsage = shouldResetUsageCounters ? 0 : organization.agentTokensCurrentMonthUsage
 
-        // Gate on token budget — reject only when nearly exhausted (less than 50K tokens remain)
-        if (premiumOrganizationUsageLimits.agentTokensPerMonth - currentTokenUsage < 0) {
+        if (organization.tokensTotalLeft <= 0) {
             throw new Exception({
                 statusCode: 429,
-                internalMessage: "Agent monthly token limit reached",
-                externalMessage: "Limite mensuelle de tokens agent atteinte pour votre organisation",
+                internalMessage: "Agent token balance exhausted",
+                externalMessage: "Le solde de tokens de votre organisation est épuisé",
             })
         }
 
@@ -104,17 +89,6 @@ export const createOneAgentMessageRoute = apiFactory
                     createdAt: new Date().toISOString(),
                     lastUpdatedAt: null,
                 },
-            })
-
-            await updateOne({
-                database: transaction,
-                table: models.organization,
-                data: {
-                    usageMonthStartAt: monthStartISO,
-                    ocrCurrentMonthPagesUsage: shouldResetUsageCounters ? 0 : organization.ocrCurrentMonthPagesUsage,
-                    agentTokensCurrentMonthUsage: currentTokenUsage,
-                },
-                where: (table) => eq(table.id, session.idOrganization),
             })
 
             return { assistantMessage, workerJob }

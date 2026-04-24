@@ -1,4 +1,4 @@
-import { generateId, isUsageMonthOutdated, models } from "@arrhes/application-metadata"
+import { generateId, models } from "@arrhes/application-metadata"
 import { chat, convertMessagesToModelMessages, maxIterations, toolDefinition } from "@tanstack/ai"
 import { and, asc, eq, sql } from "drizzle-orm"
 import { ContextClients } from "#src/clients/contextClients.js"
@@ -73,13 +73,6 @@ function fixCommonMojibake(text: string) {
 }
 
 const MAX_MESSAGE_CHARACTERS = 16_000
-const ORGANIZATION_USAGE_LIMITS = {
-    ocrPagesPerMonth: 1000,
-} as const
-
-function getCurrentMonthStartISO(date = new Date()) {
-    return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1)).toISOString()
-}
 
 function compressTextForContext(text: string, maxCharacters = MAX_MESSAGE_CHARACTERS) {
     if (text.length <= maxCharacters) {
@@ -471,23 +464,16 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
     }).server(async (args) => {
         const { idFile, idYear } = args as { idFile: string; idYear: string }
         try {
-            const monthStartISO = getCurrentMonthStartISO()
             const organizationRows = await db
                 .select({
-                    usageMonthStartAt: sql<string | null>`usage_month_start_at`,
-                    ocrCurrentMonthPagesUsage: sql<number>`ocr_current_month_pages_usage`,
+                    ocrPagesTotalLeft: models.organization.ocrPagesTotalLeft,
+                    ocrPagesTotalUsed: models.organization.ocrPagesTotalUsed,
                 })
                 .from(models.organization)
                 .where(eq(models.organization.id, idOrganization))
                 .limit(1)
             const organization = organizationRows.at(0)
             if (!organization) return { error: "Organisation introuvable." }
-
-            const shouldResetUsageCounters = isUsageMonthOutdated({
-                usageMonthStartAt: organization.usageMonthStartAt,
-                monthStartISO,
-            })
-            const currentMonthPagesUsage = shouldResetUsageCounters ? 0 : organization.ocrCurrentMonthPagesUsage
 
             const fileRows = await db
                 .select()
@@ -552,7 +538,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                 return { error: "L'extraction OCR n'a retourné aucune page." }
             }
 
-            if (currentMonthPagesUsage + extractedPagesCount > ORGANIZATION_USAGE_LIMITS.ocrPagesPerMonth) {
+            if (extractedPagesCount > organization.ocrPagesTotalLeft) {
                 return { error: "Limite mensuelle de pages OCR atteinte pour votre organisation." }
             }
 
@@ -595,8 +581,9 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                 UPDATE table_organization
                 SET
                     storage_current_usage = storage_current_usage + ${markdownBuffer.length},
-                    usage_month_start_at = ${monthStartISO},
-                    ocr_current_month_pages_usage = ${currentMonthPagesUsage + extractedPagesCount},
+                    ocr_current_month_pages_usage = ${organization.ocrPagesTotalUsed + extractedPagesCount},
+                    ocr_pages_total_left = GREATEST(ocr_pages_total_left - ${extractedPagesCount}, 0),
+                    ocr_pages_total_used = ocr_pages_total_used + ${extractedPagesCount},
                 WHERE id = ${idOrganization}
             `)
 
@@ -894,27 +881,22 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                     .where(eq(models.agentSession.id, agentMessage.idAgentSession))
 
                 // Increment organization-level monthly token usage
-                const monthStartISO2 = getCurrentMonthStartISO()
                 const orgRows = await db
                     .select({
-                        usageMonthStartAt: models.organization.usageMonthStartAt,
-                        agentTokensCurrentMonthUsage: models.organization.agentTokensCurrentMonthUsage,
+                        tokensTotalLeft: models.organization.tokensTotalLeft,
+                        tokensTotalUsed: models.organization.tokensTotalUsed,
                     })
                     .from(models.organization)
                     .where(eq(models.organization.id, idOrganization))
                     .limit(1)
                 const org = orgRows.at(0)
                 if (org) {
-                    const shouldReset = isUsageMonthOutdated({
-                        usageMonthStartAt: org.usageMonthStartAt,
-                        monthStartISO: monthStartISO2,
-                    })
-                    const currentTokenUsage = shouldReset ? 0 : org.agentTokensCurrentMonthUsage
                     await db
                         .update(models.organization)
                         .set({
-                            usageMonthStartAt: monthStartISO2,
-                            agentTokensCurrentMonthUsage: currentTokenUsage + capturedTotalTokens,
+                            agentTokensCurrentMonthUsage: org.tokensTotalUsed + capturedTotalTokens,
+                            tokensTotalLeft: Math.max(org.tokensTotalLeft - capturedTotalTokens, 0),
+                            tokensTotalUsed: org.tokensTotalUsed + capturedTotalTokens,
                         })
                         .where(eq(models.organization.id, idOrganization))
                 }
