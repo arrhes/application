@@ -1,16 +1,16 @@
 import { models, updateOcrSubscriptionRouteDefinition } from "@arrhes/application-metadata"
+import { OCR_PAGE_PRICE_IN_CENTS } from "@arrhes/application-metadata/utilities"
 import { and, eq } from "drizzle-orm"
 import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
-import { getOcrAddonQuantity, getTotalOcrPagesFromQuantity } from "../../../../utilities/billing/subscriptionPricing.js"
+import { findOrCreateCurrentPeriodInvoice, getCurrentMonthRange } from "../../../../utilities/billing/billingInvoice.js"
+import { INCLUDED_OCR_PAGES } from "../../../../utilities/billing/subscriptionPricing.js"
 import { recordOrganizationPayment } from "../../../../utilities/billing/wallet.js"
 import { Exception } from "../../../../utilities/exception.js"
 import { response } from "../../../../utilities/response.js"
 import { selectOne } from "../../../../utilities/sql/selectOne.js"
 import { updateOne } from "../../../../utilities/sql/updateOne.js"
-
-const OCR_PACK_PRICE_IN_CENTS = 100
 
 export const updateOcrSubscriptionRoute = apiFactory
     .createApp()
@@ -41,32 +41,32 @@ export const updateOcrSubscriptionRoute = apiFactory
         })
 
         const now = new Date()
-        const currentQuantity = getOcrAddonQuantity(organization.ocrPagesTotalLeft + organization.ocrPagesTotalUsed)
+        // body.newQuantity = total addon pages above included quota (individual pages, not packs)
+        const totalOcrPages = organization.ocrPagesTotalLeft + organization.ocrPagesTotalUsed
+        const currentAddonPages = Math.max(totalOcrPages - INCLUDED_OCR_PAGES, 0)
 
-        if (body.newQuantity < currentQuantity) {
+        if (body.newQuantity < currentAddonPages) {
             throw new Exception({
                 statusCode: 400,
-                internalMessage: "Cannot reduce OCR packs",
+                internalMessage: "Cannot reduce OCR pages",
                 externalMessage: "La réduction d'un solde ponctuel déjà acheté n'est pas prise en charge.",
             })
         }
 
-        const currentAmountInCents = currentQuantity * OCR_PACK_PRICE_IN_CENTS
-        const nextAmountInCents = body.newQuantity * OCR_PACK_PRICE_IN_CENTS
-        const differenceInCents = currentAmountInCents - nextAmountInCents
-        const paidAmountInCents = Math.abs(differenceInCents)
-        const newWalletBalanceInCents = organization.walletBalanceInCents + differenceInCents
+        const deltaPages = body.newQuantity - currentAddonPages
+        const paidAmountInCents = deltaPages * OCR_PAGE_PRICE_IN_CENTS
+        const newWalletBalanceInCents = organization.walletBalanceInCents - paidAmountInCents
 
         if (newWalletBalanceInCents < 0) {
             throw new Exception({
                 statusCode: 400,
-                internalMessage: "Not enough balance in wallet to increase OCR amount",
+                internalMessage: "Not enough balance in wallet to purchase OCR pages",
                 externalMessage:
                     "Le solde du portefeuille de l'organisation est insuffisant pour acheter ces pages OCR.",
             })
         }
 
-        const nextOcrTotal = getTotalOcrPagesFromQuantity(body.newQuantity)
+        const nextOcrTotal = INCLUDED_OCR_PAGES + body.newQuantity
         if (nextOcrTotal < organization.ocrPagesTotalUsed) {
             throw new Exception({
                 statusCode: 400,
@@ -90,6 +90,14 @@ export const updateOcrSubscriptionRoute = apiFactory
             })
 
             if (paidAmountInCents > 0) {
+                const { periodStart, periodEnd } = getCurrentMonthRange(now)
+                const idInvoice = await findOrCreateCurrentPeriodInvoice({
+                    database: transaction,
+                    idOrganization,
+                    periodStart,
+                    periodEnd,
+                    now,
+                })
                 await recordOrganizationPayment({
                     database: transaction,
                     idOrganization,
@@ -98,6 +106,7 @@ export const updateOcrSubscriptionRoute = apiFactory
                     amountInCents: paidAmountInCents,
                     description: "Achat pages OCR",
                     serviceType: "ocr_pages_hundred",
+                    idInvoice,
                     createdBy: user.id,
                 })
             }

@@ -3,9 +3,9 @@ import { organizationLayoutRoute } from "../organizationLayoutRoute.js"
 
 export const organizationSubscriptionLayoutRoute = createRoute({
     getParentRoute: () => organizationLayoutRoute,
-    path: "/abonnement",
+    path: "/facturation",
     beforeLoad: () => ({
-        title: "Abonnement",
+        title: "Facturation",
     }),
     component: lazyRouteComponent(
         () =>

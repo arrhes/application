@@ -1,14 +1,13 @@
 import { updateTokensSubscriptionRouteDefinition } from "@arrhes/application-metadata/routes"
-import { Button, ButtonOutlineContent, toast } from "@arrhes/ui"
+import { TOKEN_PACK_PRICE_IN_CENTS, TOKEN_TIERS, TOKENS_PER_PACK } from "@arrhes/application-metadata/utilities"
+import { Button, ButtonOutlineContent, InputNumber, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconMinus, IconPlus } from "@tabler/icons-react"
+import { IconPlus } from "@tabler/icons-react"
 import { type JSX, type ReactNode, useEffect, useState } from "react"
+import { ConfirmationModal } from "../../../../components/overlays/dialog/confirmationModal.tsx"
 import { Drawer } from "../../../../components/overlays/drawer/drawer.tsx"
 import { formatEuros } from "../../../../utilities/formatEuros.tsx"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
-
-const TOKENS_PER_PACK = 1_000_000
-const TOKEN_PACK_PRICE_IN_CENTS = 100
 
 function formatTokenValue(value: number) {
     if (value >= 1_000_000) {
@@ -59,8 +58,8 @@ export function UpdateTokensSubscriptionDrawer(props: {
     onSuccess: () => void
 }) {
     const [open, setOpen] = useState(false)
+    const [confirmOpen, setConfirmOpen] = useState(false)
     const [quantityDelta, setQuantityDelta] = useState(0)
-    const [isLoading, setIsLoading] = useState(false)
     const nextQuantity = props.currentQuantity + quantityDelta
     const deltaAmountInCents = quantityDelta * TOKEN_PACK_PRICE_IN_CENTS
     const addedTokens = quantityDelta * TOKENS_PER_PACK
@@ -73,14 +72,12 @@ export function UpdateTokensSubscriptionDrawer(props: {
     }, [open])
 
     async function handleSave() {
-        setIsLoading(true)
         const response = await getResponseBodyFromAPI({
             routeDefinition: updateTokensSubscriptionRouteDefinition,
             body: {
                 newQuantity: nextQuantity,
             },
         })
-        setIsLoading(false)
 
         if (response.ok === false) {
             toast({ title: response.error?.cause ?? "Erreur lors de la mise à jour", variant: "error" })
@@ -123,64 +120,37 @@ export function UpdateTokensSubscriptionDrawer(props: {
                                         flexWrap: "wrap",
                                     })}
                                 >
-                                    <div className={css({ display: "flex", alignItems: "center", gap: "0.5rem" })}>
-                                        <button
-                                            type="button"
-                                            onClick={() =>
-                                                setQuantityDelta((currentQuantityDelta) =>
-                                                    Math.max(currentQuantityDelta - 1, 0),
-                                                )
-                                            }
-                                            className={css({
-                                                width: "2rem",
-                                                height: "2rem",
-                                                border: "1px solid token(colors.neutral/20)",
-                                                borderRadius: "md",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                cursor: "pointer",
-                                                background: "transparent",
-                                                color: "neutral",
-                                                _hover: { background: "neutral/5" },
-                                            })}
-                                            disabled={quantityDelta === 0}
-                                        >
-                                            <IconMinus size={14} />
-                                        </button>
-                                        <button
-                                            type="button"
-                                            onClick={() =>
-                                                setQuantityDelta((currentQuantityDelta) => currentQuantityDelta + 1)
-                                            }
-                                            className={css({
-                                                width: "2rem",
-                                                height: "2rem",
-                                                border: "1px solid token(colors.neutral/20)",
-                                                borderRadius: "md",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                cursor: "pointer",
-                                                background: "transparent",
-                                                color: "neutral",
-                                                _hover: { background: "neutral/5" },
-                                            })}
-                                        >
-                                            <IconPlus size={14} />
-                                        </button>
-                                        <span
-                                            className={css({
-                                                minWidth: "12rem",
-                                                fontVariantNumeric: "tabular-nums",
-                                            })}
-                                        >
-                                            {formatTokenUnitDelta(quantityDelta)}
-                                        </span>
-                                    </div>
+                                    <InputNumber
+                                        value={quantityDelta}
+                                        onChange={setQuantityDelta}
+                                        min={0}
+                                        label="M tokens"
+                                    />
                                     <span className={css({ fontSize: "sm", color: "neutral/70" })}>
                                         {formatEuros(deltaAmountInCents)} débité
                                     </span>
+                                </div>
+                                <div className={css({ display: "flex", gap: "0.5rem", flexWrap: "wrap" })}>
+                                    {TOKEN_TIERS.map((tier) => (
+                                        <button
+                                            key={tier}
+                                            type="button"
+                                            onClick={() => setQuantityDelta(tier)}
+                                            className={css({
+                                                padding: "0.375rem 0.875rem",
+                                                border: "1px solid",
+                                                borderRadius: "md",
+                                                cursor: "pointer",
+                                                fontSize: "sm",
+                                                fontWeight: "400",
+                                                color: "neutral",
+                                                borderColor: "neutral/20",
+                                                _hover: { background: "neutral/5" },
+                                            })}
+                                        >
+                                            {tier === 0 ? "0" : `${tier.toLocaleString("fr-FR")} M`}
+                                        </button>
+                                    ))}
                                 </div>
                             </div>
                         </DrawerSection>
@@ -241,12 +211,17 @@ export function UpdateTokensSubscriptionDrawer(props: {
                                 </div>
                             </div>
                         </DrawerSection>
-                        <Button onClick={handleSave} hasLoader isDisabled={isLoading || quantityDelta === 0}>
-                            <ButtonOutlineContent
-                                leftIcon={<IconPlus />}
-                                text={isLoading ? "Enregistrement..." : "Enregistrer les tokens"}
-                            />
+                        <Button onClick={() => setConfirmOpen(true)} isDisabled={quantityDelta === 0}>
+                            <ButtonOutlineContent leftIcon={<IconPlus />} text="Enregistrer les tokens" />
                         </Button>
+                        <ConfirmationModal
+                            open={confirmOpen}
+                            onOpenChange={setConfirmOpen}
+                            title="Confirmer l'achat de tokens"
+                            description={`${formatTokenUnitDelta(quantityDelta)} seront ajoutés et ${formatEuros(deltaAmountInCents)} seront débités de votre portefeuille.`}
+                            submitButtonProps={{ text: "Confirmer l'achat" }}
+                            onSubmit={handleSave}
+                        />
                     </div>
                 </Drawer.Body>
             </Drawer.Content>

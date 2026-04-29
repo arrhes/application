@@ -1,19 +1,14 @@
-import {
-    generateInvoiceGetSignedUrlRouteDefinition,
-    readAllOrganizationPaymentsRouteDefinition,
-} from "@arrhes/application-metadata/routes"
+import { readAllOrganizationPaymentsRouteDefinition } from "@arrhes/application-metadata/routes"
 import { Chip, type ChipColors, FormatDate, FormatDateTime, FormatPrice, formatDate } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconDownload, IconReceipt } from "@tabler/icons-react"
+import { IconReceipt } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
-import { useState } from "react"
 import { DataWrapper } from "../../../../components/layouts/dataWrapper.tsx"
 import { EmptyState } from "../../../../components/layouts/emptyState.tsx"
 import { ListTable, type ListTableColumn } from "../../../../components/layouts/listTable/listTable.tsx"
 import { Page } from "../../../../components/layouts/page/page.tsx"
 import { SettingsSection } from "../../../../components/layouts/settingsSection/settingsSection.tsx"
 import { organizationSubscriptionHistoryRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/organizationSubscription/organizationSubscriptionHistoryRoute.tsx"
-import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 
 const statusLabel: Record<string, string> = {
     pending: "En attente",
@@ -89,56 +84,6 @@ function getPaymentServiceLabel(serviceType: string | null): string {
     if (serviceType === "agent_tokens_million") return "Tokens"
     if (serviceType === "ocr_pages_hundred") return "OCR"
     return "-"
-}
-
-function DownloadInvoiceButton(props: { idInvoice: string | null }) {
-    const [isDownloading, setIsDownloading] = useState(false)
-
-    if (props.idInvoice === null) {
-        return null
-    }
-
-    const idInvoice = props.idInvoice
-
-    async function handleDownload() {
-        setIsDownloading(true)
-
-        const response = await getResponseBodyFromAPI({
-            routeDefinition: generateInvoiceGetSignedUrlRouteDefinition,
-            body: { idInvoice },
-        })
-
-        setIsDownloading(false)
-
-        if (!response.ok) {
-            return
-        }
-
-        window.open(response.data.url, "_blank")
-    }
-
-    return (
-        <button
-            type="button"
-            onClick={handleDownload}
-            disabled={isDownloading}
-            className={css({
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.25rem",
-                borderRadius: "md",
-                border: "1px solid token(colors.neutral/15)",
-                padding: "0.25rem 0.5rem",
-                fontSize: "xs",
-                color: "neutral/70",
-                _hover: { background: "neutral/5" },
-                _disabled: { opacity: 0.5, cursor: "not-allowed" },
-            })}
-        >
-            <IconDownload size={12} />
-            {isDownloading ? "Chargement..." : "Facture"}
-        </button>
-    )
 }
 
 const columns: Array<ListTableColumn<Payment>> = [
@@ -239,7 +184,6 @@ function PaymentList(props: { payments: Array<Payment> }) {
                                 {payment.serviceType !== null ? (
                                     <Chip text={getPaymentServiceLabel(payment.serviceType)} color="neutral" />
                                 ) : null}
-                                <DownloadInvoiceButton idInvoice={payment.idInvoice} />
                             </div>
                             <div
                                 className={css({

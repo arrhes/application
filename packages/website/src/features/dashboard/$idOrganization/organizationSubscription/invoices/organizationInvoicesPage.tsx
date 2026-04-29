@@ -1,91 +1,30 @@
-import {
-    generateInvoiceGetSignedUrlRouteDefinition,
-    readAllInvoicesRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import { Chip, type ChipColors, formatDate, toast } from "@arrhes/ui"
+import { readAllInvoicesRouteDefinition } from "@arrhes/application-metadata/routes"
+import { Chip, type ChipColors } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconDownload, IconFileInvoice } from "@tabler/icons-react"
+import { IconFileInvoice } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
-import { useState } from "react"
-import { DataWrapper } from "../../../../components/layouts/dataWrapper.tsx"
-import { EmptyState } from "../../../../components/layouts/emptyState.tsx"
-import { Page } from "../../../../components/layouts/page/page.tsx"
-import { SettingsSection } from "../../../../components/layouts/settingsSection/settingsSection.tsx"
-import { organizationInvoicesRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/organizationSubscription/organizationInvoicesRoute.tsx"
-import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
+import { DataWrapper } from "../../../../../components/layouts/dataWrapper.tsx"
+import { EmptyState } from "../../../../../components/layouts/emptyState.tsx"
+import { Page } from "../../../../../components/layouts/page/page.tsx"
+import { SettingsSection } from "../../../../../components/layouts/settingsSection/settingsSection.tsx"
+import { organizationInvoicesRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/organizationSubscription/organizationInvoicesRoute.tsx"
+import { DownloadInvoiceButton } from "./DownloadInvoiceButton.tsx"
 
 const invoiceStatusLabel: Record<string, string> = {
-    draft: "Brouillon",
-    generated: "Générée",
-    paid: "Payée",
+    draft: "En cours",
+    generated: "Disponible",
 }
 
 const invoiceStatusColor: Record<string, ChipColors> = {
     draft: "neutral",
-    generated: "warning",
-    paid: "success",
+    generated: "success",
 }
 
-type Invoice = {
-    id: string
-    invoiceNumber: string
-    periodStart: string
-    periodEnd: string
-    amountInCents: number
-    currency: string
-    storageKey: string | null
-    status: string
-    createdAt: string
-}
-
-function DownloadInvoiceButton(props: { invoice: Invoice }) {
-    const [isDownloading, setIsDownloading] = useState(false)
-
-    async function handleDownload() {
-        if (!props.invoice.storageKey) {
-            toast({ title: "Le PDF de cette facture n'est pas encore disponible", variant: "error" })
-            return
-        }
-        setIsDownloading(true)
-
-        const res = await getResponseBodyFromAPI({
-            routeDefinition: generateInvoiceGetSignedUrlRouteDefinition,
-            body: { idInvoice: props.invoice.id },
-        })
-        setIsDownloading(false)
-
-        if (!res.ok) {
-            toast({ title: "Erreur lors de la génération du lien", variant: "error" })
-            return
-        }
-
-        window.open(res.data.url, "_blank")
-    }
-
-    return (
-        <button
-            type="button"
-            onClick={handleDownload}
-            disabled={isDownloading}
-            className={css({
-                display: "flex",
-                alignItems: "center",
-                gap: "0.375rem",
-                padding: "0.375rem 0.75rem",
-                border: "1px solid token(colors.neutral/20)",
-                borderRadius: "md",
-                cursor: "pointer",
-                fontSize: "sm",
-                background: "transparent",
-                color: "neutral",
-                _hover: { background: "neutral/5" },
-                _disabled: { opacity: 0.5, cursor: "not-allowed" },
-            })}
-        >
-            <IconDownload size={14} />
-            {isDownloading ? "Chargement..." : props.invoice.storageKey ? "Télécharger" : "PDF indisponible"}
-        </button>
-    )
+function formatInvoicePeriod(periodStart: string): string {
+    return new Intl.DateTimeFormat("fr-FR", {
+        month: "long",
+        year: "numeric",
+    }).format(new Date(periodStart))
 }
 
 export function OrganizationInvoicesPage() {
@@ -132,7 +71,7 @@ export function OrganizationInvoicesPage() {
                                         })}
                                     >
                                         <span>Période</span>
-                                        <span>Numéro</span>
+                                        <span>Référence</span>
                                         <span>Montant</span>
                                         <span>Statut</span>
                                         <span />
@@ -150,7 +89,7 @@ export function OrganizationInvoicesPage() {
                                             })}
                                         >
                                             <span className={css({ fontSize: "sm" })}>
-                                                {formatDate(invoice.periodStart)} — {formatDate(invoice.periodEnd)}
+                                                {formatInvoicePeriod(invoice.periodStart)}
                                             </span>
                                             <span
                                                 className={css({

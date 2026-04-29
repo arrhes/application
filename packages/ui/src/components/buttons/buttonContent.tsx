@@ -53,7 +53,7 @@ export function renderButtonContent(
                 cloneElement(props.leftIcon, {
                     "aria-disabled": isDisabled,
                     "aria-current": props.isCurrent,
-                    size: 16,
+                    size: 14,
                     className: cx(classes.leftIcon),
                     strokeWidth: 1.75,
                 })

@@ -2,6 +2,7 @@ import {
     readOneOrganizationRouteDefinition,
     updateLicenceSubscriptionRouteDefinition,
 } from "@arrhes/application-metadata/routes"
+import { SUPPORT_TIERS } from "@arrhes/application-metadata/utilities"
 import { Button, ButtonOutlineContent, toast } from "@arrhes/ui"
 import { InputCurrency } from "@arrhes/ui/components/inputs/inputCurrency.js"
 import { css } from "@arrhes/ui/utilities/cn.js"
@@ -11,8 +12,6 @@ import { Drawer } from "../../../../components/overlays/drawer/drawer.tsx"
 import { formatEuros } from "../../../../utilities/formatEuros.tsx"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
-
-const SUPPORT_TIERS = [0, 500, 1000, 2000, 5000]
 
 export function UpdateLicenceSubscriptionDrawer(props: {
     children: JSX.Element
@@ -42,7 +41,7 @@ export function UpdateLicenceSubscriptionDrawer(props: {
             return
         }
 
-        toast({ title: "Licence mise à jour", variant: "success" })
+        toast({ title: "Modification enregistrée, effective le 1er du mois prochain", variant: "success" })
 
         await invalidateData({
             routeDefinition: readOneOrganizationRouteDefinition,

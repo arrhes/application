@@ -1,22 +1,20 @@
 import { updateOcrSubscriptionRouteDefinition } from "@arrhes/application-metadata/routes"
-import { Button, ButtonOutlineContent, toast } from "@arrhes/ui"
+import { OCR_PAGE_PRICE_IN_CENTS, OCR_PAGE_TIERS } from "@arrhes/application-metadata/utilities"
+import { Button, ButtonOutlineContent, ButtonPlainContent, InputNumber, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconMinus, IconPlus } from "@tabler/icons-react"
+import { IconCreditCard, IconX } from "@tabler/icons-react"
 import { type JSX, type ReactNode, useEffect, useState } from "react"
+import { ConfirmationModal } from "../../../../components/overlays/dialog/confirmationModal.tsx"
 import { Drawer } from "../../../../components/overlays/drawer/drawer.tsx"
 import { formatEuros } from "../../../../utilities/formatEuros.tsx"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
-
-const OCR_PAGES_PER_PACK = 100
-const OCR_PACK_PRICE_IN_CENTS = 100
 
 function formatPageDelta(quantityDelta: number) {
     if (quantityDelta === 0) {
         return "Aucun ajout"
     }
 
-    const pages = quantityDelta * OCR_PAGES_PER_PACK
-    return `Ajouter ${pages.toLocaleString("fr-FR")} pages`
+    return `Ajouter ${quantityDelta.toLocaleString("fr-FR")} page${quantityDelta > 1 ? "s" : ""}`
 }
 
 function DrawerSection(props: { title: string; description?: string; children: ReactNode }) {
@@ -48,12 +46,11 @@ export function UpdateOcrSubscriptionDrawer(props: {
     onSuccess: () => void
 }) {
     const [open, setOpen] = useState(false)
+    const [confirmOpen, setConfirmOpen] = useState(false)
     const [quantityDelta, setQuantityDelta] = useState(0)
-    const [isLoading, setIsLoading] = useState(false)
     const nextQuantity = props.currentQuantity + quantityDelta
-    const deltaAmountInCents = quantityDelta * OCR_PACK_PRICE_IN_CENTS
-    const addedPages = quantityDelta * OCR_PAGES_PER_PACK
-    const nextPagesLeft = props.currentPagesLeft + addedPages
+    const deltaAmountInCents = quantityDelta * OCR_PAGE_PRICE_IN_CENTS
+    const nextPagesLeft = props.currentPagesLeft + quantityDelta
 
     useEffect(() => {
         if (open) {
@@ -62,14 +59,12 @@ export function UpdateOcrSubscriptionDrawer(props: {
     }, [open])
 
     async function handleSave() {
-        setIsLoading(true)
         const response = await getResponseBodyFromAPI({
             routeDefinition: updateOcrSubscriptionRouteDefinition,
             body: {
                 newQuantity: nextQuantity,
             },
         })
-        setIsLoading(false)
 
         if (response.ok === false) {
             toast({ title: response.error?.cause ?? "Erreur lors de la mise à jour", variant: "error" })
@@ -84,7 +79,7 @@ export function UpdateOcrSubscriptionDrawer(props: {
         <Drawer.Root open={open} onOpenChange={setOpen}>
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
-                <Drawer.Header title="Modifier les pages OCR" />
+                <Drawer.Header title="Ajouter des pages OCR" />
                 <Drawer.Body>
                     <div
                         className={css({
@@ -94,88 +89,29 @@ export function UpdateOcrSubscriptionDrawer(props: {
                         })}
                     >
                         <p className={css({ fontSize: "sm", color: "neutral/70", lineHeight: "1.5" })}>
-                            Chaque tranche de 100 pages supplémentaire est débitée une seule fois depuis le
-                            portefeuille. Les pages achetées restent disponibles tant qu'elles ne sont pas consommées.
+                            Chaque page supplémentaire est débitée 0,01€ une seule fois depuis le portefeuille. Les
+                            pages achetées restent disponibles tant qu'elles ne sont pas consommées.
                         </p>
                         <DrawerSection
-                            title="Ajuster les pages OCR"
-                            description="Sélectionnez uniquement les pages supplémentaires à ajouter. Le compteur repart de zéro à chaque ouverture."
+                            title="Ajouter des pages OCR"
+                            description="Sélectionnez uniquement les pages supplémentaires à ajouter."
                         >
                             <div className={css({ display: "flex", flexDirection: "column", gap: "0.5rem" })}>
-                                <span className={css({ fontSize: "sm", color: "neutral/60" })}>Ajout sélectionné</span>
-                                <div
-                                    className={css({
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "space-between",
-                                        gap: "0.75rem",
-                                        flexWrap: "wrap",
-                                    })}
-                                >
-                                    <div className={css({ display: "flex", alignItems: "center", gap: "0.5rem" })}>
-                                        <button
-                                            type="button"
-                                            onClick={() =>
-                                                setQuantityDelta((currentQuantityDelta) =>
-                                                    Math.max(currentQuantityDelta - 1, 0),
-                                                )
-                                            }
-                                            className={css({
-                                                width: "2rem",
-                                                height: "2rem",
-                                                border: "1px solid token(colors.neutral/20)",
-                                                borderRadius: "md",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                cursor: "pointer",
-                                                background: "transparent",
-                                                color: "neutral",
-                                                _hover: { background: "neutral/5" },
-                                            })}
-                                            disabled={quantityDelta === 0}
-                                        >
-                                            <IconMinus size={14} />
-                                        </button>
-                                        <button
-                                            type="button"
-                                            onClick={() =>
-                                                setQuantityDelta((currentQuantityDelta) => currentQuantityDelta + 1)
-                                            }
-                                            className={css({
-                                                width: "2rem",
-                                                height: "2rem",
-                                                border: "1px solid token(colors.neutral/20)",
-                                                borderRadius: "md",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                cursor: "pointer",
-                                                background: "transparent",
-                                                color: "neutral",
-                                                _hover: { background: "neutral/5" },
-                                            })}
-                                        >
-                                            <IconPlus size={14} />
-                                        </button>
-                                        <span
-                                            className={css({
-                                                minWidth: "12rem",
-                                                fontVariantNumeric: "tabular-nums",
-                                            })}
-                                        >
-                                            {formatPageDelta(quantityDelta)}
-                                        </span>
-                                    </div>
-                                    <span className={css({ fontSize: "sm", color: "neutral/70" })}>
-                                        {formatEuros(deltaAmountInCents)} débité
-                                    </span>
+                                <InputNumber value={quantityDelta} onChange={setQuantityDelta} min={0} label="pages" />
+                                <div className={css({ display: "flex", gap: "0.25rem", flexWrap: "wrap" })}>
+                                    {OCR_PAGE_TIERS.map((tier) => (
+                                        <Button key={tier} onClick={() => setQuantityDelta(tier)}>
+                                            <ButtonOutlineContent
+                                                text={tier === 0 ? "0" : `${tier.toLocaleString("fr-FR")} pages`}
+                                            />
+                                        </Button>
+                                    ))}
                                 </div>
                             </div>
                         </DrawerSection>
                         <DrawerSection
                             title="Récapitulatif"
-                            description="Vue du solde actuel, du nouveau solde et du montant débité du portefeuille."
+                            description="Vue du quota actuel, du nouveau quota et du montant débité du portefeuille."
                         >
                             <div
                                 className={css({
@@ -193,7 +129,7 @@ export function UpdateOcrSubscriptionDrawer(props: {
                                         background: "neutral/1",
                                     })}
                                 >
-                                    <span className={css({ fontSize: "xs", color: "neutral/50" })}>Solde actuel</span>
+                                    <span className={css({ fontSize: "xs", color: "neutral/50" })}>Quota actuel</span>
                                     <span className={css({ fontSize: "sm", fontWeight: "600", color: "neutral" })}>
                                         {props.currentPagesLeft.toLocaleString("fr-FR")} pages
                                     </span>
@@ -207,7 +143,7 @@ export function UpdateOcrSubscriptionDrawer(props: {
                                         background: deltaAmountInCents > 0 ? "warning/5" : "neutral/1",
                                     })}
                                 >
-                                    <span className={css({ fontSize: "xs", color: "neutral/50" })}>Nouveau solde</span>
+                                    <span className={css({ fontSize: "xs", color: "neutral/50" })}>Nouveau quota</span>
                                     <span className={css({ fontSize: "sm", fontWeight: "600", color: "neutral" })}>
                                         {nextPagesLeft.toLocaleString("fr-FR")} pages
                                     </span>
@@ -230,12 +166,37 @@ export function UpdateOcrSubscriptionDrawer(props: {
                                 </div>
                             </div>
                         </DrawerSection>
-                        <Button onClick={handleSave} hasLoader isDisabled={isLoading || quantityDelta === 0}>
-                            <ButtonOutlineContent
-                                leftIcon={<IconPlus />}
-                                text={isLoading ? "Enregistrement..." : "Enregistrer les pages OCR"}
-                            />
-                        </Button>
+                        <div
+                            className={css({
+                                display: "flex",
+                                justifyContent: "flex-start",
+                                alignItems: "center",
+                                gap: "0.5rem",
+                            })}
+                        >
+                            <Button
+                                onClick={() => {
+                                    setOpen(false)
+                                }}
+                            >
+                                <ButtonOutlineContent leftIcon={<IconX />} text="Annuler" />
+                            </Button>
+                            <Button onClick={() => setConfirmOpen(true)} isDisabled={quantityDelta === 0}>
+                                <ButtonPlainContent
+                                    leftIcon={<IconCreditCard />}
+                                    text="Confirmer l'achat"
+                                    isDisabled={quantityDelta === 0}
+                                />
+                            </Button>
+                        </div>
+                        <ConfirmationModal
+                            open={confirmOpen}
+                            onOpenChange={setConfirmOpen}
+                            title="Confirmer l'achat de pages OCR"
+                            description={`${formatPageDelta(quantityDelta)} seront ajoutées et ${formatEuros(deltaAmountInCents)} seront débités de votre portefeuille.`}
+                            submitButtonProps={{ text: "Confirmer l'achat" }}
+                            onSubmit={handleSave}
+                        />
                     </div>
                 </Drawer.Body>
             </Drawer.Content>

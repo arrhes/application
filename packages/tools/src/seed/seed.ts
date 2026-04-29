@@ -1391,6 +1391,7 @@ async function seed() {
 
             const invoiceThreeMonthsAgoId = generateId()
             const invoiceTwoMonthsAgoId = generateId()
+            const invoicePreviousMonthId = generateId()
 
             const seededInvoices: (typeof models.invoice.$inferInsert)[] = [
                 {
@@ -1402,7 +1403,7 @@ async function seed() {
                     amountInCents: 2_610,
                     currency: "EUR",
                     storageKey: null,
-                    status: "paid",
+                    status: "draft",
                     createdAt: new Date(threeMonthsAgo.periodEnd.getTime() + 60_000).toISOString(),
                     lastUpdatedAt: null,
                 },
@@ -1415,8 +1416,21 @@ async function seed() {
                     amountInCents: 2_810,
                     currency: "EUR",
                     storageKey: null,
-                    status: "paid",
+                    status: "draft",
                     createdAt: new Date(twoMonthsAgo.periodEnd.getTime() + 60_000).toISOString(),
+                    lastUpdatedAt: null,
+                },
+                {
+                    id: invoicePreviousMonthId,
+                    idOrganization: populatedOrganization.id,
+                    invoiceNumber: `${formatInvoicePrefix(previousMonth.periodStart)}-0001`,
+                    periodStart: previousMonth.periodStart.toISOString(),
+                    periodEnd: previousMonth.periodEnd.toISOString(),
+                    amountInCents: 3_110,
+                    currency: "EUR",
+                    storageKey: null,
+                    status: "draft",
+                    createdAt: new Date(previousMonth.periodStart.getTime() + 60 * 60_000).toISOString(),
                     lastUpdatedAt: null,
                 },
             ]
@@ -1672,7 +1686,7 @@ async function seed() {
                     periodStart: previousMonth.periodStart.toISOString(),
                     periodEnd: previousMonth.periodEnd.toISOString(),
                     paidAt: new Date(previousMonth.periodStart.getTime() + 60 * 60_000).toISOString(),
-                    idInvoice: null,
+                    idInvoice: invoicePreviousMonthId,
                     createdAt: new Date(previousMonth.periodStart.getTime() + 60 * 60_000).toISOString(),
                     lastUpdatedAt: null,
                     createdBy: null,
@@ -1693,7 +1707,7 @@ async function seed() {
                     periodStart: previousMonth.periodStart.toISOString(),
                     periodEnd: previousMonth.periodEnd.toISOString(),
                     paidAt: new Date(previousMonth.periodStart.getTime() + 60 * 60_000).toISOString(),
-                    idInvoice: null,
+                    idInvoice: invoicePreviousMonthId,
                     createdAt: new Date(previousMonth.periodStart.getTime() + 60 * 60_000).toISOString(),
                     lastUpdatedAt: null,
                     createdBy: null,
@@ -1714,7 +1728,7 @@ async function seed() {
                     periodStart: null,
                     periodEnd: null,
                     paidAt: new Date(previousMonth.periodStart.getTime() + 15 * 24 * 60 * 60_000).toISOString(),
-                    idInvoice: null,
+                    idInvoice: invoicePreviousMonthId,
                     createdAt: new Date(previousMonth.periodStart.getTime() + 15 * 24 * 60 * 60_000).toISOString(),
                     lastUpdatedAt: null,
                     createdBy: newUser.id,
@@ -1735,7 +1749,7 @@ async function seed() {
                     periodStart: null,
                     periodEnd: null,
                     paidAt: new Date(previousMonth.periodStart.getTime() + 20 * 24 * 60 * 60_000).toISOString(),
-                    idInvoice: null,
+                    idInvoice: invoicePreviousMonthId,
                     createdAt: new Date(previousMonth.periodStart.getTime() + 20 * 24 * 60 * 60_000).toISOString(),
                     lastUpdatedAt: null,
                     createdBy: newUser.id,

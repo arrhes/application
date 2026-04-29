@@ -1,11 +1,17 @@
-export const FREE_STORAGE_BYTES = 1_073_741_824
-export const INCLUDED_AGENT_TOKENS = 1_000_000
-export const INCLUDED_OCR_PAGES = 100
+import {
+    FREE_STORAGE_BYTES,
+    INCLUDED_AGENT_TOKENS,
+    INCLUDED_OCR_PAGES,
+    STORAGE_PRICE_PER_GB_IN_CENTS,
+    TOKEN_PACK_PRICE_IN_CENTS,
+} from "@arrhes/application-metadata/utilities"
+
+export { FREE_STORAGE_BYTES, INCLUDED_AGENT_TOKENS, INCLUDED_OCR_PAGES }
 
 const RESOURCE_UNIT_PRICE_IN_CENTS = {
-    storage_gb: 10,
-    agent_tokens_million: 100,
-    ocr_pages_hundred: 100,
+    storage_gb: STORAGE_PRICE_PER_GB_IN_CENTS,
+    agent_tokens_million: TOKEN_PACK_PRICE_IN_CENTS,
+    ocr_pages_hundred: TOKEN_PACK_PRICE_IN_CENTS,
 } as const
 
 const ONE_TIME_SERVICE_TYPES = {

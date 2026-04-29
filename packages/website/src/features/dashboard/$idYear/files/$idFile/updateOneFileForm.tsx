@@ -22,10 +22,10 @@ import { invalidateData } from "../../../../../utilities/invalidateData.js"
 export function UpdateOneFileForm(props: { file: v.InferOutput<typeof returnedSchemas.file>; onSuccess?: () => void }) {
     return (
         <FormRoot
-            schema={v.intersect([
-                updateOneFileRouteDefinition.schemas.body,
-                v.object({ file: v.optional(fileSchema) }),
-            ])}
+            schema={v.object({
+                ...updateOneFileRouteDefinition.schemas.body.entries,
+                file: v.optional(fileSchema),
+            })}
             defaultValues={{
                 ...props.file,
                 idFile: props.file.id,

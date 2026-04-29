@@ -1,16 +1,16 @@
 import { models, updateTokensSubscriptionRouteDefinition } from "@arrhes/application-metadata"
+import { TOKEN_PACK_PRICE_IN_CENTS } from "@arrhes/application-metadata/utilities"
 import { and, eq } from "drizzle-orm"
 import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
+import { findOrCreateCurrentPeriodInvoice, getCurrentMonthRange } from "../../../../utilities/billing/billingInvoice.js"
 import { getTokenAddonQuantity, getTotalTokensFromQuantity } from "../../../../utilities/billing/subscriptionPricing.js"
 import { recordOrganizationPayment } from "../../../../utilities/billing/wallet.js"
 import { Exception } from "../../../../utilities/exception.js"
 import { response } from "../../../../utilities/response.js"
 import { selectOne } from "../../../../utilities/sql/selectOne.js"
 import { updateOne } from "../../../../utilities/sql/updateOne.js"
-
-const TOKEN_PACK_PRICE_IN_CENTS = 100
 
 export const updateTokensSubscriptionRoute = apiFactory
     .createApp()
@@ -89,6 +89,14 @@ export const updateTokensSubscriptionRoute = apiFactory
             })
 
             if (paidAmountInCents > 0) {
+                const { periodStart, periodEnd } = getCurrentMonthRange(now)
+                const idInvoice = await findOrCreateCurrentPeriodInvoice({
+                    database: transaction,
+                    idOrganization,
+                    periodStart,
+                    periodEnd,
+                    now,
+                })
                 await recordOrganizationPayment({
                     database: transaction,
                     idOrganization,
@@ -97,6 +105,7 @@ export const updateTokensSubscriptionRoute = apiFactory
                     amountInCents: paidAmountInCents,
                     description: "Achat tokens Assistant IA",
                     serviceType: "agent_tokens_million",
+                    idInvoice,
                     createdBy: user.id,
                 })
             }

@@ -5,8 +5,8 @@ import {
     type organizationSubscriptionType,
 } from "@arrhes/application-metadata"
 import { eq, sql } from "drizzle-orm"
+import type { sqlClient } from "../../clients/sqlClient.js"
 import { Exception } from "../exception.js"
-import type { getClients } from "../getClients.js"
 import { insertOne } from "../sql/insertOne.js"
 import { selectOne } from "../sql/selectOne.js"
 import { updateOne } from "../sql/updateOne.js"
@@ -28,7 +28,7 @@ export function mapMollieRefundStatusToPaymentStatus(status: string): "pending" 
 }
 
 export async function recordOrganizationPayment(parameters: {
-    database: Awaited<ReturnType<typeof getClients>>["sql"]
+    database: ReturnType<typeof sqlClient> | Parameters<Parameters<ReturnType<typeof sqlClient>["transaction"]>[0]>[0]
     idOrganization: string
     category: (typeof organizationPaymentCategory)[number]
     status: "pending" | "paid" | "failed" | "refunded"
@@ -46,6 +46,37 @@ export async function recordOrganizationPayment(parameters: {
     createdBy: string | null
 }) {
     const nowISO = new Date().toISOString()
+
+    // Keep organization wallet balance in sync when creating wallet-related payments.
+    // Only apply deltas for statuses that should have an accounting effect at creation time.
+    if (
+        (parameters.category === "wallet_spending" && parameters.status === "paid") ||
+        (parameters.category === "withdrawal" && parameters.status !== "failed")
+    ) {
+        await updateOne({
+            database: parameters.database,
+            table: models.organization,
+            data: {
+                walletBalanceInCents: sql`${models.organization.walletBalanceInCents} - ${parameters.amountInCents}`,
+                lastUpdatedAt: nowISO,
+                lastUpdatedBy: parameters.createdBy,
+            },
+            where: (table) => eq(table.id, parameters.idOrganization),
+        })
+    }
+
+    if (parameters.category === "top_up" && parameters.status === "paid") {
+        await updateOne({
+            database: parameters.database,
+            table: models.organization,
+            data: {
+                walletBalanceInCents: sql`${models.organization.walletBalanceInCents} + ${parameters.amountInCents}`,
+                lastUpdatedAt: nowISO,
+                lastUpdatedBy: parameters.createdBy,
+            },
+            where: (table) => eq(table.id, parameters.idOrganization),
+        })
+    }
 
     await insertOne({
         database: parameters.database,
@@ -75,7 +106,7 @@ export async function recordOrganizationPayment(parameters: {
 }
 
 export async function debitOrganizationWallet(parameters: {
-    database: Awaited<ReturnType<typeof getClients>>["sql"]
+    database: ReturnType<typeof sqlClient> | Parameters<Parameters<ReturnType<typeof sqlClient>["transaction"]>[0]>[0]
     idOrganization: string
     idUser: string | null
     amountInCents: number
@@ -100,17 +131,6 @@ export async function debitOrganizationWallet(parameters: {
         })
     }
 
-    await updateOne({
-        database: parameters.database,
-        table: models.organization,
-        data: {
-            walletBalanceInCents: sql`${models.organization.walletBalanceInCents} - ${parameters.amountInCents}`,
-            lastUpdatedAt: new Date().toISOString(),
-            lastUpdatedBy: parameters.idUser,
-        },
-        where: (table) => eq(table.id, parameters.idOrganization),
-    })
-
     await recordOrganizationPayment({
         database: parameters.database,
         idOrganization: parameters.idOrganization,
@@ -124,7 +144,7 @@ export async function debitOrganizationWallet(parameters: {
 }
 
 export async function creditOrganizationWallet(parameters: {
-    database: Awaited<ReturnType<typeof getClients>>["sql"]
+    database: ReturnType<typeof sqlClient> | Parameters<Parameters<ReturnType<typeof sqlClient>["transaction"]>[0]>[0]
     idOrganization: string
     idUser: string | null
     amountInCents: number
@@ -134,17 +154,6 @@ export async function creditOrganizationWallet(parameters: {
     if (parameters.amountInCents <= 0) {
         return
     }
-
-    await updateOne({
-        database: parameters.database,
-        table: models.organization,
-        data: {
-            walletBalanceInCents: sql`${models.organization.walletBalanceInCents} + ${parameters.amountInCents}`,
-            lastUpdatedAt: new Date().toISOString(),
-            lastUpdatedBy: parameters.idUser,
-        },
-        where: (table) => eq(table.id, parameters.idOrganization),
-    })
 
     await recordOrganizationPayment({
         database: parameters.database,

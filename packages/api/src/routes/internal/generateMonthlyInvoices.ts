@@ -7,6 +7,10 @@ import * as v from "valibot"
 import { apiFactory } from "../../utilities/apiFactory.js"
 import { apiLog } from "../../utilities/apiLog.js"
 import {
+    findOrCreateCurrentPeriodInvoice,
+    generateRandomInvoiceReference,
+} from "../../utilities/billing/billingInvoice.js"
+import {
     getResourceSubscriptionUnitPriceInCents,
     getStorageAddonQuantity,
     getStorageRecurringAmountInCents,
@@ -211,24 +215,81 @@ export const generateMonthlyInvoicesRoute = apiFactory
 
         const orgMap = new Map(organizations.map((organization) => [organization.id, organization]))
 
-        const existingInvoices = await c.var.clients.sql
+        // ── Phase 0: Apply pending subscription changes ──────────────────────────
+        // Changes set by users during the previous month are applied now before billing.
+        const orgsWithPendingChanges = organizations.filter(
+            (org) => org.pendingLicenceAmount !== null || org.pendingStorageMaxUsage !== null,
+        )
+
+        for (const org of orgsWithPendingChanges) {
+            try {
+                await updateOne({
+                    database: c.var.clients.sql,
+                    table: models.organization,
+                    data: {
+                        ...(org.pendingLicenceAmount !== null
+                            ? { licenceAmount: org.pendingLicenceAmount, pendingLicenceAmount: null }
+                            : {}),
+                        ...(org.pendingStorageMaxUsage !== null
+                            ? {
+                                  storageMaxUsage: org.pendingStorageMaxUsage,
+                                  storageLimit: org.pendingStorageMaxUsage,
+                                  pendingStorageMaxUsage: null,
+                              }
+                            : {}),
+                        lastUpdatedAt: now.toISOString(),
+                    },
+                    where: (table) => eq(table.id, org.id),
+                })
+
+                const orgInMap = orgMap.get(org.id)
+                if (orgInMap) {
+                    if (org.pendingLicenceAmount !== null) {
+                        orgInMap.licenceAmount = org.pendingLicenceAmount
+                        orgInMap.pendingLicenceAmount = null
+                    }
+                    if (org.pendingStorageMaxUsage !== null) {
+                        orgInMap.storageMaxUsage = org.pendingStorageMaxUsage
+                        orgInMap.storageLimit = org.pendingStorageMaxUsage
+                        orgInMap.pendingStorageMaxUsage = null
+                    }
+                }
+            } catch (error) {
+                apiLog({
+                    var: c.var,
+                    type: "error",
+                    internalMessage: `Failed to apply pending subscription changes for org ${org.id}`,
+                    cause: error instanceof Error ? error.message : String(error),
+                    stack: error instanceof Error ? error.stack : undefined,
+                })
+            }
+        }
+
+        // ── Phase 1: Generate PDFs for all pending draft invoices ────────────────
+        // Path A: invoices already created as drafts when payments were made during the month.
+        // Processes drafts from any period so that historical seed data or catch-up invoices
+        // are also rendered — not only the immediately-previous month.
+        const draftInvoicesLastMonth = await c.var.clients.sql
             .select({
                 id: models.invoice.id,
                 idOrganization: models.invoice.idOrganization,
-                status: models.invoice.status,
+                invoiceNumber: models.invoice.invoiceNumber,
+                periodStart: models.invoice.periodStart,
+                periodEnd: models.invoice.periodEnd,
             })
             .from(models.invoice)
-            .where(
-                and(
-                    inArray(models.invoice.idOrganization, orgIds),
-                    eq(models.invoice.periodStart, previousPeriodStartISO),
-                ),
-            )
-        const existingInvoiceByOrganizationId = new Map(
-            existingInvoices.map((invoice) => [invoice.idOrganization, invoice]),
+            .where(and(inArray(models.invoice.idOrganization, orgIds), eq(models.invoice.status, "draft")))
+
+        // Only orgs with a previous-month draft are excluded from Path B (orphan-payment handling).
+        // Orgs with drafts from other periods still need Path B to run for last-month orphans.
+        const orgsWithPreviousMonthDraftInvoice = new Set(
+            draftInvoicesLastMonth
+                .filter((inv) => inv.periodStart === previousPeriodStartISO)
+                .map((inv) => inv.idOrganization),
         )
 
-        const uninvoicedServicePaymentsRaw = await c.var.clients.sql
+        // Path B: backward compat — orgs with uninvoiced payments from last month (pre-migration data)
+        const uninvoicedPreviousMonthPaymentsRaw = await c.var.clients.sql
             .select({
                 id: models.organizationPayment.id,
                 idOrganization: models.organizationPayment.idOrganization,
@@ -247,38 +308,217 @@ export const generateMonthlyInvoicesRoute = apiFactory
                 ),
             )
 
-        const previousMonthPayments = uninvoicedServicePaymentsRaw.flatMap((payment) => {
-            if (isInvoiceLineType(payment.serviceType) === false) {
-                return []
-            }
-
-            const effectiveDate = payment.paidAt ?? payment.createdAt
-            if (isDateWithinRange(effectiveDate, previousPeriodStart, previousPeriodEnd) === false) {
-                return []
-            }
-
-            return [
-                {
+        const prevMonthOrphanPayments = uninvoicedPreviousMonthPaymentsRaw.reduce<Map<string, ServicePaymentRecord[]>>(
+            (accumulator, payment) => {
+                if (isInvoiceLineType(payment.serviceType) === false) return accumulator
+                const effectiveDate = payment.paidAt ?? payment.createdAt
+                if (isDateWithinRange(effectiveDate, previousPeriodStart, previousPeriodEnd) === false)
+                    return accumulator
+                // Skip orgs that already have a draft invoice for the previous month — handled via Path A
+                if (orgsWithPreviousMonthDraftInvoice.has(payment.idOrganization)) return accumulator
+                const list = accumulator.get(payment.idOrganization) ?? []
+                list.push({
                     id: payment.id,
                     idOrganization: payment.idOrganization,
                     serviceType: payment.serviceType,
                     amountInCents: payment.amountInCents,
                     paidAt: payment.paidAt,
                     createdAt: payment.createdAt,
-                } satisfies ServicePaymentRecord,
-            ]
-        })
-
-        const previousMonthPaymentsByOrganizationId = previousMonthPayments.reduce<Map<string, ServicePaymentRecord[]>>(
-            (accumulator, payment) => {
-                const payments = accumulator.get(payment.idOrganization) ?? []
-                payments.push(payment)
-                accumulator.set(payment.idOrganization, payments)
+                } satisfies ServicePaymentRecord)
+                accumulator.set(payment.idOrganization, list)
                 return accumulator
             },
             new Map(),
         )
 
+        let browser: Awaited<ReturnType<typeof launch>> | null = null
+
+        try {
+            browser = await launch({ args: ["--no-sandbox"], headless: true })
+        } catch (error) {
+            apiLog({
+                var: c.var,
+                type: "information",
+                message: `Monthly invoice PDF rendering unavailable, continuing without PDF: ${error instanceof Error ? error.message : String(error)}`,
+            })
+        }
+
+        const __filename = fileURLToPath(import.meta.url)
+        const __dirname = path.dirname(__filename)
+        const fontPath = path.resolve(
+            __dirname,
+            "./packages/api/src/utilities/email/templates/fonts/SometypeMono-VariableFont_wght.ttf",
+        )
+
+        let generatedCount = 0
+
+        // Path A: generate PDFs for all pending draft invoices
+        for (const draftInvoice of draftInvoicesLastMonth) {
+            const organization = orgMap.get(draftInvoice.idOrganization)
+            if (!organization) continue
+
+            // Derive period prefix from the invoice's own periodStart (not the global previous-month)
+            const invPeriodDate = new Date(draftInvoice.periodStart)
+            const invPrefix = `${String(invPeriodDate.getUTCFullYear())}-${String(invPeriodDate.getUTCMonth() + 1).padStart(2, "0")}`
+
+            try {
+                const invoicePaymentsRaw = await c.var.clients.sql
+                    .select({
+                        id: models.organizationPayment.id,
+                        idOrganization: models.organizationPayment.idOrganization,
+                        serviceType: models.organizationPayment.serviceType,
+                        amountInCents: models.organizationPayment.amountInCents,
+                        paidAt: models.organizationPayment.paidAt,
+                        createdAt: models.organizationPayment.createdAt,
+                    })
+                    .from(models.organizationPayment)
+                    .where(eq(models.organizationPayment.idInvoice, draftInvoice.id))
+
+                const servicePayments = invoicePaymentsRaw.filter((p) =>
+                    isInvoiceLineType(p.serviceType),
+                ) as ServicePaymentRecord[]
+
+                if (servicePayments.length === 0) continue
+
+                const invoiceLines = buildInvoiceLinesFromPayments(servicePayments)
+                const totalAmountInCents = invoiceLines.reduce((sum, line) => sum + line.amountInCents, 0)
+
+                let storageKey: string | null = null
+
+                if (browser !== null) {
+                    const pdfBody = await createInvoicePdf({
+                        browser,
+                        fontPath,
+                        invoiceNumber: draftInvoice.invoiceNumber,
+                        periodStartISO: draftInvoice.periodStart,
+                        periodEndISO: draftInvoice.periodEnd,
+                        organizationName: organization.name,
+                        organizationEmail: organization.email ?? "",
+                        amountInCents: totalAmountInCents,
+                        subscriptions: invoiceLines,
+                    })
+
+                    storageKey = `invoices/${draftInvoice.idOrganization}/${invPrefix}.pdf`
+
+                    await putObject({
+                        var: c.var,
+                        body: pdfBody,
+                        storageKey,
+                        contentType: "application/pdf",
+                        contentLength: pdfBody.length,
+                        metadata: {
+                            idOrganization: draftInvoice.idOrganization,
+                            invoiceNumber: draftInvoice.invoiceNumber,
+                            period: invPrefix,
+                        },
+                    })
+                }
+
+                await updateOne({
+                    database: c.var.clients.sql,
+                    table: models.invoice,
+                    data: {
+                        amountInCents: totalAmountInCents,
+                        storageKey,
+                        status: "paid",
+                        lastUpdatedAt: now.toISOString(),
+                    },
+                    where: (table) => eq(table.id, draftInvoice.id),
+                })
+
+                generatedCount++
+            } catch (error) {
+                apiLog({
+                    var: c.var,
+                    type: "error",
+                    internalMessage: `Failed to generate invoice PDF for org ${draftInvoice.idOrganization}`,
+                    cause: error instanceof Error ? error.message : String(error),
+                    stack: error instanceof Error ? error.stack : undefined,
+                })
+            }
+        }
+
+        // Path B: backward compat — create and immediately generate invoices for orphaned payments
+        for (const [idOrganization, payments] of prevMonthOrphanPayments) {
+            const organization = orgMap.get(idOrganization)
+            if (!organization || payments.length === 0) continue
+
+            try {
+                const invoiceNumber = generateRandomInvoiceReference(previousPeriodStart)
+
+                const invoiceLines = buildInvoiceLinesFromPayments(payments)
+                const totalAmountInCents = invoiceLines.reduce((sum, line) => sum + line.amountInCents, 0)
+
+                let storageKey: string | null = null
+
+                if (browser !== null) {
+                    const pdfBody = await createInvoicePdf({
+                        browser,
+                        fontPath,
+                        invoiceNumber,
+                        periodStartISO: previousPeriodStartISO,
+                        periodEndISO: previousPeriodEndISO,
+                        organizationName: organization.name,
+                        organizationEmail: organization.email ?? "",
+                        amountInCents: totalAmountInCents,
+                        subscriptions: invoiceLines,
+                    })
+
+                    storageKey = `invoices/${idOrganization}/${invoicePrefix}.pdf`
+
+                    await putObject({
+                        var: c.var,
+                        body: pdfBody,
+                        storageKey,
+                        contentType: "application/pdf",
+                        contentLength: pdfBody.length,
+                        metadata: { idOrganization, invoiceNumber, period: invoicePrefix },
+                    })
+                }
+
+                const invoiceId = generateId()
+                await insertOne({
+                    database: c.var.clients.sql,
+                    table: models.invoice,
+                    data: {
+                        id: invoiceId,
+                        idOrganization,
+                        invoiceNumber,
+                        periodStart: previousPeriodStartISO,
+                        periodEnd: previousPeriodEndISO,
+                        amountInCents: totalAmountInCents,
+                        currency: "EUR",
+                        storageKey,
+                        status: "paid",
+                        createdAt: now.toISOString(),
+                        lastUpdatedAt: null,
+                    },
+                })
+
+                await c.var.clients.sql
+                    .update(models.organizationPayment)
+                    .set({ idInvoice: invoiceId, lastUpdatedAt: now.toISOString() })
+                    .where(
+                        inArray(
+                            models.organizationPayment.id,
+                            payments.map((p) => p.id),
+                        ),
+                    )
+
+                generatedCount++
+            } catch (error) {
+                apiLog({
+                    var: c.var,
+                    type: "error",
+                    internalMessage: `Failed to create legacy invoice for org ${idOrganization}`,
+                    cause: error instanceof Error ? error.message : String(error),
+                    stack: error instanceof Error ? error.stack : undefined,
+                })
+            }
+        }
+
+        // ── Phase 2: Charge recurring billing for current month ───────────────────
+        // Uses updated values after pending changes have been applied in Phase 0.
         const currentRecurringPaymentsRaw = await c.var.clients.sql
             .select({
                 idOrganization: models.organizationPayment.idOrganization,
@@ -308,108 +548,11 @@ export const generateMonthlyInvoicesRoute = apiFactory
             return accumulator
         }, new Map())
 
-        let browser: Awaited<ReturnType<typeof launch>> | null = null
-
-        try {
-            browser = await launch({ args: ["--no-sandbox"], headless: true })
-        } catch (error) {
-            apiLog({
-                var: c.var,
-                type: "information",
-                message: `Monthly invoice PDF rendering unavailable, continuing without PDF: ${error instanceof Error ? error.message : String(error)}`,
-            })
-        }
-
-        const __filename = fileURLToPath(import.meta.url)
-        const __dirname = path.dirname(__filename)
-        const fontPath = path.resolve(
-            __dirname,
-            "./packages/api/src/utilities/email/templates/fonts/SometypeMono-VariableFont_wght.ttf",
-        )
-
-        let generatedCount = 0
-        let invoiceSequence = existingInvoices.length + 1
-
         for (const idOrganization of orgIds) {
             const organization = orgMap.get(idOrganization)
             if (!organization) continue
 
             try {
-                const previousPaymentsForOrganization = previousMonthPaymentsByOrganizationId.get(idOrganization) ?? []
-                let invoiceId = existingInvoiceByOrganizationId.get(idOrganization)?.id ?? null
-
-                if (invoiceId === null && previousPaymentsForOrganization.length > 0) {
-                    const invoiceNumber = `${invoicePrefix}-${String(invoiceSequence).padStart(4, "0")}`
-                    invoiceSequence++
-                    const invoiceLines = buildInvoiceLinesFromPayments(previousPaymentsForOrganization)
-                    const totalAmountInCents = invoiceLines.reduce((sum, line) => sum + line.amountInCents, 0)
-
-                    let storageKey: string | null = null
-
-                    if (browser !== null) {
-                        const pdfBody = await createInvoicePdf({
-                            browser,
-                            fontPath,
-                            invoiceNumber,
-                            periodStartISO: previousPeriodStartISO,
-                            periodEndISO: previousPeriodEndISO,
-                            organizationName: organization.name,
-                            organizationEmail: organization.email ?? "",
-                            amountInCents: totalAmountInCents,
-                            subscriptions: invoiceLines,
-                        })
-
-                        storageKey = `invoices/${idOrganization}/${invoicePrefix}.pdf`
-
-                        await putObject({
-                            var: c.var,
-                            body: pdfBody,
-                            storageKey,
-                            contentType: "application/pdf",
-                            contentLength: pdfBody.length,
-                            metadata: {
-                                idOrganization,
-                                invoiceNumber,
-                                period: invoicePrefix,
-                            },
-                        })
-                    }
-
-                    invoiceId = generateId()
-                    await insertOne({
-                        database: c.var.clients.sql,
-                        table: models.invoice,
-                        data: {
-                            id: invoiceId,
-                            idOrganization,
-                            invoiceNumber,
-                            periodStart: previousPeriodStartISO,
-                            periodEnd: previousPeriodEndISO,
-                            amountInCents: totalAmountInCents,
-                            currency: "EUR",
-                            storageKey,
-                            status: "paid",
-                            createdAt: now.toISOString(),
-                            lastUpdatedAt: null,
-                        },
-                    })
-
-                    await c.var.clients.sql
-                        .update(models.organizationPayment)
-                        .set({
-                            idInvoice: invoiceId,
-                            lastUpdatedAt: now.toISOString(),
-                        })
-                        .where(
-                            inArray(
-                                models.organizationPayment.id,
-                                previousPaymentsForOrganization.map((payment) => payment.id),
-                            ),
-                        )
-
-                    generatedCount++
-                }
-
                 const currentRecurringServiceTypes =
                     currentRecurringServiceTypesByOrganizationId.get(idOrganization) ?? new Set<InvoiceLineType>()
                 const recurringLinesToCharge = buildRecurringInvoiceLines(organization).filter(
@@ -438,6 +581,15 @@ export const generateMonthlyInvoicesRoute = apiFactory
 
                     organization.walletBalanceInCents = nextWalletBalanceInCents
 
+                    // Create (or find) the draft invoice for this billing period
+                    const idInvoice = await findOrCreateCurrentPeriodInvoice({
+                        database: c.var.clients.sql,
+                        idOrganization,
+                        periodStart: currentPeriodStart,
+                        periodEnd: currentPeriodEnd,
+                        now,
+                    })
+
                     for (const recurringLine of recurringLinesToCharge) {
                         await recordOrganizationPayment({
                             database: c.var.clients.sql,
@@ -450,6 +602,7 @@ export const generateMonthlyInvoicesRoute = apiFactory
                             serviceType: recurringLine.type,
                             periodStart: currentPeriodStartISO,
                             periodEnd: currentPeriodEndISO,
+                            idInvoice,
                             createdBy: null,
                         })
                     }

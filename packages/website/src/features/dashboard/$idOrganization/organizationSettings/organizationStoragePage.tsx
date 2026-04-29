@@ -111,7 +111,7 @@ export function OrganizationStoragePage() {
                                 <Banner variant="information">
                                     Pour augmenter votre limite de stockage, souscrivez à un{" "}
                                     <LinkButton
-                                        to="/dashboard/organisations/$idOrganization/abonnement"
+                                        to="/dashboard/organisations/$idOrganization/facturation"
                                         params={{ idOrganization: params.idOrganization }}
                                     >
                                         <LinkContent

@@ -1,5 +1,5 @@
 import { createWalletWithdrawalRouteDefinition, models } from "@arrhes/application-metadata"
-import { and, desc, eq, gte, inArray, lt, ne, sql } from "drizzle-orm"
+import { and, desc, eq, gte, inArray, lt, ne } from "drizzle-orm"
 import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
@@ -12,7 +12,6 @@ import { Exception } from "../../../../utilities/exception.js"
 import { response } from "../../../../utilities/response.js"
 import { selectMany } from "../../../../utilities/sql/selectMany.js"
 import { selectOne } from "../../../../utilities/sql/selectOne.js"
-import { updateOne } from "../../../../utilities/sql/updateOne.js"
 import { productName } from "../../../../utilities/variables.js"
 
 export const createWalletWithdrawalRoute = apiFactory
@@ -152,17 +151,6 @@ export const createWalletWithdrawalRoute = apiFactory
                 externalMessage: "Le retrait n'a pas pu être initié auprès de Mollie.",
             })
         }
-
-        await updateOne({
-            database: c.var.clients.sql,
-            table: models.organization,
-            data: {
-                walletBalanceInCents: sql`${models.organization.walletBalanceInCents} - ${body.amountInCents}`,
-                lastUpdatedAt: now.toISOString(),
-                lastUpdatedBy: user.id,
-            },
-            where: (table) => eq(table.id, idOrganization),
-        })
 
         await recordOrganizationPayment({
             database: c.var.clients.sql,

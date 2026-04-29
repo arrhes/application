@@ -36,9 +36,9 @@ export function FormatPrice(props: { price?: number | null | string; className?:
             )}
         >
             {processedPrice < 0
-                ? `(${formatPrice({
+                ? `-${formatPrice({
                       price: Math.abs(processedPrice),
-                  })})`
+                  })}`
                 : formatPrice({
                       price: Math.abs(processedPrice),
                   })}

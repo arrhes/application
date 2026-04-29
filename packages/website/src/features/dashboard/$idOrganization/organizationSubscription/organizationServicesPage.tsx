@@ -1,37 +1,35 @@
 import { readOneOrganizationRouteDefinition } from "@arrhes/application-metadata/routes"
+import {
+    FREE_STORAGE_BYTES,
+    INCLUDED_AGENT_TOKENS,
+    INCLUDED_OCR_PAGES,
+    STORAGE_PRICE_PER_GB_IN_CENTS,
+} from "@arrhes/application-metadata/utilities"
 import { Button, ButtonOutlineContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconPencil } from "@tabler/icons-react"
+import { IconAlertTriangle, IconPencil } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { type JSX, useState } from "react"
 import { DataWrapper } from "../../../../components/layouts/dataWrapper.tsx"
 import { Page } from "../../../../components/layouts/page/page.tsx"
 import { organizationServicesRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/organizationSubscription/organizationSubscriptionsRoute.tsx"
 import { formatEuros } from "../../../../utilities/formatEuros.tsx"
-import { OrganizationBillingDisclaimerBanner } from "./organizationBillingComponents.tsx"
 import { UpdateLicenceSubscriptionDrawer } from "./updateLicenceSubscriptionDrawer.tsx"
 import { UpdateOcrSubscriptionDrawer } from "./updateOcrSubscriptionDrawer.tsx"
 import { UpdateStorageSubscriptionDrawer } from "./updateStorageSubscriptionDrawer.tsx"
 import { UpdateTokensSubscriptionDrawer } from "./updateTokensSubscriptionDrawer.tsx"
-
-const FREE_STORAGE_BYTES = 1_073_741_824
-const INCLUDED_AGENT_TOKENS = 1_000_000
-const INCLUDED_OCR_PAGES = 100
+import { OrganizationBillingDisclaimerBanner } from "./wallet/OrganizationBillingDisclaimerBanner.tsx"
 
 function getStorageAddonQuantity(storageMaxUsage: number) {
     return Math.max(Math.round((storageMaxUsage - FREE_STORAGE_BYTES) / FREE_STORAGE_BYTES), 0)
 }
 
 function getRecurringStorageAmountInCents(storageMaxUsage: number) {
-    return getStorageAddonQuantity(storageMaxUsage) * 10
+    return getStorageAddonQuantity(storageMaxUsage) * STORAGE_PRICE_PER_GB_IN_CENTS
 }
 
 function getTokenAddonQuantity(totalTokens: number) {
     return Math.max(Math.round((totalTokens - INCLUDED_AGENT_TOKENS) / INCLUDED_AGENT_TOKENS), 0)
-}
-
-function getOcrAddonQuantity(totalPages: number) {
-    return Math.max(Math.round((totalPages - INCLUDED_OCR_PAGES) / INCLUDED_OCR_PAGES), 0)
 }
 
 function formatStorageValue(value: number) {
@@ -58,12 +56,58 @@ function formatTokenValue(value: number) {
     return value.toLocaleString("fr-FR")
 }
 
+function UsageBar(props: { current: number; limit: number; formatValue: (v: number) => string }) {
+    const safeLimit = props.limit <= 0 ? 1 : props.limit
+    const percentage = Math.min((props.current / safeLimit) * 100, 100)
+    const color = percentage >= 90 ? "danger" : percentage >= 70 ? "warning" : "success"
+
+    return (
+        <div
+            className={css({
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.25rem",
+            })}
+        >
+            <div
+                className={css({
+                    display: "flex",
+                    justifyContent: "space-between",
+                    fontSize: "xs",
+                    color: "neutral/70",
+                })}
+            >
+                <span>
+                    {props.formatValue(props.current)} / {props.formatValue(props.limit)}
+                </span>
+                <span>{percentage.toFixed(0)}%</span>
+            </div>
+            <div
+                className={css({
+                    width: "100%",
+                    height: "0.5rem",
+                    borderRadius: "full",
+                    backgroundColor: "neutral/10",
+                    overflow: "hidden",
+                })}
+            >
+                <div
+                    className={css({ height: "100%", borderRadius: "full", transition: "width 0.3s ease" })}
+                    style={{ width: `${percentage}%`, backgroundColor: `var(--colors-${color})` }}
+                />
+            </div>
+        </div>
+    )
+}
+
 function ServiceCard(props: {
     title: string
     description: string
     frequency?: string
     billingMode: "recurring" | "one_time"
     details: Array<{ label: string; value: string }>
+    usage?: JSX.Element
     action: JSX.Element
 }) {
     const isRecurring = props.billingMode === "recurring"
@@ -176,6 +220,7 @@ function ServiceCard(props: {
                     </div>
                 ))}
             </div>
+            {props.usage ? <div className={css({ width: "100%" })}>{props.usage}</div> : null}
             <div className={css({ display: "flex", justifyContent: "flex-end" })}>{props.action}</div>
         </div>
     )
@@ -202,12 +247,15 @@ export function OrganizationServicesPage() {
                         const currentTokenQuantity = getTokenAddonQuantity(
                             organization.tokensTotalLeft + organization.tokensTotalUsed,
                         )
-                        const currentOcrQuantity = getOcrAddonQuantity(
-                            organization.ocrPagesTotalLeft + organization.ocrPagesTotalUsed,
+                        const currentOcrAddonPages = Math.max(
+                            organization.ocrPagesTotalLeft + organization.ocrPagesTotalUsed - INCLUDED_OCR_PAGES,
+                            0,
                         )
-                        const currentStorageLimit = organization.storageMaxUsage
-                        const currentTokenLeft = organization.tokensTotalLeft
-                        const currentOcrLeft = organization.ocrPagesTotalLeft
+                        const nextMonthSubscriptionAmountInCents =
+                            currentSupportAmountInCents + currentStorageAmountInCents
+                        const isWalletInsufficient =
+                            nextMonthSubscriptionAmountInCents > 0 &&
+                            organization.walletBalanceInCents < nextMonthSubscriptionAmountInCents
 
                         return (
                             <div
@@ -219,6 +267,57 @@ export function OrganizationServicesPage() {
                                 })}
                             >
                                 <OrganizationBillingDisclaimerBanner idOrganization={params.idOrganization} />
+                                {isWalletInsufficient ? (
+                                    <div
+                                        className={css({
+                                            display: "flex",
+                                            alignItems: "flex-start",
+                                            gap: "0.75rem",
+                                            padding: "1rem",
+                                            borderRadius: "xl",
+                                            border: "1px solid token(colors.error/25)",
+                                            background: "error/5",
+                                        })}
+                                    >
+                                        <IconAlertTriangle
+                                            className={css({
+                                                color: "error",
+                                                flexShrink: 0,
+                                                marginTop: "0.125rem",
+                                            })}
+                                        />
+                                        <div
+                                            className={css({
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                gap: "0.25rem",
+                                            })}
+                                        >
+                                            <span
+                                                className={css({
+                                                    fontSize: "sm",
+                                                    fontWeight: "600",
+                                                    color: "neutral",
+                                                })}
+                                            >
+                                                Solde insuffisant pour le prochain mois
+                                            </span>
+                                            <span
+                                                className={css({
+                                                    fontSize: "sm",
+                                                    color: "neutral/70",
+                                                    lineHeight: "1.5",
+                                                })}
+                                            >
+                                                Vos abonnements récurrents s'élèvent à{" "}
+                                                {formatEuros(nextMonthSubscriptionAmountInCents)}/mois, mais votre
+                                                portefeuille ne contient que{" "}
+                                                {formatEuros(organization.walletBalanceInCents)}. Rechargez votre
+                                                portefeuille pour éviter une interruption de service le 1er du mois.
+                                            </span>
+                                        </div>
+                                    </div>
+                                ) : null}
                                 <ServiceCard
                                     title="Licence Arrhes"
                                     description="Montant mensuel libre pour votre licence Arrhes. Vous pouvez le laisser à 0 € ou définir le montant de votre choix. Votre contribution nous aide à financer le développement d'Arrhes et à maintenir des prix abordables."
@@ -229,6 +328,14 @@ export function OrganizationServicesPage() {
                                             label: "Montant mensuel",
                                             value: formatEuros(currentSupportAmountInCents),
                                         },
+                                        ...(organization.pendingLicenceAmount !== null
+                                            ? [
+                                                {
+                                                    label: "En attente le 1er",
+                                                    value: formatEuros(organization.pendingLicenceAmount),
+                                                },
+                                            ]
+                                            : []),
                                     ]}
                                     action={
                                         <UpdateLicenceSubscriptionDrawer
@@ -250,14 +357,25 @@ export function OrganizationServicesPage() {
                                     details={[
                                         { label: "Prix / mois", value: "0,10 € / Go" },
                                         {
-                                            label: "Stockage disponible de l'organisation",
-                                            value: formatStorageValue(currentStorageLimit),
-                                        },
-                                        {
                                             label: "Montant actuel",
                                             value: `${formatEuros(currentStorageAmountInCents)} / mois`,
                                         },
+                                        ...(organization.pendingStorageMaxUsage !== null
+                                            ? [
+                                                {
+                                                    label: "En attente le 1er",
+                                                    value: `${formatStorageValue(organization.pendingStorageMaxUsage)} / mois`,
+                                                },
+                                            ]
+                                            : []),
                                     ]}
+                                    usage={
+                                        <UsageBar
+                                            current={organization.storageCurrentUsage}
+                                            limit={organization.storageMaxUsage}
+                                            formatValue={formatStorageValue}
+                                        />
+                                    }
                                     action={
                                         <UpdateStorageSubscriptionDrawer
                                             idOrganization={params.idOrganization}
@@ -278,15 +396,15 @@ export function OrganizationServicesPage() {
                                     billingMode="one_time"
                                     details={[
                                         {
-                                            label: "Quota restant de l'organisation",
-                                            value: `${formatTokenValue(currentTokenLeft)} tokens`,
+                                            label: "Restants",
+                                            value: `${formatTokenValue(organization.tokensTotalLeft)} tokens`,
                                         },
                                         { label: "Prix unitaire", value: "1,00 € / M tokens" },
                                     ]}
                                     action={
                                         <UpdateTokensSubscriptionDrawer
                                             currentQuantity={currentTokenQuantity}
-                                            currentTokensLeft={currentTokenLeft}
+                                            currentTokensLeft={organization.tokensTotalLeft}
                                             onSuccess={() => setRefreshKey((key) => key + 1)}
                                         >
                                             <Button>
@@ -301,15 +419,15 @@ export function OrganizationServicesPage() {
                                     billingMode="one_time"
                                     details={[
                                         {
-                                            label: "Quota restant de l'organisation",
-                                            value: `${currentOcrLeft.toLocaleString("fr-FR")} pages`,
+                                            label: "Restantes",
+                                            value: `${organization.ocrPagesTotalLeft.toLocaleString("fr-FR")} pages`,
                                         },
                                         { label: "Prix unitaire", value: "0,01 € / page" },
                                     ]}
                                     action={
                                         <UpdateOcrSubscriptionDrawer
-                                            currentQuantity={currentOcrQuantity}
-                                            currentPagesLeft={currentOcrLeft}
+                                            currentQuantity={currentOcrAddonPages}
+                                            currentPagesLeft={organization.ocrPagesTotalLeft}
                                             onSuccess={() => setRefreshKey((key) => key + 1)}
                                         >
                                             <Button>

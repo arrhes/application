@@ -43,9 +43,9 @@ export function OrganizationLayout() {
                         },
                     },
                     {
-                        label: "Abonnement",
+                        label: "Facturation",
                         icon: <IconRosetteDiscountCheck />,
-                        to: "/dashboard/organisations/$idOrganization/abonnement",
+                        to: "/dashboard/organisations/$idOrganization/facturation",
                         params: {
                             idOrganization: params.idOrganization,
                         },

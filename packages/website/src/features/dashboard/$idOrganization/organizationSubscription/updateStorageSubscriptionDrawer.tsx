@@ -115,7 +115,7 @@ export function UpdateStorageSubscriptionDrawer(props: {
             toast({ title: response.error?.cause ?? "Erreur lors de la mise à jour", variant: "error" })
             return
         }
-        toast({ title: "Stockage mis à jour", variant: "success" })
+        toast({ title: "Modification enregistrée, effective le 1er du mois prochain", variant: "success" })
 
         await invalidateData({
             routeDefinition: readOneOrganizationRouteDefinition,
@@ -140,8 +140,8 @@ export function UpdateStorageSubscriptionDrawer(props: {
                         })}
                     >
                         <p className={css({ fontSize: "sm", color: "neutral/70", lineHeight: "1.5" })}>
-                            Ajustez le stockage disponible pour l'organisation. Toute augmentation est débitée du
-                            portefeuille et toute réduction est recréditée sur le portefeuille.
+                            Ajustez le stockage disponible pour l'organisation. La modification sera effective le 1er du
+                            mois prochain et débitée automatiquement du portefeuille.
                         </p>
                         <DrawerSection
                             title="État actuel"

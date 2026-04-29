@@ -23,7 +23,7 @@ type AmortizationTemplateFormValues = v.InferOutput<typeof amortizationTemplateS
 export function AmortizationTemplateForm(props: EntryTemplateFormProps) {
     const { form: parentForm, onTemplateReadyChange } = props
 
-    const templateForm = useForm<AmortizationTemplateFormValues>({
+    const templateForm = useForm<AmortizationTemplateFormValues, unknown, AmortizationTemplateFormValues>({
         mode: "onSubmit",
         criteriaMode: "all",
         shouldFocusError: true,
@@ -35,7 +35,9 @@ export function AmortizationTemplateForm(props: EntryTemplateFormProps) {
             idDotationAccount: "",
             idAmortizationAccount: "",
         },
-        resolver: valibotResolver(amortizationTemplateSchema),
+        resolver: valibotResolver<AmortizationTemplateFormValues, unknown, AmortizationTemplateFormValues>(
+            amortizationTemplateSchema,
+        ),
     })
 
     const accountsResponse = useDataFromAPI({

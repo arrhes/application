@@ -23,6 +23,8 @@ export const organizationModel = pgTable("table_organization", {
     mollieSubscriptionId: text("mollie_subscription_id"),
     subcriptionEndingAt: dateTimeColumn("subscription_ending_at"),
     licenceAmount: integer("licence_amount").notNull().default(0),
+    pendingLicenceAmount: integer("pending_licence_amount"),
+    pendingStorageMaxUsage: bigint("pending_storage_max_usage", { mode: "number" }),
     walletBalanceInCents: integer("wallet_balance_in_cents").notNull().default(0),
     storageLimit: bigint("storage_limit", { mode: "number" }).notNull().default(1_073_741_824),
     storageMaxUsage: bigint("storage_max_usage", { mode: "number" }).notNull().default(1_073_741_824),

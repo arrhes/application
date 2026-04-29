@@ -29,7 +29,6 @@ export const updateLicenceSubscriptionRoute = apiFactory
                 externalMessage: "Vous n'êtes pas administrateur de l'organisation",
             })
         }
-        const now = new Date()
 
         if (Number.isNaN(body.newAmountInCents) || body.newAmountInCents < 0) {
             throw new Exception({
@@ -44,23 +43,16 @@ export const updateLicenceSubscriptionRoute = apiFactory
             table: models.organization,
             where: (table) => eq(table.id, idOrganization),
         })
-        const differenceInCents = organization.licenceAmount - body.newAmountInCents
-        const newWalletBalanceInCents = organization.walletBalanceInCents + differenceInCents
-        if (newWalletBalanceInCents < 0) {
-            throw new Exception({
-                statusCode: 400,
-                internalMessage: "Not enough balance in wallet to increase licence amount",
-                externalMessage: "Le solde du portefeuille de l'organisation est insuffisant pour augmenter le montant de la licence de ce montant.",
-            })
-        }
+
+        // Store as pending — applied on the 1st of next month by the worker
+        const pendingValue = body.newAmountInCents === organization.licenceAmount ? null : body.newAmountInCents
 
         await updateOne({
             database: c.var.clients.sql,
             table: models.organization,
             data: {
-                licenceAmount: body.newAmountInCents,
-                walletBalanceInCents: newWalletBalanceInCents,
-                lastUpdatedAt: now.toISOString(),
+                pendingLicenceAmount: pendingValue,
+                lastUpdatedAt: new Date().toISOString(),
                 lastUpdatedBy: user.id,
             },
             where: (table) => eq(table.id, idOrganization),
