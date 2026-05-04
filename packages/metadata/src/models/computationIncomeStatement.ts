@@ -4,9 +4,9 @@ import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
 import { operation } from "../components/values/operation.js"
 import { computationModel } from "./computation.js"
-import { dashboardUserModel } from "./dashboardUser.js"
 import { incomeStatementModel } from "./incomeStatement.js"
 import { organizationModel } from "./organization.js"
+import { userModel } from "./user.js"
 import { yearModel } from "./year.js"
 
 // Model
@@ -32,11 +32,11 @@ export const computationIncomeStatementModel = pgTable(
         operation: computationIncomeStatementOperationEnum("operation").notNull(),
         createdAt: dateTimeColumn("created_at").notNull(),
         lastUpdatedAt: dateTimeColumn("last_updated_at"),
-        createdBy: idColumn("created_by").references((): AnyPgColumn => dashboardUserModel.id, {
+        createdBy: idColumn("created_by").references((): AnyPgColumn => userModel.id, {
             onDelete: "set null",
             onUpdate: "cascade",
         }),
-        lastUpdatedBy: idColumn("last_updated_by").references((): AnyPgColumn => dashboardUserModel.id, {
+        lastUpdatedBy: idColumn("last_updated_by").references((): AnyPgColumn => userModel.id, {
             onDelete: "set null",
             onUpdate: "cascade",
         }),

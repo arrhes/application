@@ -1,16 +1,33 @@
-import { signOutRouteDefinition } from "@arrhes/application-metadata/routes"
+import { readUserSessionRouteDefinition, signOutRouteDefinition } from "@arrhes/application-metadata/routes"
 import { Button, ButtonGhostContent, ButtonOutlineContent, Logo, Separator, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconBook2, IconBuildings, IconLifebuoy, IconLogout, IconSettings, IconUser } from "@tabler/icons-react"
-import { Outlet } from "@tanstack/react-router"
+import {
+    IconBook2,
+    IconBuildings,
+    IconLifebuoy,
+    IconLogout,
+    IconSettings,
+    IconShield,
+    IconUser,
+} from "@tabler/icons-react"
+import { Outlet, useRouterState } from "@tanstack/react-router"
 import { LinkButton } from "../../components/linkButton.js"
 import { Popover } from "../../components/overlays/popover/popover.js"
 import { applicationRouter } from "../../routes/applicationRouter.js"
 import { deleteCookies } from "../../utilities/cookies/deleteCookies.js"
 import { getResponseBodyFromAPI } from "../../utilities/getResponseBodyFromAPI.js"
+import { useDataFromAPI } from "../../utilities/useHTTPData.js"
 import { Breadcrumbs } from "../breadcrumbs.js"
 
 export function DashboardLayout() {
+    const pathname = useRouterState({ select: (state) => state.location.pathname })
+    const isAdminPath = pathname.startsWith("/dashboard/admin")
+
+    const userSession = useDataFromAPI({
+        routeDefinition: readUserSessionRouteDefinition,
+        body: {},
+    })
+
     return (
         <div
             className={css({
@@ -60,10 +77,7 @@ export function DashboardLayout() {
                         })}
                     >
                         <LinkButton to="/dashboard">
-                            <ButtonGhostContent
-                                leftIcon={<Logo />}
-                                // text="Dashboard"
-                            />
+                            <ButtonGhostContent leftIcon={<Logo />} text={isAdminPath ? "Admin" : undefined} />
                         </LinkButton>
                         <Breadcrumbs />
                     </div>
@@ -82,6 +96,11 @@ export function DashboardLayout() {
                         <LinkButton to="/dashboard/organisations" title="Organisations">
                             <ButtonOutlineContent leftIcon={<IconBuildings />} />
                         </LinkButton>
+                        {userSession.data?.user.isSuperAdmin === true && (
+                            <LinkButton to="/dashboard/admin/tickets" title="Admin">
+                                <ButtonOutlineContent leftIcon={<IconShield />} />
+                            </LinkButton>
+                        )}
                         <Popover.Root>
                             <Popover.Trigger asChild>
                                 <Button title="Utilisateur">

@@ -1,5 +1,6 @@
 import {
     generateId,
+    getTaxAmountFromHTInCents,
     models,
     type organizationPaymentCategory,
     type organizationSubscriptionType,
@@ -33,6 +34,8 @@ export async function recordOrganizationPayment(parameters: {
     category: (typeof organizationPaymentCategory)[number]
     status: "pending" | "paid" | "failed" | "refunded"
     amountInCents: number
+    amountHTInCents?: number
+    amountTVAInCents?: number
     currency?: string
     description: string
     sequenceType?: string | null
@@ -46,6 +49,10 @@ export async function recordOrganizationPayment(parameters: {
     createdBy: string | null
 }) {
     const nowISO = new Date().toISOString()
+    const isTaxableCategory = parameters.category === "subscription" || parameters.category === "wallet_spending"
+    const amountHTInCents = parameters.amountHTInCents ?? parameters.amountInCents
+    const amountTVAInCents =
+        parameters.amountTVAInCents ?? (isTaxableCategory ? getTaxAmountFromHTInCents(amountHTInCents) : 0)
 
     // Keep organization wallet balance in sync when creating wallet-related payments.
     // Only apply deltas for statuses that should have an accounting effect at creation time.
@@ -91,6 +98,8 @@ export async function recordOrganizationPayment(parameters: {
             sequenceType: parameters.sequenceType ?? null,
             serviceType: parameters.serviceType ?? null,
             amountInCents: parameters.amountInCents,
+            amountHTInCents,
+            amountTVAInCents,
             currency: parameters.currency ?? "EUR",
             description: parameters.description,
             periodStart: parameters.periodStart ?? null,

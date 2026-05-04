@@ -1,7 +1,7 @@
 import * as v from "valibot"
 import { routePath } from "../../../../../../../components/index.js"
-import { dashboardUserSchemaReturn } from "../../../../../../../schemas/dashboardUser.js"
 import { organizationUserSchemaReturn } from "../../../../../../../schemas/organizationUser.js"
+import { userSchemaReturn } from "../../../../../../../schemas/user.js"
 import { routeDefinition } from "../../../../../../../utilities/routeDefinition.js"
 
 export const readAllOrganizationUsersRouteDefinition = routeDefinition({
@@ -13,9 +13,9 @@ export const readAllOrganizationUsersRouteDefinition = routeDefinition({
             v.object({
                 ...organizationUserSchemaReturn.entries,
                 user: v.object({
-                    id: dashboardUserSchemaReturn.entries.id,
-                    email: dashboardUserSchemaReturn.entries.email,
-                    alias: dashboardUserSchemaReturn.entries.alias,
+                    id: userSchemaReturn.entries.id,
+                    email: userSchemaReturn.entries.email,
+                    alias: userSchemaReturn.entries.alias,
                 }),
             }),
         ),

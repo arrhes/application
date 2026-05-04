@@ -15,6 +15,7 @@ export { generateInvoiceGetSignedUrlRouteDefinition } from "./organizationSettin
 export { readAllInvoicesRouteDefinition } from "./organizationSettings/organizationPayment/readAllInvoices.js"
 export { readAllOrganizationPaymentsRouteDefinition } from "./organizationSettings/organizationPayment/readAllOrganizationPayments.js"
 export { readAllOrganizationSubscriptionsRouteDefinition } from "./organizationSettings/organizationPayment/readAllOrganizationSubscriptions.js"
+export { readOneInvoiceUblRouteDefinition } from "./organizationSettings/organizationPayment/readOneInvoiceUbl.js"
 export { readOrganizationSubscriptionRouteDefinition } from "./organizationSettings/organizationPayment/readOrganizationSubscription.js"
 export { updateLicenceSubscriptionRouteDefinition } from "./organizationSettings/organizationPayment/updateLicenceSubscription.js"
 export { updateOcrSubscriptionRouteDefinition } from "./organizationSettings/organizationPayment/updateOcrSubscription.js"

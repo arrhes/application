@@ -8,6 +8,7 @@ import { generateInvoiceGetSignedUrlRoute } from "./generateInvoiceGetSignedUrl.
 import { readAllInvoicesRoute } from "./readAllInvoices.js"
 import { readAllOrganizationPaymentsRoute } from "./readAllOrganizationPayments.js"
 import { readAllOrganizationSubscriptionsRoute } from "./readAllOrganizationSubscriptions.js"
+import { readOneInvoiceUblRoute } from "./readOneInvoiceUbl.js"
 import { readOrganizationSubscriptionRoute } from "./readOrganizationSubscription.js"
 import { updateLicenceSubscriptionRoute } from "./updateLicenceSubscription.js"
 import { updateOcrSubscriptionRoute } from "./updateOcrSubscription.js"
@@ -30,4 +31,5 @@ export const organizationPaymentsRoutes = [
     cancelOrganizationSubscriptionRoute,
     readAllInvoicesRoute,
     generateInvoiceGetSignedUrlRoute,
+    readOneInvoiceUblRoute,
 ]

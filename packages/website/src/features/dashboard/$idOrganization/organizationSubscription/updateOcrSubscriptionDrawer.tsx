@@ -1,5 +1,5 @@
 import { updateOcrSubscriptionRouteDefinition } from "@arrhes/application-metadata/routes"
-import { OCR_PAGE_PRICE_IN_CENTS, OCR_PAGE_TIERS } from "@arrhes/application-metadata/utilities"
+import { OCR_PAGE_PRICE_IN_CENTS, OCR_PAGE_TIERS, VAT_PERCENT } from "@arrhes/application-metadata/utilities"
 import { Button, ButtonOutlineContent, ButtonPlainContent, InputNumber, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconCreditCard, IconX } from "@tabler/icons-react"
@@ -89,8 +89,9 @@ export function UpdateOcrSubscriptionDrawer(props: {
                         })}
                     >
                         <p className={css({ fontSize: "sm", color: "neutral/70", lineHeight: "1.5" })}>
-                            Chaque page supplémentaire est débitée 0,01€ une seule fois depuis le portefeuille. Les
-                            pages achetées restent disponibles tant qu'elles ne sont pas consommées.
+                            Chaque page supplementaire est debitee 0,01 EUR HT une seule fois depuis le portefeuille.
+                            Les pages achetees restent disponibles tant qu'elles ne sont pas consommees. TVA{" "}
+                            {VAT_PERCENT}% en sus.
                         </p>
                         <DrawerSection
                             title="Ajouter des pages OCR"
@@ -161,7 +162,7 @@ export function UpdateOcrSubscriptionDrawer(props: {
                                         Débité du portefeuille
                                     </span>
                                     <span className={css({ fontSize: "sm", fontWeight: "600", color: "neutral" })}>
-                                        {formatEuros(deltaAmountInCents)}
+                                        {formatEuros(deltaAmountInCents)} HT
                                     </span>
                                 </div>
                             </div>
@@ -193,7 +194,7 @@ export function UpdateOcrSubscriptionDrawer(props: {
                             open={confirmOpen}
                             onOpenChange={setConfirmOpen}
                             title="Confirmer l'achat de pages OCR"
-                            description={`${formatPageDelta(quantityDelta)} seront ajoutées et ${formatEuros(deltaAmountInCents)} seront débités de votre portefeuille.`}
+                            description={`${formatPageDelta(quantityDelta)} seront ajoutees et ${formatEuros(deltaAmountInCents)} HT seront debites de votre portefeuille (TVA ${VAT_PERCENT}% en sus).`}
                             submitButtonProps={{ text: "Confirmer l'achat" }}
                             onSubmit={handleSave}
                         />

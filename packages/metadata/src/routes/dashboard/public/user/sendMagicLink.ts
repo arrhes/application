@@ -1,6 +1,6 @@
 import * as v from "valibot"
 import { routePath } from "../../../../components/index.js"
-import { dashboardUserSchema } from "../../../../schemas/dashboardUser.js"
+import { userSchema } from "../../../../schemas/user.js"
 import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const sendMagicLinkRouteDefinition = routeDefinition({
@@ -8,7 +8,7 @@ export const sendMagicLinkRouteDefinition = routeDefinition({
     path: `${routePath.public}/send-magic-link`,
     schemas: {
         body: v.object({
-            email: v.nonNullable(dashboardUserSchema.entries.email),
+            email: v.nonNullable(userSchema.entries.email),
         }),
         return: v.object({}),
     },

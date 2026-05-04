@@ -13,7 +13,7 @@ export const sendMagicLinkRoute = apiFactory.createApp().post(sendMagicLinkRoute
 
     const _user = await selectOne({
         database: c.var.clients.sql,
-        table: models.dashboardUser,
+        table: models.user,
         where: (table) => eq(table.email, body.email.trim().toLowerCase()),
     })
 

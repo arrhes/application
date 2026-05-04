@@ -1,6 +1,6 @@
 import * as v from "valibot"
 import { routePath } from "../../../../components/index.js"
-import { dashboardUserSchemaReturn } from "../../../../schemas/dashboardUser.js"
+import { userSchemaReturn } from "../../../../schemas/user.js"
 import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const resendEmailValidationRouteDefinition = routeDefinition({
@@ -8,6 +8,6 @@ export const resendEmailValidationRouteDefinition = routeDefinition({
     path: `${routePath.auth}/resend-email-validation`,
     schemas: {
         body: v.object({}),
-        return: dashboardUserSchemaReturn,
+        return: userSchemaReturn,
     },
 })

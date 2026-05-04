@@ -1,10 +1,12 @@
 export function getCookie(name: string) {
+    const encodedName = encodeURIComponent(name)
     const stringCookies = document?.cookie?.split("; ")
-    const cookie = stringCookies?.find((x) => x.includes(name))
-    if (cookie === undefined || cookie === "") return undefined
+    const cookie = stringCookies?.find((x) => x.startsWith(`${encodedName}=`))
 
-    const cookieValue = cookie.split("=").at(1)
-    if (cookieValue === undefined || cookieValue === "") return undefined
+    if (!cookie) return undefined
 
-    return cookieValue
+    const rawCookieValue = cookie.slice(encodedName.length + 1)
+    if (rawCookieValue === "") return undefined
+
+    return decodeURIComponent(rawCookieValue)
 }

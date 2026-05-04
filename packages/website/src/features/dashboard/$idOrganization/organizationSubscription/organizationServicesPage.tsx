@@ -4,6 +4,7 @@ import {
     INCLUDED_AGENT_TOKENS,
     INCLUDED_OCR_PAGES,
     STORAGE_PRICE_PER_GB_IN_CENTS,
+    VAT_PERCENT,
 } from "@arrhes/application-metadata/utilities"
 import { Button, ButtonOutlineContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
@@ -310,8 +311,8 @@ export function OrganizationServicesPage() {
                                                 })}
                                             >
                                                 Vos abonnements récurrents s'élèvent à{" "}
-                                                {formatEuros(nextMonthSubscriptionAmountInCents)}/mois, mais votre
-                                                portefeuille ne contient que{" "}
+                                                {formatEuros(nextMonthSubscriptionAmountInCents)} HT/mois (TVA{" "}
+                                                {VAT_PERCENT}%), mais votre portefeuille ne contient que{" "}
                                                 {formatEuros(organization.walletBalanceInCents)}. Rechargez votre
                                                 portefeuille pour éviter une interruption de service le 1er du mois.
                                             </span>
@@ -320,21 +321,21 @@ export function OrganizationServicesPage() {
                                 ) : null}
                                 <ServiceCard
                                     title="Licence Arrhes"
-                                    description="Montant mensuel libre pour votre licence Arrhes. Vous pouvez le laisser à 0 € ou définir le montant de votre choix. Votre contribution nous aide à financer le développement d'Arrhes et à maintenir des prix abordables."
+                                    description={`Montant mensuel libre pour votre licence Arrhes. Vous pouvez le laisser à 0 EUR HT ou definir le montant de votre choix. Votre contribution nous aide a financer le developpement d'Arrhes et a maintenir des prix abordables. TVA ${VAT_PERCENT}% appliquee.`}
                                     frequency="Par mois"
                                     billingMode="recurring"
                                     details={[
                                         {
                                             label: "Montant mensuel",
-                                            value: formatEuros(currentSupportAmountInCents),
+                                            value: `${formatEuros(currentSupportAmountInCents)} HT`,
                                         },
                                         ...(organization.pendingLicenceAmount !== null
                                             ? [
-                                                {
-                                                    label: "En attente le 1er",
-                                                    value: formatEuros(organization.pendingLicenceAmount),
-                                                },
-                                            ]
+                                                  {
+                                                      label: "En attente le 1er",
+                                                      value: `${formatEuros(organization.pendingLicenceAmount)} HT`,
+                                                  },
+                                              ]
                                             : []),
                                     ]}
                                     action={
@@ -351,22 +352,22 @@ export function OrganizationServicesPage() {
                                 />
                                 <ServiceCard
                                     title="Stockage"
-                                    description="1 Go est inclus gratuitement. Le stockage supplémentaire est facturé mensuellement, sans minimum requis."
+                                    description={`1 Go est inclus gratuitement. Le stockage supplementaire est facture mensuellement en HT, sans minimum requis (TVA ${VAT_PERCENT}%).`}
                                     frequency="Par mois"
                                     billingMode="recurring"
                                     details={[
-                                        { label: "Prix / mois", value: "0,10 € / Go" },
+                                        { label: "Prix / mois", value: `0,10 EUR HT / Go (TVA ${VAT_PERCENT}%)` },
                                         {
                                             label: "Montant actuel",
-                                            value: `${formatEuros(currentStorageAmountInCents)} / mois`,
+                                            value: `${formatEuros(currentStorageAmountInCents)} HT / mois`,
                                         },
                                         ...(organization.pendingStorageMaxUsage !== null
                                             ? [
-                                                {
-                                                    label: "En attente le 1er",
-                                                    value: `${formatStorageValue(organization.pendingStorageMaxUsage)} / mois`,
-                                                },
-                                            ]
+                                                  {
+                                                      label: "En attente le 1er",
+                                                      value: `${formatStorageValue(organization.pendingStorageMaxUsage)} / mois`,
+                                                  },
+                                              ]
                                             : []),
                                     ]}
                                     usage={
@@ -392,14 +393,17 @@ export function OrganizationServicesPage() {
                                 />
                                 <ServiceCard
                                     title="Assistant IA"
-                                    description="Ajoutez des tokens au-delà du quota de base inclus pour pouvoir continuer d'utiliser l'assistant IA. Chaque million supplémentaire est débité une seule fois depuis le portefeuille."
+                                    description={`Ajoutez des tokens au-dela du quota de base inclus pour continuer d'utiliser l'assistant IA. Chaque million supplementaire est debite une seule fois depuis le portefeuille en HT (TVA ${VAT_PERCENT}%).`}
                                     billingMode="one_time"
                                     details={[
                                         {
                                             label: "Restants",
                                             value: `${formatTokenValue(organization.tokensTotalLeft)} tokens`,
                                         },
-                                        { label: "Prix unitaire", value: "1,00 € / M tokens" },
+                                        {
+                                            label: "Prix unitaire",
+                                            value: `1,00 EUR HT / M tokens (TVA ${VAT_PERCENT}%)`,
+                                        },
                                     ]}
                                     action={
                                         <UpdateTokensSubscriptionDrawer
@@ -415,14 +419,14 @@ export function OrganizationServicesPage() {
                                 />
                                 <ServiceCard
                                     title="Traitement des documents par OCR"
-                                    description="Convertissez plus de documents. Ajoutez des pages au-delà du quota de base inclus. Chaque page supplémentaire ajoutée au quota est débité une seule fois depuis le portefeuille."
+                                    description={`Convertissez plus de documents. Ajoutez des pages au-dela du quota de base inclus. Chaque page supplementaire ajoutee au quota est debitee une seule fois depuis le portefeuille en HT (TVA ${VAT_PERCENT}%).`}
                                     billingMode="one_time"
                                     details={[
                                         {
                                             label: "Restantes",
                                             value: `${organization.ocrPagesTotalLeft.toLocaleString("fr-FR")} pages`,
                                         },
-                                        { label: "Prix unitaire", value: "0,01 € / page" },
+                                        { label: "Prix unitaire", value: `0,01 EUR HT / page (TVA ${VAT_PERCENT}%)` },
                                     ]}
                                     action={
                                         <UpdateOcrSubscriptionDrawer

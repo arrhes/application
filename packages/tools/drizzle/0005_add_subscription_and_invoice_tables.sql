@@ -19,8 +19,8 @@ CREATE TABLE "table_organization_subscription" (
     "ends_at" timestamp,
     "created_at" timestamp NOT NULL,
     "last_updated_at" timestamp,
-    "created_by" text REFERENCES "table_dashboard_user"("id") ON DELETE SET NULL ON UPDATE CASCADE,
-    "last_updated_by" text REFERENCES "table_dashboard_user"("id") ON DELETE SET NULL ON UPDATE CASCADE
+    "created_by" text REFERENCES "table_user"("id") ON DELETE SET NULL ON UPDATE CASCADE,
+    "last_updated_by" text REFERENCES "table_user"("id") ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 CREATE INDEX ON "table_organization_subscription" ("id_organization");

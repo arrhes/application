@@ -2,6 +2,7 @@ import {
     readOneOrganizationRouteDefinition,
     updateStorageSubscriptionRouteDefinition,
 } from "@arrhes/application-metadata/routes"
+import { FREE_STORAGE_BYTES, STORAGE_PRICE_PER_GB_IN_CENTS, VAT_PERCENT } from "@arrhes/application-metadata/utilities"
 import { Button, ButtonOutlineContent, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconMinus, IconPlus } from "@tabler/icons-react"
@@ -10,9 +11,6 @@ import { Drawer } from "../../../../components/overlays/drawer/drawer.tsx"
 import { formatEuros } from "../../../../utilities/formatEuros.tsx"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
-
-const FREE_STORAGE_BYTES = 1_073_741_824
-const STORAGE_PRICE_PER_GB_IN_CENTS = 10
 
 function formatBytes(bytes: number): string {
     if (bytes >= 1_073_741_824) {
@@ -141,7 +139,8 @@ export function UpdateStorageSubscriptionDrawer(props: {
                     >
                         <p className={css({ fontSize: "sm", color: "neutral/70", lineHeight: "1.5" })}>
                             Ajustez le stockage disponible pour l'organisation. La modification sera effective le 1er du
-                            mois prochain et débitée automatiquement du portefeuille.
+                            mois prochain et debitee automatiquement du portefeuille. Montants en HT (TVA {VAT_PERCENT}
+                            %).
                         </p>
                         <DrawerSection
                             title="État actuel"
@@ -215,7 +214,7 @@ export function UpdateStorageSubscriptionDrawer(props: {
                                 >
                                     <span className={css({ fontSize: "xs", color: "neutral/50" })}>Montant actuel</span>
                                     <span className={css({ fontSize: "sm", fontWeight: "600", color: "neutral" })}>
-                                        {formatEuros(currentAmountInCents)} / mois
+                                        {formatEuros(currentAmountInCents)} HT / mois
                                     </span>
                                 </div>
                             </div>
@@ -292,10 +291,10 @@ export function UpdateStorageSubscriptionDrawer(props: {
                                     </div>
                                     <span className={css({ fontSize: "sm", color: "neutral/70" })}>
                                         {quantityDelta > 0
-                                            ? `${formatEuros(deltaAmountInCents)} / mois débité`
+                                            ? `${formatEuros(deltaAmountInCents)} HT / mois debite`
                                             : quantityDelta < 0
-                                              ? `${formatEuros(Math.abs(deltaAmountInCents))} / mois crédité`
-                                              : "0,00\u202f€ / mois"}
+                                              ? `${formatEuros(Math.abs(deltaAmountInCents))} HT / mois credite`
+                                              : "0,00\u202fEUR HT / mois"}
                                     </span>
                                 </div>
                                 <span className={css({ fontSize: "xs", color: "neutral/50" })}>
@@ -367,7 +366,7 @@ export function UpdateStorageSubscriptionDrawer(props: {
                                 >
                                     <span className={css({ fontSize: "xs", color: "neutral/50" })}>Montant actuel</span>
                                     <span className={css({ fontSize: "sm", fontWeight: "600", color: "neutral" })}>
-                                        {formatEuros(currentAmountInCents)} / mois
+                                        {formatEuros(currentAmountInCents)} HT / mois
                                     </span>
                                 </div>
                                 <div

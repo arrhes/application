@@ -1,8 +1,5 @@
-import path from "node:path"
-import { fileURLToPath } from "node:url"
 import { generateId, models } from "@arrhes/application-metadata"
 import { and, eq, inArray, isNotNull, isNull } from "drizzle-orm"
-import { launch } from "puppeteer"
 import * as v from "valibot"
 import { apiFactory } from "../../utilities/apiFactory.js"
 import { apiLog } from "../../utilities/apiLog.js"
@@ -10,13 +7,13 @@ import {
     findOrCreateCurrentPeriodInvoice,
     generateRandomInvoiceReference,
 } from "../../utilities/billing/billingInvoice.js"
+import { buildInvoiceUblXml } from "../../utilities/billing/invoiceUbl.js"
 import {
     getResourceSubscriptionUnitPriceInCents,
     getStorageAddonQuantity,
     getStorageRecurringAmountInCents,
 } from "../../utilities/billing/subscriptionPricing.js"
 import { recordOrganizationPayment } from "../../utilities/billing/wallet.js"
-import { invoiceTemplate } from "../../utilities/email/templates/invoice/invoiceTemplate.js"
 import { Exception } from "../../utilities/exception.js"
 import { response } from "../../utilities/response.js"
 import { insertOne } from "../../utilities/sql/insertOne.js"
@@ -33,55 +30,6 @@ type ServicePaymentRecord = {
     amountInCents: number
     paidAt: string | null
     createdAt: string
-}
-
-async function createInvoicePdf(parameters: {
-    browser: Awaited<ReturnType<typeof launch>>
-    fontPath: string
-    invoiceNumber: string
-    periodStartISO: string
-    periodEndISO: string
-    organizationName: string
-    organizationEmail: string
-    amountInCents: number
-    subscriptions: Array<{ type: InvoiceLineType; quantity: number; amountInCents: number }>
-}) {
-    const page = await parameters.browser.newPage()
-
-    try {
-        const htmlContent = invoiceTemplate({
-            invoiceNumber: parameters.invoiceNumber,
-            periodStart: parameters.periodStartISO,
-            periodEnd: parameters.periodEndISO,
-            organizationName: parameters.organizationName,
-            organizationEmail: parameters.organizationEmail,
-            amountInCents: parameters.amountInCents,
-            subscriptions: parameters.subscriptions,
-        })
-
-        await page.setContent(htmlContent)
-        await page.addStyleTag({
-            content: `
-                @font-face {
-                    font-family: "Sometype Mono";
-                    src: url("file://${parameters.fontPath}") format("truetype");
-                    font-style: normal;
-                    font-weight: 400 500 600 700;
-                    font-display: auto;
-                }
-            `,
-        })
-
-        const pdfBuffer = await page.pdf({
-            format: "A4",
-            printBackground: true,
-            margin: { top: 0, right: 0, bottom: 0, left: 0 },
-        })
-
-        return Buffer.from(pdfBuffer)
-    } finally {
-        await page.close()
-    }
 }
 
 function getCurrentMonthRange(date: Date) {
@@ -265,7 +213,7 @@ export const generateMonthlyInvoicesRoute = apiFactory
             }
         }
 
-        // ── Phase 1: Generate PDFs for all pending draft invoices ────────────────
+        // ── Phase 1: Generate XML invoices for all pending draft invoices ─────────
         // Path A: invoices already created as drafts when payments were made during the month.
         // Processes drafts from any period so that historical seed data or catch-up invoices
         // are also rendered — not only the immediately-previous month.
@@ -331,28 +279,9 @@ export const generateMonthlyInvoicesRoute = apiFactory
             new Map(),
         )
 
-        let browser: Awaited<ReturnType<typeof launch>> | null = null
-
-        try {
-            browser = await launch({ args: ["--no-sandbox"], headless: true })
-        } catch (error) {
-            apiLog({
-                var: c.var,
-                type: "information",
-                message: `Monthly invoice PDF rendering unavailable, continuing without PDF: ${error instanceof Error ? error.message : String(error)}`,
-            })
-        }
-
-        const __filename = fileURLToPath(import.meta.url)
-        const __dirname = path.dirname(__filename)
-        const fontPath = path.resolve(
-            __dirname,
-            "./packages/api/src/utilities/email/templates/fonts/SometypeMono-VariableFont_wght.ttf",
-        )
-
         let generatedCount = 0
 
-        // Path A: generate PDFs for all pending draft invoices
+        // Path A: generate XML invoices for all pending draft invoices
         for (const draftInvoice of draftInvoicesLastMonth) {
             const organization = orgMap.get(draftInvoice.idOrganization)
             if (!organization) continue
@@ -383,44 +312,51 @@ export const generateMonthlyInvoicesRoute = apiFactory
                 const invoiceLines = buildInvoiceLinesFromPayments(servicePayments)
                 const totalAmountInCents = invoiceLines.reduce((sum, line) => sum + line.amountInCents, 0)
 
-                let storageKey: string | null = null
+                const xmlStorageKey = `invoices/${draftInvoice.idOrganization}/${invPrefix}.xml`
+                const xmlContent = buildInvoiceUblXml({
+                    invoiceNumber: draftInvoice.invoiceNumber,
+                    issueDateIso: now.toISOString(),
+                    dueDateIso: now.toISOString(),
+                    periodStartIso: draftInvoice.periodStart,
+                    periodEndIso: draftInvoice.periodEnd,
+                    amountInCents: totalAmountInCents,
+                    currency: "EUR",
+                    supplierName: "Barbote SAS",
+                    supplierSiren: "908719503",
+                    supplierVatId: "FR02908719503",
+                    supplierAddress: "93 rue Sedaine, 75011 Paris, FR",
+                    customerName: organization.name,
+                    customerSiren: organization.siren,
+                    customerEmail: organization.email,
+                    lines: servicePayments.map((payment) => ({
+                        serviceType: payment.serviceType,
+                        description: getServicePaymentDescription(payment.serviceType),
+                        amountInCents: payment.amountInCents,
+                        quantity: 1,
+                    })),
+                })
 
-                if (browser !== null) {
-                    const pdfBody = await createInvoicePdf({
-                        browser,
-                        fontPath,
+                const xmlBuffer = Buffer.from(xmlContent, "utf8")
+                await putObject({
+                    var: c.var,
+                    body: xmlBuffer,
+                    storageKey: xmlStorageKey,
+                    contentType: "application/xml",
+                    contentLength: xmlBuffer.length,
+                    metadata: {
+                        idOrganization: draftInvoice.idOrganization,
                         invoiceNumber: draftInvoice.invoiceNumber,
-                        periodStartISO: draftInvoice.periodStart,
-                        periodEndISO: draftInvoice.periodEnd,
-                        organizationName: organization.name,
-                        organizationEmail: organization.email ?? "",
-                        amountInCents: totalAmountInCents,
-                        subscriptions: invoiceLines,
-                    })
-
-                    storageKey = `invoices/${draftInvoice.idOrganization}/${invPrefix}.pdf`
-
-                    await putObject({
-                        var: c.var,
-                        body: pdfBody,
-                        storageKey,
-                        contentType: "application/pdf",
-                        contentLength: pdfBody.length,
-                        metadata: {
-                            idOrganization: draftInvoice.idOrganization,
-                            invoiceNumber: draftInvoice.invoiceNumber,
-                            period: invPrefix,
-                        },
-                    })
-                }
+                        period: invPrefix,
+                    },
+                })
 
                 await updateOne({
                     database: c.var.clients.sql,
                     table: models.invoice,
                     data: {
                         amountInCents: totalAmountInCents,
-                        storageKey,
-                        status: "paid",
+                        storageKey: xmlStorageKey,
+                        status: "generated",
                         lastUpdatedAt: now.toISOString(),
                     },
                     where: (table) => eq(table.id, draftInvoice.id),
@@ -431,7 +367,7 @@ export const generateMonthlyInvoicesRoute = apiFactory
                 apiLog({
                     var: c.var,
                     type: "error",
-                    internalMessage: `Failed to generate invoice PDF for org ${draftInvoice.idOrganization}`,
+                    internalMessage: `Failed to generate invoice XML for org ${draftInvoice.idOrganization}`,
                     cause: error instanceof Error ? error.message : String(error),
                     stack: error instanceof Error ? error.stack : undefined,
                 })
@@ -449,32 +385,39 @@ export const generateMonthlyInvoicesRoute = apiFactory
                 const invoiceLines = buildInvoiceLinesFromPayments(payments)
                 const totalAmountInCents = invoiceLines.reduce((sum, line) => sum + line.amountInCents, 0)
 
-                let storageKey: string | null = null
+                const xmlStorageKey = `invoices/${idOrganization}/${invoicePrefix}.xml`
+                const xmlContent = buildInvoiceUblXml({
+                    invoiceNumber,
+                    issueDateIso: now.toISOString(),
+                    dueDateIso: now.toISOString(),
+                    periodStartIso: previousPeriodStartISO,
+                    periodEndIso: previousPeriodEndISO,
+                    amountInCents: totalAmountInCents,
+                    currency: "EUR",
+                    supplierName: "Barbote SAS",
+                    supplierSiren: "908719503",
+                    supplierVatId: "FR02908719503",
+                    supplierAddress: "93 rue Sedaine, 75011 Paris, FR",
+                    customerName: organization.name,
+                    customerSiren: organization.siren,
+                    customerEmail: organization.email,
+                    lines: payments.map((payment) => ({
+                        serviceType: payment.serviceType,
+                        description: getServicePaymentDescription(payment.serviceType),
+                        amountInCents: payment.amountInCents,
+                        quantity: 1,
+                    })),
+                })
 
-                if (browser !== null) {
-                    const pdfBody = await createInvoicePdf({
-                        browser,
-                        fontPath,
-                        invoiceNumber,
-                        periodStartISO: previousPeriodStartISO,
-                        periodEndISO: previousPeriodEndISO,
-                        organizationName: organization.name,
-                        organizationEmail: organization.email ?? "",
-                        amountInCents: totalAmountInCents,
-                        subscriptions: invoiceLines,
-                    })
-
-                    storageKey = `invoices/${idOrganization}/${invoicePrefix}.pdf`
-
-                    await putObject({
-                        var: c.var,
-                        body: pdfBody,
-                        storageKey,
-                        contentType: "application/pdf",
-                        contentLength: pdfBody.length,
-                        metadata: { idOrganization, invoiceNumber, period: invoicePrefix },
-                    })
-                }
+                const xmlBuffer = Buffer.from(xmlContent, "utf8")
+                await putObject({
+                    var: c.var,
+                    body: xmlBuffer,
+                    storageKey: xmlStorageKey,
+                    contentType: "application/xml",
+                    contentLength: xmlBuffer.length,
+                    metadata: { idOrganization, invoiceNumber, period: invoicePrefix },
+                })
 
                 const invoiceId = generateId()
                 await insertOne({
@@ -488,8 +431,8 @@ export const generateMonthlyInvoicesRoute = apiFactory
                         periodEnd: previousPeriodEndISO,
                         amountInCents: totalAmountInCents,
                         currency: "EUR",
-                        storageKey,
-                        status: "paid",
+                        storageKey: xmlStorageKey,
+                        status: "generated",
                         createdAt: now.toISOString(),
                         lastUpdatedAt: null,
                     },
@@ -616,10 +559,6 @@ export const generateMonthlyInvoicesRoute = apiFactory
                     stack: error instanceof Error ? error.stack : undefined,
                 })
             }
-        }
-
-        if (browser !== null) {
-            await browser.close()
         }
 
         return response({

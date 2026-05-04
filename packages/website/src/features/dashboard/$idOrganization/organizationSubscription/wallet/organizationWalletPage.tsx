@@ -178,11 +178,17 @@ export function OrganizationWalletPage() {
                                                                 </Button>
                                                             </WalletTopUpDrawer>
                                                             <WalletWithdrawalDrawer
-                                                                currentBalanceInCents={organization.walletBalanceInCents}
-                                                                hasWithdrawalThisMonth={hasCurrentMonthWithdrawal(payments)}
+                                                                currentBalanceInCents={
+                                                                    organization.walletBalanceInCents
+                                                                }
+                                                                hasWithdrawalThisMonth={hasCurrentMonthWithdrawal(
+                                                                    payments,
+                                                                )}
                                                                 onSuccess={() => setRefreshKey((key) => key + 1)}
                                                             >
-                                                                <Button isDisabled={organization.walletBalanceInCents <= 0}>
+                                                                <Button
+                                                                    isDisabled={organization.walletBalanceInCents <= 0}
+                                                                >
                                                                     <ButtonOutlineContent
                                                                         leftIcon={<IconCashMinus />}
                                                                         text="Retirer"
@@ -234,7 +240,8 @@ export function OrganizationWalletPage() {
                                                                             fontWeight: "700",
                                                                             fontVariantNumeric: "tabular-nums",
                                                                             letterSpacing: "-0.03em",
-                                                                            textShadow: "0 6px 18px rgba(0, 0, 0, 0.24)",
+                                                                            textShadow:
+                                                                                "0 6px 18px rgba(0, 0, 0, 0.24)",
                                                                             color: "white",
                                                                         })}
                                                                     >

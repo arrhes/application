@@ -1,13 +1,12 @@
 import type { returnedSchemas } from "@arrhes/application-metadata"
 import {
     readAllInvoicesRouteDefinition,
-    readAllOrganizationPaymentsRouteDefinition
+    readAllOrganizationPaymentsRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import type * as v from "valibot"
 import { DataWrapper } from "../../../../../components/layouts/dataWrapper.tsx"
 import { formatEuros } from "../../../../../utilities/formatEuros.tsx"
-
 
 function getPaymentLineType(payment: {
     category: string
@@ -38,38 +37,29 @@ function getPaymentLineType(payment: {
     return "subscription"
 }
 
-export function WalletCurrentMonth(props: {
-    organization: v.InferOutput<typeof returnedSchemas.organization>
-}) {
+export function WalletCurrentMonth(props: { organization: v.InferOutput<typeof returnedSchemas.organization> }) {
     return (
         <DataWrapper routeDefinition={readAllInvoicesRouteDefinition} body={{}}>
             {(invoices) => (
-                <DataWrapper
-                    routeDefinition={readAllOrganizationPaymentsRouteDefinition}
-                    body={{}}
-                >
+                <DataWrapper routeDefinition={readAllOrganizationPaymentsRouteDefinition} body={{}}>
                     {(payments) => {
                         const now = new Date()
-                        const currentPeriodStart = new Date(
-                            Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1),
-                        )
+                        const currentPeriodStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1))
                         const currentInvoice = invoices.find((inv) => {
                             const invStart = new Date(inv.periodStart)
                             return (
-                                invStart.getUTCFullYear() ===
-                                currentPeriodStart.getUTCFullYear() &&
-                                invStart.getUTCMonth() ===
-                                currentPeriodStart.getUTCMonth()
+                                invStart.getUTCFullYear() === currentPeriodStart.getUTCFullYear() &&
+                                invStart.getUTCMonth() === currentPeriodStart.getUTCMonth()
                             )
                         })
 
                         const currentMonthPayments = currentInvoice
                             ? payments.filter(
-                                (payment) =>
-                                    payment.idInvoice === currentInvoice.id &&
-                                    payment.status !== "failed" &&
-                                    payment.status !== "refunded",
-                            )
+                                  (payment) =>
+                                      payment.idInvoice === currentInvoice.id &&
+                                      payment.status !== "failed" &&
+                                      payment.status !== "refunded",
+                              )
                             : []
 
                         const lineItems = [
@@ -96,15 +86,17 @@ export function WalletCurrentMonth(props: {
                         ] as const
 
                         const totalsByType = currentMonthPayments.reduce<
-                            Record<string, { amount: number; quantity: number }>
+                            Record<string, { amountHT: number; amountTVA: number; quantity: number }>
                         >((acc, payment) => {
                             const lineType = getPaymentLineType(payment)
 
                             if (lineType === null) return acc
-                            if (!acc[lineType])
-                                acc[lineType] = { amount: 0, quantity: 0 }
+                            if (!acc[lineType]) {
+                                acc[lineType] = { amountHT: 0, amountTVA: 0, quantity: 0 }
+                            }
 
-                            acc[lineType].amount += payment.amountInCents
+                            acc[lineType].amountHT += payment.amountHTInCents
+                            acc[lineType].amountTVA += payment.amountTVAInCents
                             acc[lineType].quantity += 1
 
                             return acc
@@ -116,19 +108,25 @@ export function WalletCurrentMonth(props: {
                         if (props.organization.licenceAmount > 0) {
                             if (!totalsByType.storage_gb)
                                 totalsByType.storage_gb = {
-                                    amount: 0,
+                                    amountHT: 0,
+                                    amountTVA: 0,
                                     quantity: 0,
                                 }
                             totalsByType.storage_gb.quantity += 1
                         }
 
-                        const totalAmount = currentMonthPayments.reduce(
+                        const totalHTAmount = currentMonthPayments.reduce(
                             (sum, payment) =>
-                                getPaymentLineType(payment) === null
-                                    ? sum
-                                    : sum + payment.amountInCents,
+                                getPaymentLineType(payment) === null ? sum : sum + payment.amountHTInCents,
                             0,
                         )
+
+                        const totalTVAAmount = currentMonthPayments.reduce(
+                            (sum, payment) =>
+                                getPaymentLineType(payment) === null ? sum : sum + payment.amountTVAInCents,
+                            0,
+                        )
+                        const totalTTCAmount = totalHTAmount + totalTVAAmount
 
                         return (
                             <div
@@ -147,11 +145,10 @@ export function WalletCurrentMonth(props: {
                                         className={css({
                                             display: "grid",
                                             gridTemplateColumns:
-                                                "minmax(0, 2fr) minmax(0, 1.5fr) minmax(88px, 0.8fr) minmax(100px, 1fr)",
+                                                "minmax(0, 2fr) minmax(0, 1.3fr) minmax(72px, 0.7fr) minmax(88px, 1fr) minmax(88px, 1fr) minmax(96px, 1fr)",
                                             gap: "0.75rem",
                                             padding: "0 0 0.5rem",
-                                            borderBottom:
-                                                "1px solid token(colors.neutral/10)",
+                                            borderBottom: "1px solid token(colors.neutral/10)",
                                             marginBottom: "0.125rem",
                                         })}
                                     >
@@ -199,14 +196,40 @@ export function WalletCurrentMonth(props: {
                                                 textAlign: "right",
                                             })}
                                         >
-                                            Montant
+                                            Montant HT
+                                        </span>
+                                        <span
+                                            className={css({
+                                                fontSize: "xs",
+                                                fontWeight: "600",
+                                                textTransform: "uppercase",
+                                                letterSpacing: "0.04em",
+                                                color: "neutral/50",
+                                                textAlign: "right",
+                                            })}
+                                        >
+                                            TVA
+                                        </span>
+                                        <span
+                                            className={css({
+                                                fontSize: "xs",
+                                                fontWeight: "600",
+                                                textTransform: "uppercase",
+                                                letterSpacing: "0.04em",
+                                                color: "neutral/50",
+                                                textAlign: "right",
+                                            })}
+                                        >
+                                            Montant TTC
                                         </span>
                                     </div>
                                     {lineItems.map((line, index) => {
                                         const data = totalsByType[line.type] ?? {
-                                            amount: 0,
+                                            amountHT: 0,
+                                            amountTVA: 0,
                                             quantity: 0,
                                         }
+                                        const amountTTC = data.amountHT + data.amountTVA
 
                                         return (
                                             <div
@@ -214,7 +237,7 @@ export function WalletCurrentMonth(props: {
                                                 className={css({
                                                     display: "grid",
                                                     gridTemplateColumns:
-                                                        "minmax(0, 2fr) minmax(0, 1.5fr) minmax(88px, 0.8fr) minmax(100px, 1fr)",
+                                                        "minmax(0, 2fr) minmax(0, 1.3fr) minmax(72px, 0.7fr) minmax(88px, 1fr) minmax(88px, 1fr) minmax(96px, 1fr)",
                                                     gap: "0.75rem",
                                                     alignItems: "center",
                                                     padding: "0.625rem 0",
@@ -244,32 +267,42 @@ export function WalletCurrentMonth(props: {
                                                 <span
                                                     className={css({
                                                         fontSize: "sm",
-                                                        color:
-                                                            data.quantity === 0
-                                                                ? "neutral/40"
-                                                                : "neutral/70",
+                                                        color: data.quantity === 0 ? "neutral/40" : "neutral/70",
                                                         textAlign: "right",
-                                                        fontVariantNumeric:
-                                                            "tabular-nums",
+                                                        fontVariantNumeric: "tabular-nums",
                                                     })}
                                                 >
-                                                    {data.quantity === 0
-                                                        ? "-"
-                                                        : data.quantity}
+                                                    {data.quantity === 0 ? "-" : data.quantity}
                                                 </span>
                                                 <span
                                                     className={css({
                                                         fontSize: "sm",
-                                                        color:
-                                                            data.amount === 0
-                                                                ? "neutral/40"
-                                                                : "neutral",
-                                                        fontVariantNumeric:
-                                                            "tabular-nums",
+                                                        color: data.amountHT === 0 ? "neutral/40" : "neutral",
+                                                        fontVariantNumeric: "tabular-nums",
                                                         textAlign: "right",
                                                     })}
                                                 >
-                                                    {formatEuros(data.amount)}
+                                                    {formatEuros(data.amountHT)}
+                                                </span>
+                                                <span
+                                                    className={css({
+                                                        fontSize: "sm",
+                                                        color: data.amountTVA === 0 ? "neutral/40" : "neutral",
+                                                        fontVariantNumeric: "tabular-nums",
+                                                        textAlign: "right",
+                                                    })}
+                                                >
+                                                    {formatEuros(data.amountTVA)}
+                                                </span>
+                                                <span
+                                                    className={css({
+                                                        fontSize: "sm",
+                                                        color: amountTTC === 0 ? "neutral/40" : "neutral",
+                                                        fontVariantNumeric: "tabular-nums",
+                                                        textAlign: "right",
+                                                    })}
+                                                >
+                                                    {formatEuros(amountTTC)}
                                                 </span>
                                             </div>
                                         )
@@ -278,12 +311,11 @@ export function WalletCurrentMonth(props: {
                                         className={css({
                                             display: "grid",
                                             gridTemplateColumns:
-                                                "minmax(0, 2fr) minmax(0, 1.5fr) minmax(88px, 0.8fr) minmax(100px, 1fr)",
+                                                "minmax(0, 2fr) minmax(0, 1.3fr) minmax(72px, 0.7fr) minmax(88px, 1fr) minmax(88px, 1fr) minmax(96px, 1fr)",
                                             gap: "0.75rem",
                                             alignItems: "center",
                                             padding: "0.75rem 0 0.125rem",
-                                            borderTop:
-                                                "2px solid token(colors.neutral/20)",
+                                            borderTop: "2px solid token(colors.neutral/20)",
                                             marginTop: "0.25rem",
                                         })}
                                     >
@@ -305,7 +337,27 @@ export function WalletCurrentMonth(props: {
                                                 textAlign: "right",
                                             })}
                                         >
-                                            {formatEuros(totalAmount)}
+                                            {formatEuros(totalHTAmount)}
+                                        </span>
+                                        <span
+                                            className={css({
+                                                fontWeight: "600",
+                                                fontSize: "sm",
+                                                fontVariantNumeric: "tabular-nums",
+                                                textAlign: "right",
+                                            })}
+                                        >
+                                            {formatEuros(totalTVAAmount)}
+                                        </span>
+                                        <span
+                                            className={css({
+                                                fontWeight: "600",
+                                                fontSize: "sm",
+                                                fontVariantNumeric: "tabular-nums",
+                                                textAlign: "right",
+                                            })}
+                                        >
+                                            {formatEuros(totalTTCAmount)}
                                         </span>
                                     </div>
                                 </div>

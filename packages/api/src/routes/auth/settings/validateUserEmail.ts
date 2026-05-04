@@ -33,7 +33,7 @@ export const validateUserEmailRoute = apiFactory.createApp().post(validateUserEm
 
     const updatedUser = await updateOne({
         database: c.var.clients.sql,
-        table: models.dashboardUser,
+        table: models.user,
         data: {
             email: newEmail,
             emailToValidate: null,

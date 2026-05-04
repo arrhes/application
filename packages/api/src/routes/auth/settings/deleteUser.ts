@@ -51,7 +51,7 @@ export const deleteUserRoute = apiFactory.createApp().post(deleteUserRouteDefini
 
     await deleteOne({
         database: c.var.clients.sql,
-        table: models.dashboardUser,
+        table: models.user,
         where: (table) => eq(table.id, user.id),
     })
 

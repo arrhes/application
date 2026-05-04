@@ -5,6 +5,23 @@ import { parseCookies } from "../utilities/cookies/parseCookies.js"
 import { unsignString } from "../utilities/cookies/unsignString.js"
 import { Exception } from "../utilities/exception.js"
 import { productName } from "../utilities/variables.js"
+import { checkUserSessionMiddleware } from "./checkUserSessionMiddleware.js"
+
+async function trySuperAdminDashboardFallback(parameters: { context: Context<any> }) {
+    const userSession = await checkUserSessionMiddleware({ context: parameters.context })
+    if (userSession.user.isSuperAdmin !== true) {
+        throw new Exception({
+            internalMessage: "Admin auth error",
+            cause: "Dashboard user is not super admin",
+        })
+    }
+
+    return {
+        adminUserSession: null,
+        adminUser: userSession.user,
+        user: userSession.user,
+    }
+}
 
 export async function checkAdminUserSessionMiddleware(parameters: { context: Context<any> }) {
     try {
@@ -18,32 +35,23 @@ export async function checkAdminUserSessionMiddleware(parameters: { context: Con
         })
 
         if (!idAdminUserSession) {
-            throw new Exception({
-                internalMessage: "Admin auth error",
-                cause: "No admin session cookie found",
-            })
+            return trySuperAdminDashboardFallback({ context: parameters.context })
         }
 
-        const adminUserSession = await parameters.context.var.clients.sql.query.adminUserSessionModel.findFirst({
-            where: eq(models.adminUserSession.id, idAdminUserSession),
+        const adminUserSession = await parameters.context.var.clients.sql.query.userSessionModel.findFirst({
+            where: eq(models.userSession.id, idAdminUserSession),
         })
 
         if (!adminUserSession || adminUserSession.isActive === false) {
-            throw new Exception({
-                internalMessage: "Admin auth error",
-                cause: "Admin session not found or inactive",
-            })
+            return trySuperAdminDashboardFallback({ context: parameters.context })
         }
 
-        const adminUser = await parameters.context.var.clients.sql.query.adminUserModel.findFirst({
-            where: eq(models.adminUser.id, adminUserSession.idAdminUser),
+        const adminUser = await parameters.context.var.clients.sql.query.userModel.findFirst({
+            where: eq(models.user.id, adminUserSession.idUser),
         })
 
-        if (!adminUser) {
-            throw new Exception({
-                internalMessage: "Admin auth error",
-                cause: "Admin user not found",
-            })
+        if (!adminUser || adminUser.isSuperAdmin !== true) {
+            return trySuperAdminDashboardFallback({ context: parameters.context })
         }
 
         parameters.context.set("adminUser", adminUser)
@@ -51,6 +59,7 @@ export async function checkAdminUserSessionMiddleware(parameters: { context: Con
         return {
             adminUserSession: adminUserSession,
             adminUser: adminUser,
+            user: null,
         }
     } catch (error: unknown) {
         if (error instanceof Exception) {

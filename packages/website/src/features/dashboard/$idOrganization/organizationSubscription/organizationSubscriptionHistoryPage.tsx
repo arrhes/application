@@ -54,6 +54,8 @@ type Payment = {
     serviceType: string | null
     status: string
     amountInCents: number
+    amountHTInCents: number
+    amountTVAInCents: number
     currency: string
     description: string | null
     periodStart: string | null
@@ -62,12 +64,24 @@ type Payment = {
     sequenceType: string | null
 }
 
-function getSignedAmountInCents(payment: Payment): number {
+function getSignedAmountHTInCents(payment: Payment): number {
     if (payment.category === "withdrawal" || payment.category === "wallet_spending") {
-        return -payment.amountInCents
+        return -payment.amountHTInCents
     }
 
-    return payment.amountInCents
+    return payment.amountHTInCents
+}
+
+function getSignedAmountTVAInCents(payment: Payment): number {
+    if (payment.category === "withdrawal" || payment.category === "wallet_spending") {
+        return -payment.amountTVAInCents
+    }
+
+    return payment.amountTVAInCents
+}
+
+function getSignedAmountTTCInCents(payment: Payment): number {
+    return getSignedAmountHTInCents(payment) + getSignedAmountTVAInCents(payment)
 }
 
 function getPaymentCategoryLabel(category: string): string {
@@ -117,9 +131,19 @@ const columns: Array<ListTableColumn<Payment>> = [
         filterOptions: paymentStatusOptions,
     },
     {
-        id: "amount",
-        header: "Montant",
-        accessor: (payment) => getSignedAmountInCents(payment),
+        id: "amountHT",
+        header: "Montant HT",
+        accessor: (payment) => getSignedAmountHTInCents(payment),
+    },
+    {
+        id: "amountTVA",
+        header: "TVA",
+        accessor: (payment) => getSignedAmountTVAInCents(payment),
+    },
+    {
+        id: "amountTTC",
+        header: "Montant TTC",
+        accessor: (payment) => getSignedAmountTTCInCents(payment),
     },
     {
         id: "date",
@@ -215,18 +239,21 @@ function PaymentList(props: { payments: Array<Payment> }) {
                                 className={css({
                                     flexShrink: 0,
                                     display: "flex",
-                                    alignItems: "center",
+                                    flexDirection: "column",
+                                    alignItems: "end",
                                     gap: "0.25rem",
                                 })}
                             >
-                                <FormatPrice price={getSignedAmountInCents(payment) / 100} />
-                                <span
-                                    className={css({
-                                        fontSize: "xs",
-                                        color: "neutral/50",
-                                        fontFamily: "mono",
-                                    })}
-                                >
+                                <span className={css({ fontSize: "xs", color: "neutral/60" })}>
+                                    HT: <FormatPrice price={getSignedAmountHTInCents(payment) / 100} />{" "}
+                                    {payment.currency}
+                                </span>
+                                <span className={css({ fontSize: "xs", color: "neutral/60" })}>
+                                    TVA: <FormatPrice price={getSignedAmountTVAInCents(payment) / 100} />{" "}
+                                    {payment.currency}
+                                </span>
+                                <span className={css({ fontSize: "sm", fontWeight: "600" })}>
+                                    TTC: <FormatPrice price={getSignedAmountTTCInCents(payment) / 100} />{" "}
                                     {payment.currency}
                                 </span>
                             </span>

@@ -2,7 +2,7 @@ import * as v from "valibot"
 import { routePath } from "../../../../components/index.js"
 import { passwordSchema } from "../../../../components/schemas/passwordSchema.js"
 import { stringSchema } from "../../../../components/schemas/stringSchema.js"
-import { dashboardUserSchemaReturn } from "../../../../schemas/dashboardUser.js"
+import { userSchemaReturn } from "../../../../schemas/user.js"
 import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const updateUserPasswordRouteDefinition = routeDefinition({
@@ -14,6 +14,6 @@ export const updateUserPasswordRouteDefinition = routeDefinition({
             newPassword: v.nonNullable(passwordSchema, "Le nouveau mot de passe doit être renseigné"),
             newPasswordCheck: v.nonNullable(passwordSchema, "Le nouveau mot de passe doit être renseigné"),
         }),
-        return: dashboardUserSchemaReturn,
+        return: userSchemaReturn,
     },
 })

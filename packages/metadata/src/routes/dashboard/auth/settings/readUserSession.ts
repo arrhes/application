@@ -1,7 +1,7 @@
 import * as v from "valibot"
 import { routePath } from "../../../../components/index.js"
-import { dashboardUserSchemaReturn } from "../../../../schemas/dashboardUser.js"
-import { dashboardUserSessionSchemaReturn } from "../../../../schemas/dashboardUserSession.js"
+import { userSchemaReturn } from "../../../../schemas/user.js"
+import { userSessionSchemaReturn } from "../../../../schemas/userSession.js"
 import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const readUserSessionRouteDefinition = routeDefinition({
@@ -10,8 +10,8 @@ export const readUserSessionRouteDefinition = routeDefinition({
     schemas: {
         body: v.object({}),
         return: v.object({
-            ...dashboardUserSessionSchemaReturn.entries,
-            user: dashboardUserSchemaReturn,
+            ...userSessionSchemaReturn.entries,
+            user: userSchemaReturn,
         }),
     },
 })

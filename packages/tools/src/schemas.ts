@@ -13,8 +13,6 @@ export {
     accountRelations,
     accountTypeEnum,
 } from "../../metadata/src/models/account.ts"
-export { adminUserModel, adminUserRelations } from "../../metadata/src/models/adminUser.ts"
-export { adminUserSessionModel, adminUserSessionRelations } from "../../metadata/src/models/adminUserSession.ts"
 export {
     agentMessageModel,
     agentMessageRelations,
@@ -28,11 +26,6 @@ export {
     computationIncomeStatementModel,
     computationIncomeStatementRelations,
 } from "../../metadata/src/models/computationIncomeStatement.ts"
-export { dashboardUserModel, dashboardUserRelations } from "../../metadata/src/models/dashboardUser.ts"
-export {
-    dashboardUserSessionModel,
-    dashboardUserSessionsRelations,
-} from "../../metadata/src/models/dashboardUserSession.ts"
 export { documentModel, documentRelations, documentTypeEnum } from "../../metadata/src/models/document.ts"
 export { entryModel, entryRelations } from "../../metadata/src/models/entry.ts"
 export { entryLineModel, entryLineOperationEnum, entryLineRelations } from "../../metadata/src/models/entryLine.ts"
@@ -55,5 +48,10 @@ export {
 export { tagModel, tagRelations } from "../../metadata/src/models/tag.ts"
 export { ticketModel, ticketRelations, ticketStatusEnum, ticketTypeEnum } from "../../metadata/src/models/ticket.ts"
 export { ticketMessageModel, ticketMessageRelations } from "../../metadata/src/models/ticketMessage.ts"
+export { userModel, userRelations } from "../../metadata/src/models/user.ts"
+export {
+    userSessionModel,
+    userSessionsRelations,
+} from "../../metadata/src/models/userSession.ts"
 export { workerJobModel, workerJobRelations, workerJobStatusEnum } from "../../metadata/src/models/workerJob.ts"
 export { yearModel, yearRelations, yearStateEnum } from "../../metadata/src/models/year.ts"

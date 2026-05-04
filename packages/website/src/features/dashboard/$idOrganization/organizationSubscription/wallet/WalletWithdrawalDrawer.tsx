@@ -1,6 +1,4 @@
-import {
-    createWalletWithdrawalRouteDefinition
-} from "@arrhes/application-metadata/routes"
+import { createWalletWithdrawalRouteDefinition } from "@arrhes/application-metadata/routes"
 import { Button, ButtonOutlineContent, InputText, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconMinus } from "@tabler/icons-react"
@@ -8,7 +6,6 @@ import { type JSX, useEffect, useState } from "react"
 import { Drawer } from "../../../../../components/overlays/drawer/drawer.tsx"
 import { getResponseBodyFromAPI } from "../../../../../utilities/getResponseBodyFromAPI.ts"
 import { parseEuroAmountToCents } from "../../../../../utilities/parseEuroAmountToCents.ts"
-
 
 export function WalletWithdrawalDrawer(props: {
     children: JSX.Element
@@ -82,8 +79,8 @@ export function WalletWithdrawalDrawer(props: {
                                     isLoading
                                         ? "Traitement..."
                                         : props.hasWithdrawalThisMonth
-                                            ? "Retrait déjà utilisé ce mois-ci"
-                                            : "Retirer via Mollie"
+                                          ? "Retrait déjà utilisé ce mois-ci"
+                                          : "Retirer via Mollie"
                                 }
                             />
                         </Button>

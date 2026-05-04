@@ -1,5 +1,10 @@
 import { updateTokensSubscriptionRouteDefinition } from "@arrhes/application-metadata/routes"
-import { TOKEN_PACK_PRICE_IN_CENTS, TOKEN_TIERS, TOKENS_PER_PACK } from "@arrhes/application-metadata/utilities"
+import {
+    TOKEN_PACK_PRICE_IN_CENTS,
+    TOKEN_TIERS,
+    TOKENS_PER_PACK,
+    VAT_PERCENT,
+} from "@arrhes/application-metadata/utilities"
 import { Button, ButtonOutlineContent, InputNumber, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconPlus } from "@tabler/icons-react"
@@ -103,7 +108,8 @@ export function UpdateTokensSubscriptionDrawer(props: {
                     >
                         <p className={css({ fontSize: "sm", color: "neutral/70", lineHeight: "1.5" })}>
                             Chaque million de tokens supplémentaire est débité une seule fois depuis le portefeuille.
-                            Les tokens achetés restent disponibles tant qu'ils n'ont pas été consommés.
+                            Les tokens achetés restent disponibles tant qu'ils n'ont pas été consommés. Montants en HT
+                            (TVA {VAT_PERCENT}%).
                         </p>
                         <DrawerSection
                             title="Ajuster les tokens"
@@ -127,7 +133,7 @@ export function UpdateTokensSubscriptionDrawer(props: {
                                         label="M tokens"
                                     />
                                     <span className={css({ fontSize: "sm", color: "neutral/70" })}>
-                                        {formatEuros(deltaAmountInCents)} débité
+                                        {formatEuros(deltaAmountInCents)} HT débité
                                     </span>
                                 </div>
                                 <div className={css({ display: "flex", gap: "0.5rem", flexWrap: "wrap" })}>
@@ -206,7 +212,7 @@ export function UpdateTokensSubscriptionDrawer(props: {
                                         Débité du portefeuille
                                     </span>
                                     <span className={css({ fontSize: "sm", fontWeight: "600", color: "neutral" })}>
-                                        {formatEuros(deltaAmountInCents)}
+                                        {formatEuros(deltaAmountInCents)} HT
                                     </span>
                                 </div>
                             </div>
@@ -218,7 +224,7 @@ export function UpdateTokensSubscriptionDrawer(props: {
                             open={confirmOpen}
                             onOpenChange={setConfirmOpen}
                             title="Confirmer l'achat de tokens"
-                            description={`${formatTokenUnitDelta(quantityDelta)} seront ajoutés et ${formatEuros(deltaAmountInCents)} seront débités de votre portefeuille.`}
+                            description={`${formatTokenUnitDelta(quantityDelta)} seront ajoutes et ${formatEuros(deltaAmountInCents)} HT seront debites de votre portefeuille (TVA ${VAT_PERCENT}% en sus).`}
                             submitButtonProps={{ text: "Confirmer l'achat" }}
                             onSubmit={handleSave}
                         />

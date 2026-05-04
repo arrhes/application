@@ -3,8 +3,8 @@ import { index, integer, jsonb, pgTable, text } from "drizzle-orm/pg-core"
 import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
 import { agentMessageModel } from "./agentMessage.js"
-import { dashboardUserModel } from "./dashboardUser.js"
 import { organizationModel } from "./organization.js"
+import { userModel } from "./user.js"
 import { yearModel } from "./year.js"
 
 // Model
@@ -16,7 +16,7 @@ export const agentSessionModel = pgTable(
             .references(() => organizationModel.id, { onDelete: "cascade", onUpdate: "cascade" })
             .notNull(),
         idUser: idColumn("id_user")
-            .references(() => dashboardUserModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => userModel.id, { onDelete: "cascade", onUpdate: "cascade" })
             .notNull(),
         title: text("title"),
         idYear: idColumn("id_year").references(() => yearModel.id, { onDelete: "set null", onUpdate: "cascade" }),
@@ -37,9 +37,9 @@ export const agentSessionRelations = relations(agentSessionModel, ({ one, many }
         fields: [agentSessionModel.idOrganization],
         references: [organizationModel.id],
     }),
-    user: one(dashboardUserModel, {
+    user: one(userModel, {
         fields: [agentSessionModel.idUser],
-        references: [dashboardUserModel.id],
+        references: [userModel.id],
     }),
     messages: many(agentMessageModel),
 }))

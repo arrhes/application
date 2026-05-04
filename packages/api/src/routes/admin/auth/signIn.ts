@@ -20,9 +20,18 @@ export const adminSignInRoute = apiFactory.createApp().post(adminSignInRouteDefi
 
     const adminUser = await selectOne({
         database: c.var.clients.sql,
-        table: models.adminUser,
+        table: models.user,
         where: (table) => eq(table.email, body.email.trim().toLowerCase()),
     })
+
+    if (adminUser.isSuperAdmin !== true) {
+        throw new Exception({
+            statusCode: 401,
+            internalMessage: "Error signing in admin",
+            externalMessage: "Acces admin refuse",
+            cause: "User is not super admin",
+        })
+    }
 
     const passwordHash = pbkdf2Sync(body.password, adminUser.passwordSalt, 128000, 64, "sha512").toString("hex")
     if (passwordHash !== adminUser.passwordHash) {
@@ -37,10 +46,10 @@ export const adminSignInRoute = apiFactory.createApp().post(adminSignInRouteDefi
     // Store the session
     const adminUserSession = await insertOne({
         database: c.var.clients.sql,
-        table: models.adminUserSession,
+        table: models.userSession,
         data: {
             id: generateId(),
-            idAdminUser: adminUser.id,
+            idUser: adminUser.id,
             isActive: true,
             expiresAt: new Date(Date.now() + userSessionCookieMaxAge).toISOString(),
             ip: getRemoteAddress({ context: c }),

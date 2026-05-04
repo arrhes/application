@@ -10,9 +10,19 @@ type DatabaseType =
 export function generateRandomInvoiceReference(periodStart: Date): string {
     const year = String(periodStart.getUTCFullYear())
     const month = String(periodStart.getUTCMonth() + 1).padStart(2, "0")
-    const randomSuffix = generateId().slice(-8).toUpperCase()
+    let randomSuffix = generateId()
+        .replaceAll(/[^a-zA-Z0-9]/g, "")
+        .toUpperCase()
+        .slice(0, 8)
 
-    return `${year}${month}-${randomSuffix}`
+    while (randomSuffix.length < 8) {
+        randomSuffix += generateId()
+            .replaceAll(/[^a-zA-Z0-9]/g, "")
+            .toUpperCase()
+        randomSuffix = randomSuffix.slice(0, 8)
+    }
+
+    return `${year}_${month}_${randomSuffix}`
 }
 
 /**

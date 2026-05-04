@@ -1,4 +1,10 @@
 import type { AnyRoute } from "@tanstack/react-router"
+import { adminLayoutRoute } from "./admin/adminLayoutRoute.tsx"
+import { adminRoute } from "./admin/adminRoute.tsx"
+import { $idTicketLayoutRoute } from "./admin/tickets/$idTicket/$idTicketLayoutRoute.tsx"
+import { $idTicketRoute } from "./admin/tickets/$idTicket/$idTicketRoute.tsx"
+import { adminTicketsLayoutRoute } from "./admin/tickets/ticketsLayoutRoute.tsx"
+import { adminTicketsRoute } from "./admin/tickets/ticketsRoute.tsx"
 import { agentLayoutRoute } from "./agent/agentLayoutRoute.tsx"
 import { agentRoute } from "./agent/agentRoute.tsx"
 import { agentSessionRoute } from "./agent/agentSessionRoute.tsx"
@@ -17,6 +23,7 @@ import { organizationSettingsLayoutRoute } from "./organizations/$idOrganization
 import { organizationSettingsRoute } from "./organizations/$idOrganization/organizationSettings/organizationSettingsRoute.tsx"
 import { organizationStorageRoute } from "./organizations/$idOrganization/organizationSettings/organizationStorageRoute.tsx"
 import { organizationInvoicesRoute } from "./organizations/$idOrganization/organizationSubscription/organizationInvoicesRoute.tsx"
+import { organizationInvoiceUblRoute } from "./organizations/$idOrganization/organizationSubscription/organizationInvoiceUblRoute.tsx"
 import { organizationSubscriptionHistoryRoute } from "./organizations/$idOrganization/organizationSubscription/organizationSubscriptionHistoryRoute.tsx"
 import { organizationSubscriptionLayoutRoute } from "./organizations/$idOrganization/organizationSubscription/organizationSubscriptionLayoutRoute.tsx"
 import { organizationSubscriptionRoute } from "./organizations/$idOrganization/organizationSubscription/organizationSubscriptionRoute.tsx"
@@ -101,6 +108,10 @@ import { ticketRoute } from "./support/ticketRoute.tsx"
 
 export const dashboardTree: AnyRoute = dashboardLayoutRoute.addChildren([
     dashboardRootRoute,
+    adminLayoutRoute.addChildren([
+        adminRoute,
+        adminTicketsLayoutRoute.addChildren([adminTicketsRoute, $idTicketLayoutRoute.addChildren([$idTicketRoute])]),
+    ]),
     organizationsLayoutRoute.addChildren([
         organizationsRoute,
         organizationPathRoute.addChildren([
@@ -114,6 +125,7 @@ export const dashboardTree: AnyRoute = dashboardLayoutRoute.addChildren([
                     organizationServicesRoute,
                     organizationSubscriptionHistoryRoute,
                     organizationInvoicesRoute,
+                    organizationInvoiceUblRoute,
                 ]),
                 organizationSettingsLayoutRoute.addChildren([
                     organizationSettingsRoute,

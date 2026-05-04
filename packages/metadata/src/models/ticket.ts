@@ -4,8 +4,8 @@ import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
 import { ticketStatus } from "../components/values/ticketStatus.js"
 import { ticketType } from "../components/values/ticketType.js"
-import { dashboardUserModel } from "./dashboardUser.js"
 import { ticketMessageModel } from "./ticketMessage.js"
+import { userModel } from "./user.js"
 
 // Enums
 export const ticketStatusEnum = pgEnum("enum_ticket_status", ticketStatus)
@@ -15,7 +15,7 @@ export const ticketTypeEnum = pgEnum("enum_ticket_type", ticketType)
 export const ticketModel = pgTable("table_ticket", {
     id: idColumn("id").primaryKey(),
     idUser: idColumn("id_user")
-        .references(() => dashboardUserModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+        .references(() => userModel.id, { onDelete: "cascade", onUpdate: "cascade" })
         .notNull(),
     category: ticketTypeEnum("category").notNull(),
     status: ticketStatusEnum("status").notNull(),
@@ -25,9 +25,9 @@ export const ticketModel = pgTable("table_ticket", {
 
 // Relations
 export const ticketRelations = relations(ticketModel, ({ one, many }) => ({
-    user: one(dashboardUserModel, {
+    user: one(userModel, {
         fields: [ticketModel.idUser],
-        references: [dashboardUserModel.id],
+        references: [userModel.id],
     }),
     messages: many(ticketMessageModel),
 }))

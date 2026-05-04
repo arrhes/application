@@ -31,7 +31,7 @@ export const signUpRoute = apiFactory.createApp().post(signUpRouteDefinition.pat
 
         const createUser = await insertOne({
             database: tx,
-            table: models.dashboardUser,
+            table: models.user,
             data: {
                 id: generateId(),
                 isActive: true,
@@ -50,7 +50,7 @@ export const signUpRoute = apiFactory.createApp().post(signUpRouteDefinition.pat
         // Store the session
         const createUserSession = await insertOne({
             database: tx,
-            table: models.dashboardUserSession,
+            table: models.userSession,
             data: {
                 id: generateId(),
                 idUser: createUser.id,

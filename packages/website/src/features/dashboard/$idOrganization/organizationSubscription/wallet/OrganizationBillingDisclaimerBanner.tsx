@@ -1,6 +1,6 @@
 import {
     readAllOrganizationPaymentsRouteDefinition,
-    readOneOrganizationRouteDefinition
+    readOneOrganizationRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { Button, ButtonOutlineContent } from "@arrhes/ui"

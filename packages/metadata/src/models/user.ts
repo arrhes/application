@@ -5,11 +5,12 @@ import { idColumn } from "../components/models/idColumn.js"
 import { organizationUserModel } from "./organizationUser.js"
 
 // Model
-export const dashboardUserModel = pgTable(
-    "table_dashboard_user",
+export const userModel = pgTable(
+    "table_user",
     {
         id: idColumn("id").primaryKey(),
         isActive: boolean("is_active").notNull(),
+        isSuperAdmin: boolean("is_super_admin").notNull().default(false),
         alias: varchar("alias", { length: 256 }),
         email: text("email").notNull().unique(),
         isEmailValidated: boolean("is_email_validated").notNull(),
@@ -25,6 +26,6 @@ export const dashboardUserModel = pgTable(
 )
 
 // Relations
-export const dashboardUserRelations = relations(dashboardUserModel, ({ many }) => ({
+export const userRelations = relations(userModel, ({ many }) => ({
     organizationUsers: many(organizationUserModel),
 }))

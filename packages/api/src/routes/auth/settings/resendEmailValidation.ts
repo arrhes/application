@@ -24,7 +24,7 @@ export const resendEmailValidationRoute = apiFactory
 
         const updatedUser = await updateOne({
             database: c.var.clients.sql,
-            table: models.dashboardUser,
+            table: models.user,
             data: {
                 emailToken: generateVerificationToken(),
                 emailTokenExpiresAt: new Date(Date.now() + 60 * 60 * 1000).toISOString(),

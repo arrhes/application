@@ -1,6 +1,6 @@
 import * as v from "valibot"
 import { routePath } from "../../../../components/index.js"
-import { dashboardUserSchema, dashboardUserSchemaReturn } from "../../../../schemas/dashboardUser.js"
+import { userSchema, userSchemaReturn } from "../../../../schemas/user.js"
 import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const validateUserEmailRouteDefinition = routeDefinition({
@@ -8,8 +8,8 @@ export const validateUserEmailRouteDefinition = routeDefinition({
     path: `${routePath.auth}/validate-user-email`,
     schemas: {
         body: v.object({
-            emailToken: v.nonNullable(dashboardUserSchema.entries.emailToken),
+            emailToken: v.nonNullable(userSchema.entries.emailToken),
         }),
-        return: dashboardUserSchemaReturn,
+        return: userSchemaReturn,
     },
 })

@@ -10,8 +10,9 @@ import { FormItem } from "../../components/forms/formItem.js"
 import { FormLabel } from "../../components/forms/formLabel.js"
 import { FormRoot } from "../../components/forms/formRoot.js"
 import { LinkButton } from "../../components/linkButton.js"
-import { applicationRouter } from "../../routes/applicationRouter.js"
+import { setCookie } from "../../utilities/cookies/setCookie.js"
 import { getResponseBodyFromAPI } from "../../utilities/getResponseBodyFromAPI.js"
+import { cookiePrefix } from "../../utilities/variables.js"
 
 export function SignInPage() {
     return (
@@ -123,10 +124,9 @@ export function SignInPage() {
                         }}
                         onCancel={undefined}
                         onSuccess={() => {
-                            applicationRouter.navigate({
-                                to: "/dashboard",
-                                reloadDocument: true,
-                            })
+                            // Mirror backend auth cookie to avoid a transient undefined state during immediate redirect.
+                            setCookie(`${cookiePrefix}_is_auth`, "true")
+                            window.location.assign("/dashboard")
                         }}
                     >
                         {(form) => (

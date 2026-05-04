@@ -10,7 +10,7 @@ import {
 import { models } from "@arrhes/application-metadata/models"
 import { generateId } from "@arrhes/application-metadata/utilities"
 import { randFirstName } from "@ngneat/falso"
-import { dbClient } from "../dbClient.js"
+import { dbClient, dbConnection } from "../dbClient.js"
 
 const MAX_STORAGE_BYTES = 2_147_483_647
 const SEED_INTERNAL_API_PATH = "/internal/generate-monthly-invoices"
@@ -24,16 +24,31 @@ function getMonthRangeForOffset(from: Date, monthOffset: number) {
     return { periodStart, periodEnd }
 }
 
-function formatInvoicePrefix(date: Date) {
-    return `${String(date.getUTCFullYear())}-${String(date.getUTCMonth() + 1).padStart(2, "0")}`
+function generateSeedInvoiceReference(date: Date) {
+    const year = String(date.getUTCFullYear())
+    const month = String(date.getUTCMonth() + 1).padStart(2, "0")
+
+    let randomSuffix = generateId()
+        .replaceAll(/[^a-zA-Z0-9]/g, "")
+        .toUpperCase()
+        .slice(0, 8)
+
+    while (randomSuffix.length < 8) {
+        randomSuffix += generateId()
+            .replaceAll(/[^a-zA-Z0-9]/g, "")
+            .toUpperCase()
+        randomSuffix = randomSuffix.slice(0, 8)
+    }
+
+    return `${year}_${month}_${randomSuffix}`
 }
 
 async function triggerSeededMonthlyBilling() {
-    const apiBaseUrl = process.env.API_BASE_URL
+    const apiBaseUrl = process.env.API_BASE_URL ?? "http://localhost:3000"
     const internalApiKey = process.env.INTERNAL_API_KEY
 
-    if (!apiBaseUrl || !internalApiKey) {
-        console.warn("Skipping seeded monthly billing generation: missing API_BASE_URL or INTERNAL_API_KEY.")
+    if (!internalApiKey) {
+        console.warn("Skipping seeded monthly billing generation: missing INTERNAL_API_KEY.")
         return
     }
 
@@ -91,7 +106,7 @@ function findParentNumber(accountNumber: number, allAccounts: DefaultAccount[]):
 async function seed() {
     try {
         // Check if data already exists
-        const existingUsers = await dbClient.select().from(models.dashboardUser).limit(1)
+        const existingUsers = await dbClient.select().from(models.user).limit(1)
         if (existingUsers.length > 0) {
             console.log("Database already seeded, skipping...")
             return
@@ -106,9 +121,10 @@ async function seed() {
             console.log("Creating user...")
             const passwordSalt = randomBytes(16).toString("hex")
             const passwordHash = pbkdf2Sync("demo", passwordSalt, 128000, 64, `sha512`).toString(`hex`)
-            const newUser: typeof models.dashboardUser.$inferInsert = {
+            const newUser: typeof models.user.$inferInsert = {
                 id: generateId(),
                 isActive: true,
+                isSuperAdmin: true,
                 email: "demo@arrhes.com",
                 alias: randFirstName(),
                 passwordHash: passwordHash,
@@ -116,23 +132,7 @@ async function seed() {
                 isEmailValidated: true,
                 createdAt: createdAt,
             }
-            await tx.insert(models.dashboardUser).values(newUser)
-
-            // ==========================================
-            // ADMIN USER
-            // ==========================================
-            console.log("Creating admin user...")
-            const adminPasswordSalt = randomBytes(16).toString("hex")
-            const adminPasswordHash = pbkdf2Sync("admin", adminPasswordSalt, 128000, 64, "sha512").toString("hex")
-            const newAdminUser: typeof models.adminUser.$inferInsert = {
-                id: generateId(),
-                isActive: true,
-                email: "admin@arrhes.com",
-                passwordHash: adminPasswordHash,
-                passwordSalt: adminPasswordSalt,
-                createdAt: createdAt,
-            }
-            await tx.insert(models.adminUser).values(newAdminUser)
+            await tx.insert(models.user).values(newUser)
 
             // ==========================================
             // ORGANIZATION 1: Empty organization
@@ -1397,7 +1397,7 @@ async function seed() {
                 {
                     id: invoiceThreeMonthsAgoId,
                     idOrganization: populatedOrganization.id,
-                    invoiceNumber: `${formatInvoicePrefix(threeMonthsAgo.periodStart)}-0001`,
+                    invoiceNumber: generateSeedInvoiceReference(threeMonthsAgo.periodStart),
                     periodStart: threeMonthsAgo.periodStart.toISOString(),
                     periodEnd: threeMonthsAgo.periodEnd.toISOString(),
                     amountInCents: 2_610,
@@ -1410,7 +1410,7 @@ async function seed() {
                 {
                     id: invoiceTwoMonthsAgoId,
                     idOrganization: populatedOrganization.id,
-                    invoiceNumber: `${formatInvoicePrefix(twoMonthsAgo.periodStart)}-0001`,
+                    invoiceNumber: generateSeedInvoiceReference(twoMonthsAgo.periodStart),
                     periodStart: twoMonthsAgo.periodStart.toISOString(),
                     periodEnd: twoMonthsAgo.periodEnd.toISOString(),
                     amountInCents: 2_810,
@@ -1423,7 +1423,7 @@ async function seed() {
                 {
                     id: invoicePreviousMonthId,
                     idOrganization: populatedOrganization.id,
-                    invoiceNumber: `${formatInvoicePrefix(previousMonth.periodStart)}-0001`,
+                    invoiceNumber: generateSeedInvoiceReference(previousMonth.periodStart),
                     periodStart: previousMonth.periodStart.toISOString(),
                     periodEnd: previousMonth.periodEnd.toISOString(),
                     amountInCents: 3_110,
@@ -1785,3 +1785,4 @@ async function seed() {
 
 console.log("Seeding starting.")
 await seed()
+await dbConnection.end()

@@ -2,9 +2,8 @@ import { relations } from "drizzle-orm"
 import { type AnyPgColumn, index, pgTable, text } from "drizzle-orm/pg-core"
 import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
-import { adminUserModel } from "./adminUser.js"
-import { dashboardUserModel } from "./dashboardUser.js"
 import { ticketModel } from "./ticket.js"
+import { userModel } from "./user.js"
 
 // Model
 export const ticketMessageModel = pgTable(
@@ -14,11 +13,11 @@ export const ticketMessageModel = pgTable(
         idTicket: idColumn("id_ticket")
             .references(() => ticketModel.id, { onDelete: "cascade", onUpdate: "cascade" })
             .notNull(),
-        idUser: idColumn("id_user").references((): AnyPgColumn => dashboardUserModel.id, {
+        idUser: idColumn("id_user").references((): AnyPgColumn => userModel.id, {
             onDelete: "set null",
             onUpdate: "cascade",
         }),
-        idAdminUser: idColumn("id_admin_user").references((): AnyPgColumn => adminUserModel.id, {
+        idAdminUser: idColumn("id_admin_user").references((): AnyPgColumn => userModel.id, {
             onDelete: "set null",
             onUpdate: "cascade",
         }),
@@ -34,12 +33,12 @@ export const ticketMessageRelations = relations(ticketMessageModel, ({ one }) =>
         fields: [ticketMessageModel.idTicket],
         references: [ticketModel.id],
     }),
-    user: one(dashboardUserModel, {
+    user: one(userModel, {
         fields: [ticketMessageModel.idUser],
-        references: [dashboardUserModel.id],
+        references: [userModel.id],
     }),
-    adminUser: one(adminUserModel, {
+    adminUser: one(userModel, {
         fields: [ticketMessageModel.idAdminUser],
-        references: [adminUserModel.id],
+        references: [userModel.id],
     }),
 }))

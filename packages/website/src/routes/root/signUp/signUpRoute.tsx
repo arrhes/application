@@ -1,13 +1,14 @@
 import { CircularLoader } from "@arrhes/ui"
 import { createRoute, lazyRouteComponent, redirect } from "@tanstack/react-router"
+import { getIsAuthenticated } from "../../../utilities/cookies/getIsAuthenticated.js"
 import { rootLayoutRoute } from "../../rootLayoutRoute.js"
 
 export const signUpRoute = createRoute({
     getParentRoute: () => rootLayoutRoute,
     path: "/inscription",
     pendingComponent: () => <CircularLoader />,
-    beforeLoad: async ({ context }) => {
-        if (context.isAuthenticated === true) {
+    beforeLoad: async () => {
+        if (getIsAuthenticated() === true) {
             throw redirect({
                 to: "/dashboard",
             })

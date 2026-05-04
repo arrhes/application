@@ -211,7 +211,7 @@ export function AccountsListAccountingDocPage() {
                         borderRadius: "lg",
                         border: "1px solid",
                         borderColor: "neutral/10",
-                        padding: "0.25rem",
+                        padding: "0.5rem",
                     })}
                 >
                     <div

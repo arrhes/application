@@ -7,9 +7,9 @@ import {
 } from "../components/index.js"
 import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
-import { dashboardUserModel } from "./dashboardUser.js"
 import { invoiceModel } from "./invoice.js"
 import { organizationModel } from "./organization.js"
+import { userModel } from "./user.js"
 
 // Model
 export const organizationPaymentStatusEnum = pgEnum("enum_organization_payment_status", organizationPaymentStatus)
@@ -27,6 +27,8 @@ export const organizationPaymentModel = pgTable("table_organization_payment", {
     sequenceType: varchar("sequence_type", { length: 16 }),
     serviceType: varchar("service_type", { length: 32, enum: organizationSubscriptionType }),
     amountInCents: integer("amount_in_cents").notNull(),
+    amountHTInCents: integer("amount_ht_in_cents").notNull().default(0),
+    amountTVAInCents: integer("amount_tva_in_cents").notNull().default(0),
     currency: varchar("currency", { length: 3 }).notNull(),
     description: text("description"),
     periodStart: dateTimeColumn("period_start"),
@@ -38,11 +40,11 @@ export const organizationPaymentModel = pgTable("table_organization_payment", {
     }),
     createdAt: dateTimeColumn("created_at").notNull(),
     lastUpdatedAt: dateTimeColumn("last_updated_at"),
-    createdBy: idColumn("created_by").references((): AnyPgColumn => dashboardUserModel.id, {
+    createdBy: idColumn("created_by").references((): AnyPgColumn => userModel.id, {
         onDelete: "set null",
         onUpdate: "cascade",
     }),
-    lastUpdatedBy: idColumn("last_updated_by").references((): AnyPgColumn => dashboardUserModel.id, {
+    lastUpdatedBy: idColumn("last_updated_by").references((): AnyPgColumn => userModel.id, {
         onDelete: "set null",
         onUpdate: "cascade",
     }),

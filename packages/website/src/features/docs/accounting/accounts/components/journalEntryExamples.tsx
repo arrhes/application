@@ -45,6 +45,11 @@ export function JournalEntryExamples(props: { entry: AccountEntry }) {
                                 border: "1px solid",
                                 borderColor: "success/15",
                                 overflow: "hidden",
+                                padding: "1rem",
+                                backgroundColor: "success/5",
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: "1rem",
                             })}
                         >
                             <div
@@ -52,10 +57,6 @@ export function JournalEntryExamples(props: { entry: AccountEntry }) {
                                     display: "flex",
                                     alignItems: "baseline",
                                     gap: "0.5rem",
-                                    padding: "0.75rem 1rem",
-                                    backgroundColor: "success/5",
-                                    borderBottom: "1px solid",
-                                    borderBottomColor: "success/15",
                                 })}
                             >
                                 <IconSparkles

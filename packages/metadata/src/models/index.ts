@@ -1,14 +1,10 @@
 import * as accountModel from "./account.js"
-import * as adminUserModel from "./adminUser.js"
-import * as adminUserSessionModel from "./adminUserSession.js"
 import * as agentMessageModel from "./agentMessage.js"
 import * as agentSessionModel from "./agentSession.js"
 import * as apiKeyModel from "./apiKey.js"
 import * as balanceSheetModel from "./balanceSheet.js"
 import * as computationModel from "./computation.js"
 import * as computationIncomeStatementModel from "./computationIncomeStatement.js"
-import * as dashboardUserModel from "./dashboardUser.js"
-import * as dashboardUserSessionModel from "./dashboardUserSession.js"
 import * as documentModel from "./document.js"
 import * as entryModel from "./entry.js"
 import * as entryLineModel from "./entryLine.js"
@@ -25,12 +21,12 @@ import * as organizationUserModel from "./organizationUser.js"
 import * as tagModel from "./tag.js"
 import * as ticketModel from "./ticket.js"
 import * as ticketMessageModel from "./ticketMessage.js"
+import * as userModel from "./user.js"
+import * as userSessionModel from "./userSession.js"
 import * as workerJobModel from "./workerJob.js"
 import * as yearModel from "./year.js"
 
 export const models = {
-    adminUser: adminUserModel.adminUserModel,
-    adminUserSession: adminUserSessionModel.adminUserSessionModel,
     apiKey: apiKeyModel.apiKeyModel,
     account: accountModel.accountModel,
     agentMessage: agentMessageModel.agentMessageModel,
@@ -54,15 +50,13 @@ export const models = {
     tag: tagModel.tagModel,
     ticket: ticketModel.ticketModel,
     ticketMessage: ticketMessageModel.ticketMessageModel,
-    dashboardUser: dashboardUserModel.dashboardUserModel,
-    dashboardUserSession: dashboardUserSessionModel.dashboardUserSessionModel,
+    user: userModel.userModel,
+    userSession: userSessionModel.userSessionModel,
     workerJob: workerJobModel.workerJobModel,
     year: yearModel.yearModel,
 }
 
 export const modelSchemas = {
-    ...adminUserModel,
-    ...adminUserSessionModel,
     ...apiKeyModel,
     ...accountModel,
     ...agentMessageModel,
@@ -86,8 +80,8 @@ export const modelSchemas = {
     ...tagModel,
     ...ticketModel,
     ...ticketMessageModel,
-    ...dashboardUserModel,
-    ...dashboardUserSessionModel,
+    ...userModel,
+    ...userSessionModel,
     ...workerJobModel,
     ...yearModel,
 }

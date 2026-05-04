@@ -1,6 +1,4 @@
 import { accountSchema, accountSchemaReturn } from "./account.js"
-import { adminUserSchema, adminUserSchemaReturn } from "./adminUser.js"
-import { adminUserSessionSchema, adminUserSessionSchemaReturn } from "./adminUserSession.js"
 import { agentMessageSchema, agentMessageSchemaReturn } from "./agentMessage.js"
 import { agentSessionSchema, agentSessionSchemaReturn } from "./agentSession.js"
 import { apiKeySchema, apiKeySchemaReturn } from "./apiKey.js"
@@ -10,8 +8,6 @@ import {
     computationIncomeStatementSchema,
     computationIncomeStatementSchemaReturn,
 } from "./computationIncomeStatement.js"
-import { dashboardUserSchema, dashboardUserSchemaReturn } from "./dashboardUser.js"
-import { dashboardUserSessionSchema, dashboardUserSessionSchemaReturn } from "./dashboardUserSession.js"
 import { entrySchema, entrySchemaReturn } from "./entry.js"
 import { entryLineSchema, entryLineSchemaReturn } from "./entryLine.js"
 import { entryTagSchema, entryTagSchemaReturn } from "./entryTag.js"
@@ -27,12 +23,12 @@ import { organizationUserSchema, organizationUserSchemaReturn } from "./organiza
 import { tagSchema, tagSchemaReturn } from "./tag.js"
 import { ticketSchema, ticketSchemaReturn } from "./ticket.js"
 import { ticketMessageSchema, ticketMessageSchemaReturn } from "./ticketMessage.js"
+import { userSchema, userSchemaReturn } from "./user.js"
+import { userSessionSchema, userSessionSchemaReturn } from "./userSession.js"
 import { workerJobSchema, workerJobSchemaReturn } from "./workerJob.js"
 import { yearSchema, yearSchemaReturn } from "./year.js"
 
 export const schemas = {
-    adminUser: adminUserSchema,
-    adminUserSession: adminUserSessionSchema,
     apiKey: apiKeySchema,
     account: accountSchema,
     agentMessage: agentMessageSchema,
@@ -55,15 +51,13 @@ export const schemas = {
     tag: tagSchema,
     ticket: ticketSchema,
     ticketMessage: ticketMessageSchema,
-    dashboardUser: dashboardUserSchema,
-    dashboardUserSession: dashboardUserSessionSchema,
+    user: userSchema,
+    userSession: userSessionSchema,
     workerJob: workerJobSchema,
     year: yearSchema,
 }
 
 export const returnedSchemas = {
-    adminUser: adminUserSchemaReturn,
-    adminUserSession: adminUserSessionSchemaReturn,
     apiKey: apiKeySchemaReturn,
     account: accountSchemaReturn,
     agentMessage: agentMessageSchemaReturn,
@@ -86,8 +80,8 @@ export const returnedSchemas = {
     tag: tagSchemaReturn,
     ticket: ticketSchemaReturn,
     ticketMessage: ticketMessageSchemaReturn,
-    dashboardUser: dashboardUserSchemaReturn,
-    dashboardUserSession: dashboardUserSessionSchemaReturn,
+    user: userSchemaReturn,
+    userSession: userSessionSchemaReturn,
     workerJob: workerJobSchemaReturn,
     year: yearSchemaReturn,
 }

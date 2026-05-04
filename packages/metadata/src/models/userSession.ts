@@ -2,15 +2,15 @@ import { relations } from "drizzle-orm"
 import { boolean, index, pgTable, text } from "drizzle-orm/pg-core"
 import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
-import { dashboardUserModel } from "./dashboardUser.js"
+import { userModel } from "./user.js"
 
 // Model
-export const dashboardUserSessionModel = pgTable(
-    "table_dashboard_user_session",
+export const userSessionModel = pgTable(
+    "table_user_session",
     {
         id: idColumn("id").primaryKey(),
         idUser: idColumn("id_user")
-            .references(() => dashboardUserModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => userModel.id, { onDelete: "cascade", onUpdate: "cascade" })
             .notNull(),
         isActive: boolean("is_active").notNull(),
         expiresAt: dateTimeColumn("expires_at").notNull(),
@@ -22,9 +22,9 @@ export const dashboardUserSessionModel = pgTable(
 )
 
 // Relations
-export const dashboardUserSessionsRelations = relations(dashboardUserSessionModel, ({ one }) => ({
-    user: one(dashboardUserModel, {
-        fields: [dashboardUserSessionModel.idUser],
-        references: [dashboardUserModel.id],
+export const userSessionsRelations = relations(userSessionModel, ({ one }) => ({
+    user: one(userModel, {
+        fields: [userSessionModel.idUser],
+        references: [userModel.id],
     }),
 }))
