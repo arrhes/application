@@ -2,7 +2,7 @@ import {
     deleteOneFileRouteDefinition,
     ocrFileRouteDefinition,
     readAllFilesRouteDefinition,
-    readOrganizationSubscriptionRouteDefinition,
+    readOrganizationBillingRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { ButtonGhostContent, toast } from "@arrhes/ui"
@@ -33,7 +33,7 @@ export function FileActions(props: {
     const [ocrTooltipOpen, setOcrTooltipOpen] = useState(false)
 
     const subscription = useDataFromAPI({
-        routeDefinition: readOrganizationSubscriptionRouteDefinition,
+        routeDefinition: readOrganizationBillingRouteDefinition,
         body: {},
     })
     const isPremium = subscription.data?.isPremium === true

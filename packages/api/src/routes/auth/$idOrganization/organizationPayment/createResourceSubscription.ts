@@ -12,6 +12,7 @@ import {
     getTokenAddonQuantity,
     getTotalOcrPagesFromQuantity,
     getTotalTokensFromQuantity,
+    INCLUDED_OCR_PAGES,
     isOneTimeServiceType,
 } from "../../../../utilities/billing/subscriptionPricing.js"
 import { creditOrganizationWallet, debitOrganizationWallet } from "../../../../utilities/billing/wallet.js"
@@ -63,8 +64,8 @@ export const createResourceSubscriptionRoute = apiFactory
             body.type === "storage_gb"
                 ? getStorageAddonQuantity(organization.storageMaxUsage)
                 : body.type === "agent_tokens_million"
-                  ? getTokenAddonQuantity(organization.tokensTotalLeft + organization.tokensTotalUsed)
-                  : getOcrAddonQuantity(organization.ocrPagesTotalLeft + organization.ocrPagesTotalUsed)
+                    ? getTokenAddonQuantity(organization.tokensTotalLeft + organization.tokensTotalUsed)
+                    : getOcrAddonQuantity(organization.ocrPagesTotalLeft + organization.ocrPagesTotalUsed)
 
         if (body.type === "storage_gb") {
             const minimumStorageQuantityFromUsage = Math.max(
@@ -125,21 +126,26 @@ export const createResourceSubscriptionRoute = apiFactory
             })
         }
 
-        const deltaAmountInCents = getResourceSubscriptionUnitPriceInCents(body.type) * Math.abs(deltaQuantity)
+        const deltaAmountInCents =
+            body.type === "ocr_pages_hundred"
+                ? getResourceSubscriptionUnitPriceInCents(body.type) * Math.abs(deltaQuantity) * INCLUDED_OCR_PAGES
+                : getResourceSubscriptionUnitPriceInCents(body.type) * Math.abs(deltaQuantity)
 
         if (deltaQuantity > 0) {
             await debitOrganizationWallet({
                 database: c.var.clients.sql,
                 idOrganization,
                 idUser: user.id,
-                amountInCents: deltaAmountInCents,
+                amountHTInCents: deltaAmountInCents,
+                quantity: body.type === "ocr_pages_hundred" ? deltaQuantity * INCLUDED_OCR_PAGES : deltaQuantity,
+                unitAmountHTInCents: getResourceSubscriptionUnitPriceInCents(body.type),
                 serviceType: body.type,
                 description:
                     body.type === "storage_gb"
                         ? "Augmentation du stockage"
                         : body.type === "agent_tokens_million"
-                          ? "Achat tokens Assistant IA"
-                          : "Achat pages OCR",
+                            ? "Achat tokens Assistant IA"
+                            : "Achat pages OCR",
             })
         }
 
@@ -148,7 +154,7 @@ export const createResourceSubscriptionRoute = apiFactory
                 database: c.var.clients.sql,
                 idOrganization,
                 idUser: user.id,
-                amountInCents: deltaAmountInCents,
+                amountHTInCents: deltaAmountInCents,
                 serviceType: body.type,
                 description: "Réduction du stockage créditée au portefeuille",
             })

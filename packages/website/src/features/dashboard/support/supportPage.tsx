@@ -1,4 +1,4 @@
-import { readOrganizationSubscriptionRouteDefinition } from "@arrhes/application-metadata/routes"
+import { readOrganizationBillingRouteDefinition } from "@arrhes/application-metadata/routes"
 import { ButtonOutlineContent, ButtonPlainContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconBrandGithub, IconBrandLinkedin, IconMail, IconPlus } from "@tabler/icons-react"
@@ -16,7 +16,7 @@ function SupportBanner() {
     const hasOrganization = !!getCookie(`${cookiePrefix}_id_organization`)
 
     const subscription = useDataFromAPI({
-        routeDefinition: readOrganizationSubscriptionRouteDefinition,
+        routeDefinition: readOrganizationBillingRouteDefinition,
         body: {},
         enabled: hasOrganization,
     })

@@ -1,6 +1,6 @@
 import {
     readAllAgentSessionsRouteDefinition,
-    readOrganizationSubscriptionRouteDefinition,
+    readOrganizationBillingRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import { Button, ButtonGhostContent, ButtonOutlineContent, formatDateTime, LinkButton } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
@@ -22,7 +22,7 @@ export function AgentLayout() {
     const [search, setSearch] = useState("")
 
     const subscription = useDataFromAPI({
-        routeDefinition: readOrganizationSubscriptionRouteDefinition,
+        routeDefinition: readOrganizationBillingRouteDefinition,
         body: {},
     })
 

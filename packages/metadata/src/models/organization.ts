@@ -1,21 +1,18 @@
 import { relations } from "drizzle-orm"
-import { type AnyPgColumn, bigint, boolean, integer, pgEnum, pgTable, text, varchar } from "drizzle-orm/pg-core"
+import { type AnyPgColumn, bigint, boolean, integer, pgTable, text, varchar } from "drizzle-orm/pg-core"
 import { organizationScope } from "../components/index.js"
 import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
 import { invoiceModel } from "./invoice.js"
+import { organizationBillingModel } from "./organizationBilling.js"
 import { organizationPaymentModel } from "./organizationPayment.js"
-import { organizationSubscriptionModel } from "./organizationSubscription.js"
 import { organizationUserModel } from "./organizationUser.js"
 import { userModel } from "./user.js"
-
-// Model
-export const organizationScopeEnum = pgEnum("enum_organization_scope", organizationScope)
 
 export const organizationModel = pgTable("table_organization", {
     id: idColumn("id").primaryKey(),
     isArchived: boolean("is_archived").notNull(),
-    scope: organizationScopeEnum("scope").notNull(),
+    scope: varchar("scope", { length: 32, enum: organizationScope }).notNull(),
     name: varchar("name", { length: 256 }).notNull(),
     siren: text("siren"),
     email: text("email"),
@@ -54,6 +51,6 @@ export const organizationModel = pgTable("table_organization", {
 export const organizationRelations = relations(organizationModel, ({ many }) => ({
     organizationUsers: many(organizationUserModel),
     organizationPayments: many(organizationPaymentModel),
-    organizationSubscriptions: many(organizationSubscriptionModel),
+    organizationSubscriptions: many(organizationBillingModel),
     invoices: many(invoiceModel),
 }))

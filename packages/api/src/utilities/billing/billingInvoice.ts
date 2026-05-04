@@ -7,9 +7,7 @@ type DatabaseType =
     | ReturnType<typeof sqlClient>
     | Parameters<Parameters<ReturnType<typeof sqlClient>["transaction"]>[0]>[0]
 
-export function generateRandomInvoiceReference(periodStart: Date): string {
-    const year = String(periodStart.getUTCFullYear())
-    const month = String(periodStart.getUTCMonth() + 1).padStart(2, "0")
+export function generateRandomInvoiceReference(_periodStart: Date): string {
     let randomSuffix = generateId()
         .replaceAll(/[^a-zA-Z0-9]/g, "")
         .toUpperCase()
@@ -22,7 +20,7 @@ export function generateRandomInvoiceReference(periodStart: Date): string {
         randomSuffix = randomSuffix.slice(0, 8)
     }
 
-    return `${year}_${month}_${randomSuffix}`
+    return randomSuffix
 }
 
 /**
@@ -54,7 +52,7 @@ export async function findOrCreateCurrentPeriodInvoice(params: {
         return existing[0].id
     }
 
-    const invoiceNumber = generateRandomInvoiceReference(params.periodStart)
+    const reference = generateRandomInvoiceReference(params.periodStart)
 
     const invoiceId = generateId()
     await insertOne({
@@ -63,12 +61,12 @@ export async function findOrCreateCurrentPeriodInvoice(params: {
         data: {
             id: invoiceId,
             idOrganization: params.idOrganization,
-            invoiceNumber,
+            reference,
             periodStart: periodStartISO,
             periodEnd: params.periodEnd.toISOString(),
             amountInCents: 0,
             currency: "EUR",
-            storageKey: null,
+            xmlStorageKey: null,
             status: "draft",
             createdAt: params.now.toISOString(),
             lastUpdatedAt: null,

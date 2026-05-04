@@ -15,8 +15,8 @@ import * as incomeStatementModel from "./incomeStatement.js"
 import * as invoiceModel from "./invoice.js"
 import * as journalModel from "./journal.js"
 import * as organizationModel from "./organization.js"
+import * as organizationBillingModel from "./organizationBilling.js"
 import * as organizationPaymentModel from "./organizationPayment.js"
-import * as organizationSubscriptionModel from "./organizationSubscription.js"
 import * as organizationUserModel from "./organizationUser.js"
 import * as tagModel from "./tag.js"
 import * as ticketModel from "./ticket.js"
@@ -45,7 +45,7 @@ export const models = {
     journal: journalModel.journalModel,
     organization: organizationModel.organizationModel,
     organizationPayment: organizationPaymentModel.organizationPaymentModel,
-    organizationSubscription: organizationSubscriptionModel.organizationSubscriptionModel,
+    organizationBilling: organizationBillingModel.organizationBillingModel,
     organizationUser: organizationUserModel.organizationUserModel,
     tag: tagModel.tagModel,
     ticket: ticketModel.ticketModel,
@@ -75,7 +75,7 @@ export const modelSchemas = {
     ...journalModel,
     ...organizationModel,
     ...organizationPaymentModel,
-    ...organizationSubscriptionModel,
+    ...organizationBillingModel,
     ...organizationUserModel,
     ...tagModel,
     ...ticketModel,

@@ -1,4 +1,4 @@
-import { adminSignInRouteDefinition } from "@arrhes/application-metadata/routes"
+import { signInRouteDefinition } from "@arrhes/application-metadata/routes"
 import { Button, ButtonGhostContent, ButtonPlainContent, InputPassword, InputText, Logo } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { valibotResolver } from "@hookform/resolvers/valibot"
@@ -10,14 +10,14 @@ import { LinkButton } from "../../components/linkButton.js"
 import { adminRouter } from "../../routes/adminRouter.js"
 import { getResponseBodyFromAPI } from "../../utilities/getResponseBodyFromAPI.js"
 
-type SignInFormData = v.InferOutput<(typeof adminSignInRouteDefinition)["schemas"]["body"]>
+type SignInFormData = v.InferOutput<(typeof signInRouteDefinition)["schemas"]["body"]>
 
 export function SignInPage() {
     const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     const form = useForm<SignInFormData>({
-        resolver: valibotResolver(adminSignInRouteDefinition.schemas.body),
+        resolver: valibotResolver(signInRouteDefinition.schemas.body),
         defaultValues: {
             email: "",
             password: "",
@@ -29,7 +29,7 @@ export function SignInPage() {
         setIsSubmitting(true)
 
         const response = await getResponseBodyFromAPI({
-            routeDefinition: adminSignInRouteDefinition,
+            routeDefinition: signInRouteDefinition,
             body: data,
         })
 

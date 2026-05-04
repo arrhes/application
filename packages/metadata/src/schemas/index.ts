@@ -17,8 +17,8 @@ import { incomeStatementSchema, incomeStatementSchemaReturn } from "./incomeStat
 import { invoiceSchema, invoiceSchemaReturn } from "./invoice.js"
 import { journalSchema, journalSchemaReturn } from "./journal.js"
 import { organizationSchema, organizationSchemaReturn } from "./organization.js"
+import { organizationBillingSchema, organizationBillingSchemaReturn } from "./organizationBilling.js"
 import { organizationPaymentSchema, organizationPaymentSchemaReturn } from "./organizationPayment.js"
-import { organizationSubscriptionSchema, organizationSubscriptionSchemaReturn } from "./organizationSubscription.js"
 import { organizationUserSchema, organizationUserSchemaReturn } from "./organizationUser.js"
 import { tagSchema, tagSchemaReturn } from "./tag.js"
 import { ticketSchema, ticketSchemaReturn } from "./ticket.js"
@@ -46,7 +46,7 @@ export const schemas = {
     journal: journalSchema,
     organization: organizationSchema,
     organizationPayment: organizationPaymentSchema,
-    organizationSubscription: organizationSubscriptionSchema,
+    organizationBilling: organizationBillingSchema,
     organizationUser: organizationUserSchema,
     tag: tagSchema,
     ticket: ticketSchema,
@@ -75,7 +75,7 @@ export const returnedSchemas = {
     journal: journalSchemaReturn,
     organization: organizationSchemaReturn,
     organizationPayment: organizationPaymentSchemaReturn,
-    organizationSubscription: organizationSubscriptionSchemaReturn,
+    organizationBilling: organizationBillingSchemaReturn,
     organizationUser: organizationUserSchemaReturn,
     tag: tagSchemaReturn,
     ticket: ticketSchemaReturn,

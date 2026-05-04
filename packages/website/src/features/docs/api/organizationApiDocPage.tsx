@@ -13,7 +13,7 @@ import {
     readAllYearsRouteDefinition,
     readOneOrganizationRouteDefinition,
     readOneOrganizationUserRouteDefinition,
-    readOrganizationSubscriptionRouteDefinition,
+    readOrganizationBillingRouteDefinition,
     updateOneOrganizationRouteDefinition,
     updateOneOrganizationUserRouteDefinition,
 } from "@arrhes/application-metadata/routes"
@@ -77,7 +77,7 @@ export function OrganizationApiDocPage() {
                     Gestion de l'abonnement premium et de l'historique des paiements. Les routes de paiement et
                     d'annulation nécessitent le rôle administrateur.
                 </DocParagraph>
-                <DocRouteRequest routeDefinition={readOrganizationSubscriptionRouteDefinition} />
+                <DocRouteRequest routeDefinition={readOrganizationBillingRouteDefinition} />
                 <DocRouteRequest
                     routeDefinition={createFirstPaymentRouteDefinition}
                     description="Initier le premier paiement. Retourne un objet { checkoutUrl: string } vers lequel l'utilisateur doit être redirigé pour procéder au paiement."

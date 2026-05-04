@@ -29,7 +29,7 @@ export const generateInvoiceGetSignedUrlRoute = apiFactory
             where: (table) => and(eq(table.id, body.idInvoice), eq(table.idOrganization, idOrganization)),
         })
 
-        if (invoice.storageKey === null) {
+        if (invoice.xmlStorageKey === null) {
             throw new Exception({
                 statusCode: 404,
                 internalMessage: "Invoice PDF not yet generated",
@@ -39,7 +39,7 @@ export const generateInvoiceGetSignedUrlRoute = apiFactory
 
         const url = await generateGetSignedUrl({
             var: c.var,
-            storageKey: invoice.storageKey,
+            storageKey: invoice.xmlStorageKey,
         })
 
         return response({

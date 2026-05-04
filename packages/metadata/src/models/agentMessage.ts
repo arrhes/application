@@ -1,11 +1,8 @@
 import { relations } from "drizzle-orm"
-import { type AnyPgColumn, index, integer, jsonb, pgEnum, pgTable, text } from "drizzle-orm/pg-core"
+import { type AnyPgColumn, index, integer, jsonb, pgTable, text, varchar } from "drizzle-orm/pg-core"
 import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
 import { agentSessionModel } from "./agentSession.js"
-
-// Enums
-export const agentMessageStateEnum = pgEnum("enum_agent_message_state", ["completed", "streaming", "error"])
 
 // Model
 export const agentMessageModel = pgTable(
@@ -23,7 +20,7 @@ export const agentMessageModel = pgTable(
         usedTools: text("used_tools").array(),
         attachedFiles: jsonb("attached_files"),
         references: jsonb("references"),
-        state: agentMessageStateEnum("state").notNull(),
+        state: varchar("state", { length: 16, enum: ["completed", "streaming", "error"] }).notNull(),
         streamKey: text("stream_key"),
         promptTokens: integer("prompt_tokens"),
         completionTokens: integer("completion_tokens"),

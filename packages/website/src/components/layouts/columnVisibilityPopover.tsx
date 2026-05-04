@@ -1,4 +1,4 @@
-import { Button, ButtonGhostContent, ButtonOutlineContent, ButtonPlainContent, Separator } from "@arrhes/ui"
+import { Button, ButtonGhostContent, ButtonOutlineContent, Separator } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconCheck, IconTable, IconTableColumn, IconTableOff } from "@tabler/icons-react"
 import { Popover } from "../overlays/popover/popover.js"
@@ -24,18 +24,14 @@ export function ColumnVisibilityPopover(props: {
         <Popover.Root>
             <Popover.Trigger asChild>
                 <Button>
-                    {hiddenCount > 0 ? (
-                        <ButtonPlainContent
-                            leftIcon={<IconTableColumn />}
-                            text={`(${hideableColumns.length - hiddenCount}/${hideableColumns.length})`}
-                            // text={`Colonnes (${hideableColumns.length - hiddenCount}/${hideableColumns.length})`}
-                        />
-                    ) : (
-                        <ButtonOutlineContent
-                            leftIcon={<IconTableColumn />}
-                            // text="Colonnes"
-                        />
-                    )}
+                    <ButtonOutlineContent
+                        leftIcon={<IconTableColumn />}
+                        text={
+                            hiddenCount > 0
+                                ? `(${hideableColumns.length - hiddenCount}/${hideableColumns.length})`
+                                : undefined
+                        }
+                    />
                 </Button>
             </Popover.Trigger>
             <Popover.Content

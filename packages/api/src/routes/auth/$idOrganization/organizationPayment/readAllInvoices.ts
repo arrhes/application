@@ -38,7 +38,7 @@ export const readAllInvoicesRoute = apiFactory.createApp().post(readAllInvoicesR
         const rows = await c.var.clients.sql
             .select({
                 idInvoice: models.organizationPayment.idInvoice,
-                total: sum(models.organizationPayment.amountInCents),
+                total: sum(models.organizationPayment.amountHTInCents),
             })
             .from(models.organizationPayment)
             .where(

@@ -12,11 +12,11 @@ beforeAll(async () => {
     idOrganization = await getDemoOrganizationId(session)
 })
 
-describe("POST /auth/read-organization-subscription", () => {
+describe("POST /auth/read-organization-billing", () => {
     it("returns the subscription status for the demo organization", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/read-organization-subscription",
+            path: "/auth/read-organization-billing",
             body: { idOrganization },
         })
         expect(response.status).toBe(200)
@@ -37,7 +37,7 @@ describe("POST /auth/read-organization-subscription", () => {
 
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
-            path: "/auth/read-organization-subscription",
+            path: "/auth/read-organization-billing",
             body: { idOrganization },
         })
         expect(response.status).toBe(401)
@@ -96,10 +96,10 @@ describe("POST /auth/cancel-subscription", () => {
     })
 })
 
-describe("POST /auth/read-all-organization-subscriptions", () => {
+describe("POST /auth/read-all-organization-billings", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
-            path: "/auth/read-all-organization-subscriptions",
+            path: "/auth/read-all-organization-billings",
             body: { idOrganization },
         })
         expect(response.status).toBe(401)
@@ -108,7 +108,7 @@ describe("POST /auth/read-all-organization-subscriptions", () => {
     it("returns an array of subscriptions", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/read-all-organization-subscriptions",
+            path: "/auth/read-all-organization-billings",
             body: { idOrganization },
         })
         expect(response.status).toBe(200)

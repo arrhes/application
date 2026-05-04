@@ -10,6 +10,7 @@ import {
 import {
     type ColumnDef,
     type ColumnFiltersState,
+    type ColumnSizingState,
     flexRender,
     getCoreRowModel,
     getExpandedRowModel,
@@ -56,6 +57,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(props.defaultColumnVisibility ?? {})
     const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
+    const [columnSizingOverrides, setColumnSizingOverrides] = useState<ColumnSizingState>({})
 
     // Reset selection when the trigger changes (e.g. folder navigation)
     const prevResetTriggerRef = useRef(props.resetSelectionTrigger)
@@ -110,6 +112,58 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
         [props.enableRowSelection, selectColumnDef, memoizedUserColumns],
     )
 
+    const autoColumnSizing = useMemo<ColumnSizingState>(() => {
+        const maxWidth = 200
+        const minWidth = 80
+        const basePadding = 24
+        const pixelsPerCharacter = 8
+        const sampledRows = memoizedData.slice(0, 200)
+        const computedSizing: ColumnSizingState = {}
+
+        for (const column of allColumns) {
+            const columnWithAccessor = column as typeof column & {
+                accessorKey?: keyof TData | string
+                accessorFn?: (row: TData, rowIndex: number) => unknown
+            }
+            const columnId =
+                column.id ??
+                (typeof columnWithAccessor.accessorKey === "string" ? columnWithAccessor.accessorKey : undefined)
+
+            if (!columnId || column.meta?.fit === true) {
+                continue
+            }
+
+            let longestValueLength = typeof column.header === "string" ? column.header.length : 0
+
+            for (const [rowIndex, row] of sampledRows.entries()) {
+                let value: unknown = ""
+
+                if (typeof columnWithAccessor.accessorFn === "function") {
+                    value = columnWithAccessor.accessorFn(row, rowIndex)
+                } else if (typeof columnWithAccessor.accessorKey === "string") {
+                    value = row[columnWithAccessor.accessorKey as keyof TData]
+                }
+
+                const valueLength = String(value ?? "").length
+                if (valueLength > longestValueLength) {
+                    longestValueLength = valueLength
+                }
+            }
+
+            computedSizing[columnId] = Math.max(
+                minWidth,
+                Math.min(maxWidth, Math.ceil(longestValueLength * pixelsPerCharacter + basePadding)),
+            )
+        }
+
+        return computedSizing
+    }, [allColumns, memoizedData])
+
+    const columnSizing = useMemo<ColumnSizingState>(
+        () => ({ ...autoColumnSizing, ...columnSizingOverrides }),
+        [autoColumnSizing, columnSizingOverrides],
+    )
+
     const table = useReactTable<TData>({
         data: memoizedData,
         columns: allColumns,
@@ -126,7 +180,15 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
         onColumnFiltersChange: setColumnFilters,
         onColumnVisibilityChange: setColumnVisibility,
         onRowSelectionChange: setRowSelection,
+        onColumnSizingChange: setColumnSizingOverrides,
         enableMultiSort: true,
+        enableColumnResizing: true,
+        columnResizeMode: "onChange",
+        defaultColumn: {
+            minSize: 80,
+            size: 120,
+            maxSize: 200,
+        },
         initialState: {
             pagination: {
                 pageSize: props.pageSize ?? 10,
@@ -138,6 +200,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
             columnFilters,
             columnVisibility,
             rowSelection,
+            columnSizing,
         },
     })
 
@@ -289,11 +352,12 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
             >
                 <table
                     className={css({
-                        width: "100%",
-                        maxWidth: "100%",
+                        width: "fit-content",
+                        minWidth: "100%",
                         height: "100%",
                         maxH: "100%",
                         borderCollapse: "collapse",
+                        tableLayout: "fixed",
                     })}
                 >
                     <thead
@@ -317,12 +381,16 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                             )}
                             {table.getFlatHeaders().map((header) => {
                                 const isFit = header.column.columnDef.meta?.fit === true
+                                const boundedHeaderSize = Math.min(header.getSize(), 200)
+                                const boundedHeaderMinSize = Math.min(header.column.columnDef.minSize ?? 80, 200)
                                 return (
                                     <th
                                         key={header.id}
                                         colSpan={header.colSpan}
                                         className={css({
-                                            width: isFit ? "1%" : "fit",
+                                            position: "relative",
+                                            width: isFit ? "1%" : `${boundedHeaderSize}px`,
+                                            minWidth: isFit ? "0" : `${boundedHeaderMinSize}px`,
                                             whiteSpace: isFit ? "nowrap" : undefined,
                                             borderBottom: "1px solid",
                                             borderBottomColor: "neutral/10",
@@ -338,7 +406,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                             })}
                                         >
                                             {header.column.columnDef.header === undefined ? null : typeof header.column
-                                                  .columnDef.header === "function" ? (
+                                                .columnDef.header === "function" ? (
                                                 flexRender(header.column.columnDef.header, header.getContext())
                                             ) : (
                                                 <Button onClick={header.column.getToggleSortingHandler()}>
@@ -354,6 +422,34 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                                 </Button>
                                             )}
                                         </div>
+                                        {!isFit && (
+                                            <div
+                                                onDoubleClick={() => {
+                                                    setColumnSizingOverrides((state) => {
+                                                        const nextState = { ...state }
+                                                        delete nextState[header.column.id]
+                                                        return nextState
+                                                    })
+                                                }}
+                                                onMouseDown={header.getResizeHandler()}
+                                                onTouchStart={header.getResizeHandler()}
+                                                className={css({
+                                                    position: "absolute",
+                                                    top: 0,
+                                                    right: 0,
+                                                    width: "0.5rem",
+                                                    height: "100%",
+                                                    cursor: "col-resize",
+                                                    userSelect: "none",
+                                                    touchAction: "none",
+                                                    backgroundColor: "transparent",
+                                                    transition: "background-color 120ms ease",
+                                                    _hover: {
+                                                        backgroundColor: "neutral/10",
+                                                    },
+                                                })}
+                                            />
+                                        )}
                                     </th>
                                 )
                             })}
@@ -397,13 +493,13 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                             !props.onRowClick
                                                 ? undefined
                                                 : css({
-                                                      cursor: "pointer",
-                                                      _hover: { backgroundColor: "neutral/5" },
-                                                  }),
+                                                    cursor: "pointer",
+                                                    _hover: { backgroundColor: "neutral/5" },
+                                                }),
                                             row.getIsExpanded()
                                                 ? css({
-                                                      borderBottomColor: "neutral/10",
-                                                  })
+                                                    borderBottomColor: "neutral/10",
+                                                })
                                                 : undefined,
                                             rowExtraClassName,
                                         )}
@@ -440,12 +536,17 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                         )}
                                         {row.getVisibleCells().map((cell) => {
                                             const isFit = cell.column.columnDef.meta?.fit === true
+                                            const boundedCellSize = Math.min(cell.column.getSize(), 200)
+                                            const boundedCellMinSize = Math.min(cell.column.columnDef.minSize ?? 80, 200)
                                             return (
                                                 <td
                                                     key={cell.id}
                                                     className={css({
-                                                        width: isFit ? "1%" : "fit",
-                                                        maxWidth: isFit ? "none" : "0",
+                                                        width: isFit ? "1%" : `${boundedCellSize}px`,
+                                                        minWidth: isFit
+                                                            ? "0"
+                                                            : `${boundedCellMinSize}px`,
+                                                        maxWidth: isFit ? "none" : `${boundedCellSize}px`,
                                                         overflow: isFit ? "visible" : "hidden",
                                                         whiteSpace: isFit ? "nowrap" : undefined,
                                                         _last: { width: "1%", maxWidth: "none" },

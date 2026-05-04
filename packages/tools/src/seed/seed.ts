@@ -6,9 +6,10 @@ import {
     defaultCompanyIncomeStatements,
     defaultComputations,
     defaultJournals,
+    organizationPaymentFlow,
 } from "@arrhes/application-metadata/components"
 import { models } from "@arrhes/application-metadata/models"
-import { generateId } from "@arrhes/application-metadata/utilities"
+import { generateId, getTaxAmountFromHTInCents } from "@arrhes/application-metadata/utilities"
 import { randFirstName } from "@ngneat/falso"
 import { dbClient, dbConnection } from "../dbClient.js"
 
@@ -24,9 +25,7 @@ function getMonthRangeForOffset(from: Date, monthOffset: number) {
     return { periodStart, periodEnd }
 }
 
-function generateSeedInvoiceReference(date: Date) {
-    const year = String(date.getUTCFullYear())
-    const month = String(date.getUTCMonth() + 1).padStart(2, "0")
+function generateSeedInvoiceReference(_date: Date) {
 
     let randomSuffix = generateId()
         .replaceAll(/[^a-zA-Z0-9]/g, "")
@@ -40,7 +39,15 @@ function generateSeedInvoiceReference(date: Date) {
         randomSuffix = randomSuffix.slice(0, 8)
     }
 
-    return `${year}_${month}_${randomSuffix}`
+    return randomSuffix
+}
+
+function getOrganizationPaymentFlowFromCategory(category: (typeof models.organizationPayment.$inferInsert)["category"]) {
+    if (category === "top_up" || category === "setup") {
+        return organizationPaymentFlow[0]
+    }
+
+    return organizationPaymentFlow[1]
 }
 
 async function triggerSeededMonthlyBilling() {
@@ -1397,12 +1404,12 @@ async function seed() {
                 {
                     id: invoiceThreeMonthsAgoId,
                     idOrganization: populatedOrganization.id,
-                    invoiceNumber: generateSeedInvoiceReference(threeMonthsAgo.periodStart),
+                    reference: generateSeedInvoiceReference(threeMonthsAgo.periodStart),
                     periodStart: threeMonthsAgo.periodStart.toISOString(),
                     periodEnd: threeMonthsAgo.periodEnd.toISOString(),
                     amountInCents: 2_610,
                     currency: "EUR",
-                    storageKey: null,
+                    xmlStorageKey: null,
                     status: "draft",
                     createdAt: new Date(threeMonthsAgo.periodEnd.getTime() + 60_000).toISOString(),
                     lastUpdatedAt: null,
@@ -1410,12 +1417,12 @@ async function seed() {
                 {
                     id: invoiceTwoMonthsAgoId,
                     idOrganization: populatedOrganization.id,
-                    invoiceNumber: generateSeedInvoiceReference(twoMonthsAgo.periodStart),
+                    reference: generateSeedInvoiceReference(twoMonthsAgo.periodStart),
                     periodStart: twoMonthsAgo.periodStart.toISOString(),
                     periodEnd: twoMonthsAgo.periodEnd.toISOString(),
                     amountInCents: 2_810,
                     currency: "EUR",
-                    storageKey: null,
+                    xmlStorageKey: null,
                     status: "draft",
                     createdAt: new Date(twoMonthsAgo.periodEnd.getTime() + 60_000).toISOString(),
                     lastUpdatedAt: null,
@@ -1423,12 +1430,12 @@ async function seed() {
                 {
                     id: invoicePreviousMonthId,
                     idOrganization: populatedOrganization.id,
-                    invoiceNumber: generateSeedInvoiceReference(previousMonth.periodStart),
+                    reference: generateSeedInvoiceReference(previousMonth.periodStart),
                     periodStart: previousMonth.periodStart.toISOString(),
                     periodEnd: previousMonth.periodEnd.toISOString(),
                     amountInCents: 3_110,
                     currency: "EUR",
-                    storageKey: null,
+                    xmlStorageKey: null,
                     status: "draft",
                     createdAt: new Date(previousMonth.periodStart.getTime() + 60 * 60_000).toISOString(),
                     lastUpdatedAt: null,
@@ -1439,7 +1446,7 @@ async function seed() {
             const februaryTopUpPaymentId = "tr_seed_topup_02"
             const marchTopUpPaymentId = "tr_seed_topup_03"
 
-            const seededPayments: (typeof models.organizationPayment.$inferInsert)[] = [
+            const seededPayments = [
                 {
                     id: generateId(),
                     idOrganization: populatedOrganization.id,
@@ -1450,12 +1457,14 @@ async function seed() {
                     sequenceType: "setup",
                     serviceType: null,
                     amountInCents: 1,
+                    quantity: 1,
+                    unitAmountInCents: 1,
                     currency: "EUR",
                     description: "Ajout du moyen de paiement",
                     periodStart: null,
                     periodEnd: null,
                     paidAt: new Date(threeMonthsAgo.periodStart.getTime() + 30 * 60_000).toISOString(),
-                    idInvoice: null,
+                    idInvoice: invoiceThreeMonthsAgoId,
                     createdAt: new Date(threeMonthsAgo.periodStart.getTime() + 30 * 60_000).toISOString(),
                     lastUpdatedAt: null,
                     createdBy: newUser.id,
@@ -1471,12 +1480,14 @@ async function seed() {
                     sequenceType: "oneoff",
                     serviceType: null,
                     amountInCents: 15_000,
+                    quantity: 1,
+                    unitAmountInCents: 15_000,
                     currency: "EUR",
                     description: "Recharge portefeuille",
                     periodStart: null,
                     periodEnd: null,
                     paidAt: new Date(threeMonthsAgo.periodStart.getTime() + 60 * 60_000).toISOString(),
-                    idInvoice: null,
+                    idInvoice: invoiceThreeMonthsAgoId,
                     createdAt: new Date(threeMonthsAgo.periodStart.getTime() + 60 * 60_000).toISOString(),
                     lastUpdatedAt: null,
                     createdBy: newUser.id,
@@ -1492,6 +1503,8 @@ async function seed() {
                     sequenceType: "recurring",
                     serviceType: "support",
                     amountInCents: 2_500,
+                    quantity: 1,
+                    unitAmountInCents: 2_500,
                     currency: "EUR",
                     description: "Licence mensuelle",
                     periodStart: threeMonthsAgo.periodStart.toISOString(),
@@ -1512,7 +1525,9 @@ async function seed() {
                     mollieSubscriptionId: null,
                     sequenceType: "recurring",
                     serviceType: "storage_gb",
-                    amountInCents: 10,
+                    amountInCents: 20,
+                    quantity: 2,
+                    unitAmountInCents: 10,
                     currency: "EUR",
                     description: "Stockage mensuel",
                     periodStart: threeMonthsAgo.periodStart.toISOString(),
@@ -1533,7 +1548,9 @@ async function seed() {
                     mollieSubscriptionId: null,
                     sequenceType: null,
                     serviceType: "agent_tokens_million",
-                    amountInCents: 100,
+                    amountInCents: 200,
+                    quantity: 2,
+                    unitAmountInCents: 100,
                     currency: "EUR",
                     description: "Achat tokens Assistant IA",
                     periodStart: null,
@@ -1555,12 +1572,14 @@ async function seed() {
                     sequenceType: "oneoff",
                     serviceType: null,
                     amountInCents: 12_000,
+                    quantity: 1,
+                    unitAmountInCents: 12_000,
                     currency: "EUR",
                     description: "Recharge portefeuille",
                     periodStart: null,
                     periodEnd: null,
                     paidAt: new Date(twoMonthsAgo.periodStart.getTime() + 2 * 24 * 60 * 60_000).toISOString(),
-                    idInvoice: null,
+                    idInvoice: invoiceTwoMonthsAgoId,
                     createdAt: new Date(twoMonthsAgo.periodStart.getTime() + 2 * 24 * 60 * 60_000).toISOString(),
                     lastUpdatedAt: null,
                     createdBy: newUser.id,
@@ -1576,6 +1595,8 @@ async function seed() {
                     sequenceType: "recurring",
                     serviceType: "support",
                     amountInCents: 2_700,
+                    quantity: 1,
+                    unitAmountInCents: 2_700,
                     currency: "EUR",
                     description: "Licence mensuelle",
                     periodStart: twoMonthsAgo.periodStart.toISOString(),
@@ -1596,7 +1617,9 @@ async function seed() {
                     mollieSubscriptionId: null,
                     sequenceType: "recurring",
                     serviceType: "storage_gb",
-                    amountInCents: 10,
+                    amountInCents: 30,
+                    quantity: 3,
+                    unitAmountInCents: 10,
                     currency: "EUR",
                     description: "Stockage mensuel",
                     periodStart: twoMonthsAgo.periodStart.toISOString(),
@@ -1617,7 +1640,9 @@ async function seed() {
                     mollieSubscriptionId: null,
                     sequenceType: null,
                     serviceType: "ocr_pages_hundred",
-                    amountInCents: 100,
+                    amountInCents: 250,
+                    quantity: 250,
+                    unitAmountInCents: 1,
                     currency: "EUR",
                     description: "Achat pages OCR",
                     periodStart: null,
@@ -1639,12 +1664,14 @@ async function seed() {
                     sequenceType: "oneoff",
                     serviceType: null,
                     amountInCents: 8_000,
+                    quantity: 1,
+                    unitAmountInCents: 8_000,
                     currency: "EUR",
                     description: "Recharge portefeuille",
                     periodStart: null,
                     periodEnd: null,
                     paidAt: new Date(previousMonth.periodStart.getTime() + 2 * 24 * 60 * 60_000).toISOString(),
-                    idInvoice: null,
+                    idInvoice: invoicePreviousMonthId,
                     createdAt: new Date(previousMonth.periodStart.getTime() + 2 * 24 * 60 * 60_000).toISOString(),
                     lastUpdatedAt: null,
                     createdBy: newUser.id,
@@ -1660,12 +1687,14 @@ async function seed() {
                     sequenceType: null,
                     serviceType: null,
                     amountInCents: 5_000,
+                    quantity: 1,
+                    unitAmountInCents: 5_000,
                     currency: "EUR",
                     description: "Retrait portefeuille",
                     periodStart: null,
                     periodEnd: null,
                     paidAt: new Date(previousMonth.periodStart.getTime() + 8 * 24 * 60 * 60_000).toISOString(),
-                    idInvoice: null,
+                    idInvoice: invoicePreviousMonthId,
                     createdAt: new Date(previousMonth.periodStart.getTime() + 8 * 24 * 60 * 60_000).toISOString(),
                     lastUpdatedAt: null,
                     createdBy: newUser.id,
@@ -1681,6 +1710,8 @@ async function seed() {
                     sequenceType: "recurring",
                     serviceType: "support",
                     amountInCents: 2_900,
+                    quantity: 1,
+                    unitAmountInCents: 2_900,
                     currency: "EUR",
                     description: "Licence mensuelle",
                     periodStart: previousMonth.periodStart.toISOString(),
@@ -1701,7 +1732,9 @@ async function seed() {
                     mollieSubscriptionId: null,
                     sequenceType: "recurring",
                     serviceType: "storage_gb",
-                    amountInCents: 10,
+                    amountInCents: 40,
+                    quantity: 4,
+                    unitAmountInCents: 10,
                     currency: "EUR",
                     description: "Stockage mensuel",
                     periodStart: previousMonth.periodStart.toISOString(),
@@ -1722,7 +1755,9 @@ async function seed() {
                     mollieSubscriptionId: null,
                     sequenceType: null,
                     serviceType: "agent_tokens_million",
-                    amountInCents: 100,
+                    amountInCents: 300,
+                    quantity: 3,
+                    unitAmountInCents: 100,
                     currency: "EUR",
                     description: "Achat tokens Assistant IA",
                     periodStart: null,
@@ -1743,7 +1778,9 @@ async function seed() {
                     mollieSubscriptionId: null,
                     sequenceType: null,
                     serviceType: "ocr_pages_hundred",
-                    amountInCents: 100,
+                    amountInCents: 180,
+                    quantity: 180,
+                    unitAmountInCents: 1,
                     currency: "EUR",
                     description: "Achat pages OCR",
                     periodStart: null,
@@ -1757,8 +1794,33 @@ async function seed() {
                 },
             ]
 
+            const seededPaymentsWithTax = seededPayments.map((payment) => {
+                const isTaxableCategory = payment.category === "subscription" || payment.category === "wallet_spending"
+                const amountHTInCents = (payment as { amountHTInCents?: number }).amountHTInCents ?? payment.amountInCents
+                const amountTVAInCents =
+                    (payment as { amountTVAInCents?: number }).amountTVAInCents ??
+                    (isTaxableCategory ? getTaxAmountFromHTInCents(amountHTInCents) : 0)
+
+                const normalizedPayment = {
+                    ...payment,
+                    flow:
+                        (payment as { flow?: (typeof organizationPaymentFlow)[number] }).flow ??
+                        getOrganizationPaymentFlowFromCategory(payment.category),
+                    amountHTInCents,
+                    amountTVAInCents,
+                    unitAmountHTInCents:
+                        (payment as { unitAmountHTInCents?: number }).unitAmountHTInCents ?? payment.unitAmountInCents,
+                }
+
+                delete (normalizedPayment as { amountInCents?: number }).amountInCents
+                delete (normalizedPayment as { unitAmountInCents?: number }).unitAmountInCents
+                delete (normalizedPayment as { mollieSubscriptionId?: string | null }).mollieSubscriptionId
+
+                return normalizedPayment
+            })
+
             await tx.insert(models.invoice).values(seededInvoices)
-            await tx.insert(models.organizationPayment).values(seededPayments)
+            await tx.insert(models.organizationPayment).values(seededPaymentsWithTax)
 
             console.log("Seed completed successfully!")
             console.log(`- 1 user created`)

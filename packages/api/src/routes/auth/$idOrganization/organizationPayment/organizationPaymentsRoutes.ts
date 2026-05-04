@@ -1,4 +1,4 @@
-import { cancelOrganizationSubscriptionRoute } from "./cancelOrganizationSubscription.js"
+import { cancelOrganizationBillingRoute } from "./cancelOrganizationBilling.js"
 import { cancelSubscriptionRoute } from "./cancelSubscription.js"
 import { createFirstPaymentRoute } from "./createFirstPayment.js"
 import { createPaymentMethodCheckoutRoute } from "./createPaymentMethodCheckout.js"
@@ -6,10 +6,10 @@ import { createWalletTopUpCheckoutRoute } from "./createWalletTopUpCheckout.js"
 import { createWalletWithdrawalRoute } from "./createWalletWithdrawal.js"
 import { generateInvoiceGetSignedUrlRoute } from "./generateInvoiceGetSignedUrl.js"
 import { readAllInvoicesRoute } from "./readAllInvoices.js"
+import { readAllOrganizationBillingsRoute } from "./readAllOrganizationBillings.js"
 import { readAllOrganizationPaymentsRoute } from "./readAllOrganizationPayments.js"
-import { readAllOrganizationSubscriptionsRoute } from "./readAllOrganizationSubscriptions.js"
-import { readOneInvoiceUblRoute } from "./readOneInvoiceUbl.js"
-import { readOrganizationSubscriptionRoute } from "./readOrganizationSubscription.js"
+import { readOneInvoiceRoute } from "./readOneInvoice.js"
+import { readOrganizationBillingRoute } from "./readOrganizationBilling.js"
 import { updateLicenceSubscriptionRoute } from "./updateLicenceSubscription.js"
 import { updateOcrSubscriptionRoute } from "./updateOcrSubscription.js"
 import { updateStorageSubscriptionRoute } from "./updateStorageSubscription.js"
@@ -21,15 +21,15 @@ export const organizationPaymentsRoutes = [
     createPaymentMethodCheckoutRoute,
     createWalletTopUpCheckoutRoute,
     createWalletWithdrawalRoute,
-    readOrganizationSubscriptionRoute,
+    readOrganizationBillingRoute,
     cancelSubscriptionRoute,
-    readAllOrganizationSubscriptionsRoute,
+    readAllOrganizationBillingsRoute,
     updateLicenceSubscriptionRoute,
     updateOcrSubscriptionRoute,
     updateStorageSubscriptionRoute,
     updateTokensSubscriptionRoute,
-    cancelOrganizationSubscriptionRoute,
+    cancelOrganizationBillingRoute,
     readAllInvoicesRoute,
     generateInvoiceGetSignedUrlRoute,
-    readOneInvoiceUblRoute,
+    readOneInvoiceRoute,
 ]

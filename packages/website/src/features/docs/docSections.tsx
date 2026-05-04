@@ -1,5 +1,13 @@
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconBook, IconCode, IconGavel, IconHome, IconInfoCircle, IconLayout, IconRobot } from "@tabler/icons-react"
+import {
+    IconBook,
+    IconCode,
+    IconGavel,
+    IconHome,
+    IconInfoCircle,
+    IconLayout,
+    IconRobot,
+} from "@tabler/icons-react"
 import type { DocSection } from "./sectionTab.tsx"
 
 // Documentation sections configuration
@@ -111,6 +119,7 @@ export const docSections: Record<string, DocSection> = {
                     { path: "/documentation/dashboard/écritures", label: "Saisie des écritures" },
                     { path: "/documentation/dashboard/stockage", label: "Stockage" },
                     { path: "/documentation/dashboard/documents", label: "Documents comptables" },
+                    { path: "/documentation/dashboard/facturation", label: "Facturation" },
                 ],
             },
             assistant: {

@@ -11,9 +11,9 @@ import { css, cx } from "../../utilities/cn.js"
  *   <ButtonPlainContent text="Go to Dashboard" leftIcon={<IconHome />} />
  * </LinkButton>
  */
-export function LinkButton(props: {
-    to: any
-    params?: any
+type LinkButtonProps = {
+    to: string
+    params?: Record<string, string | null | undefined>
     hash?: string
     target?: string
     rel?: string
@@ -22,11 +22,13 @@ export function LinkButton(props: {
     className?: string
     onClick?: MouseEventHandler<HTMLAnchorElement> | undefined
     children: ReactNode
-}) {
+}
+
+export function LinkButton(props: LinkButtonProps) {
     return (
         <Link
-            to={props.to}
-            params={props.params}
+            to={props.to as never}
+            params={props.params as never}
             hash={props.hash}
             target={props.target}
             rel={props.rel}

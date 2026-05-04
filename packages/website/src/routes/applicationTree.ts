@@ -4,7 +4,7 @@ import { dashboardTree } from "./root/dashboard/dashboardTree.js"
 import { docsTree } from "./root/docs/docsTree.js"
 import { homeLayoutRoute } from "./root/home/homeLayoutRoute.js"
 import { homeRootRoute } from "./root/home/homeRootRoute.js"
-import { publicFacturationRoute } from "./root/publicFacturationRoute.js"
+import { resetPasswordRoute } from "./root/signIn/resetPasswordRoute.js"
 import { signInRoute } from "./root/signIn/signInRoute.js"
 import { signUpRoute } from "./root/signUp/signUpRoute.js"
 import { rootLayoutRoute } from "./rootLayoutRoute.js"
@@ -13,9 +13,9 @@ export const applicationTree: AnyRoute = rootLayoutRoute.addChildren([
     homeLayoutRoute.addChildren([homeRootRoute]),
 
     docsTree,
-    publicFacturationRoute,
     signUpRoute,
     signInRoute,
+    resetPasswordRoute,
     dashboardTree,
 
     catchRoute,

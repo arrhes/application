@@ -1,11 +1,10 @@
-import { generateId, models } from "@arrhes/application-metadata"
-import { and, eq, inArray, isNotNull, isNull } from "drizzle-orm"
+import { models, OCR_PAGE_PRICE_IN_CENTS } from "@arrhes/application-metadata"
+import { and, eq, inArray, isNotNull } from "drizzle-orm"
 import * as v from "valibot"
 import { apiFactory } from "../../utilities/apiFactory.js"
 import { apiLog } from "../../utilities/apiLog.js"
 import {
     findOrCreateCurrentPeriodInvoice,
-    generateRandomInvoiceReference,
 } from "../../utilities/billing/billingInvoice.js"
 import { buildInvoiceUblXml } from "../../utilities/billing/invoiceUbl.js"
 import {
@@ -16,7 +15,6 @@ import {
 import { recordOrganizationPayment } from "../../utilities/billing/wallet.js"
 import { Exception } from "../../utilities/exception.js"
 import { response } from "../../utilities/response.js"
-import { insertOne } from "../../utilities/sql/insertOne.js"
 import { updateOne } from "../../utilities/sql/updateOne.js"
 import { putObject } from "../../utilities/storage/putObject.js"
 
@@ -28,6 +26,8 @@ type ServicePaymentRecord = {
     idOrganization: string
     serviceType: InvoiceLineType
     amountInCents: number
+    quantity: number
+    unitAmountInCents: number
     paidAt: string | null
     createdAt: string
 }
@@ -35,13 +35,6 @@ type ServicePaymentRecord = {
 function getCurrentMonthRange(date: Date) {
     const periodStart = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1))
     const periodEnd = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + 1, 0, 23, 59, 59, 999))
-
-    return { periodStart, periodEnd }
-}
-
-function getPreviousMonthRange(date: Date) {
-    const periodStart = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth() - 1, 1))
-    const periodEnd = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 0, 23, 59, 59, 999))
 
     return { periodStart, periodEnd }
 }
@@ -62,46 +55,34 @@ function getServicePaymentDescription(type: InvoiceLineType) {
     return "Achat pages OCR"
 }
 
-function isDateWithinRange(dateISO: string, start: Date, end: Date) {
-    const date = new Date(dateISO)
-    return date.getTime() >= start.getTime() && date.getTime() <= end.getTime()
-}
-
 function getInvoiceLineQuantity(type: InvoiceLineType, amountInCents: number) {
     if (type === "support") {
         return 1
+    }
+
+    if (type === "ocr_pages_hundred") {
+        return Math.max(Math.round(amountInCents / OCR_PAGE_PRICE_IN_CENTS), 1)
     }
 
     const unitPrice = getResourceSubscriptionUnitPriceInCents(type)
     return Math.max(Math.round(amountInCents / unitPrice), 1)
 }
 
-function buildInvoiceLinesFromPayments(payments: ServicePaymentRecord[]) {
-    const aggregates = new Map<InvoiceLineType, { quantity: number; amountInCents: number }>()
-
-    for (const payment of payments) {
-        const aggregate = aggregates.get(payment.serviceType) ?? { quantity: 0, amountInCents: 0 }
-        aggregate.quantity += getInvoiceLineQuantity(payment.serviceType, payment.amountInCents)
-        aggregate.amountInCents += payment.amountInCents
-        aggregates.set(payment.serviceType, aggregate)
+function getResolvedPaymentQuantity(payment: ServicePaymentRecord) {
+    if (payment.quantity > 0) {
+        return payment.quantity
     }
 
-    const orderedTypes: InvoiceLineType[] = ["support", "storage_gb", "agent_tokens_million", "ocr_pages_hundred"]
+    return getInvoiceLineQuantity(payment.serviceType, payment.amountInCents)
+}
 
-    return orderedTypes.flatMap((type) => {
-        const aggregate = aggregates.get(type)
-        if (!aggregate) {
-            return []
-        }
+function getResolvedPaymentUnitAmountInCents(payment: ServicePaymentRecord) {
+    if (payment.unitAmountInCents > 0) {
+        return payment.unitAmountInCents
+    }
 
-        return [
-            {
-                type,
-                quantity: aggregate.quantity,
-                amountInCents: aggregate.amountInCents,
-            },
-        ]
-    })
+    const quantity = getResolvedPaymentQuantity(payment)
+    return quantity > 0 ? Math.round(payment.amountInCents / quantity) : payment.amountInCents
 }
 
 function buildRecurringInvoiceLines(organization: typeof models.organization.$inferSelect) {
@@ -139,15 +120,9 @@ export const generateMonthlyInvoicesRoute = apiFactory
         }
 
         const now = new Date()
-        const { periodStart: previousPeriodStart, periodEnd: previousPeriodEnd } = getPreviousMonthRange(now)
         const { periodStart: currentPeriodStart, periodEnd: currentPeriodEnd } = getCurrentMonthRange(now)
-
-        const previousPeriodStartISO = previousPeriodStart.toISOString()
-        const previousPeriodEndISO = previousPeriodEnd.toISOString()
         const currentPeriodStartISO = currentPeriodStart.toISOString()
         const currentPeriodEndISO = currentPeriodEnd.toISOString()
-
-        const invoicePrefix = `${String(previousPeriodStart.getUTCFullYear())}-${String(previousPeriodStart.getUTCMonth() + 1).padStart(2, "0")}`
 
         const organizations = await c.var.clients.sql.select().from(models.organization)
         const orgIds = organizations.map((organization) => organization.id)
@@ -180,10 +155,10 @@ export const generateMonthlyInvoicesRoute = apiFactory
                             : {}),
                         ...(org.pendingStorageMaxUsage !== null
                             ? {
-                                  storageMaxUsage: org.pendingStorageMaxUsage,
-                                  storageLimit: org.pendingStorageMaxUsage,
-                                  pendingStorageMaxUsage: null,
-                              }
+                                storageMaxUsage: org.pendingStorageMaxUsage,
+                                storageLimit: org.pendingStorageMaxUsage,
+                                pendingStorageMaxUsage: null,
+                            }
                             : {}),
                         lastUpdatedAt: now.toISOString(),
                     },
@@ -214,74 +189,23 @@ export const generateMonthlyInvoicesRoute = apiFactory
         }
 
         // ── Phase 1: Generate XML invoices for all pending draft invoices ─────────
-        // Path A: invoices already created as drafts when payments were made during the month.
+        // Invoices are created when payments are recorded, then rendered here.
         // Processes drafts from any period so that historical seed data or catch-up invoices
         // are also rendered — not only the immediately-previous month.
         const draftInvoicesLastMonth = await c.var.clients.sql
             .select({
                 id: models.invoice.id,
                 idOrganization: models.invoice.idOrganization,
-                invoiceNumber: models.invoice.invoiceNumber,
+                reference: models.invoice.reference,
                 periodStart: models.invoice.periodStart,
                 periodEnd: models.invoice.periodEnd,
             })
             .from(models.invoice)
             .where(and(inArray(models.invoice.idOrganization, orgIds), eq(models.invoice.status, "draft")))
 
-        // Only orgs with a previous-month draft are excluded from Path B (orphan-payment handling).
-        // Orgs with drafts from other periods still need Path B to run for last-month orphans.
-        const orgsWithPreviousMonthDraftInvoice = new Set(
-            draftInvoicesLastMonth
-                .filter((inv) => inv.periodStart === previousPeriodStartISO)
-                .map((inv) => inv.idOrganization),
-        )
-
-        // Path B: backward compat — orgs with uninvoiced payments from last month (pre-migration data)
-        const uninvoicedPreviousMonthPaymentsRaw = await c.var.clients.sql
-            .select({
-                id: models.organizationPayment.id,
-                idOrganization: models.organizationPayment.idOrganization,
-                serviceType: models.organizationPayment.serviceType,
-                amountInCents: models.organizationPayment.amountInCents,
-                paidAt: models.organizationPayment.paidAt,
-                createdAt: models.organizationPayment.createdAt,
-            })
-            .from(models.organizationPayment)
-            .where(
-                and(
-                    inArray(models.organizationPayment.idOrganization, orgIds),
-                    eq(models.organizationPayment.status, "paid"),
-                    isNotNull(models.organizationPayment.serviceType),
-                    isNull(models.organizationPayment.idInvoice),
-                ),
-            )
-
-        const prevMonthOrphanPayments = uninvoicedPreviousMonthPaymentsRaw.reduce<Map<string, ServicePaymentRecord[]>>(
-            (accumulator, payment) => {
-                if (isInvoiceLineType(payment.serviceType) === false) return accumulator
-                const effectiveDate = payment.paidAt ?? payment.createdAt
-                if (isDateWithinRange(effectiveDate, previousPeriodStart, previousPeriodEnd) === false)
-                    return accumulator
-                // Skip orgs that already have a draft invoice for the previous month — handled via Path A
-                if (orgsWithPreviousMonthDraftInvoice.has(payment.idOrganization)) return accumulator
-                const list = accumulator.get(payment.idOrganization) ?? []
-                list.push({
-                    id: payment.id,
-                    idOrganization: payment.idOrganization,
-                    serviceType: payment.serviceType,
-                    amountInCents: payment.amountInCents,
-                    paidAt: payment.paidAt,
-                    createdAt: payment.createdAt,
-                } satisfies ServicePaymentRecord)
-                accumulator.set(payment.idOrganization, list)
-                return accumulator
-            },
-            new Map(),
-        )
-
         let generatedCount = 0
 
-        // Path A: generate XML invoices for all pending draft invoices
+        // Generate XML invoices for all pending draft invoices
         for (const draftInvoice of draftInvoicesLastMonth) {
             const organization = orgMap.get(draftInvoice.idOrganization)
             if (!organization) continue
@@ -296,7 +220,9 @@ export const generateMonthlyInvoicesRoute = apiFactory
                         id: models.organizationPayment.id,
                         idOrganization: models.organizationPayment.idOrganization,
                         serviceType: models.organizationPayment.serviceType,
-                        amountInCents: models.organizationPayment.amountInCents,
+                        amountInCents: models.organizationPayment.amountHTInCents,
+                        quantity: models.organizationPayment.quantity,
+                        unitAmountInCents: models.organizationPayment.unitAmountHTInCents,
                         paidAt: models.organizationPayment.paidAt,
                         createdAt: models.organizationPayment.createdAt,
                     })
@@ -309,12 +235,12 @@ export const generateMonthlyInvoicesRoute = apiFactory
 
                 if (servicePayments.length === 0) continue
 
-                const invoiceLines = buildInvoiceLinesFromPayments(servicePayments)
-                const totalAmountInCents = invoiceLines.reduce((sum, line) => sum + line.amountInCents, 0)
+                const totalAmountInCents = servicePayments.reduce((sum, payment) => sum + payment.amountInCents, 0)
 
-                const xmlStorageKey = `invoices/${draftInvoice.idOrganization}/${invPrefix}.xml`
+                const xmlStorageKey = `organizations/${draftInvoice.idOrganization}/invoices/${invPrefix}.xml`
+                const internalXmlStorageKey = `invoices/${draftInvoice.idOrganization}/${invPrefix}.xml`
                 const xmlContent = buildInvoiceUblXml({
-                    invoiceNumber: draftInvoice.invoiceNumber,
+                    invoiceNumber: draftInvoice.reference,
                     issueDateIso: now.toISOString(),
                     dueDateIso: now.toISOString(),
                     periodStartIso: draftInvoice.periodStart,
@@ -332,7 +258,8 @@ export const generateMonthlyInvoicesRoute = apiFactory
                         serviceType: payment.serviceType,
                         description: getServicePaymentDescription(payment.serviceType),
                         amountInCents: payment.amountInCents,
-                        quantity: 1,
+                        quantity: getResolvedPaymentQuantity(payment),
+                        unitAmountInCents: getResolvedPaymentUnitAmountInCents(payment),
                     })),
                 })
 
@@ -345,7 +272,21 @@ export const generateMonthlyInvoicesRoute = apiFactory
                     contentLength: xmlBuffer.length,
                     metadata: {
                         idOrganization: draftInvoice.idOrganization,
-                        invoiceNumber: draftInvoice.invoiceNumber,
+                        invoiceNumber: draftInvoice.reference,
+                        period: invPrefix,
+                    },
+                })
+
+                // Mirror invoice XML under /invoices for internal tooling compatibility.
+                await putObject({
+                    var: c.var,
+                    body: xmlBuffer,
+                    storageKey: internalXmlStorageKey,
+                    contentType: "application/xml",
+                    contentLength: xmlBuffer.length,
+                    metadata: {
+                        idOrganization: draftInvoice.idOrganization,
+                        invoiceNumber: draftInvoice.reference,
                         period: invPrefix,
                     },
                 })
@@ -355,7 +296,7 @@ export const generateMonthlyInvoicesRoute = apiFactory
                     table: models.invoice,
                     data: {
                         amountInCents: totalAmountInCents,
-                        storageKey: xmlStorageKey,
+                        xmlStorageKey,
                         status: "generated",
                         lastUpdatedAt: now.toISOString(),
                     },
@@ -368,92 +309,6 @@ export const generateMonthlyInvoicesRoute = apiFactory
                     var: c.var,
                     type: "error",
                     internalMessage: `Failed to generate invoice XML for org ${draftInvoice.idOrganization}`,
-                    cause: error instanceof Error ? error.message : String(error),
-                    stack: error instanceof Error ? error.stack : undefined,
-                })
-            }
-        }
-
-        // Path B: backward compat — create and immediately generate invoices for orphaned payments
-        for (const [idOrganization, payments] of prevMonthOrphanPayments) {
-            const organization = orgMap.get(idOrganization)
-            if (!organization || payments.length === 0) continue
-
-            try {
-                const invoiceNumber = generateRandomInvoiceReference(previousPeriodStart)
-
-                const invoiceLines = buildInvoiceLinesFromPayments(payments)
-                const totalAmountInCents = invoiceLines.reduce((sum, line) => sum + line.amountInCents, 0)
-
-                const xmlStorageKey = `invoices/${idOrganization}/${invoicePrefix}.xml`
-                const xmlContent = buildInvoiceUblXml({
-                    invoiceNumber,
-                    issueDateIso: now.toISOString(),
-                    dueDateIso: now.toISOString(),
-                    periodStartIso: previousPeriodStartISO,
-                    periodEndIso: previousPeriodEndISO,
-                    amountInCents: totalAmountInCents,
-                    currency: "EUR",
-                    supplierName: "Barbote SAS",
-                    supplierSiren: "908719503",
-                    supplierVatId: "FR02908719503",
-                    supplierAddress: "93 rue Sedaine, 75011 Paris, FR",
-                    customerName: organization.name,
-                    customerSiren: organization.siren,
-                    customerEmail: organization.email,
-                    lines: payments.map((payment) => ({
-                        serviceType: payment.serviceType,
-                        description: getServicePaymentDescription(payment.serviceType),
-                        amountInCents: payment.amountInCents,
-                        quantity: 1,
-                    })),
-                })
-
-                const xmlBuffer = Buffer.from(xmlContent, "utf8")
-                await putObject({
-                    var: c.var,
-                    body: xmlBuffer,
-                    storageKey: xmlStorageKey,
-                    contentType: "application/xml",
-                    contentLength: xmlBuffer.length,
-                    metadata: { idOrganization, invoiceNumber, period: invoicePrefix },
-                })
-
-                const invoiceId = generateId()
-                await insertOne({
-                    database: c.var.clients.sql,
-                    table: models.invoice,
-                    data: {
-                        id: invoiceId,
-                        idOrganization,
-                        invoiceNumber,
-                        periodStart: previousPeriodStartISO,
-                        periodEnd: previousPeriodEndISO,
-                        amountInCents: totalAmountInCents,
-                        currency: "EUR",
-                        storageKey: xmlStorageKey,
-                        status: "generated",
-                        createdAt: now.toISOString(),
-                        lastUpdatedAt: null,
-                    },
-                })
-
-                await c.var.clients.sql
-                    .update(models.organizationPayment)
-                    .set({ idInvoice: invoiceId, lastUpdatedAt: now.toISOString() })
-                    .where(
-                        inArray(
-                            models.organizationPayment.id,
-                            payments.map((p) => p.id),
-                        ),
-                    )
-
-                generatedCount++
-            } catch (error) {
-                apiLog({
-                    var: c.var,
-                    type: "error",
-                    internalMessage: `Failed to create legacy invoice for org ${idOrganization}`,
                     cause: error instanceof Error ? error.message : String(error),
                     stack: error instanceof Error ? error.stack : undefined,
                 })
@@ -534,12 +389,19 @@ export const generateMonthlyInvoicesRoute = apiFactory
                     })
 
                     for (const recurringLine of recurringLinesToCharge) {
+                        const unitAmountInCents =
+                            recurringLine.quantity > 0
+                                ? Math.round(recurringLine.amountInCents / recurringLine.quantity)
+                                : recurringLine.amountInCents
+
                         await recordOrganizationPayment({
                             database: c.var.clients.sql,
                             idOrganization,
                             category: "subscription",
                             status: "paid",
-                            amountInCents: recurringLine.amountInCents,
+                            amountHTInCents: recurringLine.amountInCents,
+                            quantity: recurringLine.quantity,
+                            unitAmountHTInCents: unitAmountInCents,
                             description: getServicePaymentDescription(recurringLine.type),
                             sequenceType: "recurring",
                             serviceType: recurringLine.type,

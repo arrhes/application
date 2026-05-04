@@ -111,7 +111,7 @@ export const createWalletWithdrawalRoute = apiFactory
                 return acc
             }
 
-            acc[payment.molliePaymentId] = (acc[payment.molliePaymentId] ?? 0) + payment.amountInCents
+            acc[payment.molliePaymentId] = (acc[payment.molliePaymentId] ?? 0) + payment.amountHTInCents
             return acc
         }, {})
 
@@ -121,7 +121,7 @@ export const createWalletWithdrawalRoute = apiFactory
             }
 
             const alreadyReserved = reservedByPaymentId[payment.molliePaymentId] ?? 0
-            return payment.amountInCents - alreadyReserved >= body.amountInCents
+            return payment.amountHTInCents - alreadyReserved >= body.amountInCents
         })
 
         if (sourcePayment?.molliePaymentId === null || sourcePayment === undefined) {

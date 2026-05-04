@@ -1,4 +1,4 @@
-import { adminSignOutRouteDefinition } from "@arrhes/application-metadata/routes"
+import { signOutRouteDefinition } from "@arrhes/application-metadata/routes"
 import { Button, ButtonGhostContent, Logo, PageNavigation } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconLogout, IconTicket } from "@tabler/icons-react"
@@ -72,7 +72,7 @@ export function AdminDashboardLayout() {
                             onClick={async () => {
                                 try {
                                     await getResponseBodyFromAPI({
-                                        routeDefinition: adminSignOutRouteDefinition,
+                                        routeDefinition: signOutRouteDefinition,
                                         body: {},
                                     })
                                 } catch {

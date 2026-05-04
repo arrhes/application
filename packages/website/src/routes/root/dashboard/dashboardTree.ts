@@ -15,6 +15,12 @@ import { dashboardRootRoute } from "./dashboardRootRoute.tsx"
 import { organizationApiKeysRoute } from "./organizations/$idOrganization/organizationApi/organizationApiKeysRoute.tsx"
 import { organizationApiLayoutRoute } from "./organizations/$idOrganization/organizationApi/organizationApiLayoutRoute.tsx"
 import { organizationApiRoute } from "./organizations/$idOrganization/organizationApi/organizationApiRoute.tsx"
+import { organizationBillingHistoryRoute } from "./organizations/$idOrganization/organizationBilling/organizationBillingHistoryRoute.tsx"
+import { organizationBillingLayoutRoute } from "./organizations/$idOrganization/organizationBilling/organizationBillingLayoutRoute.tsx"
+import { organizationBillingRoute } from "./organizations/$idOrganization/organizationBilling/organizationBillingRoute.tsx"
+import { organizationServicesRoute } from "./organizations/$idOrganization/organizationBilling/organizationBillingsRoute.tsx"
+import { organizationInvoicesRoute } from "./organizations/$idOrganization/organizationBilling/organizationInvoicesRoute.tsx"
+import { organizationInvoiceUblRoute } from "./organizations/$idOrganization/organizationBilling/organizationInvoiceUblRoute.tsx"
 import { organizationLayoutRoute } from "./organizations/$idOrganization/organizationLayoutRoute.tsx"
 import { organizationPathRoute } from "./organizations/$idOrganization/organizationPathRoute.tsx"
 import { organizationRoute } from "./organizations/$idOrganization/organizationRoute.tsx"
@@ -22,12 +28,6 @@ import { organizationSecurityRoute } from "./organizations/$idOrganization/organ
 import { organizationSettingsLayoutRoute } from "./organizations/$idOrganization/organizationSettings/organizationSettingsLayoutRoute.tsx"
 import { organizationSettingsRoute } from "./organizations/$idOrganization/organizationSettings/organizationSettingsRoute.tsx"
 import { organizationStorageRoute } from "./organizations/$idOrganization/organizationSettings/organizationStorageRoute.tsx"
-import { organizationInvoicesRoute } from "./organizations/$idOrganization/organizationSubscription/organizationInvoicesRoute.tsx"
-import { organizationInvoiceUblRoute } from "./organizations/$idOrganization/organizationSubscription/organizationInvoiceUblRoute.tsx"
-import { organizationSubscriptionHistoryRoute } from "./organizations/$idOrganization/organizationSubscription/organizationSubscriptionHistoryRoute.tsx"
-import { organizationSubscriptionLayoutRoute } from "./organizations/$idOrganization/organizationSubscription/organizationSubscriptionLayoutRoute.tsx"
-import { organizationSubscriptionRoute } from "./organizations/$idOrganization/organizationSubscription/organizationSubscriptionRoute.tsx"
-import { organizationServicesRoute } from "./organizations/$idOrganization/organizationSubscription/organizationSubscriptionsRoute.tsx"
 import { organizationUsersLayoutRoute } from "./organizations/$idOrganization/organizationUsers/organizationUsersLayoutRoute.tsx"
 import { organizationUsersRoute } from "./organizations/$idOrganization/organizationUsers/organizationUsersRoute.tsx"
 import { entryLineLayoutRoute } from "./organizations/$idOrganization/years/$idYear/entries/$idEntry/$idEntryLine/entryLineLayoutRoute.tsx"
@@ -120,10 +120,10 @@ export const dashboardTree: AnyRoute = dashboardLayoutRoute.addChildren([
                 yearsLayoutRoute.addChildren([yearsRoute]),
                 organizationUsersLayoutRoute.addChildren([organizationUsersRoute]),
                 organizationApiLayoutRoute.addChildren([organizationApiRoute, organizationApiKeysRoute]),
-                organizationSubscriptionLayoutRoute.addChildren([
-                    organizationSubscriptionRoute,
+                organizationBillingLayoutRoute.addChildren([
+                    organizationBillingRoute,
                     organizationServicesRoute,
-                    organizationSubscriptionHistoryRoute,
+                    organizationBillingHistoryRoute,
                     organizationInvoicesRoute,
                     organizationInvoiceUblRoute,
                 ]),

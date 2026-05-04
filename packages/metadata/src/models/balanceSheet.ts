@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm"
-import { type AnyPgColumn, boolean, pgEnum, pgTable, unique, varchar } from "drizzle-orm/pg-core"
+import { type AnyPgColumn, boolean, pgTable, unique, varchar } from "drizzle-orm/pg-core"
 import { balanceSheetSide } from "../components/index.js"
 import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
@@ -7,9 +7,6 @@ import { accountModel } from "./account.js"
 import { organizationModel } from "./organization.js"
 import { userModel } from "./user.js"
 import { yearModel } from "./year.js"
-
-// Model
-export const balanceSheetSideEnum = pgEnum("enum_balance_sheet_side", balanceSheetSide)
 
 export const balanceSheetModel = pgTable(
     "table_balance_sheet",
@@ -27,7 +24,7 @@ export const balanceSheetModel = pgTable(
         }),
         isDefault: boolean("is_default").notNull(),
         isComputed: boolean("is_total").notNull(),
-        side: balanceSheetSideEnum("side").notNull(),
+        side: varchar("side", { length: 16, enum: balanceSheetSide }).notNull(),
         number: varchar("number", { length: 32 }).notNull(),
         label: varchar("label", { length: 256 }).notNull(),
         createdAt: dateTimeColumn("created_at").notNull(),

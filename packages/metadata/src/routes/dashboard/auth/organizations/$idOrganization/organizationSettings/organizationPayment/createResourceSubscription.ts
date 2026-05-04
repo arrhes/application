@@ -1,5 +1,5 @@
 import * as v from "valibot"
-import { integerSchema, organizationSubscriptionType, routePath } from "../../../../../../../components/index.js"
+import { integerSchema, organizationBillingType, routePath } from "../../../../../../../components/index.js"
 import { routeDefinition } from "../../../../../../../utilities/routeDefinition.js"
 
 export const createResourceSubscriptionRouteDefinition = routeDefinition({
@@ -8,7 +8,7 @@ export const createResourceSubscriptionRouteDefinition = routeDefinition({
     schemas: {
         body: v.object({
             type: v.picklist(
-                organizationSubscriptionType.filter((t) => t !== "support") as [
+                organizationBillingType.filter((t) => t !== "support") as [
                     "storage_gb" | "agent_tokens_million" | "ocr_pages_hundred",
                     ...("storage_gb" | "agent_tokens_million" | "ocr_pages_hundred")[],
                 ],
