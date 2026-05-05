@@ -17,7 +17,6 @@ dev-up:
     @echo ""
     @echo "  Services:"
     @echo "    Website:  http://localhost:5173"
-    @echo "    Admin:    http://localhost:5174"
     @echo "    API:      http://localhost:3000"
     @echo ""
     @echo "  Infrastructure:"
@@ -83,15 +82,21 @@ db-reset:
 # ==============================================================================
 # Uses the same compose file as CI (single source of truth):
 #   1. ci service: pnpm install, Biome check, unit tests, build
-#   2. api/website services: production Docker images
+#   2. api/website/worker services: production Docker images
 #
 # Usage:
-#   just build        - Run CI checks only
-#   just build-all    - Run CI checks + build production images
+#   just build ci      - Run CI gate only (lint + typecheck + tests + build)
+#   just build images  - CI gate + build api/website/worker images (same as publish GH Action)
+#   just build start   - Start built images against local infra to check for startup errors
 
 COMPOSE_BUILD := "docker compose -f .workflows/build/compose.yml"
+COMPOSE_START := "docker compose -f .workflows/build/compose.start.yml --project-name arrhes-prod"
 
-build:
+build cmd:
+    @just build-{{cmd}}
+
+# Run CI gate: lint + typecheck + unit tests + build
+build-ci:
     @echo "=============================================="
     @echo "  Arrhes Build (lint + test + build)"
     @echo "=============================================="
@@ -102,17 +107,35 @@ build:
     @echo "  Build succeeded"
     @echo "=============================================="
 
-build-all:
+# Build production images (api, website, worker) - mirrors the publish GitHub Action
+# Runs the CI gate first, then builds all three images tagged with VERSION
+build-images:
     @echo "=============================================="
-    @echo "  Arrhes Full Build (ci + images)"
+    @echo "  Arrhes Image Build (ci + api + website + worker)"
     @echo "=============================================="
     @echo ""
     {{COMPOSE_BUILD}} build --progress=plain --no-cache ci
-    ARRHES_VERSION=$(cat VERSION) {{COMPOSE_BUILD}} build --progress=plain --no-cache api website admin
+    ARRHES_VERSION=$(cat VERSION) \
+    VITE_API_BASE_URL=http://localhost:3000 \
+    VITE_WEBSITE_BASE_URL=http://localhost:5173 \
+    {{COMPOSE_BUILD}} build --progress=plain api website worker
     @echo ""
     @echo "=============================================="
-    @echo "  Build succeeded"
+    @echo "  Images built: arrhes-api, arrhes-website, arrhes-worker ($(cat VERSION))"
     @echo "=============================================="
+
+# Start production images against local infrastructure to check for startup errors
+# Requires images to be built first: just build images
+# Stops the dev environment first to free ports, then starts production images
+build-start:
+    @echo "=============================================="
+    @echo "  Starting production images (version: $(cat VERSION))"
+    @echo "  Press Ctrl+C to stop"
+    @echo "=============================================="
+    @echo ""
+    -{{DC}} down --remove-orphans 2>/dev/null || true
+    -ARRHES_VERSION=$(cat VERSION) {{COMPOSE_START}} down --remove-orphans 2>/dev/null || true
+    ARRHES_VERSION=$(cat VERSION) {{COMPOSE_START}} up --force-recreate --remove-orphans
 
 # ==============================================================================
 # Tests (requires dev environment running)

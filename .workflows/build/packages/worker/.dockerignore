@@ -7,7 +7,7 @@
 **/.dockerignore
 **/.env
 **/.vscode
-**/.git
+**/.git 
 **/.gitignore
 **/docker-compose*
 **/compose*
