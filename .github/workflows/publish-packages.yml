@@ -50,13 +50,13 @@ jobs:
           VITE_WEBSITE_BASE_URL: ${{ vars.VITE_WEBSITE_BASE_URL }}
         run: |
           docker compose -f .workflows/build/compose.yml build ci
-          docker compose -f .workflows/build/compose.yml build api website admin worker
+          docker compose -f .workflows/build/compose.yml build api website worker
 
       - name: Tag and push images
         env:
           VERSION: ${{ steps.version.outputs.version }}
         run: |
-          IMAGES=("api" "website" "admin" "worker")
+          IMAGES=("api" "website" "worker")
 
           for img in "${IMAGES[@]}"; do
             SRC="arrhes-${img}:${VERSION}"
