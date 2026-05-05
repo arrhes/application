@@ -25,6 +25,7 @@ const envSchema = v.object({
     STORAGE_BUCKET_NAME: v.string(),
     STORAGE_ACCESS_KEY: v.string(),
     STORAGE_SECRET_KEY: v.string(),
+    STORAGE_REGION: v.optional(v.string(), "fr-par"),
 
     EMAIL_ENDPOINT: v.string(),
     EMAIL_USER: v.string(),

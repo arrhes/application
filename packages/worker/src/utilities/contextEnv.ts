@@ -16,6 +16,7 @@ const envSchema = v.object({
     STORAGE_NAME: v.string(),
     STORAGE_ACCESS_KEY: v.string(),
     STORAGE_SECRET_KEY: v.string(),
+    STORAGE_REGION: v.optional(v.string(), "fr-par"),
 
     API_BASE_URL: v.string(),
     INTERNAL_API_KEY: v.optional(v.string(), ""),
@@ -42,6 +43,7 @@ export class ContextEnv {
     static STORAGE_NAME: string
     static STORAGE_ACCESS_KEY: string
     static STORAGE_SECRET_KEY: string
+    static STORAGE_REGION: string
 
     static API_BASE_URL: string
     static INTERNAL_API_KEY: string
@@ -73,6 +75,7 @@ export class ContextEnv {
         ContextEnv.STORAGE_NAME = parsedEnv.STORAGE_NAME
         ContextEnv.STORAGE_ACCESS_KEY = parsedEnv.STORAGE_ACCESS_KEY
         ContextEnv.STORAGE_SECRET_KEY = parsedEnv.STORAGE_SECRET_KEY
+        ContextEnv.STORAGE_REGION = parsedEnv.STORAGE_REGION
 
         ContextEnv.API_BASE_URL = parsedEnv.API_BASE_URL
         ContextEnv.INTERNAL_API_KEY = parsedEnv.INTERNAL_API_KEY

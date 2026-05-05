@@ -10,7 +10,7 @@ export function storageClient() {
                 accessKeyId: ContextEnv.STORAGE_ACCESS_KEY,
                 secretAccessKey: ContextEnv.STORAGE_SECRET_KEY,
             },
-            region: "fr-par",
+            region: ContextEnv.STORAGE_REGION,
             forcePathStyle: true,
         })
         return storageClient
