@@ -29,7 +29,6 @@ export const updateOneAccountRoute = apiFactory.createApp().post(updateOneAccoun
 
             idIncomeStatement: body.idIncomeStatement,
 
-            isClass: body.isClass,
             isSelectable: body.isSelectable,
             number: body.number,
             label: body.label,

@@ -1,9 +1,7 @@
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { FormatNull, FormatPrice, FormatText } from "@arrhes/ui"
 import { css, cx } from "@arrhes/ui/utilities/cn.js"
 import type * as v from "valibot"
-import { FormatNull } from "../../../../../components/formats/formatNull.tsx"
-import { FormatPrice } from "../../../../../components/formats/formatPrice.tsx"
-import { FormatText } from "../../../../../components/formats/formatText.tsx"
 import { Table } from "../../../../../components/layouts/table/table.tsx"
 import { toRoman } from "../../../../../utilities/toRoman.ts"
 import { getIncomeStatementChildren } from "../../yearSettings/incomeStatements/getIncomeStatementChildren.tsx"
@@ -13,7 +11,7 @@ export function IncomeStatementsReportTable(props: {
     incomeStatements: Array<v.InferOutput<typeof returnedSchemas.incomeStatement>>
     computations: Array<v.InferOutput<typeof returnedSchemas.computation>>
     computationIncomeStatements: Array<v.InferOutput<typeof returnedSchemas.computationIncomeStatement>>
-    recordRows: Array<v.InferOutput<typeof returnedSchemas.recordRow>>
+    entryLines: Array<v.InferOutput<typeof returnedSchemas.entryLine>>
     accounts: Array<v.InferOutput<typeof returnedSchemas.account>>
 }) {
     return (
@@ -49,7 +47,7 @@ export function IncomeStatementsReportTable(props: {
                                     idOrganization={incomeStatement.idOrganization}
                                     idYear={incomeStatement.idYear}
                                     accounts={props.accounts}
-                                    recordRows={props.recordRows}
+                                    entryLines={props.entryLines}
                                     incomeStatement={incomeStatement}
                                     incomeStatementChildren={incomeStatementChildren}
                                     level={0}
@@ -104,11 +102,11 @@ export function IncomeStatementsReportTable(props: {
                                             return hasAccount || hasChildrenAccount
                                         })
                                         .forEach((account) => {
-                                            props.recordRows
-                                                .filter((recordRow) => recordRow.idAccount === account.id)
-                                                .forEach((recordRow) => {
+                                            props.entryLines
+                                                .filter((entryLine) => entryLine.idAccount === account.id)
+                                                .forEach((entryLine) => {
                                                     incomeStatementAmount +=
-                                                        Number(recordRow.debit) - Number(recordRow.credit)
+                                                        Number(entryLine.debit) - Number(entryLine.credit)
                                                 })
                                         })
 

@@ -13,7 +13,7 @@ import {
     readAllYearsRouteDefinition,
     readOneOrganizationRouteDefinition,
     readOneOrganizationUserRouteDefinition,
-    readOrganizationSubscriptionRouteDefinition,
+    readOrganizationBillingRouteDefinition,
     updateOneOrganizationRouteDefinition,
     updateOneOrganizationUserRouteDefinition,
 } from "@arrhes/application-metadata/routes"
@@ -40,7 +40,7 @@ export function OrganizationApiDocPage() {
                 </DocParagraph>
                 <DocRouteRequest
                     routeDefinition={readOneOrganizationRouteDefinition}
-                    description="Lire les détails de l'organisation active. Aucun champ requis dans le corps."
+                    description="Lire les détails de l'organisation active. Le corps doit contenir `idOrganization`."
                 />
                 <DocRouteRequest
                     routeDefinition={updateOneOrganizationRouteDefinition}
@@ -77,7 +77,7 @@ export function OrganizationApiDocPage() {
                     Gestion de l'abonnement premium et de l'historique des paiements. Les routes de paiement et
                     d'annulation nécessitent le rôle administrateur.
                 </DocParagraph>
-                <DocRouteRequest routeDefinition={readOrganizationSubscriptionRouteDefinition} />
+                <DocRouteRequest routeDefinition={readOrganizationBillingRouteDefinition} />
                 <DocRouteRequest
                     routeDefinition={createFirstPaymentRouteDefinition}
                     description="Initier le premier paiement. Retourne un objet { checkoutUrl: string } vers lequel l'utilisateur doit être redirigé pour procéder au paiement."
@@ -104,7 +104,7 @@ export function OrganizationApiDocPage() {
                 <DocRouteRequest routeDefinition={readAllYearsRouteDefinition} />
             </DocSection>
 
-            <DocNextPage to="/documentation/api/comptabilité" label="Comptabilité" />
+            <DocNextPage to="/documentation/comptabilité" label="Comptabilité" />
         </DocRoot>
     )
 }

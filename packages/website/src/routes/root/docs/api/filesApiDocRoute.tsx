@@ -6,6 +6,8 @@ export const filesApiDocRoute = createRoute({
     path: "/stockage",
     beforeLoad: () => ({
         title: "Fichiers et documents",
+        description:
+            "Endpoints API pour la gestion des fichiers et documents : upload, téléchargement et association aux écritures.",
     }),
     component: lazyRouteComponent(() => import("../../../../features/docs/api/filesApiDocPage.tsx"), "FilesApiDocPage"),
 })

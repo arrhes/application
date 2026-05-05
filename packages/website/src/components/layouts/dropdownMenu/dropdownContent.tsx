@@ -13,6 +13,7 @@ export function DropdownContent(props: ComponentPropsWithRef<typeof DropdownMenu
                 sideOffset={props.sideOffset || 6}
                 className={cx(
                     css({
+                        zIndex: "10",
                         backgroundColor: "white",
                         borderRadius: "lg",
                         padding: "0.5em",
@@ -23,7 +24,7 @@ export function DropdownContent(props: ComponentPropsWithRef<typeof DropdownMenu
                         alignItems: "stretch",
                         gap: "0.5rem",
                         border: "1px solid",
-                        borderColor: "neutral/20",
+                        borderColor: "neutral/10",
                         minWidth: "var(--radix-dropdown-menu-trigger-width)",
                     }),
                     props.className,

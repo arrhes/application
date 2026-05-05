@@ -1,13 +1,16 @@
-import { readAllFilesRouteDefinition, updateOneFileRouteDefinition } from "@arrhes/application-metadata/routes"
+import {
+    readAllFilesRouteDefinition,
+    readAllFoldersRouteDefinition,
+    updateOneFileRouteDefinition,
+    updateOneFolderRouteDefinition,
+} from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { FormatDate, FormatFileSize, toast } from "@arrhes/ui"
 import { css, cx } from "@arrhes/ui/utilities/cn.js"
 import { IconArrowUp, IconFile, IconFileTypePdf, IconFolder, IconPhoto } from "@tabler/icons-react"
-import { type DragEvent, useState } from "react"
+import { type DragEvent, useRef, useState } from "react"
 import type * as v from "valibot"
-import { FormatDate } from "../../../../components/formats/formatDate.js"
-import { FormatFileSize } from "../../../../components/formats/formatFileSize.js"
 import { EmptyState } from "../../../../components/layouts/emptyState.js"
-import { toast } from "../../../../contexts/toasts/useToast.js"
 import { applicationRouter } from "../../../../routes/applicationRouter.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
@@ -75,6 +78,10 @@ const cardStyle = css({
     },
 })
 
+type DragPayload =
+    | { kind: "file"; id: string; sourceFolderId: string | null }
+    | { kind: "folder"; id: string; sourceParentFolderId: string | null }
+
 export function FilesGrid(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
     idYear: v.InferOutput<typeof returnedSchemas.year>["id"]
@@ -86,53 +93,121 @@ export function FilesGrid(props: {
     hasActiveFilters?: boolean
 }) {
     const [dragOverFolderId, setDragOverFolderId] = useState<string | null>(null)
+    const [draggingPayload, setDraggingPayload] = useState<DragPayload | null>(null)
+    const draggingPayloadRef = useRef<DragPayload | null>(null)
+    const suppressClickRef = useRef(false)
 
     const isEmpty = props.folders.length === 0 && props.files.length === 0 && props.currentFolderId === null
 
-    function handleDragStart(event: DragEvent, fileId: string) {
-        event.dataTransfer.setData("text/plain", fileId)
+    function handleDragStart(event: DragEvent, payload: DragPayload) {
+        event.dataTransfer.setData("text/plain", JSON.stringify(payload))
         event.dataTransfer.effectAllowed = "move"
+        suppressClickRef.current = true
+        draggingPayloadRef.current = payload
+        setDraggingPayload(payload)
     }
 
-    function handleDragOver(event: DragEvent, folderId: string) {
+    function handleDragEnd() {
+        draggingPayloadRef.current = null
+        setDraggingPayload(null)
+        setDragOverFolderId(null)
+        setTimeout(() => {
+            suppressClickRef.current = false
+        }, 0)
+    }
+
+    function getDragPayload(event: DragEvent): DragPayload | null {
+        try {
+            const rawPayload = event.dataTransfer.getData("text/plain")
+            if (!rawPayload) return null
+            const payload = JSON.parse(rawPayload) as DragPayload
+            if (payload.kind !== "file" && payload.kind !== "folder") return null
+            if (!payload.id) return null
+            return payload
+        } catch {
+            return null
+        }
+    }
+
+    function canDropOnTarget(parameters: { payload: DragPayload; targetFolderId: string | null }) {
+        if (parameters.payload.kind === "file") {
+            return parameters.payload.sourceFolderId !== parameters.targetFolderId
+        }
+
+        if (parameters.targetFolderId === parameters.payload.id) return false
+        return parameters.payload.sourceParentFolderId !== parameters.targetFolderId
+    }
+
+    function handleDragOver(event: DragEvent, parameters: { targetId: string; targetFolderId: string | null }) {
         event.preventDefault()
         event.dataTransfer.dropEffect = "move"
-        setDragOverFolderId(folderId)
+        setDragOverFolderId(parameters.targetId)
     }
 
     function handleDragLeave() {
         setDragOverFolderId(null)
     }
 
-    async function handleDrop(event: DragEvent, folderId: string) {
+    async function handleDrop(event: DragEvent, folderId: string | null) {
         event.preventDefault()
         setDragOverFolderId(null)
 
-        const fileId = event.dataTransfer.getData("text/plain")
-        if (!fileId) return
+        const payload = draggingPayloadRef.current ?? draggingPayload ?? getDragPayload(event)
+        if (!payload) return
+        if (!canDropOnTarget({ payload, targetFolderId: folderId })) return
+
+        if (payload.kind === "file") {
+            const updateResponse = await getResponseBodyFromAPI({
+                routeDefinition: updateOneFileRouteDefinition,
+                body: {
+                    idFile: payload.id,
+                    idYear: props.idYear,
+                    idFolder: folderId,
+                },
+            })
+
+            if (updateResponse.ok === false) {
+                toast({ title: "Impossible de déplacer le fichier", variant: "error" })
+                return
+            }
+
+            await invalidateData({
+                routeDefinition: readAllFilesRouteDefinition,
+                body: {
+                    idYear: props.idYear,
+                },
+            })
+
+            toast({ title: "Fichier déplacé", variant: "success" })
+            return
+        }
+
+        if (folderId === payload.id) {
+            return
+        }
 
         const updateResponse = await getResponseBodyFromAPI({
-            routeDefinition: updateOneFileRouteDefinition,
+            routeDefinition: updateOneFolderRouteDefinition,
             body: {
-                idFile: fileId,
+                idFolder: payload.id,
                 idYear: props.idYear,
-                idFolder: folderId,
+                idFolderParent: folderId,
             },
         })
 
         if (updateResponse.ok === false) {
-            toast({ title: "Impossible de déplacer le fichier", variant: "error" })
+            toast({ title: "Impossible de déplacer le dossier", variant: "error" })
             return
         }
 
         await invalidateData({
-            routeDefinition: readAllFilesRouteDefinition,
+            routeDefinition: readAllFoldersRouteDefinition,
             body: {
                 idYear: props.idYear,
             },
         })
 
-        toast({ title: "Fichier déplacé", variant: "success" })
+        toast({ title: "Dossier déplacé", variant: "success" })
     }
 
     if (isEmpty) {
@@ -165,6 +240,7 @@ export function FilesGrid(props: {
                 border: "1px dashed",
                 borderColor: "neutral/15",
                 backgroundColor: "neutral/2",
+                cursor: draggingPayload === null ? undefined : dragOverFolderId === null ? "not-allowed" : "move",
             })}
         >
             <div
@@ -179,6 +255,14 @@ export function FilesGrid(props: {
                 {props.currentFolderId !== null && (
                     <div
                         onClick={() => props.onFolderOpen(props.parentFolderId)}
+                        onDragOver={(event) =>
+                            handleDragOver(event, {
+                                targetId: "__parent__",
+                                targetFolderId: props.parentFolderId,
+                            })
+                        }
+                        onDragLeave={handleDragLeave}
+                        onDrop={(event) => handleDrop(event, props.parentFolderId)}
                         className={css({
                             display: "flex",
                             flexDirection: "column",
@@ -239,10 +323,31 @@ export function FilesGrid(props: {
                         idYear={props.idYear}
                     >
                         <div
-                            onClick={() => props.onFolderOpen(folder.id)}
-                            onDragOver={(e) => handleDragOver(e, folder.id)}
+                            draggable
+                            onDragStart={(event) =>
+                                handleDragStart(event, {
+                                    kind: "folder",
+                                    id: folder.id,
+                                    sourceParentFolderId: folder.idFolderParent ?? null,
+                                })
+                            }
+                            onDragEnd={handleDragEnd}
+                            onClick={(event) => {
+                                if (suppressClickRef.current) {
+                                    event.preventDefault()
+                                    event.stopPropagation()
+                                    return
+                                }
+                                props.onFolderOpen(folder.id)
+                            }}
+                            onDragOver={(event) =>
+                                handleDragOver(event, {
+                                    targetId: folder.id,
+                                    targetFolderId: folder.id,
+                                })
+                            }
                             onDragLeave={handleDragLeave}
-                            onDrop={(e) => handleDrop(e, folder.id)}
+                            onDrop={(event) => handleDrop(event, folder.id)}
                             className={cx(
                                 css({
                                     display: "flex",
@@ -295,7 +400,7 @@ export function FilesGrid(props: {
                                     flexDirection: "column",
                                     gap: "0.125rem",
                                     borderTop: "1px solid",
-                                    borderColor: "amber.100",
+                                    borderTopColor: "amber.100",
                                 })}
                             >
                                 <span
@@ -338,8 +443,20 @@ export function FilesGrid(props: {
                         >
                             <div
                                 draggable
-                                onDragStart={(e) => handleDragStart(e, file.id)}
-                                onClick={() => {
+                                onDragStart={(event) =>
+                                    handleDragStart(event, {
+                                        kind: "file",
+                                        id: file.id,
+                                        sourceFolderId: file.idFolder ?? null,
+                                    })
+                                }
+                                onDragEnd={handleDragEnd}
+                                onClick={(event) => {
+                                    if (suppressClickRef.current) {
+                                        event.preventDefault()
+                                        event.stopPropagation()
+                                        return
+                                    }
                                     applicationRouter.navigate({
                                         to: "/dashboard/organisations/$idOrganization/exercices/$idYear/stockage/$idFile",
                                         params: {
@@ -396,7 +513,7 @@ export function FilesGrid(props: {
                                         flexDirection: "column",
                                         gap: "0.125rem",
                                         borderTop: "1px solid",
-                                        borderColor: "neutral/8",
+                                        borderTopColor: "neutral/8",
                                     })}
                                 >
                                     <span

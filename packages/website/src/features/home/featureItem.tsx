@@ -43,6 +43,15 @@ export function FeatureItem(props: {
                         flexWrap: "wrap",
                     })}
                 >
+                    <span
+                        className={css({
+                            fontSize: "sm",
+                            color: props.highlighted ? "primary" : "neutral",
+                            fontWeight: props.highlighted ? "normal" : "medium",
+                        })}
+                    >
+                        {props.text}
+                    </span>
                     {props.isDev && (
                         <span
                             className={css({
@@ -60,21 +69,11 @@ export function FeatureItem(props: {
                             en développement
                         </span>
                     )}
-                    <span
-                        className={css({
-                            fontSize: "sm",
-                            color: props.highlighted ? "primary" : "neutral",
-                            fontWeight: props.highlighted ? "normal" : "medium",
-                        })}
-                    >
-                        {props.text}
-                    </span>
                 </div>
                 {props.description && props.description.length > 0 && (
                     <ul
                         className={css({
-                            listStyleType: "disc",
-                            paddingLeft: "1rem",
+                            listStyleType: "none",
                             margin: "0",
                             display: "flex",
                             flexDirection: "column",

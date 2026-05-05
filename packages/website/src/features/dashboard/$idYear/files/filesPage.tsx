@@ -3,14 +3,13 @@ import {
     readAllFoldersRouteDefinition,
     updateOneFileRouteDefinition,
 } from "@arrhes/application-metadata/routes"
-import { ButtonPlainContent } from "@arrhes/ui"
+import { ButtonPlainContent, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconPlus } from "@tabler/icons-react"
 import { useNavigate, useParams, useSearch } from "@tanstack/react-router"
 import { type DragEvent, useState } from "react"
 import { DataWrapper } from "../../../../components/layouts/dataWrapper.js"
 import { Page } from "../../../../components/layouts/page/page.js"
-import { toast } from "../../../../contexts/toasts/useToast.js"
 import { filesLayoutRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/files/filesLayoutRoute.js"
 import { filesRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/files/filesRoute.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
@@ -34,7 +33,7 @@ export function FilesPage() {
         })
     }
 
-    // Breadcrumb drag-and-drop — move files to a specific breadcrumb folder (or root)
+    // Breadcrumb drag-and-drop - move files to a specific breadcrumb folder (or root)
     const [breadcrumbDragOver, setBreadcrumbDragOver] = useState<string | null>(null)
 
     function handleBreadcrumbDragOver(event: DragEvent, targetId: string) {

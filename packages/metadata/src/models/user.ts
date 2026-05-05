@@ -10,6 +10,7 @@ export const userModel = pgTable(
     {
         id: idColumn("id").primaryKey(),
         isActive: boolean("is_active").notNull(),
+        isSuperAdmin: boolean("is_super_admin").notNull().default(false),
         alias: varchar("alias", { length: 256 }),
         email: text("email").notNull().unique(),
         isEmailValidated: boolean("is_email_validated").notNull(),

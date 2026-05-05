@@ -92,7 +92,7 @@ export function GettingStartedDashboardDocPage() {
                 <DocList
                     items={[
                         "La partie double (débit = crédit)",
-                        "Les classes de comptes (1 à 7)",
+                        "Les classes de comptes (1 à 8)",
                         "La différence entre bilan et compte de résultat",
                     ]}
                 />

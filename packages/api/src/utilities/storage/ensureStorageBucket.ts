@@ -28,7 +28,7 @@ export async function ensureStorageBucket(client: S3, bucketName: string) {
 
         // Some S3-compatible providers (OpenStack Swift, etc.) return 400
         // or other non-standard codes for HeadBucket. Log and continue
-        // rather than crashing the server — actual storage operations
+        // rather than crashing the server - actual storage operations
         // will surface real errors at request time.
         console.warn(
             `HeadBucket check failed (HTTP ${httpStatusCode ?? "unknown"}, name: ${name ?? "unknown"}). ` +

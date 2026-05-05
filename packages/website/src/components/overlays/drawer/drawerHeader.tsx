@@ -1,4 +1,4 @@
-import { ButtonGhostContent } from "@arrhes/ui"
+import { Button, ButtonGhostContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconX } from "@tabler/icons-react"
 import { useDrawerContext } from "./drawerRoot.js"
@@ -22,14 +22,14 @@ export function DrawerHeader(props: { title: string | undefined }) {
             <span>
                 {props.title === undefined ? null : <span className={css({ fontSize: "2xl" })}>{props.title}</span>}
             </span>
-            <button
-                type="button"
+            <Button
+                title="Fermer"
                 aria-label="Fermer"
                 className={css({ display: "flex", alignItems: "center" })}
                 onClick={() => setOpen(false)}
             >
                 <ButtonGhostContent leftIcon={<IconX />} />
-            </button>
+            </Button>
         </div>
     )
 }

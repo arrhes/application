@@ -26,15 +26,6 @@ export function RootGeneralDocPage() {
                     backgroundColor: "white",
                 })}
             >
-                <h2
-                    className={css({
-                        fontSize: "md",
-                        fontWeight: "semibold",
-                        color: "neutral",
-                    })}
-                >
-                    À propos d'Arrhes
-                </h2>
                 <p
                     className={css({
                         fontSize: "sm",

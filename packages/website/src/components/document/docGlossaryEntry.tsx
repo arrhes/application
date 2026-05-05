@@ -1,35 +1,17 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
 import type { ReactNode } from "react"
+import { DocDefinition } from "./docDefinition.js"
 
-export function DocGlossaryEntry(props: { term: string; definition: ReactNode }) {
+export function DocGlossaryEntry(props: { term: string; children: ReactNode }) {
+    const id = props.term
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "")
+
     return (
-        <div
-            className={css({
-                paddingBlock: "0.625rem",
-                paddingInline: "0.75rem",
-                borderBottom: "1px solid",
-                borderColor: "neutral/6",
-            })}
-        >
-            <dt
-                className={css({
-                    fontWeight: "semibold",
-                    color: "neutral",
-                    fontSize: "sm",
-                    marginBottom: "0.125rem",
-                })}
-            >
-                {props.term}
-            </dt>
-            <dd
-                className={css({
-                    fontSize: "sm",
-                    color: "neutral/55",
-                    lineHeight: "1.6",
-                })}
-            >
-                {props.definition}
-            </dd>
+        <div id={id}>
+            <DocDefinition term={props.term}>{props.children}</DocDefinition>
         </div>
     )
 }

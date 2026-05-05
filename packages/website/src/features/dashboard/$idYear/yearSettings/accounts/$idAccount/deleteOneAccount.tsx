@@ -1,9 +1,10 @@
 import { deleteOneAccountRouteDefinition, readAllAccountsRouteDefinition } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { toast } from "@arrhes/ui"
+import { IconTrash } from "@tabler/icons-react"
 import type { ComponentPropsWithRef, ReactElement } from "react"
 import type * as v from "valibot"
-import { DeleteConfirmation } from "../../../../../../components/overlays/dialog/deleteConfirmation.tsx"
-import { toast } from "../../../../../../contexts/toasts/useToast.ts"
+import { ConfirmationModal } from "../../../../../../components/overlays/dialog/confirmationModal.tsx"
 import { applicationRouter } from "../../../../../../routes/applicationRouter.tsx"
 import { getResponseBodyFromAPI } from "../../../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../../../utilities/invalidateData.ts"
@@ -45,7 +46,7 @@ export function DeleteOneAccount(props: {
     }
 
     return (
-        <DeleteConfirmation
+        <ConfirmationModal
             title="Voulez-vous supprimer ce compte ?"
             description={
                 <>
@@ -54,10 +55,10 @@ export function DeleteOneAccount(props: {
                     Cette action est irréversible.
                 </>
             }
-            submitText="Supprimer le compte"
+            submitButtonProps={{ text: "Supprimer le compte", color: "danger", leftIcon: <IconTrash /> }}
             onSubmit={onSubmit}
         >
             {props.children}
-        </DeleteConfirmation>
+        </ConfirmationModal>
     )
 }

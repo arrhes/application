@@ -1,10 +1,10 @@
-import type { Icon, IconProps } from "@tabler/icons-react"
+import type { Icon, IconProps, ReactNode } from "@tabler/icons-react"
 import { cloneElement, type ReactElement } from "react"
 import { css, cx } from "../../utilities/cn.ts"
 import { CircularLoader } from "../layouts/circularLoader"
 import { useButtonLoading } from "./button"
 
-export type ButtonColor = "neutral" | "danger" | "success"
+export type ButtonColor = "default" | "neutral" | "danger" | "success"
 
 export type ButtonContentProps = {
     color?: ButtonColor
@@ -16,6 +16,7 @@ export type ButtonContentProps = {
     isDisabled?: boolean
     isCurrent?: boolean
     className?: string
+    children?: ReactNode
 }
 
 export function renderButtonContent(
@@ -52,7 +53,7 @@ export function renderButtonContent(
                 cloneElement(props.leftIcon, {
                     "aria-disabled": isDisabled,
                     "aria-current": props.isCurrent,
-                    size: 16,
+                    size: 14,
                     className: cx(classes.leftIcon),
                     strokeWidth: 1.75,
                 })
@@ -63,6 +64,8 @@ export function renderButtonContent(
                     {props.text}
                 </span>
             )}
+
+            {props.children}
 
             {props.rightIcon && (
                 <div className={css({ display: "flex", alignItems: "center", justifyContent: "center" })}>

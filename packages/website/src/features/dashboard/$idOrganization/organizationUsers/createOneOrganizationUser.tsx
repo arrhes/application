@@ -3,6 +3,7 @@ import {
     readAllOrganizationUsersRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { InputText, InputToggle, toast } from "@arrhes/ui"
 import { IconPlus } from "@tabler/icons-react"
 import { type JSX, useState } from "react"
 import { Fragment } from "react/jsx-runtime"
@@ -13,10 +14,7 @@ import { FormField } from "../../../../components/forms/formField.tsx"
 import { FormItem } from "../../../../components/forms/formItem.tsx"
 import { FormLabel } from "../../../../components/forms/formLabel.tsx"
 import { FormRoot } from "../../../../components/forms/formRoot.tsx"
-import { InputText } from "../../../../components/inputs/inputText.tsx"
-import { InputToggle } from "../../../../components/inputs/inputToggle.tsx"
 import { Drawer } from "../../../../components/overlays/drawer/drawer.tsx"
-import { toast } from "../../../../contexts/toasts/useToast.ts"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
 

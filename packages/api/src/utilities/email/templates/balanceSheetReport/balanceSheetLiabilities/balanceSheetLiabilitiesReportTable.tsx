@@ -8,7 +8,7 @@ import { BalanceSheetLiabilitiesReportItem } from "./balanceSheetLiabilitiesRepo
 import { BalanceSheetLiabilitiesReportRow } from "./balanceSheetLiabilitiesReportRow.js"
 
 export function BalanceSheetLiabilitiesReportTable(props: {
-    recordRows: Array<v.InferOutput<typeof returnedSchemas.recordRow>>
+    entryLines: Array<v.InferOutput<typeof returnedSchemas.entryLine>>
     accounts: Array<v.InferOutput<typeof returnedSchemas.account>>
     balanceSheets: Array<v.InferOutput<typeof returnedSchemas.balanceSheet>>
 }) {
@@ -16,14 +16,34 @@ export function BalanceSheetLiabilitiesReportTable(props: {
     props.accounts
         .filter((account) => account.idBalanceSheetLiability !== null)
         .forEach((account) => {
-            props.recordRows
-                .filter((recordRow) => recordRow.idAccount === account.id)
-                .forEach((recordRow) => {
-                    const debit = Number(recordRow.debit)
-                    const credit = Number(recordRow.credit)
+            let accountTotalDebit = 0
+            let accountTotalCredit = 0
 
-                    netTotalAmount += debit - credit
+            props.entryLines
+                .filter((entryLine) => entryLine.idAccount === account.id)
+                .forEach((entryLine) => {
+                    accountTotalDebit += Number(entryLine.debit)
+                    accountTotalCredit += Number(entryLine.credit)
                 })
+
+            const accountBalance = accountTotalDebit - accountTotalCredit
+
+            if (accountBalance < 0 && account.balanceSheetLiabilityFlow === "debit") {
+                return
+            }
+
+            if (accountBalance > 0 && account.balanceSheetLiabilityFlow === "credit") {
+                return
+            }
+
+            if (account.balanceSheetLiabilityColumn === "net") {
+                if (account.balanceSheetLiabilityFlow === "debit") {
+                    netTotalAmount += -Math.abs(accountBalance)
+                }
+                if (account.balanceSheetLiabilityFlow === "credit") {
+                    netTotalAmount += Math.abs(accountBalance)
+                }
+            }
         })
 
     return (
@@ -57,7 +77,7 @@ export function BalanceSheetLiabilitiesReportTable(props: {
                                     <BalanceSheetLiabilitiesReportItem
                                         key={balanceSheet.id}
                                         accounts={props.accounts}
-                                        recordRows={props.recordRows}
+                                        entryLines={props.entryLines}
                                         balanceSheet={balanceSheet}
                                         balanceSheetChildren={balanceSheetChildren}
                                         level={0}
@@ -69,7 +89,7 @@ export function BalanceSheetLiabilitiesReportTable(props: {
                         level={0}
                         number={" "}
                         label={"Total"}
-                        netAmount={netTotalAmount}
+                        netAmount={Math.abs(netTotalAmount)}
                         isAmountDisplayed={true}
                     />
                 </Table.Body.Root>

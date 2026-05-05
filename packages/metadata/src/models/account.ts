@@ -1,20 +1,15 @@
 import { relations } from "drizzle-orm"
-import { type AnyPgColumn, boolean, pgEnum, pgTable, unique, varchar } from "drizzle-orm/pg-core"
+import { type AnyPgColumn, boolean, pgTable, unique, varchar } from "drizzle-orm/pg-core"
 import { accountType, balanceSheetFlow } from "../components/index.js"
 import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
 import { balanceSheetColumn } from "../components/values/balanceSheetColumn.js"
 import { balanceSheetModel } from "./balanceSheet.js"
+import { entryLineModel } from "./entryLine.js"
 import { incomeStatementModel } from "./incomeStatement.js"
 import { organizationModel } from "./organization.js"
-import { recordRowModel } from "./recordRow.js"
 import { userModel } from "./user.js"
 import { yearModel } from "./year.js"
-
-// Model
-export const accountBalanceSheetFlowEnum = pgEnum("enum_account_balance_sheet_flow", balanceSheetFlow)
-export const accountBalanceSheetColumnEnum = pgEnum("enum_account_balance_sheet_column", balanceSheetColumn)
-export const accountTypeEnum = pgEnum("enum_account_type", accountType)
 
 export const accountModel = pgTable(
     "table_account",
@@ -35,28 +30,30 @@ export const accountModel = pgTable(
             onDelete: "set null",
             onUpdate: "cascade",
         }),
-        balanceSheetAssetColumn: accountBalanceSheetColumnEnum("balance_sheet_asset_column"),
-        balanceSheetAssetFlow: accountBalanceSheetFlowEnum("balance_sheet_asset_flow"),
+        balanceSheetAssetColumn: varchar("balance_sheet_asset_column", { length: 32, enum: balanceSheetColumn }),
+        balanceSheetAssetFlow: varchar("balance_sheet_asset_flow", { length: 32, enum: balanceSheetFlow }),
 
         idBalanceSheetLiability: idColumn("id_balance_sheet_liability").references(() => balanceSheetModel.id, {
             onDelete: "set null",
             onUpdate: "cascade",
         }),
-        balanceSheetLiabilityColumn: accountBalanceSheetColumnEnum("balance_sheet_liability_column"),
-        balanceSheetLiabilityFlow: accountBalanceSheetFlowEnum("balance_sheet_liability_flow"),
+        balanceSheetLiabilityColumn: varchar("balance_sheet_liability_column", {
+            length: 32,
+            enum: balanceSheetColumn,
+        }),
+        balanceSheetLiabilityFlow: varchar("balance_sheet_liability_flow", { length: 32, enum: balanceSheetFlow }),
 
         idIncomeStatement: idColumn("id_income_statement").references(() => incomeStatementModel.id, {
             onDelete: "set null",
             onUpdate: "cascade",
         }),
 
-        isMandatory: boolean("is_mandatory").notNull(),
-        isClass: boolean("is_class").notNull(),
+        isOptional: boolean("is_optional").notNull(),
         isSelectable: boolean("is_selectable").notNull(),
         isDefault: boolean("is_default").notNull(),
         number: varchar("number", { length: 32 }).notNull(),
         label: varchar("label", { length: 256 }).notNull(),
-        type: accountTypeEnum("type").notNull(),
+        type: varchar("type", { length: 16, enum: accountType }).notNull(),
 
         createdAt: dateTimeColumn("created_at").notNull(),
         lastUpdatedAt: dateTimeColumn("last_updated_at"),
@@ -86,5 +83,5 @@ export const accountRelations = relations(accountModel, ({ one, many }) => ({
         fields: [accountModel.idIncomeStatement],
         references: [incomeStatementModel.id],
     }),
-    rows: many(recordRowModel),
+    lines: many(entryLineModel),
 }))

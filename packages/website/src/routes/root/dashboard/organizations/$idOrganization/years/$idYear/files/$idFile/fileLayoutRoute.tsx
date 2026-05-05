@@ -1,4 +1,4 @@
-import { createRoute, Outlet } from "@tanstack/react-router"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { filesLayoutRoute } from "../filesLayoutRoute.js"
 
 export const fileLayoutRoute = createRoute({
@@ -7,5 +7,8 @@ export const fileLayoutRoute = createRoute({
     beforeLoad: () => ({
         title: "Pièce justificative",
     }),
-    component: () => <Outlet />,
+    component: lazyRouteComponent(
+        () => import("../../../../../../../../../features/dashboard/$idYear/files/$idFile/fileLayout.js"),
+        "FileLayout",
+    ),
 })

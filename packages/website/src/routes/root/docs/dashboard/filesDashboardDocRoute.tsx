@@ -6,6 +6,8 @@ export const filesDashboardDocRoute = createRoute({
     path: "/stockage",
     beforeLoad: () => ({
         title: "Stockage",
+        description:
+            "Gérez vos pièces justificatives dans Arrhes : importation, association aux écritures et stockage sécurisé de vos documents.",
     }),
     component: lazyRouteComponent(
         () => import("../../../../features/docs/dashboard/filesDashboardDocPage.js"),

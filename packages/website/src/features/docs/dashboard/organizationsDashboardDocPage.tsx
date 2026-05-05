@@ -20,14 +20,14 @@ export function OrganizationsDashboardDocPage() {
                 <DocParagraph>
                     Arrhes supporte deux types d'organisations, chacun avec un plan comptable adapté :
                 </DocParagraph>
-                <DocDefinition
-                    term="Entreprise"
-                    definition="Plan comptable général (PCG) adapté aux sociétés commerciales. Inclut les comptes de TVA, de capital social, etc."
-                />
-                <DocDefinition
-                    term="Association"
-                    definition="Plan comptable des associations. Inclut les comptes spécifiques comme les cotisations (756), les subventions (74), les fonds associatifs..."
-                />
+                <DocDefinition term="Entreprise">
+                    Plan comptable général (PCG) adapté aux sociétés commerciales. Inclut les comptes de TVA, de capital
+                    social, etc.
+                </DocDefinition>
+                <DocDefinition term="Association">
+                    Plan comptable des associations. Inclut les comptes spécifiques comme les cotisations (756), les
+                    subventions (74), les fonds associatifs...
+                </DocDefinition>
                 <DocParagraph>
                     Le type d'organisation est défini à la création et ne peut pas être modifié ensuite. Si vous avez
                     fait une erreur, vous devrez créer une nouvelle organisation.
@@ -60,23 +60,14 @@ export function OrganizationsDashboardDocPage() {
                     Vous pouvez inviter d'autres personnes à accéder à votre organisation. Chaque membre peut avoir des
                     droits différents.
                 </DocParagraph>
-                <DocDefinition
-                    term="Administrateur"
-                    definition="Accès complet : peut modifier les paramètres, inviter des membres, supprimer l'organisation."
-                />
-                <DocDefinition
-                    term="Membre"
-                    definition={
-                        <>
-                            Accès limité : peut{" "}
-                            <DocLink to="/documentation/dashboard/écritures">saisir des écritures</DocLink> et{" "}
-                            <DocLink to="/documentation/dashboard/documents">
-                                consulter les documents de synthèse
-                            </DocLink>
-                            , mais ne peut pas modifier les paramètres.
-                        </>
-                    }
-                />
+                <DocDefinition term="Administrateur">
+                    Accès complet : peut modifier les paramètres, inviter des membres, supprimer l'organisation.
+                </DocDefinition>
+                <DocDefinition term="Membre">
+                    Accès limité : peut <DocLink to="/documentation/dashboard/écritures">saisir des écritures</DocLink>{" "}
+                    et <DocLink to="/documentation/dashboard/documents">consulter les documents de synthèse</DocLink>,
+                    mais ne peut pas modifier les paramètres.
+                </DocDefinition>
                 <DocExample title="Inviter un membre">
                     <DocList
                         items={[

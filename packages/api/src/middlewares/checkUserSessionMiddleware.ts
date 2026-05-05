@@ -80,7 +80,7 @@ async function tryAuthWithCookie(context: Context<any>) {
         try {
             idOrganization = await resolveOrganizationMiddleware({ context })
         } catch {
-            // idOrganization is optional — some routes don't need it
+            // idOrganization is optional - some routes don't need it
             idOrganization = undefined
         }
 

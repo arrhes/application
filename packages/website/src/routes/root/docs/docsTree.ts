@@ -1,11 +1,31 @@
 import type { AnyRoute } from "@tanstack/react-router"
 import { accountingDocLayoutRoute } from "./accounting/accountingDocLayoutRoute.js"
-import { accountsAccountingDocRoute } from "./accounting/accountsAccountingDocRoute.js"
-import { glossaryAccountingDocRoute } from "./accounting/glossaryAccountingDocRoute.js"
-import { introductionAccountingDocRoute } from "./accounting/introductionAccountingDocRoute.js"
-import { recordsAccountingDocRoute } from "./accounting/recordsAccountingDocRoute.js"
-import { reportsAccountingDocRoute } from "./accounting/reportsAccountingDocRoute.js"
-import { rootAccountingDocRoute } from "./accounting/rootAccountingDocRoute.js"
+import { accountAccountingDocRoute } from "./accounting/accounts/accountAccountingDocRoute.js"
+import { accountsAccountingDocLayoutRoute } from "./accounting/accounts/accountsAccountingDocLayoutRoute.js"
+import { accountsAccountingDocRoute } from "./accounting/accounts/accountsAccountingDocRoute.js"
+import { accountsListAccountingDocRoute } from "./accounting/accounts/accountsListAccountingDocRoute.js"
+import { classesAccountingDocRoute } from "./accounting/accounts/classesAccountingDocRoute.js"
+import { glossaryAccountingDocLayoutRoute } from "./accounting/glossary/glossaryAccountingDocLayoutRoute.js"
+import { glossaryAccountingDocIndexRoute } from "./accounting/glossary/glossaryAccountingDocRoute.js"
+import { glossaryTermAccountingDocRoute } from "./accounting/glossary/glossaryTermAccountingDocRoute.js"
+import { doubleEntryAccountingDocRoute } from "./accounting/introduction/doubleEntryAccountingDocRoute.js"
+import { entriesAccountingDocRoute } from "./accounting/introduction/entriesAccountingDocRoute.js"
+import { introductionAccountingDocRoute } from "./accounting/introduction/introductionAccountingDocRoute.js"
+import { rootAccountingDocRoute } from "./accounting/introduction/rootAccountingDocRoute.js"
+import { balanceAccountingDocRoute } from "./accounting/reports/balanceAccountingDocRoute.js"
+import { balanceSheetAccountingDocRoute } from "./accounting/reports/balanceSheetAccountingDocRoute.js"
+import { fecAccountingDocRoute } from "./accounting/reports/fecAccountingDocRoute.js"
+import { incomeStatementAccountingDocRoute } from "./accounting/reports/incomeStatementAccountingDocRoute.js"
+import { journalAccountingDocRoute } from "./accounting/reports/journalAccountingDocRoute.js"
+import { ledgerAccountingDocRoute } from "./accounting/reports/ledgerAccountingDocRoute.js"
+import { notesAccountingDocRoute } from "./accounting/reports/notesAccountingDocRoute.js"
+import { reportsAccountingDocLayoutRoute } from "./accounting/reports/reportsAccountingDocLayoutRoute.js"
+import { reportsAccountingDocRoute } from "./accounting/reports/reportsAccountingDocRoute.js"
+import { aiDocLayoutRoute } from "./ai/aiDocLayoutRoute.js"
+import { modelsAiDocRoute } from "./ai/modelsAiDocRoute.js"
+import { ocrAiDocRoute } from "./ai/ocrAiDocRoute.js"
+import { rootAiDocRoute } from "./ai/rootAiDocRoute.js"
+import { toolsAiDocRoute } from "./ai/toolsAiDocRoute.js"
 import { apiDocLayoutRoute } from "./api/apiDocLayoutRoute.js"
 import { authenticationApiDocRoute } from "./api/authenticationApiDocRoute.js"
 import { filesApiDocRoute } from "./api/filesApiDocRoute.js"
@@ -13,11 +33,12 @@ import { introductionApiDocRoute } from "./api/introductionApiDocRoute.js"
 import { organizationApiDocRoute } from "./api/organizationApiDocRoute.js"
 import { rootApiDocRoute } from "./api/rootApiDocRoute.js"
 import { yearApiDocRoute } from "./api/yearApiDocRoute.js"
+import { billingDashboardDocRoute } from "./dashboard/BillingDashboardDocRoute.js"
 import { dashboardDocLayoutRoute } from "./dashboard/dashboardDocLayoutRoute.js"
+import { entriesDashboardDocRoute } from "./dashboard/entriesDashboardDocRoute.js"
 import { filesDashboardDocRoute } from "./dashboard/filesDashboardDocRoute.js"
 import { gettingStartedDashboardDocRoute } from "./dashboard/gettingStartedDashboardDocRoute.js"
 import { organizationsDashboardDocRoute } from "./dashboard/organizationsDashboardDocRoute.js"
-import { recordsDashboardDocRoute } from "./dashboard/recordsDashboardDocRoute.js"
 import { reportsDashboardDocRoute } from "./dashboard/reportsDashboardDocRoute.js"
 import { rootDashboardDocRoute } from "./dashboard/rootDashboardDocRoute.js"
 import { yearsDashboardDocRoute } from "./dashboard/yearsDashboardDocRoute.js"
@@ -49,10 +70,25 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
     accountingDocLayoutRoute.addChildren([
         rootAccountingDocRoute,
         introductionAccountingDocRoute,
-        accountsAccountingDocRoute,
-        recordsAccountingDocRoute,
-        reportsAccountingDocRoute,
-        glossaryAccountingDocRoute,
+        doubleEntryAccountingDocRoute,
+        entriesAccountingDocRoute,
+        accountsAccountingDocLayoutRoute.addChildren([
+            accountsAccountingDocRoute,
+            classesAccountingDocRoute,
+            accountsListAccountingDocRoute,
+            accountAccountingDocRoute,
+        ]),
+        reportsAccountingDocLayoutRoute.addChildren([
+            reportsAccountingDocRoute,
+            balanceSheetAccountingDocRoute,
+            incomeStatementAccountingDocRoute,
+            balanceAccountingDocRoute,
+            journalAccountingDocRoute,
+            ledgerAccountingDocRoute,
+            fecAccountingDocRoute,
+            notesAccountingDocRoute,
+        ]),
+        glossaryAccountingDocLayoutRoute.addChildren([glossaryAccountingDocIndexRoute, glossaryTermAccountingDocRoute]),
     ]),
 
     // Dashboard section (guide d'utilisation)
@@ -61,9 +97,12 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
         gettingStartedDashboardDocRoute,
         organizationsDashboardDocRoute,
         yearsDashboardDocRoute,
-        recordsDashboardDocRoute,
+        entriesDashboardDocRoute,
         filesDashboardDocRoute,
         reportsDashboardDocRoute,
+        billingDashboardDocRoute,
+        // AI sub-section (assistant IA)
+        aiDocLayoutRoute.addChildren([rootAiDocRoute, modelsAiDocRoute, toolsAiDocRoute, ocrAiDocRoute]),
     ]),
 
     // API section (documentation technique)

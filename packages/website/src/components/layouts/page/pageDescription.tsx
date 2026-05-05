@@ -7,6 +7,7 @@ export function PageDescription(props: { children: string; className?: Component
             className={css({
                 color: "neutral/50",
                 fontSize: "md",
+                lineHeight: 1,
             })}
         >
             {props.children}

@@ -10,28 +10,29 @@ const outlineRecipe = sva({
             justifyContent: "center",
             alignItems: "center",
             gap: "0.5rem",
-            padding: "0.5rem",
+            paddingInline: "0.5rem",
+            height: "2rem",
+            minWidth: "2rem",
             borderRadius: "md",
             boxSizing: "border-box",
-            cursor: "pointer",
             transition: "all",
-            transitionDuration: "200ms",
+            transitionDuration: "50ms",
             transitionTimingFunction: "ease-in-out",
             border: "1px solid",
             borderColor: "neutral/20",
             backgroundColor: "transparent",
-            _hover: { backgroundColor: "neutral/5", borderColor: "neutral/30" },
+            boxShadow: "inset 0 1px 0 rgba(87, 87, 87, 0.05)",
+            _hover: { backgroundColor: "primary/5", borderColor: "primary/50" },
             _active: { backgroundColor: "neutral/10" },
             _disabled: {
                 opacity: 0.5,
-                cursor: "not-allowed",
             },
         },
         leftIcon: {
-            minWidth: "1rem",
-            width: "1rem",
-            minHeight: "1rem",
-            height: "1rem",
+            minWidth: "14px",
+            width: "14px",
+            minHeight: "14px",
+            height: "14px",
             flexShrink: 0,
             stroke: "neutral",
         },
@@ -42,18 +43,19 @@ const outlineRecipe = sva({
             fontSize: "0.875rem",
             lineHeight: "1rem",
             fontWeight: "400",
-            color: "neutral",
+            color: "neutral/75",
         },
         rightIcon: {
-            minWidth: "1rem",
-            width: "1rem",
-            minHeight: "1rem",
-            height: "1rem",
+            minWidth: "14px",
+            width: "14px",
+            minHeight: "14px",
+            height: "14px",
             stroke: "neutral/50",
         },
     },
     variants: {
         color: {
+            default: {},
             neutral: {},
             danger: {
                 container: {
@@ -76,11 +78,11 @@ const outlineRecipe = sva({
         },
     },
     defaultVariants: {
-        color: "neutral",
+        color: "default",
     },
 })
 
 export function ButtonOutlineContent(props: ButtonContentProps) {
-    const classes = outlineRecipe({ color: props.color ?? "neutral" })
+    const classes = outlineRecipe({ color: props.color ?? "default" })
     return renderButtonContent(props, classes)
 }

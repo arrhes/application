@@ -1,59 +1,59 @@
 import {
     closeYearRouteDefinition,
-    computeOneRecordRouteDefinition,
+    computeOneEntryRouteDefinition,
     createOneAccountRouteDefinition,
     createOneBalanceSheetRouteDefinition,
     createOneComputationIncomeStatementRouteDefinition,
     createOneComputationRouteDefinition,
+    createOneEntryFromTemplateRouteDefinition,
+    createOneEntryLineRouteDefinition,
+    createOneEntryRouteDefinition,
     createOneIncomeStatementRouteDefinition,
     createOneJournalRouteDefinition,
-    createOneRecordFromTemplateRouteDefinition,
-    createOneRecordLabelRouteDefinition,
-    createOneRecordRouteDefinition,
-    createOneRecordRowRouteDefinition,
+    createOneTagRouteDefinition,
     deleteOneAccountRouteDefinition,
     deleteOneBalanceSheetRouteDefinition,
     deleteOneComputationIncomeStatementRouteDefinition,
     deleteOneComputationRouteDefinition,
+    deleteOneEntryLineRouteDefinition,
+    deleteOneEntryRouteDefinition,
     deleteOneIncomeStatementRouteDefinition,
     deleteOneJournalRouteDefinition,
-    deleteOneRecordLabelRouteDefinition,
-    deleteOneRecordRouteDefinition,
-    deleteOneRecordRowRouteDefinition,
+    deleteOneTagRouteDefinition,
     deleteOneYearRouteDefinition,
-    duplicateOneRecordRouteDefinition,
+    duplicateOneEntryRouteDefinition,
     openYearRouteDefinition,
     readAllAccountsRouteDefinition,
     readAllBalanceSheetsRouteDefinition,
     readAllComputationIncomeStatementsRouteDefinition,
     readAllComputationsRouteDefinition,
+    readAllEntriesRouteDefinition,
+    readAllEntryLinesRouteDefinition,
     readAllIncomeStatementsRouteDefinition,
     readAllJournalsRouteDefinition,
-    readAllRecordLabelsRouteDefinition,
-    readAllRecordRowsRouteDefinition,
-    readAllRecordsRouteDefinition,
+    readAllTagsRouteDefinition,
     readOneAccountRouteDefinition,
     readOneBalanceSheetRouteDefinition,
     readOneComputationIncomeStatementRouteDefinition,
     readOneComputationRouteDefinition,
+    readOneEntryLineRouteDefinition,
+    readOneEntryRouteDefinition,
     readOneIncomeStatementRouteDefinition,
     readOneJournalRouteDefinition,
-    readOneRecordLabelRouteDefinition,
-    readOneRecordRouteDefinition,
-    readOneRecordRowRouteDefinition,
+    readOneTagRouteDefinition,
     readOneYearRouteDefinition,
     settleBalanceSheetRouteDefinition,
     settleIncomeStatementRouteDefinition,
-    updateManyRecordRowsRouteDefinition,
+    updateManyEntryLinesRouteDefinition,
     updateOneAccountRouteDefinition,
     updateOneBalanceSheetRouteDefinition,
     updateOneComputationIncomeStatementRouteDefinition,
     updateOneComputationRouteDefinition,
+    updateOneEntryLineRouteDefinition,
+    updateOneEntryRouteDefinition,
     updateOneIncomeStatementRouteDefinition,
     updateOneJournalRouteDefinition,
-    updateOneRecordLabelRouteDefinition,
-    updateOneRecordRouteDefinition,
-    updateOneRecordRowRouteDefinition,
+    updateOneTagRouteDefinition,
     updateOneYearRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import { DocHeader } from "../../../components/document/docHeader.tsx"
@@ -136,11 +136,11 @@ export function YearApiDocPage() {
                 <DocParagraph>
                     Les libellés permettent de catégoriser les écritures comptables avec des étiquettes réutilisables.
                 </DocParagraph>
-                <DocRouteRequest routeDefinition={createOneRecordLabelRouteDefinition} />
-                <DocRouteRequest routeDefinition={readAllRecordLabelsRouteDefinition} />
-                <DocRouteRequest routeDefinition={readOneRecordLabelRouteDefinition} />
-                <DocRouteRequest routeDefinition={updateOneRecordLabelRouteDefinition} />
-                <DocRouteRequest routeDefinition={deleteOneRecordLabelRouteDefinition} />
+                <DocRouteRequest routeDefinition={createOneTagRouteDefinition} />
+                <DocRouteRequest routeDefinition={readAllTagsRouteDefinition} />
+                <DocRouteRequest routeDefinition={readOneTagRouteDefinition} />
+                <DocRouteRequest routeDefinition={updateOneTagRouteDefinition} />
+                <DocRouteRequest routeDefinition={deleteOneTagRouteDefinition} />
             </DocSection>
 
             <DocSection title="Calculs">
@@ -172,32 +172,32 @@ export function YearApiDocPage() {
                     Les écritures comptables sont les opérations enregistrées dans les journaux. Chaque écriture
                     contient une ou plusieurs lignes (débit/crédit).
                 </DocParagraph>
-                <DocRouteRequest routeDefinition={createOneRecordRouteDefinition} />
+                <DocRouteRequest routeDefinition={createOneEntryRouteDefinition} />
                 <DocRouteRequest
-                    routeDefinition={createOneRecordFromTemplateRouteDefinition}
+                    routeDefinition={createOneEntryFromTemplateRouteDefinition}
                     description="Créer une écriture avec des lignes pré-remplies en une seule requête."
                 />
-                <DocRouteRequest routeDefinition={readAllRecordsRouteDefinition} />
-                <DocRouteRequest routeDefinition={readOneRecordRouteDefinition} />
-                <DocRouteRequest routeDefinition={updateOneRecordRouteDefinition} />
-                <DocRouteRequest routeDefinition={deleteOneRecordRouteDefinition} />
-                <DocRouteRequest routeDefinition={duplicateOneRecordRouteDefinition} />
-                <DocRouteRequest routeDefinition={computeOneRecordRouteDefinition} />
+                <DocRouteRequest routeDefinition={readAllEntriesRouteDefinition} />
+                <DocRouteRequest routeDefinition={readOneEntryRouteDefinition} />
+                <DocRouteRequest routeDefinition={updateOneEntryRouteDefinition} />
+                <DocRouteRequest routeDefinition={deleteOneEntryRouteDefinition} />
+                <DocRouteRequest routeDefinition={duplicateOneEntryRouteDefinition} />
+                <DocRouteRequest routeDefinition={computeOneEntryRouteDefinition} />
             </DocSection>
 
             <DocSection title="Lignes d'écriture">
                 <DocParagraph>
                     Chaque ligne d'écriture représente un mouvement de débit ou de crédit sur un compte.
                 </DocParagraph>
-                <DocRouteRequest routeDefinition={createOneRecordRowRouteDefinition} />
-                <DocRouteRequest routeDefinition={readAllRecordRowsRouteDefinition} />
-                <DocRouteRequest routeDefinition={readOneRecordRowRouteDefinition} />
-                <DocRouteRequest routeDefinition={updateOneRecordRowRouteDefinition} />
+                <DocRouteRequest routeDefinition={createOneEntryLineRouteDefinition} />
+                <DocRouteRequest routeDefinition={readAllEntryLinesRouteDefinition} />
+                <DocRouteRequest routeDefinition={readOneEntryLineRouteDefinition} />
+                <DocRouteRequest routeDefinition={updateOneEntryLineRouteDefinition} />
                 <DocRouteRequest
-                    routeDefinition={updateManyRecordRowsRouteDefinition}
+                    routeDefinition={updateManyEntryLinesRouteDefinition}
                     description="Modifier en masse toutes les lignes d'une écriture."
                 />
-                <DocRouteRequest routeDefinition={deleteOneRecordRowRouteDefinition} />
+                <DocRouteRequest routeDefinition={deleteOneEntryLineRouteDefinition} />
             </DocSection>
 
             <DocNextPage to="/documentation/api/stockage" label="Fichiers et documents" />

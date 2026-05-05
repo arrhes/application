@@ -98,7 +98,7 @@ export function AuthenticationApiDocPage() {
                 />
             </DocSection>
 
-            <DocNextPage to="/documentation/api/organisations" label="Organisations" />
+            <DocNextPage to="/documentation/api/organisation" label="Organisations" />
         </DocRoot>
     )
 }

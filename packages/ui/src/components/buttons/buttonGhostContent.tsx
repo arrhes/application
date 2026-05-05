@@ -10,12 +10,13 @@ const ghostRecipe = sva({
             justifyContent: "center",
             alignItems: "center",
             gap: "0.5rem",
-            padding: "0.5rem",
+            paddingInline: "0.5rem",
+            height: "2rem",
+            minWidth: "2rem",
             borderRadius: "md",
             boxSizing: "border-box",
-            cursor: "pointer",
             transition: "all",
-            transitionDuration: "200ms",
+            transitionDuration: "50ms",
             transitionTimingFunction: "ease-in-out",
             borderWidth: "1px",
             borderStyle: "solid",
@@ -25,14 +26,13 @@ const ghostRecipe = sva({
             _current: { backgroundColor: "primary/5" },
             _disabled: {
                 opacity: 0.5,
-                cursor: "not-allowed",
             },
         },
         leftIcon: {
-            minWidth: "1rem",
-            width: "1rem",
-            minHeight: "1rem",
-            height: "1rem",
+            minWidth: "14px",
+            width: "14px",
+            minHeight: "14px",
+            height: "14px",
             flexShrink: 0,
             stroke: "neutral/70",
             _disabled: { stroke: "neutral/50" },
@@ -45,20 +45,23 @@ const ghostRecipe = sva({
             fontSize: "0.875rem",
             lineHeight: "1rem",
             fontWeight: "400",
-            color: "neutral",
+            color: "neutral/75",
             _disabled: { color: "neutral/50" },
             _current: { color: "primary" },
         },
         rightIcon: {
-            minWidth: "1rem",
-            width: "1rem",
-            minHeight: "1rem",
-            height: "1rem",
+            minWidth: "14px",
+            width: "14px",
+            minHeight: "14px",
+            height: "14px",
             stroke: "neutral/50",
         },
     },
     variants: {
         color: {
+            default: {
+                container: {},
+            },
             neutral: {
                 container: {},
             },
@@ -82,11 +85,11 @@ const ghostRecipe = sva({
         },
     },
     defaultVariants: {
-        color: "neutral",
+        color: "default",
     },
 })
 
 export function ButtonGhostContent(props: ButtonContentProps) {
-    const classes = ghostRecipe({ color: props.color ?? "neutral" })
+    const classes = ghostRecipe({ color: props.color ?? "default" })
     return renderButtonContent(props, classes)
 }

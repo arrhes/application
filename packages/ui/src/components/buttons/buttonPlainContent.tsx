@@ -10,15 +10,16 @@ const plainRecipe = sva({
             justifyContent: "center",
             alignItems: "center",
             gap: "0.5rem",
-            padding: "0.5rem",
+            paddingInline: "0.5rem",
+            height: "2rem",
+            minWidth: "2rem",
             borderRadius: "md",
             boxSizing: "border-box",
-            cursor: "pointer",
             transition: "all",
-            transitionDuration: "200ms",
+            transitionDuration: "50ms",
             transitionTimingFunction: "ease-in-out",
             border: "1px solid",
-            borderColor: "rgba(31, 35, 40, 0.15)",
+            borderColor: "primary",
             backgroundColor: "primary",
             color: "white",
             stroke: "white",
@@ -32,10 +33,10 @@ const plainRecipe = sva({
             },
         },
         leftIcon: {
-            minWidth: "1rem",
-            width: "1rem",
-            minHeight: "1rem",
-            height: "1rem",
+            minWidth: "14px",
+            width: "14px",
+            minHeight: "14px",
+            height: "14px",
             flexShrink: 0,
             stroke: "white",
         },
@@ -49,15 +50,16 @@ const plainRecipe = sva({
             color: "white",
         },
         rightIcon: {
-            minWidth: "1rem",
-            width: "1rem",
-            minHeight: "1rem",
-            height: "1rem",
+            minWidth: "14px",
+            width: "14px",
+            minHeight: "14px",
+            height: "14px",
             stroke: "white/50",
         },
     },
     variants: {
         color: {
+            default: {},
             neutral: {},
             danger: {
                 container: {
@@ -71,11 +73,11 @@ const plainRecipe = sva({
         },
     },
     defaultVariants: {
-        color: "neutral",
+        color: "default",
     },
 })
 
 export function ButtonPlainContent(props: ButtonContentProps) {
-    const classes = plainRecipe({ color: props.color ?? "neutral" })
+    const classes = plainRecipe({ color: props.color ?? "default" })
     return renderButtonContent(props, classes)
 }

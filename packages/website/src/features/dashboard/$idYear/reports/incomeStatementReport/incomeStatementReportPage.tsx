@@ -1,66 +1,122 @@
-import { ButtonOutlineContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconDownload } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
+import { useState } from "react"
 import { Box } from "../../../../../components/layouts/box.tsx"
 import { Page } from "../../../../../components/layouts/page/page.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
 import { incomeStatementReportRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/reports/incomeStatementReportRoute.tsx"
 import type { YearDataKey } from "../../yearDataWrapper.tsx"
 import { YearDataWrapper } from "../../yearDataWrapper.tsx"
+import { ReportFilterPopover } from "../reportFilterPopover.tsx"
 import { DownloadIncomeStatementReport } from "./downloadIncomeStatementReport.tsx"
 import { IncomeStatementsReportTable } from "./incomeStatementsReportTable.tsx"
 
 const requiredKeys = [
     "accounts",
-    "recordRows",
+    "entries",
+    "entryLines",
     "incomeStatements",
     "computations",
     "computationIncomeStatements",
+    "journals",
+    "tags",
+    "entryTags",
 ] as const satisfies readonly YearDataKey[]
 
 export function IncomeStatementReportPage() {
     const params = useParams({ from: incomeStatementReportRoute.id })
+    const [selectedJournalId, setSelectedJournalId] = useState<string | null>(null)
+    const [selectedTags, setSelectedTags] = useState<Array<{ key: string; label: string }>>([])
 
     return (
         <YearDataWrapper idYear={params.idYear} requiredKeys={requiredKeys}>
-            {({ accounts, recordRows, incomeStatements, computations, computationIncomeStatements }) => (
-                <Page.Root>
-                    <Page.Content>
-                        <Section.Root>
-                            <Section.Item>
-                                <div
-                                    className={css({
-                                        width: "100%",
-                                        display: "flex",
-                                        justifyContent: "end",
-                                        alignItems: "start",
-                                        gap: "0.5rem",
-                                    })}
-                                >
-                                    <DownloadIncomeStatementReport
-                                        idOrganization={params.idOrganization}
-                                        idYear={params.idYear}
+            {({
+                accounts,
+                entries,
+                entryLines,
+                incomeStatements,
+                computations,
+                computationIncomeStatements,
+                journals,
+                tags,
+                entryTags,
+            }) => {
+                let filteredEntryLines = entryLines.filter(
+                    (entryLine) => entryLine.isComputedForIncomeStatementReport === true,
+                )
+                const filteredAccounts = accounts.filter((account) => account.type === "income-statement")
+
+                const journalOptions = journals.map((j) => ({
+                    key: j.id,
+                    label: `${j.code} ${j.label ?? ""}`.trim(),
+                }))
+
+                const tagOptions = tags.map((t) => ({ key: t.id, label: t.label }))
+
+                if (selectedJournalId) {
+                    const matchingEntryIds = new Set(
+                        entries.filter((entry) => entry.idJournal === selectedJournalId).map((entry) => entry.id),
+                    )
+                    filteredEntryLines = filteredEntryLines.filter((el) => matchingEntryIds.has(el.idEntry))
+                }
+
+                if (selectedTags.length > 0) {
+                    const selectedTagIds = new Set(selectedTags.map((t) => t.key))
+                    const matchingEntryIds = new Set(
+                        entryTags.filter((et) => selectedTagIds.has(et.idTag)).map((et) => et.idEntry),
+                    )
+                    filteredEntryLines = filteredEntryLines.filter((el) => matchingEntryIds.has(el.idEntry))
+                }
+
+                return (
+                    <Page.Root>
+                        <Page.Content>
+                            <Section.Root>
+                                <Section.Item>
+                                    <div
+                                        className={css({
+                                            width: "100%",
+                                            display: "flex",
+                                            justifyContent: "end",
+                                            alignItems: "start",
+                                            gap: "0.5rem",
+                                        })}
                                     >
-                                        <ButtonOutlineContent leftIcon={<IconDownload />} text="Télécharger en pdf" />
-                                    </DownloadIncomeStatementReport>
-                                </div>
-                                <Box>
-                                    <IncomeStatementsReportTable
-                                        incomeStatements={incomeStatements}
-                                        computations={computations}
-                                        computationIncomeStatements={computationIncomeStatements}
-                                        recordRows={recordRows.filter(
-                                            (recordRow) => recordRow.isComputedForIncomeStatementReport === true,
-                                        )}
-                                        accounts={accounts.filter((account) => account.type === "income-statement")}
-                                    />
-                                </Box>
-                            </Section.Item>
-                        </Section.Root>
-                    </Page.Content>
-                </Page.Root>
-            )}
+                                        <ReportFilterPopover
+                                            selectedJournalId={selectedJournalId}
+                                            onJournalChange={setSelectedJournalId}
+                                            journalOptions={journalOptions}
+                                            selectedTags={selectedTags}
+                                            onTagsChange={setSelectedTags}
+                                            tagOptions={tagOptions}
+                                        />
+                                        <DownloadIncomeStatementReport
+                                            idOrganization={params.idOrganization}
+                                            idYear={params.idYear}
+                                            incomeStatements={incomeStatements}
+                                            computations={computations}
+                                            computationIncomeStatements={computationIncomeStatements}
+                                            entryLines={filteredEntryLines}
+                                            accounts={filteredAccounts}
+                                        />
+                                    </div>
+                                    <div className={css({ width: "100%" })}>
+                                        <Box>
+                                            <IncomeStatementsReportTable
+                                                incomeStatements={incomeStatements}
+                                                computations={computations}
+                                                computationIncomeStatements={computationIncomeStatements}
+                                                entryLines={filteredEntryLines}
+                                                accounts={filteredAccounts}
+                                            />
+                                        </Box>
+                                    </div>
+                                </Section.Item>
+                            </Section.Root>
+                        </Page.Content>
+                    </Page.Root>
+                )
+            }}
         </YearDataWrapper>
     )
 }

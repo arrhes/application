@@ -1,4 +1,5 @@
 import { mollieWebhookRoute } from "../../routes/public/mollieWebhook.js"
+import { resetPasswordRoute } from "../../routes/public/resetPassword.js"
 import { sendMagicLinkRoute } from "../../routes/public/sendMagicLink.js"
 import { signInRoute } from "../../routes/public/signIn.js"
 import { signOutRoute } from "../../routes/public/signOut.js"
@@ -11,4 +12,5 @@ export const publicRoute = apiFactory
     .route("/", signUpRoute)
     .route("/", signOutRoute)
     .route("/", sendMagicLinkRoute)
+    .route("/", resetPasswordRoute)
     .route("/", mollieWebhookRoute)

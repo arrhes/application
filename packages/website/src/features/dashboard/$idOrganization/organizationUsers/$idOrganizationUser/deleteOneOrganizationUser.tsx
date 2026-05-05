@@ -3,10 +3,10 @@ import {
     readOneOrganizationRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { toast } from "@arrhes/ui"
 import type { ComponentPropsWithRef, ReactElement } from "react"
 import type * as v from "valibot"
-import { DeleteConfirmation } from "../../../../../components/overlays/dialog/deleteConfirmation.tsx"
-import { toast } from "../../../../../contexts/toasts/useToast.ts"
+import { ConfirmationModal } from "../../../../../components/overlays/dialog/confirmationModal.tsx"
 import { getResponseBodyFromAPI } from "../../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../../utilities/invalidateData.ts"
 
@@ -29,19 +29,19 @@ export function DeleteOneOrganizationUser(props: {
 
         await invalidateData({
             routeDefinition: readOneOrganizationRouteDefinition,
-            body: {},
+            body: { idOrganization: props.organizationUser.idOrganization },
         })
         toast({ title: "Utilisateur révoqué de l'organisation", variant: "success" })
     }
 
     return (
-        <DeleteConfirmation
+        <ConfirmationModal
             title="Voulez-vous révoquer l'utilisateur de cette organisation ?"
             description="Cette action est irréversible."
-            submitText="Révoquer l'utilisateur"
+            submitButtonProps={{ color: "danger", text: "Révoquer l'utilisateur" }}
             onSubmit={onSubmit}
         >
             {props.children}
-        </DeleteConfirmation>
+        </ConfirmationModal>
     )
 }

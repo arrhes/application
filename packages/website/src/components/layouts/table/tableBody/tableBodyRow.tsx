@@ -11,7 +11,7 @@ export function TableBodyRow(props: {
                 css({
                     width: "100%",
                     borderBottom: "1px solid",
-                    borderColor: "neutral/5",
+                    borderBottomColor: "neutral/5",
                     _last: { borderBottom: "0" },
                 }),
                 props.className,

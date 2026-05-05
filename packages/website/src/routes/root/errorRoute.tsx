@@ -6,6 +6,7 @@ export const errorRoute = createRoute({
     path: "/error",
     beforeLoad: () => ({
         title: "Error",
+        robots: "noindex",
     }),
     component: lazyRouteComponent(() => import("../../features/error/errorPage.js"), "ErrorPage"),
 })

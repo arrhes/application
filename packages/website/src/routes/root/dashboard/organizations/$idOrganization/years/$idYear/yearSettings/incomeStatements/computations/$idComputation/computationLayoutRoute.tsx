@@ -1,4 +1,4 @@
-import { createRoute, Outlet } from "@tanstack/react-router"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { computationsLayoutRoute } from "../computationsLayoutRoute.js"
 
 export const computationLayoutRoute = createRoute({
@@ -7,5 +7,11 @@ export const computationLayoutRoute = createRoute({
     beforeLoad: () => ({
         title: "Calcul",
     }),
-    component: () => <Outlet />,
+    component: lazyRouteComponent(
+        () =>
+            import(
+                "../../../../../../../../../../../features/dashboard/$idYear/yearSettings/incomeStatements/computations/$idComputation/computationLayout.js"
+            ),
+        "ComputationLayout",
+    ),
 })

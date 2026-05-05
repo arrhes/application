@@ -1,27 +1,44 @@
-import { signOutRouteDefinition } from "@arrhes/application-metadata/routes"
-import { Button, ButtonGhostContent, ButtonOutlineContent, Logo, Separator } from "@arrhes/ui"
+import { readUserSessionRouteDefinition, signOutRouteDefinition } from "@arrhes/application-metadata/routes"
+import { Button, ButtonGhostContent, ButtonOutlineContent, Logo, Separator, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconBook2, IconBuildings, IconLifebuoy, IconLogout, IconUser } from "@tabler/icons-react"
-import { Outlet } from "@tanstack/react-router"
+import {
+    IconBook2,
+    IconBuildings,
+    IconLifebuoy,
+    IconLogout,
+    IconSettings,
+    IconShield,
+    IconUser,
+} from "@tabler/icons-react"
+import { Outlet, useRouterState } from "@tanstack/react-router"
 import { LinkButton } from "../../components/linkButton.js"
 import { Popover } from "../../components/overlays/popover/popover.js"
-import { toast } from "../../contexts/toasts/useToast.js"
 import { applicationRouter } from "../../routes/applicationRouter.js"
 import { deleteCookies } from "../../utilities/cookies/deleteCookies.js"
 import { getResponseBodyFromAPI } from "../../utilities/getResponseBodyFromAPI.js"
+import { useDataFromAPI } from "../../utilities/useHTTPData.js"
 import { Breadcrumbs } from "../breadcrumbs.js"
 
 export function DashboardLayout() {
+    const pathname = useRouterState({ select: (state) => state.location.pathname })
+    const isAdminPath = pathname.startsWith("/dashboard/admin")
+
+    const userSession = useDataFromAPI({
+        routeDefinition: readUserSessionRouteDefinition,
+        body: {},
+    })
+
     return (
         <div
             className={css({
                 width: "100%",
-                minHeight: "100vh",
+                height: "100vh",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "start",
                 alignItems: "stretch",
                 backgroundColor: "background",
+                overflow: "hidden",
             })}
         >
             {/* Header */}
@@ -34,36 +51,42 @@ export function DashboardLayout() {
                     alignItems: "center",
                     padding: "1rem",
                     borderBottom: "1px solid",
-                    borderColor: "neutral/10",
+                    borderBottomColor: "neutral/10",
                     backgroundColor: "white",
+                    flexShrink: 0,
                 })}
             >
                 <div
                     className={css({
                         width: "100%",
-                        maxWidth: "xl",
+                        // maxWidth: "xl",
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "center",
+                        flexWrap: "wrap",
                         gap: "1rem",
                     })}
                 >
                     <div
                         className={css({
                             display: "flex",
+                            justifyContent: "start",
                             alignItems: "center",
+                            flexWrap: "wrap",
                             gap: "0.5rem",
                         })}
                     >
                         <LinkButton to="/dashboard">
-                            <Logo />
+                            <ButtonGhostContent leftIcon={<Logo />} text={isAdminPath ? "Admin" : undefined} />
                         </LinkButton>
                         <Breadcrumbs />
                     </div>
                     <nav
                         className={css({
                             display: "flex",
+                            justifyContent: "end",
                             alignItems: "center",
+                            flexWrap: "wrap",
                             gap: "0.5rem",
                         })}
                     >
@@ -73,13 +96,25 @@ export function DashboardLayout() {
                         <LinkButton to="/dashboard/organisations" title="Organisations">
                             <ButtonOutlineContent leftIcon={<IconBuildings />} />
                         </LinkButton>
+                        {userSession.data?.user.isSuperAdmin === true && (
+                            <LinkButton to="/dashboard/admin/tickets" title="Admin">
+                                <ButtonOutlineContent leftIcon={<IconShield />} />
+                            </LinkButton>
+                        )}
                         <Popover.Root>
                             <Popover.Trigger asChild>
                                 <Button title="Utilisateur">
                                     <ButtonOutlineContent leftIcon={<IconUser />} />
                                 </Button>
                             </Popover.Trigger>
-                            <Popover.Content align="end">
+                            <Popover.Content align="end" className={css({ padding: "0.5rem" })}>
+                                <LinkButton to="/dashboard/profil" className={css({ width: "100%" })}>
+                                    <ButtonGhostContent
+                                        leftIcon={<IconSettings />}
+                                        text="Profil"
+                                        className={css({ width: "100%", justifyContent: "start" })}
+                                    />
+                                </LinkButton>
                                 <LinkButton to="/dashboard/support" className={css({ width: "100%" })}>
                                     <ButtonGhostContent
                                         leftIcon={<IconLifebuoy />}
@@ -133,6 +168,8 @@ export function DashboardLayout() {
                     justifyContent: "start",
                     alignItems: "center",
                     backgroundColor: "white",
+                    minHeight: 0,
+                    overflow: "hidden",
                 })}
             >
                 <div
@@ -142,6 +179,8 @@ export function DashboardLayout() {
                         flex: "1",
                         display: "flex",
                         flexDirection: "column",
+                        minHeight: 0,
+                        overflow: "auto",
                     })}
                 >
                     <Outlet />

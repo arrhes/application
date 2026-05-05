@@ -17,23 +17,21 @@ export function SortPopover(props: {
     onClearAll: () => void
     activeSortCount: number
 }) {
-    function getSortIcon(direction: SortDirection) {
-        if (direction === "asc") return <IconSortAscendingLetters size={16} />
-        if (direction === "desc") return <IconSortDescendingLetters size={16} />
-        return undefined
-    }
-
     return (
         <Popover.Root>
             <Popover.Trigger asChild>
                 <Button>
                     {props.activeSortCount > 0 ? (
                         <ButtonPlainContent
-                            leftIcon={<IconArrowsSort size={16} />}
-                            text={`Trier (${props.activeSortCount})`}
+                            leftIcon={<IconArrowsSort />}
+                            // text={`Trier (${props.activeSortCount})`}
+                            text={`(${props.activeSortCount})`}
                         />
                     ) : (
-                        <ButtonOutlineContent leftIcon={<IconArrowsSort size={16} />} text="Trier" />
+                        <ButtonOutlineContent
+                            leftIcon={<IconArrowsSort />}
+                            // text="Trier"
+                        />
                     )}
                 </Button>
             </Popover.Trigger>
@@ -56,7 +54,7 @@ export function SortPopover(props: {
                 >
                     <ButtonGhostContent
                         color="danger"
-                        leftIcon={<IconX size={16} />}
+                        leftIcon={<IconX />}
                         text="Effacer le tri"
                         className={css({ width: "100%", justifyContent: "start" })}
                         isDisabled={props.activeSortCount === 0}
@@ -88,7 +86,13 @@ export function SortPopover(props: {
                                     className={css({ width: "100%" })}
                                 >
                                     <ButtonGhostContent
-                                        leftIcon={getSortIcon(direction)}
+                                        leftIcon={
+                                            direction === "asc" ? (
+                                                <IconSortAscendingLetters />
+                                            ) : direction === "desc" ? (
+                                                <IconSortDescendingLetters />
+                                            ) : undefined
+                                        }
                                         text={column.header}
                                         className={css({ width: "100%", justifyContent: "start" })}
                                     />

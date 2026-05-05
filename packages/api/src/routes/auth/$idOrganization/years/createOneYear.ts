@@ -50,10 +50,9 @@ function buildAccountRows(parameters: {
             idIncomeStatement: null,
 
             number: account.number.toString(),
-            isMandatory: account.isMandatory,
-            isClass: account.isClass,
+            isOptional: account.isOptional,
             isDefault: true,
-            isSelectable: account.isSelectable,
+            isSelectable: account.number.toString().length >= 3,
             label: account.label,
             type: account.type,
             createdAt: new Date().toISOString(),

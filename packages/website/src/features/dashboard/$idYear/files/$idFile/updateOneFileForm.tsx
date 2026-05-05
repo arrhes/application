@@ -6,6 +6,7 @@ import {
     updateOneFileRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { InputFile, InputText, toast } from "@arrhes/ui"
 import { IconPencil } from "@tabler/icons-react"
 import { Fragment } from "react/jsx-runtime"
 import * as v from "valibot"
@@ -15,19 +16,16 @@ import { FormField } from "../../../../../components/forms/formField.js"
 import { FormItem } from "../../../../../components/forms/formItem.js"
 import { FormLabel } from "../../../../../components/forms/formLabel.js"
 import { FormRoot } from "../../../../../components/forms/formRoot.js"
-import { InputFile } from "../../../../../components/inputs/inputFile.js"
-import { InputText } from "../../../../../components/inputs/inputText.js"
-import { toast } from "../../../../../contexts/toasts/useToast.js"
 import { getResponseBodyFromAPI } from "../../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../../utilities/invalidateData.js"
 
 export function UpdateOneFileForm(props: { file: v.InferOutput<typeof returnedSchemas.file>; onSuccess?: () => void }) {
     return (
         <FormRoot
-            schema={v.intersect([
-                updateOneFileRouteDefinition.schemas.body,
-                v.object({ file: v.optional(fileSchema) }),
-            ])}
+            schema={v.object({
+                ...updateOneFileRouteDefinition.schemas.body.entries,
+                file: v.optional(fileSchema),
+            })}
             defaultValues={{
                 ...props.file,
                 idFile: props.file.id,

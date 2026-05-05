@@ -1,8 +1,7 @@
-import { Button, ButtonGhostContent, ButtonPlainContent } from "@arrhes/ui"
+import { Button, ButtonGhostContent, ButtonPlainContent, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconCheck, IconCopy } from "@tabler/icons-react"
 import { useState } from "react"
-import { toast } from "../../../../../contexts/toasts/useToast.ts"
 
 export function RawKeyDisplay(props: { rawKey: string; onClose: () => void }) {
     const [copied, setCopied] = useState(false)

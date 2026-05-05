@@ -149,7 +149,7 @@ just dev up
 Ou directement avec Docker Compose :
 
 ```bash
-docker compose -f .workflows/.dev/compose.yml up -d --build
+docker compose -f .workflows/dev/compose.yml up -d --build
 ```
 
 Les services seront disponibles sur :
@@ -306,7 +306,7 @@ just dev reset
 
 Ou manuellement :
 ```bash
-docker compose -f .workflows/.dev/compose.yml exec api sh -c "cd /workspace/packages/tools && pnpm run reset"
+docker compose -f .workflows/dev/compose.yml exec api sh -c "cd /workspace/packages/tools && pnpm run reset"
 ```
 
 ## Lancement en developpement
@@ -359,7 +359,7 @@ Password : demo
 ### Notes par option
 
 **Docker Compose :**
-- Assurez-vous que les services sont lances : `docker compose -f .workflows/.dev/compose.yml ps`
+- Assurez-vous que les services sont lances : `docker compose -f .workflows/dev/compose.yml ps`
 - Si les services ne sont pas demarres : `just dev up`
 
 **Natif :**
@@ -774,7 +774,7 @@ pnpm dlx drizzle-kit studio --config=packages/tools/src/drizzle.config.ts
 ### Problemes courants
 
 **"Cannot connect to database" :**
-- **Avec Docker :** Verifiez que les containers sont lances : `docker compose -f .workflows/.dev/compose.yml ps`
+- **Avec Docker :** Verifiez que les containers sont lances : `docker compose -f .workflows/dev/compose.yml ps`
 - **Natif :** Verifiez que PostgreSQL est demarre : `sudo systemctl status postgresql`
 - Testez la connexion : `psql postgres://postgres:admin@localhost:5432/default`
 - Verifiez les credentials dans `.env`
@@ -804,14 +804,14 @@ pnpm dlx drizzle-kit studio --config=packages/tools/src/drizzle.config.ts
   ```
 - **Container ne demarre pas :** Voir les logs
   ```bash
-  docker compose -f .workflows/.dev/compose.yml logs postgres
-  docker compose -f .workflows/.dev/compose.yml logs rustfs
-  docker compose -f .workflows/.dev/compose.yml logs mailpit
+  docker compose -f .workflows/dev/compose.yml logs postgres
+  docker compose -f .workflows/dev/compose.yml logs rustfs
+  docker compose -f .workflows/dev/compose.yml logs mailpit
   ```
 - **Reinitialiser completement :**
   ```bash
-  docker compose -f .workflows/.dev/compose.yml down -v
-  docker compose -f .workflows/.dev/compose.yml up -d --build
+  docker compose -f .workflows/dev/compose.yml down -v
+  docker compose -f .workflows/dev/compose.yml up -d --build
   ```
 
 ### Bonnes pratiques

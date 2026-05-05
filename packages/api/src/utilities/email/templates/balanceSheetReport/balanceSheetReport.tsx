@@ -5,7 +5,7 @@ import { BalanceSheetAssetsReportTable } from "./balanceSheetAssets/balanceSheet
 import { BalanceSheetLiabilitiesReportTable } from "./balanceSheetLiabilities/balanceSheetLiabilitiesReportTable.js"
 
 function BalanceSheetReport(props: {
-    recordRows: Array<v.InferOutput<typeof returnedSchemas.recordRow>>
+    entryLines: Array<v.InferOutput<typeof returnedSchemas.entryLine>>
     accounts: Array<v.InferOutput<typeof returnedSchemas.account>>
     balanceSheets: Array<v.InferOutput<typeof returnedSchemas.balanceSheet>>
 }) {
@@ -21,12 +21,12 @@ function BalanceSheetReport(props: {
                 >
                     <BalanceSheetAssetsReportTable
                         accounts={props.accounts}
-                        recordRows={props.recordRows}
+                        entryLines={props.entryLines}
                         balanceSheets={props.balanceSheets.filter((balanceSheet) => balanceSheet.side === "asset")}
                     />
                     <BalanceSheetLiabilitiesReportTable
                         accounts={props.accounts}
-                        recordRows={props.recordRows}
+                        entryLines={props.entryLines}
                         balanceSheets={props.balanceSheets.filter((balanceSheet) => balanceSheet.side === "liability")}
                     />
                 </div>

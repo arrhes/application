@@ -5,12 +5,16 @@ import { cloneElement, type ReactElement } from "react"
 import { LinkButton } from "../../components/linkButton.tsx"
 
 export interface NavigationSection {
-    title: string
-    icon: ReactElement<IconProps & React.RefAttributes<Icon>>
-    items: { path: string; label: string }[]
+    title?: string
+    icon?: ReactElement<IconProps & React.RefAttributes<Icon>>
+    items: { path: string; hash?: string; label: string }[]
 }
 
-export function SidebarNavigation(props: { navigation: Record<string, NavigationSection>; pathname: string }) {
+export function SidebarNavigation(props: {
+    navigation: Record<string, NavigationSection>
+    pathname: string
+    onClick?: () => void
+}) {
     return (
         <nav
             className={css({
@@ -18,50 +22,77 @@ export function SidebarNavigation(props: { navigation: Record<string, Navigation
                 display: "flex",
                 flexDirection: "column",
                 gap: "0.5rem",
-                padding: "1rem",
-                paddingLeft: 0,
             })}
         >
             {Object.entries(props.navigation).map(([key, section]) => (
                 <div key={key} className={css({ marginBottom: "0.5rem" })}>
+                    {section.title && section.icon && (
+                        <div
+                            className={css({
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "0.5rem",
+                                padding: "0.5rem",
+                            })}
+                        >
+                            {cloneElement(section.icon, {
+                                size: 12,
+                                className: css({
+                                    stroke: "neutral/50",
+                                }),
+                            })}
+                            <span
+                                className={css({
+                                    fontSize: "xs",
+                                    color: "neutral/40",
+                                    textTransform: "uppercase",
+                                })}
+                            >
+                                {section.title}
+                            </span>
+                        </div>
+                    )}
                     <div
                         className={css({
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "0.5rem",
-                            padding: "0.5rem",
-                            fontSize: "xs",
-                            fontWeight: "semibold",
-                            color: "neutral/40",
-                            textTransform: "uppercase",
-                            letterSpacing: "wider",
-                        })}
-                    >
-                        {cloneElement(section.icon, {
-                            size: 12,
-                            className: css({
-                                stroke: "neutral/50",
-                            }),
-                        })}
-                        {section.title}
-                    </div>
-                    <div
-                        className={css({
-                            marginTop: "0.25rem",
+                            marginTop: section.title ? "0.25rem" : "0",
                             display: "flex",
                             flexDirection: "column",
                             gap: "0.25rem",
                         })}
                     >
-                        {section.items.map((item) => (
-                            <LinkButton key={item.path} to={item.path} className={css({ width: "100%" })}>
-                                <ButtonGhostContent
-                                    text={item.label}
-                                    isCurrent={props.pathname === item.path}
-                                    className={css({ width: "100%", justifyContent: "start" })}
-                                />
-                            </LinkButton>
-                        ))}
+                        {section.items.map((item) => {
+                            const hasExactSibling = section.items.some(
+                                (sibling) =>
+                                    sibling !== item &&
+                                    !sibling.hash &&
+                                    sibling.path !== item.path &&
+                                    sibling.path === props.pathname,
+                            )
+                            const isCurrent = item.hash
+                                ? false
+                                : props.pathname === item.path ||
+                                  (!hasExactSibling &&
+                                      item.path !== "/documentation" &&
+                                      item.path !== "/documentation/comptabilité" &&
+                                      item.path !== "/documentation/dashboard" &&
+                                      item.path !== "/documentation/api" &&
+                                      props.pathname.startsWith(`${item.path}/`))
+                            return (
+                                <LinkButton
+                                    key={item.path + (item.hash ?? "")}
+                                    to={item.path}
+                                    hash={item.hash}
+                                    className={css({ width: "100%" })}
+                                    onClick={props.onClick}
+                                >
+                                    <ButtonGhostContent
+                                        text={item.label}
+                                        isCurrent={isCurrent}
+                                        className={css({ width: "100%", justifyContent: "start" })}
+                                    />
+                                </LinkButton>
+                            )
+                        })}
                     </div>
                 </div>
             ))}

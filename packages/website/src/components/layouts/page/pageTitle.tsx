@@ -6,6 +6,7 @@ export function PageTitle(props: { children?: string; className?: ComponentProps
         <span
             className={css({
                 fontSize: "lg",
+                lineHeight: 1,
                 fontWeight: "semibold",
                 whiteSpace: "nowrap",
             })}

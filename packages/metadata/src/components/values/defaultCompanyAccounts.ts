@@ -3,32 +3,28 @@ import type { DefaultAccount } from "./defaultAccount.js"
 export const defaultCompanyAccounts: Array<DefaultAccount> = [
     {
         number: 1,
-        isMandatory: true,
-        isClass: true,
+        isOptional: false,
         isSelectable: false,
         type: "balance-sheet",
         label: "Comptes de capitaux",
         children: [
             {
                 number: 10,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Capital et réserves",
                 children: [
                     {
                         number: 101,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Capital",
                         children: [
                             {
                                 number: 1011,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Capital souscrit - non appelé",
@@ -36,8 +32,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1012,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Capital souscrit - appelé, non versé",
@@ -45,16 +40,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1013,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Capital souscrit - appelé, versé",
                                 children: [
                                     {
                                         number: 10131,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Capital non amorti",
@@ -62,8 +55,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 10132,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Capital amorti",
@@ -73,8 +65,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1018,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Capital souscrit soumis à des réglementations particulières",
@@ -84,8 +75,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 102,
-                        isMandatory: false,
-                        isClass: false,
+                        isOptional: true,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Fonds fiduciaires",
@@ -93,16 +83,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 104,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Primes liées au capital social",
                         children: [
                             {
                                 number: 1041,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Primes d'émission",
@@ -110,8 +98,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1042,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Primes de fusion",
@@ -119,8 +106,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1043,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Primes d'apport",
@@ -128,8 +114,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1044,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Primes de conversion d'obligations en actions",
@@ -137,8 +122,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1045,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Bons de souscription d'actions",
@@ -148,8 +132,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 105,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Écarts de réévaluation",
@@ -157,16 +140,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 106,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "balance-sheet",
                         label: "Réserves",
                         children: [
                             {
                                 number: 1061,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Réserve légale",
@@ -174,8 +155,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1062,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Réserves indisponibles",
@@ -183,8 +163,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1063,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Réserves statutaires ou contractuelles",
@@ -192,8 +171,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1064,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Réserves réglementées",
@@ -201,8 +179,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1068,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Autres réserves",
@@ -212,8 +189,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 107,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Écart d'équivalence",
@@ -221,8 +197,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 108,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Compte de l'exploitant",
@@ -230,8 +205,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 109,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Actionnaires : capital souscrit - non appelé",
@@ -241,16 +215,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 11,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Report à nouveau (solde créditeur ou débiteur)",
                 children: [
                     {
                         number: 110,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Report à nouveau - solde créditeur",
@@ -258,8 +230,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 119,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Report à nouveau - solde débiteur",
@@ -269,24 +240,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 12,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Résultat de l'exercice",
                 children: [
                     {
                         number: 120,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Résultat de l'exercice - bénéfice",
                         children: [
                             {
                                 number: 1209,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Acomptes sur dividendes",
@@ -296,8 +264,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 129,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Résultat de l'exercice - perte",
@@ -307,16 +274,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 13,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Subventions d'investissement",
                 children: [
                     {
                         number: 131,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Subventions d'investissement octroyées",
@@ -324,8 +289,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 139,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Subventions d'investissement inscrites au compte de résultat",
@@ -335,16 +299,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 14,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Provisions réglementées",
                 children: [
                     {
                         number: 143,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Provisions réglementées pour hausse de prix",
@@ -352,8 +314,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 145,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Amortissements dérogatoires",
@@ -361,8 +322,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 148,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Autres provisions réglementées",
@@ -372,24 +332,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 15,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Provisions pour risques et charges",
                 children: [
                     {
                         number: 151,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Provisions pour risques",
                         children: [
                             {
                                 number: 1511,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Provisions pour litiges",
@@ -397,8 +354,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1512,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Provisions pour garanties données aux clients",
@@ -406,8 +362,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1514,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Provisions pour amendes et pénalités",
@@ -415,8 +370,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1515,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Provisions pour pertes de change",
@@ -424,8 +378,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1516,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Provisions pour pertes sur contrats",
@@ -433,8 +386,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1518,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Autres provisions pour risques",
@@ -444,16 +396,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 152,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Provisions pour charges",
                         children: [
                             {
                                 number: 1521,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Provisions pour pensions et obligations similaires",
@@ -461,8 +411,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1522,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Provisions pour restructurations",
@@ -470,8 +419,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1523,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Provisions pour impôts",
@@ -479,8 +427,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1524,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Provisions pour renouvellement des immobilisations - entreprises concessionnaires",
@@ -488,8 +435,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1525,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Provisions pour gros entretien ou grandes révisions",
@@ -497,8 +443,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1526,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Provisions pour remise en état",
@@ -506,8 +451,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1527,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Autres provisions pour charges",
@@ -519,24 +463,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 16,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Emprunts et dettes assimilées",
                 children: [
                     {
                         number: 161,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Emprunts obligataires convertibles",
                         children: [
                             {
                                 number: 1618,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Intérêts courus sur emprunts obligataires convertibles",
@@ -546,8 +487,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 162,
-                        isMandatory: false,
-                        isClass: false,
+                        isOptional: true,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Obligations représentatives de passifs nets remis en fiducie",
@@ -555,16 +495,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 163,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Autres emprunts obligataires",
                         children: [
                             {
                                 number: 1638,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Intérêts courus sur autres emprunts obligataires",
@@ -574,16 +512,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 164,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Emprunts auprès des établissements de crédit",
                         children: [
                             {
                                 number: 1648,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Intérêts courus sur emprunts auprès des établissements de crédit",
@@ -593,16 +529,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 165,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Dépôts et cautionnements reçus",
                         children: [
                             {
                                 number: 1651,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Dépôts",
@@ -610,8 +544,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1655,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Cautionnements",
@@ -619,8 +552,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1658,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Intérêts courus sur dépôts et cautionnements reçus",
@@ -630,16 +562,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 166,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Participation des salariés aux résultats",
                         children: [
                             {
                                 number: 1661,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Comptes bloqués",
@@ -647,8 +577,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1662,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Fonds de participation",
@@ -656,8 +585,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1668,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Intérêts courus sur participation des salariés aux résultats",
@@ -667,24 +595,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 167,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "balance-sheet",
                         label: "Emprunts et dettes assortis de conditions particulières",
                         children: [
                             {
                                 number: 1671,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Émissions de titres participatifs",
                                 children: [
                                     {
                                         number: 16718,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Intérêts courus sur titres participatifs",
@@ -694,16 +619,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1674,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Avances conditionnées de l'État",
                                 children: [
                                     {
                                         number: 16748,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Intérêts courus sur avances conditionnées",
@@ -713,16 +636,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1675,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Emprunts participatifs",
                                 children: [
                                     {
                                         number: 16758,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Intérêts courus sur emprunts participatifs",
@@ -734,16 +655,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 168,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Autres emprunts et dettes assimilées",
                         children: [
                             {
                                 number: 1681,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Autres emprunts",
@@ -751,8 +670,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1685,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Rentes viagères capitalisées",
@@ -760,8 +678,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1687,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Autres dettes",
@@ -769,8 +686,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 1688,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Intérêts courus sur autres emprunts et dettes assimilées",
@@ -780,8 +696,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 169,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Primes de remboursement des emprunts",
@@ -791,16 +706,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 17,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Dettes rattachées à des participations",
                 children: [
                     {
                         number: 171,
-                        isMandatory: false,
-                        isClass: false,
+                        isOptional: true,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Dettes rattachées à des participations - groupe",
@@ -808,8 +721,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 174,
-                        isMandatory: false,
-                        isClass: false,
+                        isOptional: true,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Dettes rattachées à des participations - hors groupe",
@@ -817,8 +729,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 178,
-                        isMandatory: false,
-                        isClass: false,
+                        isOptional: true,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Dettes rattachées à des sociétés en participation",
@@ -828,16 +739,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 18,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Comptes de liaison des établissements et sociétés en participation",
                 children: [
                     {
                         number: 181,
-                        isMandatory: false,
-                        isClass: false,
+                        isOptional: true,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Comptes de liaison des établissements",
@@ -845,8 +754,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 186,
-                        isMandatory: false,
-                        isClass: false,
+                        isOptional: true,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Biens et prestations de services échangés entre établissements - charges",
@@ -854,8 +762,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 187,
-                        isMandatory: false,
-                        isClass: false,
+                        isOptional: true,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Biens et prestations de services échangés entre établissements - produits",
@@ -863,8 +770,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 188,
-                        isMandatory: false,
-                        isClass: false,
+                        isOptional: true,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Comptes de liaison des sociétés en participation",
@@ -876,32 +782,28 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
     },
     {
         number: 2,
-        isMandatory: true,
-        isClass: true,
+        isOptional: false,
         isSelectable: false,
         type: "balance-sheet",
         label: "Comptes d'immobilisations",
         children: [
             {
                 number: 20,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Immobilisations incorporelles et frais d'établissement",
                 children: [
                     {
                         number: 201,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Frais d'établissement",
                         children: [
                             {
                                 number: 2011,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Frais de constitution",
@@ -909,16 +811,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2012,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Frais de premier établissement",
                                 children: [
                                     {
                                         number: 20121,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Frais de prospection",
@@ -926,8 +826,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 20122,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Frais de publicité",
@@ -937,8 +836,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2013,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Frais d'augmentation de capital et d'opérations diverses - fusions, scissions, transformations",
@@ -948,8 +846,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 203,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Frais de développement",
@@ -957,8 +854,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 205,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Concessions et droits similaires, brevets, licences, marques, procédés, solutions informatiques, droits et valeurs similaires",
@@ -966,8 +862,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 206,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Droit au bail",
@@ -975,8 +870,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 207,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Fonds commercial",
@@ -984,16 +878,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 208,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Autres immobilisations incorporelles",
                         children: [
                             {
                                 number: 2081,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Mali de fusion sur actifs incorporels",
@@ -1005,24 +897,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 21,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Immobilisations corporelles",
                 children: [
                     {
                         number: 211,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Terrains",
                         children: [
                             {
                                 number: 2111,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Terrains nus",
@@ -1030,8 +919,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2112,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Terrains aménagés",
@@ -1039,8 +927,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2113,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Sous-sols et sur-sols",
@@ -1048,8 +935,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2114,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Terrains de carrières (Tréfonds)",
@@ -1057,8 +943,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2115,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Terrains bâtis",
@@ -1068,8 +953,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 212,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Agencements et aménagements de terrains (même ventilation que celle du compte 211)",
@@ -1077,16 +961,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 213,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Constructions",
                         children: [
                             {
                                 number: 2131,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Bâtiments",
@@ -1094,8 +976,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2135,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Installations générales - agencements - aménagements des constructions",
@@ -1103,8 +984,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2138,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Ouvrages d'infrastructure",
@@ -1114,8 +994,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 214,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Constructions sur sol d'autrui (même ventilation que celle du compte 213)",
@@ -1123,24 +1002,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 215,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Installations techniques, matériels et outillages industriels",
                         children: [
                             {
                                 number: 2151,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Installations complexes spécialisées",
                                 children: [
                                     {
                                         number: 21511,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Installations complexes spécialisées sur sol propre",
@@ -1148,8 +1024,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 21514,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Installations complexes spécialisées sur sol d'autrui",
@@ -1159,16 +1034,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2153,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Installations à caractère spécifique",
                                 children: [
                                     {
                                         number: 21531,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Installations à caractère spécifique sur sol propre",
@@ -1176,8 +1049,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 21534,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Installations à caractère spécifique sur sol d'autrui",
@@ -1187,8 +1059,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2154,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Matériels industriels",
@@ -1196,8 +1067,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2155,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Outillages industriels",
@@ -1205,8 +1075,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2157,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Agencements et aménagements des matériels et outillages industriels",
@@ -1216,16 +1085,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 218,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Autres immobilisations corporelles",
                         children: [
                             {
                                 number: 2181,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Installations générales, agencements, aménagements divers",
@@ -1233,8 +1100,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2182,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Matériel de transport",
@@ -1242,8 +1108,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2183,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Matériel de bureau et matériel informatique",
@@ -1251,8 +1116,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2184,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Mobilier",
@@ -1260,8 +1124,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2185,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Cheptel",
@@ -1269,8 +1132,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2186,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Emballages récupérables",
@@ -1278,8 +1140,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2187,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Mali de fusions sur actifs corporels",
@@ -1291,16 +1152,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 22,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Immobilisations mises en concession",
                 children: [
                     {
                         number: 229,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Droits du concédant",
@@ -1310,16 +1169,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 23,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Immobilisations en cours, avances et acomptes",
                 children: [
                     {
                         number: 231,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Immobilisations corporelles en cours",
@@ -1327,8 +1184,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 232,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Immobilisations incorporelles en cours",
@@ -1336,8 +1192,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 237,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Avances et acomptes versés sur commandes d'immobilisations incorporelles",
@@ -1345,8 +1200,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 238,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Avances et acomptes versés sur commandes d'immobilisations corporelles",
@@ -1356,24 +1210,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 26,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Participations et créances rattachées à des participations",
                 children: [
                     {
                         number: 261,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Titres de participation",
                         children: [
                             {
                                 number: 2611,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Actions",
@@ -1381,8 +1232,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2618,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Autres titres",
@@ -1392,8 +1242,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 262,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Titres évalués par équivalence",
@@ -1401,16 +1250,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 266,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Autres formes de participation",
                         children: [
                             {
                                 number: 2661,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Droits représentatifs d'actifs nets remis en fiducie",
@@ -1420,16 +1267,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 267,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Créances rattachées à des participations",
                         children: [
                             {
                                 number: 2671,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Créances rattachées à des participations - groupe",
@@ -1437,8 +1282,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2674,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Créances rattachées à des participations - hors groupe",
@@ -1446,8 +1290,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2675,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Versements représentatifs d'apports non capitalisés - appel de fonds",
@@ -1455,8 +1298,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2676,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Avances consolidables",
@@ -1464,8 +1306,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2677,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Autres créances rattachées à des participations",
@@ -1473,8 +1314,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2678,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Intérêts courus",
@@ -1484,16 +1324,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 268,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Créances rattachées à des sociétés en participation",
                         children: [
                             {
                                 number: 2681,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Principal",
@@ -1501,8 +1339,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2688,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Intérêts courus",
@@ -1512,8 +1349,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 269,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Versements restant à effectuer sur titres de participation non libérés",
@@ -1523,24 +1359,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 27,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Autres immobilisations financières",
                 children: [
                     {
                         number: 271,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Titres immobilisés autres que les titres immobilisés de l'activité de portefeuille (droit de propriété)",
                         children: [
                             {
                                 number: 2711,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Actions",
@@ -1548,8 +1381,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2718,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Autres titres",
@@ -1559,16 +1391,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 272,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Titres immobilisés (droit de créance)",
                         children: [
                             {
                                 number: 2721,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Obligations",
@@ -1576,8 +1406,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2722,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Bons",
@@ -1587,8 +1416,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 273,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Titres immobilisés de l'activité de portefeuille",
@@ -1596,16 +1424,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 274,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Prêts",
                         children: [
                             {
                                 number: 2741,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Prêts participatifs",
@@ -1613,8 +1439,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2742,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Prêts aux associés",
@@ -1622,8 +1447,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2743,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Prêts au personnel",
@@ -1631,8 +1455,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2748,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Autres prêts",
@@ -1642,16 +1465,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 275,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Dépôts et cautionnements versés",
                         children: [
                             {
                                 number: 2751,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Dépôts",
@@ -1659,8 +1480,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2755,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Cautionnements",
@@ -1670,16 +1490,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 276,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "balance-sheet",
                         label: "Autres créances immobilisées",
                         children: [
                             {
                                 number: 2761,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Créances diverses",
@@ -1687,16 +1505,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2768,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: false,
                                 type: "balance-sheet",
                                 label: "Intérêts courus",
                                 children: [
                                     {
                                         number: 27682,
-                                        isMandatory: true,
-                                        isClass: false,
+                                        isOptional: false,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Intérêts courus sur titres immobilisés (droit de créance)",
@@ -1704,8 +1520,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 27684,
-                                        isMandatory: true,
-                                        isClass: false,
+                                        isOptional: false,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Intérêts courus sur prêts",
@@ -1713,8 +1528,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 27685,
-                                        isMandatory: true,
-                                        isClass: false,
+                                        isOptional: false,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Intérêts courus sur dépôts et cautionnements",
@@ -1722,8 +1536,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 27688,
-                                        isMandatory: true,
-                                        isClass: false,
+                                        isOptional: false,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Intérêts courus sur créances diverses",
@@ -1735,16 +1548,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 277,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Actions propres ou parts propres",
                         children: [
                             {
                                 number: 2771,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Actions propres ou parts propres",
@@ -1752,8 +1563,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2772,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Actions propres ou parts propres en voie d'annulation",
@@ -1763,8 +1573,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 278,
-                        isMandatory: false,
-                        isClass: false,
+                        isOptional: true,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Mali de fusion sur actifs financiers",
@@ -1772,8 +1581,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 279,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Versements restant à effectuer sur titres immobilisés non libérés",
@@ -1783,24 +1591,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 28,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Amortissements des immobilisations",
                 children: [
                     {
                         number: 280,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "balance-sheet",
                         label: "Amortissements des immobilisations incorporelles et des frais d'établissement (même ventilation que celle du compte 20)",
                         children: [
                             {
                                 number: 2801,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Frais d'établissement (même ventilation que celle du compte 201)",
@@ -1808,8 +1613,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2803,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Frais de développement",
@@ -1817,8 +1621,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2805,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Concessions et droits similaires, brevets, licences, solutions informatiques, droits et valeurs similaires",
@@ -1826,8 +1629,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2806,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Droit au bail",
@@ -1835,8 +1637,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2807,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Fonds commercial",
@@ -1844,8 +1645,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2808,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Autres immobilisations incorporelles",
@@ -1855,16 +1655,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 281,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "balance-sheet",
                         label: "Amortissements des immobilisations corporelles (même ventilation que celle du compte 21)",
                         children: [
                             {
                                 number: 2812,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Agencements, aménagements de terrains (même ventilation que celle du compte 212)",
@@ -1872,8 +1670,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2813,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Constructions (même ventilation que celle du compte 213)",
@@ -1881,8 +1678,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2814,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Constructions sur sol d'autrui (même ventilation que celle du compte 214)",
@@ -1890,8 +1686,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2815,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Installations, matériels et outillages industriels (même ventilation que celle du compte 215)",
@@ -1899,16 +1694,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2818,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Autres immobilisations corporelles (même ventilation que celle du compte 218)",
                                 children: [
                                     {
                                         number: 28187,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Amortissement du mali de fusion sur actifs corporels",
@@ -1920,8 +1713,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 282,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Amortissements des immobilisations mises en concession",
@@ -1931,24 +1723,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 29,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Dépréciations des immobilisations",
                 children: [
                     {
                         number: 290,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "balance-sheet",
                         label: "Dépréciations des immobilisations incorporelles",
                         children: [
                             {
                                 number: 2901,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Frais d'établissement",
@@ -1956,8 +1745,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2903,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Frais de développement",
@@ -1965,8 +1753,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2905,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Marques, procédés, droits et valeurs similaires",
@@ -1974,8 +1761,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2906,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Droit au bail",
@@ -1983,8 +1769,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2907,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Fonds commercial",
@@ -1992,16 +1777,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2908,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Autres immobilisations incorporelles",
                                 children: [
                                     {
                                         number: 29081,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Dépréciation du mali de fusion sur actifs incorporels",
@@ -2013,16 +1796,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 291,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "balance-sheet",
                         label: "Dépréciations des immobilisations corporelles",
                         children: [
                             {
                                 number: 2911,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Terrains",
@@ -2030,8 +1811,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2912,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Agencements et aménagements de terrains",
@@ -2039,8 +1819,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2913,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Constructions",
@@ -2048,8 +1827,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2914,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Constructions sur sol d'autrui",
@@ -2057,8 +1835,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2915,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Installations techniques, matériels et outillages industriels",
@@ -2066,16 +1843,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2918,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Autres immobilisations corporelles",
                                 children: [
                                     {
                                         number: 29187,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Dépréciation du mali de fusion sur actifs corporels",
@@ -2087,8 +1862,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 292,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Dépréciations des immobilisations mises en concession",
@@ -2096,16 +1870,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 293,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "balance-sheet",
                         label: "Dépréciations des immobilisations en cours",
                         children: [
                             {
                                 number: 2931,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Immobilisations corporelles en cours",
@@ -2113,8 +1885,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2932,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Immobilisations incorporelles en cours",
@@ -2124,16 +1895,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 296,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "balance-sheet",
                         label: "Dépréciations des participations et créances rattachées à des participations",
                         children: [
                             {
                                 number: 2961,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Titres de participation",
@@ -2141,8 +1910,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2962,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Titres évalués par équivalence",
@@ -2150,8 +1918,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2966,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Autres formes de participation",
@@ -2159,8 +1926,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2967,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: false,
                                 type: "balance-sheet",
                                 label: "Créances rattachées à des participations (même ventilation que celle du compte 267)",
@@ -2168,8 +1934,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2968,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Créances rattachées à des sociétés en participation (même ventilation que celle du compte 268)",
@@ -2179,16 +1944,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 297,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "balance-sheet",
                         label: "Dépréciations des autres immobilisations financières",
                         children: [
                             {
                                 number: 2971,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Titres immobilisés autres que les titres immobilisés de l'activité de portefeuille (droit de propriété)",
@@ -2196,8 +1959,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2972,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Titres immobilisés (droit de créance)",
@@ -2205,8 +1967,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2973,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Titres immobilisés de l'activité de portefeuille",
@@ -2214,8 +1975,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2974,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Prêts",
@@ -2223,8 +1983,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2975,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Dépôts et cautionnements versés",
@@ -2232,8 +1991,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 2976,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Autres créances immobilisées ",
@@ -2247,16 +2005,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
     },
     {
         number: 3,
-        isMandatory: true,
-        isClass: true,
+        isOptional: false,
         isSelectable: false,
         type: "balance-sheet",
         label: "Comptes de stocks et en-cours",
         children: [
             {
                 number: 31,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Matières premières et fournitures",
@@ -2264,16 +2020,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 32,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Autres approvisionnements",
                 children: [
                     {
                         number: 321,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Matières consommables",
@@ -2281,16 +2035,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 322,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Fournitures consommables",
                         children: [
                             {
                                 number: 3221,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Combustibles",
@@ -2298,8 +2050,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 3222,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Produits d'entretien",
@@ -2307,8 +2058,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 3223,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Fournitures d'atelier et d'usine",
@@ -2316,8 +2066,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 3224,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Fournitures de magasin",
@@ -2325,8 +2074,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 3225,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Fournitures de bureau",
@@ -2336,16 +2084,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 326,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Emballages",
                         children: [
                             {
                                 number: 3261,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Emballages perdus",
@@ -2353,8 +2099,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 3265,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Emballages récupérables non identifiables",
@@ -2362,8 +2107,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 3267,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Emballages à usage mixte",
@@ -2375,16 +2119,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 33,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "En-cours de production de biens",
                 children: [
                     {
                         number: 331,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Produits en cours",
@@ -2392,8 +2134,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 335,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Travaux en cours",
@@ -2403,16 +2144,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 34,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "En-cours de production de services",
                 children: [
                     {
                         number: 341,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Études en cours",
@@ -2420,8 +2159,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 345,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Prestations de services en cours",
@@ -2431,16 +2169,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 35,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Stocks de produits",
                 children: [
                     {
                         number: 351,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Produits intermédiaires",
@@ -2448,8 +2184,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 355,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Produits finis",
@@ -2457,16 +2192,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 358,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Produits résiduels ou matières de récupération",
                         children: [
                             {
                                 number: 3581,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Déchets",
@@ -2474,8 +2207,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 3585,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Rebuts",
@@ -2483,8 +2215,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 3586,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Matières de récupération",
@@ -2496,8 +2227,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 36,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Stocks provenant d'immobilisations",
@@ -2505,8 +2235,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 37,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Stocks de marchandises",
@@ -2514,8 +2243,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 38,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Stocks en voie d'acheminement, mis en dépôt ou donnés en consignation",
@@ -2523,16 +2251,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 39,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Dépréciations des stocks et en-cours",
                 children: [
                     {
                         number: 391,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Dépréciations des matières premières et fournitures",
@@ -2540,8 +2266,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 392,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Dépréciations des autres approvisionnements",
@@ -2549,8 +2274,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 393,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Dépréciations des en-cours de production de biens",
@@ -2558,8 +2282,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 394,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Dépréciations des en-cours de production de services",
@@ -2567,8 +2290,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 395,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Dépréciations des stocks de produits",
@@ -2576,8 +2298,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 397,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Dépréciations des stocks de marchandises",
@@ -2589,32 +2310,28 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
     },
     {
         number: 4,
-        isMandatory: true,
-        isClass: true,
+        isOptional: false,
         isSelectable: false,
         type: "balance-sheet",
         label: "Comptes de tiers",
         children: [
             {
                 number: 40,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Fournisseurs et comptes rattachés",
                 children: [
                     {
                         number: 401,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Fournisseurs",
                         children: [
                             {
                                 number: 4011,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Fournisseurs - Achats de biens et prestations de services",
@@ -2622,8 +2339,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4017,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Fournisseurs - Retenues de garantie",
@@ -2633,8 +2349,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 403,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Fournisseurs - Effets à payer",
@@ -2642,16 +2357,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 404,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Fournisseurs d'immobilisations",
                         children: [
                             {
                                 number: 4041,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Fournisseurs - Achats d'immobilisations",
@@ -2659,8 +2372,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4047,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Fournisseurs d'immobilisations - Retenues de garantie",
@@ -2670,8 +2382,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 405,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Fournisseurs d'immobilisations - Effets à payer",
@@ -2679,16 +2390,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 408,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "balance-sheet",
                         label: "Fournisseurs - Factures non parvenues",
                         children: [
                             {
                                 number: 4081,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Fournisseurs",
@@ -2696,8 +2405,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4084,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Fournisseurs d'immobilisations",
@@ -2705,8 +2413,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4088,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Fournisseurs - Intérêts courus",
@@ -2716,16 +2423,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 409,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "balance-sheet",
                         label: "Fournisseurs débiteurs",
                         children: [
                             {
                                 number: 4091,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Fournisseurs - Avances et acomptes versés sur commandes",
@@ -2733,8 +2438,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4096,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Fournisseurs - Créances pour emballages et matériel à rendre",
@@ -2742,16 +2446,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4097,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Fournisseurs - Autres avoirs",
                                 children: [
                                     {
                                         number: 40971,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Fournisseurs d'exploitation",
@@ -2759,8 +2461,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 40974,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Fournisseurs d'immobilisations",
@@ -2770,8 +2471,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4098,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Rabais, remises, ristournes à obtenir et autres avoirs non encore reçus",
@@ -2783,24 +2483,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 41,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Clients et comptes rattachés",
                 children: [
                     {
                         number: 411,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Clients",
                         children: [
                             {
                                 number: 4111,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Clients - Ventes de biens ou de prestations de services",
@@ -2808,8 +2505,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4117,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Clients - Retenues de garantie",
@@ -2819,8 +2515,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 413,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Clients - Effets à recevoir",
@@ -2828,8 +2523,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 416,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Clients douteux ou litigieux",
@@ -2837,16 +2531,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 418,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Clients - Produits non encore facturés",
                         children: [
                             {
                                 number: 4181,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Clients - Factures à établir",
@@ -2854,8 +2546,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4188,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Clients - Intérêts courus",
@@ -2865,16 +2556,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 419,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "balance-sheet",
                         label: "Clients créditeurs",
                         children: [
                             {
                                 number: 4191,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Clients - Avances et acomptes reçus sur commandes",
@@ -2882,8 +2571,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4196,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Clients - Dettes sur emballages et matériels consignés",
@@ -2891,8 +2579,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4197,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Clients - Autres avoirs",
@@ -2900,8 +2587,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4198,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Rabais, remises, ristournes à accorder et autres avoirs à établir",
@@ -2913,16 +2599,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 42,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Personnel et comptes rattachés",
                 children: [
                     {
                         number: 421,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Personnel - Rémunérations dues",
@@ -2930,8 +2614,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 422,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Comité social et économique",
@@ -2939,16 +2622,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 424,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Participation des salariés aux résultats",
                         children: [
                             {
                                 number: 4246,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Réserve spéciale",
@@ -2956,8 +2637,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4248,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Comptes courants",
@@ -2967,8 +2647,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 425,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Personnel - Avances et acomptes et autres comptes débiteurs",
@@ -2976,8 +2655,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 426,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Personnel - Dépôts",
@@ -2985,8 +2663,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 427,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Personnel - Oppositions",
@@ -2994,16 +2671,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 428,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Personnel - Charges à payer",
                         children: [
                             {
                                 number: 4282,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Dettes provisionnées pour congés à payer",
@@ -3011,8 +2686,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4284,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Dettes provisionnées pour participation des salariés aux résultats",
@@ -3020,8 +2694,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4286,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Autres charges à payer",
@@ -3033,16 +2706,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 43,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Sécurité sociale et autres organismes sociaux",
                 children: [
                     {
                         number: 431,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Sécurité sociale",
@@ -3050,8 +2721,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 437,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Autres organismes sociaux",
@@ -3059,16 +2729,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 438,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Organismes sociaux - Charges à payer",
                         children: [
                             {
                                 number: 4382,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Charges sociales sur congés à payer",
@@ -3076,8 +2744,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4386,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Autres charges à payer",
@@ -3087,8 +2754,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 439,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Organismes sociaux - Produits à recevoir",
@@ -3098,16 +2764,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 44,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "État et autres collectivités publiques",
                 children: [
                     {
                         number: 441,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "État - Subventions et aides à recevoir",
@@ -3115,16 +2779,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 442,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Contributions, impôts et taxes recouvrés pour le compte de l'État",
                         children: [
                             {
                                 number: 4421,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Prélèvements à la source (Impôt sur le revenu)",
@@ -3132,8 +2794,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4422,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Prélèvements forfaitaires non libératoires",
@@ -3141,8 +2802,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4423,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Retenues et prélèvements sur les distributions",
@@ -3152,8 +2812,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 444,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "État - Impôts sur les bénéfices",
@@ -3161,16 +2820,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 445,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "balance-sheet",
                         label: "État - Taxes sur le chiffre d'affaires",
                         children: [
                             {
                                 number: 4452,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "TVA due intracommunautaire",
@@ -3178,16 +2835,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4455,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Taxes sur le chiffre d'affaires à décaisser",
                                 children: [
                                     {
                                         number: 44551,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "TVA à décaisser",
@@ -3195,8 +2850,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 44558,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Taxes assimilées à la TVA",
@@ -3206,16 +2860,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4456,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Taxes sur le chiffre d'affaires déductibles",
                                 children: [
                                     {
                                         number: 44562,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "TVA sur immobilisations",
@@ -3223,8 +2875,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 44563,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "TVA transférée par d'autres entreprises",
@@ -3232,8 +2883,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 44566,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "TVA sur autres biens et services",
@@ -3241,8 +2891,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 44567,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Crédit de TVA à reporter",
@@ -3250,8 +2899,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 44568,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Taxes assimilées à la TVA",
@@ -3261,16 +2909,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4457,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Taxes sur le chiffre d'affaires collectées",
                                 children: [
                                     {
                                         number: 44571,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "TVA collectée",
@@ -3278,8 +2924,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 44578,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Taxes assimilées à la TVA",
@@ -3289,16 +2934,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4458,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Taxes sur le chiffre d'affaires à régulariser ou en attente",
                                 children: [
                                     {
                                         number: 44581,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Acomptes - Régime simplifié d'imposition",
@@ -3306,8 +2949,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 44583,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Remboursement de taxes sur le chiffre d'affaires demandé",
@@ -3315,8 +2957,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 44584,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "TVA récupérée d'avance",
@@ -3324,8 +2965,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 44586,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Taxes sur le chiffre d'affaires sur factures non parvenues",
@@ -3333,8 +2973,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 44587,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Taxes sur le chiffre d'affaires sur factures à établir",
@@ -3346,8 +2985,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 446,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Obligations cautionnées",
@@ -3355,8 +2993,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 447,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Autres impôts, taxes et versements assimilés",
@@ -3364,24 +3001,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 448,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "balance-sheet",
                         label: "État - Charges à payer et produits à recevoir",
                         children: [
                             {
                                 number: 4481,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "État - Charges à payer",
                                 children: [
                                     {
                                         number: 44811,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Charges fiscales sur congés à payer",
@@ -3389,8 +3023,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 44812,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Charges à payer",
@@ -3400,8 +3033,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4482,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "État - Produits à recevoir",
@@ -3411,8 +3043,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 449,
-                        isMandatory: false,
-                        isClass: false,
+                        isOptional: true,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Quotas d'émission à acquérir",
@@ -3422,16 +3053,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 45,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Groupe et associés",
                 children: [
                     {
                         number: 451,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Groupe",
@@ -3439,16 +3068,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 455,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Associés - Comptes courants",
                         children: [
                             {
                                 number: 4551,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Principal",
@@ -3456,8 +3083,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4558,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Intérêts courus",
@@ -3467,24 +3093,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 456,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Associés - Opérations sur le capital",
                         children: [
                             {
                                 number: 4561,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Associés - Comptes d'apport en société",
                                 children: [
                                     {
                                         number: 45611,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Apports en nature",
@@ -3492,8 +3115,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 45615,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Apports en numéraire",
@@ -3503,16 +3125,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4562,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Apporteurs - Capital appelé, non versé",
                                 children: [
                                     {
                                         number: 45621,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Actionnaires - Capital souscrit et appelé, non versé",
@@ -3520,8 +3140,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 45625,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "balance-sheet",
                                         label: "Associés - Capital appelé, non versé",
@@ -3531,8 +3150,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4563,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Associés - Versements reçus sur augmentation de capital",
@@ -3540,8 +3158,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4564,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Associés - Versements anticipés",
@@ -3549,8 +3166,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4566,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Actionnaires défaillants",
@@ -3558,8 +3174,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4567,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Associés - Capital à rembourser",
@@ -3569,8 +3184,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 457,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Associés - Dividendes à payer",
@@ -3578,16 +3192,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 458,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Associés - Opérations faites en commun et en GIE",
                         children: [
                             {
                                 number: 4581,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Opérations courantes",
@@ -3595,8 +3207,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4588,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Intérêts courus",
@@ -3608,16 +3219,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 46,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Débiteurs divers et créditeurs divers",
                 children: [
                     {
                         number: 462,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Créances sur cessions d'immobilisations",
@@ -3625,8 +3234,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 464,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Dettes sur acquisitions de valeurs mobilières de placement",
@@ -3634,8 +3242,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 465,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Créances sur cessions de valeurs mobilières de placement",
@@ -3643,8 +3250,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 467,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Divers comptes débiteurs et produits à recevoir",
@@ -3652,8 +3258,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 468,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Divers comptes créditeurs et charges à payer",
@@ -3663,16 +3268,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 47,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Comptes transitoires ou d'attente",
                 children: [
                     {
                         number: 471,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Compte d'attente",
@@ -3680,8 +3283,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 472,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Compte d'attente",
@@ -3689,8 +3291,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 473,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Compte d'attente",
@@ -3698,16 +3299,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 474,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Différences d'évaluation - Actif",
                         children: [
                             {
                                 number: 4741,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Différences d'évaluation sur instruments financiers à terme - Actif",
@@ -3715,8 +3314,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4742,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Différences d'évaluation sur jetons détenus - Actif",
@@ -3724,8 +3322,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4746,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Différences d'évaluation de jetons sur des passifs - Actif",
@@ -3735,16 +3332,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 475,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Différences d'évaluation - Passif",
                         children: [
                             {
                                 number: 4751,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Différences d'évaluation sur instruments financiers à terme - Passif",
@@ -3752,8 +3347,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4752,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Différences d'évaluation sur jetons détenus - Passif",
@@ -3761,8 +3355,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4756,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Différences d'évaluation de jetons sur des passifs - Passif",
@@ -3772,16 +3365,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 476,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Différence de conversion - Actif",
                         children: [
                             {
                                 number: 4761,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Diminution des créances",
@@ -3789,8 +3380,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4762,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Augmentation des dettes",
@@ -3798,8 +3388,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4768,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Différences compensées par couverture de change",
@@ -3809,16 +3398,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 477,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Différences de conversion - Passif",
                         children: [
                             {
                                 number: 4771,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Augmentation des créances",
@@ -3826,8 +3413,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4772,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Diminution des dettes",
@@ -3835,8 +3421,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4778,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Différences compensées par couverture de change",
@@ -3846,16 +3431,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 478,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Autres comptes transitoires",
                         children: [
                             {
                                 number: 4781,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Mali de fusion sur actif circulant",
@@ -3867,16 +3450,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 48,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Comptes de régularisation",
                 children: [
                     {
                         number: 481,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Frais d'émission des emprunts",
@@ -3884,8 +3465,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 486,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Charges constatées d'avance",
@@ -3893,16 +3473,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 487,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Produits constatés d'avance",
                         children: [
                             {
                                 number: 4871,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Produits constatés d'avance sur jetons émis",
@@ -3912,16 +3490,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 488,
-                        isMandatory: false,
-                        isClass: false,
+                        isOptional: true,
                         isSelectable: false,
                         type: "balance-sheet",
                         label: "Comptes de répartition périodique des charges et des produits",
                         children: [
                             {
                                 number: 4886,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Charges",
@@ -3929,8 +3505,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4887,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Produits",
@@ -3942,16 +3517,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 49,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Dépréciations des comptes de tiers",
                 children: [
                     {
                         number: 491,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Dépréciations des comptes de clients",
@@ -3959,16 +3532,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 495,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Dépréciations des comptes du groupe et des associés",
                         children: [
                             {
                                 number: 4951,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Comptes du groupe",
@@ -3976,8 +3547,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4955,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Comptes courants des associés",
@@ -3985,8 +3555,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4958,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Opérations faites en commun et en GIE",
@@ -3996,16 +3565,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 496,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Dépréciations des comptes de débiteurs divers",
                         children: [
                             {
                                 number: 4962,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Créances sur cessions d'immobilisations",
@@ -4013,8 +3580,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4965,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Créances sur cessions de valeurs mobilières de placement",
@@ -4022,8 +3588,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 4967,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Autres comptes débiteurs",
@@ -4037,32 +3602,28 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
     },
     {
         number: 5,
-        isMandatory: true,
-        isClass: true,
+        isOptional: false,
         isSelectable: false,
         type: "balance-sheet",
         label: "Comptes financiers",
         children: [
             {
                 number: 50,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Valeurs mobilières de placement",
                 children: [
                     {
                         number: 502,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Actions propres",
                         children: [
                             {
                                 number: 5021,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Actions destinées à être attribuées aux employés et affectées à des plans déterminés",
@@ -4070,8 +3631,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 5022,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Actions disponibles pour être attribuées aux employés ou pour la régularisation des cours de bourse",
@@ -4081,16 +3641,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 503,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Actions",
                         children: [
                             {
                                 number: 5031,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Titres cotés",
@@ -4098,8 +3656,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 5035,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Titres non cotés",
@@ -4109,8 +3666,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 504,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Autres titres conférant un droit de propriété",
@@ -4118,8 +3674,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 505,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Obligations et bons émis par la société et rachetés par elle",
@@ -4127,16 +3682,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 506,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Obligations",
                         children: [
                             {
                                 number: 5061,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Titres cotés",
@@ -4144,8 +3697,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 5065,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Titres non cotés",
@@ -4155,8 +3707,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 507,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Bons du Trésor et bons de caisse à court terme",
@@ -4164,16 +3715,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 508,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Autres valeurs mobilières de placement et autres créances assimilées",
                         children: [
                             {
                                 number: 5081,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Autres valeurs mobilières",
@@ -4181,8 +3730,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 5082,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Bons de souscription",
@@ -4190,8 +3738,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 5088,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Intérêts courus sur obligations, bons et valeurs assimilés",
@@ -4201,8 +3748,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 509,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Versements restant à effectuer sur valeurs mobilières de placement non libérées",
@@ -4212,24 +3758,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 51,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Banques, établissements financiers et assimilés",
                 children: [
                     {
                         number: 511,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Valeurs à l'encaissement",
                         children: [
                             {
                                 number: 5111,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Coupons échus à l'encaissement",
@@ -4237,8 +3780,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 5112,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Chèques à encaisser",
@@ -4246,8 +3788,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 5113,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Effets à l'encaissement",
@@ -4255,8 +3796,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 5114,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Effets à l'escompte",
@@ -4266,16 +3806,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 512,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Banques",
                         children: [
                             {
                                 number: 5121,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Comptes en euros",
@@ -4283,8 +3821,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 5124,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Comptes en devises",
@@ -4294,8 +3831,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 517,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Autres organismes financiers",
@@ -4303,16 +3839,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 518,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Intérêts courus",
                         children: [
                             {
                                 number: 5181,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Intérêts courus à payer",
@@ -4320,8 +3854,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 5188,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Intérêts courus à recevoir",
@@ -4331,16 +3864,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 519,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Concours bancaires courants",
                         children: [
                             {
                                 number: 5191,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Crédit de mobilisation de créances commerciales",
@@ -4348,8 +3879,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 5193,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Mobilisation de créances nées à l'étranger",
@@ -4357,8 +3887,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 5198,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Intérêts courus sur concours bancaires courants",
@@ -4370,16 +3899,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 52,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Instruments financiers à terme et jetons détenus",
                 children: [
                     {
                         number: 521,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Instruments financiers à terme",
@@ -4387,8 +3914,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 522,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Jetons détenus",
@@ -4396,8 +3922,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 523,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Jetons auto-détenus",
@@ -4405,8 +3930,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 524,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Jetons empruntés",
@@ -4416,8 +3940,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 53,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: true,
                 type: "balance-sheet",
                 label: "Caisse",
@@ -4425,8 +3948,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 58,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Virements internes",
@@ -4434,24 +3956,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 59,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "balance-sheet",
                 label: "Dépréciations des comptes financiers",
                 children: [
                     {
                         number: 590,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "balance-sheet",
                         label: "Dépréciations des valeurs mobilières de placement",
                         children: [
                             {
                                 number: 5903,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Actions",
@@ -4459,8 +3978,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 5904,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Autres titres conférant un droit de propriété",
@@ -4468,8 +3986,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 5906,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Obligations",
@@ -4477,8 +3994,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 5908,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "balance-sheet",
                                 label: "Autres valeurs mobilières de placement et créances assimilées",
@@ -4492,24 +4008,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
     },
     {
         number: 6,
-        isMandatory: true,
-        isClass: true,
+        isOptional: false,
         isSelectable: false,
         type: "income-statement",
         label: "Comptes de charges",
         children: [
             {
                 number: 60,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "income-statement",
                 label: "Achats (sauf 603)",
                 children: [
                     {
                         number: 601,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Achats stockés - Matières premières (et fournitures)",
@@ -4517,16 +4030,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 602,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Achats stockés - Autres approvisionnements",
                         children: [
                             {
                                 number: 6021,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Matières consommables",
@@ -4534,16 +4045,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6022,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Fournitures consommables",
                                 children: [
                                     {
                                         number: 60221,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Combustibles",
@@ -4551,8 +4060,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 60222,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Produits d'entretien",
@@ -4560,8 +4068,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 60223,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Fournitures d'atelier et d'usine",
@@ -4569,8 +4076,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 60224,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Fournitures de magasin",
@@ -4578,8 +4084,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 60225,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Fourniture de bureau",
@@ -4589,16 +4094,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6026,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Emballages",
                                 children: [
                                     {
                                         number: 60261,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Emballages perdus",
@@ -4606,8 +4109,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 60262,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Malis sur emballage",
@@ -4615,8 +4117,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 60265,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Emballages récupérables non identifiables",
@@ -4624,8 +4125,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 60267,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Emballages à usage mixte",
@@ -4637,16 +4137,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 603,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "income-statement",
                         label: "Variation des stocks d'approvisionnements et de marchandises",
                         children: [
                             {
                                 number: 6031,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Variation des stocks de matières premières et fournitures",
@@ -4654,8 +4152,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6032,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Variation des stocks des autres approvisionnements",
@@ -4663,8 +4160,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6037,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Variation des stocks de marchandises",
@@ -4674,8 +4170,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 604,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Achats d'études et prestations de services",
@@ -4683,8 +4178,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 605,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Achats de matériel, équipements et travaux",
@@ -4692,16 +4186,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 606,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Achats non stockés de matière et fournitures",
                         children: [
                             {
                                 number: 6061,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Fournitures non stockables (eau, énergie, etc.)",
@@ -4709,8 +4201,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6063,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Fournitures d'entretien et de petit équipement",
@@ -4718,8 +4209,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6064,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Fournitures administratives",
@@ -4727,8 +4217,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6068,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Autres matières et fournitures",
@@ -4738,8 +4227,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 607,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Achats de marchandises",
@@ -4747,8 +4235,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 608,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Frais accessoires incorporés aux achats",
@@ -4756,16 +4243,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 609,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Rabais, remises et ristournes obtenus sur achats",
                         children: [
                             {
                                 number: 6098,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Rabais, remises et ristournes non affectés",
@@ -4777,16 +4262,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 61,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "income-statement",
                 label: "Services extérieurs",
                 children: [
                     {
                         number: 611,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Sous-traitance générale",
@@ -4794,16 +4277,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 612,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "income-statement",
                         label: "Redevances de crédit-bail",
                         children: [
                             {
                                 number: 6122,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Crédit-bail mobilier",
@@ -4811,8 +4292,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6125,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Crédit-bail immobilier",
@@ -4822,16 +4302,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 613,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Locations",
                         children: [
                             {
                                 number: 6132,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Locations immobilières",
@@ -4839,8 +4317,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6135,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Locations mobilières",
@@ -4850,8 +4327,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 614,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Charges locatives et de copropriété",
@@ -4859,16 +4335,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 615,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Entretien et réparations",
                         children: [
                             {
                                 number: 6152,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Entretien et réparation sur biens immobiliers",
@@ -4876,8 +4350,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6155,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Entretien et réparation sur biens mobiliers",
@@ -4885,8 +4358,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6156,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Maintenance",
@@ -4896,16 +4368,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 616,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Primes d'assurances",
                         children: [
                             {
                                 number: 6161,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Multirisques",
@@ -4913,8 +4383,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6162,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Assurance obligatoire dommage construction",
@@ -4922,16 +4391,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6163,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Assurance - transport",
                                 children: [
                                     {
                                         number: 61636,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "sur achats",
@@ -4939,8 +4406,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 61637,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "sur ventes",
@@ -4948,8 +4414,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 61638,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "sur autres biens",
@@ -4959,8 +4424,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6164,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Risques d'exploitation",
@@ -4968,8 +4432,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6165,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Insolvabilité clients",
@@ -4979,8 +4442,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 617,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Études et recherches",
@@ -4988,16 +4450,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 618,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Divers",
                         children: [
                             {
                                 number: 6181,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Documentation générale",
@@ -5005,8 +4465,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6183,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Documentation technique",
@@ -5014,8 +4473,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6185,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Frais de colloques, séminaires, conférences",
@@ -5025,8 +4483,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 619,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Rabais, remises et ristournes obtenus sur services extérieurs",
@@ -5036,24 +4493,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 62,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "income-statement",
                 label: "Autres services extérieurs",
                 children: [
                     {
                         number: 621,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Personnel extérieur à l'entreprise",
                         children: [
                             {
                                 number: 6211,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Personnel intérimaire",
@@ -5061,8 +4515,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6214,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Personnel détaché ou prêté à l'entité",
@@ -5072,16 +4525,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 622,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Rémunérations d'intermédiaires et honoraires",
                         children: [
                             {
                                 number: 6221,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Commissions et courtages sur achats",
@@ -5089,8 +4540,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6222,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Commissions et courtages sur ventes",
@@ -5098,8 +4548,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6224,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Rémunérations des transitaires",
@@ -5107,8 +4556,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6225,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Rémunérations d'affacturage",
@@ -5116,8 +4564,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6226,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Honoraires",
@@ -5125,8 +4572,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6227,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Frais d'actes et de contentieux",
@@ -5134,8 +4580,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6228,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Divers",
@@ -5145,16 +4590,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 623,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Publicité, publications, relations publiques",
                         children: [
                             {
                                 number: 6231,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Annonces et insertions",
@@ -5162,8 +4605,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6232,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Échantillons",
@@ -5171,8 +4613,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6233,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Foires et expositions",
@@ -5180,8 +4621,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6234,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Cadeaux à la clientèle",
@@ -5189,8 +4629,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6235,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Primes",
@@ -5198,8 +4637,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6236,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Catalogues et imprimés",
@@ -5207,8 +4645,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6237,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Publications",
@@ -5216,8 +4653,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6238,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Divers (pourboires, dons courants)",
@@ -5227,16 +4663,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 624,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Transports de biens et transports collectifs du personnel",
                         children: [
                             {
                                 number: 6241,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Transports sur achats",
@@ -5244,8 +4678,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6242,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Transports sur ventes",
@@ -5253,8 +4686,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6243,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Transports entre établissements ou chantiers",
@@ -5262,8 +4694,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6244,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Transports administratifs",
@@ -5271,8 +4702,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6247,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Transports collectifs du personnel",
@@ -5280,8 +4710,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6248,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Divers",
@@ -5291,16 +4720,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 625,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Déplacements, missions et réceptions",
                         children: [
                             {
                                 number: 6251,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Voyages et déplacements",
@@ -5308,8 +4735,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6255,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Frais de déménagement",
@@ -5317,8 +4743,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6256,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Missions",
@@ -5326,8 +4751,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6257,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Réceptions",
@@ -5337,8 +4761,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 626,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Frais postaux et de télécommunications",
@@ -5346,16 +4769,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 627,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Services bancaires et assimilés",
                         children: [
                             {
                                 number: 6271,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Frais sur titres (achat, vente, garde)",
@@ -5363,8 +4784,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6272,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Commissions et frais sur émission d'emprunts",
@@ -5372,8 +4792,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6275,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Frais sur effets",
@@ -5381,8 +4800,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6276,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Location de coffres",
@@ -5390,8 +4808,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6278,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Autres frais et commissions sur prestations de services",
@@ -5401,16 +4818,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 628,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Divers",
                         children: [
                             {
                                 number: 6281,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Concours divers (cotisations)",
@@ -5418,8 +4833,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6284,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Frais de recrutement de personnel",
@@ -5429,8 +4843,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 629,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Rabais, remises et ristournes obtenus sur autres services extérieurs",
@@ -5440,24 +4853,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 63,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "income-statement",
                 label: "Impôts, taxes et versements assimilés",
                 children: [
                     {
                         number: 631,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Impôts, taxes et versements assimilés sur rémunérations (administrations des impôts)",
                         children: [
                             {
                                 number: 6311,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Taxe sur les salaires",
@@ -5465,8 +4875,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6314,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Cotisation pour défaut d'investissement obligatoire dans la construction",
@@ -5474,8 +4883,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6318,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Autres",
@@ -5485,16 +4893,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 633,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Impôts, taxes et versements assimilés sur rémunérations (autres organismes)",
                         children: [
                             {
                                 number: 6331,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Versement de transport",
@@ -5502,8 +4908,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6332,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Allocations logement",
@@ -5511,8 +4916,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6333,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Contribution unique des employeurs à la formation professionnelle",
@@ -5520,8 +4924,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6334,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Participation des employeurs à l'effort de construction",
@@ -5529,8 +4932,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6335,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Versements libératoires ouvrant droit à l'exonération de la taxe d'apprentissage",
@@ -5538,8 +4940,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6338,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Autres",
@@ -5549,24 +4950,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 635,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Autres impôts, taxes et versements assimilés (administrations des impôts)",
                         children: [
                             {
                                 number: 6351,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Impôts directs (sauf impôts sur les bénéfices)",
                                 children: [
                                     {
                                         number: 63511,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Contribution économique territoriale",
@@ -5574,8 +4972,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 63512,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Taxes foncières",
@@ -5583,8 +4980,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 63513,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Autres impôts locaux",
@@ -5592,8 +4988,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 63514,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Taxe sur les véhicules des sociétés",
@@ -5603,8 +4998,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6352,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Taxe sur le chiffre d'affaires non récupérables",
@@ -5612,8 +5006,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6353,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Impôts indirects",
@@ -5621,16 +5014,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6354,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Droits d'enregistrement et de timbre",
                                 children: [
                                     {
                                         number: 63541,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Droits de mutation",
@@ -5640,8 +5031,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6358,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Autres droits",
@@ -5651,16 +5041,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 637,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Autres impôts, taxes et versements assimilés (autres organismes)",
                         children: [
                             {
                                 number: 6371,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Contribution sociale de solidarité à la charge des sociétés",
@@ -5668,8 +5056,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6372,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Taxes perçues par les organismes publics internationaux",
@@ -5677,8 +5064,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6374,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Impôts et taxes exigibles à l'Étranger",
@@ -5686,8 +5072,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6378,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Taxes diverses",
@@ -5697,8 +5082,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 638,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Rappel d'impôts (autres qu'impôts sur les bénéfices)",
@@ -5708,24 +5092,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 64,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "income-statement",
                 label: "Charges de personnel",
                 children: [
                     {
                         number: 641,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Rémunérations du personnel",
                         children: [
                             {
                                 number: 6411,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Salaires, appointements",
@@ -5733,8 +5114,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6412,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Congés payés",
@@ -5742,8 +5122,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6413,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Primes et gratifications",
@@ -5751,8 +5130,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6414,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Indemnités et avantages divers",
@@ -5760,8 +5138,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6415,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Supplément familial",
@@ -5771,8 +5148,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 644,
-                        isMandatory: false,
-                        isClass: false,
+                        isOptional: true,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Rémunération du travail de l'exploitant",
@@ -5780,16 +5156,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 645,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Charges de sécurité sociale et de prévoyance",
                         children: [
                             {
                                 number: 6451,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Cotisations à l'URSSAF",
@@ -5797,8 +5171,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6452,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Cotisations aux mutuelles",
@@ -5806,8 +5179,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6453,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Cotisations aux caisses de retraites",
@@ -5815,8 +5187,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6454,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Cotisations à Pôle Emploi",
@@ -5824,8 +5195,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6458,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Cotisations aux autres organismes sociaux",
@@ -5835,8 +5205,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 646,
-                        isMandatory: false,
-                        isClass: false,
+                        isOptional: true,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Cotisations sociales personnelles de l'exploitant",
@@ -5844,16 +5213,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 647,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Autres charges sociales",
                         children: [
                             {
                                 number: 6471,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Prestations directes",
@@ -5861,8 +5228,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6472,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Versements au comité social et économique",
@@ -5870,8 +5236,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6474,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Versements aux autres œuvres sociales",
@@ -5879,8 +5244,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6475,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Médecine du travail, pharmacie",
@@ -5890,8 +5254,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 648,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Autres charges de personnel",
@@ -5899,8 +5262,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 649,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Remboursements de charges de personnel",
@@ -5910,24 +5272,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 65,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "income-statement",
                 label: "Autres charges de gestion courante",
                 children: [
                     {
                         number: 651,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Redevances pour concessions, brevets, licences, marques, procédés, solutions informatiques, droits et valeurs similaires",
                         children: [
                             {
                                 number: 6511,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Redevances pour concessions, brevets, licences, marques, procédés, solutions informatiques",
@@ -5935,8 +5294,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6516,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Droits d'auteur et de reproduction",
@@ -5944,8 +5302,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6518,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Autres droits et valeurs similaires",
@@ -5955,8 +5312,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 653,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Rémunérations de l'activité des administrateurs et des gérants",
@@ -5964,16 +5320,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 654,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Pertes sur créances irrécouvrables",
                         children: [
                             {
                                 number: 6541,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Créances de l'exercice",
@@ -5981,8 +5335,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6544,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Créances des exercices antérieurs",
@@ -5992,16 +5345,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 655,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Quote-part de résultat sur opérations faites en commun",
                         children: [
                             {
                                 number: 6551,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Quote-part de bénéfice transférée - comptabilité du gérant",
@@ -6009,8 +5360,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6555,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Quote-part de perte supportée - comptabilité des associés non gérants",
@@ -6020,8 +5370,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 656,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Pertes de change sur créances et dettes commerciales",
@@ -6029,8 +5378,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 657,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Valeurs comptables des immobilisations incorporelles et corporelles cédées",
@@ -6038,16 +5386,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 658,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Pénalités et autres charges",
                         children: [
                             {
                                 number: 6581,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Pénalités sur marchés (et dédits payés sur achats et ventes)",
@@ -6055,8 +5401,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6582,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Pénalités, amendes fiscales et pénales",
@@ -6064,8 +5409,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6583,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Malis provenant de clauses d'indexation",
@@ -6073,8 +5417,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6584,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Lots",
@@ -6082,8 +5425,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6588,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Pénalités et autres charges",
@@ -6095,32 +5437,28 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 66,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "income-statement",
                 label: "Charges financières",
                 children: [
                     {
                         number: 661,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Charges d'intérêts",
                         children: [
                             {
                                 number: 6611,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Intérêts des emprunts et dettes",
                                 children: [
                                     {
                                         number: 66116,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Intérêts des emprunts et dettes assimilées",
@@ -6128,8 +5466,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 66117,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Intérêts des dettes rattachées à des participations",
@@ -6139,8 +5476,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6612,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Charges de la fiducie, résultat de la période",
@@ -6148,8 +5484,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6615,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Intérêts des comptes courants et des dépôts créditeurs",
@@ -6157,8 +5492,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6616,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Intérêts bancaires et sur opérations de financement (escompte, ...)",
@@ -6166,8 +5500,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6617,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Intérêts des obligations cautionnées",
@@ -6175,16 +5508,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6618,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Intérêts des autres dettes",
                                 children: [
                                     {
                                         number: 66181,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Intérêts des dettes commerciales",
@@ -6192,8 +5523,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 66188,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Intérêts des dettes diverses",
@@ -6205,8 +5535,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 664,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Pertes sur créances liées à des participations",
@@ -6214,8 +5543,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 665,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Escomptes accordés",
@@ -6223,8 +5551,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 666,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Pertes de change financières",
@@ -6232,16 +5559,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 667,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "income-statement",
                         label: "Charges nettes sur cessions de valeurs mobilières de placement",
                         children: [
                             {
                                 number: 6671,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Valeurs comptables des immobilisations financières cédées",
@@ -6249,8 +5574,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6672,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Charges nettes sur cessions de titres immobilisés de l'activité de portefeuille",
@@ -6258,8 +5582,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6673,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Charges nettes sur cessions de valeurs mobilières de placement",
@@ -6267,8 +5590,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6674,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Charges nettes sur cessions de jetons",
@@ -6278,16 +5600,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 668,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Autres charges financières",
                         children: [
                             {
                                 number: 6683,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Mali provenant du rachat par l'entité d'actions et obligations émises par elle-même",
@@ -6299,16 +5619,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 67,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "income-statement",
                 label: "Charges exceptionnelles",
                 children: [
                     {
                         number: 672,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Charges sur exercices antérieurs",
@@ -6316,8 +5634,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 678,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Autres charges exceptionnelles",
@@ -6327,32 +5644,28 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 68,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "income-statement",
                 label: "Dotations aux amortissements, aux dépréciations et aux provisions",
                 children: [
                     {
                         number: 681,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "income-statement",
                         label: "Dotations aux amortissements, aux dépréciations et aux provisions (à inscrire dans les charges d'exploitation)",
                         children: [
                             {
                                 number: 6811,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Dotations aux amortissements sur immobilisations incorporelles et corporelles",
                                 children: [
                                     {
                                         number: 68111,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Immobilisations incorporelles et frais d'établissement",
@@ -6360,8 +5673,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 68112,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Immobilisations corporelles",
@@ -6371,8 +5683,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6815,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Dotations aux provisions d'exploitation",
@@ -6380,16 +5691,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6816,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Dotations pour dépréciations des immobilisations incorporelles et corporelles",
                                 children: [
                                     {
                                         number: 68161,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Immobilisations incorporelles",
@@ -6397,8 +5706,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 68162,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Immobilisations corporelles",
@@ -6408,16 +5716,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6817,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Dotations pour dépréciations des actifs circulants",
                                 children: [
                                     {
                                         number: 68173,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Stocks et en-cours",
@@ -6425,8 +5731,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 68174,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Créances",
@@ -6438,16 +5743,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 686,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Dotations aux amortissements, aux dépréciations et aux provisions (à inscrire dans les charges financières)",
                         children: [
                             {
                                 number: 6861,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Dotations aux amortissements des primes de remboursement des obligations",
@@ -6455,8 +5758,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6862,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Dotations aux amortissements des frais d'émission des emprunts",
@@ -6464,8 +5766,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6865,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Dotations aux provisions financières",
@@ -6473,16 +5774,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6866,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Dotations pour dépréciations des éléments financiers",
                                 children: [
                                     {
                                         number: 68662,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Immobilisations financières",
@@ -6490,8 +5789,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 68665,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Valeurs mobilières de placement",
@@ -6503,16 +5801,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 687,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "income-statement",
                         label: "Dotations aux amortissements, aux dépréciations et aux provisions (à inscrire dans les charges exceptionnelles)",
                         children: [
                             {
                                 number: 6871,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Dotations aux amortissements exceptionnels des immobilisations",
@@ -6520,16 +5816,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6872,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Dotations aux provisions réglementées (immobilisations)",
                                 children: [
                                     {
                                         number: 68725,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Amortissements dérogatoires",
@@ -6539,8 +5833,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6873,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Dotations aux provisions réglementées (stocks)",
@@ -6548,8 +5841,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6874,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Dotations aux autres provisions réglementées",
@@ -6557,8 +5849,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6875,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Dotations aux provisions exceptionnelles",
@@ -6566,8 +5857,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6876,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Dotations pour dépréciations exceptionnelles",
@@ -6579,16 +5869,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 69,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "income-statement",
                 label: "Participation des salariés - Impôts sur les bénéfices et assimilés",
                 children: [
                     {
                         number: 691,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Participation des salariés aux résultats",
@@ -6596,16 +5884,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 695,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Impôts sur les bénéfices",
                         children: [
                             {
                                 number: 6951,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Impôts dus en France",
@@ -6613,8 +5899,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6952,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Contribution additionnelle à l'impôt sur les bénéfices",
@@ -6622,8 +5907,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6954,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Impôts dus à l'étranger",
@@ -6633,8 +5917,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 696,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Suppléments d'impôt sur les sociétés liés aux distributions",
@@ -6642,16 +5925,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 698,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "income-statement",
                         label: "Intégration fiscale",
                         children: [
                             {
                                 number: 6981,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Intégration fiscale - Charges",
@@ -6659,8 +5940,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 6989,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Intégration fiscale - Produits",
@@ -6670,8 +5950,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 699,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Produits - Reports en arrière des déficits",
@@ -6683,24 +5962,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
     },
     {
         number: 7,
-        isMandatory: true,
-        isClass: true,
+        isOptional: false,
         isSelectable: false,
         type: "income-statement",
         label: "Comptes de produits",
         children: [
             {
                 number: 70,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "income-statement",
                 label: "Ventes de produits fabriqués, prestations de services, marchandises",
                 children: [
                     {
                         number: 701,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Ventes de produits finis",
@@ -6708,8 +5984,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 702,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Ventes de produits intermédiaires",
@@ -6717,8 +5992,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 703,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Ventes de produits résiduels",
@@ -6726,8 +6000,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 704,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Travaux",
@@ -6735,8 +6008,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 705,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Études",
@@ -6744,8 +6016,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 706,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Prestations de services",
@@ -6753,8 +6024,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 707,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Ventes de marchandises",
@@ -6762,16 +6032,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 708,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Produits des activités annexes",
                         children: [
                             {
                                 number: 7081,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Produits des services exploités dans l'intérêt du personnel",
@@ -6779,8 +6047,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7082,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Commissions et courtages",
@@ -6788,8 +6055,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7083,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Locations diverses",
@@ -6797,8 +6063,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7084,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Mise à disposition de personnel facturée",
@@ -6806,8 +6071,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7085,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Ports et frais accessoires facturés",
@@ -6815,8 +6079,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7086,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Bonis sur reprises d'emballages consignés",
@@ -6824,8 +6087,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7087,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Bonifications obtenues des clients et primes sur ventes",
@@ -6833,8 +6095,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7088,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Autres produits d'activités annexes (cessions d'approvisionnements, ...)",
@@ -6844,16 +6105,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 709,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "income-statement",
                         label: "Rabais, remises et ristournes accordés",
                         children: [
                             {
                                 number: 7091,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Rabais, remises et ristournes accordés sur ventes de produits finis",
@@ -6861,8 +6120,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7092,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Rabais, remises et ristournes accordés sur ventes de produits intermédiaires",
@@ -6870,8 +6128,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7094,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Rabais, remises et ristournes accordés sur travaux",
@@ -6879,8 +6136,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7095,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Rabais, remises et ristournes accordés sur études",
@@ -6888,8 +6144,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7096,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Rabais, remises et ristournes accordés sur prestations de services",
@@ -6897,8 +6152,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7097,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Rabais, remises et ristournes accordés sur ventes de marchandises",
@@ -6906,8 +6160,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7098,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Rabais, remises et ristournes accordés sur produits des activités annexes",
@@ -6919,32 +6172,28 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 71,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "income-statement",
                 label: "Production stockée (ou déstockage)",
                 children: [
                     {
                         number: 713,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "income-statement",
                         label: "Variation des stocks des en-cours de production et de produits",
                         children: [
                             {
                                 number: 7133,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Variation des en-cours de production de biens",
                                 children: [
                                     {
                                         number: 71331,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Produits en cours",
@@ -6952,8 +6201,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 71335,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Travaux en cours",
@@ -6963,16 +6211,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7134,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Variation des en-cours de production de services",
                                 children: [
                                     {
                                         number: 71341,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Études en cours",
@@ -6980,8 +6226,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 71345,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Prestations de services en cours",
@@ -6991,16 +6236,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7135,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Variation des stocks de produits",
                                 children: [
                                     {
                                         number: 71351,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Produits intermédiaires",
@@ -7008,8 +6251,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 71355,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Produits finis",
@@ -7017,8 +6259,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 71358,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Produits résiduels",
@@ -7032,16 +6273,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 72,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "income-statement",
                 label: "Production immobilisée",
                 children: [
                     {
                         number: 721,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Immobilisations incorporelles",
@@ -7049,8 +6288,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 722,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Immobilisations corporelles",
@@ -7060,16 +6298,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 74,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "income-statement",
                 label: "Subventions",
                 children: [
                     {
                         number: 741,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Subventions d'exploitation",
@@ -7077,8 +6313,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 742,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Subventions d'équilibre",
@@ -7086,8 +6321,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 747,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Quote-part des subventions d'investissement virée au résultat de l'exercice",
@@ -7097,24 +6331,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 75,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "income-statement",
                 label: "Autres produits de gestion courante",
                 children: [
                     {
                         number: 751,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Redevances pour concessions, brevets, licences, marques, procédés, solutions informatiques, droits et valeurs similaires",
                         children: [
                             {
                                 number: 7511,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Redevances pour concessions, brevets, licences, marques, procédés, solutions informatiques",
@@ -7122,8 +6353,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7516,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Droits d'auteur et de reproduction",
@@ -7131,8 +6361,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7518,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Autres droits et valeurs similaires",
@@ -7142,8 +6371,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 752,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Revenus des immeubles non affectés à des activités professionnelles",
@@ -7151,8 +6379,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 753,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Rémunérations de l'activité des administrateurs et des gérants",
@@ -7160,8 +6387,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 754,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Ristournes perçues des coopératives provenant des excédents",
@@ -7169,16 +6395,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 755,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Quote-parts de résultat sur opérations faites en commun",
                         children: [
                             {
                                 number: 7551,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Quote-part de perte transférée - comptabilité du gérant",
@@ -7186,8 +6410,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7555,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Quote-part de bénéfice attribuée - comptabilité des associés non-gérants",
@@ -7197,8 +6420,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 756,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Gains de change sur créances et dettes commerciales",
@@ -7206,8 +6428,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 757,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Produits des cessions d'immobilisations incorporelles et corporelles",
@@ -7215,16 +6436,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 758,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Indemnités et autres produits",
                         children: [
                             {
                                 number: 7581,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Dédits et pénalités perçus sur achats et ventes",
@@ -7232,8 +6451,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7582,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Libéralités reçues",
@@ -7241,8 +6459,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7583,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Rentrées sur créances amorties",
@@ -7250,8 +6467,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7584,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Dégrèvements d'impôts autres qu'impôts sur les bénéfices",
@@ -7259,8 +6475,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7585,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Bonis provenant de clauses d'indexation",
@@ -7268,8 +6483,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7586,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Lots",
@@ -7277,8 +6491,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7587,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Indemnités d'assurance",
@@ -7286,8 +6499,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7588,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Opérations de constitution ou liquidation des fiducies",
@@ -7299,24 +6511,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 76,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "income-statement",
                 label: "Produits financiers",
                 children: [
                     {
                         number: 761,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Produits de participations",
                         children: [
                             {
                                 number: 7611,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Revenus des titres de participation",
@@ -7324,8 +6533,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7612,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Produits de la fiducie, résultat de la période",
@@ -7333,8 +6541,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7616,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Revenus sur autres formes de participation",
@@ -7342,8 +6549,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7617,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Revenus des créances rattachées à des participations",
@@ -7353,16 +6559,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 762,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Produits des autres immobilisations financières",
                         children: [
                             {
                                 number: 7621,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Revenus des titres immobilisés",
@@ -7370,8 +6574,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7626,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Revenus des prêts",
@@ -7379,8 +6582,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7627,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Revenus des créances immobilisées",
@@ -7390,16 +6592,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 763,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Revenus des autres créances",
                         children: [
                             {
                                 number: 7631,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Revenus des créances commerciales",
@@ -7407,8 +6607,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7638,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Revenus des créances diverses",
@@ -7418,8 +6617,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 764,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Revenus des valeurs mobilières de placement",
@@ -7427,8 +6625,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 765,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Escomptes obtenus",
@@ -7436,8 +6633,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 766,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Gains de change financiers",
@@ -7445,16 +6641,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 767,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "income-statement",
                         label: "Produits sur cession d'éléments financiers",
                         children: [
                             {
                                 number: 7671,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Produits des cessions d'immobilisations financières",
@@ -7462,8 +6656,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7672,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Produits nets sur cessions de titres immobilisés de l'activité de portefeuille",
@@ -7471,8 +6664,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7673,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Produits nets sur cessions de valeurs mobilières de placement",
@@ -7480,8 +6672,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7674,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Produits nets sur cessions de jetons",
@@ -7491,16 +6682,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 768,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Autres produits financiers",
                         children: [
                             {
                                 number: 7683,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Bonis provenant du rachat par l'entreprise d'actions et d'obligations émises par elle-même",
@@ -7512,16 +6701,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 77,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "income-statement",
                 label: "Produits exceptionnels",
                 children: [
                     {
                         number: 772,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Produits sur exercices antérieurs",
@@ -7529,8 +6716,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 778,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Autres produits exceptionnels",
@@ -7540,32 +6726,28 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 78,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "income-statement",
                 label: "Reprises sur amortissements, dépréciations et provisions",
                 children: [
                     {
                         number: 781,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "income-statement",
                         label: "Reprises sur amortissements, dépréciations et provisions (à inscrire dans les produits d'exploitation)",
                         children: [
                             {
                                 number: 7811,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Reprises sur amortissements des immobilisations incorporelles et corporelles",
                                 children: [
                                     {
                                         number: 78111,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Immobilisations incorporelles",
@@ -7573,8 +6755,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 78112,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Immobilisations corporelles",
@@ -7584,8 +6765,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7815,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Reprises sur provisions d'exploitation",
@@ -7593,16 +6773,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7816,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Reprises sur dépréciations des immobilisations incorporelles et corporelles",
                                 children: [
                                     {
                                         number: 78161,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Immobilisations incorporelles",
@@ -7610,8 +6788,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 78162,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Immobilisations corporelles",
@@ -7621,16 +6798,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7817,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Reprises sur dépréciations des actifs circulants",
                                 children: [
                                     {
                                         number: 78173,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Stocks et en-cours",
@@ -7638,8 +6813,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 78174,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Créances",
@@ -7651,16 +6825,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 786,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "income-statement",
                         label: "Reprises sur dépréciations et provisions (à inscrire dans les produits financiers)",
                         children: [
                             {
                                 number: 7865,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Reprises sur provisions financières",
@@ -7668,16 +6840,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7866,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Reprises sur dépréciations des éléments financiers",
                                 children: [
                                     {
                                         number: 78662,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Immobilisations financières",
@@ -7685,8 +6855,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 78665,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Valeurs mobilières de placements",
@@ -7698,24 +6867,21 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 787,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: false,
                         type: "income-statement",
                         label: "Reprises sur dépréciations et provisions (à inscrire dans les produits exceptionnels)",
                         children: [
                             {
                                 number: 7872,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Reprises sur provisions réglementées (immobilisations)",
                                 children: [
                                     {
                                         number: 78725,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "income-statement",
                                         label: "Amortissements dérogatoires",
@@ -7725,8 +6891,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7873,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Reprises sur provisions réglementées (stocks)",
@@ -7734,8 +6899,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7874,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Reprises sur autres provisions réglementées",
@@ -7743,8 +6907,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7875,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Reprises sur provisions exceptionnelles",
@@ -7752,8 +6915,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 7876,
-                                isMandatory: true,
-                                isClass: false,
+                                isOptional: false,
                                 isSelectable: true,
                                 type: "income-statement",
                                 label: "Reprises sur dépréciations exceptionnelles",
@@ -7767,32 +6929,28 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
     },
     {
         number: 8,
-        isMandatory: true,
-        isClass: true,
+        isOptional: false,
         isSelectable: false,
         type: "special",
         label: "Comptes spéciaux",
         children: [
             {
                 number: 80,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "special",
                 label: "Engagements",
                 children: [
                     {
                         number: 801,
-                        isMandatory: false,
-                        isClass: false,
+                        isOptional: true,
                         isSelectable: true,
                         type: "special",
                         label: "Engagements donnés par l'entité",
                         children: [
                             {
                                 number: 8011,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "special",
                                 label: "Avals, cautions, garanties",
@@ -7800,8 +6958,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 8014,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "special",
                                 label: "Effets circulant sous l'endos de l'entité",
@@ -7809,16 +6966,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 8016,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "special",
                                 label: "Redevances crédit-bail restant à courir",
                                 children: [
                                     {
                                         number: 80161,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "special",
                                         label: "Crédit-bail mobilier",
@@ -7826,8 +6981,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 80165,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "special",
                                         label: "Crédit-bail immobilier",
@@ -7837,8 +6991,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 8018,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "special",
                                 label: "Autres engagements donnés",
@@ -7848,16 +7001,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 802,
-                        isMandatory: false,
-                        isClass: false,
+                        isOptional: true,
                         isSelectable: true,
                         type: "special",
                         label: "Engagements reçus par l'entité",
                         children: [
                             {
                                 number: 8021,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "special",
                                 label: "Avals, cautions, garanties",
@@ -7865,8 +7016,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 8024,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "special",
                                 label: "Créances escomptées non échues",
@@ -7874,16 +7024,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 8026,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "special",
                                 label: "Engagements reçus pour utilisation en crédit-bail",
                                 children: [
                                     {
                                         number: 80261,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "special",
                                         label: "Crédit-bail mobilier",
@@ -7891,8 +7039,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                                     },
                                     {
                                         number: 80265,
-                                        isMandatory: false,
-                                        isClass: false,
+                                        isOptional: true,
                                         isSelectable: true,
                                         type: "special",
                                         label: "Crédit-bail immobilier",
@@ -7902,8 +7049,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 8028,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "special",
                                 label: "Autres engagements reçus",
@@ -7913,16 +7059,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 809,
-                        isMandatory: false,
-                        isClass: false,
+                        isOptional: true,
                         isSelectable: true,
                         type: "special",
                         label: "Contrepartie des engagements",
                         children: [
                             {
                                 number: 8091,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "special",
                                 label: "Contrepartie 801",
@@ -7930,8 +7074,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                             },
                             {
                                 number: 8092,
-                                isMandatory: false,
-                                isClass: false,
+                                isOptional: true,
                                 isSelectable: true,
                                 type: "special",
                                 label: "Contrepartie 802",
@@ -7943,8 +7086,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 88,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "special",
                 label: "Résultat en instance d'affectation",
@@ -7952,16 +7094,14 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
             },
             {
                 number: 89,
-                isMandatory: true,
-                isClass: true,
+                isOptional: false,
                 isSelectable: false,
                 type: "special",
                 label: "Bilan",
                 children: [
                     {
                         number: 890,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "special",
                         label: "Bilan d'ouverture",
@@ -7969,8 +7109,7 @@ export const defaultCompanyAccounts: Array<DefaultAccount> = [
                     },
                     {
                         number: 891,
-                        isMandatory: true,
-                        isClass: false,
+                        isOptional: false,
                         isSelectable: true,
                         type: "special",
                         label: "Bilan de clôture",

@@ -3,13 +3,14 @@ import {
     readAllBalanceSheetsRouteDefinition,
     readAllComputationIncomeStatementsRouteDefinition,
     readAllComputationsRouteDefinition,
+    readAllEntriesRouteDefinition,
+    readAllEntryLinesRouteDefinition,
+    readAllEntryTagsRouteDefinition,
     readAllFilesRouteDefinition,
     readAllFoldersRouteDefinition,
     readAllIncomeStatementsRouteDefinition,
     readAllJournalsRouteDefinition,
-    readAllRecordLabelsRouteDefinition,
-    readAllRecordRowsRouteDefinition,
-    readAllRecordsRouteDefinition,
+    readAllTagsRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import type * as v from "valibot"
 import { dataClient } from "../contexts/data/queryClient.js"
@@ -29,10 +30,11 @@ type YearScopedRouteDefinition = {
 
 const yearScopedRouteDefinitions: YearScopedRouteDefinition[] = [
     readAllAccountsRouteDefinition,
-    readAllRecordsRouteDefinition,
-    readAllRecordRowsRouteDefinition,
+    readAllEntriesRouteDefinition,
+    readAllEntryLinesRouteDefinition,
+    readAllEntryTagsRouteDefinition,
     readAllJournalsRouteDefinition,
-    readAllRecordLabelsRouteDefinition,
+    readAllTagsRouteDefinition,
     readAllFilesRouteDefinition,
     readAllFoldersRouteDefinition,
     readAllBalanceSheetsRouteDefinition,
@@ -47,7 +49,7 @@ const yearScopedRouteDefinitions: YearScopedRouteDefinition[] = [
  * Called when entering a year layout. Each query is set to `staleTime: Infinity`
  * so it is only refetched on explicit invalidation (after mutations) or hard refresh.
  *
- * This is fire-and-forget — it does not block navigation.
+ * This is fire-and-forget - it does not block navigation.
  */
 export function prefetchYearData(params: YearScopedBody) {
     const body: YearScopedBody = {

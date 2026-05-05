@@ -4,6 +4,8 @@ import { eq } from "drizzle-orm"
 import { checkUserSessionMiddleware } from "../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../utilities/apiFactory.js"
+import { sendEmail } from "../../../utilities/email/sendEmail.js"
+import { emailValidationTemplate } from "../../../utilities/email/templates/emailValidation.js"
 import { Exception } from "../../../utilities/exception.js"
 import { generateVerificationToken } from "../../../utilities/generateVerificationToken.js"
 import { response } from "../../../utilities/response.js"
@@ -37,13 +39,14 @@ export const updateUserEmailRoute = apiFactory.createApp().post(updateUserEmailR
         where: (table) => eq(table.id, user.id),
     })
 
-    // await sendEmail({
-    //     to: updateUser.email,
-    //     subject: "Valider votre email",
-    //     html: emailValidationTemplate({
-    //         url: `${urlApp}/services/email?id=${updateUser.id}&token=${updateUser.emailToken}`,
-    //     })
-    // })
+    await sendEmail({
+        var: c.var,
+        to: body.emailToValidate,
+        subject: "Valider votre email",
+        html: emailValidationTemplate({
+            token: updatedEmail.emailToken!,
+        }),
+    })
 
     return response({
         context: c,

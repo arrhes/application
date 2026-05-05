@@ -11,7 +11,7 @@ export function TableHeaderRoot(props: {
                 css({
                     width: "100%",
                     borderBottom: "1px solid",
-                    borderColor: "neutral/10",
+                    borderBottomColor: "neutral/10",
                 }),
                 props.className,
             )}

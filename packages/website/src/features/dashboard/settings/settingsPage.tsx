@@ -25,7 +25,7 @@ const settingsSections = [
         title: "Facturation",
         description: "Suivez vos abonnements, factures et moyens de paiement.",
         items: [
-            { label: "Abonnement", helper: "Plan, statut" },
+            { label: "Facturation", helper: "Plan, statut" },
             { label: "Factures", helper: "Historique des paiements" },
             { label: "Moyens de paiement", helper: "Cartes, IBAN" },
         ],

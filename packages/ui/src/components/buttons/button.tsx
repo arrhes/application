@@ -75,7 +75,6 @@ export function Button(
                         display: "flex",
                         justifyContent: "flex-start",
                         alignItems: "center",
-                        cursor: "pointer",
                         width: "fit-content",
                         maxWidth: "100%",
                         height: "fit-content",
@@ -83,7 +82,8 @@ export function Button(
                         bg: "transparent",
                         border: "none",
                         padding: "0",
-                        _disabled: { cursor: "not-allowed", pointerEvents: "none" },
+                        cursor: "pointer",
+                        _disabled: { cursor: "not-allowed" },
                     }),
                     className,
                 )}

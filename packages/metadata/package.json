@@ -39,6 +39,10 @@
         "./utilities": {
             "types": "./build/utilities/index.d.ts",
             "default": "./build/utilities/index.js"
+        },
+        "./entryTemplates": {
+            "types": "./build/entryTemplates/index.d.ts",
+            "default": "./build/entryTemplates/index.js"
         }
     }
 }

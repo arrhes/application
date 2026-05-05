@@ -1,4 +1,11 @@
-import { IconCalendarEvent, IconPlug, IconRosetteDiscountCheck, IconSettings, IconUsers } from "@tabler/icons-react"
+import {
+    IconCalendarEvent,
+    IconPlug,
+    IconRobot,
+    IconRosetteDiscountCheck,
+    IconSettings,
+    IconUsers,
+} from "@tabler/icons-react"
 import { Outlet, useParams } from "@tanstack/react-router"
 import { Fragment } from "react/jsx-runtime"
 import { PageNavigation } from "../../../components/layouts/page/pageNavigation.tsx"
@@ -20,6 +27,14 @@ export function OrganizationLayout() {
                         },
                     },
                     {
+                        label: "Assistant",
+                        icon: <IconRobot />,
+                        to: "/dashboard/organisations/$idOrganization/agent",
+                        params: {
+                            idOrganization: params.idOrganization,
+                        },
+                    },
+                    {
                         label: "Membres",
                         icon: <IconUsers />,
                         to: "/dashboard/organisations/$idOrganization/membres",
@@ -28,9 +43,9 @@ export function OrganizationLayout() {
                         },
                     },
                     {
-                        label: "Abonnement",
+                        label: "Facturation",
                         icon: <IconRosetteDiscountCheck />,
-                        to: "/dashboard/organisations/$idOrganization/abonnement",
+                        to: "/dashboard/organisations/$idOrganization/facturation",
                         params: {
                             idOrganization: params.idOrganization,
                         },

@@ -1,4 +1,4 @@
-import { createRoute, Outlet } from "@tanstack/react-router"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { accountsLayoutRoute } from "../accountsLayoutRoute.js"
 
 export const accountLayoutRoute = createRoute({
@@ -7,5 +7,11 @@ export const accountLayoutRoute = createRoute({
     beforeLoad: () => ({
         title: "Compte",
     }),
-    component: () => <Outlet />,
+    component: lazyRouteComponent(
+        () =>
+            import(
+                "../../../../../../../../../../features/dashboard/$idYear/yearSettings/accounts/$idAccount/accountLayout.js"
+            ),
+        "AccountLayout",
+    ),
 })

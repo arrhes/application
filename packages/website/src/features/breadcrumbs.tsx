@@ -16,7 +16,7 @@ export function Breadcrumbs() {
 
     const organizationQuery = useDataFromAPI({
         routeDefinition: readOneOrganizationRouteDefinition,
-        body: {},
+        body: { idOrganization: idOrganization ?? "" },
         enabled: idOrganization !== null,
     })
 

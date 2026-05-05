@@ -13,7 +13,7 @@ export function PageHeader(props: { children?: ReactNode; className?: ComponentP
                     flexDirection: "column",
                     justifyContent: "flex-start",
                     alignItems: "flex-start",
-                    gap: "0.5rem",
+                    gap: "1rem",
                 }),
                 props.className,
             )}

@@ -7,7 +7,7 @@ import { IncomeStatementReportRow } from "./incomeStatementReportRow.js"
 
 export function IncomeStatementReportItem(props: {
     accounts: Array<v.InferOutput<typeof returnedSchemas.account>>
-    recordRows: Array<v.InferOutput<typeof returnedSchemas.recordRow>>
+    entryLines: Array<v.InferOutput<typeof returnedSchemas.entryLine>>
     incomeStatement: v.InferOutput<typeof returnedSchemas.incomeStatement>
     incomeStatementChildren: Array<v.InferOutput<typeof returnedSchemas.incomeStatement>>
     level: number
@@ -28,10 +28,10 @@ export function IncomeStatementReportItem(props: {
             return hasAccount || hasChildrenAccount
         })
         .forEach((account) => {
-            props.recordRows
-                .filter((recordRow) => recordRow.idAccount === account.id)
-                .forEach((recordRow) => {
-                    amount += Number(recordRow.debit) - Number(recordRow.credit)
+            props.entryLines
+                .filter((entryLine) => entryLine.idAccount === account.id)
+                .forEach((entryLine) => {
+                    amount += Number(entryLine.debit) - Number(entryLine.credit)
                 })
         })
 
@@ -57,7 +57,7 @@ export function IncomeStatementReportItem(props: {
                         <IncomeStatementReportItem
                             key={incomeStatement.id}
                             accounts={props.accounts}
-                            recordRows={props.recordRows}
+                            entryLines={props.entryLines}
                             incomeStatement={incomeStatement}
                             incomeStatementChildren={incomeStatementChildren}
                             level={props.level + 1}

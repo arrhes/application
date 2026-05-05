@@ -18,7 +18,8 @@ export function PageRoot(props: {
                     alignItems: "center",
                     gap: "2rem",
                     backgroundColor: "white",
-                    padding: "1rem",
+                    paddingY: "2rem",
+                    paddingX: "1rem",
                 }),
                 props.className,
             )}

@@ -6,6 +6,8 @@ export const organizationApiDocRoute = createRoute({
     path: "/organisation",
     beforeLoad: () => ({
         title: "Organisation",
+        description:
+            "Endpoints API pour la gestion des organisations Arrhes : création, lecture, mise à jour et suppression.",
     }),
     component: lazyRouteComponent(
         () => import("../../../../features/docs/api/organizationApiDocPage.tsx"),

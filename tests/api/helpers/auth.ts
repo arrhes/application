@@ -51,7 +51,7 @@ const DEMO_ORG_NAME = "Demo company"
 
 /**
  * Returns the idOrganization for the "Demo company" seeded organization.
- * This org contains accounts, journals, years, records, etc.
+ * This org contains accounts, journals, years, entries, etc.
  */
 export async function getDemoOrganizationId(session: AuthSession): Promise<string> {
     const response = await authenticatedRequest({

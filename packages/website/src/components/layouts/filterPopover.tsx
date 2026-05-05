@@ -1,13 +1,25 @@
-import { Button, ButtonGhostContent, ButtonOutlineContent, ButtonPlainContent, Separator } from "@arrhes/ui"
+import {
+    Button,
+    ButtonGhostContent,
+    ButtonOutlineContent,
+    ButtonPlainContent,
+    InputCombobox,
+    InputDebounced,
+    InputText,
+    Separator,
+} from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconFilter, IconX } from "@tabler/icons-react"
-import { InputDebounced } from "../inputs/inputDebounced.js"
-import { InputText } from "../inputs/inputText.js"
 import { Popover } from "../overlays/popover/popover.js"
 
 export type FilterColumn = {
     id: string
     header: string
+    filterVariant?: "text" | "combobox"
+    filterOptions?: Array<{
+        key: string
+        label: string
+    }>
 }
 
 export function FilterPopover(props: {
@@ -24,11 +36,15 @@ export function FilterPopover(props: {
                 <Button>
                     {activeFilterCount > 0 ? (
                         <ButtonPlainContent
-                            leftIcon={<IconFilter size={16} />}
-                            text={`Filtrer (${activeFilterCount})`}
+                            leftIcon={<IconFilter />}
+                            // text={`Filtrer (${activeFilterCount})`}
+                            text={`(${activeFilterCount})`}
                         />
                     ) : (
-                        <ButtonOutlineContent leftIcon={<IconFilter size={16} />} text="Filtrer" />
+                        <ButtonOutlineContent
+                            leftIcon={<IconFilter />}
+                            // text="Filtrer"
+                        />
                     )}
                 </Button>
             </Popover.Trigger>
@@ -51,7 +67,7 @@ export function FilterPopover(props: {
                 >
                     <ButtonGhostContent
                         color="danger"
-                        leftIcon={<IconX size={16} />}
+                        leftIcon={<IconX />}
                         text="Effacer les filtres"
                         className={css({ width: "100%", justifyContent: "start" })}
                         isDisabled={activeFilterCount === 0}
@@ -85,12 +101,22 @@ export function FilterPopover(props: {
                             >
                                 {column.header}
                             </span>
-                            <InputDebounced
-                                value={props.columnFilters[column.id] ?? ""}
-                                onChange={(value) => props.onFilterChange(column.id, value || undefined)}
-                            >
-                                <InputText placeholder={`Filtrer par ${column.header.toLowerCase()}`} />
-                            </InputDebounced>
+                            {column.filterVariant === "combobox" ? (
+                                <InputCombobox
+                                    value={props.columnFilters[column.id] ?? undefined}
+                                    onChange={(value) => props.onFilterChange(column.id, value ?? undefined)}
+                                    allowEmpty={true}
+                                    placeholder={`Choisir ${column.header.toLowerCase()}`}
+                                    options={column.filterOptions ?? []}
+                                />
+                            ) : (
+                                <InputDebounced
+                                    value={props.columnFilters[column.id] ?? ""}
+                                    onChange={(value) => props.onFilterChange(column.id, value || undefined)}
+                                >
+                                    <InputText placeholder={`Filtrer par ${column.header.toLowerCase()}`} />
+                                </InputDebounced>
+                            )}
                         </div>
                     ))}
                 </div>

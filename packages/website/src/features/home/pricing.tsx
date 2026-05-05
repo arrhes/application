@@ -4,7 +4,6 @@ import {
     IconAppWindow,
     IconBuildings,
     IconCalculator,
-    IconCheck,
     IconCloudUpload,
     IconCode,
     IconFileText,
@@ -61,18 +60,17 @@ export function Pricing() {
                                 color: "neutral",
                             })}
                         >
-                            Plan basique
+                            Services inclus
                         </h2>
                         <Badge>Recommandé</Badge>
                     </div>
-                    <span>Gratuit</span>
                     <p
                         className={css({
                             fontSize: "sm",
                             color: "neutral/60",
                         })}
                     >
-                        Toutes les fonctionnalités essentielles pour gérer votre comptabilité.
+                        Toutes les fonctionnalités essentielles pour gérer votre comptabilité. Gratuitement.
                     </p>
                 </div>
 
@@ -94,7 +92,6 @@ export function Pricing() {
                     />
                     <FeatureItem icon={<IconFileText />} text="Export du Fichier des Écritures Comptable (FEC)" />
                     <FeatureItem icon={<IconCode />} text="Accès complet à l'API" />
-                    <FeatureItem icon={<IconCalculator />} text="Comptabilité analytique" isDev />
                 </div>
 
                 <LinkButton to="/inscription">
@@ -106,8 +103,9 @@ export function Pricing() {
                 </LinkButton>
             </div>
 
-            {/* Pro Plan */}
+            {/* Paid services */}
             <div
+                id="services-payants"
                 className={css({
                     display: "flex",
                     flexDirection: "column",
@@ -141,18 +139,17 @@ export function Pricing() {
                                 color: "neutral",
                             })}
                         >
-                            Plan avancé
+                            Services payants
                         </h2>
-                        <Badge>Soutenir le projet</Badge>
+                        <Badge>Optionnel</Badge>
                     </div>
-                    <span>30,00€ / mois (HT)</span>
                     <p
                         className={css({
                             fontSize: "sm",
                             color: "neutral/60",
                         })}
                     >
-                        Fonctionnalités avancées pour les professionnels et ceux qui veulent aller plus loin.
+                        Activez uniquement ce dont vous avez besoin. Sans engagement.
                     </p>
                 </div>
 
@@ -164,28 +161,29 @@ export function Pricing() {
                         flex: "1",
                     })}
                 >
-                    <FeatureItem icon={<IconCheck />} text="L'ensemble du plan basique" />
-                    <FeatureItem icon={<IconCloudUpload />} text="Stockage de documents (jusqu'à 1To)" highlighted />
                     <FeatureItem
-                        icon={<IconSparkles />}
-                        text="Assistant IA"
+                        icon={<IconLifebuoy />}
+                        text="Licence"
                         highlighted
                         description={[
-                            "Poser des questions générales sur la comptabilité",
-                            "Interroger la documentation",
-                            "Automatiser les actions",
-                            "Utiliser la détection automatique du contenu des documents",
+                            "Montant mensuel libre. Un support privilégié est inclus dans les licences payantes.",
                         ]}
                     />
-                    <FeatureItem icon={<IconLifebuoy />} text="Support prioritaire" highlighted />
+                    <FeatureItem
+                        icon={<IconCloudUpload />}
+                        text="Stockage"
+                        highlighted
+                        description={["0,10€ (HT) / Go / mois (au-dela du Go inclus)"]}
+                    />
+                    <FeatureItem
+                        icon={<IconSparkles />}
+                        text="Tokens IA"
+                        description={["1,00€ (HT) / million de tokens"]}
+                        highlighted
+                    />
+                    <FeatureItem icon={<IconFileText />} text="OCR" description={["0,01€ (HT) / page"]} highlighted />
+                    <FeatureItem icon={<IconCalculator />} text="Comptabilité analytique" isDev />
                 </div>
-                {/* <LinkButton to="/inscription">
-                        <ButtonContent
-                            variant="primary"
-                            text="Essayer gratuitement"
-                            className={css({ width: "100%" })}
-                        />
-                    </LinkButton> */}
             </div>
         </div>
     )

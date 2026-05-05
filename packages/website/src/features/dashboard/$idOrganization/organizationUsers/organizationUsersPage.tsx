@@ -20,7 +20,7 @@ export function OrganizationUsersPage() {
             <Page.Content>
                 <div className={css({ width: "100%", display: "flex", justifyContent: "end", alignItems: "center" })}>
                     <CreateOneOrganizationUser idOrganization={params.idOrganization}>
-                        <ButtonOutlineContent leftIcon={<IconUserPlus />} text="Invitez un utilisateur" />
+                        <ButtonOutlineContent leftIcon={<IconUserPlus />} text="Inviter un collaborateur" />
                     </CreateOneOrganizationUser>
                 </div>
                 <OrganizationUsersListTable idOrganization={params.idOrganization} />

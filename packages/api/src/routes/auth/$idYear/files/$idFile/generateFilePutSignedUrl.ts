@@ -1,5 +1,5 @@
 import { generateFilePutSignedUrlRouteDefinition, models } from "@arrhes/application-metadata"
-import { and, eq, sql } from "drizzle-orm"
+import { and, eq, isNull, sql } from "drizzle-orm"
 import { checkUserSessionMiddleware } from "../../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../../utilities/apiFactory.js"
@@ -32,7 +32,7 @@ export const generateFilePutSignedUrlRoute = apiFactory
             where: (table) => eq(table.id, idOrganization),
         })
 
-        if (organization.storageCurrentUsage + body.size > organization.storageLimit) {
+        if (organization.storageCurrentUsage + body.size > organization.storageMaxUsage) {
             throw new Exception({
                 internalMessage: "Storage limit exceeded",
                 statusCode: 400,
@@ -52,7 +52,11 @@ export const generateFilePutSignedUrlRoute = apiFactory
                 lastUpdatedAt: new Date().toISOString(),
             },
             where: (table) =>
-                and(eq(table.idOrganization, idOrganization), eq(table.idYear, body.idYear), eq(table.id, body.idFile)),
+                and(
+                    eq(table.idOrganization, idOrganization),
+                    body.idYear !== null ? eq(table.idYear, body.idYear) : isNull(table.idYear),
+                    eq(table.id, body.idFile),
+                ),
         })
 
         await updateOne({
@@ -71,7 +75,7 @@ export const generateFilePutSignedUrlRoute = apiFactory
             contentType: body.type,
             metadata: {
                 idOrganization: idOrganization,
-                idYear: body.idYear,
+                ...(body.idYear !== null ? { idYear: body.idYear } : {}),
                 idUser: user.id,
             },
         })

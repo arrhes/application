@@ -1,7 +1,7 @@
 import { readAllJournalsRouteDefinition } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { InputCombobox } from "@arrhes/ui"
 import type * as v from "valibot"
-import { InputCombobox } from "../../../../../components/inputs/inputCombobox.tsx"
 import { useDataFromAPI } from "../../../../../utilities/useHTTPData.ts"
 
 export function JournalSelect(props: {

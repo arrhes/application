@@ -1,9 +1,11 @@
-import { ButtonGhostContent, ButtonPlainContent, Logo } from "@arrhes/ui"
+import { Button, ButtonGhostContent, ButtonPlainContent, Logo } from "@arrhes/ui"
 import { css, cx } from "@arrhes/ui/utilities/cn.js"
-import { IconBook2, IconBrandGithub } from "@tabler/icons-react"
+import { IconBook2, IconBrandGithub, IconMenu } from "@tabler/icons-react"
 import { Outlet, useRouterState } from "@tanstack/react-router"
+import { useState } from "react"
 import { LinkButton } from "../../components/linkButton.js"
 import { docSections } from "./docSections.js"
+import { DocsSearch } from "./docsSearch.js"
 import { SectionTab } from "./sectionTab.js"
 import { SidebarNavigation } from "./sidebarNavigation.js"
 
@@ -13,12 +15,12 @@ function getCurrentSection(pathname: string): DocSectionId {
     if (pathname.startsWith("/documentation/comptabilité")) return "comptabilite"
     if (pathname.startsWith("/documentation/dashboard")) return "dashboard"
     if (pathname.startsWith("/documentation/api")) return "api"
-    // if (pathname.startsWith("/documentation/ai")) return "ai"
     return "general"
 }
 
 export function DocsLayout() {
     const pathname = useRouterState({ select: (s) => s.location.pathname })
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     const currentSectionId = getCurrentSection(pathname)
     const currentSection = docSections[currentSectionId]
@@ -42,7 +44,7 @@ export function DocsLayout() {
                     justifyContent: "start",
                     alignItems: "center",
                     borderBottom: "1px solid",
-                    borderColor: "neutral/10",
+                    borderBottomColor: "neutral/10",
                     backgroundColor: "white",
                     position: "sticky",
                     top: "0",
@@ -58,7 +60,7 @@ export function DocsLayout() {
                         alignItems: "center",
                         padding: "1rem",
                         borderBottom: "1px solid",
-                        borderColor: "neutral/10",
+                        borderBottomColor: "neutral/10",
                     })}
                 >
                     <div
@@ -66,8 +68,9 @@ export function DocsLayout() {
                             width: "100%",
                             maxWidth: "xl",
                             display: "flex",
-                            justifyContent: "space-between",
+                            justifyContent: "start",
                             alignItems: "center",
+                            flexWrap: "wrap",
                             gap: "1rem",
                         })}
                     >
@@ -76,10 +79,11 @@ export function DocsLayout() {
                                 display: "flex",
                                 alignItems: "center",
                                 gap: "0.5rem",
+                                flexShrink: 0,
                             })}
                         >
                             <LinkButton to="/">
-                                <Logo withText />
+                                <ButtonGhostContent leftIcon={<Logo />} text="Arrhes" />
                             </LinkButton>
 
                             <span className={css({ color: "neutral/20", display: { base: "none", sm: "block" } })}>
@@ -101,11 +105,15 @@ export function DocsLayout() {
                             </LinkButton>
                         </div>
 
+                        <DocsSearch />
+
                         <nav
                             className={css({
+                                marginLeft: "auto",
                                 display: "flex",
                                 alignItems: "center",
                                 gap: "0.5rem",
+                                flexShrink: 0,
                             })}
                         >
                             <a href="https://github.com/arrhes" target="_blank" rel="noopener noreferrer">
@@ -130,8 +138,7 @@ export function DocsLayout() {
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
-                        paddingX: "1rem",
-                        paddingY: "0.5rem",
+                        padding: "1rem",
                         backgroundColor: "background",
                     })}
                 >
@@ -141,8 +148,8 @@ export function DocsLayout() {
                             maxWidth: "xl",
                             display: "flex",
                             alignItems: "center",
+                            flexWrap: "wrap",
                             gap: "0.25rem",
-                            overflowX: "auto",
                         })}
                     >
                         {Object.values(docSections).map((section) => (
@@ -161,7 +168,6 @@ export function DocsLayout() {
                     alignItems: "center",
                     backgroundColor: "white",
                     flex: "1",
-                    padding: "1rem",
                 })}
             >
                 <div
@@ -176,16 +182,22 @@ export function DocsLayout() {
                     <aside
                         className={cx(
                             css({
-                                width: "16rem",
                                 borderRight: "1px solid",
                                 borderRightColor: "neutral/10",
                                 overflowY: "auto",
                                 flexShrink: 0,
-                                display: "flex",
+                                display: { base: "none", md: "flex" },
+                                padding: "1rem",
                             }),
                         )}
                     >
-                        <SidebarNavigation navigation={currentSection.navigation} pathname={pathname} />
+                        <SidebarNavigation
+                            navigation={currentSection.navigation}
+                            pathname={pathname}
+                            onClick={() => {
+                                setIsMenuOpen(false)
+                            }}
+                        />
                     </aside>
 
                     {/* Main content */}
@@ -194,15 +206,39 @@ export function DocsLayout() {
                             flex: "1",
                             minWidth: "0",
                             display: "flex",
+                            flexDirection: "column",
                             justifyContent: "start",
                         })}
                     >
                         <div
                             className={css({
+                                display: { base: "flex", md: "none" },
+                                flexDirection: "column",
+                                justifyContent: "start",
+                                alignItems: "start",
+                                gap: "0.5rem",
                                 width: "100%",
-                                paddingX: { base: "1rem", md: "2rem" },
-                                paddingY: { base: "1.5rem", md: "2rem" },
-                                paddingRight: { base: "1rem", md: "0" },
+                                padding: "1rem",
+                                borderBottom: "1px solid",
+                                borderBottomColor: "neutral/10",
+                            })}
+                        >
+                            <Button
+                                aria-label="Menu"
+                                onClick={() => {
+                                    setIsMenuOpen(!isMenuOpen)
+                                }}
+                            >
+                                <ButtonGhostContent leftIcon={<IconMenu />} />
+                            </Button>
+                            {isMenuOpen === false ? null : (
+                                <SidebarNavigation navigation={currentSection.navigation} pathname={pathname} />
+                            )}
+                        </div>
+                        <div
+                            className={css({
+                                width: "100%",
+                                padding: { base: "1rem", md: "2rem" },
                             })}
                         >
                             <Outlet />

@@ -1,133 +1,170 @@
-import { settleIncomeStatementRouteDefinition } from "@arrhes/application-metadata"
+import { generateId, models, settleIncomeStatementRouteDefinition } from "@arrhes/application-metadata"
+import { and, eq } from "drizzle-orm"
 import { checkUserSessionMiddleware } from "../../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../../utilities/apiFactory.js"
+import { Exception } from "../../../../../utilities/exception.js"
 import { response } from "../../../../../utilities/response.js"
+import { deleteMany } from "../../../../../utilities/sql/deleteMany.js"
+import { insertMany } from "../../../../../utilities/sql/insertMany.js"
+import { insertOne } from "../../../../../utilities/sql/insertOne.js"
+import { selectMany } from "../../../../../utilities/sql/selectMany.js"
+import { selectOne } from "../../../../../utilities/sql/selectOne.js"
 
 export const settleIncomeStatementRoute = apiFactory
     .createApp()
     .post(settleIncomeStatementRouteDefinition.path, async (c) => {
-        await checkUserSessionMiddleware({ context: c })
-        const _body = await validateBodyMiddleware({
+        const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+        const body = await validateBodyMiddleware({
             context: c,
             schema: settleIncomeStatementRouteDefinition.schemas.body,
         })
 
-        // // Check if sheet is balanced
-        // let totalAssets = 0
-        // let totalLiabilities = 0
-        // readAccountSheets.forEach((accountSheet) => {
-        //     if (accountSheet.sheet.side === "asset") return totalAssets += Number(accountSheet.sheet.gross) - Number(accountSheet.sheet.allowance)
-        //     if (accountSheet.sheet.side === "liability") return totalLiabilities += Number(accountSheet.sheet.gross) - Number(accountSheet.sheet.allowance)
-        // })
-        // if (totalAssets !== totalLiabilities + yearResult) throw new HTTPException(400, { message: "Le bilan n'est pas équilibré" })
+        const year = await selectOne({
+            database: c.var.clients.sql,
+            table: models.year,
+            where: (table) => and(eq(table.idOrganization, idOrganization), eq(table.id, body.idYear)),
+        })
 
-        // await db.transaction(async (tx) => {
+        await c.var.clients.sql.transaction(async (tx) => {
+            // Delete any previous income-statement closing entries for this journal+year
+            await deleteMany({
+                database: tx,
+                table: models.entry,
+                where: (table) =>
+                    and(
+                        eq(table.idOrganization, idOrganization),
+                        eq(table.idYear, body.idYear),
+                        eq(table.idJournal, body.idJournalClosing),
+                    ),
+            })
 
-        //     // We delete the previsou record if existing
-        //     await tx
-        //         .delete(records)
-        //         .where(and(
-        //             eq(records.idOrganization, user.idOrganization),
-        //             eq(records.idYear, c.var.currentYear.id),
-        //             eq(records.idAutomatic, "COMPUTE_RESULT")
-        //         ))
+            // Fetch all income-statement entry lines for this year
+            const entryLines = await selectMany({
+                database: tx,
+                table: models.entryLine,
+                where: (table) =>
+                    and(
+                        eq(table.idOrganization, idOrganization),
+                        eq(table.idYear, body.idYear),
+                        eq(table.isComputedForIncomeStatementReport, true),
+                    ),
+            })
 
-        //     // Add result record
-        //     const [createRecord] = await tx
-        //         .insert(records)
-        //         .values({
-        //             id: generateId(),
-        //             idOrganization: c.var.organization.id,
-        //             idYear: c.var.currentYear.id,
-        //             idJournal: body.idJournalClosing,
-        //             idAutomatic: "COMPUTE_RESULT",
-        //             isValidated: true,
-        //             isComputed: false,
-        //             label: "Solde des comptes de gestion",
-        //             date: c.var.currentYear.endingOn,
-        //             validatedOn: c.var.currentYear.endingOn,
-        //             lastUpdatedBy: user.id,
-        //             createdBy: user.id
-        //         })
-        //         .returning()
+            // Fetch all income-statement accounts for this year
+            const accounts = await selectMany({
+                database: tx,
+                table: models.account,
+                where: (table) =>
+                    and(
+                        eq(table.idOrganization, idOrganization),
+                        eq(table.idYear, body.idYear),
+                        eq(table.type, "income-statement"),
+                    ),
+            })
 
-        //     // We read the current accounts
-        //     const readAccounts = await tx.query.accounts.findMany({
-        //         where: and(
-        //             eq(accounts.idOrganization, user.idOrganization),
-        //             eq(accounts.idYear, c.var.currentYear.id),
-        //             eq(accounts.type, "statement")
-        //         ),
-        //         with: {
-        //             rows: {
-        //                 with: {
-        //                     record: true
-        //                 }
-        //             },
-        //             accountStatements: true
-        //         }
-        //     })
+            // Build closing lines: reverse each account balance (skip class/2-digit accounts)
+            const closingLines: Array<typeof models.entryLine.$inferInsert> = []
 
-        //     // Add closing rows
-        //     const statementRows: Array<(typeof rows.$inferInsert)> = []
-        //     readAccounts.forEach((account) => {
+            for (const account of accounts) {
+                if (account.number.length <= 2) continue
 
-        //         const sum = {
-        //             debit: 0,
-        //             credit: 0
-        //         }
+                let totalDebit = 0
+                let totalCredit = 0
+                for (const line of entryLines) {
+                    if (line.idAccount !== account.id) continue
+                    totalDebit += Number(line.debit)
+                    totalCredit += Number(line.credit)
+                }
 
-        //         account.rows.forEach((row) => {
-        //             if (!row.record.isComputed) return
-        //             sum.debit += Number(row.debit)
-        //             sum.credit += Number(row.credit)
-        //         })
+                const algebraicBalance = totalDebit - totalCredit
+                if (Math.abs(algebraicBalance) < 0.01) continue
 
-        //         const algebricBalance = Number(sum.debit) - Number(sum.credit)
-        //         if (Math.abs(algebricBalance) < 0.01) return
-        //         const balance = {
-        //             debit: (algebricBalance > 0) ? algebricBalance : 0,
-        //             credit: (algebricBalance < 0) ? -algebricBalance : 0
-        //         }
-        //         statementRows.push({
-        //             id: generateId(),
-        //             idOrganization: c.var.organization.id,
-        //             idYear: c.var.currentYear.id,
-        //             idRecord: createRecord.id,
-        //             idAccount: account.id,
-        //             debit: balance.credit.toString(),
-        //             credit: balance.debit.toString(),
-        //             label: "Solde du compte",
-        //             lastUpdatedBy: user.id,
-        //             createdBy: user.id
-        //         })
-        //     })
-        //     const algebricBalance = statementRows.reduce((sum, row) => sum + Number(row.debit), 0) - statementRows.reduce((sum, row) => sum + Number(row.credit), 0)
-        //     const balance = {
-        //         debit: (algebricBalance > 0) ? algebricBalance : 0,
-        //         credit: (algebricBalance < 0) ? -algebricBalance : 0
-        //     }
+                closingLines.push({
+                    id: generateId(),
+                    idOrganization: idOrganization,
+                    idYear: body.idYear,
+                    idEntry: "", // filled after entry creation below
+                    idAccount: account.id,
+                    isComputedForJournalReport: true,
+                    isComputedForLedgerReport: true,
+                    isComputedForBalanceReport: true,
+                    isComputedForBalanceSheetReport: false,
+                    isComputedForIncomeStatementReport: false,
+                    label: "Solde du compte",
+                    debit: algebraicBalance < 0 ? String((-algebraicBalance).toFixed(2)) : "0.00",
+                    credit: algebraicBalance > 0 ? String(algebraicBalance.toFixed(2)) : "0.00",
+                    createdAt: new Date().toISOString(),
+                    lastUpdatedAt: null,
+                    createdBy: user.id,
+                    lastUpdatedBy: null,
+                })
+            }
 
-        //     if (statementRows.length === 0) throw new HTTPException(400, { message: "Aucune écriture ne peut être passée" })
-        //     await tx
-        //         .insert(rows)
-        //         .values([
-        //             ...statementRows,
-        //             {
-        //                 id: generateId(),
-        //                 idOrganization: c.var.organization.id,
-        //                 idYear: c.var.currentYear.id,
-        //                 idRecord: createRecord.id,
-        //                 idAccount: (algebricBalance < 0) ? body.idAccountLoss : body.idAccountProfit,
-        //                 debit: balance.credit.toString(),
-        //                 credit: balance.debit.toString(),
-        //                 label: "Résultat de l'exercice",
-        //                 lastUpdatedBy: user.id,
-        //                 createdBy: user.id
-        //             }
-        //         ])
-        // })
+            if (closingLines.length === 0) {
+                throw new Exception({
+                    statusCode: 400,
+                    internalMessage: "No income-statement entries to close",
+                    cause: "Aucune écriture de gestion ne peut être passée",
+                })
+            }
+
+            // Net result = sum of closing debits − credits
+            const resultDebit = closingLines.reduce((s, l) => s + Number(l.debit), 0)
+            const resultCredit = closingLines.reduce((s, l) => s + Number(l.credit), 0)
+            const algebraicResult = resultDebit - resultCredit
+
+            // Create the closing entry
+            const closingEntry = await insertOne({
+                database: tx,
+                table: models.entry,
+                data: {
+                    id: generateId(),
+                    idOrganization: idOrganization,
+                    idYear: body.idYear,
+                    idJournal: body.idJournalClosing,
+                    idFile: null,
+                    label: "Solde des comptes de gestion",
+                    date: year.endingAt,
+                    createdAt: new Date().toISOString(),
+                    lastUpdatedAt: null,
+                    createdBy: user.id,
+                    lastUpdatedBy: null,
+                },
+            })
+
+            // Assign entry id to all closing lines
+            for (const line of closingLines) {
+                line.idEntry = closingEntry.id
+            }
+
+            // Append result line (compte 120 / 129)
+            closingLines.push({
+                id: generateId(),
+                idOrganization: idOrganization,
+                idYear: body.idYear,
+                idEntry: closingEntry.id,
+                idAccount: algebraicResult < 0 ? body.idAccountLoss : body.idAccountProfit,
+                isComputedForJournalReport: true,
+                isComputedForLedgerReport: true,
+                isComputedForBalanceReport: true,
+                isComputedForBalanceSheetReport: true,
+                isComputedForIncomeStatementReport: false,
+                label: "Résultat de l'exercice",
+                debit: algebraicResult > 0 ? String(algebraicResult.toFixed(2)) : "0.00",
+                credit: algebraicResult < 0 ? String((-algebraicResult).toFixed(2)) : "0.00",
+                createdAt: new Date().toISOString(),
+                lastUpdatedAt: null,
+                createdBy: user.id,
+                lastUpdatedBy: null,
+            })
+
+            await insertMany({
+                database: tx,
+                table: models.entryLine,
+                data: closingLines,
+            })
+        })
 
         return response({
             context: c,

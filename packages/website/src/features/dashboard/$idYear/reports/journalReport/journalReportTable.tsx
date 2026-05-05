@@ -1,28 +1,25 @@
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { FormatDate, FormatNull, FormatPrice, FormatText } from "@arrhes/ui"
 import { css, cx } from "@arrhes/ui/utilities/cn.js"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { Fragment, useRef } from "react"
 import type * as v from "valibot"
-import { FormatDate } from "../../../../../components/formats/formatDate.tsx"
-import { FormatNull } from "../../../../../components/formats/formatNull.tsx"
-import { FormatPrice } from "../../../../../components/formats/formatPrice.tsx"
-import { FormatText } from "../../../../../components/formats/formatText.tsx"
 import { Table } from "../../../../../components/layouts/table/table.tsx"
 import { compareAmounts } from "../../../../../utilities/compareAmounts.ts"
 
 export function JournalReportTable(props: {
-    records: Array<v.InferOutput<typeof returnedSchemas.record>>
-    recordRows: Array<v.InferOutput<typeof returnedSchemas.recordRow>>
+    entries: Array<v.InferOutput<typeof returnedSchemas.entry>>
+    entryLines: Array<v.InferOutput<typeof returnedSchemas.entryLine>>
     accounts: Map<string, v.InferOutput<typeof returnedSchemas.account>>
 }) {
-    const recordRows = props.recordRows
+    const entryLines = props.entryLines
     const scrollContainerRef = useRef<HTMLDivElement>(null)
 
-    const totalDebit = recordRows.reduce((acc, recordRow) => acc + Number(recordRow.debit), 0)
-    const totalCredit = recordRows.reduce((acc, recordRow) => acc + Number(recordRow.credit), 0)
+    const totalDebit = entryLines.reduce((acc, entryLine) => acc + Number(entryLine.debit), 0)
+    const totalCredit = entryLines.reduce((acc, entryLine) => acc + Number(entryLine.credit), 0)
 
     const virtualizer = useVirtualizer({
-        count: props.records.length,
+        count: props.entries.length,
         getScrollElement: () => scrollContainerRef.current,
         estimateSize: () => 120,
         measureElement: (element) => element.getBoundingClientRect().height,
@@ -84,7 +81,7 @@ export function JournalReportTable(props: {
                         </Table.Body.Cell>
                     </Table.Body.Row>
                 </Table.Body.Root>
-                {props.records.length === 0 ? (
+                {props.entries.length === 0 ? (
                     <Table.Body.Root
                         className={css({
                             borderBottom: "1px solid token(colors.neutral/10)",
@@ -107,17 +104,17 @@ export function JournalReportTable(props: {
                             </tbody>
                         )}
                         {virtualItems.map((virtualItem) => {
-                            const record = props.records[virtualItem.index]
-                            const sortedRecordRows = recordRows
-                                .filter((recordRow) => recordRow.idRecord === record.id)
+                            const entry = props.entries[virtualItem.index]
+                            const sortedEntryLines = entryLines
+                                .filter((entryLine) => entryLine.idEntry === entry.id)
                                 .sort((a, b) => (a.lastUpdatedAt ?? "").localeCompare(b.lastUpdatedAt ?? ""))
 
-                            const recordTotalDebit = sortedRecordRows.reduce(
-                                (acc, recordRow) => acc + Number(recordRow.debit),
+                            const entryTotalDebit = sortedEntryLines.reduce(
+                                (acc, entryLine) => acc + Number(entryLine.debit),
                                 0,
                             )
-                            const recordTotalCredit = sortedRecordRows.reduce(
-                                (acc, recordRow) => acc + Number(recordRow.credit),
+                            const entryTotalCredit = sortedEntryLines.reduce(
+                                (acc, entryLine) => acc + Number(entryLine.credit),
                                 0,
                             )
 
@@ -137,19 +134,19 @@ export function JournalReportTable(props: {
                                         )}
                                     >
                                         <Table.Body.Cell>
-                                            <FormatDate className={css({ fontStyle: "italic" })} date={record.date} />
+                                            <FormatDate className={css({ fontStyle: "italic" })} date={entry.date} />
                                         </Table.Body.Cell>
                                         <Table.Body.Cell colSpan={2}>
-                                            <FormatText wrap={true}>{record.label}</FormatText>
+                                            <FormatText wrap={true}>{entry.label}</FormatText>
                                         </Table.Body.Cell>
                                         <Table.Body.Cell className={css({ width: "[1%]" })} align="right">
                                             <FormatPrice
-                                                price={recordTotalDebit}
+                                                price={entryTotalDebit}
                                                 className={cx(
                                                     css({ fontWeight: "bold" }),
                                                     compareAmounts({
-                                                        a: recordTotalDebit,
-                                                        b: recordTotalCredit,
+                                                        a: entryTotalDebit,
+                                                        b: entryTotalCredit,
                                                     })
                                                         ? ""
                                                         : css({ color: "error" }),
@@ -158,12 +155,12 @@ export function JournalReportTable(props: {
                                         </Table.Body.Cell>
                                         <Table.Body.Cell className={css({ width: "[1%]" })} align="right">
                                             <FormatPrice
-                                                price={recordTotalCredit}
+                                                price={entryTotalCredit}
                                                 className={cx(
                                                     css({ fontWeight: "bold" }),
                                                     compareAmounts({
-                                                        a: recordTotalDebit,
-                                                        b: recordTotalCredit,
+                                                        a: entryTotalDebit,
+                                                        b: entryTotalCredit,
                                                     })
                                                         ? css({ color: "neutral" })
                                                         : css({ color: "error" }),
@@ -173,14 +170,14 @@ export function JournalReportTable(props: {
                                     </Table.Body.Row>
                                     {/* biome-ignore lint/complexity/noUselessFragments: Fragment needed for TypeScript type compatibility with Table.Body.Root children */}
                                     <Fragment>
-                                        {sortedRecordRows.map((recordRow) => {
-                                            const account = props.accounts.get(recordRow.idAccount)
+                                        {sortedEntryLines.map((entryLine) => {
+                                            const account = props.accounts.get(entryLine.idAccount)
 
                                             return (
-                                                <Table.Body.Row key={recordRow.id}>
+                                                <Table.Body.Row key={entryLine.id}>
                                                     <Table.Body.Cell />
                                                     <Table.Body.Cell>
-                                                        <FormatText wrap={true}>{recordRow.label}</FormatText>
+                                                        <FormatText wrap={true}>{entryLine.label}</FormatText>
                                                     </Table.Body.Cell>
                                                     <Table.Body.Cell>
                                                         <div
@@ -213,10 +210,10 @@ export function JournalReportTable(props: {
                                                         </div>
                                                     </Table.Body.Cell>
                                                     <Table.Body.Cell className={css({ width: "[1%]" })} align="right">
-                                                        <FormatPrice price={recordRow.debit} />
+                                                        <FormatPrice price={entryLine.debit} />
                                                     </Table.Body.Cell>
                                                     <Table.Body.Cell className={css({ width: "[1%]" })} align="right">
-                                                        <FormatPrice price={recordRow.credit} />
+                                                        <FormatPrice price={entryLine.credit} />
                                                     </Table.Body.Cell>
                                                 </Table.Body.Row>
                                             )

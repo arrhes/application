@@ -235,9 +235,10 @@ metadata/src/
 │   ├── journal.ts
 │   ├── organization.ts
 │   ├── organizationUser.ts
-│   ├── record.ts       # Ecritures comptables
-│   ├── recordLabel.ts  # Labels d'ecritures
-│   ├── recordRow.ts    # Lignes d'ecriture
+│   ├── entry.ts        # Ecritures comptables
+│   ├── entryLine.ts    # Lignes d'ecriture
+│   ├── entryTag.ts     # Table de jointure entree-tag
+│   ├── tag.ts          # Tags d'ecritures
 │   ├── user.ts
 │   ├── userSession.ts
 │   └── year.ts
@@ -357,9 +358,9 @@ tools/src/
 └── seed/               # Scripts de seed
     ├── seed.ts         # Seed principal
     ├── migration.ts    # Migrations de donnees
-    ├── recordRows.ts   # Lignes d'ecritures
-    ├── records2022.ts  # Donnees exemple 2022
-    └── records2023.ts  # Donnees exemple 2023
+    ├── entryLines.ts    # Lignes d'ecritures
+    ├── entries2022.ts   # Donnees exemple 2022
+    └── entries2023.ts   # Donnees exemple 2023
 ```
 
 **Responsabilites :**
@@ -542,9 +543,10 @@ Le schema PostgreSQL contient les tables suivantes (via Drizzle ORM) :
 - `year` : Exercices comptables
 - `account` : Plan comptable
 - `journal` : Journaux comptables
-- `record` : Ecritures comptables
-- `recordRow` : Lignes d'ecriture (debit/credit)
-- `recordLabel` : Labels d'ecritures
+- `entry` : Ecritures comptables
+- `entryLine` : Lignes d'ecriture (debit/credit)
+- `tag` : Tags d'ecritures
+- `entryTag` : Table de jointure entree-tag
 - `document` : Documents comptables
 - `file` : Pieces justificatives
 
@@ -564,12 +566,12 @@ organization 1──n organizationUser n──1 user
      ├── 1──n journal
      └── 1──n document
               │
-              └── 1──n record
+              └── 1──n entry
                        │
-                       ├── 1──n recordRow
+                       ├── 1──n entryLine
                        │            │
                        │            └── n──1 account
-                       └── n──n recordLabel
+                       └── n──n tag (via entryTag)
 ```
 
 ### Migrations

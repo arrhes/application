@@ -6,6 +6,8 @@ export const gettingStartedDashboardDocRoute = createRoute({
     path: "/démarrage",
     beforeLoad: () => ({
         title: "Démarrage",
+        description:
+            "Guide de démarrage rapide d'Arrhes : créez votre compte, configurez votre première organisation et commencez votre comptabilité.",
     }),
     component: lazyRouteComponent(
         () => import("../../../../features/docs/dashboard/gettingStartedDashboardDocPage.tsx"),

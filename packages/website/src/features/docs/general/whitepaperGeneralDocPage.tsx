@@ -50,7 +50,7 @@ export function WhitepaperGeneralDocPage() {
                         pour les gens qui veulent faire leur comptabilité sans être experts du domaine.
                     </p>
                     <p>
-                        À terme, nous voulons qu'Arrhes devienne la référence open source de la comptabilité en France —
+                        À terme, nous voulons qu'Arrhes devienne la référence open source de la comptabilité en France -
                         un outil moderne, transparent et communautaire, soutenu par un modèle économique sain. Un outil
                         dont la communauté est fière, parce qu'elle contribue à le rendre meilleur chaque jour.
                     </p>
@@ -90,8 +90,8 @@ export function WhitepaperGeneralDocPage() {
                         ce qui nous coûte cher à fournir.
                     </p>
                     <p>
-                        Toute la comptabilité — saisie des écritures, plan comptable, bilan, compte de résultat, gestion
-                        des pièces jointes — est accessible gratuitement. Nous ne croyons pas aux limitations
+                        Toute la comptabilité - saisie des écritures, plan comptable, bilan, compte de résultat, gestion
+                        des pièces jointes - est accessible gratuitement. Nous ne croyons pas aux limitations
                         artificielles qui frustrent les utilisateurs pour les pousser à payer.
                     </p>
                     <p>

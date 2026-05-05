@@ -13,9 +13,8 @@ export function TooltipContent(props: ComponentProps<typeof TooltipPrimitive.Con
                     overflowY: "auto",
                     maxWidth: "xs",
                     borderRadius: "md",
-                    backgroundColor: "white",
-                    px: "4",
-                    py: "3",
+                    backgroundColor: "neutral",
+                    padding: "0.5rem",
                     fontSize: "xs",
                     "&[data-state=open]": {
                         animation: "fadeIn 0.2s ease-out, zoomIn 0.2s ease-out",
@@ -27,6 +26,14 @@ export function TooltipContent(props: ComponentProps<typeof TooltipPrimitive.Con
                 props.className,
             )}
             {...props}
-        />
+        >
+            <span
+                className={css({
+                    color: "white",
+                })}
+            >
+                {props.children}
+            </span>
+        </TooltipPrimitive.Content>
     )
 }

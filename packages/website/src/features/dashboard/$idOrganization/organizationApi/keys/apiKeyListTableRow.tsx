@@ -1,9 +1,8 @@
 import type { readAllApiKeysRouteDefinition } from "@arrhes/application-metadata/routes"
-import { ButtonOutlineContent } from "@arrhes/ui"
+import { ButtonOutlineContent, Chip } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconTrash } from "@tabler/icons-react"
 import type * as v from "valibot"
-import { Chip } from "../../../../../components/layouts/chip.tsx"
 import { ListTable } from "../../../../../components/layouts/listTable/listTable.tsx"
 import { DeleteOneApiKey } from "./deleteOneApiKey.tsx"
 

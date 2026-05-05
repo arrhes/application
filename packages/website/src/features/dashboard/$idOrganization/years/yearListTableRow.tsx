@@ -1,9 +1,7 @@
 import type { readAllYearsRouteDefinition } from "@arrhes/application-metadata/routes"
-import { LinkContent } from "@arrhes/ui"
+import { Chip, formatDate, LinkContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import type * as v from "valibot"
-import { formatDate } from "../../../../components/formats/formatDate.tsx"
-import { Chip } from "../../../../components/layouts/chip.tsx"
 import { ListTable } from "../../../../components/layouts/listTable/listTable.tsx"
 import { LinkButton } from "../../../../components/linkButton.tsx"
 
@@ -59,7 +57,7 @@ export function YearListTableRow(props: {
                 </div>
                 <div className={css({ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" })}>
                     <span className={css({ fontSize: "xs", color: "neutral/50" })}>
-                        {startDate} — {endDate}
+                        {startDate} - {endDate}
                     </span>
                 </div>
             </div>

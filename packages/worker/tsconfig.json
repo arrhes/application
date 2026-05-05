@@ -1,0 +1,55 @@
+{
+    "compilerOptions": {
+        "jsx": "react-jsx",
+        "jsxImportSource": "hono/jsx",
+        "target": "ESNext",
+        "noImplicitAny": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "strictNullChecks": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true,
+        "outDir": "build",
+        "rootDir": "./src",
+        "baseUrl": "./",
+        "paths": {
+            "#src/*": ["src/*"]
+        }
+    },
+    "exclude": [
+        "node_modules",
+        "build",
+        "src/test.ts",
+        "src/test2.ts",
+        "src/jobs/generateAuthEngineRequestAnswerStream",
+        "src/jobs/generateAuthEngineRequestFollowUpAnswerStream",
+        "src/jobs/generatePublicEngineRequestAnswerStream",
+        "src/utilities/engine",
+        "src/utilities/prompts",
+        "src/utilities/storage"
+    ],
+    "include": [
+        "./src/clients/**/*",
+        "./src/jobs/runAgentSession/**/*",
+        "./src/utilities/contextEnv.ts",
+        "./src/utilities/exception.ts",
+        "./src/utilities/handleShutdown.ts",
+        "./src/utilities/recoverStuckJobs.ts",
+        "./src/utilities/validate.ts",
+        "./src/utilities/variables.ts",
+        "./src/utilities/json/**/*",
+        "./src/utilities/math/**/*",
+        "./src/utilities/queue/**/*",
+        "./src/utilities/schemas/**/*",
+        "./src/utilities/sql/**/*",
+        "./src/main.ts",
+        "./src/startWorker.ts"
+    ]
+}

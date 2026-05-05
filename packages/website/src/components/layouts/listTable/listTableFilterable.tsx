@@ -1,11 +1,10 @@
+import { InputDebounced, InputText } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { type ReactElement, useMemo, useState } from "react"
-import { InputDebounced } from "../../inputs/inputDebounced.js"
-import { InputText } from "../../inputs/inputText.js"
-import { FilterPopover } from "../filterPopover.js"
+import { type FilterColumn, FilterPopover } from "../filterPopover.js"
 import { type SortDirection, SortPopover } from "../sortPopover.js"
 
-export type ListTableColumn<TItem> = {
+export type ListTableColumn<TItem> = FilterColumn & {
     id: string
     header: string
     accessor: (item: TItem) => string | number | undefined | null
@@ -40,7 +39,17 @@ export function ListTableFilterable<TItem>(props: {
             const lower = filterValue.toLowerCase()
             result = result.filter((item) => {
                 const value = column.accessor(item)
-                return value !== undefined && value !== null && String(value).toLowerCase().includes(lower)
+                if (value === undefined || value === null) {
+                    return false
+                }
+
+                const normalizedValue = String(value).toLowerCase()
+
+                if (column.filterVariant === "combobox") {
+                    return normalizedValue === lower
+                }
+
+                return normalizedValue.includes(lower)
             })
         }
 

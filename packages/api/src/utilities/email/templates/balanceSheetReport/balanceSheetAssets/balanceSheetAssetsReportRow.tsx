@@ -28,7 +28,7 @@ export function BalanceSheetAssetsReportRow(props: {
                 </Table.Body.Cell>
                 <Table.Body.Cell align="right">
                     {props.isAmountDisplayed === true ? (
-                        <PriceFormat price={props.grossAmount - props.amortizationAmount} />
+                        <PriceFormat price={props.grossAmount + props.amortizationAmount} />
                     ) : null}
                 </Table.Body.Cell>
             </Table.Body.Row>

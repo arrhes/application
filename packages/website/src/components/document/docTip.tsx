@@ -1,6 +1,6 @@
 import { sva } from "@arrhes/ui/css"
 import { IconAlertTriangle, IconBulb, IconCircleCheck, IconInfoCircle } from "@tabler/icons-react"
-import type { ReactNode } from "react"
+import type { ComponentType, ReactNode } from "react"
 
 const docTipRecipe = sva({
     slots: ["container", "header", "iconWrapper", "icon", "label", "content"],
@@ -9,7 +9,7 @@ const docTipRecipe = sva({
             padding: "1.25rem",
             borderRadius: "lg",
             border: "1px solid",
-            borderLeft: "3px solid",
+            // borderLeft: "3px solid",
             display: "flex",
             flexDirection: "column",
             gap: "1rem",
@@ -38,6 +38,11 @@ const docTipRecipe = sva({
             fontSize: "sm",
             color: "neutral/70",
             lineHeight: "1.6",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "start",
+            alignItems: "start",
+            gap: "1rem",
         },
     },
     variants: {
@@ -45,8 +50,7 @@ const docTipRecipe = sva({
             tip: {
                 container: {
                     backgroundColor: "warning/5",
-                    borderColor: "warning/10",
-                    borderLeftColor: "warning",
+                    borderColor: "warning/20",
                 },
                 icon: { stroke: "warning" },
                 label: { color: "warning" },
@@ -54,8 +58,7 @@ const docTipRecipe = sva({
             warning: {
                 container: {
                     backgroundColor: "error/5",
-                    borderColor: "error/10",
-                    borderLeftColor: "error",
+                    borderColor: "error/20",
                 },
                 icon: { stroke: "error" },
                 label: { color: "error" },
@@ -63,8 +66,7 @@ const docTipRecipe = sva({
             info: {
                 container: {
                     backgroundColor: "information/5",
-                    borderColor: "information/10",
-                    borderLeftColor: "information",
+                    borderColor: "information/20",
                 },
                 icon: { stroke: "information" },
                 label: { color: "information" },
@@ -72,11 +74,18 @@ const docTipRecipe = sva({
             success: {
                 container: {
                     backgroundColor: "success/5",
-                    borderColor: "success/10",
-                    borderLeftColor: "success",
+                    borderColor: "success/20",
                 },
                 icon: { stroke: "success" },
                 label: { color: "success" },
+            },
+            neutral: {
+                container: {
+                    backgroundColor: "white",
+                    borderColor: "neutral/15",
+                },
+                icon: { stroke: "neutral/50" },
+                label: { color: "neutral/50" },
             },
         },
     },
@@ -90,6 +99,7 @@ const variantIcons = {
     warning: IconAlertTriangle,
     info: IconInfoCircle,
     success: IconCircleCheck,
+    neutral: IconInfoCircle,
 } as const
 
 const variantLabels = {
@@ -97,17 +107,19 @@ const variantLabels = {
     warning: "Attention",
     info: "Information",
     success: "Félicitations",
+    neutral: "Note",
 } as const
 
 export function DocTip(props: {
-    variant?: "tip" | "warning" | "info" | "success"
-    label?: string
+    variant?: "tip" | "warning" | "info" | "success" | "neutral"
+    title?: string
+    icon?: ComponentType<{ className?: string }>
     children: ReactNode
 }) {
     const variant = props.variant ?? "tip"
     const classes = docTipRecipe({ variant })
-    const Icon = variantIcons[variant]
-    const label = props.label ?? variantLabels[variant]
+    const Icon = props.icon ?? variantIcons[variant]
+    const label = props.title ?? variantLabels[variant]
 
     return (
         <div className={classes.container}>
@@ -117,7 +129,7 @@ export function DocTip(props: {
                 </div>
                 <span className={classes.label}>{label}</span>
             </div>
-            <span className={classes.content}>{props.children}</span>
+            <div className={classes.content}>{props.children}</div>
         </div>
     )
 }

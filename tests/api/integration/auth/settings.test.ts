@@ -127,3 +127,51 @@ describe("POST /auth/update-user-password", () => {
         expect(response.status).toBe(401)
     })
 })
+
+describe("POST /auth/update-user-email", () => {
+    it("rejects unauthenticated requests", async () => {
+        const response = await apiRequest({
+            path: "/auth/update-user-email",
+            body: { currentPassword: "demo", emailToValidate: "new@example.com" },
+        })
+        expect(response.status).toBe(401)
+    })
+
+    it("rejects requests with empty body", async () => {
+        const response = await authenticatedRequest({
+            session,
+            path: "/auth/update-user-email",
+            body: {},
+        })
+        expect(response.status).toBe(400)
+    })
+
+    it("rejects an incorrect current password", async () => {
+        const response = await authenticatedRequest({
+            session,
+            path: "/auth/update-user-email",
+            body: { currentPassword: "wrong_password", emailToValidate: "new@example.com" },
+        })
+        expect(response.status).toBe(400)
+    })
+})
+
+describe("POST /auth/resend-email-validation", () => {
+    it("rejects unauthenticated requests", async () => {
+        const response = await apiRequest({
+            path: "/auth/resend-email-validation",
+            body: {},
+        })
+        expect(response.status).toBe(401)
+    })
+
+    it("returns 400 when there is no pending email change", async () => {
+        // The demo user has no pending emailToValidate, so this should fail
+        const response = await authenticatedRequest({
+            session,
+            path: "/auth/resend-email-validation",
+            body: {},
+        })
+        expect(response.status).toBe(400)
+    })
+})

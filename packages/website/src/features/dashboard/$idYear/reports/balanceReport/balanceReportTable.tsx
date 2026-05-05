@@ -1,15 +1,13 @@
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { FormatNull, FormatPrice, FormatText } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { Fragment, useMemo, useRef } from "react"
 import type * as v from "valibot"
-import { FormatNull } from "../../../../../components/formats/formatNull.tsx"
-import { FormatPrice } from "../../../../../components/formats/formatPrice.tsx"
-import { FormatText } from "../../../../../components/formats/formatText.tsx"
 import { Table } from "../../../../../components/layouts/table/table.tsx"
 
 export function BalanceReportTable(props: {
-    recordRows: Array<v.InferOutput<typeof returnedSchemas.recordRow>>
+    entryLines: Array<v.InferOutput<typeof returnedSchemas.entryLine>>
     accounts: Array<v.InferOutput<typeof returnedSchemas.account>>
 }) {
     const scrollContainerRef = useRef<HTMLDivElement>(null)
@@ -19,22 +17,22 @@ export function BalanceReportTable(props: {
         [props.accounts],
     )
 
-    const recordRowsByAccount = useMemo(() => {
-        const map = new Map<string, Array<v.InferOutput<typeof returnedSchemas.recordRow>>>()
-        for (const recordRow of props.recordRows) {
-            const existing = map.get(recordRow.idAccount)
+    const entryLinesByAccount = useMemo(() => {
+        const map = new Map<string, Array<v.InferOutput<typeof returnedSchemas.entryLine>>>()
+        for (const entryLine of props.entryLines) {
+            const existing = map.get(entryLine.idAccount)
             if (existing) {
-                existing.push(recordRow)
+                existing.push(entryLine)
             } else {
-                map.set(recordRow.idAccount, [recordRow])
+                map.set(entryLine.idAccount, [entryLine])
             }
         }
         return map
-    }, [props.recordRows])
+    }, [props.entryLines])
 
     const accountsWithRows = useMemo(
-        () => sortedAccounts.filter((account) => (recordRowsByAccount.get(account.id)?.length ?? 0) > 0),
-        [sortedAccounts, recordRowsByAccount],
+        () => sortedAccounts.filter((account) => (entryLinesByAccount.get(account.id)?.length ?? 0) > 0),
+        [sortedAccounts, entryLinesByAccount],
     )
 
     const accountData = useMemo(() => {
@@ -54,13 +52,13 @@ export function BalanceReportTable(props: {
         >()
 
         for (const account of props.accounts) {
-            const rows = recordRowsByAccount.get(account.id) ?? []
+            const rows = entryLinesByAccount.get(account.id) ?? []
             let accountTotalDebit = 0
             let accountTotalCredit = 0
 
-            for (const recordRow of rows) {
-                accountTotalDebit += Number(recordRow.debit)
-                accountTotalCredit += Number(recordRow.credit)
+            for (const entryLine of rows) {
+                accountTotalDebit += Number(entryLine.debit)
+                accountTotalCredit += Number(entryLine.credit)
             }
 
             accountsTotalDebit += accountTotalDebit
@@ -93,7 +91,7 @@ export function BalanceReportTable(props: {
             },
             perAccount,
         }
-    }, [props.accounts, recordRowsByAccount])
+    }, [props.accounts, entryLinesByAccount])
 
     const virtualizer = useVirtualizer({
         count: accountsWithRows.length,

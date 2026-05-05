@@ -1,5 +1,5 @@
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@radix-ui/react-tooltip"
+import { Tooltip, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger } from "@radix-ui/react-tooltip"
 import { IconInfoSquare } from "@tabler/icons-react"
 import type { HTMLAttributes } from "react"
 import { useFormField } from "./useFormField.js"
@@ -86,25 +86,29 @@ export function FormLabel(props: FormLabel) {
                             tabIndex={-1}
                         >
                             <IconInfoSquare
-                                size={20}
+                                size={16}
                                 className={css({
-                                    color: "neutral/50",
-                                    _hover: { color: "neutral", fill: "neutral/5" },
+                                    stroke: "neutral/50",
+                                    _hover: { stroke: "neutral" },
                                 })}
                             />
                         </TooltipTrigger>
-                        <TooltipContent className={css({ backgroundColor: "neutral", padding: "1rem" })}>
-                            <p
-                                className={css({
-                                    overflowWrap: "break-word",
-                                    hyphens: "auto",
-                                    color: "white",
-                                    fontSize: "sm",
-                                })}
+                        <TooltipPortal>
+                            <TooltipContent
+                                className={css({ backgroundColor: "neutral", padding: "0.5rem", zIndex: "9999" })}
                             >
-                                {props.tooltip}
-                            </p>
-                        </TooltipContent>
+                                <p
+                                    className={css({
+                                        overflowWrap: "break-word",
+                                        hyphens: "auto",
+                                        color: "white",
+                                        fontSize: "sm",
+                                    })}
+                                >
+                                    {props.tooltip}
+                                </p>
+                            </TooltipContent>
+                        </TooltipPortal>
                     </Tooltip>
                 </TooltipProvider>
             )}

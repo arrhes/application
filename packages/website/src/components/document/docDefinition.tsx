@@ -1,69 +1,41 @@
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconBookmark } from "@tabler/icons-react"
 import type { ReactNode } from "react"
+import { DocTip } from "./docTip.js"
 
-export function DocDefinition(props: { term: string; definition: ReactNode }) {
+export function DocDefinition(props: { term?: string; children: ReactNode }) {
     return (
-        <div
-            className={css({
-                padding: "1.25rem",
-                borderRadius: "lg",
-                backgroundColor: "white",
-                border: "1px solid",
-                borderColor: "neutral/15",
-                borderLeft: "3px solid",
-                borderLeftColor: "neutral/15",
-                display: "flex",
-                flexDirection: "column",
-                gap: "0.25rem",
-            })}
-        >
+        <DocTip variant="neutral" title="Définition" icon={IconBookmark}>
             <div
                 className={css({
                     display: "flex",
-                    alignItems: "center",
-                    gap: "0.375rem",
-                    marginBottom: "0.25rem",
+                    flexDirection: "column",
+                    justifyContent: "start",
+                    alignItems: "start",
+                    gap: "0.5rem",
                 })}
             >
-                <IconBookmark
+                {props.term && (
+                    <dt
+                        className={css({
+                            fontWeight: "semibold",
+                            color: "neutral",
+                            fontSize: "sm",
+                        })}
+                    >
+                        {props.term}
+                    </dt>
+                )}
+                <dd
                     className={css({
-                        width: "0.875rem",
-                        height: "0.875rem",
-                        color: "primary/50",
-                        flexShrink: 0,
-                    })}
-                />
-                <span
-                    className={css({
-                        fontSize: "xs",
-                        fontWeight: "medium",
-                        color: "primary/60",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.05em",
+                        fontSize: "sm",
+                        color: "neutral/60",
+                        lineHeight: "1.6",
                     })}
                 >
-                    Définition
-                </span>
+                    {props.children}
+                </dd>
             </div>
-            <dt
-                className={css({
-                    fontWeight: "semibold",
-                    color: "neutral",
-                    fontSize: "sm",
-                })}
-            >
-                {props.term}
-            </dt>
-            <dd
-                className={css({
-                    fontSize: "sm",
-                    color: "neutral/60",
-                    lineHeight: "1.6",
-                })}
-            >
-                {props.definition}
-            </dd>
-        </div>
+        </DocTip>
     )
 }

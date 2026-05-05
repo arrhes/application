@@ -22,10 +22,11 @@ export async function api(parameters: {
             // Set logger
             .use(logger())
 
-            // Set env and clients
+            // Set env, clients, and appFetch for internal dispatch
             .use(async (c, next) => {
                 c.set("env", parameters.env)
                 c.set("clients", parameters.clients)
+                c.set("appFetch", async (request: Request) => api.fetch(request))
                 await next()
             })
 

@@ -1,5 +1,5 @@
 import { signUpRouteDefinition } from "@arrhes/application-metadata/routes"
-import { ButtonGhostContent, ButtonOutlineContent, Logo, Separator } from "@arrhes/ui"
+import { ButtonGhostContent, ButtonOutlineContent, InputPassword, InputText, Logo, Separator, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconBook2, IconLogin2, IconUserPlus } from "@tabler/icons-react"
 import { Fragment } from "react/jsx-runtime"
@@ -9,12 +9,10 @@ import { FormField } from "../../components/forms/formField.js"
 import { FormItem } from "../../components/forms/formItem.js"
 import { FormLabel } from "../../components/forms/formLabel.js"
 import { FormRoot } from "../../components/forms/formRoot.js"
-import { InputPassword } from "../../components/inputs/inputPassword.js"
-import { InputText } from "../../components/inputs/inputText.js"
 import { LinkButton } from "../../components/linkButton.js"
-import { toast } from "../../contexts/toasts/useToast.js"
-import { applicationRouter } from "../../routes/applicationRouter.js"
+import { setCookie } from "../../utilities/cookies/setCookie.js"
 import { getResponseBodyFromAPI } from "../../utilities/getResponseBodyFromAPI.js"
+import { cookiePrefix } from "../../utilities/variables.js"
 
 export function SignUpPage() {
     return (
@@ -66,7 +64,7 @@ export function SignUpPage() {
                         })}
                     >
                         <LinkButton to="/">
-                            <Logo />
+                            <ButtonGhostContent leftIcon={<Logo />} text="Dashboard" />
                         </LinkButton>
                         <LinkButton to="/documentation" title="Documentation">
                             <ButtonGhostContent
@@ -131,10 +129,9 @@ export function SignUpPage() {
                         }}
                         onCancel={undefined}
                         onSuccess={() => {
-                            applicationRouter.navigate({
-                                to: "/dashboard",
-                                reloadDocument: true,
-                            })
+                            // Mirror backend auth cookie to avoid a transient undefined state during immediate redirect.
+                            setCookie(`${cookiePrefix}_is_auth`, "true")
+                            window.location.assign("/dashboard")
                         }}
                     >
                         {(form) => (

@@ -22,7 +22,7 @@ This document outlines the business model strategy for Arrhes, an open-source do
 ### Free Features (Open-Source Core)
 
 - Full double-entry accounting
-- All journals, accounts, records
+- All journals, accounts, entries
 - Balance sheet & income statement
 - Document/file management
 - Multi-organization support

@@ -1,20 +1,70 @@
-import { ButtonOutlineContent } from "@arrhes/ui"
+import { readOrganizationBillingRouteDefinition } from "@arrhes/application-metadata/routes"
+import { ButtonOutlineContent, ButtonPlainContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconBrandGithub, IconBrandLinkedin, IconMail } from "@tabler/icons-react"
+import { IconBrandGithub, IconBrandLinkedin, IconMail, IconPlus } from "@tabler/icons-react"
+import { Banner } from "../../../components/layouts/banner.tsx"
 import { Box } from "../../../components/layouts/box.tsx"
 import { Page } from "../../../components/layouts/page/page.tsx"
-import { ContactSupportForm } from "./contactSupportForm.tsx"
+import { Section } from "../../../components/layouts/section/section.tsx"
+import { getCookie } from "../../../utilities/cookies/getCookie.ts"
+import { useDataFromAPI } from "../../../utilities/useHTTPData.ts"
+import { cookiePrefix } from "../../../utilities/variables.ts"
+import { CreateOneTicket } from "./createOneTicket.tsx"
+import { TicketsListTable } from "./ticketsListTable.tsx"
+
+function SupportBanner() {
+    const hasOrganization = !!getCookie(`${cookiePrefix}_id_organization`)
+
+    const subscription = useDataFromAPI({
+        routeDefinition: readOrganizationBillingRouteDefinition,
+        body: {},
+        enabled: hasOrganization,
+    })
+
+    if (!hasOrganization || subscription.isPending || subscription.isError) {
+        return null
+    }
+
+    if ((subscription.data?.totalSubscriptionAmountInCents ?? 0) > 0) {
+        return (
+            <Banner variant="success" title="Support prioritaire">
+                Vos tickets sont traités en priorité grâce à votre abonnement Avancé.
+            </Banner>
+        )
+    }
+
+    return (
+        <Banner variant="information" title="Support standard">
+            Abonnez-vous au plan Avancé pour bénéficier d'un traitement prioritaire de vos tickets.
+        </Banner>
+    )
+}
 
 export function SupportPage() {
     return (
         <Page.Root>
             <Page.Content>
-                <Box className={css({ padding: "4", gap: "4" })}>
-                    <span>N'hésitez pas à contacter le support</span>
-                    <ContactSupportForm />
-                </Box>
-                <Box className={css({ padding: "4", gap: "4" })}>
-                    <span>Vous pouvez aussi nous contacter directement via les moyens suivant</span>
+                <SupportBanner />
+                <Section.Root>
+                    <Section.Item>
+                        <div
+                            className={css({
+                                width: "100%",
+                                display: "flex",
+                                justifyContent: "flex-end",
+                                alignItems: "center",
+                                gap: "0.5rem",
+                            })}
+                        >
+                            <CreateOneTicket>
+                                <ButtonPlainContent leftIcon={<IconPlus />} text="Créer un ticket" />
+                            </CreateOneTicket>
+                        </div>
+                        <TicketsListTable />
+                    </Section.Item>
+                </Section.Root>
+                <Box className={css({ padding: "1rem", gap: "1rem" })}>
+                    <span>Vous pouvez aussi nous contacter directement via</span>
                     <div
                         className={css({
                             display: "flex",

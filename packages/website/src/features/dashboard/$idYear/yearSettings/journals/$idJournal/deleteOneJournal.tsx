@@ -1,9 +1,9 @@
 import { deleteOneJournalRouteDefinition, readAllJournalsRouteDefinition } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { toast } from "@arrhes/ui"
 import type { ComponentPropsWithRef, ReactElement } from "react"
 import type * as v from "valibot"
-import { DeleteConfirmation } from "../../../../../../components/overlays/dialog/deleteConfirmation.tsx"
-import { toast } from "../../../../../../contexts/toasts/useToast.ts"
+import { ConfirmationModal } from "../../../../../../components/overlays/dialog/confirmationModal.tsx"
 import { applicationRouter } from "../../../../../../routes/applicationRouter.tsx"
 import { getResponseBodyFromAPI } from "../../../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../../../utilities/invalidateData.ts"
@@ -45,7 +45,7 @@ export function DeleteOneJournal(props: {
     }
 
     return (
-        <DeleteConfirmation
+        <ConfirmationModal
             title="Voulez-vous supprimer ce journal ?"
             description={
                 <>
@@ -54,10 +54,10 @@ export function DeleteOneJournal(props: {
                     Cette action est irréversible.
                 </>
             }
-            submitText="Supprimer le journal"
+            submitButtonProps={{ color: "danger", text: "Supprimer le journal" }}
             onSubmit={onSubmit}
         >
             {props.children}
-        </DeleteConfirmation>
+        </ConfirmationModal>
     )
 }

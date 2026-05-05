@@ -8,6 +8,9 @@ export const docsLayoutRoute = createRoute({
     pendingComponent: () => <CircularLoader />,
     beforeLoad: () => ({
         title: "Documentation",
+        section: "Documentation",
+        description:
+            "Documentation complète d'Arrhes : guide d'utilisation, cours de comptabilité, référence API et informations générales.",
     }),
     component: lazyRouteComponent(() => import("../../../features/docs/docsLayout.js"), "DocsLayout"),
 })

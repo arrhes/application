@@ -1,7 +1,7 @@
 import { readAllYearsRouteDefinition } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { InputSelect } from "@arrhes/ui"
 import type * as v from "valibot"
-import { InputSelect } from "../../../../components/inputs/inputSelect.tsx"
 import { useDataFromAPI } from "../../../../utilities/useHTTPData.ts"
 
 export function YearSelect(props: {

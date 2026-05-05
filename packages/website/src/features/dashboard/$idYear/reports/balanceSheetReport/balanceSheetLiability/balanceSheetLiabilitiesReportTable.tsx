@@ -1,8 +1,8 @@
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { FormatNull } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { Fragment } from "react/jsx-runtime"
 import type * as v from "valibot"
-import { FormatNull } from "../../../../../../components/formats/formatNull.tsx"
 import { Table } from "../../../../../../components/layouts/table/table.tsx"
 import { getBalanceSheetChildren } from "../../../yearSettings/balanceSheets/getBalanceSheetChildren.tsx"
 import { BalanceSheetLiabilitiesReportItem } from "./balanceSheetLiabilitiesReportItem.tsx"
@@ -10,7 +10,7 @@ import { BalanceSheetLiabilitiesReportRow } from "./balanceSheetLiabilityiesRepo
 
 export function BalanceSheetLiabilitiesReportTable(props: {
     balanceSheets: Array<v.InferOutput<typeof returnedSchemas.balanceSheet>>
-    recordRows: Array<v.InferOutput<typeof returnedSchemas.recordRow>>
+    entryLines: Array<v.InferOutput<typeof returnedSchemas.entryLine>>
     accounts: Array<v.InferOutput<typeof returnedSchemas.account>>
 }) {
     let netTotalAmount = 0
@@ -18,11 +18,11 @@ export function BalanceSheetLiabilitiesReportTable(props: {
         let accountTotalDebit = 0
         let accountTotalCredit = 0
 
-        props.recordRows
-            .filter((recordRow) => recordRow.idAccount === account.id)
-            .forEach((recordRow) => {
-                accountTotalDebit += Number(recordRow.debit)
-                accountTotalCredit += Number(recordRow.credit)
+        props.entryLines
+            .filter((entryLine) => entryLine.idAccount === account.id)
+            .forEach((entryLine) => {
+                accountTotalDebit += Number(entryLine.debit)
+                accountTotalCredit += Number(entryLine.credit)
             })
 
         const accountBalance = accountTotalDebit - accountTotalCredit
@@ -67,7 +67,7 @@ export function BalanceSheetLiabilitiesReportTable(props: {
                         <Table.Body.Root
                             className={css({
                                 borderBottom: "1px solid",
-                                borderColor: "neutral/10",
+                                borderBottomColor: "neutral/10",
                                 _last: { borderBottom: "0" },
                             })}
                         >
@@ -94,7 +94,7 @@ export function BalanceSheetLiabilitiesReportTable(props: {
                                             idOrganization={balanceSheet.idOrganization}
                                             idYear={balanceSheet.idYear}
                                             accounts={props.accounts}
-                                            recordRows={props.recordRows}
+                                            entryLines={props.entryLines}
                                             balanceSheet={balanceSheet}
                                             balanceSheetChildren={balanceSheetChildren}
                                             level={0}

@@ -8,7 +8,7 @@ import { BalanceSheetAssetsReportRow } from "./balanceSheetAssetsReportRow.js"
 
 export function BalanceSheetAssetsReportItem(props: {
     accounts: Array<v.InferOutput<typeof returnedSchemas.account>>
-    recordRows: Array<v.InferOutput<typeof returnedSchemas.recordRow>>
+    entryLines: Array<v.InferOutput<typeof returnedSchemas.entryLine>>
     balanceSheet: v.InferOutput<typeof returnedSchemas.balanceSheet>
     balanceSheetChildren: Array<v.InferOutput<typeof returnedSchemas.balanceSheet>>
     level: number
@@ -30,19 +30,42 @@ export function BalanceSheetAssetsReportItem(props: {
             return hasAccount || hasChildrenAccount
         })
         .forEach((account) => {
-            props.recordRows
-                .filter((recordRow) => recordRow.idAccount === account.id)
-                .forEach((recordRow) => {
-                    const debit = Number(recordRow.debit)
-                    const credit = Number(recordRow.credit)
+            let accountTotalDebit = 0
+            let accountTotalCredit = 0
 
-                    if (account.balanceSheetAssetColumn === "gross") {
-                        grossAmount += debit - credit
-                    }
-                    if (account.balanceSheetAssetColumn === "amortization") {
-                        amortizationAmount += debit - credit
-                    }
+            props.entryLines
+                .filter((entryLine) => entryLine.idAccount === account.id)
+                .forEach((entryLine) => {
+                    accountTotalDebit += Number(entryLine.debit)
+                    accountTotalCredit += Number(entryLine.credit)
                 })
+
+            const accountBalance = accountTotalDebit - accountTotalCredit
+
+            if (accountBalance < 0 && account.balanceSheetAssetFlow === "debit") {
+                return
+            }
+
+            if (accountBalance > 0 && account.balanceSheetAssetFlow === "credit") {
+                return
+            }
+
+            if (account.balanceSheetAssetColumn === "gross") {
+                if (account.balanceSheetAssetFlow === "debit") {
+                    grossAmount += Math.abs(accountBalance)
+                }
+                if (account.balanceSheetAssetFlow === "credit") {
+                    grossAmount += -Math.abs(accountBalance)
+                }
+            }
+            if (account.balanceSheetAssetColumn === "amortization") {
+                if (account.balanceSheetAssetFlow === "debit") {
+                    amortizationAmount += Math.abs(accountBalance)
+                }
+                if (account.balanceSheetAssetFlow === "credit") {
+                    amortizationAmount += -Math.abs(accountBalance)
+                }
+            }
         })
 
     return (
@@ -53,8 +76,8 @@ export function BalanceSheetAssetsReportItem(props: {
                 level={props.level}
                 number={number}
                 label={label}
-                grossAmount={Math.abs(grossAmount)}
-                amortizationAmount={-Math.abs(amortizationAmount)}
+                grossAmount={grossAmount}
+                amortizationAmount={amortizationAmount}
                 isAmountDisplayed={isAmountDisplayed}
             />
             {props.balanceSheetChildren
@@ -69,7 +92,7 @@ export function BalanceSheetAssetsReportItem(props: {
                         <BalanceSheetAssetsReportItem
                             key={balanceSheet.id}
                             accounts={props.accounts}
-                            recordRows={props.recordRows}
+                            entryLines={props.entryLines}
                             balanceSheet={balanceSheet}
                             balanceSheetChildren={balanceSheetChildren}
                             level={props.level + 1}

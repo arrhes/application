@@ -1,6 +1,6 @@
 import { Badge, ButtonGhostContent, ButtonOutlineContent, ButtonPlainContent, Logo } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconBook2, IconBrandGithub, IconGavel, IconUser } from "@tabler/icons-react"
+import { IconBook2, IconBrandGithub, IconBrandLinkedin, IconGavel, IconUser } from "@tabler/icons-react"
 import { LinkButton } from "../../components/linkButton.js"
 import { HeroIllustration } from "./heroIllustration.js"
 import { Pricing } from "./pricing.js"
@@ -29,7 +29,7 @@ export function HomePage() {
                     alignItems: "center",
                     padding: "1rem",
                     borderBottom: "1px solid",
-                    borderColor: "neutral/10",
+                    borderBottomColor: "neutral/10",
                     backgroundColor: "white",
                     position: "sticky",
                     top: "0",
@@ -43,12 +43,22 @@ export function HomePage() {
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "start",
+                        flexWrap: "wrap",
                         gap: "1rem",
                     })}
                 >
-                    <LinkButton to="/">
-                        <Logo withText />
-                    </LinkButton>
+                    <div
+                        className={css({
+                            display: "flex",
+                            justifyContent: "start",
+                            alignItems: "center",
+                            gap: "0.25rem",
+                        })}
+                    >
+                        <LinkButton to="/">
+                            <ButtonGhostContent leftIcon={<Logo />} text="Arrhes" />
+                        </LinkButton>
+                    </div>
                     <nav
                         className={css({
                             display: "flex",
@@ -56,9 +66,6 @@ export function HomePage() {
                             gap: "0.5rem",
                         })}
                     >
-                        <a href="https://github.com/arrhes" target="_blank" rel="noopener noreferrer">
-                            <ButtonGhostContent leftIcon={<IconBrandGithub />} />
-                        </a>
                         <LinkButton to="/documentation">
                             <ButtonOutlineContent leftIcon={<IconBook2 />} text="Documentation" />
                         </LinkButton>
@@ -306,7 +313,7 @@ export function HomePage() {
                     </span>*/}
                     {/* <Button
                         onClick={() => {
-                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                            window.scrollTo({ top: 0, behavior: 'smooth' }); 
                         }}
                     >
                         <Logo withText />
@@ -314,6 +321,21 @@ export function HomePage() {
                     <LinkButton to="/documentation/mentions-légales">
                         <ButtonGhostContent leftIcon={<IconGavel />} text="Mentions légales" />
                     </LinkButton>
+                    <div
+                        className={css({
+                            display: "flex",
+                            justifyContent: "end",
+                            alignItems: "center",
+                            gap: "0.25rem",
+                        })}
+                    >
+                        <a href="https://linkedin.com/company/arrhes" target="_blank" rel="noopener noreferrer">
+                            <ButtonGhostContent leftIcon={<IconBrandLinkedin />} />
+                        </a>
+                        <a href="https://github.com/arrhes" target="_blank" rel="noopener noreferrer">
+                            <ButtonGhostContent leftIcon={<IconBrandGithub />} />
+                        </a>
+                    </div>
                 </div>
             </footer>
         </div>

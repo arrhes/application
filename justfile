@@ -1,8 +1,8 @@
 set shell := ["bash", "-cu"]
-COMPOSE_FILE := ".workflows/.dev/compose.yml"
-TUNNEL_FILE := ".workflows/.dev/compose.tunnel.yml"
+COMPOSE_FILE := ".workflows/dev/compose.yml"
+TUNNEL_FILE := ".workflows/dev/compose.tunnel.yml"
 PROJECT := "application"
-DC := "docker compose --project-directory=.workflows/.dev --file=" + COMPOSE_FILE + " --project-name=" + PROJECT
+DC := "docker compose --project-directory=.workflows/dev --file=" + COMPOSE_FILE + " --project-name=" + PROJECT
 DC_TUNNEL := DC + " --file=" + TUNNEL_FILE
 
 dev cmd:
@@ -17,7 +17,8 @@ dev-up:
     @echo ""
     @echo "  Services:"
     @echo "    Website:  http://localhost:5173"
-    @echo "    API:        http://localhost:3000"
+    @echo "    Admin:    http://localhost:5174"
+    @echo "    API:      http://localhost:3000"
     @echo ""
     @echo "  Infrastructure:"
     @echo "    PostgreSQL: localhost:5432"
@@ -27,6 +28,10 @@ dev-up:
     @echo "  Demo Credentials:"
     @echo "    Email:      demo@arrhes.com"
     @echo "    Password:   demo"
+    @echo ""
+    @echo "  Admin Credentials:"
+    @echo "    Email:      admin@arrhes.com"
+    @echo "    Password:   admin"
     @echo ""
     @echo "  Logs: docker compose -f {{COMPOSE_FILE}} logs -f"
     @echo "=============================================="
@@ -40,7 +45,7 @@ dev-up:
 #   2. Wait for cloudflared to print the *.trycloudflare.com URL
 #   3. Start all remaining services with the tunnel URL as API_BASE_URL
 dev-tunnel:
-    @bash .workflows/.dev/tunnel.sh '{{DC_TUNNEL}}' '{{COMPOSE_FILE}}'
+    @bash .workflows/dev/tunnel.sh '{{DC_TUNNEL}}' '{{COMPOSE_FILE}}'
 
 dev-down:
     {{DC}} down --remove-orphans
@@ -48,8 +53,28 @@ dev-down:
 dev-tunnel-down:
     {{DC_TUNNEL}} down --remove-orphans
 
-dev-reset:
-    @echo "Resetting database (clearing and reseeding)..."
+# ==============================================================================
+# Database (requires dev environment running)
+# ==============================================================================
+
+db cmd:
+    @just db-{{cmd}}
+
+# Push schema to database (idempotent, no data loss)
+db-push:
+    @echo "Pushing schema to database..."
+    {{DC}} exec api sh -c "cd /workspace/packages/tools && pnpm run push"
+    @echo "Schema push complete."
+
+# Seed database with demo data (skips if data already exists)
+db-seed:
+    @echo "Seeding database..."
+    {{DC}} exec api sh -c "cd /workspace/packages/tools && pnpm run seed"
+    @echo "Seeding complete."
+
+# Reset database (clear all tables, push schema, seed)
+db-reset:
+    @echo "Resetting database (clear + push + seed)..."
     {{DC}} exec api sh -c "cd /workspace/packages/tools && pnpm run reset"
     @echo "Database reset complete."
 
@@ -64,7 +89,7 @@ dev-reset:
 #   just build        - Run CI checks only
 #   just build-all    - Run CI checks + build production images
 
-COMPOSE_BUILD := "docker compose -f .workflows/.build/compose.yml"
+COMPOSE_BUILD := "docker compose -f .workflows/build/compose.yml"
 
 build:
     @echo "=============================================="
@@ -83,7 +108,7 @@ build-all:
     @echo "=============================================="
     @echo ""
     {{COMPOSE_BUILD}} build --progress=plain --no-cache ci
-    ARRHES_VERSION=$(cat VERSION) {{COMPOSE_BUILD}} build --progress=plain --no-cache api website
+    ARRHES_VERSION=$(cat VERSION) {{COMPOSE_BUILD}} build --progress=plain --no-cache api website admin
     @echo ""
     @echo "=============================================="
     @echo "  Build succeeded"

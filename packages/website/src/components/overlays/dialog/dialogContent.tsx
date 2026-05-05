@@ -10,7 +10,6 @@ export function DialogContent(props: ComponentPropsWithRef<typeof DialogPrimitiv
             <DialogOverlay>
                 <DialogPrimitive.Content
                     {...props}
-                    onClick={(e) => e.preventDefault()}
                     className={cx(
                         css({
                             minWidth: "100%",
@@ -26,7 +25,7 @@ export function DialogContent(props: ComponentPropsWithRef<typeof DialogPrimitiv
                             alignItems: "stretch",
                             border: "1px solid",
                             borderColor: "neutral/10",
-                            transitionDuration: "200ms",
+                            transitionDuration: "50ms",
                             "&[data-state=open]": {
                                 animation: "fadeIn 0.2s ease-out, zoomIn 0.2s ease-out",
                             },

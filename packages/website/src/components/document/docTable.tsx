@@ -5,7 +5,7 @@ export function DocTable(props: { headers: string[]; rows: string[][] }) {
         <div
             className={css({
                 overflowX: "auto",
-                borderRadius: "lg",
+                // borderRadius: "lg",
                 border: "1px solid",
                 borderColor: "neutral/10",
                 backgroundColor: "white",
@@ -22,7 +22,7 @@ export function DocTable(props: { headers: string[]; rows: string[][] }) {
                         className={css({
                             backgroundColor: "neutral/5",
                             borderBottom: "1px solid",
-                            borderColor: "neutral/10",
+                            borderBottomColor: "neutral/10",
                         })}
                     >
                         {props.headers.map((header, index) => (
@@ -49,7 +49,7 @@ export function DocTable(props: { headers: string[]; rows: string[][] }) {
                             key={rowIndex}
                             className={css({
                                 borderBottom: "1px solid",
-                                borderColor: "neutral/10",
+                                borderBottomColor: "neutral/10",
                                 _last: { borderBottom: "none" },
                                 _hover: { backgroundColor: "neutral/3" },
                                 transition: "colors",

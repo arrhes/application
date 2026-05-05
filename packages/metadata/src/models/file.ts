@@ -12,9 +12,7 @@ export const fileModel = pgTable("table_file", {
     idOrganization: idColumn("id_organization")
         .references(() => organizationModel.id, { onDelete: "cascade", onUpdate: "cascade" })
         .notNull(),
-    idYear: idColumn("id_year")
-        .references(() => yearModel.id, { onDelete: "cascade", onUpdate: "cascade" })
-        .notNull(),
+    idYear: idColumn("id_year").references(() => yearModel.id, { onDelete: "cascade", onUpdate: "cascade" }),
     idFolder: idColumn("id_folder").references(() => folderModel.id, {
         onDelete: "set null",
         onUpdate: "cascade",
@@ -24,6 +22,7 @@ export const fileModel = pgTable("table_file", {
     storageKey: text("storage_key"),
     type: text("type"),
     size: integer("size"),
+    hash: text("hash"),
     createdAt: dateTimeColumn("created_at").notNull(),
     lastUpdatedAt: dateTimeColumn("last_updated_at"),
     createdBy: idColumn("created_by").references((): AnyPgColumn => userModel.id, {

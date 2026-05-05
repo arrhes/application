@@ -6,6 +6,8 @@ export const rootGeneralDocRoute = createRoute({
     path: "/",
     beforeLoad: () => ({
         title: "Documentation",
+        description:
+            "Documentation complète d'Arrhes : guide d'utilisation, cours de comptabilité, référence API et informations générales.",
     }),
     component: lazyRouteComponent(
         () => import("../../../../features/docs/general/rootGeneralDocPage.tsx"),

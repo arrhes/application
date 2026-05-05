@@ -3,10 +3,10 @@ import {
     readAllComputationsRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { toast } from "@arrhes/ui"
 import type { ComponentPropsWithRef, ReactElement } from "react"
 import type * as v from "valibot"
-import { DeleteConfirmation } from "../../../../../../../components/overlays/dialog/deleteConfirmation.tsx"
-import { toast } from "../../../../../../../contexts/toasts/useToast.ts"
+import { ConfirmationModal } from "../../../../../../../components/overlays/dialog/confirmationModal.tsx"
 import { applicationRouter } from "../../../../../../../routes/applicationRouter.tsx"
 import { getResponseBodyFromAPI } from "../../../../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../../../../utilities/invalidateData.ts"
@@ -48,7 +48,7 @@ export function DeleteOneComputation(props: {
     }
 
     return (
-        <DeleteConfirmation
+        <ConfirmationModal
             title="Voulez-vous supprimer cette ligne de calcul ?"
             description={
                 <>
@@ -57,10 +57,10 @@ export function DeleteOneComputation(props: {
                     Cette action est irréversible.
                 </>
             }
-            submitText="Supprimer la ligne de calcul"
+            submitButtonProps={{ color: "danger", text: "Supprimer la ligne de calcul" }}
             onSubmit={onSubmit}
         >
             {props.children}
-        </DeleteConfirmation>
+        </ConfirmationModal>
     )
 }

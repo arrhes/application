@@ -13,7 +13,7 @@ export function PageContent(props: { className?: ComponentProps<"div">["classNam
                     flexDirection: "column",
                     justifyContent: "flex-start",
                     alignItems: "flex-start",
-                    gap: "0.5rem",
+                    gap: "2rem",
                 }),
                 props.className,
             )}

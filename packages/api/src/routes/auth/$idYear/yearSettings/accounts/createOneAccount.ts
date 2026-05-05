@@ -49,13 +49,12 @@ export const createOneAccountRoute = apiFactory.createApp().post(createOneAccoun
 
             idIncomeStatement: body.idIncomeStatement,
 
-            isClass: body.isClass,
             isSelectable: body.isSelectable,
             isDefault: false,
             label: body.label,
             number: body.number,
             type: body.type,
-            isMandatory: true,
+            isOptional: false,
             createdAt: new Date().toISOString(),
             lastUpdatedAt: null,
             createdBy: user.id,

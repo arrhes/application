@@ -6,6 +6,8 @@ export const rootDashboardDocRoute = createRoute({
     path: "/",
     beforeLoad: () => ({
         title: "Guide d'utilisation",
+        description:
+            "Guide d'utilisation du dashboard Arrhes : créez vos organisations, gérez vos exercices et saisissez vos écritures comptables.",
     }),
     component: lazyRouteComponent(
         () => import("../../../../features/docs/dashboard/rootDashboardDocPage.tsx"),

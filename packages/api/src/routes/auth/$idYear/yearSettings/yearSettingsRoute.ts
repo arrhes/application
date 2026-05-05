@@ -4,7 +4,7 @@ import { computationsRoutes } from "./computations/computationsRoutes.js"
 import { generalRoutes } from "./general/generalRoutes.js"
 import { incomeStatementsRoutes } from "./incomeStatements/incomeStatementsRoutes.js"
 import { journalsRoutes } from "./journals/journalsRoutes.js"
-import { recordLabelsRoutes } from "./recordLabels/recordLabelsRoutes.js"
+import { tagsRoutes } from "./tags/tagsRoutes.js"
 
 export const yearSettingsRoute = [
     ...generalRoutes,
@@ -13,5 +13,5 @@ export const yearSettingsRoute = [
     ...balanceSheetsRoutes,
     ...incomeStatementsRoutes,
     ...computationsRoutes,
-    ...recordLabelsRoutes,
+    ...tagsRoutes,
 ]

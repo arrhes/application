@@ -1,5 +1,5 @@
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconBook, IconCode, IconGavel, IconHome, IconInfoCircle, IconLayout } from "@tabler/icons-react"
+import { IconBook, IconCode, IconGavel, IconHome, IconInfoCircle, IconLayout, IconRobot } from "@tabler/icons-react"
 import type { DocSection } from "./sectionTab.tsx"
 
 // Documentation sections configuration
@@ -38,17 +38,59 @@ export const docSections: Record<string, DocSection> = {
         path: "/documentation/comptabilité",
         icon: <IconBook />,
         navigation: {
-            cours: {
-                title: "Cours de comptabilité",
+            introduction: {
+                title: "Introduction",
                 icon: <IconBook className={css({ width: "1rem", height: "1rem" })} />,
                 items: [
                     { path: "/documentation/comptabilité", label: "Accueil" },
                     { path: "/documentation/comptabilité/introduction", label: "Introduction" },
-                    { path: "/documentation/comptabilité/comptes", label: "Les comptes" },
+                    { path: "/documentation/comptabilité/partie-double", label: "La partie double" },
                     { path: "/documentation/comptabilité/écritures", label: "Les écritures" },
-                    { path: "/documentation/comptabilité/documents", label: "Les documents" },
-                    { path: "/documentation/comptabilité/glossaire", label: "Glossaire" },
                 ],
+            },
+            comptes: {
+                title: "Comptes",
+                icon: <IconBook className={css({ width: "1rem", height: "1rem" })} />,
+                items: [
+                    { path: "/documentation/comptabilité/comptes/introduction", label: "Introduction" },
+                    { path: "/documentation/comptabilité/comptes/classes", label: "Classes de comptes" },
+                    { path: "/documentation/comptabilité/comptes/liste", label: "Liste des comptes" },
+                ],
+            },
+            documents: {
+                title: "Documents",
+                icon: <IconBook className={css({ width: "1rem", height: "1rem" })} />,
+                items: [
+                    { path: "/documentation/comptabilité/documents", label: "Introduction" },
+                    {
+                        path: "/documentation/comptabilité/documents/journal",
+                        label: "Journal",
+                    },
+                    {
+                        path: "/documentation/comptabilité/documents/grand-livre",
+                        label: "Grand livre",
+                    },
+                    {
+                        path: "/documentation/comptabilité/documents/balance",
+                        label: "Balance",
+                    },
+                    { path: "/documentation/comptabilité/documents/bilan", label: "Bilan" },
+                    {
+                        path: "/documentation/comptabilité/documents/compte-de-résultat",
+                        label: "Compte de résultat",
+                    },
+                    {
+                        path: "/documentation/comptabilité/documents/annexe",
+                        label: "Annexe",
+                    },
+                    {
+                        path: "/documentation/comptabilité/documents/fec",
+                        label: "FEC",
+                    },
+                ],
+            },
+            glossaire: {
+                items: [{ path: "/documentation/comptabilité/glossaire", label: "Glossaire" }],
             },
         },
     },
@@ -69,6 +111,17 @@ export const docSections: Record<string, DocSection> = {
                     { path: "/documentation/dashboard/écritures", label: "Saisie des écritures" },
                     { path: "/documentation/dashboard/stockage", label: "Stockage" },
                     { path: "/documentation/dashboard/documents", label: "Documents comptables" },
+                    { path: "/documentation/dashboard/facturation", label: "Facturation" },
+                ],
+            },
+            assistant: {
+                title: "Assistant IA",
+                icon: <IconRobot className={css({ width: "1rem", height: "1rem" })} />,
+                items: [
+                    { path: "/documentation/dashboard/assistant", label: "Introduction" },
+                    { path: "/documentation/dashboard/assistant/modèles", label: "Modèles" },
+                    { path: "/documentation/dashboard/assistant/outils", label: "Outils" },
+                    { path: "/documentation/dashboard/assistant/ocr", label: "OCR" },
                 ],
             },
         },
@@ -93,21 +146,4 @@ export const docSections: Record<string, DocSection> = {
             },
         },
     },
-    // ai: {
-    //     id: "ai",
-    //     label: "Assistant IA",
-    //     path: "/documentation/ai",
-    //     icon: <IconRobot />,
-    //     navigation: {
-    //         assistant: {
-    //             title: "Assistant IA",
-    //             icon: <IconRobot className={css({ width: "1rem", height: "1rem" })} />,
-    //             items: [
-    //                 { path: "/documentation/ai", label: "Introduction" },
-    //                 { path: "/documentation/ai/assistant", label: "Assistant comptable" },
-    //                 { path: "/documentation/ai/analyse", label: "Analyse des données" },
-    //             ]
-    //         }
-    //     }
-    // }
 }

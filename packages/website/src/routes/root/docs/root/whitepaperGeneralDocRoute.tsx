@@ -6,6 +6,8 @@ export const whitepaperGeneralDocRoute = createRoute({
     path: "/philosophie",
     beforeLoad: () => ({
         title: "Philosophie",
+        description:
+            "La philosophie d'Arrhes : transparence, open source et accessibilité pour la comptabilité des entreprises et associations.",
     }),
     component: lazyRouteComponent(
         () => import("../../../../features/docs/general/whitepaperGeneralDocPage.tsx"),

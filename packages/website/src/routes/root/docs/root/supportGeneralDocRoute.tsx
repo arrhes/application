@@ -6,6 +6,8 @@ export const supportGeneralDocRoute = createRoute({
     path: "/support",
     beforeLoad: () => ({
         title: "Support",
+        description:
+            "Besoin d'aide avec Arrhes ? Contactez notre support ou consultez la documentation pour résoudre vos problèmes.",
     }),
     component: lazyRouteComponent(
         () => import("../../../../features/docs/general/supportGeneralDocPage.tsx"),
