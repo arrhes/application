@@ -10,7 +10,7 @@ export function storageClient(env: ReturnType<typeof getEnv>) {
                 accessKeyId: env.STORAGE_ACCESS_KEY,
                 secretAccessKey: env.STORAGE_SECRET_KEY,
             },
-            region: "fr-par",
+            region: env.STORAGE_REGION,
             forcePathStyle: true,
         })
         return storageClient
@@ -36,7 +36,7 @@ export function storagePublicClient(env: ReturnType<typeof getEnv>) {
                 accessKeyId: env.STORAGE_ACCESS_KEY,
                 secretAccessKey: env.STORAGE_SECRET_KEY,
             },
-            region: "fr-par",
+            region: env.STORAGE_REGION,
             forcePathStyle: true,
         })
         return client

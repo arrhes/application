@@ -1,6 +1,6 @@
-import { S3 } from "@aws-sdk/client-s3"
 import { ContextEnv } from "#src/utilities/contextEnv.js"
 import { Exception } from "#src/utilities/exception.js"
+import { S3 } from "@aws-sdk/client-s3"
 
 export function storageClient() {
     try {
@@ -10,7 +10,7 @@ export function storageClient() {
                 accessKeyId: ContextEnv.STORAGE_ACCESS_KEY,
                 secretAccessKey: ContextEnv.STORAGE_SECRET_KEY,
             },
-            region: "fr-par",
+            region: ContextEnv.STORAGE_REGION,
             forcePathStyle: true,
         })
         return storageClient
