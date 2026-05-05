@@ -21,8 +21,7 @@ export const accountSchema = v.object({
 
     idIncomeStatement: v.nullable(idSchema),
 
-    isMandatory: v.nonNullable(booleanSchema, "Ce champ est requis"),
-    isClass: v.nonNullable(booleanSchema, "Ce champ est requis"),
+    isOptional: v.nonNullable(booleanSchema, "Ce champ est requis"),
     isSelectable: v.nonNullable(booleanSchema, "Ce champ est requis"),
     isDefault: v.nonNullable(booleanSchema, "Ce champ est requis"),
     number: v.nonNullable(varcharSchema({ maxLength: 32 }), "Ce champ est requis"),
@@ -51,8 +50,7 @@ export const accountSchemaReturn = v.pick(accountSchema, [
 
     "idIncomeStatement",
 
-    "isMandatory",
-    "isClass",
+    "isOptional",
     "isSelectable",
     "isDefault",
     "number",

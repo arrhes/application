@@ -21,9 +21,8 @@ export interface SubagentContext {
 }
 
 export interface SubagentTokenUsage {
-    promptTokens: number
-    completionTokens: number
-    totalTokens: number
+    inputTokens: number
+    outputTokens: number
 }
 
 export function buildSubagentTool(context: SubagentContext) {
@@ -77,7 +76,7 @@ Le sous-agent hérite de l'exercice fiscal sélectionné (idYear). Si aucun exer
             }
             return runSubagent({ ...context, skillNames, task, taskContext })
         }),
-        tokenUsage: { promptTokens: 0, completionTokens: 0, totalTokens: 0 } as SubagentTokenUsage,
+        tokenUsage: { inputTokens: 0, outputTokens: 0 } as SubagentTokenUsage,
     }
 }
 
@@ -189,9 +188,8 @@ async function runSubagent(
         })
 
         let accumulatedContent = ""
-        let promptTokens = 0
-        let completionTokens = 0
-        let totalTokens = 0
+        let inputTokens = 0
+        let outputTokens = 0
 
         for await (const chunk of stream) {
             // Forward chunks to Redis with subagent metadata
@@ -209,9 +207,8 @@ async function runSubagent(
             if (chunk.type === "RUN_FINISHED" && "usage" in chunk) {
                 const usage = (chunk as any).usage
                 if (usage) {
-                    promptTokens += Number(usage.promptTokens ?? 0)
-                    completionTokens += Number(usage.completionTokens ?? 0)
-                    totalTokens += Number(usage.totalTokens ?? 0)
+                    inputTokens += Number(usage.promptTokens ?? 0)
+                    outputTokens += Number(usage.completionTokens ?? 0)
                 }
             }
 
@@ -229,16 +226,15 @@ async function runSubagent(
                 skills: skillLabel,
                 depth,
                 timestamp: Date.now(),
-                promptTokens,
-                completionTokens,
-                totalTokens,
+                inputTokens,
+                outputTokens,
             }),
         )
 
         return {
             skills: skillLabel,
             result: accumulatedContent || "(Aucun résultat)",
-            tokenUsage: { promptTokens, completionTokens, totalTokens },
+            tokenUsage: { inputTokens, outputTokens },
         }
     } catch (error) {
         const errorMsg = error instanceof Error ? error.message : String(error)
@@ -251,9 +247,8 @@ async function runSubagent(
                 depth,
                 timestamp: Date.now(),
                 error: errorMsg,
-                promptTokens: 0,
-                completionTokens: 0,
-                totalTokens: 0,
+                inputTokens: 0,
+                outputTokens: 0,
             }),
         )
 

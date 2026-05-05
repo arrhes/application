@@ -744,9 +744,8 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
     const usedToolNames = new Set<string>()
     let lastBoundaryContentLength = 0
     let runError: string | null = null
-    let capturedPromptTokens = 0
-    let capturedCompletionTokens = 0
-    let capturedTotalTokens = 0
+    let capturedInputTokens = 0
+    let capturedOutputTokens = 0
 
     // Periodic checkpoint: flush partial content to DB so page reloads
     // can show already-generated text instead of "..."
@@ -820,9 +819,8 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
             if (chunk.type === "RUN_FINISHED" && "usage" in chunk) {
                 const usage = (chunk as any).usage
                 if (usage) {
-                    capturedPromptTokens += Number(usage.promptTokens ?? 0)
-                    capturedCompletionTokens += Number(usage.completionTokens ?? 0)
-                    capturedTotalTokens += Number(usage.totalTokens ?? 0)
+                    capturedInputTokens += Number(usage.promptTokens ?? 0)
+                    capturedOutputTokens += Number(usage.completionTokens ?? 0)
                 }
             }
         }
@@ -856,9 +854,8 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                     output: accumulatedContent || null,
                     toolCalls: accumulatedToolCalls.length > 0 ? accumulatedToolCalls : null,
                     usedTools: usedToolNames.size > 0 ? [...usedToolNames] : null,
-                    promptTokens: capturedPromptTokens || null,
-                    completionTokens: capturedCompletionTokens || null,
-                    totalTokens: capturedTotalTokens || null,
+                    inputTokens: capturedInputTokens || null,
+                    outputTokens: capturedOutputTokens || null,
                 })
                 .where(eq(models.agentMessage.id, idAgentMessage))
 
@@ -869,14 +866,14 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                 .where(eq(models.workerJob.id, idWorkerJob))
 
             // Update session lastUpdatedAt and increment token counters
-            if (capturedTotalTokens > 0) {
+            if (capturedInputTokens > 0 || capturedOutputTokens > 0) {
+                const capturedTotalTokens = capturedInputTokens + capturedOutputTokens
                 await db
                     .update(models.agentSession)
                     .set({
                         lastUpdatedAt: new Date().toISOString(),
-                        totalPromptTokens: sql`${models.agentSession.totalPromptTokens} + ${capturedPromptTokens}`,
-                        totalCompletionTokens: sql`${models.agentSession.totalCompletionTokens} + ${capturedCompletionTokens}`,
-                        totalTokens: sql`${models.agentSession.totalTokens} + ${capturedTotalTokens}`,
+                        totalInputTokens: sql`${models.agentSession.totalInputTokens} + ${capturedInputTokens}`,
+                        totalOutputTokens: sql`${models.agentSession.totalOutputTokens} + ${capturedOutputTokens}`,
                     })
                     .where(eq(models.agentSession.id, agentMessage.idAgentSession))
 

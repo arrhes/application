@@ -21,7 +21,7 @@ export const createOneAgentFileRoute = apiFactory
             context: c,
             schema: createOneAgentFileRouteDefinition.schemas.body,
         })
-        await checkOrganizationSubscriptionSessionMiddleware({ context: c, idOrganization })
+        await checkOrganizationSubscriptionSessionMiddleware({ context: c, idOrganization, checkType: "tokens" })
 
         if (body.fileSize > MAX_AGENT_FILE_SIZE) {
             throw new Exception({

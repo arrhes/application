@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm"
-import { type AnyPgColumn, index, integer, pgTable, text, varchar } from "drizzle-orm/pg-core"
+import { type AnyPgColumn, index, integer, pgTable, varchar } from "drizzle-orm/pg-core"
 import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
 import { organizationBillingStatus } from "../components/values/organizationBillingStatus.js"
@@ -18,7 +18,6 @@ export const organizationBillingModel = pgTable(
         type: varchar("type", { length: 32, enum: organizationBillingType }).notNull(),
         quantity: integer("quantity").notNull().default(1),
         amountInCents: integer("amount_in_cents").notNull(),
-        mollieSubscriptionId: text("mollie_subscription_id"),
         status: varchar("status", { length: 16, enum: organizationBillingStatus }).notNull().default("active"),
         startsAt: dateTimeColumn("starts_at").notNull(),
         endsAt: dateTimeColumn("ends_at"),

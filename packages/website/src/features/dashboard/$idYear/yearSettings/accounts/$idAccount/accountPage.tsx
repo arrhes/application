@@ -30,9 +30,6 @@ export function AccountPage() {
                                 <DataBlock.Item label="Libellé">
                                     <FormatText>{account.label}</FormatText>
                                 </DataBlock.Item>
-                                <DataBlock.Item label="Classe/sous-classe ?">
-                                    <FormatBoolean boolean={account.isClass} />
-                                </DataBlock.Item>
                                 <DataBlock.Item label="Sélectionnable ?">
                                     <FormatBoolean boolean={account.isSelectable} />
                                 </DataBlock.Item>

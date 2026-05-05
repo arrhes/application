@@ -45,7 +45,7 @@ export function InvoicesTable(props: { invoices: Array<Invoice> }) {
     const columns: Array<ColumnDef<Invoice>> = [
         {
             id: "period",
-            accessorFn: (invoice) => formatInvoicePeriod(invoice.periodStart),
+            accessorFn: (invoice) => formatInvoicePeriod(invoice.startingAt),
             header: "Periode",
         },
         {
@@ -90,7 +90,7 @@ export function InvoicesTable(props: { invoices: Array<Invoice> }) {
         },
     ]
 
-    const sortedInvoices = [...props.invoices].sort((a, b) => b.periodStart.localeCompare(a.periodStart))
+    const sortedInvoices = [...props.invoices].sort((a, b) => b.startingAt.localeCompare(a.startingAt))
 
     return <DataTable data={sortedInvoices} columns={columns} pageSize={12} />
 }

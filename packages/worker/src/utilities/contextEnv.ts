@@ -12,16 +12,6 @@ const envSchema = v.object({
 
     SQL_DATABASE_URL: v.string(),
 
-    QDRANT_URL: v.string(),
-    QDRANT_API_KEY: v.string(),
-
-    AI_HF_API_KEY: v.string(),
-    AI_OPENAI_API_KEY: v.string(),
-
-    AI_GOOGLE_CREDENTIALS_BASE64: v.string(),
-    AI_GOOGLE_ENDPOINT: v.optional(v.string(), ""),
-    AI_GOOGLE_API_KEY: v.optional(v.string(), ""),
-
     STORAGE_ENDPOINT: v.string(),
     STORAGE_NAME: v.string(),
     STORAGE_ACCESS_KEY: v.string(),
@@ -47,16 +37,6 @@ export class ContextEnv {
     static VERBOSE: boolean
 
     static SQL_DATABASE_URL: string
-
-    static QDRANT_URL: string
-    static QDRANT_API_KEY: string
-
-    static AI_HF_API_KEY: string
-    static AI_OPENAI_API_KEY: string
-
-    static AI_GOOGLE_CREDENTIALS_BASE64: string
-    static AI_GOOGLE_ENDPOINT: string
-    static AI_GOOGLE_API_KEY: string
 
     static STORAGE_ENDPOINT: string
     static STORAGE_NAME: string
@@ -88,16 +68,6 @@ export class ContextEnv {
         ContextEnv.VERBOSE = parsedEnv.VERBOSE === "true"
 
         ContextEnv.SQL_DATABASE_URL = parsedEnv.SQL_DATABASE_URL
-
-        ContextEnv.QDRANT_URL = parsedEnv.QDRANT_URL
-        ContextEnv.QDRANT_API_KEY = parsedEnv.QDRANT_API_KEY
-
-        ContextEnv.AI_HF_API_KEY = parsedEnv.AI_HF_API_KEY
-        ContextEnv.AI_OPENAI_API_KEY = parsedEnv.AI_OPENAI_API_KEY
-
-        ContextEnv.AI_GOOGLE_CREDENTIALS_BASE64 = parsedEnv.AI_GOOGLE_CREDENTIALS_BASE64
-        ContextEnv.AI_GOOGLE_ENDPOINT = parsedEnv.AI_GOOGLE_ENDPOINT
-        ContextEnv.AI_GOOGLE_API_KEY = parsedEnv.AI_GOOGLE_API_KEY
 
         ContextEnv.STORAGE_ENDPOINT = parsedEnv.STORAGE_ENDPOINT
         ContextEnv.STORAGE_NAME = parsedEnv.STORAGE_NAME

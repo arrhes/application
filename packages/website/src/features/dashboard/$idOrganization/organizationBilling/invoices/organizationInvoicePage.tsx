@@ -67,15 +67,12 @@ export function OrganizationInvoicePage() {
         <Page.Root>
             <Page.Content>
                 <SettingsSection.Root>
-                    <DataWrapper
-                        routeDefinition={readOneInvoiceRouteDefinition}
-                        body={{ idInvoice: params.idInvoice }}
-                    >
+                    <DataWrapper routeDefinition={readOneInvoiceRouteDefinition} body={{ idInvoice: params.idInvoice }}>
                         {(invoice) => {
                             return (
                                 <>
                                     <SettingsSection.Header
-                                        title={`Facture ${invoice.reference} (${formatInvoiceMonthYear(invoice.periodStart)})`}
+                                        title={`Facture ${invoice.reference} (${formatInvoiceMonthYear(invoice.startingAt)})`}
                                     />
                                     <InvoiceTabsContent idInvoice={params.idInvoice} invoice={invoice} />
                                 </>

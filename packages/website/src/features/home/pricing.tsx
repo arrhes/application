@@ -10,7 +10,7 @@ import {
     IconLifebuoy,
     IconSparkles,
     IconUserPlus,
-    IconUsers
+    IconUsers,
 } from "@tabler/icons-react"
 import { LinkButton } from "../../components/linkButton.js"
 import { FeatureItem } from "./featureItem.tsx"
@@ -181,12 +181,7 @@ export function Pricing() {
                         description={["1,00€ (HT) / million de tokens"]}
                         highlighted
                     />
-                    <FeatureItem
-                        icon={<IconFileText />}
-                        text="OCR"
-                        description={["0,01€ (HT) / page"]}
-                        highlighted
-                    />
+                    <FeatureItem icon={<IconFileText />} text="OCR" description={["0,01€ (HT) / page"]} highlighted />
                     <FeatureItem icon={<IconCalculator />} text="Comptabilité analytique" isDev />
                 </div>
             </div>

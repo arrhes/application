@@ -53,6 +53,7 @@ export const updateOneAgentSessionRoute = apiFactory
                 await checkOrganizationSubscriptionSessionMiddleware({
                     context: c,
                     idOrganization: session.idOrganization,
+                    checkType: "tokens",
                 })
 
                 const files = await c.var.clients.sql

@@ -82,7 +82,9 @@ export function getTotalOcrPagesFromQuantity(quantity: number): number {
 export function getSubscriptionMonthlyAmountInCents(subscription: SubscriptionLike): number {
     if (isResourceSubscriptionType(subscription.type)) {
         if (subscription.type === "ocr_pages_hundred") {
-            return getResourceSubscriptionUnitPriceInCents(subscription.type) * subscription.quantity * INCLUDED_OCR_PAGES
+            return (
+                getResourceSubscriptionUnitPriceInCents(subscription.type) * subscription.quantity * INCLUDED_OCR_PAGES
+            )
         }
 
         return getResourceSubscriptionUnitPriceInCents(subscription.type) * subscription.quantity

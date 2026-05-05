@@ -136,29 +136,6 @@ export function UpdateOneAccount(props: {
                                 />
                                 <FormField
                                     control={form.control}
-                                    name="isClass"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel
-                                                label="Classe/sous-classe ?"
-                                                tooltip="Le compte est une classe ou une sous-classe de compte."
-                                            />
-                                            <FormControl>
-                                                <InputToggle
-                                                    value={field.value}
-                                                    onChange={field.onChange}
-                                                    options={[
-                                                        { label: "Oui", value: true },
-                                                        { label: "Non", value: false },
-                                                    ]}
-                                                />
-                                            </FormControl>
-                                            <FormError />
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    control={form.control}
                                     name="isSelectable"
                                     render={({ field }) => (
                                         <FormItem>

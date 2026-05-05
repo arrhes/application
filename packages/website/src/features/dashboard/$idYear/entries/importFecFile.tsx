@@ -309,7 +309,6 @@ export function ImportFecFile(props: {
                                 accountNumber: line.accountNumber,
                                 accountsByNumber,
                             }),
-                            isClass: false,
                             isSelectable: true,
                             label: line.accountLabel || `Compte ${line.accountNumber}`,
                             number: line.accountNumber,

@@ -15,7 +15,6 @@ type ParsedInvoiceLine = {
     amountTTC: string
 }
 
-
 function findFirstTextWithin(element: Element, localName: string) {
     const node = Array.from(element.getElementsByTagName("*")).find((child) => child.localName === localName)
     return node?.textContent?.trim() ?? ""
@@ -79,8 +78,6 @@ function parseInvoiceSummary(xml: string) {
         })),
     }
 }
-
-
 
 export function UblInvoiceViewer(props: {
     xmlContent: string

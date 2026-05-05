@@ -1,7 +1,6 @@
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { useMemo } from "react"
 
-
 type En16931Validation = {
     isValid: boolean
     issues: string[]
@@ -171,11 +170,7 @@ function validateEn16931(xml: string): En16931Validation {
     }
 }
 
-
-
-export function ValidEN16931XML(props: {
-    xmlContent: string
-}) {
+export function ValidEN16931XML(props: { xmlContent: string }) {
     const en16931 = useMemo(() => validateEn16931(props.xmlContent), [props.xmlContent])
     return (
         <div

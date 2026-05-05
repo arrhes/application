@@ -43,7 +43,7 @@ export async function findOrCreateCurrentPeriodInvoice(params: {
         .where(
             and(
                 eq(models.invoice.idOrganization, params.idOrganization),
-                eq(models.invoice.periodStart, periodStartISO),
+                eq(models.invoice.startingAt, periodStartISO),
             ),
         )
         .limit(1)
@@ -62,8 +62,8 @@ export async function findOrCreateCurrentPeriodInvoice(params: {
             id: invoiceId,
             idOrganization: params.idOrganization,
             reference,
-            periodStart: periodStartISO,
-            periodEnd: params.periodEnd.toISOString(),
+            startingAt: periodStartISO,
+            endingAt: params.periodEnd.toISOString(),
             amountInCents: 0,
             currency: "EUR",
             xmlStorageKey: null,

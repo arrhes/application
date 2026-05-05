@@ -9,8 +9,8 @@ function ResetPassword(props: { newPassword: string }) {
                     Votre nouveau mot de passe temporaire est: <b>{props.newPassword}</b>
                 </p>
                 <p>
-                    Pour des raisons de sécurité, merci de vous connecter puis de modifier ce mot de passe depuis
-                    votre profil.
+                    Pour des raisons de sécurité, merci de vous connecter puis de modifier ce mot de passe depuis votre
+                    profil.
                 </p>
             </body>
         </html>

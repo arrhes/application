@@ -13,9 +13,9 @@ export const invoiceModel = pgTable(
         idOrganization: idColumn("id_organization")
             .references(() => organizationModel.id, { onDelete: "cascade", onUpdate: "cascade" })
             .notNull(),
-        reference: text("invoice_number").notNull(),
-        periodStart: dateTimeColumn("period_start").notNull(),
-        periodEnd: dateTimeColumn("period_end").notNull(),
+        reference: text("reference").notNull(),
+        startingAt: dateTimeColumn("starting_at").notNull(),
+        endingAt: dateTimeColumn("ending_at").notNull(),
         amountInCents: integer("amount_in_cents").notNull(),
         currency: varchar("currency", { length: 3 }).notNull().default("EUR"),
         xmlStorageKey: text("storage_key"),

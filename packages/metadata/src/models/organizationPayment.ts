@@ -33,10 +33,12 @@ export const organizationPaymentModel = pgTable("table_organization_payment", {
     periodStart: dateTimeColumn("period_start"),
     periodEnd: dateTimeColumn("period_end"),
     paidAt: dateTimeColumn("paid_at"),
-    idInvoice: idColumn("id_invoice").references((): AnyPgColumn => invoiceModel.id, {
-        onDelete: "restrict",
-        onUpdate: "cascade",
-    }).notNull(),
+    idInvoice: idColumn("id_invoice")
+        .references((): AnyPgColumn => invoiceModel.id, {
+            onDelete: "restrict",
+            onUpdate: "cascade",
+        })
+        .notNull(),
     createdAt: dateTimeColumn("created_at").notNull(),
     lastUpdatedAt: dateTimeColumn("last_updated_at"),
     createdBy: idColumn("created_by").references((): AnyPgColumn => userModel.id, {

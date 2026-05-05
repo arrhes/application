@@ -26,7 +26,7 @@ export function AgentLayout() {
         body: {},
     })
 
-    const isPremium = subscription.data?.isPremium === true
+    const isPremium = (subscription.data?.agentTokensMonthlyLimit ?? 0) > 0
 
     // Use the context's activeSessionId (set by chat on session-created) if available,
     // otherwise fall back to the URL param (set by TanStack Router on navigation)

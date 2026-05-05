@@ -34,7 +34,6 @@ export function CreateOneAccount(props: {
                         schema={createOneAccountRouteDefinition.schemas.body}
                         defaultValues={{
                             idYear: props.idYear,
-                            isClass: false,
                             isSelectable: true,
                             type: "balance-sheet",
                         }}
@@ -118,29 +117,6 @@ export function CreateOneAccount(props: {
                                                     idYear={props.idYear}
                                                     value={field.value}
                                                     onChange={field.onChange}
-                                                />
-                                            </FormControl>
-                                            <FormError />
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    control={form.control}
-                                    name="isClass"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel
-                                                label="Classe/sous-classe ?"
-                                                tooltip="Le compte est une classe ou une sous-classe de compte."
-                                            />
-                                            <FormControl>
-                                                <InputToggle
-                                                    value={field.value}
-                                                    onChange={field.onChange}
-                                                    options={[
-                                                        { label: "Oui", value: true },
-                                                        { label: "Non", value: false },
-                                                    ]}
                                                 />
                                             </FormControl>
                                             <FormError />

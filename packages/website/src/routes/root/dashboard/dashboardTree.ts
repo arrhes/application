@@ -27,7 +27,6 @@ import { organizationRoute } from "./organizations/$idOrganization/organizationR
 import { organizationSecurityRoute } from "./organizations/$idOrganization/organizationSettings/organizationSecurityRoute.tsx"
 import { organizationSettingsLayoutRoute } from "./organizations/$idOrganization/organizationSettings/organizationSettingsLayoutRoute.tsx"
 import { organizationSettingsRoute } from "./organizations/$idOrganization/organizationSettings/organizationSettingsRoute.tsx"
-import { organizationStorageRoute } from "./organizations/$idOrganization/organizationSettings/organizationStorageRoute.tsx"
 import { organizationUsersLayoutRoute } from "./organizations/$idOrganization/organizationUsers/organizationUsersLayoutRoute.tsx"
 import { organizationUsersRoute } from "./organizations/$idOrganization/organizationUsers/organizationUsersRoute.tsx"
 import { entryLineLayoutRoute } from "./organizations/$idOrganization/years/$idYear/entries/$idEntry/$idEntryLine/entryLineLayoutRoute.tsx"
@@ -127,11 +126,7 @@ export const dashboardTree: AnyRoute = dashboardLayoutRoute.addChildren([
                     organizationInvoicesRoute,
                     organizationInvoiceUblRoute,
                 ]),
-                organizationSettingsLayoutRoute.addChildren([
-                    organizationSettingsRoute,
-                    organizationSecurityRoute,
-                    organizationStorageRoute,
-                ]),
+                organizationSettingsLayoutRoute.addChildren([organizationSettingsRoute, organizationSecurityRoute]),
                 agentLayoutRoute.addChildren([agentRoute, agentSessionsLayoutRoute.addChildren([agentSessionRoute])]),
             ]),
             yearsPathRoute.addChildren([

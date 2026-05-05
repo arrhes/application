@@ -46,7 +46,7 @@ export function WalletCurrentMonth(props: { organization: v.InferOutput<typeof r
                         const now = new Date()
                         const currentPeriodStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1))
                         const currentInvoice = invoices.find((inv) => {
-                            const invStart = new Date(inv.periodStart)
+                            const invStart = new Date(inv.startingAt)
                             return (
                                 invStart.getUTCFullYear() === currentPeriodStart.getUTCFullYear() &&
                                 invStart.getUTCMonth() === currentPeriodStart.getUTCMonth()

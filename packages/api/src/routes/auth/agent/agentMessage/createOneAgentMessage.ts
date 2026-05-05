@@ -40,7 +40,11 @@ export const createOneAgentMessageRoute = apiFactory
             })
         }
 
-        await checkOrganizationSubscriptionSessionMiddleware({ context: c, idOrganization: session.idOrganization })
+        await checkOrganizationSubscriptionSessionMiddleware({
+            context: c,
+            idOrganization: session.idOrganization,
+            checkType: "tokens",
+        })
 
         const organization = await selectOne({
             database: c.var.clients.sql,

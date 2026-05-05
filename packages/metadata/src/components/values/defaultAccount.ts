@@ -2,8 +2,7 @@ import type { accountType } from "./accountType.js"
 
 export type DefaultAccount = {
     number: number
-    isMandatory: boolean
-    isClass: boolean
+    isOptional: boolean
     isSelectable: boolean
     type: (typeof accountType)[number]
     label: string

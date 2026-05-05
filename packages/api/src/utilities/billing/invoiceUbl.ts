@@ -80,13 +80,13 @@ export function buildInvoiceUblXml(parameters: {
         parameters.lines.length > 0
             ? parameters.lines
             : [
-                {
-                    serviceType: null,
-                    description: "Service Arrhes",
-                    amountInCents: parameters.amountInCents,
-                    quantity: 1,
-                },
-            ]
+                  {
+                      serviceType: null,
+                      description: "Service Arrhes",
+                      amountInCents: parameters.amountInCents,
+                      quantity: 1,
+                  },
+              ]
 
     const totalAmountHTInCents = parameters.amountInCents
     const totalTaxAmountInCents = getTaxAmountFromHTInCents(totalAmountHTInCents)
@@ -171,17 +171,17 @@ export function buildInvoiceUblXml(parameters: {
         "      </cac:PartyName>",
         ...(parameters.customerSiren
             ? [
-                "      <cac:PartyIdentification>",
-                `        <cbc:ID>${escapeXml(parameters.customerSiren)}</cbc:ID>`,
-                "      </cac:PartyIdentification>",
-            ]
+                  "      <cac:PartyIdentification>",
+                  `        <cbc:ID>${escapeXml(parameters.customerSiren)}</cbc:ID>`,
+                  "      </cac:PartyIdentification>",
+              ]
             : []),
         ...(parameters.customerEmail
             ? [
-                "      <cac:Contact>",
-                `        <cbc:ElectronicMail>${escapeXml(parameters.customerEmail)}</cbc:ElectronicMail>`,
-                "      </cac:Contact>",
-            ]
+                  "      <cac:Contact>",
+                  `        <cbc:ElectronicMail>${escapeXml(parameters.customerEmail)}</cbc:ElectronicMail>`,
+                  "      </cac:Contact>",
+              ]
             : []),
         "    </cac:Party>",
         "  </cac:AccountingCustomerParty>",

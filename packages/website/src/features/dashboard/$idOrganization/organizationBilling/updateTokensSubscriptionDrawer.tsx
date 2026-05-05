@@ -1,5 +1,6 @@
 import { updateTokensSubscriptionRouteDefinition } from "@arrhes/application-metadata/routes"
 import {
+    getAmountTTCFromHTInCents,
     TOKEN_PACK_PRICE_IN_CENTS,
     TOKEN_TIERS,
     TOKENS_PER_PACK,
@@ -31,7 +32,7 @@ function formatTokenUnitDelta(quantityDelta: number) {
         return "Aucun ajout"
     }
 
-    return `Ajouter ${quantityDelta} M tokens`
+    return `${quantityDelta} M tokens`
 }
 
 function DrawerSection(props: { title: string; description?: string; children: ReactNode }) {
@@ -67,6 +68,7 @@ export function UpdateTokensSubscriptionDrawer(props: {
     const [quantityDelta, setQuantityDelta] = useState(0)
     const nextQuantity = props.currentQuantity + quantityDelta
     const deltaAmountInCents = quantityDelta * TOKEN_PACK_PRICE_IN_CENTS
+    const deltaAmountTTCInCents = getAmountTTCFromHTInCents(deltaAmountInCents)
     const addedTokens = quantityDelta * TOKENS_PER_PACK
     const nextTokensLeft = props.currentTokensLeft + addedTokens
 
@@ -112,31 +114,17 @@ export function UpdateTokensSubscriptionDrawer(props: {
                             (TVA {VAT_PERCENT}%).
                         </p>
                         <DrawerSection
-                            title="Ajuster les tokens"
+                            title="Ajouter des tokens"
                             description="Sélectionnez uniquement les tokens supplémentaires à ajouter. Le compteur repart de zéro à chaque ouverture."
                         >
                             <div className={css({ display: "flex", flexDirection: "column", gap: "0.5rem" })}>
-                                <span className={css({ fontSize: "sm", color: "neutral/60" })}>Ajout sélectionné</span>
-                                <div
-                                    className={css({
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "space-between",
-                                        gap: "0.75rem",
-                                        flexWrap: "wrap",
-                                    })}
-                                >
-                                    <InputNumber
-                                        value={quantityDelta}
-                                        onChange={setQuantityDelta}
-                                        min={0}
-                                        label="M tokens"
-                                    />
-                                    <span className={css({ fontSize: "sm", color: "neutral/70" })}>
-                                        {formatEuros(deltaAmountInCents)} HT débité
-                                    </span>
-                                </div>
-                                <div className={css({ display: "flex", gap: "0.5rem", flexWrap: "wrap" })}>
+                                <InputNumber
+                                    value={quantityDelta}
+                                    onChange={setQuantityDelta}
+                                    min={0}
+                                    label="M tokens"
+                                />
+                                <div className={css({ display: "flex", gap: "0.25rem", flexWrap: "wrap" })}>
                                     {TOKEN_TIERS.map((tier) => (
                                         <button
                                             key={tier}
@@ -212,7 +200,7 @@ export function UpdateTokensSubscriptionDrawer(props: {
                                         Débité du portefeuille
                                     </span>
                                     <span className={css({ fontSize: "sm", fontWeight: "600", color: "neutral" })}>
-                                        {formatEuros(deltaAmountInCents)} HT
+                                        {formatEuros(deltaAmountTTCInCents)} TTC
                                     </span>
                                 </div>
                             </div>
@@ -224,7 +212,7 @@ export function UpdateTokensSubscriptionDrawer(props: {
                             open={confirmOpen}
                             onOpenChange={setConfirmOpen}
                             title="Confirmer l'achat de tokens"
-                            description={`${formatTokenUnitDelta(quantityDelta)} seront ajoutes et ${formatEuros(deltaAmountInCents)} HT seront debites de votre portefeuille (TVA ${VAT_PERCENT}% en sus).`}
+                            description={`${formatTokenUnitDelta(quantityDelta)} seront ajoutés et ${formatEuros(deltaAmountTTCInCents)} (TTC) seront débités de votre portefeuille (${formatEuros(deltaAmountInCents)} (HT) + TVA ${VAT_PERCENT}%).`}
                             submitButtonProps={{ text: "Confirmer l'achat" }}
                             onSubmit={handleSave}
                         />

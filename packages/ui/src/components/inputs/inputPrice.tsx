@@ -50,7 +50,6 @@ export function InputPrice(
                 autofix={false}
                 lazy={false}
                 overwrite={false}
-                eager="append"
                 unmask={"typed"}
                 onAccept={(value: unknown) => props.onChange(output(String(value)))}
                 value={input(props.value)}

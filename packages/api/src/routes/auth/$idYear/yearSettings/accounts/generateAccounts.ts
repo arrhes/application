@@ -45,8 +45,7 @@ function generateAccounts(parameters: {
             idIncomeStatement: null,
 
             number: account.number.toString(),
-            isMandatory: account.isMandatory,
-            isClass: account.isClass,
+            isOptional: account.isOptional,
             isDefault: true,
             isSelectable: account.isSelectable,
             label: account.label,
@@ -105,7 +104,7 @@ export const generateAccountsRoute = apiFactory.createApp().post(generateAccount
         const defaultAccounts = (
             organization.scope === "association" ? defaultAssociationAccounts : defaultCompanyAccounts
         ).filter((account) => {
-            if (account.isMandatory === false) {
+            if (account.isOptional === true) {
                 if (body.isMinimalSystem === true) return false
             }
             return true

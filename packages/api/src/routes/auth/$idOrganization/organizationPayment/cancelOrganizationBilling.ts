@@ -3,8 +3,6 @@ import { and, eq, sql } from "drizzle-orm"
 import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
-import { computeMonthlyTotal } from "../../../../utilities/billing/computeMonthlyTotal.js"
-import { syncMollieSubscription } from "../../../../utilities/billing/syncMollieSubscription.js"
 import { Exception } from "../../../../utilities/exception.js"
 import { response } from "../../../../utilities/response.js"
 import { selectOne } from "../../../../utilities/sql/selectOne.js"
@@ -50,11 +48,7 @@ export const cancelOrganizationBillingRoute = apiFactory
             database: c.var.clients.sql,
             table: models.organizationBilling,
             where: (table) =>
-                and(
-                    eq(table.id, body.idBilling),
-                    eq(table.idOrganization, idOrganization),
-                    eq(table.status, "active"),
-                ),
+                and(eq(table.id, body.idBilling), eq(table.idOrganization, idOrganization), eq(table.status, "active")),
         })
 
         const now = new Date()
@@ -96,15 +90,6 @@ export const cancelOrganizationBillingRoute = apiFactory
                 where: (table) => eq(table.id, idOrganization),
             })
         }
-
-        const totalMonthlyCents = await computeMonthlyTotal({ var: c.var, idOrganization })
-
-        await syncMollieSubscription({
-            var: c.var,
-            idOrganization,
-            idUser: user.id,
-            totalMonthlyCents,
-        })
 
         return response({
             context: c,

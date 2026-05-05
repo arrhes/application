@@ -25,7 +25,7 @@ function SupportBanner() {
         return null
     }
 
-    if (subscription.data?.isPremium) {
+    if ((subscription.data?.totalSubscriptionAmountInCents ?? 0) > 0) {
         return (
             <Banner variant="success" title="Support prioritaire">
                 Vos tickets sont traités en priorité grâce à votre abonnement Avancé.

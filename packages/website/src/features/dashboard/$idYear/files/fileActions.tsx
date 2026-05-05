@@ -36,7 +36,7 @@ export function FileActions(props: {
         routeDefinition: readOrganizationBillingRouteDefinition,
         body: {},
     })
-    const isPremium = subscription.data?.isPremium === true
+    const isPremium = (subscription.data?.ocrMonthlyLimit ?? 0) > 0
     const isOcrSupportedType = props.file.type === "application/pdf" || (props.file.type?.startsWith("image/") ?? false)
 
     async function handleDelete() {

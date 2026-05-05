@@ -17,8 +17,6 @@ export const organizationModel = pgTable("table_organization", {
     siren: text("siren"),
     email: text("email"),
     mollieCustomerId: text("mollie_customer_id"),
-    mollieSubscriptionId: text("mollie_subscription_id"),
-    subcriptionEndingAt: dateTimeColumn("subscription_ending_at"),
     licenceAmount: integer("licence_amount").notNull().default(0),
     pendingLicenceAmount: integer("pending_licence_amount"),
     pendingStorageMaxUsage: bigint("pending_storage_max_usage", { mode: "number" }),

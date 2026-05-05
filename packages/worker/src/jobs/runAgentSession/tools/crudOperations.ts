@@ -632,42 +632,15 @@ export async function deleteOneFolder(db: DB, idOrganization: string, body: Reco
     return { success: true, id }
 }
 
-// ─── Documents (read-only) ────────────────────────────────────────────────────
+// ─── Reports ──────────────────────────────────────────────────────────────────
 
-export async function readAllDocuments(db: DB, idOrganization: string, body: Record<string, unknown>) {
-    const { idYear } = body as any
-    const where = idYear
-        ? and(eq(models.document.idOrganization, idOrganization), eq((models.document as any).idYear, idYear))
-        : eq(models.document.idOrganization, idOrganization)
-    return db.select().from(models.document).where(where)
-}
-
-export async function readOneDocument(db: DB, idOrganization: string, body: Record<string, unknown>) {
-    const { id } = body as any
-    const rows = await db
-        .select()
-        .from(models.document)
-        .where(and(eq(models.document.idOrganization, idOrganization), eq(models.document.id, id)))
-        .limit(1)
-    return rows.at(0) ?? { error: "Not found" }
-}
-
-export async function generateBalanceSheetReportDocument(
-    _db: DB,
-    _idOrganization: string,
-    _body: Record<string, unknown>,
-) {
-    // Report generation requires the full API pipeline; return a stub that informs the LLM
+export async function generateBalanceSheetXml(_db: DB, _idOrganization: string, _body: Record<string, unknown>) {
     return {
         error: "Report generation is not available in the worker context. Please use the web interface to generate reports.",
     }
 }
 
-export async function generateIncomeStatementReportDocument(
-    _db: DB,
-    _idOrganization: string,
-    _body: Record<string, unknown>,
-) {
+export async function generateIncomeStatementXml(_db: DB, _idOrganization: string, _body: Record<string, unknown>) {
     return {
         error: "Report generation is not available in the worker context. Please use the web interface to generate reports.",
     }

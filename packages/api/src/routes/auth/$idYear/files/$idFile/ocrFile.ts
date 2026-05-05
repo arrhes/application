@@ -28,7 +28,7 @@ export const ocrFileRoute = apiFactory.createApp().post(ocrFileRouteDefinition.p
         context: c,
         schema: ocrFileRouteDefinition.schemas.body,
     })
-    await checkOrganizationSubscriptionSessionMiddleware({ context: c, idOrganization })
+    await checkOrganizationSubscriptionSessionMiddleware({ context: c, idOrganization, checkType: "ocrPages" })
 
     const organization = await selectOne({
         database: c.var.clients.sql,

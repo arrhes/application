@@ -38,15 +38,13 @@ import {
     deleteOneJournalRouteDefinition,
     deleteOneTagRouteDefinition,
     duplicateOneEntryRouteDefinition,
-    generateBalanceSheetReportDocumentRouteDefinition,
-    generateIncomeStatementReportDocumentRouteDefinition,
+    generateBalanceSheetXmlRouteDefinition,
+    generateIncomeStatementXmlRouteDefinition,
     openYearRouteDefinition,
     readAllAccountsRouteDefinition,
     readAllBalanceSheetsRouteDefinition,
     readAllComputationIncomeStatementsRouteDefinition,
     readAllComputationsRouteDefinition,
-    // Reports
-    readAllDocumentsRouteDefinition,
     readAllEntriesRouteDefinition,
     readAllEntryLinesRouteDefinition,
     // Entry Tags
@@ -62,7 +60,6 @@ import {
     readOneBalanceSheetRouteDefinition,
     readOneComputationIncomeStatementRouteDefinition,
     readOneComputationRouteDefinition,
-    readOneDocumentRouteDefinition,
     readOneEntryLineRouteDefinition,
     readOneEntryRouteDefinition,
     readOneFileRouteDefinition,
@@ -237,13 +234,8 @@ export const toolCategories: ToolCategory[] = [
     },
     {
         name: "reports",
-        description: "Gestion des rapports : lire les documents, générer des rapports de bilan et de résultat.",
-        routeDefinitions: [
-            readAllDocumentsRouteDefinition,
-            readOneDocumentRouteDefinition,
-            generateBalanceSheetReportDocumentRouteDefinition,
-            generateIncomeStatementReportDocumentRouteDefinition,
-        ],
+        description: "Gestion des rapports : générer des rapports de bilan et de résultat.",
+        routeDefinitions: [generateBalanceSheetXmlRouteDefinition, generateIncomeStatementXmlRouteDefinition],
     },
     {
         name: "yearGeneral",

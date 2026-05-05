@@ -26,7 +26,6 @@ export {
     computationIncomeStatementModel,
     computationIncomeStatementRelations,
 } from "../../metadata/src/models/computationIncomeStatement.ts"
-export { documentModel, documentRelations, documentTypeEnum } from "../../metadata/src/models/document.ts"
 export { entryModel, entryRelations } from "../../metadata/src/models/entry.ts"
 export { entryLineModel, entryLineOperationEnum, entryLineRelations } from "../../metadata/src/models/entryLine.ts"
 export { entryTagModel, entryTagRelations } from "../../metadata/src/models/entryTag.ts"

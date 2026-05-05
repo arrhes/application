@@ -1,13 +1,5 @@
 import { css } from "@arrhes/ui/utilities/cn.js"
-import {
-    IconBook,
-    IconCode,
-    IconGavel,
-    IconHome,
-    IconInfoCircle,
-    IconLayout,
-    IconRobot,
-} from "@tabler/icons-react"
+import { IconBook, IconCode, IconGavel, IconHome, IconInfoCircle, IconLayout, IconRobot } from "@tabler/icons-react"
 import type { DocSection } from "./sectionTab.tsx"
 
 // Documentation sections configuration

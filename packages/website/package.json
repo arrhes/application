@@ -32,6 +32,7 @@
         "@radix-ui/react-slot": "1.2.4",
         "@radix-ui/react-switch": "1.2.6",
         "@radix-ui/react-tooltip": "1.2.8",
+        "@react-pdf/renderer": "^4.5.1",
         "@tabler/icons-react": "3.35.0",
         "@tanstack/ai-react": "0.7.5",
         "@tanstack/react-query": "5.90.11",

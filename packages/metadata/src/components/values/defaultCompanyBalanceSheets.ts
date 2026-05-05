@@ -206,6 +206,16 @@ export const defaultCompanyBalanceSheets: DefaultBalanceSheet[] = [
                 flow: "credit",
                 isAmortization: true,
             },
+            {
+                number: 280,
+                flow: "credit",
+                isAmortization: true,
+            },
+            {
+                number: 290,
+                flow: "credit",
+                isAmortization: true,
+            },
         ],
     },
     {
@@ -483,6 +493,16 @@ export const defaultCompanyBalanceSheets: DefaultBalanceSheet[] = [
                 flow: "credit",
                 isAmortization: true,
             },
+            {
+                number: 281,
+                flow: "credit",
+                isAmortization: true,
+            },
+            {
+                number: 291,
+                flow: "credit",
+                isAmortization: true,
+            },
         ],
     },
     {
@@ -503,6 +523,11 @@ export const defaultCompanyBalanceSheets: DefaultBalanceSheet[] = [
             },
             {
                 number: 2931,
+                flow: "credit",
+                isAmortization: true,
+            },
+            {
+                number: 293,
                 flow: "credit",
                 isAmortization: true,
             },
@@ -563,6 +588,11 @@ export const defaultCompanyBalanceSheets: DefaultBalanceSheet[] = [
             },
             {
                 number: 2966,
+                flow: "credit",
+                isAmortization: true,
+            },
+            {
+                number: 296,
                 flow: "credit",
                 isAmortization: true,
             },
@@ -815,6 +845,21 @@ export const defaultCompanyBalanceSheets: DefaultBalanceSheet[] = [
                 number: 278,
                 flow: "debit",
                 isAmortization: false,
+            },
+            {
+                number: 276,
+                flow: "debit",
+                isAmortization: false,
+            },
+            {
+                number: 2768,
+                flow: "debit",
+                isAmortization: false,
+            },
+            {
+                number: 297,
+                flow: "credit",
+                isAmortization: true,
             },
         ],
     },
@@ -1339,6 +1384,36 @@ export const defaultCompanyBalanceSheets: DefaultBalanceSheet[] = [
                 isAmortization: false,
             },
             {
+                number: 409,
+                flow: "debit",
+                isAmortization: false,
+            },
+            {
+                number: 445,
+                flow: "debit",
+                isAmortization: false,
+            },
+            {
+                number: 448,
+                flow: "debit",
+                isAmortization: false,
+            },
+            {
+                number: 471,
+                flow: "debit",
+                isAmortization: false,
+            },
+            {
+                number: 472,
+                flow: "debit",
+                isAmortization: false,
+            },
+            {
+                number: 473,
+                flow: "debit",
+                isAmortization: false,
+            },
+            {
                 number: 495,
                 flow: "credit",
                 isAmortization: true,
@@ -1388,6 +1463,16 @@ export const defaultCompanyBalanceSheets: DefaultBalanceSheet[] = [
         accounts: [
             {
                 number: 486,
+                flow: "debit",
+                isAmortization: false,
+            },
+            {
+                number: 488,
+                flow: "debit",
+                isAmortization: false,
+            },
+            {
+                number: 4886,
                 flow: "debit",
                 isAmortization: false,
             },
@@ -1910,6 +1995,11 @@ export const defaultCompanyBalanceSheets: DefaultBalanceSheet[] = [
                 flow: "credit",
                 isAmortization: false,
             },
+            {
+                number: 106,
+                flow: "credit",
+                isAmortization: false,
+            },
         ],
     },
     {
@@ -2270,6 +2360,11 @@ export const defaultCompanyBalanceSheets: DefaultBalanceSheet[] = [
                 isAmortization: false,
             },
             {
+                number: 167,
+                flow: "credit",
+                isAmortization: false,
+            },
+            {
                 number: 1671,
                 flow: "credit",
                 isAmortization: false,
@@ -2370,6 +2465,11 @@ export const defaultCompanyBalanceSheets: DefaultBalanceSheet[] = [
                 flow: "credit",
                 isAmortization: false,
             },
+            {
+                number: 419,
+                flow: "credit",
+                isAmortization: false,
+            },
         ],
     },
     {
@@ -2395,6 +2495,11 @@ export const defaultCompanyBalanceSheets: DefaultBalanceSheet[] = [
             },
             {
                 number: 403,
+                flow: "credit",
+                isAmortization: false,
+            },
+            {
+                number: 408,
                 flow: "credit",
                 isAmortization: false,
             },
@@ -2527,6 +2632,11 @@ export const defaultCompanyBalanceSheets: DefaultBalanceSheet[] = [
                 isAmortization: false,
             },
             {
+                number: 445,
+                flow: "credit",
+                isAmortization: false,
+            },
+            {
                 number: 4452,
                 flow: "credit",
                 isAmortization: false,
@@ -2613,6 +2723,11 @@ export const defaultCompanyBalanceSheets: DefaultBalanceSheet[] = [
             },
             {
                 number: 447,
+                flow: "credit",
+                isAmortization: false,
+            },
+            {
+                number: 448,
                 flow: "credit",
                 isAmortization: false,
             },
@@ -2787,6 +2902,21 @@ export const defaultCompanyBalanceSheets: DefaultBalanceSheet[] = [
                 flow: "credit",
                 isAmortization: false,
             },
+            {
+                number: 471,
+                flow: "credit",
+                isAmortization: false,
+            },
+            {
+                number: 472,
+                flow: "credit",
+                isAmortization: false,
+            },
+            {
+                number: 473,
+                flow: "credit",
+                isAmortization: false,
+            },
         ],
     },
     {
@@ -2802,6 +2932,16 @@ export const defaultCompanyBalanceSheets: DefaultBalanceSheet[] = [
             },
             {
                 number: 4871,
+                flow: "credit",
+                isAmortization: false,
+            },
+            {
+                number: 488,
+                flow: "credit",
+                isAmortization: false,
+            },
+            {
+                number: 4887,
                 flow: "credit",
                 isAmortization: false,
             },

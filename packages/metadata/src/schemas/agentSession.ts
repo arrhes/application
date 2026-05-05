@@ -11,9 +11,8 @@ export const agentSessionSchema = v.object({
     idYear: v.nullable(v.string()),
     customInstructions: v.nullable(v.string()),
     attachedFiles: v.nullable(v.any()),
-    totalPromptTokens: v.nonNullable(integerSchema, "Ce champ est requis"),
-    totalCompletionTokens: v.nonNullable(integerSchema, "Ce champ est requis"),
-    totalTokens: v.nonNullable(integerSchema, "Ce champ est requis"),
+    totalInputTokens: v.nonNullable(integerSchema, "Ce champ est requis"),
+    totalOutputTokens: v.nonNullable(integerSchema, "Ce champ est requis"),
     createdAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),
     lastUpdatedAt: v.nullable(dateTimeSchema),
 }) satisfies v.GenericSchema<typeof agentSessionModel.$inferSelect>

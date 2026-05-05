@@ -2,11 +2,17 @@ import {
     readOneOrganizationRouteDefinition,
     updateStorageSubscriptionRouteDefinition,
 } from "@arrhes/application-metadata/routes"
-import { FREE_STORAGE_BYTES, STORAGE_PRICE_PER_GB_IN_CENTS, VAT_PERCENT } from "@arrhes/application-metadata/utilities"
-import { Button, ButtonOutlineContent, toast } from "@arrhes/ui"
+import {
+    FREE_STORAGE_BYTES,
+    getAmountTTCFromHTInCents,
+    STORAGE_PRICE_PER_GB_IN_CENTS,
+    VAT_PERCENT,
+} from "@arrhes/application-metadata/utilities"
+import { Button, ButtonOutlineContent, InputNumber, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconMinus, IconPlus } from "@tabler/icons-react"
 import { type JSX, type ReactNode, useEffect, useState } from "react"
+import { ConfirmationModal } from "../../../../components/overlays/dialog/confirmationModal.tsx"
 import { Drawer } from "../../../../components/overlays/drawer/drawer.tsx"
 import { formatEuros } from "../../../../utilities/formatEuros.tsx"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
@@ -38,6 +44,13 @@ function getMinimumStorageQuantityFromUsage(storageCurrentUsage: number): number
 
 function formatStorageSelection(quantity: number): string {
     return `${quantity + 1} Go disponibles`
+}
+
+function getProRataFraction(): number {
+    const now = new Date()
+    const daysInMonth = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 0)).getUTCDate()
+    const remainingDays = daysInMonth - now.getUTCDate() + 1
+    return remainingDays / daysInMonth
 }
 
 function formatStorageDelta(quantityDelta: number): string {
@@ -83,14 +96,16 @@ export function UpdateStorageSubscriptionDrawer(props: {
     onSuccess: () => void
 }) {
     const [open, setOpen] = useState(false)
+    const [confirmOpen, setConfirmOpen] = useState(false)
     const [quantityDelta, setQuantityDelta] = useState(0)
     const [isLoading, setIsLoading] = useState(false)
     const minimumQuantity = getMinimumStorageQuantityFromUsage(props.currentUsageInBytes)
-    const minimumQuantityDelta = minimumQuantity - props.currentQuantity
     const nextQuantity = props.currentQuantity + quantityDelta
     const currentAmountInCents = props.currentQuantity * STORAGE_PRICE_PER_GB_IN_CENTS
     const nextAmountInCents = nextQuantity * STORAGE_PRICE_PER_GB_IN_CENTS
     const deltaAmountInCents = nextAmountInCents - currentAmountInCents
+    const proRataAmountInCents = Math.round(deltaAmountInCents * getProRataFraction())
+    const proRataAmountTTCInCents = getAmountTTCFromHTInCents(proRataAmountInCents)
     const nextStorageMaxUsageInBytes = getStorageMaxUsageFromQuantity(nextQuantity)
 
     useEffect(() => {
@@ -113,7 +128,13 @@ export function UpdateStorageSubscriptionDrawer(props: {
             toast({ title: response.error?.cause ?? "Erreur lors de la mise à jour", variant: "error" })
             return
         }
-        toast({ title: "Modification enregistrée, effective le 1er du mois prochain", variant: "success" })
+        toast({
+            title:
+                quantityDelta > 0
+                    ? "Stockage augmenté immédiatement"
+                    : "Réduction enregistrée, effective le 1er du mois prochain",
+            variant: "success",
+        })
 
         await invalidateData({
             routeDefinition: readOneOrganizationRouteDefinition,
@@ -138,9 +159,11 @@ export function UpdateStorageSubscriptionDrawer(props: {
                         })}
                     >
                         <p className={css({ fontSize: "sm", color: "neutral/70", lineHeight: "1.5" })}>
-                            Ajustez le stockage disponible pour l'organisation. La modification sera effective le 1er du
-                            mois prochain et debitee automatiquement du portefeuille. Montants en HT (TVA {VAT_PERCENT}
-                            %).
+                            {quantityDelta > 0
+                                ? `Augmenter le stockage est immédiat : le montant prorata du mois est débité du portefeuille. Montants en HT (TVA ${VAT_PERCENT}\u00a0%).`
+                                : quantityDelta < 0
+                                  ? `Réduire le stockage est effectif le 1er du mois prochain. Aucun remboursement n'est appliqué. Montants en HT (TVA ${VAT_PERCENT}\u00a0%).`
+                                  : `Ajustez le stockage disponible pour l'organisation. Montants en HT (TVA ${VAT_PERCENT}\u00a0%).`}
                         </p>
                         <DrawerSection
                             title="État actuel"
@@ -224,79 +247,12 @@ export function UpdateStorageSubscriptionDrawer(props: {
                             description="Choisissez la nouvelle capacité. La sélection repart de la configuration actuelle."
                         >
                             <div className={css({ display: "flex", flexDirection: "column", gap: "0.5rem" })}>
-                                <span className={css({ fontSize: "sm", color: "neutral/60" })}>
-                                    Ajustement sélectionné
-                                </span>
-                                <div
-                                    className={css({
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "space-between",
-                                        gap: "0.75rem",
-                                        flexWrap: "wrap",
-                                    })}
-                                >
-                                    <div className={css({ display: "flex", alignItems: "center", gap: "0.5rem" })}>
-                                        <button
-                                            type="button"
-                                            onClick={() =>
-                                                setQuantityDelta((currentQuantityDelta) => currentQuantityDelta - 1)
-                                            }
-                                            className={css({
-                                                width: "2rem",
-                                                height: "2rem",
-                                                border: "1px solid token(colors.neutral/20)",
-                                                borderRadius: "md",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                cursor: "pointer",
-                                                background: "transparent",
-                                                color: "neutral",
-                                                _hover: { background: "neutral/5" },
-                                            })}
-                                            disabled={quantityDelta <= minimumQuantityDelta}
-                                        >
-                                            <IconMinus size={14} />
-                                        </button>
-                                        <button
-                                            type="button"
-                                            onClick={() =>
-                                                setQuantityDelta((currentQuantityDelta) => currentQuantityDelta + 1)
-                                            }
-                                            className={css({
-                                                width: "2rem",
-                                                height: "2rem",
-                                                border: "1px solid token(colors.neutral/20)",
-                                                borderRadius: "md",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                cursor: "pointer",
-                                                background: "transparent",
-                                                color: "neutral",
-                                                _hover: { background: "neutral/5" },
-                                            })}
-                                        >
-                                            <IconPlus size={14} />
-                                        </button>
-                                        <span
-                                            className={css({
-                                                minWidth: "11rem",
-                                                fontVariantNumeric: "tabular-nums",
-                                            })}
-                                        >
-                                            {formatStorageDelta(quantityDelta)}
-                                        </span>
-                                    </div>
-                                    <span className={css({ fontSize: "sm", color: "neutral/70" })}>
-                                        {quantityDelta > 0
-                                            ? `${formatEuros(deltaAmountInCents)} HT / mois debite`
-                                            : quantityDelta < 0
-                                              ? `${formatEuros(Math.abs(deltaAmountInCents))} HT / mois credite`
-                                              : "0,00\u202fEUR HT / mois"}
-                                    </span>
-                                </div>
+                                <InputNumber
+                                    value={quantityDelta}
+                                    onChange={setQuantityDelta}
+                                    min={minimumQuantity - props.currentQuantity}
+                                    label="Go / mois"
+                                />
                                 <span className={css({ fontSize: "xs", color: "neutral/50" })}>
                                     Le minimum autorisé est calé sur l'usage actuel:{" "}
                                     {formatBytes(props.currentUsageInBytes)}.
@@ -346,13 +302,15 @@ export function UpdateStorageSubscriptionDrawer(props: {
                                 >
                                     <span className={css({ fontSize: "xs", color: "neutral/50" })}>
                                         {deltaAmountInCents > 0
-                                            ? "Débité du portefeuille"
+                                            ? "Débité maintenant (prorata)"
                                             : deltaAmountInCents < 0
-                                              ? "Crédité au portefeuille"
+                                              ? "Effectif le 1er du mois"
                                               : "Ajustement portefeuille"}
                                     </span>
                                     <span className={css({ fontSize: "sm", fontWeight: "600", color: "neutral" })}>
-                                        {formatEuros(Math.abs(deltaAmountInCents))}
+                                        {deltaAmountInCents > 0
+                                            ? `≈\u2009${formatEuros(proRataAmountTTCInCents)} TTC`
+                                            : formatEuros(Math.abs(deltaAmountInCents))}
                                     </span>
                                 </div>
                                 <div
@@ -364,9 +322,11 @@ export function UpdateStorageSubscriptionDrawer(props: {
                                         background: "neutral/1",
                                     })}
                                 >
-                                    <span className={css({ fontSize: "xs", color: "neutral/50" })}>Montant actuel</span>
+                                    <span className={css({ fontSize: "xs", color: "neutral/50" })}>
+                                        Nouveau montant mensuel
+                                    </span>
                                     <span className={css({ fontSize: "sm", fontWeight: "600", color: "neutral" })}>
-                                        {formatEuros(currentAmountInCents)} HT / mois
+                                        {formatEuros(nextAmountInCents)} HT / mois
                                     </span>
                                 </div>
                                 <div
@@ -387,12 +347,24 @@ export function UpdateStorageSubscriptionDrawer(props: {
                                 </div>
                             </div>
                         </DrawerSection>
-                        <Button onClick={handleSave} hasLoader isDisabled={isLoading || quantityDelta === 0}>
+                        <Button onClick={() => setConfirmOpen(true)} isDisabled={isLoading || quantityDelta === 0}>
                             <ButtonOutlineContent
                                 leftIcon={deltaAmountInCents < 0 ? <IconMinus /> : <IconPlus />}
-                                text={isLoading ? "Enregistrement..." : "Enregistrer le stockage"}
+                                text="Enregistrer le stockage"
                             />
                         </Button>
+                        <ConfirmationModal
+                            open={confirmOpen}
+                            onOpenChange={setConfirmOpen}
+                            title="Confirmer la modification du stockage"
+                            description={
+                                quantityDelta > 0
+                                    ? `${formatStorageDelta(quantityDelta)} sera appliqué immédiatement. ${formatEuros(proRataAmountTTCInCents)} TTC seront débités du portefeuille (${formatEuros(proRataAmountInCents)} HT + TVA ${VAT_PERCENT}%, prorata du mois).`
+                                    : `${formatStorageDelta(quantityDelta)} sera effectif le 1er du mois prochain. Aucun remboursement ne sera appliqué.`
+                            }
+                            submitButtonProps={{ text: "Confirmer" }}
+                            onSubmit={handleSave}
+                        />
                     </div>
                 </Drawer.Body>
             </Drawer.Content>

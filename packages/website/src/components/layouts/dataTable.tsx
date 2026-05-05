@@ -205,6 +205,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
     })
 
     if (props.isLoading) return <CircularLoader className={css({ m: "3" })} />
+    const columnCount = table.getFlatHeaders().length + (props.renderSubComponent ? 1 : 0)
     return (
         <div
             className={css({
@@ -357,7 +358,6 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                         height: "100%",
                         maxH: "100%",
                         borderCollapse: "collapse",
-                        tableLayout: "fixed",
                     })}
                 >
                     <thead
@@ -382,15 +382,15 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                             {table.getFlatHeaders().map((header) => {
                                 const isFit = header.column.columnDef.meta?.fit === true
                                 const boundedHeaderSize = Math.min(header.getSize(), 200)
-                                const boundedHeaderMinSize = Math.min(header.column.columnDef.minSize ?? 80, 200)
                                 return (
                                     <th
                                         key={header.id}
                                         colSpan={header.colSpan}
+                                        style={isFit ? undefined : { minWidth: `calc(100% / ${columnCount})` }}
                                         className={css({
                                             position: "relative",
                                             width: isFit ? "1%" : `${boundedHeaderSize}px`,
-                                            minWidth: isFit ? "0" : `${boundedHeaderMinSize}px`,
+                                            minWidth: isFit ? "0" : undefined,
                                             whiteSpace: isFit ? "nowrap" : undefined,
                                             borderBottom: "1px solid",
                                             borderBottomColor: "neutral/10",
@@ -406,7 +406,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                             })}
                                         >
                                             {header.column.columnDef.header === undefined ? null : typeof header.column
-                                                .columnDef.header === "function" ? (
+                                                  .columnDef.header === "function" ? (
                                                 flexRender(header.column.columnDef.header, header.getContext())
                                             ) : (
                                                 <Button onClick={header.column.getToggleSortingHandler()}>
@@ -493,13 +493,13 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                             !props.onRowClick
                                                 ? undefined
                                                 : css({
-                                                    cursor: "pointer",
-                                                    _hover: { backgroundColor: "neutral/5" },
-                                                }),
+                                                      cursor: "pointer",
+                                                      _hover: { backgroundColor: "neutral/5" },
+                                                  }),
                                             row.getIsExpanded()
                                                 ? css({
-                                                    borderBottomColor: "neutral/10",
-                                                })
+                                                      borderBottomColor: "neutral/10",
+                                                  })
                                                 : undefined,
                                             rowExtraClassName,
                                         )}
@@ -537,19 +537,17 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                         {row.getVisibleCells().map((cell) => {
                                             const isFit = cell.column.columnDef.meta?.fit === true
                                             const boundedCellSize = Math.min(cell.column.getSize(), 200)
-                                            const boundedCellMinSize = Math.min(cell.column.columnDef.minSize ?? 80, 200)
                                             return (
                                                 <td
                                                     key={cell.id}
+                                                    style={
+                                                        isFit ? undefined : { minWidth: `calc(100% / ${columnCount})` }
+                                                    }
                                                     className={css({
                                                         width: isFit ? "1%" : `${boundedCellSize}px`,
-                                                        minWidth: isFit
-                                                            ? "0"
-                                                            : `${boundedCellMinSize}px`,
-                                                        maxWidth: isFit ? "none" : `${boundedCellSize}px`,
-                                                        overflow: isFit ? "visible" : "hidden",
+                                                        minWidth: isFit ? "0" : undefined,
                                                         whiteSpace: isFit ? "nowrap" : undefined,
-                                                        _last: { width: "1%", maxWidth: "none" },
+                                                        _last: { width: "1%" },
                                                     })}
                                                 >
                                                     <div

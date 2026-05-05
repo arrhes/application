@@ -2,12 +2,13 @@ import {
     readOneOrganizationRouteDefinition,
     updateLicenceSubscriptionRouteDefinition,
 } from "@arrhes/application-metadata/routes"
-import { SUPPORT_TIERS } from "@arrhes/application-metadata/utilities"
+import { getAmountTTCFromHTInCents, SUPPORT_TIERS, VAT_PERCENT } from "@arrhes/application-metadata/utilities"
 import { Button, ButtonOutlineContent, toast } from "@arrhes/ui"
 import { InputCurrency } from "@arrhes/ui/components/inputs/inputCurrency.js"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconDeviceFloppy } from "@tabler/icons-react"
 import { type JSX, useState } from "react"
+import { ConfirmationModal } from "../../../../components/overlays/dialog/confirmationModal.tsx"
 import { Drawer } from "../../../../components/overlays/drawer/drawer.tsx"
 import { formatEuros } from "../../../../utilities/formatEuros.tsx"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
@@ -20,8 +21,10 @@ export function UpdateLicenceSubscriptionDrawer(props: {
     onSuccess: () => void
 }) {
     const [open, setOpen] = useState(false)
+    const [confirmOpen, setConfirmOpen] = useState(false)
     const [value, setValue] = useState<number>(props.currentAmountInCents)
     const [isSaving, setIsSaving] = useState(false)
+    const valueTTCInCents = getAmountTTCFromHTInCents(value)
 
     async function handleSaveSupport() {
         if (Number.isNaN(value) || value < 0) {
@@ -58,8 +61,12 @@ export function UpdateLicenceSubscriptionDrawer(props: {
                 <Drawer.Header title="Modifier le montant de la licence" />
                 <Drawer.Body>
                     <div className={css({ display: "flex", flexDirection: "column", gap: "1rem" })}>
+                        <p className={css({ fontSize: "sm", color: "neutral/70", lineHeight: "1.5" })}>
+                            La licence Arrhes est un montant mensuel libre, prélevé depuis le portefeuille le 1er de
+                            chaque mois. Vous pouvez le laisser à 0,00€ ou contribuer librement au développement
+                            d'Arrhes et bénéficier d'un support privilégié. Le montant est HT.
+                        </p>
                         <div className={css({ display: "flex", flexDirection: "column", gap: "0.5rem" })}>
-                            <span className={css({ fontSize: "sm", color: "neutral/60" })}>Montant libre</span>
                             <InputCurrency
                                 value={value}
                                 onChange={(value) => {
@@ -68,7 +75,7 @@ export function UpdateLicenceSubscriptionDrawer(props: {
                                 type="number"
                                 placeholder="Montant mensuel en €"
                             />
-                            <div className={css({ display: "flex", gap: "0.5rem", flexWrap: "wrap" })}>
+                            <div className={css({ display: "flex", gap: "0.25rem", flexWrap: "wrap" })}>
                                 {SUPPORT_TIERS.map((tier) => (
                                     <button
                                         key={tier}
@@ -93,12 +100,20 @@ export function UpdateLicenceSubscriptionDrawer(props: {
                                 ))}
                             </div>
                         </div>
-                        <Button onClick={handleSaveSupport} hasLoader isDisabled={isSaving}>
+                        <Button onClick={() => setConfirmOpen(true)} hasLoader isDisabled={isSaving}>
                             <ButtonOutlineContent
                                 leftIcon={<IconDeviceFloppy />}
                                 text={isSaving ? "Enregistrement..." : "Enregistrer"}
                             />
                         </Button>
+                        <ConfirmationModal
+                            open={confirmOpen}
+                            onOpenChange={setConfirmOpen}
+                            title="Confirmer la modification de la licence"
+                            description={`Votre contribution mensuelle passera à ${formatEuros(valueTTCInCents)} TTC (${formatEuros(value)} HT + TVA ${VAT_PERCENT}%), effective le 1er du mois prochain.`}
+                            submitButtonProps={{ text: "Confirmer" }}
+                            onSubmit={handleSaveSupport}
+                        />
                     </div>
                 </Drawer.Body>
             </Drawer.Content>

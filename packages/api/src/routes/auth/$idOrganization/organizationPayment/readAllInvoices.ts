@@ -24,7 +24,7 @@ export const readAllInvoicesRoute = apiFactory.createApp().post(readAllInvoicesR
         database: c.var.clients.sql,
         table: models.invoice,
         where: (table) => eq(table.idOrganization, idOrganization),
-        orderBy: (table) => desc(table.periodStart),
+        orderBy: (table) => desc(table.startingAt),
     })
 
     // For draft invoices, `amountInCents` is 0 at creation and only updated when the monthly

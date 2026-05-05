@@ -21,7 +21,6 @@ export const createOneAccountRouteDefinition = routeDefinition({
 
             idIncomeStatement: v.optional(accountSchema.entries.idIncomeStatement),
 
-            isClass: accountSchema.entries.isClass,
             isSelectable: accountSchema.entries.isSelectable,
             number: accountSchema.entries.number,
             label: accountSchema.entries.label,

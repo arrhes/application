@@ -2,10 +2,7 @@ import { css } from "@arrhes/ui/utilities/cn.js"
 import { useMemo } from "react"
 import { parseInvoiceSummary } from "./parseInvoiceSummary.ts"
 
-
-export function XMLTable(props: {
-    xmlContent: string
-}) {
+export function XMLTable(props: { xmlContent: string }) {
     const parsed = useMemo(() => parseInvoiceSummary(props.xmlContent), [props.xmlContent])
     return (
         <div
@@ -33,18 +30,10 @@ export function XMLTable(props: {
                         <tr key={`${line.id}-${line.name}`}>
                             <td className={css({ padding: "0.6rem" })}>{line.id || "-"}</td>
                             <td className={css({ padding: "0.6rem" })}>{line.name || "-"}</td>
-                            <td className={css({ textAlign: "right", padding: "0.6rem" })}>
-                                {line.quantity || "-"}
-                            </td>
-                            <td className={css({ textAlign: "right", padding: "0.6rem" })}>
-                                {line.amountHT || "-"}
-                            </td>
-                            <td className={css({ textAlign: "right", padding: "0.6rem" })}>
-                                {line.amountTVA || "-"}
-                            </td>
-                            <td className={css({ textAlign: "right", padding: "0.6rem" })}>
-                                {line.amountTTC || "-"}
-                            </td>
+                            <td className={css({ textAlign: "right", padding: "0.6rem" })}>{line.quantity || "-"}</td>
+                            <td className={css({ textAlign: "right", padding: "0.6rem" })}>{line.amountHT || "-"}</td>
+                            <td className={css({ textAlign: "right", padding: "0.6rem" })}>{line.amountTVA || "-"}</td>
+                            <td className={css({ textAlign: "right", padding: "0.6rem" })}>{line.amountTTC || "-"}</td>
                         </tr>
                     ))}
                 </tbody>

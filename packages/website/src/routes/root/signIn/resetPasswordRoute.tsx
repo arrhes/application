@@ -16,8 +16,5 @@ export const resetPasswordRoute = createRoute({
             description: "Recevez un nouveau mot de passe temporaire par email.",
         }
     },
-    component: lazyRouteComponent(
-        () => import("../../../features/signIn/resetPasswordPage.js"),
-        "ResetPasswordPage",
-    ),
+    component: lazyRouteComponent(() => import("../../../features/signIn/resetPasswordPage.js"), "ResetPasswordPage"),
 })

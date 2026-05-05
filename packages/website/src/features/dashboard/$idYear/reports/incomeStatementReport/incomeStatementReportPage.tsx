@@ -1,6 +1,4 @@
-import { ButtonOutlineContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconDownload } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { useState } from "react"
 import { Box } from "../../../../../components/layouts/box.tsx"
@@ -95,22 +93,24 @@ export function IncomeStatementReportPage() {
                                         <DownloadIncomeStatementReport
                                             idOrganization={params.idOrganization}
                                             idYear={params.idYear}
-                                        >
-                                            <ButtonOutlineContent
-                                                leftIcon={<IconDownload />}
-                                                text="Télécharger en pdf"
-                                            />
-                                        </DownloadIncomeStatementReport>
-                                    </div>
-                                    <Box>
-                                        <IncomeStatementsReportTable
                                             incomeStatements={incomeStatements}
                                             computations={computations}
                                             computationIncomeStatements={computationIncomeStatements}
                                             entryLines={filteredEntryLines}
                                             accounts={filteredAccounts}
                                         />
-                                    </Box>
+                                    </div>
+                                    <div className={css({ width: "100%" })}>
+                                        <Box>
+                                            <IncomeStatementsReportTable
+                                                incomeStatements={incomeStatements}
+                                                computations={computations}
+                                                computationIncomeStatements={computationIncomeStatements}
+                                                entryLines={filteredEntryLines}
+                                                accounts={filteredAccounts}
+                                            />
+                                        </Box>
+                                    </div>
                                 </Section.Item>
                             </Section.Root>
                         </Page.Content>

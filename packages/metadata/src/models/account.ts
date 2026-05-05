@@ -48,8 +48,7 @@ export const accountModel = pgTable(
             onUpdate: "cascade",
         }),
 
-        isMandatory: boolean("is_mandatory").notNull(),
-        isClass: boolean("is_class").notNull(),
+        isOptional: boolean("is_optional").notNull(),
         isSelectable: boolean("is_selectable").notNull(),
         isDefault: boolean("is_default").notNull(),
         number: varchar("number", { length: 32 }).notNull(),

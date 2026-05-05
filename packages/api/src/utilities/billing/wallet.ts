@@ -89,8 +89,8 @@ export async function recordOrganizationPayment(parameters: {
         parameters.periodStart !== undefined && parameters.periodStart !== null
             ? new Date(parameters.periodStart)
             : parameters.paidAt !== undefined && parameters.paidAt !== null
-                ? new Date(parameters.paidAt)
-                : now
+              ? new Date(parameters.paidAt)
+              : now
 
     const { periodStart, periodEnd } = getMonthRange(effectiveDate)
     const idInvoice =
@@ -109,11 +109,14 @@ export async function recordOrganizationPayment(parameters: {
         (parameters.category === "wallet_spending" && parameters.status === "paid") ||
         (parameters.category === "withdrawal" && parameters.status !== "failed")
     ) {
+        const debitAmountInCents =
+            parameters.category === "wallet_spending" ? amountHTInCents + amountTVAInCents : amountHTInCents
+
         await updateOne({
             database: parameters.database,
             table: models.organization,
             data: {
-                walletBalanceInCents: sql`${models.organization.walletBalanceInCents} - ${amountHTInCents}`,
+                walletBalanceInCents: sql`${models.organization.walletBalanceInCents} - ${debitAmountInCents}`,
                 lastUpdatedAt: nowISO,
                 lastUpdatedBy: parameters.createdBy,
             },
@@ -184,7 +187,9 @@ export async function debitOrganizationWallet(parameters: {
         where: (table) => eq(table.id, parameters.idOrganization),
     })
 
-    if (organization.walletBalanceInCents < parameters.amountHTInCents) {
+    const amountTTCInCents = parameters.amountHTInCents + getTaxAmountFromHTInCents(parameters.amountHTInCents)
+
+    if (organization.walletBalanceInCents < amountTTCInCents) {
         throw new Exception({
             statusCode: 400,
             internalMessage: "Insufficient wallet balance",

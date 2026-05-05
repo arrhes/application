@@ -22,17 +22,9 @@ describe("POST /auth/read-organization-billing", () => {
         expect(response.status).toBe(200)
 
         const data = response.data as any
-        expect(data).toHaveProperty("isPremium")
-        expect(data).toHaveProperty("subcriptionEndingAt")
-        expect(data).toHaveProperty("mollieSubscriptionId")
         expect(data).toHaveProperty("status")
-        expect(data).toHaveProperty("subscriptionStatus")
-        expect(typeof data.isPremium).toBe("boolean")
-        expect(["active", "cancelled", "expired", "none"]).toContain(data.subscriptionStatus)
-
-        // Demo org has subcriptionEndingAt set 10 years in the future (seed data) and no active Mollie subscription
-        expect(data.isPremium).toBe(true)
-        expect(data.subscriptionStatus).toBe("cancelled")
+        expect(data).toHaveProperty("ocrCurrentMonthUsage")
+        expect(data).toHaveProperty("agentTokensCurrentMonthUsage")
     })
 
     it("rejects unauthenticated requests", async () => {

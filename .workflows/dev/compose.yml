@@ -205,11 +205,6 @@ services:
       ENV: development
       VERBOSE: "true"
       SQL_DATABASE_URL: postgres://postgres:admin@postgres:5432/default
-      QDRANT_URL: ""
-      QDRANT_API_KEY: ""
-      AI_HF_API_KEY: ""
-      AI_OPENAI_API_KEY: ""
-      AI_GOOGLE_CREDENTIALS_BASE64: ""
       STORAGE_ENDPOINT: http://rustfs:9000
       STORAGE_NAME: arrhes-files
       STORAGE_ACCESS_KEY: rustfsadmin

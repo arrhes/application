@@ -26,7 +26,6 @@ function getMonthRangeForOffset(from: Date, monthOffset: number) {
 }
 
 function generateSeedInvoiceReference(_date: Date) {
-
     let randomSuffix = generateId()
         .replaceAll(/[^a-zA-Z0-9]/g, "")
         .toUpperCase()
@@ -42,7 +41,9 @@ function generateSeedInvoiceReference(_date: Date) {
     return randomSuffix
 }
 
-function getOrganizationPaymentFlowFromCategory(category: (typeof models.organizationPayment.$inferInsert)["category"]) {
+function getOrganizationPaymentFlowFromCategory(
+    category: (typeof models.organizationPayment.$inferInsert)["category"],
+) {
     if (category === "top_up" || category === "setup") {
         return organizationPaymentFlow[0]
     }
@@ -190,11 +191,6 @@ async function seed() {
                 ocrPagesTotalUsed: 80,
                 tokensTotalLeft: 2_400_000,
                 tokensTotalUsed: 600_000,
-                subcriptionEndingAt: new Date(
-                    new Date().getFullYear() + 10,
-                    new Date().getMonth(),
-                    new Date().getDate(),
-                ).toISOString(),
                 createdAt: createdAt,
             }
             await tx.insert(models.organization).values(populatedOrganization)
@@ -405,15 +401,10 @@ async function seed() {
                         : null,
                     balanceSheetAssetFlow: assetMapping?.flow ?? null,
                     idBalanceSheetLiability: liabilityMapping?.id ?? null,
-                    balanceSheetLiabilityColumn: liabilityMapping
-                        ? liabilityMapping.isAmortization
-                            ? "amortization"
-                            : "gross"
-                        : null,
+                    balanceSheetLiabilityColumn: liabilityMapping ? "net" : null,
                     balanceSheetLiabilityFlow: liabilityMapping?.flow ?? null,
                     idIncomeStatement: incomeStatementId ?? null,
-                    isMandatory: account.isMandatory,
-                    isClass: account.isClass,
+                    isOptional: account.isOptional,
                     isSelectable: account.isSelectable,
                     isDefault: true,
                     number: account.number.toString(),
@@ -1405,8 +1396,8 @@ async function seed() {
                     id: invoiceThreeMonthsAgoId,
                     idOrganization: populatedOrganization.id,
                     reference: generateSeedInvoiceReference(threeMonthsAgo.periodStart),
-                    periodStart: threeMonthsAgo.periodStart.toISOString(),
-                    periodEnd: threeMonthsAgo.periodEnd.toISOString(),
+                    startingAt: threeMonthsAgo.periodStart.toISOString(),
+                    endingAt: threeMonthsAgo.periodEnd.toISOString(),
                     amountInCents: 2_610,
                     currency: "EUR",
                     xmlStorageKey: null,
@@ -1418,8 +1409,8 @@ async function seed() {
                     id: invoiceTwoMonthsAgoId,
                     idOrganization: populatedOrganization.id,
                     reference: generateSeedInvoiceReference(twoMonthsAgo.periodStart),
-                    periodStart: twoMonthsAgo.periodStart.toISOString(),
-                    periodEnd: twoMonthsAgo.periodEnd.toISOString(),
+                    startingAt: twoMonthsAgo.periodStart.toISOString(),
+                    endingAt: twoMonthsAgo.periodEnd.toISOString(),
                     amountInCents: 2_810,
                     currency: "EUR",
                     xmlStorageKey: null,
@@ -1431,8 +1422,8 @@ async function seed() {
                     id: invoicePreviousMonthId,
                     idOrganization: populatedOrganization.id,
                     reference: generateSeedInvoiceReference(previousMonth.periodStart),
-                    periodStart: previousMonth.periodStart.toISOString(),
-                    periodEnd: previousMonth.periodEnd.toISOString(),
+                    startingAt: previousMonth.periodStart.toISOString(),
+                    endingAt: previousMonth.periodEnd.toISOString(),
                     amountInCents: 3_110,
                     currency: "EUR",
                     xmlStorageKey: null,
@@ -1453,7 +1444,6 @@ async function seed() {
                     category: "setup",
                     status: "paid",
                     molliePaymentId: "tr_seed_setup_01",
-                    mollieSubscriptionId: null,
                     sequenceType: "setup",
                     serviceType: null,
                     amountInCents: 1,
@@ -1476,7 +1466,6 @@ async function seed() {
                     category: "top_up",
                     status: "paid",
                     molliePaymentId: januaryTopUpPaymentId,
-                    mollieSubscriptionId: null,
                     sequenceType: "oneoff",
                     serviceType: null,
                     amountInCents: 15_000,
@@ -1499,7 +1488,6 @@ async function seed() {
                     category: "subscription",
                     status: "paid",
                     molliePaymentId: null,
-                    mollieSubscriptionId: null,
                     sequenceType: "recurring",
                     serviceType: "support",
                     amountInCents: 2_500,
@@ -1522,7 +1510,6 @@ async function seed() {
                     category: "subscription",
                     status: "paid",
                     molliePaymentId: null,
-                    mollieSubscriptionId: null,
                     sequenceType: "recurring",
                     serviceType: "storage_gb",
                     amountInCents: 20,
@@ -1545,7 +1532,6 @@ async function seed() {
                     category: "wallet_spending",
                     status: "paid",
                     molliePaymentId: null,
-                    mollieSubscriptionId: null,
                     sequenceType: null,
                     serviceType: "agent_tokens_million",
                     amountInCents: 200,
@@ -1568,7 +1554,6 @@ async function seed() {
                     category: "top_up",
                     status: "paid",
                     molliePaymentId: februaryTopUpPaymentId,
-                    mollieSubscriptionId: null,
                     sequenceType: "oneoff",
                     serviceType: null,
                     amountInCents: 12_000,
@@ -1591,7 +1576,6 @@ async function seed() {
                     category: "subscription",
                     status: "paid",
                     molliePaymentId: null,
-                    mollieSubscriptionId: null,
                     sequenceType: "recurring",
                     serviceType: "support",
                     amountInCents: 2_700,
@@ -1614,7 +1598,6 @@ async function seed() {
                     category: "subscription",
                     status: "paid",
                     molliePaymentId: null,
-                    mollieSubscriptionId: null,
                     sequenceType: "recurring",
                     serviceType: "storage_gb",
                     amountInCents: 30,
@@ -1637,7 +1620,6 @@ async function seed() {
                     category: "wallet_spending",
                     status: "paid",
                     molliePaymentId: null,
-                    mollieSubscriptionId: null,
                     sequenceType: null,
                     serviceType: "ocr_pages_hundred",
                     amountInCents: 250,
@@ -1660,7 +1642,6 @@ async function seed() {
                     category: "top_up",
                     status: "paid",
                     molliePaymentId: marchTopUpPaymentId,
-                    mollieSubscriptionId: null,
                     sequenceType: "oneoff",
                     serviceType: null,
                     amountInCents: 8_000,
@@ -1683,7 +1664,6 @@ async function seed() {
                     category: "withdrawal",
                     status: "paid",
                     molliePaymentId: marchTopUpPaymentId,
-                    mollieSubscriptionId: null,
                     sequenceType: null,
                     serviceType: null,
                     amountInCents: 5_000,
@@ -1706,7 +1686,6 @@ async function seed() {
                     category: "subscription",
                     status: "paid",
                     molliePaymentId: null,
-                    mollieSubscriptionId: null,
                     sequenceType: "recurring",
                     serviceType: "support",
                     amountInCents: 2_900,
@@ -1729,7 +1708,6 @@ async function seed() {
                     category: "subscription",
                     status: "paid",
                     molliePaymentId: null,
-                    mollieSubscriptionId: null,
                     sequenceType: "recurring",
                     serviceType: "storage_gb",
                     amountInCents: 40,
@@ -1752,7 +1730,6 @@ async function seed() {
                     category: "wallet_spending",
                     status: "paid",
                     molliePaymentId: null,
-                    mollieSubscriptionId: null,
                     sequenceType: null,
                     serviceType: "agent_tokens_million",
                     amountInCents: 300,
@@ -1775,7 +1752,6 @@ async function seed() {
                     category: "wallet_spending",
                     status: "paid",
                     molliePaymentId: null,
-                    mollieSubscriptionId: null,
                     sequenceType: null,
                     serviceType: "ocr_pages_hundred",
                     amountInCents: 180,
@@ -1796,7 +1772,8 @@ async function seed() {
 
             const seededPaymentsWithTax = seededPayments.map((payment) => {
                 const isTaxableCategory = payment.category === "subscription" || payment.category === "wallet_spending"
-                const amountHTInCents = (payment as { amountHTInCents?: number }).amountHTInCents ?? payment.amountInCents
+                const amountHTInCents =
+                    (payment as { amountHTInCents?: number }).amountHTInCents ?? payment.amountInCents
                 const amountTVAInCents =
                     (payment as { amountTVAInCents?: number }).amountTVAInCents ??
                     (isTaxableCategory ? getTaxAmountFromHTInCents(amountHTInCents) : 0)
@@ -1805,7 +1782,9 @@ async function seed() {
                     ...payment,
                     flow:
                         (payment as { flow?: (typeof organizationPaymentFlow)[number] }).flow ??
-                        getOrganizationPaymentFlowFromCategory(payment.category),
+                        getOrganizationPaymentFlowFromCategory(
+                            payment.category as (typeof models.organizationPayment.$inferInsert)["category"],
+                        ),
                     amountHTInCents,
                     amountTVAInCents,
                     unitAmountHTInCents:
@@ -1814,13 +1793,14 @@ async function seed() {
 
                 delete (normalizedPayment as { amountInCents?: number }).amountInCents
                 delete (normalizedPayment as { unitAmountInCents?: number }).unitAmountInCents
-                delete (normalizedPayment as { mollieSubscriptionId?: string | null }).mollieSubscriptionId
 
                 return normalizedPayment
             })
 
             await tx.insert(models.invoice).values(seededInvoices)
-            await tx.insert(models.organizationPayment).values(seededPaymentsWithTax)
+            await tx
+                .insert(models.organizationPayment)
+                .values(seededPaymentsWithTax as unknown as (typeof models.organizationPayment.$inferInsert)[])
 
             console.log("Seed completed successfully!")
             console.log(`- 1 user created`)

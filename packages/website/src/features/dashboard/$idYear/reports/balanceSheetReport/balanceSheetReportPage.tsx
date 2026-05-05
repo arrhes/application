@@ -1,12 +1,10 @@
-import { ButtonOutlineContent } from "@arrhes/ui"
+import { Button, ButtonGhostContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconDownload } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { useState } from "react"
 import { Box } from "../../../../../components/layouts/box.tsx"
 import { Page } from "../../../../../components/layouts/page/page.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
-import { TitleComponent } from "../../../../../components/layouts/title.tsx"
 import { balanceSheetReportRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/reports/balanceSheetReportRoute.tsx"
 import type { YearDataKey } from "../../yearDataWrapper.tsx"
 import { YearDataWrapper } from "../../yearDataWrapper.tsx"
@@ -29,7 +27,7 @@ export function BalanceSheetReportPage() {
     const params = useParams({ from: balanceSheetReportRoute.id })
     const [selectedJournalId, setSelectedJournalId] = useState<string | null>(null)
     const [selectedTags, setSelectedTags] = useState<Array<{ key: string; label: string }>>([])
-
+    const [activeTab, setActiveTab] = useState<"asset" | "liability">("asset")
     return (
         <YearDataWrapper idYear={params.idYear} requiredKeys={requiredKeys}>
             {({ accounts, entries, entryLines, balanceSheets, journals, tags, entryTags }) => {
@@ -85,44 +83,68 @@ export function BalanceSheetReportPage() {
                                         <DownloadBalanceSheetReport
                                             idOrganization={params.idOrganization}
                                             idYear={params.idYear}
-                                        >
-                                            <ButtonOutlineContent
-                                                leftIcon={<IconDownload />}
-                                                text="Télécharger en pdf"
-                                            />
-                                        </DownloadBalanceSheetReport>
+                                            balanceSheets={balanceSheets}
+                                            entryLines={filteredEntryLines}
+                                            accounts={filteredAccounts}
+                                        />
                                     </div>
-                                    <div
-                                        className={css({
-                                            width: "100%",
-                                            display: "flex",
-                                            flexDirection: "row",
-                                            justifyContent: "end",
-                                            alignItems: "start",
-                                            gap: "4",
-                                            flexWrap: "wrap",
-                                        })}
-                                    >
-                                        <Box className={css({ gap: "4" })}>
-                                            <TitleComponent className={css({ padding: "4" })}>Actif</TitleComponent>
-                                            <BalanceSheetAssetsReportTable
-                                                balanceSheets={balanceSheets.filter(
-                                                    (balanceSheet) => balanceSheet.side === "asset",
-                                                )}
-                                                entryLines={filteredEntryLines}
-                                                accounts={filteredAccounts}
-                                            />
-                                        </Box>
-                                        <Box className={css({ gap: "4" })}>
-                                            <TitleComponent className={css({ padding: "4" })}>Passif</TitleComponent>
-                                            <BalanceSheetLiabilitiesReportTable
-                                                balanceSheets={balanceSheets.filter(
-                                                    (balanceSheet) => balanceSheet.side === "liability",
-                                                )}
-                                                entryLines={filteredEntryLines}
-                                                accounts={filteredAccounts}
-                                            />
-                                        </Box>
+                                    <div className={css({ width: "100%" })}>
+                                        <div
+                                            className={css({
+                                                display: "flex",
+                                                justifyContent: "flex-start",
+                                                alignItems: "center",
+                                                gap: "0.5rem",
+                                                borderBottom: "1px solid",
+                                                borderBottomColor: "neutral/5",
+                                                paddingBottom: "0.5rem",
+                                                marginBottom: "1rem",
+                                                "@media print": { display: "none" },
+                                            })}
+                                        >
+                                            <Button onClick={() => setActiveTab("asset")}>
+                                                <ButtonGhostContent
+                                                    text="Actif"
+                                                    color="default"
+                                                    isCurrent={activeTab === "asset"}
+                                                />
+                                            </Button>
+                                            <Button onClick={() => setActiveTab("liability")}>
+                                                <ButtonGhostContent
+                                                    text="Passif"
+                                                    color="default"
+                                                    isCurrent={activeTab === "liability"}
+                                                />
+                                            </Button>
+                                        </div>
+                                        <div
+                                            style={{ display: activeTab === "asset" ? undefined : "none" }}
+                                            className={css({ width: "100%" })}
+                                        >
+                                            <Box className={css({ width: "100%" })}>
+                                                <BalanceSheetAssetsReportTable
+                                                    balanceSheets={balanceSheets.filter(
+                                                        (balanceSheet) => balanceSheet.side === "asset",
+                                                    )}
+                                                    entryLines={filteredEntryLines}
+                                                    accounts={filteredAccounts}
+                                                />
+                                            </Box>
+                                        </div>
+                                        <div
+                                            style={{ display: activeTab === "liability" ? undefined : "none" }}
+                                            className={css({ width: "100%" })}
+                                        >
+                                            <Box className={css({ width: "100%" })}>
+                                                <BalanceSheetLiabilitiesReportTable
+                                                    balanceSheets={balanceSheets.filter(
+                                                        (balanceSheet) => balanceSheet.side === "liability",
+                                                    )}
+                                                    entryLines={filteredEntryLines}
+                                                    accounts={filteredAccounts}
+                                                />
+                                            </Box>
+                                        </div>
                                     </div>
                                 </Section.Item>
                             </Section.Root>

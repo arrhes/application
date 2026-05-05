@@ -11,7 +11,6 @@ export const organizationBillingSchema = v.object({
     type: v.nonNullable(v.picklist(organizationBillingType, "Valeur invalide"), "Ce champ est requis"),
     quantity: v.nonNullable(integerSchema, "Ce champ est requis"),
     amountInCents: v.nonNullable(integerSchema, "Ce champ est requis"),
-    mollieSubscriptionId: v.nullable(v.string()),
     status: v.nonNullable(v.picklist(organizationBillingStatus, "Valeur invalide"), "Ce champ est requis"),
     startsAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),
     endsAt: v.nullable(dateTimeSchema),

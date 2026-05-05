@@ -3,9 +3,7 @@ import { and, eq, inArray, isNotNull } from "drizzle-orm"
 import * as v from "valibot"
 import { apiFactory } from "../../utilities/apiFactory.js"
 import { apiLog } from "../../utilities/apiLog.js"
-import {
-    findOrCreateCurrentPeriodInvoice,
-} from "../../utilities/billing/billingInvoice.js"
+import { findOrCreateCurrentPeriodInvoice } from "../../utilities/billing/billingInvoice.js"
 import { buildInvoiceUblXml } from "../../utilities/billing/invoiceUbl.js"
 import {
     getResourceSubscriptionUnitPriceInCents,
@@ -155,10 +153,10 @@ export const generateMonthlyInvoicesRoute = apiFactory
                             : {}),
                         ...(org.pendingStorageMaxUsage !== null
                             ? {
-                                storageMaxUsage: org.pendingStorageMaxUsage,
-                                storageLimit: org.pendingStorageMaxUsage,
-                                pendingStorageMaxUsage: null,
-                            }
+                                  storageMaxUsage: org.pendingStorageMaxUsage,
+                                  storageLimit: org.pendingStorageMaxUsage,
+                                  pendingStorageMaxUsage: null,
+                              }
                             : {}),
                         lastUpdatedAt: now.toISOString(),
                     },
@@ -197,8 +195,8 @@ export const generateMonthlyInvoicesRoute = apiFactory
                 id: models.invoice.id,
                 idOrganization: models.invoice.idOrganization,
                 reference: models.invoice.reference,
-                periodStart: models.invoice.periodStart,
-                periodEnd: models.invoice.periodEnd,
+                startingAt: models.invoice.startingAt,
+                endingAt: models.invoice.endingAt,
             })
             .from(models.invoice)
             .where(and(inArray(models.invoice.idOrganization, orgIds), eq(models.invoice.status, "draft")))
@@ -210,8 +208,8 @@ export const generateMonthlyInvoicesRoute = apiFactory
             const organization = orgMap.get(draftInvoice.idOrganization)
             if (!organization) continue
 
-            // Derive period prefix from the invoice's own periodStart (not the global previous-month)
-            const invPeriodDate = new Date(draftInvoice.periodStart)
+            // Derive period prefix from the invoice's own startingAt (not the global previous-month)
+            const invPeriodDate = new Date(draftInvoice.startingAt)
             const invPrefix = `${String(invPeriodDate.getUTCFullYear())}-${String(invPeriodDate.getUTCMonth() + 1).padStart(2, "0")}`
 
             try {
@@ -243,8 +241,8 @@ export const generateMonthlyInvoicesRoute = apiFactory
                     invoiceNumber: draftInvoice.reference,
                     issueDateIso: now.toISOString(),
                     dueDateIso: now.toISOString(),
-                    periodStartIso: draftInvoice.periodStart,
-                    periodEndIso: draftInvoice.periodEnd,
+                    periodStartIso: draftInvoice.startingAt,
+                    periodEndIso: draftInvoice.endingAt,
                     amountInCents: totalAmountInCents,
                     currency: "EUR",
                     supplierName: "Barbote SAS",

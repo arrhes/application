@@ -18,9 +18,7 @@ function createPrettyXml(xml: string) {
     return compact.replace(/></g, ">\n<")
 }
 
-export function InvoiceXMLViewer(props: {
-    invoice: v.InferOutput<typeof returnedSchemas.invoice>
-}) {
+export function InvoiceXMLViewer(props: { invoice: v.InferOutput<typeof returnedSchemas.invoice> }) {
     const [xmlContent, setXmlContent] = useState("")
     const [isRawView, setIsRawView] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
@@ -65,9 +63,7 @@ export function InvoiceXMLViewer(props: {
     const prettyXmlContent = useMemo(() => createPrettyXml(xmlContent), [xmlContent])
 
     if (isLoading === true) {
-        return (
-            <CircularLoader text="Chargement du XML..." />
-        )
+        return <CircularLoader text="Chargement du XML..." />
     }
     if (errorMessage !== null) {
         return (
@@ -125,38 +121,34 @@ export function InvoiceXMLViewer(props: {
                 </pre>
             ) : null}
 
-            {isRawView
-                ? null
-                : parsed.isValid
-                    ? (
-                        <div
-                            className={css({
-                                width: "100%",
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: "1rem",
-                            })}
-                        >
-                            <ValidEN16931XML xmlContent={xmlContent} />
-                            <XMLHeader xmlContent={xmlContent} />
-                            <XMLTable xmlContent={xmlContent} />
-                        </div>
-                    )
-                    : (
-                        <div
-                            className={css({
-                                border: "1px solid",
-                                borderColor: "danger/30",
-                                borderRadius: "md",
-                                backgroundColor: "danger/5",
-                                color: "danger",
-                                padding: "0.75rem",
-                                fontSize: "sm",
-                            })}
-                        >
-                            Impossible d'interpréter ce XML comme une facture UBL.
-                        </div>
-                    )}
+            {isRawView ? null : parsed.isValid ? (
+                <div
+                    className={css({
+                        width: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "1rem",
+                    })}
+                >
+                    <ValidEN16931XML xmlContent={xmlContent} />
+                    <XMLHeader xmlContent={xmlContent} />
+                    <XMLTable xmlContent={xmlContent} />
+                </div>
+            ) : (
+                <div
+                    className={css({
+                        border: "1px solid",
+                        borderColor: "danger/30",
+                        borderRadius: "md",
+                        backgroundColor: "danger/5",
+                        color: "danger",
+                        padding: "0.75rem",
+                        fontSize: "sm",
+                    })}
+                >
+                    Impossible d'interpréter ce XML comme une facture UBL.
+                </div>
+            )}
         </div>
     )
 }

@@ -22,8 +22,8 @@ export function BillingDashboardDocPage() {
 
             <DocSection title="Visualiser un fichier XML">
                 <DocParagraph>
-                    Depuis votre dashboard, ouvrez une facture puis utilisez la vue XML pour vérifier la conformité
-                    et le rendu de la facture. Les actions de téléchargement sont accessibles directement depuis
+                    Depuis votre dashboard, ouvrez une facture puis utilisez la vue XML pour vérifier la conformité et
+                    le rendu de la facture. Les actions de téléchargement sont accessibles directement depuis
                     l'interface de facturation de l'organisation.
                 </DocParagraph>
             </DocSection>

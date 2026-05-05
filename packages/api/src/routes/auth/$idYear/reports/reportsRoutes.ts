@@ -1,10 +1,4 @@
-import { documentsRoutes } from "./document/documentsRoutes.js"
-import { generateBalanceSheetReportDocumentRoute } from "./generateBalanceSheetReportDocument.js"
-import { generateIncomeStatementReportDocumentRoute } from "./generateIncomeStatementReportDocument.js"
+import { generateBalanceSheetXmlRoute } from "./generateBalanceSheetXml.js"
+import { generateIncomeStatementXmlRoute } from "./generateIncomeStatementXml.js"
 
-export const reportsRoutes = [
-    generateIncomeStatementReportDocumentRoute,
-    generateBalanceSheetReportDocumentRoute,
-
-    ...documentsRoutes,
-]
+export const reportsRoutes = [generateBalanceSheetXmlRoute, generateIncomeStatementXmlRoute]

@@ -3,11 +3,26 @@ import { and, eq } from "drizzle-orm"
 import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
-import { FREE_STORAGE_BYTES } from "../../../../utilities/billing/subscriptionPricing.js"
+import {
+    FREE_STORAGE_BYTES,
+    getResourceSubscriptionUnitPriceInCents,
+    getStorageAddonQuantity,
+} from "../../../../utilities/billing/subscriptionPricing.js"
+import { debitOrganizationWallet } from "../../../../utilities/billing/wallet.js"
 import { Exception } from "../../../../utilities/exception.js"
 import { response } from "../../../../utilities/response.js"
 import { selectOne } from "../../../../utilities/sql/selectOne.js"
 import { updateOne } from "../../../../utilities/sql/updateOne.js"
+
+function getDaysInMonth(date: Date): number {
+    return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + 1, 0)).getUTCDate()
+}
+
+function calculateProRataAmountCents(fullMonthlyAmountCents: number, from: Date): number {
+    const daysInMonth = getDaysInMonth(from)
+    const remainingDays = daysInMonth - from.getUTCDate() + 1
+    return Math.round((remainingDays / daysInMonth) * fullMonthlyAmountCents)
+}
 
 export const updateStorageSubscriptionRoute = apiFactory
     .createApp()
@@ -51,20 +66,51 @@ export const updateStorageSubscriptionRoute = apiFactory
         }
 
         const nextStorageMaxUsage = FREE_STORAGE_BYTES + body.newQuantity * FREE_STORAGE_BYTES
+        const currentQuantity = getStorageAddonQuantity(organization.storageMaxUsage)
+        const deltaQuantity = body.newQuantity - currentQuantity
+        const now = new Date()
 
-        // Store as pending — applied on the 1st of next month by the worker
-        const pendingValue = nextStorageMaxUsage === organization.storageMaxUsage ? null : nextStorageMaxUsage
+        if (deltaQuantity > 0) {
+            // Increase: charge pro-rata for remaining days of the month, apply immediately
+            const fullMonthlyDeltaCents = deltaQuantity * getResourceSubscriptionUnitPriceInCents("storage_gb")
+            const proRataAmountCents = calculateProRataAmountCents(fullMonthlyDeltaCents, now)
 
-        await updateOne({
-            database: c.var.clients.sql,
-            table: models.organization,
-            data: {
-                pendingStorageMaxUsage: pendingValue,
-                lastUpdatedAt: new Date().toISOString(),
-                lastUpdatedBy: user.id,
-            },
-            where: (table) => eq(table.id, idOrganization),
-        })
+            await debitOrganizationWallet({
+                database: c.var.clients.sql,
+                idOrganization,
+                idUser: user.id,
+                amountHTInCents: proRataAmountCents,
+                description: "Augmentation du stockage (prorata)",
+                serviceType: "storage_gb",
+            })
+
+            await updateOne({
+                database: c.var.clients.sql,
+                table: models.organization,
+                data: {
+                    storageLimit: nextStorageMaxUsage,
+                    storageMaxUsage: nextStorageMaxUsage,
+                    pendingStorageMaxUsage: null,
+                    lastUpdatedAt: now.toISOString(),
+                    lastUpdatedBy: user.id,
+                },
+                where: (table) => eq(table.id, idOrganization),
+            })
+        } else {
+            // Decrease: store as pending — applied on the 1st of next month
+            const pendingValue = nextStorageMaxUsage === organization.storageMaxUsage ? null : nextStorageMaxUsage
+
+            await updateOne({
+                database: c.var.clients.sql,
+                table: models.organization,
+                data: {
+                    pendingStorageMaxUsage: pendingValue,
+                    lastUpdatedAt: now.toISOString(),
+                    lastUpdatedBy: user.id,
+                },
+                where: (table) => eq(table.id, idOrganization),
+            })
+        }
 
         return response({
             context: c,

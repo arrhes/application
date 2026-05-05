@@ -22,9 +22,8 @@ export const agentMessageModel = pgTable(
         references: jsonb("references"),
         state: varchar("state", { length: 16, enum: ["completed", "streaming", "error"] }).notNull(),
         streamKey: text("stream_key"),
-        promptTokens: integer("prompt_tokens"),
-        completionTokens: integer("completion_tokens"),
-        totalTokens: integer("total_tokens"),
+        inputTokens: integer("input_tokens"),
+        outputTokens: integer("output_tokens"),
         depth: integer("depth").notNull().default(0),
         idParentAgentMessage: idColumn("id_parent_agent_message").references((): AnyPgColumn => agentMessageModel.id, {
             onDelete: "cascade",

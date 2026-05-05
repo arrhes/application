@@ -3,15 +3,12 @@ import {
     createOneFolderRouteDefinition,
     deleteOneFileRouteDefinition,
     deleteOneFolderRouteDefinition,
-    generateBalanceSheetReportDocumentRouteDefinition,
-    generateDocumentGetSignedUrlRouteDefinition,
+    generateBalanceSheetXmlRouteDefinition,
     generateFileGetSignedUrlRouteDefinition,
     generateFilePutSignedUrlRouteDefinition,
-    generateIncomeStatementReportDocumentRouteDefinition,
-    readAllDocumentsRouteDefinition,
+    generateIncomeStatementXmlRouteDefinition,
     readAllFilesRouteDefinition,
     readAllFoldersRouteDefinition,
-    readOneDocumentRouteDefinition,
     readOneFileRouteDefinition,
     readOneFolderRouteDefinition,
     updateOneFileRouteDefinition,
@@ -64,24 +61,17 @@ export function FilesApiDocPage() {
                 <DocRouteRequest routeDefinition={deleteOneFolderRouteDefinition} />
             </DocSection>
 
-            <DocSection title="Documents et rapports">
+            <DocSection title="Rapports XBRL">
                 <DocParagraph>
-                    Les documents sont des rapports PDF générés à partir des données comptables : bilans et comptes de
-                    résultat.
+                    Génération de rapports comptables en XBRL (taxonomie ANC française) : bilans et comptes de résultat.
                 </DocParagraph>
-                <DocRouteRequest routeDefinition={readAllDocumentsRouteDefinition} />
-                <DocRouteRequest routeDefinition={readOneDocumentRouteDefinition} />
                 <DocRouteRequest
-                    routeDefinition={generateBalanceSheetReportDocumentRouteDefinition}
-                    description="Générer un rapport de bilan en PDF."
+                    routeDefinition={generateBalanceSheetXmlRouteDefinition}
+                    description="Générer un bilan en XBRL (conformité française ANC) et retourner l'URL signée."
                 />
                 <DocRouteRequest
-                    routeDefinition={generateIncomeStatementReportDocumentRouteDefinition}
-                    description="Générer un rapport de compte de résultat en PDF."
-                />
-                <DocRouteRequest
-                    routeDefinition={generateDocumentGetSignedUrlRouteDefinition}
-                    description="Générer une URL de téléchargement pour un document."
+                    routeDefinition={generateIncomeStatementXmlRouteDefinition}
+                    description="Générer un compte de résultat en XBRL (conformité française ANC) et retourner l'URL signée."
                 />
             </DocSection>
         </DocRoot>

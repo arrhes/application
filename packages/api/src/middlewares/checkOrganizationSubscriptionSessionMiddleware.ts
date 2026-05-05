@@ -6,6 +6,7 @@ import { Exception } from "../utilities/exception.js"
 export async function checkOrganizationSubscriptionSessionMiddleware(parameters: {
     context: Context<any>
     idOrganization: string
+    checkType: "tokens" | "ocrPages" | "licence"
 }) {
     try {
         const organizationUsers = await parameters.context.var.clients.sql
@@ -41,21 +42,30 @@ export async function checkOrganizationSubscriptionSessionMiddleware(parameters:
             })
         }
 
-        if (organization.subcriptionEndingAt === null) {
+        if (parameters.checkType === "tokens" && organization.tokensTotalLeft <= 0) {
             throw new Exception({
                 statusCode: 403,
                 internalMessage: "Subscription check failed",
-                externalMessage: "This feature requires a premium subscription",
-                cause: "Organization does not have a premium subscription",
+                externalMessage: "Vous n'avez plus de tokens disponibles",
+                cause: "Organization has no tokens left",
             })
         }
 
-        if (new Date(organization.subcriptionEndingAt) < new Date()) {
+        if (parameters.checkType === "ocrPages" && organization.ocrPagesTotalLeft <= 0) {
             throw new Exception({
                 statusCode: 403,
                 internalMessage: "Subscription check failed",
-                externalMessage: "This feature requires a premium subscription",
-                cause: "Organization does not have a premium subscription",
+                externalMessage: "Vous n'avez plus de pages OCR disponibles",
+                cause: "Organization has no OCR pages left",
+            })
+        }
+
+        if (parameters.checkType === "licence" && organization.licenceAmount <= 0) {
+            throw new Exception({
+                statusCode: 403,
+                internalMessage: "Subscription check failed",
+                externalMessage: "Votre organisation ne dispose pas de licence active",
+                cause: "Organization has no active licence",
             })
         }
 

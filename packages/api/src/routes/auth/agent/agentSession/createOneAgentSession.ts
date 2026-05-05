@@ -14,7 +14,11 @@ export const createOneAgentSessionRoute = apiFactory
             context: c,
             schema: createOneAgentSessionRouteDefinition.schemas.body,
         })
-        await checkOrganizationSubscriptionSessionMiddleware({ context: c, idOrganization: body.idOrganization })
+        await checkOrganizationSubscriptionSessionMiddleware({
+            context: c,
+            idOrganization: body.idOrganization,
+            checkType: "tokens",
+        })
 
         const newSession = await insertOne({
             database: c.var.clients.sql,

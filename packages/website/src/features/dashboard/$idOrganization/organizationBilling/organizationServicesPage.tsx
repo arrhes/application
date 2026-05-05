@@ -321,7 +321,7 @@ export function OrganizationServicesPage() {
                                 ) : null}
                                 <ServiceCard
                                     title="Licence Arrhes"
-                                    description={`Montant mensuel libre pour votre licence Arrhes. Vous pouvez le laisser à 0 EUR HT ou definir le montant de votre choix. Votre contribution nous aide a financer le developpement d'Arrhes et a maintenir des prix abordables. TVA ${VAT_PERCENT}% appliquee.`}
+                                    description={`Montant mensuel libre pour votre licence Arrhes. Vous pouvez le laisser à 0 EUR HT ou définir le montant de votre choix. Votre contribution nous aide à financer le développement d'Arrhes et à maintenir des prix abordables. TVA ${VAT_PERCENT}% appliquée.`}
                                     frequency="Par mois"
                                     billingMode="recurring"
                                     details={[
@@ -331,11 +331,11 @@ export function OrganizationServicesPage() {
                                         },
                                         ...(organization.pendingLicenceAmount !== null
                                             ? [
-                                                {
-                                                    label: "En attente le 1er",
-                                                    value: `${formatEuros(organization.pendingLicenceAmount)} HT`,
-                                                },
-                                            ]
+                                                  {
+                                                      label: "En attente le 1er",
+                                                      value: `${formatEuros(organization.pendingLicenceAmount)} HT`,
+                                                  },
+                                              ]
                                             : []),
                                     ]}
                                     action={
@@ -352,7 +352,7 @@ export function OrganizationServicesPage() {
                                 />
                                 <ServiceCard
                                     title="Stockage"
-                                    description={`1 Go est inclus gratuitement. Le stockage supplementaire est facture mensuellement en HT, sans minimum requis (TVA ${VAT_PERCENT}%).`}
+                                    description={`1 Go est inclus gratuitement. Le stockage supplémentaire est facturé mensuellement en HT, sans minimum requis (TVA ${VAT_PERCENT}%).`}
                                     frequency="Par mois"
                                     billingMode="recurring"
                                     details={[
@@ -363,11 +363,11 @@ export function OrganizationServicesPage() {
                                         },
                                         ...(organization.pendingStorageMaxUsage !== null
                                             ? [
-                                                {
-                                                    label: "En attente le 1er",
-                                                    value: `${formatStorageValue(organization.pendingStorageMaxUsage)} / mois`,
-                                                },
-                                            ]
+                                                  {
+                                                      label: "En attente le 1er",
+                                                      value: `${formatStorageValue(organization.pendingStorageMaxUsage)} / mois`,
+                                                  },
+                                              ]
                                             : []),
                                     ]}
                                     usage={
@@ -393,7 +393,7 @@ export function OrganizationServicesPage() {
                                 />
                                 <ServiceCard
                                     title="Assistant IA"
-                                    description={`Ajoutez des tokens au-dela du quota de base inclus pour continuer d'utiliser l'assistant IA. Chaque million supplementaire est debite une seule fois depuis le portefeuille en HT (TVA ${VAT_PERCENT}%).`}
+                                    description={`Ajoutez des tokens au-delà du quota de base inclus pour continuer d'utiliser l'assistant IA. Chaque million supplémentaire est débité une seule fois depuis le portefeuille en HT (TVA ${VAT_PERCENT}%).`}
                                     billingMode="one_time"
                                     details={[
                                         {
@@ -419,7 +419,7 @@ export function OrganizationServicesPage() {
                                 />
                                 <ServiceCard
                                     title="Traitement des documents par OCR"
-                                    description={`Convertissez plus de documents. Ajoutez des pages au-dela du quota de base inclus. Chaque page supplementaire ajoutee au quota est debitee une seule fois depuis le portefeuille en HT (TVA ${VAT_PERCENT}%).`}
+                                    description={`Convertissez plus de documents. Ajoutez des pages au-delà du quota de base inclus. Chaque page supplémentaire ajoutée au quota est débitée une seule fois depuis le portefeuille en HT (TVA ${VAT_PERCENT}%).`}
                                     billingMode="one_time"
                                     details={[
                                         {

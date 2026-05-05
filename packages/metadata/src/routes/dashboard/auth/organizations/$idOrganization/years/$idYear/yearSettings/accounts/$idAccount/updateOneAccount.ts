@@ -22,7 +22,6 @@ export const updateOneAccountRouteDefinition = routeDefinition({
 
             idIncomeStatement: v.optional(accountSchema.entries.idIncomeStatement),
 
-            isClass: v.optional(accountSchema.entries.isClass),
             isSelectable: v.optional(accountSchema.entries.isSelectable),
             number: v.optional(accountSchema.entries.number),
             label: v.optional(accountSchema.entries.label),

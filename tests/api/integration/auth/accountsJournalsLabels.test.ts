@@ -45,7 +45,7 @@ describe("Accounts", () => {
                 body: { idOrganization, idYear },
             })
             const accounts = accountsResponse.data as any[]
-            const classAccount = accounts.find((a: any) => a.isClass === true)
+            const classAccount = accounts.find((a: any) => a.number.length <= 2)
 
             const number = `9${Date.now().toString().slice(-5)}`
             const response = await authenticatedRequest({
@@ -55,7 +55,6 @@ describe("Accounts", () => {
                     idOrganization,
                     idYear,
                     idAccountParent: classAccount?.id ?? null,
-                    isClass: false,
                     isSelectable: true,
                     number,
                     label: "Test Account",

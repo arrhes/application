@@ -116,7 +116,10 @@ export function ResetPasswordPage() {
                             })
 
                             if (response.ok === false) {
-                                toast({ title: response.error?.cause ?? "Réinitialisation impossible", variant: "error" })
+                                toast({
+                                    title: response.error?.cause ?? "Réinitialisation impossible",
+                                    variant: "error",
+                                })
                                 return false
                             }
 
@@ -138,7 +141,12 @@ export function ResetPasswordPage() {
                                 name="email"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel label="Email" isRequired={false} description={undefined} tooltip={undefined} />
+                                        <FormLabel
+                                            label="Email"
+                                            isRequired={false}
+                                            description={undefined}
+                                            tooltip={undefined}
+                                        />
                                         <FormControl>
                                             <InputText value={field.value} onChange={field.onChange} type="email" />
                                         </FormControl>
@@ -150,7 +158,8 @@ export function ResetPasswordPage() {
                     </FormRoot>
 
                     <p className={css({ fontSize: "sm", color: "neutral/60" })}>
-                        Après connexion, modifiez ce mot de passe temporaire depuis votre profil pour sécuriser votre compte.
+                        Après connexion, modifiez ce mot de passe temporaire depuis votre profil pour sécuriser votre
+                        compte.
                     </p>
                 </div>
             </section>

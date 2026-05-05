@@ -2,10 +2,7 @@ import { css } from "@arrhes/ui/utilities/cn.js"
 import { useMemo } from "react"
 import { parseInvoiceSummary } from "./parseInvoiceSummary.ts"
 
-
-export function XMLHeader(props: {
-    xmlContent: string
-}) {
+export function XMLHeader(props: { xmlContent: string }) {
     const parsed = useMemo(() => parseInvoiceSummary(props.xmlContent), [props.xmlContent])
     return (
         <div

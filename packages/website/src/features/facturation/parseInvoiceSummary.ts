@@ -1,4 +1,3 @@
-
 export type ParsedInvoiceLine = {
     id: string
     name: string

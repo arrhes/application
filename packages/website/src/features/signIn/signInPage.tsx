@@ -174,7 +174,7 @@ export function SignInPage() {
                     <LinkButton to="/mot-de-passe-oublié" className={css({ width: "100%" })}>
                         <ButtonGhostContent
                             text="Mot de passe oublié ?"
-                            className={css({ width: "100%", justifyContent: "center", })}
+                            className={css({ justifyContent: "center" })}
                         />
                     </LinkButton>
 

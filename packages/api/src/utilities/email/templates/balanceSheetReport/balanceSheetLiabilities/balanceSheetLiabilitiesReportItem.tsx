@@ -29,14 +29,29 @@ export function BalanceSheetLiabilitiesReportItem(props: {
             return hasAccount || hasChildrenAccount
         })
         .forEach((account) => {
+            let accountTotalDebit = 0
+            let accountTotalCredit = 0
+
             props.entryLines
                 .filter((entryLine) => entryLine.idAccount === account.id)
                 .forEach((entryLine) => {
-                    const debit = Number(entryLine.debit)
-                    const credit = Number(entryLine.credit)
-
-                    netAmount += debit - credit
+                    accountTotalDebit += Number(entryLine.debit)
+                    accountTotalCredit += Number(entryLine.credit)
                 })
+
+            const accountBalance = accountTotalCredit - accountTotalDebit
+
+            if (accountBalance > 0 && account.balanceSheetLiabilityFlow === "debit") {
+                return
+            }
+
+            if (accountBalance < 0 && account.balanceSheetLiabilityFlow === "credit") {
+                return
+            }
+
+            if (account.balanceSheetLiabilityColumn === "net") {
+                netAmount += accountBalance
+            }
         })
 
     return (
@@ -47,7 +62,7 @@ export function BalanceSheetLiabilitiesReportItem(props: {
                 level={props.level}
                 number={number}
                 label={label}
-                netAmount={Math.abs(netAmount)}
+                netAmount={netAmount}
                 isAmountDisplayed={isAmountDisplayed}
             />
             {props.balanceSheetChildren

@@ -62,11 +62,8 @@ export { createOneFolderRouteDefinition } from "./years/$idYear/folders/createOn
 export { readAllFoldersRouteDefinition } from "./years/$idYear/folders/readAllFolders.js"
 // year
 export { readOneYearRouteDefinition } from "./years/$idYear/readOneYear.js"
-export { generateDocumentGetSignedUrlRouteDefinition } from "./years/$idYear/reports/documents/$idDocument/generateDocumentGetSignedUrl.js"
-export { readOneDocumentRouteDefinition } from "./years/$idYear/reports/documents/$idDocument/readOneDocument.js"
-export { readAllDocumentsRouteDefinition } from "./years/$idYear/reports/documents/readAllDocuments.js"
-export { generateBalanceSheetReportDocumentRouteDefinition } from "./years/$idYear/reports/generateBalanceSheetReportDocument.js"
-export { generateIncomeStatementReportDocumentRouteDefinition } from "./years/$idYear/reports/generateIncomeStatementReportDocument.js"
+export { generateBalanceSheetXmlRouteDefinition } from "./years/$idYear/reports/generateBalanceSheetXml.js"
+export { generateIncomeStatementXmlRouteDefinition } from "./years/$idYear/reports/generateIncomeStatementXml.js"
 export { deleteOneAccountRouteDefinition } from "./years/$idYear/yearSettings/accounts/$idAccount/deleteOneAccount.js"
 export { readOneAccountRouteDefinition } from "./years/$idYear/yearSettings/accounts/$idAccount/readOneAccount.js"
 export { updateOneAccountRouteDefinition } from "./years/$idYear/yearSettings/accounts/$idAccount/updateOneAccount.js"
@@ -111,4 +108,3 @@ export { readAllTagsRouteDefinition } from "./years/$idYear/yearSettings/tags/re
 // years
 export { createOneYearRouteDefinition } from "./years/createOneYear.js"
 export { readAllYearsRouteDefinition } from "./years/readAllYears.js"
-

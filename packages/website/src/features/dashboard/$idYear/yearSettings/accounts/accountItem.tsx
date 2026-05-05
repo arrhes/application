@@ -59,10 +59,10 @@ export const AccountItem = memo(function AccountItem(props: {
         <a href={props.href} data-account-link className={linkStyle}>
             <div className={rowStyle} style={{ paddingLeft: `${props.level * INDENT_PER_LEVEL}px` }}>
                 <div className={labelContainerStyle}>
-                    <span className={props.account.isMandatory ? numberBoldStyle : numberBaseStyle}>
+                    <span className={!props.account.isOptional ? numberBoldStyle : numberBaseStyle}>
                         {props.account.number}
                     </span>
-                    <span className={props.account.isMandatory ? labelBoldStyle : labelBaseStyle}>
+                    <span className={!props.account.isOptional ? labelBoldStyle : labelBaseStyle}>
                         {props.account.label}
                     </span>
                 </div>

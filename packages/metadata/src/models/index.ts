@@ -5,7 +5,6 @@ import * as apiKeyModel from "./apiKey.js"
 import * as balanceSheetModel from "./balanceSheet.js"
 import * as computationModel from "./computation.js"
 import * as computationIncomeStatementModel from "./computationIncomeStatement.js"
-import * as documentModel from "./document.js"
 import * as entryModel from "./entry.js"
 import * as entryLineModel from "./entryLine.js"
 import * as entryTagModel from "./entryTag.js"
@@ -36,7 +35,6 @@ export const models = {
     balanceSheet: balanceSheetModel.balanceSheetModel,
     computation: computationModel.computationModel,
     computationIncomeStatement: computationIncomeStatementModel.computationIncomeStatementModel,
-    document: documentModel.documentModel,
     entry: entryModel.entryModel,
     entryLine: entryLineModel.entryLineModel,
     entryTag: entryTagModel.entryTagModel,
@@ -66,7 +64,6 @@ export const modelSchemas = {
     ...balanceSheetModel,
     ...computationModel,
     ...computationIncomeStatementModel,
-    ...documentModel,
     ...entryModel,
     ...entryLineModel,
     ...entryTagModel,
