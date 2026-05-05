@@ -1,7 +1,6 @@
-import { models } from "@arrhes/application-metadata"
+import { getStreamForAgentMessageRouteDefinition, models } from "@arrhes/application-metadata"
 import { and, eq } from "drizzle-orm"
 import { streamText } from "hono/streaming"
-import { getStreamForAgentMessageRouteDefinition } from "../../../../../../metadata/src/routes/dashboard/auth/agent/agentMessage/getStreamForAgentMessage.js"
 import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"

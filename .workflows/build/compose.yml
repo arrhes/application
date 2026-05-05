@@ -8,11 +8,11 @@
 #   ci        - Lint + unit tests + build (gate before packaging)
 #   api       - Production API image
 #   website   - Production Website image (nginx + static)
-#   admin     - Production Admin image (nginx + static)
+#   worker    - Production Worker image (background job processor)
 #
 # Usage:
 #   docker compose -f .workflows/build/compose.yml build ci
-#   docker compose -f .workflows/build/compose.yml build api website admin
+#   docker compose -f .workflows/build/compose.yml build api website worker
 # ==============================================================================
 
 services:
@@ -36,10 +36,8 @@ services:
         - VITE_WEBSITE_BASE_URL=${VITE_WEBSITE_BASE_URL:-}
         - VITE_API_BASE_URL=${VITE_API_BASE_URL:-}
 
-  admin:
-    image: arrhes-admin:${ARRHES_VERSION:-dev}
+  worker:
+    image: arrhes-worker:${ARRHES_VERSION:-dev}
     build:
       context: ../..
-      dockerfile: .workflows/build/packages/admin/Dockerfile
-      args:
-        - VITE_API_BASE_URL=${VITE_API_BASE_URL:-}
+      dockerfile: .workflows/build/packages/worker/Dockerfile
