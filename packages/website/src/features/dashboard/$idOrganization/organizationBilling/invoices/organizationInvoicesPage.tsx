@@ -23,7 +23,7 @@ export function OrganizationInvoicesPage() {
                                     <EmptyState
                                         icon={<IconFileInvoice size={48} />}
                                         title="Aucune facture"
-                                        subtitle="Vos factures mensuelles apparaitront ici a partir du mois suivant votre premier abonnement."
+                                        subtitle="Vos factures mensuelles apparaitront ici a partir du mois suivant votre premier paiement."
                                     />
                                 )
                             }

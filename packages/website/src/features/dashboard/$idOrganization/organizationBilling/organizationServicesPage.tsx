@@ -124,7 +124,7 @@ function ServiceCard(props: {
                 padding: "1.25rem",
                 borderRadius: "2xl",
                 border: isRecurring ? "1px solid rgba(15, 59, 76, 0.12)" : "1px solid rgba(213, 168, 79, 0.2)",
-                boxShadow: isRecurring ? "0 8px 24px rgba(15, 23, 42, 0.06)" : "0 12px 28px rgba(181, 129, 28, 0.08)",
+                // boxShadow: isRecurring ? "0 8px 24px rgba(15, 23, 42, 0.06)" : "0 12px 28px rgba(181, 129, 28, 0.08)",
             })}
         >
             <div

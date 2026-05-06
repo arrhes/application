@@ -90,7 +90,7 @@ export function JournalReportTable(props: {
                     >
                         <Table.Body.Row>
                             <Table.Body.Cell>
-                                <FormatNull />
+                                <FormatNull text="Aucune écriture" />
                             </Table.Body.Cell>
                         </Table.Body.Row>
                     </Table.Body.Root>

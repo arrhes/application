@@ -45,8 +45,6 @@ export const generateFileGetSignedUrlRoute = apiFactory
             context: c,
             statusCode: 200,
             schema: generateFileGetSignedUrlRouteDefinition.schemas.return,
-            data: {
-                url: url,
-            },
+            data: { url },
         })
     })

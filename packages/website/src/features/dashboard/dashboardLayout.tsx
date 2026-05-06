@@ -107,7 +107,7 @@ export function DashboardLayout() {
                                     <ButtonOutlineContent leftIcon={<IconUser />} />
                                 </Button>
                             </Popover.Trigger>
-                            <Popover.Content align="end" className={css({ padding: "0.5rem" })}>
+                            <Popover.Content align="end" className={css({ padding: "0.5rem", gap: "0.25rem" })}>
                                 <LinkButton to="/dashboard/profil" className={css({ width: "100%" })}>
                                     <ButtonGhostContent
                                         leftIcon={<IconSettings />}

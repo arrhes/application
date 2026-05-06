@@ -4,6 +4,7 @@ import {
     IconChevronDown,
     IconChevronLeft,
     IconChevronRight,
+    IconDatabaseOff,
     IconSortAscending,
     IconSortDescending,
 } from "@tabler/icons-react"
@@ -26,6 +27,7 @@ import {
 } from "@tanstack/react-table"
 import { type ComponentProps, Fragment, type ReactElement, useMemo, useRef, useState } from "react"
 import { ColumnVisibilityPopover, type VisibilityColumn } from "./columnVisibilityPopover.js"
+import { EmptyState } from "./emptyState.js"
 import { type FilterColumn, FilterPopover } from "./filterPopover.js"
 import { SearchBar } from "./searchBar.js"
 import { type SortDirection, SortPopover } from "./sortPopover.js"
@@ -50,6 +52,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
     getRowId?: (row: TData, index: number) => string
     selectionActions?: (selectedRows: Array<Row<TData>>) => ReactElement | null
     resetSelectionTrigger?: unknown
+    emptyStateProps?: Parameters<typeof EmptyState>[0]
 }) {
     const memoizedData = useMemo(() => props.data, [props.data])
     const [globalFilter, setGlobalFilter] = useState("")
@@ -72,6 +75,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
             meta: { fit: true },
             enableSorting: false,
             enableGlobalFilter: false,
+            enableHiding: false,
             header: ({ table }) => {
                 const selectedRows = table.getSelectedRowModel().rows
                 return (
@@ -206,6 +210,30 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
 
     if (props.isLoading) return <CircularLoader className={css({ m: "3" })} />
     const columnCount = table.getFlatHeaders().length + (props.renderSubComponent ? 1 : 0)
+    if (props.data.length === 0) {
+        return (
+            <div
+                className={css({
+                    width: "100%",
+                    maxWidth: "100%",
+                    // maxHeight: "70vh",
+                    padding: "0",
+                    overflowX: "auto",
+                    overflowY: "auto",
+                    borderRadius: "lg",
+                    border: "1px solid",
+                    borderColor: "neutral/10",
+                })}
+            >
+                <EmptyState
+                    icon={props.emptyStateProps?.icon ?? <IconDatabaseOff />}
+                    title={props.emptyStateProps?.title ?? "Aucun résultat"}
+                    subtitle={props.emptyStateProps?.subtitle}
+                />
+            </div>
+        )
+    }
+
     return (
         <div
             className={css({
@@ -464,7 +492,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                         {table.getRowModel().rows.length > 0 ? null : (
                             <tr>
                                 <td>
-                                    <FormatNull text="Pas de données" className={css({ padding: "1rem" })} />
+                                    <FormatNull text="Aucun résultat" className={css({ padding: "1rem" })} />
                                 </td>
                             </tr>
                         )}

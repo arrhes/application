@@ -170,7 +170,7 @@ website/src/
 │   ├── forms/          # Formulaires
 │   ├── inputs/         # Champs de saisie
 │   ├── layouts/        # Layouts, data blocks, tables
-│   └── overlays/       # Modals, drawers, dropdowns, tooltips
+│   └── overlays/       # Modals, drawers, tooltips
 ├── contexts/           # Contexts React
 │   ├── data/           # Context de donnees globales (TanStack Query)
 │   ├── router/         # Configuration du router

@@ -4,13 +4,8 @@ import { Exception } from "#src/utilities/exception.js"
 
 export function queueClient() {
     try {
-        const jobQueue = new Queue("jobs", {
+        const jobQueue = new Queue("jobs", ContextEnv.REDIS_URL, {
             redis: {
-                host: ContextEnv.REDIS_HOST,
-                port: Number(ContextEnv.REDIS_PORT),
-                username: ContextEnv.REDIS_USERNAME || undefined,
-                password: ContextEnv.REDIS_PASSWORD || undefined,
-                ...(ContextEnv.ENV === "production" ? { tls: { host: ContextEnv.REDIS_HOST } } : {}),
                 keepAlive: 1,
                 retryStrategy: (times) => Math.min(times * 50, 2000),
             },

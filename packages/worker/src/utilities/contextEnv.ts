@@ -21,10 +21,7 @@ const envSchema = v.object({
     API_BASE_URL: v.string(),
     INTERNAL_API_KEY: v.optional(v.string(), ""),
 
-    REDIS_HOST: v.string(),
-    REDIS_PORT: v.string(),
-    REDIS_USERNAME: v.string(),
-    REDIS_PASSWORD: v.string(),
+    REDIS_URL: v.string(),
 
     LLM_PROVIDER: v.optional(v.picklist(["mistral-api", "ollama"]), "ollama"),
     LLM_BASE_URL: v.optional(v.string(), "http://localhost:11434"),
@@ -48,10 +45,7 @@ export class ContextEnv {
     static API_BASE_URL: string
     static INTERNAL_API_KEY: string
 
-    static REDIS_HOST: string
-    static REDIS_PORT: string
-    static REDIS_USERNAME: string
-    static REDIS_PASSWORD: string
+    static REDIS_URL: string
 
     static LLM_PROVIDER: string
     static LLM_BASE_URL: string
@@ -80,10 +74,7 @@ export class ContextEnv {
         ContextEnv.API_BASE_URL = parsedEnv.API_BASE_URL
         ContextEnv.INTERNAL_API_KEY = parsedEnv.INTERNAL_API_KEY
 
-        ContextEnv.REDIS_HOST = parsedEnv.REDIS_HOST
-        ContextEnv.REDIS_PORT = parsedEnv.REDIS_PORT
-        ContextEnv.REDIS_USERNAME = parsedEnv.REDIS_USERNAME
-        ContextEnv.REDIS_PASSWORD = parsedEnv.REDIS_PASSWORD
+        ContextEnv.REDIS_URL = parsedEnv.REDIS_URL
 
         ContextEnv.LLM_PROVIDER = parsedEnv.LLM_PROVIDER
         ContextEnv.LLM_BASE_URL = parsedEnv.LLM_BASE_URL

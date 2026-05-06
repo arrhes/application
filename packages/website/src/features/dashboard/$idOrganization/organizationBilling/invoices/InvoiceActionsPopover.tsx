@@ -19,7 +19,7 @@ export function InvoiceActionsPopover(props: {
                     <ButtonGhostContent leftIcon={<IconDotsVertical />} text={undefined} />
                 </Button>
             </Popover.Trigger>
-            <Popover.Content align="end" className={css({ padding: "0.5rem", minWidth: "auto" })}>
+            <Popover.Content align="end" className={css({ padding: "0.5rem", minWidth: "auto", gap: "0.25rem" })}>
                 <LinkButton
                     to="/dashboard/organisations/$idOrganization/facturation/facture/$idInvoice"
                     params={{
@@ -34,13 +34,13 @@ export function InvoiceActionsPopover(props: {
                         className={css({ width: "100%", justifyContent: "start" })}
                     />
                 </LinkButton>
-                <DownloadInvoiceAsPDFButton invoice={props.invoice}>
+                <DownloadInvoiceAsPDFButton invoice={props.invoice} className={css({ width: "100%" })}>
                     <ButtonGhostContent
                         leftIcon={<IconDownload />}
                         text={props.invoice.xmlStorageKey ? "Télécharger (PDF)" : "PDF indisponible"}
                     />
                 </DownloadInvoiceAsPDFButton>
-                <DownloadInvoiceAsXMLButton invoice={props.invoice}>
+                <DownloadInvoiceAsXMLButton invoice={props.invoice} className={css({ width: "100%" })}>
                     <ButtonGhostContent
                         leftIcon={<IconDownload />}
                         text={props.invoice.xmlStorageKey ? "Télécharger (XML)" : "XML indisponible"}

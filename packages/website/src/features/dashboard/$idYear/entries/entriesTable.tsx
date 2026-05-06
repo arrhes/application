@@ -10,6 +10,7 @@ import type {
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { FormatDate, FormatDateTime, FormatNull, FormatPrice, FormatText, LinkContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
+import { IconPencil } from "@tabler/icons-react"
 import { useMemo } from "react"
 import type * as v from "valibot"
 import { DataTable } from "../../../../components/layouts/dataTable.js"
@@ -99,6 +100,11 @@ export function EntriesTable(props: {
             selectionActions={(selectedRows) => (
                 <EntriesTableSelectionActions selectedRows={selectedRows} idYear={props.idYear} />
             )}
+            emptyStateProps={{
+                icon: <IconPencil />,
+                title: "Aucune écriture",
+                subtitle: "Les écritures de votre exercice apparaîtront ici.",
+            }}
             columns={[
                 {
                     accessorKey: "label",

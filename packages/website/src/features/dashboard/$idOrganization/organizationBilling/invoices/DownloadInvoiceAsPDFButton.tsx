@@ -8,6 +8,7 @@ import { getInvoiceXmlContent } from "./getInvoiceXmlContent.ts"
 export function DownloadInvoiceAsPDFButton(props: {
     invoice: v.InferOutput<typeof returnedSchemas.invoice>
     children: ReactElement<ButtonContentProps>
+    className?: string
 }) {
     const [isDownloading, setIsDownloading] = useState(false)
 
@@ -33,7 +34,7 @@ export function DownloadInvoiceAsPDFButton(props: {
     }
 
     return (
-        <Button onClick={handleDownload} isDisabled={isDownloading || props.invoice.xmlStorageKey === null}>
+        <Button onClick={handleDownload} isDisabled={isDownloading || props.invoice.xmlStorageKey === null} className={props.className}>
             {cloneElement(props.children, {
                 isDisabled: isDownloading || props.invoice.xmlStorageKey === null,
             })}

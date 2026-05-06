@@ -257,7 +257,7 @@ export function OrganizationWalletPage() {
                                         <SettingsSection.Root>
                                             <SettingsSection.Header
                                                 title="Mois en cours"
-                                                description="Recapitulatif des paiements comptabilisés sur le mois en cours."
+                                                description="Récapitulatif des paiements comptabilisés sur le mois en cours."
                                             />
                                             <WalletCurrentMonth organization={organization} />
                                         </SettingsSection.Root>

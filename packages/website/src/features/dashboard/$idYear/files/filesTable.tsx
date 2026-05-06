@@ -301,16 +301,22 @@ export function FilesTable(props: {
             data={rows}
             isLoading={false}
             getRowProps={(row) => getRowInteractionProps(row.original)}
-            hideSearchBar
+            hideSearchBar={false}
             enableRowSelection={(row) => row.original.kind !== "back"}
             getRowId={(row) => (row.kind === "back" ? "__back__" : row.data.id)}
             resetSelectionTrigger={props.currentFolderId}
             selectionActions={(selectedRows) => (
                 <FilesTableSelectionActions selectedRows={selectedRows} idYear={props.idYear} />
             )}
+            emptyStateProps={{
+                icon: <IconFile />,
+                title: "Aucun fichier",
+                subtitle: "Les fichiers de votre exercice apparaîtront ici.",
+            }}
             columns={[
                 {
-                    accessorKey: "name",
+                    id: "name",
+                    accessorFn: (row) => (row.kind === "back" ? ".." : (row.data.name ?? "")),
                     header: "Nom",
                     cell: ({ row }) => {
                         const item = row.original
@@ -404,7 +410,8 @@ export function FilesTable(props: {
                     filterFn: "includesString",
                 },
                 {
-                    accessorKey: "size",
+                    id: "size",
+                    accessorFn: (row) => (row.kind === "file" ? (row.data.size ?? "") : ""),
                     header: "Size",
                     cell: ({ row }) => {
                         const item = row.original
@@ -414,7 +421,8 @@ export function FilesTable(props: {
                     filterFn: "includesString",
                 },
                 {
-                    accessorKey: "createdAt",
+                    id: "createdAt",
+                    accessorFn: (row) => (row.kind === "back" ? "" : row.data.createdAt),
                     header: "Date",
                     cell: ({ row }) => {
                         const item = row.original
@@ -425,7 +433,7 @@ export function FilesTable(props: {
                     filterFn: "includesString",
                 },
                 {
-                    accessorKey: "actions",
+                    id: "actions",
                     header: " ",
                     cell: ({ row }) => {
                         const item = row.original

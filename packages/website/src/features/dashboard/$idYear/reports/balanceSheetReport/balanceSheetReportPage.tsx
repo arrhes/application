@@ -99,7 +99,6 @@ export function BalanceSheetReportPage() {
                                                 borderBottomColor: "neutral/5",
                                                 paddingBottom: "0.5rem",
                                                 marginBottom: "1rem",
-                                                "@media print": { display: "none" },
                                             })}
                                         >
                                             <Button onClick={() => setActiveTab("asset")}>

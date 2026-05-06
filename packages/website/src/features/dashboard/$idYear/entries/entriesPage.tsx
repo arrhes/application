@@ -2,9 +2,9 @@ import { Button, ButtonGhostContent, ButtonPlainContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconDotsVertical, IconDownload, IconFileExport, IconFileImport, IconPlus } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
-import { useState } from "react"
-import { Dropdown } from "../../../../components/layouts/dropdownMenu/dropdown.js"
+import { Fragment, useState } from "react"
 import { Page } from "../../../../components/layouts/page/page.js"
+import { Popover } from "../../../../components/overlays/popover/popover.js"
 import { entriesRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/entries/entriesRoute.js"
 import { YearDataWrapper } from "../yearDataWrapper.tsx"
 import { CreateOneEntry } from "./createOneEntry.js"
@@ -27,7 +27,7 @@ export function EntriesPage() {
                     requiredKeys={["entries", "entryLines", "entryTags", "journals", "tags", "files", "accounts"]}
                 >
                     {(data) => (
-                        <div className={css({ width: "100%", minWidth: "0" })}>
+                        <Fragment>
                             <div
                                 className={css({
                                     width: "100%",
@@ -37,34 +37,48 @@ export function EntriesPage() {
                                     gap: "0.5rem",
                                 })}
                             >
-                                <Dropdown.Root>
-                                    <Dropdown.Trigger>
-                                        <ButtonGhostContent leftIcon={<IconDotsVertical />} text={undefined} />
-                                    </Dropdown.Trigger>
-                                    <Dropdown.Content align="end">
-                                        <Dropdown.Item onSelect={() => setExportOpen(true)}>
-                                            <ButtonGhostContent
-                                                leftIcon={<IconDownload />}
-                                                text="Exporter en CSV"
-                                                className={css({ width: "100%", justifyContent: "start" })}
-                                            />
-                                        </Dropdown.Item>
-                                        <Dropdown.Item onSelect={() => setFecOpen(true)}>
-                                            <ButtonGhostContent
-                                                leftIcon={<IconFileExport />}
-                                                text="Exporter le FEC"
-                                                className={css({ width: "100%", justifyContent: "start" })}
-                                            />
-                                        </Dropdown.Item>
-                                        <Dropdown.Item onSelect={() => setImportFecOpen(true)}>
-                                            <ButtonGhostContent
-                                                leftIcon={<IconFileImport />}
-                                                text="Importer un FEC"
-                                                className={css({ width: "100%", justifyContent: "start" })}
-                                            />
-                                        </Dropdown.Item>
-                                    </Dropdown.Content>
-                                </Dropdown.Root>
+                                <Popover.Root>
+                                    <Popover.Trigger asChild>
+                                        <Button>
+                                            <ButtonGhostContent leftIcon={<IconDotsVertical />} text={undefined} />
+                                        </Button>
+                                    </Popover.Trigger>
+                                    <Popover.Content align="end" className={css({ padding: "0.5rem", gap: "0.25rem" })}>
+                                        <Popover.Close asChild>
+                                            <Button
+                                                className={css({ width: "100%" })}
+                                                onClick={() => setExportOpen(true)}
+                                            >
+                                                <ButtonGhostContent
+                                                    leftIcon={<IconDownload />}
+                                                    text="Exporter en CSV"
+                                                    className={css({ width: "100%", justifyContent: "start" })}
+                                                />
+                                            </Button>
+                                        </Popover.Close>
+                                        <Popover.Close asChild>
+                                            <Button className={css({ width: "100%" })} onClick={() => setFecOpen(true)}>
+                                                <ButtonGhostContent
+                                                    leftIcon={<IconFileExport />}
+                                                    text="Exporter le FEC"
+                                                    className={css({ width: "100%", justifyContent: "start" })}
+                                                />
+                                            </Button>
+                                        </Popover.Close>
+                                        <Popover.Close asChild>
+                                            <Button
+                                                className={css({ width: "100%" })}
+                                                onClick={() => setImportFecOpen(true)}
+                                            >
+                                                <ButtonGhostContent
+                                                    leftIcon={<IconFileImport />}
+                                                    text="Importer un FEC"
+                                                    className={css({ width: "100%", justifyContent: "start" })}
+                                                />
+                                            </Button>
+                                        </Popover.Close>
+                                    </Popover.Content>
+                                </Popover.Root>
                                 <CreateOneEntry idOrganization={params.idOrganization} idYear={params.idYear}>
                                     <Button>
                                         <ButtonPlainContent leftIcon={<IconPlus />} text="Ajouter une écriture" />
@@ -105,7 +119,7 @@ export function EntriesPage() {
                                 open={importFecOpen}
                                 onOpenChange={setImportFecOpen}
                             />
-                        </div>
+                        </Fragment>
                     )}
                 </YearDataWrapper>
             </Page.Content>

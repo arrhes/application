@@ -14,3 +14,6 @@
 # - compose.yml (docker compose configuration)
 # - .dockerignore (build context exclusions)
 # - .gitignore (this file)
+
+# Ignore machine-local dev port assignments
+dev/.ports

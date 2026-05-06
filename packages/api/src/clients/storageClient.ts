@@ -4,34 +4,8 @@ import type { getEnv } from "../utilities/getEnv.js"
 
 export function storageClient(env: ReturnType<typeof getEnv>) {
     try {
-        const storageClient = new S3({
-            endpoint: env.STORAGE_ENDPOINT,
-            credentials: {
-                accessKeyId: env.STORAGE_ACCESS_KEY,
-                secretAccessKey: env.STORAGE_SECRET_KEY,
-            },
-            region: env.STORAGE_REGION,
-            forcePathStyle: true,
-        })
-        return storageClient
-    } catch (error) {
-        throw new Exception({
-            statusCode: 500,
-            internalMessage: "Storage client not available",
-            rawError: error,
-        })
-    }
-}
-
-/**
- * S3 client configured with the public endpoint.
- * Used exclusively for generating pre-signed URLs that are
- * accessed by the browser (GET/PUT signed URLs).
- */
-export function storagePublicClient(env: ReturnType<typeof getEnv>) {
-    try {
         const client = new S3({
-            endpoint: env.STORAGE_PUBLIC_ENDPOINT,
+            endpoint: env.STORAGE_ENDPOINT,
             credentials: {
                 accessKeyId: env.STORAGE_ACCESS_KEY,
                 secretAccessKey: env.STORAGE_SECRET_KEY,
@@ -43,8 +17,10 @@ export function storagePublicClient(env: ReturnType<typeof getEnv>) {
     } catch (error) {
         throw new Exception({
             statusCode: 500,
-            internalMessage: "Storage public client not available",
+            internalMessage: "Storage client not available",
             rawError: error,
         })
     }
 }
+
+

@@ -142,9 +142,9 @@ export function OrganizationBillingHistoryPage() {
                             if (payments.length === 0) {
                                 return (
                                     <EmptyState
-                                        icon={<IconReceipt size={48} />}
+                                        icon={<IconReceipt />}
                                         title="Aucun paiement"
-                                        subtitle="Les paiements apparaîtront ici une fois votre premier abonnement souscrit."
+                                        subtitle="Les paiements apparaîtront ici."
                                     />
                                 )
                             }

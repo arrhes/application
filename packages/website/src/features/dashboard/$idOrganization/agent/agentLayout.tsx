@@ -4,10 +4,11 @@ import {
 } from "@arrhes/application-metadata/routes"
 import { Button, ButtonGhostContent, ButtonOutlineContent, formatDateTime, LinkButton } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconMenu, IconPlus } from "@tabler/icons-react"
+import { IconMenu, IconMessage, IconPlus } from "@tabler/icons-react"
 import { Outlet, useNavigate, useParams } from "@tanstack/react-router"
 import { useState } from "react"
 import { Banner } from "../../../../components/layouts/banner.tsx"
+import { EmptyState } from "../../../../components/layouts/emptyState.tsx"
 import { Page } from "../../../../components/layouts/page/page.tsx"
 import { SearchBar } from "../../../../components/layouts/searchBar.tsx"
 import { organizationPathRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/organizationPathRoute.tsx"
@@ -93,6 +94,9 @@ export function AgentLayout() {
                         width: "100%",
                     })}
                 >
+                    {displaySessions.length === 0 ? (
+                        <EmptyState icon={<IconMessage />} title="Aucune session" subtitle={undefined} />
+                    ) : null}
                     {displaySessions.map((session) => {
                         const snippet =
                             searchTrimmed && session.matchedContent

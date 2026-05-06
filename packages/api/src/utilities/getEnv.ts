@@ -21,7 +21,6 @@ const envSchema = v.object({
     SQL_DATABASE_URL: v.string(),
 
     STORAGE_ENDPOINT: v.string(),
-    STORAGE_PUBLIC_ENDPOINT: v.string(),
     STORAGE_BUCKET_NAME: v.string(),
     STORAGE_ACCESS_KEY: v.string(),
     STORAGE_SECRET_KEY: v.string(),
@@ -39,10 +38,7 @@ const envSchema = v.object({
     LLM_MODEL: v.optional(v.string(), "mistral-small3.1"),
     LLM_API_KEY: v.optional(v.string(), ""),
 
-    REDIS_HOST: v.string(),
-    REDIS_PORT: v.string(),
-    REDIS_USERNAME: v.optional(v.string(), ""),
-    REDIS_PASSWORD: v.optional(v.string(), ""),
+    REDIS_URL: v.string(),
 })
 
 export function getEnv() {

@@ -30,7 +30,7 @@ services:
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: default
     ports:
-      - "5432:5432"
+      - "${POSTGRES_HOST_PORT}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql
     healthcheck:
@@ -50,8 +50,8 @@ services:
       RUSTFS_SECRET_KEY: rustfsadmin
       RUSTFS_VOLUMES: /data
     ports:
-      - "9000:9000"  # API
-      - "9001:9001"  # Web Console
+      - "${RUSTFS_API_PORT}:9000"  # API
+      - "${RUSTFS_UI_PORT}:9001"  # Web Console
     volumes:
       - rustfs_data:/data
     init: true
@@ -67,8 +67,8 @@ services:
     image: axllent/mailpit:latest
     restart: unless-stopped
     ports:
-      - "1025:1025"  # SMTP
-      - "8025:8025"  # Web UI
+      - "${MAILPIT_SMTP_PORT}:1025"  # SMTP
+      - "${MAILPIT_UI_PORT}:8025"    # Web UI
     healthcheck:
       test: ["CMD-SHELL", "wget --quiet --tries=1 --spider http://localhost:8025 || exit 1"]
       interval: 10s
@@ -81,7 +81,7 @@ services:
     image: redis:7-alpine
     restart: unless-stopped
     ports:
-      - "6379:6379"
+      - "${REDIS_HOST_PORT}:6379"
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
@@ -102,8 +102,10 @@ services:
       args:
         NODE_VERSION: "25.2.1"
         PNPM_VERSION: "10.26.1"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
-      - "3000:3000"
+      - "${API_HOST_PORT}:3000"
     volumes:
       - ../..:/workspace:cached
     environment:
@@ -111,14 +113,13 @@ services:
       ENV: development
       VERBOSE: "true"
       PORT: "3000"
-      CORS_ORIGIN: http://localhost:5173
+      CORS_ORIGIN: http://localhost:${WEBSITE_HOST_PORT}
       COOKIES_DOMAIN: localhost
       COOKIES_KEY: development-secret-key-change-in-production-min-32-chars
-      API_BASE_URL: http://localhost:3000
-      WEBSITE_BASE_URL: http://localhost:5173
+      API_BASE_URL: http://localhost:${API_HOST_PORT}
+      WEBSITE_BASE_URL: http://localhost:${WEBSITE_HOST_PORT}
       SQL_DATABASE_URL: postgres://postgres:admin@postgres:5432/default
-      STORAGE_ENDPOINT: http://rustfs:9000
-      STORAGE_PUBLIC_ENDPOINT: http://localhost:9000
+      STORAGE_ENDPOINT: http://localhost:${RUSTFS_API_PORT}
       STORAGE_BUCKET_NAME: arrhes-files
       STORAGE_ACCESS_KEY: rustfsadmin
       STORAGE_SECRET_KEY: rustfsadmin
@@ -133,10 +134,7 @@ services:
       LLM_MODEL: mistral-small-2603
       LLM_API_KEY: OwMSblegsAyAWd3AzCZbJkbaMQLCCj7y
       # Redis environment
-      REDIS_HOST: redis
-      REDIS_PORT: "6379"
-      REDIS_USERNAME: ""
-      REDIS_PASSWORD: ""
+      REDIS_URL: redis://redis:6379
       # Tools environment (packages/tools) - used by migrate/seed
       NODE_ENV: development
     depends_on:
@@ -160,15 +158,15 @@ services:
         NODE_VERSION: "25.2.1"
         PNPM_VERSION: "10.26.1"
     ports:
-      - "5173:5173"
+      - "${WEBSITE_HOST_PORT}:5173"
     volumes:
       - ../..:/workspace:cached
     environment:
       # Vite reads VITE_* from .env files, not process.env.
       # The entrypoint writes these to packages/website/.env at startup.
       VITE_ENV: development
-      VITE_API_BASE_URL: http://localhost:3000
-      VITE_WEBSITE_BASE_URL: http://localhost:5173
+      VITE_API_BASE_URL: http://localhost:${API_HOST_PORT}
+      VITE_WEBSITE_BASE_URL: http://localhost:${WEBSITE_HOST_PORT}
 
   # Worker - Background job processor (Bull queue + Redis pub/sub)
   worker:
@@ -186,16 +184,13 @@ services:
       ENV: development
       VERBOSE: "true"
       SQL_DATABASE_URL: postgres://postgres:admin@postgres:5432/default
-      STORAGE_ENDPOINT: http://rustfs:9000
+      STORAGE_ENDPOINT: http://localhost:${RUSTFS_API_PORT}
       STORAGE_NAME: arrhes-files
       STORAGE_ACCESS_KEY: rustfsadmin
       STORAGE_SECRET_KEY: rustfsadmin
-      API_BASE_URL: http://localhost:3000
+      API_BASE_URL: http://localhost:${API_HOST_PORT}
       INTERNAL_API_KEY: development-internal-api-key
-      REDIS_HOST: redis
-      REDIS_PORT: "6379"
-      REDIS_USERNAME: ""
-      REDIS_PASSWORD: ""
+      REDIS_URL: redis://redis:6379
       # LLM environment (AI agent)
       LLM_PROVIDER: mistral-api
       LLM_BASE_URL: https://api.mistral.ai/v1

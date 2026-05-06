@@ -1,14 +1,14 @@
 import { deleteOneFolderRouteDefinition, readAllFoldersRouteDefinition } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { ButtonGhostContent, toast } from "@arrhes/ui"
+import { Button, ButtonGhostContent, Separator, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/css"
 import { IconArrowsMove, IconDotsVertical, IconEye, IconPencil, IconTrash } from "@tabler/icons-react"
 import { useState } from "react"
 import type * as v from "valibot"
-import { Dropdown } from "../../../../components/layouts/dropdownMenu/dropdown.js"
 import { ConfirmationModal } from "../../../../components/overlays/dialog/confirmationModal.js"
 import { Dialog } from "../../../../components/overlays/dialog/dialog.js"
 import { Drawer } from "../../../../components/overlays/drawer/drawer.js"
+import { Popover } from "../../../../components/overlays/popover/popover.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
 import { MoveOneFolderForm } from "./moveOneFolderForm.js"
@@ -50,43 +50,53 @@ export function FolderActions(props: {
 
     return (
         <>
-            <Dropdown.Root>
-                <Dropdown.Trigger>
-                    <ButtonGhostContent leftIcon={<IconDotsVertical />} text={undefined} />
-                </Dropdown.Trigger>
-                <Dropdown.Content align="end">
-                    <Dropdown.Item onSelect={() => props.onFolderOpen(props.folder.id)}>
-                        <ButtonGhostContent
-                            leftIcon={<IconEye />}
-                            text="Ouvrir"
-                            className={css({ width: "100%", justifyContent: "start" })}
-                        />
-                    </Dropdown.Item>
-                    <Dropdown.Item onSelect={() => setEditOpen(true)}>
-                        <ButtonGhostContent
-                            leftIcon={<IconPencil />}
-                            text="Renommer"
-                            className={css({ width: "100%", justifyContent: "start" })}
-                        />
-                    </Dropdown.Item>
-                    <Dropdown.Item onSelect={() => setMoveOpen(true)}>
-                        <ButtonGhostContent
-                            leftIcon={<IconArrowsMove />}
-                            text="Déplacer"
-                            className={css({ width: "100%", justifyContent: "start" })}
-                        />
-                    </Dropdown.Item>
-                    <Dropdown.Separator />
-                    <Dropdown.Item onSelect={() => setDeleteOpen(true)}>
-                        <ButtonGhostContent
-                            leftIcon={<IconTrash />}
-                            text="Supprimer"
-                            color="danger"
-                            className={css({ width: "100%", justifyContent: "start" })}
-                        />
-                    </Dropdown.Item>
-                </Dropdown.Content>
-            </Dropdown.Root>
+            <Popover.Root>
+                <Popover.Trigger asChild>
+                    <Button>
+                        <ButtonGhostContent leftIcon={<IconDotsVertical />} text={undefined} />
+                    </Button>
+                </Popover.Trigger>
+                <Popover.Content align="end" className={css({ padding: "0.5rem", gap: "0.25rem" })}>
+                    <Popover.Close asChild>
+                        <Button className={css({ width: "100%" })} onClick={() => props.onFolderOpen(props.folder.id)}>
+                            <ButtonGhostContent
+                                leftIcon={<IconEye />}
+                                text="Ouvrir"
+                                className={css({ width: "100%", justifyContent: "start" })}
+                            />
+                        </Button>
+                    </Popover.Close>
+                    <Popover.Close asChild>
+                        <Button className={css({ width: "100%" })} onClick={() => setEditOpen(true)}>
+                            <ButtonGhostContent
+                                leftIcon={<IconPencil />}
+                                text="Renommer"
+                                className={css({ width: "100%", justifyContent: "start" })}
+                            />
+                        </Button>
+                    </Popover.Close>
+                    <Popover.Close asChild>
+                        <Button className={css({ width: "100%" })} onClick={() => setMoveOpen(true)}>
+                            <ButtonGhostContent
+                                leftIcon={<IconArrowsMove />}
+                                text="Déplacer"
+                                className={css({ width: "100%", justifyContent: "start" })}
+                            />
+                        </Button>
+                    </Popover.Close>
+                    <Separator />
+                    <Popover.Close asChild>
+                        <Button className={css({ width: "100%" })} onClick={() => setDeleteOpen(true)}>
+                            <ButtonGhostContent
+                                leftIcon={<IconTrash />}
+                                text="Supprimer"
+                                color="danger"
+                                className={css({ width: "100%", justifyContent: "start" })}
+                            />
+                        </Button>
+                    </Popover.Close>
+                </Popover.Content>
+            </Popover.Root>
 
             <Drawer.Root open={editOpen} onOpenChange={setEditOpen}>
                 <Drawer.Content>
