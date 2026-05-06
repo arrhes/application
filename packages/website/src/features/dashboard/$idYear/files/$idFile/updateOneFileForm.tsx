@@ -1,5 +1,6 @@
 import { fileSchema } from "@arrhes/application-metadata/components"
 import {
+    finalizeFileUploadRouteDefinition,
     generateFilePutSignedUrlRouteDefinition,
     readAllFilesRouteDefinition,
     readOneFileRouteDefinition,
@@ -53,7 +54,6 @@ export function UpdateOneFileForm(props: { file: v.InferOutput<typeof returnedSc
                     const signedUrlResponse = await getResponseBodyFromAPI({
                         routeDefinition: generateFilePutSignedUrlRouteDefinition,
                         body: {
-                            idYear: props.file.idYear,
                             idFile: updateFileResponse.data.id,
                             type: data.file.type,
                             size: data.file.size,
@@ -69,6 +69,17 @@ export function UpdateOneFileForm(props: { file: v.InferOutput<typeof returnedSc
                     })
                     if (uploadFileResponse.ok === false) {
                         toast({ title: "Le fichier ne peut pas être téléchargé", variant: "error" })
+                        return false
+                    }
+
+                    const finalizeResponse = await getResponseBodyFromAPI({
+                        routeDefinition: finalizeFileUploadRouteDefinition,
+                        body: {
+                            idFile: updateFileResponse.data.id,
+                        },
+                    })
+                    if (finalizeResponse.ok === false) {
+                        toast({ title: "Le téléversement du fichier a échoué", variant: "error" })
                         return false
                     }
                 }

@@ -153,10 +153,10 @@ export const generateMonthlyInvoicesRoute = apiFactory
                             : {}),
                         ...(org.pendingStorageMaxUsage !== null
                             ? {
-                                  storageMaxUsage: org.pendingStorageMaxUsage,
-                                  storageLimit: org.pendingStorageMaxUsage,
-                                  pendingStorageMaxUsage: null,
-                              }
+                                storageMaxUsage: org.pendingStorageMaxUsage,
+                                storageLimit: org.pendingStorageMaxUsage,
+                                pendingStorageMaxUsage: null,
+                            }
                             : {}),
                         lastUpdatedAt: now.toISOString(),
                     },

@@ -1,6 +1,5 @@
 import type { returnedSchemas } from "@arrhes/application-metadata"
 import {
-    deleteOneFileRouteDefinition,
     deleteOneFolderRouteDefinition,
     readAllFilesRouteDefinition,
     readAllFoldersRouteDefinition,
@@ -15,6 +14,7 @@ import { ConfirmationModal } from "../../../../components/overlays/dialog/confir
 import { Popover } from "../../../../components/overlays/popover/popover.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
+import { deleteFileWithSignedUrl } from "./deleteFileWithSignedUrl.js"
 
 export type TableRow =
     | { kind: "back" }
@@ -33,10 +33,10 @@ export function FilesTableSelectionActions(props: { selectedRows: Array<Row<Tabl
     async function handleDelete() {
         const results = await Promise.all([
             ...selectedFiles.map((file) =>
-                getResponseBodyFromAPI({
-                    routeDefinition: deleteOneFileRouteDefinition,
-                    body: { idFile: file.id, idYear: props.idYear },
-                }),
+                deleteFileWithSignedUrl({
+                    idFile: file.id,
+                    idYear: props.idYear,
+                }).then((ok) => ({ ok })),
             ),
             ...selectedFolders.map((folder) =>
                 getResponseBodyFromAPI({

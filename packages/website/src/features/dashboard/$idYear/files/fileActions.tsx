@@ -1,5 +1,4 @@
 import {
-    deleteOneFileRouteDefinition,
     ocrFileRouteDefinition,
     readAllFilesRouteDefinition,
     readOrganizationBillingRouteDefinition,
@@ -19,6 +18,7 @@ import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFro
 import { invalidateData } from "../../../../utilities/invalidateData.js"
 import { useDataFromAPI } from "../../../../utilities/useHTTPData.ts"
 import { UpdateOneFileForm } from "./$idFile/updateOneFileForm.js"
+import { deleteFileWithSignedUrl } from "./deleteFileWithSignedUrl.js"
 import { MoveOneFileForm } from "./moveOneFileForm.js"
 
 export function FileActions(props: {
@@ -40,15 +40,12 @@ export function FileActions(props: {
     const isOcrSupportedType = props.file.type === "application/pdf" || (props.file.type?.startsWith("image/") ?? false)
 
     async function handleDelete() {
-        const deleteResponse = await getResponseBodyFromAPI({
-            routeDefinition: deleteOneFileRouteDefinition,
-            body: {
-                idFile: props.file.id,
-                idYear: props.idYear,
-            },
+        const isDeleted = await deleteFileWithSignedUrl({
+            idFile: props.file.id,
+            idYear: props.idYear,
         })
 
-        if (deleteResponse.ok === false) {
+        if (isDeleted === false) {
             toast({ title: "Erreur lors de la suppression du fichier", variant: "error" })
             return
         }

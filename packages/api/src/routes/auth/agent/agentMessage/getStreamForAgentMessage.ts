@@ -1,11 +1,14 @@
 import { getStreamForAgentMessageRouteDefinition, models } from "@arrhes/application-metadata"
-import { and, eq } from "drizzle-orm"
+import { and, eq, or } from "drizzle-orm"
 import { streamText } from "hono/streaming"
 import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
 import { Exception } from "../../../../utilities/exception.js"
 import { selectOne } from "../../../../utilities/sql/selectOne.js"
+
+const STREAM_FIRST_ACTIVITY_TIMEOUT_MS = 10_000
+const STREAM_UNAVAILABLE_MESSAGE = "La diffusion de la reponse a expire. Veuillez renvoyer votre message."
 
 export const getStreamForAgentMessageRoute = apiFactory
     .createApp()
@@ -54,6 +57,96 @@ export const getStreamForAgentMessageRoute = apiFactory
                 statusCode: 500,
                 internalMessage: "Agent message has no stream key",
                 externalMessage: "Erreur interne",
+            })
+        }
+
+        // Preflight: wait for first Redis activity for at most 10s.
+        // If nothing arrives and DB state is still streaming, convert the message to error
+        // and return an HTTP error instead of keeping the frontend in an infinite loader.
+        const preflightSubscriber = c.var.clients.redis.duplicate()
+        let preflightClosed = false
+
+        const cleanupPreflight = async () => {
+            if (preflightClosed) return
+            preflightClosed = true
+            try {
+                preflightSubscriber.unsubscribe(streamKey)
+                preflightSubscriber.disconnect()
+            } catch {
+                // ignore cleanup errors
+            }
+        }
+
+        await preflightSubscriber.subscribe(streamKey)
+
+        const firstActivityPromise = new Promise<"message" | "error" | "timeout">((resolve) => {
+            const timeoutId = setTimeout(() => resolve("timeout"), STREAM_FIRST_ACTIVITY_TIMEOUT_MS)
+
+            preflightSubscriber.once("message", (channel) => {
+                if (channel !== streamKey) return
+                clearTimeout(timeoutId)
+                resolve("message")
+            })
+
+            preflightSubscriber.once("error", () => {
+                clearTimeout(timeoutId)
+                resolve("error")
+            })
+        })
+
+        const firstActivity = await firstActivityPromise
+        await cleanupPreflight()
+
+        if (firstActivity === "timeout" || firstActivity === "error") {
+            const freshMessage = await selectOne({
+                database: c.var.clients.sql,
+                table: models.agentMessage,
+                where: (table) => and(eq(table.id, body.idAgentMessage)),
+            })
+
+            // Worker may have completed between timeout and DB recheck.
+            if (freshMessage.state === "completed") {
+                return streamText(c, async (stream) => {
+                    if (freshMessage.output) {
+                        await stream.write(
+                            `data: ${JSON.stringify({ type: "TEXT_MESSAGE_CONTENT", delta: freshMessage.output })}\n\n`,
+                        )
+                    }
+                    if (freshMessage.toolCalls && Array.isArray(freshMessage.toolCalls)) {
+                        for (const tc of freshMessage.toolCalls) {
+                            await stream.write(`data: ${JSON.stringify(tc)}\n\n`)
+                        }
+                    }
+                })
+            }
+
+            if (freshMessage.state === "error") {
+                return streamText(c, async (stream) => {
+                    await stream.write(
+                        `data: ${JSON.stringify({ type: "TEXT_MESSAGE_CONTENT", delta: freshMessage.output ?? "Une erreur est survenue lors de la génération de la réponse." })}\n\n`,
+                    )
+                })
+            }
+
+            await c.var.clients.sql
+                .update(models.agentMessage)
+                .set({ state: "error", output: STREAM_UNAVAILABLE_MESSAGE })
+                .where(and(eq(models.agentMessage.id, body.idAgentMessage), eq(models.agentMessage.state, "streaming")))
+
+            await c.var.clients.sql
+                .update(models.workerJob)
+                .set({ status: "error", lastUpdatedAt: new Date().toISOString() })
+                .where(
+                    and(
+                        eq(models.workerJob.idAgentMessage, body.idAgentMessage),
+                        or(eq(models.workerJob.status, "pending"), eq(models.workerJob.status, "running")),
+                    ),
+                )
+
+            throw new Exception({
+                statusCode: 410,
+                internalMessage: `Stream unavailable for agent message ${body.idAgentMessage}`,
+                externalMessage: STREAM_UNAVAILABLE_MESSAGE,
             })
         }
 

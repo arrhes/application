@@ -1,4 +1,4 @@
-import { deleteOneFileRouteDefinition, readAllFilesRouteDefinition } from "@arrhes/application-metadata/routes"
+import { readAllFilesRouteDefinition } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/css"
@@ -10,9 +10,9 @@ import { ConfirmationModal } from "../../../../components/overlays/dialog/confir
 import { Dialog } from "../../../../components/overlays/dialog/dialog.js"
 import { Drawer } from "../../../../components/overlays/drawer/drawer.js"
 import { applicationRouter } from "../../../../routes/applicationRouter.js"
-import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
 import { UpdateOneFileForm } from "./$idFile/updateOneFileForm.js"
+import { deleteFileWithSignedUrl } from "./deleteFileWithSignedUrl.js"
 import { MoveOneFileForm } from "./moveOneFileForm.js"
 
 export function FileContextMenu(props: {
@@ -26,15 +26,12 @@ export function FileContextMenu(props: {
     const [deleteOpen, setDeleteOpen] = useState(false)
 
     async function handleDelete() {
-        const deleteResponse = await getResponseBodyFromAPI({
-            routeDefinition: deleteOneFileRouteDefinition,
-            body: {
-                idFile: props.file.id,
-                idYear: props.idYear,
-            },
+        const isDeleted = await deleteFileWithSignedUrl({
+            idFile: props.file.id,
+            idYear: props.idYear,
         })
 
-        if (deleteResponse.ok === false) {
+        if (isDeleted === false) {
             toast({ title: "Erreur lors de la suppression du fichier", variant: "error" })
             return
         }

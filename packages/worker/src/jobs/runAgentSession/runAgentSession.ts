@@ -1,11 +1,11 @@
-import { generateId, models } from "@arrhes/application-metadata"
-import { chat, convertMessagesToModelMessages, maxIterations, toolDefinition } from "@tanstack/ai"
-import { and, asc, eq, sql } from "drizzle-orm"
 import { ContextClients } from "#src/clients/contextClients.js"
 import { ContextEnv } from "#src/utilities/contextEnv.js"
 import { getObject } from "#src/utilities/storage/getObject.js"
 import { putObject } from "#src/utilities/storage/putObject.js"
 import { tokenLimit } from "#src/utilities/variables.js"
+import { generateId, models } from "@arrhes/application-metadata"
+import { chat, convertMessagesToModelMessages, maxIterations, toolDefinition } from "@tanstack/ai"
+import { and, asc, eq, sql } from "drizzle-orm"
 import { buildWorkerTools, type ToolResultStore } from "./buildWorkerTools.js"
 import { getAdapter } from "./provider.js"
 import { buildSubagentTool } from "./subagentTool.js"
@@ -773,7 +773,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                     usedTools: usedToolNames.size > 0 ? [...usedToolNames] : null,
                 })
                 .where(eq(models.agentMessage.id, idAgentMessage))
-                .catch(() => {})
+                .catch(() => { })
         }
     }
 
@@ -790,7 +790,13 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
         for await (const chunk of stream) {
             console.log(`[runAgentSession] chunk: ${chunk.type}`)
             // Publish every chunk as a Redis message for the SSE subscriber
-            await redis.publish(streamKey, JSON.stringify(chunk))
+            try {
+                await redis.publish(streamKey, JSON.stringify(chunk))
+            } catch (error: unknown) {
+                const publishError = error instanceof Error ? error.message : String(error)
+                console.error(`[runAgentSession] Redis publish failed for message ${idAgentMessage}:`, publishError)
+                throw error
+            }
 
             if (chunk.type === "RUN_ERROR") {
                 const errorMsg = (chunk as any).message ?? (chunk as any).error ?? "Unknown error"
@@ -919,6 +925,11 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
             .where(eq(models.workerJob.id, idWorkerJob))
     } finally {
         // Always close the stream so the SSE subscriber terminates
-        await redis.publish(streamKey, `${streamKey}:close`)
+        try {
+            await redis.publish(streamKey, `${streamKey}:close`)
+        } catch (error: unknown) {
+            const publishError = error instanceof Error ? error.message : String(error)
+            console.error(`[runAgentSession] Redis close publish failed for message ${idAgentMessage}:`, publishError)
+        }
     }
 }

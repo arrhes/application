@@ -312,7 +312,14 @@ export function AgentSessionContent() {
                     )
 
                     if (!response.ok || !response.body) {
-                        // SSE failed — polling will pick it up
+                        toast({
+                            title: "Le flux de reponse est indisponible",
+                            description: "Veuillez renvoyer votre message.",
+                            variant: "error",
+                        })
+                        if (!controller.signal.aborted) {
+                            await finish()
+                        }
                         return
                     }
 

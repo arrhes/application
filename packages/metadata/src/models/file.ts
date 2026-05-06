@@ -22,7 +22,7 @@ export const fileModel = pgTable("table_file", {
     storageKey: text("storage_key"),
     type: text("type"),
     size: integer("size"),
-    hash: text("hash"),
+    hash: text("hash").unique(),
     createdAt: dateTimeColumn("created_at").notNull(),
     lastUpdatedAt: dateTimeColumn("last_updated_at"),
     createdBy: idColumn("created_by").references((): AnyPgColumn => userModel.id, {

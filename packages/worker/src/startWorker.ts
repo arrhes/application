@@ -1,6 +1,9 @@
 import { ContextClients } from "#src/clients/contextClients.js"
+import { cleanupOrphanedStorageFiles } from "#src/jobs/cleanupOrphanedStorageFiles/cleanupOrphanedStorageFiles.js"
 import { ContextEnv } from "#src/utilities/contextEnv.js"
 import { processJobs } from "#src/utilities/queue/processJobs.js"
+
+const CLEANUP_INTERVAL_MS = 10 * 60 * 1000
 
 export async function startWorker() {
     while (true) {
@@ -13,8 +16,13 @@ export async function startWorker() {
             // await recoverStuckJobs()
             await processJobs()
 
+            await cleanupOrphanedStorageFiles()
+            setInterval(() => {
+                void cleanupOrphanedStorageFiles()
+            }, CLEANUP_INTERVAL_MS)
+
             // Wait indefinitely (prevents loop from restarting immediately)
-            await new Promise(() => {})
+            await new Promise(() => { })
         } catch (error: unknown) {
             if (error instanceof Error) {
                 console.error(

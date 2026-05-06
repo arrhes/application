@@ -1,27 +1,24 @@
-import { deleteOneFileRouteDefinition, readAllFilesRouteDefinition } from "@arrhes/application-metadata/routes"
+import { readAllFilesRouteDefinition } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { toast } from "@arrhes/ui"
 import type { ComponentPropsWithRef, ReactElement } from "react"
 import type * as v from "valibot"
 import { ConfirmationModal } from "../../../../../components/overlays/dialog/confirmationModal.tsx"
 import { applicationRouter } from "../../../../../routes/applicationRouter.tsx"
-import { getResponseBodyFromAPI } from "../../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../../utilities/invalidateData.ts"
+import { deleteFileWithSignedUrl } from "../deleteFileWithSignedUrl.ts"
 
 export function DeleteOneFile(props: {
     file: v.InferOutput<typeof returnedSchemas.file>
     children: ReactElement<ComponentPropsWithRef<"div">>
 }) {
     async function onSubmit() {
-        const deleteResponse = await getResponseBodyFromAPI({
-            routeDefinition: deleteOneFileRouteDefinition,
-            body: {
-                idFile: props.file.id,
-                idYear: props.file.idYear,
-            },
+        const isDeleted = await deleteFileWithSignedUrl({
+            idFile: props.file.id,
+            idYear: props.file.idYear,
         })
 
-        if (deleteResponse.ok === false) {
+        if (isDeleted === false) {
             toast({ title: "Erreur lors de la suppression du fichier", variant: "error" })
             return
         }

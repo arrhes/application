@@ -1,6 +1,6 @@
+import type { sqlClient } from "#src/clients/sqlClient.js"
 import { generateId, models } from "@arrhes/application-metadata"
 import { and, eq } from "drizzle-orm"
-import type { sqlClient } from "#src/clients/sqlClient.js"
 
 type DB = ReturnType<typeof sqlClient>
 
@@ -141,7 +141,7 @@ export async function updateOneEntryLine(db: DB, _idOrganization: string, body: 
 }
 
 export async function updateManyEntryLines(db: DB, _idOrganization: string, body: Record<string, unknown>) {
-    const { lines } = body as { lines: Array<{ id: string; [key: string]: unknown }> }
+    const { lines } = body as { lines: Array<{ id: string;[key: string]: unknown }> }
     const results = await Promise.all(
         lines.map(async ({ id, ...rest }) => {
             const rows = await db
@@ -391,9 +391,9 @@ export async function readAllIncomeStatements(db: DB, idOrganization: string, bo
     const { idYear } = body as any
     const where = idYear
         ? and(
-              eq(models.incomeStatement.idOrganization, idOrganization),
-              eq((models.incomeStatement as any).idYear, idYear),
-          )
+            eq(models.incomeStatement.idOrganization, idOrganization),
+            eq((models.incomeStatement as any).idYear, idYear),
+        )
         : eq(models.incomeStatement.idOrganization, idOrganization)
     return db.select().from(models.incomeStatement).where(where)
 }
