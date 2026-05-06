@@ -28,9 +28,9 @@ export function AccountsTable(props: { idOrganization: string; idYear: string; g
             normalizedFilter === ""
                 ? response.data
                 : response.data.filter((account) => {
-                      const text = `${account.number} ${account.label}`.toLowerCase()
-                      return text.includes(normalizedFilter)
-                  })
+                    const text = `${account.number} ${account.label}`.toLowerCase()
+                    return text.includes(normalizedFilter)
+                })
 
         const sorted = [...filtered].sort((a, b) => a.number.toString().localeCompare(b.number.toString()))
 
@@ -85,7 +85,7 @@ export function AccountsTable(props: { idOrganization: string; idYear: string; g
                 flexDirection: "column",
                 justifyContent: "flex-start",
                 alignItems: "flex-start",
-                padding: "4",
+                padding: "1rem",
             })}
         >
             {response.data === undefined ? (
@@ -101,7 +101,7 @@ export function AccountsTable(props: { idOrganization: string; idYear: string; g
                 )
             ) : structuredAccounts.length === 0 ? (
                 <EmptyState
-                    icon={<IconListNumbers size={48} />}
+                    icon={<IconListNumbers />}
                     title={props.globalFilter ? "Aucun compte trouvé" : "Aucun compte"}
                     subtitle={props.globalFilter ? undefined : "Ajoutez un compte pour commencer"}
                 />

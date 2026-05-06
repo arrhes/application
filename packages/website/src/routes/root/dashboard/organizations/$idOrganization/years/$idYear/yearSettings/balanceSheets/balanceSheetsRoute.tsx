@@ -1,17 +1,13 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute, redirect } from "@tanstack/react-router"
 import { balanceSheetsLayoutRoute } from "./balanceSheetsLayoutRoute.js"
 
 export const balanceSheetsRoute = createRoute({
     getParentRoute: () => balanceSheetsLayoutRoute,
     path: "/",
-    beforeLoad: () => ({
-        title: undefined,
-    }),
-    component: lazyRouteComponent(
-        () =>
-            import(
-                "../../../../../../../../../features/dashboard/$idYear/yearSettings/balanceSheets/balanceSheetsPage.js"
-            ),
-        "BalanceSheetsPage",
-    ),
+    beforeLoad: ({ params }) => {
+        throw redirect({
+            to: "/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/bilan/actif",
+            params: params,
+        })
+    },
 })

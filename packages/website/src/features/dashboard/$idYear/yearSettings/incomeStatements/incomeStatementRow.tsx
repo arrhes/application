@@ -3,6 +3,7 @@ import { css } from "@arrhes/ui/utilities/cn.js"
 import type { ComponentProps } from "react"
 import type * as v from "valibot"
 import { LinkButton } from "../../../../../components/linkButton.tsx"
+import { ACCOUNT_ITEM_HEIGHT, INDENT_PER_LEVEL } from "../accounts/accountItem.tsx"
 
 export function IncomeStatementRow(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
@@ -11,12 +12,6 @@ export function IncomeStatementRow(props: {
     level: number
     className?: ComponentProps<"div">["className"]
 }) {
-    const prefix = `${(
-        new Array(props.level).fill("").map((_, _index) => {
-            return "&nbsp;&nbsp;"
-        })
-    ).join("")}`
-
     return (
         <LinkButton
             to="/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/compte-de-résultat/$idIncomeStatement"
@@ -39,50 +34,28 @@ export function IncomeStatementRow(props: {
                     borderBottom: "1px solid",
                     borderBottomColor: "neutral/5",
                     _last: { borderBottom: "0" },
+                    padding: "0.5rem",
+                    borderRadius: "md",
                 })}
-                // style={{
-                //     paddingLeft: `${(1 + props.level) * 12}px`
-                // }}
+                style={{
+                    height: `${ACCOUNT_ITEM_HEIGHT}px`,
+                    paddingLeft: `${(props.level + 1) * INDENT_PER_LEVEL}px`
+                }}
             >
-                {prefix === null ? null : (
-                    <pre
-                        className={css({
-                            color: "neutral/25",
-                            fontSize: "22px",
-                            lineHeight: "1",
-                            height: "100%",
-                            verticalAlign: "middle",
-                            textAlign: "left",
-                        })}
-                        dangerouslySetInnerHTML={{
-                            __html: prefix,
-                        }}
-                    />
-                )}
-                <div
+                <span className={css({ color: "neutral", fontSize: "xs", lineHeight: "1" })}>
+                    {props.incomeStatement.number}
+                </span>
+                <span
                     className={css({
-                        padding: "1",
-                        display: "flex",
-                        justifyContent: "flex-start",
-                        alignItems: "center",
-                        gap: "0.5rem",
+                        color: "neutral",
+                        fontSize: "xs",
+                        textAlign: "left",
+                        lineHeight: "1",
+                        whiteSpace: "nowrap",
                     })}
                 >
-                    <span className={css({ color: "neutral", fontSize: "xs", lineHeight: "1" })}>
-                        {props.incomeStatement.number}
-                    </span>
-                    <span
-                        className={css({
-                            color: "neutral",
-                            fontSize: "xs",
-                            textAlign: "left",
-                            lineHeight: "1",
-                            whiteSpace: "nowrap",
-                        })}
-                    >
-                        {props.incomeStatement.label}
-                    </span>
-                </div>
+                    {props.incomeStatement.label}
+                </span>
             </div>
         </LinkButton>
     )

@@ -63,8 +63,12 @@ import { accountsRoute } from "./organizations/$idOrganization/years/$idYear/yea
 import { balanceSheetLayoutRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/balanceSheets/$idBalanceSheet/balanceSheetLayoutRoute.tsx"
 import { balanceSheetMetadataRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/balanceSheets/$idBalanceSheet/balanceSheetMetadataRoute.tsx"
 import { balanceSheetRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/balanceSheets/$idBalanceSheet/balanceSheetRoute.tsx"
+import { actifLayoutRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/balanceSheets/actif/actifLayoutRoute.tsx"
+import { actifRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/balanceSheets/actif/actifRoute.tsx"
 import { balanceSheetsLayoutRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/balanceSheets/balanceSheetsLayoutRoute.tsx"
 import { balanceSheetsRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/balanceSheets/balanceSheetsRoute.tsx"
+import { passifLayoutRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/balanceSheets/passif/passifLayoutRoute.tsx"
+import { passifRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/balanceSheets/passif/passifRoute.tsx"
 import { incomeStatementLayoutRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/$idIncomeStatement/incomeStatementLayoutRoute.tsx"
 import { incomeStatementMetadataRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/$idIncomeStatement/incomeStatementMetadataRoute.tsx"
 import { incomeStatementRoute } from "./organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/$idIncomeStatement/incomeStatementRoute.tsx"
@@ -171,6 +175,8 @@ export const dashboardTree: AnyRoute = dashboardLayoutRoute.addChildren([
                             ]),
                             balanceSheetsLayoutRoute.addChildren([
                                 balanceSheetsRoute,
+                                actifLayoutRoute.addChildren([actifRoute]),
+                                passifLayoutRoute.addChildren([passifRoute]),
                                 balanceSheetLayoutRoute.addChildren([balanceSheetRoute, balanceSheetMetadataRoute]),
                             ]),
                             incomeStatementsLayoutRoute.addChildren([

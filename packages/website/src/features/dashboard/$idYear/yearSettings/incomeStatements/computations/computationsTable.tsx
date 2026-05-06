@@ -37,7 +37,7 @@ export function ComputationsTable(props: {
                             flexDirection: "column",
                             justifyContent: "flex-start",
                             alignItems: "flex-start",
-                            padding: "4",
+                            padding: "1rem",
                         })}
                     >
                         {computations.map((computation) => (
@@ -53,7 +53,8 @@ export function ComputationsTable(props: {
                             >
                                 <div
                                     className={css({
-                                        padding: "1rem",
+                                        padding: "0.5rem",
+                                        borderRadius: "md",
                                         minWidth: "fit-content",
                                         width: "100%",
                                         display: "flex",
