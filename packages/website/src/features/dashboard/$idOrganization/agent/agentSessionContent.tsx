@@ -20,7 +20,7 @@ import {
     toast,
 } from "@arrhes/ui"
 import { css } from "@arrhes/ui/css"
-import { IconDotsVertical, IconNotebook, IconPaperclip, IconSend, IconTrash, IconX } from "@tabler/icons-react"
+import { IconChevronRight, IconDotsVertical, IconNotebook, IconPaperclip, IconSend, IconTrash, IconX } from "@tabler/icons-react"
 import { useNavigate, useParams } from "@tanstack/react-router"
 import { useCallback, useEffect, useRef, useState } from "react"
 import { DataWrapper } from "../../../../components/layouts/dataWrapper.tsx"
@@ -34,6 +34,7 @@ import { invalidateData } from "../../../../utilities/invalidateData.ts"
 import { useDataFromAPI } from "../../../../utilities/useHTTPData.ts"
 import { cookiePrefix } from "../../../../utilities/variables.js"
 import { AgentMessage } from "./agentMessage.tsx"
+import { isHealthyStreamResponse } from "./isStreamResponseUnavailable.ts"
 import { MentionInput, type MentionReference } from "./mentionInput.tsx"
 
 const subagentLabels: Record<string, string> = {
@@ -63,44 +64,15 @@ function SubagentIndicator(props: { subagents: Array<{ role: string; depth: numb
                             overflow: "hidden",
                         })}
                     >
-                        <button
-                            type="button"
+                        <Button
                             onClick={() => setExpanded((prev) => ({ ...prev, [index]: !prev[index] }))}
-                            className={css({
-                                width: "100%",
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "0.5rem",
-                                padding: "0.5rem 0.75rem",
-                                cursor: "pointer",
-                                backgroundColor: "bg.muted",
-                                border: "none",
-                                fontSize: "0.8125rem",
-                                color: "fg.default",
-                            })}
                         >
-                            <span
-                                className={css({
-                                    display: "inline-block",
-                                    transition: "transform 0.15s",
-                                    transform: isExpanded ? "rotate(90deg)" : "rotate(0deg)",
-                                })}
-                            >
-                                ▶
-                            </span>
-                            <span
-                                className={css({
-                                    padding: "0.125rem 0.375rem",
-                                    borderRadius: "sm",
-                                    backgroundColor: "bg.emphasized",
-                                    fontSize: "0.75rem",
-                                    fontWeight: "medium",
-                                })}
-                            >
-                                {label}
-                            </span>
+                            <ButtonGhostContent
+                                leftIcon={<IconChevronRight />}
+                                text={label}
+                            />
                             <CircularLoader />
-                        </button>
+                        </Button>
                         {isExpanded && subagent.content && (
                             <div
                                 className={css({
@@ -311,7 +283,7 @@ export function AgentSessionContent() {
                         },
                     )
 
-                    if (!response.ok || !response.body) {
+                    if (!isHealthyStreamResponse(response)) {
                         toast({
                             title: "Le flux de reponse est indisponible",
                             description: "Veuillez renvoyer votre message.",

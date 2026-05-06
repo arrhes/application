@@ -19,7 +19,7 @@ services:
   # ============================================================================
   # Infrastructure Services
   # ============================================================================
-  
+
   # PostgreSQL - Relational database for application data
   postgres:
     container_name: arrhes-postgres
@@ -102,8 +102,6 @@ services:
       args:
         NODE_VERSION: "25.2.1"
         PNPM_VERSION: "10.26.1"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     ports:
       - "${API_HOST_PORT}:3000"
     volumes:
@@ -134,7 +132,7 @@ services:
       LLM_MODEL: mistral-small-2603
       LLM_API_KEY: OwMSblegsAyAWd3AzCZbJkbaMQLCCj7y
       # Redis environment
-      REDIS_URL: redis://redis:6379
+      REDIS_URL: ${REDIS_URL}
       # Tools environment (packages/tools) - used by migrate/seed
       NODE_ENV: development
     depends_on:
@@ -190,7 +188,7 @@ services:
       STORAGE_SECRET_KEY: rustfsadmin
       API_BASE_URL: http://localhost:${API_HOST_PORT}
       INTERNAL_API_KEY: development-internal-api-key
-      REDIS_URL: redis://redis:6379
+      REDIS_URL: ${REDIS_URL}
       # LLM environment (AI agent)
       LLM_PROVIDER: mistral-api
       LLM_BASE_URL: https://api.mistral.ai/v1

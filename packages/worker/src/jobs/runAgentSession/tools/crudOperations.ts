@@ -1,6 +1,6 @@
-import type { sqlClient } from "#src/clients/sqlClient.js"
 import { generateId, models } from "@arrhes/application-metadata"
 import { and, eq } from "drizzle-orm"
+import type { sqlClient } from "#src/clients/sqlClient.js"
 
 type DB = ReturnType<typeof sqlClient>
 

@@ -25,7 +25,6 @@ import { ticketSchema, ticketSchemaReturn } from "./ticket.js"
 import { ticketMessageSchema, ticketMessageSchemaReturn } from "./ticketMessage.js"
 import { userSchema, userSchemaReturn } from "./user.js"
 import { userSessionSchema, userSessionSchemaReturn } from "./userSession.js"
-import { workerJobSchema, workerJobSchemaReturn } from "./workerJob.js"
 import { yearSchema, yearSchemaReturn } from "./year.js"
 
 export const schemas = {
@@ -53,7 +52,6 @@ export const schemas = {
     ticketMessage: ticketMessageSchema,
     user: userSchema,
     userSession: userSessionSchema,
-    workerJob: workerJobSchema,
     year: yearSchema,
 }
 
@@ -82,6 +80,5 @@ export const returnedSchemas = {
     ticketMessage: ticketMessageSchemaReturn,
     user: userSchemaReturn,
     userSession: userSessionSchemaReturn,
-    workerJob: workerJobSchemaReturn,
     year: yearSchemaReturn,
 }

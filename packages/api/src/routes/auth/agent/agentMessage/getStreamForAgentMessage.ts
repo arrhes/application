@@ -1,5 +1,5 @@
 import { getStreamForAgentMessageRouteDefinition, models } from "@arrhes/application-metadata"
-import { and, eq, or } from "drizzle-orm"
+import { and, eq } from "drizzle-orm"
 import { streamText } from "hono/streaming"
 import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
@@ -8,7 +8,7 @@ import { Exception } from "../../../../utilities/exception.js"
 import { selectOne } from "../../../../utilities/sql/selectOne.js"
 
 const STREAM_FIRST_ACTIVITY_TIMEOUT_MS = 10_000
-const STREAM_UNAVAILABLE_MESSAGE = "La diffusion de la reponse a expire. Veuillez renvoyer votre message."
+const STREAM_UNAVAILABLE_MESSAGE = "La diffusion de la réponse a expiré. Veuillez renvoyer votre message."
 
 export const getStreamForAgentMessageRoute = apiFactory
     .createApp()
@@ -46,7 +46,7 @@ export const getStreamForAgentMessageRoute = apiFactory
         if (agentMessage.state === "error") {
             return streamText(c, async (stream) => {
                 await stream.write(
-                    `data: ${JSON.stringify({ type: "TEXT_MESSAGE_CONTENT", delta: "Une erreur est survenue lors de la génération de la réponse." })}\n\n`,
+                    `data: ${JSON.stringify({ type: "TEXT_MESSAGE_CONTENT", delta: agentMessage.output ?? "Une erreur est survenue lors de la génération de la réponse." })}\n\n`,
                 )
             })
         }
@@ -58,6 +58,32 @@ export const getStreamForAgentMessageRoute = apiFactory
                 internalMessage: "Agent message has no stream key",
                 externalMessage: "Erreur interne",
             })
+        }
+
+        const failStreamImmediately = async (internalMessage: string): Promise<never> => {
+            await c.var.clients.sql
+                .update(models.agentMessage)
+                .set({ state: "error", output: STREAM_UNAVAILABLE_MESSAGE })
+                .where(and(eq(models.agentMessage.id, body.idAgentMessage), eq(models.agentMessage.state, "streaming")))
+
+            throw new Exception({
+                statusCode: 410,
+                internalMessage,
+                externalMessage: STREAM_UNAVAILABLE_MESSAGE,
+            })
+        }
+
+        // Fast-fail check: queue is the source of truth for pending/running jobs.
+        const queuedJob = await c.var.clients.queue.getJob(body.idAgentMessage)
+        if (queuedJob === null) {
+            const freshMessage = await selectOne({
+                database: c.var.clients.sql,
+                table: models.agentMessage,
+                where: (table) => and(eq(table.id, body.idAgentMessage)),
+            })
+            if (freshMessage.state === "streaming") {
+                await failStreamImmediately(`Queue job missing for agent message ${body.idAgentMessage}`)
+            }
         }
 
         // Preflight: wait for first Redis activity for at most 10s.
@@ -128,26 +154,7 @@ export const getStreamForAgentMessageRoute = apiFactory
                 })
             }
 
-            await c.var.clients.sql
-                .update(models.agentMessage)
-                .set({ state: "error", output: STREAM_UNAVAILABLE_MESSAGE })
-                .where(and(eq(models.agentMessage.id, body.idAgentMessage), eq(models.agentMessage.state, "streaming")))
-
-            await c.var.clients.sql
-                .update(models.workerJob)
-                .set({ status: "error", lastUpdatedAt: new Date().toISOString() })
-                .where(
-                    and(
-                        eq(models.workerJob.idAgentMessage, body.idAgentMessage),
-                        or(eq(models.workerJob.status, "pending"), eq(models.workerJob.status, "running")),
-                    ),
-                )
-
-            throw new Exception({
-                statusCode: 410,
-                internalMessage: `Stream unavailable for agent message ${body.idAgentMessage}`,
-                externalMessage: STREAM_UNAVAILABLE_MESSAGE,
-            })
+            await failStreamImmediately(`Stream unavailable for agent message ${body.idAgentMessage}`)
         }
 
         return streamText(c, async (stream) => {

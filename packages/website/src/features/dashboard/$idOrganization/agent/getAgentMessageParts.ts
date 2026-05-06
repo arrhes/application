@@ -165,7 +165,7 @@ function buildLegacyParts(agentMessage: { output: string | null; state: string |
 
 function getContentFallback(content: string, state: string | null): string | null {
     if (state === "streaming" && !content) {
-        return "..."
+        return ""
     }
     return content || null
 }

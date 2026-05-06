@@ -74,40 +74,27 @@ export function FilesPageContent(props: {
     )
 
     return (
-        <>
-            <div
-                className={css({
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "start",
-                    alignItems: "start",
-                    gap: "0.5rem",
-                })}
+        <div
+            className={css({
+                width: "100%",
+                display: "flex",
+                justifyContent: "start",
+                alignItems: "start",
+                gap: "0.5rem",
+            })}
+        >
+            <DataWrapper
+                routeDefinition={readAllFilesRouteDefinition}
+                body={{
+                    idYear: params.idYear,
+                }}
             >
-                <DataWrapper
-                    routeDefinition={readAllFilesRouteDefinition}
-                    body={{
-                        idYear: params.idYear,
-                    }}
-                >
-                    {(files) => {
-                        const currentFiles = files.filter((f) => (f.idFolder ?? null) === currentFolderId)
+                {(files) => {
+                    const currentFiles = files.filter((f) => (f.idFolder ?? null) === currentFolderId)
 
-                        if (viewMode === "grid") {
-                            return (
-                                <FilesGrid
-                                    idOrganization={params.idOrganization}
-                                    idYear={params.idYear}
-                                    files={currentFiles}
-                                    folders={sortedFolders}
-                                    currentFolderId={currentFolderId}
-                                    parentFolderId={parentFolderId}
-                                    onFolderOpen={navigateToFolder}
-                                />
-                            )
-                        }
+                    if (viewMode === "grid") {
                         return (
-                            <FilesTable
+                            <FilesGrid
                                 idOrganization={params.idOrganization}
                                 idYear={params.idYear}
                                 files={currentFiles}
@@ -117,9 +104,20 @@ export function FilesPageContent(props: {
                                 onFolderOpen={navigateToFolder}
                             />
                         )
-                    }}
-                </DataWrapper>
-            </div>
-        </>
+                    }
+                    return (
+                        <FilesTable
+                            idOrganization={params.idOrganization}
+                            idYear={params.idYear}
+                            files={currentFiles}
+                            folders={sortedFolders}
+                            currentFolderId={currentFolderId}
+                            parentFolderId={parentFolderId}
+                            onFolderOpen={navigateToFolder}
+                        />
+                    )
+                }}
+            </DataWrapper>
+        </div>
     )
 }

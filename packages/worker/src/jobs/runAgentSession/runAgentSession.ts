@@ -1,11 +1,11 @@
+import { generateId, models } from "@arrhes/application-metadata"
+import { chat, convertMessagesToModelMessages, maxIterations, toolDefinition } from "@tanstack/ai"
+import { and, asc, eq, sql } from "drizzle-orm"
 import { ContextClients } from "#src/clients/contextClients.js"
 import { ContextEnv } from "#src/utilities/contextEnv.js"
 import { getObject } from "#src/utilities/storage/getObject.js"
 import { putObject } from "#src/utilities/storage/putObject.js"
 import { tokenLimit } from "#src/utilities/variables.js"
-import { generateId, models } from "@arrhes/application-metadata"
-import { chat, convertMessagesToModelMessages, maxIterations, toolDefinition } from "@tanstack/ai"
-import { and, asc, eq, sql } from "drizzle-orm"
 import { buildWorkerTools, type ToolResultStore } from "./buildWorkerTools.js"
 import { getAdapter } from "./provider.js"
 import { buildSubagentTool } from "./subagentTool.js"
@@ -16,7 +16,6 @@ import { executeWorkerRoute } from "./tools/routeExecutor.js"
 
 export interface RunAgentSessionJobArgs {
     idAgentMessage: string
-    idWorkerJob: string
 }
 
 export type RunAgentSessionJob = {
@@ -260,16 +259,10 @@ function buildAssistantParts(m: { output: string | null; toolCalls: unknown | nu
 // ─── Main job ────────────────────────────────────────────────────────────────
 
 export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<void> {
-    const { idAgentMessage, idWorkerJob } = args
-    console.log("[runAgentSession] Starting job", { idAgentMessage, idWorkerJob })
+    const { idAgentMessage } = args
+    console.log("[runAgentSession] Starting job", { idAgentMessage })
     const db = ContextClients.sql
     const redis = ContextClients.redis
-
-    // Mark job as running
-    await db
-        .update(models.workerJob)
-        .set({ status: "running", lastUpdatedAt: new Date().toISOString() })
-        .where(eq(models.workerJob.id, idWorkerJob))
 
     // Load the assistant message placeholder
     const msgRows = await db
@@ -846,11 +839,6 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                     usedTools: usedToolNames.size > 0 ? [...usedToolNames] : null,
                 })
                 .where(eq(models.agentMessage.id, idAgentMessage))
-
-            await db
-                .update(models.workerJob)
-                .set({ status: "error", lastUpdatedAt: new Date().toISOString() })
-                .where(eq(models.workerJob.id, idWorkerJob))
         } else {
             // Persist the completed assistant message with token usage
             await db
@@ -864,12 +852,6 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                     outputTokens: capturedOutputTokens || null,
                 })
                 .where(eq(models.agentMessage.id, idAgentMessage))
-
-            // Mark worker job completed
-            await db
-                .update(models.workerJob)
-                .set({ status: "completed", lastUpdatedAt: new Date().toISOString() })
-                .where(eq(models.workerJob.id, idWorkerJob))
 
             // Update session lastUpdatedAt and increment token counters
             if (capturedInputTokens > 0 || capturedOutputTokens > 0) {
@@ -918,11 +900,6 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
             .update(models.agentMessage)
             .set({ state: "error", output: msg })
             .where(eq(models.agentMessage.id, idAgentMessage))
-
-        await db
-            .update(models.workerJob)
-            .set({ status: "error", lastUpdatedAt: new Date().toISOString() })
-            .where(eq(models.workerJob.id, idWorkerJob))
     } finally {
         // Always close the stream so the SSE subscriber terminates
         try {

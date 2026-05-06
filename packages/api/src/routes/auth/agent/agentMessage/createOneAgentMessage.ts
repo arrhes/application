@@ -60,42 +60,24 @@ export const createOneAgentMessageRoute = apiFactory
             })
         }
 
-        const { assistantMessage, workerJob } = await c.var.clients.sql.transaction(async (transaction) => {
-            // Create a single message row with the user's question and an assistant streaming placeholder
-            const assistantMessage = await insertOne({
-                database: transaction,
-                table: models.agentMessage,
-                data: {
-                    id: generateId(),
-                    idAgentSession: body.idAgentSession,
-                    userMessage: body.message,
-                    input: null,
-                    output: null,
-                    toolCalls: null,
-                    toolResults: null,
-                    usedTools: null,
-                    references: body.references ?? null,
-                    state: "streaming",
-                    depth: 0,
-                    streamKey: generateId(),
-                    createdAt: new Date().toISOString(),
-                },
-            })
-
-            // Create the workerJob row
-            const workerJob = await insertOne({
-                database: transaction,
-                table: models.workerJob,
-                data: {
-                    id: generateId(),
-                    idAgentMessage: assistantMessage.id,
-                    status: "pending",
-                    createdAt: new Date().toISOString(),
-                    lastUpdatedAt: null,
-                },
-            })
-
-            return { assistantMessage, workerJob }
+        const assistantMessage = await insertOne({
+            database: c.var.clients.sql,
+            table: models.agentMessage,
+            data: {
+                id: generateId(),
+                idAgentSession: body.idAgentSession,
+                userMessage: body.message,
+                input: null,
+                output: null,
+                toolCalls: null,
+                toolResults: null,
+                usedTools: null,
+                references: body.references ?? null,
+                state: "streaming",
+                depth: 0,
+                streamKey: generateId(),
+                createdAt: new Date().toISOString(),
+            },
         })
 
         // Enqueue the job to Bull AFTER the transaction commits
@@ -103,10 +85,10 @@ export const createOneAgentMessageRoute = apiFactory
         await c.var.clients.queue.add(
             {
                 fn: "runAgentSession",
-                args: [{ idAgentMessage: assistantMessage.id, idWorkerJob: workerJob.id }],
+                args: [{ idAgentMessage: assistantMessage.id }],
             },
             {
-                jobId: workerJob.id,
+                jobId: assistantMessage.id,
                 priority: 1,
             },
         )

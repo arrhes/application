@@ -1,8 +1,8 @@
-import { ContextClients } from "#src/clients/contextClients.js"
-import { ContextEnv } from "#src/utilities/contextEnv.js"
 import { models } from "@arrhes/application-metadata"
 import { DeleteObjectCommand, ListObjectsV2Command, type ListObjectsV2CommandOutput } from "@aws-sdk/client-s3"
 import { inArray } from "drizzle-orm"
+import { ContextClients } from "#src/clients/contextClients.js"
+import { ContextEnv } from "#src/utilities/contextEnv.js"
 
 const FILE_KEY_REGEX = /^organizations\/[^/]+\/storage\/([^/]+)$/
 const DB_CHUNK_SIZE = 500
@@ -26,7 +26,7 @@ function extractCandidateFromKey(key: string): StorageCandidate | undefined {
 
 async function listAllFileCandidates(): Promise<StorageCandidate[]> {
     const output: StorageCandidate[] = []
-    let continuationToken: string | undefined = undefined
+    let continuationToken: string | undefined
 
     while (true) {
         const response: ListObjectsV2CommandOutput = await ContextClients.storage.send(
