@@ -1,4 +1,5 @@
 import { sva } from "@arrhes/ui/css"
+import { useButtonLoading } from "./button"
 import { type ButtonContentProps, renderButtonContent } from "./buttonContent"
 
 const outlineRecipe = sva({
@@ -84,5 +85,6 @@ const outlineRecipe = sva({
 
 export function ButtonOutlineContent(props: ButtonContentProps) {
     const classes = outlineRecipe({ color: props.color ?? "default" })
-    return renderButtonContent(props, classes)
+    const contextLoading = useButtonLoading()
+    return renderButtonContent(props, classes, contextLoading)
 }

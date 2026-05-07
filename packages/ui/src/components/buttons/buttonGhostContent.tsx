@@ -1,4 +1,5 @@
 import { sva } from "@arrhes/ui/css"
+import { useButtonLoading } from "./button"
 import { type ButtonContentProps, renderButtonContent } from "./buttonContent"
 
 const ghostRecipe = sva({
@@ -91,5 +92,6 @@ const ghostRecipe = sva({
 
 export function ButtonGhostContent(props: ButtonContentProps) {
     const classes = ghostRecipe({ color: props.color ?? "default" })
-    return renderButtonContent(props, classes)
+    const contextLoading = useButtonLoading()
+    return renderButtonContent(props, classes, contextLoading)
 }

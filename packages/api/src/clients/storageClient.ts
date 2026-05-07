@@ -4,7 +4,7 @@ import type { getEnv } from "../utilities/getEnv.js"
 
 export function storageClient(env: ReturnType<typeof getEnv>) {
     try {
-        const client = new S3({
+        return new S3({
             endpoint: env.STORAGE_ENDPOINT,
             credentials: {
                 accessKeyId: env.STORAGE_ACCESS_KEY,
@@ -13,7 +13,6 @@ export function storageClient(env: ReturnType<typeof getEnv>) {
             region: env.STORAGE_REGION,
             forcePathStyle: true,
         })
-        return client
     } catch (error) {
         throw new Exception({
             statusCode: 500,
@@ -22,5 +21,4 @@ export function storageClient(env: ReturnType<typeof getEnv>) {
         })
     }
 }
-
 

@@ -7,13 +7,13 @@
         "typecheck": "tsc --noEmit"
     },
     "devDependencies": {
-        "@types/node": "24.10.1",
-        "typescript": "5.9.3"
+        "@types/node": "25.6.0",
+        "typescript": "6.0.3"
     },
     "dependencies": {
-        "drizzle-orm": "0.44.7",
-        "nanoid": "5.1.6",
-        "valibot": "1.2.0"
+        "drizzle-orm": "0.45.2",
+        "nanoid": "5.1.11",
+        "valibot": "1.4.0"
     },
     "exports": {
         ".": {

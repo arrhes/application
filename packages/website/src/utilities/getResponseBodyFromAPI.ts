@@ -3,25 +3,27 @@ import { toast } from "@arrhes/ui"
 import type * as v from "valibot"
 import { ClientError } from "./clientError.js"
 import { getCookie } from "./cookies/getCookie.js"
+import { resolveApiBaseUrl } from "./resolveApiBaseUrl.js"
 import { validate } from "./validate.js"
 import { cookiePrefix } from "./variables.js"
 
 export async function getResponseBodyFromAPI<
     TSchemaBody extends v.ObjectSchema<v.ObjectEntries, undefined>,
     TSchemaReturn extends
-        | v.ObjectSchema<v.ObjectEntries, undefined>
-        | v.ArraySchema<v.ObjectSchema<v.ObjectEntries, undefined>, undefined>,
+    | v.ObjectSchema<v.ObjectEntries, undefined>
+    | v.ArraySchema<v.ObjectSchema<v.ObjectEntries, undefined>, undefined>,
 >(parameters: {
     routeDefinition: ReturnType<typeof routeDefinition<string, TSchemaBody, TSchemaReturn>>
     body: v.InferOutput<TSchemaBody>
     signal?: AbortSignal
     hasToastMessage?: boolean
 }) {
-    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
+    const apiBaseUrl = resolveApiBaseUrl(import.meta.env.VITE_API_BASE_URL)
+
     if (!apiBaseUrl) {
         console.error(
             "VITE_API_BASE_URL is not defined. The request will not be sent. " +
-                "Make sure the environment variable is set at build time.",
+            "Make sure the environment variable is set at build time.",
         )
         return <const>{
             ok: false,
@@ -35,7 +37,6 @@ export async function getResponseBodyFromAPI<
     const abortController = parameters.signal ? undefined : new AbortController()
     const signal = parameters.signal ?? abortController!.signal
     try {
-        const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
         const headers: Record<string, string> = {
             "Content-Type": "application/json",
         }
@@ -116,8 +117,8 @@ export async function getResponseBodyFromAPI<
                 error instanceof ClientError
                     ? error
                     : new ClientError({
-                          rawError: error,
-                      }),
+                        rawError: error,
+                    }),
         }
     }
 }

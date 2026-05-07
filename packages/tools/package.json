@@ -15,17 +15,16 @@
         "drop": "pnpm drizzle-kit drop --config=./src/drizzle.config.ts"
     },
     "devDependencies": {
-        "@types/node": "24.10.1",
-        "drizzle-kit": "0.31.7",
-        "tsx": "4.20.6",
-        "typescript": "5.9.3"
+        "@types/node": "25.6.0",
+        "drizzle-kit": "0.31.10",
+        "tsx": "4.21.0",
+        "typescript": "6.0.3"
     },
     "dependencies": {
         "@arrhes/application-metadata": "workspace:*",
         "@ngneat/falso": "8.0.2",
-        "drizzle-orm": "0.44.7",
-        "nanoid": "5.1.6",
-        "postgres": "3.4.7",
-        "valibot": "1.2.0"
+        "drizzle-orm": "0.45.2",
+        "postgres": "3.4.9",
+        "valibot": "1.4.0"
     }
 }

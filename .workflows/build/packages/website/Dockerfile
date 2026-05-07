@@ -1,5 +1,5 @@
 # Use an official Node.js image to build our image from
-FROM node:25-alpine AS base
+FROM node:25.2.1-alpine AS base
 RUN npm install -g pnpm@10.26.1
 ENV NODE_OPTIONS="--max-old-space-size=4096"
 
@@ -12,7 +12,7 @@ ARG VITE_API_BASE_URL
 
 WORKDIR /root
 COPY . .
-RUN pnpm install
+RUN pnpm install --frozen-lockfile
 
 # Write VITE_* build args to .env so Vite can read them during build.
 # Vite reads import.meta.env from .env files, not from process.env.
@@ -20,7 +20,7 @@ RUN printf "VITE_WEBSITE_BASE_URL=%s\nVITE_API_BASE_URL=%s\n" \
     "$VITE_WEBSITE_BASE_URL" "$VITE_API_BASE_URL" \
     > packages/website/.env
 
-RUN pnpm run build
+RUN pnpm --filter @arrhes/application-website... run build
 
 # Start application
 FROM nginx:alpine AS deploy

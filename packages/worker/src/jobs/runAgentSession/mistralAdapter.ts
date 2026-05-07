@@ -1,4 +1,5 @@
 import type { StreamChunk, TextOptions, Tool } from "@tanstack/ai"
+import { EventType } from "@tanstack/ai"
 import type { StructuredOutputOptions, StructuredOutputResult } from "@tanstack/ai/adapters"
 import { BaseTextAdapter } from "@tanstack/ai/adapters"
 import OpenAI from "openai"
@@ -56,6 +57,7 @@ export class MistralChatAdapter extends BaseTextAdapter<
     async *chatStream(options: TextOptions): AsyncIterable<StreamChunk> {
         const timestamp = Date.now()
         const runId = `run_${Date.now()}`
+        const threadId = `thread_${Date.now()}`
         const messageId = `msg_${Date.now()}`
         let hasEmittedRunStarted = false
         let hasEmittedTextMessageStart = false
@@ -102,7 +104,13 @@ export class MistralChatAdapter extends BaseTextAdapter<
 
                 if (!hasEmittedRunStarted) {
                     hasEmittedRunStarted = true
-                    yield { type: "RUN_STARTED", runId, model: chunk.model || options.model, timestamp }
+                    yield {
+                        type: EventType.RUN_STARTED,
+                        threadId,
+                        runId,
+                        model: chunk.model || options.model,
+                        timestamp,
+                    }
                 }
 
                 const delta = choice.delta
@@ -110,7 +118,7 @@ export class MistralChatAdapter extends BaseTextAdapter<
                     if (!hasEmittedTextMessageStart) {
                         hasEmittedTextMessageStart = true
                         yield {
-                            type: "TEXT_MESSAGE_START",
+                            type: EventType.TEXT_MESSAGE_START,
                             messageId,
                             model: chunk.model || options.model,
                             timestamp,
@@ -119,7 +127,7 @@ export class MistralChatAdapter extends BaseTextAdapter<
                     }
                     accumulatedContent += delta.content
                     yield {
-                        type: "TEXT_MESSAGE_CONTENT",
+                        type: EventType.TEXT_MESSAGE_CONTENT,
                         messageId,
                         model: chunk.model || options.model,
                         timestamp,
@@ -146,9 +154,11 @@ export class MistralChatAdapter extends BaseTextAdapter<
                         if (!tc.started && tc.name) {
                             tc.started = true
                             yield {
-                                type: "TOOL_CALL_START",
+                                type: EventType.TOOL_CALL_START,
                                 toolCallId: tc.id,
                                 toolName: tc.name,
+                                toolCallName: tc.name,
+                                parentMessageId: messageId,
                                 model: chunk.model || options.model,
                                 timestamp,
                                 index: idx,
@@ -156,7 +166,7 @@ export class MistralChatAdapter extends BaseTextAdapter<
                         }
                         if (toolCallDelta.function?.arguments) {
                             yield {
-                                type: "TOOL_CALL_ARGS",
+                                type: EventType.TOOL_CALL_ARGS,
                                 toolCallId: tc.id,
                                 model: chunk.model || options.model,
                                 timestamp,
@@ -175,7 +185,7 @@ export class MistralChatAdapter extends BaseTextAdapter<
                             parsedInput = {}
                         }
                         yield {
-                            type: "TOOL_CALL_END",
+                            type: EventType.TOOL_CALL_END,
                             toolCallId: tc.id,
                             toolName: tc.name,
                             model: chunk.model || options.model,
@@ -184,20 +194,26 @@ export class MistralChatAdapter extends BaseTextAdapter<
                         }
                     }
                     if (hasEmittedTextMessageStart) {
-                        yield { type: "TEXT_MESSAGE_END", messageId, model: chunk.model || options.model, timestamp }
+                        yield {
+                            type: EventType.TEXT_MESSAGE_END,
+                            messageId,
+                            model: chunk.model || options.model,
+                            timestamp,
+                        }
                     }
                     yield {
-                        type: "RUN_FINISHED",
+                        type: EventType.RUN_FINISHED,
+                        threadId,
                         runId,
                         model: chunk.model || options.model,
                         timestamp,
                         finishReason: choice.finish_reason === "tool_calls" ? "tool_calls" : "stop",
                         usage: chunk.usage
                             ? {
-                                  promptTokens: chunk.usage.prompt_tokens || 0,
-                                  completionTokens: chunk.usage.completion_tokens || 0,
-                                  totalTokens: chunk.usage.total_tokens || 0,
-                              }
+                                promptTokens: chunk.usage.prompt_tokens || 0,
+                                completionTokens: chunk.usage.completion_tokens || 0,
+                                totalTokens: chunk.usage.total_tokens || 0,
+                            }
                             : undefined,
                     }
                 }
@@ -205,10 +221,12 @@ export class MistralChatAdapter extends BaseTextAdapter<
         } catch (error: unknown) {
             const err = error as Error
             yield {
-                type: "RUN_ERROR",
+                type: EventType.RUN_ERROR,
+                threadId,
                 runId,
                 model: options.model,
                 timestamp,
+                message: err.message || "Unknown error",
                 error: { message: err.message || "Unknown error" },
             }
         }

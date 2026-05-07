@@ -2,7 +2,6 @@ import type { Icon, IconProps, ReactNode } from "@tabler/icons-react"
 import { cloneElement, type ReactElement } from "react"
 import { css, cx } from "../../utilities/cn.ts"
 import { CircularLoader } from "../layouts/circularLoader"
-import { useButtonLoading } from "./button"
 
 export type ButtonColor = "default" | "neutral" | "danger" | "success"
 
@@ -22,17 +21,17 @@ export type ButtonContentProps = {
 export function renderButtonContent(
     props: ButtonContentProps,
     classes: Partial<Record<"container" | "leftIcon" | "text" | "rightIcon", string>>,
+    contextLoading = false,
 ) {
-    const contextLoading = useButtonLoading()
     const isLoading = props.isLoading ?? contextLoading
     const isDisabled = props.isDisabled || isLoading
 
     const iconOnlyStyles =
         props.text === undefined
             ? css({
-                  width: "auto",
-                  justifyContent: "center",
-              })
+                width: "auto",
+                justifyContent: "center",
+            })
             : ""
 
     // const activeContainerStyles = props.isActive ? css({ backgroundColor: "neutral/5" }) : ""

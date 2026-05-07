@@ -11,6 +11,15 @@ export async function ensureStorageBucket(client: S3, bucketName: string) {
         headResult = await client.send(new HeadBucketCommand({ Bucket: bucketName }))
     } catch (error: unknown) {
         const name = error instanceof Object && "name" in error ? (error as { name: string }).name : undefined
+        const message = error instanceof Error ? error.message : undefined
+        const code = error instanceof Object && "code" in error ? (error as { code?: string }).code : undefined
+        const cause =
+            error instanceof Error && error.cause !== undefined
+                ? typeof error.cause === "string"
+                    ? error.cause
+                    : JSON.stringify(error.cause)
+                : undefined
+        const stack = error instanceof Error ? error.stack : undefined
         const httpStatusCode =
             error instanceof Object &&
             "$metadata" in error &&
@@ -35,9 +44,16 @@ export async function ensureStorageBucket(client: S3, bucketName: string) {
 
         // Unexpected error — log and continue rather than crashing the server.
         console.warn(
-            `HeadBucket check failed (HTTP ${httpStatusCode ?? "unknown"}, name: ${name ?? "unknown"}). ` +
+            `HeadBucket check failed (HTTP ${httpStatusCode ?? "unknown"}, name: ${name ?? "unknown"}, ` +
+                `code: ${code ?? "unknown"}, message: ${message ?? "unknown"}). ` +
                 `Assuming bucket "${bucketName}" exists. Storage errors will surface at request time if misconfigured.`,
         )
+        if (cause) {
+            console.warn(`HeadBucket cause: ${cause}`)
+        }
+        if (stack) {
+            console.warn(`HeadBucket stack:\n${stack}`)
+        }
         return
     }
 

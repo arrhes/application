@@ -31,6 +31,7 @@ import { agentSessionRoute } from "../../../../routes/root/dashboard/agent/agent
 import { getCookie } from "../../../../utilities/cookies/getCookie.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
+import { resolveApiBaseUrl } from "../../../../utilities/resolveApiBaseUrl.js"
 import { useDataFromAPI } from "../../../../utilities/useHTTPData.ts"
 import { cookiePrefix } from "../../../../utilities/variables.js"
 import { AgentMessage } from "./agentMessage.tsx"
@@ -269,8 +270,13 @@ export function AgentSessionContent() {
                         headers["X-Organization-Id"] = orgCookie
                     }
 
+                    const apiBaseUrl = resolveApiBaseUrl(import.meta.env.VITE_API_BASE_URL)
+                    if (!apiBaseUrl) {
+                        throw new Error("VITE_API_BASE_URL is not configured")
+                    }
+
                     const response = await fetch(
-                        new URL(`${import.meta.env.VITE_API_BASE_URL}${getStreamForAgentMessageRouteDefinition.path}`),
+                        new URL(`${apiBaseUrl}${getStreamForAgentMessageRouteDefinition.path}`),
                         {
                             method: "POST",
                             credentials: "include",

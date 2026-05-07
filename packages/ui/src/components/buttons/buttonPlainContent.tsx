@@ -1,4 +1,5 @@
 import { sva } from "@arrhes/ui/css"
+import { useButtonLoading } from "./button"
 import { type ButtonContentProps, renderButtonContent } from "./buttonContent"
 
 const plainRecipe = sva({
@@ -79,5 +80,6 @@ const plainRecipe = sva({
 
 export function ButtonPlainContent(props: ButtonContentProps) {
     const classes = plainRecipe({ color: props.color ?? "default" })
-    return renderButtonContent(props, classes)
+    const contextLoading = useButtonLoading()
+    return renderButtonContent(props, classes, contextLoading)
 }

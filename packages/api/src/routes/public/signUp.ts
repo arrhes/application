@@ -2,6 +2,7 @@ import { pbkdf2Sync } from "node:crypto"
 import { generateId, models, signUpRouteDefinition } from "@arrhes/application-metadata"
 import { validateBodyMiddleware } from "../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../utilities/apiFactory.js"
+import { getCookieDomainFromHost } from "../../utilities/cookies/getCookieDomainFromHost.js"
 import { serializeCookie } from "../../utilities/cookies/serializeCookie.js"
 import { signString } from "../../utilities/cookies/signString.js"
 import { Exception } from "../../utilities/exception.js"
@@ -67,6 +68,10 @@ export const signUpRoute = apiFactory.createApp().post(signUpRouteDefinition.pat
 
     // Set cookies
     const cookieSecurity = getCookieSecurityOptions(c.var.env.ENV)
+    const cookieDomain = getCookieDomainFromHost({
+        hostHeader: c.req.header("host"),
+        fallbackDomain: c.var.env.COOKIES_DOMAIN,
+    })
     c.res.headers.append(
         "Set-Cookie",
         serializeCookie({
@@ -79,7 +84,7 @@ export const signUpRoute = apiFactory.createApp().post(signUpRouteDefinition.pat
                 maxAge: userSessionCookieMaxAge,
                 httpOnly: true,
                 ...cookieSecurity,
-                domain: c.var.env.COOKIES_DOMAIN,
+                domain: cookieDomain,
                 path: "/",
             },
         }),
@@ -93,7 +98,7 @@ export const signUpRoute = apiFactory.createApp().post(signUpRouteDefinition.pat
                 maxAge: userSessionCookieMaxAge,
                 httpOnly: false,
                 ...cookieSecurity,
-                domain: c.var.env.COOKIES_DOMAIN,
+                domain: cookieDomain,
                 path: "/",
             },
         }),
