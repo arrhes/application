@@ -1,6 +1,6 @@
+import react from "@vitejs/plugin-react"
 import { readFileSync, writeFileSync } from "node:fs"
 import { resolve } from "node:path"
-import react from "@vitejs/plugin-react"
 import { defineConfig, type Plugin } from "vite"
 
 // ─────────────────────────── Docs Search Index Plugin ─────────────────────────────
@@ -182,6 +182,14 @@ const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
         navGroup: "Documents",
         navLabel: "FEC",
     },
+    // ── Comptabilité / Scénarios ─────────────────────────────────────────────
+    {
+        path: "/documentation/comptabilité/scénarios",
+        file: "src/features/docs/accounting/scenarios/scenariosAccountingDocPage.tsx",
+        section: "Comptabilité",
+        navGroup: "Scénarios",
+        navLabel: "Scénarios",
+    },
     // ── Comptabilité / Glossaire ──────────────────────────────────────────────
     {
         path: "/documentation/comptabilité/glossaire",
@@ -239,6 +247,13 @@ const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
         section: "Dashboard",
         navGroup: "Guide d'utilisation",
         navLabel: "Documents comptables",
+    },
+    {
+        path: "/documentation/dashboard/devlog",
+        file: "src/features/docs/dashboard/UpdatesDashboardDocPage.tsx",
+        section: "Dashboard",
+        navGroup: "Guide d'utilisation",
+        navLabel: "Devlog",
     },
     // ── Dashboard / Assistant IA ──────────────────────────────────────────────
     {
@@ -356,8 +371,8 @@ function extractDocPageContent(source: string): string {
         .join(" ")
 }
 
-const VIRTUAL_MODULE_ID = "virtual:docs-search-index"
-const RESOLVED_VIRTUAL_MODULE_ID = `\0${VIRTUAL_MODULE_ID}`
+const DOCS_SEARCH_VIRTUAL_MODULE_ID = "virtual:docs-search-index"
+const RESOLVED_DOCS_SEARCH_VIRTUAL_MODULE_ID = `\0${DOCS_SEARCH_VIRTUAL_MODULE_ID}`
 
 interface GeneratedSearchEntry {
     path: string
@@ -475,16 +490,16 @@ function docsSearchIndexPlugin(): Plugin {
     return {
         name: "docs-search-index",
         resolveId(id) {
-            if (id === VIRTUAL_MODULE_ID) return RESOLVED_VIRTUAL_MODULE_ID
+            if (id === DOCS_SEARCH_VIRTUAL_MODULE_ID) return RESOLVED_DOCS_SEARCH_VIRTUAL_MODULE_ID
         },
         load(id) {
-            if (id === RESOLVED_VIRTUAL_MODULE_ID) return buildIndex()
+            if (id === RESOLVED_DOCS_SEARCH_VIRTUAL_MODULE_ID) return buildIndex()
         },
         handleHotUpdate({ file, server }) {
             const isDocPage = DOC_PAGE_MANIFEST.some((e) => file.endsWith(e.file.replace(/\//g, "/")))
             const isDataFile = file === accountsDataPath || file === glossaryDataPath
             if (isDocPage || isDataFile) {
-                const mod = server.moduleGraph.getModuleById(RESOLVED_VIRTUAL_MODULE_ID)
+                const mod = server.moduleGraph.getModuleById(RESOLVED_DOCS_SEARCH_VIRTUAL_MODULE_ID)
                 if (mod) server.moduleGraph.invalidateModule(mod)
                 server.ws.send({ type: "full-reload" })
             }
@@ -584,6 +599,7 @@ function sitemapPlugin(): Plugin {
                 { path: "/documentation/dashboard/écritures", priority: "0.6", changefreq: "monthly" },
                 { path: "/documentation/dashboard/stockage", priority: "0.6", changefreq: "monthly" },
                 { path: "/documentation/dashboard/documents", priority: "0.6", changefreq: "monthly" },
+                { path: "/documentation/dashboard/devlog", priority: "0.6", changefreq: "monthly" },
 
                 // API docs
                 { path: "/documentation/api", priority: "0.7", changefreq: "monthly" },

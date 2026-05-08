@@ -1,3 +1,5 @@
+import { ButtonOutlineContent, LinkButton } from "@arrhes/ui"
+import { IconArrowLeft } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { DocHeader } from "../../../../components/document/docHeader.js"
 import { DocRoot } from "../../../../components/document/docRoot.js"
@@ -5,9 +7,9 @@ import { getAccount, getAccountBySlug, getDirectChildren } from "./accountsData.
 import { AccountDataError } from "./components/accountDataError.js"
 import { AccountInfoCard } from "./components/accountInfoCard.js"
 import { AccountNotFound } from "./components/accountNotFound.js"
+import { AccountScenariosSection } from "./components/accountScenariosSection.js"
 import { ChildrenListSection } from "./components/childrenListSection.js"
 import { DebitCreditSection } from "./components/debitCreditSection.js"
-import { JournalEntryExamples } from "./components/journalEntryExamples.js"
 import { ParentAccountSection } from "./components/parentAccountSection.js"
 import { SummaryAccountBanner } from "./components/summaryAccountBanner.js"
 
@@ -25,6 +27,11 @@ export function AccountAccountingDocPage() {
 
     return (
         <DocRoot>
+
+            <LinkButton to="/documentation/comptabilité/comptes/liste">
+                <ButtonOutlineContent leftIcon={<IconArrowLeft />} text="Retour aux comptes" />
+            </LinkButton>
+
             <DocHeader
                 title={`${entry.number} - ${entry.label}`}
                 description={`Classe ${entry.classNumber} - ${entry.className}`}
@@ -42,10 +49,10 @@ export function AccountAccountingDocPage() {
                 </>
             ) : (
                 <>
-                    <JournalEntryExamples entry={entry} />
+                    <AccountScenariosSection entry={entry} />
                     <DebitCreditSection entry={entry} />
                     {parentAccount && <ParentAccountSection parentAccount={parentAccount} />}
-                    {children.length > 0 && <ChildrenListSection children={children} />}
+                    <ChildrenListSection children={children} />
                 </>
             )}
 

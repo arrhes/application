@@ -1,5 +1,14 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconBook, IconCode, IconGavel, IconHome, IconInfoCircle, IconLayout, IconRobot } from "@tabler/icons-react"
+import {
+    IconBook,
+    IconCode,
+    IconGavel,
+    IconHome,
+    IconInfoCircle,
+    IconLayout,
+    IconReport,
+    IconRobot,
+    IconStack,
+} from "@tabler/icons-react"
 import type { DocSection } from "./sectionTab.tsx"
 
 // Documentation sections configuration
@@ -12,7 +21,7 @@ export const docSections: Record<string, DocSection> = {
         navigation: {
             introduction: {
                 title: "Introduction",
-                icon: <IconHome className={css({ width: "1rem", height: "1rem" })} />,
+                icon: <IconHome />,
                 items: [
                     { path: "/documentation", label: "Accueil" },
                     { path: "/documentation/fonctionnalités", label: "Fonctionnalités" },
@@ -23,7 +32,7 @@ export const docSections: Record<string, DocSection> = {
             },
             legal: {
                 title: "Légal",
-                icon: <IconGavel className={css({ width: "1rem", height: "1rem" })} />,
+                icon: <IconGavel />,
                 items: [
                     { path: "/documentation/mentions-légales", label: "Mentions légales" },
                     { path: "/documentation/cgu", label: "Conditions Générales d'Utilisation" },
@@ -38,11 +47,15 @@ export const docSections: Record<string, DocSection> = {
         path: "/documentation/comptabilité",
         icon: <IconBook />,
         navigation: {
+            home: {
+                title: undefined,
+                icon: undefined,
+                items: [{ path: "/documentation/comptabilité", label: "Accueil" }],
+            },
             introduction: {
-                title: "Introduction",
-                icon: <IconBook className={css({ width: "1rem", height: "1rem" })} />,
+                title: "Les bases",
+                icon: <IconStack />,
                 items: [
-                    { path: "/documentation/comptabilité", label: "Accueil" },
                     { path: "/documentation/comptabilité/introduction", label: "Introduction" },
                     { path: "/documentation/comptabilité/partie-double", label: "La partie double" },
                     { path: "/documentation/comptabilité/écritures", label: "Les écritures" },
@@ -50,7 +63,7 @@ export const docSections: Record<string, DocSection> = {
             },
             comptes: {
                 title: "Comptes",
-                icon: <IconBook className={css({ width: "1rem", height: "1rem" })} />,
+                icon: <IconBook />,
                 items: [
                     { path: "/documentation/comptabilité/comptes/introduction", label: "Introduction" },
                     { path: "/documentation/comptabilité/comptes/classes", label: "Classes de comptes" },
@@ -59,7 +72,7 @@ export const docSections: Record<string, DocSection> = {
             },
             documents: {
                 title: "Documents",
-                icon: <IconBook className={css({ width: "1rem", height: "1rem" })} />,
+                icon: <IconReport />,
                 items: [
                     { path: "/documentation/comptabilité/documents", label: "Introduction" },
                     {
@@ -89,6 +102,11 @@ export const docSections: Record<string, DocSection> = {
                     },
                 ],
             },
+            scenarios: {
+                title: "Scénarios",
+                icon: <IconBook />,
+                items: [{ path: "/documentation/comptabilité/scénarios", label: "Scénarios" }],
+            },
             glossaire: {
                 items: [{ path: "/documentation/comptabilité/glossaire", label: "Glossaire" }],
             },
@@ -102,7 +120,7 @@ export const docSections: Record<string, DocSection> = {
         navigation: {
             guide: {
                 title: "Guide d'utilisation",
-                icon: <IconLayout className={css({ width: "1rem", height: "1rem" })} />,
+                icon: <IconLayout />,
                 items: [
                     { path: "/documentation/dashboard", label: "Accueil" },
                     { path: "/documentation/dashboard/démarrage", label: "Démarrage" },
@@ -116,13 +134,18 @@ export const docSections: Record<string, DocSection> = {
             },
             assistant: {
                 title: "Assistant IA",
-                icon: <IconRobot className={css({ width: "1rem", height: "1rem" })} />,
+                icon: <IconRobot />,
                 items: [
                     { path: "/documentation/dashboard/assistant", label: "Introduction" },
                     { path: "/documentation/dashboard/assistant/modèles", label: "Modèles" },
                     { path: "/documentation/dashboard/assistant/outils", label: "Outils" },
                     { path: "/documentation/dashboard/assistant/ocr", label: "OCR" },
                 ],
+            },
+            updates: {
+                title: undefined,
+                icon: undefined,
+                items: [{ path: "/documentation/dashboard/màj", label: "Mises à jour" }],
             },
         },
     },
@@ -134,7 +157,7 @@ export const docSections: Record<string, DocSection> = {
         navigation: {
             api: {
                 title: "API",
-                icon: <IconCode className={css({ width: "1rem", height: "1rem" })} />,
+                icon: <IconCode />,
                 items: [
                     { path: "/documentation/api", label: "Présentation" },
                     { path: "/documentation/api/introduction", label: "Introduction" },

@@ -38,11 +38,7 @@ const docTipRecipe = sva({
             fontSize: "sm",
             color: "neutral/70",
             lineHeight: "1.6",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "start",
-            alignItems: "start",
-            gap: "1rem",
+            display: "inline-block",
         },
     },
     variants: {

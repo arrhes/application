@@ -1,4 +1,4 @@
-import { ButtonGhostContent } from "@arrhes/ui"
+import { ButtonGhostContent, Chip, type ChipColors } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import type { Icon, IconProps } from "@tabler/icons-react"
 import { cloneElement, type ReactElement } from "react"
@@ -7,7 +7,7 @@ import { LinkButton } from "../../components/linkButton.tsx"
 export interface NavigationSection {
     title?: string
     icon?: ReactElement<IconProps & React.RefAttributes<Icon>>
-    items: { path: string; hash?: string; label: string }[]
+    items: { path: string; hash?: string; label: string; chipText?: string; chipColor?: ChipColors }[]
 }
 
 export function SidebarNavigation(props: {
@@ -71,12 +71,12 @@ export function SidebarNavigation(props: {
                             const isCurrent = item.hash
                                 ? false
                                 : props.pathname === item.path ||
-                                  (!hasExactSibling &&
-                                      item.path !== "/documentation" &&
-                                      item.path !== "/documentation/comptabilité" &&
-                                      item.path !== "/documentation/dashboard" &&
-                                      item.path !== "/documentation/api" &&
-                                      props.pathname.startsWith(`${item.path}/`))
+                                (!hasExactSibling &&
+                                    item.path !== "/documentation" &&
+                                    item.path !== "/documentation/comptabilité" &&
+                                    item.path !== "/documentation/dashboard" &&
+                                    item.path !== "/documentation/api" &&
+                                    props.pathname.startsWith(`${item.path}/`))
                             return (
                                 <LinkButton
                                     key={item.path + (item.hash ?? "")}
@@ -89,7 +89,15 @@ export function SidebarNavigation(props: {
                                         text={item.label}
                                         isCurrent={isCurrent}
                                         className={css({ width: "100%", justifyContent: "start" })}
-                                    />
+                                    >
+                                        {item.chipText ? (
+                                            <Chip
+                                                text={item.chipText}
+                                                color={item.chipColor ?? "neutral"}
+                                                className={css({ marginLeft: "auto" })}
+                                            />
+                                        ) : null}
+                                    </ButtonGhostContent>
                                 </LinkButton>
                             )
                         })}

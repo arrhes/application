@@ -21,6 +21,9 @@ import { ledgerAccountingDocRoute } from "./accounting/reports/ledgerAccountingD
 import { notesAccountingDocRoute } from "./accounting/reports/notesAccountingDocRoute.js"
 import { reportsAccountingDocLayoutRoute } from "./accounting/reports/reportsAccountingDocLayoutRoute.js"
 import { reportsAccountingDocRoute } from "./accounting/reports/reportsAccountingDocRoute.js"
+import { scenarioAccountingDocRoute } from "./accounting/scenarios/scenarioAccountingDocRoute.js"
+import { scenariosAccountingDocLayoutRoute } from "./accounting/scenarios/scenariosAccountingDocLayoutRoute.js"
+import { scenariosAccountingDocIndexRoute } from "./accounting/scenarios/scenariosAccountingDocRoute.js"
 import { aiDocLayoutRoute } from "./ai/aiDocLayoutRoute.js"
 import { modelsAiDocRoute } from "./ai/modelsAiDocRoute.js"
 import { ocrAiDocRoute } from "./ai/ocrAiDocRoute.js"
@@ -41,6 +44,7 @@ import { gettingStartedDashboardDocRoute } from "./dashboard/gettingStartedDashb
 import { organizationsDashboardDocRoute } from "./dashboard/organizationsDashboardDocRoute.js"
 import { reportsDashboardDocRoute } from "./dashboard/reportsDashboardDocRoute.js"
 import { rootDashboardDocRoute } from "./dashboard/rootDashboardDocRoute.js"
+import { updatesDashboardDocRoute } from "./dashboard/updatesDashboardDocRoute.js"
 import { yearsDashboardDocRoute } from "./dashboard/yearsDashboardDocRoute.js"
 import { docsLayoutRoute } from "./docsLayoutRoute.js"
 import { featuresGeneralDocRoute } from "./root/featuresGeneralDocRoute.js"
@@ -88,6 +92,7 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
             fecAccountingDocRoute,
             notesAccountingDocRoute,
         ]),
+        scenariosAccountingDocLayoutRoute.addChildren([scenariosAccountingDocIndexRoute, scenarioAccountingDocRoute]),
         glossaryAccountingDocLayoutRoute.addChildren([glossaryAccountingDocIndexRoute, glossaryTermAccountingDocRoute]),
     ]),
 
@@ -101,6 +106,7 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
         filesDashboardDocRoute,
         reportsDashboardDocRoute,
         billingDashboardDocRoute,
+        updatesDashboardDocRoute,
         // AI sub-section (assistant IA)
         aiDocLayoutRoute.addChildren([rootAiDocRoute, modelsAiDocRoute, toolsAiDocRoute, ocrAiDocRoute]),
     ]),

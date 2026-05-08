@@ -13,7 +13,13 @@ export interface DocSection {
         {
             title?: string
             icon?: ReactElement<IconProps & React.RefAttributes<Icon>>
-            items: { path: string; hash?: string; label: string }[]
+            items: {
+                path: string
+                hash?: string
+                label: string
+                chipText?: string
+                chipColor?: "neutral" | "information" | "error" | "warning" | "success"
+            }[]
         }
     >
 }
