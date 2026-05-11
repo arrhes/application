@@ -135,6 +135,11 @@ services:
   worker:
     container_name: arrhes-prod-worker
     image: arrhes-worker:${ARRHES_VERSION:-dev}
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "5"
     environment:
       ENV: development
       VERBOSE: "true"

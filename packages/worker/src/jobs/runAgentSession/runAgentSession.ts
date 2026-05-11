@@ -972,7 +972,6 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
         })
 
         for await (const chunk of stream) {
-            console.log(`[runAgentSession] chunk: ${chunk.type}`)
             // Publish every chunk as a Redis message for the SSE subscriber
             try {
                 await redis.publish(streamKey, JSON.stringify(chunk))

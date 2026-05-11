@@ -197,6 +197,11 @@ services:
   worker:
     container_name: arrhes-worker
     image: arrhes-dev-worker:latest
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "5"
     build:
       context: ../..
       dockerfile: .workflows/dev/packages/worker/Dockerfile
