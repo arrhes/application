@@ -9,7 +9,7 @@ import { unsignString } from "../../utilities/cookies/unsignString.js"
 import { Exception } from "../../utilities/exception.js"
 import { response } from "../../utilities/response.js"
 import { updateOne } from "../../utilities/sql/updateOne.js"
-import { getCookieSecurityOptions, productName, userSessionCookieMaxAge } from "../../utilities/variables.js"
+import { getCookieSecurityOptions, productName } from "../../utilities/variables.js"
 
 export const signOutRoute = apiFactory.createApp().post(signOutRouteDefinition.path, async (c) => {
     const _body = await validateBodyMiddleware({
@@ -57,7 +57,7 @@ export const signOutRoute = apiFactory.createApp().post(signOutRouteDefinition.p
             name: `${productName}_${"id_user_session"}`,
             value: "",
             options: {
-                maxAge: userSessionCookieMaxAge,
+                maxAge: 0,
                 httpOnly: true,
                 ...cookieSecurity,
                 domain: cookieDomain,
@@ -69,9 +69,9 @@ export const signOutRoute = apiFactory.createApp().post(signOutRouteDefinition.p
         "Set-Cookie",
         serializeCookie({
             name: `${productName}_${"is_auth"}`,
-            value: String(false),
+            value: "",
             options: {
-                maxAge: userSessionCookieMaxAge,
+                maxAge: 0,
                 httpOnly: false,
                 ...cookieSecurity,
                 domain: cookieDomain,
