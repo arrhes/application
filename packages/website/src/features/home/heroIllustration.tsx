@@ -57,29 +57,29 @@ export function HeroIllustration() {
             {/* ── KPI row ── */}
             <div className={row}>
                 <span className={dim}>{"│"}</span>
-                <span className={muted}>{" "}</span>
+                <span className={muted}> </span>
                 <span className={muted}>{"Chiffre d'affaires"}</span>
                 <span className={muted}>{formatKPIGap("Chiffre d'affaires", "42 850,00€")}</span>
                 <span className={text}>{"42 850,00€"}</span>
-                <span className={muted}>{" "}</span>
+                <span className={muted}> </span>
                 <span className={dim}>{"│"}</span>
             </div>
             <div className={row}>
                 <span className={dim}>{"│"}</span>
-                <span className={muted}>{" "}</span>
+                <span className={muted}> </span>
                 <span className={muted}>{"Charges"}</span>
                 <span className={muted}>{formatKPIGap("Charges", "24 310,00€")}</span>
                 <span className={text}>{"24 310,00€"}</span>
-                <span className={muted}>{" "}</span>
+                <span className={muted}> </span>
                 <span className={dim}>{"│"}</span>
             </div>
             <div className={row}>
                 <span className={dim}>{"│"}</span>
-                <span className={muted}>{" "}</span>
+                <span className={muted}> </span>
                 <span className={muted}>{"Résultat net"}</span>
                 <span className={muted}>{formatKPIGap("Résultat net", "18 540,00€")}</span>
                 <span className={accent}>{"18 540,00€"}</span>
-                <span className={muted}>{" "}</span>
+                <span className={muted}> </span>
                 <span className={dim}>{"│"}</span>
             </div>
             <div className={row}>
@@ -149,35 +149,35 @@ export function HeroIllustration() {
             {/* ── Footer summary ── */}
             <div className={row}>
                 <span className={dim}>{"│"}</span>
-                <span className={muted}>{" "}</span>
+                <span className={muted}> </span>
                 <span className={muted}>{"Solde banque"}</span>
                 <span className={muted}>{formatFooterGap("Solde banque", "8 530,00 €", "▲ +12%")}</span>
                 <span className={text}>{"8 530,00 €"}</span>
-                <span className={muted}>{" "}</span>
+                <span className={muted}> </span>
                 <span className={success}>{"▲ +12%"}</span>
-                <span className={muted}>{" "}</span>
+                <span className={muted}> </span>
                 <span className={dim}>{"│"}</span>
             </div>
             <div className={row}>
                 <span className={dim}>{"│"}</span>
-                <span className={muted}>{" "}</span>
+                <span className={muted}> </span>
                 <span className={muted}>{"Clients"}</span>
                 <span className={muted}>{formatFooterGap("Clients", "4 260,00 €", "▼  -8%")}</span>
                 <span className={text}>{"4 260,00 €"}</span>
-                <span className={muted}>{" "}</span>
+                <span className={muted}> </span>
                 <span className={error}>{"▼  -8%"}</span>
-                <span className={muted}>{" "}</span>
+                <span className={muted}> </span>
                 <span className={dim}>{"│"}</span>
             </div>
             <div className={row}>
                 <span className={dim}>{"│"}</span>
-                <span className={muted}>{" "}</span>
+                <span className={muted}> </span>
                 <span className={muted}>{"Fournisseurs"}</span>
                 <span className={muted}>{formatFooterGap("Fournisseurs", "2 140,00 €", "▲  +4%")}</span>
                 <span className={text}>{"2 140,00 €"}</span>
-                <span className={muted}>{" "}</span>
+                <span className={muted}> </span>
                 <span className={success}>{"▲  +4%"}</span>
-                <span className={muted}>{" "}</span>
+                <span className={muted}> </span>
                 <span className={dim}>{"│"}</span>
             </div>
             <div className={row}>

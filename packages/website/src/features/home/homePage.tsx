@@ -126,7 +126,7 @@ export function HomePage() {
                         >
                             Le logiciel de comptabilité moderne et intuitif,
                             <br />
-                            pour {" "}
+                            pour{" "}
                             <span
                                 className={css({
                                     fontSize: "inherit",
@@ -135,8 +135,8 @@ export function HomePage() {
                                 })}
                             >
                                 ceux qui veulent reprendre la main sur leur comptabilité
-                            </span>
-                            {" "}.
+                            </span>{" "}
+                            .
                         </h1>
 
                         <div

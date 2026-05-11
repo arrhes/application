@@ -15,7 +15,10 @@ export const glossaryTermAccountingDocRoute = createRoute({
         }
     },
     component: lazyRouteComponent(
-        () => import("../../../../../../features/docs/accounting/resources/glossary/glossaryTermResourcesAccountingDocPage.tsx"),
+        () =>
+            import(
+                "../../../../../../features/docs/accounting/resources/glossary/glossaryTermResourcesAccountingDocPage.tsx"
+            ),
         "GlossaryTermResourcesAccountingDocPage",
     ),
 })

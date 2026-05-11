@@ -20,11 +20,7 @@ export const generateFileDeleteSignedUrlRoute = apiFactory
         const readOneFile = await selectOne({
             database: c.var.clients.sql,
             table: models.file,
-            where: (table) =>
-                and(
-                    eq(table.idOrganization, idOrganization),
-                    eq(table.id, body.idFile),
-                ),
+            where: (table) => and(eq(table.idOrganization, idOrganization), eq(table.id, body.idFile)),
         })
 
         if (readOneFile.storageKey === null) {

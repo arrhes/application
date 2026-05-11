@@ -765,7 +765,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                     usedTools: usedToolNames.size > 0 ? [...usedToolNames] : null,
                 })
                 .where(eq(models.agentMessage.id, idAgentMessage))
-                .catch(() => { })
+                .catch(() => {})
         }
     }
 

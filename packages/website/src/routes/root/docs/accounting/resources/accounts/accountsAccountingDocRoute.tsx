@@ -10,7 +10,10 @@ export const accountsAccountingDocRoute = createRoute({
             "Liste complète des comptes du plan comptable général français. Recherchez et consultez les comptes par numéro ou libellé.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../../features/docs/accounting/resources/accounts/accountsResourcesAccountingDocPage.tsx"),
+        () =>
+            import(
+                "../../../../../../features/docs/accounting/resources/accounts/accountsResourcesAccountingDocPage.tsx"
+            ),
         "AccountsResourcesAccountingDocPage",
     ),
 })

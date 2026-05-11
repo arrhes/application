@@ -41,7 +41,11 @@ export function DownloadInvoiceAsXMLButton(props: {
     }
 
     return (
-        <Button onClick={handleDownload} isDisabled={isDownloading || props.invoice.xmlStorageKey === null} className={props.className}>
+        <Button
+            onClick={handleDownload}
+            isDisabled={isDownloading || props.invoice.xmlStorageKey === null}
+            className={props.className}
+        >
             {cloneElement(props.children, {
                 isDisabled: isDownloading || props.invoice.xmlStorageKey === null,
             })}

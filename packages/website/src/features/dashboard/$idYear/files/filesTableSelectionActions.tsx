@@ -81,8 +81,9 @@ export function FilesTableSelectionActions(props: { selectedRows: Array<Row<Tabl
                 open={deleteOpen}
                 onOpenChange={setDeleteOpen}
                 title="Supprimer les éléments sélectionnés"
-                description={`Voulez-vous supprimer ${props.selectedRows.length} élément${props.selectedRows.length > 1 ? "s" : ""
-                    } ? Cette action est irréversible.`}
+                description={`Voulez-vous supprimer ${props.selectedRows.length} élément${
+                    props.selectedRows.length > 1 ? "s" : ""
+                } ? Cette action est irréversible.`}
                 submitButtonProps={{
                     text: "Supprimer",
                     leftIcon: <IconTrash />,

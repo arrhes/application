@@ -27,7 +27,6 @@ export function AccountResourcesAccountingDocPage() {
 
     return (
         <DocRoot>
-
             <LinkButton to="/documentation/comptabilité/ressources/comptes">
                 <ButtonOutlineContent leftIcon={<IconArrowLeft />} text="Retour aux comptes" />
             </LinkButton>

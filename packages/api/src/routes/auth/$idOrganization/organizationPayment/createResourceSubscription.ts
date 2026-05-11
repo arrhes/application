@@ -64,8 +64,8 @@ export const createResourceSubscriptionRoute = apiFactory
             body.type === "storage_gb"
                 ? getStorageAddonQuantity(organization.storageLimit)
                 : body.type === "agent_tokens_million"
-                    ? getTokenAddonQuantity(organization.tokensTotalAvailable + organization.tokensTotalUsed)
-                    : getOcrAddonQuantity(organization.ocrPagesTotalAvailable + organization.ocrPagesTotalUsed)
+                  ? getTokenAddonQuantity(organization.tokensTotalAvailable + organization.tokensTotalUsed)
+                  : getOcrAddonQuantity(organization.ocrPagesTotalAvailable + organization.ocrPagesTotalUsed)
 
         if (body.type === "storage_gb") {
             const minimumStorageQuantityFromUsage = Math.max(
@@ -144,8 +144,8 @@ export const createResourceSubscriptionRoute = apiFactory
                     body.type === "storage_gb"
                         ? "Augmentation du stockage"
                         : body.type === "agent_tokens_million"
-                            ? "Achat tokens Assistant IA"
-                            : "Achat pages OCR",
+                          ? "Achat tokens Assistant IA"
+                          : "Achat pages OCR",
             })
         }
 

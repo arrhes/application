@@ -20,7 +20,15 @@ import {
     toast,
 } from "@arrhes/ui"
 import { css } from "@arrhes/ui/css"
-import { IconChevronRight, IconDotsVertical, IconNotebook, IconPaperclip, IconSend, IconTrash, IconX } from "@tabler/icons-react"
+import {
+    IconChevronRight,
+    IconDotsVertical,
+    IconNotebook,
+    IconPaperclip,
+    IconSend,
+    IconTrash,
+    IconX,
+} from "@tabler/icons-react"
 import { useNavigate, useParams } from "@tanstack/react-router"
 import { useCallback, useEffect, useRef, useState } from "react"
 import { DataWrapper } from "../../../../components/layouts/dataWrapper.tsx"
@@ -65,13 +73,8 @@ function SubagentIndicator(props: { subagents: Array<{ role: string; depth: numb
                             overflow: "hidden",
                         })}
                     >
-                        <Button
-                            onClick={() => setExpanded((prev) => ({ ...prev, [index]: !prev[index] }))}
-                        >
-                            <ButtonGhostContent
-                                leftIcon={<IconChevronRight />}
-                                text={label}
-                            />
+                        <Button onClick={() => setExpanded((prev) => ({ ...prev, [index]: !prev[index] }))}>
+                            <ButtonGhostContent leftIcon={<IconChevronRight />} text={label} />
                             <CircularLoader />
                         </Button>
                         {isExpanded && subagent.content && (
@@ -260,140 +263,137 @@ export function AgentSessionContent() {
             setStreamMessageId(undefined)
         }
 
-            // SSE stream
-            ; (async () => {
-                let streamCompleted = false
-                try {
-                    const headers: Record<string, string> = { "Content-Type": "application/json" }
-                    const orgCookie = getCookie(`${cookiePrefix}_id_organization`)
-                    if (orgCookie) {
-                        headers["X-Organization-Id"] = orgCookie
+        // SSE stream
+        ;(async () => {
+            let streamCompleted = false
+            try {
+                const headers: Record<string, string> = { "Content-Type": "application/json" }
+                const orgCookie = getCookie(`${cookiePrefix}_id_organization`)
+                if (orgCookie) {
+                    headers["X-Organization-Id"] = orgCookie
+                }
+
+                const apiBaseUrl = resolveApiBaseUrl(import.meta.env.VITE_API_BASE_URL)
+                if (!apiBaseUrl) {
+                    throw new Error("VITE_API_BASE_URL is not configured")
+                }
+
+                const response = await fetch(new URL(`${apiBaseUrl}${getStreamForAgentMessageRouteDefinition.path}`), {
+                    method: "POST",
+                    credentials: "include",
+                    signal: controller.signal,
+                    headers,
+                    body: JSON.stringify({
+                        idOrganization: params.idOrganization,
+                        idAgentMessage: streamMessageId,
+                    }),
+                })
+
+                if (!isHealthyStreamResponse(response)) {
+                    toast({
+                        title: "Le flux de reponse est indisponible",
+                        description: "Veuillez renvoyer votre message.",
+                        variant: "error",
+                    })
+                    if (!controller.signal.aborted) {
+                        await finish()
                     }
+                    return
+                }
 
-                    const apiBaseUrl = resolveApiBaseUrl(import.meta.env.VITE_API_BASE_URL)
-                    if (!apiBaseUrl) {
-                        throw new Error("VITE_API_BASE_URL is not configured")
-                    }
+                const reader = response.body.getReader()
+                const decoder = new TextDecoder()
+                let buffer = ""
 
-                    const response = await fetch(
-                        new URL(`${apiBaseUrl}${getStreamForAgentMessageRouteDefinition.path}`),
-                        {
-                            method: "POST",
-                            credentials: "include",
-                            signal: controller.signal,
-                            headers,
-                            body: JSON.stringify({
-                                idOrganization: params.idOrganization,
-                                idAgentMessage: streamMessageId,
-                            }),
-                        },
-                    )
+                while (true) {
+                    const { done, value } = await reader.read()
+                    if (done) break
 
-                    if (!isHealthyStreamResponse(response)) {
-                        toast({
-                            title: "Le flux de reponse est indisponible",
-                            description: "Veuillez renvoyer votre message.",
-                            variant: "error",
-                        })
-                        if (!controller.signal.aborted) {
-                            await finish()
-                        }
-                        return
-                    }
+                    buffer += decoder.decode(value, { stream: true })
 
-                    const reader = response.body.getReader()
-                    const decoder = new TextDecoder()
-                    let buffer = ""
+                    const parts = buffer.split("\n\n")
+                    buffer = parts.pop() ?? ""
 
-                    while (true) {
-                        const { done, value } = await reader.read()
-                        if (done) break
+                    for (const part of parts) {
+                        for (const line of part.split("\n")) {
+                            if (!line.startsWith("data: ")) continue
+                            const jsonStr = line.slice(6).trim()
+                            if (!jsonStr) continue
 
-                        buffer += decoder.decode(value, { stream: true })
-
-                        const parts = buffer.split("\n\n")
-                        buffer = parts.pop() ?? ""
-
-                        for (const part of parts) {
-                            for (const line of part.split("\n")) {
-                                if (!line.startsWith("data: ")) continue
-                                const jsonStr = line.slice(6).trim()
-                                if (!jsonStr) continue
-
-                                try {
-                                    const chunk = JSON.parse(jsonStr)
-                                    if (chunk.type === "TEXT_MESSAGE_CONTENT" && typeof chunk.delta === "string") {
-                                        if (chunk.subagentSkills && subagentStack.length > 0) {
-                                            // Accumulate subagent content
-                                            const current = subagentStack[subagentStack.length - 1]
-                                            if (current) {
-                                                current.content += chunk.delta
-                                                setActiveSubagents([...subagentStack])
-                                            }
-                                        } else {
-                                            accumulated += chunk.delta
-                                            setStreamingContent(accumulated)
+                            try {
+                                const chunk = JSON.parse(jsonStr)
+                                if (chunk.type === "TEXT_MESSAGE_CONTENT" && typeof chunk.delta === "string") {
+                                    if (chunk.subagentSkills && subagentStack.length > 0) {
+                                        // Accumulate subagent content
+                                        const current = subagentStack[subagentStack.length - 1]
+                                        if (current) {
+                                            current.content += chunk.delta
+                                            setActiveSubagents([...subagentStack])
                                         }
+                                    } else {
+                                        accumulated += chunk.delta
+                                        setStreamingContent(accumulated)
                                     }
-                                    if (chunk.type === "TOOL_CALL_START") {
-                                        // Emit text boundary if text accumulated since last boundary
-                                        if (accumulated.length > lastBoundaryLen) {
-                                            accumulatedToolCalls.push({
-                                                type: "TEXT_BOUNDARY",
-                                                contentLength: accumulated.length,
-                                            })
-                                            lastBoundaryLen = accumulated.length
-                                        }
-                                        accumulatedToolCalls.push(chunk)
-                                        setStreamingToolCalls([...accumulatedToolCalls])
-                                    }
-                                    if (chunk.type === "CONTEXT_LIMIT_WARNING") {
-                                        toast({
-                                            title: "La conversation approche de sa limite de contexte",
-                                            description: `${chunk.usage}% de la capacité utilisée. Envisagez de créer une nouvelle session.`,
-                                            variant: "warning",
-                                        })
-                                    }
-                                    if (chunk.type === "TOOL_CALL_END") {
-                                        // Deduplicate: framework re-emits TOOL_CALL_END after RUN_FINISHED
-                                        const tcId = chunk.toolCallId as string | undefined
-                                        if (tcId && seenEnds.has(tcId)) continue
-                                        if (tcId) seenEnds.add(tcId)
-                                        accumulatedToolCalls.push(chunk)
-                                        setStreamingToolCalls([...accumulatedToolCalls])
-                                    }
-                                    if (chunk.type === "SUBAGENT_RUN_START") {
-                                        subagentStack.push({
-                                            role: (chunk.skills as string) ?? "subagent",
-                                            depth: chunk.depth as number,
-                                            content: "",
-                                        })
-                                        setActiveSubagents([...subagentStack])
-                                    }
-                                    if (chunk.type === "SUBAGENT_RUN_END") {
-                                        subagentStack.pop()
-                                        setActiveSubagents([...subagentStack])
-                                    }
-                                } catch {
-                                    // ignore malformed chunks
                                 }
+                                if (chunk.type === "TOOL_CALL_START") {
+                                    // Emit text boundary if text accumulated since last boundary
+                                    if (accumulated.length > lastBoundaryLen) {
+                                        accumulatedToolCalls.push({
+                                            type: "TEXT_BOUNDARY",
+                                            contentLength: accumulated.length,
+                                        })
+                                        lastBoundaryLen = accumulated.length
+                                    }
+                                    accumulatedToolCalls.push(chunk)
+                                    setStreamingToolCalls([...accumulatedToolCalls])
+                                }
+                                if (chunk.type === "CONTEXT_LIMIT_WARNING") {
+                                    toast({
+                                        title: "La conversation approche de sa limite de contexte",
+                                        description: `${chunk.usage}% de la capacité utilisée. Envisagez de créer une nouvelle session.`,
+                                        variant: "warning",
+                                    })
+                                }
+                                if (chunk.type === "TOOL_CALL_END") {
+                                    // Deduplicate: framework re-emits TOOL_CALL_END after RUN_FINISHED
+                                    const tcId = chunk.toolCallId as string | undefined
+                                    if (tcId && seenEnds.has(tcId)) continue
+                                    if (tcId) seenEnds.add(tcId)
+                                    accumulatedToolCalls.push(chunk)
+                                    setStreamingToolCalls([...accumulatedToolCalls])
+                                }
+                                if (chunk.type === "SUBAGENT_RUN_START") {
+                                    subagentStack.push({
+                                        role: (chunk.skills as string) ?? "subagent",
+                                        depth: chunk.depth as number,
+                                        content: "",
+                                    })
+                                    setActiveSubagents([...subagentStack])
+                                }
+                                if (chunk.type === "SUBAGENT_RUN_END") {
+                                    subagentStack.pop()
+                                    setActiveSubagents([...subagentStack])
+                                }
+                            } catch {
+                                // ignore malformed chunks
                             }
                         }
                     }
-
-                    streamCompleted = true
-                } catch (err: unknown) {
-                    if (err instanceof Error && err.name === "AbortError") return
-                    console.error("[stream] SSE error — falling back to polling", err)
-                } finally {
-                    // Only finish when the stream completed naturally.
-                    // If the SSE failed (network/auth error), let the polling
-                    // fallback continue running so it can detect completion.
-                    if (streamCompleted && !controller.signal.aborted) {
-                        finish()
-                    }
                 }
-            })()
+
+                streamCompleted = true
+            } catch (err: unknown) {
+                if (err instanceof Error && err.name === "AbortError") return
+                console.error("[stream] SSE error — falling back to polling", err)
+            } finally {
+                // Only finish when the stream completed naturally.
+                // If the SSE failed (network/auth error), let the polling
+                // fallback continue running so it can detect completion.
+                if (streamCompleted && !controller.signal.aborted) {
+                    finish()
+                }
+            }
+        })()
 
         // Polling failsafe: if SSE fails or is slow, periodically
         // check the DB for the completed message
@@ -894,7 +894,10 @@ export function AgentSessionContent() {
                                                 <ButtonGhostContent leftIcon={<IconDotsVertical />} text={undefined} />
                                             </Button>
                                         </Popover.Trigger>
-                                        <Popover.Content align="end" className={css({ padding: "0.5rem", gap: "0.25rem" })}>
+                                        <Popover.Content
+                                            align="end"
+                                            className={css({ padding: "0.5rem", gap: "0.25rem" })}
+                                        >
                                             <Popover.Close asChild>
                                                 <Button
                                                     className={css({ width: "100%" })}
@@ -915,7 +918,7 @@ export function AgentSessionContent() {
                                             <Button title="Contexte de la session">
                                                 <ButtonOutlineContent
                                                     leftIcon={<IconNotebook />}
-                                                // text="Contexte"
+                                                    // text="Contexte"
                                                 />
                                             </Button>
                                         </Popover.Trigger>
@@ -988,9 +991,9 @@ export function AgentSessionContent() {
                                                             yearsData === undefined
                                                                 ? []
                                                                 : yearsData.map((year) => ({
-                                                                    key: year.id,
-                                                                    label: year.label,
-                                                                }))
+                                                                      key: year.id,
+                                                                      label: year.label,
+                                                                  }))
                                                         }
                                                     />
                                                 </div>

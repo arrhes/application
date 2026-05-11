@@ -19,11 +19,7 @@ export const deleteOneFileRoute = apiFactory.createApp().post(deleteOneFileRoute
         const readOneFile = await selectOne({
             database: tx,
             table: models.file,
-            where: (table) =>
-                and(
-                    eq(table.idOrganization, idOrganization),
-                    eq(table.id, body.idFile),
-                ),
+            where: (table) => and(eq(table.idOrganization, idOrganization), eq(table.id, body.idFile)),
         })
 
         if (readOneFile.size !== null && readOneFile.size > 0) {
@@ -40,11 +36,7 @@ export const deleteOneFileRoute = apiFactory.createApp().post(deleteOneFileRoute
         const deleteOneFile = await deleteOne({
             database: tx,
             table: models.file,
-            where: (table) =>
-                and(
-                    eq(table.idOrganization, idOrganization),
-                    eq(table.id, body.idFile),
-                ),
+            where: (table) => and(eq(table.idOrganization, idOrganization), eq(table.id, body.idFile)),
         })
         return deleteOneFile
     })

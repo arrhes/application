@@ -23,7 +23,6 @@ function referenceFromFileName(name: string): string {
     return dotIndex > 0 ? name.slice(0, dotIndex) : name
 }
 
-
 async function uploadOneFile(params: {
     idOrganization: string
     idYear: string

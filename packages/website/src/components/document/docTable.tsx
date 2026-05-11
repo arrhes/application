@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js";
+import { css } from "@arrhes/ui/utilities/cn.js"
 
 export function DocTable(props: { headers: string[]; rows: string[][] }) {
     return (
@@ -65,7 +65,7 @@ export function DocTable(props: { headers: string[]; rows: string[][] }) {
                                         lineHeight: "1.5",
                                     })}
                                 >
-                                    {(cell === "") ? "-" : cell}
+                                    {cell === "" ? "-" : cell}
                                 </td>
                             ))}
                         </tr>

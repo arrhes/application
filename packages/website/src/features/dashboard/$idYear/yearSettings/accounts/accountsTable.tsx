@@ -28,9 +28,9 @@ export function AccountsTable(props: { idOrganization: string; idYear: string; g
             normalizedFilter === ""
                 ? response.data
                 : response.data.filter((account) => {
-                    const text = `${account.number} ${account.label}`.toLowerCase()
-                    return text.includes(normalizedFilter)
-                })
+                      const text = `${account.number} ${account.label}`.toLowerCase()
+                      return text.includes(normalizedFilter)
+                  })
 
         const sorted = [...filtered].sort((a, b) => a.number.toString().localeCompare(b.number.toString()))
 

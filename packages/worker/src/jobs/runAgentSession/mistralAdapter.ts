@@ -210,10 +210,10 @@ export class MistralChatAdapter extends BaseTextAdapter<
                         finishReason: choice.finish_reason === "tool_calls" ? "tool_calls" : "stop",
                         usage: chunk.usage
                             ? {
-                                promptTokens: chunk.usage.prompt_tokens || 0,
-                                completionTokens: chunk.usage.completion_tokens || 0,
-                                totalTokens: chunk.usage.total_tokens || 0,
-                            }
+                                  promptTokens: chunk.usage.prompt_tokens || 0,
+                                  completionTokens: chunk.usage.completion_tokens || 0,
+                                  totalTokens: chunk.usage.total_tokens || 0,
+                              }
                             : undefined,
                     }
                 }

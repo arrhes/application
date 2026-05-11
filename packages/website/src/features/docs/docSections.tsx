@@ -102,7 +102,7 @@ export const docSections: Record<string, DocSection> = {
                 items: [
                     { path: "/documentation/comptabilité/ressources/comptes", label: "Liste des comptes" },
                     { path: "/documentation/comptabilité/ressources/scénarios", label: "Scénarios" },
-                    { path: "/documentation/comptabilité/ressources/glossaire", label: "Glossaire" }
+                    { path: "/documentation/comptabilité/ressources/glossaire", label: "Glossaire" },
                 ],
             },
             glossaire: {
@@ -116,11 +116,13 @@ export const docSections: Record<string, DocSection> = {
         path: "/documentation/dashboard",
         icon: <IconLayout />,
         navigation: {
+            home: {
+                items: [{ path: "/documentation/dashboard", label: "Accueil" }],
+            },
             guide: {
                 title: "Guide d'utilisation",
                 icon: <IconLayout />,
                 items: [
-                    { path: "/documentation/dashboard", label: "Accueil" },
                     { path: "/documentation/dashboard/démarrage", label: "Démarrage" },
                     { path: "/documentation/dashboard/organisations", label: "Organisations" },
                     { path: "/documentation/dashboard/exercices", label: "Exercices" },

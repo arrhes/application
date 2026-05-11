@@ -34,7 +34,6 @@ const labelBoldStyle = css({
     fontWeight: "bold",
 })
 
-
 export const AccountItem = memo(function AccountItem(props: {
     account: v.InferOutput<typeof returnedSchemas.account>
     level: number
@@ -59,7 +58,7 @@ export const AccountItem = memo(function AccountItem(props: {
                 })}
                 style={{
                     height: `${ACCOUNT_ITEM_HEIGHT}px`,
-                    paddingLeft: `${(props.level + 1) * INDENT_PER_LEVEL}px`
+                    paddingLeft: `${(props.level + 1) * INDENT_PER_LEVEL}px`,
                 }}
             >
                 <div className={labelContainerStyle}>

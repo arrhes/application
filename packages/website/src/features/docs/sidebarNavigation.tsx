@@ -26,10 +26,7 @@ export function SidebarNavigation(props: {
             })}
         >
             {Object.entries(props.navigation).map(([key, section]) => (
-                <div
-                    key={key}
-                    className={css({})}
-                >
+                <div key={key} className={css({})}>
                     {section.title && section.icon && (
                         <div
                             className={css({
@@ -74,12 +71,12 @@ export function SidebarNavigation(props: {
                             const isCurrent = item.hash
                                 ? false
                                 : props.pathname === item.path ||
-                                (!hasExactSibling &&
-                                    item.path !== "/documentation" &&
-                                    item.path !== "/documentation/comptabilité" &&
-                                    item.path !== "/documentation/dashboard" &&
-                                    item.path !== "/documentation/api" &&
-                                    props.pathname.startsWith(`${item.path}/`))
+                                  (!hasExactSibling &&
+                                      item.path !== "/documentation" &&
+                                      item.path !== "/documentation/comptabilité" &&
+                                      item.path !== "/documentation/dashboard" &&
+                                      item.path !== "/documentation/api" &&
+                                      props.pathname.startsWith(`${item.path}/`))
                             return (
                                 <LinkButton
                                     key={item.path + (item.hash ?? "")}

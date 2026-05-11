@@ -1,7 +1,6 @@
-import { ButtonOutlineContent } from "@arrhes/ui"
+import { ButtonOutlineContent, FormatNull } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconMasksTheater } from "@tabler/icons-react"
-import { DocParagraph } from "../../../../../../components/document/docParagraph.js"
 import { DocSection } from "../../../../../../components/document/docSection.js"
 import { LinkButton } from "../../../../../../components/linkButton.js"
 import { getScenariosByAccountNumber } from "../../scenarios/scenariosData.js"
@@ -14,7 +13,7 @@ export function AccountScenariosSection(props: { entry: AccountEntry }) {
     return (
         <DocSection title="Scénarios liés">
             {scenarios.length === 0 ? (
-                <DocParagraph>Aucun scénario n'est encore lié à ce compte.</DocParagraph>
+                <FormatNull text="Aucun scénario n'est encore lié à ce compte." />
             ) : (
                 <div
                     className={css({

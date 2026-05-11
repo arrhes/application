@@ -153,7 +153,7 @@ export function CreateOneAccount(props: {
                                         <FormItem>
                                             <FormLabel
                                                 label="Type de compte"
-                                            // tooltip="Si le compte est de bilan, de gestion ou spécial."
+                                                // tooltip="Si le compte est de bilan, de gestion ou spécial."
                                             />
                                             <FormControl>
                                                 <InputToggle

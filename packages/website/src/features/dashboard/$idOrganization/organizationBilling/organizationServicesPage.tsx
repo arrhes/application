@@ -241,9 +241,7 @@ export function OrganizationServicesPage() {
                 >
                     {(organization) => {
                         const currentSupportAmountInCents = organization.licenceAmount
-                        const currentStorageAmountInCents = getRecurringStorageAmountInCents(
-                            organization.storageLimit,
-                        )
+                        const currentStorageAmountInCents = getRecurringStorageAmountInCents(organization.storageLimit)
                         const currentStorageQuantity = getStorageAddonQuantity(organization.storageLimit)
                         const currentTokenQuantity = getTokenAddonQuantity(
                             organization.tokensTotalAvailable + organization.tokensTotalUsed,

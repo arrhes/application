@@ -28,11 +28,7 @@ export const generateFilePutSignedUrlRoute = apiFactory
         const readOneFile = await selectOne({
             database: c.var.clients.sql,
             table: models.file,
-            where: (table) =>
-                and(
-                    eq(table.idOrganization, idOrganization),
-                    eq(table.id, body.idFile),
-                ),
+            where: (table) => and(eq(table.idOrganization, idOrganization), eq(table.id, body.idFile)),
         })
 
         const organization = await selectOne({
@@ -40,7 +36,6 @@ export const generateFilePutSignedUrlRoute = apiFactory
             table: models.organization,
             where: (table) => eq(table.id, idOrganization),
         })
-
 
         if (organization.storageCurrentUsage + body.size > organization.storageLimit) {
             throw new Exception({

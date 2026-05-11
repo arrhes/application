@@ -77,7 +77,7 @@ export const rootLayoutRoute = createRootRouteWithContext<{
     userSession: Promise<v.InferOutput<typeof readUserSessionRouteDefinition.schemas.return> | undefined> | undefined
 }>()({
     pendingComponent: () => <CircularLoader text="Chargement de l'application..." />,
-    beforeLoad: (_ctx) => { },
+    beforeLoad: (_ctx) => {},
     component: () => {
         const matches = useRouterState({ select: (s) => s.matches })
         const pathname = useRouterState({ select: (s) => s.location.pathname })
@@ -95,8 +95,8 @@ export const rootLayoutRoute = createRootRouteWithContext<{
             rawTitle === SITE_NAME
                 ? SITE_NAME
                 : section
-                    ? `${rawTitle} - ${section} - ${SITE_NAME}`
-                    : `${rawTitle} - ${SITE_NAME}`
+                  ? `${rawTitle} - ${section} - ${SITE_NAME}`
+                  : `${rawTitle} - ${SITE_NAME}`
         const description = matchWithDescription?.context.description || DEFAULT_DESCRIPTION
         const robots = matchWithRobots?.context.robots
         const canonicalUrl = `${BASE_URL}${pathname}`
@@ -115,32 +115,32 @@ export const rootLayoutRoute = createRootRouteWithContext<{
         // JSON-LD: WebSite (homepage only)
         const websiteJsonLd = isHomePage
             ? {
-                "@context": "https://schema.org",
-                "@type": "WebSite",
-                name: SITE_NAME,
-                url: BASE_URL,
-                description: DEFAULT_DESCRIPTION,
-                inLanguage: "fr-FR",
-            }
+                  "@context": "https://schema.org",
+                  "@type": "WebSite",
+                  name: SITE_NAME,
+                  url: BASE_URL,
+                  description: DEFAULT_DESCRIPTION,
+                  inLanguage: "fr-FR",
+              }
             : null
 
         // JSON-LD: SoftwareApplication (homepage only)
         const softwareJsonLd = isHomePage
             ? {
-                "@context": "https://schema.org",
-                "@type": "SoftwareApplication",
-                name: SITE_NAME,
-                url: BASE_URL,
-                applicationCategory: "BusinessApplication",
-                operatingSystem: "Web",
-                description: DEFAULT_DESCRIPTION,
-                offers: {
-                    "@type": "Offer",
-                    price: "0",
-                    priceCurrency: "EUR",
-                    description: "Plan basique gratuit",
-                },
-            }
+                  "@context": "https://schema.org",
+                  "@type": "SoftwareApplication",
+                  name: SITE_NAME,
+                  url: BASE_URL,
+                  applicationCategory: "BusinessApplication",
+                  operatingSystem: "Web",
+                  description: DEFAULT_DESCRIPTION,
+                  offers: {
+                      "@type": "Offer",
+                      price: "0",
+                      priceCurrency: "EUR",
+                      description: "Plan basique gratuit",
+                  },
+              }
             : null
 
         // JSON-LD: BreadcrumbList (documentation pages)

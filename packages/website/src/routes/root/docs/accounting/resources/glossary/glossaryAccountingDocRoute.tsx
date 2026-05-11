@@ -10,7 +10,10 @@ export const glossaryAccountingDocIndexRoute = createRoute({
             "Glossaire de la comptabilité française : définitions claires des termes comptables essentiels, de A à Z.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../../features/docs/accounting/resources/glossary/glossaryResourcesAccountingDocPage.tsx"),
+        () =>
+            import(
+                "../../../../../../features/docs/accounting/resources/glossary/glossaryResourcesAccountingDocPage.tsx"
+            ),
         "GlossaryResourcesAccountingDocPage",
     ),
 })

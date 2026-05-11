@@ -94,7 +94,10 @@ export function EntryLayout() {
                                                 <ButtonGhostContent leftIcon={<IconDotsVertical />} />
                                             </Button>
                                         </Popover.Trigger>
-                                        <Popover.Content align="end" className={css({ padding: "0.5rem", gap: "0.25rem" })}>
+                                        <Popover.Content
+                                            align="end"
+                                            className={css({ padding: "0.5rem", gap: "0.25rem" })}
+                                        >
                                             <ReverseOneEntry entry={entry}>
                                                 <div
                                                     className={css({ width: "100%" })}

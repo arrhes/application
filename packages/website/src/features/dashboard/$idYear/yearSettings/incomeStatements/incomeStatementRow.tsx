@@ -39,7 +39,7 @@ export function IncomeStatementRow(props: {
                 })}
                 style={{
                     height: `${ACCOUNT_ITEM_HEIGHT}px`,
-                    paddingLeft: `${(props.level + 1) * INDENT_PER_LEVEL}px`
+                    paddingLeft: `${(props.level + 1) * INDENT_PER_LEVEL}px`,
                 }}
             >
                 <span className={css({ color: "neutral", fontSize: "xs", lineHeight: "1" })}>

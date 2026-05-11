@@ -34,11 +34,7 @@ export const finalizeFileUploadRoute = apiFactory
                 lastUpdatedAt: new Date().toISOString(),
                 lastUpdatedBy: user.id,
             },
-            where: (table) =>
-                and(
-                    eq(table.idOrganization, idOrganization),
-                    eq(table.id, body.idFile),
-                ),
+            where: (table) => and(eq(table.idOrganization, idOrganization), eq(table.id, body.idFile)),
         })
 
         await updateOne({

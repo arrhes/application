@@ -153,9 +153,9 @@ export const generateMonthlyInvoicesRoute = apiFactory
                             : {}),
                         ...(org.storageLimitPending !== null
                             ? {
-                                storageLimit: org.storageLimitPending,
-                                storageLimitPending: null,
-                            }
+                                  storageLimit: org.storageLimitPending,
+                                  storageLimitPending: null,
+                              }
                             : {}),
                         lastUpdatedAt: now.toISOString(),
                     },

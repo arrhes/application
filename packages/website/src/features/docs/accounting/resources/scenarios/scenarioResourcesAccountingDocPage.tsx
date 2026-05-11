@@ -34,10 +34,7 @@ export function ScenarioResourcesAccountingDocPage() {
                 <ButtonOutlineContent leftIcon={<IconArrowLeft />} text="Retour aux scénarios" />
             </LinkButton>
 
-            <DocHeader
-                title={scenario.title}
-                description={undefined}
-            />
+            <DocHeader title={scenario.title} description={undefined} />
 
             <DocParagraph>{scenario.description}</DocParagraph>
 

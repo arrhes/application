@@ -29,9 +29,9 @@ export function renderButtonContent(
     const iconOnlyStyles =
         props.text === undefined
             ? css({
-                width: "auto",
-                justifyContent: "center",
-            })
+                  width: "auto",
+                  justifyContent: "center",
+              })
             : ""
 
     // const activeContainerStyles = props.isActive ? css({ backgroundColor: "neutral/5" }) : ""

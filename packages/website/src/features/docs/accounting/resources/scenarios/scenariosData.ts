@@ -46,8 +46,7 @@ export const scenarioEntries: ScenarioEntry[] = [
                 },
             },
             {
-                description:
-                    "Étape 2 — Libération : les fonds sont versés sur le compte bancaire de la société",
+                description: "Étape 2 — Libération : les fonds sont versés sur le compte bancaire de la société",
                 entry: {
                     rows: [
                         ["512", "Banques", "10 000,00", ""],
@@ -97,8 +96,7 @@ export const scenarioEntries: ScenarioEntry[] = [
             "L'achat de marchandises destinées à la revente est enregistré dès la réception de la facture (et non à la livraison ou au paiement). La TVA déductible sur les biens est récupérable immédiatement. Le compte 401 Fournisseurs enregistre la dette jusqu'au règlement ; le compte 607 Achats de marchandises est soldé en fin d'exercice lors du calcul de la variation de stock.",
         examples: [
             {
-                description:
-                    "Facture d'achat de marchandises reçue : 1 000 € HT, TVA 20 % — règlement sous 30 jours",
+                description: "Facture d'achat de marchandises reçue : 1 000 € HT, TVA 20 % — règlement sous 30 jours",
                 entry: {
                     rows: [
                         ["607", "Achats de marchandises", "1 000,00", ""],
@@ -129,8 +127,7 @@ export const scenarioEntries: ScenarioEntry[] = [
             "Le paiement d'une facture fournisseur solde le compte 401 (ou 404 pour les immobilisations). Si le règlement intervient avant l'échéance, le fournisseur peut accorder un escompte de règlement (compte 765 Escomptes obtenus), qui représente un produit financier pour l'acheteur et réduit son décaissement effectif.",
         examples: [
             {
-                description:
-                    "Règlement par virement bancaire de la facture fournisseur de 1 200 € à l'échéance",
+                description: "Règlement par virement bancaire de la facture fournisseur de 1 200 € à l'échéance",
                 entry: {
                     rows: [
                         ["401", "Fournisseurs", "1 200,00", ""],
@@ -160,8 +157,7 @@ export const scenarioEntries: ScenarioEntry[] = [
             "Le chiffre d'affaires est enregistré à la date de transfert de propriété des biens (généralement la livraison), indépendamment de la date d'encaissement. La TVA collectée constitue une dette envers l'État. La créance sur le client (compte 411) est soldée lors de l'encaissement.",
         examples: [
             {
-                description:
-                    "Facture de vente émise : 2 000 € HT, TVA 20 % — paiement attendu à 30 jours",
+                description: "Facture de vente émise : 2 000 € HT, TVA 20 % — paiement attendu à 30 jours",
                 entry: {
                     rows: [
                         ["411", "Clients", "2 400,00", ""],
@@ -171,8 +167,7 @@ export const scenarioEntries: ScenarioEntry[] = [
                 },
             },
             {
-                description:
-                    "Vente de marchandises au comptant : 800 € HT, TVA 20 % — encaissement immédiat en banque",
+                description: "Vente de marchandises au comptant : 800 € HT, TVA 20 % — encaissement immédiat en banque",
                 entry: {
                     rows: [
                         ["512", "Banques", "960,00", ""],
@@ -192,8 +187,7 @@ export const scenarioEntries: ScenarioEntry[] = [
             "Le règlement d'une créance client solde le compte 411 et crédite le compte bancaire. Si le client règle avant l'échéance et que l'entreprise lui a accordé un escompte de règlement, la différence est portée au débit du compte 665 Escomptes accordés, qui constitue une charge financière.",
         examples: [
             {
-                description:
-                    "Virement reçu du client en règlement intégral de sa facture de 2 400 €",
+                description: "Virement reçu du client en règlement intégral de sa facture de 2 400 €",
                 entry: {
                     rows: [
                         ["512", "Banques", "2 400,00", ""],
@@ -212,8 +206,7 @@ export const scenarioEntries: ScenarioEntry[] = [
             "Le produit d'une prestation de services est comptabilisé au compte 706 à la date d'achèvement ou, pour les prestations continues, de manière proratisée sur la durée. Si la facture est émise avant la réalisation complète, la partie non encore réalisée est inscrite en produit constaté d'avance (compte 487). La TVA sur services est déductible chez le client dès le paiement.",
         examples: [
             {
-                description:
-                    "Facture de prestation de conseil émise : 5 000 € HT, TVA 20 % — client à 30 jours",
+                description: "Facture de prestation de conseil émise : 5 000 € HT, TVA 20 % — client à 30 jours",
                 entry: {
                     rows: [
                         ["411", "Clients", "6 000,00", ""],
@@ -244,8 +237,7 @@ export const scenarioEntries: ScenarioEntry[] = [
                 },
             },
             {
-                description:
-                    "Achat d'une machine industrielle 15 000 € HT, TVA 20 % — payée comptant par virement",
+                description: "Achat d'une machine industrielle 15 000 € HT, TVA 20 % — payée comptant par virement",
                 entry: {
                     rows: [
                         ["2154", "Matériels industriels", "15 000,00", ""],
@@ -317,8 +309,7 @@ export const scenarioEntries: ScenarioEntry[] = [
                 },
             },
             {
-                description:
-                    "Paiement du salaire net de 2 250 € par virement bancaire le dernier jour du mois",
+                description: "Paiement du salaire net de 2 250 € par virement bancaire le dernier jour du mois",
                 entry: {
                     rows: [
                         ["421", "Personnel - Rémunérations dues", "2 250,00", ""],
@@ -420,8 +411,7 @@ export const scenarioEntries: ScenarioEntry[] = [
                 },
             },
             {
-                description:
-                    "Paiement de la TVA à décaisser de 200 € au Trésor Public par prélèvement bancaire",
+                description: "Paiement de la TVA à décaisser de 200 € au Trésor Public par prélèvement bancaire",
                 entry: {
                     rows: [
                         ["44551", "TVA à décaisser", "200,00", ""],
@@ -440,8 +430,7 @@ export const scenarioEntries: ScenarioEntry[] = [
             "Le loyer professionnel est comptabilisé au compte 613 Locations, charge déductible du résultat. Pour les locaux commerciaux, le bailleur peut opter pour l'assujettissement à la TVA (option de l'article 260-2° du CGI) : le loyer est alors facturé HT + TVA 20 %, récupérable par le locataire assujetti. Par défaut, les loyers d'habitation sont exonérés de TVA.",
         examples: [
             {
-                description:
-                    "Loyer mensuel de locaux professionnels hors TVA : 1 500 € payés par virement",
+                description: "Loyer mensuel de locaux professionnels hors TVA : 1 500 € payés par virement",
                 entry: {
                     rows: [
                         ["613", "Locations", "1 500,00", ""],
@@ -512,8 +501,7 @@ export const scenarioEntries: ScenarioEntry[] = [
                 },
             },
             {
-                description:
-                    "Paiement des dividendes de 19 000 € aux associés par virement bancaire",
+                description: "Paiement des dividendes de 19 000 € aux associés par virement bancaire",
                 entry: {
                     rows: [
                         ["457", "Associés - Dividendes à payer", "19 000,00", ""],
@@ -593,8 +581,7 @@ export const scenarioEntries: ScenarioEntry[] = [
             "Les achats non stockés (fournitures de bureau, cartouches, petits consommables) sont comptabilisés directement en charges au compte 606, sans passer par un compte de stock. Ce traitement simplifié est approprié pour les articles de faible valeur à rotation rapide. Si l'entreprise choisit de les passer en stock, elle utiliserait le compte 321 avec variation de stock en fin d'exercice.",
         examples: [
             {
-                description:
-                    "Facture de fournitures de bureau : 200 € HT, TVA 20 % — règlement fournisseur à 30 jours",
+                description: "Facture de fournitures de bureau : 200 € HT, TVA 20 % — règlement fournisseur à 30 jours",
                 entry: {
                     rows: [
                         ["606", "Achats non stockés de matière et fournitures", "200,00", ""],
@@ -642,22 +629,12 @@ export function searchScenarios(query: string): ScenarioEntry[] {
     return scenarioEntries.filter((entry) => {
         const titleMatch = normalize(entry.title).includes(normalizedQuery)
         const descriptionMatch = normalize(entry.description).includes(normalizedQuery)
-        const exampleDescriptionMatch = entry.examples.some((ex) =>
-            normalize(ex.description).includes(normalizedQuery),
-        )
+        const exampleDescriptionMatch = entry.examples.some((ex) => normalize(ex.description).includes(normalizedQuery))
         const accountNumberMatch = entry.accountNumbers.some((n) => n.includes(query))
         const accountLabelMatch = normalize(
-            entry.accountNumbers
-                .map((number) => getAccount(number)?.label ?? "")
-                .join(" "),
+            entry.accountNumbers.map((number) => getAccount(number)?.label ?? "").join(" "),
         ).includes(normalizedQuery)
 
-        return (
-            titleMatch ||
-            descriptionMatch ||
-            exampleDescriptionMatch ||
-            accountNumberMatch ||
-            accountLabelMatch
-        )
+        return titleMatch || descriptionMatch || exampleDescriptionMatch || accountNumberMatch || accountLabelMatch
     })
 }

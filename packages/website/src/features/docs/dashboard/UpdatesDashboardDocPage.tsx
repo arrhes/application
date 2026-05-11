@@ -11,8 +11,8 @@ export function UpdatesDashboardDocPage() {
 
             <DocSection title="Suivre les mises à jour">
                 <DocParagraph>
-                    Les mises à jour d'Arrhes sont publiées directement sur GitHub Releases avec les nouveautés, corrections et
-                    changements par version.
+                    Les mises à jour d'Arrhes sont publiées directement sur GitHub Releases avec les nouveautés,
+                    corrections et changements par version.
                 </DocParagraph>
                 <a href="https://github.com/arrhes/application/releases" target="_blank" rel="noopener noreferrer">
                     <LinkContent>Voir les releases Arrhes sur GitHub</LinkContent>

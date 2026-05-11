@@ -22,7 +22,7 @@ export async function startWorker() {
             }, CLEANUP_INTERVAL_MS)
 
             // Wait indefinitely (prevents loop from restarting immediately)
-            await new Promise(() => { })
+            await new Promise(() => {})
         } catch (error: unknown) {
             if (error instanceof Error) {
                 console.error(

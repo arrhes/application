@@ -1,7 +1,4 @@
-export function getCookieDomainFromHost(parameters: {
-    hostHeader: string | undefined
-    fallbackDomain: string
-}) {
+export function getCookieDomainFromHost(parameters: { hostHeader: string | undefined; fallbackDomain: string }) {
     const host = (parameters.hostHeader ?? "").trim().toLowerCase()
     const hostname = host.split(":")[0]
 

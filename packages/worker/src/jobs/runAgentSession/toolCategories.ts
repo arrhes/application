@@ -85,7 +85,7 @@ import {
     updateOneJournalRouteDefinition,
     updateOneTagRouteDefinition,
     updateOneYearRouteDefinition,
-} from "@arrhes/application-metadata";
+} from "@arrhes/application-metadata"
 
 export interface ToolCategory {
     name: string

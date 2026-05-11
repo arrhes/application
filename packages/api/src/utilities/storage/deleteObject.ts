@@ -19,7 +19,7 @@ export async function deleteObject(parameters: {
             {
                 abortSignal: undefined,
                 requestTimeout: undefined,
-            }
+            },
         )
 
         return response

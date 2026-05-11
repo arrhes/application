@@ -125,7 +125,13 @@ export function AgentLayout() {
                                         {session.title ?? formatDateTime(session.createdAt)}
                                     </span>
                                     {session.title && (
-                                        <span className={css({ fontSize: "xs", color: "neutral/40", whiteSpace: "nowrap" })}>
+                                        <span
+                                            className={css({
+                                                fontSize: "xs",
+                                                color: "neutral/40",
+                                                whiteSpace: "nowrap",
+                                            })}
+                                        >
                                             {formatDateTime(session.createdAt)}
                                         </span>
                                     )}

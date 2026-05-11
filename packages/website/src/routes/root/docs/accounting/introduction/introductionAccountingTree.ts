@@ -6,7 +6,6 @@ import { entriesAccountingDocRoute } from "./entriesAccountingDocRoute.tsx"
 import { introductionAccountingDocLayoutRoute } from "./introductionAccountingDocLayoutRoute.tsx"
 import { introductionAccountingDocRoute } from "./introductionAccountingDocRoute.tsx"
 
-
 export const introductionAccountingTree: AnyRoute = introductionAccountingDocLayoutRoute.addChildren([
     introductionAccountingDocRoute,
     doubleEntryAccountingDocRoute,

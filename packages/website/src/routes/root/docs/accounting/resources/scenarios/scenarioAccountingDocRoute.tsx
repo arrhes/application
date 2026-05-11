@@ -10,13 +10,14 @@ export const scenarioAccountingDocRoute = createRoute({
 
         return {
             title: entry ? `${entry.title} - Scénario comptable` : "Scénario introuvable",
-            description: entry
-                ? entry.description
-                : "Ce scénario comptable n'a pas été trouvé.",
+            description: entry ? entry.description : "Ce scénario comptable n'a pas été trouvé.",
         }
     },
     component: lazyRouteComponent(
-        () => import("../../../../../../features/docs/accounting/resources/scenarios/scenarioResourcesAccountingDocPage.tsx"),
+        () =>
+            import(
+                "../../../../../../features/docs/accounting/resources/scenarios/scenarioResourcesAccountingDocPage.tsx"
+            ),
         "ScenarioResourcesAccountingDocPage",
     ),
 })

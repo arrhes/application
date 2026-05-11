@@ -6,11 +6,13 @@ export const scenariosAccountingDocIndexRoute = createRoute({
     path: "/",
     beforeLoad: () => ({
         title: "Scénarios comptables",
-        description:
-            "Liste des cas d'usage comptables avec exemples d'écritures et liens vers les comptes concernés.",
+        description: "Liste des cas d'usage comptables avec exemples d'écritures et liens vers les comptes concernés.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../../features/docs/accounting/resources/scenarios/scenariosResourcesAccountingDocPage.tsx"),
+        () =>
+            import(
+                "../../../../../../features/docs/accounting/resources/scenarios/scenariosResourcesAccountingDocPage.tsx"
+            ),
         "ScenariosResourcesAccountingDocPage",
     ),
 })
