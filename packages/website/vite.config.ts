@@ -1,6 +1,6 @@
-import react from "@vitejs/plugin-react"
 import { readFileSync, writeFileSync } from "node:fs"
 import { resolve } from "node:path"
+import react from "@vitejs/plugin-react"
 import { defineConfig, type Plugin } from "vite"
 
 // ─────────────────────────── Docs Search Index Plugin ─────────────────────────────
@@ -559,6 +559,7 @@ function sitemapPlugin(): Plugin {
                 { path: "/", priority: "1.0", changefreq: "weekly" },
                 { path: "/connexion", priority: "0.5", changefreq: "monthly" },
                 { path: "/inscription", priority: "0.6", changefreq: "monthly" },
+                { path: "/mot-de-passe-oublié", priority: "0.5", changefreq: "monthly" },
 
                 // General docs
                 { path: "/documentation", priority: "0.8", changefreq: "weekly" },
@@ -589,6 +590,8 @@ function sitemapPlugin(): Plugin {
                     changefreq: "monthly",
                 },
                 { path: "/documentation/comptabilité/documents/annexe", priority: "0.7", changefreq: "monthly" },
+                { path: "/documentation/comptabilité/documents/fec", priority: "0.7", changefreq: "monthly" },
+                { path: "/documentation/comptabilité/scénarios", priority: "0.7", changefreq: "monthly" },
                 { path: "/documentation/comptabilité/glossaire", priority: "0.7", changefreq: "monthly" },
 
                 // Dashboard docs
@@ -599,7 +602,12 @@ function sitemapPlugin(): Plugin {
                 { path: "/documentation/dashboard/écritures", priority: "0.6", changefreq: "monthly" },
                 { path: "/documentation/dashboard/stockage", priority: "0.6", changefreq: "monthly" },
                 { path: "/documentation/dashboard/documents", priority: "0.6", changefreq: "monthly" },
-                { path: "/documentation/dashboard/devlog", priority: "0.6", changefreq: "monthly" },
+                { path: "/documentation/dashboard/facturation", priority: "0.6", changefreq: "monthly" },
+                { path: "/documentation/dashboard/màj", priority: "0.6", changefreq: "monthly" },
+                { path: "/documentation/dashboard/assistant", priority: "0.6", changefreq: "monthly" },
+                { path: "/documentation/dashboard/assistant/modèles", priority: "0.6", changefreq: "monthly" },
+                { path: "/documentation/dashboard/assistant/outils", priority: "0.6", changefreq: "monthly" },
+                { path: "/documentation/dashboard/assistant/ocr", priority: "0.6", changefreq: "monthly" },
 
                 // API docs
                 { path: "/documentation/api", priority: "0.7", changefreq: "monthly" },
@@ -629,35 +637,54 @@ function sitemapPlugin(): Plugin {
                     .replace(/(^-|-$)/g, "")
             const glossarySlugs = glossaryTerms.map(toSlug)
 
+            // Rebuild scenario slugs from account examples using the same pattern as scenariosData.ts.
+            const scenarioSlugs: string[] = []
+            const accountBlocks = [
+                ...accountsSrc.matchAll(/defineAccount\(\s*"([^"]+)"\s*,[\s\S]*?\{([\s\S]*?)\}\s*\),/g),
+            ]
+            for (const block of accountBlocks) {
+                const accountSlug = block[1]
+                const optionsBody = block[2]
+                const examplesMatch = optionsBody.match(/examples:\s*\[([\s\S]*?)\]/)
+                if (!examplesMatch) continue
+                const examples = [...examplesMatch[1].matchAll(/"((?:[^"\\]|\\.)*)"/g)].map((m) => m[1])
+                for (const [index, exampleText] of examples.entries()) {
+                    scenarioSlugs.push(`${accountSlug}-${index + 1}-${toSlug(exampleText).slice(0, 42)}`)
+                }
+            }
+
             // Build URL entries
-            const urls: string[] = []
+            const routeMap = new Map<string, { changefreq: string; priority: string }>()
+            const addRoute = (path: string, changefreq: string, priority: string) => {
+                if (!routeMap.has(path)) {
+                    routeMap.set(path, { changefreq, priority })
+                }
+            }
 
             for (const route of staticRoutes) {
-                urls.push(`    <url>
-        <loc>${baseUrl}${route.path}</loc>
-        <lastmod>${today}</lastmod>
-        <changefreq>${route.changefreq}</changefreq>
-        <priority>${route.priority}</priority>
-    </url>`)
+                addRoute(route.path, route.changefreq, route.priority)
             }
 
             for (const slug of accountSlugs) {
-                urls.push(`    <url>
-        <loc>${baseUrl}/documentation/comptabilit%C3%A9/comptes/liste/${slug}</loc>
-        <lastmod>${today}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>`)
+                addRoute(`/documentation/comptabilité/comptes/liste/${slug}`, "monthly", "0.5")
             }
 
             for (const slug of glossarySlugs) {
-                urls.push(`    <url>
-        <loc>${baseUrl}/documentation/comptabilit%C3%A9/glossaire/${slug}</loc>
-        <lastmod>${today}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>`)
+                addRoute(`/documentation/comptabilité/glossaire/${slug}`, "monthly", "0.5")
             }
+
+            for (const slug of scenarioSlugs) {
+                addRoute(`/documentation/comptabilité/scénarios/${slug}`, "monthly", "0.5")
+            }
+
+            const urls = [...routeMap.entries()]
+                .sort(([pathA], [pathB]) => pathA.localeCompare(pathB, "fr"))
+                .map(([path, metadata]) => `    <url>
+        <loc>${encodeURI(`${baseUrl}${path}`)}</loc>
+        <lastmod>${today}</lastmod>
+        <changefreq>${metadata.changefreq}</changefreq>
+        <priority>${metadata.priority}</priority>
+    </url>`)
 
             const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
