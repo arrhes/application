@@ -3,7 +3,7 @@
     "type": "module",
     "private": false,
     "scripts": {
-        "dev": "tsx watch --env-file=.env ./src/server.ts",
+        "dev": "tsx watch --conditions source --env-file=.env ./src/server.ts",
         "build": "tsc --build",
         "start": "node --env-file=.env ./build/server.js",
         "test": "vitest run",

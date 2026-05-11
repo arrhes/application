@@ -610,7 +610,6 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                 .where(
                     and(
                         eq(models.file.idOrganization, idOrganization),
-                        eq(models.file.idYear, idYear),
                         eq(models.file.id, idFile),
                     ),
                 )
@@ -711,14 +710,13 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
             const originalName = sourceFile.name ?? sourceFile.reference ?? "document"
             const baseName = originalName.replace(/\.[^.]+$/, "")
             const markdownName = `${baseName}.md`
-            const storageKey = `organizations/${idOrganization}/${idYear}/files/${newFileId}`
+            const storageKey = `organizations/${idOrganization}/storage/${newFileId}`
 
             const [newFile] = await db
                 .insert(models.file)
                 .values({
                     id: newFileId,
                     idOrganization: idOrganization,
-                    idYear: idYear,
                     idFolder: sourceFile.idFolder,
                     reference: sourceFile.reference,
                     name: markdownName,
