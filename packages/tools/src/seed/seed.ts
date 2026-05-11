@@ -22,7 +22,10 @@ function getMonthRangeForOffset(from: Date, monthOffset: number) {
         Date.UTC(from.getUTCFullYear(), from.getUTCMonth() + monthOffset + 1, 0, 23, 59, 59, 999),
     )
 
-    return { periodStart, periodEnd }
+    return {
+        periodStart,
+        periodEnd,
+    }
 }
 
 function generateSeedInvoiceReference(_date: Date) {
@@ -73,7 +76,9 @@ async function triggerSeededMonthlyBilling() {
         throw new Error(`Monthly billing generation failed after seed: ${response.status} ${body}`)
     }
 
-    const result = (await response.json()) as { generatedCount?: number }
+    const result = (await response.json()) as {
+        generatedCount?: number
+    }
     console.log(`- ${result.generatedCount ?? 0} seeded billing cycle(s) generated`)
 }
 
@@ -183,13 +188,10 @@ async function seed() {
                 licenceAmount: 2_900,
                 walletBalanceInCents: 21_470,
                 storageLimit: MAX_STORAGE_BYTES,
-                storageMaxUsage: MAX_STORAGE_BYTES,
                 storageCurrentUsage: 1_320_000_000,
-                ocrMonthlyLimit: 300,
-                agentTokensMonthlyLimit: 3_000_000,
-                ocrPagesTotalLeft: 220,
+                ocrPagesTotalAvailable: 220,
                 ocrPagesTotalUsed: 80,
-                tokensTotalLeft: 2_400_000,
+                tokensTotalAvailable: 2_400_000,
                 tokensTotalUsed: 600_000,
                 createdAt: createdAt,
             }
@@ -238,7 +240,12 @@ async function seed() {
             await tx.insert(models.journal).values(newJournals)
 
             // Create a map for journal lookup
-            const journalByCode = new Map(newJournals.map((j) => [j.code, j]))
+            const journalByCode = new Map(
+                newJournals.map((j) => [
+                    j.code,
+                    j,
+                ]),
+            )
 
             // ==========================================
             // BALANCE SHEETS
@@ -285,7 +292,10 @@ async function seed() {
 
             // Create lookup maps for balance sheets
             const _balanceSheetByNumberAndSide = new Map(
-                newBalanceSheets.map((bs) => [`${bs.side}-${bs.originalNumber}`, bs]),
+                newBalanceSheets.map((bs) => [
+                    `${bs.side}-${bs.originalNumber}`,
+                    bs,
+                ]),
             )
 
             // ==========================================
@@ -329,7 +339,12 @@ async function seed() {
                 .values(newIncomeStatements.map(({ originalNumber, numberParent, accountNumbers, ...is }) => is))
 
             // Create lookup map for income statements
-            const incomeStatementByNumber = new Map(newIncomeStatements.map((is) => [is.originalNumber, is]))
+            const incomeStatementByNumber = new Map(
+                newIncomeStatements.map((is) => [
+                    is.originalNumber,
+                    is,
+                ]),
+            )
 
             // ==========================================
             // ACCOUNTS
@@ -416,7 +431,12 @@ async function seed() {
             })
 
             // Resolve parent account IDs
-            const accountByNumber = new Map(newAccounts.map((a) => [a.originalNumber, a]))
+            const accountByNumber = new Map(
+                newAccounts.map((a) => [
+                    a.originalNumber,
+                    a,
+                ]),
+            )
             for (const account of newAccounts) {
                 const parentNumber = findParentNumber(account.originalNumber, flatAccounts)
                 if (parentNumber !== undefined) {
@@ -492,13 +512,27 @@ async function seed() {
             // ==========================================
             console.log("Creating tags...")
             const tagData = [
-                { label: "Loyer mensuel" },
-                { label: "Facture fournisseur" },
-                { label: "Vente client" },
-                { label: "Salaires" },
-                { label: "Charges sociales" },
-                { label: "Electricite" },
-                { label: "Abonnement internet" },
+                {
+                    label: "Loyer mensuel",
+                },
+                {
+                    label: "Facture fournisseur",
+                },
+                {
+                    label: "Vente client",
+                },
+                {
+                    label: "Salaires",
+                },
+                {
+                    label: "Charges sociales",
+                },
+                {
+                    label: "Electricite",
+                },
+                {
+                    label: "Abonnement internet",
+                },
             ]
 
             const newTags: (typeof models.tag.$inferInsert)[] = tagData.map((t) => ({
@@ -526,10 +560,19 @@ async function seed() {
             const journalOD = journalByCode.get("OD")
 
             // Tag lookup by label text
-            const tagByLabel = new Map(newTags.map((t) => [t.label, t]))
+            const tagByLabel = new Map(
+                newTags.map((t) => [
+                    t.label,
+                    t,
+                ]),
+            )
             const tagIdsFor = (label: string): string[] => {
                 const id = tagByLabel.get(label)?.id
-                return id ? [id] : []
+                return id
+                    ? [
+                          id,
+                      ]
+                    : []
             }
 
             // Helper: build an entry + lines + tag links
@@ -538,7 +581,12 @@ async function seed() {
                 label: string,
                 date: Date,
                 tagIds: string[],
-                lines: { idAccount: string; label: string; debit: string; credit: string }[],
+                lines: {
+                    idAccount: string
+                    label: string
+                    debit: string
+                    credit: string
+                }[],
             ) {
                 const entryId = generateId()
                 return {
@@ -605,7 +653,12 @@ async function seed() {
                             debit: "0.00",
                             credit: "1000.00",
                         },
-                        { idAccount: acc(44571)!.id, label: "TVA collectee 20%", debit: "0.00", credit: "200.00" },
+                        {
+                            idAccount: acc(44571)!.id,
+                            label: "TVA collectee 20%",
+                            debit: "0.00",
+                            credit: "200.00",
+                        },
                     ]),
                 )
                 // FC002 - Vente de marchandises (February)
@@ -623,7 +676,12 @@ async function seed() {
                             debit: "0.00",
                             credit: "3000.00",
                         },
-                        { idAccount: acc(44571)!.id, label: "TVA collectee 20%", debit: "0.00", credit: "600.00" },
+                        {
+                            idAccount: acc(44571)!.id,
+                            label: "TVA collectee 20%",
+                            debit: "0.00",
+                            credit: "600.00",
+                        },
                     ]),
                 )
                 // FC003 - Prestation (March)
@@ -641,7 +699,12 @@ async function seed() {
                             debit: "0.00",
                             credit: "2000.00",
                         },
-                        { idAccount: acc(44571)!.id, label: "TVA collectee 20%", debit: "0.00", credit: "400.00" },
+                        {
+                            idAccount: acc(44571)!.id,
+                            label: "TVA collectee 20%",
+                            debit: "0.00",
+                            credit: "400.00",
+                        },
                     ]),
                 )
                 // FC004 - Vente de marchandises (May)
@@ -659,7 +722,12 @@ async function seed() {
                             debit: "0.00",
                             credit: "800.00",
                         },
-                        { idAccount: acc(44571)!.id, label: "TVA collectee 20%", debit: "0.00", credit: "160.00" },
+                        {
+                            idAccount: acc(44571)!.id,
+                            label: "TVA collectee 20%",
+                            debit: "0.00",
+                            credit: "160.00",
+                        },
                     ]),
                 )
                 // FC005 - Prestation (July)
@@ -677,7 +745,12 @@ async function seed() {
                             debit: "0.00",
                             credit: "4500.00",
                         },
-                        { idAccount: acc(44571)!.id, label: "TVA collectee 20%", debit: "0.00", credit: "900.00" },
+                        {
+                            idAccount: acc(44571)!.id,
+                            label: "TVA collectee 20%",
+                            debit: "0.00",
+                            credit: "900.00",
+                        },
                     ]),
                 )
                 // FC006 - Vente (September)
@@ -695,7 +768,12 @@ async function seed() {
                             debit: "0.00",
                             credit: "1500.00",
                         },
-                        { idAccount: acc(44571)!.id, label: "TVA collectee 20%", debit: "0.00", credit: "300.00" },
+                        {
+                            idAccount: acc(44571)!.id,
+                            label: "TVA collectee 20%",
+                            debit: "0.00",
+                            credit: "300.00",
+                        },
                     ]),
                 )
                 // FC007 - Prestation (November)
@@ -713,7 +791,12 @@ async function seed() {
                             debit: "0.00",
                             credit: "2500.00",
                         },
-                        { idAccount: acc(44571)!.id, label: "TVA collectee 20%", debit: "0.00", credit: "500.00" },
+                        {
+                            idAccount: acc(44571)!.id,
+                            label: "TVA collectee 20%",
+                            debit: "0.00",
+                            credit: "500.00",
+                        },
                     ]),
                 )
             }
@@ -830,7 +913,12 @@ async function seed() {
                                     debit: "1800.00",
                                     credit: "0.00",
                                 },
-                                { idAccount: acc(401)!.id, label: "Assureur", debit: "0.00", credit: "1800.00" },
+                                {
+                                    idAccount: acc(401)!.id,
+                                    label: "Assureur",
+                                    debit: "0.00",
+                                    credit: "1800.00",
+                                },
                             ],
                         ),
                     )
@@ -920,7 +1008,12 @@ async function seed() {
                                     debit: "45.00",
                                     credit: "0.00",
                                 },
-                                { idAccount: acc(401)!.id, label: "Agence de voyage", debit: "0.00", credit: "495.00" },
+                                {
+                                    idAccount: acc(401)!.id,
+                                    label: "Agence de voyage",
+                                    debit: "0.00",
+                                    credit: "495.00",
+                                },
                             ],
                         ),
                     )
@@ -1118,7 +1211,12 @@ async function seed() {
                                     debit: "3000.00",
                                     credit: "0.00",
                                 },
-                                { idAccount: acc(512)!.id, label: "Paiement FF001", debit: "0.00", credit: "3000.00" },
+                                {
+                                    idAccount: acc(512)!.id,
+                                    label: "Paiement FF001",
+                                    debit: "0.00",
+                                    credit: "3000.00",
+                                },
                             ],
                         ),
                     )
@@ -1179,7 +1277,12 @@ async function seed() {
                                 new Date(y, m, 10),
                                 tagIdsFor("Abonnement internet"),
                                 [
-                                    { idAccount: acc(401)!.id, label: "Reglement FAI", debit: "58.80", credit: "0.00" },
+                                    {
+                                        idAccount: acc(401)!.id,
+                                        label: "Reglement FAI",
+                                        debit: "58.80",
+                                        credit: "0.00",
+                                    },
                                     {
                                         idAccount: acc(512)!.id,
                                         label: "Paiement abonnement internet",
@@ -1250,7 +1353,12 @@ async function seed() {
                                     debit: "5040.00",
                                     credit: "0.00",
                                 },
-                                { idAccount: acc(512)!.id, label: "Paiement FF002", debit: "0.00", credit: "5040.00" },
+                                {
+                                    idAccount: acc(512)!.id,
+                                    label: "Paiement FF002",
+                                    debit: "0.00",
+                                    credit: "5040.00",
+                                },
                             ],
                         ),
                     )
@@ -1284,7 +1392,10 @@ async function seed() {
                 }
                 // Social charges payments - quarterly
                 if (acc(431)) {
-                    for (const quarter of [0, 3]) {
+                    for (const quarter of [
+                        0,
+                        3,
+                    ]) {
                         const qLabel = quarter === 0 ? "T1" : "T2"
                         sampleEntries.push(
                             makeEntry(
@@ -1312,7 +1423,11 @@ async function seed() {
                 }
                 // Electricite - bimonthly
                 if (acc(606) && acc(401)) {
-                    for (const m of [1, 3, 5]) {
+                    for (const m of [
+                        1,
+                        3,
+                        5,
+                    ]) {
                         sampleEntries.push(
                             makeEntry(
                                 journalBQ,
@@ -1341,7 +1456,11 @@ async function seed() {
 
             // ---- ELECTRICITE purchases (AC) ----
             if (journalAC && acc(606) && acc(44566) && acc(401)) {
-                for (const m of [1, 3, 5]) {
+                for (const m of [
+                    1,
+                    3,
+                    5,
+                ]) {
                     sampleEntries.push(
                         makeEntry(
                             journalAC,
@@ -1361,7 +1480,12 @@ async function seed() {
                                     debit: "30.00",
                                     credit: "0.00",
                                 },
-                                { idAccount: acc(401)!.id, label: "EDF", debit: "0.00", credit: "180.00" },
+                                {
+                                    idAccount: acc(401)!.id,
+                                    label: "EDF",
+                                    debit: "0.00",
+                                    credit: "180.00",
+                                },
                             ],
                         ),
                     )
@@ -1773,26 +1897,49 @@ async function seed() {
             const seededPaymentsWithTax = seededPayments.map((payment) => {
                 const isTaxableCategory = payment.category === "subscription" || payment.category === "wallet_spending"
                 const amountHTInCents =
-                    (payment as { amountHTInCents?: number }).amountHTInCents ?? payment.amountInCents
+                    (
+                        payment as {
+                            amountHTInCents?: number
+                        }
+                    ).amountHTInCents ?? payment.amountInCents
                 const amountTVAInCents =
-                    (payment as { amountTVAInCents?: number }).amountTVAInCents ??
-                    (isTaxableCategory ? getTaxAmountFromHTInCents(amountHTInCents) : 0)
+                    (
+                        payment as {
+                            amountTVAInCents?: number
+                        }
+                    ).amountTVAInCents ?? (isTaxableCategory ? getTaxAmountFromHTInCents(amountHTInCents) : 0)
 
                 const normalizedPayment = {
                     ...payment,
                     flow:
-                        (payment as { flow?: (typeof organizationPaymentFlow)[number] }).flow ??
+                        (
+                            payment as {
+                                flow?: (typeof organizationPaymentFlow)[number]
+                            }
+                        ).flow ??
                         getOrganizationPaymentFlowFromCategory(
                             payment.category as (typeof models.organizationPayment.$inferInsert)["category"],
                         ),
                     amountHTInCents,
                     amountTVAInCents,
                     unitAmountHTInCents:
-                        (payment as { unitAmountHTInCents?: number }).unitAmountHTInCents ?? payment.unitAmountInCents,
+                        (
+                            payment as {
+                                unitAmountHTInCents?: number
+                            }
+                        ).unitAmountHTInCents ?? payment.unitAmountInCents,
                 }
 
-                delete (normalizedPayment as { amountInCents?: number }).amountInCents
-                delete (normalizedPayment as { unitAmountInCents?: number }).unitAmountInCents
+                delete (
+                    normalizedPayment as {
+                        amountInCents?: number
+                    }
+                ).amountInCents
+                delete (
+                    normalizedPayment as {
+                        unitAmountInCents?: number
+                    }
+                ).unitAmountInCents
 
                 return normalizedPayment
             })

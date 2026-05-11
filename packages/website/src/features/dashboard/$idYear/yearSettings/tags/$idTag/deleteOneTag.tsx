@@ -22,7 +22,10 @@ export function DeleteOneTag(props: {
         })
 
         if (deleteResponse.ok === false) {
-            toast({ title: "Erreur lors de la suppression de la catégorie", variant: "error" })
+            toast({
+                title: "Erreur lors de la suppression de la catégorie",
+                variant: "error",
+            })
             return
         }
 
@@ -33,7 +36,10 @@ export function DeleteOneTag(props: {
             },
         })
 
-        toast({ title: "Catégorie supprimée", variant: "success" })
+        toast({
+            title: "Catégorie supprimée",
+            variant: "success",
+        })
 
         applicationRouter.navigate({
             to: "/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/catégories",
@@ -54,7 +60,10 @@ export function DeleteOneTag(props: {
                     Cette action est irréversible.
                 </>
             }
-            submitButtonProps={{ color: "danger", text: "Supprimer la catégorie" }}
+            submitButtonProps={{
+                color: "danger",
+                text: "Supprimer la catégorie",
+            }}
             onSubmit={onSubmit}
         >
             {props.children}

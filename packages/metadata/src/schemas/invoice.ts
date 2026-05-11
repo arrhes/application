@@ -12,7 +12,12 @@ export const invoiceSchema = v.object({
     startingAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),
     endingAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),
     amountInCents: v.nonNullable(integerSchema, "Ce champ est requis"),
-    currency: v.nonNullable(varcharSchema({ maxLength: 3 }), "Ce champ est requis"),
+    currency: v.nonNullable(
+        varcharSchema({
+            maxLength: 3,
+        }),
+        "Ce champ est requis",
+    ),
     xmlStorageKey: v.nullable(v.string()),
     status: v.nonNullable(v.picklist(invoiceStatus, "Valeur invalide"), "Ce champ est requis"),
     createdAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),

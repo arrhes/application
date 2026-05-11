@@ -5,7 +5,9 @@ import { useEffect, useState } from "react"
 import { publicInvoiceXmlRoute } from "../../../routes/root/publicInvoiceXmlRoute.js"
 
 export function PublicInvoiceXmlPage() {
-    const { invoiceNumber } = useParams({ from: publicInvoiceXmlRoute.id })
+    const { invoiceNumber } = useParams({
+        from: publicInvoiceXmlRoute.id,
+    })
 
     const [isLoading, setIsLoading] = useState(true)
     const [xmlContent, setXmlContent] = useState("")
@@ -57,7 +59,9 @@ export function PublicInvoiceXmlPage() {
         return () => {
             abortController.abort()
         }
-    }, [invoiceNumber])
+    }, [
+        invoiceNumber,
+    ])
 
     return (
         <div

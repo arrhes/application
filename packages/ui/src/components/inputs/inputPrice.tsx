@@ -32,10 +32,23 @@ export function InputPrice(
                     alignItems: "stretch",
                     border: "1px solid",
                     borderRadius: "md",
-                    _hover: { borderColor: "neutral/30" },
-                    _focusWithin: { borderColor: "neutral/50", boxShadow: "inset" },
+                    _hover: {
+                        borderColor: "neutral/30",
+                    },
+                    _focusWithin: {
+                        borderColor: "neutral/50",
+                        boxShadow: "inset",
+                    },
                 }),
-                css(props.error ? { borderColor: "error" } : { borderColor: "neutral/20" }),
+                css(
+                    props.error
+                        ? {
+                              borderColor: "error",
+                          }
+                        : {
+                              borderColor: "neutral/20",
+                          },
+                ),
                 props.className,
             )}
         >
@@ -57,7 +70,9 @@ export function InputPrice(
                     borderRadius: "inherit",
                     width: "100%",
                     fontSize: "sm",
-                    _placeholder: { color: "neutral/25" },
+                    _placeholder: {
+                        color: "neutral/25",
+                    },
                     padding: "1rem",
                     overflow: "hidden",
                     whiteSpace: "nowrap",

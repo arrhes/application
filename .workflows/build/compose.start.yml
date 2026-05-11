@@ -99,7 +99,7 @@ services:
       WEBSITE_BASE_URL: http://localhost:5173
       SQL_DATABASE_URL: postgres://postgres:admin@postgres:5432/default
       STORAGE_ENDPOINT: http://rustfs:9000
-      STORAGE_PUBLIC_ENDPOINT: http://localhost:9000
+
       STORAGE_BUCKET_NAME: arrhes-files
       STORAGE_ACCESS_KEY: rustfsadmin
       STORAGE_SECRET_KEY: rustfsadmin

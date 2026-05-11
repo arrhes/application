@@ -10,7 +10,9 @@ export {
 import { amortizationTemplate } from "./amortization.js"
 import type { AnyEntryTemplateDefinition } from "./defineEntryTemplate.js"
 
-export const entryTemplateDefinitions: AnyEntryTemplateDefinition[] = [amortizationTemplate]
+export const entryTemplateDefinitions: AnyEntryTemplateDefinition[] = [
+    amortizationTemplate,
+]
 
 export function buildEntryTemplatesDocumentation(): string {
     return entryTemplateDefinitions.map((t) => `### ${t.label} (clé : "${t.key}")\n${t.description}`).join("\n\n")

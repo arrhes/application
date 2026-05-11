@@ -43,9 +43,15 @@ const markdownStyles = css({
         color: "neutral",
         margin: "0.75rem 0 0.25rem 0",
     },
-    "& h1": { fontSize: "lg" },
-    "& h2": { fontSize: "md" },
-    "& h3, & h4": { fontSize: "sm" },
+    "& h1": {
+        fontSize: "lg",
+    },
+    "& h2": {
+        fontSize: "md",
+    },
+    "& h3, & h4": {
+        fontSize: "sm",
+    },
     "& ul, & ol": {
         margin: "0 0 0.5rem 0",
         paddingLeft: "1.25rem",
@@ -118,7 +124,13 @@ export function AgentMessagePart(props: { part: ReturnType<typeof getAgentMessag
 
         return (
             <div className={markdownStyles}>
-                <Markdown remarkPlugins={[remarkTable]}>{props.part.content}</Markdown>
+                <Markdown
+                    remarkPlugins={[
+                        remarkTable,
+                    ]}
+                >
+                    {props.part.content}
+                </Markdown>
             </div>
         )
     }
@@ -140,12 +152,32 @@ export function AgentMessagePart(props: { part: ReturnType<typeof getAgentMessag
                     alignItems: "center",
                 })}
             >
-                <span className={css({ fontWeight: "semibold" })}>{getAgentToolLabel(props.part.name)}</span>
+                <span
+                    className={css({
+                        fontWeight: "semibold",
+                    })}
+                >
+                    {getAgentToolLabel(props.part.name)}
+                </span>
                 {(props.part.state === "awaiting-input" || props.part.state === "input-streaming") && (
-                    <span className={css({ marginLeft: "0.25rem", color: "warning" })}>en cours...</span>
+                    <span
+                        className={css({
+                            marginLeft: "0.25rem",
+                            color: "warning",
+                        })}
+                    >
+                        en cours...
+                    </span>
                 )}
                 {(props.part.state === "input-complete" || props.part.state === "result") && (
-                    <span className={css({ marginLeft: "0.25rem", color: "success" })}>terminé</span>
+                    <span
+                        className={css({
+                            marginLeft: "0.25rem",
+                            color: "success",
+                        })}
+                    >
+                        terminé
+                    </span>
                 )}
             </div>
         )

@@ -7,6 +7,9 @@ import { apiFactory } from "../../../../utilities/apiFactory.js"
 import { Exception } from "../../../../utilities/exception.js"
 import { selectOne } from "../../../../utilities/sql/selectOne.js"
 
+const STREAM_FIRST_ACTIVITY_TIMEOUT_MS = 10_000
+const STREAM_UNAVAILABLE_MESSAGE = "La diffusion de la réponse a expiré. Veuillez renvoyer votre message."
+
 export const getStreamForAgentMessageRoute = apiFactory
     .createApp()
     .use(async (c, next) => {
@@ -16,7 +19,9 @@ export const getStreamForAgentMessageRoute = apiFactory
         await next()
     })
     .post(getStreamForAgentMessageRouteDefinition.path, async (c) => {
-        await checkUserSessionMiddleware({ context: c })
+        await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: getStreamForAgentMessageRouteDefinition.schemas.body,
@@ -34,7 +39,10 @@ export const getStreamForAgentMessageRoute = apiFactory
             return streamText(c, async (stream) => {
                 if (agentMessage.output) {
                     await stream.write(
-                        `data: ${JSON.stringify({ type: "TEXT_MESSAGE_CONTENT", delta: agentMessage.output })}\n\n`,
+                        `data: ${JSON.stringify({
+                            type: "TEXT_MESSAGE_CONTENT",
+                            delta: agentMessage.output,
+                        })}\n\n`,
                     )
                 }
             })
@@ -43,7 +51,10 @@ export const getStreamForAgentMessageRoute = apiFactory
         if (agentMessage.state === "error") {
             return streamText(c, async (stream) => {
                 await stream.write(
-                    `data: ${JSON.stringify({ type: "TEXT_MESSAGE_CONTENT", delta: "Une erreur est survenue lors de la génération de la réponse." })}\n\n`,
+                    `data: ${JSON.stringify({
+                        type: "TEXT_MESSAGE_CONTENT",
+                        delta: agentMessage.output ?? "Une erreur est survenue lors de la génération de la réponse.",
+                    })}\n\n`,
                 )
             })
         }
@@ -55,6 +66,113 @@ export const getStreamForAgentMessageRoute = apiFactory
                 internalMessage: "Agent message has no stream key",
                 externalMessage: "Erreur interne",
             })
+        }
+
+        const failStreamImmediately = async (internalMessage: string): Promise<never> => {
+            await c.var.clients.sql
+                .update(models.agentMessage)
+                .set({
+                    state: "error",
+                    output: STREAM_UNAVAILABLE_MESSAGE,
+                })
+                .where(and(eq(models.agentMessage.id, body.idAgentMessage), eq(models.agentMessage.state, "streaming")))
+
+            throw new Exception({
+                statusCode: 410,
+                internalMessage,
+                externalMessage: STREAM_UNAVAILABLE_MESSAGE,
+            })
+        }
+
+        // Fast-fail check: queue is the source of truth for pending/running jobs.
+        const queuedJob = await c.var.clients.queue.getJob(body.idAgentMessage)
+        if (queuedJob === null) {
+            const freshMessage = await selectOne({
+                database: c.var.clients.sql,
+                table: models.agentMessage,
+                where: (table) => and(eq(table.id, body.idAgentMessage)),
+            })
+            if (freshMessage.state === "streaming") {
+                await failStreamImmediately(`Queue job missing for agent message ${body.idAgentMessage}`)
+            }
+        }
+
+        // Preflight: wait for first Redis activity for at most 10s.
+        // If nothing arrives and DB state is still streaming, convert the message to error
+        // and return an HTTP error instead of keeping the frontend in an infinite loader.
+        const preflightSubscriber = c.var.clients.redis.duplicate()
+        let preflightClosed = false
+
+        const cleanupPreflight = async () => {
+            if (preflightClosed) return
+            preflightClosed = true
+            try {
+                preflightSubscriber.unsubscribe(streamKey)
+                preflightSubscriber.disconnect()
+            } catch {
+                // ignore cleanup errors
+            }
+        }
+
+        await preflightSubscriber.subscribe(streamKey)
+
+        const firstActivityPromise = new Promise<"message" | "error" | "timeout">((resolve) => {
+            const timeoutId = setTimeout(() => resolve("timeout"), STREAM_FIRST_ACTIVITY_TIMEOUT_MS)
+
+            preflightSubscriber.once("message", (channel) => {
+                if (channel !== streamKey) return
+                clearTimeout(timeoutId)
+                resolve("message")
+            })
+
+            preflightSubscriber.once("error", () => {
+                clearTimeout(timeoutId)
+                resolve("error")
+            })
+        })
+
+        const firstActivity = await firstActivityPromise
+        await cleanupPreflight()
+
+        if (firstActivity === "timeout" || firstActivity === "error") {
+            const freshMessage = await selectOne({
+                database: c.var.clients.sql,
+                table: models.agentMessage,
+                where: (table) => and(eq(table.id, body.idAgentMessage)),
+            })
+
+            // Worker may have completed between timeout and DB recheck.
+            if (freshMessage.state === "completed") {
+                return streamText(c, async (stream) => {
+                    if (freshMessage.output) {
+                        await stream.write(
+                            `data: ${JSON.stringify({
+                                type: "TEXT_MESSAGE_CONTENT",
+                                delta: freshMessage.output,
+                            })}\n\n`,
+                        )
+                    }
+                    if (freshMessage.toolCalls && Array.isArray(freshMessage.toolCalls)) {
+                        for (const tc of freshMessage.toolCalls) {
+                            await stream.write(`data: ${JSON.stringify(tc)}\n\n`)
+                        }
+                    }
+                })
+            }
+
+            if (freshMessage.state === "error") {
+                return streamText(c, async (stream) => {
+                    await stream.write(
+                        `data: ${JSON.stringify({
+                            type: "TEXT_MESSAGE_CONTENT",
+                            delta:
+                                freshMessage.output ?? "Une erreur est survenue lors de la génération de la réponse.",
+                        })}\n\n`,
+                    )
+                })
+            }
+
+            await failStreamImmediately(`Stream unavailable for agent message ${body.idAgentMessage}`)
         }
 
         return streamText(c, async (stream) => {
@@ -141,7 +259,10 @@ export const getStreamForAgentMessageRoute = apiFactory
                 // Worker already finished — send the completed content and close
                 if (freshMessage.output) {
                     await stream.write(
-                        `data: ${JSON.stringify({ type: "TEXT_MESSAGE_CONTENT", delta: freshMessage.output })}\n\n`,
+                        `data: ${JSON.stringify({
+                            type: "TEXT_MESSAGE_CONTENT",
+                            delta: freshMessage.output,
+                        })}\n\n`,
                     )
                 }
                 if (freshMessage.toolCalls && Array.isArray(freshMessage.toolCalls)) {
@@ -158,7 +279,10 @@ export const getStreamForAgentMessageRoute = apiFactory
             if (freshMessage.output) {
                 checkpointContentLength = freshMessage.output.length
                 await stream.write(
-                    `data: ${JSON.stringify({ type: "TEXT_MESSAGE_CONTENT", delta: freshMessage.output })}\n\n`,
+                    `data: ${JSON.stringify({
+                        type: "TEXT_MESSAGE_CONTENT",
+                        delta: freshMessage.output,
+                    })}\n\n`,
                 )
             }
             if (freshMessage.toolCalls && Array.isArray(freshMessage.toolCalls)) {

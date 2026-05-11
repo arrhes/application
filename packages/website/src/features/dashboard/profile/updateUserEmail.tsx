@@ -17,7 +17,10 @@ export function UpdateUserEmail(props: { children: JSX.Element }) {
     const [open, setOpen] = useState(false)
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Changer l'adresse email" />
@@ -52,7 +55,10 @@ export function UpdateUserEmail(props: { children: JSX.Element }) {
                         }}
                         onCancel={undefined}
                         onSuccess={() => {
-                            invalidateData({ routeDefinition: readUserSessionRouteDefinition, body: {} })
+                            invalidateData({
+                                routeDefinition: readUserSessionRouteDefinition,
+                                body: {},
+                            })
                             setOpen(false)
                         }}
                         resetOnSubmit
@@ -64,9 +70,16 @@ export function UpdateUserEmail(props: { children: JSX.Element }) {
                                     name="emailToValidate"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel label="Nouvelle adresse email" isRequired />
+                                            <FormLabel
+                                                label="Nouvelle adresse email"
+                                                isRequired
+                                            />
                                             <FormControl>
-                                                <InputText type="email" value={field.value} onChange={field.onChange} />
+                                                <InputText
+                                                    type="email"
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -77,9 +90,15 @@ export function UpdateUserEmail(props: { children: JSX.Element }) {
                                     name="currentPassword"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel label="Mot de passe actuel" isRequired />
+                                            <FormLabel
+                                                label="Mot de passe actuel"
+                                                isRequired
+                                            />
                                             <FormControl>
-                                                <InputPassword value={field.value} onChange={field.onChange} />
+                                                <InputPassword
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>

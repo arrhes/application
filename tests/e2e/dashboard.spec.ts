@@ -6,8 +6,14 @@ test.describe("Dashboard", () => {
         await page.goto("/connexion")
         await page.getByLabel("Email").fill("demo@arrhes.com")
         await page.getByLabel("Mot de passe").fill("demo")
-        await page.getByRole("button", { name: "Se connecter" }).click()
-        await page.waitForURL("**/dashboard/organisations", { timeout: 10000 })
+        await page
+            .getByRole("button", {
+                name: "Se connecter",
+            })
+            .click()
+        await page.waitForURL("**/dashboard/organisations", {
+            timeout: 10000,
+        })
     })
 
     test("displays the organizations page after sign-in", async ({ page }) => {
@@ -16,13 +22,21 @@ test.describe("Dashboard", () => {
 
     test("shows the demo organizations", async ({ page }) => {
         // The demo user has organizations seeded
-        await expect(page.getByText("Demo company")).toBeVisible({ timeout: 5000 })
+        await expect(page.getByText("Demo company")).toBeVisible({
+            timeout: 5000,
+        })
     })
 
     test("can navigate to settings", async ({ page }) => {
         // Click user icon to open popover, then settings/support
-        await page.getByRole("button", { name: "Utilisateur" }).click()
-        const supportLink = page.getByRole("link", { name: "Support" })
+        await page
+            .getByRole("button", {
+                name: "Utilisateur",
+            })
+            .click()
+        const supportLink = page.getByRole("link", {
+            name: "Support",
+        })
         await expect(supportLink).toBeVisible()
     })
 })

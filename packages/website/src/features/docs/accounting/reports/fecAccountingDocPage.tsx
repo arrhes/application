@@ -47,7 +47,9 @@ export function FecAccountingDocPage() {
                             textDecoration: "underline",
                             textDecorationColor: "primary/30",
                             textUnderlineOffset: "2px",
-                            _hover: { textDecorationColor: "primary" },
+                            _hover: {
+                                textDecorationColor: "primary",
+                            },
                             transition: "all 0.15s",
                         })}
                     >
@@ -69,26 +71,83 @@ export function FecAccountingDocPage() {
 
                 <DocExample title="Colonnes du FEC">
                     <DocTable
-                        headers={["Colonne", "Description"]}
+                        headers={[
+                            "Colonne",
+                            "Description",
+                        ]}
                         rows={[
-                            ["JournalCode", "Code du journal"],
-                            ["JournalLib", "Libellé du journal"],
-                            ["EcritureNum", "Numéro séquentiel de l'écriture"],
-                            ["EcritureDate", "Date de l'écriture (AAAAMMJJ)"],
-                            ["CompteNum", "Numéro de compte"],
-                            ["CompteLib", "Libellé du compte"],
-                            ["CompAuxNum", "Numéro de compte auxiliaire"],
-                            ["CompAuxLib", "Libellé du compte auxiliaire"],
-                            ["PieceRef", "Référence de la pièce justificative"],
-                            ["PieceDate", "Date de la pièce justificative"],
-                            ["EcritureLib", "Libellé de l'écriture"],
-                            ["Debit", "Montant au débit"],
-                            ["Credit", "Montant au crédit"],
-                            ["EcritureLet", "Lettrage de l'écriture"],
-                            ["DateLet", "Date de lettrage"],
-                            ["ValidDate", "Date de validation"],
-                            ["Montantdevise", "Montant en devise"],
-                            ["Idevise", "Identifiant de la devise"],
+                            [
+                                "JournalCode",
+                                "Code du journal",
+                            ],
+                            [
+                                "JournalLib",
+                                "Libellé du journal",
+                            ],
+                            [
+                                "EcritureNum",
+                                "Numéro séquentiel de l'écriture",
+                            ],
+                            [
+                                "EcritureDate",
+                                "Date de l'écriture (AAAAMMJJ)",
+                            ],
+                            [
+                                "CompteNum",
+                                "Numéro de compte",
+                            ],
+                            [
+                                "CompteLib",
+                                "Libellé du compte",
+                            ],
+                            [
+                                "CompAuxNum",
+                                "Numéro de compte auxiliaire",
+                            ],
+                            [
+                                "CompAuxLib",
+                                "Libellé du compte auxiliaire",
+                            ],
+                            [
+                                "PieceRef",
+                                "Référence de la pièce justificative",
+                            ],
+                            [
+                                "PieceDate",
+                                "Date de la pièce justificative",
+                            ],
+                            [
+                                "EcritureLib",
+                                "Libellé de l'écriture",
+                            ],
+                            [
+                                "Debit",
+                                "Montant au débit",
+                            ],
+                            [
+                                "Credit",
+                                "Montant au crédit",
+                            ],
+                            [
+                                "EcritureLet",
+                                "Lettrage de l'écriture",
+                            ],
+                            [
+                                "DateLet",
+                                "Date de lettrage",
+                            ],
+                            [
+                                "ValidDate",
+                                "Date de validation",
+                            ],
+                            [
+                                "Montantdevise",
+                                "Montant en devise",
+                            ],
+                            [
+                                "Idevise",
+                                "Identifiant de la devise",
+                            ],
                         ]}
                     />
                 </DocExample>
@@ -108,10 +167,21 @@ export function FecAccountingDocPage() {
                 </DocParagraph>
 
                 <DocExample title="Exemple de nom de fichier">
-                    <p className={css({ fontSize: "sm", color: "neutral/70" })}>
+                    <p
+                        className={css({
+                            fontSize: "sm",
+                            color: "neutral/70",
+                        })}
+                    >
                         Pour une organisation dont le SIREN est 123456789, avec un exercice clos au 31 décembre 2024 :
                     </p>
-                    <p className={css({ marginTop: "2", fontSize: "sm", fontWeight: "medium" })}>
+                    <p
+                        className={css({
+                            marginTop: "2",
+                            fontSize: "sm",
+                            fontWeight: "medium",
+                        })}
+                    >
                         123456789FEC20241231.txt
                     </p>
                 </DocExample>
@@ -173,7 +243,10 @@ export function FecAccountingDocPage() {
                 </DocParagraph>
             </DocSection>
 
-            <DocNextPage to="/documentation/comptabilité/documents/annexe" label="L'annexe comptable" />
+            <DocNextPage
+                to="/documentation/comptabilité/documents/annexe"
+                label="L'annexe comptable"
+            />
 
             <DocSources
                 sources={[

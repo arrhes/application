@@ -9,31 +9,7 @@ dev cmd:
     @just dev-{{cmd}}
 
 dev-up:
-    {{DC}} up -d --build --force-recreate
-    @echo ""
-    @echo "=============================================="
-    @echo "  Arrhes Development Environment Started"
-    @echo "=============================================="
-    @echo ""
-    @echo "  Services:"
-    @echo "    Website:  http://localhost:5173"
-    @echo "    API:      http://localhost:3000"
-    @echo ""
-    @echo "  Infrastructure:"
-    @echo "    PostgreSQL: localhost:5432"
-    @echo "    Mailpit:    http://localhost:8025"
-    @echo "    RustFS:     http://localhost:9001"
-    @echo ""
-    @echo "  Demo Credentials:"
-    @echo "    Email:      demo@arrhes.com"
-    @echo "    Password:   demo"
-    @echo ""
-    @echo "  Admin Credentials:"
-    @echo "    Email:      admin@arrhes.com"
-    @echo "    Password:   admin"
-    @echo ""
-    @echo "  Logs: docker compose -f {{COMPOSE_FILE}} logs -f"
-    @echo "=============================================="
+    @bash .workflows/dev/up.sh
 
 # Start dev environment with a Cloudflare tunnel for Mollie webhook testing.
 # The tunnel exposes the API on a public *.trycloudflare.com URL and

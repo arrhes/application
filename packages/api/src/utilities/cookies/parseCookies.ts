@@ -8,7 +8,10 @@ export function parseCookies(parameters: { value: string | undefined }) {
         return Object.fromEntries(
             parameters.value.split(";").map((cookie) => {
                 const [key, ...val] = cookie.trim().split("=")
-                return [key, decodeURIComponent(val.join("="))]
+                return [
+                    key,
+                    decodeURIComponent(val.join("=")),
+                ]
             }),
         )
     } catch (error: unknown) {

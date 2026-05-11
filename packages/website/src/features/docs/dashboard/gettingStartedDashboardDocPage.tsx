@@ -10,7 +10,10 @@ import { DocSection } from "../../../components/document/docSection.js"
 export function GettingStartedDashboardDocPage() {
     return (
         <DocRoot>
-            <DocHeader title="Démarrer avec Arrhes" description="Premiers pas pour configurer votre comptabilité" />
+            <DocHeader
+                title="Démarrer avec Arrhes"
+                description="Premiers pas pour configurer votre comptabilité"
+            />
 
             <DocSection title="Créer un compte">
                 <DocParagraph>
@@ -98,7 +101,10 @@ export function GettingStartedDashboardDocPage() {
                 />
             </DocSection>
 
-            <DocNextPage to="/documentation/dashboard/organisations" label="Gérer les organisations" />
+            <DocNextPage
+                to="/documentation/dashboard/organisations"
+                label="Gérer les organisations"
+            />
         </DocRoot>
     )
 }

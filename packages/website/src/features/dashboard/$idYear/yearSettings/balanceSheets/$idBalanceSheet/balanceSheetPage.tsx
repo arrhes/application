@@ -8,7 +8,9 @@ import { Section } from "../../../../../../components/layouts/section/section.ts
 import { balanceSheetLayoutRoute } from "../../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/balanceSheets/$idBalanceSheet/balanceSheetLayoutRoute.tsx"
 
 export function BalanceSheetPage() {
-    const params = useParams({ from: balanceSheetLayoutRoute.id })
+    const params = useParams({
+        from: balanceSheetLayoutRoute.id,
+    })
 
     return (
         <DataWrapper
@@ -20,7 +22,11 @@ export function BalanceSheetPage() {
         >
             {(balanceSheet) => {
                 return (
-                    <Section.Item className={css({ flexDirection: "column" })}>
+                    <Section.Item
+                        className={css({
+                            flexDirection: "column",
+                        })}
+                    >
                         <DataBlock.Root>
                             <DataBlock.Header title="Informations" />
                             <DataBlock.Content>

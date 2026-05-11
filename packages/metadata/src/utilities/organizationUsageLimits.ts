@@ -9,14 +9,14 @@ export function getCurrentMonthStartISO(date = new Date()) {
 }
 
 export function isUsageMonthOutdated(parameters: {
-    usageMonthStartAt: string | Date | null | undefined
+    periodStartAt: string | Date | null | undefined
     monthStartISO: string
 }) {
-    if (parameters.usageMonthStartAt == null) {
+    if (parameters.periodStartAt == null) {
         return true
     }
 
-    const usageMonthStartTimestamp = new Date(parameters.usageMonthStartAt).getTime()
+    const usageMonthStartTimestamp = new Date(parameters.periodStartAt).getTime()
     const currentMonthStartTimestamp = new Date(parameters.monthStartISO).getTime()
 
     if (Number.isNaN(usageMonthStartTimestamp) || Number.isNaN(currentMonthStartTimestamp)) {

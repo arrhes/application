@@ -19,7 +19,7 @@ services:
   # ============================================================================
   # Infrastructure Services
   # ============================================================================
-  
+
   # PostgreSQL - Relational database for application data
   postgres:
     container_name: arrhes-postgres
@@ -30,7 +30,11 @@ services:
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: default
     ports:
-      - "5432:5432"
+      - "127.0.0.1:${POSTGRES_HOST_PORT}:5432"
+    networks:
+      default:
+        aliases:
+          - postgres.arrhes.localhost
     volumes:
       - postgres_data:/var/lib/postgresql
     healthcheck:
@@ -50,8 +54,13 @@ services:
       RUSTFS_SECRET_KEY: rustfsadmin
       RUSTFS_VOLUMES: /data
     ports:
-      - "9000:9000"  # API
-      - "9001:9001"  # Web Console
+      - "${STORAGE_HOST_PORT}:9000"
+      - "${RUSTFS_UI_HOST_PORT}:9001"
+    networks:
+      default:
+        aliases:
+          - rustfs.arrhes.localhost
+          - storage.arrhes.localhost
     volumes:
       - rustfs_data:/data
     init: true
@@ -67,8 +76,13 @@ services:
     image: axllent/mailpit:latest
     restart: unless-stopped
     ports:
-      - "1025:1025"  # SMTP
-      - "8025:8025"  # Web UI
+      - "127.0.0.1:${MAILPIT_SMTP_HOST_PORT}:1025"
+      - "127.0.0.1:${MAILPIT_UI_HOST_PORT}:8025"
+    networks:
+      default:
+        aliases:
+          - mailpit.arrhes.localhost
+          - smtp.arrhes.localhost
     healthcheck:
       test: ["CMD-SHELL", "wget --quiet --tries=1 --spider http://localhost:8025 || exit 1"]
       interval: 10s
@@ -81,7 +95,11 @@ services:
     image: redis:7-alpine
     restart: unless-stopped
     ports:
-      - "6379:6379"
+      - "127.0.0.1:${REDIS_HOST_PORT}:6379"
+    networks:
+      default:
+        aliases:
+          - redis.arrhes.localhost
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
@@ -102,27 +120,25 @@ services:
       args:
         NODE_VERSION: "25.2.1"
         PNPM_VERSION: "10.26.1"
-    ports:
-      - "3000:3000"
+    network_mode: host
     volumes:
       - ../..:/workspace:cached
     environment:
       # API environment (packages/api)
       ENV: development
       VERBOSE: "true"
-      PORT: "3000"
-      CORS_ORIGIN: http://localhost:5173
+      PORT: "${API_HOST_PORT}"
+      CORS_ORIGIN: "http://localhost:${WEBSITE_HOST_PORT}"
       COOKIES_DOMAIN: localhost
       COOKIES_KEY: development-secret-key-change-in-production-min-32-chars
-      API_BASE_URL: http://localhost:3000
-      WEBSITE_BASE_URL: http://localhost:5173
-      SQL_DATABASE_URL: postgres://postgres:admin@postgres:5432/default
-      STORAGE_ENDPOINT: http://rustfs:9000
-      STORAGE_PUBLIC_ENDPOINT: http://localhost:9000
+      API_BASE_URL: "http://localhost:${API_HOST_PORT}"
+      WEBSITE_BASE_URL: "http://localhost:${WEBSITE_HOST_PORT}"
+      SQL_DATABASE_URL: "postgres://postgres:admin@localhost:${POSTGRES_HOST_PORT}/default"
+      STORAGE_ENDPOINT: "http://localhost:${STORAGE_HOST_PORT}"
       STORAGE_BUCKET_NAME: arrhes-files
       STORAGE_ACCESS_KEY: rustfsadmin
       STORAGE_SECRET_KEY: rustfsadmin
-      EMAIL_ENDPOINT: mailpit:1025
+      EMAIL_ENDPOINT: "localhost:${MAILPIT_SMTP_HOST_PORT}"
       EMAIL_USER: test
       EMAIL_PASSWORD: test
       MOLLIE_API_KEY: test_z8gjjnezmRNx7dretKbEr5vcCfADh9
@@ -133,10 +149,7 @@ services:
       LLM_MODEL: mistral-small-2603
       LLM_API_KEY: OwMSblegsAyAWd3AzCZbJkbaMQLCCj7y
       # Redis environment
-      REDIS_HOST: redis
-      REDIS_PORT: "6379"
-      REDIS_USERNAME: ""
-      REDIS_PASSWORD: ""
+      REDIS_URL: "redis://localhost:${REDIS_HOST_PORT}"
       # Tools environment (packages/tools) - used by migrate/seed
       NODE_ENV: development
     depends_on:
@@ -159,16 +172,20 @@ services:
       args:
         NODE_VERSION: "25.2.1"
         PNPM_VERSION: "10.26.1"
-    ports:
-      - "5173:5173"
+    networks:
+      default:
+        aliases:
+          - website.arrhes.localhost
     volumes:
       - ../..:/workspace:cached
+    ports:
+      - "127.0.0.1:${WEBSITE_HOST_PORT}:5173"
     environment:
       # Vite reads VITE_* from .env files, not process.env.
       # The entrypoint writes these to packages/website/.env at startup.
       VITE_ENV: development
-      VITE_API_BASE_URL: http://localhost:3000
-      VITE_WEBSITE_BASE_URL: http://localhost:5173
+      VITE_API_BASE_URL: "http://localhost:${API_HOST_PORT}"
+      VITE_WEBSITE_BASE_URL: "http://localhost:${WEBSITE_HOST_PORT}"
 
   # Worker - Background job processor (Bull queue + Redis pub/sub)
   worker:
@@ -180,22 +197,20 @@ services:
       args:
         NODE_VERSION: "25.2.1"
         PNPM_VERSION: "10.26.1"
+    network_mode: host
     volumes:
       - ../..:/workspace:cached
     environment:
       ENV: development
       VERBOSE: "true"
-      SQL_DATABASE_URL: postgres://postgres:admin@postgres:5432/default
-      STORAGE_ENDPOINT: http://rustfs:9000
+      SQL_DATABASE_URL: "postgres://postgres:admin@localhost:${POSTGRES_HOST_PORT}/default"
+      STORAGE_ENDPOINT: "http://localhost:${STORAGE_HOST_PORT}"
       STORAGE_NAME: arrhes-files
       STORAGE_ACCESS_KEY: rustfsadmin
       STORAGE_SECRET_KEY: rustfsadmin
-      API_BASE_URL: http://localhost:3000
+      API_BASE_URL: "http://localhost:${API_HOST_PORT}"
       INTERNAL_API_KEY: development-internal-api-key
-      REDIS_HOST: redis
-      REDIS_PORT: "6379"
-      REDIS_USERNAME: ""
-      REDIS_PASSWORD: ""
+      REDIS_URL: "redis://localhost:${REDIS_HOST_PORT}"
       # LLM environment (AI agent)
       LLM_PROVIDER: mistral-api
       LLM_BASE_URL: https://api.mistral.ai/v1

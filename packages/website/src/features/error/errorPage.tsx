@@ -17,7 +17,14 @@ export function ErrorPage() {
                 alignItems: "center",
             })}
         >
-            <p className={css({ color: "error", fontSize: "sm" })}>Erreur</p>
+            <p
+                className={css({
+                    color: "error",
+                    fontSize: "sm",
+                })}
+            >
+                Erreur
+            </p>
         </div>
     )
 }

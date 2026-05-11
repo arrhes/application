@@ -20,12 +20,22 @@ const requiredKeys = [
 ] as const satisfies readonly YearDataKey[]
 
 export function LedgerReportPage() {
-    const params = useParams({ from: ledgerReportRoute.id })
+    const params = useParams({
+        from: ledgerReportRoute.id,
+    })
     const [selectedJournalId, setSelectedJournalId] = useState<string | null>(null)
-    const [selectedTags, setSelectedTags] = useState<Array<{ key: string; label: string }>>([])
+    const [selectedTags, setSelectedTags] = useState<
+        Array<{
+            key: string
+            label: string
+        }>
+    >([])
 
     return (
-        <YearDataWrapper idYear={params.idYear} requiredKeys={requiredKeys}>
+        <YearDataWrapper
+            idYear={params.idYear}
+            requiredKeys={requiredKeys}
+        >
             {({ accounts, entries, entryLines, journals, tags, entryTags }) => {
                 let filteredEntryLines = entryLines.filter((entryLine) => entryLine.isComputedForLedgerReport === true)
                 const filteredAccounts = accounts
@@ -35,7 +45,10 @@ export function LedgerReportPage() {
                     label: `${j.code} ${j.label ?? ""}`.trim(),
                 }))
 
-                const tagOptions = tags.map((t) => ({ key: t.id, label: t.label }))
+                const tagOptions = tags.map((t) => ({
+                    key: t.id,
+                    label: t.label,
+                }))
 
                 if (selectedJournalId) {
                     const matchingEntryIds = new Set(

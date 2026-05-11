@@ -23,7 +23,10 @@ export function DeleteOneAccount(props: {
         })
 
         if (deleteResponse.ok === false) {
-            toast({ title: "Erreur lors de la suppression du compte", variant: "error" })
+            toast({
+                title: "Erreur lors de la suppression du compte",
+                variant: "error",
+            })
             return
         }
 
@@ -34,7 +37,10 @@ export function DeleteOneAccount(props: {
             },
         })
 
-        toast({ title: "Compte supprimé", variant: "success" })
+        toast({
+            title: "Compte supprimé",
+            variant: "success",
+        })
 
         applicationRouter.navigate({
             to: "/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/comptes",
@@ -55,7 +61,11 @@ export function DeleteOneAccount(props: {
                     Cette action est irréversible.
                 </>
             }
-            submitButtonProps={{ text: "Supprimer le compte", color: "danger", leftIcon: <IconTrash /> }}
+            submitButtonProps={{
+                text: "Supprimer le compte",
+                color: "danger",
+                leftIcon: <IconTrash />,
+            }}
             onSubmit={onSubmit}
         >
             {props.children}

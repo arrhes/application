@@ -8,14 +8,26 @@ import { ApiKeysListTable } from "./apiKeysListTable.tsx"
 import { CreateOneApiKey } from "./createOneApiKey.tsx"
 
 export function OrganizationApiKeysPage() {
-    const params = useParams({ from: organizationApiKeysRoute.id })
+    const params = useParams({
+        from: organizationApiKeysRoute.id,
+    })
 
     return (
         <Page.Root>
             <Page.Content>
-                <div className={css({ width: "100%", display: "flex", justifyContent: "end", alignItems: "center" })}>
+                <div
+                    className={css({
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "end",
+                        alignItems: "center",
+                    })}
+                >
                     <CreateOneApiKey idOrganization={params.idOrganization}>
-                        <ButtonOutlineContent leftIcon={<IconPlus />} text="Créer une clé API" />
+                        <ButtonOutlineContent
+                            leftIcon={<IconPlus />}
+                            text="Créer une clé API"
+                        />
                     </CreateOneApiKey>
                 </div>
                 <ApiKeysListTable idOrganization={params.idOrganization} />

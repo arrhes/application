@@ -8,7 +8,9 @@ import { Section } from "../../../../../../components/layouts/section/section.ts
 import { tagLayoutRoute } from "../../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/tags/$idTag/tagLayoutRoute.tsx"
 
 export function TagPage() {
-    const params = useParams({ from: tagLayoutRoute.id })
+    const params = useParams({
+        from: tagLayoutRoute.id,
+    })
 
     return (
         <DataWrapper
@@ -20,7 +22,11 @@ export function TagPage() {
         >
             {(tag) => {
                 return (
-                    <Section.Item className={css({ flexDirection: "column" })}>
+                    <Section.Item
+                        className={css({
+                            flexDirection: "column",
+                        })}
+                    >
                         <DataBlock.Root>
                             <DataBlock.Header title="Informations" />
                             <DataBlock.Content>

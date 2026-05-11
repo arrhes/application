@@ -48,7 +48,10 @@ export function RootAiDocPage() {
                     })}
                 >
                     <LinkButton to="/documentation/dashboard/assistant/outils">
-                        <ButtonOutlineContent text="Voir les outils" rightIcon={<IconChevronRight />} />
+                        <ButtonOutlineContent
+                            text="Voir les outils"
+                            rightIcon={<IconChevronRight />}
+                        />
                     </LinkButton>
                 </div>
             </div>

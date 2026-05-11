@@ -33,9 +33,9 @@ export function RootGeneralDocPage() {
                         lineHeight: "relaxed",
                     })}
                 >
-                    Arrhes est un logiciel de comptabilité open source conçu pour les entreprises et associations.
-                    Simple, moderne et respectueux des normes comptables françaises, il vous permet de gérer vos
-                    écritures comptables, générer vos documents fiscaux et collaborer avec votre équipe.
+                    Arrhes est un logiciel de comptabilité open source conçu pour tous. Accessible, moderne et
+                    respectueux des normes comptables françaises, il vous permet de gérer vos écritures comptables, vos
+                    documents, générer vos documents fiscaux et collaborer avec votre équipe.
                 </p>
                 <div
                     className={css({
@@ -44,7 +44,10 @@ export function RootGeneralDocPage() {
                     })}
                 >
                     <LinkButton to="/documentation/fonctionnalités">
-                        <ButtonOutlineContent text="Voir les fonctionnalités" rightIcon={<IconChevronRight />} />
+                        <ButtonOutlineContent
+                            text="Voir les fonctionnalités"
+                            rightIcon={<IconChevronRight />}
+                        />
                     </LinkButton>
                 </div>
             </div>

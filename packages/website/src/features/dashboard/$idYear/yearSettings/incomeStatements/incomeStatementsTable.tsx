@@ -1,9 +1,7 @@
 import { readAllIncomeStatementsRouteDefinition } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { InputDebounced, InputText } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconReportMoney } from "@tabler/icons-react"
-import { useState } from "react"
 import type * as v from "valibot"
 import { DataWrapper } from "../../../../../components/layouts/dataWrapper.tsx"
 import { EmptyState } from "../../../../../components/layouts/emptyState.tsx"
@@ -13,8 +11,9 @@ import { IncomeStatementItem } from "./incomeStatementItem.tsx"
 export function IncomeStatementsTable(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
     idYear: v.InferOutput<typeof returnedSchemas.year>["id"]
+    globalFilter: string
 }) {
-    const [globalFilter, setGlobalFilter] = useState("")
+    const normalizedGlobalFilter = props.globalFilter.trim().toLowerCase()
 
     return (
         <DataWrapper
@@ -26,6 +25,15 @@ export function IncomeStatementsTable(props: {
             {(incomeStatements) => {
                 const filteredIncomeStatements = incomeStatements
                     .filter((incomeStatement) => incomeStatement.idIncomeStatementParent === null)
+                    .filter((incomeStatement) => {
+                        if (normalizedGlobalFilter.length === 0) {
+                            return true
+                        }
+
+                        return `${incomeStatement.number} ${incomeStatement.label}`
+                            .toLowerCase()
+                            .includes(normalizedGlobalFilter)
+                    })
                     .sort((a, b) => Number(a.number) - Number(b.number))
 
                 return (
@@ -37,13 +45,9 @@ export function IncomeStatementsTable(props: {
                             flexDirection: "column",
                             justifyContent: "flex-start",
                             alignItems: "flex-start",
-                            padding: "4",
-                            gap: "4",
+                            padding: "1rem",
                         })}
                     >
-                        <InputDebounced value={globalFilter ?? ""} onChange={(value) => setGlobalFilter(value ?? "")}>
-                            <InputText placeholder="Recherche" className={css({ maxWidth: "[320px]" })} />
-                        </InputDebounced>
                         <div
                             className={css({
                                 height: "fit-content",
@@ -57,8 +61,12 @@ export function IncomeStatementsTable(props: {
                             {filteredIncomeStatements.length === 0 && (
                                 <EmptyState
                                     icon={<IconReportMoney size={48} />}
-                                    title={globalFilter ? "Aucune ligne trouvée" : "Aucune ligne de compte de résultat"}
-                                    subtitle={globalFilter ? undefined : "Ajoutez une ligne pour commencer"}
+                                    title={
+                                        props.globalFilter
+                                            ? "Aucune ligne trouvée"
+                                            : "Aucune ligne de compte de résultat"
+                                    }
+                                    subtitle={props.globalFilter ? undefined : "Ajoutez une ligne pour commencer"}
                                 />
                             )}
                             {filteredIncomeStatements.map((incomeStatement) => {

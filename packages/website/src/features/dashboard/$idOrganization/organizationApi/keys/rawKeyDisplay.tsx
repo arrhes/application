@@ -9,15 +9,43 @@ export function RawKeyDisplay(props: { rawKey: string; onClose: () => void }) {
     async function handleCopy() {
         await navigator.clipboard.writeText(props.rawKey)
         setCopied(true)
-        toast({ title: "Clé copiée" })
+        toast({
+            title: "Clé copiée",
+        })
         setTimeout(() => setCopied(false), 2000)
     }
 
     return (
-        <div className={css({ width: "100%", display: "flex", flexDirection: "column", gap: "1rem" })}>
-            <div className={css({ display: "flex", flexDirection: "column", gap: "0.5rem" })}>
-                <span className={css({ fontSize: "sm", fontWeight: "medium", color: "neutral" })}>Votre clé API</span>
-                <span className={css({ fontSize: "xs", color: "neutral/60" })}>
+        <div
+            className={css({
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                gap: "1rem",
+            })}
+        >
+            <div
+                className={css({
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.5rem",
+                })}
+            >
+                <span
+                    className={css({
+                        fontSize: "sm",
+                        fontWeight: "medium",
+                        color: "neutral",
+                    })}
+                >
+                    Votre clé API
+                </span>
+                <span
+                    className={css({
+                        fontSize: "xs",
+                        color: "neutral/60",
+                    })}
+                >
                     Copiez cette clé maintenant. Elle ne sera plus affichée.
                 </span>
             </div>
@@ -49,7 +77,13 @@ export function RawKeyDisplay(props: { rawKey: string; onClose: () => void }) {
                     />
                 </Button>
             </div>
-            <div className={css({ display: "flex", gap: "0.5rem", justifyContent: "end" })}>
+            <div
+                className={css({
+                    display: "flex",
+                    gap: "0.5rem",
+                    justifyContent: "end",
+                })}
+            >
                 <Button onClick={props.onClose}>
                     <ButtonPlainContent text="Fermer" />
                 </Button>

@@ -8,7 +8,9 @@ import { Section } from "../../../../../../components/layouts/section/section.ts
 import { journalLayoutRoute } from "../../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/journals/$idJournal/journalLayoutRoute.tsx"
 
 export function JournalPage() {
-    const params = useParams({ from: journalLayoutRoute.id })
+    const params = useParams({
+        from: journalLayoutRoute.id,
+    })
 
     return (
         <DataWrapper
@@ -20,7 +22,11 @@ export function JournalPage() {
         >
             {(journal) => {
                 return (
-                    <Section.Item className={css({ flexDirection: "column" })}>
+                    <Section.Item
+                        className={css({
+                            flexDirection: "column",
+                        })}
+                    >
                         <DataBlock.Root>
                             <DataBlock.Header title="Informations" />
                             <DataBlock.Content>

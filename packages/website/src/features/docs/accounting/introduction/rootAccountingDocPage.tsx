@@ -46,7 +46,10 @@ export function RootAccountingDocPage() {
                 </DocParagraph>
             </DocSection>
 
-            <DocNextPage to="/documentation/comptabilité/introduction" label="Introduction à la comptabilité" />
+            <DocNextPage
+                to="/documentation/comptabilité/introduction"
+                label="Introduction à la comptabilité"
+            />
         </DocRoot>
     )
 }

@@ -17,8 +17,15 @@ export function OrganizationApiGeneralPage() {
                         title="Documentation"
                         description="Consultez la documentation complète pour découvrir comment utiliser l'API."
                     >
-                        <LinkButton to="/documentation/api" target="_blank" rel="noopener noreferrer">
-                            <ButtonOutlineContent leftIcon={<IconBook2 />} text="Accéder à la documentation" />
+                        <LinkButton
+                            to="/documentation/api"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <ButtonOutlineContent
+                                leftIcon={<IconBook2 />}
+                                text="Accéder à la documentation"
+                            />
                         </LinkButton>
                     </SettingsSection.Row>
                 </SettingsSection.Root>

@@ -15,7 +15,10 @@ import { DocTip } from "../../../../components/document/docTip.js"
 export function NotesAccountingDocPage() {
     return (
         <DocRoot>
-            <DocHeader title="L'annexe comptable" description="Complément indispensable aux comptes annuels" />
+            <DocHeader
+                title="L'annexe comptable"
+                description="Complément indispensable aux comptes annuels"
+            />
 
             <DocSection title="Définition">
                 <DocDefinition term="Annexe">
@@ -52,7 +55,12 @@ export function NotesAccountingDocPage() {
                 <DocParagraph>
                     L'annexe doit inclure toute information significative qui n'apparaît pas directement dans le bilan
                     ou le compte de résultat. Son contenu varie selon la taille et la nature de l'
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "organisation" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "organisation",
+                        }}
+                    >
                         organisation
                     </DocLink>
                     , mais elle comprend généralement :
@@ -107,16 +115,33 @@ export function NotesAccountingDocPage() {
                 />
 
                 <DocExample title="Seuils pour l'annexe simplifiée">
-                    <p className={css({ fontSize: "sm" })}>
+                    <p
+                        className={css({
+                            fontSize: "sm",
+                        })}
+                    >
                         En France, une entreprise peut bénéficier de l'annexe simplifiée si elle ne dépasse pas deux des
                         trois seuils suivants :
                     </p>
-                    <ul className={css({ marginTop: "2", ml: "4", fontSize: "sm", color: "neutral/70" })}>
+                    <ul
+                        className={css({
+                            marginTop: "2",
+                            ml: "4",
+                            fontSize: "sm",
+                            color: "neutral/70",
+                        })}
+                    >
                         <li>Chiffre d'affaires : 12 millions d'euros</li>
                         <li>Total du bilan : 6 millions d'euros</li>
                         <li>Nombre de salariés : 50</li>
                     </ul>
-                    <p className={css({ marginTop: "2", fontSize: "xs", color: "neutral/60" })}>
+                    <p
+                        className={css({
+                            marginTop: "2",
+                            fontSize: "xs",
+                            color: "neutral/60",
+                        })}
+                    >
                         Ces seuils sont régulièrement révisés par le législateur.
                     </p>
                 </DocExample>
@@ -180,7 +205,10 @@ export function NotesAccountingDocPage() {
                 </DocParagraph>
             </DocSection>
 
-            <DocNextPage to="/documentation/comptabilité/glossaire" label="Glossaire comptable" />
+            <DocNextPage
+                to="/documentation/comptabilité/glossaire"
+                label="Glossaire comptable"
+            />
 
             <DocSources
                 sources={[

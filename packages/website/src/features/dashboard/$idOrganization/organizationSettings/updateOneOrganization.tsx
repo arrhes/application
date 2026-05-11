@@ -25,7 +25,10 @@ export function UpdateOneOrganization(props: {
     const [open, setOpen] = useState(false)
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Modifier les informations de l'organisation" />
@@ -43,18 +46,26 @@ export function UpdateOneOrganization(props: {
                                 body: data,
                             })
                             if (!response.ok) {
-                                toast({ title: "Impossible de modifier l'organisation", variant: "error" })
+                                toast({
+                                    title: "Impossible de modifier l'organisation",
+                                    variant: "error",
+                                })
                                 return false
                             }
 
-                            toast({ title: "Organisation modifiée avec succès", variant: "success" })
+                            toast({
+                                title: "Organisation modifiée avec succès",
+                                variant: "success",
+                            })
                             return true
                         }}
                         onCancel={undefined}
                         onSuccess={async () => {
                             await invalidateData({
                                 routeDefinition: readOneOrganizationRouteDefinition,
-                                body: { idOrganization: props.organization.id },
+                                body: {
+                                    idOrganization: props.organization.id,
+                                },
                             })
 
                             setOpen(false)
@@ -74,7 +85,10 @@ export function UpdateOneOrganization(props: {
                                                 tooltip={undefined}
                                             />
                                             <FormControl>
-                                                <InputText value={field.value} onChange={field.onChange} />
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -92,7 +106,10 @@ export function UpdateOneOrganization(props: {
                                                 tooltip={undefined}
                                             />
                                             <FormControl>
-                                                <InputText value={field.value} onChange={field.onChange} />
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -110,7 +127,11 @@ export function UpdateOneOrganization(props: {
                                                 tooltip={undefined}
                                             />
                                             <FormControl>
-                                                <InputText value={field.value} onChange={field.onChange} type="email" />
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                    type="email"
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>

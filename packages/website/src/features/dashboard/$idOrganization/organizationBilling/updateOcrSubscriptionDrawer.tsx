@@ -31,10 +31,30 @@ function DrawerSection(props: { title: string; description?: string; children: R
                 gap: "0.75rem",
             })}
         >
-            <div className={css({ display: "flex", flexDirection: "column", gap: "0.25rem" })}>
-                <h3 className={css({ fontSize: "sm", fontWeight: "700", color: "neutral" })}>{props.title}</h3>
+            <div
+                className={css({
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.25rem",
+                })}
+            >
+                <h3
+                    className={css({
+                        fontSize: "sm",
+                        fontWeight: "700",
+                        color: "neutral",
+                    })}
+                >
+                    {props.title}
+                </h3>
                 {props.description ? (
-                    <p className={css({ fontSize: "sm", color: "neutral/60", lineHeight: "1.5" })}>
+                    <p
+                        className={css({
+                            fontSize: "sm",
+                            color: "neutral/60",
+                            lineHeight: "1.5",
+                        })}
+                    >
                         {props.description}
                     </p>
                 ) : null}
@@ -62,7 +82,9 @@ export function UpdateOcrSubscriptionDrawer(props: {
         if (open) {
             setQuantityDelta(0)
         }
-    }, [open])
+    }, [
+        open,
+    ])
 
     async function handleSave() {
         const response = await getResponseBodyFromAPI({
@@ -73,16 +95,25 @@ export function UpdateOcrSubscriptionDrawer(props: {
         })
 
         if (response.ok === false) {
-            toast({ title: response.error?.cause ?? "Erreur lors de la mise à jour", variant: "error" })
+            toast({
+                title: response.error?.cause ?? "Erreur lors de la mise à jour",
+                variant: "error",
+            })
             return
         }
-        toast({ title: "Pages OCR mises à jour", variant: "success" })
+        toast({
+            title: "Pages OCR mises à jour",
+            variant: "success",
+        })
         setOpen(false)
         props.onSuccess()
     }
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Ajouter des pages OCR" />
@@ -94,7 +125,13 @@ export function UpdateOcrSubscriptionDrawer(props: {
                             gap: "2rem",
                         })}
                     >
-                        <p className={css({ fontSize: "sm", color: "neutral/70", lineHeight: "1.5" })}>
+                        <p
+                            className={css({
+                                fontSize: "sm",
+                                color: "neutral/70",
+                                lineHeight: "1.5",
+                            })}
+                        >
                             Chaque page supplémentaire est débitée 0,01€ (HT) une seule fois depuis le portefeuille. Les
                             pages achetées restent disponibles tant qu'elles ne sont pas consommées.
                         </p>
@@ -102,11 +139,31 @@ export function UpdateOcrSubscriptionDrawer(props: {
                             title="Ajouter des pages OCR"
                             description="Sélectionnez uniquement les pages supplémentaires à ajouter."
                         >
-                            <div className={css({ display: "flex", flexDirection: "column", gap: "0.5rem" })}>
-                                <InputNumber value={quantityDelta} onChange={setQuantityDelta} min={0} label="pages" />
-                                <div className={css({ display: "flex", gap: "0.25rem", flexWrap: "wrap" })}>
+                            <div
+                                className={css({
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "0.5rem",
+                                })}
+                            >
+                                <InputNumber
+                                    value={quantityDelta}
+                                    onChange={setQuantityDelta}
+                                    min={0}
+                                    label="pages"
+                                />
+                                <div
+                                    className={css({
+                                        display: "flex",
+                                        gap: "0.25rem",
+                                        flexWrap: "wrap",
+                                    })}
+                                >
                                     {OCR_PAGE_TIERS.map((tier) => (
-                                        <Button key={tier} onClick={() => setQuantityDelta(tier)}>
+                                        <Button
+                                            key={tier}
+                                            onClick={() => setQuantityDelta(tier)}
+                                        >
                                             <ButtonOutlineContent
                                                 text={tier === 0 ? "0" : `${tier.toLocaleString("fr-FR")} pages`}
                                             />
@@ -122,7 +179,10 @@ export function UpdateOcrSubscriptionDrawer(props: {
                             <div
                                 className={css({
                                     display: "grid",
-                                    gridTemplateColumns: { base: "1fr", md: "repeat(3, minmax(0, 1fr))" },
+                                    gridTemplateColumns: {
+                                        base: "1fr",
+                                        md: "repeat(3, minmax(0, 1fr))",
+                                    },
                                     gap: "0.75rem",
                                 })}
                             >
@@ -135,8 +195,21 @@ export function UpdateOcrSubscriptionDrawer(props: {
                                         background: "neutral/1",
                                     })}
                                 >
-                                    <span className={css({ fontSize: "xs", color: "neutral/50" })}>Quota actuel</span>
-                                    <span className={css({ fontSize: "sm", fontWeight: "600", color: "neutral" })}>
+                                    <span
+                                        className={css({
+                                            fontSize: "xs",
+                                            color: "neutral/50",
+                                        })}
+                                    >
+                                        Quota actuel
+                                    </span>
+                                    <span
+                                        className={css({
+                                            fontSize: "sm",
+                                            fontWeight: "600",
+                                            color: "neutral",
+                                        })}
+                                    >
                                         {props.currentPagesLeft.toLocaleString("fr-FR")} pages
                                     </span>
                                 </div>
@@ -149,8 +222,21 @@ export function UpdateOcrSubscriptionDrawer(props: {
                                         background: deltaAmountInCents > 0 ? "warning/5" : "neutral/1",
                                     })}
                                 >
-                                    <span className={css({ fontSize: "xs", color: "neutral/50" })}>Nouveau quota</span>
-                                    <span className={css({ fontSize: "sm", fontWeight: "600", color: "neutral" })}>
+                                    <span
+                                        className={css({
+                                            fontSize: "xs",
+                                            color: "neutral/50",
+                                        })}
+                                    >
+                                        Nouveau quota
+                                    </span>
+                                    <span
+                                        className={css({
+                                            fontSize: "sm",
+                                            fontWeight: "600",
+                                            color: "neutral",
+                                        })}
+                                    >
                                         {nextPagesLeft.toLocaleString("fr-FR")} pages
                                     </span>
                                 </div>
@@ -163,10 +249,21 @@ export function UpdateOcrSubscriptionDrawer(props: {
                                         background: "neutral/1",
                                     })}
                                 >
-                                    <span className={css({ fontSize: "xs", color: "neutral/50" })}>
+                                    <span
+                                        className={css({
+                                            fontSize: "xs",
+                                            color: "neutral/50",
+                                        })}
+                                    >
                                         Débité du portefeuille
                                     </span>
-                                    <span className={css({ fontSize: "sm", fontWeight: "600", color: "neutral" })}>
+                                    <span
+                                        className={css({
+                                            fontSize: "sm",
+                                            fontWeight: "600",
+                                            color: "neutral",
+                                        })}
+                                    >
                                         {formatEuros(deltaAmountTTCInCents)} TTC
                                     </span>
                                 </div>
@@ -185,9 +282,15 @@ export function UpdateOcrSubscriptionDrawer(props: {
                                     setOpen(false)
                                 }}
                             >
-                                <ButtonOutlineContent leftIcon={<IconX />} text="Annuler" />
+                                <ButtonOutlineContent
+                                    leftIcon={<IconX />}
+                                    text="Annuler"
+                                />
                             </Button>
-                            <Button onClick={() => setConfirmOpen(true)} isDisabled={quantityDelta === 0}>
+                            <Button
+                                onClick={() => setConfirmOpen(true)}
+                                isDisabled={quantityDelta === 0}
+                            >
                                 <ButtonPlainContent
                                     leftIcon={<IconCreditCard />}
                                     text="Confirmer l'achat"
@@ -200,7 +303,9 @@ export function UpdateOcrSubscriptionDrawer(props: {
                             onOpenChange={setConfirmOpen}
                             title="Confirmer l'achat de pages OCR"
                             description={`${formatPageDelta(quantityDelta)} seront ajoutées et ${formatEuros(deltaAmountTTCInCents)} (TTC) seront débités de votre portefeuille (${formatEuros(deltaAmountInCents)} HT + TVA ${VAT_PERCENT}%).`}
-                            submitButtonProps={{ text: "Confirmer l'achat" }}
+                            submitButtonProps={{
+                                text: "Confirmer l'achat",
+                            }}
                             onSubmit={handleSave}
                         />
                     </div>

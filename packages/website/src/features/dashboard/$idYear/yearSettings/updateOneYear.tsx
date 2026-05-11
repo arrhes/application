@@ -20,7 +20,10 @@ export function UpdateOneYear(props: { year: v.InferOutput<typeof returnedSchema
     const [open, setOpen] = useState(false)
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Modifier les informations de l'exercice" />
@@ -38,11 +41,17 @@ export function UpdateOneYear(props: { year: v.InferOutput<typeof returnedSchema
                                 body: data,
                             })
                             if (!response.ok) {
-                                toast({ title: "Impossible de modifier l'exercice", variant: "error" })
+                                toast({
+                                    title: "Impossible de modifier l'exercice",
+                                    variant: "error",
+                                })
                                 return false
                             }
 
-                            toast({ title: "Exercice modifié avec succès", variant: "success" })
+                            toast({
+                                title: "Exercice modifié avec succès",
+                                variant: "success",
+                            })
                             return true
                         }}
                         onCancel={undefined}
@@ -71,7 +80,10 @@ export function UpdateOneYear(props: { year: v.InferOutput<typeof returnedSchema
                                                 tooltip={undefined}
                                             />
                                             <FormControl>
-                                                <InputDate value={field.value} onChange={field.onChange} />
+                                                <InputDate
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -89,7 +101,10 @@ export function UpdateOneYear(props: { year: v.InferOutput<typeof returnedSchema
                                                 tooltip={undefined}
                                             />
                                             <FormControl>
-                                                <InputDate value={field.value} onChange={field.onChange} />
+                                                <InputDate
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -129,7 +144,10 @@ export function UpdateOneYear(props: { year: v.InferOutput<typeof returnedSchema
                                                 tooltip={undefined}
                                             />
                                             <FormControl>
-                                                <InputText value={field.value} onChange={field.onChange} />
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>

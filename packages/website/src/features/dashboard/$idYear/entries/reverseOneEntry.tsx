@@ -27,7 +27,10 @@ export function ReverseOneEntry(props: {
         })
 
         if (reverseResponse.ok === false) {
-            toast({ title: "Erreur lors de l'extourne de l'écriture", variant: "error" })
+            toast({
+                title: "Erreur lors de l'extourne de l'écriture",
+                variant: "error",
+            })
             return
         }
 
@@ -52,7 +55,10 @@ export function ReverseOneEntry(props: {
             }),
         ])
 
-        toast({ title: "Écriture extournée", variant: "success" })
+        toast({
+            title: "Écriture extournée",
+            variant: "success",
+        })
 
         applicationRouter.navigate({
             to: "/dashboard/organisations/$idOrganization/exercices/$idYear/écritures/$idEntry",
@@ -74,7 +80,9 @@ export function ReverseOneEntry(props: {
                     L'écriture originale ne sera pas modifiée.
                 </>
             }
-            submitButtonProps={{ text: "Extourner l'écriture" }}
+            submitButtonProps={{
+                text: "Extourner l'écriture",
+            }}
             onSubmit={onSubmit}
         >
             {props.children}

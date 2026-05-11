@@ -1,8 +1,12 @@
 import { css } from "@arrhes/ui/utilities/cn.js"
 
-export function DocHeader(props: { title: string; description: string }) {
+export function DocHeader(props: { title: string; description?: string }) {
     return (
-        <div className={css({ mb: "8" })}>
+        <div
+            className={css({
+                mb: "8",
+            })}
+        >
             <h1
                 className={css({
                     fontSize: "lg",
@@ -13,15 +17,17 @@ export function DocHeader(props: { title: string; description: string }) {
             >
                 {props.title}
             </h1>
-            <p
-                className={css({
-                    color: "neutral/60",
-                    fontSize: "sm",
-                    lineHeight: "relaxed",
-                })}
-            >
-                {props.description}
-            </p>
+            {props.description && (
+                <p
+                    className={css({
+                        color: "neutral/60",
+                        fontSize: "sm",
+                        lineHeight: "relaxed",
+                    })}
+                >
+                    {props.description}
+                </p>
+            )}
         </div>
     )
 }

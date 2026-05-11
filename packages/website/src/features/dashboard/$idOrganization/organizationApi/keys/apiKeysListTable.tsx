@@ -10,7 +10,10 @@ import { ApiKeyListTableRow } from "./apiKeyListTableRow.tsx"
 export function ApiKeysListTable(_props: { idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"] }) {
     return (
         <ListTable.Root>
-            <DataWrapper routeDefinition={readAllApiKeysRouteDefinition} body={{}}>
+            <DataWrapper
+                routeDefinition={readAllApiKeysRouteDefinition}
+                body={{}}
+            >
                 {(apiKeys) => {
                     if (apiKeys.length === 0) {
                         return (
@@ -21,7 +24,12 @@ export function ApiKeysListTable(_props: { idOrganization: v.InferOutput<typeof 
                             />
                         )
                     }
-                    return apiKeys.map((apiKey) => <ApiKeyListTableRow key={apiKey.id} apiKey={apiKey} />)
+                    return apiKeys.map((apiKey) => (
+                        <ApiKeyListTableRow
+                            key={apiKey.id}
+                            apiKey={apiKey}
+                        />
+                    ))
                 }}
             </DataWrapper>
         </ListTable.Root>

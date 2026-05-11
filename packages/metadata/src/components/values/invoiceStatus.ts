@@ -1,1 +1,4 @@
-export const invoiceStatus = <const>["draft", "generated"]
+export const invoiceStatus = <const>[
+    "draft",
+    "generated",
+]

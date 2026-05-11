@@ -3,7 +3,13 @@ import { Chip, type ChipColors } from "../layouts/chip.js"
 import { FormatBase } from "./formatBase.js"
 import { FormatNull } from "./formatNull.js"
 
-export function formatSelect(key: string | null | undefined, options: { key: string; label: string }[]) {
+export function formatSelect(
+    key: string | null | undefined,
+    options: {
+        key: string
+        label: string
+    }[],
+) {
     return options.find((x) => x.key === key)?.label ?? ""
 }
 
@@ -22,7 +28,10 @@ export function FormatSelect(props: FormatSelect) {
     if (!option) return <FormatNull />
     return (
         <FormatBase className={props.className}>
-            <Chip text={option} color={props.color} />
+            <Chip
+                text={option}
+                color={props.color}
+            />
         </FormatBase>
     )
 }

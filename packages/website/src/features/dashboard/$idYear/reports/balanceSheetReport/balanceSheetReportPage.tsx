@@ -24,12 +24,22 @@ const requiredKeys = [
 ] as const satisfies readonly YearDataKey[]
 
 export function BalanceSheetReportPage() {
-    const params = useParams({ from: balanceSheetReportRoute.id })
+    const params = useParams({
+        from: balanceSheetReportRoute.id,
+    })
     const [selectedJournalId, setSelectedJournalId] = useState<string | null>(null)
-    const [selectedTags, setSelectedTags] = useState<Array<{ key: string; label: string }>>([])
+    const [selectedTags, setSelectedTags] = useState<
+        Array<{
+            key: string
+            label: string
+        }>
+    >([])
     const [activeTab, setActiveTab] = useState<"asset" | "liability">("asset")
     return (
-        <YearDataWrapper idYear={params.idYear} requiredKeys={requiredKeys}>
+        <YearDataWrapper
+            idYear={params.idYear}
+            requiredKeys={requiredKeys}
+        >
             {({ accounts, entries, entryLines, balanceSheets, journals, tags, entryTags }) => {
                 let filteredEntryLines = entryLines.filter(
                     (entryLine) => entryLine.isComputedForBalanceSheetReport === true,
@@ -41,7 +51,10 @@ export function BalanceSheetReportPage() {
                     label: `${j.code} ${j.label ?? ""}`.trim(),
                 }))
 
-                const tagOptions = tags.map((t) => ({ key: t.id, label: t.label }))
+                const tagOptions = tags.map((t) => ({
+                    key: t.id,
+                    label: t.label,
+                }))
 
                 if (selectedJournalId) {
                     const matchingEntryIds = new Set(
@@ -88,7 +101,11 @@ export function BalanceSheetReportPage() {
                                             accounts={filteredAccounts}
                                         />
                                     </div>
-                                    <div className={css({ width: "100%" })}>
+                                    <div
+                                        className={css({
+                                            width: "100%",
+                                        })}
+                                    >
                                         <div
                                             className={css({
                                                 display: "flex",
@@ -99,7 +116,6 @@ export function BalanceSheetReportPage() {
                                                 borderBottomColor: "neutral/5",
                                                 paddingBottom: "0.5rem",
                                                 marginBottom: "1rem",
-                                                "@media print": { display: "none" },
                                             })}
                                         >
                                             <Button onClick={() => setActiveTab("asset")}>
@@ -118,10 +134,18 @@ export function BalanceSheetReportPage() {
                                             </Button>
                                         </div>
                                         <div
-                                            style={{ display: activeTab === "asset" ? undefined : "none" }}
-                                            className={css({ width: "100%" })}
+                                            style={{
+                                                display: activeTab === "asset" ? undefined : "none",
+                                            }}
+                                            className={css({
+                                                width: "100%",
+                                            })}
                                         >
-                                            <Box className={css({ width: "100%" })}>
+                                            <Box
+                                                className={css({
+                                                    width: "100%",
+                                                })}
+                                            >
                                                 <BalanceSheetAssetsReportTable
                                                     balanceSheets={balanceSheets.filter(
                                                         (balanceSheet) => balanceSheet.side === "asset",
@@ -132,10 +156,18 @@ export function BalanceSheetReportPage() {
                                             </Box>
                                         </div>
                                         <div
-                                            style={{ display: activeTab === "liability" ? undefined : "none" }}
-                                            className={css({ width: "100%" })}
+                                            style={{
+                                                display: activeTab === "liability" ? undefined : "none",
+                                            }}
+                                            className={css({
+                                                width: "100%",
+                                            })}
                                         >
-                                            <Box className={css({ width: "100%" })}>
+                                            <Box
+                                                className={css({
+                                                    width: "100%",
+                                                })}
+                                            >
                                                 <BalanceSheetLiabilitiesReportTable
                                                     balanceSheets={balanceSheets.filter(
                                                         (balanceSheet) => balanceSheet.side === "liability",

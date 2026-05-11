@@ -17,7 +17,9 @@ import { productName } from "../../../../utilities/variables.js"
 export const createWalletWithdrawalRoute = apiFactory
     .createApp()
     .post(createWalletWithdrawalRouteDefinition.path, async (c) => {
-        const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+        const { user, idOrganization } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: createWalletWithdrawalRouteDefinition.schemas.body,
@@ -140,7 +142,9 @@ export const createWalletWithdrawalRoute = apiFactory
                 value: formatAmountFromCents(body.amountInCents),
             },
             description: `${productName} - Retrait portefeuille`,
-            metadata: { idOrganization },
+            metadata: {
+                idOrganization,
+            },
         })
 
         const mappedStatus = mapMollieRefundStatusToPaymentStatus(refund.status)

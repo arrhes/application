@@ -10,7 +10,10 @@ import { YearListTableRow } from "./yearListTableRow.tsx"
 export function YearsListTable(_props: { idOrganization: v.InferOutput<typeof schemas.organization>["id"] }) {
     return (
         <ListTable.Root>
-            <DataWrapper routeDefinition={readAllYearsRouteDefinition} body={{}}>
+            <DataWrapper
+                routeDefinition={readAllYearsRouteDefinition}
+                body={{}}
+            >
                 {(years) => {
                     if (years.length === 0) {
                         return (
@@ -21,7 +24,12 @@ export function YearsListTable(_props: { idOrganization: v.InferOutput<typeof sc
                             />
                         )
                     }
-                    return years.map((year) => <YearListTableRow key={year.id} year={year} />)
+                    return years.map((year) => (
+                        <YearListTableRow
+                            key={year.id}
+                            year={year}
+                        />
+                    ))
                 }}
             </DataWrapper>
         </ListTable.Root>

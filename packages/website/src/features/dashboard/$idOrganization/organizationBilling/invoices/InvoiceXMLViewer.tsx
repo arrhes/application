@@ -57,10 +57,23 @@ export function InvoiceXMLViewer(props: { invoice: v.InferOutput<typeof returned
         return () => {
             abortController.abort()
         }
-    }, [props.invoice.id, props.invoice.xmlStorageKey])
+    }, [
+        props.invoice.id,
+        props.invoice.xmlStorageKey,
+    ])
 
-    const parsed = useMemo(() => parseInvoiceSummary(xmlContent), [xmlContent])
-    const prettyXmlContent = useMemo(() => createPrettyXml(xmlContent), [xmlContent])
+    const parsed = useMemo(
+        () => parseInvoiceSummary(xmlContent),
+        [
+            xmlContent,
+        ],
+    )
+    const prettyXmlContent = useMemo(
+        () => createPrettyXml(xmlContent),
+        [
+            xmlContent,
+        ],
+    )
 
     if (isLoading === true) {
         return <CircularLoader text="Chargement du XML..." />
@@ -92,7 +105,12 @@ export function InvoiceXMLViewer(props: { invoice: v.InferOutput<typeof returned
                 gap: "1rem",
             })}
         >
-            <div className={css({ display: "flex", justifyContent: "flex-end" })}>
+            <div
+                className={css({
+                    display: "flex",
+                    justifyContent: "flex-end",
+                })}
+            >
                 <Button onClick={() => setIsRawView((value) => !value)}>
                     <ButtonOutlineContent
                         leftIcon={isRawView ? <IconTable /> : <IconCode />}

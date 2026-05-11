@@ -25,7 +25,10 @@ export function DeleteOneOrganization(props: {
                     Cette action est irréversible.
                 </>
             }
-            submitButtonProps={{ color: "danger", text: "Supprimer l'organisation" }}
+            submitButtonProps={{
+                color: "danger",
+                text: "Supprimer l'organisation",
+            }}
             onSubmit={async () => {
                 const deleteResponse = await getResponseBodyFromAPI({
                     routeDefinition: deleteOneOrganizationRouteDefinition,
@@ -33,7 +36,10 @@ export function DeleteOneOrganization(props: {
                 })
 
                 if (deleteResponse.ok === false) {
-                    toast({ title: "Erreur lors de la suppression de l'organisation", variant: "error" })
+                    toast({
+                        title: "Erreur lors de la suppression de l'organisation",
+                        variant: "error",
+                    })
                     return
                 }
 
@@ -42,9 +48,14 @@ export function DeleteOneOrganization(props: {
                     body: {},
                 })
 
-                toast({ title: "Organisation supprimée", variant: "success" })
+                toast({
+                    title: "Organisation supprimée",
+                    variant: "success",
+                })
 
-                applicationRouter.navigate({ to: "/dashboard/organisations" })
+                applicationRouter.navigate({
+                    to: "/dashboard/organisations",
+                })
             }}
         >
             {props.children}

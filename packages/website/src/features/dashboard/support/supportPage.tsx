@@ -25,17 +25,23 @@ function SupportBanner() {
         return null
     }
 
-    if ((subscription.data?.totalSubscriptionAmountInCents ?? 0) > 0) {
+    if ((subscription.data?.licenceAmount ?? 0) > 0) {
         return (
-            <Banner variant="success" title="Support prioritaire">
-                Vos tickets sont traités en priorité grâce à votre abonnement Avancé.
+            <Banner
+                variant="success"
+                title="Support prioritaire"
+            >
+                Vos tickets sont traités en priorité grâce à votre licence active.
             </Banner>
         )
     }
 
     return (
-        <Banner variant="information" title="Support standard">
-            Abonnez-vous au plan Avancé pour bénéficier d'un traitement prioritaire de vos tickets.
+        <Banner
+            variant="information"
+            title="Support standard"
+        >
+            Activez une licence pour bénéficier d'un traitement prioritaire de vos tickets.
         </Banner>
     )
 }
@@ -57,13 +63,21 @@ export function SupportPage() {
                             })}
                         >
                             <CreateOneTicket>
-                                <ButtonPlainContent leftIcon={<IconPlus />} text="Créer un ticket" />
+                                <ButtonPlainContent
+                                    leftIcon={<IconPlus />}
+                                    text="Créer un ticket"
+                                />
                             </CreateOneTicket>
                         </div>
                         <TicketsListTable />
                     </Section.Item>
                 </Section.Root>
-                <Box className={css({ padding: "1rem", gap: "1rem" })}>
+                <Box
+                    className={css({
+                        padding: "1rem",
+                        gap: "1rem",
+                    })}
+                >
                     <span>Vous pouvez aussi nous contacter directement via</span>
                     <div
                         className={css({
@@ -74,13 +88,22 @@ export function SupportPage() {
                         })}
                     >
                         <a href="mailto:contact@arrhes.com">
-                            <ButtonOutlineContent leftIcon={<IconMail />} text="Email" />
+                            <ButtonOutlineContent
+                                leftIcon={<IconMail />}
+                                text="Email"
+                            />
                         </a>
                         <a href="https://github.com/arrhes">
-                            <ButtonOutlineContent leftIcon={<IconBrandGithub />} text="Github" />
+                            <ButtonOutlineContent
+                                leftIcon={<IconBrandGithub />}
+                                text="Github"
+                            />
                         </a>
                         <a href="https://linkedin.com/arrhes">
-                            <ButtonOutlineContent leftIcon={<IconBrandLinkedin />} text="LinkedIn" />
+                            <ButtonOutlineContent
+                                leftIcon={<IconBrandLinkedin />}
+                                text="LinkedIn"
+                            />
                         </a>
                     </div>
                 </Box>

@@ -3,7 +3,11 @@ import { DocTip } from "./docTip.js"
 
 export function DocExample(props: { title?: string; children: React.ReactNode }) {
     return (
-        <DocTip variant="neutral" title={props.title ?? "Exemple"} icon={IconInfoCircle}>
+        <DocTip
+            variant="neutral"
+            title={props.title ?? "Exemple"}
+            icon={IconInfoCircle}
+        >
             {props.children}
         </DocTip>
     )

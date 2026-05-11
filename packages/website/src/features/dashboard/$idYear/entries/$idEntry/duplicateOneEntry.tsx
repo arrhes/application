@@ -30,7 +30,10 @@ export function DuplicateOneEntry(props: {
         })
 
         if (duplicateResponse.ok === false) {
-            toast({ title: "Erreur lors de la duplication de l'écriture", variant: "error" })
+            toast({
+                title: "Erreur lors de la duplication de l'écriture",
+                variant: "error",
+            })
             return
         }
 
@@ -49,7 +52,10 @@ export function DuplicateOneEntry(props: {
             }),
         ])
 
-        toast({ title: "Écriture dupliquée", variant: "success" })
+        toast({
+            title: "Écriture dupliquée",
+            variant: "success",
+        })
 
         applicationRouter.navigate({
             to: "/dashboard/organisations/$idOrganization/exercices/$idYear/écritures/$idEntry",
@@ -68,7 +74,10 @@ export function DuplicateOneEntry(props: {
     }
 
     return (
-        <Dialog.Root open={open} onOpenChange={(value) => setOpen(value)}>
+        <Dialog.Root
+            open={open}
+            onOpenChange={(value) => setOpen(value)}
+        >
             <Dialog.Trigger
                 onClick={(event) => {
                     setOpen(true)
@@ -100,8 +109,14 @@ export function DuplicateOneEntry(props: {
                         <Button onClick={() => onCancel()}>
                             <ButtonGhostContent text="Annuler" />
                         </Button>
-                        <Button onClick={() => onSubmit()} hasLoader>
-                            <ButtonPlainContent leftIcon={<IconCopyCheck />} text="Dupliquer l'écriture" />
+                        <Button
+                            onClick={() => onSubmit()}
+                            hasLoader
+                        >
+                            <ButtonPlainContent
+                                leftIcon={<IconCopyCheck />}
+                                text="Dupliquer l'écriture"
+                            />
                         </Button>
                     </Dialog.Footer>
                 </Dialog.Content>

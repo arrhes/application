@@ -8,7 +8,9 @@ import { Section } from "../../../../../../../components/layouts/section/section
 import { computationLayoutRoute } from "../../../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/computations/$idComputation/computationLayoutRoute.tsx"
 
 export function ComputationPage() {
-    const params = useParams({ from: computationLayoutRoute.id })
+    const params = useParams({
+        from: computationLayoutRoute.id,
+    })
 
     return (
         <DataWrapper
@@ -20,7 +22,11 @@ export function ComputationPage() {
         >
             {(computation) => {
                 return (
-                    <Section.Item className={css({ flexDirection: "column" })}>
+                    <Section.Item
+                        className={css({
+                            flexDirection: "column",
+                        })}
+                    >
                         <DataBlock.Root>
                             <DataBlock.Header title="Informations" />
                             <DataBlock.Content>

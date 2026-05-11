@@ -79,7 +79,9 @@ export function ToolsAiDocPage() {
             if (bucket) {
                 bucket.push(tool)
             } else {
-                grouped.set(category, [tool])
+                grouped.set(category, [
+                    tool,
+                ])
             }
         }
 
@@ -87,14 +89,18 @@ export function ToolsAiDocPage() {
             tools.sort((a, b) => a.labelFr.localeCompare(b.labelFr, "fr"))
         }
 
-        return [...grouped.entries()].sort((a, b) => {
+        return [
+            ...grouped.entries(),
+        ].sort((a, b) => {
             const indexA = categoryOrder.indexOf(a[0] as (typeof categoryOrder)[number])
             const indexB = categoryOrder.indexOf(b[0] as (typeof categoryOrder)[number])
             const safeA = indexA === -1 ? categoryOrder.length : indexA
             const safeB = indexB === -1 ? categoryOrder.length : indexB
             return safeA - safeB
         })
-    }, [search])
+    }, [
+        search,
+    ])
 
     const totalToolCount = agentToolsCatalog.length
 
@@ -133,7 +139,11 @@ export function ToolsAiDocPage() {
             </DocTip>
 
             {/* Search bar */}
-            <div className={css({ marginBottom: "1rem" })}>
+            <div
+                className={css({
+                    marginBottom: "1rem",
+                })}
+            >
                 <input
                     type="text"
                     value={search}
@@ -149,8 +159,12 @@ export function ToolsAiDocPage() {
                         fontSize: "sm",
                         color: "neutral",
                         outline: "none",
-                        _focus: { borderColor: "primary" },
-                        _placeholder: { color: "neutral/30" },
+                        _focus: {
+                            borderColor: "primary",
+                        },
+                        _placeholder: {
+                            color: "neutral/30",
+                        },
                     })}
                 />
             </div>
@@ -164,7 +178,14 @@ export function ToolsAiDocPage() {
                 })}
             >
                 {groupedTools.map(([category, tools]) => (
-                    <div key={category} className={css({ display: "flex", flexDirection: "column", gap: "0.5rem" })}>
+                    <div
+                        key={category}
+                        className={css({
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "0.5rem",
+                        })}
+                    >
                         <h3
                             className={css({
                                 fontSize: "sm",
@@ -243,7 +264,13 @@ export function ToolsAiDocPage() {
                 ))}
 
                 {groupedTools.length === 0 && (
-                    <p className={css({ fontSize: "sm", color: "neutral/60", margin: 0 })}>
+                    <p
+                        className={css({
+                            fontSize: "sm",
+                            color: "neutral/60",
+                            margin: 0,
+                        })}
+                    >
                         Aucun outil ne correspond à votre recherche.
                     </p>
                 )}

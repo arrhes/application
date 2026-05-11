@@ -4,15 +4,7 @@ import { Exception } from "#src/utilities/exception.js"
 
 export async function redisClient() {
     try {
-        const redisClient = new Redis({
-            host: ContextEnv.REDIS_HOST,
-            port: Number(ContextEnv.REDIS_PORT),
-            username: ContextEnv.REDIS_USERNAME || undefined,
-            password: ContextEnv.REDIS_PASSWORD || undefined,
-            ...(ContextEnv.ENV === "production"
-                ? { tls: { host: ContextEnv.REDIS_HOST, rejectUnauthorized: false } }
-                : {}),
-        })
+        const redisClient = new Redis(ContextEnv.REDIS_URL)
         await redisClient.ping()
 
         return redisClient

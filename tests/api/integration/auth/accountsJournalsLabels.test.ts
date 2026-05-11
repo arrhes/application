@@ -20,7 +20,10 @@ describe("Accounts", () => {
             const response = await authenticatedRequest({
                 session,
                 path: "/auth/read-all-accounts",
-                body: { idOrganization, idYear },
+                body: {
+                    idOrganization,
+                    idYear,
+                },
             })
             expect(response.status).toBe(200)
 
@@ -42,7 +45,10 @@ describe("Accounts", () => {
             const accountsResponse = await authenticatedRequest({
                 session,
                 path: "/auth/read-all-accounts",
-                body: { idOrganization, idYear },
+                body: {
+                    idOrganization,
+                    idYear,
+                },
             })
             const accounts = accountsResponse.data as any[]
             const classAccount = accounts.find((a: any) => a.number.length <= 2)
@@ -77,7 +83,10 @@ describe("Journals", () => {
             const response = await authenticatedRequest({
                 session,
                 path: "/auth/read-all-journals",
-                body: { idOrganization, idYear },
+                body: {
+                    idOrganization,
+                    idYear,
+                },
             })
             expect(response.status).toBe(200)
 
@@ -121,7 +130,10 @@ describe("Tags", () => {
             const response = await authenticatedRequest({
                 session,
                 path: "/auth/read-all-tags",
-                body: { idOrganization, idYear },
+                body: {
+                    idOrganization,
+                    idYear,
+                },
             })
             expect(response.status).toBe(200)
 

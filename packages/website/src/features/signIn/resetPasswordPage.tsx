@@ -60,18 +60,35 @@ export function ResetPasswordPage() {
                         })}
                     >
                         <LinkButton to="/">
-                            <ButtonGhostContent leftIcon={<Logo />} text="Dashboard" />
+                            <ButtonGhostContent
+                                leftIcon={<Logo />}
+                                text="Dashboard"
+                            />
                         </LinkButton>
-                        <LinkButton to="/documentation" title="Documentation">
+                        <LinkButton
+                            to="/documentation"
+                            title="Documentation"
+                        >
                             <ButtonGhostContent
                                 leftIcon={<IconBook2 />}
-                                className={css({ width: "100%", justifyContent: "center" })}
+                                className={css({
+                                    width: "100%",
+                                    justifyContent: "center",
+                                })}
                             />
                         </LinkButton>
                     </div>
 
-                    <LinkButton to="/connexion" className={css({ width: "fit-content" })}>
-                        <ButtonGhostContent leftIcon={<IconArrowLeft />} text="Retour à la connexion" />
+                    <LinkButton
+                        to="/connexion"
+                        className={css({
+                            width: "fit-content",
+                        })}
+                    >
+                        <ButtonGhostContent
+                            leftIcon={<IconArrowLeft />}
+                            text="Retour à la connexion"
+                        />
                     </LinkButton>
 
                     <div
@@ -106,7 +123,10 @@ export function ResetPasswordPage() {
                         submitButtonProps={{
                             leftIcon: <IconMail />,
                             text: "Recevoir un nouveau mot de passe",
-                            className: css({ width: "100%", justifyContent: "center" }),
+                            className: css({
+                                width: "100%",
+                                justifyContent: "center",
+                            }),
                         }}
                         submitOnPressEnterKey={true}
                         onSubmit={async (data) => {
@@ -148,7 +168,11 @@ export function ResetPasswordPage() {
                                             tooltip={undefined}
                                         />
                                         <FormControl>
-                                            <InputText value={field.value} onChange={field.onChange} type="email" />
+                                            <InputText
+                                                value={field.value}
+                                                onChange={field.onChange}
+                                                type="email"
+                                            />
                                         </FormControl>
                                         <FormError />
                                     </FormItem>
@@ -157,7 +181,12 @@ export function ResetPasswordPage() {
                         )}
                     </FormRoot>
 
-                    <p className={css({ fontSize: "sm", color: "neutral/60" })}>
+                    <p
+                        className={css({
+                            fontSize: "sm",
+                            color: "neutral/60",
+                        })}
+                    >
                         Après connexion, modifiez ce mot de passe temporaire depuis votre profil pour sécuriser votre
                         compte.
                     </p>

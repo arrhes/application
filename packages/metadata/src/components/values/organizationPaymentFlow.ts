@@ -1,1 +1,4 @@
-export const organizationPaymentFlow = <const>["debit", "credit"]
+export const organizationPaymentFlow = <const>[
+    "debit",
+    "credit",
+]

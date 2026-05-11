@@ -45,14 +45,21 @@ export function RootDashboardDocPage() {
                     })}
                 >
                     <LinkButton to="/documentation/dashboard/démarrage">
-                        <ButtonOutlineContent text="Démarrage" rightIcon={<IconChevronRight />} />
+                        <ButtonOutlineContent
+                            text="Démarrage"
+                            rightIcon={<IconChevronRight />}
+                        />
                     </LinkButton>
                 </div>
             </div>
 
             <DocTip variant="info">
                 Vous avez trouvé un bug ? Vous souhaitez ajouter une fonctionnalité ?{" "}
-                <a href="https://github.com/arrhes/application/issues" target="_blank" rel="noopener noreferrer">
+                <a
+                    href="https://github.com/arrhes/application/issues"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
                     <LinkContent>Ouvrez un ticket sur GitHub</LinkContent>
                 </a>{" "}
                 pour que nous puissions discuter de ça rapidement.

@@ -10,7 +10,9 @@ import { updateOne } from "../../../../utilities/sql/updateOne.js"
 export const adminCreateOneTicketMessageRoute = apiFactory
     .createApp()
     .post(adminCreateOneTicketMessageRouteDefinition.path, async (c) => {
-        const { adminUser, user } = await checkAdminUserSessionMiddleware({ context: c })
+        const { adminUser, user } = await checkAdminUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: adminCreateOneTicketMessageRouteDefinition.schemas.body,

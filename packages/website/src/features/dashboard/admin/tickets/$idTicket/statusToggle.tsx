@@ -28,13 +28,18 @@ export function StatusToggle(props: { idTicket: string; currentStatus: string })
         if (response.ok) {
             await invalidateData({
                 routeDefinition: adminReadOneTicketRouteDefinition,
-                body: { idTicket: props.idTicket },
+                body: {
+                    idTicket: props.idTicket,
+                },
             })
         }
     }
 
     return (
-        <Button onClick={handleToggle} isDisabled={isUpdating}>
+        <Button
+            onClick={handleToggle}
+            isDisabled={isUpdating}
+        >
             {isClosing ? (
                 <ButtonOutlineContent
                     leftIcon={<IconLock />}

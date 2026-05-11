@@ -15,7 +15,10 @@ import { DocTip } from "../../../../components/document/docTip.tsx"
 export function DoubleEntryAccountingDocPage() {
     return (
         <DocRoot>
-            <DocHeader title="La partie double" description="Le principe fondamental de la comptabilité moderne" />
+            <DocHeader
+                title="La partie double"
+                description="Le principe fondamental de la comptabilité moderne"
+            />
 
             <DocSection title="Le principe de la partie double">
                 <DocParagraph>
@@ -37,23 +40,48 @@ export function DoubleEntryAccountingDocPage() {
                 </DocParagraph>
                 <DocParagraph>
                     Concrètement, chaque opération de l'organisation est notée dans ce qu'on appelle un{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "journal" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "journal",
+                        }}
+                    >
                         journal
                     </DocLink>
                     , sous la forme d'une{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "ecriture-comptable" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "ecriture-comptable",
+                        }}
+                    >
                         écriture
                     </DocLink>
                     . Une écriture comporte au moins deux lignes. Chaque ligne fait correspondre ce qu'on appelle un{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "compte" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "compte",
+                        }}
+                    >
                         compte
                     </DocLink>
                     , à un montant, soit au{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "debit" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "debit",
+                        }}
+                    >
                         débit
                     </DocLink>
                     , soit au{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "credit" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "credit",
+                        }}
+                    >
                         crédit
                     </DocLink>
                     . Peu importe le nombre de lignes, la somme des montants débités doit toujours être égale à la somme
@@ -65,14 +93,36 @@ export function DoubleEntryAccountingDocPage() {
                     <p>
                         Voici deux écritures extraites du journal, correspondant à deux opérations de l'organisation :
                     </p>
-                    <p className={css({ marginTop: "2" })}>
+                    <p
+                        className={css({
+                            marginTop: "2",
+                        })}
+                    >
                         Achat en espèces de fournitures de bureau pour la somme de 100,00€.
                     </p>
                     <DocTable
-                        headers={["Date", "Compte", "Libellé", "Débit", "Crédit"]}
+                        headers={[
+                            "Date",
+                            "Compte",
+                            "Libellé",
+                            "Débit",
+                            "Crédit",
+                        ]}
                         rows={[
-                            ["15/01", "6064 - Fournitures administratives", "Achat fournitures bureau", "100,00€", "-"],
-                            ["15/01", "530 - Caisse", "Achat fournitures bureau", "-", "100,00€"],
+                            [
+                                "15/01",
+                                "6064 - Fournitures administratives",
+                                "Achat fournitures bureau",
+                                "100,00€",
+                                "-",
+                            ],
+                            [
+                                "15/01",
+                                "530 - Caisse",
+                                "Achat fournitures bureau",
+                                "-",
+                                "100,00€",
+                            ],
                         ]}
                     />
                     <p>
@@ -80,14 +130,43 @@ export function DoubleEntryAccountingDocPage() {
                         est dû à 30 jours.
                     </p>
                     <DocTable
-                        headers={["Date", "Compte", "Libellé", "Débit", "Crédit"]}
+                        headers={[
+                            "Date",
+                            "Compte",
+                            "Libellé",
+                            "Débit",
+                            "Crédit",
+                        ]}
                         rows={[
-                            ["22/01", "512 - Banque", "Vente prestation - part encaissée", "500,00€", "-"],
-                            ["22/01", "411 - Clients", "Vente prestation - part à recevoir", "1000,00€", "-"],
-                            ["22/01", "706 - Prestations de services", "Vente prestation", "-", "1500,00€"],
+                            [
+                                "22/01",
+                                "512 - Banque",
+                                "Vente prestation - part encaissée",
+                                "500,00€",
+                                "-",
+                            ],
+                            [
+                                "22/01",
+                                "411 - Clients",
+                                "Vente prestation - part à recevoir",
+                                "1000,00€",
+                                "-",
+                            ],
+                            [
+                                "22/01",
+                                "706 - Prestations de services",
+                                "Vente prestation",
+                                "-",
+                                "1500,00€",
+                            ],
                         ]}
                     />
-                    <p className={css({ marginTop: "3", fontWeight: "medium" })}>
+                    <p
+                        className={css({
+                            marginTop: "3",
+                            fontWeight: "medium",
+                        })}
+                    >
                         Pour chaque écriture, on a bien le total des débits qui est égal au total des crédits.
                     </p>
                 </DocExample>
@@ -159,28 +238,72 @@ export function DoubleEntryAccountingDocPage() {
                             width: "100%",
                         })}
                     >
-                        <li className={css({ fontSize: "sm", color: "neutral/60", lineHeight: "1.6" })}>
-                            <span className={css({ fontWeight: "medium", color: "neutral/70" })}>
+                        <li
+                            className={css({
+                                fontSize: "sm",
+                                color: "neutral/60",
+                                lineHeight: "1.6",
+                            })}
+                        >
+                            <span
+                                className={css({
+                                    fontWeight: "medium",
+                                    color: "neutral/70",
+                                })}
+                            >
                                 Passif (ex : Emprunt)
                             </span>{" "}
                             - l'organisation contracte un emprunt : la dette est la source des fonds reçus, on crédite
                             Emprunt.
                         </li>
-                        <li className={css({ fontSize: "sm", color: "neutral/60", lineHeight: "1.6" })}>
-                            <span className={css({ fontWeight: "medium", color: "neutral/70" })}>
+                        <li
+                            className={css({
+                                fontSize: "sm",
+                                color: "neutral/60",
+                                lineHeight: "1.6",
+                            })}
+                        >
+                            <span
+                                className={css({
+                                    fontWeight: "medium",
+                                    color: "neutral/70",
+                                })}
+                            >
                                 Produits (ex : Ventes)
                             </span>{" "}
                             - l'organisation réalise une vente : le revenu est la source de la valeur créée, on crédite
                             Ventes.
                         </li>
-                        <li className={css({ fontSize: "sm", color: "neutral/60", lineHeight: "1.6" })}>
-                            <span className={css({ fontWeight: "medium", color: "neutral/70" })}>
+                        <li
+                            className={css({
+                                fontSize: "sm",
+                                color: "neutral/60",
+                                lineHeight: "1.6",
+                            })}
+                        >
+                            <span
+                                className={css({
+                                    fontWeight: "medium",
+                                    color: "neutral/70",
+                                })}
+                            >
                                 Actif (ex : Caisse)
                             </span>{" "}
                             - l'organisation paie en espèces : l'argent part de la caisse, on crédite Caisse.
                         </li>
-                        <li className={css({ fontSize: "sm", color: "neutral/60", lineHeight: "1.6" })}>
-                            <span className={css({ fontWeight: "medium", color: "neutral/70" })}>
+                        <li
+                            className={css({
+                                fontSize: "sm",
+                                color: "neutral/60",
+                                lineHeight: "1.6",
+                            })}
+                        >
+                            <span
+                                className={css({
+                                    fontWeight: "medium",
+                                    color: "neutral/70",
+                                })}
+                            >
                                 Charges (ex : Fournitures)
                             </span>{" "}
                             - le fournisseur accorde un avoir : la charge est annulée, on crédite Fournitures.

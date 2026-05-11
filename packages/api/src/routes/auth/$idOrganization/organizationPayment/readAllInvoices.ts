@@ -8,7 +8,9 @@ import { selectMany } from "../../../../utilities/sql/selectMany.js"
 import { selectOne } from "../../../../utilities/sql/selectOne.js"
 
 export const readAllInvoicesRoute = apiFactory.createApp().post(readAllInvoicesRouteDefinition.path, async (c) => {
-    const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+    const { user, idOrganization } = await checkUserSessionMiddleware({
+        context: c,
+    })
     const _body = await validateBodyMiddleware({
         context: c,
         schema: readAllInvoicesRouteDefinition.schemas.body,
@@ -50,12 +52,20 @@ export const readAllInvoicesRoute = apiFactory.createApp().post(readAllInvoicesR
             )
             .groupBy(models.organizationPayment.idInvoice)
 
-        draftAmounts = new Map(rows.map((row) => [row.idInvoice as string, Number(row.total ?? 0)]))
+        draftAmounts = new Map(
+            rows.map((row) => [
+                row.idInvoice as string,
+                Number(row.total ?? 0),
+            ]),
+        )
     }
 
     const data = invoices.map((inv) => {
         if (inv.status !== "draft") return inv
-        return { ...inv, amountInCents: draftAmounts.get(inv.id) ?? 0 }
+        return {
+            ...inv,
+            amountInCents: draftAmounts.get(inv.id) ?? 0,
+        }
     })
 
     return response({

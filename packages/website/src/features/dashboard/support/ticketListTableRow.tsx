@@ -12,19 +12,41 @@ const categoryLabels: Record<string, string> = {
     other: "Autre",
 }
 
-const statusLabels: Record<string, { text: string; color: "information" | "neutral" }> = {
-    open: { text: "Ouvert", color: "information" },
-    closed: { text: "Fermé", color: "neutral" },
+const statusLabels: Record<
+    string,
+    {
+        text: string
+        color: "information" | "neutral"
+    }
+> = {
+    open: {
+        text: "Ouvert",
+        color: "information",
+    },
+    closed: {
+        text: "Fermé",
+        color: "neutral",
+    },
 }
 
 export function TicketListTableRow(props: { ticket: v.InferOutput<typeof returnedSchemas.ticket> }) {
     const createdAt = formatDate(props.ticket.createdAt)
-    const status = statusLabels[props.ticket.status] ?? { text: props.ticket.status, color: "neutral" as const }
+    const status = statusLabels[props.ticket.status] ?? {
+        text: props.ticket.status,
+        color: "neutral" as const,
+    }
     const categoryLabel = categoryLabels[props.ticket.category] ?? props.ticket.category
 
     return (
         <ListTable.Row>
-            <div className={css({ width: "100%", display: "flex", flexDirection: "column", gap: "0.5rem" })}>
+            <div
+                className={css({
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.5rem",
+                })}
+            >
                 <div
                     className={css({
                         width: "100%",
@@ -35,7 +57,13 @@ export function TicketListTableRow(props: { ticket: v.InferOutput<typeof returne
                         gap: "1rem",
                     })}
                 >
-                    <div className={css({ display: "flex", alignItems: "center", gap: "0.75rem" })}>
+                    <div
+                        className={css({
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.75rem",
+                        })}
+                    >
                         <LinkButton
                             to="/dashboard/support/tickets/$idTicket"
                             params={{
@@ -48,7 +76,9 @@ export function TicketListTableRow(props: { ticket: v.InferOutput<typeof returne
                                     fontWeight: "semibold",
                                     color: "primary",
                                     textDecoration: "none",
-                                    _hover: { textDecoration: "underline" },
+                                    _hover: {
+                                        textDecoration: "underline",
+                                    },
                                 })}
                             >
                                 {`Ticket - ${categoryLabel}`}
@@ -56,14 +86,37 @@ export function TicketListTableRow(props: { ticket: v.InferOutput<typeof returne
                         </LinkButton>
                     </div>
                     <div
-                        className={css({ display: "flex", justifyContent: "end", alignItems: "start", gap: "0.5rem" })}
+                        className={css({
+                            display: "flex",
+                            justifyContent: "end",
+                            alignItems: "start",
+                            gap: "0.5rem",
+                        })}
                     >
-                        <Chip text={categoryLabel} color="neutral" />
-                        <Chip text={status.text} color={status.color} />
+                        <Chip
+                            text={categoryLabel}
+                            color="neutral"
+                        />
+                        <Chip
+                            text={status.text}
+                            color={status.color}
+                        />
                     </div>
                 </div>
-                <div className={css({ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" })}>
-                    <span className={css({ fontSize: "xs", color: "neutral/50" })}>{`Créé le ${createdAt}`}</span>
+                <div
+                    className={css({
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                        flexWrap: "wrap",
+                    })}
+                >
+                    <span
+                        className={css({
+                            fontSize: "xs",
+                            color: "neutral/50",
+                        })}
+                    >{`Créé le ${createdAt}`}</span>
                 </div>
             </div>
         </ListTable.Row>

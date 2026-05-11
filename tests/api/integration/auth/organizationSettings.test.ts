@@ -16,7 +16,9 @@ beforeAll(async () => {
     const response = await authenticatedRequest({
         session,
         path: "/auth/read-all-organization-users",
-        body: { idOrganization },
+        body: {
+            idOrganization,
+        },
     })
     const users = response.data as any[]
     idDemoOrganizationUser = users[0].id
@@ -26,7 +28,9 @@ describe("POST /auth/read-all-organization-users", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/read-all-organization-users",
-            body: { idOrganization },
+            body: {
+                idOrganization,
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -35,7 +39,9 @@ describe("POST /auth/read-all-organization-users", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/read-all-organization-users",
-            body: { idOrganization },
+            body: {
+                idOrganization,
+            },
         })
         expect(response.status).toBe(200)
 
@@ -51,7 +57,9 @@ describe("POST /auth/read-one-organization-user", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/read-one-organization-user",
-            body: { idOrganizationUser: "fake-id" },
+            body: {
+                idOrganizationUser: "fake-id",
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -69,7 +77,9 @@ describe("POST /auth/read-one-organization-user", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/read-one-organization-user",
-            body: { idOrganizationUser: idDemoOrganizationUser },
+            body: {
+                idOrganizationUser: idDemoOrganizationUser,
+            },
         })
         expect(response.status).toBe(200)
 
@@ -85,7 +95,10 @@ describe("POST /auth/update-one-organization", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/update-one-organization",
-            body: { idOrganization, name: "hacked" },
+            body: {
+                idOrganization,
+                name: "hacked",
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -94,7 +107,10 @@ describe("POST /auth/update-one-organization", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/update-one-organization",
-            body: { idOrganization, name: "Demo company" },
+            body: {
+                idOrganization,
+                name: "Demo company",
+            },
         })
         expect(response.status).toBe(200)
 
@@ -108,7 +124,13 @@ describe("POST /auth/create-one-organization-user", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/create-one-organization-user",
-            body: { idOrganization, isAdmin: false, user: { email: "test@example.com" } },
+            body: {
+                idOrganization,
+                isAdmin: false,
+                user: {
+                    email: "test@example.com",
+                },
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -126,7 +148,13 @@ describe("POST /auth/create-one-organization-user", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/create-one-organization-user",
-            body: { idOrganization, isAdmin: false, user: { email: "nonexistent@example.com" } },
+            body: {
+                idOrganization,
+                isAdmin: false,
+                user: {
+                    email: "nonexistent@example.com",
+                },
+            },
         })
         // selectOne throws 500 when the user is not found
         expect(response.status).toBe(500)
@@ -137,7 +165,11 @@ describe("POST /auth/update-one-organization-user", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/update-one-organization-user",
-            body: { idOrganization, idOrganizationUser: "fake-id", isAdmin: true },
+            body: {
+                idOrganization,
+                idOrganizationUser: "fake-id",
+                isAdmin: true,
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -156,7 +188,10 @@ describe("POST /auth/delete-one-organization-user", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/delete-one-organization-user",
-            body: { idOrganization, idOrganizationUser: "fake-id" },
+            body: {
+                idOrganization,
+                idOrganizationUser: "fake-id",
+            },
         })
         expect(response.status).toBe(401)
     })

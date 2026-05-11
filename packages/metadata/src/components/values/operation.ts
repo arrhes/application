@@ -1,1 +1,4 @@
-export const operation = <const>["plus", "minus"]
+export const operation = <const>[
+    "plus",
+    "minus",
+]

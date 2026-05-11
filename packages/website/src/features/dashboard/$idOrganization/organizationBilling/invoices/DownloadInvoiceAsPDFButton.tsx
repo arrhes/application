@@ -8,12 +8,16 @@ import { getInvoiceXmlContent } from "./getInvoiceXmlContent.ts"
 export function DownloadInvoiceAsPDFButton(props: {
     invoice: v.InferOutput<typeof returnedSchemas.invoice>
     children: ReactElement<ButtonContentProps>
+    className?: string
 }) {
     const [isDownloading, setIsDownloading] = useState(false)
 
     async function handleDownload() {
         if (!props.invoice.xmlStorageKey) {
-            toast({ title: "La facture n'est pas encore disponible", variant: "error" })
+            toast({
+                title: "La facture n'est pas encore disponible",
+                variant: "error",
+            })
             return
         }
 
@@ -22,7 +26,10 @@ export function DownloadInvoiceAsPDFButton(props: {
         setIsDownloading(false)
 
         if (!res.ok) {
-            toast({ title: res.errorMessage, variant: "error" })
+            toast({
+                title: res.errorMessage,
+                variant: "error",
+            })
             return
         }
 
@@ -33,7 +40,11 @@ export function DownloadInvoiceAsPDFButton(props: {
     }
 
     return (
-        <Button onClick={handleDownload} isDisabled={isDownloading || props.invoice.xmlStorageKey === null}>
+        <Button
+            onClick={handleDownload}
+            isDisabled={isDownloading || props.invoice.xmlStorageKey === null}
+            className={props.className}
+        >
             {cloneElement(props.children, {
                 isDisabled: isDownloading || props.invoice.xmlStorageKey === null,
             })}

@@ -1,28 +1,28 @@
-import { deleteOneFileRouteDefinition, readAllFilesRouteDefinition } from "@arrhes/application-metadata/routes"
+import { readAllFilesRouteDefinition } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { toast } from "@arrhes/ui"
 import type { ComponentPropsWithRef, ReactElement } from "react"
 import type * as v from "valibot"
 import { ConfirmationModal } from "../../../../../components/overlays/dialog/confirmationModal.tsx"
 import { applicationRouter } from "../../../../../routes/applicationRouter.tsx"
-import { getResponseBodyFromAPI } from "../../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../../utilities/invalidateData.ts"
+import { deleteFileWithSignedUrl } from "../deleteFileWithSignedUrl.ts"
 
 export function DeleteOneFile(props: {
     file: v.InferOutput<typeof returnedSchemas.file>
     children: ReactElement<ComponentPropsWithRef<"div">>
 }) {
     async function onSubmit() {
-        const deleteResponse = await getResponseBodyFromAPI({
-            routeDefinition: deleteOneFileRouteDefinition,
-            body: {
-                idFile: props.file.id,
-                idYear: props.file.idYear,
-            },
+        const isDeleted = await deleteFileWithSignedUrl({
+            idFile: props.file.id,
+            idYear: props.file.idYear,
         })
 
-        if (deleteResponse.ok === false) {
-            toast({ title: "Erreur lors de la suppression du fichier", variant: "error" })
+        if (isDeleted === false) {
+            toast({
+                title: "Erreur lors de la suppression du fichier",
+                variant: "error",
+            })
             return
         }
 
@@ -33,7 +33,10 @@ export function DeleteOneFile(props: {
             },
         })
 
-        toast({ title: "Fichier supprimé", variant: "success" })
+        toast({
+            title: "Fichier supprimé",
+            variant: "success",
+        })
 
         applicationRouter.navigate({
             to: "/dashboard/organisations/$idOrganization/exercices/$idYear/stockage",
@@ -41,7 +44,9 @@ export function DeleteOneFile(props: {
                 idOrganization: props.file.idOrganization,
                 idYear: props.file.idYear,
             },
-            search: { idFolder: undefined },
+            search: {
+                idFolder: undefined,
+            },
         })
     }
 
@@ -55,7 +60,10 @@ export function DeleteOneFile(props: {
                     Cette action est irréversible.
                 </>
             }
-            submitButtonProps={{ color: "danger", text: "Supprimer le fichier" }}
+            submitButtonProps={{
+                color: "danger",
+                text: "Supprimer le fichier",
+            }}
             onSubmit={onSubmit}
         >
             {props.children}

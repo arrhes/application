@@ -28,7 +28,10 @@ export function UpdateOneAccount(props: {
     const [open, setOpen] = useState(false)
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Modifier le compte" />
@@ -49,11 +52,17 @@ export function UpdateOneAccount(props: {
                                 body: data,
                             })
                             if (updateAccountResponse.ok === false) {
-                                toast({ title: "Impossible de modifier le compte", variant: "error" })
+                                toast({
+                                    title: "Impossible de modifier le compte",
+                                    variant: "error",
+                                })
                                 return false
                             }
 
-                            toast({ title: "Compte modifié avec succès", variant: "success" })
+                            toast({
+                                title: "Compte modifié avec succès",
+                                variant: "success",
+                            })
                             return true
                         }}
                         onCancel={undefined}
@@ -90,7 +99,10 @@ export function UpdateOneAccount(props: {
                                                 isRequired
                                             />
                                             <FormControl>
-                                                <InputText value={field.value} onChange={field.onChange} />
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -107,7 +119,11 @@ export function UpdateOneAccount(props: {
                                                 isRequired
                                             />
                                             <FormControl>
-                                                <InputText value={field.value} onChange={field.onChange} autoFocus />
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                    autoFocus
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -148,8 +164,14 @@ export function UpdateOneAccount(props: {
                                                     value={field.value}
                                                     onChange={field.onChange}
                                                     options={[
-                                                        { label: "Oui", value: true },
-                                                        { label: "Non", value: false },
+                                                        {
+                                                            label: "Oui",
+                                                            value: true,
+                                                        },
+                                                        {
+                                                            label: "Non",
+                                                            value: false,
+                                                        },
                                                     ]}
                                                 />
                                             </FormControl>
@@ -171,9 +193,18 @@ export function UpdateOneAccount(props: {
                                                     value={field.value}
                                                     onChange={field.onChange}
                                                     options={[
-                                                        { label: "Compte de bilan", value: "balance-sheet" },
-                                                        { label: "Compte de gestion", value: "income-statement" },
-                                                        { label: "Compte spécial", value: "special" },
+                                                        {
+                                                            label: "Compte de bilan",
+                                                            value: "balance-sheet",
+                                                        },
+                                                        {
+                                                            label: "Compte de gestion",
+                                                            value: "income-statement",
+                                                        },
+                                                        {
+                                                            label: "Compte spécial",
+                                                            value: "special",
+                                                        },
                                                     ]}
                                                 />
                                             </FormControl>
@@ -217,8 +248,14 @@ export function UpdateOneAccount(props: {
                                                     value={field.value}
                                                     onChange={field.onChange}
                                                     options={[
-                                                        { label: "Brut", value: "gross" },
-                                                        { label: "Amort. & Dépré.", value: "amortization" },
+                                                        {
+                                                            label: "Brut",
+                                                            value: "gross",
+                                                        },
+                                                        {
+                                                            label: "Amort. & Dépré.",
+                                                            value: "amortization",
+                                                        },
                                                     ]}
                                                 />
                                             </FormControl>

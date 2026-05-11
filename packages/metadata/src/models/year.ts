@@ -10,7 +10,10 @@ export const yearModel = pgTable(
     {
         id: idColumn("id").primaryKey(),
         idOrganization: idColumn("id_organization")
-            .references(() => organizationModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => organizationModel.id, {
+                onDelete: "cascade",
+                onUpdate: "cascade",
+            })
             .notNull(),
         idYearPrevious: idColumn("id_year_previous").references((): AnyPgColumn => yearModel.id, {
             onDelete: "set null",
@@ -19,7 +22,9 @@ export const yearModel = pgTable(
         // isGenerated: boolean("is_generated").notNull(),
         isClosed: boolean("is_closed").notNull(),
         closedAt: dateTimeColumn("closed_at"),
-        label: varchar("label", { length: 256 }).notNull(),
+        label: varchar("label", {
+            length: 256,
+        }).notNull(),
         startingAt: dateTimeColumn("starting_at").notNull(),
         endingAt: dateTimeColumn("ending_at").notNull(),
         createdAt: dateTimeColumn("created_at").notNull(),
@@ -33,5 +38,7 @@ export const yearModel = pgTable(
             onUpdate: "cascade",
         }),
     },
-    (t) => [unique().on(t.idOrganization, t.idYearPrevious)],
+    (t) => [
+        unique().on(t.idOrganization, t.idYearPrevious),
+    ],
 )

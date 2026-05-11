@@ -6,7 +6,10 @@ export function TableHeaderRoot(props: { children: JSX.Element | JSX.Element[]; 
     return (
         <>
             <Style />
-            <thead class={cx(css`width: 100%;`, props.class)} children={props.children} />
+            <thead
+                class={cx(css`width: 100%;`, props.class)}
+                children={props.children}
+            />
         </>
     )
 }

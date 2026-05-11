@@ -18,18 +18,24 @@ import { WalletTopUpDrawer } from "./WalletTopUpDrawer.tsx"
 import { WalletWithdrawalDrawer } from "./WalletWithdrawalDrawer.tsx"
 import { WalletCurrentMonth } from "./walletCurrentMonth.tsx"
 
-function getRecurringStorageAmountInCents(storageMaxUsage: number) {
+function getRecurringStorageAmountInCents(storageLimit: number) {
     return (
-        Math.max(Math.round((storageMaxUsage - FREE_STORAGE_BYTES) / FREE_STORAGE_BYTES), 0) *
+        Math.max(Math.round((storageLimit - FREE_STORAGE_BYTES) / FREE_STORAGE_BYTES), 0) *
         STORAGE_PRICE_PER_GB_IN_CENTS
     )
 }
 
-function getNextMonthSubscriptionAmountInCents(organization: { licenceAmount: number; storageMaxUsage: number }) {
-    return organization.licenceAmount + getRecurringStorageAmountInCents(organization.storageMaxUsage)
+function getNextMonthSubscriptionAmountInCents(organization: { licenceAmount: number; storageLimit: number }) {
+    return organization.licenceAmount + getRecurringStorageAmountInCents(organization.storageLimit)
 }
 
-function hasCurrentMonthWithdrawal(payments: Array<{ category: string; createdAt: string; status: string }>) {
+function hasCurrentMonthWithdrawal(
+    payments: Array<{
+        category: string
+        createdAt: string
+        status: string
+    }>,
+) {
     const now = new Date()
 
     return payments.some((payment) => {
@@ -44,7 +50,9 @@ function hasCurrentMonthWithdrawal(payments: Array<{ category: string; createdAt
 
 export function OrganizationWalletPage() {
     const [refreshKey, setRefreshKey] = useState(0)
-    const params = useParams({ from: organizationBillingRoute.id })
+    const params = useParams({
+        from: organizationBillingRoute.id,
+    })
 
     return (
         <Page.Root>
@@ -52,7 +60,9 @@ export function OrganizationWalletPage() {
                 <DataWrapper
                     key={refreshKey}
                     routeDefinition={readOneOrganizationRouteDefinition}
-                    body={{ idOrganization: params.idOrganization }}
+                    body={{
+                        idOrganization: params.idOrganization,
+                    }}
                 >
                     {(organization) => (
                         <div
@@ -200,7 +210,10 @@ export function OrganizationWalletPage() {
                                                             <div
                                                                 className={css({
                                                                     borderRadius: "3xl",
-                                                                    padding: { base: "1.25rem", md: "1.5rem" },
+                                                                    padding: {
+                                                                        base: "1.25rem",
+                                                                        md: "1.5rem",
+                                                                    },
                                                                     background:
                                                                         "radial-gradient(circle at top right, rgba(111, 184, 200, 0.2), transparent 28%), linear-gradient(180deg, #06111b 0%, #0d1726 48%, #111c2d 100%)",
                                                                     color: "white",
@@ -229,13 +242,18 @@ export function OrganizationWalletPage() {
                                                                     >
                                                                         <IconWallet
                                                                             size={15}
-                                                                            className={css({ stroke: "white" })}
+                                                                            className={css({
+                                                                                stroke: "white",
+                                                                            })}
                                                                         />
                                                                         Montant disponible
                                                                     </span>
                                                                     <span
                                                                         className={css({
-                                                                            fontSize: { base: "3xl", md: "4xl" },
+                                                                            fontSize: {
+                                                                                base: "3xl",
+                                                                                md: "4xl",
+                                                                            },
                                                                             lineHeight: "1",
                                                                             fontWeight: "700",
                                                                             fontVariantNumeric: "tabular-nums",
@@ -257,7 +275,7 @@ export function OrganizationWalletPage() {
                                         <SettingsSection.Root>
                                             <SettingsSection.Header
                                                 title="Mois en cours"
-                                                description="Recapitulatif des paiements comptabilisés sur le mois en cours."
+                                                description="Récapitulatif des paiements comptabilisés sur le mois en cours."
                                             />
                                             <WalletCurrentMonth organization={organization} />
                                         </SettingsSection.Root>

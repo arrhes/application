@@ -57,7 +57,9 @@
             "quoteStyle": "double",
             "semicolons": "asNeeded",
             "trailingCommas": "all",
-            "arrowParentheses": "always"
+            "arrowParentheses": "always",
+            "expand": "always",
+            "attributePosition": "multiline"
         },
         "jsxRuntime": "reactClassic"
     },

@@ -39,9 +39,15 @@ function getPaymentLineType(payment: {
 
 export function WalletCurrentMonth(props: { organization: v.InferOutput<typeof returnedSchemas.organization> }) {
     return (
-        <DataWrapper routeDefinition={readAllInvoicesRouteDefinition} body={{}}>
+        <DataWrapper
+            routeDefinition={readAllInvoicesRouteDefinition}
+            body={{}}
+        >
             {(invoices) => (
-                <DataWrapper routeDefinition={readAllOrganizationPaymentsRouteDefinition} body={{}}>
+                <DataWrapper
+                    routeDefinition={readAllOrganizationPaymentsRouteDefinition}
+                    body={{}}
+                >
                     {(payments) => {
                         const now = new Date()
                         const currentPeriodStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1))
@@ -86,13 +92,24 @@ export function WalletCurrentMonth(props: { organization: v.InferOutput<typeof r
                         ] as const
 
                         const totalsByType = currentMonthPayments.reduce<
-                            Record<string, { amountHT: number; amountTVA: number; quantity: number }>
+                            Record<
+                                string,
+                                {
+                                    amountHT: number
+                                    amountTVA: number
+                                    quantity: number
+                                }
+                            >
                         >((acc, payment) => {
                             const lineType = getPaymentLineType(payment)
 
                             if (lineType === null) return acc
                             if (!acc[lineType]) {
-                                acc[lineType] = { amountHT: 0, amountTVA: 0, quantity: 0 }
+                                acc[lineType] = {
+                                    amountHT: 0,
+                                    amountTVA: 0,
+                                    quantity: 0,
+                                }
                             }
 
                             acc[lineType].amountHT += payment.amountHTInCents

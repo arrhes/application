@@ -9,7 +9,12 @@ export const tagSchema = v.object({
     idOrganization: v.nonNullable(idSchema, "Ce champ est requis"),
     idYear: v.nonNullable(idSchema, "Ce champ est requis"),
 
-    label: v.nonNullable(varcharSchema({ maxLength: 256 }), "Ce champ est requis"),
+    label: v.nonNullable(
+        varcharSchema({
+            maxLength: 256,
+        }),
+        "Ce champ est requis",
+    ),
 
     createdAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),
     lastUpdatedAt: v.nullable(dateTimeSchema),

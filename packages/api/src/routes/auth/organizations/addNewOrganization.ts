@@ -8,7 +8,9 @@ import { insertOne } from "../../../utilities/sql/insertOne.js"
 export const addNewOrganizationRoute = apiFactory
     .createApp()
     .post(addNewOrganizationRouteDefinition.path, async (c) => {
-        const { user } = await checkUserSessionMiddleware({ context: c })
+        const { user } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: addNewOrganizationRouteDefinition.schemas.body,
@@ -27,13 +29,10 @@ export const addNewOrganizationRoute = apiFactory
                     email: body.email,
                     licenceAmount: 0,
                     storageLimit: 1_073_741_824,
-                    storageMaxUsage: 1_073_741_824,
                     storageCurrentUsage: 0,
-                    ocrMonthlyLimit: 100,
-                    ocrPagesTotalLeft: 100,
+                    ocrPagesTotalAvailable: 100,
                     ocrPagesTotalUsed: 0,
-                    agentTokensMonthlyLimit: 1_000_000,
-                    tokensTotalLeft: 1_000_000,
+                    tokensTotalAvailable: 1_000_000,
                     tokensTotalUsed: 0,
                     createdAt: new Date().toISOString(),
                     lastUpdatedAt: null,

@@ -78,7 +78,9 @@ async function tryAuthWithCookie(context: Context<any>) {
         // Resolve idOrganization from header/cookie/body for cookie-based auth
         let idOrganization: string | undefined
         try {
-            idOrganization = await resolveOrganizationMiddleware({ context })
+            idOrganization = await resolveOrganizationMiddleware({
+                context,
+            })
         } catch {
             // idOrganization is optional - some routes don't need it
             idOrganization = undefined

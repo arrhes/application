@@ -3,12 +3,18 @@ import { serializeCookie } from "#/utilities/cookies/serializeCookie.js"
 
 describe("serializeCookie", () => {
     it("serializes a basic name-value cookie", () => {
-        const result = serializeCookie({ name: "test", value: "hello" })
+        const result = serializeCookie({
+            name: "test",
+            value: "hello",
+        })
         expect(result).toBe("test=hello")
     })
 
     it("URL-encodes name and value", () => {
-        const result = serializeCookie({ name: "my cookie", value: "my value" })
+        const result = serializeCookie({
+            name: "my cookie",
+            value: "my value",
+        })
         expect(result).toBe("my%20cookie=my%20value")
     })
 
@@ -16,7 +22,9 @@ describe("serializeCookie", () => {
         const result = serializeCookie({
             name: "test",
             value: "val",
-            options: { maxAge: 3600 },
+            options: {
+                maxAge: 3600,
+            },
         })
         expect(result).toContain("; Max-Age=3600")
     })
@@ -26,7 +34,9 @@ describe("serializeCookie", () => {
         const result = serializeCookie({
             name: "test",
             value: "val",
-            options: { expires: date },
+            options: {
+                expires: date,
+            },
         })
         expect(result).toContain("; Expires=Wed, 01 Jan 2025 00:00:00 GMT")
     })
@@ -35,7 +45,9 @@ describe("serializeCookie", () => {
         const result = serializeCookie({
             name: "test",
             value: "val",
-            options: { domain: ".example.com" },
+            options: {
+                domain: ".example.com",
+            },
         })
         expect(result).toContain("; Domain=.example.com")
     })
@@ -44,7 +56,9 @@ describe("serializeCookie", () => {
         const result = serializeCookie({
             name: "test",
             value: "val",
-            options: { path: "/" },
+            options: {
+                path: "/",
+            },
         })
         expect(result).toContain("; Path=/")
     })
@@ -53,7 +67,9 @@ describe("serializeCookie", () => {
         const result = serializeCookie({
             name: "test",
             value: "val",
-            options: { httpOnly: true },
+            options: {
+                httpOnly: true,
+            },
         })
         expect(result).toContain("; HttpOnly")
     })
@@ -62,7 +78,9 @@ describe("serializeCookie", () => {
         const result = serializeCookie({
             name: "test",
             value: "val",
-            options: { secure: true },
+            options: {
+                secure: true,
+            },
         })
         expect(result).toContain("; Secure")
     })
@@ -71,7 +89,9 @@ describe("serializeCookie", () => {
         const result = serializeCookie({
             name: "test",
             value: "val",
-            options: { sameSite: "Strict" },
+            options: {
+                sameSite: "Strict",
+            },
         })
         expect(result).toContain("; SameSite=Strict")
     })
@@ -99,7 +119,10 @@ describe("serializeCookie", () => {
     })
 
     it("does not include flags when options is undefined", () => {
-        const result = serializeCookie({ name: "a", value: "b" })
+        const result = serializeCookie({
+            name: "a",
+            value: "b",
+        })
         expect(result).toBe("a=b")
     })
 
@@ -107,7 +130,9 @@ describe("serializeCookie", () => {
         const result = serializeCookie({
             name: "test",
             value: "val",
-            options: { maxAge: 3600.7 },
+            options: {
+                maxAge: 3600.7,
+            },
         })
         expect(result).toContain("; Max-Age=3600")
     })

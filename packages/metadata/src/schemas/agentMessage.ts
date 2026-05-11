@@ -3,7 +3,11 @@ import { dateTimeSchema, integerSchema } from "../components/index.js"
 import { idSchema } from "../components/schemas/idSchema.js"
 import type { agentMessageModel } from "../models/agentMessage.js"
 
-const agentMessageState = ["completed", "streaming", "error"] as const
+const agentMessageState = [
+    "completed",
+    "streaming",
+    "error",
+] as const
 
 export const agentMessageSchema = v.object({
     id: v.nonNullable(idSchema, "Ce champ est requis"),

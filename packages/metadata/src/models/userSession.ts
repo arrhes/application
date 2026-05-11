@@ -10,7 +10,10 @@ export const userSessionModel = pgTable(
     {
         id: idColumn("id").primaryKey(),
         idUser: idColumn("id_user")
-            .references(() => userModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => userModel.id, {
+                onDelete: "cascade",
+                onUpdate: "cascade",
+            })
             .notNull(),
         isActive: boolean("is_active").notNull(),
         expiresAt: dateTimeColumn("expires_at").notNull(),
@@ -18,13 +21,19 @@ export const userSessionModel = pgTable(
         createdAt: dateTimeColumn("created_at").notNull(),
         lastUpdatedAt: dateTimeColumn("last_updated_at"),
     },
-    (t) => [index().on(t.idUser)],
+    (t) => [
+        index().on(t.idUser),
+    ],
 )
 
 // Relations
 export const userSessionsRelations = relations(userSessionModel, ({ one }) => ({
     user: one(userModel, {
-        fields: [userSessionModel.idUser],
-        references: [userModel.id],
+        fields: [
+            userSessionModel.idUser,
+        ],
+        references: [
+            userModel.id,
+        ],
     }),
 }))

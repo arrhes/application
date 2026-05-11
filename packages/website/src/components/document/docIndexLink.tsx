@@ -12,7 +12,9 @@ export function DocIndexLink(props: { to: ValidRoutes; label: string }) {
                 py: "1.5",
                 fontSize: "sm",
                 color: "neutral/60",
-                _hover: { color: "primary" },
+                _hover: {
+                    color: "primary",
+                },
                 transition: "colors",
             })}
         >

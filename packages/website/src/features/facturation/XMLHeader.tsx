@@ -3,7 +3,12 @@ import { useMemo } from "react"
 import { parseInvoiceSummary } from "./parseInvoiceSummary.ts"
 
 export function XMLHeader(props: { xmlContent: string }) {
-    const parsed = useMemo(() => parseInvoiceSummary(props.xmlContent), [props.xmlContent])
+    const parsed = useMemo(
+        () => parseInvoiceSummary(props.xmlContent),
+        [
+            props.xmlContent,
+        ],
+    )
     return (
         <div
             className={css({
@@ -13,7 +18,10 @@ export function XMLHeader(props: { xmlContent: string }) {
                 backgroundColor: "white",
                 padding: "1rem",
                 display: "grid",
-                gridTemplateColumns: { base: "1fr", md: "1fr 1fr" },
+                gridTemplateColumns: {
+                    base: "1fr",
+                    md: "1fr 1fr",
+                },
                 gap: "0.75rem",
                 fontSize: "sm",
                 color: "neutral",

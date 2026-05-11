@@ -26,7 +26,9 @@ export interface SubagentTokenUsage {
 }
 
 export function buildSubagentTool(context: SubagentContext) {
-    const allSkills = getAgentSkills([...agentSkillNames])
+    const allSkills = getAgentSkills([
+        ...agentSkillNames,
+    ])
     const skillsDescription = allSkills.map((s) => `- ${s.name} : ${s.description}`).join("\n")
 
     const def = toolDefinition({
@@ -46,7 +48,9 @@ Le sous-agent hérite de l'exercice fiscal sélectionné (idYear). Si aucun exer
                     type: "array" as const,
                     items: {
                         type: "string" as const,
-                        enum: [...agentSkillNames],
+                        enum: [
+                            ...agentSkillNames,
+                        ],
                     },
                     description: "Les compétences à attribuer au sous-agent.",
                 },
@@ -59,7 +63,10 @@ Le sous-agent hérite de l'exercice fiscal sélectionné (idYear). Si aucun exer
                     description: "Contexte additionnel utile pour le sous-agent (données, résultats précédents, etc.).",
                 },
             },
-            required: ["skills", "task"] as const,
+            required: [
+                "skills",
+                "task",
+            ] as const,
         },
     })
 
@@ -74,14 +81,26 @@ Le sous-agent hérite de l'exercice fiscal sélectionné (idYear). Si aucun exer
                 task: string
                 context?: string
             }
-            return runSubagent({ ...context, skillNames, task, taskContext })
+            return runSubagent({
+                ...context,
+                skillNames,
+                task,
+                taskContext,
+            })
         }),
-        tokenUsage: { inputTokens: 0, outputTokens: 0 } as SubagentTokenUsage,
+        tokenUsage: {
+            inputTokens: 0,
+            outputTokens: 0,
+        } as SubagentTokenUsage,
     }
 }
 
 async function runSubagent(
-    params: SubagentContext & { skillNames: string[]; task: string; taskContext?: string },
+    params: SubagentContext & {
+        skillNames: string[]
+        task: string
+        taskContext?: string
+    },
 ): Promise<unknown> {
     const {
         db,
@@ -172,7 +191,12 @@ async function runSubagent(
             {
                 id: `subagent-${Date.now()}`,
                 role: "user" as const,
-                parts: [{ type: "text", content: task }],
+                parts: [
+                    {
+                        type: "text",
+                        content: task,
+                    },
+                ],
             },
         ]
 
@@ -183,7 +207,9 @@ async function runSubagent(
             adapter,
             messages: modelMessages as any,
             tools,
-            systemPrompts: [systemPrompt],
+            systemPrompts: [
+                systemPrompt,
+            ],
             agentLoopStrategy: maxIterations(MAX_SUBAGENT_ITERATIONS),
         })
 
@@ -234,7 +260,10 @@ async function runSubagent(
         return {
             skills: skillLabel,
             result: accumulatedContent || "(Aucun résultat)",
-            tokenUsage: { inputTokens, outputTokens },
+            tokenUsage: {
+                inputTokens,
+                outputTokens,
+            },
         }
     } catch (error) {
         const errorMsg = error instanceof Error ? error.message : String(error)
@@ -252,6 +281,8 @@ async function runSubagent(
             }),
         )
 
-        return { error: `Erreur du sous-agent : ${errorMsg}` }
+        return {
+            error: `Erreur du sous-agent : ${errorMsg}`,
+        }
     }
 }

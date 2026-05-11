@@ -12,7 +12,10 @@ export function OrganizationUsersListTable(_props: {
 }) {
     return (
         <ListTable.Root>
-            <DataWrapper routeDefinition={readAllOrganizationUsersRouteDefinition} body={{}}>
+            <DataWrapper
+                routeDefinition={readAllOrganizationUsersRouteDefinition}
+                body={{}}
+            >
                 {(organizationUsers) => {
                     if (organizationUsers.length === 0) {
                         return (
@@ -24,7 +27,10 @@ export function OrganizationUsersListTable(_props: {
                         )
                     }
                     return organizationUsers.map((organizationUser) => (
-                        <OrganizationUserListTableRow key={organizationUser.id} organizationUser={organizationUser} />
+                        <OrganizationUserListTableRow
+                            key={organizationUser.id}
+                            organizationUser={organizationUser}
+                        />
                     ))
                 }}
             </DataWrapper>

@@ -3,23 +3,9 @@ import { css } from "@arrhes/ui/utilities/cn.js"
 import { memo } from "react"
 import type * as v from "valibot"
 
-const INDENT_PER_LEVEL = 16
+export const INDENT_PER_LEVEL = 16
 
 export const ACCOUNT_ITEM_HEIGHT = 32
-
-const rowStyle = css({
-    minWidth: "fit",
-    width: "100%",
-    height: "[32px]",
-    display: "flex",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    gap: "0.5rem",
-    _hover: { backgroundColor: "neutral/5" },
-    borderBottomWidth: "1px",
-    borderColor: "neutral/5",
-    _last: { borderBottomWidth: "0" },
-})
 
 const labelContainerStyle = css({
     padding: "1",
@@ -29,8 +15,17 @@ const labelContainerStyle = css({
     gap: "0.5rem",
 })
 
-const numberBaseStyle = css({ color: "neutral", fontSize: "xs", lineHeight: "none" })
-const numberBoldStyle = css({ color: "neutral", fontSize: "xs", lineHeight: "none", fontWeight: "bold" })
+const numberBaseStyle = css({
+    color: "neutral",
+    fontSize: "xs",
+    lineHeight: "none",
+})
+const numberBoldStyle = css({
+    color: "neutral",
+    fontSize: "xs",
+    lineHeight: "none",
+    fontWeight: "bold",
+})
 
 const labelBaseStyle = css({
     color: "neutral",
@@ -48,16 +43,44 @@ const labelBoldStyle = css({
     fontWeight: "bold",
 })
 
-const linkStyle = css({ width: "100%", cursor: "pointer" })
-
 export const AccountItem = memo(function AccountItem(props: {
     account: v.InferOutput<typeof returnedSchemas.account>
     level: number
     href: string
 }) {
     return (
-        <a href={props.href} data-account-link className={linkStyle}>
-            <div className={rowStyle} style={{ paddingLeft: `${props.level * INDENT_PER_LEVEL}px` }}>
+        <a
+            href={props.href}
+            data-account-link
+            className={css({
+                width: "100%",
+                cursor: "pointer",
+            })}
+        >
+            <div
+                className={css({
+                    minWidth: "fit",
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    padding: "0.5rem",
+                    _hover: {
+                        backgroundColor: "neutral/5",
+                    },
+                    borderRadius: "md",
+                    borderBottomWidth: "1px",
+                    borderColor: "neutral/5",
+                    _last: {
+                        borderBottomWidth: "0",
+                    },
+                })}
+                style={{
+                    height: `${ACCOUNT_ITEM_HEIGHT}px`,
+                    paddingLeft: `${(props.level + 1) * INDENT_PER_LEVEL}px`,
+                }}
+            >
                 <div className={labelContainerStyle}>
                     <span className={!props.account.isOptional ? numberBoldStyle : numberBaseStyle}>
                         {props.account.number}

@@ -62,7 +62,10 @@ export function InvoicePaymentsTable(props: { idInvoice: string }) {
                 overflowX: "auto",
             })}
         >
-            <DataWrapper routeDefinition={readAllOrganizationPaymentsRouteDefinition} body={{}}>
+            <DataWrapper
+                routeDefinition={readAllOrganizationPaymentsRouteDefinition}
+                body={{}}
+            >
                 {(payments) => {
                     const invoicePayments = payments.filter((payment) => payment.idInvoice === props.idInvoice)
 
@@ -94,9 +97,18 @@ export function InvoicePaymentsTable(props: { idInvoice: string }) {
                     }
 
                     return (
-                        <table className={css({ width: "100%", borderCollapse: "collapse" })}>
+                        <table
+                            className={css({
+                                width: "100%",
+                                borderCollapse: "collapse",
+                            })}
+                        >
                             <thead>
-                                <tr className={css({ borderBottom: "1px solid token(colors.neutral/15)" })}>
+                                <tr
+                                    className={css({
+                                        borderBottom: "1px solid token(colors.neutral/15)",
+                                    })}
+                                >
                                     <th
                                         className={css({
                                             minWidth: "12rem",
@@ -183,7 +195,9 @@ export function InvoicePaymentsTable(props: { idInvoice: string }) {
                                     return (
                                         <tr
                                             key={payment.id}
-                                            className={css({ borderBottom: "1px solid token(colors.neutral/10)" })}
+                                            className={css({
+                                                borderBottom: "1px solid token(colors.neutral/10)",
+                                            })}
                                         >
                                             <td
                                                 className={css({
@@ -194,7 +208,12 @@ export function InvoicePaymentsTable(props: { idInvoice: string }) {
                                             >
                                                 <FormatDateTime date={payment.createdAt} />
                                             </td>
-                                            <td className={css({ padding: "0.6rem", fontSize: "sm" })}>
+                                            <td
+                                                className={css({
+                                                    padding: "0.6rem",
+                                                    fontSize: "sm",
+                                                })}
+                                            >
                                                 {getPaymentServiceLabel(payment.serviceType)}
                                             </td>
                                             <td
@@ -247,8 +266,18 @@ export function InvoicePaymentsTable(props: { idInvoice: string }) {
                                 })}
                             </tbody>
                             <tfoot>
-                                <tr className={css({ borderTop: "2px solid token(colors.neutral/10)" })}>
-                                    <td className={css({ padding: "0.6rem", fontSize: "sm", fontWeight: "600" })}>
+                                <tr
+                                    className={css({
+                                        borderTop: "2px solid token(colors.neutral/10)",
+                                    })}
+                                >
+                                    <td
+                                        className={css({
+                                            padding: "0.6rem",
+                                            fontSize: "sm",
+                                            fontWeight: "600",
+                                        })}
+                                    >
                                         Total
                                     </td>
                                     <td />

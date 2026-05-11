@@ -31,7 +31,9 @@ interface PendingFileItem {
 }
 
 export function AgentPage() {
-    const params = useParams({ from: organizationPathRoute.id })
+    const params = useParams({
+        from: organizationPathRoute.id,
+    })
     const [input, setInput] = useState("")
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
@@ -54,15 +56,23 @@ export function AgentPage() {
             autoSelectedRef.current = true
             setSelectedYearId(yearsData[0].id)
         }
-    }, [yearsData])
+    }, [
+        yearsData,
+    ])
 
     async function createNewSession(text: string) {
         if (text.trim() === "") {
-            toast({ title: "Veuillez saisir une requête pour démarrer une session", variant: "warning" })
+            toast({
+                title: "Veuillez saisir une requête pour démarrer une session",
+                variant: "warning",
+            })
             return
         }
         if (isLoading) {
-            toast({ title: "Une session est déjà en cours de création", variant: "warning" })
+            toast({
+                title: "Une session est déjà en cours de création",
+                variant: "warning",
+            })
             return
         }
         setIsLoading(true)
@@ -79,7 +89,10 @@ export function AgentPage() {
             })
 
             if (agentSessionResponse.ok === false) {
-                toast({ title: "Impossible de créer la session", variant: "error" })
+                toast({
+                    title: "Impossible de créer la session",
+                    variant: "error",
+                })
                 return
             }
 
@@ -105,7 +118,10 @@ export function AgentPage() {
                 })
 
                 if (createFileResponse.ok === false) {
-                    toast({ title: `Impossible d'importer ${pendingFile.name}`, variant: "error" })
+                    toast({
+                        title: `Impossible d'importer ${pendingFile.name}`,
+                        variant: "error",
+                    })
                     continue
                 }
 
@@ -113,12 +129,17 @@ export function AgentPage() {
                 if (createFileResponse.data.url) {
                     const uploadResponse = await fetch(createFileResponse.data.url, {
                         method: "PUT",
-                        headers: { "Content-Type": file.type || "application/octet-stream" },
+                        headers: {
+                            "Content-Type": file.type || "application/octet-stream",
+                        },
                         body: file,
                     })
 
                     if (!uploadResponse.ok) {
-                        toast({ title: `Échec de l'envoi de ${pendingFile.name}`, variant: "error" })
+                        toast({
+                            title: `Échec de l'envoi de ${pendingFile.name}`,
+                            variant: "error",
+                        })
                         continue
                     }
                 }
@@ -147,23 +168,34 @@ export function AgentPage() {
             })
 
             if (agentMessageResponse.ok === false) {
-                toast({ title: "Impossible de créer le message", variant: "error" })
+                toast({
+                    title: "Impossible de créer le message",
+                    variant: "error",
+                })
                 return
             }
 
             // Invalidate session list so the new session appears in the sidebar
             dataClient.invalidateQueries({
-                queryKey: [readAllAgentSessionsRouteDefinition.path],
+                queryKey: [
+                    readAllAgentSessionsRouteDefinition.path,
+                ],
                 exact: false,
             })
 
             navigate({
                 to: "/dashboard/organisations/$idOrganization/agent/sessions/$idAgentSession",
-                params: { idOrganization: params.idOrganization, idAgentSession: agentSessionResponse.data.id },
+                params: {
+                    idOrganization: params.idOrganization,
+                    idAgentSession: agentSessionResponse.data.id,
+                },
             })
         } catch (error) {
             console.error("[createNewSession]", error)
-            toast({ title: "Une erreur est survenue lors de la création de la session", variant: "error" })
+            toast({
+                title: "Une erreur est survenue lors de la création de la session",
+                variant: "error",
+            })
         } finally {
             setIsLoading(false)
             setPendingFiles([])
@@ -179,347 +211,418 @@ export function AgentPage() {
                 alignItems: "center",
                 justifyContent: "center",
                 padding: "2rem",
-                gap: "2rem",
                 minHeight: 0,
                 overflowY: "auto",
+                width: "100%",
                 height: "100%",
             })}
         >
-            {/* Greeting */}
             <div
                 className={css({
+                    flex: 1,
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    gap: "0.5rem",
-                    textAlign: "center",
-                })}
-            >
-                <h1
-                    className={css({
-                        fontSize: "2xl",
-                        fontWeight: "semibold",
-                        color: "neutral",
-                        margin: 0,
-                    })}
-                >
-                    Comment puis-je vous aider ?
-                </h1>
-                <p
-                    className={css({
-                        fontSize: "sm",
-                        color: "neutral/50",
-                        margin: 0,
-                        maxWidth: "28rem",
-                    })}
-                >
-                    Posez une question sur votre comptabilité, demandez une action ou explorez vos données.
-                </p>
-            </div>
-
-            {/* Input area */}
-            <form
-                onSubmit={(event) => {
-                    event.preventDefault()
-                }}
-                className={css({
-                    width: "100%",
+                    justifyContent: "center",
+                    gap: "2rem",
                     maxWidth: "40rem",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "0.75rem",
+                    margin: "auto",
                 })}
             >
+                {/* Greeting */}
                 <div
+                    className={css({
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                        textAlign: "center",
+                    })}
+                >
+                    <h1
+                        className={css({
+                            fontSize: "2xl",
+                            fontWeight: "semibold",
+                            color: "neutral",
+                            margin: 0,
+                        })}
+                    >
+                        Comment puis-je vous aider ?
+                    </h1>
+                    <p
+                        className={css({
+                            fontSize: "sm",
+                            color: "neutral/50",
+                            margin: 0,
+                            maxWidth: "28rem",
+                        })}
+                    >
+                        Posez une question sur votre comptabilité, demandez une action ou explorez vos données.
+                    </p>
+                </div>
+
+                {/* Input area */}
+                <form
+                    onSubmit={(event) => {
+                        event.preventDefault()
+                    }}
                     className={css({
                         width: "100%",
                         display: "flex",
                         flexDirection: "column",
-                        justifyContent: "start",
-                        alignItems: "stretch",
-                        gap: "0.5rem",
-                        padding: "1rem",
-                        backgroundColor: "white",
+                        gap: "0.75rem",
                     })}
                 >
-                    <InputTextArea
-                        value={input}
-                        onChange={(value) => setInput(value ?? "")}
-                        onKeyDown={(event: KeyboardEvent<HTMLTextAreaElement>) => {
-                            if (event.key === "Enter" && !event.shiftKey && !event.ctrlKey) {
-                                event.preventDefault()
-                                createNewSession(input)
-                            }
-                        }}
-                        placeholder="Votre message..."
-                        disabled={isLoading}
-                        className={css({ flex: 1 })}
-                    />
-                    <input
-                        ref={fileInputRef}
-                        type="file"
-                        multiple
-                        style={{ display: "none" }}
-                        accept="text/*,application/pdf,application/json,application/xml,application/csv,image/*"
-                        onChange={(event) => {
-                            const files = event.target.files
-                            if (files && files.length > 0) {
-                                const localFiles = Array.from(files).map((file) => ({
-                                    id: `${file.name}-${file.size}-${file.lastModified}-${crypto.randomUUID()}`,
-                                    file,
-                                    name: file.name,
-                                }))
-                                setPendingFiles((prev) => [...prev, ...localFiles])
-                            }
-                            event.target.value = ""
-                        }}
-                    />
-                    {pendingFiles.length > 0 && (
-                        <div
+                    <div
+                        className={css({
+                            width: "100%",
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "start",
+                            alignItems: "stretch",
+                            gap: "0.5rem",
+                            padding: "1rem",
+                            backgroundColor: "white",
+                        })}
+                    >
+                        <InputTextArea
+                            value={input}
+                            onChange={(value) => setInput(value ?? "")}
+                            onKeyDown={(event: KeyboardEvent<HTMLTextAreaElement>) => {
+                                if (event.key === "Enter" && !event.shiftKey && !event.ctrlKey) {
+                                    event.preventDefault()
+                                    createNewSession(input)
+                                }
+                            }}
+                            placeholder="Votre message..."
+                            disabled={isLoading}
                             className={css({
-                                width: "100%",
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: "0.375rem",
-                                padding: "0.5rem",
-                                border: "1px solid",
-                                borderColor: "neutral/20",
-                                borderRadius: "md",
-                                backgroundColor: "neutral/5",
+                                flex: 1,
                             })}
-                        >
-                            <span
-                                className={css({
-                                    fontSize: "xs",
-                                    color: "neutral/70",
-                                    fontWeight: "medium",
-                                })}
-                            >
-                                Fichiers ajoutés: {pendingFiles.length}
-                            </span>
+                        />
+                        <input
+                            ref={fileInputRef}
+                            type="file"
+                            multiple
+                            style={{
+                                display: "none",
+                            }}
+                            accept="text/*,application/pdf,application/json,application/xml,application/csv,image/*"
+                            onChange={(event) => {
+                                const files = event.target.files
+                                if (files && files.length > 0) {
+                                    const localFiles = Array.from(files).map((file) => ({
+                                        id: `${file.name}-${file.size}-${file.lastModified}-${crypto.randomUUID()}`,
+                                        file,
+                                        name: file.name,
+                                    }))
+                                    setPendingFiles((prev) => [
+                                        ...prev,
+                                        ...localFiles,
+                                    ])
+                                }
+                                event.target.value = ""
+                            }}
+                        />
+                        {pendingFiles.length > 0 && (
                             <div
                                 className={css({
-                                    display: "flex",
-                                    flexWrap: "wrap",
-                                    gap: "0.375rem",
                                     width: "100%",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "0.375rem",
+                                    padding: "0.5rem",
+                                    border: "1px solid",
+                                    borderColor: "neutral/20",
+                                    borderRadius: "md",
+                                    backgroundColor: "neutral/5",
                                 })}
                             >
-                                {pendingFiles.map((pendingFile) => (
-                                    <span
-                                        key={pendingFile.id}
-                                        className={css({
-                                            display: "inline-flex",
-                                            alignItems: "center",
-                                            gap: "0.25rem",
-                                            backgroundColor: "neutral/10",
-                                            border: "1px solid",
-                                            borderColor: "neutral/20",
-                                            borderRadius: "sm",
-                                            padding: "0.125rem 0.5rem",
-                                            fontSize: "xs",
-                                            color: "neutral/90",
-                                            maxWidth: "260px",
-                                        })}
-                                    >
-                                        <IconPaperclip size={12} className={css({ flexShrink: 0 })} />
+                                <span
+                                    className={css({
+                                        fontSize: "xs",
+                                        color: "neutral/70",
+                                        fontWeight: "medium",
+                                    })}
+                                >
+                                    Fichiers ajoutés: {pendingFiles.length}
+                                </span>
+                                <div
+                                    className={css({
+                                        display: "flex",
+                                        flexWrap: "wrap",
+                                        gap: "0.375rem",
+                                        width: "100%",
+                                    })}
+                                >
+                                    {pendingFiles.map((pendingFile) => (
                                         <span
-                                            className={css({
-                                                overflow: "hidden",
-                                                textOverflow: "ellipsis",
-                                                whiteSpace: "nowrap",
-                                            })}
-                                        >
-                                            {pendingFile.name}
-                                        </span>
-                                        <button
-                                            type="button"
-                                            onClick={() =>
-                                                setPendingFiles((prev) =>
-                                                    prev.filter((item) => item.id !== pendingFile.id),
-                                                )
-                                            }
+                                            key={pendingFile.id}
                                             className={css({
                                                 display: "inline-flex",
                                                 alignItems: "center",
-                                                cursor: "pointer",
-                                                color: "neutral/40",
-                                                _hover: { color: "danger" },
-                                                background: "none",
-                                                border: "none",
-                                                padding: 0,
-                                                flexShrink: 0,
+                                                gap: "0.25rem",
+                                                backgroundColor: "neutral/10",
+                                                border: "1px solid",
+                                                borderColor: "neutral/20",
+                                                borderRadius: "sm",
+                                                padding: "0.125rem 0.5rem",
+                                                fontSize: "xs",
+                                                color: "neutral/90",
+                                                maxWidth: "260px",
                                             })}
                                         >
-                                            <IconX size={12} />
-                                        </button>
-                                    </span>
-                                ))}
+                                            <IconPaperclip
+                                                size={12}
+                                                className={css({
+                                                    flexShrink: 0,
+                                                })}
+                                            />
+                                            <span
+                                                className={css({
+                                                    overflow: "hidden",
+                                                    textOverflow: "ellipsis",
+                                                    whiteSpace: "nowrap",
+                                                })}
+                                            >
+                                                {pendingFile.name}
+                                            </span>
+                                            <button
+                                                type="button"
+                                                onClick={() =>
+                                                    setPendingFiles((prev) =>
+                                                        prev.filter((item) => item.id !== pendingFile.id),
+                                                    )
+                                                }
+                                                className={css({
+                                                    display: "inline-flex",
+                                                    alignItems: "center",
+                                                    cursor: "pointer",
+                                                    color: "neutral/40",
+                                                    _hover: {
+                                                        color: "danger",
+                                                    },
+                                                    background: "none",
+                                                    border: "none",
+                                                    padding: 0,
+                                                    flexShrink: 0,
+                                                })}
+                                            >
+                                                <IconX size={12} />
+                                            </button>
+                                        </span>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
-                    )}
-                    <div
-                        className={css({
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "flex-end",
-                            gap: "0.5rem",
-                        })}
-                    >
-                        <Popover.Root>
-                            <Popover.Trigger asChild>
-                                <Button title="Contexte de la session">
-                                    <ButtonOutlineContent
-                                        leftIcon={<IconNotebook />}
-                                        // text="Contexte"
-                                    />
-                                </Button>
-                            </Popover.Trigger>
-                            <Popover.Content
-                                side="top"
-                                align="end"
-                                className={css({
-                                    width: "320px",
-                                    maxWidth: "calc(100vw - 2rem)",
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    gap: "0.75rem",
-                                    padding: "0.75rem",
-                                })}
+                        )}
+                        <div
+                            className={css({
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "flex-end",
+                                gap: "0.5rem",
+                            })}
+                        >
+                            <Popover.Root>
+                                <Popover.Trigger asChild>
+                                    <Button title="Contexte de la session">
+                                        <ButtonOutlineContent
+                                            leftIcon={<IconNotebook />}
+                                            // text="Contexte"
+                                        />
+                                    </Button>
+                                </Popover.Trigger>
+                                <Popover.Content
+                                    side="top"
+                                    align="end"
+                                    className={css({
+                                        width: "320px",
+                                        maxWidth: "calc(100vw - 2rem)",
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        gap: "0.75rem",
+                                        padding: "0.75rem",
+                                    })}
+                                >
+                                    <div
+                                        className={css({
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            gap: "0.25rem",
+                                        })}
+                                    >
+                                        <span
+                                            className={css({
+                                                fontSize: "sm",
+                                                fontWeight: "medium",
+                                                color: "neutral",
+                                            })}
+                                        >
+                                            Contexte de la session
+                                        </span>
+                                        <span
+                                            className={css({
+                                                fontSize: "xs",
+                                                color: "neutral/60",
+                                            })}
+                                        >
+                                            Ce contexte guide les réponses de l'assistant pour la session.
+                                        </span>
+                                    </div>
+
+                                    <div
+                                        className={css({
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            gap: "0.75rem",
+                                        })}
+                                    >
+                                        <div
+                                            className={css({
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                gap: "0.25rem",
+                                            })}
+                                        >
+                                            <span
+                                                className={css({
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    gap: "0.375rem",
+                                                    fontSize: "xs",
+                                                    fontWeight: "medium",
+                                                    color: "neutral/70",
+                                                    textTransform: "uppercase",
+                                                })}
+                                            >
+                                                Exercice
+                                            </span>
+                                            <InputSelect
+                                                value={selectedYearId}
+                                                onChange={(value) => setSelectedYearId(value ?? undefined)}
+                                                allowEmpty={true}
+                                                placeholder="Sélectionner un exercice"
+                                                options={
+                                                    yearsData === undefined
+                                                        ? []
+                                                        : yearsData.map((year) => ({
+                                                              key: year.id,
+                                                              label: year.label,
+                                                          }))
+                                                }
+                                            />
+                                        </div>
+
+                                        <div
+                                            className={css({
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                gap: "0.25rem",
+                                            })}
+                                        >
+                                            <span
+                                                className={css({
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    gap: "0.375rem",
+                                                    fontSize: "xs",
+                                                    fontWeight: "medium",
+                                                    color: "neutral/70",
+                                                    textTransform: "uppercase",
+                                                })}
+                                            >
+                                                Instructions
+                                            </span>
+                                            <InputTextArea
+                                                value={customInstructions}
+                                                onChange={(value) => setCustomInstructions(value ?? "")}
+                                                placeholder="Ex: Réponds de manière détaillée, utilise le compte 411 pour les clients..."
+                                            />
+                                        </div>
+                                    </div>
+                                </Popover.Content>
+                            </Popover.Root>
+                            <Button
+                                type="button"
+                                title="Fichiers joints"
+                                onClick={(event) => {
+                                    event.preventDefault()
+                                    fileInputRef.current?.click()
+                                }}
+                                isDisabled={isLoading}
                             >
-                                <div className={css({ display: "flex", flexDirection: "column", gap: "0.25rem" })}>
-                                    <span className={css({ fontSize: "sm", fontWeight: "medium", color: "neutral" })}>
-                                        Contexte de la session
-                                    </span>
-                                    <span className={css({ fontSize: "xs", color: "neutral/60" })}>
-                                        Ce contexte guide les réponses de l'assistant pour la session.
-                                    </span>
-                                </div>
-
-                                <div className={css({ display: "flex", flexDirection: "column", gap: "0.75rem" })}>
-                                    <div className={css({ display: "flex", flexDirection: "column", gap: "0.25rem" })}>
-                                        <span
-                                            className={css({
-                                                display: "flex",
-                                                alignItems: "center",
-                                                gap: "0.375rem",
-                                                fontSize: "xs",
-                                                fontWeight: "medium",
-                                                color: "neutral/70",
-                                                textTransform: "uppercase",
-                                            })}
-                                        >
-                                            Exercice
-                                        </span>
-                                        <InputSelect
-                                            value={selectedYearId}
-                                            onChange={(value) => setSelectedYearId(value ?? undefined)}
-                                            allowEmpty={true}
-                                            placeholder="Sélectionner un exercice"
-                                            options={
-                                                yearsData === undefined
-                                                    ? []
-                                                    : yearsData.map((year) => ({
-                                                          key: year.id,
-                                                          label: year.label,
-                                                      }))
-                                            }
-                                        />
-                                    </div>
-
-                                    <div className={css({ display: "flex", flexDirection: "column", gap: "0.25rem" })}>
-                                        <span
-                                            className={css({
-                                                display: "flex",
-                                                alignItems: "center",
-                                                gap: "0.375rem",
-                                                fontSize: "xs",
-                                                fontWeight: "medium",
-                                                color: "neutral/70",
-                                                textTransform: "uppercase",
-                                            })}
-                                        >
-                                            Instructions
-                                        </span>
-                                        <InputTextArea
-                                            value={customInstructions}
-                                            onChange={(value) => setCustomInstructions(value ?? "")}
-                                            placeholder="Ex: Réponds de manière détaillée, utilise le compte 411 pour les clients..."
-                                        />
-                                    </div>
-                                </div>
-                            </Popover.Content>
-                        </Popover.Root>
-                        <Button
-                            type="button"
-                            title="Fichiers joints"
-                            onClick={(event) => {
-                                event.preventDefault()
-                                fileInputRef.current?.click()
-                            }}
-                            isDisabled={isLoading}
-                        >
-                            <ButtonOutlineContent
-                                leftIcon={<IconPaperclip />}
-                                text={pendingFiles.length > 0 ? String(pendingFiles.length) : undefined}
-                            />
-                        </Button>
-                        <Button
-                            type="button"
-                            isDisabled={isLoading}
-                            onClick={(event) => {
-                                event.preventDefault()
-                                createNewSession(input)
-                            }}
-                        >
-                            <ButtonPlainContent isLoading={isLoading} leftIcon={<IconSend />} text="Envoyer" />
-                        </Button>
+                                <ButtonOutlineContent
+                                    leftIcon={<IconPaperclip />}
+                                    text={pendingFiles.length > 0 ? String(pendingFiles.length) : undefined}
+                                />
+                            </Button>
+                            <Button
+                                type="button"
+                                isDisabled={isLoading}
+                                onClick={(event) => {
+                                    event.preventDefault()
+                                    createNewSession(input)
+                                }}
+                            >
+                                <ButtonPlainContent
+                                    isLoading={isLoading}
+                                    leftIcon={<IconSend />}
+                                    text="Envoyer"
+                                />
+                            </Button>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
 
-            {/* Suggestion chips */}
-            <div
-                className={css({
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: "0.5rem",
-                    justifyContent: "center",
-                    maxWidth: "40rem",
-                })}
-            >
-                {suggestionChips.map((chipText) => (
-                    <Button key={chipText} onClick={() => setInput(chipText)} isDisabled={isLoading}>
-                        <ButtonOutlineContent text={chipText} />
-                    </Button>
-                ))}
-            </div>
-
-            {/* Disclaimer */}
-            <p
-                className={css({
-                    fontSize: "sm",
-                    color: "neutral/50",
-                    textAlign: "center",
-                    maxWidth: "40rem",
-                    lineHeight: "1.5",
-                    margin: 0,
-                })}
-            >
-                L'assistant peut faire des erreurs. Vérifiez les informations importantes.{" "}
-                <Link
-                    to="/documentation/dashboard/assistant"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                {/* Suggestion chips */}
+                <div
                     className={css({
-                        color: "primary/60",
-                        textDecoration: "underline",
-                        _hover: { color: "primary" },
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: "0.25rem",
+                        justifyContent: "center",
+                        width: "100%",
                     })}
                 >
-                    En savoir plus
-                </Link>
-            </p>
+                    {suggestionChips.map((chipText) => (
+                        <Button
+                            key={chipText}
+                            onClick={() => setInput(chipText)}
+                            isDisabled={isLoading}
+                        >
+                            <ButtonOutlineContent text={chipText} />
+                        </Button>
+                    ))}
+                </div>
+
+                {/* Disclaimer */}
+                <p
+                    className={css({
+                        fontSize: "sm",
+                        color: "neutral/50",
+                        textAlign: "center",
+                        maxWidth: "40rem",
+                        lineHeight: "1.5",
+                        margin: 0,
+                    })}
+                >
+                    L'assistant peut faire des erreurs. Vérifiez les informations importantes.{" "}
+                    <Link
+                        to="/documentation/dashboard/assistant"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={css({
+                            color: "primary/60",
+                            textDecoration: "underline",
+                            _hover: {
+                                color: "primary",
+                            },
+                        })}
+                    >
+                        En savoir plus
+                    </Link>
+                </p>
+            </div>
         </div>
     )
 }

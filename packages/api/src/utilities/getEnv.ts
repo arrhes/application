@@ -8,7 +8,10 @@ enum Env {
 
 const envSchema = v.object({
     ENV: v.enum_(Env),
-    VERBOSE: v.picklist(["true", "false"]),
+    VERBOSE: v.picklist([
+        "true",
+        "false",
+    ]),
     PORT: v.string(),
 
     CORS_ORIGIN: v.string(),
@@ -21,7 +24,6 @@ const envSchema = v.object({
     SQL_DATABASE_URL: v.string(),
 
     STORAGE_ENDPOINT: v.string(),
-    STORAGE_PUBLIC_ENDPOINT: v.string(),
     STORAGE_BUCKET_NAME: v.string(),
     STORAGE_ACCESS_KEY: v.string(),
     STORAGE_SECRET_KEY: v.string(),
@@ -34,15 +36,18 @@ const envSchema = v.object({
     MOLLIE_API_KEY: v.string(),
     INTERNAL_API_KEY: v.optional(v.string(), ""),
 
-    LLM_PROVIDER: v.optional(v.picklist(["mistral-api", "ollama"]), "ollama"),
+    LLM_PROVIDER: v.optional(
+        v.picklist([
+            "mistral-api",
+            "ollama",
+        ]),
+        "ollama",
+    ),
     LLM_BASE_URL: v.optional(v.string(), "http://localhost:11434"),
     LLM_MODEL: v.optional(v.string(), "mistral-small3.1"),
     LLM_API_KEY: v.optional(v.string(), ""),
 
-    REDIS_HOST: v.string(),
-    REDIS_PORT: v.string(),
-    REDIS_USERNAME: v.optional(v.string(), ""),
-    REDIS_PASSWORD: v.optional(v.string(), ""),
+    REDIS_URL: v.string(),
 })
 
 export function getEnv() {

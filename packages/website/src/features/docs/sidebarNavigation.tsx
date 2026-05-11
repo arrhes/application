@@ -1,4 +1,4 @@
-import { ButtonGhostContent } from "@arrhes/ui"
+import { ButtonGhostContent, Chip, type ChipColors } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import type { Icon, IconProps } from "@tabler/icons-react"
 import { cloneElement, type ReactElement } from "react"
@@ -7,7 +7,13 @@ import { LinkButton } from "../../components/linkButton.tsx"
 export interface NavigationSection {
     title?: string
     icon?: ReactElement<IconProps & React.RefAttributes<Icon>>
-    items: { path: string; hash?: string; label: string }[]
+    items: {
+        path: string
+        hash?: string
+        label: string
+        chipText?: string
+        chipColor?: ChipColors
+    }[]
 }
 
 export function SidebarNavigation(props: {
@@ -22,10 +28,14 @@ export function SidebarNavigation(props: {
                 display: "flex",
                 flexDirection: "column",
                 gap: "0.5rem",
+                minHeight: "fit-content",
             })}
         >
             {Object.entries(props.navigation).map(([key, section]) => (
-                <div key={key} className={css({ marginBottom: "0.5rem" })}>
+                <div
+                    key={key}
+                    className={css({})}
+                >
                     {section.title && section.icon && (
                         <div
                             className={css({
@@ -54,7 +64,6 @@ export function SidebarNavigation(props: {
                     )}
                     <div
                         className={css({
-                            marginTop: section.title ? "0.25rem" : "0",
                             display: "flex",
                             flexDirection: "column",
                             gap: "0.25rem",
@@ -82,14 +91,29 @@ export function SidebarNavigation(props: {
                                     key={item.path + (item.hash ?? "")}
                                     to={item.path}
                                     hash={item.hash}
-                                    className={css({ width: "100%" })}
+                                    className={css({
+                                        width: "100%",
+                                    })}
                                     onClick={props.onClick}
                                 >
                                     <ButtonGhostContent
                                         text={item.label}
                                         isCurrent={isCurrent}
-                                        className={css({ width: "100%", justifyContent: "start" })}
-                                    />
+                                        className={css({
+                                            width: "100%",
+                                            justifyContent: "start",
+                                        })}
+                                    >
+                                        {item.chipText ? (
+                                            <Chip
+                                                text={item.chipText}
+                                                color={item.chipColor ?? "neutral"}
+                                                className={css({
+                                                    marginLeft: "auto",
+                                                })}
+                                            />
+                                        ) : null}
+                                    </ButtonGhostContent>
                                 </LinkButton>
                             )
                         })}

@@ -28,21 +28,20 @@
         "typecheck": "tsc --noEmit"
     },
     "dependencies": {
-        "@pandacss/dev": "1.8.1",
-        "@radix-ui/react-dialog": "1.1.15",
+        "@pandacss/dev": "1.11.0",
         "@radix-ui/react-popover": "1.1.15",
         "@radix-ui/react-switch": "1.2.6",
-        "@tabler/icons-react": "3.35.0",
-        "@tanstack/react-router": "1.139.10",
-        "@tanstack/react-virtual": "3.13.12",
-        "react": "19.2.0",
-        "react-dom": "19.2.0",
-        "react-hook-form": "7.66.1",
+        "@tabler/icons-react": "3.42.0",
+        "@tanstack/react-router": "1.169.2",
+        "@tanstack/react-virtual": "3.13.24",
+        "react": "19.2.6",
+        "react-dom": "19.2.6",
+        "react-hook-form": "7.75.0",
         "react-imask": "7.6.1"
     },
     "devDependencies": {
-        "@types/react": "19.2.7",
+        "@types/react": "19.2.14",
         "@types/react-dom": "19.2.3",
-        "typescript": "5.9.3"
+        "typescript": "6.0.3"
     }
 }

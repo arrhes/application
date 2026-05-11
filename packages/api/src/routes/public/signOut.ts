@@ -2,6 +2,7 @@ import { models, signOutRouteDefinition } from "@arrhes/application-metadata"
 import { eq } from "drizzle-orm"
 import { validateBodyMiddleware } from "../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../utilities/apiFactory.js"
+import { getCookieDomainFromHost } from "../../utilities/cookies/getCookieDomainFromHost.js"
 import { parseCookies } from "../../utilities/cookies/parseCookies.js"
 import { serializeCookie } from "../../utilities/cookies/serializeCookie.js"
 import { unsignString } from "../../utilities/cookies/unsignString.js"
@@ -18,7 +19,9 @@ export const signOutRoute = apiFactory.createApp().post(signOutRouteDefinition.p
 
     try {
         const idUserSession = unsignString({
-            signedValue: parseCookies({ value: c.req.header("cookie") })[`${productName}_${"id_user_session"}`],
+            signedValue: parseCookies({
+                value: c.req.header("cookie"),
+            })[`${productName}_${"id_user_session"}`],
             secret: c.var.env.COOKIES_KEY,
         })
 
@@ -44,6 +47,10 @@ export const signOutRoute = apiFactory.createApp().post(signOutRouteDefinition.p
     }
 
     const cookieSecurity = getCookieSecurityOptions(c.var.env.ENV)
+    const cookieDomain = getCookieDomainFromHost({
+        hostHeader: c.req.header("host"),
+        fallbackDomain: c.var.env.COOKIES_DOMAIN,
+    })
     c.res.headers.append(
         "Set-Cookie",
         serializeCookie({
@@ -53,7 +60,7 @@ export const signOutRoute = apiFactory.createApp().post(signOutRouteDefinition.p
                 maxAge: userSessionCookieMaxAge,
                 httpOnly: true,
                 ...cookieSecurity,
-                domain: c.var.env.COOKIES_DOMAIN,
+                domain: cookieDomain,
                 path: "/",
             },
         }),
@@ -67,7 +74,7 @@ export const signOutRoute = apiFactory.createApp().post(signOutRouteDefinition.p
                 maxAge: userSessionCookieMaxAge,
                 httpOnly: false,
                 ...cookieSecurity,
-                domain: c.var.env.COOKIES_DOMAIN,
+                domain: cookieDomain,
                 path: "/",
             },
         }),

@@ -10,7 +10,11 @@ export function FormField<TFieldValues extends FieldValues, TName extends FieldP
     props: FormField<TFieldValues, TName>,
 ) {
     return (
-        <FormFieldContext value={{ name: props.name }}>
+        <FormFieldContext
+            value={{
+                name: props.name,
+            }}
+        >
             <Controller {...props} />
         </FormFieldContext>
     )

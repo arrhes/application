@@ -86,7 +86,12 @@ export function UblInvoiceViewer(props: {
     onDownloadPdf?: () => void | Promise<void>
     isDownloadingPdf?: boolean
 }) {
-    const parsed = useMemo(() => parseInvoiceSummary(props.xmlContent), [props.xmlContent])
+    const parsed = useMemo(
+        () => parseInvoiceSummary(props.xmlContent),
+        [
+            props.xmlContent,
+        ],
+    )
 
     return (
         <div
@@ -107,12 +112,27 @@ export function UblInvoiceViewer(props: {
                     gap: "0.5rem",
                 })}
             >
-                <h2 className={css({ fontSize: "md", fontWeight: "semibold", color: "neutral" })}>
+                <h2
+                    className={css({
+                        fontSize: "md",
+                        fontWeight: "semibold",
+                        color: "neutral",
+                    })}
+                >
                     {props.title ?? "Facture"}
                 </h2>
-                <div className={css({ display: "flex", alignItems: "center", gap: "0.5rem" })}>
+                <div
+                    className={css({
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                    })}
+                >
                     {props.onDownloadPdf && (
-                        <Button onClick={props.onDownloadPdf} isDisabled={props.isDownloadingPdf}>
+                        <Button
+                            onClick={props.onDownloadPdf}
+                            isDisabled={props.isDownloadingPdf}
+                        >
                             <ButtonOutlineContent
                                 leftIcon={<IconFileTypePdf />}
                                 text={props.isDownloadingPdf ? "PDF..." : "Télécharger PDF"}

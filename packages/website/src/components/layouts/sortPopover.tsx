@@ -49,14 +49,19 @@ export function SortPopover(props: {
             >
                 <Button
                     onClick={props.onClearAll}
-                    className={css({ width: "100%" })}
+                    className={css({
+                        width: "100%",
+                    })}
                     isDisabled={props.activeSortCount === 0}
                 >
                     <ButtonGhostContent
                         color="danger"
                         leftIcon={<IconX />}
                         text="Effacer le tri"
-                        className={css({ width: "100%", justifyContent: "start" })}
+                        className={css({
+                            width: "100%",
+                            justifyContent: "start",
+                        })}
                         isDisabled={props.activeSortCount === 0}
                     />
                 </Button>
@@ -83,7 +88,9 @@ export function SortPopover(props: {
                             >
                                 <Button
                                     onClick={() => props.onToggleSort(column.id)}
-                                    className={css({ width: "100%" })}
+                                    className={css({
+                                        width: "100%",
+                                    })}
                                 >
                                     <ButtonGhostContent
                                         leftIcon={
@@ -94,7 +101,10 @@ export function SortPopover(props: {
                                             ) : undefined
                                         }
                                         text={column.header}
-                                        className={css({ width: "100%", justifyContent: "start" })}
+                                        className={css({
+                                            width: "100%",
+                                            justifyContent: "start",
+                                        })}
                                     />
                                 </Button>
                             </div>

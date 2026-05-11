@@ -29,8 +29,15 @@ export function ExportEntryLines(props: {
     onOpenChange: (open: boolean) => void
 }) {
     const entriesMap = useMemo(() => {
-        return new Map(props.entries.map((r) => [r.id, r]))
-    }, [props.entries])
+        return new Map(
+            props.entries.map((r) => [
+                r.id,
+                r,
+            ]),
+        )
+    }, [
+        props.entries,
+    ])
 
     function escapeCsvValue(value: string): string {
         if (value.includes(";") || value.includes('"') || value.includes("\n")) {
@@ -40,7 +47,10 @@ export function ExportEntryLines(props: {
     }
 
     return (
-        <Drawer.Root open={props.open} onOpenChange={props.onOpenChange}>
+        <Drawer.Root
+            open={props.open}
+            onOpenChange={props.onOpenChange}
+        >
             <Drawer.Content>
                 <Drawer.Header title="Exporter les mouvements" />
                 <Drawer.Body>
@@ -75,29 +85,51 @@ export function ExportEntryLines(props: {
                             })
 
                             if (filteredRows.length === 0) {
-                                toast({ title: "Aucun mouvement à exporter", variant: "warning" })
+                                toast({
+                                    title: "Aucun mouvement à exporter",
+                                    variant: "warning",
+                                })
                                 return false
                             }
 
                             const accountsResponse = await getResponseBodyFromAPI({
                                 routeDefinition: readAllAccountsRouteDefinition,
-                                body: { idYear: props.idYear },
+                                body: {
+                                    idYear: props.idYear,
+                                },
                             })
                             const journalsResponse = await getResponseBodyFromAPI({
                                 routeDefinition: readAllJournalsRouteDefinition,
-                                body: { idYear: props.idYear },
+                                body: {
+                                    idYear: props.idYear,
+                                },
                             })
 
                             if (!accountsResponse.ok || !journalsResponse.ok) {
-                                toast({ title: "Impossible de charger les données", variant: "error" })
+                                toast({
+                                    title: "Impossible de charger les données",
+                                    variant: "error",
+                                })
                                 return false
                             }
 
                             const accountsMap = new Map(
-                                accountsResponse.data.map((a) => [a.id, { number: a.number, label: a.label }]),
+                                accountsResponse.data.map((a) => [
+                                    a.id,
+                                    {
+                                        number: a.number,
+                                        label: a.label,
+                                    },
+                                ]),
                             )
                             const journalsMap = new Map(
-                                journalsResponse.data.map((j) => [j.id, { code: j.code, label: j.label }]),
+                                journalsResponse.data.map((j) => [
+                                    j.id,
+                                    {
+                                        code: j.code,
+                                        label: j.label,
+                                    },
+                                ]),
                             )
 
                             const headers = [
@@ -128,8 +160,12 @@ export function ExportEntryLines(props: {
                                         account?.number ?? "",
                                         account?.label ?? "",
                                         row.label ?? "",
-                                        formatPrice({ price: row.debit }),
-                                        formatPrice({ price: row.credit }),
+                                        formatPrice({
+                                            price: row.debit,
+                                        }),
+                                        formatPrice({
+                                            price: row.credit,
+                                        }),
                                     ].map(escapeCsvValue)
                                 })
                                 .filter((row) => row !== null)
@@ -140,7 +176,14 @@ export function ExportEntryLines(props: {
                             ].join("\n")
 
                             const BOM = "\uFEFF"
-                            const blob = new Blob([BOM + csvContent], { type: "text/csv;charset=utf-8;" })
+                            const blob = new Blob(
+                                [
+                                    BOM + csvContent,
+                                ],
+                                {
+                                    type: "text/csv;charset=utf-8;",
+                                },
+                            )
                             const url = URL.createObjectURL(blob)
                             const link = document.createElement("a")
                             link.href = url
@@ -148,7 +191,10 @@ export function ExportEntryLines(props: {
                             link.click()
                             URL.revokeObjectURL(url)
 
-                            toast({ title: `${filteredRows.length} mouvements exportés`, variant: "success" })
+                            toast({
+                                title: `${filteredRows.length} mouvements exportés`,
+                                variant: "success",
+                            })
                             return true
                         }}
                         onCancel={undefined}
@@ -230,7 +276,10 @@ export function ExportEntryLines(props: {
                                                 tooltip={undefined}
                                             />
                                             <FormControl>
-                                                <InputDate value={field.value} onChange={field.onChange} />
+                                                <InputDate
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -248,7 +297,10 @@ export function ExportEntryLines(props: {
                                                 tooltip={undefined}
                                             />
                                             <FormControl>
-                                                <InputDate value={field.value} onChange={field.onChange} />
+                                                <InputDate
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>

@@ -8,7 +8,11 @@ export function FormItem(props: FormItem) {
     const id = useId()
 
     return (
-        <FormItemContext.Provider value={{ id }}>
+        <FormItemContext.Provider
+            value={{
+                id,
+            }}
+        >
             <div
                 {...props}
                 className={cx(

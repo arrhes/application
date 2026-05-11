@@ -13,7 +13,9 @@ import { SubPageLayout } from "../../../../components/layouts/subPageLayout.tsx"
 import { yearSettingsLayoutRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/yearSettingsLayoutRoute.tsx"
 
 export function YearSettingsLayout() {
-    const params = useParams({ from: yearSettingsLayoutRoute.id })
+    const params = useParams({
+        from: yearSettingsLayoutRoute.id,
+    })
 
     return (
         <SubPageLayout

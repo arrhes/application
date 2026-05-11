@@ -20,12 +20,23 @@ export function DrawerHeader(props: { title: string | undefined }) {
             })}
         >
             <span>
-                {props.title === undefined ? null : <span className={css({ fontSize: "2xl" })}>{props.title}</span>}
+                {props.title === undefined ? null : (
+                    <span
+                        className={css({
+                            fontSize: "2xl",
+                        })}
+                    >
+                        {props.title}
+                    </span>
+                )}
             </span>
             <Button
                 title="Fermer"
                 aria-label="Fermer"
-                className={css({ display: "flex", alignItems: "center" })}
+                className={css({
+                    display: "flex",
+                    alignItems: "center",
+                })}
                 onClick={() => setOpen(false)}
             >
                 <ButtonGhostContent leftIcon={<IconX />} />

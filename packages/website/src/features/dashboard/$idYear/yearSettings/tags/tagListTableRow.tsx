@@ -10,7 +10,14 @@ export function TagListTableRow(props: { tag: v.InferOutput<typeof schemas.tag> 
 
     return (
         <ListTable.Row>
-            <div className={css({ width: "100%", display: "flex", flexDirection: "column", gap: "0.5rem" })}>
+            <div
+                className={css({
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.5rem",
+                })}
+            >
                 <div
                     className={css({
                         width: "100%",
@@ -21,7 +28,13 @@ export function TagListTableRow(props: { tag: v.InferOutput<typeof schemas.tag> 
                         gap: "1rem",
                     })}
                 >
-                    <div className={css({ display: "flex", alignItems: "center", gap: "0.75rem" })}>
+                    <div
+                        className={css({
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.75rem",
+                        })}
+                    >
                         <LinkButton
                             to="/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/catégories/$idTag"
                             params={{
@@ -36,7 +49,9 @@ export function TagListTableRow(props: { tag: v.InferOutput<typeof schemas.tag> 
                                     fontWeight: "semibold",
                                     color: "primary",
                                     textDecoration: "none",
-                                    _hover: { textDecoration: "underline" },
+                                    _hover: {
+                                        textDecoration: "underline",
+                                    },
                                 })}
                             >
                                 {props.tag.label ?? undefined}
@@ -44,8 +59,20 @@ export function TagListTableRow(props: { tag: v.InferOutput<typeof schemas.tag> 
                         </LinkButton>
                     </div>
                 </div>
-                <div className={css({ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" })}>
-                    <span className={css({ fontSize: "xs", color: "neutral/50" })}>{`Ajouté le ${createdAt}`}</span>
+                <div
+                    className={css({
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                        flexWrap: "wrap",
+                    })}
+                >
+                    <span
+                        className={css({
+                            fontSize: "xs",
+                            color: "neutral/50",
+                        })}
+                    >{`Ajouté le ${createdAt}`}</span>
                 </div>
             </div>
         </ListTable.Row>

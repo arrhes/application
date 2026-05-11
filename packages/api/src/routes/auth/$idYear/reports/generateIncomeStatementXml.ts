@@ -191,7 +191,9 @@ ${facts.join("\n")}
 export const generateIncomeStatementXmlRoute = apiFactory
     .createApp()
     .post(generateIncomeStatementXmlRouteDefinition.path, async (c) => {
-        const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+        const { user, idOrganization } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: generateIncomeStatementXmlRouteDefinition.schemas.body,
@@ -269,12 +271,17 @@ export const generateIncomeStatementXmlRoute = apiFactory
             },
         })
 
-        const url = await generateGetSignedUrl({ var: c.var, storageKey })
+        const url = await generateGetSignedUrl({
+            var: c.var,
+            storageKey,
+        })
 
         return response({
             context: c,
             statusCode: 200,
             schema: generateIncomeStatementXmlRouteDefinition.schemas.return,
-            data: { url },
+            data: {
+                url,
+            },
         })
     })

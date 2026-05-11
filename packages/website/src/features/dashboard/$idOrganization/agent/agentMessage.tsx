@@ -81,7 +81,12 @@ export function AgentMessage(props: {
                         paddingInline: "0.5rem",
                     })}
                 >
-                    {(props.agentMessage.attachedFiles as Array<{ idFile: string; name: string }>).map((file) => (
+                    {(
+                        props.agentMessage.attachedFiles as Array<{
+                            idFile: string
+                            name: string
+                        }>
+                    ).map((file) => (
                         <span
                             key={file.idFile}
                             className={css({
@@ -112,29 +117,33 @@ export function AgentMessage(props: {
                         paddingInline: "0.5rem",
                     })}
                 >
-                    {(props.agentMessage.references as Array<{ id: string; type: string; label: string }>).map(
-                        (ref) => {
-                            const Icon = referenceTypeIcons[ref.type] ?? IconFile
-                            return (
-                                <span
-                                    key={ref.id}
-                                    className={css({
-                                        display: "inline-flex",
-                                        alignItems: "center",
-                                        gap: "0.25rem",
-                                        fontSize: "xs",
-                                        color: "primary",
-                                        backgroundColor: "primary/10",
-                                        borderRadius: "sm",
-                                        padding: "0.125rem 0.5rem",
-                                    })}
-                                >
-                                    <Icon size={12} />
-                                    {ref.label}
-                                </span>
-                            )
-                        },
-                    )}
+                    {(
+                        props.agentMessage.references as Array<{
+                            id: string
+                            type: string
+                            label: string
+                        }>
+                    ).map((ref) => {
+                        const Icon = referenceTypeIcons[ref.type] ?? IconFile
+                        return (
+                            <span
+                                key={ref.id}
+                                className={css({
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    gap: "0.25rem",
+                                    fontSize: "xs",
+                                    color: "primary",
+                                    backgroundColor: "primary/10",
+                                    borderRadius: "sm",
+                                    padding: "0.125rem 0.5rem",
+                                })}
+                            >
+                                <Icon size={12} />
+                                {ref.label}
+                            </span>
+                        )
+                    })}
                 </div>
             )}
 
@@ -150,7 +159,10 @@ export function AgentMessage(props: {
                 })}
             >
                 {parts.map((part, index) => (
-                    <AgentMessagePart key={`${props.agentMessage.id}-${index}`} part={part} />
+                    <AgentMessagePart
+                        key={`${props.agentMessage.id}-${index}`}
+                        part={part}
+                    />
                 ))}
             </div>
         </div>

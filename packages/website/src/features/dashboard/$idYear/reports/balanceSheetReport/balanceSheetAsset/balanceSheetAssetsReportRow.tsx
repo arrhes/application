@@ -11,21 +11,58 @@ export function BalanceSheetAssetsReportRow(props: {
     isAmountDisplayed: boolean
 }) {
     return (
-        <Table.Body.Row className={cx("", props.number ? css({ backgroundColor: "neutral/5" }) : "")}>
-            <Table.Body.Cell style={{ paddingLeft: `${props.level * 16 + 8}px` }}>
+        <Table.Body.Row
+            className={cx(
+                "",
+                props.number
+                    ? css({
+                          backgroundColor: "neutral/5",
+                      })
+                    : "",
+            )}
+        >
+            <Table.Body.Cell
+                style={{
+                    paddingLeft: `${props.level * 16 + 8}px`,
+                }}
+            >
                 <FormatText
-                    className={cx(css({ whiteSpace: "normal" }), props.number ? css({ fontWeight: "bold" }) : "")}
+                    className={cx(
+                        css({
+                            whiteSpace: "normal",
+                        }),
+                        props.number
+                            ? css({
+                                  fontWeight: "bold",
+                              })
+                            : "",
+                    )}
                 >
                     {props.number} {props.label}
                 </FormatText>
             </Table.Body.Cell>
-            <Table.Body.Cell className={css({ width: "[1%]" })} align="right">
+            <Table.Body.Cell
+                className={css({
+                    width: "[1%]",
+                })}
+                align="right"
+            >
                 {props.isAmountDisplayed === true ? <FormatPrice price={props.grossAmount} /> : null}
             </Table.Body.Cell>
-            <Table.Body.Cell className={css({ width: "[1%]" })} align="right">
+            <Table.Body.Cell
+                className={css({
+                    width: "[1%]",
+                })}
+                align="right"
+            >
                 {props.isAmountDisplayed === true ? <FormatPrice price={props.amortizationAmount} /> : null}
             </Table.Body.Cell>
-            <Table.Body.Cell className={css({ width: "[1%]" })} align="right">
+            <Table.Body.Cell
+                className={css({
+                    width: "[1%]",
+                })}
+                align="right"
+            >
                 {props.isAmountDisplayed === true ? (
                     <FormatPrice price={props.grossAmount + props.amortizationAmount} />
                 ) : null}

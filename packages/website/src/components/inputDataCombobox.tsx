@@ -7,7 +7,10 @@ export function InputDataCombobox<TRouteDefinition extends ReturnType<typeof rou
     routeDefinition: TRouteDefinition
     body: v.InferInput<TRouteDefinition["schemas"]["body"]>
     placeholder?: string
-    getOption: (data: v.InferOutput<TRouteDefinition["schemas"]["return"]>[number]) => { key: string; label: string }
+    getOption: (data: v.InferOutput<TRouteDefinition["schemas"]["return"]>[number]) => {
+        key: string
+        label: string
+    }
     value?: string | null
     onChange: (value?: string | null) => void
 }) {
@@ -29,7 +32,9 @@ export function InputDataCombobox<TRouteDefinition extends ReturnType<typeof rou
                     ? []
                     : Array.isArray(response.data)
                       ? response.data?.map((item) => props.getOption(item))
-                      : [props.getOption(response.data)]
+                      : [
+                            props.getOption(response.data),
+                        ]
             }
         />
     )

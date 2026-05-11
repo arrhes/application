@@ -13,16 +13,28 @@ export const entryTagModel = pgTable(
     {
         id: idColumn("id").primaryKey(),
         idOrganization: idColumn("id_organization")
-            .references(() => organizationModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => organizationModel.id, {
+                onDelete: "cascade",
+                onUpdate: "cascade",
+            })
             .notNull(),
         idYear: idColumn("id_year")
-            .references(() => yearModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => yearModel.id, {
+                onDelete: "cascade",
+                onUpdate: "cascade",
+            })
             .notNull(),
         idEntry: idColumn("id_entry")
-            .references(() => entryModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => entryModel.id, {
+                onDelete: "cascade",
+                onUpdate: "cascade",
+            })
             .notNull(),
         idTag: idColumn("id_tag")
-            .references(() => tagModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => tagModel.id, {
+                onDelete: "cascade",
+                onUpdate: "cascade",
+            })
             .notNull(),
         createdAt: dateTimeColumn("created_at").notNull(),
     },
@@ -37,11 +49,19 @@ export const entryTagModel = pgTable(
 // Relations
 export const entryTagRelations = relations(entryTagModel, ({ one }) => ({
     entry: one(entryModel, {
-        fields: [entryTagModel.idEntry],
-        references: [entryModel.id],
+        fields: [
+            entryTagModel.idEntry,
+        ],
+        references: [
+            entryModel.id,
+        ],
     }),
     tag: one(tagModel, {
-        fields: [entryTagModel.idTag],
-        references: [tagModel.id],
+        fields: [
+            entryTagModel.idTag,
+        ],
+        references: [
+            tagModel.id,
+        ],
     }),
 }))

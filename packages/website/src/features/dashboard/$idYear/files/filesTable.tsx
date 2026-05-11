@@ -20,8 +20,16 @@ import { FilesTableSelectionActions } from "./filesTableSelectionActions.js"
 import { FolderActions } from "./folderActions.js"
 
 type DragPayload =
-    | { kind: "file"; id: string; sourceFolderId: string | null }
-    | { kind: "folder"; id: string; sourceParentFolderId: string | null }
+    | {
+          kind: "file"
+          id: string
+          sourceFolderId: string | null
+      }
+    | {
+          kind: "folder"
+          id: string
+          sourceParentFolderId: string | null
+      }
 
 export function FilesTable(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
@@ -41,13 +49,21 @@ export function FilesTable(props: {
     // Long-press-to-drag: 300ms hold activates draggable on the row
     const LONG_PRESS_MS = 300
     const longPressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-    const pendingDragRef = useRef<{ row: HTMLTableRowElement; payload: DragPayload; id: string } | null>(null)
+    const pendingDragRef = useRef<{
+        row: HTMLTableRowElement
+        payload: DragPayload
+        id: string
+    } | null>(null)
 
     function startLongPress(event: MouseEvent<HTMLTableRowElement>, payload: DragPayload, id: string) {
         if (event.button !== 0) return
         const row = event.currentTarget
         if (longPressTimerRef.current !== null) clearTimeout(longPressTimerRef.current)
-        pendingDragRef.current = { row, payload, id }
+        pendingDragRef.current = {
+            row,
+            payload,
+            id,
+        }
         longPressTimerRef.current = setTimeout(() => {
             if (pendingDragRef.current) {
                 pendingDragRef.current.row.draggable = true
@@ -178,8 +194,16 @@ export function FilesTable(props: {
             const id = item.kind === "folder" ? item.data.id : item.data.id
             const payload: DragPayload =
                 item.kind === "folder"
-                    ? { kind: "folder", id: item.data.id, sourceParentFolderId: item.data.idFolderParent ?? null }
-                    : { kind: "file", id: item.data.id, sourceFolderId: item.data.idFolder ?? null }
+                    ? {
+                          kind: "folder",
+                          id: item.data.id,
+                          sourceParentFolderId: item.data.idFolderParent ?? null,
+                      }
+                    : {
+                          kind: "file",
+                          id: item.data.id,
+                          sourceFolderId: item.data.idFolder ?? null,
+                      }
             return {
                 onMouseDown: (event: MouseEvent<HTMLTableRowElement>) => startLongPress(event, payload, id),
                 onMouseUp: cancelLongPress,
@@ -206,8 +230,16 @@ export function FilesTable(props: {
             ...dropTargetProps,
             ...dragSourceProps,
             className: cx(
-                isDropTarget ? css({ backgroundColor: "primary/6" }) : undefined,
-                isDraggingThis ? css({ opacity: "0.4" }) : undefined,
+                isDropTarget
+                    ? css({
+                          backgroundColor: "primary/6",
+                      })
+                    : undefined,
+                isDraggingThis
+                    ? css({
+                          opacity: "0.4",
+                      })
+                    : undefined,
                 isLongPressReady
                     ? css({
                           outline: "2px solid",
@@ -227,7 +259,12 @@ export function FilesTable(props: {
 
         const payload = draggingPayloadRef.current ?? draggingPayload ?? getDragPayload(event)
         if (!payload) return
-        if (!canDropOnTarget({ payload, targetFolderId })) {
+        if (
+            !canDropOnTarget({
+                payload,
+                targetFolderId,
+            })
+        ) {
             handleDragEnd()
             return
         }
@@ -243,7 +280,10 @@ export function FilesTable(props: {
             })
 
             if (updateResponse.ok === false) {
-                toast({ title: "Impossible de déplacer le fichier", variant: "error" })
+                toast({
+                    title: "Impossible de déplacer le fichier",
+                    variant: "error",
+                })
                 return
             }
 
@@ -254,7 +294,10 @@ export function FilesTable(props: {
                 },
             })
 
-            toast({ title: "Fichier déplacé", variant: "success" })
+            toast({
+                title: "Fichier déplacé",
+                variant: "success",
+            })
             return
         }
 
@@ -272,7 +315,10 @@ export function FilesTable(props: {
         })
 
         if (updateResponse.ok === false) {
-            toast({ title: "Impossible de déplacer le dossier", variant: "error" })
+            toast({
+                title: "Impossible de déplacer le dossier",
+                variant: "error",
+            })
             return
         }
 
@@ -283,13 +329,28 @@ export function FilesTable(props: {
             },
         })
 
-        toast({ title: "Dossier déplacé", variant: "success" })
+        toast({
+            title: "Dossier déplacé",
+            variant: "success",
+        })
     }
 
     const rows: Array<TableRow> = [
-        ...(props.currentFolderId !== null ? [{ kind: "back" as const }] : []),
-        ...props.folders.map((folder) => ({ kind: "folder" as const, data: folder })),
-        ...props.files.map((file) => ({ kind: "file" as const, data: file })),
+        ...(props.currentFolderId !== null
+            ? [
+                  {
+                      kind: "back" as const,
+                  },
+              ]
+            : []),
+        ...props.folders.map((folder) => ({
+            kind: "folder" as const,
+            data: folder,
+        })),
+        ...props.files.map((file) => ({
+            kind: "file" as const,
+            data: file,
+        })),
     ]
 
     const icons: Record<string, ReactElement> = {
@@ -301,16 +362,25 @@ export function FilesTable(props: {
             data={rows}
             isLoading={false}
             getRowProps={(row) => getRowInteractionProps(row.original)}
-            hideSearchBar
+            hideSearchBar={false}
             enableRowSelection={(row) => row.original.kind !== "back"}
             getRowId={(row) => (row.kind === "back" ? "__back__" : row.data.id)}
             resetSelectionTrigger={props.currentFolderId}
             selectionActions={(selectedRows) => (
-                <FilesTableSelectionActions selectedRows={selectedRows} idYear={props.idYear} />
+                <FilesTableSelectionActions
+                    selectedRows={selectedRows}
+                    idYear={props.idYear}
+                />
             )}
+            emptyStateProps={{
+                icon: <IconFile />,
+                title: "Aucun fichier",
+                subtitle: "Les fichiers de votre exercice apparaîtront ici.",
+            }}
             columns={[
                 {
-                    accessorKey: "name",
+                    id: "name",
+                    accessorFn: (row) => (row.kind === "back" ? ".." : (row.data.name ?? "")),
                     header: "Nom",
                     cell: ({ row }) => {
                         const item = row.original
@@ -318,9 +388,16 @@ export function FilesTable(props: {
                             return (
                                 <div
                                     onClick={() => props.onFolderOpen(props.parentFolderId)}
-                                    className={css({ width: "fit-content", maxWidth: "100%", cursor: "pointer" })}
+                                    className={css({
+                                        width: "fit-content",
+                                        maxWidth: "100%",
+                                        cursor: "pointer",
+                                    })}
                                 >
-                                    <ButtonGhostContent leftIcon={<IconArrowLeft />} text=".." />
+                                    <ButtonGhostContent
+                                        leftIcon={<IconArrowLeft />}
+                                        text=".."
+                                    />
                                 </div>
                             )
                         }
@@ -351,7 +428,10 @@ export function FilesTable(props: {
                                             cursor: "pointer",
                                         })}
                                     >
-                                        <ButtonGhostContent leftIcon={<IconFolder />} text={item.data.name} />
+                                        <ButtonGhostContent
+                                            leftIcon={<IconFolder />}
+                                            text={item.data.name}
+                                        />
                                     </Button>
                                 </div>
                             )
@@ -404,7 +484,8 @@ export function FilesTable(props: {
                     filterFn: "includesString",
                 },
                 {
-                    accessorKey: "size",
+                    id: "size",
+                    accessorFn: (row) => (row.kind === "file" ? (row.data.size ?? "") : ""),
                     header: "Size",
                     cell: ({ row }) => {
                         const item = row.original
@@ -414,18 +495,28 @@ export function FilesTable(props: {
                     filterFn: "includesString",
                 },
                 {
-                    accessorKey: "createdAt",
+                    id: "createdAt",
+                    accessorFn: (row) => (row.kind === "back" ? "" : row.data.createdAt),
                     header: "Date",
                     cell: ({ row }) => {
                         const item = row.original
-                        if (item.kind === "back") return <span className={css({ color: "neutral/40" })}>--</span>
+                        if (item.kind === "back")
+                            return (
+                                <span
+                                    className={css({
+                                        color: "neutral/40",
+                                    })}
+                                >
+                                    --
+                                </span>
+                            )
                         if (item.kind === "folder") return <FormatDateTime date={item.data.createdAt} />
                         return <FormatDateTime date={item.data.createdAt} />
                     },
                     filterFn: "includesString",
                 },
                 {
-                    accessorKey: "actions",
+                    id: "actions",
                     header: " ",
                     cell: ({ row }) => {
                         const item = row.original
@@ -441,7 +532,11 @@ export function FilesTable(props: {
                             )
                         }
                         return (
-                            <FileActions file={item.data} idOrganization={props.idOrganization} idYear={props.idYear} />
+                            <FileActions
+                                file={item.data}
+                                idOrganization={props.idOrganization}
+                                idYear={props.idYear}
+                            />
                         )
                     },
                     enableSorting: false,

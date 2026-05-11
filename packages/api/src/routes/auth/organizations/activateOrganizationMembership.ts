@@ -9,7 +9,9 @@ import { updateOne } from "../../../utilities/sql/updateOne.js"
 export const activateOrganizationMembershipRoute = apiFactory
     .createApp()
     .post(activateOrganizationMembershipRouteDefinition.path, async (c) => {
-        const { user } = await checkUserSessionMiddleware({ context: c })
+        const { user } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: activateOrganizationMembershipRouteDefinition.schemas.body,

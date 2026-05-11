@@ -12,26 +12,35 @@ import { userModel } from "./user.js"
 export const organizationModel = pgTable("table_organization", {
     id: idColumn("id").primaryKey(),
     isArchived: boolean("is_archived").notNull(),
-    scope: varchar("scope", { length: 32, enum: organizationScope }).notNull(),
-    name: varchar("name", { length: 256 }).notNull(),
+    scope: varchar("scope", {
+        length: 32,
+        enum: organizationScope,
+    }).notNull(),
+    name: varchar("name", {
+        length: 256,
+    }).notNull(),
     siren: text("siren"),
     email: text("email"),
     mollieCustomerId: text("mollie_customer_id"),
     licenceAmount: integer("licence_amount").notNull().default(0),
-    pendingLicenceAmount: integer("pending_licence_amount"),
-    pendingStorageMaxUsage: bigint("pending_storage_max_usage", { mode: "number" }),
+    licenceAmountPending: integer("licence_amount_pending"),
+    storageLimitPending: bigint("storage_limit_pending", {
+        mode: "number",
+    }),
     walletBalanceInCents: integer("wallet_balance_in_cents").notNull().default(0),
-    storageLimit: bigint("storage_limit", { mode: "number" }).notNull().default(1_073_741_824),
-    storageMaxUsage: bigint("storage_max_usage", { mode: "number" }).notNull().default(1_073_741_824),
-    storageCurrentUsage: bigint("storage_current_usage", { mode: "number" }).notNull().default(0),
-    usageMonthStartAt: dateTimeColumn("usage_month_start_at"),
-    ocrCurrentMonthPagesUsage: integer("ocr_current_month_pages_usage").notNull().default(0),
-    agentTokensCurrentMonthUsage: integer("agent_tokens_current_month_usage").notNull().default(0),
-    ocrMonthlyLimit: integer("ocr_monthly_limit").notNull().default(100),
-    agentTokensMonthlyLimit: integer("agent_tokens_monthly_limit").notNull().default(1_000_000),
-    ocrPagesTotalLeft: integer("ocr_pages_total_left").notNull().default(100),
+    storageLimit: bigint("storage_limit", {
+        mode: "number",
+    })
+        .notNull()
+        .default(1_073_741_824),
+    storageCurrentUsage: bigint("storage_current_usage", {
+        mode: "number",
+    })
+        .notNull()
+        .default(0),
+    ocrPagesTotalAvailable: integer("ocr_pages_total_available").notNull().default(100),
     ocrPagesTotalUsed: integer("ocr_pages_total_used").notNull().default(0),
-    tokensTotalLeft: integer("tokens_total_left").notNull().default(1_000_000),
+    tokensTotalAvailable: integer("tokens_total_available").notNull().default(1_000_000),
     tokensTotalUsed: integer("tokens_total_used").notNull().default(0),
     createdAt: dateTimeColumn("created_at").notNull(),
     lastUpdatedAt: dateTimeColumn("last_updated_at"),

@@ -11,7 +11,10 @@ describe("POST /public/sign-out", () => {
         // First sign in to get cookies
         const signInResponse = await apiRequest({
             path: "/public/sign-in",
-            body: { email: "demo@arrhes.com", password: "demo" },
+            body: {
+                email: "demo@arrhes.com",
+                password: "demo",
+            },
         })
         expect(signInResponse.status).toBe(200)
         const cookies = buildCookieString(signInResponse.cookies)
@@ -43,7 +46,10 @@ describe("POST /public/sign-out", () => {
         // Sign in
         const signInResponse = await apiRequest({
             path: "/public/sign-in",
-            body: { email: "demo@arrhes.com", password: "demo" },
+            body: {
+                email: "demo@arrhes.com",
+                password: "demo",
+            },
         })
         const cookies = buildCookieString(signInResponse.cookies)
 

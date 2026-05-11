@@ -13,7 +13,10 @@ export async function invalidateData<
     exact?: boolean
 }) {
     await dataClient.invalidateQueries({
-        queryKey: [parameters.routeDefinition.path, parameters.body],
+        queryKey: [
+            parameters.routeDefinition.path,
+            parameters.body,
+        ],
         exact: parameters.exact ?? true,
     })
 }

@@ -12,7 +12,9 @@ import { DeleteOneTag } from "./deleteOneTag.tsx"
 import { UpdateOneTag } from "./updateOneTag.tsx"
 
 export function TagLayout() {
-    const params = useParams({ from: tagLayoutRoute.id })
+    const params = useParams({
+        from: tagLayoutRoute.id,
+    })
 
     return (
         <Section.Root>
@@ -26,7 +28,11 @@ export function TagLayout() {
                 {(tag) => {
                     return (
                         <>
-                            <Section.Item className={css({ flexDirection: "row" })}>
+                            <Section.Item
+                                className={css({
+                                    flexDirection: "row",
+                                })}
+                            >
                                 <div
                                     className={css({
                                         display: "flex",
@@ -42,7 +48,10 @@ export function TagLayout() {
                                             idYear: tag.idYear,
                                         }}
                                     >
-                                        <ButtonOutlineContent leftIcon={<IconChevronLeft />} text="Retour" />
+                                        <ButtonOutlineContent
+                                            leftIcon={<IconChevronLeft />}
+                                            text="Retour"
+                                        />
                                     </LinkButton>
                                 </div>
                                 <div
@@ -55,7 +64,10 @@ export function TagLayout() {
                                     })}
                                 >
                                     <UpdateOneTag tag={tag}>
-                                        <ButtonPlainContent leftIcon={<IconPencil />} text="Modifier" />
+                                        <ButtonPlainContent
+                                            leftIcon={<IconPencil />}
+                                            text="Modifier"
+                                        />
                                     </UpdateOneTag>
                                     <DeleteOneTag tag={tag}>
                                         <ButtonOutlineContent

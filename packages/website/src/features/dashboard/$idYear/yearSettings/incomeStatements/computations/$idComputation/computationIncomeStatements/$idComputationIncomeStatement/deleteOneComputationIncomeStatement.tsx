@@ -25,7 +25,10 @@ export function DeleteOneComputationIncomeStatement(props: {
         })
 
         if (deleteResponse.ok === false) {
-            toast({ title: "Erreur lors de la suppression de la ligne de compte de résultat", variant: "error" })
+            toast({
+                title: "Erreur lors de la suppression de la ligne de compte de résultat",
+                variant: "error",
+            })
             return
         }
 
@@ -36,7 +39,10 @@ export function DeleteOneComputationIncomeStatement(props: {
             },
         })
 
-        toast({ title: "Ligne de compte de résultat supprimée", variant: "success" })
+        toast({
+            title: "Ligne de compte de résultat supprimée",
+            variant: "success",
+        })
 
         applicationRouter.navigate({
             to: "/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/compte-de-résultat",
@@ -57,7 +63,10 @@ export function DeleteOneComputationIncomeStatement(props: {
                     Cette action est irréversible.
                 </>
             }
-            submitButtonProps={{ color: "danger", text: "Supprimer la ligne de compte de résultat" }}
+            submitButtonProps={{
+                color: "danger",
+                text: "Supprimer la ligne de compte de résultat",
+            }}
             onSubmit={onSubmit}
         >
             {props.children}

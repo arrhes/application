@@ -37,7 +37,7 @@ export function ComputationsTable(props: {
                             flexDirection: "column",
                             justifyContent: "flex-start",
                             alignItems: "flex-start",
-                            padding: "4",
+                            padding: "1rem",
                         })}
                     >
                         {computations.map((computation) => (
@@ -49,24 +49,37 @@ export function ComputationsTable(props: {
                                     idOrganization: props.idOrganization,
                                     idYear: props.idYear,
                                 }}
-                                className={css({ width: "100%" })}
+                                className={css({
+                                    width: "100%",
+                                })}
                             >
                                 <div
                                     className={css({
-                                        padding: "1rem",
+                                        padding: "0.5rem",
+                                        borderRadius: "md",
                                         minWidth: "fit-content",
                                         width: "100%",
                                         display: "flex",
                                         justifyContent: "flex-start",
                                         alignItems: "center",
                                         gap: "0.5rem",
-                                        _hover: { backgroundColor: "neutral/5" },
+                                        _hover: {
+                                            backgroundColor: "neutral/5",
+                                        },
                                         borderBottom: "1px solid",
                                         borderBottomColor: "neutral/5",
-                                        _last: { borderBottom: "0" },
+                                        _last: {
+                                            borderBottom: "0",
+                                        },
                                     })}
                                 >
-                                    <span className={css({ color: "neutral", fontSize: "xs", lineHeight: "none" })}>
+                                    <span
+                                        className={css({
+                                            color: "neutral",
+                                            fontSize: "xs",
+                                            lineHeight: "none",
+                                        })}
+                                    >
                                         {computation.number}
                                     </span>
                                     <span

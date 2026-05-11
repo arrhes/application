@@ -25,7 +25,10 @@ export function UpdateOneOrganizationUser(props: {
     const [open, setOpen] = useState(false)
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Modifier l'utilisateur" />
@@ -43,11 +46,17 @@ export function UpdateOneOrganizationUser(props: {
                                 body: data,
                             })
                             if (!response.ok) {
-                                toast({ title: "Impossible de modifier l'utilisateur", variant: "error" })
+                                toast({
+                                    title: "Impossible de modifier l'utilisateur",
+                                    variant: "error",
+                                })
                                 return false
                             }
 
-                            toast({ title: "Utilisateur modifié avec succès", variant: "success" })
+                            toast({
+                                title: "Utilisateur modifié avec succès",
+                                variant: "success",
+                            })
                             return true
                         }}
                         onCancel={undefined}
@@ -78,8 +87,14 @@ export function UpdateOneOrganizationUser(props: {
                                                     value={field.value}
                                                     onChange={field.onChange}
                                                     options={[
-                                                        { value: true, label: "Oui" },
-                                                        { value: false, label: "Non" },
+                                                        {
+                                                            value: true,
+                                                            label: "Oui",
+                                                        },
+                                                        {
+                                                            value: false,
+                                                            label: "Non",
+                                                        },
                                                     ]}
                                                 />
                                             </FormControl>

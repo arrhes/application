@@ -9,7 +9,9 @@ import { selectOne } from "../../../../utilities/sql/selectOne.js"
 export const readOneAgentSessionRoute = apiFactory
     .createApp()
     .post(readOneAgentSessionRouteDefinition.path, async (c) => {
-        const { user } = await checkUserSessionMiddleware({ context: c })
+        const { user } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: readOneAgentSessionRouteDefinition.schemas.body,

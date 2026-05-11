@@ -25,7 +25,10 @@ export function DeleteOneBalanceSheet(props: {
         })
 
         if (deleteResponse.ok === false) {
-            toast({ title: "Erreur lors de la suppression de la ligne de bilan", variant: "error" })
+            toast({
+                title: "Erreur lors de la suppression de la ligne de bilan",
+                variant: "error",
+            })
             return
         }
 
@@ -36,7 +39,10 @@ export function DeleteOneBalanceSheet(props: {
             },
         })
 
-        toast({ title: "Ligne de bilan supprimée", variant: "success" })
+        toast({
+            title: "Ligne de bilan supprimée",
+            variant: "success",
+        })
 
         applicationRouter.navigate({
             to: "/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/bilan",
@@ -57,7 +63,10 @@ export function DeleteOneBalanceSheet(props: {
                     Cette action est irréversible.
                 </>
             }
-            submitButtonProps={{ color: "danger", text: "Supprimer la ligne de bilan" }}
+            submitButtonProps={{
+                color: "danger",
+                text: "Supprimer la ligne de bilan",
+            }}
             onSubmit={onSubmit}
         >
             {props.children}

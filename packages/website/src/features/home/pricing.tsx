@@ -1,4 +1,4 @@
-import { Badge, ButtonOutlineContent } from "@arrhes/ui"
+import { ButtonOutlineContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import {
     IconAppWindow,
@@ -6,8 +6,10 @@ import {
     IconCalculator,
     IconCloudUpload,
     IconCode,
+    IconDownload,
     IconFileText,
     IconLifebuoy,
+    IconReload,
     IconSparkles,
     IconUserPlus,
     IconUsers,
@@ -21,7 +23,10 @@ export function Pricing() {
             className={css({
                 width: "100%",
                 display: "grid",
-                gridTemplateColumns: { base: "1fr", md: "repeat(2, 1fr)" },
+                gridTemplateColumns: {
+                    base: "1fr",
+                    md: "repeat(2, 1fr)",
+                },
                 gap: "1.5rem",
             })}
         >
@@ -62,7 +67,6 @@ export function Pricing() {
                         >
                             Services inclus
                         </h2>
-                        <Badge>Recommandé</Badge>
                     </div>
                     <p
                         className={css({
@@ -82,30 +86,63 @@ export function Pricing() {
                         flex: "1",
                     })}
                 >
-                    <FeatureItem icon={<IconAppWindow />} text="Accès illimité à l'application web" />
-                    <FeatureItem icon={<IconBuildings />} text="Multiple organisations" />
-                    <FeatureItem icon={<IconUsers />} text="Membres illimités" />
-                    <FeatureItem icon={<IconCloudUpload />} text="Stockage de documents (jusqu'à 1Go)" />
                     <FeatureItem
-                        icon={<IconFileText />}
+                        icon={<IconAppWindow />}
+                        text="Accès illimité à l'application web"
+                    />
+                    <FeatureItem
+                        icon={<IconBuildings />}
+                        text="Multiple organisations"
+                    />
+                    <FeatureItem
+                        icon={<IconUsers />}
+                        text="Membres illimités"
+                    />
+                    <FeatureItem
+                        icon={<IconCloudUpload />}
+                        text="Stockage de documents (jusqu'à 1Go)"
+                    />
+                    <FeatureItem
+                        icon={<IconReload />}
                         text="Génération des documents de synthèse pour la liasse fiscale"
                     />
-                    <FeatureItem icon={<IconFileText />} text="Export du Fichier des Écritures Comptable (FEC)" />
-                    <FeatureItem icon={<IconCode />} text="Accès complet à l'API" />
+                    <FeatureItem
+                        icon={<IconDownload />}
+                        text="Export du Fichier des Écritures Comptable (FEC)"
+                    />
+                    <FeatureItem
+                        icon={<IconCode />}
+                        text="Accès complet à l'API"
+                    />
+                    <FeatureItem
+                        icon={<IconSparkles />}
+                        text="Assistant IA : 1 million de tokens offerts"
+                    />
+                    <FeatureItem
+                        icon={<IconFileText />}
+                        text="OCR : 100 pages offertes"
+                    />
+                    <FeatureItem
+                        icon={<IconCalculator />}
+                        text="Comptabilité analytique"
+                        isDev
+                    />
                 </div>
 
                 <LinkButton to="/inscription">
                     <ButtonOutlineContent
                         leftIcon={<IconUserPlus />}
                         text="Créer un compte"
-                        className={css({ width: "100%" })}
+                        className={css({
+                            width: "100%",
+                        })}
                     />
                 </LinkButton>
             </div>
 
             {/* Paid services */}
             <div
-                id="services-payants"
+                id="services-optionnels"
                 className={css({
                     display: "flex",
                     flexDirection: "column",
@@ -139,9 +176,8 @@ export function Pricing() {
                                 color: "neutral",
                             })}
                         >
-                            Services payants
+                            Services optionnels
                         </h2>
-                        <Badge>Optionnel</Badge>
                     </div>
                     <p
                         className={css({
@@ -149,7 +185,7 @@ export function Pricing() {
                             color: "neutral/60",
                         })}
                     >
-                        Activez uniquement ce dont vous avez besoin. Sans engagement.
+                        Certaines fonctionnalités ont un coût structurel que nous devons répercuter. Sans engagement.
                     </p>
                 </div>
 
@@ -166,23 +202,33 @@ export function Pricing() {
                         text="Licence"
                         highlighted
                         description={[
-                            "Montant mensuel libre. Un support privilégié est inclus dans les licences payantes.",
+                            "Montant mensuel libre, pour supporter le projet et les frais des serveurs. Vous bénéficiez d'un support privilégié si vous prenez une licence payante.",
                         ]}
                     />
                     <FeatureItem
                         icon={<IconCloudUpload />}
                         text="Stockage"
                         highlighted
-                        description={["0,10€ (HT) / Go / mois (au-dela du Go inclus)"]}
+                        description={[
+                            "0,10€ (HT) / Go / mois (au-dela du Go inclus)",
+                        ]}
                     />
                     <FeatureItem
                         icon={<IconSparkles />}
                         text="Tokens IA"
-                        description={["1,00€ (HT) / million de tokens"]}
+                        description={[
+                            "1,00€ (HT) / million de tokens",
+                        ]}
                         highlighted
                     />
-                    <FeatureItem icon={<IconFileText />} text="OCR" description={["0,01€ (HT) / page"]} highlighted />
-                    <FeatureItem icon={<IconCalculator />} text="Comptabilité analytique" isDev />
+                    <FeatureItem
+                        icon={<IconFileText />}
+                        text="OCR"
+                        description={[
+                            "0,01€ (HT) / page",
+                        ]}
+                        highlighted
+                    />
                 </div>
             </div>
         </div>

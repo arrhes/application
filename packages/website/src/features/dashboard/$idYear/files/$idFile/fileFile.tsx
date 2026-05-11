@@ -58,7 +58,10 @@ export function FileFile(props: { file: v.InferOutput<typeof returnedSchemas.fil
         return () => {
             canceled = true
         }
-    }, [isMarkdownFile, fileSignedUrlResponse.data?.url])
+    }, [
+        isMarkdownFile,
+        fileSignedUrlResponse.data?.url,
+    ])
 
     if (fileSignedUrlResponse.data === undefined) {
         if (fileSignedUrlResponse.isPending) {

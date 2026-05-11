@@ -34,7 +34,10 @@ export function FolderContextMenu(props: {
         })
 
         if (deleteResponse.ok === false) {
-            toast({ title: "Erreur lors de la suppression du dossier", variant: "error" })
+            toast({
+                title: "Erreur lors de la suppression du dossier",
+                variant: "error",
+            })
             return
         }
 
@@ -45,7 +48,10 @@ export function FolderContextMenu(props: {
             },
         })
 
-        toast({ title: "Dossier supprimé", variant: "success" })
+        toast({
+            title: "Dossier supprimé",
+            variant: "success",
+        })
     }
 
     return (
@@ -53,36 +59,62 @@ export function FolderContextMenu(props: {
             <ContextMenu.Root>
                 <ContextMenu.Trigger asChild>{props.children}</ContextMenu.Trigger>
                 <ContextMenu.Content>
-                    <ContextMenu.Item leftIcon={<IconPencil />} onSelect={() => setEditOpen(true)}>
+                    <ContextMenu.Item
+                        leftIcon={<IconPencil />}
+                        onSelect={() => setEditOpen(true)}
+                    >
                         Renommer
                     </ContextMenu.Item>
-                    <ContextMenu.Item leftIcon={<IconArrowsMove />} onSelect={() => setMoveOpen(true)}>
+                    <ContextMenu.Item
+                        leftIcon={<IconArrowsMove />}
+                        onSelect={() => setMoveOpen(true)}
+                    >
                         Déplacer
                     </ContextMenu.Item>
                     <ContextMenu.Separator />
-                    <ContextMenu.Item leftIcon={<IconTrash />} color="danger" onSelect={() => setDeleteOpen(true)}>
+                    <ContextMenu.Item
+                        leftIcon={<IconTrash />}
+                        color="danger"
+                        onSelect={() => setDeleteOpen(true)}
+                    >
                         Supprimer
                     </ContextMenu.Item>
                 </ContextMenu.Content>
             </ContextMenu.Root>
 
             {/* Edit drawer (controlled externally) */}
-            <Drawer.Root open={editOpen} onOpenChange={setEditOpen}>
+            <Drawer.Root
+                open={editOpen}
+                onOpenChange={setEditOpen}
+            >
                 <Drawer.Content>
                     <Drawer.Header title="Renommer le dossier" />
                     <Drawer.Body>
-                        <UpdateOneFolderForm folder={props.folder} onSuccess={() => setEditOpen(false)} />
+                        <UpdateOneFolderForm
+                            folder={props.folder}
+                            onSuccess={() => setEditOpen(false)}
+                        />
                     </Drawer.Body>
                 </Drawer.Content>
             </Drawer.Root>
 
-            <Dialog.Root open={moveOpen} onOpenChange={setMoveOpen}>
+            <Dialog.Root
+                open={moveOpen}
+                onOpenChange={setMoveOpen}
+            >
                 <Dialog.Content>
                     <Dialog.Header>
                         <Dialog.Title>Déplacer le dossier</Dialog.Title>
                     </Dialog.Header>
-                    <Dialog.Body className={css({ alignItems: "stretch" })}>
-                        <MoveOneFolderForm folder={props.folder} onSuccess={() => setMoveOpen(false)} />
+                    <Dialog.Body
+                        className={css({
+                            alignItems: "stretch",
+                        })}
+                    >
+                        <MoveOneFolderForm
+                            folder={props.folder}
+                            onSuccess={() => setMoveOpen(false)}
+                        />
                     </Dialog.Body>
                 </Dialog.Content>
             </Dialog.Root>
@@ -99,7 +131,10 @@ export function FolderContextMenu(props: {
                         Cette action est irréversible.
                     </>
                 }
-                submitButtonProps={{ color: "danger", text: "Supprimer le dossier" }}
+                submitButtonProps={{
+                    color: "danger",
+                    text: "Supprimer le dossier",
+                }}
                 onSubmit={handleDelete}
                 open={deleteOpen}
                 onOpenChange={setDeleteOpen}

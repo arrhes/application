@@ -13,7 +13,10 @@ function IncomeStatementReport(props: {
     return (
         <html lang="fr">
             <head>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1.0"
+                />
                 <Style />
             </head>
             <body class={css`width: fit-content; height: fit-content; overflow: scroll; margin: 32px;`}>

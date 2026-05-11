@@ -16,7 +16,13 @@ export function getCookieSecurityOptions(env: string): {
     sameSite: "Strict" | "Lax" | "None"
 } {
     if (env === "production") {
-        return { secure: true, sameSite: "None" }
+        return {
+            secure: true,
+            sameSite: "None",
+        }
     }
-    return { secure: false, sameSite: "Lax" }
+    return {
+        secure: false,
+        sameSite: "Lax",
+    }
 }

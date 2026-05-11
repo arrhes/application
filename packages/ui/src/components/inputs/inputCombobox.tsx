@@ -43,10 +43,17 @@ export function InputCombobox<TValue extends string>(props: {
                 )
             },
         })
-    }, [rawQuery, props.options])
+    }, [
+        rawQuery,
+        props.options,
+    ])
 
     return (
-        <Popover.Root open={open} onOpenChange={setOpen} modal>
+        <Popover.Root
+            open={open}
+            onOpenChange={setOpen}
+            modal
+        >
             <Popover.Trigger asChild>
                 <Button
                     role="combobox"
@@ -56,8 +63,14 @@ export function InputCombobox<TValue extends string>(props: {
                     }}
                     data-open={open}
                     className={cx(
-                        css({ width: "100%" }),
-                        props.isDisabled ? css({ cursor: "not-allowed" }) : "",
+                        css({
+                            width: "100%",
+                        }),
+                        props.isDisabled
+                            ? css({
+                                  cursor: "not-allowed",
+                              })
+                            : "",
                         props.className,
                     )}
                     autoFocus={props.autoFocus}
@@ -74,18 +87,41 @@ export function InputCombobox<TValue extends string>(props: {
                             css({
                                 width: "100%",
                                 justifyContent: "space-between",
-                                _hover: { borderColor: "neutral/50" },
-                                _focusWithin: { borderColor: "neutral/50", boxShadow: "inset" },
+                                _hover: {
+                                    borderColor: "neutral/50",
+                                },
+                                _focusWithin: {
+                                    borderColor: "neutral/50",
+                                    boxShadow: "inset",
+                                },
                             }),
-                            props.error !== undefined ? css({ borderColor: "error" }) : "",
-                            currentOption === undefined ? css({ "& span": { color: "neutral/50" } }) : "",
+                            props.error !== undefined
+                                ? css({
+                                      borderColor: "error",
+                                  })
+                                : "",
+                            currentOption === undefined
+                                ? css({
+                                      "& span": {
+                                          color: "neutral/50",
+                                      },
+                                  })
+                                : "",
                         )}
                     />
                 </Button>
             </Popover.Trigger>
             {open === false ? null : (
-                <Popover.Content align="start" className={css({ padding: "0.5rem" })}>
-                    <InputText value={rawQuery} onChange={(value) => setRawQuery(value)} />
+                <Popover.Content
+                    align="start"
+                    className={css({
+                        padding: "0.5rem",
+                    })}
+                >
+                    <InputText
+                        value={rawQuery}
+                        onChange={(value) => setRawQuery(value)}
+                    />
                     <div
                         className={css({
                             height: "fit-content",
@@ -100,7 +136,12 @@ export function InputCombobox<TValue extends string>(props: {
                     >
                         {props.isLoading === true ? <CircularLoader /> : null}
                         {currentOptions.length > 0 ? null : (
-                            <FormatNull text="Pas de résultat" className={css({ padding: "0.5rem" })} />
+                            <FormatNull
+                                text="Pas de résultat"
+                                className={css({
+                                    padding: "0.5rem",
+                                })}
+                            />
                         )}
                         <Virtualizer data={currentOptions}>
                             {(option) => {
@@ -108,7 +149,9 @@ export function InputCombobox<TValue extends string>(props: {
                                 return (
                                     <Button
                                         key={option.key}
-                                        className={css({ width: "100%" })}
+                                        className={css({
+                                            width: "100%",
+                                        })}
                                         onClick={() => {
                                             if (props.isDisabled) return
                                             if (props.allowEmpty === true && option.key === props.value) {
@@ -124,8 +167,15 @@ export function InputCombobox<TValue extends string>(props: {
                                             text={option.label}
                                             rightIcon={isSelected ? <IconCheck /> : undefined}
                                             className={cx(
-                                                css({ width: "100%", justifyContent: "space-between" }),
-                                                isSelected ? css({ backgroundColor: "background" }) : "",
+                                                css({
+                                                    width: "100%",
+                                                    justifyContent: "space-between",
+                                                }),
+                                                isSelected
+                                                    ? css({
+                                                          backgroundColor: "background",
+                                                      })
+                                                    : "",
                                             )}
                                             isCurrent={isSelected}
                                         />

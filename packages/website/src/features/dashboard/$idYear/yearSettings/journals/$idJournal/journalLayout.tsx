@@ -12,7 +12,9 @@ import { DeleteOneJournal } from "./deleteOneJournal.tsx"
 import { UpdateOneJournal } from "./updateOneJournal.tsx"
 
 export function JournalLayout() {
-    const params = useParams({ from: journalLayoutRoute.id })
+    const params = useParams({
+        from: journalLayoutRoute.id,
+    })
 
     return (
         <Section.Root>
@@ -26,7 +28,11 @@ export function JournalLayout() {
                 {(journal) => {
                     return (
                         <>
-                            <Section.Item className={css({ flexDirection: "row" })}>
+                            <Section.Item
+                                className={css({
+                                    flexDirection: "row",
+                                })}
+                            >
                                 <div
                                     className={css({
                                         display: "flex",
@@ -42,7 +48,10 @@ export function JournalLayout() {
                                             idYear: journal.idYear,
                                         }}
                                     >
-                                        <ButtonOutlineContent leftIcon={<IconChevronLeft />} text="Retour" />
+                                        <ButtonOutlineContent
+                                            leftIcon={<IconChevronLeft />}
+                                            text="Retour"
+                                        />
                                     </LinkButton>
                                 </div>
                                 <div
@@ -55,7 +64,10 @@ export function JournalLayout() {
                                     })}
                                 >
                                     <UpdateOneJournal journal={journal}>
-                                        <ButtonPlainContent leftIcon={<IconPencil />} text="Modifier" />
+                                        <ButtonPlainContent
+                                            leftIcon={<IconPencil />}
+                                            text="Modifier"
+                                        />
                                     </UpdateOneJournal>
                                     <DeleteOneJournal journal={journal}>
                                         <ButtonOutlineContent

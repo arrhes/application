@@ -16,31 +16,56 @@ export function InvoiceActionsPopover(props: {
         <Popover.Root>
             <Popover.Trigger asChild>
                 <Button>
-                    <ButtonGhostContent leftIcon={<IconDotsVertical />} text={undefined} />
+                    <ButtonGhostContent
+                        leftIcon={<IconDotsVertical />}
+                        text={undefined}
+                    />
                 </Button>
             </Popover.Trigger>
-            <Popover.Content align="end" className={css({ padding: "0.5rem", minWidth: "auto" })}>
+            <Popover.Content
+                align="end"
+                className={css({
+                    padding: "0.5rem",
+                    minWidth: "auto",
+                    gap: "0.25rem",
+                })}
+            >
                 <LinkButton
                     to="/dashboard/organisations/$idOrganization/facturation/facture/$idInvoice"
                     params={{
                         idOrganization: props.idOrganization,
                         idInvoice: props.invoice.id,
                     }}
-                    className={css({ width: "100%" })}
+                    className={css({
+                        width: "100%",
+                    })}
                 >
                     <ButtonGhostContent
                         leftIcon={<IconEye />}
                         text="Voir la facture"
-                        className={css({ width: "100%", justifyContent: "start" })}
+                        className={css({
+                            width: "100%",
+                            justifyContent: "start",
+                        })}
                     />
                 </LinkButton>
-                <DownloadInvoiceAsPDFButton invoice={props.invoice}>
+                <DownloadInvoiceAsPDFButton
+                    invoice={props.invoice}
+                    className={css({
+                        width: "100%",
+                    })}
+                >
                     <ButtonGhostContent
                         leftIcon={<IconDownload />}
                         text={props.invoice.xmlStorageKey ? "Télécharger (PDF)" : "PDF indisponible"}
                     />
                 </DownloadInvoiceAsPDFButton>
-                <DownloadInvoiceAsXMLButton invoice={props.invoice}>
+                <DownloadInvoiceAsXMLButton
+                    invoice={props.invoice}
+                    className={css({
+                        width: "100%",
+                    })}
+                >
                     <ButtonGhostContent
                         leftIcon={<IconDownload />}
                         text={props.invoice.xmlStorageKey ? "Télécharger (XML)" : "XML indisponible"}

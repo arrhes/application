@@ -7,7 +7,9 @@ import { response } from "../../../../../utilities/response.js"
 import { updateOne } from "../../../../../utilities/sql/updateOne.js"
 
 export const updateOneFolderRoute = apiFactory.createApp().post(updateOneFolderRouteDefinition.path, async (c) => {
-    const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+    const { user, idOrganization } = await checkUserSessionMiddleware({
+        context: c,
+    })
     const body = await validateBodyMiddleware({
         context: c,
         schema: updateOneFolderRouteDefinition.schemas.body,

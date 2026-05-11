@@ -16,7 +16,9 @@ export function Breadcrumbs() {
 
     const organizationQuery = useDataFromAPI({
         routeDefinition: readOneOrganizationRouteDefinition,
-        body: { idOrganization: idOrganization ?? "" },
+        body: {
+            idOrganization: idOrganization ?? "",
+        },
         enabled: idOrganization !== null,
     })
 
@@ -36,7 +38,14 @@ export function Breadcrumbs() {
     }
 
     return (
-        <div className={css({ display: "flex", justifyContent: "flex-start", alignItems: "center", gap: "1" })}>
+        <div
+            className={css({
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                gap: "1",
+            })}
+        >
             <LinkButton
                 to="/dashboard/organisations/$idOrganization"
                 params={{
@@ -50,7 +59,14 @@ export function Breadcrumbs() {
             </LinkButton>
             {idYear !== null && (
                 <Fragment>
-                    <span className={css({ color: "neutral/25", padding: "0.25rem" })}>/</span>
+                    <span
+                        className={css({
+                            color: "neutral/25",
+                            padding: "0.25rem",
+                        })}
+                    >
+                        /
+                    </span>
                     {/* <IconSlash
                         size={16}
                         className={css({ stroke: "neutral/25" })}

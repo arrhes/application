@@ -37,7 +37,10 @@ export function CreateOneApiKey(props: {
                     <Drawer.Header title="Créer une clé API" />
                     <Drawer.Body>
                         {rawKey !== null ? (
-                            <RawKeyDisplay rawKey={rawKey} onClose={() => setOpen(false)} />
+                            <RawKeyDisplay
+                                rawKey={rawKey}
+                                onClose={() => setOpen(false)}
+                            />
                         ) : (
                             <FormRoot
                                 schema={createOneApiKeyRouteDefinition.schemas.body}
@@ -52,12 +55,18 @@ export function CreateOneApiKey(props: {
                                         body: data,
                                     })
                                     if (!response.ok) {
-                                        toast({ title: "Impossible de créer la clé API", variant: "error" })
+                                        toast({
+                                            title: "Impossible de créer la clé API",
+                                            variant: "error",
+                                        })
                                         return false
                                     }
 
                                     setRawKey(response.data.rawKey)
-                                    toast({ title: "Clé API créée avec succès", variant: "success" })
+                                    toast({
+                                        title: "Clé API créée avec succès",
+                                        variant: "success",
+                                    })
                                     return true
                                 }}
                                 onCancel={undefined}

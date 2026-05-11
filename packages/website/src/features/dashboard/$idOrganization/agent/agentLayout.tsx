@@ -4,10 +4,11 @@ import {
 } from "@arrhes/application-metadata/routes"
 import { Button, ButtonGhostContent, ButtonOutlineContent, formatDateTime, LinkButton } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconMenu, IconPlus } from "@tabler/icons-react"
+import { IconMenu, IconMessage, IconPlus } from "@tabler/icons-react"
 import { Outlet, useNavigate, useParams } from "@tanstack/react-router"
 import { useState } from "react"
 import { Banner } from "../../../../components/layouts/banner.tsx"
+import { EmptyState } from "../../../../components/layouts/emptyState.tsx"
 import { Page } from "../../../../components/layouts/page/page.tsx"
 import { SearchBar } from "../../../../components/layouts/searchBar.tsx"
 import { organizationPathRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/organizationPathRoute.tsx"
@@ -15,7 +16,9 @@ import { useDataFromAPI } from "../../../../utilities/useHTTPData.ts"
 import { extractSnippet } from "./extractSnippet.ts"
 
 export function AgentLayout() {
-    const params = useParams({ from: organizationPathRoute.id })
+    const params = useParams({
+        from: organizationPathRoute.id,
+    })
     const [activeSessionId, setActiveSessionId] = useState<string | undefined>(undefined)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const navigate = useNavigate()
@@ -26,19 +29,20 @@ export function AgentLayout() {
         body: {},
     })
 
-    const isPremium = (subscription.data?.agentTokensMonthlyLimit ?? 0) > 0
-
-    // Use the context's activeSessionId (set by chat on session-created) if available,
-    // otherwise fall back to the URL param (set by TanStack Router on navigation)
+    const tokensTotalAvailable = subscription.data?.tokensTotalAvailable ?? 0
     const currentSessionId = activeSessionId ?? params.idAgentSession
-
     const searchTrimmed = search.trim()
 
     const { data: sessions } = useDataFromAPI({
         routeDefinition: readAllAgentSessionsRouteDefinition,
         body: searchTrimmed
-            ? { idOrganization: params.idOrganization, search: searchTrimmed }
-            : { idOrganization: params.idOrganization },
+            ? {
+                  idOrganization: params.idOrganization,
+                  search: searchTrimmed,
+              }
+            : {
+                  idOrganization: params.idOrganization,
+              },
     })
 
     const displaySessions = sessions ?? []
@@ -48,7 +52,10 @@ export function AgentLayout() {
             className={css({
                 width: "16rem",
                 flexShrink: 0,
-                display: { base: "none", md: "flex" },
+                display: {
+                    base: "none",
+                    md: "flex",
+                },
                 flexDirection: "column",
                 borderRight: "1px solid",
                 borderRightColor: "neutral/10",
@@ -67,24 +74,34 @@ export function AgentLayout() {
                     padding: "1rem",
                 })}
             >
-                {/* <LinkButton to="/dashboard/organisations/$idOrganization/agent" params={{ idOrganization: params.idOrganization }}>
-                    <ButtonGhostContent leftIcon={<IconRobot />} text="Assistant" />
-                </LinkButton> */}
-                <SearchBar value={search} onChange={setSearch} placeholder="Rechercher une session..." />
+                <SearchBar
+                    value={search}
+                    onChange={setSearch}
+                    placeholder="Rechercher une session..."
+                />
                 <Button
                     onClick={() => {
                         setActiveSessionId(undefined)
                         setIsMenuOpen(false)
                         navigate({
                             to: "/dashboard/organisations/$idOrganization/agent",
-                            params: { idOrganization: params.idOrganization },
+                            params: {
+                                idOrganization: params.idOrganization,
+                            },
                         })
                     }}
                 >
                     <ButtonOutlineContent leftIcon={<IconPlus />} />
                 </Button>
             </div>
-            <div className={css({ flex: 1, overflowY: "auto", minHeight: 0, padding: "1rem" })}>
+            <div
+                className={css({
+                    flex: 1,
+                    overflowY: "auto",
+                    minHeight: 0,
+                    padding: "1rem",
+                })}
+            >
                 <div
                     className={css({
                         display: "flex",
@@ -93,6 +110,13 @@ export function AgentLayout() {
                         width: "100%",
                     })}
                 >
+                    {displaySessions.length === 0 ? (
+                        <EmptyState
+                            icon={<IconMessage />}
+                            title="Aucune session"
+                            subtitle={undefined}
+                        />
+                    ) : null}
                     {displaySessions.map((session) => {
                         const snippet =
                             searchTrimmed && session.matchedContent
@@ -103,7 +127,10 @@ export function AgentLayout() {
                             <LinkButton
                                 key={session.id}
                                 to="/dashboard/organisations/$idOrganization/agent/sessions/$idAgentSession"
-                                params={{ idOrganization: params.idOrganization, idAgentSession: session.id }}
+                                params={{
+                                    idOrganization: params.idOrganization,
+                                    idAgentSession: session.id,
+                                }}
                             >
                                 <div
                                     className={css({
@@ -192,19 +219,6 @@ export function AgentLayout() {
         )
     }
 
-    if (!isPremium) {
-        return (
-            <Page.Root>
-                <Page.Content>
-                    <Banner variant="information" title="Assistant IA">
-                        L'assistant comptable est une fonctionnalité premium. Abonnez-vous au plan Avancé pour y
-                        accéder.
-                    </Banner>
-                </Page.Content>
-            </Page.Root>
-        )
-    }
-
     return (
         <div
             className={css({
@@ -216,10 +230,7 @@ export function AgentLayout() {
                 overflow: "hidden",
             })}
         >
-            {/* Sidebar — visible on md+ */}
             {sidebarContent}
-
-            {/* Content area — rendered by child route */}
             <div
                 className={css({
                     flex: 1,
@@ -230,10 +241,12 @@ export function AgentLayout() {
                     overflow: "hidden",
                 })}
             >
-                {/* Mobile hamburger toggle */}
                 <div
                     className={css({
-                        display: { base: "flex", md: "none" },
+                        display: {
+                            base: "flex",
+                            md: "none",
+                        },
                         flexDirection: "column",
                         justifyContent: "start",
                         alignItems: "start",
@@ -245,7 +258,9 @@ export function AgentLayout() {
                 >
                     <Button
                         aria-label="Menu"
-                        className={css({ margin: "1rem" })}
+                        className={css({
+                            margin: "1rem",
+                        })}
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                     >
                         <ButtonGhostContent leftIcon={<IconMenu />} />
@@ -264,6 +279,21 @@ export function AgentLayout() {
                             {sidebarContent}
                         </div>
                     )}
+                </div>
+                <div
+                    className={css({
+                        padding: "1rem",
+                        paddingBottom: "0",
+                    })}
+                >
+                    <Banner
+                        variant={tokensTotalAvailable > 0 ? "information" : "warning"}
+                        title="Assistant IA"
+                    >
+                        {tokensTotalAvailable > 0
+                            ? `Tokens disponibles: ${tokensTotalAvailable.toLocaleString("fr-FR")}`
+                            : "Aucun token disponible. Rechargez votre organisation pour continuer."}
+                    </Banner>
                 </div>
                 <div
                     className={css({

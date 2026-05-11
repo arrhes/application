@@ -38,7 +38,9 @@ export async function findOrCreateCurrentPeriodInvoice(params: {
     const periodStartISO = params.periodStart.toISOString()
 
     const existing = await params.database
-        .select({ id: models.invoice.id })
+        .select({
+            id: models.invoice.id,
+        })
         .from(models.invoice)
         .where(
             and(
@@ -79,5 +81,8 @@ export async function findOrCreateCurrentPeriodInvoice(params: {
 export function getCurrentMonthRange(date: Date) {
     const periodStart = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1))
     const periodEnd = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + 1, 0, 23, 59, 59, 999))
-    return { periodStart, periodEnd }
+    return {
+        periodStart,
+        periodEnd,
+    }
 }

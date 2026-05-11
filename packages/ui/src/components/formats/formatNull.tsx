@@ -12,7 +12,7 @@ export function FormatNull(props: { text?: string; className?: ComponentProps<"s
                     alignItems: "center",
                     fontSize: "sm",
                     fontStyle: "italic",
-                    color: "neutral/25",
+                    color: "neutral/50",
                     whiteSpace: "nowrap",
                     overflow: "auto",
                     textOverflow: "ellipsis",

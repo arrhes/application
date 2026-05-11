@@ -42,7 +42,7 @@ export async function checkOrganizationSubscriptionSessionMiddleware(parameters:
             })
         }
 
-        if (parameters.checkType === "tokens" && organization.tokensTotalLeft <= 0) {
+        if (parameters.checkType === "tokens" && organization.tokensTotalAvailable <= 0) {
             throw new Exception({
                 statusCode: 403,
                 internalMessage: "Subscription check failed",
@@ -51,7 +51,7 @@ export async function checkOrganizationSubscriptionSessionMiddleware(parameters:
             })
         }
 
-        if (parameters.checkType === "ocrPages" && organization.ocrPagesTotalLeft <= 0) {
+        if (parameters.checkType === "ocrPages" && organization.ocrPagesTotalAvailable <= 0) {
             throw new Exception({
                 statusCode: 403,
                 internalMessage: "Subscription check failed",
@@ -78,7 +78,7 @@ export async function checkOrganizationSubscriptionSessionMiddleware(parameters:
         throw new Exception({
             statusCode: 403,
             internalMessage: "Subscription check failed",
-            externalMessage: "This feature requires a premium subscription",
+            externalMessage: "Cette fonctionnalité nécessite des ressources disponibles",
             rawError: error,
         })
     }

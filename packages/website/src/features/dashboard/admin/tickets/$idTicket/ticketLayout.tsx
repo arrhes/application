@@ -9,11 +9,15 @@ import { useDataFromAPI } from "../../../../../utilities/useHTTPData.js"
 import { StatusToggle } from "./statusToggle.js"
 
 export function TicketLayout() {
-    const params = useParams({ from: $idTicketLayoutRoute.id })
+    const params = useParams({
+        from: $idTicketLayoutRoute.id,
+    })
 
     const ticket = useDataFromAPI({
         routeDefinition: adminReadOneTicketRouteDefinition,
-        body: { idTicket: params.idTicket },
+        body: {
+            idTicket: params.idTicket,
+        },
     })
 
     return (
@@ -29,7 +33,12 @@ export function TicketLayout() {
             {ticket.isPending && <CircularLoader text="Chargement du ticket..." />}
 
             {ticket.isError && (
-                <span className={css({ fontSize: "sm", color: "danger" })}>
+                <span
+                    className={css({
+                        fontSize: "sm",
+                        color: "danger",
+                    })}
+                >
                     Erreur lors de la recuperation du ticket.
                 </span>
             )}
@@ -45,9 +54,15 @@ export function TicketLayout() {
                     })}
                 >
                     <LinkButton to="/dashboard/admin/tickets">
-                        <ButtonGhostContent leftIcon={<IconArrowLeft />} text="Retour aux tickets" />
+                        <ButtonGhostContent
+                            leftIcon={<IconArrowLeft />}
+                            text="Retour aux tickets"
+                        />
                     </LinkButton>
-                    <StatusToggle idTicket={params.idTicket} currentStatus={ticket.data.status} />
+                    <StatusToggle
+                        idTicket={params.idTicket}
+                        currentStatus={ticket.data.status}
+                    />
                 </div>
             )}
 

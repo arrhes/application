@@ -103,8 +103,14 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
     }
 
     const document = isImage
-        ? { type: "image_url" as const, image_url: dataUri }
-        : { type: "document_url" as const, document_url: dataUri }
+        ? {
+              type: "image_url" as const,
+              image_url: dataUri,
+          }
+        : {
+              type: "document_url" as const,
+              document_url: dataUri,
+          }
 
     console.log(`[processOcr] Sending to Mistral OCR API (document type: ${document.type})`)
     const ocrResponse = await fetch("https://api.mistral.ai/v1/ocr", {
@@ -129,7 +135,9 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
     }
 
     const ocrResult = (await ocrResponse.json()) as {
-        pages?: Array<{ markdown: string }>
+        pages?: Array<{
+            markdown: string
+        }>
     }
 
     const extractedPagesCount = ocrResult.pages?.length ?? 0
@@ -142,7 +150,7 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
         })
     }
 
-    if (extractedPagesCount > organization.ocrPagesTotalLeft) {
+    if (extractedPagesCount > organization.ocrPagesTotalAvailable) {
         throw new Exception({
             statusCode: 429,
             internalMessage: "OCR balance exhausted",
@@ -184,14 +192,16 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
             database: params.var.clients.sql,
             table: models.organization,
             data: {
-                ocrCurrentMonthPagesUsage: organization.ocrPagesTotalUsed + extractedPagesCount,
-                ocrPagesTotalLeft: organization.ocrPagesTotalLeft - extractedPagesCount,
+                ocrPagesTotalAvailable: organization.ocrPagesTotalAvailable - extractedPagesCount,
                 ocrPagesTotalUsed: organization.ocrPagesTotalUsed + extractedPagesCount,
             },
             where: (table) => eq(table.id, idOrganization),
         })
 
-        return { ocrFile: existingOcrFiles[0], markdownContent: normalizedMarkdownContent }
+        return {
+            ocrFile: existingOcrFiles[0],
+            markdownContent: normalizedMarkdownContent,
+        }
     }
 
     const newFileId = generateId()
@@ -237,8 +247,7 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
         table: models.organization,
         data: {
             storageCurrentUsage: sql`${models.organization.storageCurrentUsage} + ${markdownBuffer.length}`,
-            ocrCurrentMonthPagesUsage: organization.ocrPagesTotalUsed + extractedPagesCount,
-            ocrPagesTotalLeft: organization.ocrPagesTotalLeft - extractedPagesCount,
+            ocrPagesTotalAvailable: organization.ocrPagesTotalAvailable - extractedPagesCount,
             ocrPagesTotalUsed: organization.ocrPagesTotalUsed + extractedPagesCount,
         },
         where: (table) => eq(table.id, idOrganization),
@@ -247,5 +256,8 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
     console.log(
         `[processOcr] OCR complete for "${sourceFile.name}" → ocrFile.id=${ocrFile.id}, storageKey=${storageKey}, markdownLen=${normalizedMarkdownContent.length}`,
     )
-    return { ocrFile, markdownContent: normalizedMarkdownContent }
+    return {
+        ocrFile,
+        markdownContent: normalizedMarkdownContent,
+    }
 }

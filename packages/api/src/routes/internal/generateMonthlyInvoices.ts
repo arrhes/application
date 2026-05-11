@@ -16,7 +16,9 @@ import { response } from "../../utilities/response.js"
 import { updateOne } from "../../utilities/sql/updateOne.js"
 import { putObject } from "../../utilities/storage/putObject.js"
 
-const generateMonthlyInvoicesReturnSchema = v.object({ generatedCount: v.number() })
+const generateMonthlyInvoicesReturnSchema = v.object({
+    generatedCount: v.number(),
+})
 
 type InvoiceLineType = "support" | "storage_gb" | "agent_tokens_million" | "ocr_pages_hundred"
 type ServicePaymentRecord = {
@@ -34,7 +36,10 @@ function getCurrentMonthRange(date: Date) {
     const periodStart = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1))
     const periodEnd = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + 1, 0, 23, 59, 59, 999))
 
-    return { periodStart, periodEnd }
+    return {
+        periodStart,
+        periodEnd,
+    }
 }
 
 function isInvoiceLineType(value: string | null): value is InvoiceLineType {
@@ -84,7 +89,11 @@ function getResolvedPaymentUnitAmountInCents(payment: ServicePaymentRecord) {
 }
 
 function buildRecurringInvoiceLines(organization: typeof models.organization.$inferSelect) {
-    const lines: Array<{ type: "support" | "storage_gb"; quantity: number; amountInCents: number }> = []
+    const lines: Array<{
+        type: "support" | "storage_gb"
+        quantity: number
+        amountInCents: number
+    }> = []
 
     if (organization.licenceAmount > 0) {
         lines.push({
@@ -94,8 +103,8 @@ function buildRecurringInvoiceLines(organization: typeof models.organization.$in
         })
     }
 
-    const storageAddonQuantity = getStorageAddonQuantity(organization.storageMaxUsage)
-    const storageAmountInCents = getStorageRecurringAmountInCents(organization.storageMaxUsage)
+    const storageAddonQuantity = getStorageAddonQuantity(organization.storageLimit)
+    const storageAmountInCents = getStorageRecurringAmountInCents(organization.storageLimit)
 
     if (storageAddonQuantity > 0 && storageAmountInCents > 0) {
         lines.push({
@@ -114,7 +123,10 @@ export const generateMonthlyInvoicesRoute = apiFactory
         // Protect this route with the INTERNAL_API_KEY
         const apiKey = c.req.header("x-internal-api-key")
         if (!c.var.env.INTERNAL_API_KEY || apiKey !== c.var.env.INTERNAL_API_KEY) {
-            throw new Exception({ statusCode: 401, internalMessage: "Unauthorized" })
+            throw new Exception({
+                statusCode: 401,
+                internalMessage: "Unauthorized",
+            })
         }
 
         const now = new Date()
@@ -130,16 +142,23 @@ export const generateMonthlyInvoicesRoute = apiFactory
                 context: c,
                 statusCode: 200,
                 schema: generateMonthlyInvoicesReturnSchema,
-                data: { generatedCount: 0 },
+                data: {
+                    generatedCount: 0,
+                },
             })
         }
 
-        const orgMap = new Map(organizations.map((organization) => [organization.id, organization]))
+        const orgMap = new Map(
+            organizations.map((organization) => [
+                organization.id,
+                organization,
+            ]),
+        )
 
         // ── Phase 0: Apply pending subscription changes ──────────────────────────
         // Changes set by users during the previous month are applied now before billing.
         const orgsWithPendingChanges = organizations.filter(
-            (org) => org.pendingLicenceAmount !== null || org.pendingStorageMaxUsage !== null,
+            (org) => org.licenceAmountPending !== null || org.storageLimitPending !== null,
         )
 
         for (const org of orgsWithPendingChanges) {
@@ -148,14 +167,16 @@ export const generateMonthlyInvoicesRoute = apiFactory
                     database: c.var.clients.sql,
                     table: models.organization,
                     data: {
-                        ...(org.pendingLicenceAmount !== null
-                            ? { licenceAmount: org.pendingLicenceAmount, pendingLicenceAmount: null }
-                            : {}),
-                        ...(org.pendingStorageMaxUsage !== null
+                        ...(org.licenceAmountPending !== null
                             ? {
-                                  storageMaxUsage: org.pendingStorageMaxUsage,
-                                  storageLimit: org.pendingStorageMaxUsage,
-                                  pendingStorageMaxUsage: null,
+                                  licenceAmount: org.licenceAmountPending,
+                                  licenceAmountPending: null,
+                              }
+                            : {}),
+                        ...(org.storageLimitPending !== null
+                            ? {
+                                  storageLimit: org.storageLimitPending,
+                                  storageLimitPending: null,
                               }
                             : {}),
                         lastUpdatedAt: now.toISOString(),
@@ -165,14 +186,13 @@ export const generateMonthlyInvoicesRoute = apiFactory
 
                 const orgInMap = orgMap.get(org.id)
                 if (orgInMap) {
-                    if (org.pendingLicenceAmount !== null) {
-                        orgInMap.licenceAmount = org.pendingLicenceAmount
-                        orgInMap.pendingLicenceAmount = null
+                    if (org.licenceAmountPending !== null) {
+                        orgInMap.licenceAmount = org.licenceAmountPending
+                        orgInMap.licenceAmountPending = null
                     }
-                    if (org.pendingStorageMaxUsage !== null) {
-                        orgInMap.storageMaxUsage = org.pendingStorageMaxUsage
-                        orgInMap.storageLimit = org.pendingStorageMaxUsage
-                        orgInMap.pendingStorageMaxUsage = null
+                    if (org.storageLimitPending !== null) {
+                        orgInMap.storageLimit = org.storageLimitPending
+                        orgInMap.storageLimitPending = null
                     }
                 }
             } catch (error) {
@@ -425,6 +445,8 @@ export const generateMonthlyInvoicesRoute = apiFactory
             context: c,
             statusCode: 200,
             schema: generateMonthlyInvoicesReturnSchema,
-            data: { generatedCount },
+            data: {
+                generatedCount,
+            },
         })
     })

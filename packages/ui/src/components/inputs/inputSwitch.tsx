@@ -31,10 +31,18 @@ export function InputSwitch(props: InputSwitch) {
                     borderRadius: "100%",
                     border: "1px solid",
                     borderColor: "neutral/20",
-                    _disabled: { cursor: "not-allowed", opacity: "0.5" },
+                    _disabled: {
+                        cursor: "not-allowed",
+                        opacity: "0.5",
+                    },
                     backgroundColor: "white",
-                    _checked: { backgroundColor: "success/5", borderColor: "neutral" },
-                    _focus: { boxShadow: "inset" },
+                    _checked: {
+                        backgroundColor: "success/5",
+                        borderColor: "neutral",
+                    },
+                    _focus: {
+                        boxShadow: "inset",
+                    },
                 }),
                 props.className,
             )}
@@ -49,7 +57,10 @@ export function InputSwitch(props: InputSwitch) {
                     height: "4",
                     width: "4",
                     borderRadius: "100%",
-                    _checked: { backgroundColor: "neutral", transform: "translateX(18px)" },
+                    _checked: {
+                        backgroundColor: "neutral",
+                        transform: "translateX(18px)",
+                    },
                     backgroundColor: "neutral/10",
                     transform: "translateX(4px)",
                     boxShadow: "lg",

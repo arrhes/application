@@ -9,7 +9,9 @@ import { CreateOneJournal } from "./createOneJournal.tsx"
 import { JournalsListTable } from "./journalsListTable.tsx"
 
 export function JournalsPage() {
-    const params = useParams({ from: journalsRoute.id })
+    const params = useParams({
+        from: journalsRoute.id,
+    })
 
     return (
         <Page.Root>
@@ -25,11 +27,20 @@ export function JournalsPage() {
                                 gap: "0.5rem",
                             })}
                         >
-                            <CreateOneJournal idOrganization={params.idOrganization} idYear={params.idYear}>
-                                <ButtonPlainContent leftIcon={<IconPlus />} text="Ajouter un journal" />
+                            <CreateOneJournal
+                                idOrganization={params.idOrganization}
+                                idYear={params.idYear}
+                            >
+                                <ButtonPlainContent
+                                    leftIcon={<IconPlus />}
+                                    text="Ajouter un journal"
+                                />
                             </CreateOneJournal>
                         </div>
-                        <JournalsListTable idOrganization={params.idOrganization} idYear={params.idYear} />
+                        <JournalsListTable
+                            idOrganization={params.idOrganization}
+                            idYear={params.idYear}
+                        />
                     </Section.Item>
                 </Section.Root>
             </Page.Content>

@@ -86,7 +86,10 @@ export function OrganizationsDashboardDocPage() {
                 </DocExample>
             </DocSection>
 
-            <DocNextPage to="/documentation/dashboard/exercices" label="Gérer les exercices" />
+            <DocNextPage
+                to="/documentation/dashboard/exercices"
+                label="Gérer les exercices"
+            />
         </DocRoot>
     )
 }

@@ -9,8 +9,16 @@ export const fileSchema = v.object({
     idOrganization: v.nonNullable(idSchema, "Ce champ est requis"),
     idYear: v.nullable(idSchema),
     idFolder: v.nullable(idSchema),
-    reference: v.nullable(varcharSchema({ maxLength: 256 })),
-    name: v.nullable(varcharSchema({ maxLength: 256 })),
+    reference: v.nullable(
+        varcharSchema({
+            maxLength: 256,
+        }),
+    ),
+    name: v.nullable(
+        varcharSchema({
+            maxLength: 256,
+        }),
+    ),
     storageKey: v.nullable(stringSchema),
     type: v.nullable(stringSchema),
     size: v.nullable(integerSchema),

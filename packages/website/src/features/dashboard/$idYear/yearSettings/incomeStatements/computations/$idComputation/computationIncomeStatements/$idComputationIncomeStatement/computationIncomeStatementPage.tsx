@@ -11,7 +11,9 @@ import { Section } from "../../../../../../../../../components/layouts/section/s
 import { computationIncomeStatementLayoutRoute } from "../../../../../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/computations/$idComputation/$idComputationIncomeStatement/computationIncomeStatementLayoutRoute.tsx"
 
 export function ComputationIncomeStatementPage() {
-    const params = useParams({ from: computationIncomeStatementLayoutRoute.id })
+    const params = useParams({
+        from: computationIncomeStatementLayoutRoute.id,
+    })
 
     return (
         <DataWrapper
@@ -23,7 +25,11 @@ export function ComputationIncomeStatementPage() {
         >
             {(computationIncomeStatement) => {
                 return (
-                    <Section.Item className={css({ flexDirection: "column" })}>
+                    <Section.Item
+                        className={css({
+                            flexDirection: "column",
+                        })}
+                    >
                         <DataBlock.Root>
                             <DataBlock.Header title="Informations" />
                             <DataBlock.Content>

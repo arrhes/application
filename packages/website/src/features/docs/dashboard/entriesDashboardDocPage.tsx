@@ -12,7 +12,10 @@ import { DocTable } from "../../../components/document/docTable.js"
 export function EntriesDashboardDocPage() {
     return (
         <DocRoot>
-            <DocHeader title="Saisir des écritures" description="Enregistrer vos opérations comptables dans Arrhes" />
+            <DocHeader
+                title="Saisir des écritures"
+                description="Enregistrer vos opérations comptables dans Arrhes"
+            />
 
             <DocSection title="Accéder à la saisie">
                 <DocParagraph>
@@ -64,15 +67,39 @@ export function EntriesDashboardDocPage() {
                 </DocParagraph>
 
                 <DocExample title="Écriture de paiement fournisseur">
-                    <p className={css({ mb: "3" })}>Vous payez une facture de 500 euros par virement bancaire :</p>
+                    <p
+                        className={css({
+                            mb: "3",
+                        })}
+                    >
+                        Vous payez une facture de 500 euros par virement bancaire :
+                    </p>
                     <DocTable
-                        headers={["Compte", "Débit", "Crédit"]}
+                        headers={[
+                            "Compte",
+                            "Débit",
+                            "Crédit",
+                        ]}
                         rows={[
-                            ["401000 - Fournisseurs", "500,00", ""],
-                            ["512000 - Banque", "", "500,00"],
+                            [
+                                "401000 - Fournisseurs",
+                                "500,00",
+                                "",
+                            ],
+                            [
+                                "512000 - Banque",
+                                "",
+                                "500,00",
+                            ],
                         ]}
                     />
-                    <p className={css({ marginTop: "3", fontSize: "xs", color: "neutral/60" })}>
+                    <p
+                        className={css({
+                            marginTop: "3",
+                            fontSize: "xs",
+                            color: "neutral/60",
+                        })}
+                    >
                         Explication : la dette fournisseur diminue (débit d'un compte de passif), la banque diminue
                         (crédit d'un compte d'actif).
                     </p>
@@ -120,7 +147,12 @@ export function EntriesDashboardDocPage() {
                     La liste des écritures peut être filtrée et triée selon plusieurs critères :
                 </DocParagraph>
                 <DocList
-                    items={["Par date (période)", "Par journal", "Par compte", "Par libellé (recherche textuelle)"]}
+                    items={[
+                        "Par date (période)",
+                        "Par journal",
+                        "Par compte",
+                        "Par libellé (recherche textuelle)",
+                    ]}
                 />
                 <DocParagraph>Utilisez les filtres en haut de la liste pour affiner votre recherche.</DocParagraph>
             </DocSection>
@@ -136,7 +168,10 @@ export function EntriesDashboardDocPage() {
                 />
             </DocSection>
 
-            <DocNextPage to="/documentation/dashboard/stockage" label="Espace de stockage" />
+            <DocNextPage
+                to="/documentation/dashboard/stockage"
+                label="Espace de stockage"
+            />
         </DocRoot>
     )
 }

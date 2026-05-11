@@ -1,8 +1,8 @@
 import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
-import { accountingDocLayoutRoute } from "../accountingDocLayoutRoute.tsx"
+import { introductionAccountingDocLayoutRoute } from "./introductionAccountingDocLayoutRoute.tsx"
 
 export const entriesAccountingDocRoute = createRoute({
-    getParentRoute: () => accountingDocLayoutRoute,
+    getParentRoute: () => introductionAccountingDocLayoutRoute,
     path: "/écritures",
     beforeLoad: () => ({
         title: "Écritures comptables",

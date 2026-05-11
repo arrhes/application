@@ -27,7 +27,10 @@ export function UpdateOneIncomeStatement(props: {
     const [open, setOpen] = useState(false)
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Modifier la ligne de compte de résultat" />
@@ -55,7 +58,10 @@ export function UpdateOneIncomeStatement(props: {
                                 return false
                             }
 
-                            toast({ title: "Ligne de compte de résultat modifiée avec succès", variant: "success" })
+                            toast({
+                                title: "Ligne de compte de résultat modifiée avec succès",
+                                variant: "success",
+                            })
                             return true
                         }}
                         onCancel={undefined}
@@ -92,7 +98,10 @@ export function UpdateOneIncomeStatement(props: {
                                                 isRequired
                                             />
                                             <FormControl>
-                                                <InputText value={field.value} onChange={field.onChange} />
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -109,7 +118,11 @@ export function UpdateOneIncomeStatement(props: {
                                                 isRequired
                                             />
                                             <FormControl>
-                                                <InputText value={field.value} onChange={field.onChange} autoFocus />
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                    autoFocus
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>

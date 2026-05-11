@@ -20,7 +20,11 @@ export async function apiRequest<T = unknown>(parameters: {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            ...(parameters.cookies ? { Cookie: parameters.cookies } : {}),
+            ...(parameters.cookies
+                ? {
+                      Cookie: parameters.cookies,
+                  }
+                : {}),
         },
         body: JSON.stringify(parameters.body ?? {}),
     })

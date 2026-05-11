@@ -12,7 +12,9 @@ import { response } from "../../../utilities/response.js"
 import { updateOne } from "../../../utilities/sql/updateOne.js"
 
 export const updateUserEmailRoute = apiFactory.createApp().post(updateUserEmailRouteDefinition.path, async (c) => {
-    const { user } = await checkUserSessionMiddleware({ context: c })
+    const { user } = await checkUserSessionMiddleware({
+        context: c,
+    })
     const body = await validateBodyMiddleware({
         context: c,
         schema: updateUserEmailRouteDefinition.schemas.body,

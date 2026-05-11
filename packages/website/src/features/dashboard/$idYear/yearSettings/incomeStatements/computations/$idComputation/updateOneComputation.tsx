@@ -26,7 +26,10 @@ export function UpdateOneComputation(props: {
     const [open, setOpen] = useState(false)
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Modifier la ligne de calcul" />
@@ -47,11 +50,17 @@ export function UpdateOneComputation(props: {
                                 body: data,
                             })
                             if (updateComputationResponse.ok === false) {
-                                toast({ title: "Impossible de modifier la ligne de calcul", variant: "error" })
+                                toast({
+                                    title: "Impossible de modifier la ligne de calcul",
+                                    variant: "error",
+                                })
                                 return false
                             }
 
-                            toast({ title: "Ligne de calcul modifiée avec succès", variant: "success" })
+                            toast({
+                                title: "Ligne de calcul modifiée avec succès",
+                                variant: "success",
+                            })
                             return true
                         }}
                         onCancel={undefined}
@@ -109,7 +118,10 @@ export function UpdateOneComputation(props: {
                                                 isRequired={true}
                                             />
                                             <FormControl>
-                                                <InputText value={field.value} onChange={field.onChange} />
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>

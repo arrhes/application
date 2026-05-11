@@ -7,7 +7,9 @@ import { Exception } from "../../../../utilities/exception.js"
 export const createFirstPaymentRoute = apiFactory
     .createApp()
     .post(createFirstPaymentRouteDefinition.path, async (c) => {
-        await checkUserSessionMiddleware({ context: c })
+        await checkUserSessionMiddleware({
+            context: c,
+        })
         await validateBodyMiddleware({
             context: c,
             schema: createFirstPaymentRouteDefinition.schemas.body,

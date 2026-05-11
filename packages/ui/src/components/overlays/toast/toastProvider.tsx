@@ -7,7 +7,11 @@ export function ToasterProvider() {
     return (
         <Toast.Viewport>
             {toasts.map((toast) => (
-                <Toast.Item key={toast.id} toast={toast} onDismiss={dismiss} />
+                <Toast.Item
+                    key={toast.id}
+                    toast={toast}
+                    onDismiss={dismiss}
+                />
             ))}
         </Toast.Viewport>
     )

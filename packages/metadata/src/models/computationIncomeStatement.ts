@@ -14,19 +14,34 @@ export const computationIncomeStatementModel = pgTable(
     {
         id: idColumn("id").primaryKey(),
         idOrganization: idColumn("id_organization")
-            .references(() => organizationModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => organizationModel.id, {
+                onDelete: "cascade",
+                onUpdate: "cascade",
+            })
             .notNull(),
         idYear: idColumn("id_year")
-            .references(() => yearModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => yearModel.id, {
+                onDelete: "cascade",
+                onUpdate: "cascade",
+            })
             .notNull(),
         idComputation: idColumn("id_computation")
-            .references(() => computationModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => computationModel.id, {
+                onDelete: "cascade",
+                onUpdate: "cascade",
+            })
             .notNull(),
         idIncomeStatement: idColumn("id_income_statement")
-            .references(() => incomeStatementModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => incomeStatementModel.id, {
+                onDelete: "cascade",
+                onUpdate: "cascade",
+            })
             .notNull(),
         index: integer("index").notNull(),
-        operation: varchar("operation", { length: 16, enum: operation }).notNull(),
+        operation: varchar("operation", {
+            length: 16,
+            enum: operation,
+        }).notNull(),
         createdAt: dateTimeColumn("created_at").notNull(),
         lastUpdatedAt: dateTimeColumn("last_updated_at"),
         createdBy: idColumn("created_by").references((): AnyPgColumn => userModel.id, {
@@ -38,17 +53,28 @@ export const computationIncomeStatementModel = pgTable(
             onUpdate: "cascade",
         }),
     },
-    (t) => [unique().on(t.idComputation, t.idIncomeStatement), index().on(t.idOrganization, t.idYear)],
+    (t) => [
+        unique().on(t.idComputation, t.idIncomeStatement),
+        index().on(t.idOrganization, t.idYear),
+    ],
 )
 
 // Relations
 export const computationIncomeStatementRelations = relations(computationIncomeStatementModel, ({ one }) => ({
     computation: one(computationModel, {
-        fields: [computationIncomeStatementModel.idComputation],
-        references: [computationModel.id],
+        fields: [
+            computationIncomeStatementModel.idComputation,
+        ],
+        references: [
+            computationModel.id,
+        ],
     }),
     incomeStatement: one(incomeStatementModel, {
-        fields: [computationIncomeStatementModel.idIncomeStatement],
-        references: [incomeStatementModel.id],
+        fields: [
+            computationIncomeStatementModel.idIncomeStatement,
+        ],
+        references: [
+            incomeStatementModel.id,
+        ],
     }),
 }))

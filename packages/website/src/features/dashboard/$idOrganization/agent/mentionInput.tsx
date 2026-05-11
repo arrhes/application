@@ -97,8 +97,13 @@ const editorClass = css({
     minHeight: "3.5rem",
     maxHeight: "12rem",
     overflowY: "auto",
-    _hover: { borderColor: "neutral/50" },
-    _focusWithin: { borderColor: "neutral/50", boxShadow: "inset" },
+    _hover: {
+        borderColor: "neutral/50",
+    },
+    _focusWithin: {
+        borderColor: "neutral/50",
+        boxShadow: "inset",
+    },
     _empty: {
         _before: {
             content: "attr(data-placeholder)",
@@ -131,7 +136,9 @@ const dropdownItemClass = css({
     fontSize: "sm",
     borderRadius: "sm",
     cursor: "pointer",
-    _hover: { backgroundColor: "background" },
+    _hover: {
+        backgroundColor: "background",
+    },
     width: "100%",
     textAlign: "left",
     border: "none",
@@ -154,13 +161,19 @@ export function MentionInput(props: MentionInputProps) {
     const editorRef = useRef<HTMLDivElement>(null)
     const dropdownRef = useRef<HTMLDivElement>(null)
     const [showDropdown, setShowDropdown] = useState(false)
-    const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 })
+    const [dropdownPosition, setDropdownPosition] = useState({
+        top: 0,
+        left: 0,
+    })
     const [dropdownSide, setDropdownSide] = useState<"bottom" | "top">("bottom")
     const [searchQuery, setSearchQuery] = useState("")
     const [results, setResults] = useState<MentionReference[]>([])
     const [isLoading, setIsLoading] = useState(false)
     const [activeIndex, setActiveIndex] = useState(0)
-    const mentionStartRef = useRef<{ node: Node; offset: number } | null>(null)
+    const mentionStartRef = useRef<{
+        node: Node
+        offset: number
+    } | null>(null)
     const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
     // ── Search API ───────────────────────────────────────────────────────
@@ -193,7 +206,10 @@ export function MentionInput(props: MentionInputProps) {
                 setIsLoading(false)
             }
         },
-        [props.idOrganization, props.idYear],
+        [
+            props.idOrganization,
+            props.idYear,
+        ],
     )
 
     // Debounced search
@@ -206,13 +222,24 @@ export function MentionInput(props: MentionInputProps) {
         return () => {
             if (searchTimeoutRef.current) clearTimeout(searchTimeoutRef.current)
         }
-    }, [searchQuery, showDropdown, performSearch])
+    }, [
+        searchQuery,
+        showDropdown,
+        performSearch,
+    ])
 
     // ── Extract content ──────────────────────────────────────────────────
 
-    const extractContent = useCallback((): { text: string; references: MentionReference[] } => {
+    const extractContent = useCallback((): {
+        text: string
+        references: MentionReference[]
+    } => {
         const editor = editorRef.current
-        if (!editor) return { text: "", references: [] }
+        if (!editor)
+            return {
+                text: "",
+                references: [],
+            }
 
         const references: MentionReference[] = []
         let text = ""
@@ -237,7 +264,10 @@ export function MentionInput(props: MentionInputProps) {
             }
         }
 
-        return { text: text.trim(), references }
+        return {
+            text: text.trim(),
+            references,
+        }
     }, [])
 
     // ── Mention detection ────────────────────────────────────────────────
@@ -274,7 +304,10 @@ export function MentionInput(props: MentionInputProps) {
 
         if (atPos >= 0) {
             const query = text.slice(atPos + 1, cursorPos)
-            mentionStartRef.current = { node, offset: atPos }
+            mentionStartRef.current = {
+                node,
+                offset: atPos,
+            }
             setSearchQuery(query)
             setActiveIndex(0)
 
@@ -310,7 +343,9 @@ export function MentionInput(props: MentionInputProps) {
             setShowDropdown(false)
             mentionStartRef.current = null
         }
-    }, [showDropdown])
+    }, [
+        showDropdown,
+    ])
 
     // ── Insert mention ───────────────────────────────────────────────────
 
@@ -353,7 +388,10 @@ export function MentionInput(props: MentionInputProps) {
             const { text: updatedText, references: updatedReferences } = extractContent()
             props.onValueChange?.(updatedText, updatedReferences)
         },
-        [extractContent, props],
+        [
+            extractContent,
+            props,
+        ],
     )
 
     // ── Keyboard handling ────────────────────────────────────────────────
@@ -398,7 +436,14 @@ export function MentionInput(props: MentionInputProps) {
                 props.onValueChange?.("", [])
             }
         },
-        [showDropdown, results, activeIndex, insertMention, extractContent, props],
+        [
+            showDropdown,
+            results,
+            activeIndex,
+            insertMention,
+            extractContent,
+            props,
+        ],
     )
 
     // ── Input handler ────────────────────────────────────────────────────
@@ -407,7 +452,11 @@ export function MentionInput(props: MentionInputProps) {
         detectMention()
         const { text, references } = extractContent()
         props.onValueChange?.(text, references)
-    }, [detectMention, extractContent, props])
+    }, [
+        detectMention,
+        extractContent,
+        props,
+    ])
 
     // ── Close dropdown on outside click ──────────────────────────────────
 
@@ -426,27 +475,51 @@ export function MentionInput(props: MentionInputProps) {
         }
         document.addEventListener("mousedown", handler)
         return () => document.removeEventListener("mousedown", handler)
-    }, [showDropdown])
+    }, [
+        showDropdown,
+    ])
 
     // ── Scroll active item into view ─────────────────────────────────────
 
     useEffect(() => {
         if (!showDropdown || !dropdownRef.current) return
         const item = dropdownRef.current.children[activeIndex] as HTMLElement | undefined
-        item?.scrollIntoView({ block: "nearest" })
-    }, [activeIndex, showDropdown])
+        item?.scrollIntoView({
+            block: "nearest",
+        })
+    }, [
+        activeIndex,
+        showDropdown,
+    ])
 
     // ─── Render ──────────────────────────────────────────────────────────
 
     return (
-        <div className={cx(css({ position: "relative", width: "100%", flex: 1 }), props.className)}>
+        <div
+            className={cx(
+                css({
+                    position: "relative",
+                    width: "100%",
+                    flex: 1,
+                }),
+                props.className,
+            )}
+        >
             <div
                 ref={editorRef}
                 contentEditable={!props.disabled}
                 suppressContentEditableWarning
                 role="textbox"
                 data-placeholder={props.placeholder ?? "Votre message..."}
-                className={cx(editorClass, props.disabled ? css({ opacity: 0.5, cursor: "not-allowed" }) : "")}
+                className={cx(
+                    editorClass,
+                    props.disabled
+                        ? css({
+                              opacity: 0.5,
+                              cursor: "not-allowed",
+                          })
+                        : "",
+                )}
                 onInput={handleInput}
                 onKeyDown={handleKeyDown}
             />
@@ -457,12 +530,24 @@ export function MentionInput(props: MentionInputProps) {
                     className={dropdownClass}
                     style={
                         dropdownSide === "top"
-                            ? { bottom: dropdownPosition.top, left: dropdownPosition.left }
-                            : { top: dropdownPosition.top, left: dropdownPosition.left }
+                            ? {
+                                  bottom: dropdownPosition.top,
+                                  left: dropdownPosition.left,
+                              }
+                            : {
+                                  top: dropdownPosition.top,
+                                  left: dropdownPosition.left,
+                              }
                     }
                 >
                     {isLoading && (
-                        <div className={css({ padding: "0.5rem", display: "flex", justifyContent: "center" })}>
+                        <div
+                            className={css({
+                                padding: "0.5rem",
+                                display: "flex",
+                                justifyContent: "center",
+                            })}
+                        >
                             <CircularLoader />
                         </div>
                     )}
@@ -503,8 +588,21 @@ export function MentionInput(props: MentionInputProps) {
                                 }}
                                 onMouseEnter={() => setActiveIndex(index)}
                             >
-                                <Icon size={16} className={css({ flexShrink: 0, color: "neutral/50" })} />
-                                <span className={css({ flex: 1, truncate: true })}>{result.label}</span>
+                                <Icon
+                                    size={16}
+                                    className={css({
+                                        flexShrink: 0,
+                                        color: "neutral/50",
+                                    })}
+                                />
+                                <span
+                                    className={css({
+                                        flex: 1,
+                                        truncate: true,
+                                    })}
+                                >
+                                    {result.label}
+                                </span>
                                 <span className={typeBadgeClass}>{typeLabels[result.type]}</span>
                             </button>
                         )

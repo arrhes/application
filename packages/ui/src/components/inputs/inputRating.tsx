@@ -22,14 +22,25 @@ export function InputRating(
     }
 
     return (
-        <div className={css({ display: "flex" })}>
-            <input className={css({ display: "none" })} ref={props.ref} />
+        <div
+            className={css({
+                display: "flex",
+            })}
+        >
+            <input
+                className={css({
+                    display: "none",
+                })}
+                ref={props.ref}
+            />
             {Array(5)
                 .fill(0)
                 .map((_, i) => (
                     <div
                         key={i}
-                        className={css({ cursor: "pointer" })}
+                        className={css({
+                            cursor: "pointer",
+                        })}
                         onClick={() => {
                             if (!props.onChange) return
                             props?.onChange(output(i === +input(props.value) - 1 ? 0 : i + 1))
@@ -41,9 +52,17 @@ export function InputRating(
                                 css({
                                     fill: "none",
                                     stroke: "neutral/50",
-                                    _hover: { fill: "neutral/10" },
+                                    _hover: {
+                                        fill: "neutral/10",
+                                    },
                                 }),
-                                css(i < +input(props.value) ? { fill: "neutral" } : {}),
+                                css(
+                                    i < +input(props.value)
+                                        ? {
+                                              fill: "neutral",
+                                          }
+                                        : {},
+                                ),
                             )}
                         />
                     </div>

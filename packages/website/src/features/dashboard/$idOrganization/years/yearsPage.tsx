@@ -8,7 +8,9 @@ import { CreateOneYear } from "./createOneYear.tsx"
 import { YearsListTable } from "./yearsListTable.tsx"
 
 export function YearsPage() {
-    const params = useParams({ from: yearsRoute.id })
+    const params = useParams({
+        from: yearsRoute.id,
+    })
 
     return (
         <Page.Root>
@@ -18,9 +20,19 @@ export function YearsPage() {
                 </Page.Title>
             </Page.Header> */}
             <Page.Content>
-                <div className={css({ width: "100%", display: "flex", justifyContent: "end", alignItems: "center" })}>
+                <div
+                    className={css({
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "end",
+                        alignItems: "center",
+                    })}
+                >
                     <CreateOneYear idOrganization={params.idOrganization}>
-                        <ButtonOutlineContent leftIcon={<IconCalendarPlus />} text="Ajouter un exercice" />
+                        <ButtonOutlineContent
+                            leftIcon={<IconCalendarPlus />}
+                            text="Ajouter un exercice"
+                        />
                     </CreateOneYear>
                 </div>
                 <YearsListTable idOrganization={params.idOrganization} />

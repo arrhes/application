@@ -25,6 +25,7 @@
         "strict": true,
         "noFallthroughCasesInSwitch": true,
         /* Path aliases */
+        "ignoreDeprecations": "6.0",
         "baseUrl": "."
     },
     "include": ["src"],

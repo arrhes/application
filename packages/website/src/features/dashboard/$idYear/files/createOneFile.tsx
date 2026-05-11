@@ -1,5 +1,7 @@
+import { computeSHA256 } from "@arrhes/application-metadata"
 import {
     createOneFileRouteDefinition,
+    finalizeFileUploadRouteDefinition,
     generateFilePutSignedUrlRouteDefinition,
     readAllFilesRouteDefinition,
 } from "@arrhes/application-metadata/routes"
@@ -21,14 +23,6 @@ function referenceFromFileName(name: string): string {
     return dotIndex > 0 ? name.slice(0, dotIndex) : name
 }
 
-async function computeSHA256(file: File): Promise<string> {
-    const buffer = await file.arrayBuffer()
-    const hashBuffer = await crypto.subtle.digest("SHA-256", buffer)
-    return Array.from(new Uint8Array(hashBuffer))
-        .map((b) => b.toString(16).padStart(2, "0"))
-        .join("")
-}
-
 async function uploadOneFile(params: {
     idOrganization: string
     idYear: string
@@ -38,7 +32,10 @@ async function uploadOneFile(params: {
     const { file, idOrganization: _idOrganization, idYear, idFolder } = params
 
     if (file.size > MAX_FILE_SIZE) {
-        toast({ title: `"${file.name}" dépasse la taille maximale de 50 Mo`, variant: "error" })
+        toast({
+            title: `"${file.name}" dépasse la taille maximale de 50 Mo`,
+            variant: "error",
+        })
         return "error"
     }
 
@@ -52,11 +49,15 @@ async function uploadOneFile(params: {
             idFolder: idFolder ?? undefined,
             reference: referenceFromFileName(file.name),
             name: file.name,
-            hash,
+            hash: hash,
         },
     })
     if (createResponse.ok === false) {
-        toast({ title: `Impossible de créer "${file.name}"`, variant: "error" })
+        toast({
+            title: `Impossible de créer "${file.name}"`,
+            description: createResponse.error.message,
+            variant: "error",
+        })
         return "error"
     }
 
@@ -69,14 +70,17 @@ async function uploadOneFile(params: {
     const signedUrlResponse = await getResponseBodyFromAPI({
         routeDefinition: generateFilePutSignedUrlRouteDefinition,
         body: {
-            idYear,
             idFile: createResponse.data.id,
             type: file.type,
             size: file.size,
         },
     })
     if (signedUrlResponse.ok === false) {
-        toast({ title: `Impossible de télécharger "${file.name}"`, variant: "error" })
+        toast({
+            title: `Impossible de télécharger "${file.name}"`,
+            description: signedUrlResponse.error.message,
+            variant: "error",
+        })
         return "error"
     }
 
@@ -86,7 +90,25 @@ async function uploadOneFile(params: {
         body: file,
     })
     if (uploadResponse.ok === false) {
-        toast({ title: `Échec du téléchargement de "${file.name}"`, variant: "error" })
+        toast({
+            title: `Échec du téléchargement de "${file.name}"`,
+            variant: "error",
+        })
+        return "error"
+    }
+
+    // Step 4 - finalize upload only after the object was successfully stored
+    const finalizeResponse = await getResponseBodyFromAPI({
+        routeDefinition: finalizeFileUploadRouteDefinition,
+        body: {
+            idFile: createResponse.data.id,
+        },
+    })
+    if (finalizeResponse.ok === false) {
+        toast({
+            title: `Téléversement incomplet pour "${file.name}"`,
+            variant: "error",
+        })
         return "error"
     }
 
@@ -158,7 +180,9 @@ export function CreateOneFile(props: {
                 ref={inputRef}
                 type="file"
                 multiple
-                style={{ display: "none" }}
+                style={{
+                    display: "none",
+                }}
                 onChange={(event) => {
                     if (event.target.files && event.target.files.length > 0) {
                         handleFiles(event.target.files)

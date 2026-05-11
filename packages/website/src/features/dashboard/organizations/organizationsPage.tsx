@@ -14,9 +14,19 @@ export function OrganizationsPage() {
                 </Page.Title>
             </Page.Header> */}
             <Page.Content>
-                <div className={css({ width: "100%", display: "flex", justifyContent: "end", alignItems: "center" })}>
+                <div
+                    className={css({
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "end",
+                        alignItems: "center",
+                    })}
+                >
                     <AddNewOrganization>
-                        <ButtonOutlineContent leftIcon={<IconBuildingPlus />} text="Créer une organisation" />
+                        <ButtonOutlineContent
+                            leftIcon={<IconBuildingPlus />}
+                            text="Créer une organisation"
+                        />
                     </AddNewOrganization>
                 </div>
                 <OrganizationsListTable />

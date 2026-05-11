@@ -10,7 +10,9 @@ import { ComputationIncomeStatementsTable } from "./computationIncomeStatements/
 import { CreateOneComputationIncomeStatement } from "./computationIncomeStatements/createOneComputationIncomeStatement.tsx"
 
 export function ComputationPostesTab() {
-    const params = useParams({ from: computationLayoutRoute.id })
+    const params = useParams({
+        from: computationLayoutRoute.id,
+    })
 
     return (
         <DataWrapper
@@ -33,7 +35,10 @@ export function ComputationPostesTab() {
                             })}
                         >
                             <CreateOneComputationIncomeStatement computation={computation}>
-                                <ButtonPlainContent leftIcon={<IconPlus />} text="Ajouter" />
+                                <ButtonPlainContent
+                                    leftIcon={<IconPlus />}
+                                    text="Ajouter"
+                                />
                             </CreateOneComputationIncomeStatement>
                         </div>
                         <ComputationIncomeStatementsTable computation={computation} />

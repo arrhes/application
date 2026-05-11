@@ -11,25 +11,43 @@ export const invoiceModel = pgTable(
     {
         id: idColumn("id").primaryKey(),
         idOrganization: idColumn("id_organization")
-            .references(() => organizationModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => organizationModel.id, {
+                onDelete: "cascade",
+                onUpdate: "cascade",
+            })
             .notNull(),
         reference: text("reference").notNull(),
         startingAt: dateTimeColumn("starting_at").notNull(),
         endingAt: dateTimeColumn("ending_at").notNull(),
         amountInCents: integer("amount_in_cents").notNull(),
-        currency: varchar("currency", { length: 3 }).notNull().default("EUR"),
+        currency: varchar("currency", {
+            length: 3,
+        })
+            .notNull()
+            .default("EUR"),
         xmlStorageKey: text("storage_key"),
-        status: varchar("status", { length: 16, enum: invoiceStatus }).notNull().default("draft"),
+        status: varchar("status", {
+            length: 16,
+            enum: invoiceStatus,
+        })
+            .notNull()
+            .default("draft"),
         createdAt: dateTimeColumn("created_at").notNull(),
         lastUpdatedAt: dateTimeColumn("last_updated_at"),
     },
-    (t) => [index().on(t.idOrganization)],
+    (t) => [
+        index().on(t.idOrganization),
+    ],
 )
 
 // Relations
 export const invoiceRelations = relations(invoiceModel, ({ one }) => ({
     organization: one(organizationModel, {
-        fields: [invoiceModel.idOrganization],
-        references: [organizationModel.id],
+        fields: [
+            invoiceModel.idOrganization,
+        ],
+        references: [
+            organizationModel.id,
+        ],
     }),
 }))

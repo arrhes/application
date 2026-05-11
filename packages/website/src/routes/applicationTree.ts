@@ -10,7 +10,9 @@ import { signUpRoute } from "./root/signUp/signUpRoute.js"
 import { rootLayoutRoute } from "./rootLayoutRoute.js"
 
 export const applicationTree: AnyRoute = rootLayoutRoute.addChildren([
-    homeLayoutRoute.addChildren([homeRootRoute]),
+    homeLayoutRoute.addChildren([
+        homeRootRoute,
+    ]),
 
     docsTree,
     signUpRoute,

@@ -13,7 +13,9 @@ import { DeleteOneEntryLine } from "./deleteOneEntryLine.tsx"
 import { UpdateOneEntryLine } from "./updateOneEntryLine.tsx"
 
 export function EntryLineLayout() {
-    const params = useParams({ from: entryLineLayoutRoute.id })
+    const params = useParams({
+        from: entryLineLayoutRoute.id,
+    })
 
     return (
         <Page.Root>
@@ -46,7 +48,10 @@ export function EntryLineLayout() {
                                                 idEntry: entryLine.idEntry,
                                             }}
                                         >
-                                            <ButtonOutlineContent leftIcon={<IconChevronLeft />} text="Retour" />
+                                            <ButtonOutlineContent
+                                                leftIcon={<IconChevronLeft />}
+                                                text="Retour"
+                                            />
                                         </LinkButton>
                                         <div
                                             className={css({
@@ -57,10 +62,16 @@ export function EntryLineLayout() {
                                             })}
                                         >
                                             <UpdateOneEntryLine entryLine={entryLine}>
-                                                <ButtonPlainContent leftIcon={<IconPencil />} text="Modifier" />
+                                                <ButtonPlainContent
+                                                    leftIcon={<IconPencil />}
+                                                    text="Modifier"
+                                                />
                                             </UpdateOneEntryLine>
                                             <DeleteOneEntryLine entryLine={entryLine}>
-                                                <ButtonOutlineContent leftIcon={<IconTrash />} color="danger" />
+                                                <ButtonOutlineContent
+                                                    leftIcon={<IconTrash />}
+                                                    color="danger"
+                                                />
                                             </DeleteOneEntryLine>
                                         </div>
                                     </div>

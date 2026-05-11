@@ -26,7 +26,10 @@ export function InputToggle<TValue extends string | boolean>(
                 borderColor: "neutral/20",
                 borderRadius: "md",
                 cursor: "pointer",
-                _focus: { borderColor: "neutral/50", boxShadow: "inset" },
+                _focus: {
+                    borderColor: "neutral/50",
+                    boxShadow: "inset",
+                },
                 outline: "none",
             })}
         >
@@ -45,7 +48,9 @@ export function InputToggle<TValue extends string | boolean>(
                         className={css({
                             borderRight: "1px solid",
                             borderRightColor: "neutral/5",
-                            _last: { borderRight: "none" },
+                            _last: {
+                                borderRight: "none",
+                            },
                         })}
                     >
                         <ButtonGhostContent

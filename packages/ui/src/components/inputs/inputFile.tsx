@@ -24,7 +24,9 @@ export function InputFile(
         if (props.value !== undefined) {
             setSelectedFile(props.value)
         }
-    }, [props.value])
+    }, [
+        props.value,
+    ])
 
     return (
         <div
@@ -34,7 +36,10 @@ export function InputFile(
                 borderColor: "neutral/20",
                 borderStyle: "dashed",
                 borderRadius: "md",
-                _hover: { backgroundColor: "neutral/5", borderColor: "neutral/30" },
+                _hover: {
+                    backgroundColor: "neutral/5",
+                    borderColor: "neutral/30",
+                },
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
@@ -61,7 +66,11 @@ export function InputFile(
                     }
                 }}
                 accept={props.accept ?? (!props.type ? "*" : "image/*")}
-                className={css({ display: "none", width: "100%", height: "100%" })}
+                className={css({
+                    display: "none",
+                    width: "100%",
+                    height: "100%",
+                })}
             />
             <Button
                 onClick={(_event) => {
@@ -77,7 +86,12 @@ export function InputFile(
                     alignItems: "center",
                 })}
             >
-                <span className={css({ color: "neutral/75", fontSize: "sm" })}>
+                <span
+                    className={css({
+                        color: "neutral/75",
+                        fontSize: "sm",
+                    })}
+                >
                     {selectedFile?.name ?? props.placeholder ?? "Glissez-déposez ou cliquez pour ajouter un fichier"}
                 </span>
             </Button>

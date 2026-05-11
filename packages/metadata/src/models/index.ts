@@ -22,7 +22,6 @@ import * as ticketModel from "./ticket.js"
 import * as ticketMessageModel from "./ticketMessage.js"
 import * as userModel from "./user.js"
 import * as userSessionModel from "./userSession.js"
-import * as workerJobModel from "./workerJob.js"
 import * as yearModel from "./year.js"
 
 export const models = {
@@ -50,7 +49,6 @@ export const models = {
     ticketMessage: ticketMessageModel.ticketMessageModel,
     user: userModel.userModel,
     userSession: userSessionModel.userSessionModel,
-    workerJob: workerJobModel.workerJobModel,
     year: yearModel.yearModel,
 }
 
@@ -79,6 +77,5 @@ export const modelSchemas = {
     ...ticketMessageModel,
     ...userModel,
     ...userSessionModel,
-    ...workerJobModel,
     ...yearModel,
 }

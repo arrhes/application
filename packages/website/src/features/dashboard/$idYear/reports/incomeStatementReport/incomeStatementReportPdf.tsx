@@ -81,7 +81,10 @@ function computeIncomeStatementAmount(
     accounts: Account[],
     entryLines: EntryLine[],
 ): number {
-    const children = getIncomeStatementChildren({ incomeStatement, incomeStatements: allIncomeStatements })
+    const children = getIncomeStatementChildren({
+        incomeStatement,
+        incomeStatements: allIncomeStatements,
+    })
     let netAmount = 0
     accounts
         .filter((account) => {
@@ -131,7 +134,14 @@ function IncomeStatementPdfRows({
                 return (
                     <View key={is.id}>
                         <View style={number ? styles.sectionRow : styles.row}>
-                            <View style={[styles.labelCell, { paddingLeft: level * 12 }]}>
+                            <View
+                                style={[
+                                    styles.labelCell,
+                                    {
+                                        paddingLeft: level * 12,
+                                    },
+                                ]}
+                            >
                                 <Text style={number ? styles.boldText : {}}>
                                     {number ? `${number}  ` : ""}
                                     {is.label}
@@ -170,7 +180,10 @@ export function IncomeStatementReportPdf(props: {
 
     return (
         <Document>
-            <Page size="A4" style={styles.page}>
+            <Page
+                size="A4"
+                style={styles.page}
+            >
                 <Text style={styles.title}>Compte de résultat</Text>
                 {/* Header */}
                 <View style={styles.headerRow}>
@@ -242,11 +255,18 @@ export function IncomeStatementReportPdf(props: {
                                 .join("")
 
                             return (
-                                <View key={computation.id} style={styles.row}>
+                                <View
+                                    key={computation.id}
+                                    style={styles.row}
+                                >
                                     <View
                                         style={[
                                             styles.labelCell,
-                                            { flexDirection: "row", justifyContent: "flex-end", gap: 4 },
+                                            {
+                                                flexDirection: "row",
+                                                justifyContent: "flex-end",
+                                                gap: 4,
+                                            },
                                         ]}
                                     >
                                         <Text>{computation.label}</Text>

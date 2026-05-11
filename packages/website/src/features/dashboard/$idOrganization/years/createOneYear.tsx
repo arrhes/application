@@ -24,7 +24,10 @@ export function CreateOneYear(props: {
     const currentDate = new Date()
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Ajouter un nouvel exercice" />
@@ -46,11 +49,17 @@ export function CreateOneYear(props: {
                                 body: data,
                             })
                             if (!response.ok) {
-                                toast({ title: "Impossible de créer l'exercice", variant: "error" })
+                                toast({
+                                    title: "Impossible de créer l'exercice",
+                                    variant: "error",
+                                })
                                 return false
                             }
 
-                            toast({ title: "Exercice créé avec succès", variant: "success" })
+                            toast({
+                                title: "Exercice créé avec succès",
+                                variant: "success",
+                            })
                             return true
                         }}
                         onCancel={undefined}
@@ -77,7 +86,10 @@ export function CreateOneYear(props: {
                                                 tooltip={undefined}
                                             />
                                             <FormControl>
-                                                <InputDate value={field.value} onChange={field.onChange} />
+                                                <InputDate
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -95,7 +107,10 @@ export function CreateOneYear(props: {
                                                 tooltip={undefined}
                                             />
                                             <FormControl>
-                                                <InputDate value={field.value} onChange={field.onChange} />
+                                                <InputDate
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -135,7 +150,10 @@ export function CreateOneYear(props: {
                                                 tooltip={undefined}
                                             />
                                             <FormControl>
-                                                <InputText value={field.value} onChange={field.onChange} />
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>

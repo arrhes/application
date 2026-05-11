@@ -32,7 +32,10 @@ Tu peux lister, créer et gérer les exercices fiscaux, ainsi que modifier les p
 Règles :
 - La clôture d'exercice est une opération critique — prévenir l'utilisateur avant d'agir.
 - Toujours appeler read_all_years en début de conversation si aucun exercice n'est pré-sélectionné.`,
-        toolCategories: ["years", "yearGeneral"],
+        toolCategories: [
+            "years",
+            "yearGeneral",
+        ],
     },
     entries: {
         name: "entries",
@@ -48,7 +51,11 @@ Règles critiques :
 - Pour create_one_entry_line, fournir uniquement : idYear, idEntry, idAccount, et optionnellement label, debit, credit.
 - Vérifier l'équilibre débit/crédit avant de valider.
 - Ne JAMAIS créer toutes les écritures d'abord pour ajouter les lignes ensuite.`,
-        toolCategories: ["entries", "entryLines", "entryTags"],
+        toolCategories: [
+            "entries",
+            "entryLines",
+            "entryTags",
+        ],
     },
     accounts: {
         name: "accounts",
@@ -60,7 +67,9 @@ Tu peux gérer les comptes du plan comptable de l'organisation.
 Règles :
 - Respecter la nomenclature du Plan Comptable Général (PCG) pour les numéros de compte.
 - Ne pas supprimer un compte s'il est utilisé par des écritures existantes.`,
-        toolCategories: ["accounts"],
+        toolCategories: [
+            "accounts",
+        ],
     },
     journals: {
         name: "journals",
@@ -72,7 +81,9 @@ Tu peux gérer les journaux comptables de l'organisation (achats, ventes, banque
 Règles :
 - Ne pas supprimer un journal s'il est utilisé par des écritures existantes.
 - Chaque journal doit avoir un code unique et un libellé clair.`,
-        toolCategories: ["journals"],
+        toolCategories: [
+            "journals",
+        ],
     },
     tags: {
         name: "tags",
@@ -84,7 +95,9 @@ Tu peux gérer les étiquettes utilisées pour classer et catégoriser les écri
 
 Règles :
 - Les étiquettes servent à organiser les écritures par projet, catégorie ou autre critère transversal.`,
-        toolCategories: ["tags"],
+        toolCategories: [
+            "tags",
+        ],
     },
     balance_sheets: {
         name: "balance_sheets",
@@ -96,7 +109,9 @@ Tu peux gérer les postes de bilan (actif/passif) et générer des rapports de b
 Règles :
 - Vérifier la cohérence actif/passif du bilan.
 - Le lettrage du bilan est une opération critique.`,
-        toolCategories: ["balanceSheets"],
+        toolCategories: [
+            "balanceSheets",
+        ],
     },
     income_statements: {
         name: "income_statements",
@@ -109,7 +124,11 @@ Tu peux gérer les postes du compte de résultat, les calculs/rubriques et leurs
 Règles :
 - Les calculs/rubriques doivent être correctement associés aux postes du compte de résultat.
 - Vérifier la cohérence entre bilan et compte de résultat.`,
-        toolCategories: ["incomeStatements", "computations", "reports"],
+        toolCategories: [
+            "incomeStatements",
+            "computations",
+            "reports",
+        ],
     },
     files: {
         name: "files",
@@ -123,7 +142,10 @@ Règles :
 - Organiser les fichiers dans des dossiers appropriés.
 - Identifier clairement le contenu extrait par OCR et signaler ce qui n'a pas pu être lu.
 - Quand tu crées une écriture à partir d'un fichier importé, utiliser le paramètre idFile pour associer le fichier à l'écriture.`,
-        toolCategories: ["files", "folders"],
+        toolCategories: [
+            "files",
+            "folders",
+        ],
     },
     data_analysis: {
         name: "data_analysis",

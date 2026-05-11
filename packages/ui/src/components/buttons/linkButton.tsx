@@ -36,7 +36,10 @@ export function LinkButton(props: LinkButtonProps) {
                 css({
                     width: "fit-content",
                     maxWidth: "100%",
-                    _disabled: { cursor: "not-allowed", pointerEvents: "none" },
+                    _disabled: {
+                        cursor: "not-allowed",
+                        pointerEvents: "none",
+                    },
                 }),
                 props.className,
             )}

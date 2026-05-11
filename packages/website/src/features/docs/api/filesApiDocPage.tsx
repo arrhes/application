@@ -4,6 +4,7 @@ import {
     deleteOneFileRouteDefinition,
     deleteOneFolderRouteDefinition,
     generateBalanceSheetXmlRouteDefinition,
+    generateFileDeleteSignedUrlRouteDefinition,
     generateFileGetSignedUrlRouteDefinition,
     generateFilePutSignedUrlRouteDefinition,
     generateIncomeStatementXmlRouteDefinition,
@@ -46,6 +47,10 @@ export function FilesApiDocPage() {
                 <DocRouteRequest
                     routeDefinition={generateFileGetSignedUrlRouteDefinition}
                     description="Générer une URL signée pour télécharger un fichier."
+                />
+                <DocRouteRequest
+                    routeDefinition={generateFileDeleteSignedUrlRouteDefinition}
+                    description="Générer une URL signée pour supprimer un fichier."
                 />
                 <DocTip variant="warning">
                     La taille maximale par fichier est de 50 Mo. Au-delà, l'API retourne une erreur <code>400</code>.

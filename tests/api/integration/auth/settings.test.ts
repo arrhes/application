@@ -45,7 +45,9 @@ describe("POST /auth/update-user", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/update-user",
-            body: { alias: newAlias },
+            body: {
+                alias: newAlias,
+            },
         })
         expect(response.status).toBe(200)
 
@@ -58,7 +60,9 @@ describe("POST /auth/update-user", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/update-user",
-            body: { alias: null },
+            body: {
+                alias: null,
+            },
         })
         expect(response.status).toBe(200)
 
@@ -69,7 +73,9 @@ describe("POST /auth/update-user", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/update-user",
-            body: { alias: "test" },
+            body: {
+                alias: "test",
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -132,7 +138,10 @@ describe("POST /auth/update-user-email", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/update-user-email",
-            body: { currentPassword: "demo", emailToValidate: "new@example.com" },
+            body: {
+                currentPassword: "demo",
+                emailToValidate: "new@example.com",
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -150,7 +159,10 @@ describe("POST /auth/update-user-email", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/update-user-email",
-            body: { currentPassword: "wrong_password", emailToValidate: "new@example.com" },
+            body: {
+                currentPassword: "wrong_password",
+                emailToValidate: "new@example.com",
+            },
         })
         expect(response.status).toBe(400)
     })

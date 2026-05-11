@@ -24,7 +24,9 @@ import { updateOne } from "../../../../utilities/sql/updateOne.js"
 export const createResourceSubscriptionRoute = apiFactory
     .createApp()
     .post(createResourceSubscriptionRouteDefinition.path, async (c) => {
-        const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+        const { user, idOrganization } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: createResourceSubscriptionRouteDefinition.schemas.body,
@@ -62,10 +64,10 @@ export const createResourceSubscriptionRoute = apiFactory
 
         const currentQuantity =
             body.type === "storage_gb"
-                ? getStorageAddonQuantity(organization.storageMaxUsage)
+                ? getStorageAddonQuantity(organization.storageLimit)
                 : body.type === "agent_tokens_million"
-                  ? getTokenAddonQuantity(organization.tokensTotalLeft + organization.tokensTotalUsed)
-                  : getOcrAddonQuantity(organization.ocrPagesTotalLeft + organization.ocrPagesTotalUsed)
+                  ? getTokenAddonQuantity(organization.tokensTotalAvailable + organization.tokensTotalUsed)
+                  : getOcrAddonQuantity(organization.ocrPagesTotalAvailable + organization.ocrPagesTotalUsed)
 
         if (body.type === "storage_gb") {
             const minimumStorageQuantityFromUsage = Math.max(
@@ -98,13 +100,15 @@ export const createResourceSubscriptionRoute = apiFactory
                 context: c,
                 statusCode: 200,
                 schema: createResourceSubscriptionRouteDefinition.schemas.return,
-                data: { checkoutUrl: null },
+                data: {
+                    checkoutUrl: null,
+                },
             })
         }
 
         const now = new Date()
 
-        const nextStorageMaxUsage =
+        const nextStorageLimit =
             body.type === "storage_gb" ? FREE_STORAGE_BYTES + body.quantity * FREE_STORAGE_BYTES : undefined
         const nextTokensTotal =
             body.type === "agent_tokens_million" ? getTotalTokensFromQuantity(body.quantity) : undefined
@@ -164,13 +168,10 @@ export const createResourceSubscriptionRoute = apiFactory
             database: c.var.clients.sql,
             table: models.organization,
             data: {
-                storageLimit: nextStorageMaxUsage,
-                storageMaxUsage: nextStorageMaxUsage,
-                ocrMonthlyLimit: nextOcrTotal,
-                ocrPagesTotalLeft:
+                storageLimit: nextStorageLimit,
+                ocrPagesTotalAvailable:
                     nextOcrTotal !== undefined ? Math.max(nextOcrTotal - organization.ocrPagesTotalUsed, 0) : undefined,
-                agentTokensMonthlyLimit: nextTokensTotal,
-                tokensTotalLeft:
+                tokensTotalAvailable:
                     nextTokensTotal !== undefined
                         ? Math.max(nextTokensTotal - organization.tokensTotalUsed, 0)
                         : undefined,
@@ -184,6 +185,8 @@ export const createResourceSubscriptionRoute = apiFactory
             context: c,
             statusCode: 200,
             schema: createResourceSubscriptionRouteDefinition.schemas.return,
-            data: { checkoutUrl: null },
+            data: {
+                checkoutUrl: null,
+            },
         })
     })

@@ -1,1 +1,4 @@
-export const balanceSheetSide = <const>["asset", "liability"]
+export const balanceSheetSide = <const>[
+    "asset",
+    "liability",
+]

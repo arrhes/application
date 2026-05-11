@@ -9,7 +9,9 @@ import { selectMany } from "../../../../../utilities/sql/selectMany.js"
 export const readAllBalanceSheetsRoute = apiFactory
     .createApp()
     .post(readAllBalanceSheetsRouteDefinition.path, async (c) => {
-        const { idOrganization } = await checkUserSessionMiddleware({ context: c })
+        const { idOrganization } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: readAllBalanceSheetsRouteDefinition.schemas.body,

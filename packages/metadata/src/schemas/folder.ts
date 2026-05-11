@@ -9,7 +9,12 @@ export const folderSchema = v.object({
     idOrganization: v.nonNullable(idSchema, "Ce champ est requis"),
     idYear: v.nonNullable(idSchema, "Ce champ est requis"),
     idFolderParent: v.nullable(idSchema),
-    name: v.nonNullable(varcharSchema({ maxLength: 256 }), "Ce champ est requis"),
+    name: v.nonNullable(
+        varcharSchema({
+            maxLength: 256,
+        }),
+        "Ce champ est requis",
+    ),
     createdAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),
     lastUpdatedAt: v.nullable(dateTimeSchema),
     createdBy: v.nullable(idSchema),

@@ -11,7 +11,12 @@ export const yearSchema = v.object({
     // isGenerated: v.nonNullable(booleanSchema),
     isClosed: v.nonNullable(booleanSchema, "Ce champ est requis"),
     closedAt: v.nullable(dateTimeSchema),
-    label: v.nonNullable(varcharSchema({ maxLength: 256 }), "Ce champ est requis"),
+    label: v.nonNullable(
+        varcharSchema({
+            maxLength: 256,
+        }),
+        "Ce champ est requis",
+    ),
     startingAt: v.nonNullable(dateTimeSchema, "Doit être une date valide"),
     endingAt: v.nonNullable(dateTimeSchema, "Doit être une date valide"),
     createdAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),

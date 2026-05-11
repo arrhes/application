@@ -15,8 +15,13 @@ export function LinkContent(props: LinkContentProps) {
                     color: "primary",
                     textDecoration: "underline",
                     cursor: "pointer",
-                    _hover: { textDecoration: "none" },
-                    _disabled: { opacity: 0.3, cursor: "not-allowed" },
+                    _hover: {
+                        textDecoration: "none",
+                    },
+                    _disabled: {
+                        opacity: 0.3,
+                        cursor: "not-allowed",
+                    },
                 }),
                 props.className,
             )}

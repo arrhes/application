@@ -24,8 +24,18 @@ export const accountSchema = v.object({
     isOptional: v.nonNullable(booleanSchema, "Ce champ est requis"),
     isSelectable: v.nonNullable(booleanSchema, "Ce champ est requis"),
     isDefault: v.nonNullable(booleanSchema, "Ce champ est requis"),
-    number: v.nonNullable(varcharSchema({ maxLength: 32 }), "Ce champ est requis"),
-    label: v.nonNullable(varcharSchema({ maxLength: 256 }), "Ce champ est requis"),
+    number: v.nonNullable(
+        varcharSchema({
+            maxLength: 32,
+        }),
+        "Ce champ est requis",
+    ),
+    label: v.nonNullable(
+        varcharSchema({
+            maxLength: 256,
+        }),
+        "Ce champ est requis",
+    ),
     type: v.nonNullable(v.picklist(accountType, "Valeur invalide"), "Ce champ est requis"),
 
     createdAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),

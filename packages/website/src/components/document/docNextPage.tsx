@@ -37,8 +37,14 @@ export function DocNextPage(props: { to: ValidRoutes; params?: ValidParams; labe
                     {props.description}
                 </p>
             )}
-            <LinkButton to={props.to} params={props.params}>
-                <ButtonOutlineContent text={props.label} rightIcon={<IconChevronRight />} />
+            <LinkButton
+                to={props.to}
+                params={props.params}
+            >
+                <ButtonOutlineContent
+                    text={props.label}
+                    rightIcon={<IconChevronRight />}
+                />
             </LinkButton>
         </div>
     )

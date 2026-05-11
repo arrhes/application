@@ -46,7 +46,10 @@ export function ResumeSubscription() {
                 window.location.href = response.data.checkoutUrl
             }}
         >
-            <ButtonOutlineContent leftIcon={<IconPlayerPlay />} text="Reprendre l'abonnement" />
+            <ButtonOutlineContent
+                leftIcon={<IconPlayerPlay />}
+                text="Reprendre l'abonnement"
+            />
         </ConfirmationModal>
     )
 }

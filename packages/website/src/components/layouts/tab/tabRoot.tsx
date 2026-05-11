@@ -34,14 +34,25 @@ export function TabRoot(props: {
         >
             {props.tabs.map((tab) => {
                 const normalizedTo = (tab.to ?? "").replace(/\/+$/, "")
-                const matchRoute = [...routeMatches]
+                const matchRoute = [
+                    ...routeMatches,
+                ]
                     .reverse()
                     .find((match) => match.fullPath.replace(/\/+$/, "") === normalizedTo)
                 const isActive = matchRoute === undefined ? false : currentPath === matchRoute.routeId
 
                 return (
-                    <LinkButton key={tab.to} to={tab.to} params={tab.params}>
-                        <ButtonGhostContent leftIcon={tab.icon} text={tab.label} color="default" isCurrent={isActive} />
+                    <LinkButton
+                        key={tab.to}
+                        to={tab.to}
+                        params={tab.params}
+                    >
+                        <ButtonGhostContent
+                            leftIcon={tab.icon}
+                            text={tab.label}
+                            color="default"
+                            isCurrent={isActive}
+                        />
                     </LinkButton>
                 )
             })}

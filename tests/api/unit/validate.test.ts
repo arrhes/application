@@ -10,9 +10,15 @@ describe("validate", () => {
         })
         const result = validate({
             schema,
-            data: { name: "John", age: 30 },
+            data: {
+                name: "John",
+                age: 30,
+            },
         })
-        expect(result).toEqual({ name: "John", age: 30 })
+        expect(result).toEqual({
+            name: "John",
+            age: 30,
+        })
     })
 
     it("throws an Exception for invalid data", () => {
@@ -22,7 +28,9 @@ describe("validate", () => {
         expect(() =>
             validate({
                 schema,
-                data: { name: 123 } as any,
+                data: {
+                    name: 123,
+                } as any,
             }),
         ).toThrow()
     })
@@ -34,7 +42,9 @@ describe("validate", () => {
         try {
             validate({
                 schema,
-                data: { email: "not-an-email" } as any,
+                data: {
+                    email: "not-an-email",
+                } as any,
             })
             expect.unreachable("Should have thrown")
         } catch (error: any) {
@@ -49,9 +59,14 @@ describe("validate", () => {
         })
         const result = validate({
             schema,
-            data: { name: "John", extra: "field" } as any,
+            data: {
+                name: "John",
+                extra: "field",
+            } as any,
         })
-        expect(result).toEqual({ name: "John" })
+        expect(result).toEqual({
+            name: "John",
+        })
     })
 
     it("validates nested objects", () => {
@@ -62,8 +77,16 @@ describe("validate", () => {
         })
         const result = validate({
             schema,
-            data: { user: { name: "Jane" } },
+            data: {
+                user: {
+                    name: "Jane",
+                },
+            },
         })
-        expect(result).toEqual({ user: { name: "Jane" } })
+        expect(result).toEqual({
+            user: {
+                name: "Jane",
+            },
+        })
     })
 })

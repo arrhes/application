@@ -19,7 +19,9 @@ function getCurrentSection(pathname: string): DocSectionId {
 }
 
 export function DocsLayout() {
-    const pathname = useRouterState({ select: (s) => s.location.pathname })
+    const pathname = useRouterState({
+        select: (s) => s.location.pathname,
+    })
     const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     const currentSectionId = getCurrentSection(pathname)
@@ -29,10 +31,11 @@ export function DocsLayout() {
         <div
             className={css({
                 width: "100%",
-                minHeight: "100vh",
-                display: "flex",
-                flexDirection: "column",
+                height: "100vh",
+                display: "grid",
+                gridTemplateRows: "auto minmax(0, 1fr)",
                 backgroundColor: "background",
+                overflow: "hidden",
             })}
         >
             {/* Header */}
@@ -66,7 +69,7 @@ export function DocsLayout() {
                     <div
                         className={css({
                             width: "100%",
-                            maxWidth: "xl",
+                            // maxWidth: "xl",
                             display: "flex",
                             justifyContent: "start",
                             alignItems: "center",
@@ -83,25 +86,44 @@ export function DocsLayout() {
                             })}
                         >
                             <LinkButton to="/">
-                                <ButtonGhostContent leftIcon={<Logo />} text="Arrhes" />
+                                <ButtonGhostContent
+                                    leftIcon={<Logo />}
+                                    text="Arrhes"
+                                />
                             </LinkButton>
 
-                            <span className={css({ color: "neutral/20", display: { base: "none", sm: "block" } })}>
+                            <span
+                                className={css({
+                                    color: "neutral/20",
+                                    display: {
+                                        base: "none",
+                                        sm: "block",
+                                    },
+                                })}
+                            >
                                 /
                             </span>
 
                             <LinkButton
                                 to="/documentation"
                                 className={css({
-                                    display: { base: "none", sm: "flex" },
+                                    display: {
+                                        base: "none",
+                                        sm: "flex",
+                                    },
                                     alignItems: "center",
                                     gap: "0.25rem",
                                     fontSize: "sm",
                                     color: "neutral/60",
-                                    _hover: { color: "neutral" },
+                                    _hover: {
+                                        color: "neutral",
+                                    },
                                 })}
                             >
-                                <ButtonGhostContent leftIcon={<IconBook2 />} text="Documentation" />
+                                <ButtonGhostContent
+                                    leftIcon={<IconBook2 />}
+                                    text="Documentation"
+                                />
                             </LinkButton>
                         </div>
 
@@ -116,7 +138,11 @@ export function DocsLayout() {
                                 flexShrink: 0,
                             })}
                         >
-                            <a href="https://github.com/arrhes" target="_blank" rel="noopener noreferrer">
+                            <a
+                                href="https://github.com/arrhes"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
                                 <ButtonGhostContent leftIcon={<IconBrandGithub />} />
                             </a>
                             {/* <LinkButton to="/">
@@ -145,7 +171,7 @@ export function DocsLayout() {
                     <div
                         className={css({
                             width: "100%",
-                            maxWidth: "xl",
+                            // maxWidth: "xl",
                             display: "flex",
                             alignItems: "center",
                             flexWrap: "wrap",
@@ -153,7 +179,11 @@ export function DocsLayout() {
                         })}
                     >
                         {Object.values(docSections).map((section) => (
-                            <SectionTab key={section.id} section={section} isActive={currentSectionId === section.id} />
+                            <SectionTab
+                                key={section.id}
+                                section={section}
+                                isActive={currentSectionId === section.id}
+                            />
                         ))}
                     </div>
                 </div>
@@ -167,15 +197,19 @@ export function DocsLayout() {
                     justifyContent: "start",
                     alignItems: "center",
                     backgroundColor: "white",
-                    flex: "1",
+                    height: "100%",
+                    minHeight: "0",
+                    overflow: "hidden",
                 })}
             >
                 <div
                     className={css({
                         width: "100%",
-                        maxWidth: "xl",
+                        // maxWidth: "xl",
                         display: "flex",
-                        flex: "1",
+                        height: "100%",
+                        minHeight: "0",
+                        overflow: "hidden",
                     })}
                 >
                     {/* Sidebar */}
@@ -184,9 +218,16 @@ export function DocsLayout() {
                             css({
                                 borderRight: "1px solid",
                                 borderRightColor: "neutral/10",
+                                overflowX: "hidden",
                                 overflowY: "auto",
                                 flexShrink: 0,
-                                display: { base: "none", md: "flex" },
+                                display: {
+                                    base: "none",
+                                    md: "flex",
+                                },
+                                alignSelf: "stretch",
+                                height: "100%",
+                                boxSizing: "border-box",
                                 padding: "1rem",
                             }),
                         )}
@@ -205,14 +246,19 @@ export function DocsLayout() {
                         className={css({
                             flex: "1",
                             minWidth: "0",
+                            minHeight: "0",
                             display: "flex",
                             flexDirection: "column",
                             justifyContent: "start",
+                            overflowY: "auto",
                         })}
                     >
                         <div
                             className={css({
-                                display: { base: "flex", md: "none" },
+                                display: {
+                                    base: "flex",
+                                    md: "none",
+                                },
                                 flexDirection: "column",
                                 justifyContent: "start",
                                 alignItems: "start",
@@ -232,13 +278,19 @@ export function DocsLayout() {
                                 <ButtonGhostContent leftIcon={<IconMenu />} />
                             </Button>
                             {isMenuOpen === false ? null : (
-                                <SidebarNavigation navigation={currentSection.navigation} pathname={pathname} />
+                                <SidebarNavigation
+                                    navigation={currentSection.navigation}
+                                    pathname={pathname}
+                                />
                             )}
                         </div>
                         <div
                             className={css({
                                 width: "100%",
-                                padding: { base: "1rem", md: "2rem" },
+                                padding: {
+                                    base: "1rem",
+                                    md: "2rem",
+                                },
                             })}
                         >
                             <Outlet />

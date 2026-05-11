@@ -40,13 +40,43 @@ function BillingDisclaimerContent(props: {
                 background: "warning/5",
             })}
         >
-            <div className={css({ display: "flex", alignItems: "flex-start", gap: "0.75rem" })}>
-                <IconAlertTriangle className={css({ color: "warning", flexShrink: 0, marginTop: "0.125rem" })} />
-                <div className={css({ display: "flex", flexDirection: "column", gap: "0.25rem" })}>
-                    <span className={css({ fontSize: "sm", fontWeight: "600", color: "neutral" })}>
+            <div
+                className={css({
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "0.75rem",
+                })}
+            >
+                <IconAlertTriangle
+                    className={css({
+                        color: "warning",
+                        flexShrink: 0,
+                        marginTop: "0.125rem",
+                    })}
+                />
+                <div
+                    className={css({
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "0.25rem",
+                    })}
+                >
+                    <span
+                        className={css({
+                            fontSize: "sm",
+                            fontWeight: "600",
+                            color: "neutral",
+                        })}
+                    >
                         Configuration de facturation incomplète
                     </span>
-                    <span className={css({ fontSize: "sm", color: "neutral/70", lineHeight: "1.5" })}>
+                    <span
+                        className={css({
+                            fontSize: "sm",
+                            color: "neutral/70",
+                            lineHeight: "1.5",
+                        })}
+                    >
                         Aucun moyen de paiement n'est enregistré et les informations de facturation sont incomplètes.
                         Renseignez {missingFields.join(" et ")} pour utiliser correctement les paiements via Mollie.
                     </span>
@@ -54,7 +84,10 @@ function BillingDisclaimerContent(props: {
             </div>
             <UpdateOneOrganization organization={props.organization}>
                 <Button>
-                    <ButtonOutlineContent leftIcon={<IconPencil />} text="Compléter" />
+                    <ButtonOutlineContent
+                        leftIcon={<IconPencil />}
+                        text="Compléter"
+                    />
                 </Button>
             </UpdateOneOrganization>
         </div>
@@ -64,19 +97,31 @@ export function OrganizationBillingDisclaimerBanner(props: { idOrganization: str
     return (
         <DataWrapper
             routeDefinition={readOneOrganizationRouteDefinition}
-            body={{ idOrganization: props.idOrganization }}
+            body={{
+                idOrganization: props.idOrganization,
+            }}
         >
             {(organization) => (
-                <DataWrapper routeDefinition={readAllOrganizationPaymentsRouteDefinition} body={{}}>
+                <DataWrapper
+                    routeDefinition={readAllOrganizationPaymentsRouteDefinition}
+                    body={{}}
+                >
                     {(payments) => {
                         const hasPaymentMethod = payments.some(
                             (payment) =>
                                 payment.status === "paid" &&
-                                ["first", "setup", "recurring"].includes(payment.sequenceType ?? ""),
+                                [
+                                    "first",
+                                    "setup",
+                                    "recurring",
+                                ].includes(payment.sequenceType ?? ""),
                         )
 
                         return (
-                            <BillingDisclaimerContent organization={organization} hasPaymentMethod={hasPaymentMethod} />
+                            <BillingDisclaimerContent
+                                organization={organization}
+                                hasPaymentMethod={hasPaymentMethod}
+                            />
                         )
                     }}
                 </DataWrapper>

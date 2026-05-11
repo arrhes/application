@@ -20,7 +20,10 @@ describe("Balance Sheets", () => {
             const response = await authenticatedRequest({
                 session,
                 path: "/auth/read-all-balance-sheets",
-                body: { idOrganization, idYear },
+                body: {
+                    idOrganization,
+                    idYear,
+                },
             })
             expect(response.status).toBe(200)
 
@@ -41,7 +44,10 @@ describe("Income Statements", () => {
             const response = await authenticatedRequest({
                 session,
                 path: "/auth/read-all-income-statements",
-                body: { idOrganization, idYear },
+                body: {
+                    idOrganization,
+                    idYear,
+                },
             })
             expect(response.status).toBe(200)
 
@@ -62,7 +68,10 @@ describe("Computations", () => {
             const response = await authenticatedRequest({
                 session,
                 path: "/auth/read-all-computations",
-                body: { idOrganization, idYear },
+                body: {
+                    idOrganization,
+                    idYear,
+                },
             })
             expect(response.status).toBe(200)
 

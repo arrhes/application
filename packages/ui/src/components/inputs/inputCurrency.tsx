@@ -41,10 +41,23 @@ export function InputCurrency(
                     gap: "0.5rem",
                     border: "1px solid",
                     borderRadius: "md",
-                    _hover: { borderColor: "neutral/50" },
-                    _focusWithin: { borderColor: "neutral/50", boxShadow: "inset" },
+                    _hover: {
+                        borderColor: "neutral/50",
+                    },
+                    _focusWithin: {
+                        borderColor: "neutral/50",
+                        boxShadow: "inset",
+                    },
                 }),
-                css(!props.error ? { borderColor: "neutral/20" } : { borderColor: "error" }),
+                css(
+                    !props.error
+                        ? {
+                              borderColor: "neutral/20",
+                          }
+                        : {
+                              borderColor: "error",
+                          },
+                ),
                 props.className,
             )}
         >
@@ -52,7 +65,9 @@ export function InputCurrency(
                 mask={Number}
                 scale={2}
                 radix=","
-                mapToRadix={["."]}
+                mapToRadix={[
+                    ".",
+                ]}
                 thousandsSeparator="\u202f"
                 normalizeZeros
                 padFractionalZeros
@@ -68,10 +83,15 @@ export function InputCurrency(
                     fontSize: "0.875rem",
                     lineHeight: "1rem",
                     fontWeight: "400",
-                    _placeholder: { color: "neutral/25" },
+                    _placeholder: {
+                        color: "neutral/25",
+                    },
                     backgroundColor: "transparent",
                     padding: "0.5rem",
-                    _focusWithin: { borderColor: "neutral/50", outline: "none" },
+                    _focusWithin: {
+                        borderColor: "neutral/50",
+                        outline: "none",
+                    },
                 })}
                 inputMode="decimal"
             />

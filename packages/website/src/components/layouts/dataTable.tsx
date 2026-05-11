@@ -4,6 +4,7 @@ import {
     IconChevronDown,
     IconChevronLeft,
     IconChevronRight,
+    IconDatabaseOff,
     IconSortAscending,
     IconSortDescending,
 } from "@tabler/icons-react"
@@ -26,6 +27,7 @@ import {
 } from "@tanstack/react-table"
 import { type ComponentProps, Fragment, type ReactElement, useMemo, useRef, useState } from "react"
 import { ColumnVisibilityPopover, type VisibilityColumn } from "./columnVisibilityPopover.js"
+import { EmptyState } from "./emptyState.js"
 import { type FilterColumn, FilterPopover } from "./filterPopover.js"
 import { SearchBar } from "./searchBar.js"
 import { type SortDirection, SortPopover } from "./sortPopover.js"
@@ -50,8 +52,14 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
     getRowId?: (row: TData, index: number) => string
     selectionActions?: (selectedRows: Array<Row<TData>>) => ReactElement | null
     resetSelectionTrigger?: unknown
+    emptyStateProps?: Parameters<typeof EmptyState>[0]
 }) {
-    const memoizedData = useMemo(() => props.data, [props.data])
+    const memoizedData = useMemo(
+        () => props.data,
+        [
+            props.data,
+        ],
+    )
     const [globalFilter, setGlobalFilter] = useState("")
     const [sorting, setSorting] = useState<SortingState>([])
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -69,13 +77,22 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
     const selectColumnDef = useMemo<ColumnDef<TData>>(
         () => ({
             id: "__select",
-            meta: { fit: true },
+            meta: {
+                fit: true,
+            },
             enableSorting: false,
             enableGlobalFilter: false,
+            enableHiding: false,
             header: ({ table }) => {
                 const selectedRows = table.getSelectedRowModel().rows
                 return (
-                    <div className={css({ display: "flex", alignItems: "center", gap: "0.25rem" })}>
+                    <div
+                        className={css({
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.25rem",
+                        })}
+                    >
                         <InputCheckbox
                             checked={table.getIsAllRowsSelected()}
                             indeterminate={table.getIsSomeRowsSelected()}
@@ -96,20 +113,35 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                 ) : null,
         }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [props.selectionActions],
+        [
+            props.selectionActions,
+        ],
     )
 
     const memoizedUserColumns = useMemo(
-        () => props.columns.map((column) => ({ ...column, enableMultiSort: true })),
-        [props.columns],
+        () =>
+            props.columns.map((column) => ({
+                ...column,
+                enableMultiSort: true,
+            })),
+        [
+            props.columns,
+        ],
     )
 
     const allColumns = useMemo(
         () =>
             props.enableRowSelection !== undefined && props.enableRowSelection !== false
-                ? [selectColumnDef, ...memoizedUserColumns]
+                ? [
+                      selectColumnDef,
+                      ...memoizedUserColumns,
+                  ]
                 : memoizedUserColumns,
-        [props.enableRowSelection, selectColumnDef, memoizedUserColumns],
+        [
+            props.enableRowSelection,
+            selectColumnDef,
+            memoizedUserColumns,
+        ],
     )
 
     const autoColumnSizing = useMemo<ColumnSizingState>(() => {
@@ -157,11 +189,20 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
         }
 
         return computedSizing
-    }, [allColumns, memoizedData])
+    }, [
+        allColumns,
+        memoizedData,
+    ])
 
     const columnSizing = useMemo<ColumnSizingState>(
-        () => ({ ...autoColumnSizing, ...columnSizingOverrides }),
-        [autoColumnSizing, columnSizingOverrides],
+        () => ({
+            ...autoColumnSizing,
+            ...columnSizingOverrides,
+        }),
+        [
+            autoColumnSizing,
+            columnSizingOverrides,
+        ],
     )
 
     const table = useReactTable<TData>({
@@ -204,8 +245,39 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
         },
     })
 
-    if (props.isLoading) return <CircularLoader className={css({ m: "3" })} />
+    if (props.isLoading)
+        return (
+            <CircularLoader
+                className={css({
+                    m: "3",
+                })}
+            />
+        )
     const columnCount = table.getFlatHeaders().length + (props.renderSubComponent ? 1 : 0)
+    if (props.data.length === 0) {
+        return (
+            <div
+                className={css({
+                    width: "100%",
+                    maxWidth: "100%",
+                    // maxHeight: "70vh",
+                    padding: "0",
+                    overflowX: "auto",
+                    overflowY: "auto",
+                    borderRadius: "lg",
+                    border: "1px solid",
+                    borderColor: "neutral/10",
+                })}
+            >
+                <EmptyState
+                    icon={props.emptyStateProps?.icon ?? <IconDatabaseOff />}
+                    title={props.emptyStateProps?.title ?? "Aucun résultat"}
+                    subtitle={props.emptyStateProps?.subtitle}
+                />
+            </div>
+        )
+    }
+
     return (
         <div
             className={css({
@@ -232,12 +304,18 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                         color: "neutral/60",
                     })}
                 >
-                    <SearchBar value={globalFilter ?? ""} onChange={(value) => setGlobalFilter(value)} />
+                    <SearchBar
+                        value={globalFilter ?? ""}
+                        onChange={(value) => setGlobalFilter(value)}
+                    />
                     {(() => {
                         const filterableColumns: Array<FilterColumn> = table
                             .getAllColumns()
                             .filter((col) => col.getCanFilter() && col.columnDef.header && col.columnDef.header !== " ")
-                            .map((col) => ({ id: col.id, header: col.columnDef.header?.toString() ?? "" }))
+                            .map((col) => ({
+                                id: col.id,
+                                header: col.columnDef.header?.toString() ?? "",
+                            }))
 
                         if (filterableColumns.length === 0) return null
 
@@ -266,7 +344,10 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                         const sortableColumns = table
                             .getAllColumns()
                             .filter((col) => col.getCanSort() && col.columnDef.header && col.columnDef.header !== " ")
-                            .map((col) => ({ id: col.id, header: col.columnDef.header?.toString() ?? "" }))
+                            .map((col) => ({
+                                id: col.id,
+                                header: col.columnDef.header?.toString() ?? "",
+                            }))
 
                         if (sortableColumns.length === 0) return null
 
@@ -281,10 +362,23 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                         function toggleSort(columnId: string) {
                             const existing = currentSorting.find((s) => s.id === columnId)
                             if (!existing) {
-                                table.setSorting([...currentSorting, { id: columnId, desc: false }])
+                                table.setSorting([
+                                    ...currentSorting,
+                                    {
+                                        id: columnId,
+                                        desc: false,
+                                    },
+                                ])
                             } else if (!existing.desc) {
                                 table.setSorting(
-                                    currentSorting.map((s) => (s.id === columnId ? { ...s, desc: true } : s)),
+                                    currentSorting.map((s) =>
+                                        s.id === columnId
+                                            ? {
+                                                  ...s,
+                                                  desc: true,
+                                              }
+                                            : s,
+                                    ),
                                 )
                             } else {
                                 table.setSorting(currentSorting.filter((s) => s.id !== columnId))
@@ -369,7 +463,11 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                             backgroundColor: "white",
                         })}
                     >
-                        <tr className={css({ width: "100%" })}>
+                        <tr
+                            className={css({
+                                width: "100%",
+                            })}
+                        >
                             {props.renderSubComponent && (
                                 <th
                                     className={css({
@@ -386,7 +484,13 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                     <th
                                         key={header.id}
                                         colSpan={header.colSpan}
-                                        style={isFit ? undefined : { minWidth: `calc(100% / ${columnCount})` }}
+                                        style={
+                                            isFit
+                                                ? undefined
+                                                : {
+                                                      minWidth: `calc(100% / ${columnCount})`,
+                                                  }
+                                        }
                                         className={css({
                                             position: "relative",
                                             width: isFit ? "1%" : `${boundedHeaderSize}px`,
@@ -426,7 +530,9 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                             <div
                                                 onDoubleClick={() => {
                                                     setColumnSizingOverrides((state) => {
-                                                        const nextState = { ...state }
+                                                        const nextState = {
+                                                            ...state,
+                                                        }
                                                         delete nextState[header.column.id]
                                                         return nextState
                                                     })
@@ -464,7 +570,12 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                         {table.getRowModel().rows.length > 0 ? null : (
                             <tr>
                                 <td>
-                                    <FormatNull text="Pas de données" className={css({ padding: "1rem" })} />
+                                    <FormatNull
+                                        text="Aucun résultat"
+                                        className={css({
+                                            padding: "1rem",
+                                        })}
+                                    />
                                 </td>
                             </tr>
                         )}
@@ -488,13 +599,17 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                                 width: "100%",
                                                 borderBottom: "1px solid",
                                                 borderBottomColor: "neutral/5",
-                                                _last: { borderBottom: "0" },
+                                                _last: {
+                                                    borderBottom: "0",
+                                                },
                                             }),
                                             !props.onRowClick
                                                 ? undefined
                                                 : css({
                                                       cursor: "pointer",
-                                                      _hover: { backgroundColor: "neutral/5" },
+                                                      _hover: {
+                                                          backgroundColor: "neutral/5",
+                                                      },
                                                   }),
                                             row.getIsExpanded()
                                                 ? css({
@@ -505,7 +620,11 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                         )}
                                     >
                                         {props.renderSubComponent && (
-                                            <td className={css({ width: "1%" })}>
+                                            <td
+                                                className={css({
+                                                    width: "1%",
+                                                })}
+                                            >
                                                 <div
                                                     className={css({
                                                         display: "flex",
@@ -541,13 +660,19 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                                 <td
                                                     key={cell.id}
                                                     style={
-                                                        isFit ? undefined : { minWidth: `calc(100% / ${columnCount})` }
+                                                        isFit
+                                                            ? undefined
+                                                            : {
+                                                                  minWidth: `calc(100% / ${columnCount})`,
+                                                              }
                                                     }
                                                     className={css({
                                                         width: isFit ? "1%" : `${boundedCellSize}px`,
                                                         minWidth: isFit ? "0" : undefined,
                                                         whiteSpace: isFit ? "nowrap" : undefined,
-                                                        _last: { width: "1%" },
+                                                        _last: {
+                                                            width: "1%",
+                                                        },
                                                     })}
                                                 >
                                                     <div
@@ -574,14 +699,20 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                                 borderBottom: "1px solid",
                                                 borderBottomColor: "neutral/5",
                                                 backgroundColor: "neutral/2",
-                                                _last: { borderBottom: "0" },
+                                                _last: {
+                                                    borderBottom: "0",
+                                                },
                                             })}
                                         >
                                             <td
                                                 colSpan={row.getVisibleCells().length + 1}
-                                                className={css({ padding: "0" })}
+                                                className={css({
+                                                    padding: "0",
+                                                })}
                                             >
-                                                {props.renderSubComponent({ row })}
+                                                {props.renderSubComponent({
+                                                    row,
+                                                })}
                                             </td>
                                         </tr>
                                     )}
@@ -619,7 +750,10 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                             gap: "0.5rem",
                         })}
                     >
-                        <Button onClick={() => table.previousPage()} isDisabled={!table.getCanPreviousPage()}>
+                        <Button
+                            onClick={() => table.previousPage()}
+                            isDisabled={!table.getCanPreviousPage()}
+                        >
                             <ButtonOutlineContent
                                 leftIcon={<IconChevronLeft />}
                                 text={undefined}
@@ -634,7 +768,10 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                         >
                             Page {table.getState().pagination.pageIndex + 1} sur {table.getPageCount()}
                         </span>
-                        <Button onClick={() => table.nextPage()} isDisabled={!table.getCanNextPage()}>
+                        <Button
+                            onClick={() => table.nextPage()}
+                            isDisabled={!table.getCanNextPage()}
+                        >
                             <ButtonOutlineContent
                                 leftIcon={<IconChevronRight />}
                                 text={undefined}

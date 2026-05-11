@@ -1,8 +1,14 @@
 import { sva } from "@arrhes/ui/css"
+import { useButtonLoading } from "./button"
 import { type ButtonContentProps, renderButtonContent } from "./buttonContent"
 
 const plainRecipe = sva({
-    slots: ["container", "leftIcon", "text", "rightIcon"],
+    slots: [
+        "container",
+        "leftIcon",
+        "text",
+        "rightIcon",
+    ],
     base: {
         container: {
             width: "fit-content",
@@ -24,8 +30,12 @@ const plainRecipe = sva({
             color: "white",
             stroke: "white",
             boxShadow: "inset 0 1px 0 rgba(255,255,255,0.25)",
-            _hover: { backgroundColor: "primary/90" },
-            _active: { backgroundColor: "primary/90" },
+            _hover: {
+                backgroundColor: "primary/90",
+            },
+            _active: {
+                backgroundColor: "primary/90",
+            },
             _disabled: {
                 opacity: 0.5,
                 cursor: "not-allowed",
@@ -65,8 +75,12 @@ const plainRecipe = sva({
                 container: {
                     backgroundColor: "error",
                     borderColor: "rgba(31, 35, 40, 0.15)",
-                    _hover: { backgroundColor: "#c2341f" },
-                    _active: { backgroundColor: "#a22015" },
+                    _hover: {
+                        backgroundColor: "#c2341f",
+                    },
+                    _active: {
+                        backgroundColor: "#a22015",
+                    },
                 },
             },
             success: {},
@@ -78,6 +92,9 @@ const plainRecipe = sva({
 })
 
 export function ButtonPlainContent(props: ButtonContentProps) {
-    const classes = plainRecipe({ color: props.color ?? "default" })
-    return renderButtonContent(props, classes)
+    const classes = plainRecipe({
+        color: props.color ?? "default",
+    })
+    const contextLoading = useButtonLoading()
+    return renderButtonContent(props, classes, contextLoading)
 }

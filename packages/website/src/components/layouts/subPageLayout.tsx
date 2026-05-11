@@ -40,7 +40,12 @@ export function SubPageLayout(props: {
             })}
         >
             {Object.entries(props.sections).map(([key, section]) => (
-                <div key={key} className={css({ marginBottom: "0.5rem" })}>
+                <div
+                    key={key}
+                    className={css({
+                        marginBottom: "0.5rem",
+                    })}
+                >
                     {(section.title || section.icon) && (
                         <div
                             className={css({
@@ -84,7 +89,9 @@ export function SubPageLayout(props: {
                     >
                         {section.items.map((item) => {
                             const normalizedTo = (item.to ?? "").replace(/\/+$/, "")
-                            const matchRoute = [...routeMatches]
+                            const matchRoute = [
+                                ...routeMatches,
+                            ]
                                 .reverse()
                                 .find((match) => match.fullPath.replace(/\/+$/, "") === normalizedTo)
                             const isActive = matchRoute === undefined ? false : currentPath === matchRoute.routeId
@@ -94,7 +101,9 @@ export function SubPageLayout(props: {
                                     key={item.to}
                                     to={item.to}
                                     params={item.params}
-                                    className={css({ width: "100%" })}
+                                    className={css({
+                                        width: "100%",
+                                    })}
                                     onClick={() => {
                                         setIsMenuOpen(false)
                                     }}
@@ -145,7 +154,10 @@ export function SubPageLayout(props: {
                 {props.sections === undefined ? null : (
                     <aside
                         className={css({
-                            display: { base: "none", md: "flex" },
+                            display: {
+                                base: "none",
+                                md: "flex",
+                            },
                             minWidth: "16rem",
                             flexShrink: 0,
                             borderRight: "1px solid",
@@ -173,7 +185,10 @@ export function SubPageLayout(props: {
                 >
                     <div
                         className={css({
-                            display: { base: "flex", md: "none" },
+                            display: {
+                                base: "flex",
+                                md: "none",
+                            },
                             flexDirection: "column",
                             justifyContent: "start",
                             alignItems: "start",
@@ -197,7 +212,10 @@ export function SubPageLayout(props: {
                     <div
                         className={css({
                             width: "100%",
-                            padding: { base: "1rem", md: "2rem" },
+                            padding: {
+                                base: "1rem",
+                                md: "2rem",
+                            },
                         })}
                     >
                         <Outlet />

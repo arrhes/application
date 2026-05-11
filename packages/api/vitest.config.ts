@@ -8,7 +8,9 @@ export default defineConfig({
         },
     },
     test: {
-        include: ["../../tests/api/**/*.test.ts"],
+        include: [
+            "../../tests/api/**/*.test.ts",
+        ],
         globals: true,
         testTimeout: 15000,
         hookTimeout: 30000,

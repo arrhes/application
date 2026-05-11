@@ -64,11 +64,17 @@ export async function buildYearDataCache(parameters: {
             const response = await parameters.appFetch(request)
             if (!response.ok) {
                 console.warn(`[yearDataCache] Failed to pre-fetch ${path}: ${response.status}`)
-                return { path, data: null }
+                return {
+                    path,
+                    data: null,
+                }
             }
 
             const data = await response.json()
-            return { path, data }
+            return {
+                path,
+                data,
+            }
         }),
     )
 

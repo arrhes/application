@@ -5,7 +5,12 @@ export function getIncomeStatementLevel(parameters: {
     incomeStatement: v.InferOutput<typeof returnedSchemas.incomeStatement>
     incomeStatements: Array<v.InferOutput<typeof returnedSchemas.incomeStatement>>
 }) {
-    const map = new Map(parameters.incomeStatements.map((i) => [i.id, i]))
+    const map = new Map(
+        parameters.incomeStatements.map((i) => [
+            i.id,
+            i,
+        ]),
+    )
 
     let level = 0
     let current = parameters.incomeStatement

@@ -64,12 +64,21 @@ export function SignInPage() {
                         })}
                     >
                         <LinkButton to="/">
-                            <ButtonGhostContent leftIcon={<Logo />} text="Dashboard" />
+                            <ButtonGhostContent
+                                leftIcon={<Logo />}
+                                text="Dashboard"
+                            />
                         </LinkButton>
-                        <LinkButton to="/documentation" title="Documentation">
+                        <LinkButton
+                            to="/documentation"
+                            title="Documentation"
+                        >
                             <ButtonGhostContent
                                 leftIcon={<IconBook2 />}
-                                className={css({ width: "100%", justifyContent: "center" })}
+                                className={css({
+                                    width: "100%",
+                                    justifyContent: "center",
+                                })}
                             />
                         </LinkButton>
                     </div>
@@ -106,7 +115,10 @@ export function SignInPage() {
                         submitButtonProps={{
                             leftIcon: <IconLogin2 />,
                             text: "Se connecter",
-                            className: css({ width: "100%", justifyContent: "center" }),
+                            className: css({
+                                width: "100%",
+                                justifyContent: "center",
+                            }),
                         }}
                         submitOnPressEnterKey={true}
                         onSubmit={async (data) => {
@@ -115,11 +127,17 @@ export function SignInPage() {
                                 body: data,
                             })
                             if (response.ok === false) {
-                                toast({ title: "Connexion impossible", variant: "error" })
+                                toast({
+                                    title: "Connexion impossible",
+                                    variant: "error",
+                                })
                                 return false
                             }
 
-                            toast({ title: "Connexion réussie", variant: "success" })
+                            toast({
+                                title: "Connexion réussie",
+                                variant: "success",
+                            })
                             return true
                         }}
                         onCancel={undefined}
@@ -143,7 +161,11 @@ export function SignInPage() {
                                                 tooltip={undefined}
                                             />
                                             <FormControl>
-                                                <InputText value={field.value} onChange={field.onChange} type="email" />
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                    type="email"
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -161,7 +183,10 @@ export function SignInPage() {
                                                 tooltip={undefined}
                                             />
                                             <FormControl>
-                                                <InputPassword value={field.value} onChange={field.onChange} />
+                                                <InputPassword
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -171,10 +196,17 @@ export function SignInPage() {
                         )}
                     </FormRoot>
 
-                    <LinkButton to="/mot-de-passe-oublié" className={css({ width: "100%" })}>
+                    <LinkButton
+                        to="/mot-de-passe-oublié"
+                        className={css({
+                            width: "100%",
+                        })}
+                    >
                         <ButtonGhostContent
                             text="Mot de passe oublié ?"
-                            className={css({ justifyContent: "center" })}
+                            className={css({
+                                justifyContent: "center",
+                            })}
                         />
                     </LinkButton>
 
@@ -190,11 +222,19 @@ export function SignInPage() {
                             gap: "0.5rem",
                         })}
                     >
-                        <LinkButton to="/inscription" className={css({ width: "100%" })}>
+                        <LinkButton
+                            to="/inscription"
+                            className={css({
+                                width: "100%",
+                            })}
+                        >
                             <ButtonOutlineContent
                                 leftIcon={<IconUserPlus />}
                                 text="Créer un compte"
-                                className={css({ width: "100%", justifyContent: "center" })}
+                                className={css({
+                                    width: "100%",
+                                    justifyContent: "center",
+                                })}
                             />
                         </LinkButton>
                     </div>

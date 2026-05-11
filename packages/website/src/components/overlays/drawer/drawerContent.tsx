@@ -26,7 +26,9 @@ export function DrawerContent(props: { children: JSX.Element | JSX.Element[]; cl
             }, 200)
             return () => clearTimeout(timer)
         }
-    }, [open])
+    }, [
+        open,
+    ])
 
     // Handle Escape key
     const handleKeyDown = useCallback(
@@ -35,7 +37,9 @@ export function DrawerContent(props: { children: JSX.Element | JSX.Element[]; cl
                 setOpen(false)
             }
         },
-        [setOpen],
+        [
+            setOpen,
+        ],
     )
 
     useEffect(() => {
@@ -49,7 +53,10 @@ export function DrawerContent(props: { children: JSX.Element | JSX.Element[]; cl
                 document.body.style.overflow = originalOverflow
             }
         }
-    }, [mounted, handleKeyDown])
+    }, [
+        mounted,
+        handleKeyDown,
+    ])
 
     if (!mounted) return null
 
@@ -67,7 +74,13 @@ export function DrawerContent(props: { children: JSX.Element | JSX.Element[]; cl
                         backgroundColor: "neutral/10",
                         transition: "opacity 0.2s ease",
                     }),
-                    visible ? css({ opacity: 1 }) : css({ opacity: 0 }),
+                    visible
+                        ? css({
+                              opacity: 1,
+                          })
+                        : css({
+                              opacity: 0,
+                          }),
                 )}
                 onClick={() => setOpen(false)}
                 aria-hidden="true"

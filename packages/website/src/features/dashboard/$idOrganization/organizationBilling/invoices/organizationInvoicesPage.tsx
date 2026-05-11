@@ -9,21 +9,26 @@ import { organizationInvoicesRoute } from "../../../../../routes/root/dashboard/
 import { InvoicesTable } from "./InvoicesTable.tsx"
 
 export function OrganizationInvoicesPage() {
-    const _params = useParams({ from: organizationInvoicesRoute.id })
+    const _params = useParams({
+        from: organizationInvoicesRoute.id,
+    })
 
     return (
         <Page.Root>
             <Page.Content>
                 <SettingsSection.Root>
                     <SettingsSection.Header title="Factures" />
-                    <DataWrapper routeDefinition={readAllInvoicesRouteDefinition} body={{}}>
+                    <DataWrapper
+                        routeDefinition={readAllInvoicesRouteDefinition}
+                        body={{}}
+                    >
                         {(invoices) => {
                             if (invoices.length === 0) {
                                 return (
                                     <EmptyState
                                         icon={<IconFileInvoice size={48} />}
                                         title="Aucune facture"
-                                        subtitle="Vos factures mensuelles apparaitront ici a partir du mois suivant votre premier abonnement."
+                                        subtitle="Vos factures mensuelles apparaitront ici a partir du mois suivant votre premier paiement."
                                     />
                                 )
                             }

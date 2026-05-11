@@ -90,14 +90,14 @@ const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
         navLabel: "Introduction",
     },
     {
-        path: "/documentation/comptabilité/partie-double",
+        path: "/documentation/comptabilité/introduction/partie-double",
         file: "src/features/docs/accounting/introduction/doubleEntryAccountingDocPage.tsx",
         section: "Comptabilité",
         navGroup: "Introduction",
         navLabel: "La partie double",
     },
     {
-        path: "/documentation/comptabilité/écritures",
+        path: "/documentation/comptabilité/introduction/écritures",
         file: "src/features/docs/accounting/introduction/entriesAccountingDocPage.tsx",
         section: "Comptabilité",
         navGroup: "Introduction",
@@ -105,22 +105,22 @@ const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     },
     // ── Comptabilité / Comptes ────────────────────────────────────────────────
     {
-        path: "/documentation/comptabilité/comptes/introduction",
-        file: "src/features/docs/accounting/accounts/accountsAccountingDocPage.tsx",
+        path: "/documentation/comptabilité/introduction/comptes",
+        file: "src/features/docs/accounting/introduction/accountsAccountingDocPage.tsx",
         section: "Comptabilité",
         navGroup: "Comptes",
         navLabel: "Introduction",
     },
     {
-        path: "/documentation/comptabilité/comptes/classes",
-        file: "src/features/docs/accounting/accounts/classesAccountingDocPage.tsx",
+        path: "/documentation/comptabilité/introduction/classes",
+        file: "src/features/docs/accounting/introduction/classesAccountingDocPage.tsx",
         section: "Comptabilité",
         navGroup: "Comptes",
         navLabel: "Classes de comptes",
     },
     {
-        path: "/documentation/comptabilité/comptes/liste",
-        file: "src/features/docs/accounting/accounts/accountsListAccountingDocPage.tsx",
+        path: "/documentation/comptabilité/ressources/comptes",
+        file: "src/features/docs/accounting/resources/accounts/accountsResourcesAccountingDocPage.tsx",
         section: "Comptabilité",
         navGroup: "Comptes",
         navLabel: "Liste des comptes",
@@ -182,10 +182,18 @@ const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
         navGroup: "Documents",
         navLabel: "FEC",
     },
+    // ── Comptabilité / Scénarios ─────────────────────────────────────────────
+    {
+        path: "/documentation/comptabilité/ressources/scénarios",
+        file: "src/features/docs/accounting/resources/scenarios/scenariosResourcesAccountingDocPage.tsx",
+        section: "Comptabilité",
+        navGroup: "Scénarios",
+        navLabel: "Scénarios",
+    },
     // ── Comptabilité / Glossaire ──────────────────────────────────────────────
     {
-        path: "/documentation/comptabilité/glossaire",
-        file: "src/features/docs/accounting/glossary/glossaryAccountingDocPage.tsx",
+        path: "/documentation/comptabilité/ressources/glossaire",
+        file: "src/features/docs/accounting/resources/glossary/glossaryResourcesAccountingDocPage.tsx",
         section: "Comptabilité",
         navGroup: "Glossaire",
         navLabel: "Glossaire",
@@ -239,6 +247,20 @@ const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
         section: "Dashboard",
         navGroup: "Guide d'utilisation",
         navLabel: "Documents comptables",
+    },
+    {
+        path: "/documentation/dashboard/facturation",
+        file: "src/features/docs/dashboard/BillingDashboardDocPage.tsx",
+        section: "Dashboard",
+        navGroup: "Guide d'utilisation",
+        navLabel: "Facturation",
+    },
+    {
+        path: "/documentation/dashboard/màj",
+        file: "src/features/docs/dashboard/UpdatesDashboardDocPage.tsx",
+        section: "Dashboard",
+        navGroup: "Guide d'utilisation",
+        navLabel: "Mises à jour",
     },
     // ── Dashboard / Assistant IA ──────────────────────────────────────────────
     {
@@ -350,14 +372,16 @@ function extractDocPageContent(source: string): string {
     }
 
     // Deduplicate consecutive identical strings and collapse whitespace
-    return [...new Set(parts)]
+    return [
+        ...new Set(parts),
+    ]
         .map((p) => p.replace(/\s+/g, " ").trim())
         .filter(Boolean)
         .join(" ")
 }
 
-const VIRTUAL_MODULE_ID = "virtual:docs-search-index"
-const RESOLVED_VIRTUAL_MODULE_ID = `\0${VIRTUAL_MODULE_ID}`
+const DOCS_SEARCH_VIRTUAL_MODULE_ID = "virtual:docs-search-index"
+const RESOLVED_DOCS_SEARCH_VIRTUAL_MODULE_ID = `\0${DOCS_SEARCH_VIRTUAL_MODULE_ID}`
 
 interface GeneratedSearchEntry {
     path: string
@@ -389,13 +413,22 @@ function extractAccountEntries(source: string): GeneratedSearchEntry[] {
         const type = chunk.match(/\btype\s*:\s*"([^"]+)"/)?.[1] ?? ""
         const side = chunk.match(/\bside\s*:\s*"([^"]+)"/)?.[1] ?? ""
         entries.push({
-            path: `/documentation/comptabilité/comptes/liste/${number}`,
+            path: `/documentation/comptabilité/ressources/comptes/${number}`,
             title: `${number} — ${label}`,
             description,
             section: "Comptabilité",
             navGroup: "Comptes",
             navLabel: label,
-            content: [number, label, description, className, type, side].filter(Boolean).join(" "),
+            content: [
+                number,
+                label,
+                description,
+                className,
+                type,
+                side,
+            ]
+                .filter(Boolean)
+                .join(" "),
         })
     }
     return entries
@@ -427,13 +460,18 @@ function extractGlossaryEntries(source: string): GeneratedSearchEntry[] {
             for (const rt of rtBlock[1].matchAll(/"([^"]+)"/g)) relatedTerms.push(rt[1])
         }
         entries.push({
-            path: `/documentation/comptabilité/glossaire/${toSlug(term)}`,
+            path: `/documentation/comptabilité/ressources/glossaire/${toSlug(term)}`,
             title: term,
             description: definition,
             section: "Comptabilité",
             navGroup: "Glossaire",
             navLabel: term,
-            content: [term, englishTranslation, definition, ...relatedTerms].join(" "),
+            content: [
+                term,
+                englishTranslation,
+                definition,
+                ...relatedTerms,
+            ].join(" "),
         })
     }
     return entries
@@ -441,8 +479,8 @@ function extractGlossaryEntries(source: string): GeneratedSearchEntry[] {
 
 function docsSearchIndexPlugin(): Plugin {
     const pkgRoot = resolve(__dirname)
-    const accountsDataPath = resolve(pkgRoot, "src/features/docs/accounting/accounts/accountsData.ts")
-    const glossaryDataPath = resolve(pkgRoot, "src/features/docs/accounting/glossary/glossaryData.ts")
+    const accountsDataPath = resolve(pkgRoot, "src/features/docs/accounting/resources/accounts/accountsData.ts")
+    const glossaryDataPath = resolve(pkgRoot, "src/features/docs/accounting/resources/glossary/glossaryData.ts")
 
     function buildIndex(): string {
         const pageEntries = DOC_PAGE_MANIFEST.map((entry) => {
@@ -461,32 +499,44 @@ function docsSearchIndexPlugin(): Plugin {
                 section: entry.section,
                 navGroup: entry.navGroup,
                 navLabel: entry.navLabel,
-                content: [entry.navGroup, entry.navLabel, content].filter(Boolean).join(" "),
+                content: [
+                    entry.navGroup,
+                    entry.navLabel,
+                    content,
+                ]
+                    .filter(Boolean)
+                    .join(" "),
             }
         })
 
         const accountEntries = extractAccountEntries(readFileSync(accountsDataPath, "utf-8"))
         const glossaryEntries = extractGlossaryEntries(readFileSync(glossaryDataPath, "utf-8"))
 
-        const entries = [...pageEntries, ...accountEntries, ...glossaryEntries]
+        const entries = [
+            ...pageEntries,
+            ...accountEntries,
+            ...glossaryEntries,
+        ]
         return `export const docsSearchIndex = ${JSON.stringify(entries, null, 4)};`
     }
 
     return {
         name: "docs-search-index",
         resolveId(id) {
-            if (id === VIRTUAL_MODULE_ID) return RESOLVED_VIRTUAL_MODULE_ID
+            if (id === DOCS_SEARCH_VIRTUAL_MODULE_ID) return RESOLVED_DOCS_SEARCH_VIRTUAL_MODULE_ID
         },
         load(id) {
-            if (id === RESOLVED_VIRTUAL_MODULE_ID) return buildIndex()
+            if (id === RESOLVED_DOCS_SEARCH_VIRTUAL_MODULE_ID) return buildIndex()
         },
         handleHotUpdate({ file, server }) {
             const isDocPage = DOC_PAGE_MANIFEST.some((e) => file.endsWith(e.file.replace(/\//g, "/")))
             const isDataFile = file === accountsDataPath || file === glossaryDataPath
             if (isDocPage || isDataFile) {
-                const mod = server.moduleGraph.getModuleById(RESOLVED_VIRTUAL_MODULE_ID)
+                const mod = server.moduleGraph.getModuleById(RESOLVED_DOCS_SEARCH_VIRTUAL_MODULE_ID)
                 if (mod) server.moduleGraph.invalidateModule(mod)
-                server.ws.send({ type: "full-reload" })
+                server.ws.send({
+                    type: "full-reload",
+                })
             }
         },
     }
@@ -541,69 +591,276 @@ function sitemapPlugin(): Plugin {
 
             // Static public routes
             const staticRoutes = [
-                { path: "/", priority: "1.0", changefreq: "weekly" },
-                { path: "/connexion", priority: "0.5", changefreq: "monthly" },
-                { path: "/inscription", priority: "0.6", changefreq: "monthly" },
+                {
+                    path: "/",
+                    priority: "1.0",
+                    changefreq: "weekly",
+                },
+                {
+                    path: "/connexion",
+                    priority: "0.5",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/inscription",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/mot-de-passe-oublié",
+                    priority: "0.5",
+                    changefreq: "monthly",
+                },
 
                 // General docs
-                { path: "/documentation", priority: "0.8", changefreq: "weekly" },
-                { path: "/documentation/fonctionnalités", priority: "0.7", changefreq: "monthly" },
-                { path: "/documentation/philosophie", priority: "0.5", changefreq: "monthly" },
-                { path: "/documentation/tarifs", priority: "0.7", changefreq: "monthly" },
-                { path: "/documentation/support", priority: "0.5", changefreq: "monthly" },
-                { path: "/documentation/mentions-légales", priority: "0.3", changefreq: "yearly" },
-                { path: "/documentation/cgu", priority: "0.3", changefreq: "yearly" },
-                { path: "/documentation/confidentialité", priority: "0.3", changefreq: "yearly" },
+                {
+                    path: "/documentation",
+                    priority: "0.8",
+                    changefreq: "weekly",
+                },
+                {
+                    path: "/documentation/fonctionnalités",
+                    priority: "0.7",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/philosophie",
+                    priority: "0.5",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/tarifs",
+                    priority: "0.7",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/support",
+                    priority: "0.5",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/mentions-légales",
+                    priority: "0.3",
+                    changefreq: "yearly",
+                },
+                {
+                    path: "/documentation/cgu",
+                    priority: "0.3",
+                    changefreq: "yearly",
+                },
+                {
+                    path: "/documentation/confidentialité",
+                    priority: "0.3",
+                    changefreq: "yearly",
+                },
 
                 // Accounting docs
-                { path: "/documentation/comptabilité", priority: "0.8", changefreq: "weekly" },
-                { path: "/documentation/comptabilité/introduction", priority: "0.7", changefreq: "monthly" },
-                { path: "/documentation/comptabilité/partie-double", priority: "0.7", changefreq: "monthly" },
-                { path: "/documentation/comptabilité/écritures", priority: "0.7", changefreq: "monthly" },
-                { path: "/documentation/comptabilité/comptes/introduction", priority: "0.7", changefreq: "monthly" },
-                { path: "/documentation/comptabilité/comptes/classes", priority: "0.7", changefreq: "monthly" },
-                { path: "/documentation/comptabilité/comptes/liste", priority: "0.8", changefreq: "weekly" },
-                { path: "/documentation/comptabilité/documents", priority: "0.7", changefreq: "monthly" },
-                { path: "/documentation/comptabilité/documents/journal", priority: "0.7", changefreq: "monthly" },
-                { path: "/documentation/comptabilité/documents/grand-livre", priority: "0.7", changefreq: "monthly" },
-                { path: "/documentation/comptabilité/documents/balance", priority: "0.7", changefreq: "monthly" },
-                { path: "/documentation/comptabilité/documents/bilan", priority: "0.7", changefreq: "monthly" },
+                {
+                    path: "/documentation/comptabilité",
+                    priority: "0.8",
+                    changefreq: "weekly",
+                },
+                {
+                    path: "/documentation/comptabilité/introduction",
+                    priority: "0.7",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/comptabilité/partie-double",
+                    priority: "0.7",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/comptabilité/écritures",
+                    priority: "0.7",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/comptabilité/comptes/introduction",
+                    priority: "0.7",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/comptabilité/comptes/classes",
+                    priority: "0.7",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/comptabilité/comptes/liste",
+                    priority: "0.8",
+                    changefreq: "weekly",
+                },
+                {
+                    path: "/documentation/comptabilité/documents",
+                    priority: "0.7",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/comptabilité/documents/journal",
+                    priority: "0.7",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/comptabilité/documents/grand-livre",
+                    priority: "0.7",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/comptabilité/documents/balance",
+                    priority: "0.7",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/comptabilité/documents/bilan",
+                    priority: "0.7",
+                    changefreq: "monthly",
+                },
                 {
                     path: "/documentation/comptabilité/documents/compte-de-résultat",
                     priority: "0.7",
                     changefreq: "monthly",
                 },
-                { path: "/documentation/comptabilité/documents/annexe", priority: "0.7", changefreq: "monthly" },
-                { path: "/documentation/comptabilité/glossaire", priority: "0.7", changefreq: "monthly" },
+                {
+                    path: "/documentation/comptabilité/documents/annexe",
+                    priority: "0.7",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/comptabilité/documents/fec",
+                    priority: "0.7",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/comptabilité/scénarios",
+                    priority: "0.7",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/comptabilité/glossaire",
+                    priority: "0.7",
+                    changefreq: "monthly",
+                },
 
                 // Dashboard docs
-                { path: "/documentation/dashboard", priority: "0.7", changefreq: "monthly" },
-                { path: "/documentation/dashboard/démarrage", priority: "0.7", changefreq: "monthly" },
-                { path: "/documentation/dashboard/organisations", priority: "0.6", changefreq: "monthly" },
-                { path: "/documentation/dashboard/exercices", priority: "0.6", changefreq: "monthly" },
-                { path: "/documentation/dashboard/écritures", priority: "0.6", changefreq: "monthly" },
-                { path: "/documentation/dashboard/stockage", priority: "0.6", changefreq: "monthly" },
-                { path: "/documentation/dashboard/documents", priority: "0.6", changefreq: "monthly" },
+                {
+                    path: "/documentation/dashboard",
+                    priority: "0.7",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/dashboard/démarrage",
+                    priority: "0.7",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/dashboard/organisations",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/dashboard/exercices",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/dashboard/écritures",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/dashboard/stockage",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/dashboard/documents",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/dashboard/facturation",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/dashboard/màj",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/dashboard/assistant",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/dashboard/assistant/modèles",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/dashboard/assistant/outils",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/dashboard/assistant/ocr",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
 
                 // API docs
-                { path: "/documentation/api", priority: "0.7", changefreq: "monthly" },
-                { path: "/documentation/api/introduction", priority: "0.6", changefreq: "monthly" },
-                { path: "/documentation/api/authentification", priority: "0.6", changefreq: "monthly" },
-                { path: "/documentation/api/organisation", priority: "0.6", changefreq: "monthly" },
-                { path: "/documentation/api/exercice", priority: "0.6", changefreq: "monthly" },
-                { path: "/documentation/api/stockage", priority: "0.6", changefreq: "monthly" },
+                {
+                    path: "/documentation/api",
+                    priority: "0.7",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/api/introduction",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/api/authentification",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/api/organisation",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/api/exercice",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/api/stockage",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
             ]
 
             // Extract dynamic account slugs from source
-            const accountsDataPath = resolve(__dirname, "src/features/docs/accounting/accounts/accountsData.ts")
+            const accountsDataPath = resolve(
+                __dirname,
+                "src/features/docs/accounting/resources/accounts/accountsData.ts",
+            )
             const accountsSrc = readFileSync(accountsDataPath, "utf-8")
-            const accountSlugs = [...accountsSrc.matchAll(/defineAccount\(\s*\n?\s*"([^"]+)"/g)].map((m) => m[1])
+            const accountSlugs = [
+                ...accountsSrc.matchAll(/defineAccount\(\s*\n?\s*"([^"]+)"/g),
+            ].map((m) => m[1])
 
             // Extract dynamic glossary slugs from source
-            const glossaryDataPath = resolve(__dirname, "src/features/docs/accounting/glossary/glossaryData.ts")
+            const glossaryDataPath = resolve(
+                __dirname,
+                "src/features/docs/accounting/resources/glossary/glossaryData.ts",
+            )
             const glossarySrc = readFileSync(glossaryDataPath, "utf-8")
             // The toSlug function: lowercase, NFD normalize, strip diacritics, replace non-alnum with -, trim -
-            const glossaryTerms = [...glossarySrc.matchAll(/defineTerm\(\s*\n?\s*"([^"]+)"/g)].map((m) => m[1])
+            const glossaryTerms = [
+                ...glossarySrc.matchAll(/defineTerm\(\s*\n?\s*"([^"]+)"/g),
+            ].map((m) => m[1])
             const toSlug = (term: string) =>
                 term
                     .toLowerCase()
@@ -613,35 +870,61 @@ function sitemapPlugin(): Plugin {
                     .replace(/(^-|-$)/g, "")
             const glossarySlugs = glossaryTerms.map(toSlug)
 
+            // Extract scenario paths directly from scenariosData.ts
+            const scenariosDataPath = resolve(
+                __dirname,
+                "src/features/docs/accounting/resources/scenarios/scenariosData.ts",
+            )
+            const scenariosSrc = readFileSync(scenariosDataPath, "utf-8")
+            const scenarioPaths = [
+                ...scenariosSrc.matchAll(/path:\s*"(\/documentation\/comptabilité\/scénarios\/[^"]+)"/g),
+            ].map((m) => m[1])
+
             // Build URL entries
-            const urls: string[] = []
+            const routeMap = new Map<
+                string,
+                {
+                    changefreq: string
+                    priority: string
+                }
+            >()
+            const addRoute = (path: string, changefreq: string, priority: string) => {
+                if (!routeMap.has(path)) {
+                    routeMap.set(path, {
+                        changefreq,
+                        priority,
+                    })
+                }
+            }
 
             for (const route of staticRoutes) {
-                urls.push(`    <url>
-        <loc>${baseUrl}${route.path}</loc>
-        <lastmod>${today}</lastmod>
-        <changefreq>${route.changefreq}</changefreq>
-        <priority>${route.priority}</priority>
-    </url>`)
+                addRoute(route.path, route.changefreq, route.priority)
             }
 
             for (const slug of accountSlugs) {
-                urls.push(`    <url>
-        <loc>${baseUrl}/documentation/comptabilit%C3%A9/comptes/liste/${slug}</loc>
-        <lastmod>${today}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>`)
+                addRoute(`/documentation/comptabilité/comptes/liste/${slug}`, "monthly", "0.5")
             }
 
             for (const slug of glossarySlugs) {
-                urls.push(`    <url>
-        <loc>${baseUrl}/documentation/comptabilit%C3%A9/glossaire/${slug}</loc>
-        <lastmod>${today}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>`)
+                addRoute(`/documentation/comptabilité/glossaire/${slug}`, "monthly", "0.5")
             }
+
+            for (const path of scenarioPaths) {
+                addRoute(path, "monthly", "0.5")
+            }
+
+            const urls = [
+                ...routeMap.entries(),
+            ]
+                .sort(([pathA], [pathB]) => pathA.localeCompare(pathB, "fr"))
+                .map(
+                    ([path, metadata]) => `    <url>
+        <loc>${encodeURI(`${baseUrl}${path}`)}</loc>
+        <lastmod>${today}</lastmod>
+        <changefreq>${metadata.changefreq}</changefreq>
+        <priority>${metadata.priority}</priority>
+    </url>`,
+                )
 
             const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -658,8 +941,17 @@ ${urls.join("\n")}
 
 export default defineConfig(() => {
     return {
-        plugins: [react({ include: "**/*.tsx" }), fontPreloadPlugin(), sitemapPlugin(), docsSearchIndexPlugin()],
-        assetsInclude: ["**/*.md"],
+        plugins: [
+            react({
+                include: "**/*.tsx",
+            }),
+            fontPreloadPlugin(),
+            sitemapPlugin(),
+            docsSearchIndexPlugin(),
+        ],
+        assetsInclude: [
+            "**/*.md",
+        ],
         root: "./src",
         publicDir: "../public",
         base: "/",

@@ -149,8 +149,14 @@ const routeHandlers: Record<string, RouteHandler> = {
     "read-one-folder": (db, org, body) => readOneFolder(db, org, body),
     "update-one-folder": (db, org, body) => updateOneFolder(db, org, body),
     "delete-one-folder": (db, org, body) => deleteOneFolder(db, org, body),
-    "read-all-documents": (_db, _org) => Promise.resolve({ error: "Document listing is no longer available" }),
-    "read-one-document": (_db, _org) => Promise.resolve({ error: "Document read is no longer available" }),
+    "read-all-documents": (_db, _org) =>
+        Promise.resolve({
+            error: "Document listing is no longer available",
+        }),
+    "read-one-document": (_db, _org) =>
+        Promise.resolve({
+            error: "Document read is no longer available",
+        }),
     "generate-balance-sheet-xml": (db, org, body) => generateBalanceSheetXml(db, org, body),
     "generate-income-statement-xml": (db, org, body) => generateIncomeStatementXml(db, org, body),
 }
@@ -163,12 +169,17 @@ export async function executeWorkerRoute(
 ): Promise<unknown> {
     const handler = routeHandlers[pathSuffix]
     if (!handler) {
-        return { error: `Unknown route: ${pathSuffix}` }
+        return {
+            error: `Unknown route: ${pathSuffix}`,
+        }
     }
     try {
         return await handler(db, idOrganization, body)
     } catch (error: unknown) {
         const msg = error instanceof Error ? error.message : String(error)
-        return { error: true, message: `Erreur lors de l'exécution de ${pathSuffix}: ${msg}` }
+        return {
+            error: true,
+            message: `Erreur lors de l'exécution de ${pathSuffix}: ${msg}`,
+        }
     }
 }

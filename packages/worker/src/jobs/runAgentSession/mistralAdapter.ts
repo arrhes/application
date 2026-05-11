@@ -1,4 +1,5 @@
 import type { StreamChunk, TextOptions, Tool } from "@tanstack/ai"
+import { EventType } from "@tanstack/ai"
 import type { StructuredOutputOptions, StructuredOutputResult } from "@tanstack/ai/adapters"
 import { BaseTextAdapter } from "@tanstack/ai/adapters"
 import OpenAI from "openai"
@@ -11,7 +12,11 @@ let lastApiCallTimestamp = 0
 
 function getRetryDelay(error: unknown, attempt: number): number {
     if (error && typeof error === "object" && "headers" in error) {
-        const headers = (error as { headers?: Headers }).headers
+        const headers = (
+            error as {
+                headers?: Headers
+            }
+        ).headers
         const retryAfter = headers?.get?.("retry-after")
         if (retryAfter) {
             const seconds = Number.parseFloat(retryAfter)
@@ -22,7 +27,14 @@ function getRetryDelay(error: unknown, attempt: number): number {
 }
 
 function isRateLimitError(error: unknown): boolean {
-    if (error && typeof error === "object" && "status" in error) return (error as { status: number }).status === 429
+    if (error && typeof error === "object" && "status" in error)
+        return (
+            (
+                error as {
+                    status: number
+                }
+            ).status === 429
+        )
     if (error instanceof Error && error.message.includes("429")) return true
     return false
 }
@@ -41,28 +53,51 @@ async function throttle(): Promise<void> {
 export class MistralChatAdapter extends BaseTextAdapter<
     string,
     Record<string, any>,
-    readonly ["text"],
-    { text: unknown; image: unknown; audio: unknown; video: unknown; document: unknown }
+    readonly [
+        "text",
+    ],
+    {
+        text: unknown
+        image: unknown
+        audio: unknown
+        video: unknown
+        document: unknown
+    }
 > {
     readonly kind = "text" as const
     readonly name = "mistral" as const
     private client: OpenAI
 
-    constructor(model: string, options: { apiKey: string; baseURL: string }) {
+    constructor(
+        model: string,
+        options: {
+            apiKey: string
+            baseURL: string
+        },
+    ) {
         super({}, model)
-        this.client = new OpenAI({ apiKey: options.apiKey, baseURL: options.baseURL })
+        this.client = new OpenAI({
+            apiKey: options.apiKey,
+            baseURL: options.baseURL,
+        })
     }
 
     async *chatStream(options: TextOptions): AsyncIterable<StreamChunk> {
         const timestamp = Date.now()
         const runId = `run_${Date.now()}`
+        const threadId = `thread_${Date.now()}`
         const messageId = `msg_${Date.now()}`
         let hasEmittedRunStarted = false
         let hasEmittedTextMessageStart = false
         let accumulatedContent = ""
         const toolCallsAccumulated = new Map<
             number,
-            { id: string; name: string; arguments: string; started: boolean }
+            {
+                id: string
+                name: string
+                arguments: string
+                started: boolean
+            }
         >()
         const messages = this.formatMessages(options)
         const tools = options.tools ? this.formatTools(options.tools) : undefined
@@ -102,7 +137,13 @@ export class MistralChatAdapter extends BaseTextAdapter<
 
                 if (!hasEmittedRunStarted) {
                     hasEmittedRunStarted = true
-                    yield { type: "RUN_STARTED", runId, model: chunk.model || options.model, timestamp }
+                    yield {
+                        type: EventType.RUN_STARTED,
+                        threadId,
+                        runId,
+                        model: chunk.model || options.model,
+                        timestamp,
+                    }
                 }
 
                 const delta = choice.delta
@@ -110,7 +151,7 @@ export class MistralChatAdapter extends BaseTextAdapter<
                     if (!hasEmittedTextMessageStart) {
                         hasEmittedTextMessageStart = true
                         yield {
-                            type: "TEXT_MESSAGE_START",
+                            type: EventType.TEXT_MESSAGE_START,
                             messageId,
                             model: chunk.model || options.model,
                             timestamp,
@@ -119,7 +160,7 @@ export class MistralChatAdapter extends BaseTextAdapter<
                     }
                     accumulatedContent += delta.content
                     yield {
-                        type: "TEXT_MESSAGE_CONTENT",
+                        type: EventType.TEXT_MESSAGE_CONTENT,
                         messageId,
                         model: chunk.model || options.model,
                         timestamp,
@@ -146,9 +187,11 @@ export class MistralChatAdapter extends BaseTextAdapter<
                         if (!tc.started && tc.name) {
                             tc.started = true
                             yield {
-                                type: "TOOL_CALL_START",
+                                type: EventType.TOOL_CALL_START,
                                 toolCallId: tc.id,
                                 toolName: tc.name,
+                                toolCallName: tc.name,
+                                parentMessageId: messageId,
                                 model: chunk.model || options.model,
                                 timestamp,
                                 index: idx,
@@ -156,7 +199,7 @@ export class MistralChatAdapter extends BaseTextAdapter<
                         }
                         if (toolCallDelta.function?.arguments) {
                             yield {
-                                type: "TOOL_CALL_ARGS",
+                                type: EventType.TOOL_CALL_ARGS,
                                 toolCallId: tc.id,
                                 model: chunk.model || options.model,
                                 timestamp,
@@ -175,7 +218,7 @@ export class MistralChatAdapter extends BaseTextAdapter<
                             parsedInput = {}
                         }
                         yield {
-                            type: "TOOL_CALL_END",
+                            type: EventType.TOOL_CALL_END,
                             toolCallId: tc.id,
                             toolName: tc.name,
                             model: chunk.model || options.model,
@@ -184,10 +227,16 @@ export class MistralChatAdapter extends BaseTextAdapter<
                         }
                     }
                     if (hasEmittedTextMessageStart) {
-                        yield { type: "TEXT_MESSAGE_END", messageId, model: chunk.model || options.model, timestamp }
+                        yield {
+                            type: EventType.TEXT_MESSAGE_END,
+                            messageId,
+                            model: chunk.model || options.model,
+                            timestamp,
+                        }
                     }
                     yield {
-                        type: "RUN_FINISHED",
+                        type: EventType.RUN_FINISHED,
+                        threadId,
                         runId,
                         model: chunk.model || options.model,
                         timestamp,
@@ -205,11 +254,15 @@ export class MistralChatAdapter extends BaseTextAdapter<
         } catch (error: unknown) {
             const err = error as Error
             yield {
-                type: "RUN_ERROR",
+                type: EventType.RUN_ERROR,
+                threadId,
                 runId,
                 model: options.model,
                 timestamp,
-                error: { message: err.message || "Unknown error" },
+                message: err.message || "Unknown error",
+                error: {
+                    message: err.message || "Unknown error",
+                },
             }
         }
     }
@@ -231,7 +284,11 @@ export class MistralChatAdapter extends BaseTextAdapter<
                     top_p: chatOptions.topP,
                     response_format: {
                         type: "json_schema" as any,
-                        json_schema: { name: "structured_output", schema: outputSchema, strict: true },
+                        json_schema: {
+                            name: "structured_output",
+                            schema: outputSchema,
+                            strict: true,
+                        },
                     } as any,
                     stream: false,
                 })
@@ -252,12 +309,19 @@ export class MistralChatAdapter extends BaseTextAdapter<
         } catch {
             throw new Error(`Failed to parse structured output: ${rawText.slice(0, 200)}`)
         }
-        return { data: parsed, rawText }
+        return {
+            data: parsed,
+            rawText,
+        }
     }
 
     private formatMessages(options: TextOptions): OpenAI.Chat.Completions.ChatCompletionMessageParam[] {
         const result: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = []
-        if (options.systemPrompts?.length) result.push({ role: "system", content: options.systemPrompts.join("\n") })
+        if (options.systemPrompts?.length)
+            result.push({
+                role: "system",
+                content: options.systemPrompts.join("\n"),
+            })
         for (const msg of options.messages) {
             if (msg.role === "user") {
                 result.push({
@@ -280,7 +344,11 @@ export class MistralChatAdapter extends BaseTextAdapter<
                 result.push({
                     role: "assistant",
                     content: text || null,
-                    ...(toolCalls?.length ? { tool_calls: toolCalls } : {}),
+                    ...(toolCalls?.length
+                        ? {
+                              tool_calls: toolCalls,
+                          }
+                        : {}),
                 })
             } else if (msg.role === "tool") {
                 result.push({
@@ -310,12 +378,22 @@ export class MistralChatAdapter extends BaseTextAdapter<
             function: {
                 name: tool.name,
                 description: tool.description ?? "",
-                parameters: (tool.inputSchema ?? { type: "object", properties: {}, required: [] }) as any,
+                parameters: (tool.inputSchema ?? {
+                    type: "object",
+                    properties: {},
+                    required: [],
+                }) as any,
             },
         }))
     }
 }
 
-export function createMistralChat(model: string, options: { apiKey: string; baseURL: string }): MistralChatAdapter {
+export function createMistralChat(
+    model: string,
+    options: {
+        apiKey: string
+        baseURL: string
+    },
+): MistralChatAdapter {
     return new MistralChatAdapter(model, options)
 }

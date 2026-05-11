@@ -12,7 +12,9 @@ import { DeleteOneComputation } from "./deleteOneComputation.tsx"
 import { UpdateOneComputation } from "./updateOneComputation.tsx"
 
 export function ComputationLayout() {
-    const params = useParams({ from: computationLayoutRoute.id })
+    const params = useParams({
+        from: computationLayoutRoute.id,
+    })
 
     return (
         <Section.Root>
@@ -26,7 +28,11 @@ export function ComputationLayout() {
                 {(computation) => {
                     return (
                         <>
-                            <Section.Item className={css({ flexDirection: "row" })}>
+                            <Section.Item
+                                className={css({
+                                    flexDirection: "row",
+                                })}
+                            >
                                 <div
                                     className={css({
                                         display: "flex",
@@ -42,7 +48,10 @@ export function ComputationLayout() {
                                             idYear: params.idYear,
                                         }}
                                     >
-                                        <ButtonOutlineContent leftIcon={<IconChevronLeft />} text="Retour" />
+                                        <ButtonOutlineContent
+                                            leftIcon={<IconChevronLeft />}
+                                            text="Retour"
+                                        />
                                     </LinkButton>
                                 </div>
                                 <div
@@ -55,10 +64,16 @@ export function ComputationLayout() {
                                     })}
                                 >
                                     <UpdateOneComputation computation={computation}>
-                                        <ButtonPlainContent leftIcon={<IconPencil />} text="Modifier" />
+                                        <ButtonPlainContent
+                                            leftIcon={<IconPencil />}
+                                            text="Modifier"
+                                        />
                                     </UpdateOneComputation>
                                     <DeleteOneComputation computation={computation}>
-                                        <ButtonOutlineContent leftIcon={<IconTrash />} color="danger" />
+                                        <ButtonOutlineContent
+                                            leftIcon={<IconTrash />}
+                                            color="danger"
+                                        />
                                     </DeleteOneComputation>
                                 </div>
                             </Section.Item>

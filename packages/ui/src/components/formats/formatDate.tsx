@@ -3,7 +3,12 @@ import { css, cx } from "../../utilities/cn.js"
 import { FormatNull } from "./formatNull.js"
 import { FormatText } from "./formatText.js"
 
-export function formatDate(rawDate?: string | Date | undefined | null, options?: { includeTime?: boolean }) {
+export function formatDate(
+    rawDate?: string | Date | undefined | null,
+    options?: {
+        includeTime?: boolean
+    },
+) {
     if (!rawDate || String(new Date(rawDate)) === "Invalid Date") return undefined
 
     const date = new Date(rawDate)
@@ -14,7 +19,11 @@ export function formatDate(rawDate?: string | Date | undefined | null, options?:
     if (date.getDate() < 10) day = `0${day}`
     if (date.getMonth() + 1 < 10) month = `0${month}`
 
-    const dateStr = `${[day, month, year].join("/")}`
+    const dateStr = `${[
+        day,
+        month,
+        year,
+    ].join("/")}`
 
     if (options?.includeTime) {
         let hours = String(date.getHours())
@@ -34,6 +43,15 @@ export function FormatDate(props: {
     if (!props.date) return <FormatNull />
     if (String(new Date(props.date)) === "Invalid Date") return <FormatNull />
     return (
-        <FormatText className={cx(css({ fontFamily: "mono" }), props.className)}>{formatDate(props.date)}</FormatText>
+        <FormatText
+            className={cx(
+                css({
+                    fontFamily: "mono",
+                }),
+                props.className,
+            )}
+        >
+            {formatDate(props.date)}
+        </FormatText>
     )
 }

@@ -23,7 +23,10 @@ export function CreateOneTag(props: {
     const [open, setOpen] = useState(false)
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Ajouter une nouvelle catégorie" />
@@ -43,11 +46,17 @@ export function CreateOneTag(props: {
                                 body: data,
                             })
                             if (createTagResponse.ok === false) {
-                                toast({ title: "Impossible d'ajouter la catégorie", variant: "error" })
+                                toast({
+                                    title: "Impossible d'ajouter la catégorie",
+                                    variant: "error",
+                                })
                                 return false
                             }
 
-                            toast({ title: "Catégorie ajoutée avec succès", variant: "success" })
+                            toast({
+                                title: "Catégorie ajoutée avec succès",
+                                variant: "success",
+                            })
                             return true
                         }}
                         onCancel={undefined}
@@ -75,7 +84,10 @@ export function CreateOneTag(props: {
                                                 isRequired={false}
                                             />
                                             <FormControl>
-                                                <InputText value={field.value} onChange={field.onChange} />
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>

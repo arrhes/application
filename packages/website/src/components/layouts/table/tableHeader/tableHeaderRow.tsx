@@ -5,5 +5,15 @@ export function TableHeaderRow(props: {
     children: ReactElement | ReactElement[]
     className?: ComponentProps<"tr">["className"]
 }) {
-    return <tr className={cx(css({ width: "100%" }), props.className)} children={props.children} />
+    return (
+        <tr
+            className={cx(
+                css({
+                    width: "100%",
+                }),
+                props.className,
+            )}
+            children={props.children}
+        />
+    )
 }

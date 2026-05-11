@@ -47,6 +47,8 @@ export { createOneEntryFromTemplateRouteDefinition } from "./years/$idYear/entri
 export { readAllEntriesRouteDefinition } from "./years/$idYear/entries/readAllEntries.js"
 export { readAllEntryTagsRouteDefinition } from "./years/$idYear/entries/readAllEntryTags.js"
 export { deleteOneFileRouteDefinition } from "./years/$idYear/files/$idFile/deleteOneFile.js"
+export { finalizeFileUploadRouteDefinition } from "./years/$idYear/files/$idFile/finalizeFileUpload.js"
+export { generateFileDeleteSignedUrlRouteDefinition } from "./years/$idYear/files/$idFile/generateFileDeleteSignedUrl.js"
 export { generateFileGetSignedUrlRouteDefinition } from "./years/$idYear/files/$idFile/generateFileGetSignedUrl.js"
 export { generateFilePutSignedUrlRouteDefinition } from "./years/$idYear/files/$idFile/generateFilePutSignedUrl.js"
 export { ocrFileRouteDefinition } from "./years/$idYear/files/$idFile/ocrFile.js"

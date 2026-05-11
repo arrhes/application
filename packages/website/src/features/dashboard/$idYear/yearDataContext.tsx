@@ -57,11 +57,19 @@ type YearDataContextValue = {
 
 const YearDataContext = createContext<YearDataContextValue | null>(null)
 
-function useYearQuery<K extends YearDataKey>(key: K, body: { idYear: string }) {
+function useYearQuery<K extends YearDataKey>(
+    key: K,
+    body: {
+        idYear: string
+    },
+) {
     const routeDefinition = yearQueries[key] as YearScopedRouteDefinition
 
     return useQuery({
-        queryKey: [routeDefinition.path, body],
+        queryKey: [
+            routeDefinition.path,
+            body,
+        ],
         queryFn: async (context) => {
             const response = await getResponseBodyFromAPI({
                 routeDefinition,
@@ -85,7 +93,9 @@ export function YearDataProvider(props: { idYear: string; children: ReactNode })
         () => ({
             idYear: props.idYear,
         }),
-        [props.idYear],
+        [
+            props.idYear,
+        ],
     )
 
     const accounts = useYearQuery("accounts", body)

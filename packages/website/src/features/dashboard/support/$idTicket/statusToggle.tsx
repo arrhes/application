@@ -23,7 +23,10 @@ export function StatusToggle(props: { idTicket: string; currentStatus: string })
         setIsUpdating(false)
 
         if (response.ok === false) {
-            toast({ title: "Impossible de modifier le statut", variant: "error" })
+            toast({
+                title: "Impossible de modifier le statut",
+                variant: "error",
+            })
             return
         }
 
@@ -34,12 +37,17 @@ export function StatusToggle(props: { idTicket: string; currentStatus: string })
 
         await invalidateData({
             routeDefinition: readOneTicketRouteDefinition,
-            body: { idTicket: props.idTicket },
+            body: {
+                idTicket: props.idTicket,
+            },
         })
     }
 
     return (
-        <Button onClick={handleToggle} isDisabled={isUpdating}>
+        <Button
+            onClick={handleToggle}
+            isDisabled={isUpdating}
+        >
             {isClosing ? (
                 <ButtonOutlineContent
                     leftIcon={<IconLock />}

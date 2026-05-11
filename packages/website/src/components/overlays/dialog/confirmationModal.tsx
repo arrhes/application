@@ -24,7 +24,10 @@ export function ConfirmationModal(props: {
     }
 
     return (
-        <Dialog.Root open={open} onOpenChange={(value) => setOpen(value)}>
+        <Dialog.Root
+            open={open}
+            onOpenChange={(value) => setOpen(value)}
+        >
             {props.children && (
                 <Dialog.Trigger
                     onClick={(event) => {
@@ -46,7 +49,12 @@ export function ConfirmationModal(props: {
                                 gap: "0.75rem",
                             })}
                         >
-                            <IconAlertTriangle size={16} className={css({ color: "error" })} />
+                            <IconAlertTriangle
+                                size={16}
+                                className={css({
+                                    color: "error",
+                                })}
+                            />
                         </div>
                         <Dialog.Title>{props.title}</Dialog.Title>
                     </Dialog.Header>
@@ -57,7 +65,10 @@ export function ConfirmationModal(props: {
                         <Button onClick={() => setOpen(false)}>
                             <ButtonOutlineContent text="Annuler" />
                         </Button>
-                        <Button onClick={handleSubmit} hasLoader>
+                        <Button
+                            onClick={handleSubmit}
+                            hasLoader
+                        >
                             <ButtonPlainContent
                                 leftIcon={props.submitButtonProps.leftIcon}
                                 color={props.submitButtonProps.color}

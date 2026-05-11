@@ -25,7 +25,10 @@ export function DeleteOneComputation(props: {
         })
 
         if (deleteResponse.ok === false) {
-            toast({ title: "Erreur lors de la suppression de la ligne de calcul", variant: "error" })
+            toast({
+                title: "Erreur lors de la suppression de la ligne de calcul",
+                variant: "error",
+            })
             return
         }
 
@@ -36,7 +39,10 @@ export function DeleteOneComputation(props: {
             },
         })
 
-        toast({ title: "Ligne de calcul supprimée", variant: "success" })
+        toast({
+            title: "Ligne de calcul supprimée",
+            variant: "success",
+        })
 
         applicationRouter.navigate({
             to: "/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/compte-de-résultat",
@@ -57,7 +63,10 @@ export function DeleteOneComputation(props: {
                     Cette action est irréversible.
                 </>
             }
-            submitButtonProps={{ color: "danger", text: "Supprimer la ligne de calcul" }}
+            submitButtonProps={{
+                color: "danger",
+                text: "Supprimer la ligne de calcul",
+            }}
             onSubmit={onSubmit}
         >
             {props.children}

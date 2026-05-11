@@ -1,4 +1,4 @@
-import { ButtonGhostContent, ButtonOutlineContent, FormatError, formatPrice } from "@arrhes/ui"
+import { Button, ButtonGhostContent, ButtonOutlineContent, FormatError, formatPrice } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import {
     IconArrowBackUp,
@@ -12,11 +12,12 @@ import {
     IconTrash,
 } from "@tabler/icons-react"
 import { Outlet, useParams } from "@tanstack/react-router"
+import { useState } from "react"
 import { Banner } from "../../../../../components/layouts/banner.tsx"
-import { Dropdown } from "../../../../../components/layouts/dropdownMenu/dropdown.js"
 import { Page } from "../../../../../components/layouts/page/page.tsx"
 import { Tab } from "../../../../../components/layouts/tab/tab.tsx"
 import { LinkButton } from "../../../../../components/linkButton.js"
+import { Popover } from "../../../../../components/overlays/popover/popover.js"
 import { entryLayoutRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/entries/$idEntry/entryLayoutRoute.tsx"
 import { compareAmounts } from "../../../../../utilities/compareAmounts.ts"
 import type { YearDataKey } from "../../yearDataWrapper.tsx"
@@ -36,15 +37,28 @@ const requiredKeys = [
 ] as const satisfies readonly YearDataKey[]
 
 export function EntryLayout() {
-    const params = useParams({ from: entryLayoutRoute.id })
+    const params = useParams({
+        from: entryLayoutRoute.id,
+    })
+    const [menuOpen, setMenuOpen] = useState(false)
 
     return (
-        <YearDataWrapper idYear={params.idYear} requiredKeys={requiredKeys}>
+        <YearDataWrapper
+            idYear={params.idYear}
+            requiredKeys={requiredKeys}
+        >
             {({ entries, entryLines: allEntryLines }) => {
                 const entry = entries.find((r) => r.id === params.idEntry)
 
                 if (entry === undefined) {
-                    return <FormatError text="Écriture introuvable." className={css({ padding: "1rem" })} />
+                    return (
+                        <FormatError
+                            text="Écriture introuvable."
+                            className={css({
+                                padding: "1rem",
+                            })}
+                        />
+                    )
                 }
 
                 const entryLines = allEntryLines.filter((row) => row.idEntry === params.idEntry)
@@ -76,7 +90,10 @@ export function EntryLayout() {
                                         idYear: params.idYear,
                                     }}
                                 >
-                                    <ButtonOutlineContent leftIcon={<IconChevronLeft />} text="Retour" />
+                                    <ButtonOutlineContent
+                                        leftIcon={<IconChevronLeft />}
+                                        text="Retour"
+                                    />
                                 </LinkButton>
                                 <div
                                     className={css({
@@ -86,31 +103,58 @@ export function EntryLayout() {
                                         gap: "0.5rem",
                                     })}
                                 >
-                                    <Dropdown.Root>
-                                        <Dropdown.Trigger>
-                                            <ButtonGhostContent leftIcon={<IconDotsVertical />} />
-                                        </Dropdown.Trigger>
-                                        <Dropdown.Content align="end">
-                                            <Dropdown.Item>
-                                                <ReverseOneEntry entry={entry}>
+                                    <Popover.Root
+                                        open={menuOpen}
+                                        onOpenChange={setMenuOpen}
+                                    >
+                                        <Popover.Trigger asChild>
+                                            <Button>
+                                                <ButtonGhostContent leftIcon={<IconDotsVertical />} />
+                                            </Button>
+                                        </Popover.Trigger>
+                                        <Popover.Content
+                                            align="end"
+                                            className={css({
+                                                padding: "0.5rem",
+                                                gap: "0.25rem",
+                                            })}
+                                        >
+                                            <ReverseOneEntry entry={entry}>
+                                                <div
+                                                    className={css({
+                                                        width: "100%",
+                                                    })}
+                                                    onClick={() => setMenuOpen(false)}
+                                                >
                                                     <ButtonGhostContent
                                                         leftIcon={<IconArrowBackUp />}
                                                         text="Extourner"
-                                                        className={css({ width: "100%", justifyContent: "start" })}
+                                                        className={css({
+                                                            width: "100%",
+                                                            justifyContent: "start",
+                                                        })}
                                                     />
-                                                </ReverseOneEntry>
-                                            </Dropdown.Item>
-                                            <Dropdown.Item>
-                                                <DuplicateOneEntry entry={entry}>
+                                                </div>
+                                            </ReverseOneEntry>
+                                            <DuplicateOneEntry entry={entry}>
+                                                <div
+                                                    className={css({
+                                                        width: "100%",
+                                                    })}
+                                                    onClick={() => setMenuOpen(false)}
+                                                >
                                                     <ButtonGhostContent
                                                         leftIcon={<IconCopyCheck />}
                                                         text="Dupliquer"
-                                                        className={css({ width: "100%", justifyContent: "start" })}
+                                                        className={css({
+                                                            width: "100%",
+                                                            justifyContent: "start",
+                                                        })}
                                                     />
-                                                </DuplicateOneEntry>
-                                            </Dropdown.Item>
-                                        </Dropdown.Content>
-                                    </Dropdown.Root>
+                                                </div>
+                                            </DuplicateOneEntry>
+                                        </Popover.Content>
+                                    </Popover.Root>
                                     <DeleteOneEntry entry={entry}>
                                         <ButtonOutlineContent
                                             leftIcon={<IconTrash />}
@@ -129,7 +173,11 @@ export function EntryLayout() {
                             }) ? null : (
                                 <Banner variant="error">
                                     Les montants au débit et au crédit sont différents, veuillez corriger pour pouvoir
-                                    valider. ({formatPrice({ price: totalDebit - totalCredit })})
+                                    valider. (
+                                    {formatPrice({
+                                        price: totalDebit - totalCredit,
+                                    })}
+                                    )
                                 </Banner>
                             )}
                             <Tab.Root

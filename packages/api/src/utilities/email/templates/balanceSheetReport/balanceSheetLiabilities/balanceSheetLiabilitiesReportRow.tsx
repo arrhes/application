@@ -14,7 +14,11 @@ export function BalanceSheetLiabilitiesReportRow(props: {
         <Fragment>
             <Style />
             <Table.Body.Row>
-                <Table.Body.Cell style={{ paddingLeft: `${props.level * 16 + 8}px` }}>
+                <Table.Body.Cell
+                    style={{
+                        paddingLeft: `${props.level * 16 + 8}px`,
+                    }}
+                >
                     <span class={cx(css`white-space: normal;`, props.number ? css`font-weight: bold;` : undefined)}>
                         {props.number} {props.label}
                     </span>

@@ -74,7 +74,9 @@ function buildAccountRows(parameters: {
 }
 
 export const createOneYearRoute = apiFactory.createApp().post(createOneYearRouteDefinition.path, async (c) => {
-    const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+    const { user, idOrganization } = await checkUserSessionMiddleware({
+        context: c,
+    })
     const body = await validateBodyMiddleware({
         context: c,
         schema: createOneYearRouteDefinition.schemas.body,

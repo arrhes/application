@@ -16,7 +16,10 @@ import { DocTip } from "../../../../components/document/docTip.js"
 export function BalanceSheetAccountingDocPage() {
     return (
         <DocRoot>
-            <DocHeader title="Le bilan" description="Photographie du patrimoine de l'organisation à une date donnée" />
+            <DocHeader
+                title="Le bilan"
+                description="Photographie du patrimoine de l'organisation à une date donnée"
+            />
 
             <DocSection title="Définition">
                 <DocDefinition term="Bilan">
@@ -28,7 +31,12 @@ export function BalanceSheetAccountingDocPage() {
                     Le bilan
                     <DocSourceRef n={1} /> est toujours établi à une <strong>date précise</strong>, généralement la date
                     de clôture de l'{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "exercice-comptable" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "exercice-comptable",
+                        }}
+                    >
                         exercice comptable
                     </DocLink>
                     . Contrairement au{" "}
@@ -43,14 +51,21 @@ export function BalanceSheetAccountingDocPage() {
                     Le bilan est construit à partir des{" "}
                     <strong>
                         soldes des{" "}
-                        <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "comptes-d-agents" }}>
+                        <DocLink
+                            to="/documentation/comptabilité/glossaire/$term"
+                            params={{
+                                term: "comptes-d-agents",
+                            }}
+                        >
                             comptes d'agents
                         </DocLink>
                     </strong>{" "}
                     (classes 1 à 5 du{" "}
                     <DocLink
                         to="/documentation/comptabilité/glossaire/$term"
-                        params={{ term: "plan-comptable-general-pcg" }}
+                        params={{
+                            term: "plan-comptable-general-pcg",
+                        }}
                     >
                         plan comptable
                     </DocLink>
@@ -68,22 +83,44 @@ export function BalanceSheetAccountingDocPage() {
             <DocSection title="Structure du bilan">
                 <DocParagraph>
                     Le bilan se présente sous forme d'un tableau à deux colonnes. À gauche, l'{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "actif" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "actif",
+                        }}
+                    >
                         actif
                     </DocLink>{" "}
                     (ce que l'organisation possède). À droite, le{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "passif" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "passif",
+                        }}
+                    >
                         passif
                     </DocLink>{" "}
                     (comment c'est financé).
                 </DocParagraph>
 
                 <DocTable
-                    headers={["ACTIF (ce que l'on a)", "PASSIF (comment c'est financé)"]}
+                    headers={[
+                        "ACTIF (ce que l'on a)",
+                        "PASSIF (comment c'est financé)",
+                    ]}
                     rows={[
-                        ["Actif immobilisé (biens durables)", "Capitaux propres (apports, réserves, résultat)"],
-                        ["Actif circulant (stocks, créances)", "Dettes (emprunts, fournisseurs)"],
-                        ["Trésorerie (banque, caisse)", ""],
+                        [
+                            "Actif immobilisé (biens durables)",
+                            "Capitaux propres (apports, réserves, résultat)",
+                        ],
+                        [
+                            "Actif circulant (stocks, créances)",
+                            "Dettes (emprunts, fournisseurs)",
+                        ],
+                        [
+                            "Trésorerie (banque, caisse)",
+                            "",
+                        ],
                     ]}
                 />
 
@@ -108,15 +145,30 @@ export function BalanceSheetAccountingDocPage() {
                 <DocParagraph>
                     L'équation fondamentale du bilan est :{" "}
                     <strong>
-                        <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "actif" }}>
+                        <DocLink
+                            to="/documentation/comptabilité/glossaire/$term"
+                            params={{
+                                term: "actif",
+                            }}
+                        >
                             Actif
                         </DocLink>{" "}
                         ={" "}
-                        <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "passif" }}>
+                        <DocLink
+                            to="/documentation/comptabilité/glossaire/$term"
+                            params={{
+                                term: "passif",
+                            }}
+                        >
                             Passif
                         </DocLink>{" "}
                         +{" "}
-                        <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "resultat" }}>
+                        <DocLink
+                            to="/documentation/comptabilité/glossaire/$term"
+                            params={{
+                                term: "resultat",
+                            }}
+                        >
                             Résultat
                         </DocLink>
                     </strong>
@@ -125,15 +177,30 @@ export function BalanceSheetAccountingDocPage() {
 
                 <DocParagraph>
                     Le résultat vient équilibrer le bilan : un{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "benefice" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "benefice",
+                        }}
+                    >
                         bénéfice
                     </DocLink>{" "}
                     augmente le passif (les{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "capitaux-propres" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "capitaux-propres",
+                        }}
+                    >
                         capitaux propres
                     </DocLink>
                     ), une{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "perte" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "perte",
+                        }}
+                    >
                         perte
                     </DocLink>{" "}
                     le diminue. Le total de l'actif est donc toujours strictement égal au total du passif.
@@ -185,16 +252,36 @@ export function BalanceSheetAccountingDocPage() {
                 </DocParagraph>
 
                 <DocExample title="Calcul du BFR">
-                    <p className={css({ fontSize: "sm" })}>
+                    <p
+                        className={css({
+                            fontSize: "sm",
+                        })}
+                    >
                         Stocks : 5 000 + Créances clients : 8 000 = Actif circulant d'exploitation : 13 000
                     </p>
-                    <p className={css({ fontSize: "sm" })}>
+                    <p
+                        className={css({
+                            fontSize: "sm",
+                        })}
+                    >
                         Dettes fournisseurs : 4 000 + Dettes fiscales : 2 000 = Dettes d'exploitation : 6 000
                     </p>
-                    <p className={css({ marginTop: "2", fontWeight: "medium", fontSize: "sm" })}>
+                    <p
+                        className={css({
+                            marginTop: "2",
+                            fontWeight: "medium",
+                            fontSize: "sm",
+                        })}
+                    >
                         BFR = 13 000 - 6 000 = 7 000 euros
                     </p>
-                    <p className={css({ marginTop: "1", fontSize: "xs", color: "neutral/60" })}>
+                    <p
+                        className={css({
+                            marginTop: "1",
+                            fontSize: "xs",
+                            color: "neutral/60",
+                        })}
+                    >
                         L'entreprise doit trouver 7 000 euros de financement pour couvrir son cycle d'exploitation.
                     </p>
                 </DocExample>
@@ -249,37 +336,88 @@ export function BalanceSheetAccountingDocPage() {
 
             <DocSection title="Exemple">
                 <DocExample title="Lecture simplifiée d'un bilan">
-                    <p className={css({ fontSize: "sm" })}>
+                    <p
+                        className={css({
+                            fontSize: "sm",
+                        })}
+                    >
                         Une association présente le bilan suivant au 31 décembre :
                     </p>
                     <div
                         className={css({
                             display: "grid",
-                            gridTemplateColumns: { base: "1fr", sm: "1fr 1fr" },
+                            gridTemplateColumns: {
+                                base: "1fr",
+                                sm: "1fr 1fr",
+                            },
                             gap: "4",
                             marginTop: "3",
                         })}
                     >
                         <div>
-                            <p className={css({ fontWeight: "medium", mb: "1" })}>ACTIF</p>
-                            <ul className={css({ fontSize: "xs", color: "neutral/70" })}>
+                            <p
+                                className={css({
+                                    fontWeight: "medium",
+                                    mb: "1",
+                                })}
+                            >
+                                ACTIF
+                            </p>
+                            <ul
+                                className={css({
+                                    fontSize: "xs",
+                                    color: "neutral/70",
+                                })}
+                            >
                                 <li>Matériel informatique : 2 000</li>
                                 <li>Créances adhérents : 500</li>
                                 <li>Banque : 4 500</li>
-                                <li className={css({ fontWeight: "semibold", marginTop: "1" })}>Total : 7 000</li>
+                                <li
+                                    className={css({
+                                        fontWeight: "semibold",
+                                        marginTop: "1",
+                                    })}
+                                >
+                                    Total : 7 000
+                                </li>
                             </ul>
                         </div>
                         <div>
-                            <p className={css({ fontWeight: "medium", mb: "1" })}>PASSIF</p>
-                            <ul className={css({ fontSize: "xs", color: "neutral/70" })}>
+                            <p
+                                className={css({
+                                    fontWeight: "medium",
+                                    mb: "1",
+                                })}
+                            >
+                                PASSIF
+                            </p>
+                            <ul
+                                className={css({
+                                    fontSize: "xs",
+                                    color: "neutral/70",
+                                })}
+                            >
                                 <li>Fonds associatifs : 4 000</li>
                                 <li>Résultat de l'exercice : 2 000</li>
                                 <li>Dettes fournisseurs : 1 000</li>
-                                <li className={css({ fontWeight: "semibold", marginTop: "1" })}>Total : 7 000</li>
+                                <li
+                                    className={css({
+                                        fontWeight: "semibold",
+                                        marginTop: "1",
+                                    })}
+                                >
+                                    Total : 7 000
+                                </li>
                             </ul>
                         </div>
                     </div>
-                    <p className={css({ marginTop: "3", fontSize: "xs", color: "neutral/60" })}>
+                    <p
+                        className={css({
+                            marginTop: "3",
+                            fontSize: "xs",
+                            color: "neutral/60",
+                        })}
+                    >
                         L'association possède 7 000 euros de biens, financés par ses fonds propres (6 000 euros, dont le
                         résultat de l'année) et une dette fournisseur (1 000 euros). Actif = Passif.
                     </p>
@@ -300,7 +438,10 @@ export function BalanceSheetAccountingDocPage() {
                 </DocParagraph>
             </DocSection>
 
-            <DocNextPage to="/documentation/comptabilité/documents/compte-de-résultat" label="Le compte de résultat" />
+            <DocNextPage
+                to="/documentation/comptabilité/documents/compte-de-résultat"
+                label="Le compte de résultat"
+            />
 
             <DocSources
                 sources={[

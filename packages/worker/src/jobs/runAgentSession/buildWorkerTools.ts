@@ -100,7 +100,11 @@ function routePathToToolName(path: string): string {
 
 function unwrapSchema(schema: any): any {
     if (!schema || typeof schema !== "object") return schema
-    const unsupportedWrappers = new Set(["non_nullable", "non_nullish", "non_optional"])
+    const unsupportedWrappers = new Set([
+        "non_nullable",
+        "non_nullish",
+        "non_optional",
+    ])
     if (unsupportedWrappers.has(schema.type) && schema.wrapped) return unwrapSchema(schema.wrapped)
     if (Array.isArray(schema.pipe)) {
         let foundFirstSchema = false
@@ -111,16 +115,35 @@ function unwrapSchema(schema: any): any {
             }
             return true
         })
-        if (filteredPipe.length !== schema.pipe.length) return unwrapSchema({ ...schema, pipe: filteredPipe })
+        if (filteredPipe.length !== schema.pipe.length)
+            return unwrapSchema({
+                ...schema,
+                pipe: filteredPipe,
+            })
     }
     if (schema.type === "object" && schema.entries) {
         const newEntries: Record<string, any> = {}
         for (const [key, value] of Object.entries(schema.entries)) newEntries[key] = unwrapSchema(value)
-        return { ...schema, entries: newEntries }
+        return {
+            ...schema,
+            entries: newEntries,
+        }
     }
-    if (schema.item) return { ...schema, item: unwrapSchema(schema.item) }
-    if (schema.options && Array.isArray(schema.options)) return { ...schema, options: schema.options.map(unwrapSchema) }
-    if (schema.wrapped) return { ...schema, wrapped: unwrapSchema(schema.wrapped) }
+    if (schema.item)
+        return {
+            ...schema,
+            item: unwrapSchema(schema.item),
+        }
+    if (schema.options && Array.isArray(schema.options))
+        return {
+            ...schema,
+            options: schema.options.map(unwrapSchema),
+        }
+    if (schema.wrapped)
+        return {
+            ...schema,
+            wrapped: unwrapSchema(schema.wrapped),
+        }
     return schema
 }
 
@@ -145,7 +168,10 @@ function bodySchemaToJsonSchema(
         properties?: Record<string, unknown>
         required?: string[]
     }
-    const fieldsToRemove = ["idOrganization", ...(pathSuffix ? (hiddenFieldsByRoute[pathSuffix] ?? []) : [])]
+    const fieldsToRemove = [
+        "idOrganization",
+        ...(pathSuffix ? (hiddenFieldsByRoute[pathSuffix] ?? []) : []),
+    ]
     if (jsonSchema.properties) {
         for (const field of fieldsToRemove) delete jsonSchema.properties[field]
     }
@@ -176,7 +202,11 @@ export function buildWorkerTools(parameters: {
                 pathSuffix,
             )
 
-            const def = toolDefinition({ name: toolName, description, inputSchema })
+            const def = toolDefinition({
+                name: toolName,
+                description,
+                inputSchema,
+            })
             const serverTool = def.server(async (args) => {
                 const body = args as Record<string, unknown>
                 const result = await parameters.executeRoute(pathSuffix, {

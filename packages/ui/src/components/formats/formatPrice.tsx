@@ -31,7 +31,11 @@ export function FormatPrice(props: { price?: number | null | string; className?:
                     fontSize: "sm",
                     fontFamily: "mono",
                 }),
-                processedPrice === 0 ? css({ color: "neutral/25" }) : undefined,
+                processedPrice === 0
+                    ? css({
+                          color: "neutral/25",
+                      })
+                    : undefined,
                 props.className,
             )}
         >

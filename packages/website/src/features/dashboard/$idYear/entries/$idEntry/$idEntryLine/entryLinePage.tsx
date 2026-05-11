@@ -8,7 +8,9 @@ import { Section } from "../../../../../../components/layouts/section/section.ts
 import { entryLineLayoutRoute } from "../../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/entries/$idEntry/$idEntryLine/entryLineLayoutRoute.tsx"
 
 export function EntryLinePage() {
-    const params = useParams({ from: entryLineLayoutRoute.id })
+    const params = useParams({
+        from: entryLineLayoutRoute.id,
+    })
 
     return (
         <DataWrapper
@@ -20,7 +22,11 @@ export function EntryLinePage() {
         >
             {(entryLine) => {
                 return (
-                    <Section.Item className={css({ flexDirection: "column" })}>
+                    <Section.Item
+                        className={css({
+                            flexDirection: "column",
+                        })}
+                    >
                         <DataBlock.Root>
                             <DataBlock.Header title="Informations" />
                             <DataBlock.Content>

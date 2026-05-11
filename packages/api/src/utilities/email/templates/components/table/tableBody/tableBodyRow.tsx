@@ -6,7 +6,10 @@ export function TableBodyRow(props: { children: JSX.Element | JSX.Element[]; cla
     return (
         <>
             <Style />
-            <tr class={cx(css`width: 100%;`, props.class)} children={props.children} />
+            <tr
+                class={cx(css`width: 100%;`, props.class)}
+                children={props.children}
+            />
         </>
     )
 }

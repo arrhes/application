@@ -45,9 +45,9 @@ export function WhitepaperGeneralDocPage() {
             >
                 <DocTextSection title="Notre vision">
                     <p>
-                        Nous voulons que la comptabilité devienne accessible, compréhensible et même agréable. Trop
-                        d'outils comptables sont pensés par des comptables pour des comptables. Nous construisons Arrhes
-                        pour les gens qui veulent faire leur comptabilité sans être experts du domaine.
+                        Nous voulons que la comptabilité devienne accessible, compréhensible et même agréable. Nous
+                        construisons Arrhes pour tout le monde : autant ceux qui veulent faire leur comptabilité
+                        simplement que les experts du domaine.
                     </p>
                     <p>
                         À terme, nous voulons qu'Arrhes devienne la référence open source de la comptabilité en France -
@@ -56,9 +56,9 @@ export function WhitepaperGeneralDocPage() {
                     </p>
                     <p>
                         L'intelligence artificielle est au coeur de cette vision. Pas comme un gadget marketing, mais
-                        comme un véritable assistant qui peut vous accompagner, suivre des instructions, détecte les
-                        anomalies, et vous aide à prendre des décisions. L'IA doit rendre la comptabilité plus simple,
-                        pas plus complexe.
+                        comme un véritable assistant qui peut vous accompagner, suivre des instructions, détecter les
+                        anomalies, et vous aider à prendre des décisions. L'IA doit rendre la comptabilité plus
+                        accessible.
                     </p>
                 </DocTextSection>
 
@@ -71,16 +71,16 @@ export function WhitepaperGeneralDocPage() {
                     </p>
                     <p>
                         Mais au-delà de la transparence, l'open source est un choix communautaire. Un logiciel de
-                        comptabilité utilisé par des associations, des indépendants et des petites entreprises a tout
-                        intérêt à être construit avec eux. Les retours, les contributions et les idées de la communauté
-                        rendent le produit meilleur pour tout le monde. Chaque utilisateur peut signaler un bug,
-                        proposer une amélioration ou adapter l'outil à ses besoins.
+                        comptabilité utilisé par des associations, des indépendants et des entreprises a tout intérêt à
+                        être construit avec eux. Les retours, les contributions et les idées de la communauté rendent le
+                        produit meilleur pour tout le monde. Chaque utilisateur peut signaler un bug, proposer une
+                        amélioration ou adapter l'outil à ses besoins.
                     </p>
                     <p>
                         Nous pensons aussi qu'à l'ère de l'intelligence artificielle, l'open source a plus de sens que
                         jamais. Les modèles IA sont entraînés sur du code et savent le restituer. Nous pensons que la
-                        valeur ajoutée ne réside plus vraiment dans le code, mais plutôt dans son architecture pensée
-                        par et pour les utilisateurs.
+                        valeur ajoutée ne réside plus dans le code, mais plutôt dans l'architecture pensée par et pour
+                        les utilisateurs.
                     </p>
                 </DocTextSection>
 
@@ -98,16 +98,16 @@ export function WhitepaperGeneralDocPage() {
                         Ce qui est payant, ce sont les fonctionnalités qui ont un coût réel pour nous : le stockage,
                         l'assistant IA (qui consomme des ressources de calcul), l'hébergement cloud géré (serveurs,
                         sauvegardes, maintenance), et les intégrations avancées. En résumé, vous payez pour
-                        l'infrastructure et l'intelligence artificielle, pas pour le logiciel lui-même.
+                        l'infrastructure, pas pour le logiciel lui-même.
                     </p>
                     <p>
-                        Ce modèle nous semble juste. Les revenus générés par les offres payantes financent l'ensemble du
-                        projet : le développement des fonctionnalités basiques, la maintenance, la documentation et le
-                        support communautaire. Chaque abonnement soutient l'outil pour tout le monde.
+                        Ce modèle nous semble juste. Les revenus générés financent l'ensemble du projet : le
+                        développement des fonctionnalités, la maintenance, la documentation et le support communautaire.
+                        Chaque licence soutient l'outil pour tout le monde.
                     </p>
                 </DocTextSection>
 
-                <DocLastUpdate date="12 Février 2026" />
+                <DocLastUpdate date="11 mai 2026" />
             </div>
         </DocRoot>
     )

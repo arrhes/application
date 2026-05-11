@@ -52,5 +52,4 @@ export {
     userSessionModel,
     userSessionsRelations,
 } from "../../metadata/src/models/userSession.ts"
-export { workerJobModel, workerJobRelations, workerJobStatusEnum } from "../../metadata/src/models/workerJob.ts"
 export { yearModel, yearRelations, yearStateEnum } from "../../metadata/src/models/year.ts"

@@ -10,7 +10,10 @@ export const agentMessageModel = pgTable(
     {
         id: idColumn("id").primaryKey(),
         idAgentSession: idColumn("id_agent_session")
-            .references(() => agentSessionModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => agentSessionModel.id, {
+                onDelete: "cascade",
+                onUpdate: "cascade",
+            })
             .notNull(),
         userMessage: text("user_message"),
         input: text("input"),
@@ -20,7 +23,14 @@ export const agentMessageModel = pgTable(
         usedTools: text("used_tools").array(),
         attachedFiles: jsonb("attached_files"),
         references: jsonb("references"),
-        state: varchar("state", { length: 16, enum: ["completed", "streaming", "error"] }).notNull(),
+        state: varchar("state", {
+            length: 16,
+            enum: [
+                "completed",
+                "streaming",
+                "error",
+            ],
+        }).notNull(),
         streamKey: text("stream_key"),
         inputTokens: integer("input_tokens"),
         outputTokens: integer("output_tokens"),
@@ -31,19 +41,32 @@ export const agentMessageModel = pgTable(
         }),
         createdAt: dateTimeColumn("created_at").notNull(),
     },
-    (t) => [index().on(t.idAgentSession), index().on(t.idParentAgentMessage)],
+    (t) => [
+        index().on(t.idAgentSession),
+        index().on(t.idParentAgentMessage),
+    ],
 )
 
 // Relations
 export const agentMessageRelations = relations(agentMessageModel, ({ one, many }) => ({
     agentSession: one(agentSessionModel, {
-        fields: [agentMessageModel.idAgentSession],
-        references: [agentSessionModel.id],
+        fields: [
+            agentMessageModel.idAgentSession,
+        ],
+        references: [
+            agentSessionModel.id,
+        ],
     }),
     parentMessage: one(agentMessageModel, {
-        fields: [agentMessageModel.idParentAgentMessage],
-        references: [agentMessageModel.id],
+        fields: [
+            agentMessageModel.idParentAgentMessage,
+        ],
+        references: [
+            agentMessageModel.id,
+        ],
         relationName: "parentChild",
     }),
-    childMessages: many(agentMessageModel, { relationName: "parentChild" }),
+    childMessages: many(agentMessageModel, {
+        relationName: "parentChild",
+    }),
 }))

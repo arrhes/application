@@ -7,7 +7,9 @@ import { response } from "../../../../utilities/response.js"
 export const cancelSubscriptionRoute = apiFactory
     .createApp()
     .post(cancelSubscriptionRouteDefinition.path, async (c) => {
-        await checkUserSessionMiddleware({ context: c })
+        await checkUserSessionMiddleware({
+            context: c,
+        })
         await validateBodyMiddleware({
             context: c,
             schema: cancelSubscriptionRouteDefinition.schemas.body,

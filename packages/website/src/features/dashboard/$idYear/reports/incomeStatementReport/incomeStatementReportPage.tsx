@@ -24,12 +24,22 @@ const requiredKeys = [
 ] as const satisfies readonly YearDataKey[]
 
 export function IncomeStatementReportPage() {
-    const params = useParams({ from: incomeStatementReportRoute.id })
+    const params = useParams({
+        from: incomeStatementReportRoute.id,
+    })
     const [selectedJournalId, setSelectedJournalId] = useState<string | null>(null)
-    const [selectedTags, setSelectedTags] = useState<Array<{ key: string; label: string }>>([])
+    const [selectedTags, setSelectedTags] = useState<
+        Array<{
+            key: string
+            label: string
+        }>
+    >([])
 
     return (
-        <YearDataWrapper idYear={params.idYear} requiredKeys={requiredKeys}>
+        <YearDataWrapper
+            idYear={params.idYear}
+            requiredKeys={requiredKeys}
+        >
             {({
                 accounts,
                 entries,
@@ -51,7 +61,10 @@ export function IncomeStatementReportPage() {
                     label: `${j.code} ${j.label ?? ""}`.trim(),
                 }))
 
-                const tagOptions = tags.map((t) => ({ key: t.id, label: t.label }))
+                const tagOptions = tags.map((t) => ({
+                    key: t.id,
+                    label: t.label,
+                }))
 
                 if (selectedJournalId) {
                     const matchingEntryIds = new Set(
@@ -100,7 +113,11 @@ export function IncomeStatementReportPage() {
                                             accounts={filteredAccounts}
                                         />
                                     </div>
-                                    <div className={css({ width: "100%" })}>
+                                    <div
+                                        className={css({
+                                            width: "100%",
+                                        })}
+                                    >
                                         <Box>
                                             <IncomeStatementsReportTable
                                                 incomeStatements={incomeStatements}

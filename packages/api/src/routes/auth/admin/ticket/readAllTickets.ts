@@ -8,7 +8,9 @@ import { selectMany } from "../../../../utilities/sql/selectMany.js"
 export const adminReadAllTicketsRoute = apiFactory
     .createApp()
     .post(adminReadAllTicketsRouteDefinition.path, async (c) => {
-        await checkAdminUserSessionMiddleware({ context: c })
+        await checkAdminUserSessionMiddleware({
+            context: c,
+        })
         await validateBodyMiddleware({
             context: c,
             schema: adminReadAllTicketsRouteDefinition.schemas.body,

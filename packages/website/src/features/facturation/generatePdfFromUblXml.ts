@@ -200,7 +200,9 @@ function buildStyledPdf(parameters: {
     ]
 
     let body = "%PDF-1.4\n"
-    const offsets: number[] = [0]
+    const offsets: number[] = [
+        0,
+    ]
 
     for (let index = 0; index < objects.length; index++) {
         offsets.push(byteLength(body))
@@ -216,7 +218,14 @@ function buildStyledPdf(parameters: {
         .join("")
     body += `trailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF\n`
 
-    return new Blob([body], { type: "application/pdf" })
+    return new Blob(
+        [
+            body,
+        ],
+        {
+            type: "application/pdf",
+        },
+    )
 }
 
 export function generatePdfFromUblXml(parameters: { xmlContent: string; fallbackFileName?: string }) {

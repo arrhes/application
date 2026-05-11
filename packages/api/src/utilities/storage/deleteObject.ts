@@ -11,15 +11,16 @@ export async function deleteObject(parameters: {
     storageKey: string
 }) {
     try {
-        const command = new DeleteObjectCommand({
-            Bucket: parameters.var.env.STORAGE_BUCKET_NAME,
-            Key: parameters.storageKey,
-        })
-
-        const response = await parameters.var.clients.storage.send(command, {
-            abortSignal: undefined,
-            requestTimeout: undefined,
-        })
+        const response = await parameters.var.clients.storage.send(
+            new DeleteObjectCommand({
+                Bucket: parameters.var.env.STORAGE_BUCKET_NAME,
+                Key: parameters.storageKey,
+            }),
+            {
+                abortSignal: undefined,
+                requestTimeout: undefined,
+            },
+        )
 
         return response
     } catch (error: unknown) {

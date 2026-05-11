@@ -23,12 +23,18 @@ function fixCommonMojibake(text: string) {
 }
 
 export const ocrFileRoute = apiFactory.createApp().post(ocrFileRouteDefinition.path, async (c) => {
-    const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+    const { user, idOrganization } = await checkUserSessionMiddleware({
+        context: c,
+    })
     const body = await validateBodyMiddleware({
         context: c,
         schema: ocrFileRouteDefinition.schemas.body,
     })
-    await checkOrganizationSubscriptionSessionMiddleware({ context: c, idOrganization, checkType: "ocrPages" })
+    await checkOrganizationSubscriptionSessionMiddleware({
+        context: c,
+        idOrganization,
+        checkType: "ocrPages",
+    })
 
     const organization = await selectOne({
         database: c.var.clients.sql,
@@ -94,8 +100,14 @@ export const ocrFileRoute = apiFactory.createApp().post(ocrFileRouteDefinition.p
     }
 
     const document = isImage
-        ? { type: "image_url" as const, image_url: dataUri }
-        : { type: "document_url" as const, document_url: dataUri }
+        ? {
+              type: "image_url" as const,
+              image_url: dataUri,
+          }
+        : {
+              type: "document_url" as const,
+              document_url: dataUri,
+          }
 
     const ocrResponse = await fetch("https://api.mistral.ai/v1/ocr", {
         method: "POST",
@@ -119,7 +131,9 @@ export const ocrFileRoute = apiFactory.createApp().post(ocrFileRouteDefinition.p
     }
 
     const ocrResult = (await ocrResponse.json()) as {
-        pages?: Array<{ markdown: string }>
+        pages?: Array<{
+            markdown: string
+        }>
     }
 
     const extractedPagesCount = ocrResult.pages?.length ?? 0
@@ -131,7 +145,7 @@ export const ocrFileRoute = apiFactory.createApp().post(ocrFileRouteDefinition.p
         })
     }
 
-    if (extractedPagesCount > organization.ocrPagesTotalLeft) {
+    if (extractedPagesCount > organization.ocrPagesTotalAvailable) {
         throw new Exception({
             statusCode: 429,
             internalMessage: "OCR balance exhausted",
@@ -182,7 +196,11 @@ export const ocrFileRoute = apiFactory.createApp().post(ocrFileRouteDefinition.p
         contentType: "text/markdown; charset=utf-8",
         metadata: {
             idOrganization: idOrganization,
-            ...(body.idYear !== null ? { idYear: body.idYear } : {}),
+            ...(body.idYear !== null
+                ? {
+                      idYear: body.idYear,
+                  }
+                : {}),
             idUser: user.id,
         },
         body: markdownBuffer,
@@ -193,8 +211,7 @@ export const ocrFileRoute = apiFactory.createApp().post(ocrFileRouteDefinition.p
         table: models.organization,
         data: {
             storageCurrentUsage: sql`${models.organization.storageCurrentUsage} + ${markdownBuffer.length}`,
-            ocrCurrentMonthPagesUsage: organization.ocrPagesTotalUsed + extractedPagesCount,
-            ocrPagesTotalLeft: organization.ocrPagesTotalLeft - extractedPagesCount,
+            ocrPagesTotalAvailable: organization.ocrPagesTotalAvailable - extractedPagesCount,
             ocrPagesTotalUsed: organization.ocrPagesTotalUsed + extractedPagesCount,
         },
         where: (table) => eq(table.id, idOrganization),

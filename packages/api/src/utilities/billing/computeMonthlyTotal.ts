@@ -26,5 +26,5 @@ export async function computeMonthlyTotal(parameters: {
         return 0
     }
 
-    return organization.licenceAmount + getStorageRecurringAmountInCents(organization.storageMaxUsage)
+    return organization.licenceAmount + getStorageRecurringAmountInCents(organization.storageLimit)
 }

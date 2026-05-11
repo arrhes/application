@@ -16,19 +16,27 @@ export function WalletTopUpDrawer(props: { children: JSX.Element; onSuccess: () 
         const amountInCents = parseEuroAmountToCents(amount)
 
         if (Number.isNaN(amountInCents) || amountInCents <= 0) {
-            toast({ title: "Montant invalide", variant: "error" })
+            toast({
+                title: "Montant invalide",
+                variant: "error",
+            })
             return
         }
 
         setIsLoading(true)
         const response = await getResponseBodyFromAPI({
             routeDefinition: createWalletTopUpCheckoutRouteDefinition,
-            body: { amountInCents },
+            body: {
+                amountInCents,
+            },
         })
         setIsLoading(false)
 
         if (response.ok === false) {
-            toast({ title: "Impossible de démarrer le rechargement", variant: "error" })
+            toast({
+                title: "Impossible de démarrer le rechargement",
+                variant: "error",
+            })
             return
         }
 
@@ -37,13 +45,28 @@ export function WalletTopUpDrawer(props: { children: JSX.Element; onSuccess: () 
     }
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Recharger le portefeuille" />
                 <Drawer.Body>
-                    <div className={css({ display: "flex", flexDirection: "column", gap: "1rem" })}>
-                        <p className={css({ fontSize: "sm", color: "neutral/70", lineHeight: "1.5" })}>
+                    <div
+                        className={css({
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "1rem",
+                        })}
+                    >
+                        <p
+                            className={css({
+                                fontSize: "sm",
+                                color: "neutral/70",
+                                lineHeight: "1.5",
+                            })}
+                        >
                             Ajoutez un solde disponible immédiatement pour payer les achats ponctuels et les avances sur
                             abonnement.
                         </p>
@@ -53,7 +76,11 @@ export function WalletTopUpDrawer(props: { children: JSX.Element; onSuccess: () 
                             type="number"
                             placeholder="Montant en €"
                         />
-                        <Button onClick={handleTopUp} hasLoader isDisabled={isLoading}>
+                        <Button
+                            onClick={handleTopUp}
+                            hasLoader
+                            isDisabled={isLoading}
+                        >
                             <ButtonOutlineContent
                                 leftIcon={<IconPlus />}
                                 text={isLoading ? "Redirection..." : "Recharger via Mollie"}

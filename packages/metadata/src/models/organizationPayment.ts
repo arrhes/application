@@ -16,19 +16,40 @@ import { userModel } from "./user.js"
 export const organizationPaymentModel = pgTable("table_organization_payment", {
     id: idColumn("id").primaryKey(),
     idOrganization: idColumn("id_organization")
-        .references(() => organizationModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+        .references(() => organizationModel.id, {
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        })
         .notNull(),
-    category: varchar("category", { length: 32, enum: organizationPaymentCategory }).notNull().default("subscription"),
-    flow: varchar("flow", { length: 16, enum: organizationPaymentFlow }).notNull(),
-    status: varchar("status", { length: 16, enum: organizationPaymentStatus }).notNull(),
+    category: varchar("category", {
+        length: 32,
+        enum: organizationPaymentCategory,
+    })
+        .notNull()
+        .default("subscription"),
+    flow: varchar("flow", {
+        length: 16,
+        enum: organizationPaymentFlow,
+    }).notNull(),
+    status: varchar("status", {
+        length: 16,
+        enum: organizationPaymentStatus,
+    }).notNull(),
     molliePaymentId: text("mollie_payment_id"),
-    sequenceType: varchar("sequence_type", { length: 16 }),
-    serviceType: varchar("service_type", { length: 32, enum: organizationBillingType }),
+    sequenceType: varchar("sequence_type", {
+        length: 16,
+    }),
+    serviceType: varchar("service_type", {
+        length: 32,
+        enum: organizationBillingType,
+    }),
     quantity: integer("quantity").notNull().default(1),
     unitAmountHTInCents: integer("unit_amount_ht_in_cents").notNull().default(0),
     amountHTInCents: integer("amount_ht_in_cents").notNull().default(0),
     amountTVAInCents: integer("amount_tva_in_cents").notNull().default(0),
-    currency: varchar("currency", { length: 3 }).notNull(),
+    currency: varchar("currency", {
+        length: 3,
+    }).notNull(),
     description: text("description"),
     periodStart: dateTimeColumn("period_start"),
     periodEnd: dateTimeColumn("period_end"),
@@ -54,11 +75,19 @@ export const organizationPaymentModel = pgTable("table_organization_payment", {
 // Relations
 export const organizationPaymentRelations = relations(organizationPaymentModel, ({ one }) => ({
     organization: one(organizationModel, {
-        fields: [organizationPaymentModel.idOrganization],
-        references: [organizationModel.id],
+        fields: [
+            organizationPaymentModel.idOrganization,
+        ],
+        references: [
+            organizationModel.id,
+        ],
     }),
     invoice: one(invoiceModel, {
-        fields: [organizationPaymentModel.idInvoice],
-        references: [invoiceModel.id],
+        fields: [
+            organizationPaymentModel.idInvoice,
+        ],
+        references: [
+            invoiceModel.id,
+        ],
     }),
 }))

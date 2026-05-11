@@ -9,7 +9,6 @@ export const generateFilePutSignedUrlRouteDefinition = routeDefinition({
     schemas: {
         body: v.object({
             idFile: fileSchema.entries.id,
-            idYear: fileSchema.entries.idYear,
             type: v.nonNullable(fileSchema.entries.type.wrapped, "Ce champ est requis"),
             size: v.nonNullable(fileSchema.entries.size.wrapped, "Ce champ est requis"),
         }),

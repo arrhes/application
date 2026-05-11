@@ -1,5 +1,5 @@
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconBook, IconFileText, IconLock, IconUsers } from "@tabler/icons-react"
+import { IconBook, IconCode, IconFileText, IconLock, IconScan, IconSparkles, IconUsers } from "@tabler/icons-react"
 import { DocRoot } from "../../../../components/document/docRoot.js"
 import { FeatureCard } from "./featureCard.js"
 
@@ -39,7 +39,10 @@ export function FeaturesGeneralDocPage() {
             <div
                 className={css({
                     display: "grid",
-                    gridTemplateColumns: { base: "1fr", md: "repeat(2, 1fr)" },
+                    gridTemplateColumns: {
+                        base: "1fr",
+                        md: "repeat(2, 1fr)",
+                    },
                     gap: "1rem",
                 })}
             >
@@ -69,7 +72,8 @@ export function FeaturesGeneralDocPage() {
                     title="Documents comptables"
                     description="Générez tous vos documents comptables de synthèse conformes aux normes françaises."
                     features={[
-                        "Grand livre, Balance générale, Bilan comptablen Compte de résultat",
+                        "Grand livre, Balance générale, Bilan comptable, Compte de résultat",
+                        "Export du Fichier des Écritures Comptable (FEC)",
                         "Mise à jour automatique à chaque nouvelle écriture",
                         "Export PDF",
                     ]}
@@ -119,10 +123,44 @@ export function FeaturesGeneralDocPage() {
                     ]}
                 /> */}
                 <FeatureCard
+                    icon={<IconCode />}
+                    title="API REST"
+                    description="Intégrez Arrhes à vos outils grâce à notre API complète."
+                    features={[
+                        "Authentification par clé API",
+                        "Accès complet aux écritures et documents",
+                        "Documentation intégrée",
+                    ]}
+                />
+                <FeatureCard
+                    icon={<IconSparkles />}
+                    title="Assistant IA"
+                    description="Posez vos questions comptables en langage naturel et obtenez des réponses contextuelles."
+                    features={[
+                        "1 million de tokens inclus",
+                        "Accès aux écritures et documents de l'organisation",
+                        "Questions en langage naturel",
+                    ]}
+                />
+                <FeatureCard
+                    icon={<IconScan />}
+                    title="Reconnaissance optique (OCR)"
+                    description="Extrayez le texte de vos documents pour les analyser avec l'assistant IA."
+                    features={[
+                        "100 pages incluses",
+                        "Formats PDF, JPEG, PNG",
+                        "Intégration directe avec l'assistant IA",
+                    ]}
+                />
+                <FeatureCard
                     icon={<IconLock />}
                     title="Sécurité"
                     description="Vos données sont protégées avec les meilleures pratiques de sécurité."
-                    features={["Chiffrement bout-en-bout", "Sauvegardes automatiques", "Hébergement en France"]}
+                    features={[
+                        "Chiffrement bout-en-bout",
+                        "Sauvegardes automatiques",
+                        "Hébergement en France",
+                    ]}
                 />
             </div>
         </DocRoot>

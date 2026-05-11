@@ -16,7 +16,10 @@ import { DocTip } from "../../../../components/document/docTip.js"
 export function BalanceAccountingDocPage() {
     return (
         <DocRoot>
-            <DocHeader title="La balance" description="Document de contrôle essentiel de la comptabilité" />
+            <DocHeader
+                title="La balance"
+                description="Document de contrôle essentiel de la comptabilité"
+            />
 
             <DocSection title="Définition">
                 <DocDefinition term="Balance">
@@ -29,7 +32,12 @@ export function BalanceAccountingDocPage() {
                     <DocSourceRef n={1} /> est un résumé du{" "}
                     <DocLink to="/documentation/comptabilité/documents/grand-livre">grand livre</DocLink> : elle reprend
                     chaque{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "compte" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "compte",
+                        }}
+                    >
                         compte
                     </DocLink>{" "}
                     mais ne conserve que les totaux, sans le détail des mouvements. C'est le document idéal pour
@@ -47,7 +55,12 @@ export function BalanceAccountingDocPage() {
             <DocSection title="Les équilibres de la balance">
                 <DocParagraph>
                     La balance permet de vérifier plusieurs équilibres qui découlent du principe de la{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "partie-double" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "partie-double",
+                        }}
+                    >
                         partie double
                     </DocLink>
                     <DocSourceRef n={2} /> :
@@ -86,23 +99,107 @@ export function BalanceAccountingDocPage() {
             <DocSection title="Exemple">
                 <DocExample title="Extrait de balance générale">
                     <DocTable
-                        headers={["Compte", "Intitulé", "Débit", "Crédit", "Solde"]}
+                        headers={[
+                            "Compte",
+                            "Intitulé",
+                            "Débit",
+                            "Crédit",
+                            "Solde",
+                        ]}
                         rows={[
-                            ["101", "Capital", "", "10 000", "10 000 Cr"],
-                            ["164", "Emprunts", "", "5 000", "5 000 Cr"],
-                            ["215", "Matériel industriel", "3 000", "", "3 000 Db"],
-                            ["411", "Clients", "8 000", "3 000", "5 000 Db"],
-                            ["401", "Fournisseurs", "2 000", "4 000", "2 000 Cr"],
-                            ["512", "Banque", "16 000", "8 000", "8 000 Db"],
-                            ["606", "Achats de fournitures", "1 000", "", "1 000 Db"],
-                            ["613", "Loyer", "6 000", "", "6 000 Db"],
-                            ["641", "Salaires", "12 000", "", "12 000 Db"],
-                            ["706", "Prestations de services", "", "18 000", "18 000 Cr"],
-                            ["", "", "", "", ""],
-                            ["", "TOTAUX", "48 000", "48 000", ""],
+                            [
+                                "101",
+                                "Capital",
+                                "",
+                                "10 000",
+                                "10 000 Cr",
+                            ],
+                            [
+                                "164",
+                                "Emprunts",
+                                "",
+                                "5 000",
+                                "5 000 Cr",
+                            ],
+                            [
+                                "215",
+                                "Matériel industriel",
+                                "3 000",
+                                "",
+                                "3 000 Db",
+                            ],
+                            [
+                                "411",
+                                "Clients",
+                                "8 000",
+                                "3 000",
+                                "5 000 Db",
+                            ],
+                            [
+                                "401",
+                                "Fournisseurs",
+                                "2 000",
+                                "4 000",
+                                "2 000 Cr",
+                            ],
+                            [
+                                "512",
+                                "Banque",
+                                "16 000",
+                                "8 000",
+                                "8 000 Db",
+                            ],
+                            [
+                                "606",
+                                "Achats de fournitures",
+                                "1 000",
+                                "",
+                                "1 000 Db",
+                            ],
+                            [
+                                "613",
+                                "Loyer",
+                                "6 000",
+                                "",
+                                "6 000 Db",
+                            ],
+                            [
+                                "641",
+                                "Salaires",
+                                "12 000",
+                                "",
+                                "12 000 Db",
+                            ],
+                            [
+                                "706",
+                                "Prestations de services",
+                                "",
+                                "18 000",
+                                "18 000 Cr",
+                            ],
+                            [
+                                "",
+                                "",
+                                "",
+                                "",
+                                "",
+                            ],
+                            [
+                                "",
+                                "TOTAUX",
+                                "48 000",
+                                "48 000",
+                                "",
+                            ],
                         ]}
                     />
-                    <p className={css({ marginTop: "2", fontSize: "xs", color: "neutral/60" })}>
+                    <p
+                        className={css({
+                            marginTop: "2",
+                            fontSize: "xs",
+                            color: "neutral/60",
+                        })}
+                    >
                         Total des débits (48 000) = Total des crédits (48 000). Total des soldes débiteurs (35 000) =
                         Total des soldes créditeurs (35 000). La balance est équilibrée.
                     </p>
@@ -140,7 +237,10 @@ export function BalanceAccountingDocPage() {
                 </DocParagraph>
             </DocSection>
 
-            <DocNextPage to="/documentation/comptabilité/documents/journal" label="Le journal" />
+            <DocNextPage
+                to="/documentation/comptabilité/documents/journal"
+                label="Le journal"
+            />
 
             <DocSources
                 sources={[

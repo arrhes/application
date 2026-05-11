@@ -27,7 +27,10 @@ export function UpdateOneBalanceSheet(props: {
     const [open, setOpen] = useState(false)
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Modifier la ligne de bilan" />
@@ -48,11 +51,17 @@ export function UpdateOneBalanceSheet(props: {
                                 body: data,
                             })
                             if (updateBalanceSheetResponse.ok === false) {
-                                toast({ title: "Impossible de modifier la ligne de bilan", variant: "error" })
+                                toast({
+                                    title: "Impossible de modifier la ligne de bilan",
+                                    variant: "error",
+                                })
                                 return false
                             }
 
-                            toast({ title: "Ligne de bilan modifiée avec succès", variant: "success" })
+                            toast({
+                                title: "Ligne de bilan modifiée avec succès",
+                                variant: "success",
+                            })
                             return true
                         }}
                         onCancel={undefined}
@@ -89,7 +98,10 @@ export function UpdateOneBalanceSheet(props: {
                                                 isRequired
                                             />
                                             <FormControl>
-                                                <InputText value={field.value} onChange={field.onChange} />
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -106,7 +118,11 @@ export function UpdateOneBalanceSheet(props: {
                                                 isRequired
                                             />
                                             <FormControl>
-                                                <InputText value={field.value} onChange={field.onChange} autoFocus />
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                    autoFocus
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -145,8 +161,14 @@ export function UpdateOneBalanceSheet(props: {
                                                     value={field.value}
                                                     onChange={field.onChange}
                                                     options={[
-                                                        { label: "Actif", value: "asset" },
-                                                        { label: "Passif", value: "liability" },
+                                                        {
+                                                            label: "Actif",
+                                                            value: "asset",
+                                                        },
+                                                        {
+                                                            label: "Passif",
+                                                            value: "liability",
+                                                        },
                                                     ]}
                                                 />
                                             </FormControl>

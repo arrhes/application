@@ -12,7 +12,9 @@ import { updateOne } from "../../../utilities/sql/updateOne.js"
 export const resendEmailValidationRoute = apiFactory
     .createApp()
     .post(resendEmailValidationRouteDefinition.path, async (c) => {
-        const { user } = await checkUserSessionMiddleware({ context: c })
+        const { user } = await checkUserSessionMiddleware({
+            context: c,
+        })
 
         if (user.emailToValidate === null) {
             throw new Exception({

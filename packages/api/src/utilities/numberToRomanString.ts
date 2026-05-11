@@ -1,4 +1,6 @@
-const romanMatrix: { [key: number]: string } = {
+const romanMatrix: {
+    [key: number]: string
+} = {
     1000: "M",
     900: "CM",
     500: "D",

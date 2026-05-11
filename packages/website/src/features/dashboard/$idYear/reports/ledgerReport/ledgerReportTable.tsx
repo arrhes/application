@@ -24,10 +24,15 @@ export function LedgerReportTable(props: {
             rows.push(entryLine)
         }
 
-        return [...props.accounts]
+        return [
+            ...props.accounts,
+        ]
             .sort((a, b) => a.number.localeCompare(b.number))
             .filter((account) => entryLinesByAccount.has(account.id))
-    }, [props.accounts, props.entryLines])
+    }, [
+        props.accounts,
+        props.entryLines,
+    ])
 
     const scrollContainerRef = useRef<HTMLDivElement>(null)
 
@@ -58,36 +63,107 @@ export function LedgerReportTable(props: {
                 <Table.Header.Root>
                     <Table.Header.Row>
                         <Table.Header.Cell>
-                            <span className={css({ color: "neutral/75", fontSize: "sm" })}>Compte</span>
+                            <span
+                                className={css({
+                                    color: "neutral/75",
+                                    fontSize: "sm",
+                                })}
+                            >
+                                Compte
+                            </span>
                         </Table.Header.Cell>
                         <Table.Header.Cell>
-                            <span className={css({ color: "neutral/75", fontSize: "sm" })}>Libellé</span>
+                            <span
+                                className={css({
+                                    color: "neutral/75",
+                                    fontSize: "sm",
+                                })}
+                            >
+                                Libellé
+                            </span>
                         </Table.Header.Cell>
-                        <Table.Header.Cell className={css({ width: "[1%]" })} align="right">
-                            <span className={css({ color: "neutral/75", fontSize: "sm", whiteSpace: "nowrap" })}>
+                        <Table.Header.Cell
+                            className={css({
+                                width: "[1%]",
+                            })}
+                            align="right"
+                        >
+                            <span
+                                className={css({
+                                    color: "neutral/75",
+                                    fontSize: "sm",
+                                    whiteSpace: "nowrap",
+                                })}
+                            >
                                 Débit
                             </span>
                         </Table.Header.Cell>
-                        <Table.Header.Cell className={css({ width: "[1%]" })} align="right">
-                            <span className={css({ color: "neutral/75", fontSize: "sm", whiteSpace: "nowrap" })}>
+                        <Table.Header.Cell
+                            className={css({
+                                width: "[1%]",
+                            })}
+                            align="right"
+                        >
+                            <span
+                                className={css({
+                                    color: "neutral/75",
+                                    fontSize: "sm",
+                                    whiteSpace: "nowrap",
+                                })}
+                            >
                                 Crédit
                             </span>
                         </Table.Header.Cell>
                     </Table.Header.Row>
                 </Table.Header.Root>
                 <Table.Body.Root
-                    className={css({ borderY: "1px solid token(colors.neutral/20)", _last: { borderBottom: "0" } })}
+                    className={css({
+                        borderY: "1px solid token(colors.neutral/20)",
+                        _last: {
+                            borderBottom: "0",
+                        },
+                    })}
                 >
-                    <Table.Body.Row className={css({ backgroundColor: "background" })}>
+                    <Table.Body.Row
+                        className={css({
+                            backgroundColor: "background",
+                        })}
+                    >
                         <Table.Body.Cell colSpan={1} />
                         <Table.Body.Cell align="right">
-                            <span className={css({ color: "neutral/50" })}>Total</span>
+                            <span
+                                className={css({
+                                    color: "neutral/50",
+                                })}
+                            >
+                                Total
+                            </span>
                         </Table.Body.Cell>
-                        <Table.Body.Cell className={css({ width: "[1%]" })} align="right">
-                            <FormatPrice price={accountsTotalDebit} className={css({ fontWeight: "bold" })} />
+                        <Table.Body.Cell
+                            className={css({
+                                width: "[1%]",
+                            })}
+                            align="right"
+                        >
+                            <FormatPrice
+                                price={accountsTotalDebit}
+                                className={css({
+                                    fontWeight: "bold",
+                                })}
+                            />
                         </Table.Body.Cell>
-                        <Table.Body.Cell className={css({ width: "[1%]" })} align="right">
-                            <FormatPrice price={accountsTotalCredit} className={css({ fontWeight: "bold" })} />
+                        <Table.Body.Cell
+                            className={css({
+                                width: "[1%]",
+                            })}
+                            align="right"
+                        >
+                            <FormatPrice
+                                price={accountsTotalCredit}
+                                className={css({
+                                    fontWeight: "bold",
+                                })}
+                            />
                         </Table.Body.Cell>
                     </Table.Body.Row>
                 </Table.Body.Root>
@@ -95,12 +171,14 @@ export function LedgerReportTable(props: {
                     <Table.Body.Root
                         className={css({
                             borderBottom: "1px solid token(colors.neutral/10)",
-                            _last: { borderBottom: "0" },
+                            _last: {
+                                borderBottom: "0",
+                            },
                         })}
                     >
                         <Table.Body.Row>
                             <Table.Body.Cell>
-                                <FormatNull />
+                                <FormatNull text="Aucune écriture" />
                             </Table.Body.Cell>
                         </Table.Body.Row>
                     </Table.Body.Root>
@@ -109,7 +187,14 @@ export function LedgerReportTable(props: {
                         {paddingTop > 0 && (
                             <tbody>
                                 <tr>
-                                    <td colSpan={4} style={{ height: `${paddingTop}px`, padding: 0, border: 0 }} />
+                                    <td
+                                        colSpan={4}
+                                        style={{
+                                            height: `${paddingTop}px`,
+                                            padding: 0,
+                                            border: 0,
+                                        }}
+                                    />
                                 </tr>
                             </tbody>
                         )}
@@ -135,11 +220,16 @@ export function LedgerReportTable(props: {
                                     ref={virtualizer.measureElement}
                                     className={css({
                                         borderY: "1px solid token(colors.neutral/10)",
-                                        _last: { borderBottom: "0" },
+                                        _last: {
+                                            borderBottom: "0",
+                                        },
                                     })}
                                 >
                                     <Table.Body.Row
-                                        className={css({ borderColor: "neutral/10", backgroundColor: "background" })}
+                                        className={css({
+                                            borderColor: "neutral/10",
+                                            backgroundColor: "background",
+                                        })}
                                     >
                                         <Table.Body.Cell>
                                             <div
@@ -150,25 +240,48 @@ export function LedgerReportTable(props: {
                                                     gap: "0.5rem",
                                                 })}
                                             >
-                                                <FormatText className={css({ overflow: "visible" })}>
+                                                <FormatText
+                                                    className={css({
+                                                        overflow: "visible",
+                                                    })}
+                                                >
                                                     {account.number}
                                                 </FormatText>
-                                                <FormatText wrap={true} className={css({ color: "neutral/50" })}>
+                                                <FormatText
+                                                    wrap={true}
+                                                    className={css({
+                                                        color: "neutral/50",
+                                                    })}
+                                                >
                                                     {account.label}
                                                 </FormatText>
                                             </div>
                                         </Table.Body.Cell>
                                         <Table.Body.Cell />
-                                        <Table.Body.Cell className={css({ width: "[1%]" })} align="right">
+                                        <Table.Body.Cell
+                                            className={css({
+                                                width: "[1%]",
+                                            })}
+                                            align="right"
+                                        >
                                             <FormatPrice
                                                 price={accountTotalDebit}
-                                                className={css({ fontWeight: "bold" })}
+                                                className={css({
+                                                    fontWeight: "bold",
+                                                })}
                                             />
                                         </Table.Body.Cell>
-                                        <Table.Body.Cell className={css({ width: "[1%]" })} align="right">
+                                        <Table.Body.Cell
+                                            className={css({
+                                                width: "[1%]",
+                                            })}
+                                            align="right"
+                                        >
                                             <FormatPrice
                                                 price={accountTotalCredit}
-                                                className={css({ fontWeight: "bold" })}
+                                                className={css({
+                                                    fontWeight: "bold",
+                                                })}
                                             />
                                         </Table.Body.Cell>
                                     </Table.Body.Row>
@@ -178,16 +291,28 @@ export function LedgerReportTable(props: {
                                             return (
                                                 <Table.Body.Row
                                                     key={entryLine.id}
-                                                    className={css({ borderColor: "neutral/5" })}
+                                                    className={css({
+                                                        borderColor: "neutral/5",
+                                                    })}
                                                 >
                                                     <Table.Body.Cell />
                                                     <Table.Body.Cell>
                                                         <FormatText wrap={true}>{entryLine.label}</FormatText>
                                                     </Table.Body.Cell>
-                                                    <Table.Body.Cell className={css({ width: "[1%]" })} align="right">
+                                                    <Table.Body.Cell
+                                                        className={css({
+                                                            width: "[1%]",
+                                                        })}
+                                                        align="right"
+                                                    >
                                                         <FormatPrice price={entryLine.debit} />
                                                     </Table.Body.Cell>
-                                                    <Table.Body.Cell className={css({ width: "[1%]" })} align="right">
+                                                    <Table.Body.Cell
+                                                        className={css({
+                                                            width: "[1%]",
+                                                        })}
+                                                        align="right"
+                                                    >
                                                         <FormatPrice price={entryLine.credit} />
                                                     </Table.Body.Cell>
                                                 </Table.Body.Row>
@@ -200,7 +325,14 @@ export function LedgerReportTable(props: {
                         {paddingBottom > 0 && (
                             <tbody>
                                 <tr>
-                                    <td colSpan={4} style={{ height: `${paddingBottom}px`, padding: 0, border: 0 }} />
+                                    <td
+                                        colSpan={4}
+                                        style={{
+                                            height: `${paddingBottom}px`,
+                                            padding: 0,
+                                            border: 0,
+                                        }}
+                                    />
                                 </tr>
                             </tbody>
                         )}

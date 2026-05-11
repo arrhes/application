@@ -1,8 +1,9 @@
 import { css, cx } from "@arrhes/ui/utilities/cn.js"
-import type { ComponentProps, ReactElement, ReactNode } from "react"
+import type { Icon, IconProps } from "@tabler/icons-react"
+import { type ComponentProps, cloneElement, type ReactElement, type ReactNode } from "react"
 
 export function EmptyState(props: {
-    icon: ReactElement
+    icon: ReactElement<IconProps & React.RefAttributes<Icon>>
     title: string
     subtitle?: string
     action?: ReactNode
@@ -23,7 +24,16 @@ export function EmptyState(props: {
                 props.className,
             )}
         >
-            <div className={css({ color: "neutral", opacity: "0.2" })}>{props.icon}</div>
+            <div
+                className={css({
+                    color: "neutral",
+                    opacity: "0.2",
+                })}
+            >
+                {cloneElement(props.icon, {
+                    size: 48,
+                })}
+            </div>
             <div
                 className={css({
                     display: "flex",

@@ -21,12 +21,12 @@ import { UpdateStorageSubscriptionDrawer } from "./updateStorageSubscriptionDraw
 import { UpdateTokensSubscriptionDrawer } from "./updateTokensSubscriptionDrawer.tsx"
 import { OrganizationBillingDisclaimerBanner } from "./wallet/OrganizationBillingDisclaimerBanner.tsx"
 
-function getStorageAddonQuantity(storageMaxUsage: number) {
-    return Math.max(Math.round((storageMaxUsage - FREE_STORAGE_BYTES) / FREE_STORAGE_BYTES), 0)
+function getStorageAddonQuantity(storageLimit: number) {
+    return Math.max(Math.round((storageLimit - FREE_STORAGE_BYTES) / FREE_STORAGE_BYTES), 0)
 }
 
-function getRecurringStorageAmountInCents(storageMaxUsage: number) {
-    return getStorageAddonQuantity(storageMaxUsage) * STORAGE_PRICE_PER_GB_IN_CENTS
+function getRecurringStorageAmountInCents(storageLimit: number) {
+    return getStorageAddonQuantity(storageLimit) * STORAGE_PRICE_PER_GB_IN_CENTS
 }
 
 function getTokenAddonQuantity(totalTokens: number) {
@@ -35,11 +35,15 @@ function getTokenAddonQuantity(totalTokens: number) {
 
 function formatStorageValue(value: number) {
     if (value >= 1_073_741_824) {
-        return `${(value / 1_073_741_824).toLocaleString("fr-FR", { maximumFractionDigits: 1 })} Go`
+        return `${(value / 1_073_741_824).toLocaleString("fr-FR", {
+            maximumFractionDigits: 1,
+        })} Go`
     }
 
     if (value >= 1_048_576) {
-        return `${(value / 1_048_576).toLocaleString("fr-FR", { maximumFractionDigits: 1 })} Mo`
+        return `${(value / 1_048_576).toLocaleString("fr-FR", {
+            maximumFractionDigits: 1,
+        })} Mo`
     }
 
     return `${Math.round(value / 1024).toLocaleString("fr-FR")} ko`
@@ -47,11 +51,15 @@ function formatStorageValue(value: number) {
 
 function formatTokenValue(value: number) {
     if (value >= 1_000_000) {
-        return `${(value / 1_000_000).toLocaleString("fr-FR", { maximumFractionDigits: 1 })} M`
+        return `${(value / 1_000_000).toLocaleString("fr-FR", {
+            maximumFractionDigits: 1,
+        })} M`
     }
 
     if (value >= 1_000) {
-        return `${(value / 1_000).toLocaleString("fr-FR", { maximumFractionDigits: 0 })} k`
+        return `${(value / 1_000).toLocaleString("fr-FR", {
+            maximumFractionDigits: 0,
+        })} k`
     }
 
     return value.toLocaleString("fr-FR")
@@ -94,8 +102,15 @@ function UsageBar(props: { current: number; limit: number; formatValue: (v: numb
                 })}
             >
                 <div
-                    className={css({ height: "100%", borderRadius: "full", transition: "width 0.3s ease" })}
-                    style={{ width: `${percentage}%`, backgroundColor: `var(--colors-${color})` }}
+                    className={css({
+                        height: "100%",
+                        borderRadius: "full",
+                        transition: "width 0.3s ease",
+                    })}
+                    style={{
+                        width: `${percentage}%`,
+                        backgroundColor: `var(--colors-${color})`,
+                    }}
                 />
             </div>
         </div>
@@ -107,7 +122,10 @@ function ServiceCard(props: {
     description: string
     frequency?: string
     billingMode: "recurring" | "one_time"
-    details: Array<{ label: string; value: string }>
+    details: Array<{
+        label: string
+        value: string
+    }>
     usage?: JSX.Element
     action: JSX.Element
 }) {
@@ -124,7 +142,7 @@ function ServiceCard(props: {
                 padding: "1.25rem",
                 borderRadius: "2xl",
                 border: isRecurring ? "1px solid rgba(15, 59, 76, 0.12)" : "1px solid rgba(213, 168, 79, 0.2)",
-                boxShadow: isRecurring ? "0 8px 24px rgba(15, 23, 42, 0.06)" : "0 12px 28px rgba(181, 129, 28, 0.08)",
+                // boxShadow: isRecurring ? "0 8px 24px rgba(15, 23, 42, 0.06)" : "0 12px 28px rgba(181, 129, 28, 0.08)",
             })}
         >
             <div
@@ -138,7 +156,13 @@ function ServiceCard(props: {
                         : "linear-gradient(90deg, #d5a84f 0%, #f3d38a 100%)",
                 })}
             />
-            <div className={css({ display: "flex", flexDirection: "column", gap: "1rem" })}>
+            <div
+                className={css({
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "1rem",
+                })}
+            >
                 <div
                     className={css({
                         display: "flex",
@@ -186,8 +210,22 @@ function ServiceCard(props: {
                         flexWrap: "wrap",
                     })}
                 >
-                    <span className={css({ fontSize: "lg", fontWeight: "600", color: "neutral" })}>{props.title}</span>
-                    <p className={css({ fontSize: "sm", color: "neutral/70", lineHeight: "1.5" })}>
+                    <span
+                        className={css({
+                            fontSize: "lg",
+                            fontWeight: "600",
+                            color: "neutral",
+                        })}
+                    >
+                        {props.title}
+                    </span>
+                    <p
+                        className={css({
+                            fontSize: "sm",
+                            color: "neutral/70",
+                            lineHeight: "1.5",
+                        })}
+                    >
                         {props.description}
                     </p>
                 </div>
@@ -202,9 +240,19 @@ function ServiceCard(props: {
                 {props.details.map((detail) => (
                     <div
                         key={detail.label}
-                        className={css({ display: "flex", flexDirection: "column", gap: "0.25rem" })}
+                        className={css({
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "0.25rem",
+                        })}
                     >
-                        <span className={css({ fontSize: "xs", color: "neutral/50", textTransform: "uppercase" })}>
+                        <span
+                            className={css({
+                                fontSize: "xs",
+                                color: "neutral/50",
+                                textTransform: "uppercase",
+                            })}
+                        >
                             {detail.label}
                         </span>
                         <span
@@ -221,15 +269,32 @@ function ServiceCard(props: {
                     </div>
                 ))}
             </div>
-            {props.usage ? <div className={css({ width: "100%" })}>{props.usage}</div> : null}
-            <div className={css({ display: "flex", justifyContent: "flex-end" })}>{props.action}</div>
+            {props.usage ? (
+                <div
+                    className={css({
+                        width: "100%",
+                    })}
+                >
+                    {props.usage}
+                </div>
+            ) : null}
+            <div
+                className={css({
+                    display: "flex",
+                    justifyContent: "flex-end",
+                })}
+            >
+                {props.action}
+            </div>
         </div>
     )
 }
 
 export function OrganizationServicesPage() {
     const [refreshKey, setRefreshKey] = useState(0)
-    const params = useParams({ from: organizationServicesRoute.id })
+    const params = useParams({
+        from: organizationServicesRoute.id,
+    })
 
     return (
         <Page.Root>
@@ -237,19 +302,19 @@ export function OrganizationServicesPage() {
                 <DataWrapper
                     key={refreshKey}
                     routeDefinition={readOneOrganizationRouteDefinition}
-                    body={{ idOrganization: params.idOrganization }}
+                    body={{
+                        idOrganization: params.idOrganization,
+                    }}
                 >
                     {(organization) => {
                         const currentSupportAmountInCents = organization.licenceAmount
-                        const currentStorageAmountInCents = getRecurringStorageAmountInCents(
-                            organization.storageMaxUsage,
-                        )
-                        const currentStorageQuantity = getStorageAddonQuantity(organization.storageMaxUsage)
+                        const currentStorageAmountInCents = getRecurringStorageAmountInCents(organization.storageLimit)
+                        const currentStorageQuantity = getStorageAddonQuantity(organization.storageLimit)
                         const currentTokenQuantity = getTokenAddonQuantity(
-                            organization.tokensTotalLeft + organization.tokensTotalUsed,
+                            organization.tokensTotalAvailable + organization.tokensTotalUsed,
                         )
                         const currentOcrAddonPages = Math.max(
-                            organization.ocrPagesTotalLeft + organization.ocrPagesTotalUsed - INCLUDED_OCR_PAGES,
+                            organization.ocrPagesTotalAvailable + organization.ocrPagesTotalUsed - INCLUDED_OCR_PAGES,
                             0,
                         )
                         const nextMonthSubscriptionAmountInCents =
@@ -329,11 +394,11 @@ export function OrganizationServicesPage() {
                                             label: "Montant mensuel",
                                             value: `${formatEuros(currentSupportAmountInCents)} HT`,
                                         },
-                                        ...(organization.pendingLicenceAmount !== null
+                                        ...(organization.licenceAmountPending !== null
                                             ? [
                                                   {
                                                       label: "En attente le 1er",
-                                                      value: `${formatEuros(organization.pendingLicenceAmount)} HT`,
+                                                      value: `${formatEuros(organization.licenceAmountPending)} HT`,
                                                   },
                                               ]
                                             : []),
@@ -345,7 +410,10 @@ export function OrganizationServicesPage() {
                                             onSuccess={() => setRefreshKey((key) => key + 1)}
                                         >
                                             <Button>
-                                                <ButtonOutlineContent leftIcon={<IconPencil />} text="Modifier" />
+                                                <ButtonOutlineContent
+                                                    leftIcon={<IconPencil />}
+                                                    text="Modifier"
+                                                />
                                             </Button>
                                         </UpdateLicenceSubscriptionDrawer>
                                     }
@@ -356,16 +424,19 @@ export function OrganizationServicesPage() {
                                     frequency="Par mois"
                                     billingMode="recurring"
                                     details={[
-                                        { label: "Prix / mois", value: `0,10 EUR HT / Go (TVA ${VAT_PERCENT}%)` },
+                                        {
+                                            label: "Prix / mois",
+                                            value: `0,10 EUR HT / Go (TVA ${VAT_PERCENT}%)`,
+                                        },
                                         {
                                             label: "Montant actuel",
                                             value: `${formatEuros(currentStorageAmountInCents)} HT / mois`,
                                         },
-                                        ...(organization.pendingStorageMaxUsage !== null
+                                        ...(organization.storageLimitPending !== null
                                             ? [
                                                   {
                                                       label: "En attente le 1er",
-                                                      value: `${formatStorageValue(organization.pendingStorageMaxUsage)} / mois`,
+                                                      value: `${formatStorageValue(organization.storageLimitPending)} / mois`,
                                                   },
                                               ]
                                             : []),
@@ -373,7 +444,7 @@ export function OrganizationServicesPage() {
                                     usage={
                                         <UsageBar
                                             current={organization.storageCurrentUsage}
-                                            limit={organization.storageMaxUsage}
+                                            limit={organization.storageLimit}
                                             formatValue={formatStorageValue}
                                         />
                                     }
@@ -382,11 +453,14 @@ export function OrganizationServicesPage() {
                                             idOrganization={params.idOrganization}
                                             currentQuantity={currentStorageQuantity}
                                             currentUsageInBytes={organization.storageCurrentUsage}
-                                            currentMaxUsageInBytes={organization.storageMaxUsage}
+                                            currentMaxUsageInBytes={organization.storageLimit}
                                             onSuccess={() => setRefreshKey((key) => key + 1)}
                                         >
                                             <Button>
-                                                <ButtonOutlineContent leftIcon={<IconPencil />} text="Modifier" />
+                                                <ButtonOutlineContent
+                                                    leftIcon={<IconPencil />}
+                                                    text="Modifier"
+                                                />
                                             </Button>
                                         </UpdateStorageSubscriptionDrawer>
                                     }
@@ -398,7 +472,7 @@ export function OrganizationServicesPage() {
                                     details={[
                                         {
                                             label: "Restants",
-                                            value: `${formatTokenValue(organization.tokensTotalLeft)} tokens`,
+                                            value: `${formatTokenValue(organization.tokensTotalAvailable)} tokens`,
                                         },
                                         {
                                             label: "Prix unitaire",
@@ -408,11 +482,14 @@ export function OrganizationServicesPage() {
                                     action={
                                         <UpdateTokensSubscriptionDrawer
                                             currentQuantity={currentTokenQuantity}
-                                            currentTokensLeft={organization.tokensTotalLeft}
+                                            currentTokensLeft={organization.tokensTotalAvailable}
                                             onSuccess={() => setRefreshKey((key) => key + 1)}
                                         >
                                             <Button>
-                                                <ButtonOutlineContent leftIcon={<IconPencil />} text="Modifier" />
+                                                <ButtonOutlineContent
+                                                    leftIcon={<IconPencil />}
+                                                    text="Modifier"
+                                                />
                                             </Button>
                                         </UpdateTokensSubscriptionDrawer>
                                     }
@@ -424,18 +501,24 @@ export function OrganizationServicesPage() {
                                     details={[
                                         {
                                             label: "Restantes",
-                                            value: `${organization.ocrPagesTotalLeft.toLocaleString("fr-FR")} pages`,
+                                            value: `${organization.ocrPagesTotalAvailable.toLocaleString("fr-FR")} pages`,
                                         },
-                                        { label: "Prix unitaire", value: `0,01 EUR HT / page (TVA ${VAT_PERCENT}%)` },
+                                        {
+                                            label: "Prix unitaire",
+                                            value: `0,01 EUR HT / page (TVA ${VAT_PERCENT}%)`,
+                                        },
                                     ]}
                                     action={
                                         <UpdateOcrSubscriptionDrawer
                                             currentQuantity={currentOcrAddonPages}
-                                            currentPagesLeft={organization.ocrPagesTotalLeft}
+                                            currentPagesLeft={organization.ocrPagesTotalAvailable}
                                             onSuccess={() => setRefreshKey((key) => key + 1)}
                                         >
                                             <Button>
-                                                <ButtonOutlineContent leftIcon={<IconPencil />} text="Modifier" />
+                                                <ButtonOutlineContent
+                                                    leftIcon={<IconPencil />}
+                                                    text="Modifier"
+                                                />
                                             </Button>
                                         </UpdateOcrSubscriptionDrawer>
                                     }

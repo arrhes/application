@@ -21,10 +21,22 @@ export function AuthenticationApiDocPage() {
                     doit utiliser l'une des deux méthodes suivantes :
                 </DocParagraph>
                 <DocTable
-                    headers={["Méthode", "En-tête", "Cas d'usage"]}
+                    headers={[
+                        "Méthode",
+                        "En-tête",
+                        "Cas d'usage",
+                    ]}
                     rows={[
-                        ["Cookie de session", "Cookie: arrhes_id_user_session=...", "Utilisation via l'interface web"],
-                        ["Clé API (Bearer)", "Authorization: Bearer <clé>", "Intégration programmatique"],
+                        [
+                            "Cookie de session",
+                            "Cookie: arrhes_id_user_session=...",
+                            "Utilisation via l'interface web",
+                        ],
+                        [
+                            "Clé API (Bearer)",
+                            "Authorization: Bearer <clé>",
+                            "Intégration programmatique",
+                        ],
                     ]}
                 />
             </DocSection>
@@ -52,7 +64,18 @@ export function AuthenticationApiDocPage() {
                 <DocParagraph>
                     L'en-tête <code>Authorization</code> doit contenir le token au format Bearer :
                 </DocParagraph>
-                <DocTable headers={["En-tête", "Valeur"]} rows={[["Authorization", "Bearer <votre_clé_api>"]]} />
+                <DocTable
+                    headers={[
+                        "En-tête",
+                        "Valeur",
+                    ]}
+                    rows={[
+                        [
+                            "Authorization",
+                            "Bearer <votre_clé_api>",
+                        ],
+                    ]}
+                />
                 <DocParagraph>
                     Avec une clé API, l'organisation est automatiquement déterminée par la clé elle-même. Il n'est pas
                     nécessaire de fournir l'en-tête <code>X-Organization-Id</code>.
@@ -67,11 +90,27 @@ export function AuthenticationApiDocPage() {
             <DocSection title="En-têtes requis">
                 <DocParagraph>Résumé des en-têtes nécessaires selon la méthode d'authentification :</DocParagraph>
                 <DocTable
-                    headers={["En-tête", "Cookie de session", "Clé API"]}
+                    headers={[
+                        "En-tête",
+                        "Cookie de session",
+                        "Clé API",
+                    ]}
                     rows={[
-                        ["Content-Type: application/json", "Requis", "Requis"],
-                        ["X-Organization-Id", "Requis *", "Non nécessaire"],
-                        ["Authorization: Bearer <clé>", "Non utilisé", "Requis"],
+                        [
+                            "Content-Type: application/json",
+                            "Requis",
+                            "Requis",
+                        ],
+                        [
+                            "X-Organization-Id",
+                            "Requis *",
+                            "Non nécessaire",
+                        ],
+                        [
+                            "Authorization: Bearer <clé>",
+                            "Non utilisé",
+                            "Requis",
+                        ],
                     ]}
                 />
                 <DocParagraph>
@@ -98,7 +137,10 @@ export function AuthenticationApiDocPage() {
                 />
             </DocSection>
 
-            <DocNextPage to="/documentation/api/organisation" label="Organisations" />
+            <DocNextPage
+                to="/documentation/api/organisation"
+                label="Organisations"
+            />
         </DocRoot>
     )
 }

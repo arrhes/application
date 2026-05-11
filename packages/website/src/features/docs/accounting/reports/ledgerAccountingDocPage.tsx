@@ -16,7 +16,10 @@ import { DocTip } from "../../../../components/document/docTip.js"
 export function LedgerAccountingDocPage() {
     return (
         <DocRoot>
-            <DocHeader title="Le grand livre" description="Détail de tous les mouvements compte par compte" />
+            <DocHeader
+                title="Le grand livre"
+                description="Détail de tous les mouvements compte par compte"
+            />
 
             <DocSection title="Définition">
                 <DocDefinition term="Grand livre">
@@ -31,7 +34,12 @@ export function LedgerAccountingDocPage() {
                     <DocLink to="/documentation/comptabilité/documents/journal">journal</DocLink> contiennent exactement
                     les mêmes informations, mais présentées différemment. Le journal classe les écritures par date ; le
                     grand livre les classe par{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "compte" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "compte",
+                        }}
+                    >
                         compte
                     </DocLink>
                     .
@@ -52,11 +60,21 @@ export function LedgerAccountingDocPage() {
                 <DocParagraph>
                     Pour chaque compte, le grand livre affiche l'ensemble des mouvements avec leur date, leur libellé,
                     les montants au{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "debit" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "debit",
+                        }}
+                    >
                         débit
                     </DocLink>{" "}
                     et au{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "credit" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "credit",
+                        }}
+                    >
                         crédit
                     </DocLink>
                     , ainsi que le solde progressif.
@@ -64,31 +82,109 @@ export function LedgerAccountingDocPage() {
 
                 <DocExample title="Extrait du grand livre - Compte 512 Banque">
                     <DocTable
-                        headers={["Date", "Libellé", "Débit", "Crédit", "Solde"]}
+                        headers={[
+                            "Date",
+                            "Libellé",
+                            "Débit",
+                            "Crédit",
+                            "Solde",
+                        ]}
                         rows={[
-                            ["", "Solde à l'ouverture", "", "", "3 000 Db"],
-                            ["03/01", "Encaissement facture n°001", "1 200", "", "4 200 Db"],
-                            ["20/01", "Paiement loyer janvier", "", "800", "3 400 Db"],
-                            ["25/01", "Paiement fournisseur Martin", "", "180", "3 220 Db"],
-                            ["31/01", "Encaissement facture n°002", "2 500", "", "5 720 Db"],
+                            [
+                                "",
+                                "Solde à l'ouverture",
+                                "",
+                                "",
+                                "3 000 Db",
+                            ],
+                            [
+                                "03/01",
+                                "Encaissement facture n°001",
+                                "1 200",
+                                "",
+                                "4 200 Db",
+                            ],
+                            [
+                                "20/01",
+                                "Paiement loyer janvier",
+                                "",
+                                "800",
+                                "3 400 Db",
+                            ],
+                            [
+                                "25/01",
+                                "Paiement fournisseur Martin",
+                                "",
+                                "180",
+                                "3 220 Db",
+                            ],
+                            [
+                                "31/01",
+                                "Encaissement facture n°002",
+                                "2 500",
+                                "",
+                                "5 720 Db",
+                            ],
                         ]}
                     />
-                    <p className={css({ marginTop: "2", fontSize: "xs", color: "neutral/60" })}>
+                    <p
+                        className={css({
+                            marginTop: "2",
+                            fontSize: "xs",
+                            color: "neutral/60",
+                        })}
+                    >
                         Le solde progressif permet de suivre l'évolution du compte au fil des opérations.
                     </p>
                 </DocExample>
 
                 <DocExample title="Extrait du grand livre - Compte 401 Fournisseurs">
                     <DocTable
-                        headers={["Date", "Libellé", "Débit", "Crédit", "Solde"]}
+                        headers={[
+                            "Date",
+                            "Libellé",
+                            "Débit",
+                            "Crédit",
+                            "Solde",
+                        ]}
                         rows={[
-                            ["", "Solde à l'ouverture", "", "", "500 Cr"],
-                            ["15/01", "Facture papeterie", "", "180", "680 Cr"],
-                            ["25/01", "Règlement fournisseur Martin", "180", "", "500 Cr"],
-                            ["28/01", "Facture hébergement web", "", "120", "620 Cr"],
+                            [
+                                "",
+                                "Solde à l'ouverture",
+                                "",
+                                "",
+                                "500 Cr",
+                            ],
+                            [
+                                "15/01",
+                                "Facture papeterie",
+                                "",
+                                "180",
+                                "680 Cr",
+                            ],
+                            [
+                                "25/01",
+                                "Règlement fournisseur Martin",
+                                "180",
+                                "",
+                                "500 Cr",
+                            ],
+                            [
+                                "28/01",
+                                "Facture hébergement web",
+                                "",
+                                "120",
+                                "620 Cr",
+                            ],
                         ]}
                     />
-                    <p className={css({ marginTop: "2", fontSize: "xs", color: "neutral/60" })}>
+                    <p
+                        className={css({
+                            marginTop: "2",
+                            fontSize: "xs",
+                            color: "neutral/60",
+                        })}
+                    >
                         Le solde créditeur indique que l'organisation doit encore 620 euros à ses fournisseurs.
                     </p>
                 </DocExample>

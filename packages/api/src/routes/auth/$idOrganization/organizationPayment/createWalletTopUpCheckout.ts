@@ -14,7 +14,9 @@ import { productName } from "../../../../utilities/variables.js"
 export const createWalletTopUpCheckoutRoute = apiFactory
     .createApp()
     .post(createWalletTopUpCheckoutRouteDefinition.path, async (c) => {
-        const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+        const { user, idOrganization } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: createWalletTopUpCheckoutRouteDefinition.schemas.body,
@@ -45,7 +47,9 @@ export const createWalletTopUpCheckoutRoute = apiFactory
             const customer = await c.var.clients.mollie.customers.create({
                 name: organization.name,
                 email: organization.email,
-                metadata: { product: productName },
+                metadata: {
+                    product: productName,
+                },
             })
 
             mollieCustomerId = customer.id
@@ -98,6 +102,8 @@ export const createWalletTopUpCheckoutRoute = apiFactory
             context: c,
             statusCode: 200,
             schema: createWalletTopUpCheckoutRouteDefinition.schemas.return,
-            data: { checkoutUrl },
+            data: {
+                checkoutUrl,
+            },
         })
     })

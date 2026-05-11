@@ -20,7 +20,9 @@ import { useDataFromAPI } from "../../utilities/useHTTPData.js"
 import { Breadcrumbs } from "../breadcrumbs.js"
 
 export function DashboardLayout() {
-    const pathname = useRouterState({ select: (state) => state.location.pathname })
+    const pathname = useRouterState({
+        select: (state) => state.location.pathname,
+    })
     const isAdminPath = pathname.startsWith("/dashboard/admin")
 
     const userSession = useDataFromAPI({
@@ -77,7 +79,10 @@ export function DashboardLayout() {
                         })}
                     >
                         <LinkButton to="/dashboard">
-                            <ButtonGhostContent leftIcon={<Logo />} text={isAdminPath ? "Admin" : undefined} />
+                            <ButtonGhostContent
+                                leftIcon={<Logo />}
+                                text={isAdminPath ? "Admin" : undefined}
+                            />
                         </LinkButton>
                         <Breadcrumbs />
                     </div>
@@ -90,14 +95,25 @@ export function DashboardLayout() {
                             gap: "0.5rem",
                         })}
                     >
-                        <LinkButton to="/documentation" target="_blank" rel="noopener noreferrer" title="Documentation">
+                        <LinkButton
+                            to="/documentation"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="Documentation"
+                        >
                             <ButtonGhostContent leftIcon={<IconBook2 />} />
                         </LinkButton>
-                        <LinkButton to="/dashboard/organisations" title="Organisations">
+                        <LinkButton
+                            to="/dashboard/organisations"
+                            title="Organisations"
+                        >
                             <ButtonOutlineContent leftIcon={<IconBuildings />} />
                         </LinkButton>
                         {userSession.data?.user.isSuperAdmin === true && (
-                            <LinkButton to="/dashboard/admin/tickets" title="Admin">
+                            <LinkButton
+                                to="/dashboard/admin/tickets"
+                                title="Admin"
+                            >
                                 <ButtonOutlineContent leftIcon={<IconShield />} />
                             </LinkButton>
                         )}
@@ -107,24 +123,48 @@ export function DashboardLayout() {
                                     <ButtonOutlineContent leftIcon={<IconUser />} />
                                 </Button>
                             </Popover.Trigger>
-                            <Popover.Content align="end" className={css({ padding: "0.5rem" })}>
-                                <LinkButton to="/dashboard/profil" className={css({ width: "100%" })}>
+                            <Popover.Content
+                                align="end"
+                                className={css({
+                                    padding: "0.5rem",
+                                    gap: "0.25rem",
+                                })}
+                            >
+                                <LinkButton
+                                    to="/dashboard/profil"
+                                    className={css({
+                                        width: "100%",
+                                    })}
+                                >
                                     <ButtonGhostContent
                                         leftIcon={<IconSettings />}
                                         text="Profil"
-                                        className={css({ width: "100%", justifyContent: "start" })}
+                                        className={css({
+                                            width: "100%",
+                                            justifyContent: "start",
+                                        })}
                                     />
                                 </LinkButton>
-                                <LinkButton to="/dashboard/support" className={css({ width: "100%" })}>
+                                <LinkButton
+                                    to="/dashboard/support"
+                                    className={css({
+                                        width: "100%",
+                                    })}
+                                >
                                     <ButtonGhostContent
                                         leftIcon={<IconLifebuoy />}
                                         text="Support"
-                                        className={css({ width: "100%", justifyContent: "start" })}
+                                        className={css({
+                                            width: "100%",
+                                            justifyContent: "start",
+                                        })}
                                     />
                                 </LinkButton>
                                 <Separator />
                                 <Button
-                                    className={css({ width: "100%" })}
+                                    className={css({
+                                        width: "100%",
+                                    })}
                                     onClick={async () => {
                                         try {
                                             await getResponseBodyFromAPI({
@@ -137,7 +177,10 @@ export function DashboardLayout() {
                                         }
 
                                         deleteCookies()
-                                        toast({ title: "Déconnexion réussie", variant: "success" })
+                                        toast({
+                                            title: "Déconnexion réussie",
+                                            variant: "success",
+                                        })
 
                                         applicationRouter.navigate({
                                             to: "/connexion",
@@ -149,7 +192,10 @@ export function DashboardLayout() {
                                         leftIcon={<IconLogout />}
                                         text="Se déconnecter"
                                         color="danger"
-                                        className={css({ width: "100%", justifyContent: "start" })}
+                                        className={css({
+                                            width: "100%",
+                                            justifyContent: "start",
+                                        })}
                                     />
                                 </Button>
                             </Popover.Content>

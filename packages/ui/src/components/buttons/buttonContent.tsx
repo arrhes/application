@@ -2,7 +2,6 @@ import type { Icon, IconProps, ReactNode } from "@tabler/icons-react"
 import { cloneElement, type ReactElement } from "react"
 import { css, cx } from "../../utilities/cn.ts"
 import { CircularLoader } from "../layouts/circularLoader"
-import { useButtonLoading } from "./button"
 
 export type ButtonColor = "default" | "neutral" | "danger" | "success"
 
@@ -22,8 +21,8 @@ export type ButtonContentProps = {
 export function renderButtonContent(
     props: ButtonContentProps,
     classes: Partial<Record<"container" | "leftIcon" | "text" | "rightIcon", string>>,
+    contextLoading = false,
 ) {
-    const contextLoading = useButtonLoading()
     const isLoading = props.isLoading ?? contextLoading
     const isDisabled = props.isDisabled || isLoading
 
@@ -47,7 +46,10 @@ export function renderButtonContent(
             className={cx(classes.container, iconOnlyStyles, props.className)}
         >
             {isLoading ? (
-                <CircularLoader size={16} className={classes.leftIcon} />
+                <CircularLoader
+                    size={16}
+                    className={classes.leftIcon}
+                />
             ) : (
                 props.leftIcon &&
                 cloneElement(props.leftIcon, {
@@ -60,7 +62,11 @@ export function renderButtonContent(
             )}
 
             {props.text && (
-                <span aria-disabled={isDisabled} aria-current={props.isCurrent} className={cx(classes.text)}>
+                <span
+                    aria-disabled={isDisabled}
+                    aria-current={props.isCurrent}
+                    className={cx(classes.text)}
+                >
                     {props.text}
                 </span>
             )}
@@ -68,14 +74,30 @@ export function renderButtonContent(
             {props.children}
 
             {props.rightIcon && (
-                <div className={css({ display: "flex", alignItems: "center", justifyContent: "center" })}>
+                <div
+                    className={css({
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                    })}
+                >
                     {isLoading ? (
-                        <CircularLoader size={16 - 4} className={classes.rightIcon} />
+                        <CircularLoader
+                            size={16 - 4}
+                            className={classes.rightIcon}
+                        />
                     ) : (
                         cloneElement(props.rightIcon, {
                             "aria-disabled": isDisabled,
                             size: 16 - 4,
-                            className: cx(classes.rightIcon, css({ _disabled: { color: "neutral/50" } })),
+                            className: cx(
+                                classes.rightIcon,
+                                css({
+                                    _disabled: {
+                                        color: "neutral/50",
+                                    },
+                                }),
+                            ),
                             strokeWidth: 1.75,
                         })
                     )}

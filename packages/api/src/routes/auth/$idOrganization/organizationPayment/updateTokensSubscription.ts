@@ -15,7 +15,9 @@ import { updateOne } from "../../../../utilities/sql/updateOne.js"
 export const updateTokensSubscriptionRoute = apiFactory
     .createApp()
     .post(updateTokensSubscriptionRouteDefinition.path, async (c) => {
-        const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+        const { user, idOrganization } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: updateTokensSubscriptionRouteDefinition.schemas.body,
@@ -41,7 +43,7 @@ export const updateTokensSubscriptionRoute = apiFactory
         })
 
         const now = new Date()
-        const currentQuantity = getTokenAddonQuantity(organization.tokensTotalLeft + organization.tokensTotalUsed)
+        const currentQuantity = getTokenAddonQuantity(organization.tokensTotalAvailable + organization.tokensTotalUsed)
 
         if (body.newQuantity < currentQuantity) {
             throw new Exception({
@@ -79,8 +81,7 @@ export const updateTokensSubscriptionRoute = apiFactory
                 database: transaction,
                 table: models.organization,
                 data: {
-                    agentTokensMonthlyLimit: nextTokensTotal,
-                    tokensTotalLeft: Math.max(nextTokensTotal - organization.tokensTotalUsed, 0),
+                    tokensTotalAvailable: Math.max(nextTokensTotal - organization.tokensTotalUsed, 0),
                     walletBalanceInCents: newWalletBalanceInCents,
                     lastUpdatedAt: now.toISOString(),
                     lastUpdatedBy: user.id,

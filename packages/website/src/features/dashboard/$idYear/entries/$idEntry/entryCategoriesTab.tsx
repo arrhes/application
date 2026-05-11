@@ -18,19 +18,33 @@ import { invalidateData } from "../../../../../utilities/invalidateData.js"
 import type { YearDataKey } from "../../yearDataWrapper.tsx"
 import { YearDataWrapper } from "../../yearDataWrapper.tsx"
 
-const requiredKeys = ["entries", "entryTags", "tags"] as const satisfies readonly YearDataKey[]
+const requiredKeys = [
+    "entries",
+    "entryTags",
+    "tags",
+] as const satisfies readonly YearDataKey[]
 
 export function EntryCategoriesTab() {
-    const params = useParams({ from: entryLayoutRoute.id })
+    const params = useParams({
+        from: entryLayoutRoute.id,
+    })
 
     return (
-        <YearDataWrapper idYear={params.idYear} requiredKeys={requiredKeys}>
+        <YearDataWrapper
+            idYear={params.idYear}
+            requiredKeys={requiredKeys}
+        >
             {({ entries, entryTags, tags }) => {
                 const entry = entries.find((r) => r.id === params.idEntry)
                 if (entry === undefined) return null
 
                 return (
-                    <EntryCategoriesTabContent entry={entry} entryTags={entryTags} tags={tags} idYear={params.idYear} />
+                    <EntryCategoriesTabContent
+                        entry={entry}
+                        entryTags={entryTags}
+                        tags={tags}
+                        idYear={params.idYear}
+                    />
                 )
             }}
         </YearDataWrapper>
@@ -51,11 +65,22 @@ function EntryCategoriesTabContent(props: {
     const resolvedTags = currentEntryTags
         .map((et) => {
             const tag = props.tags.find((t) => t.id === et.idTag)
-            return tag ? { entryTagId: et.id, tagId: tag.id, label: tag.label } : null
+            return tag
+                ? {
+                      entryTagId: et.id,
+                      tagId: tag.id,
+                      label: tag.label,
+                  }
+                : null
         })
         .filter((t): t is NonNullable<typeof t> => t !== null)
 
-    const availableTags = props.tags.filter((t) => !currentTagIds.has(t.id)).map((t) => ({ key: t.id, label: t.label }))
+    const availableTags = props.tags
+        .filter((t) => !currentTagIds.has(t.id))
+        .map((t) => ({
+            key: t.id,
+            label: t.label,
+        }))
 
     const handleAddTag = async (idTag: string | null | undefined) => {
         if (!idTag) return
@@ -70,12 +95,20 @@ function EntryCategoriesTabContent(props: {
             },
         })
         if (response.ok === false) {
-            toast({ title: "Impossible d'ajouter la catégorie", variant: "error" })
+            toast({
+                title: "Impossible d'ajouter la catégorie",
+                variant: "error",
+            })
         } else {
-            toast({ title: "Catégorie ajoutée", variant: "success" })
+            toast({
+                title: "Catégorie ajoutée",
+                variant: "success",
+            })
             await invalidateData({
                 routeDefinition: readAllEntryTagsRouteDefinition,
-                body: { idYear: props.idYear },
+                body: {
+                    idYear: props.idYear,
+                },
             })
         }
         setIsAdding(false)
@@ -91,19 +124,32 @@ function EntryCategoriesTabContent(props: {
             },
         })
         if (response.ok === false) {
-            toast({ title: "Impossible de retirer la catégorie", variant: "error" })
+            toast({
+                title: "Impossible de retirer la catégorie",
+                variant: "error",
+            })
         } else {
-            toast({ title: "Catégorie retirée", variant: "success" })
+            toast({
+                title: "Catégorie retirée",
+                variant: "success",
+            })
             await invalidateData({
                 routeDefinition: readAllEntryTagsRouteDefinition,
-                body: { idYear: props.idYear },
+                body: {
+                    idYear: props.idYear,
+                },
             })
         }
         setIsRemoving(null)
     }
 
     return (
-        <Section.Item className={css({ flexDirection: "column", gap: "1rem" })}>
+        <Section.Item
+            className={css({
+                flexDirection: "column",
+                gap: "1rem",
+            })}
+        >
             <div
                 className={css({
                     width: "100%",
@@ -131,7 +177,11 @@ function EntryCategoriesTabContent(props: {
                 <DataBlock.Header title="Catégories" />
                 <DataBlock.Content>
                     {resolvedTags.length === 0 ? (
-                        <div className={css({ padding: "1rem" })}>
+                        <div
+                            className={css({
+                                padding: "1rem",
+                            })}
+                        >
                             <FormatNull text="Aucune catégorie associée" />
                         </div>
                     ) : (
@@ -145,7 +195,9 @@ function EntryCategoriesTabContent(props: {
                                     padding: "0.5rem",
                                     borderBottom: "1px solid",
                                     borderBottomColor: "neutral/5",
-                                    _last: { borderBottom: "none" },
+                                    _last: {
+                                        borderBottom: "none",
+                                    },
                                 })}
                             >
                                 <FormatText>{tag.label}</FormatText>
@@ -153,7 +205,10 @@ function EntryCategoriesTabContent(props: {
                                     onClick={() => handleRemoveTag(tag.entryTagId)}
                                     isDisabled={isRemoving === tag.entryTagId}
                                 >
-                                    <ButtonGhostContent leftIcon={<IconLinkOff />} color="danger" />
+                                    <ButtonGhostContent
+                                        leftIcon={<IconLinkOff />}
+                                        color="danger"
+                                    />
                                 </Button>
                             </div>
                         ))

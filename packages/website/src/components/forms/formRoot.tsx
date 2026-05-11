@@ -41,7 +41,9 @@ export function FormRoot<T extends Record<string, unknown>, U extends v.GenericS
         return () => {
             document.removeEventListener("keydown", listener)
         }
-    }, [props.submitOnPressEnterKey])
+    }, [
+        props.submitOnPressEnterKey,
+    ])
 
     return (
         <FormProvider {...form}>

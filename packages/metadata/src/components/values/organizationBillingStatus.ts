@@ -1,1 +1,4 @@
-export const organizationBillingStatus = <const>["active", "cancelled"]
+export const organizationBillingStatus = <const>[
+    "active",
+    "cancelled",
+]

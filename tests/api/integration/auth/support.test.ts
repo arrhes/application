@@ -15,7 +15,10 @@ describe("POST /auth/create-one-ticket", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/create-one-ticket",
-            body: { category: "billing", message: "Help" },
+            body: {
+                category: "billing",
+                message: "Help",
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -33,7 +36,10 @@ describe("POST /auth/create-one-ticket", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/create-one-ticket",
-            body: { category: "bug", message: "Integration test ticket" },
+            body: {
+                category: "bug",
+                message: "Integration test ticket",
+            },
         })
         expect(response.status).toBe(200)
 
@@ -75,7 +81,9 @@ describe("POST /auth/read-one-ticket", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/read-one-ticket",
-            body: { idTicket: "fake-id" },
+            body: {
+                idTicket: "fake-id",
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -93,7 +101,9 @@ describe("POST /auth/read-one-ticket", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/read-one-ticket",
-            body: { idTicket },
+            body: {
+                idTicket,
+            },
         })
         expect(response.status).toBe(200)
 
@@ -107,7 +117,10 @@ describe("POST /auth/create-one-ticket-message", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/create-one-ticket-message",
-            body: { idTicket: "fake-id", message: "test" },
+            body: {
+                idTicket: "fake-id",
+                message: "test",
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -125,7 +138,10 @@ describe("POST /auth/create-one-ticket-message", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/create-one-ticket-message",
-            body: { idTicket, message: "Follow-up message" },
+            body: {
+                idTicket,
+                message: "Follow-up message",
+            },
         })
         expect(response.status).toBe(200)
 
@@ -140,7 +156,9 @@ describe("POST /auth/read-all-ticket-messages", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/read-all-ticket-messages",
-            body: { idTicket },
+            body: {
+                idTicket,
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -158,7 +176,9 @@ describe("POST /auth/read-all-ticket-messages", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/read-all-ticket-messages",
-            body: { idTicket },
+            body: {
+                idTicket,
+            },
         })
         expect(response.status).toBe(200)
 
@@ -175,7 +195,10 @@ describe("POST /auth/update-one-ticket", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/update-one-ticket",
-            body: { idTicket, category: "technical" },
+            body: {
+                idTicket,
+                category: "technical",
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -193,7 +216,10 @@ describe("POST /auth/update-one-ticket", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/update-one-ticket",
-            body: { idTicket, category: "feature" },
+            body: {
+                idTicket,
+                category: "feature",
+            },
         })
         expect(response.status).toBe(200)
 
@@ -207,7 +233,10 @@ describe("POST /auth/update-one-ticket-status", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/update-one-ticket-status",
-            body: { idTicket, status: "closed" },
+            body: {
+                idTicket,
+                status: "closed",
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -225,7 +254,10 @@ describe("POST /auth/update-one-ticket-status", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/update-one-ticket-status",
-            body: { idTicket, status: "closed" },
+            body: {
+                idTicket,
+                status: "closed",
+            },
         })
         expect(response.status).toBe(200)
 

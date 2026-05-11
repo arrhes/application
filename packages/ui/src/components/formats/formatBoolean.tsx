@@ -14,7 +14,10 @@ export function FormatBoolean(props: {
 }) {
     return (
         <FormatBase className={props.className}>
-            <Chip text={props.text ?? (!props.boolean ? "Non" : "Oui")} color={!props.boolean ? "error" : "success"} />
+            <Chip
+                text={props.text ?? (!props.boolean ? "Non" : "Oui")}
+                color={!props.boolean ? "error" : "success"}
+            />
         </FormatBase>
     )
 }

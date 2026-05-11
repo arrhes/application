@@ -10,7 +10,14 @@ export function JournalListTableRow(props: { journal: v.InferOutput<typeof schem
 
     return (
         <ListTable.Row>
-            <div className={css({ width: "100%", display: "flex", flexDirection: "column", gap: "0.5rem" })}>
+            <div
+                className={css({
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.5rem",
+                })}
+            >
                 <div
                     className={css({
                         width: "100%",
@@ -21,7 +28,13 @@ export function JournalListTableRow(props: { journal: v.InferOutput<typeof schem
                         gap: "1rem",
                     })}
                 >
-                    <div className={css({ display: "flex", alignItems: "center", gap: "0.75rem" })}>
+                    <div
+                        className={css({
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.75rem",
+                        })}
+                    >
                         <LinkButton
                             to="/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/journaux/$idJournal"
                             params={{
@@ -36,7 +49,9 @@ export function JournalListTableRow(props: { journal: v.InferOutput<typeof schem
                                     fontWeight: "semibold",
                                     color: "primary",
                                     textDecoration: "none",
-                                    _hover: { textDecoration: "underline" },
+                                    _hover: {
+                                        textDecoration: "underline",
+                                    },
                                 })}
                             >
                                 {props.journal.label ?? undefined}
@@ -44,13 +59,33 @@ export function JournalListTableRow(props: { journal: v.InferOutput<typeof schem
                         </LinkButton>
                     </div>
                     <div
-                        className={css({ display: "flex", justifyContent: "end", alignItems: "start", gap: "0.5rem" })}
+                        className={css({
+                            display: "flex",
+                            justifyContent: "end",
+                            alignItems: "start",
+                            gap: "0.5rem",
+                        })}
                     >
-                        <Chip text={props.journal.code} color="neutral" />
+                        <Chip
+                            text={props.journal.code}
+                            color="neutral"
+                        />
                     </div>
                 </div>
-                <div className={css({ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" })}>
-                    <span className={css({ fontSize: "xs", color: "neutral/50" })}>{`Ajouté le ${createdAt}`}</span>
+                <div
+                    className={css({
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                        flexWrap: "wrap",
+                    })}
+                >
+                    <span
+                        className={css({
+                            fontSize: "xs",
+                            color: "neutral/50",
+                        })}
+                    >{`Ajouté le ${createdAt}`}</span>
                 </div>
             </div>
         </ListTable.Row>

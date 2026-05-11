@@ -21,45 +21,80 @@ export function WalletWithdrawalDrawer(props: {
         if (open) {
             setAmount((props.currentBalanceInCents / 100).toFixed(2).replace(".", ","))
         }
-    }, [open, props.currentBalanceInCents])
+    }, [
+        open,
+        props.currentBalanceInCents,
+    ])
 
     async function handleWithdrawal() {
         const amountInCents = parseEuroAmountToCents(amount)
 
         if (Number.isNaN(amountInCents) || amountInCents <= 0) {
-            toast({ title: "Montant invalide", variant: "error" })
+            toast({
+                title: "Montant invalide",
+                variant: "error",
+            })
             return
         }
 
         setIsLoading(true)
         const response = await getResponseBodyFromAPI({
             routeDefinition: createWalletWithdrawalRouteDefinition,
-            body: { amountInCents },
+            body: {
+                amountInCents,
+            },
         })
         setIsLoading(false)
 
         if (response.ok === false) {
-            toast({ title: response.error?.cause ?? "Impossible d'initier le retrait", variant: "error" })
+            toast({
+                title: response.error?.cause ?? "Impossible d'initier le retrait",
+                variant: "error",
+            })
             return
         }
 
-        toast({ title: "Retrait demandé", variant: "success" })
+        toast({
+            title: "Retrait demandé",
+            variant: "success",
+        })
         setOpen(false)
         props.onSuccess()
     }
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Retirer du portefeuille" />
                 <Drawer.Body>
-                    <div className={css({ display: "flex", flexDirection: "column", gap: "1rem" })}>
-                        <p className={css({ fontSize: "sm", color: "neutral/70", lineHeight: "1.5" })}>
+                    <div
+                        className={css({
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "1rem",
+                        })}
+                    >
+                        <p
+                            className={css({
+                                fontSize: "sm",
+                                color: "neutral/70",
+                                lineHeight: "1.5",
+                            })}
+                        >
                             Le retrait est effectué par remboursement Mollie depuis un rechargement compatible déjà
                             payé.
                         </p>
-                        <p className={css({ fontSize: "sm", color: "neutral/70", lineHeight: "1.5" })}>
+                        <p
+                            className={css({
+                                fontSize: "sm",
+                                color: "neutral/70",
+                                lineHeight: "1.5",
+                            })}
+                        >
                             Un seul retrait portefeuille est autorisé par mois calendaire pour limiter les abus.
                         </p>
                         <InputText

@@ -44,7 +44,9 @@ export async function api(parameters: {
                         "X-Organization-Id",
                         "Cache-Control",
                     ],
-                    allowMethods: ["POST"],
+                    allowMethods: [
+                        "POST",
+                    ],
                     credentials: true,
                 })
                 return corsMiddlewareHandler(c, next)
@@ -157,6 +159,8 @@ export async function api(parameters: {
 
         return api
     } catch (error: unknown) {
-        throw new Error("Failed to create api", { cause: error })
+        throw new Error("Failed to create api", {
+            cause: error,
+        })
     }
 }

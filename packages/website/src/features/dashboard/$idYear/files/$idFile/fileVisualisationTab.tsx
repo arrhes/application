@@ -6,13 +6,23 @@ import { FileData } from "./fileData.tsx"
 import { FileFile } from "./fileFile.tsx"
 
 export function FileVisualisationTab() {
-    const params = useParams({ from: fileLayoutRoute.id })
+    const params = useParams({
+        from: fileLayoutRoute.id,
+    })
 
     return (
-        <FileData idOrganization={params.idOrganization} idYear={params.idYear} idFile={params.idFile}>
+        <FileData
+            idOrganization={params.idOrganization}
+            idYear={params.idYear}
+            idFile={params.idFile}
+        >
             {(file) => {
                 return (
-                    <Section.Item className={css({ flexDirection: "column" })}>
+                    <Section.Item
+                        className={css({
+                            flexDirection: "column",
+                        })}
+                    >
                         <FileFile file={file} />
                     </Section.Item>
                 )

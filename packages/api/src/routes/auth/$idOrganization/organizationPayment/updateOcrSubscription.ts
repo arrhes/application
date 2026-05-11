@@ -15,7 +15,9 @@ import { updateOne } from "../../../../utilities/sql/updateOne.js"
 export const updateOcrSubscriptionRoute = apiFactory
     .createApp()
     .post(updateOcrSubscriptionRouteDefinition.path, async (c) => {
-        const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+        const { user, idOrganization } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: updateOcrSubscriptionRouteDefinition.schemas.body,
@@ -42,7 +44,7 @@ export const updateOcrSubscriptionRoute = apiFactory
 
         const now = new Date()
         // body.newQuantity = total addon pages above included quota (individual pages, not packs)
-        const totalOcrPages = organization.ocrPagesTotalLeft + organization.ocrPagesTotalUsed
+        const totalOcrPages = organization.ocrPagesTotalAvailable + organization.ocrPagesTotalUsed
         const currentAddonPages = Math.max(totalOcrPages - INCLUDED_OCR_PAGES, 0)
 
         if (body.newQuantity < currentAddonPages) {
@@ -80,8 +82,7 @@ export const updateOcrSubscriptionRoute = apiFactory
                 database: transaction,
                 table: models.organization,
                 data: {
-                    ocrMonthlyLimit: nextOcrTotal,
-                    ocrPagesTotalLeft: Math.max(nextOcrTotal - organization.ocrPagesTotalUsed, 0),
+                    ocrPagesTotalAvailable: Math.max(nextOcrTotal - organization.ocrPagesTotalUsed, 0),
                     walletBalanceInCents: newWalletBalanceInCents,
                     lastUpdatedAt: now.toISOString(),
                     lastUpdatedBy: user.id,

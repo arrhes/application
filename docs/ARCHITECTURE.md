@@ -79,7 +79,7 @@ arrhes/
 - **Valibot** : Validation des donnees
 - **Nodemailer** : Envoi d'emails
 - **AWS SDK** : Stockage de fichiers (S3-compatible)
-- **Puppeteer** : Generation de PDF
+- **@react-pdf/renderer + PDF client-side** : Generation des PDF dans le navigateur
 
 **Structure :**
 ```
@@ -170,7 +170,7 @@ website/src/
 │   ├── forms/          # Formulaires
 │   ├── inputs/         # Champs de saisie
 │   ├── layouts/        # Layouts, data blocks, tables
-│   └── overlays/       # Modals, drawers, dropdowns, tooltips
+│   └── overlays/       # Modals, drawers, tooltips
 ├── contexts/           # Contexts React
 │   ├── data/           # Context de donnees globales (TanStack Query)
 │   ├── router/         # Configuration du router
@@ -383,7 +383,7 @@ tools/src/
 | Database | PostgreSQL | Base de donnees relationnelle |
 | Storage | AWS S3 SDK | Stockage de fichiers |
 | Email | Nodemailer 7.0 | Envoi d'emails |
-| PDF | Puppeteer 24 | Generation de PDF |
+| PDF | @react-pdf/renderer + generatePdfFromUblXml | Generation de PDF cote client |
 
 ### Frontend (Website / Dashboard)
 

@@ -20,11 +20,18 @@ import {
     toast,
 } from "@arrhes/ui"
 import { css } from "@arrhes/ui/css"
-import { IconDotsVertical, IconNotebook, IconPaperclip, IconSend, IconTrash, IconX } from "@tabler/icons-react"
+import {
+    IconChevronRight,
+    IconDotsVertical,
+    IconNotebook,
+    IconPaperclip,
+    IconSend,
+    IconTrash,
+    IconX,
+} from "@tabler/icons-react"
 import { useNavigate, useParams } from "@tanstack/react-router"
 import { useCallback, useEffect, useRef, useState } from "react"
 import { DataWrapper } from "../../../../components/layouts/dataWrapper.tsx"
-import { Dropdown } from "../../../../components/layouts/dropdownMenu/dropdown.tsx"
 import { ConfirmationModal } from "../../../../components/overlays/dialog/confirmationModal.tsx"
 import { Popover } from "../../../../components/overlays/popover/popover.tsx"
 import { dataClient } from "../../../../contexts/data/queryClient.ts"
@@ -32,9 +39,11 @@ import { agentSessionRoute } from "../../../../routes/root/dashboard/agent/agent
 import { getCookie } from "../../../../utilities/cookies/getCookie.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
+import { resolveApiBaseUrl } from "../../../../utilities/resolveApiBaseUrl.js"
 import { useDataFromAPI } from "../../../../utilities/useHTTPData.ts"
 import { cookiePrefix } from "../../../../utilities/variables.js"
 import { AgentMessage } from "./agentMessage.tsx"
+import { isHealthyStreamResponse } from "./isStreamResponseUnavailable.ts"
 import { MentionInput, type MentionReference } from "./mentionInput.tsx"
 
 const subagentLabels: Record<string, string> = {
@@ -44,11 +53,24 @@ const subagentLabels: Record<string, string> = {
     auditor: "Auditeur",
 }
 
-function SubagentIndicator(props: { subagents: Array<{ role: string; depth: number; content: string }> }) {
+function SubagentIndicator(props: {
+    subagents: Array<{
+        role: string
+        depth: number
+        content: string
+    }>
+}) {
     const [expanded, setExpanded] = useState<Record<number, boolean>>({})
 
     return (
-        <div className={css({ display: "flex", flexDirection: "column", gap: "0.5rem", marginTop: "0.5rem" })}>
+        <div
+            className={css({
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.5rem",
+                marginTop: "0.5rem",
+            })}
+        >
             {props.subagents.map((subagent, index) => {
                 const isExpanded = expanded[index] ?? false
                 const label = subagentLabels[subagent.role] ?? subagent.role
@@ -64,44 +86,20 @@ function SubagentIndicator(props: { subagents: Array<{ role: string; depth: numb
                             overflow: "hidden",
                         })}
                     >
-                        <button
-                            type="button"
-                            onClick={() => setExpanded((prev) => ({ ...prev, [index]: !prev[index] }))}
-                            className={css({
-                                width: "100%",
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "0.5rem",
-                                padding: "0.5rem 0.75rem",
-                                cursor: "pointer",
-                                backgroundColor: "bg.muted",
-                                border: "none",
-                                fontSize: "0.8125rem",
-                                color: "fg.default",
-                            })}
+                        <Button
+                            onClick={() =>
+                                setExpanded((prev) => ({
+                                    ...prev,
+                                    [index]: !prev[index],
+                                }))
+                            }
                         >
-                            <span
-                                className={css({
-                                    display: "inline-block",
-                                    transition: "transform 0.15s",
-                                    transform: isExpanded ? "rotate(90deg)" : "rotate(0deg)",
-                                })}
-                            >
-                                ▶
-                            </span>
-                            <span
-                                className={css({
-                                    padding: "0.125rem 0.375rem",
-                                    borderRadius: "sm",
-                                    backgroundColor: "bg.emphasized",
-                                    fontSize: "0.75rem",
-                                    fontWeight: "medium",
-                                })}
-                            >
-                                {label}
-                            </span>
+                            <ButtonGhostContent
+                                leftIcon={<IconChevronRight />}
+                                text={label}
+                            />
                             <CircularLoader />
-                        </button>
+                        </Button>
                         {isExpanded && subagent.content && (
                             <div
                                 className={css({
@@ -124,7 +122,10 @@ function SubagentIndicator(props: { subagents: Array<{ role: string; depth: numb
 }
 
 function ContextInitialiser(props: {
-    agentSession: { idYear: string | null; customInstructions: string | null }
+    agentSession: {
+        idYear: string | null
+        customInstructions: string | null
+    }
     contextInitialisedRef: React.MutableRefObject<boolean>
     setEditYear: (v: string | null | undefined) => void
     setEditInstructions: (v: string | null | undefined) => void
@@ -136,13 +137,20 @@ function ContextInitialiser(props: {
             props.setEditYear(props.agentSession.idYear ?? null)
             props.setEditInstructions(props.agentSession.customInstructions ?? "")
         }
-    }, [props.agentSession, props.contextInitialisedRef, props.setEditInstructions, props.setEditYear])
+    }, [
+        props.agentSession,
+        props.contextInitialisedRef,
+        props.setEditInstructions,
+        props.setEditYear,
+    ])
 
     return <>{props.children}</>
 }
 
 export function AgentSessionContent() {
-    const params = useParams({ from: agentSessionRoute.id })
+    const params = useParams({
+        from: agentSessionRoute.id,
+    })
 
     const [input, setInput] = useState<string | null | undefined>(undefined)
     const [draftReferences, setDraftReferences] = useState<MentionReference[]>([])
@@ -175,18 +183,30 @@ export function AgentSessionContent() {
                 },
             })
             if (result.ok) {
-                toast({ title: "Contexte mis à jour", variant: "success" })
+                toast({
+                    title: "Contexte mis à jour",
+                    variant: "success",
+                })
                 await invalidateData({
                     routeDefinition: readOneAgentSessionRouteDefinition,
-                    body: { idAgentSession: params.idAgentSession },
+                    body: {
+                        idAgentSession: params.idAgentSession,
+                    },
                 })
             } else {
-                toast({ title: "Erreur lors de la mise à jour", variant: "error" })
+                toast({
+                    title: "Erreur lors de la mise à jour",
+                    variant: "error",
+                })
             }
         } finally {
             setIsSavingContext(false)
         }
-    }, [params.idAgentSession, editYear, editInstructions])
+    }, [
+        params.idAgentSession,
+        editYear,
+        editInstructions,
+    ])
 
     const handleDeleteSession = useCallback(async () => {
         const sessionId = params.idAgentSession
@@ -194,20 +214,30 @@ export function AgentSessionContent() {
         try {
             await getResponseBodyFromAPI({
                 routeDefinition: deleteOneAgentSessionRouteDefinition,
-                body: { idAgentSession: sessionId },
+                body: {
+                    idAgentSession: sessionId,
+                },
             })
             await dataClient.invalidateQueries({
-                queryKey: [readAllAgentSessionsRouteDefinition.path],
+                queryKey: [
+                    readAllAgentSessionsRouteDefinition.path,
+                ],
                 exact: false,
             })
             navigate({
                 to: "/dashboard/organisations/$idOrganization/agent",
-                params: { idOrganization: params.idOrganization },
+                params: {
+                    idOrganization: params.idOrganization,
+                },
             })
         } finally {
             setIsDeleting(false)
         }
-    }, [navigate, params.idAgentSession, params.idOrganization])
+    }, [
+        navigate,
+        params.idAgentSession,
+        params.idOrganization,
+    ])
 
     // ── Streaming state ─────────────────────────────────────────────────────────
     // ID of the assistant message currently being streamed from the worker
@@ -217,18 +247,29 @@ export function AgentSessionContent() {
     const [streamingContent, setStreamingContent] = useState<string>("")
     const [streamingToolCalls, setStreamingToolCalls] = useState<unknown[]>([])
     const [isStreaming, setIsStreaming] = useState(false)
-    const [activeSubagents, setActiveSubagents] = useState<Array<{ role: string; depth: number; content: string }>>([])
+    const [activeSubagents, setActiveSubagents] = useState<
+        Array<{
+            role: string
+            depth: number
+            content: string
+        }>
+    >([])
     const abortStreamRef = useRef<AbortController | null>(null)
 
     // ── Auto-scroll to bottom on new content ────────────────────────────────
     const scrollToBottom = useCallback(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+        messagesEndRef.current?.scrollIntoView({
+            behavior: "smooth",
+        })
     }, [])
 
     // Scroll when streaming content or tool calls update
     useEffect(() => {
         if (isStreaming) scrollToBottom()
-    }, [isStreaming, scrollToBottom])
+    }, [
+        isStreaming,
+        scrollToBottom,
+    ])
 
     // ── Auto-detect streaming messages on page load / navigation ────────────
     // If the user opens a session that already has a message in "streaming"
@@ -236,13 +277,18 @@ export function AgentSessionContent() {
     // connection for it automatically.
     const { data: messagesData } = useDataFromAPI({
         routeDefinition: readAllAgentMessagesRouteDefinition,
-        body: { idAgentSession: params.idAgentSession },
+        body: {
+            idAgentSession: params.idAgentSession,
+        },
     })
 
     // Scroll when messages list changes (new message added, stream completed)
     useEffect(() => {
         if (messagesData) scrollToBottom()
-    }, [messagesData, scrollToBottom])
+    }, [
+        messagesData,
+        scrollToBottom,
+    ])
 
     useEffect(() => {
         if (streamMessageId) return // already streaming something
@@ -252,7 +298,10 @@ export function AgentSessionContent() {
         if (streamingMsg) {
             setStreamMessageId(streamingMsg.id)
         }
-    }, [messagesData, streamMessageId])
+    }, [
+        messagesData,
+        streamMessageId,
+    ])
 
     // Single effect: open SSE stream, poll as fallback, self-cleanup
     useEffect(() => {
@@ -273,14 +322,20 @@ export function AgentSessionContent() {
         let lastBoundaryLen = 0
         const seenEnds = new Set<string>()
         let finished = false
-        const subagentStack: Array<{ role: string; depth: number; content: string }> = []
+        const subagentStack: Array<{
+            role: string
+            depth: number
+            content: string
+        }> = []
 
         const finish = async () => {
             if (finished) return
             finished = true
             await invalidateData({
                 routeDefinition: readAllAgentMessagesRouteDefinition,
-                body: { idAgentSession: params.idAgentSession },
+                body: {
+                    idAgentSession: params.idAgentSession,
+                },
             })
             setStreamingContent("")
             setStreamingToolCalls([])
@@ -292,28 +347,39 @@ export function AgentSessionContent() {
         ;(async () => {
             let streamCompleted = false
             try {
-                const headers: Record<string, string> = { "Content-Type": "application/json" }
+                const headers: Record<string, string> = {
+                    "Content-Type": "application/json",
+                }
                 const orgCookie = getCookie(`${cookiePrefix}_id_organization`)
                 if (orgCookie) {
                     headers["X-Organization-Id"] = orgCookie
                 }
 
-                const response = await fetch(
-                    new URL(`${import.meta.env.VITE_API_BASE_URL}${getStreamForAgentMessageRouteDefinition.path}`),
-                    {
-                        method: "POST",
-                        credentials: "include",
-                        signal: controller.signal,
-                        headers,
-                        body: JSON.stringify({
-                            idOrganization: params.idOrganization,
-                            idAgentMessage: streamMessageId,
-                        }),
-                    },
-                )
+                const apiBaseUrl = resolveApiBaseUrl(import.meta.env.VITE_API_BASE_URL)
+                if (!apiBaseUrl) {
+                    throw new Error("VITE_API_BASE_URL is not configured")
+                }
 
-                if (!response.ok || !response.body) {
-                    // SSE failed — polling will pick it up
+                const response = await fetch(new URL(`${apiBaseUrl}${getStreamForAgentMessageRouteDefinition.path}`), {
+                    method: "POST",
+                    credentials: "include",
+                    signal: controller.signal,
+                    headers,
+                    body: JSON.stringify({
+                        idOrganization: params.idOrganization,
+                        idAgentMessage: streamMessageId,
+                    }),
+                })
+
+                if (!isHealthyStreamResponse(response)) {
+                    toast({
+                        title: "Le flux de reponse est indisponible",
+                        description: "Veuillez renvoyer votre message.",
+                        variant: "error",
+                    })
+                    if (!controller.signal.aborted) {
+                        await finish()
+                    }
                     return
                 }
 
@@ -325,7 +391,9 @@ export function AgentSessionContent() {
                     const { done, value } = await reader.read()
                     if (done) break
 
-                    buffer += decoder.decode(value, { stream: true })
+                    buffer += decoder.decode(value, {
+                        stream: true,
+                    })
 
                     const parts = buffer.split("\n\n")
                     buffer = parts.pop() ?? ""
@@ -344,7 +412,9 @@ export function AgentSessionContent() {
                                         const current = subagentStack[subagentStack.length - 1]
                                         if (current) {
                                             current.content += chunk.delta
-                                            setActiveSubagents([...subagentStack])
+                                            setActiveSubagents([
+                                                ...subagentStack,
+                                            ])
                                         }
                                     } else {
                                         accumulated += chunk.delta
@@ -361,7 +431,9 @@ export function AgentSessionContent() {
                                         lastBoundaryLen = accumulated.length
                                     }
                                     accumulatedToolCalls.push(chunk)
-                                    setStreamingToolCalls([...accumulatedToolCalls])
+                                    setStreamingToolCalls([
+                                        ...accumulatedToolCalls,
+                                    ])
                                 }
                                 if (chunk.type === "CONTEXT_LIMIT_WARNING") {
                                     toast({
@@ -376,7 +448,9 @@ export function AgentSessionContent() {
                                     if (tcId && seenEnds.has(tcId)) continue
                                     if (tcId) seenEnds.add(tcId)
                                     accumulatedToolCalls.push(chunk)
-                                    setStreamingToolCalls([...accumulatedToolCalls])
+                                    setStreamingToolCalls([
+                                        ...accumulatedToolCalls,
+                                    ])
                                 }
                                 if (chunk.type === "SUBAGENT_RUN_START") {
                                     subagentStack.push({
@@ -384,11 +458,15 @@ export function AgentSessionContent() {
                                         depth: chunk.depth as number,
                                         content: "",
                                     })
-                                    setActiveSubagents([...subagentStack])
+                                    setActiveSubagents([
+                                        ...subagentStack,
+                                    ])
                                 }
                                 if (chunk.type === "SUBAGENT_RUN_END") {
                                     subagentStack.pop()
-                                    setActiveSubagents([...subagentStack])
+                                    setActiveSubagents([
+                                        ...subagentStack,
+                                    ])
                                 }
                             } catch {
                                 // ignore malformed chunks
@@ -417,7 +495,9 @@ export function AgentSessionContent() {
             try {
                 const result = await getResponseBodyFromAPI({
                     routeDefinition: readAllAgentMessagesRouteDefinition,
-                    body: { idAgentSession: params.idAgentSession },
+                    body: {
+                        idAgentSession: params.idAgentSession,
+                    },
                     signal: controller.signal,
                 })
                 if (!result.ok || !result.data) return
@@ -436,7 +516,11 @@ export function AgentSessionContent() {
             clearInterval(poll)
             controller.abort()
         }
-    }, [streamMessageId, params.idAgentSession, params.idOrganization])
+    }, [
+        streamMessageId,
+        params.idAgentSession,
+        params.idOrganization,
+    ])
 
     // ── Send message ────────────────────────────────────────────────────────────
     const sendMessageToWorker = useCallback(
@@ -445,7 +529,10 @@ export function AgentSessionContent() {
             references?: MentionReference[],
             options?: {
                 idYear?: string | null
-                attachedFiles?: Array<{ idFile: string; name: string }> | null
+                attachedFiles?: Array<{
+                    idFile: string
+                    name: string
+                }> | null
             },
         ) => {
             if (!text.trim() || isSending) return
@@ -484,7 +571,10 @@ export function AgentSessionContent() {
                         })
 
                         if (createFileResponse.ok === false) {
-                            toast({ title: `Impossible d'importer ${file.name}`, variant: "error" })
+                            toast({
+                                title: `Impossible d'importer ${file.name}`,
+                                variant: "error",
+                            })
                             failedFiles.push(file)
                             continue
                         }
@@ -498,7 +588,10 @@ export function AgentSessionContent() {
                                 body: file,
                             })
                             if (!uploadResponse.ok) {
-                                toast({ title: `Échec de l'envoi de ${file.name}`, variant: "error" })
+                                toast({
+                                    title: `Échec de l'envoi de ${file.name}`,
+                                    variant: "error",
+                                })
                                 failedFiles.push(file)
                                 continue
                             }
@@ -512,18 +605,26 @@ export function AgentSessionContent() {
                             routeDefinition: updateOneAgentSessionRouteDefinition,
                             body: {
                                 idAgentSession: params.idAgentSession,
-                                fileIds: [...existingIds, ...newIds],
+                                fileIds: [
+                                    ...existingIds,
+                                    ...newIds,
+                                ],
                             },
                         })
 
                         if (!attachResult.ok) {
-                            toast({ title: "Impossible d'attacher les fichiers a la session", variant: "error" })
+                            toast({
+                                title: "Impossible d'attacher les fichiers a la session",
+                                variant: "error",
+                            })
                             return
                         }
 
                         await invalidateData({
                             routeDefinition: readOneAgentSessionRouteDefinition,
-                            body: { idAgentSession: params.idAgentSession },
+                            body: {
+                                idAgentSession: params.idAgentSession,
+                            },
                         })
                     }
 
@@ -541,7 +642,10 @@ export function AgentSessionContent() {
                 })
 
                 if (!result.ok || !result.data) {
-                    toast({ title: "Impossible de créer le message", variant: "error" })
+                    toast({
+                        title: "Impossible de créer le message",
+                        variant: "error",
+                    })
                     return
                 }
 
@@ -551,19 +655,30 @@ export function AgentSessionContent() {
 
                 await invalidateData({
                     routeDefinition: readAllAgentMessagesRouteDefinition,
-                    body: { idAgentSession: params.idAgentSession },
+                    body: {
+                        idAgentSession: params.idAgentSession,
+                    },
                 })
                 scrollToBottom()
                 return true
             } catch (error) {
                 console.error("[sendMessageToWorker]", error)
-                toast({ title: "Une erreur est survenue lors de l'envoi du message", variant: "error" })
+                toast({
+                    title: "Une erreur est survenue lors de l'envoi du message",
+                    variant: "error",
+                })
                 return false
             } finally {
                 setIsSending(false)
             }
         },
-        [isSending, params.idOrganization, params.idAgentSession, pendingFiles, scrollToBottom],
+        [
+            isSending,
+            params.idOrganization,
+            params.idAgentSession,
+            pendingFiles,
+            scrollToBottom,
+        ],
     )
 
     const [_historyIndex, setHistoryIndex] = useState(-1)
@@ -598,7 +713,9 @@ export function AgentSessionContent() {
                             {/* Messages area */}
                             <DataWrapper
                                 routeDefinition={readAllAgentMessagesRouteDefinition}
-                                body={{ idAgentSession: params.idAgentSession }}
+                                body={{
+                                    idAgentSession: params.idAgentSession,
+                                }}
                             >
                                 {(agentMessages) => {
                                     const sortedAgentMessages = agentMessages.sort(
@@ -635,20 +752,31 @@ export function AgentSessionContent() {
                                                             {activeSubagents.length > 0 && (
                                                                 <SubagentIndicator subagents={activeSubagents} />
                                                             )}
-                                                            <div className={css({ padding: "0.25rem 0.5rem" })}>
+                                                            <div
+                                                                className={css({
+                                                                    padding: "0.25rem 0.5rem",
+                                                                })}
+                                                            >
                                                                 <CircularLoader />
                                                             </div>
                                                         </div>
                                                     )
                                                 }
                                                 return (
-                                                    <AgentMessage key={agentMessage.id} agentMessage={agentMessage} />
+                                                    <AgentMessage
+                                                        key={agentMessage.id}
+                                                        agentMessage={agentMessage}
+                                                    />
                                                 )
                                             })}
 
                                             {/* Thinking indicator — waiting for first token */}
                                             {isSending && !isStreaming && (
-                                                <div className={css({ padding: "0.5rem" })}>
+                                                <div
+                                                    className={css({
+                                                        padding: "0.5rem",
+                                                    })}
+                                                >
                                                     <CircularLoader text="Réflexion en cours..." />
                                                 </div>
                                             )}
@@ -696,7 +824,9 @@ export function AgentSessionContent() {
                                     ref={fileInputRef}
                                     type="file"
                                     multiple
-                                    style={{ display: "none" }}
+                                    style={{
+                                        display: "none",
+                                    }}
                                     accept="text/*,application/pdf,application/json,application/xml,application/csv,image/*"
                                     onChange={(event) => {
                                         const files = event.target.files
@@ -704,7 +834,10 @@ export function AgentSessionContent() {
                                         const newFiles = Array.from(files)
                                         event.target.value = ""
 
-                                        setPendingFiles((prev) => [...prev, ...newFiles])
+                                        setPendingFiles((prev) => [
+                                            ...prev,
+                                            ...newFiles,
+                                        ])
                                     }}
                                 />
                                 {/* File chips */}
@@ -752,7 +885,9 @@ export function AgentSessionContent() {
                                                         >
                                                             <IconPaperclip
                                                                 size={12}
-                                                                className={css({ flexShrink: 0 })}
+                                                                className={css({
+                                                                    flexShrink: 0,
+                                                                })}
                                                             />
                                                             <span
                                                                 className={css({
@@ -792,7 +927,9 @@ export function AgentSessionContent() {
                                                                     alignItems: "center",
                                                                     cursor: "pointer",
                                                                     color: "neutral/40",
-                                                                    _hover: { color: "danger" },
+                                                                    _hover: {
+                                                                        color: "danger",
+                                                                    },
                                                                     background: "none",
                                                                     border: "none",
                                                                     padding: 0,
@@ -856,7 +993,9 @@ export function AgentSessionContent() {
                                                             >
                                                                 <IconPaperclip
                                                                     size={12}
-                                                                    className={css({ flexShrink: 0 })}
+                                                                    className={css({
+                                                                        flexShrink: 0,
+                                                                    })}
                                                                 />
                                                                 <span
                                                                     className={css({
@@ -879,7 +1018,9 @@ export function AgentSessionContent() {
                                                                         alignItems: "center",
                                                                         cursor: "pointer",
                                                                         color: "neutral/40",
-                                                                        _hover: { color: "danger" },
+                                                                        _hover: {
+                                                                            color: "danger",
+                                                                        },
                                                                         background: "none",
                                                                         border: "none",
                                                                         padding: 0,
@@ -904,21 +1045,42 @@ export function AgentSessionContent() {
                                         gap: "0.5rem",
                                     })}
                                 >
-                                    <Dropdown.Root>
-                                        <Dropdown.Trigger title="Actions de la session">
-                                            <ButtonGhostContent leftIcon={<IconDotsVertical />} text={undefined} />
-                                        </Dropdown.Trigger>
-                                        <Dropdown.Content align="end">
-                                            <Dropdown.Item onSelect={() => setDeleteOpen(true)}>
+                                    <Popover.Root>
+                                        <Popover.Trigger asChild>
+                                            <Button title="Actions de la session">
                                                 <ButtonGhostContent
-                                                    leftIcon={<IconTrash />}
-                                                    text={isDeleting ? "Suppression..." : "Supprimer la session"}
-                                                    color="danger"
-                                                    className={css({ width: "100%", justifyContent: "start" })}
+                                                    leftIcon={<IconDotsVertical />}
+                                                    text={undefined}
                                                 />
-                                            </Dropdown.Item>
-                                        </Dropdown.Content>
-                                    </Dropdown.Root>
+                                            </Button>
+                                        </Popover.Trigger>
+                                        <Popover.Content
+                                            align="end"
+                                            className={css({
+                                                padding: "0.5rem",
+                                                gap: "0.25rem",
+                                            })}
+                                        >
+                                            <Popover.Close asChild>
+                                                <Button
+                                                    className={css({
+                                                        width: "100%",
+                                                    })}
+                                                    onClick={() => setDeleteOpen(true)}
+                                                >
+                                                    <ButtonGhostContent
+                                                        leftIcon={<IconTrash />}
+                                                        text={isDeleting ? "Suppression..." : "Supprimer la session"}
+                                                        color="danger"
+                                                        className={css({
+                                                            width: "100%",
+                                                            justifyContent: "start",
+                                                        })}
+                                                    />
+                                                </Button>
+                                            </Popover.Close>
+                                        </Popover.Content>
+                                    </Popover.Root>
                                     <Popover.Root>
                                         <Popover.Trigger asChild>
                                             <Button title="Contexte de la session">
@@ -956,7 +1118,12 @@ export function AgentSessionContent() {
                                                 >
                                                     Contexte de la session
                                                 </span>
-                                                <span className={css({ fontSize: "xs", color: "neutral/60" })}>
+                                                <span
+                                                    className={css({
+                                                        fontSize: "xs",
+                                                        color: "neutral/60",
+                                                    })}
+                                                >
                                                     Ce contexte guide les réponses de l'assistant pour cette session.
                                                 </span>
                                             </div>
@@ -1032,8 +1199,14 @@ export function AgentSessionContent() {
                                                 </div>
                                             </div>
 
-                                            <Button onClick={handleSaveContext} isDisabled={isSavingContext}>
-                                                <ButtonPlainContent isLoading={isSavingContext} text="Enregistrer" />
+                                            <Button
+                                                onClick={handleSaveContext}
+                                                isDisabled={isSavingContext}
+                                            >
+                                                <ButtonPlainContent
+                                                    isLoading={isSavingContext}
+                                                    text="Enregistrer"
+                                                />
                                             </Button>
                                         </Popover.Content>
                                     </Popover.Root>
@@ -1080,7 +1253,10 @@ export function AgentSessionContent() {
                                 <ConfirmationModal
                                     title="Voulez-vous supprimer cette session ?"
                                     description="Cette action supprimera définitivement la conversation et son historique. Cette action est irréversible."
-                                    submitButtonProps={{ color: "danger", text: "Supprimer la session" }}
+                                    submitButtonProps={{
+                                        color: "danger",
+                                        text: "Supprimer la session",
+                                    }}
                                     onSubmit={handleDeleteSession}
                                     open={deleteOpen}
                                     onOpenChange={setDeleteOpen}

@@ -54,7 +54,10 @@ type YearScopedRouteDefinition = {
     }
 }
 
-const yearQueryEntries = Object.entries(yearQueries) as [YearDataKey, YearScopedRouteDefinition][]
+const yearQueryEntries = Object.entries(yearQueries) as [
+    YearDataKey,
+    YearScopedRouteDefinition,
+][]
 
 export function YearDataWrapper<const K extends readonly YearDataKey[]>(props: {
     idYear: string
@@ -65,12 +68,17 @@ export function YearDataWrapper<const K extends readonly YearDataKey[]>(props: {
         () => ({
             idYear: props.idYear,
         }),
-        [props.idYear],
+        [
+            props.idYear,
+        ],
     )
 
     const results = useQueries({
         queries: yearQueryEntries.map(([_key, routeDef]) => ({
-            queryKey: [routeDef.path, body],
+            queryKey: [
+                routeDef.path,
+                body,
+            ],
             queryFn: async (context: { signal: AbortSignal }) => {
                 const response = await getResponseBodyFromAPI({
                     routeDefinition: routeDef,
@@ -91,24 +99,42 @@ export function YearDataWrapper<const K extends readonly YearDataKey[]>(props: {
 
     const requiredIndices = useMemo(
         () => props.requiredKeys.map((key) => yearQueryEntries.findIndex(([k]) => k === key)),
-        [props.requiredKeys],
+        [
+            props.requiredKeys,
+        ],
     )
 
     const isPending = requiredIndices.some((index) => results[index].isPending)
     const isError = requiredIndices.some((index) => results[index].isError)
 
     if (isPending) {
-        return <CircularLoader text="Chargement des données..." className={css({ padding: "1rem" })} />
+        return (
+            <CircularLoader
+                text="Chargement des données..."
+                className={css({
+                    padding: "1rem",
+                })}
+            />
+        )
     }
 
     if (isError) {
-        return <FormatError text="Erreur lors de la récupération des données." className={css({ padding: "1rem" })} />
+        return (
+            <FormatError
+                text="Erreur lors de la récupération des données."
+                className={css({
+                    padding: "1rem",
+                })}
+            />
+        )
     }
 
-    const data = Object.fromEntries(yearQueryEntries.map(([key], index) => [key, results[index].data])) as Pick<
-        YearData,
-        K[number]
-    >
+    const data = Object.fromEntries(
+        yearQueryEntries.map(([key], index) => [
+            key,
+            results[index].data,
+        ]),
+    ) as Pick<YearData, K[number]>
 
     return props.children(data)
 }

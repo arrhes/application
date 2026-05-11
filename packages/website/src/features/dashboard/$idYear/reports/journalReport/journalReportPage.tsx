@@ -24,15 +24,30 @@ const requiredKeys = [
 ] as const satisfies readonly YearDataKey[]
 
 export function JournalReportPage() {
-    const params = useParams({ from: journalReportRoute.id })
+    const params = useParams({
+        from: journalReportRoute.id,
+    })
     const [pageIndex, setPageIndex] = useState(0)
     const [selectedJournalId, setSelectedJournalId] = useState<string | null>(null)
-    const [selectedTags, setSelectedTags] = useState<Array<{ key: string; label: string }>>([])
+    const [selectedTags, setSelectedTags] = useState<
+        Array<{
+            key: string
+            label: string
+        }>
+    >([])
 
     return (
-        <YearDataWrapper idYear={params.idYear} requiredKeys={requiredKeys}>
+        <YearDataWrapper
+            idYear={params.idYear}
+            requiredKeys={requiredKeys}
+        >
             {({ entries, entryLines, accounts, journals, tags, entryTags }) => {
-                const accountsMap = new Map(accounts.map((account) => [account.id, account]))
+                const accountsMap = new Map(
+                    accounts.map((account) => [
+                        account.id,
+                        account,
+                    ]),
+                )
 
                 const filteredEntryLines = entryLines.filter(
                     (entryLine) => entryLine.isComputedForJournalReport === true,
@@ -43,9 +58,14 @@ export function JournalReportPage() {
                     label: `${j.code} ${j.label ?? ""}`.trim(),
                 }))
 
-                const tagOptions = tags.map((t) => ({ key: t.id, label: t.label }))
+                const tagOptions = tags.map((t) => ({
+                    key: t.id,
+                    label: t.label,
+                }))
 
-                let filteredEntries = [...entries]
+                let filteredEntries = [
+                    ...entries,
+                ]
 
                 if (selectedJournalId) {
                     filteredEntries = filteredEntries.filter((entry) => entry.idJournal === selectedJournalId)

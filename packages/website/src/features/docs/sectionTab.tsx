@@ -13,7 +13,13 @@ export interface DocSection {
         {
             title?: string
             icon?: ReactElement<IconProps & React.RefAttributes<Icon>>
-            items: { path: string; hash?: string; label: string }[]
+            items: {
+                path: string
+                hash?: string
+                label: string
+                chipText?: string
+                chipColor?: "neutral" | "information" | "error" | "warning" | "success"
+            }[]
         }
     >
 }
@@ -21,7 +27,11 @@ export interface DocSection {
 export function SectionTab(props: { section: DocSection; isActive: boolean }) {
     return (
         <LinkButton to={props.section.path}>
-            <ButtonGhostContent leftIcon={props.section.icon} text={props.section.label} isCurrent={props.isActive} />
+            <ButtonGhostContent
+                leftIcon={props.section.icon}
+                text={props.section.label}
+                isCurrent={props.isActive}
+            />
         </LinkButton>
     )
 }
