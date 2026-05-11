@@ -61,7 +61,6 @@ export function FilesPageContent(props: {
     handleBreadcrumbDrop: (event: DragEvent, targetFolderId: string | null) => void
     params: {
         idOrganization: string
-        idYear: string
     }
 }) {
     const {
@@ -119,9 +118,7 @@ export function FilesPageContent(props: {
         >
             <DataWrapper
                 routeDefinition={readAllFilesRouteDefinition}
-                body={{
-                    idYear: params.idYear,
-                }}
+                body={{}}
             >
                 {(files) => {
                     const currentFiles = files.filter((f) => (f.idFolder ?? null) === currentFolderId)
@@ -130,7 +127,6 @@ export function FilesPageContent(props: {
                         return (
                             <FilesGrid
                                 idOrganization={params.idOrganization}
-                                idYear={params.idYear}
                                 files={currentFiles}
                                 folders={sortedFolders}
                                 currentFolderId={currentFolderId}
@@ -142,7 +138,6 @@ export function FilesPageContent(props: {
                     return (
                         <FilesTable
                             idOrganization={params.idOrganization}
-                            idYear={params.idYear}
                             files={currentFiles}
                             folders={sortedFolders}
                             currentFolderId={currentFolderId}

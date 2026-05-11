@@ -17,7 +17,6 @@ import { UpdateOneFolderForm } from "./updateOneFolderForm.js"
 export function FolderContextMenu(props: {
     folder: v.InferOutput<typeof returnedSchemas.folder>
     idOrganization: string
-    idYear: string
     children: ReactElement
 }) {
     const [editOpen, setEditOpen] = useState(false)
@@ -29,7 +28,6 @@ export function FolderContextMenu(props: {
             routeDefinition: deleteOneFolderRouteDefinition,
             body: {
                 idFolder: props.folder.id,
-                idYear: props.idYear,
             },
         })
 
@@ -43,9 +41,7 @@ export function FolderContextMenu(props: {
 
         await invalidateData({
             routeDefinition: readAllFoldersRouteDefinition,
-            body: {
-                idYear: props.idYear,
-            },
+            body: {},
         })
 
         toast({

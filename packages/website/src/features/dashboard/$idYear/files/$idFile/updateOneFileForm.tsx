@@ -7,7 +7,7 @@ import {
     updateOneFileRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { InputFile, InputText, toast } from "@arrhes/ui"
+import { InputDate, InputFile, InputText, toast } from "@arrhes/ui"
 import { IconPencil } from "@tabler/icons-react"
 import { Fragment } from "react/jsx-runtime"
 import * as v from "valibot"
@@ -40,9 +40,9 @@ export function UpdateOneFileForm(props: { file: v.InferOutput<typeof returnedSc
                     routeDefinition: updateOneFileRouteDefinition,
                     body: {
                         idFile: props.file.id,
-                        idYear: data.idYear,
                         reference: data.reference,
                         name: data.name,
+                        date: data.date,
                     },
                 })
                 if (updateFileResponse.ok === false) {
@@ -107,15 +107,12 @@ export function UpdateOneFileForm(props: { file: v.InferOutput<typeof returnedSc
                 await Promise.all([
                     invalidateData({
                         routeDefinition: readAllFilesRouteDefinition,
-                        body: {
-                            idYear: props.file.idYear,
-                        },
+                        body: {},
                     }),
                     invalidateData({
                         routeDefinition: readOneFileRouteDefinition,
                         body: {
                             idFile: props.file.id,
-                            idYear: props.file.idYear,
                         },
                     }),
                 ])
@@ -177,6 +174,27 @@ export function UpdateOneFileForm(props: { file: v.InferOutput<typeof returnedSc
                                 />
                                 <FormControl>
                                     <InputText
+                                        value={field.value}
+                                        onChange={field.onChange}
+                                    />
+                                </FormControl>
+                                <FormError />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="date"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel
+                                    label="Date du document"
+                                    isRequired={false}
+                                    description={undefined}
+                                    tooltip={undefined}
+                                />
+                                <FormControl>
+                                    <InputDate
                                         value={field.value}
                                         onChange={field.onChange}
                                     />

@@ -142,7 +142,6 @@ export const searchReferenceableRoute = apiFactory
             .where(
                 and(
                     eq(models.file.idOrganization, idOrganization),
-                    idYear ? eq(models.file.idYear, idYear) : undefined,
                     or(
                         ilike(sql`COALESCE(${models.file.name}, '')`, pattern),
                         ilike(sql`COALESCE(${models.file.reference}, '')`, pattern),

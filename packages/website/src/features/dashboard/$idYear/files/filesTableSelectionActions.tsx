@@ -29,7 +29,7 @@ export type TableRow =
           data: v.InferOutput<typeof returnedSchemas.file>
       }
 
-export function FilesTableSelectionActions(props: { selectedRows: Array<Row<TableRow>>; idYear: string }) {
+export function FilesTableSelectionActions(props: { selectedRows: Array<Row<TableRow>> }) {
     const [deleteOpen, setDeleteOpen] = useState(false)
     const selectedFiles = props.selectedRows
         .filter((r) => r.original.kind === "file")
@@ -63,7 +63,6 @@ export function FilesTableSelectionActions(props: { selectedRows: Array<Row<Tabl
             ...selectedFiles.map((file) =>
                 deleteFileWithSignedUrl({
                     idFile: file.id,
-                    idYear: props.idYear,
                 }).then((ok) => ({
                     ok,
                 })),
@@ -73,7 +72,6 @@ export function FilesTableSelectionActions(props: { selectedRows: Array<Row<Tabl
                     routeDefinition: deleteOneFolderRouteDefinition,
                     body: {
                         idFolder: folder.id,
-                        idYear: props.idYear,
                     },
                 }),
             ),
@@ -81,15 +79,11 @@ export function FilesTableSelectionActions(props: { selectedRows: Array<Row<Tabl
         await Promise.all([
             invalidateData({
                 routeDefinition: readAllFilesRouteDefinition,
-                body: {
-                    idYear: props.idYear,
-                },
+                body: {},
             }),
             invalidateData({
                 routeDefinition: readAllFoldersRouteDefinition,
-                body: {
-                    idYear: props.idYear,
-                },
+                body: {},
             }),
         ])
         if (results.some((r) => r.ok === false)) {

@@ -18,8 +18,7 @@ export const readOneFolderRoute = apiFactory.createApp().post(readOneFolderRoute
     const readOneFolder = await selectOne({
         database: c.var.clients.sql,
         table: models.folder,
-        where: (table) =>
-            and(eq(table.idOrganization, idOrganization), eq(table.idYear, body.idYear), eq(table.id, body.idFolder)),
+        where: (table) => and(eq(table.idOrganization, idOrganization), eq(table.id, body.idFolder)),
     })
 
     return response({

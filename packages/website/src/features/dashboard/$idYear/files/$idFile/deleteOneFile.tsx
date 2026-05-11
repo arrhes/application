@@ -15,7 +15,6 @@ export function DeleteOneFile(props: {
     async function onSubmit() {
         const isDeleted = await deleteFileWithSignedUrl({
             idFile: props.file.id,
-            idYear: props.file.idYear,
         })
 
         if (isDeleted === false) {
@@ -28,9 +27,7 @@ export function DeleteOneFile(props: {
 
         await invalidateData({
             routeDefinition: readAllFilesRouteDefinition,
-            body: {
-                idYear: props.file.idYear,
-            },
+            body: {},
         })
 
         toast({
@@ -39,10 +36,9 @@ export function DeleteOneFile(props: {
         })
 
         applicationRouter.navigate({
-            to: "/dashboard/organisations/$idOrganization/exercices/$idYear/stockage",
+            to: "/dashboard/organisations/$idOrganization/stockage",
             params: {
                 idOrganization: props.file.idOrganization,
-                idYear: props.file.idYear,
             },
             search: {
                 idFolder: undefined,

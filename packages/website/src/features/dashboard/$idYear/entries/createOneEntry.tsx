@@ -235,7 +235,9 @@ export function CreateOneEntry(props: {
                                                     placeholder="Sélectionner une pièce justificative"
                                                     getOption={(file) => ({
                                                         key: file.id,
-                                                        label: file.reference ?? "",
+                                                        label: file.reference
+                                                            ? `${file.name} (${file.reference})`
+                                                            : file.name,
                                                     })}
                                                 />
                                             </FormControl>

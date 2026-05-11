@@ -6,7 +6,7 @@ import { Page } from "../../../../../components/layouts/page/page.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
 import { Tab } from "../../../../../components/layouts/tab/tab.tsx"
 import { LinkButton } from "../../../../../components/linkButton.tsx"
-import { fileLayoutRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/files/$idFile/fileLayoutRoute.tsx"
+import { fileLayoutRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/storage/$idFile/fileLayoutRoute.tsx"
 import { DeleteOneFile } from "./deleteOneFile.tsx"
 import { FileData } from "./fileData.tsx"
 import { UpdateOneFile } from "./updateOneFile.tsx"
@@ -21,7 +21,6 @@ export function FileLayout() {
             <Page.Content>
                 <FileData
                     idOrganization={params.idOrganization}
-                    idYear={params.idYear}
                     idFile={params.idFile}
                 >
                     {(file) => {
@@ -37,10 +36,9 @@ export function FileLayout() {
                                         })}
                                     >
                                         <LinkButton
-                                            to="/dashboard/organisations/$idOrganization/exercices/$idYear/stockage"
+                                            to="/dashboard/organisations/$idOrganization/stockage"
                                             params={{
                                                 idOrganization: file.idOrganization,
-                                                idYear: file.idYear,
                                             }}
                                         >
                                             <ButtonOutlineContent
@@ -78,30 +76,27 @@ export function FileLayout() {
                                             {
                                                 label: "Informations",
                                                 icon: <IconInfoCircle />,
-                                                to: "/dashboard/organisations/$idOrganization/exercices/$idYear/stockage/$idFile",
+                                                to: "/dashboard/organisations/$idOrganization/stockage/$idFile",
                                                 params: {
                                                     idOrganization: params.idOrganization,
-                                                    idYear: params.idYear,
                                                     idFile: params.idFile,
                                                 },
                                             },
                                             {
                                                 label: "Métadonnées",
                                                 icon: <IconDatabase />,
-                                                to: "/dashboard/organisations/$idOrganization/exercices/$idYear/stockage/$idFile/métadonnées",
+                                                to: "/dashboard/organisations/$idOrganization/stockage/$idFile/métadonnées",
                                                 params: {
                                                     idOrganization: params.idOrganization,
-                                                    idYear: params.idYear,
                                                     idFile: params.idFile,
                                                 },
                                             },
                                             {
                                                 label: "Visualisation",
                                                 icon: <IconEye />,
-                                                to: "/dashboard/organisations/$idOrganization/exercices/$idYear/stockage/$idFile/visualisation",
+                                                to: "/dashboard/organisations/$idOrganization/stockage/$idFile/visualisation",
                                                 params: {
                                                     idOrganization: params.idOrganization,
-                                                    idYear: params.idYear,
                                                     idFile: params.idFile,
                                                 },
                                             },

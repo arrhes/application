@@ -25,11 +25,10 @@ function referenceFromFileName(name: string): string {
 
 async function uploadOneFile(params: {
     idOrganization: string
-    idYear: string
     idFolder?: string | null
     file: File
 }): Promise<"added" | "duplicate" | "error"> {
-    const { file, idOrganization: _idOrganization, idYear, idFolder } = params
+    const { file, idOrganization: _idOrganization, idFolder } = params
 
     if (file.size > MAX_FILE_SIZE) {
         toast({
@@ -45,10 +44,9 @@ async function uploadOneFile(params: {
     const createResponse = await getResponseBodyFromAPI({
         routeDefinition: createOneFileRouteDefinition,
         body: {
-            idYear,
             idFolder: idFolder ?? undefined,
             reference: referenceFromFileName(file.name),
-            name: file.name,
+            name: referenceFromFileName(file.name),
             hash: hash,
         },
     })
@@ -117,7 +115,6 @@ async function uploadOneFile(params: {
 
 export function CreateOneFile(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
-    idYear: v.InferOutput<typeof returnedSchemas.year>["id"]
     idFolder?: string | null
     children: JSX.Element
 }) {
@@ -131,7 +128,6 @@ export function CreateOneFile(props: {
             fileArray.map((file) =>
                 uploadOneFile({
                     idOrganization: props.idOrganization,
-                    idYear: props.idYear,
                     idFolder: props.idFolder,
                     file,
                 }),
@@ -145,9 +141,7 @@ export function CreateOneFile(props: {
         if (added > 0) {
             await invalidateData({
                 routeDefinition: readAllFilesRouteDefinition,
-                body: {
-                    idYear: props.idYear,
-                },
+                body: {},
             })
         }
 

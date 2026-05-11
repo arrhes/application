@@ -7,7 +7,6 @@ import type { folderModel } from "../models/folder.js"
 export const folderSchema = v.object({
     id: v.nonNullable(idSchema, "Ce champ est requis"),
     idOrganization: v.nonNullable(idSchema, "Ce champ est requis"),
-    idYear: v.nonNullable(idSchema, "Ce champ est requis"),
     idFolderParent: v.nullable(idSchema),
     name: v.nonNullable(
         varcharSchema({
@@ -24,7 +23,6 @@ export const folderSchema = v.object({
 export const folderSchemaReturn = v.pick(folderSchema, [
     "id",
     "idOrganization",
-    "idYear",
     "idFolderParent",
     "name",
     "createdAt",

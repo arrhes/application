@@ -67,19 +67,11 @@ export const createOneAgentFileRoute = apiFactory
             })
         }
 
-        const idYear = session.idYear
-
-        // Check for duplicate file by hash within the same organization and year
+        // Check for duplicate file by hash within the same organization
         const existingFiles = await c.var.clients.sql
             .select()
             .from(models.file)
-            .where(
-                and(
-                    eq(models.file.idOrganization, idOrganization),
-                    eq(models.file.idYear, idYear),
-                    eq(models.file.hash, body.fileHash),
-                ),
-            )
+            .where(and(eq(models.file.idOrganization, idOrganization), eq(models.file.hash, body.fileHash)))
             .limit(1)
 
         if (existingFiles.length > 0 && existingFiles[0]) {
@@ -108,14 +100,13 @@ export const createOneAgentFileRoute = apiFactory
             })
         }
 
-        // Find or create the ".agent" folder at the root of the year
+        // Find or create the ".agent" folder at the root
         const existingFolders = await c.var.clients.sql
             .select()
             .from(models.folder)
             .where(
                 and(
                     eq(models.folder.idOrganization, idOrganization),
-                    eq(models.folder.idYear, idYear),
                     eq(models.folder.name, ".agent"),
                     isNull(models.folder.idFolderParent),
                 ),
@@ -133,7 +124,6 @@ export const createOneAgentFileRoute = apiFactory
                 data: {
                     id: generateId(),
                     idOrganization: idOrganization,
-                    idYear: idYear,
                     idFolderParent: null,
                     name: ".agent",
                     createdAt: new Date().toISOString(),
@@ -144,7 +134,7 @@ export const createOneAgentFileRoute = apiFactory
         }
 
         const newFileId = generateId()
-        const storageKey = `organizations/${idOrganization}/${idYear}/files/${newFileId}`
+        const storageKey = `organizations/${idOrganization}/storage/${newFileId}`
 
         const newFile = await insertOne({
             database: c.var.clients.sql,
@@ -152,7 +142,6 @@ export const createOneAgentFileRoute = apiFactory
             data: {
                 id: newFileId,
                 idOrganization: idOrganization,
-                idYear: idYear,
                 idFolder: agentFolderId,
                 reference: null,
                 name: body.fileName,
@@ -181,7 +170,6 @@ export const createOneAgentFileRoute = apiFactory
             contentType: body.fileType,
             metadata: {
                 idOrganization: idOrganization,
-                idYear: idYear,
                 idUser: user.id,
             },
         })

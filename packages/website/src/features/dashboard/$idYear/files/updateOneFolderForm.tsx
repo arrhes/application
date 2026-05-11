@@ -21,7 +21,6 @@ export function UpdateOneFolderForm(props: {
             schema={updateOneFolderRouteDefinition.schemas.body}
             defaultValues={{
                 idFolder: props.folder.id,
-                idYear: props.folder.idYear,
                 name: props.folder.name,
             }}
             submitButtonProps={{
@@ -33,7 +32,6 @@ export function UpdateOneFolderForm(props: {
                     routeDefinition: updateOneFolderRouteDefinition,
                     body: {
                         idFolder: props.folder.id,
-                        idYear: data.idYear,
                         name: data.name,
                     },
                 })
@@ -54,9 +52,7 @@ export function UpdateOneFolderForm(props: {
             onSuccess={async () => {
                 await invalidateData({
                     routeDefinition: readAllFoldersRouteDefinition,
-                    body: {
-                        idYear: props.folder.idYear,
-                    },
+                    body: {},
                 })
                 props.onSuccess?.()
             }}

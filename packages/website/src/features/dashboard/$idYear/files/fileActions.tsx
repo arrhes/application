@@ -21,11 +21,7 @@ import { UpdateOneFileForm } from "./$idFile/updateOneFileForm.js"
 import { deleteFileWithSignedUrl } from "./deleteFileWithSignedUrl.js"
 import { MoveOneFileForm } from "./moveOneFileForm.js"
 
-export function FileActions(props: {
-    file: v.InferOutput<typeof returnedSchemas.file>
-    idOrganization: string
-    idYear: string
-}) {
+export function FileActions(props: { file: v.InferOutput<typeof returnedSchemas.file>; idOrganization: string }) {
     const [editOpen, setEditOpen] = useState(false)
     const [moveOpen, setMoveOpen] = useState(false)
     const [deleteOpen, setDeleteOpen] = useState(false)
@@ -42,7 +38,6 @@ export function FileActions(props: {
     async function handleDelete() {
         const isDeleted = await deleteFileWithSignedUrl({
             idFile: props.file.id,
-            idYear: props.idYear,
         })
 
         if (isDeleted === false) {
@@ -55,9 +50,7 @@ export function FileActions(props: {
 
         await invalidateData({
             routeDefinition: readAllFilesRouteDefinition,
-            body: {
-                idYear: props.idYear,
-            },
+            body: {},
         })
 
         toast({
@@ -72,7 +65,6 @@ export function FileActions(props: {
             routeDefinition: ocrFileRouteDefinition,
             body: {
                 idFile: props.file.id,
-                idYear: props.idYear,
             },
             hasToastMessage: true,
         })
@@ -84,9 +76,7 @@ export function FileActions(props: {
 
         await invalidateData({
             routeDefinition: readAllFilesRouteDefinition,
-            body: {
-                idYear: props.idYear,
-            },
+            body: {},
         })
 
         toast({
@@ -115,10 +105,9 @@ export function FileActions(props: {
                 >
                     <Popover.Close asChild>
                         <LinkButton
-                            to="/dashboard/organisations/$idOrganization/exercices/$idYear/stockage/$idFile"
+                            to="/dashboard/organisations/$idOrganization/stockage/$idFile"
                             params={{
                                 idOrganization: props.idOrganization,
-                                idYear: props.idYear,
                                 idFile: props.file.id,
                             }}
                             className={css({
@@ -279,7 +268,6 @@ export function FileActions(props: {
                     >
                         <MoveOneFileForm
                             file={props.file}
-                            idYear={props.idYear}
                             onSuccess={() => setMoveOpen(false)}
                         />
                     </Dialog.Body>

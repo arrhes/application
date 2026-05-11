@@ -16,7 +16,6 @@ import { invalidateData } from "../../../../utilities/invalidateData.js"
 
 export function CreateOneFolder(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
-    idYear: v.InferOutput<typeof returnedSchemas.year>["id"]
     idFolderParent?: string | null
 }) {
     const [open, setOpen] = useState(false)
@@ -38,7 +37,6 @@ export function CreateOneFolder(props: {
                     <FormRoot
                         schema={createOneFolderRouteDefinition.schemas.body}
                         defaultValues={{
-                            idYear: props.idYear,
                             idFolderParent: props.idFolderParent ?? null,
                             name: "",
                         }}
@@ -50,7 +48,6 @@ export function CreateOneFolder(props: {
                             const createResponse = await getResponseBodyFromAPI({
                                 routeDefinition: createOneFolderRouteDefinition,
                                 body: {
-                                    idYear: data.idYear,
                                     idFolderParent: data.idFolderParent,
                                     name: data.name,
                                 },
@@ -72,9 +69,7 @@ export function CreateOneFolder(props: {
                         onSuccess={async () => {
                             await invalidateData({
                                 routeDefinition: readAllFoldersRouteDefinition,
-                                body: {
-                                    idYear: props.idYear,
-                                },
+                                body: {},
                             })
                             setOpen(false)
                         }}

@@ -20,16 +20,10 @@ import { useDataFromAPI } from "../../../../utilities/useHTTPData.ts"
 
 const rootOptionKey = "__root__"
 
-export function MoveOneFileForm(props: {
-    file: v.InferOutput<typeof returnedSchemas.file>
-    idYear: string
-    onSuccess?: () => void
-}) {
+export function MoveOneFileForm(props: { file: v.InferOutput<typeof returnedSchemas.file>; onSuccess?: () => void }) {
     const foldersResponse = useDataFromAPI({
         routeDefinition: readAllFoldersRouteDefinition,
-        body: {
-            idYear: props.idYear,
-        },
+        body: {},
     })
 
     const folderOptions = useMemo(
@@ -53,7 +47,6 @@ export function MoveOneFileForm(props: {
             schema={updateOneFileRouteDefinition.schemas.body}
             defaultValues={{
                 idFile: props.file.id,
-                idYear: props.idYear,
                 idFolder: props.file.idFolder,
             }}
             submitButtonProps={{
@@ -65,7 +58,6 @@ export function MoveOneFileForm(props: {
                     routeDefinition: updateOneFileRouteDefinition,
                     body: {
                         idFile: props.file.id,
-                        idYear: data.idYear,
                         idFolder: data.idFolder,
                     },
                 })
@@ -88,9 +80,7 @@ export function MoveOneFileForm(props: {
             onSuccess={async () => {
                 await invalidateData({
                     routeDefinition: readAllFilesRouteDefinition,
-                    body: {
-                        idYear: props.idYear,
-                    },
+                    body: {},
                 })
 
                 props.onSuccess?.()

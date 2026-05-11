@@ -17,7 +17,6 @@ import { UpdateOneFolderForm } from "./updateOneFolderForm.js"
 export function FolderActions(props: {
     folder: v.InferOutput<typeof returnedSchemas.folder>
     idOrganization: string
-    idYear: string
     onFolderOpen: (folderId: string | null) => void
 }) {
     const [editOpen, setEditOpen] = useState(false)
@@ -29,7 +28,6 @@ export function FolderActions(props: {
             routeDefinition: deleteOneFolderRouteDefinition,
             body: {
                 idFolder: props.folder.id,
-                idYear: props.idYear,
             },
         })
 
@@ -43,9 +41,7 @@ export function FolderActions(props: {
 
         await invalidateData({
             routeDefinition: readAllFoldersRouteDefinition,
-            body: {
-                idYear: props.idYear,
-            },
+            body: {},
         })
 
         toast({

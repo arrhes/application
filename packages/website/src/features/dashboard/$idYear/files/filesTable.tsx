@@ -33,7 +33,6 @@ type DragPayload =
 
 export function FilesTable(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
-    idYear: v.InferOutput<typeof returnedSchemas.year>["id"]
     files: Array<v.InferOutput<typeof returnedSchemas.file>>
     folders: Array<v.InferOutput<typeof returnedSchemas.folder>>
     currentFolderId: string | null
@@ -274,7 +273,6 @@ export function FilesTable(props: {
                 routeDefinition: updateOneFileRouteDefinition,
                 body: {
                     idFile: payload.id,
-                    idYear: props.idYear,
                     idFolder: targetFolderId,
                 },
             })
@@ -289,9 +287,7 @@ export function FilesTable(props: {
 
             await invalidateData({
                 routeDefinition: readAllFilesRouteDefinition,
-                body: {
-                    idYear: props.idYear,
-                },
+                body: {},
             })
 
             toast({
@@ -309,7 +305,6 @@ export function FilesTable(props: {
             routeDefinition: updateOneFolderRouteDefinition,
             body: {
                 idFolder: payload.id,
-                idYear: props.idYear,
                 idFolderParent: targetFolderId,
             },
         })
@@ -324,9 +319,7 @@ export function FilesTable(props: {
 
         await invalidateData({
             routeDefinition: readAllFoldersRouteDefinition,
-            body: {
-                idYear: props.idYear,
-            },
+            body: {},
         })
 
         toast({
@@ -366,12 +359,7 @@ export function FilesTable(props: {
             enableRowSelection={(row) => row.original.kind !== "back"}
             getRowId={(row) => (row.kind === "back" ? "__back__" : row.data.id)}
             resetSelectionTrigger={props.currentFolderId}
-            selectionActions={(selectedRows) => (
-                <FilesTableSelectionActions
-                    selectedRows={selectedRows}
-                    idYear={props.idYear}
-                />
-            )}
+            selectionActions={(selectedRows) => <FilesTableSelectionActions selectedRows={selectedRows} />}
             emptyStateProps={{
                 icon: <IconFile />,
                 title: "Aucun fichier",
@@ -456,10 +444,9 @@ export function FilesTable(props: {
                                                 return
                                             }
                                             applicationRouter.navigate({
-                                                to: "/dashboard/organisations/$idOrganization/exercices/$idYear/stockage/$idFile",
+                                                to: "/dashboard/organisations/$idOrganization/stockage/$idFile",
                                                 params: {
                                                     idOrganization: props.idOrganization,
-                                                    idYear: props.idYear,
                                                     idFile: item.data.id,
                                                 },
                                             })
@@ -526,7 +513,6 @@ export function FilesTable(props: {
                                 <FolderActions
                                     folder={item.data}
                                     idOrganization={props.idOrganization}
-                                    idYear={props.idYear}
                                     onFolderOpen={props.onFolderOpen}
                                 />
                             )
@@ -535,7 +521,6 @@ export function FilesTable(props: {
                             <FileActions
                                 file={item.data}
                                 idOrganization={props.idOrganization}
-                                idYear={props.idYear}
                             />
                         )
                     },

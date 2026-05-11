@@ -20,7 +20,6 @@ export const createOneFileRoute = apiFactory.createApp().post(createOneFileRoute
         data: {
             id: generateId(),
             idOrganization: idOrganization,
-            idYear: body.idYear,
             idFolder: body.idFolder,
             reference: body.reference,
             name: body.name,

@@ -18,8 +18,7 @@ export const deleteOneFolderRoute = apiFactory.createApp().post(deleteOneFolderR
     const deleteOneFolder = await deleteOne({
         database: c.var.clients.sql,
         table: models.folder,
-        where: (table) =>
-            and(eq(table.idOrganization, idOrganization), eq(table.idYear, body.idYear), eq(table.id, body.idFolder)),
+        where: (table) => and(eq(table.idOrganization, idOrganization), eq(table.id, body.idFolder)),
     })
 
     return response({

@@ -9,7 +9,6 @@ export const updateOneFolderRouteDefinition = routeDefinition({
     schemas: {
         body: v.object({
             idFolder: folderSchema.entries.id,
-            idYear: folderSchema.entries.idYear,
             name: v.optional(folderSchema.entries.name),
             idFolderParent: v.optional(folderSchema.entries.idFolderParent),
         }),

@@ -8,7 +8,6 @@ import { useDataFromAPI } from "../../../../../utilities/useHTTPData.ts"
 export function FileData(props: {
     idFile: v.InferOutput<typeof returnedSchemas.file>["id"]
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
-    idYear: v.InferOutput<typeof returnedSchemas.year>["id"]
     children: (
         data: v.InferOutput<typeof readOneFileRouteDefinition.schemas.return>,
     ) => ReactElement | Array<ReactElement> | null
@@ -17,7 +16,6 @@ export function FileData(props: {
         routeDefinition: readOneFileRouteDefinition,
         body: {
             idFile: props.idFile,
-            idYear: props.idYear,
         },
     })
 

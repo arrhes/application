@@ -1,5 +1,5 @@
 import { models, readOneFileRouteDefinition } from "@arrhes/application-metadata"
-import { and, eq, isNull } from "drizzle-orm"
+import { and, eq } from "drizzle-orm"
 import { checkUserSessionMiddleware } from "../../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../../utilities/apiFactory.js"
@@ -18,12 +18,7 @@ export const readOneFileRoute = apiFactory.createApp().post(readOneFileRouteDefi
     const readOneFile = await selectOne({
         database: c.var.clients.sql,
         table: models.file,
-        where: (table) =>
-            and(
-                eq(table.idOrganization, idOrganization),
-                body.idYear !== null ? eq(table.idYear, body.idYear) : isNull(table.idYear),
-                eq(table.id, body.idFile),
-            ),
+        where: (table) => and(eq(table.idOrganization, idOrganization), eq(table.id, body.idFile)),
     })
 
     return response({

@@ -59,9 +59,7 @@ export function MoveOneFolderForm(props: {
 }) {
     const foldersResponse = useDataFromAPI({
         routeDefinition: readAllFoldersRouteDefinition,
-        body: {
-            idYear: props.folder.idYear,
-        },
+        body: {},
     })
 
     const folderOptions = useMemo(() => {
@@ -94,7 +92,6 @@ export function MoveOneFolderForm(props: {
             schema={updateOneFolderRouteDefinition.schemas.body}
             defaultValues={{
                 idFolder: props.folder.id,
-                idYear: props.folder.idYear,
                 idFolderParent: props.folder.idFolderParent,
             }}
             submitButtonProps={{
@@ -106,7 +103,6 @@ export function MoveOneFolderForm(props: {
                     routeDefinition: updateOneFolderRouteDefinition,
                     body: {
                         idFolder: props.folder.id,
-                        idYear: data.idYear,
                         idFolderParent: data.idFolderParent,
                     },
                 })
@@ -129,9 +125,7 @@ export function MoveOneFolderForm(props: {
             onSuccess={async () => {
                 await invalidateData({
                     routeDefinition: readAllFoldersRouteDefinition,
-                    body: {
-                        idYear: props.folder.idYear,
-                    },
+                    body: {},
                 })
 
                 props.onSuccess?.()

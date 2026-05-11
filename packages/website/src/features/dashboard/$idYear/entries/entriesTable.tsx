@@ -187,7 +187,17 @@ export function EntriesTable(props: {
                         if (row.original.idFile === null) return <FormatNull />
                         const file = filesMap.get(row.original.idFile)
                         if (!file) return <FormatNull />
-                        return <FormatText>{file.reference}</FormatText>
+                        return (
+                            <LinkButton
+                                to="/dashboard/organisations/$idOrganization/stockage/$idFile"
+                                params={{
+                                    idOrganization: props.idOrganization,
+                                    idFile: file.id,
+                                }}
+                            >
+                                <LinkContent>{file.name}</LinkContent>
+                            </LinkButton>
+                        )
                     },
                     filterFn: "includesString",
                 },

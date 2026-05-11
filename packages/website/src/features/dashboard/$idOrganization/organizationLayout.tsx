@@ -1,5 +1,6 @@
 import {
     IconCalendarEvent,
+    IconFolders,
     IconPlug,
     IconRobot,
     IconRosetteDiscountCheck,
@@ -32,6 +33,14 @@ export function OrganizationLayout() {
                         label: "Assistant",
                         icon: <IconRobot />,
                         to: "/dashboard/organisations/$idOrganization/agent",
+                        params: {
+                            idOrganization: params.idOrganization,
+                        },
+                    },
+                    {
+                        label: "Stockage",
+                        icon: <IconFolders />,
+                        to: "/dashboard/organisations/$idOrganization/stockage",
                         params: {
                             idOrganization: params.idOrganization,
                         },

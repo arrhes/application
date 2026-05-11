@@ -1,5 +1,5 @@
 import { models, readAllFoldersRouteDefinition } from "@arrhes/application-metadata"
-import { and, eq } from "drizzle-orm"
+import { eq } from "drizzle-orm"
 import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
@@ -18,7 +18,7 @@ export const readAllFoldersRoute = apiFactory.createApp().post(readAllFoldersRou
     const readAllFolders = await selectMany({
         database: c.var.clients.sql,
         table: models.folder,
-        where: (table) => and(eq(table.idOrganization, idOrganization), eq(table.idYear, body.idYear)),
+        where: (table) => eq(table.idOrganization, idOrganization),
     })
 
     return response({

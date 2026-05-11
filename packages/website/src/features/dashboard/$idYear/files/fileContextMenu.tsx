@@ -18,7 +18,6 @@ import { MoveOneFileForm } from "./moveOneFileForm.js"
 export function FileContextMenu(props: {
     file: v.InferOutput<typeof returnedSchemas.file>
     idOrganization: string
-    idYear: string
     children: ReactElement
 }) {
     const [editOpen, setEditOpen] = useState(false)
@@ -28,7 +27,6 @@ export function FileContextMenu(props: {
     async function handleDelete() {
         const isDeleted = await deleteFileWithSignedUrl({
             idFile: props.file.id,
-            idYear: props.idYear,
         })
 
         if (isDeleted === false) {
@@ -41,9 +39,7 @@ export function FileContextMenu(props: {
 
         await invalidateData({
             routeDefinition: readAllFilesRouteDefinition,
-            body: {
-                idYear: props.idYear,
-            },
+            body: {},
         })
 
         toast({
@@ -61,10 +57,9 @@ export function FileContextMenu(props: {
                         leftIcon={<IconEye />}
                         onSelect={() => {
                             applicationRouter.navigate({
-                                to: "/dashboard/organisations/$idOrganization/exercices/$idYear/stockage/$idFile",
+                                to: "/dashboard/organisations/$idOrganization/stockage/$idFile",
                                 params: {
                                     idOrganization: props.idOrganization,
-                                    idYear: props.idYear,
                                     idFile: props.file.id,
                                 },
                             })
@@ -126,7 +121,6 @@ export function FileContextMenu(props: {
                     >
                         <MoveOneFileForm
                             file={props.file}
-                            idYear={props.idYear}
                             onSuccess={() => setMoveOpen(false)}
                         />
                     </Dialog.Body>

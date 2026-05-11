@@ -20,7 +20,6 @@ export const createOneFolderRoute = apiFactory.createApp().post(createOneFolderR
         data: {
             id: generateId(),
             idOrganization: idOrganization,
-            idYear: body.idYear,
             idFolderParent: body.idFolderParent ?? null,
             name: body.name,
             createdAt: new Date().toISOString(),

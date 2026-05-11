@@ -9,7 +9,6 @@ export const deleteOneFolderRouteDefinition = routeDefinition({
     schemas: {
         body: v.object({
             idFolder: folderSchema.entries.id,
-            idYear: folderSchema.entries.idYear,
         }),
         return: v.object({}),
     },

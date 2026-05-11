@@ -122,7 +122,6 @@ type DragPayload =
 
 export function FilesGrid(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
-    idYear: v.InferOutput<typeof returnedSchemas.year>["id"]
     files: Array<v.InferOutput<typeof returnedSchemas.file>>
     folders: Array<v.InferOutput<typeof returnedSchemas.folder>>
     currentFolderId: string | null
@@ -211,7 +210,6 @@ export function FilesGrid(props: {
                 routeDefinition: updateOneFileRouteDefinition,
                 body: {
                     idFile: payload.id,
-                    idYear: props.idYear,
                     idFolder: folderId,
                 },
             })
@@ -226,9 +224,7 @@ export function FilesGrid(props: {
 
             await invalidateData({
                 routeDefinition: readAllFilesRouteDefinition,
-                body: {
-                    idYear: props.idYear,
-                },
+                body: {},
             })
 
             toast({
@@ -246,7 +242,6 @@ export function FilesGrid(props: {
             routeDefinition: updateOneFolderRouteDefinition,
             body: {
                 idFolder: payload.id,
-                idYear: props.idYear,
                 idFolderParent: folderId,
             },
         })
@@ -261,9 +256,7 @@ export function FilesGrid(props: {
 
         await invalidateData({
             routeDefinition: readAllFoldersRouteDefinition,
-            body: {
-                idYear: props.idYear,
-            },
+            body: {},
         })
 
         toast({
@@ -386,7 +379,6 @@ export function FilesGrid(props: {
                         key={folder.id}
                         folder={folder}
                         idOrganization={props.idOrganization}
-                        idYear={props.idYear}
                     >
                         <div
                             draggable
@@ -509,7 +501,6 @@ export function FilesGrid(props: {
                             key={file.id}
                             file={file}
                             idOrganization={props.idOrganization}
-                            idYear={props.idYear}
                         >
                             <div
                                 draggable
@@ -528,10 +519,9 @@ export function FilesGrid(props: {
                                         return
                                     }
                                     applicationRouter.navigate({
-                                        to: "/dashboard/organisations/$idOrganization/exercices/$idYear/stockage/$idFile",
+                                        to: "/dashboard/organisations/$idOrganization/stockage/$idFile",
                                         params: {
                                             idOrganization: props.idOrganization,
-                                            idYear: props.idYear,
                                             idFile: file.id,
                                         },
                                     })
@@ -601,9 +591,9 @@ export function FilesGrid(props: {
                                             whiteSpace: "nowrap",
                                         })}
                                     >
-                                        {file.name ?? file.reference}
+                                        {file.name}
                                     </span>
-                                    {file.name && file.reference && (
+                                    {file.reference && (
                                         <span
                                             className={css({
                                                 width: "100%",

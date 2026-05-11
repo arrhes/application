@@ -1,5 +1,5 @@
 import { models, updateOneFileRouteDefinition } from "@arrhes/application-metadata"
-import { and, eq, isNull } from "drizzle-orm"
+import { and, eq } from "drizzle-orm"
 import { checkUserSessionMiddleware } from "../../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../../utilities/apiFactory.js"
@@ -21,16 +21,12 @@ export const updateOneFileRoute = apiFactory.createApp().post(updateOneFileRoute
         data: {
             reference: body.reference,
             name: body.name,
+            date: body.date,
             idFolder: body.idFolder,
             lastUpdatedAt: new Date().toISOString(),
             lastUpdatedBy: user.id,
         },
-        where: (table) =>
-            and(
-                eq(table.idOrganization, idOrganization),
-                body.idYear !== null ? eq(table.idYear, body.idYear) : isNull(table.idYear),
-                eq(table.id, body.idFile),
-            ),
+        where: (table) => and(eq(table.idOrganization, idOrganization), eq(table.id, body.idFile)),
     })
 
     return response({

@@ -9,7 +9,6 @@ export const generateFileGetSignedUrlRouteDefinition = routeDefinition({
     schemas: {
         body: v.object({
             idFile: fileSchema.entries.id,
-            idYear: fileSchema.entries.idYear,
         }),
         return: v.object({
             url: v.string(),

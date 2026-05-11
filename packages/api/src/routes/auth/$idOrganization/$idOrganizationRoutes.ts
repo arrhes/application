@@ -1,3 +1,5 @@
+import { filesRoutes } from "../$idYear/files/filesRoutes.js"
+import { foldersRoutes } from "../$idYear/folders/foldersRoutes.js"
 import { apiKeyRoutes } from "./apiKey/apiKeyRoutes.js"
 import { organizationPaymentsRoutes } from "./organizationPayment/organizationPaymentsRoutes.js"
 import { organizationSettingsRoutes } from "./organizationSettings/organizationSettingsRoutes.js"
@@ -13,4 +15,6 @@ export const $idOrganizationRoutes = [
     ...organizationSettingsRoutes,
     ...organizationPaymentsRoutes,
     ...apiKeyRoutes,
+    ...filesRoutes,
+    ...foldersRoutes,
 ]

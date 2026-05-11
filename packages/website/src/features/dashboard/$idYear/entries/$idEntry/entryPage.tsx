@@ -1,11 +1,12 @@
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { ButtonPlainContent, FormatDate, FormatNull, FormatPrice, FormatText } from "@arrhes/ui"
+import { ButtonPlainContent, FormatDate, FormatNull, FormatPrice, FormatText, LinkContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconPencil } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import type * as v from "valibot"
 import { DataBlock } from "../../../../../components/layouts/dataBlock/dataBlock.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
+import { LinkButton } from "../../../../../components/linkButton.tsx"
 import { entryLayoutRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/entries/$idEntry/entryLayoutRoute.tsx"
 import type { YearDataKey } from "../../yearDataWrapper.tsx"
 import { YearDataWrapper } from "../../yearDataWrapper.tsx"
@@ -115,12 +116,18 @@ function EntryInformationsTab(props: {
                         )}
                     </DataBlock.Item>
                     <DataBlock.Item label="Pièce justificative">
-                        {props.entry.idFile === null ? (
+                        {props.entry.idFile === null || props.file === null ? (
                             <FormatNull />
-                        ) : props.file !== null ? (
-                            <FormatText>{props.file.reference}</FormatText>
                         ) : (
-                            <FormatNull />
+                            <LinkButton
+                                to="/dashboard/organisations/$idOrganization/stockage/$idFile"
+                                params={{
+                                    idOrganization: props.entry.idOrganization,
+                                    idFile: props.file.id,
+                                }}
+                            >
+                                <LinkContent>{props.file.name}</LinkContent>
+                            </LinkButton>
                         )}
                     </DataBlock.Item>
                 </DataBlock.Content>

@@ -10,8 +10,8 @@ import { useNavigate, useParams, useSearch } from "@tanstack/react-router"
 import { type DragEvent, useState } from "react"
 import { DataWrapper } from "../../../../components/layouts/dataWrapper.js"
 import { Page } from "../../../../components/layouts/page/page.js"
-import { filesLayoutRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/files/filesLayoutRoute.js"
-import { filesRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/files/filesRoute.js"
+import { storageLayoutRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/storage/storageLayoutRoute.js"
+import { storageRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/storage/storageRoute.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
 import { CreateOneFile } from "./createOneFile.js"
@@ -20,10 +20,10 @@ import { FilesPageContent } from "./filesPageContent.js"
 
 export function FilesPage() {
     const params = useParams({
-        from: filesLayoutRoute.id,
+        from: storageLayoutRoute.id,
     })
     const { idFolder } = useSearch({
-        from: filesRoute.id,
+        from: storageRoute.id,
     })
     const navigate = useNavigate()
 
@@ -65,7 +65,6 @@ export function FilesPage() {
             routeDefinition: updateOneFileRouteDefinition,
             body: {
                 idFile: fileId,
-                idYear: params.idYear,
                 idFolder: targetFolderId,
             },
         })
@@ -80,9 +79,7 @@ export function FilesPage() {
 
         await invalidateData({
             routeDefinition: readAllFilesRouteDefinition,
-            body: {
-                idYear: params.idYear,
-            },
+            body: {},
         })
 
         toast({
@@ -106,12 +103,10 @@ export function FilesPage() {
                 >
                     <CreateOneFolder
                         idOrganization={params.idOrganization}
-                        idYear={params.idYear}
                         idFolderParent={currentFolderId}
                     />
                     <CreateOneFile
                         idOrganization={params.idOrganization}
-                        idYear={params.idYear}
                         idFolder={currentFolderId}
                     >
                         <ButtonPlainContent
@@ -123,9 +118,7 @@ export function FilesPage() {
 
                 <DataWrapper
                     routeDefinition={readAllFoldersRouteDefinition}
-                    body={{
-                        idYear: params.idYear,
-                    }}
+                    body={{}}
                 >
                     {(folders) => (
                         <FilesPageContent

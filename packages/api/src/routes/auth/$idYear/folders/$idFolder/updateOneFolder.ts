@@ -24,8 +24,7 @@ export const updateOneFolderRoute = apiFactory.createApp().post(updateOneFolderR
             lastUpdatedAt: new Date().toISOString(),
             lastUpdatedBy: user.id,
         },
-        where: (table) =>
-            and(eq(table.idOrganization, idOrganization), eq(table.idYear, body.idYear), eq(table.id, body.idFolder)),
+        where: (table) => and(eq(table.idOrganization, idOrganization), eq(table.id, body.idFolder)),
     })
 
     return response({

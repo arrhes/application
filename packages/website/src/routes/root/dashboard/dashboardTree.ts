@@ -29,6 +29,12 @@ import { organizationSettingsLayoutRoute } from "./organizations/$idOrganization
 import { organizationSettingsRoute } from "./organizations/$idOrganization/organizationSettings/organizationSettingsRoute.tsx"
 import { organizationUsersLayoutRoute } from "./organizations/$idOrganization/organizationUsers/organizationUsersLayoutRoute.tsx"
 import { organizationUsersRoute } from "./organizations/$idOrganization/organizationUsers/organizationUsersRoute.tsx"
+import { fileLayoutRoute } from "./organizations/$idOrganization/storage/$idFile/fileLayoutRoute.tsx"
+import { fileMetadataRoute } from "./organizations/$idOrganization/storage/$idFile/fileMetadataRoute.tsx"
+import { fileRoute } from "./organizations/$idOrganization/storage/$idFile/fileRoute.tsx"
+import { fileVisualisationRoute } from "./organizations/$idOrganization/storage/$idFile/fileVisualisationRoute.tsx"
+import { storageLayoutRoute } from "./organizations/$idOrganization/storage/storageLayoutRoute.tsx"
+import { storageRoute } from "./organizations/$idOrganization/storage/storageRoute.tsx"
 import { entryLineLayoutRoute } from "./organizations/$idOrganization/years/$idYear/entries/$idEntry/$idEntryLine/entryLineLayoutRoute.tsx"
 import { entryLineMetadataRoute } from "./organizations/$idOrganization/years/$idYear/entries/$idEntry/$idEntryLine/entryLineMetadataRoute.tsx"
 import { entryLineRoute } from "./organizations/$idOrganization/years/$idYear/entries/$idEntry/$idEntryLine/entryLineRoute.tsx"
@@ -39,12 +45,6 @@ import { entryMetadataRoute } from "./organizations/$idOrganization/years/$idYea
 import { entryRoute } from "./organizations/$idOrganization/years/$idYear/entries/$idEntry/entryRoute.tsx"
 import { entriesLayoutRoute } from "./organizations/$idOrganization/years/$idYear/entries/entriesLayoutRoute.tsx"
 import { entriesRoute } from "./organizations/$idOrganization/years/$idYear/entries/entriesRoute.tsx"
-import { fileLayoutRoute } from "./organizations/$idOrganization/years/$idYear/files/$idFile/fileLayoutRoute.tsx"
-import { fileMetadataRoute } from "./organizations/$idOrganization/years/$idYear/files/$idFile/fileMetadataRoute.tsx"
-import { fileRoute } from "./organizations/$idOrganization/years/$idYear/files/$idFile/fileRoute.tsx"
-import { fileVisualisationRoute } from "./organizations/$idOrganization/years/$idYear/files/$idFile/fileVisualisationRoute.tsx"
-import { filesLayoutRoute } from "./organizations/$idOrganization/years/$idYear/files/filesLayoutRoute.tsx"
-import { filesRoute } from "./organizations/$idOrganization/years/$idYear/files/filesRoute.tsx"
 import { balanceReportRoute } from "./organizations/$idOrganization/years/$idYear/reports/balanceReportRoute.tsx"
 import { balanceSheetReportRoute } from "./organizations/$idOrganization/years/$idYear/reports/balanceSheetReportRoute.tsx"
 import { incomeStatementReportRoute } from "./organizations/$idOrganization/years/$idYear/reports/incomeStatementReportRoute.tsx"
@@ -152,6 +152,14 @@ export const dashboardTree: AnyRoute = dashboardLayoutRoute.addChildren([
                         agentSessionRoute,
                     ]),
                 ]),
+                storageLayoutRoute.addChildren([
+                    storageRoute,
+                    fileLayoutRoute.addChildren([
+                        fileRoute,
+                        fileMetadataRoute,
+                        fileVisualisationRoute,
+                    ]),
+                ]),
             ]),
             yearsPathRoute.addChildren([
                 yearPathRoute.addChildren([
@@ -168,14 +176,6 @@ export const dashboardTree: AnyRoute = dashboardLayoutRoute.addChildren([
                             entryLineLayoutRoute.addChildren([
                                 entryLineRoute,
                                 entryLineMetadataRoute,
-                            ]),
-                        ]),
-                        filesLayoutRoute.addChildren([
-                            filesRoute,
-                            fileLayoutRoute.addChildren([
-                                fileRoute,
-                                fileMetadataRoute,
-                                fileVisualisationRoute,
                             ]),
                         ]),
                         reportsLayoutRoute.addChildren([

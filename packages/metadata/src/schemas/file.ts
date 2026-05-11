@@ -7,22 +7,23 @@ import type { fileModel } from "../models/file.js"
 export const fileSchema = v.object({
     id: v.nonNullable(idSchema, "Ce champ est requis"),
     idOrganization: v.nonNullable(idSchema, "Ce champ est requis"),
-    idYear: v.nullable(idSchema),
     idFolder: v.nullable(idSchema),
     reference: v.nullable(
         varcharSchema({
             maxLength: 256,
         }),
     ),
-    name: v.nullable(
+    name: v.nonNullable(
         varcharSchema({
             maxLength: 256,
         }),
+        "Ce champ est requis",
     ),
     storageKey: v.nullable(stringSchema),
     type: v.nullable(stringSchema),
     size: v.nullable(integerSchema),
     hash: v.nullable(stringSchema),
+    date: v.nullable(dateTimeSchema),
     createdAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),
     lastUpdatedAt: v.nullable(dateTimeSchema),
     createdBy: v.nullable(idSchema),
@@ -32,7 +33,6 @@ export const fileSchema = v.object({
 export const fileSchemaReturn = v.pick(fileSchema, [
     "id",
     "idOrganization",
-    "idYear",
     "idFolder",
     "reference",
     "name",
@@ -42,6 +42,7 @@ export const fileSchemaReturn = v.pick(fileSchema, [
     "createdAt",
     "lastUpdatedAt",
     "hash",
+    "date",
     "createdBy",
     "lastUpdatedBy",
 ])

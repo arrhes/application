@@ -3,19 +3,12 @@ import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
 import { organizationModel } from "./organization.js"
 import { userModel } from "./user.js"
-import { yearModel } from "./year.js"
 
 // Model
 export const folderModel = pgTable("table_folder", {
     id: idColumn("id").primaryKey(),
     idOrganization: idColumn("id_organization")
         .references(() => organizationModel.id, {
-            onDelete: "cascade",
-            onUpdate: "cascade",
-        })
-        .notNull(),
-    idYear: idColumn("id_year")
-        .references(() => yearModel.id, {
             onDelete: "cascade",
             onUpdate: "cascade",
         })

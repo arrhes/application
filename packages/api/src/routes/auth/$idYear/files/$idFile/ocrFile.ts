@@ -1,5 +1,5 @@
 import { generateId, models, ocrFileRouteDefinition } from "@arrhes/application-metadata"
-import { and, eq, isNull, sql } from "drizzle-orm"
+import { and, eq, sql } from "drizzle-orm"
 import { checkOrganizationSubscriptionSessionMiddleware } from "../../../../../middlewares/checkOrganizationSubscriptionSessionMiddleware.js"
 import { checkUserSessionMiddleware } from "../../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../../middlewares/validateBody.middleware.js"
@@ -45,12 +45,7 @@ export const ocrFileRoute = apiFactory.createApp().post(ocrFileRouteDefinition.p
     const sourceFile = await selectOne({
         database: c.var.clients.sql,
         table: models.file,
-        where: (table) =>
-            and(
-                eq(table.idOrganization, idOrganization),
-                body.idYear !== null ? eq(table.idYear, body.idYear) : isNull(table.idYear),
-                eq(table.id, body.idFile),
-            ),
+        where: (table) => and(eq(table.idOrganization, idOrganization), eq(table.id, body.idFile)),
     })
 
     if (sourceFile.storageKey === null) {
@@ -166,10 +161,10 @@ export const ocrFileRoute = apiFactory.createApp().post(ocrFileRouteDefinition.p
 
     const markdownBuffer = Buffer.from(normalizedMarkdownContent, "utf-8")
     const newFileId = generateId()
-    const originalName = sourceFile.name ?? sourceFile.reference ?? "document"
+    const originalName = sourceFile.name || sourceFile.reference || "document"
     const baseName = originalName.replace(/\.[^.]+$/, "")
     const markdownName = `${baseName}.md`
-    const storageKey = `organizations/${idOrganization}/${body.idYear}/files/${newFileId}`
+    const storageKey = `organizations/${idOrganization}/storage/${newFileId}`
 
     const newFile = await insertOne({
         database: c.var.clients.sql,
@@ -177,7 +172,6 @@ export const ocrFileRoute = apiFactory.createApp().post(ocrFileRouteDefinition.p
         data: {
             id: newFileId,
             idOrganization: idOrganization,
-            idYear: body.idYear,
             idFolder: sourceFile.idFolder,
             reference: sourceFile.reference,
             name: markdownName,
@@ -196,11 +190,6 @@ export const ocrFileRoute = apiFactory.createApp().post(ocrFileRouteDefinition.p
         contentType: "text/markdown; charset=utf-8",
         metadata: {
             idOrganization: idOrganization,
-            ...(body.idYear !== null
-                ? {
-                      idYear: body.idYear,
-                  }
-                : {}),
             idUser: user.id,
         },
         body: markdownBuffer,

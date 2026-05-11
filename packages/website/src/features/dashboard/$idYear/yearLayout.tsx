@@ -1,4 +1,4 @@
-import { IconFolders, IconPencil, IconReport, IconSettings } from "@tabler/icons-react"
+import { IconPencil, IconReport, IconSettings } from "@tabler/icons-react"
 import { Outlet, useParams } from "@tanstack/react-router"
 import { Fragment } from "react/jsx-runtime"
 import { PageNavigation } from "../../../components/layouts/page/pageNavigation.tsx"
@@ -17,15 +17,6 @@ export function YearLayout() {
                         label: "Écritures",
                         icon: <IconPencil />,
                         to: "/dashboard/organisations/$idOrganization/exercices/$idYear/écritures",
-                        params: {
-                            idOrganization: params.idOrganization,
-                            idYear: params.idYear,
-                        },
-                    },
-                    {
-                        label: "Stockage",
-                        icon: <IconFolders />,
-                        to: "/dashboard/organisations/$idOrganization/exercices/$idYear/stockage",
                         params: {
                             idOrganization: params.idOrganization,
                             idYear: params.idYear,
