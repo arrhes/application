@@ -19,19 +19,67 @@ export function Logo(props: { className?: ComponentProps<"svg">["className"]; wi
                 props.className,
             )}
         >
-            <g opacity=".2" fill="currentColor" stroke="none">
-                <rect x="0" y="0" width="11" height="6" rx="2" />
-                <rect x="13" y="0" width="11" height="6" rx="2" />
+            <g
+                opacity=".2"
+                fill="currentColor"
+                stroke="none"
+            >
+                <rect
+                    x="0"
+                    y="0"
+                    width="11"
+                    height="6"
+                    rx="2"
+                />
+                <rect
+                    x="13"
+                    y="0"
+                    width="11"
+                    height="6"
+                    rx="2"
+                />
             </g>
 
-            <g opacity=".5" fill="currentColor" stroke="none">
-                <rect x="0" y="9" width="7" height="6" rx="2" />
-                <rect x="9" y="9" width="15" height="6" rx="2" />
+            <g
+                opacity=".5"
+                fill="currentColor"
+                stroke="none"
+            >
+                <rect
+                    x="0"
+                    y="9"
+                    width="7"
+                    height="6"
+                    rx="2"
+                />
+                <rect
+                    x="9"
+                    y="9"
+                    width="15"
+                    height="6"
+                    rx="2"
+                />
             </g>
 
-            <g opacity="1" fill="currentColor" stroke="none">
-                <rect x="0" y="18" width="17" height="6" rx="2" />
-                <rect x="19" y="18" width="5" height="6" rx="2" />
+            <g
+                opacity="1"
+                fill="currentColor"
+                stroke="none"
+            >
+                <rect
+                    x="0"
+                    y="18"
+                    width="17"
+                    height="6"
+                    rx="2"
+                />
+                <rect
+                    x="19"
+                    y="18"
+                    width="5"
+                    height="6"
+                    rx="2"
+                />
             </g>
         </svg>
     )

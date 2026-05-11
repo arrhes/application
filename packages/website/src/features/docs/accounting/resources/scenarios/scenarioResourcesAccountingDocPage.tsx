@@ -12,15 +12,25 @@ import { DataError } from "../../../components/DataError.js"
 import { getScenarioAccounts, getScenarioById } from "./scenariosData.js"
 
 export function ScenarioResourcesAccountingDocPage() {
-    const { scenario: id } = useParams({ strict: false }) as { scenario: string }
+    const { scenario: id } = useParams({
+        strict: false,
+    }) as {
+        scenario: string
+    }
     const scenario = getScenarioById(id)
 
     if (!scenario) {
         return (
             <DocRoot>
-                <DocHeader title="Scénario introuvable" description="Ce scénario n'existe pas." />
+                <DocHeader
+                    title="Scénario introuvable"
+                    description="Ce scénario n'existe pas."
+                />
                 <LinkButton to="/documentation/comptabilité/ressources/scénarios">
-                    <ButtonOutlineContent leftIcon={<IconArrowLeft />} text="Retour aux scénarios" />
+                    <ButtonOutlineContent
+                        leftIcon={<IconArrowLeft />}
+                        text="Retour aux scénarios"
+                    />
                 </LinkButton>
             </DocRoot>
         )
@@ -31,10 +41,16 @@ export function ScenarioResourcesAccountingDocPage() {
     return (
         <DocRoot>
             <LinkButton to="/documentation/comptabilité/ressources/scénarios">
-                <ButtonOutlineContent leftIcon={<IconArrowLeft />} text="Retour aux scénarios" />
+                <ButtonOutlineContent
+                    leftIcon={<IconArrowLeft />}
+                    text="Retour aux scénarios"
+                />
             </LinkButton>
 
-            <DocHeader title={scenario.title} description={undefined} />
+            <DocHeader
+                title={scenario.title}
+                description={undefined}
+            />
 
             <DocParagraph>{scenario.description}</DocParagraph>
 
@@ -44,7 +60,15 @@ export function ScenarioResourcesAccountingDocPage() {
                     title={scenario.examples.length > 1 ? `Exemple ${index + 1}` : "Exemple d'écriture"}
                 >
                     <DocParagraph>{example.description}</DocParagraph>
-                    <DocTable headers={["Compte", "Intitulé", "Débit", "Crédit"]} rows={example.entry.rows} />
+                    <DocTable
+                        headers={[
+                            "Compte",
+                            "Intitulé",
+                            "Débit",
+                            "Crédit",
+                        ]}
+                        rows={example.entry.rows}
+                    />
                 </DocSection>
             ))}
 
@@ -60,7 +84,9 @@ export function ScenarioResourcesAccountingDocPage() {
                         <LinkButton
                             key={account.number}
                             to="/documentation/comptabilité/ressources/comptes/$account"
-                            params={{ account: account.slug }}
+                            params={{
+                                account: account.slug,
+                            }}
                         >
                             <ButtonOutlineContent
                                 leftIcon={<IconLink />}

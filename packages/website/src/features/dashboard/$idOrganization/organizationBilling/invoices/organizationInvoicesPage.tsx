@@ -9,14 +9,19 @@ import { organizationInvoicesRoute } from "../../../../../routes/root/dashboard/
 import { InvoicesTable } from "./InvoicesTable.tsx"
 
 export function OrganizationInvoicesPage() {
-    const _params = useParams({ from: organizationInvoicesRoute.id })
+    const _params = useParams({
+        from: organizationInvoicesRoute.id,
+    })
 
     return (
         <Page.Root>
             <Page.Content>
                 <SettingsSection.Root>
                     <SettingsSection.Header title="Factures" />
-                    <DataWrapper routeDefinition={readAllInvoicesRouteDefinition} body={{}}>
+                    <DataWrapper
+                        routeDefinition={readAllInvoicesRouteDefinition}
+                        body={{}}
+                    >
                         {(invoices) => {
                             if (invoices.length === 0) {
                                 return (

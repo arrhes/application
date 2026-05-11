@@ -19,7 +19,10 @@ export function DeleteOneFile(props: {
         })
 
         if (isDeleted === false) {
-            toast({ title: "Erreur lors de la suppression du fichier", variant: "error" })
+            toast({
+                title: "Erreur lors de la suppression du fichier",
+                variant: "error",
+            })
             return
         }
 
@@ -30,7 +33,10 @@ export function DeleteOneFile(props: {
             },
         })
 
-        toast({ title: "Fichier supprimé", variant: "success" })
+        toast({
+            title: "Fichier supprimé",
+            variant: "success",
+        })
 
         applicationRouter.navigate({
             to: "/dashboard/organisations/$idOrganization/exercices/$idYear/stockage",
@@ -38,7 +44,9 @@ export function DeleteOneFile(props: {
                 idOrganization: props.file.idOrganization,
                 idYear: props.file.idYear,
             },
-            search: { idFolder: undefined },
+            search: {
+                idFolder: undefined,
+            },
         })
     }
 
@@ -52,7 +60,10 @@ export function DeleteOneFile(props: {
                     Cette action est irréversible.
                 </>
             }
-            submitButtonProps={{ color: "danger", text: "Supprimer le fichier" }}
+            submitButtonProps={{
+                color: "danger",
+                text: "Supprimer le fichier",
+            }}
             onSubmit={onSubmit}
         >
             {props.children}

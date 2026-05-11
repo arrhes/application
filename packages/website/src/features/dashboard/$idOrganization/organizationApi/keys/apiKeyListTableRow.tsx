@@ -44,9 +44,15 @@ export function ApiKeyListTableRow(props: {
                         })}
                     >
                         {props.apiKey.isActive ? (
-                            <Chip text="Active" color="success" />
+                            <Chip
+                                text="Active"
+                                color="success"
+                            />
                         ) : (
-                            <Chip text="Inactive" color="error" />
+                            <Chip
+                                text="Inactive"
+                                color="error"
+                            />
                         )}
                     </div>
                 </div>
@@ -59,7 +65,11 @@ export function ApiKeyListTableRow(props: {
                     })}
                 >
                     <DeleteOneApiKey apiKey={props.apiKey}>
-                        <ButtonOutlineContent leftIcon={<IconTrash />} title="Supprimer la clé" color="danger" />
+                        <ButtonOutlineContent
+                            leftIcon={<IconTrash />}
+                            title="Supprimer la clé"
+                            color="danger"
+                        />
                     </DeleteOneApiKey>
                 </div>
             </div>

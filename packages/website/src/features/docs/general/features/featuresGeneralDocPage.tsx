@@ -39,7 +39,10 @@ export function FeaturesGeneralDocPage() {
             <div
                 className={css({
                     display: "grid",
-                    gridTemplateColumns: { base: "1fr", md: "repeat(2, 1fr)" },
+                    gridTemplateColumns: {
+                        base: "1fr",
+                        md: "repeat(2, 1fr)",
+                    },
                     gap: "1rem",
                 })}
             >
@@ -153,7 +156,11 @@ export function FeaturesGeneralDocPage() {
                     icon={<IconLock />}
                     title="Sécurité"
                     description="Vos données sont protégées avec les meilleures pratiques de sécurité."
-                    features={["Chiffrement bout-en-bout", "Sauvegardes automatiques", "Hébergement en France"]}
+                    features={[
+                        "Chiffrement bout-en-bout",
+                        "Sauvegardes automatiques",
+                        "Hébergement en France",
+                    ]}
                 />
             </div>
         </DocRoot>

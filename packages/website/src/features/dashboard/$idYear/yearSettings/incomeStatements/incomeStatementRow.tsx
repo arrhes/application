@@ -20,7 +20,9 @@ export function IncomeStatementRow(props: {
                 idYear: props.idYear,
                 idIncomeStatement: props.incomeStatement.id,
             }}
-            className={css({ width: "100%" })}
+            className={css({
+                width: "100%",
+            })}
         >
             <div
                 className={css({
@@ -30,10 +32,14 @@ export function IncomeStatementRow(props: {
                     justifyContent: "flex-start",
                     alignItems: "center",
                     gap: "0.5rem",
-                    _hover: { backgroundColor: "neutral/5" },
+                    _hover: {
+                        backgroundColor: "neutral/5",
+                    },
                     borderBottom: "1px solid",
                     borderBottomColor: "neutral/5",
-                    _last: { borderBottom: "0" },
+                    _last: {
+                        borderBottom: "0",
+                    },
                     padding: "0.5rem",
                     borderRadius: "md",
                 })}
@@ -42,7 +48,13 @@ export function IncomeStatementRow(props: {
                     paddingLeft: `${(props.level + 1) * INDENT_PER_LEVEL}px`,
                 }}
             >
-                <span className={css({ color: "neutral", fontSize: "xs", lineHeight: "1" })}>
+                <span
+                    className={css({
+                        color: "neutral",
+                        fontSize: "xs",
+                        lineHeight: "1",
+                    })}
+                >
                     {props.incomeStatement.number}
                 </span>
                 <span

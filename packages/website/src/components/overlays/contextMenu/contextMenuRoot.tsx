@@ -3,7 +3,10 @@ import type { ComponentPropsWithRef } from "react"
 
 export function ContextMenuRoot(props: ComponentPropsWithRef<typeof ContextMenu>) {
     return (
-        <ContextMenu {...props} modal={false}>
+        <ContextMenu
+            {...props}
+            modal={false}
+        >
             {props.children}
         </ContextMenu>
     )

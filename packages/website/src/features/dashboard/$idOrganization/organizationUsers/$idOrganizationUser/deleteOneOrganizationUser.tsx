@@ -23,22 +23,33 @@ export function DeleteOneOrganizationUser(props: {
         })
 
         if (deleteResponse.ok === false) {
-            toast({ title: "Erreur lors de la révocation de l'utilisateur", variant: "error" })
+            toast({
+                title: "Erreur lors de la révocation de l'utilisateur",
+                variant: "error",
+            })
             return
         }
 
         await invalidateData({
             routeDefinition: readOneOrganizationRouteDefinition,
-            body: { idOrganization: props.organizationUser.idOrganization },
+            body: {
+                idOrganization: props.organizationUser.idOrganization,
+            },
         })
-        toast({ title: "Utilisateur révoqué de l'organisation", variant: "success" })
+        toast({
+            title: "Utilisateur révoqué de l'organisation",
+            variant: "success",
+        })
     }
 
     return (
         <ConfirmationModal
             title="Voulez-vous révoquer l'utilisateur de cette organisation ?"
             description="Cette action est irréversible."
-            submitButtonProps={{ color: "danger", text: "Révoquer l'utilisateur" }}
+            submitButtonProps={{
+                color: "danger",
+                text: "Révoquer l'utilisateur",
+            }}
             onSubmit={onSubmit}
         >
             {props.children}

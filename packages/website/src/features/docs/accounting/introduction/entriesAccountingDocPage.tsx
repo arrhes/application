@@ -16,12 +16,20 @@ import { DocTip } from "../../../../components/document/docTip.tsx"
 export function EntriesAccountingDocPage() {
     return (
         <DocRoot>
-            <DocHeader title="Les écritures comptables" description="Enregistrer les opérations dans les comptes" />
+            <DocHeader
+                title="Les écritures comptables"
+                description="Enregistrer les opérations dans les comptes"
+            />
 
             <DocSection title="Qu'est-ce qu'une écriture comptable ?">
                 <DocParagraph>
                     Une{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "ecriture-comptable" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "ecriture-comptable",
+                        }}
+                    >
                         écriture comptable
                     </DocLink>{" "}
                     est la traduction d'une opération économique dans le langage de la comptabilité. C'est l'acte
@@ -33,11 +41,21 @@ export function EntriesAccountingDocPage() {
                     Comme vu dans la page sur la{" "}
                     <DocLink to="/documentation/comptabilité/partie-double">partie double</DocLink>, chaque écriture
                     respecte le principe de la{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "partie-double" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "partie-double",
+                        }}
+                    >
                         partie double
                     </DocLink>{" "}
                     : elle est composée d'au moins deux lignes, chacune associée à un{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "compte" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "compte",
+                        }}
+                    >
                         compte comptable
                     </DocLink>
                     . Une ligne enregistre un montant au débit, l'autre au crédit. Le total des débits égale toujours le
@@ -73,15 +91,30 @@ export function EntriesAccountingDocPage() {
                 <DocTip variant="warning">
                     Seuls les comptes à 3 chiffres ou plus peuvent être utilisés dans les écritures comptables. Les
                     comptes à 1 ou 2 chiffres (par exemple{" "}
-                    <DocLink to="/documentation/comptabilité/comptes/liste/$account" params={{ account: "1" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/comptes/liste/$account"
+                        params={{
+                            account: "1",
+                        }}
+                    >
                         1
                     </DocLink>
                     ,{" "}
-                    <DocLink to="/documentation/comptabilité/comptes/liste/$account" params={{ account: "10" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/comptes/liste/$account"
+                        params={{
+                            account: "10",
+                        }}
+                    >
                         10
                     </DocLink>
                     ,{" "}
-                    <DocLink to="/documentation/comptabilité/comptes/liste/$account" params={{ account: "60" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/comptes/liste/$account"
+                        params={{
+                            account: "60",
+                        }}
+                    >
                         60
                     </DocLink>
                     ) sont des comptes de regroupement servant uniquement à la classification dans le plan comptable.
@@ -89,18 +122,49 @@ export function EntriesAccountingDocPage() {
                 </DocTip>
 
                 <DocExample title="Écriture d'achat de fournitures">
-                    <p className={css({ fontWeight: "medium", mb: "2" })}>
+                    <p
+                        className={css({
+                            fontWeight: "medium",
+                            mb: "2",
+                        })}
+                    >
                         Achat de fournitures de bureau - 120 euros TTC payé par chèque
                     </p>
                     <DocTable
-                        headers={["Compte", "Libellé", "Débit", "Crédit"]}
+                        headers={[
+                            "Compte",
+                            "Libellé",
+                            "Débit",
+                            "Crédit",
+                        ]}
                         rows={[
-                            ["606100", "Fournitures de bureau", "100,00", ""],
-                            ["445660", "TVA déductible", "20,00", ""],
-                            ["512000", "Banque", "", "120,00"],
+                            [
+                                "606100",
+                                "Fournitures de bureau",
+                                "100,00",
+                                "",
+                            ],
+                            [
+                                "445660",
+                                "TVA déductible",
+                                "20,00",
+                                "",
+                            ],
+                            [
+                                "512000",
+                                "Banque",
+                                "",
+                                "120,00",
+                            ],
                         ]}
                     />
-                    <p className={css({ marginTop: "2", fontSize: "xs", color: "neutral/60" })}>
+                    <p
+                        className={css({
+                            marginTop: "2",
+                            fontSize: "xs",
+                            color: "neutral/60",
+                        })}
+                    >
                         Total débit = Total crédit = 120,00 euros
                     </p>
                 </DocExample>
@@ -113,45 +177,128 @@ export function EntriesAccountingDocPage() {
                 </DocParagraph>
 
                 <DocExample title="Achat à crédit (deux écritures)">
-                    <p className={css({ fontWeight: "medium", mb: "2" })}>
+                    <p
+                        className={css({
+                            fontWeight: "medium",
+                            mb: "2",
+                        })}
+                    >
                         1. Réception de la facture fournisseur (journal HA)
                     </p>
                     <DocTable
-                        headers={["Compte", "Libellé", "Débit", "Crédit"]}
+                        headers={[
+                            "Compte",
+                            "Libellé",
+                            "Débit",
+                            "Crédit",
+                        ]}
                         rows={[
-                            ["607000", "Achats de marchandises", "1 000,00", ""],
-                            ["445660", "TVA déductible", "200,00", ""],
-                            ["401000", "Fournisseurs", "", "1 200,00"],
+                            [
+                                "607000",
+                                "Achats de marchandises",
+                                "1 000,00",
+                                "",
+                            ],
+                            [
+                                "445660",
+                                "TVA déductible",
+                                "200,00",
+                                "",
+                            ],
+                            [
+                                "401000",
+                                "Fournisseurs",
+                                "",
+                                "1 200,00",
+                            ],
                         ]}
                     />
-                    <p className={css({ marginTop: "4", fontWeight: "medium", mb: "2" })}>
+                    <p
+                        className={css({
+                            marginTop: "4",
+                            fontWeight: "medium",
+                            mb: "2",
+                        })}
+                    >
                         2. Règlement de la facture (journal BQ)
                     </p>
                     <DocTable
-                        headers={["Compte", "Libellé", "Débit", "Crédit"]}
+                        headers={[
+                            "Compte",
+                            "Libellé",
+                            "Débit",
+                            "Crédit",
+                        ]}
                         rows={[
-                            ["401000", "Fournisseurs", "1 200,00", ""],
-                            ["512000", "Banque", "", "1 200,00"],
+                            [
+                                "401000",
+                                "Fournisseurs",
+                                "1 200,00",
+                                "",
+                            ],
+                            [
+                                "512000",
+                                "Banque",
+                                "",
+                                "1 200,00",
+                            ],
                         ]}
                     />
-                    <p className={css({ marginTop: "2", fontSize: "xs", color: "neutral/60" })}>
+                    <p
+                        className={css({
+                            marginTop: "2",
+                            fontSize: "xs",
+                            color: "neutral/60",
+                        })}
+                    >
                         La première écriture crée la dette, la seconde l'éteint.
                     </p>
                 </DocExample>
 
                 <DocExample title="Achat au comptant (une seule écriture)">
-                    <p className={css({ fontWeight: "medium", mb: "2" })}>
+                    <p
+                        className={css({
+                            fontWeight: "medium",
+                            mb: "2",
+                        })}
+                    >
                         Achat payé immédiatement par carte bancaire
                     </p>
                     <DocTable
-                        headers={["Compte", "Libellé", "Débit", "Crédit"]}
+                        headers={[
+                            "Compte",
+                            "Libellé",
+                            "Débit",
+                            "Crédit",
+                        ]}
                         rows={[
-                            ["607000", "Achats de marchandises", "1 000,00", ""],
-                            ["445660", "TVA déductible", "200,00", ""],
-                            ["512000", "Banque", "", "1 200,00"],
+                            [
+                                "607000",
+                                "Achats de marchandises",
+                                "1 000,00",
+                                "",
+                            ],
+                            [
+                                "445660",
+                                "TVA déductible",
+                                "200,00",
+                                "",
+                            ],
+                            [
+                                "512000",
+                                "Banque",
+                                "",
+                                "1 200,00",
+                            ],
                         ]}
                     />
-                    <p className={css({ marginTop: "2", fontSize: "xs", color: "neutral/60" })}>
+                    <p
+                        className={css({
+                            marginTop: "2",
+                            fontSize: "xs",
+                            color: "neutral/60",
+                        })}
+                    >
                         Pas de passage par le compte fournisseur car le paiement est immédiat.
                     </p>
                 </DocExample>
@@ -159,41 +306,112 @@ export function EntriesAccountingDocPage() {
 
             <DocSection title="Types d'opérations courantes">
                 <DocExample title="Vente à crédit puis encaissement">
-                    <p className={css({ fontWeight: "medium", mb: "2" })}>
+                    <p
+                        className={css({
+                            fontWeight: "medium",
+                            mb: "2",
+                        })}
+                    >
                         1. Émission de la facture client (journal VE)
                     </p>
                     <DocTable
-                        headers={["Compte", "Libellé", "Débit", "Crédit"]}
+                        headers={[
+                            "Compte",
+                            "Libellé",
+                            "Débit",
+                            "Crédit",
+                        ]}
                         rows={[
-                            ["411000", "Clients", "600,00", ""],
-                            ["706000", "Prestations de services", "", "500,00"],
-                            ["445710", "TVA collectée", "", "100,00"],
+                            [
+                                "411000",
+                                "Clients",
+                                "600,00",
+                                "",
+                            ],
+                            [
+                                "706000",
+                                "Prestations de services",
+                                "",
+                                "500,00",
+                            ],
+                            [
+                                "445710",
+                                "TVA collectée",
+                                "",
+                                "100,00",
+                            ],
                         ]}
                     />
-                    <p className={css({ marginTop: "4", fontWeight: "medium", mb: "2" })}>
+                    <p
+                        className={css({
+                            marginTop: "4",
+                            fontWeight: "medium",
+                            mb: "2",
+                        })}
+                    >
                         2. Encaissement du client (journal BQ)
                     </p>
                     <DocTable
-                        headers={["Compte", "Libellé", "Débit", "Crédit"]}
+                        headers={[
+                            "Compte",
+                            "Libellé",
+                            "Débit",
+                            "Crédit",
+                        ]}
                         rows={[
-                            ["512000", "Banque", "600,00", ""],
-                            ["411000", "Clients", "", "600,00"],
+                            [
+                                "512000",
+                                "Banque",
+                                "600,00",
+                                "",
+                            ],
+                            [
+                                "411000",
+                                "Clients",
+                                "",
+                                "600,00",
+                            ],
                         ]}
                     />
                 </DocExample>
 
                 <DocExample title="Réception d'une cotisation (association)">
-                    <p className={css({ fontSize: "sm" })}>
+                    <p
+                        className={css({
+                            fontSize: "sm",
+                        })}
+                    >
                         Un adhérent paye sa cotisation annuelle de 50 euros en espèces.
                     </p>
                     <DocTable
-                        headers={["Compte", "Libellé", "Débit", "Crédit"]}
+                        headers={[
+                            "Compte",
+                            "Libellé",
+                            "Débit",
+                            "Crédit",
+                        ]}
                         rows={[
-                            ["530000", "Caisse", "50,00", ""],
-                            ["756000", "Cotisations", "", "50,00"],
+                            [
+                                "530000",
+                                "Caisse",
+                                "50,00",
+                                "",
+                            ],
+                            [
+                                "756000",
+                                "Cotisations",
+                                "",
+                                "50,00",
+                            ],
                         ]}
                     />
-                    <p className={css({ marginTop: "2", fontSize: "xs", color: "neutral/60" })}>
+                    <p
+                        className={css({
+                            marginTop: "2",
+                            fontSize: "xs",
+                            color: "neutral/60",
+                        })}
+                    >
                         La caisse augmente (débit), les produits augmentent (crédit).
                     </p>
                 </DocExample>
@@ -202,7 +420,12 @@ export function EntriesAccountingDocPage() {
             <DocSection title="La TVA dans les écritures">
                 <DocParagraph>
                     Si votre{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "organisation" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "organisation",
+                        }}
+                    >
                         organisation
                     </DocLink>{" "}
                     est assujettie à la TVA, chaque opération doit distinguer le montant hors taxes (HT) et la TVA.
@@ -218,23 +441,68 @@ export function EntriesAccountingDocPage() {
                 />
 
                 <DocExample title="Déclaration de TVA">
-                    <p className={css({ mb: "2", fontSize: "sm" })}>À la fin du mois, vous avez :</p>
-                    <ul className={css({ ml: "4", fontSize: "sm", color: "neutral/70" })}>
+                    <p
+                        className={css({
+                            mb: "2",
+                            fontSize: "sm",
+                        })}
+                    >
+                        À la fin du mois, vous avez :
+                    </p>
+                    <ul
+                        className={css({
+                            ml: "4",
+                            fontSize: "sm",
+                            color: "neutral/70",
+                        })}
+                    >
                         <li>TVA collectée (4457) : 500 euros (créditeur)</li>
                         <li>TVA déductible (4456) : 300 euros (débiteur)</li>
                     </ul>
-                    <p className={css({ marginTop: "3", fontWeight: "medium", mb: "2" })}>
+                    <p
+                        className={css({
+                            marginTop: "3",
+                            fontWeight: "medium",
+                            mb: "2",
+                        })}
+                    >
                         Écriture de liquidation de TVA :
                     </p>
                     <DocTable
-                        headers={["Compte", "Libellé", "Débit", "Crédit"]}
+                        headers={[
+                            "Compte",
+                            "Libellé",
+                            "Débit",
+                            "Crédit",
+                        ]}
                         rows={[
-                            ["445710", "TVA collectée", "500,00", ""],
-                            ["445660", "TVA déductible", "", "300,00"],
-                            ["445510", "TVA à décaisser", "", "200,00"],
+                            [
+                                "445710",
+                                "TVA collectée",
+                                "500,00",
+                                "",
+                            ],
+                            [
+                                "445660",
+                                "TVA déductible",
+                                "",
+                                "300,00",
+                            ],
+                            [
+                                "445510",
+                                "TVA à décaisser",
+                                "",
+                                "200,00",
+                            ],
                         ]}
                     />
-                    <p className={css({ marginTop: "2", fontSize: "xs", color: "neutral/60" })}>
+                    <p
+                        className={css({
+                            marginTop: "2",
+                            fontSize: "xs",
+                            color: "neutral/60",
+                        })}
+                    >
                         Vous devez 200 euros à l'État (différence entre collectée et déductible).
                     </p>
                 </DocExample>
@@ -244,7 +512,12 @@ export function EntriesAccountingDocPage() {
                 <DocParagraph>
                     La{" "}
                     <strong>
-                        <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "balance" }}>
+                        <DocLink
+                            to="/documentation/comptabilité/glossaire/$term"
+                            params={{
+                                term: "balance",
+                            }}
+                        >
                             balance
                         </DocLink>
                     </strong>{" "}

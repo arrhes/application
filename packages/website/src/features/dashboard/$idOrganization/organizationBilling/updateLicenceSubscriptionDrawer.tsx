@@ -28,45 +28,79 @@ export function UpdateLicenceSubscriptionDrawer(props: {
 
     async function handleSaveSupport() {
         if (Number.isNaN(value) || value < 0) {
-            toast({ title: "Montant invalide", variant: "error" })
+            toast({
+                title: "Montant invalide",
+                variant: "error",
+            })
             return
         }
 
         setIsSaving(true)
         const response = await getResponseBodyFromAPI({
             routeDefinition: updateLicenceSubscriptionRouteDefinition,
-            body: { newAmountInCents: value },
+            body: {
+                newAmountInCents: value,
+            },
         })
         setIsSaving(false)
 
         if (response.ok === false) {
-            toast({ title: response.error?.cause ?? "Erreur lors de la mise à jour", variant: "error" })
+            toast({
+                title: response.error?.cause ?? "Erreur lors de la mise à jour",
+                variant: "error",
+            })
             return
         }
 
-        toast({ title: "Modification enregistrée, effective le 1er du mois prochain", variant: "success" })
+        toast({
+            title: "Modification enregistrée, effective le 1er du mois prochain",
+            variant: "success",
+        })
 
         await invalidateData({
             routeDefinition: readOneOrganizationRouteDefinition,
-            body: { idOrganization: props.idOrganization },
+            body: {
+                idOrganization: props.idOrganization,
+            },
         })
         setOpen(false)
         props.onSuccess()
     }
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Modifier le montant de la licence" />
                 <Drawer.Body>
-                    <div className={css({ display: "flex", flexDirection: "column", gap: "1rem" })}>
-                        <p className={css({ fontSize: "sm", color: "neutral/70", lineHeight: "1.5" })}>
+                    <div
+                        className={css({
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "1rem",
+                        })}
+                    >
+                        <p
+                            className={css({
+                                fontSize: "sm",
+                                color: "neutral/70",
+                                lineHeight: "1.5",
+                            })}
+                        >
                             La licence Arrhes est un montant mensuel libre, prélevé depuis le portefeuille le 1er de
                             chaque mois. Vous pouvez le laisser à 0,00€ ou contribuer librement au développement
                             d'Arrhes et bénéficier d'un support privilégié. Le montant est HT.
                         </p>
-                        <div className={css({ display: "flex", flexDirection: "column", gap: "0.5rem" })}>
+                        <div
+                            className={css({
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: "0.5rem",
+                            })}
+                        >
                             <InputCurrency
                                 value={value}
                                 onChange={(value) => {
@@ -75,7 +109,13 @@ export function UpdateLicenceSubscriptionDrawer(props: {
                                 type="number"
                                 placeholder="Montant mensuel en €"
                             />
-                            <div className={css({ display: "flex", gap: "0.25rem", flexWrap: "wrap" })}>
+                            <div
+                                className={css({
+                                    display: "flex",
+                                    gap: "0.25rem",
+                                    flexWrap: "wrap",
+                                })}
+                            >
                                 {SUPPORT_TIERS.map((tier) => (
                                     <button
                                         key={tier}
@@ -92,7 +132,9 @@ export function UpdateLicenceSubscriptionDrawer(props: {
                                             fontWeight: "400",
                                             color: "neutral",
                                             borderColor: "neutral/20",
-                                            _hover: { background: "neutral/5" },
+                                            _hover: {
+                                                background: "neutral/5",
+                                            },
                                         })}
                                     >
                                         {formatEuros(tier)}
@@ -100,7 +142,11 @@ export function UpdateLicenceSubscriptionDrawer(props: {
                                 ))}
                             </div>
                         </div>
-                        <Button onClick={() => setConfirmOpen(true)} hasLoader isDisabled={isSaving}>
+                        <Button
+                            onClick={() => setConfirmOpen(true)}
+                            hasLoader
+                            isDisabled={isSaving}
+                        >
                             <ButtonOutlineContent
                                 leftIcon={<IconDeviceFloppy />}
                                 text={isSaving ? "Enregistrement..." : "Enregistrer"}
@@ -111,7 +157,9 @@ export function UpdateLicenceSubscriptionDrawer(props: {
                             onOpenChange={setConfirmOpen}
                             title="Confirmer la modification de la licence"
                             description={`Votre contribution mensuelle passera à ${formatEuros(valueTTCInCents)} TTC (${formatEuros(value)} HT + TVA ${VAT_PERCENT}%), effective le 1er du mois prochain.`}
-                            submitButtonProps={{ text: "Confirmer" }}
+                            submitButtonProps={{
+                                text: "Confirmer",
+                            }}
                             onSubmit={handleSaveSupport}
                         />
                     </div>

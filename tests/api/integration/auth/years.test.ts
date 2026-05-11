@@ -16,7 +16,9 @@ describe("POST /auth/read-all-years", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/read-all-years",
-            body: { idOrganization },
+            body: {
+                idOrganization,
+            },
         })
         expect(response.status).toBe(200)
 
@@ -65,7 +67,9 @@ describe("POST /auth/create-one-year", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/create-one-year",
-            body: { idOrganization },
+            body: {
+                idOrganization,
+            },
         })
         expect(response.status).toBe(400)
     })
@@ -77,7 +81,9 @@ describe("POST /auth/read-one-year", () => {
         const yearsResponse = await authenticatedRequest({
             session,
             path: "/auth/read-all-years",
-            body: { idOrganization },
+            body: {
+                idOrganization,
+            },
         })
         const years = yearsResponse.data as any[]
         const idYear = years[0].id
@@ -85,7 +91,10 @@ describe("POST /auth/read-one-year", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/read-one-year",
-            body: { idYear, idOrganization },
+            body: {
+                idYear,
+                idOrganization,
+            },
         })
         expect(response.status).toBe(200)
 

@@ -40,8 +40,18 @@ export const scenarioEntries: ScenarioEntry[] = [
                     "Étape 1 — Souscription : les associés s'engagent à apporter 10 000 € (SARL, capital intégralement libéré dès la constitution)",
                 entry: {
                     rows: [
-                        ["4561", "Associés - Comptes d'apport en société", "10 000,00", ""],
-                        ["101", "Capital", "", "10 000,00"],
+                        [
+                            "4561",
+                            "Associés - Comptes d'apport en société",
+                            "10 000,00",
+                            "",
+                        ],
+                        [
+                            "101",
+                            "Capital",
+                            "",
+                            "10 000,00",
+                        ],
                     ],
                 },
             },
@@ -49,13 +59,27 @@ export const scenarioEntries: ScenarioEntry[] = [
                 description: "Étape 2 — Libération : les fonds sont versés sur le compte bancaire de la société",
                 entry: {
                     rows: [
-                        ["512", "Banques", "10 000,00", ""],
-                        ["4561", "Associés - Comptes d'apport en société", "", "10 000,00"],
+                        [
+                            "512",
+                            "Banques",
+                            "10 000,00",
+                            "",
+                        ],
+                        [
+                            "4561",
+                            "Associés - Comptes d'apport en société",
+                            "",
+                            "10 000,00",
+                        ],
                     ],
                 },
             },
         ],
-        accountNumbers: ["4561", "101", "512"],
+        accountNumbers: [
+            "4561",
+            "101",
+            "512",
+        ],
     }),
     defineScenario({
         id: "augmentation-capital",
@@ -69,9 +93,24 @@ export const scenarioEntries: ScenarioEntry[] = [
                     "Augmentation par apport en numéraire : 20 000 € de capital nouveau + 5 000 € de prime d'émission — les souscripteurs versent 25 000 € en banque",
                 entry: {
                     rows: [
-                        ["512", "Banques", "25 000,00", ""],
-                        ["101", "Capital", "", "20 000,00"],
-                        ["1041", "Primes d'émission", "", "5 000,00"],
+                        [
+                            "512",
+                            "Banques",
+                            "25 000,00",
+                            "",
+                        ],
+                        [
+                            "101",
+                            "Capital",
+                            "",
+                            "20 000,00",
+                        ],
+                        [
+                            "1041",
+                            "Primes d'émission",
+                            "",
+                            "5 000,00",
+                        ],
                     ],
                 },
             },
@@ -80,13 +119,28 @@ export const scenarioEntries: ScenarioEntry[] = [
                     "Augmentation par incorporation de réserves : 10 000 € de réserves légales transformées en capital (aucun flux de trésorerie)",
                 entry: {
                     rows: [
-                        ["1061", "Réserve légale", "10 000,00", ""],
-                        ["101", "Capital", "", "10 000,00"],
+                        [
+                            "1061",
+                            "Réserve légale",
+                            "10 000,00",
+                            "",
+                        ],
+                        [
+                            "101",
+                            "Capital",
+                            "",
+                            "10 000,00",
+                        ],
                     ],
                 },
             },
         ],
-        accountNumbers: ["512", "101", "1041", "1061"],
+        accountNumbers: [
+            "512",
+            "101",
+            "1041",
+            "1061",
+        ],
     }),
     defineScenario({
         id: "achat-marchandises-fournisseur",
@@ -99,9 +153,24 @@ export const scenarioEntries: ScenarioEntry[] = [
                 description: "Facture d'achat de marchandises reçue : 1 000 € HT, TVA 20 % — règlement sous 30 jours",
                 entry: {
                     rows: [
-                        ["607", "Achats de marchandises", "1 000,00", ""],
-                        ["44566", "TVA sur autres biens et services", "200,00", ""],
-                        ["401", "Fournisseurs", "", "1 200,00"],
+                        [
+                            "607",
+                            "Achats de marchandises",
+                            "1 000,00",
+                            "",
+                        ],
+                        [
+                            "44566",
+                            "TVA sur autres biens et services",
+                            "200,00",
+                            "",
+                        ],
+                        [
+                            "401",
+                            "Fournisseurs",
+                            "",
+                            "1 200,00",
+                        ],
                     ],
                 },
             },
@@ -110,14 +179,34 @@ export const scenarioEntries: ScenarioEntry[] = [
                     "Achat de marchandises payé comptant par virement : 500 € HT, TVA 20 % (pas de dette fournisseur)",
                 entry: {
                     rows: [
-                        ["607", "Achats de marchandises", "500,00", ""],
-                        ["44566", "TVA sur autres biens et services", "100,00", ""],
-                        ["512", "Banques", "", "600,00"],
+                        [
+                            "607",
+                            "Achats de marchandises",
+                            "500,00",
+                            "",
+                        ],
+                        [
+                            "44566",
+                            "TVA sur autres biens et services",
+                            "100,00",
+                            "",
+                        ],
+                        [
+                            "512",
+                            "Banques",
+                            "",
+                            "600,00",
+                        ],
                     ],
                 },
             },
         ],
-        accountNumbers: ["607", "44566", "401", "512"],
+        accountNumbers: [
+            "607",
+            "44566",
+            "401",
+            "512",
+        ],
     }),
     defineScenario({
         id: "reglement-fournisseur",
@@ -130,8 +219,18 @@ export const scenarioEntries: ScenarioEntry[] = [
                 description: "Règlement par virement bancaire de la facture fournisseur de 1 200 € à l'échéance",
                 entry: {
                     rows: [
-                        ["401", "Fournisseurs", "1 200,00", ""],
-                        ["512", "Banques", "", "1 200,00"],
+                        [
+                            "401",
+                            "Fournisseurs",
+                            "1 200,00",
+                            "",
+                        ],
+                        [
+                            "512",
+                            "Banques",
+                            "",
+                            "1 200,00",
+                        ],
                     ],
                 },
             },
@@ -140,14 +239,33 @@ export const scenarioEntries: ScenarioEntry[] = [
                     "Règlement anticipé avec escompte de 2 % obtenu : facture 1 200 €, escompte 24 €, virement de 1 176 €",
                 entry: {
                     rows: [
-                        ["401", "Fournisseurs", "1 200,00", ""],
-                        ["765", "Escomptes obtenus", "", "24,00"],
-                        ["512", "Banques", "", "1 176,00"],
+                        [
+                            "401",
+                            "Fournisseurs",
+                            "1 200,00",
+                            "",
+                        ],
+                        [
+                            "765",
+                            "Escomptes obtenus",
+                            "",
+                            "24,00",
+                        ],
+                        [
+                            "512",
+                            "Banques",
+                            "",
+                            "1 176,00",
+                        ],
                     ],
                 },
             },
         ],
-        accountNumbers: ["401", "512", "765"],
+        accountNumbers: [
+            "401",
+            "512",
+            "765",
+        ],
     }),
     defineScenario({
         id: "vente-marchandises-client",
@@ -160,9 +278,24 @@ export const scenarioEntries: ScenarioEntry[] = [
                 description: "Facture de vente émise : 2 000 € HT, TVA 20 % — paiement attendu à 30 jours",
                 entry: {
                     rows: [
-                        ["411", "Clients", "2 400,00", ""],
-                        ["707", "Ventes de marchandises", "", "2 000,00"],
-                        ["44571", "TVA collectée", "", "400,00"],
+                        [
+                            "411",
+                            "Clients",
+                            "2 400,00",
+                            "",
+                        ],
+                        [
+                            "707",
+                            "Ventes de marchandises",
+                            "",
+                            "2 000,00",
+                        ],
+                        [
+                            "44571",
+                            "TVA collectée",
+                            "",
+                            "400,00",
+                        ],
                     ],
                 },
             },
@@ -170,14 +303,34 @@ export const scenarioEntries: ScenarioEntry[] = [
                 description: "Vente de marchandises au comptant : 800 € HT, TVA 20 % — encaissement immédiat en banque",
                 entry: {
                     rows: [
-                        ["512", "Banques", "960,00", ""],
-                        ["707", "Ventes de marchandises", "", "800,00"],
-                        ["44571", "TVA collectée", "", "160,00"],
+                        [
+                            "512",
+                            "Banques",
+                            "960,00",
+                            "",
+                        ],
+                        [
+                            "707",
+                            "Ventes de marchandises",
+                            "",
+                            "800,00",
+                        ],
+                        [
+                            "44571",
+                            "TVA collectée",
+                            "",
+                            "160,00",
+                        ],
                     ],
                 },
             },
         ],
-        accountNumbers: ["411", "707", "44571", "512"],
+        accountNumbers: [
+            "411",
+            "707",
+            "44571",
+            "512",
+        ],
     }),
     defineScenario({
         id: "encaissement-client",
@@ -190,13 +343,26 @@ export const scenarioEntries: ScenarioEntry[] = [
                 description: "Virement reçu du client en règlement intégral de sa facture de 2 400 €",
                 entry: {
                     rows: [
-                        ["512", "Banques", "2 400,00", ""],
-                        ["411", "Clients", "", "2 400,00"],
+                        [
+                            "512",
+                            "Banques",
+                            "2 400,00",
+                            "",
+                        ],
+                        [
+                            "411",
+                            "Clients",
+                            "",
+                            "2 400,00",
+                        ],
                     ],
                 },
             },
         ],
-        accountNumbers: ["512", "411"],
+        accountNumbers: [
+            "512",
+            "411",
+        ],
     }),
     defineScenario({
         id: "vente-prestation-services",
@@ -209,14 +375,33 @@ export const scenarioEntries: ScenarioEntry[] = [
                 description: "Facture de prestation de conseil émise : 5 000 € HT, TVA 20 % — client à 30 jours",
                 entry: {
                     rows: [
-                        ["411", "Clients", "6 000,00", ""],
-                        ["706", "Prestations de services", "", "5 000,00"],
-                        ["44571", "TVA collectée", "", "1 000,00"],
+                        [
+                            "411",
+                            "Clients",
+                            "6 000,00",
+                            "",
+                        ],
+                        [
+                            "706",
+                            "Prestations de services",
+                            "",
+                            "5 000,00",
+                        ],
+                        [
+                            "44571",
+                            "TVA collectée",
+                            "",
+                            "1 000,00",
+                        ],
                     ],
                 },
             },
         ],
-        accountNumbers: ["411", "706", "44571"],
+        accountNumbers: [
+            "411",
+            "706",
+            "44571",
+        ],
     }),
     defineScenario({
         id: "achat-immobilisation-corporelle",
@@ -230,9 +415,24 @@ export const scenarioEntries: ScenarioEntry[] = [
                     "Achat d'un ordinateur 800 € HT, TVA 20 % — facture du fournisseur d'immobilisations, règlement à 30 jours",
                 entry: {
                     rows: [
-                        ["2183", "Matériel de bureau et matériel informatique", "800,00", ""],
-                        ["44562", "TVA sur immobilisations", "160,00", ""],
-                        ["404", "Fournisseurs d'immobilisations", "", "960,00"],
+                        [
+                            "2183",
+                            "Matériel de bureau et matériel informatique",
+                            "800,00",
+                            "",
+                        ],
+                        [
+                            "44562",
+                            "TVA sur immobilisations",
+                            "160,00",
+                            "",
+                        ],
+                        [
+                            "404",
+                            "Fournisseurs d'immobilisations",
+                            "",
+                            "960,00",
+                        ],
                     ],
                 },
             },
@@ -240,14 +440,35 @@ export const scenarioEntries: ScenarioEntry[] = [
                 description: "Achat d'une machine industrielle 15 000 € HT, TVA 20 % — payée comptant par virement",
                 entry: {
                     rows: [
-                        ["2154", "Matériels industriels", "15 000,00", ""],
-                        ["44562", "TVA sur immobilisations", "3 000,00", ""],
-                        ["512", "Banques", "", "18 000,00"],
+                        [
+                            "2154",
+                            "Matériels industriels",
+                            "15 000,00",
+                            "",
+                        ],
+                        [
+                            "44562",
+                            "TVA sur immobilisations",
+                            "3 000,00",
+                            "",
+                        ],
+                        [
+                            "512",
+                            "Banques",
+                            "",
+                            "18 000,00",
+                        ],
                     ],
                 },
             },
         ],
-        accountNumbers: ["2183", "44562", "404", "2154", "512"],
+        accountNumbers: [
+            "2183",
+            "44562",
+            "404",
+            "2154",
+            "512",
+        ],
     }),
     defineScenario({
         id: "dotation-amortissement",
@@ -267,7 +488,12 @@ export const scenarioEntries: ScenarioEntry[] = [
                             "266,67",
                             "",
                         ],
-                        ["281", "Amortissements des immobilisations corporelles", "", "266,67"],
+                        [
+                            "281",
+                            "Amortissements des immobilisations corporelles",
+                            "",
+                            "266,67",
+                        ],
                     ],
                 },
             },
@@ -282,12 +508,20 @@ export const scenarioEntries: ScenarioEntry[] = [
                             "5 250,00",
                             "",
                         ],
-                        ["281", "Amortissements des immobilisations corporelles", "", "5 250,00"],
+                        [
+                            "281",
+                            "Amortissements des immobilisations corporelles",
+                            "",
+                            "5 250,00",
+                        ],
                     ],
                 },
             },
         ],
-        accountNumbers: ["6811", "281"],
+        accountNumbers: [
+            "6811",
+            "281",
+        ],
     }),
     defineScenario({
         id: "paiement-salaires",
@@ -301,10 +535,30 @@ export const scenarioEntries: ScenarioEntry[] = [
                     "Constatation du bulletin de paie : salaire brut 3 000 €, cotisations salariales 600 € (SS) + 150 € (autres organismes), net à payer 2 250 €",
                 entry: {
                     rows: [
-                        ["641", "Rémunérations du personnel", "3 000,00", ""],
-                        ["421", "Personnel - Rémunérations dues", "", "2 250,00"],
-                        ["431", "Sécurité sociale", "", "600,00"],
-                        ["437", "Autres organismes sociaux", "", "150,00"],
+                        [
+                            "641",
+                            "Rémunérations du personnel",
+                            "3 000,00",
+                            "",
+                        ],
+                        [
+                            "421",
+                            "Personnel - Rémunérations dues",
+                            "",
+                            "2 250,00",
+                        ],
+                        [
+                            "431",
+                            "Sécurité sociale",
+                            "",
+                            "600,00",
+                        ],
+                        [
+                            "437",
+                            "Autres organismes sociaux",
+                            "",
+                            "150,00",
+                        ],
                     ],
                 },
             },
@@ -312,13 +566,29 @@ export const scenarioEntries: ScenarioEntry[] = [
                 description: "Paiement du salaire net de 2 250 € par virement bancaire le dernier jour du mois",
                 entry: {
                     rows: [
-                        ["421", "Personnel - Rémunérations dues", "2 250,00", ""],
-                        ["512", "Banques", "", "2 250,00"],
+                        [
+                            "421",
+                            "Personnel - Rémunérations dues",
+                            "2 250,00",
+                            "",
+                        ],
+                        [
+                            "512",
+                            "Banques",
+                            "",
+                            "2 250,00",
+                        ],
                     ],
                 },
             },
         ],
-        accountNumbers: ["641", "421", "431", "437", "512"],
+        accountNumbers: [
+            "641",
+            "421",
+            "431",
+            "437",
+            "512",
+        ],
     }),
     defineScenario({
         id: "charges-sociales-patronales",
@@ -332,9 +602,24 @@ export const scenarioEntries: ScenarioEntry[] = [
                     "Constatation des cotisations patronales sur salaire brut de 3 000 € : SS 900 € + autres organismes 450 € (soit 45 % total)",
                 entry: {
                     rows: [
-                        ["645", "Cotisations de sécurité sociale et de prévoyance", "1 350,00", ""],
-                        ["431", "Sécurité sociale", "", "900,00"],
-                        ["437", "Autres organismes sociaux", "", "450,00"],
+                        [
+                            "645",
+                            "Cotisations de sécurité sociale et de prévoyance",
+                            "1 350,00",
+                            "",
+                        ],
+                        [
+                            "431",
+                            "Sécurité sociale",
+                            "",
+                            "900,00",
+                        ],
+                        [
+                            "437",
+                            "Autres organismes sociaux",
+                            "",
+                            "450,00",
+                        ],
                     ],
                 },
             },
@@ -343,13 +628,28 @@ export const scenarioEntries: ScenarioEntry[] = [
                     "Paiement des cotisations sociales le mois suivant : virement URSSAF 1 500 € (patronales 900 + salariales 600)",
                 entry: {
                     rows: [
-                        ["431", "Sécurité sociale", "1 500,00", ""],
-                        ["512", "Banques", "", "1 500,00"],
+                        [
+                            "431",
+                            "Sécurité sociale",
+                            "1 500,00",
+                            "",
+                        ],
+                        [
+                            "512",
+                            "Banques",
+                            "",
+                            "1 500,00",
+                        ],
                     ],
                 },
             },
         ],
-        accountNumbers: ["645", "431", "437", "512"],
+        accountNumbers: [
+            "645",
+            "431",
+            "437",
+            "512",
+        ],
     }),
     defineScenario({
         id: "emprunt-bancaire",
@@ -363,13 +663,26 @@ export const scenarioEntries: ScenarioEntry[] = [
                     "Réception des fonds d'un emprunt bancaire de 50 000 € à 4 % sur 5 ans — virement sur le compte courant",
                 entry: {
                     rows: [
-                        ["512", "Banques", "50 000,00", ""],
-                        ["164", "Emprunts auprès des établissements de crédit", "", "50 000,00"],
+                        [
+                            "512",
+                            "Banques",
+                            "50 000,00",
+                            "",
+                        ],
+                        [
+                            "164",
+                            "Emprunts auprès des établissements de crédit",
+                            "",
+                            "50 000,00",
+                        ],
                     ],
                 },
             },
         ],
-        accountNumbers: ["512", "164"],
+        accountNumbers: [
+            "512",
+            "164",
+        ],
     }),
     defineScenario({
         id: "remboursement-echeance-emprunt",
@@ -383,14 +696,33 @@ export const scenarioEntries: ScenarioEntry[] = [
                     "Prélèvement mensuel de 1 000 € : 800 € en remboursement du capital et 200 € d'intérêts (taux 4 % sur capital restant dû)",
                 entry: {
                     rows: [
-                        ["164", "Emprunts auprès des établissements de crédit", "800,00", ""],
-                        ["6611", "Intérêts des emprunts et dettes", "200,00", ""],
-                        ["512", "Banques", "", "1 000,00"],
+                        [
+                            "164",
+                            "Emprunts auprès des établissements de crédit",
+                            "800,00",
+                            "",
+                        ],
+                        [
+                            "6611",
+                            "Intérêts des emprunts et dettes",
+                            "200,00",
+                            "",
+                        ],
+                        [
+                            "512",
+                            "Banques",
+                            "",
+                            "1 000,00",
+                        ],
                     ],
                 },
             },
         ],
-        accountNumbers: ["164", "6611", "512"],
+        accountNumbers: [
+            "164",
+            "6611",
+            "512",
+        ],
     }),
     defineScenario({
         id: "tva-declaration-mensuelle",
@@ -404,9 +736,24 @@ export const scenarioEntries: ScenarioEntry[] = [
                     "Liquidation mensuelle : TVA collectée 400 €, TVA déductible sur achats courants 200 € — solde à décaisser 200 €",
                 entry: {
                     rows: [
-                        ["44571", "TVA collectée", "400,00", ""],
-                        ["44566", "TVA sur autres biens et services", "", "200,00"],
-                        ["44551", "TVA à décaisser", "", "200,00"],
+                        [
+                            "44571",
+                            "TVA collectée",
+                            "400,00",
+                            "",
+                        ],
+                        [
+                            "44566",
+                            "TVA sur autres biens et services",
+                            "",
+                            "200,00",
+                        ],
+                        [
+                            "44551",
+                            "TVA à décaisser",
+                            "",
+                            "200,00",
+                        ],
                     ],
                 },
             },
@@ -414,13 +761,28 @@ export const scenarioEntries: ScenarioEntry[] = [
                 description: "Paiement de la TVA à décaisser de 200 € au Trésor Public par prélèvement bancaire",
                 entry: {
                     rows: [
-                        ["44551", "TVA à décaisser", "200,00", ""],
-                        ["512", "Banques", "", "200,00"],
+                        [
+                            "44551",
+                            "TVA à décaisser",
+                            "200,00",
+                            "",
+                        ],
+                        [
+                            "512",
+                            "Banques",
+                            "",
+                            "200,00",
+                        ],
                     ],
                 },
             },
         ],
-        accountNumbers: ["44571", "44566", "44551", "512"],
+        accountNumbers: [
+            "44571",
+            "44566",
+            "44551",
+            "512",
+        ],
     }),
     defineScenario({
         id: "paiement-loyer",
@@ -433,8 +795,18 @@ export const scenarioEntries: ScenarioEntry[] = [
                 description: "Loyer mensuel de locaux professionnels hors TVA : 1 500 € payés par virement",
                 entry: {
                     rows: [
-                        ["613", "Locations", "1 500,00", ""],
-                        ["512", "Banques", "", "1 500,00"],
+                        [
+                            "613",
+                            "Locations",
+                            "1 500,00",
+                            "",
+                        ],
+                        [
+                            "512",
+                            "Banques",
+                            "",
+                            "1 500,00",
+                        ],
                     ],
                 },
             },
@@ -443,14 +815,33 @@ export const scenarioEntries: ScenarioEntry[] = [
                     "Loyer mensuel de locaux commerciaux avec option TVA : 1 500 € HT + TVA 20 % = 1 800 € TTC payés à réception de la quittance",
                 entry: {
                     rows: [
-                        ["613", "Locations", "1 500,00", ""],
-                        ["44566", "TVA sur autres biens et services", "300,00", ""],
-                        ["512", "Banques", "", "1 800,00"],
+                        [
+                            "613",
+                            "Locations",
+                            "1 500,00",
+                            "",
+                        ],
+                        [
+                            "44566",
+                            "TVA sur autres biens et services",
+                            "300,00",
+                            "",
+                        ],
+                        [
+                            "512",
+                            "Banques",
+                            "",
+                            "1 800,00",
+                        ],
                     ],
                 },
             },
         ],
-        accountNumbers: ["613", "512", "44566"],
+        accountNumbers: [
+            "613",
+            "512",
+            "44566",
+        ],
     }),
     defineScenario({
         id: "provision-risques-charges",
@@ -464,8 +855,18 @@ export const scenarioEntries: ScenarioEntry[] = [
                     "Constitution d'une provision pour litige commercial en cours d'instance : risque estimé à 5 000 € par le conseil juridique",
                 entry: {
                     rows: [
-                        ["6815", "Dotations aux provisions d'exploitation", "5 000,00", ""],
-                        ["151", "Provisions pour risques", "", "5 000,00"],
+                        [
+                            "6815",
+                            "Dotations aux provisions d'exploitation",
+                            "5 000,00",
+                            "",
+                        ],
+                        [
+                            "151",
+                            "Provisions pour risques",
+                            "",
+                            "5 000,00",
+                        ],
                     ],
                 },
             },
@@ -474,13 +875,27 @@ export const scenarioEntries: ScenarioEntry[] = [
                     "Reprise de la provision l'exercice suivant : le litige est clôturé sans condamnation — la provision devient sans objet",
                 entry: {
                     rows: [
-                        ["151", "Provisions pour risques", "5 000,00", ""],
-                        ["7815", "Reprises sur provisions d'exploitation", "", "5 000,00"],
+                        [
+                            "151",
+                            "Provisions pour risques",
+                            "5 000,00",
+                            "",
+                        ],
+                        [
+                            "7815",
+                            "Reprises sur provisions d'exploitation",
+                            "",
+                            "5 000,00",
+                        ],
                     ],
                 },
             },
         ],
-        accountNumbers: ["6815", "151", "7815"],
+        accountNumbers: [
+            "6815",
+            "151",
+            "7815",
+        ],
     }),
     defineScenario({
         id: "affectation-resultat-benefice",
@@ -494,9 +909,24 @@ export const scenarioEntries: ScenarioEntry[] = [
                     "Affectation du bénéfice de 20 000 € : 5 % en réserve légale (1 000 €), 19 000 € en dividendes à distribuer",
                 entry: {
                     rows: [
-                        ["120", "Résultat de l'exercice - bénéfice", "20 000,00", ""],
-                        ["1061", "Réserve légale", "", "1 000,00"],
-                        ["457", "Associés - Dividendes à payer", "", "19 000,00"],
+                        [
+                            "120",
+                            "Résultat de l'exercice - bénéfice",
+                            "20 000,00",
+                            "",
+                        ],
+                        [
+                            "1061",
+                            "Réserve légale",
+                            "",
+                            "1 000,00",
+                        ],
+                        [
+                            "457",
+                            "Associés - Dividendes à payer",
+                            "",
+                            "19 000,00",
+                        ],
                     ],
                 },
             },
@@ -504,13 +934,28 @@ export const scenarioEntries: ScenarioEntry[] = [
                 description: "Paiement des dividendes de 19 000 € aux associés par virement bancaire",
                 entry: {
                     rows: [
-                        ["457", "Associés - Dividendes à payer", "19 000,00", ""],
-                        ["512", "Banques", "", "19 000,00"],
+                        [
+                            "457",
+                            "Associés - Dividendes à payer",
+                            "19 000,00",
+                            "",
+                        ],
+                        [
+                            "512",
+                            "Banques",
+                            "",
+                            "19 000,00",
+                        ],
                     ],
                 },
             },
         ],
-        accountNumbers: ["120", "1061", "457", "512"],
+        accountNumbers: [
+            "120",
+            "1061",
+            "457",
+            "512",
+        ],
     }),
     defineScenario({
         id: "cession-immobilisation",
@@ -524,8 +969,18 @@ export const scenarioEntries: ScenarioEntry[] = [
                     "Encaissement du prix de cession de l'ordinateur (800 € d'origine, revendu 400 €) par virement bancaire",
                 entry: {
                     rows: [
-                        ["512", "Banques", "400,00", ""],
-                        ["77", "Produits exceptionnels", "", "400,00"],
+                        [
+                            "512",
+                            "Banques",
+                            "400,00",
+                            "",
+                        ],
+                        [
+                            "77",
+                            "Produits exceptionnels",
+                            "",
+                            "400,00",
+                        ],
                     ],
                 },
             },
@@ -534,14 +989,35 @@ export const scenarioEntries: ScenarioEntry[] = [
                     "Sortie de l'actif : valeur d'origine 800 €, amortissements cumulés 533 €, valeur nette comptable résiduelle de 267 € portée en charges",
                 entry: {
                     rows: [
-                        ["281", "Amortissements des immobilisations corporelles", "533,00", ""],
-                        ["67", "Charges exceptionnelles", "267,00", ""],
-                        ["2183", "Matériel de bureau et matériel informatique", "", "800,00"],
+                        [
+                            "281",
+                            "Amortissements des immobilisations corporelles",
+                            "533,00",
+                            "",
+                        ],
+                        [
+                            "67",
+                            "Charges exceptionnelles",
+                            "267,00",
+                            "",
+                        ],
+                        [
+                            "2183",
+                            "Matériel de bureau et matériel informatique",
+                            "",
+                            "800,00",
+                        ],
                     ],
                 },
             },
         ],
-        accountNumbers: ["512", "77", "281", "67", "2183"],
+        accountNumbers: [
+            "512",
+            "77",
+            "281",
+            "67",
+            "2183",
+        ],
     }),
     defineScenario({
         id: "note-de-frais",
@@ -555,8 +1031,18 @@ export const scenarioEntries: ScenarioEntry[] = [
                     "Enregistrement de la note de frais : déplacements professionnels 150 € (billets de train, justificatifs fournis)",
                 entry: {
                     rows: [
-                        ["625", "Déplacements, missions et réceptions", "150,00", ""],
-                        ["421", "Personnel - Rémunérations dues", "", "150,00"],
+                        [
+                            "625",
+                            "Déplacements, missions et réceptions",
+                            "150,00",
+                            "",
+                        ],
+                        [
+                            "421",
+                            "Personnel - Rémunérations dues",
+                            "",
+                            "150,00",
+                        ],
                     ],
                 },
             },
@@ -565,13 +1051,27 @@ export const scenarioEntries: ScenarioEntry[] = [
                     "Remboursement de la note de frais au salarié : virement de 150 € sur son compte personnel",
                 entry: {
                     rows: [
-                        ["421", "Personnel - Rémunérations dues", "150,00", ""],
-                        ["512", "Banques", "", "150,00"],
+                        [
+                            "421",
+                            "Personnel - Rémunérations dues",
+                            "150,00",
+                            "",
+                        ],
+                        [
+                            "512",
+                            "Banques",
+                            "",
+                            "150,00",
+                        ],
                     ],
                 },
             },
         ],
-        accountNumbers: ["625", "421", "512"],
+        accountNumbers: [
+            "625",
+            "421",
+            "512",
+        ],
     }),
     defineScenario({
         id: "achat-fournitures-consommables",
@@ -584,9 +1084,24 @@ export const scenarioEntries: ScenarioEntry[] = [
                 description: "Facture de fournitures de bureau : 200 € HT, TVA 20 % — règlement fournisseur à 30 jours",
                 entry: {
                     rows: [
-                        ["606", "Achats non stockés de matière et fournitures", "200,00", ""],
-                        ["44566", "TVA sur autres biens et services", "40,00", ""],
-                        ["401", "Fournisseurs", "", "240,00"],
+                        [
+                            "606",
+                            "Achats non stockés de matière et fournitures",
+                            "200,00",
+                            "",
+                        ],
+                        [
+                            "44566",
+                            "TVA sur autres biens et services",
+                            "40,00",
+                            "",
+                        ],
+                        [
+                            "401",
+                            "Fournisseurs",
+                            "",
+                            "240,00",
+                        ],
                     ],
                 },
             },
@@ -595,14 +1110,34 @@ export const scenarioEntries: ScenarioEntry[] = [
                     "Achat de consommables informatiques 80 € HT, TVA 20 % — payés immédiatement par carte bancaire",
                 entry: {
                     rows: [
-                        ["606", "Achats non stockés de matière et fournitures", "80,00", ""],
-                        ["44566", "TVA sur autres biens et services", "16,00", ""],
-                        ["512", "Banques", "", "96,00"],
+                        [
+                            "606",
+                            "Achats non stockés de matière et fournitures",
+                            "80,00",
+                            "",
+                        ],
+                        [
+                            "44566",
+                            "TVA sur autres biens et services",
+                            "16,00",
+                            "",
+                        ],
+                        [
+                            "512",
+                            "Banques",
+                            "",
+                            "96,00",
+                        ],
                     ],
                 },
             },
         ],
-        accountNumbers: ["606", "44566", "401", "512"],
+        accountNumbers: [
+            "606",
+            "44566",
+            "401",
+            "512",
+        ],
     }),
 ]
 

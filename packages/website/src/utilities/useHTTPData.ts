@@ -17,7 +17,10 @@ export function useDataFromAPI<
     select?: (data: v.InferOutput<TSchemaReturn>) => TSelected
 }) {
     return useQuery({
-        queryKey: [parameters.routeDefinition.path, parameters.body],
+        queryKey: [
+            parameters.routeDefinition.path,
+            parameters.body,
+        ],
         queryFn: async (context) => {
             const response = await getResponseBodyFromAPI({
                 routeDefinition: parameters.routeDefinition,

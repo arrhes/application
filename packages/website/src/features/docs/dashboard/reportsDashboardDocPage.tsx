@@ -72,11 +72,35 @@ export function ReportsDashboardDocPage() {
                 </DocParagraph>
                 <DocExample title="Extrait de balance">
                     <DocTable
-                        headers={["Compte", "Libellé", "Total Débit", "Total Crédit", "Solde"]}
+                        headers={[
+                            "Compte",
+                            "Libellé",
+                            "Total Débit",
+                            "Total Crédit",
+                            "Solde",
+                        ]}
                         rows={[
-                            ["411000", "Clients", "15 000,00", "12 000,00", "3 000,00 D"],
-                            ["401000", "Fournisseurs", "8 000,00", "10 000,00", "2 000,00 C"],
-                            ["512000", "Banque", "45 000,00", "38 000,00", "7 000,00 D"],
+                            [
+                                "411000",
+                                "Clients",
+                                "15 000,00",
+                                "12 000,00",
+                                "3 000,00 D",
+                            ],
+                            [
+                                "401000",
+                                "Fournisseurs",
+                                "8 000,00",
+                                "10 000,00",
+                                "2 000,00 C",
+                            ],
+                            [
+                                "512000",
+                                "Banque",
+                                "45 000,00",
+                                "38 000,00",
+                                "7 000,00 D",
+                            ],
                         ]}
                     />
                 </DocExample>
@@ -110,13 +134,31 @@ export function ReportsDashboardDocPage() {
                 </DocParagraph>
                 <DocExample title="Structure simplifiée">
                     <DocTable
-                        headers={["Élément", "Montant"]}
+                        headers={[
+                            "Élément",
+                            "Montant",
+                        ]}
                         rows={[
-                            ["Chiffre d'affaires", "100 000,00"],
-                            ["Achats et charges externes", "- 60 000,00"],
-                            ["Charges de personnel", "- 25 000,00"],
-                            ["Autres charges", "- 5 000,00"],
-                            ["Résultat", "10 000,00"],
+                            [
+                                "Chiffre d'affaires",
+                                "100 000,00",
+                            ],
+                            [
+                                "Achats et charges externes",
+                                "- 60 000,00",
+                            ],
+                            [
+                                "Charges de personnel",
+                                "- 25 000,00",
+                            ],
+                            [
+                                "Autres charges",
+                                "- 5 000,00",
+                            ],
+                            [
+                                "Résultat",
+                                "10 000,00",
+                            ],
                         ]}
                     />
                 </DocExample>

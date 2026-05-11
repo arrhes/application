@@ -10,8 +10,12 @@ export function GlossaryListItem(props: {
     return (
         <LinkButton
             to="/documentation/comptabilité/ressources/glossaire/$term"
-            params={{ term: props.slug }}
-            className={css({ width: "100%" })}
+            params={{
+                term: props.slug,
+            }}
+            className={css({
+                width: "100%",
+            })}
         >
             <div
                 className={css({

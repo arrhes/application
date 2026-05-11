@@ -15,8 +15,17 @@ const labelContainerStyle = css({
     gap: "0.5rem",
 })
 
-const numberBaseStyle = css({ color: "neutral", fontSize: "xs", lineHeight: "none" })
-const numberBoldStyle = css({ color: "neutral", fontSize: "xs", lineHeight: "none", fontWeight: "bold" })
+const numberBaseStyle = css({
+    color: "neutral",
+    fontSize: "xs",
+    lineHeight: "none",
+})
+const numberBoldStyle = css({
+    color: "neutral",
+    fontSize: "xs",
+    lineHeight: "none",
+    fontWeight: "bold",
+})
 
 const labelBaseStyle = css({
     color: "neutral",
@@ -40,7 +49,14 @@ export const AccountItem = memo(function AccountItem(props: {
     href: string
 }) {
     return (
-        <a href={props.href} data-account-link className={css({ width: "100%", cursor: "pointer" })}>
+        <a
+            href={props.href}
+            data-account-link
+            className={css({
+                width: "100%",
+                cursor: "pointer",
+            })}
+        >
             <div
                 className={css({
                     minWidth: "fit",
@@ -50,11 +66,15 @@ export const AccountItem = memo(function AccountItem(props: {
                     alignItems: "center",
                     gap: "0.5rem",
                     padding: "0.5rem",
-                    _hover: { backgroundColor: "neutral/5" },
+                    _hover: {
+                        backgroundColor: "neutral/5",
+                    },
                     borderRadius: "md",
                     borderBottomWidth: "1px",
                     borderColor: "neutral/5",
-                    _last: { borderBottomWidth: "0" },
+                    _last: {
+                        borderBottomWidth: "0",
+                    },
                 })}
                 style={{
                     height: `${ACCOUNT_ITEM_HEIGHT}px`,

@@ -4,7 +4,9 @@ import { getResponseBodyFromAPI } from "../../../../../utilities/getResponseBody
 export async function getInvoiceXmlContent(idInvoice: string) {
     const signedUrlResponse = await getResponseBodyFromAPI({
         routeDefinition: generateInvoiceGetSignedUrlRouteDefinition,
-        body: { idInvoice },
+        body: {
+            idInvoice,
+        },
     })
 
     if (!signedUrlResponse.ok) {

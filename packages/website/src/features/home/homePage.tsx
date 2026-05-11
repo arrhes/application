@@ -56,7 +56,10 @@ export function HomePage() {
                         })}
                     >
                         <LinkButton to="/">
-                            <ButtonGhostContent leftIcon={<Logo />} text="Arrhes" />
+                            <ButtonGhostContent
+                                leftIcon={<Logo />}
+                                text="Arrhes"
+                            />
                         </LinkButton>
                     </div>
                     <nav
@@ -67,7 +70,10 @@ export function HomePage() {
                         })}
                     >
                         <LinkButton to="/documentation">
-                            <ButtonOutlineContent leftIcon={<IconBook2 />} text="Documentation" />
+                            <ButtonOutlineContent
+                                leftIcon={<IconBook2 />}
+                                text="Documentation"
+                            />
                         </LinkButton>
                         <LinkButton to="/dashboard">
                             <ButtonPlainContent text="Dashboard" />
@@ -108,7 +114,10 @@ export function HomePage() {
                             display: "flex",
                             flexDirection: "column",
                             justifyContent: "start",
-                            alignItems: { base: "center", md: "start" },
+                            alignItems: {
+                                base: "center",
+                                md: "start",
+                            },
                             gap: "1rem",
                         })}
                     >
@@ -121,7 +130,10 @@ export function HomePage() {
                                 color: "neutral",
                                 lineHeight: "normal",
                                 letterSpacing: "normal",
-                                textAlign: { base: "center", md: "left" },
+                                textAlign: {
+                                    base: "center",
+                                    md: "left",
+                                },
                             })}
                         >
                             Le logiciel de comptabilité moderne et intuitif,
@@ -143,16 +155,25 @@ export function HomePage() {
                             className={css({
                                 marginTop: "1rem",
                                 display: "flex",
-                                flexDirection: { base: "column", sm: "row" },
+                                flexDirection: {
+                                    base: "column",
+                                    sm: "row",
+                                },
                                 alignItems: "center",
                                 gap: "0.5rem",
                             })}
                         >
                             <LinkButton to="/inscription">
-                                <ButtonPlainContent leftIcon={<IconUser />} text="Créer un compte" />
+                                <ButtonPlainContent
+                                    leftIcon={<IconUser />}
+                                    text="Créer un compte"
+                                />
                             </LinkButton>
                             <LinkButton to="/documentation">
-                                <ButtonOutlineContent leftIcon={<IconBook2 />} text="En savoir plus" />
+                                <ButtonOutlineContent
+                                    leftIcon={<IconBook2 />}
+                                    text="En savoir plus"
+                                />
                             </LinkButton>
                         </div>
                     </div>
@@ -160,7 +181,10 @@ export function HomePage() {
                     {/* Illustration */}
                     <div
                         className={css({
-                            display: { base: "none", md: "flex" },
+                            display: {
+                                base: "none",
+                                md: "flex",
+                            },
                             justifyContent: "center",
                             alignItems: "center",
                             // flex: "1",
@@ -268,7 +292,10 @@ export function HomePage() {
                         Apprenez les concepts essentiels : partie double, plan comptable, écritures, journaux...
                     </p>
                     <LinkButton to="/documentation/comptabilité">
-                        <ButtonOutlineContent leftIcon={<IconBook2 />} text="Découvrir le cours" />
+                        <ButtonOutlineContent
+                            leftIcon={<IconBook2 />}
+                            text="Découvrir le cours"
+                        />
                     </LinkButton>
                 </div>
             </section>
@@ -309,7 +336,10 @@ export function HomePage() {
                         <Logo withText />
                     </Button> */}
                     <LinkButton to="/documentation/mentions-légales">
-                        <ButtonGhostContent leftIcon={<IconGavel />} text="Mentions légales" />
+                        <ButtonGhostContent
+                            leftIcon={<IconGavel />}
+                            text="Mentions légales"
+                        />
                     </LinkButton>
                     <div
                         className={css({
@@ -319,10 +349,18 @@ export function HomePage() {
                             gap: "0.25rem",
                         })}
                     >
-                        <a href="https://linkedin.com/company/arrhes" target="_blank" rel="noopener noreferrer">
+                        <a
+                            href="https://linkedin.com/company/arrhes"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             <ButtonGhostContent leftIcon={<IconBrandLinkedin />} />
                         </a>
-                        <a href="https://github.com/arrhes" target="_blank" rel="noopener noreferrer">
+                        <a
+                            href="https://github.com/arrhes"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             <ButtonGhostContent leftIcon={<IconBrandGithub />} />
                         </a>
                     </div>

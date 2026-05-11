@@ -9,7 +9,9 @@ import { deleteOne } from "../../../../utilities/sql/deleteOne.js"
 import { selectOne } from "../../../../utilities/sql/selectOne.js"
 
 export const deleteOneApiKeyRoute = apiFactory.createApp().post(deleteOneApiKeyRouteDefinition.path, async (c) => {
-    const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+    const { user, idOrganization } = await checkUserSessionMiddleware({
+        context: c,
+    })
     const body = await validateBodyMiddleware({
         context: c,
         schema: deleteOneApiKeyRouteDefinition.schemas.body,

@@ -25,7 +25,10 @@ export function CreateOneOrganizationUser(props: {
     const [open, setOpen] = useState(false)
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Ajouter un nouvel utilisateur" />
@@ -45,11 +48,17 @@ export function CreateOneOrganizationUser(props: {
                                 body: data,
                             })
                             if (!response.ok) {
-                                toast({ title: "Impossible d'ajouter l'utilisateur", variant: "error" })
+                                toast({
+                                    title: "Impossible d'ajouter l'utilisateur",
+                                    variant: "error",
+                                })
                                 return false
                             }
 
-                            toast({ title: "Utilisateur ajouté avec succès", variant: "success" })
+                            toast({
+                                title: "Utilisateur ajouté avec succès",
+                                variant: "success",
+                            })
                             return true
                         }}
                         onCancel={undefined}
@@ -80,8 +89,14 @@ export function CreateOneOrganizationUser(props: {
                                                     value={field.value}
                                                     onChange={field.onChange}
                                                     options={[
-                                                        { value: true, label: "Oui" },
-                                                        { value: false, label: "Non" },
+                                                        {
+                                                            value: true,
+                                                            label: "Oui",
+                                                        },
+                                                        {
+                                                            value: false,
+                                                            label: "Non",
+                                                        },
                                                     ]}
                                                 />
                                             </FormControl>
@@ -101,7 +116,11 @@ export function CreateOneOrganizationUser(props: {
                                                 tooltip={undefined}
                                             />
                                             <FormControl>
-                                                <InputText value={field.value} onChange={field.onChange} type="email" />
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                    type="email"
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>

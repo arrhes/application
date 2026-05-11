@@ -17,7 +17,9 @@ export function ListTableRow(props: {
                     gap: "1rem",
                     borderBottom: "1px solid",
                     borderBottomColor: "neutral/10",
-                    _last: { borderBottom: "none" },
+                    _last: {
+                        borderBottom: "none",
+                    },
                 }),
                 props.className,
             )}

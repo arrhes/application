@@ -31,7 +31,14 @@ type Part = {
 export function getAgentMessageParts(
     agentMessage: InferOutput<typeof readAllAgentMessagesRouteDefinition.schemas.return>[number],
 ) {
-    const content = agentMessage.output ?? (agentMessage as { content?: string | null }).content ?? ""
+    const content =
+        agentMessage.output ??
+        (
+            agentMessage as {
+                content?: string | null
+            }
+        ).content ??
+        ""
     const events: unknown[] = Array.isArray(agentMessage.toolCalls) ? agentMessage.toolCalls : []
 
     // Check if we have interleaving markers
@@ -53,7 +60,14 @@ export function getAgentMessageParts(
 function buildInterleavedParts(events: unknown[], content: string, state: string | null): Part[] {
     const parts: Part[] = []
     let textOffset = 0
-    const toolCallMap = new Map<string, { name: string; args: unknown; ended: boolean }>()
+    const toolCallMap = new Map<
+        string,
+        {
+            name: string
+            args: unknown
+            ended: boolean
+        }
+    >()
 
     const seenToolCallEnds = new Set<string>()
 
@@ -66,14 +80,21 @@ function buildInterleavedParts(events: unknown[], content: string, state: string
             const endPos = typeof e.contentLength === "number" ? e.contentLength : content.length
             const segment = stripRawToolCalls(content.slice(textOffset, endPos))
             if (segment) {
-                parts.push({ type: "text", content: segment })
+                parts.push({
+                    type: "text",
+                    content: segment,
+                })
             }
             textOffset = endPos
         }
 
         if (e.type === "TOOL_CALL_START" && typeof e.toolCallId === "string" && typeof e.toolName === "string") {
             if (!toolCallMap.has(e.toolCallId)) {
-                toolCallMap.set(e.toolCallId, { name: e.toolName, args: undefined, ended: false })
+                toolCallMap.set(e.toolCallId, {
+                    name: e.toolName,
+                    args: undefined,
+                    ended: false,
+                })
                 // Emit tool-call part immediately so it's visible during streaming
                 parts.push({
                     type: "tool-call",
@@ -96,7 +117,11 @@ function buildInterleavedParts(events: unknown[], content: string, state: string
                 existing.args = e.input
                 existing.ended = true
             } else {
-                toolCallMap.set(e.toolCallId, { name: e.toolName, args: e.input, ended: true })
+                toolCallMap.set(e.toolCallId, {
+                    name: e.toolName,
+                    args: e.input,
+                    ended: true,
+                })
             }
             // Update the existing part emitted at TOOL_CALL_START, or create a new one
             const existingPart = parts.find((p) => p.type === "tool-call" && p.id === e.toolCallId)
@@ -122,9 +147,15 @@ function buildInterleavedParts(events: unknown[], content: string, state: string
         const remaining = stripRawToolCalls(content.slice(textOffset))
         // If the message errored and this is the only text, it's the error message
         if (state === "error" && parts.every((p) => p.type !== "text")) {
-            parts.push({ type: "error", content: remaining })
+            parts.push({
+                type: "error",
+                content: remaining,
+            })
         } else if (remaining) {
-            parts.push({ type: "text", content: remaining })
+            parts.push({
+                type: "text",
+                content: remaining,
+            })
         }
     }
 
@@ -136,7 +167,10 @@ function buildInterleavedParts(events: unknown[], content: string, state: string
                 content: content || "Une erreur est survenue lors de la génération de la réponse.",
             })
         } else {
-            parts.push({ type: "text", content: getContentFallback(content, state) })
+            parts.push({
+                type: "text",
+                content: getContentFallback(content, state),
+            })
         }
     }
 
@@ -150,14 +184,26 @@ function buildLegacyParts(agentMessage: { output: string | null; state: string |
     parts.push(...toolCallParts)
 
     const rawText = getContentFallback(
-        agentMessage.output ?? (agentMessage as { content?: string | null }).content ?? "",
+        agentMessage.output ??
+            (
+                agentMessage as {
+                    content?: string | null
+                }
+            ).content ??
+            "",
         agentMessage.state,
     )
     const text = rawText ? stripRawToolCalls(rawText) : rawText
     if (agentMessage.state === "error") {
-        parts.push({ type: "error", content: text || "Une erreur est survenue lors de la génération de la réponse." })
+        parts.push({
+            type: "error",
+            content: text || "Une erreur est survenue lors de la génération de la réponse.",
+        })
     } else {
-        parts.push({ type: "text", content: text })
+        parts.push({
+            type: "text",
+            content: text,
+        })
     }
 
     return parts

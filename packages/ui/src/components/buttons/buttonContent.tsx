@@ -46,7 +46,10 @@ export function renderButtonContent(
             className={cx(classes.container, iconOnlyStyles, props.className)}
         >
             {isLoading ? (
-                <CircularLoader size={16} className={classes.leftIcon} />
+                <CircularLoader
+                    size={16}
+                    className={classes.leftIcon}
+                />
             ) : (
                 props.leftIcon &&
                 cloneElement(props.leftIcon, {
@@ -59,7 +62,11 @@ export function renderButtonContent(
             )}
 
             {props.text && (
-                <span aria-disabled={isDisabled} aria-current={props.isCurrent} className={cx(classes.text)}>
+                <span
+                    aria-disabled={isDisabled}
+                    aria-current={props.isCurrent}
+                    className={cx(classes.text)}
+                >
                     {props.text}
                 </span>
             )}
@@ -67,14 +74,30 @@ export function renderButtonContent(
             {props.children}
 
             {props.rightIcon && (
-                <div className={css({ display: "flex", alignItems: "center", justifyContent: "center" })}>
+                <div
+                    className={css({
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                    })}
+                >
                     {isLoading ? (
-                        <CircularLoader size={16 - 4} className={classes.rightIcon} />
+                        <CircularLoader
+                            size={16 - 4}
+                            className={classes.rightIcon}
+                        />
                     ) : (
                         cloneElement(props.rightIcon, {
                             "aria-disabled": isDisabled,
                             size: 16 - 4,
-                            className: cx(classes.rightIcon, css({ _disabled: { color: "neutral/50" } })),
+                            className: cx(
+                                classes.rightIcon,
+                                css({
+                                    _disabled: {
+                                        color: "neutral/50",
+                                    },
+                                }),
+                            ),
                             strokeWidth: 1.75,
                         })
                     )}

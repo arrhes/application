@@ -25,16 +25,22 @@ const categoryLabels: Record<string, string> = {
 }
 
 export function TicketPage() {
-    const params = useParams({ from: $idTicketLayoutRoute.id })
+    const params = useParams({
+        from: $idTicketLayoutRoute.id,
+    })
 
     const ticket = useDataFromAPI({
         routeDefinition: adminReadOneTicketRouteDefinition,
-        body: { idTicket: params.idTicket },
+        body: {
+            idTicket: params.idTicket,
+        },
     })
 
     const messages = useDataFromAPI({
         routeDefinition: adminReadAllTicketMessagesRouteDefinition,
-        body: { idTicket: params.idTicket },
+        body: {
+            idTicket: params.idTicket,
+        },
     })
 
     const userSession = useDataFromAPI({
@@ -43,11 +49,23 @@ export function TicketPage() {
     })
 
     return (
-        <div className={css({ width: "100%", display: "flex", flexDirection: "column", gap: "1rem" })}>
+        <div
+            className={css({
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                gap: "1rem",
+            })}
+        >
             {ticket.isPending && <CircularLoader text="Chargement du ticket..." />}
 
             {ticket.isError && (
-                <span className={css({ fontSize: "sm", color: "danger" })}>
+                <span
+                    className={css({
+                        fontSize: "sm",
+                        color: "danger",
+                    })}
+                >
                     Erreur lors de la recuperation du ticket.
                 </span>
             )}
@@ -82,8 +100,22 @@ export function TicketPage() {
                                 gap: "0.5rem",
                             })}
                         >
-                            <h1 className={css({ fontSize: "lg", color: "neutral" })}>Ticket</h1>
-                            <span className={css({ fontSize: "lg", color: "neutral/50" })}>{ticket.data.id}</span>
+                            <h1
+                                className={css({
+                                    fontSize: "lg",
+                                    color: "neutral",
+                                })}
+                            >
+                                Ticket
+                            </h1>
+                            <span
+                                className={css({
+                                    fontSize: "lg",
+                                    color: "neutral/50",
+                                })}
+                            >
+                                {ticket.data.id}
+                            </span>
                         </div>
                         <Badge>{statusLabels[ticket.data.status] ?? ticket.data.status}</Badge>
                     </div>
@@ -97,23 +129,52 @@ export function TicketPage() {
                             gap: "0.5rem",
                         })}
                     >
-                        <span className={css({ fontSize: "sm", color: "neutral/50" })}>Categorie : </span>
-                        <span className={css({ fontSize: "sm", color: "neutral" })}>
+                        <span
+                            className={css({
+                                fontSize: "sm",
+                                color: "neutral/50",
+                            })}
+                        >
+                            Categorie :{" "}
+                        </span>
+                        <span
+                            className={css({
+                                fontSize: "sm",
+                                color: "neutral",
+                            })}
+                        >
                             {categoryLabels[ticket.data.category] ?? ticket.data.category}
                         </span>
                     </div>
 
                     <span
-                        className={css({ fontSize: "xs", color: "neutral/50" })}
+                        className={css({
+                            fontSize: "xs",
+                            color: "neutral/50",
+                        })}
                     >{`Utilisateur : ${ticket.data.idUser}`}</span>
 
-                    <span className={css({ fontSize: "xs", color: "neutral/50" })}>
-                        {`Cree le ${formatDate(ticket.data.createdAt, { includeTime: true })}`}
+                    <span
+                        className={css({
+                            fontSize: "xs",
+                            color: "neutral/50",
+                        })}
+                    >
+                        {`Cree le ${formatDate(ticket.data.createdAt, {
+                            includeTime: true,
+                        })}`}
                     </span>
 
                     {ticket.data.lastUpdatedAt ? (
-                        <span className={css({ fontSize: "xs", color: "neutral/50" })}>
-                            {`Mis a jour le ${formatDate(ticket.data.lastUpdatedAt, { includeTime: true })}`}
+                        <span
+                            className={css({
+                                fontSize: "xs",
+                                color: "neutral/50",
+                            })}
+                        >
+                            {`Mis a jour le ${formatDate(ticket.data.lastUpdatedAt, {
+                                includeTime: true,
+                            })}`}
                         </span>
                     ) : null}
 
@@ -121,7 +182,9 @@ export function TicketPage() {
 
                     {messages.data &&
                         (() => {
-                            const sorted = [...messages.data].sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+                            const sorted = [
+                                ...messages.data,
+                            ].sort((a, b) => b.createdAt.localeCompare(a.createdAt))
                             const lastMessage = sorted[0]
 
                             return (
@@ -135,14 +198,24 @@ export function TicketPage() {
                                     })}
                                 >
                                     {lastMessage ? (
-                                        <span className={css({ fontSize: "sm", color: "neutral/60" })}>
+                                        <span
+                                            className={css({
+                                                fontSize: "sm",
+                                                color: "neutral/60",
+                                            })}
+                                        >
                                             {lastMessage.idAdminUser !== null ||
                                             lastMessage.idUser === userSession.data?.user.id
                                                 ? "Dernier message : Admin (en attente de reponse utilisateur)"
                                                 : "Dernier message : Utilisateur (en attente de votre reponse)"}
                                         </span>
                                     ) : (
-                                        <span className={css({ fontSize: "sm", color: "neutral/50" })}>
+                                        <span
+                                            className={css({
+                                                fontSize: "sm",
+                                                color: "neutral/50",
+                                            })}
+                                        >
                                             Aucun message
                                         </span>
                                     )}
@@ -168,14 +241,27 @@ export function TicketPage() {
                             borderColor: "neutral/10",
                         })}
                     >
-                        <IconCheck size={16} className={css({ color: "neutral/50" })} />
-                        <span className={css({ fontSize: "sm", color: "neutral/60" })}>
+                        <IconCheck
+                            size={16}
+                            className={css({
+                                color: "neutral/50",
+                            })}
+                        />
+                        <span
+                            className={css({
+                                fontSize: "sm",
+                                color: "neutral/60",
+                            })}
+                        >
                             Ce ticket est ferme. Rouvrez-le pour repondre.
                         </span>
                     </div>
                 ))}
 
-            <TicketMessageList currentUserId={userSession.data?.user.id} idTicket={params.idTicket} />
+            <TicketMessageList
+                currentUserId={userSession.data?.user.id}
+                idTicket={params.idTicket}
+            />
         </div>
     )
 }

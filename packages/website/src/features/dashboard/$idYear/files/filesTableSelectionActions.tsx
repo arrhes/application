@@ -17,18 +17,46 @@ import { invalidateData } from "../../../../utilities/invalidateData.js"
 import { deleteFileWithSignedUrl } from "./deleteFileWithSignedUrl.js"
 
 export type TableRow =
-    | { kind: "back" }
-    | { kind: "folder"; data: v.InferOutput<typeof returnedSchemas.folder> }
-    | { kind: "file"; data: v.InferOutput<typeof returnedSchemas.file> }
+    | {
+          kind: "back"
+      }
+    | {
+          kind: "folder"
+          data: v.InferOutput<typeof returnedSchemas.folder>
+      }
+    | {
+          kind: "file"
+          data: v.InferOutput<typeof returnedSchemas.file>
+      }
 
 export function FilesTableSelectionActions(props: { selectedRows: Array<Row<TableRow>>; idYear: string }) {
     const [deleteOpen, setDeleteOpen] = useState(false)
     const selectedFiles = props.selectedRows
         .filter((r) => r.original.kind === "file")
-        .map((r) => (r.original as Extract<TableRow, { kind: "file" }>).data)
+        .map(
+            (r) =>
+                (
+                    r.original as Extract<
+                        TableRow,
+                        {
+                            kind: "file"
+                        }
+                    >
+                ).data,
+        )
     const selectedFolders = props.selectedRows
         .filter((r) => r.original.kind === "folder")
-        .map((r) => (r.original as Extract<TableRow, { kind: "folder" }>).data)
+        .map(
+            (r) =>
+                (
+                    r.original as Extract<
+                        TableRow,
+                        {
+                            kind: "folder"
+                        }
+                    >
+                ).data,
+        )
 
     async function handleDelete() {
         const results = await Promise.all([
@@ -36,23 +64,44 @@ export function FilesTableSelectionActions(props: { selectedRows: Array<Row<Tabl
                 deleteFileWithSignedUrl({
                     idFile: file.id,
                     idYear: props.idYear,
-                }).then((ok) => ({ ok })),
+                }).then((ok) => ({
+                    ok,
+                })),
             ),
             ...selectedFolders.map((folder) =>
                 getResponseBodyFromAPI({
                     routeDefinition: deleteOneFolderRouteDefinition,
-                    body: { idFolder: folder.id, idYear: props.idYear },
+                    body: {
+                        idFolder: folder.id,
+                        idYear: props.idYear,
+                    },
                 }),
             ),
         ])
         await Promise.all([
-            invalidateData({ routeDefinition: readAllFilesRouteDefinition, body: { idYear: props.idYear } }),
-            invalidateData({ routeDefinition: readAllFoldersRouteDefinition, body: { idYear: props.idYear } }),
+            invalidateData({
+                routeDefinition: readAllFilesRouteDefinition,
+                body: {
+                    idYear: props.idYear,
+                },
+            }),
+            invalidateData({
+                routeDefinition: readAllFoldersRouteDefinition,
+                body: {
+                    idYear: props.idYear,
+                },
+            }),
         ])
         if (results.some((r) => r.ok === false)) {
-            toast({ title: "Certains éléments n'ont pas pu être supprimés", variant: "error" })
+            toast({
+                title: "Certains éléments n'ont pas pu être supprimés",
+                variant: "error",
+            })
         } else {
-            toast({ title: "Éléments supprimés", variant: "success" })
+            toast({
+                title: "Éléments supprimés",
+                variant: "success",
+            })
         }
     }
 
@@ -61,17 +110,34 @@ export function FilesTableSelectionActions(props: { selectedRows: Array<Row<Tabl
             <Popover.Root>
                 <Popover.Trigger asChild>
                     <Button>
-                        <ButtonGhostContent leftIcon={<IconChevronDown />} text={undefined} />
+                        <ButtonGhostContent
+                            leftIcon={<IconChevronDown />}
+                            text={undefined}
+                        />
                     </Button>
                 </Popover.Trigger>
-                <Popover.Content align="start" className={css({ padding: "0.5rem", gap: "0.25rem" })}>
+                <Popover.Content
+                    align="start"
+                    className={css({
+                        padding: "0.5rem",
+                        gap: "0.25rem",
+                    })}
+                >
                     <Popover.Close asChild>
-                        <Button className={css({ width: "100%" })} onClick={() => setDeleteOpen(true)}>
+                        <Button
+                            className={css({
+                                width: "100%",
+                            })}
+                            onClick={() => setDeleteOpen(true)}
+                        >
                             <ButtonGhostContent
                                 leftIcon={<IconTrash />}
                                 text="Supprimer"
                                 color="danger"
-                                className={css({ width: "100%", justifyContent: "start" })}
+                                className={css({
+                                    width: "100%",
+                                    justifyContent: "start",
+                                })}
                             />
                         </Button>
                     </Popover.Close>

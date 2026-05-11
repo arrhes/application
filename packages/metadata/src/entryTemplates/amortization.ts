@@ -32,7 +32,9 @@ export const amortizationTemplateSchema = v.pipe(
             (data) => Number.parseInt(data.currentYear, 10) <= Number.parseInt(data.totalYears, 10),
             "L'année en cours ne peut pas dépasser le nombre total d'années",
         ),
-        ["currentYear"],
+        [
+            "currentYear",
+        ],
     ),
 )
 

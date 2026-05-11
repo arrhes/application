@@ -39,16 +39,30 @@ export function CreateOneTicketMessage(props: { idTicket: string }) {
         setMessage("")
         await invalidateData({
             routeDefinition: adminReadAllTicketMessagesRouteDefinition,
-            body: { idTicket: props.idTicket },
+            body: {
+                idTicket: props.idTicket,
+            },
         })
     }
 
     return (
         <form
             onSubmit={handleSubmit}
-            className={css({ width: "100%", display: "flex", flexDirection: "column", gap: "0.5rem" })}
+            className={css({
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.5rem",
+            })}
         >
-            <label htmlFor="reply-message" className={css({ fontSize: "sm", fontWeight: "medium", color: "neutral" })}>
+            <label
+                htmlFor="reply-message"
+                className={css({
+                    fontSize: "sm",
+                    fontWeight: "medium",
+                    color: "neutral",
+                })}
+            >
                 Repondre
             </label>
             <InputTextArea
@@ -57,10 +71,30 @@ export function CreateOneTicketMessage(props: { idTicket: string }) {
                 onChange={(value) => setMessage(value ?? "")}
                 placeholder="Votre reponse..."
             />
-            {error && <span className={css({ fontSize: "xs", color: "danger" })}>{error}</span>}
-            <div className={css({ display: "flex", justifyContent: "flex-end" })}>
-                <Button type="submit" isDisabled={isSubmitting || !message.trim()}>
-                    <ButtonPlainContent leftIcon={<IconSend />} text={isSubmitting ? "Envoi..." : "Envoyer"} />
+            {error && (
+                <span
+                    className={css({
+                        fontSize: "xs",
+                        color: "danger",
+                    })}
+                >
+                    {error}
+                </span>
+            )}
+            <div
+                className={css({
+                    display: "flex",
+                    justifyContent: "flex-end",
+                })}
+            >
+                <Button
+                    type="submit"
+                    isDisabled={isSubmitting || !message.trim()}
+                >
+                    <ButtonPlainContent
+                        leftIcon={<IconSend />}
+                        text={isSubmitting ? "Envoi..." : "Envoyer"}
+                    />
                 </Button>
             </div>
         </form>

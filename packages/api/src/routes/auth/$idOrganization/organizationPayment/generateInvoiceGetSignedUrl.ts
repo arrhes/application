@@ -11,7 +11,9 @@ import { generateGetSignedUrl } from "../../../../utilities/storage/generateGetS
 export const generateInvoiceGetSignedUrlRoute = apiFactory
     .createApp()
     .post(generateInvoiceGetSignedUrlRouteDefinition.path, async (c) => {
-        const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+        const { user, idOrganization } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: generateInvoiceGetSignedUrlRouteDefinition.schemas.body,
@@ -46,6 +48,8 @@ export const generateInvoiceGetSignedUrlRoute = apiFactory
             context: c,
             statusCode: 200,
             schema: generateInvoiceGetSignedUrlRouteDefinition.schemas.return,
-            data: { url },
+            data: {
+                url,
+            },
         })
     })

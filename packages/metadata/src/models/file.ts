@@ -13,15 +13,25 @@ export const fileModel = pgTable(
     {
         id: idColumn("id").primaryKey(),
         idOrganization: idColumn("id_organization")
-            .references(() => organizationModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => organizationModel.id, {
+                onDelete: "cascade",
+                onUpdate: "cascade",
+            })
             .notNull(),
-        idYear: idColumn("id_year").references(() => yearModel.id, { onDelete: "cascade", onUpdate: "cascade" }),
+        idYear: idColumn("id_year").references(() => yearModel.id, {
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        }),
         idFolder: idColumn("id_folder").references(() => folderModel.id, {
             onDelete: "set null",
             onUpdate: "cascade",
         }),
-        reference: varchar("reference", { length: 256 }),
-        name: varchar("name", { length: 256 }),
+        reference: varchar("reference", {
+            length: 256,
+        }),
+        name: varchar("name", {
+            length: 256,
+        }),
         storageKey: text("storage_key"),
         type: text("type"),
         size: integer("size"),

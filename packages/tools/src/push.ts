@@ -15,7 +15,9 @@ import { drizzle } from "drizzle-orm/postgres-js"
 import postgres from "postgres"
 import { env } from "./env.js"
 
-const connection = postgres(env()?.SQL_DATABASE_URL ?? "", { max: 1 })
+const connection = postgres(env()?.SQL_DATABASE_URL ?? "", {
+    max: 1,
+})
 const db = drizzle(connection)
 
 // Drizzle-kit's pushSchema internally does:
@@ -32,7 +34,9 @@ const wrappedDb = new Proxy(db, {
                 if (result && "rows" in result) {
                     return result
                 }
-                return { rows: Array.from(result as any) }
+                return {
+                    rows: Array.from(result as any),
+                }
             }
         }
         return Reflect.get(target, prop, receiver)

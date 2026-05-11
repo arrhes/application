@@ -42,7 +42,16 @@ export function ContextMenuItem(
                 props.className,
             )}
         >
-            {leftIcon && <span className={css({ display: "flex", flexShrink: "0" })}>{leftIcon}</span>}
+            {leftIcon && (
+                <span
+                    className={css({
+                        display: "flex",
+                        flexShrink: "0",
+                    })}
+                >
+                    {leftIcon}
+                </span>
+            )}
             {props.children}
         </RadixContextMenuItem>
     )

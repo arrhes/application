@@ -16,7 +16,10 @@ import { DocTip } from "../../../../components/document/docTip.js"
 export function JournalAccountingDocPage() {
     return (
         <DocRoot>
-            <DocHeader title="Le journal" description="Registre chronologique de toutes les écritures comptables" />
+            <DocHeader
+                title="Le journal"
+                description="Registre chronologique de toutes les écritures comptables"
+            />
 
             <DocSection title="Définition">
                 <DocDefinition term="Journal comptable">
@@ -30,7 +33,12 @@ export function JournalAccountingDocPage() {
                     <DocSourceRef n={1} /> : c'est ici que chaque opération est enregistrée pour la première fois. Il
                     constitue la trace originale et chronologique de l'ensemble des{" "}
                     <DocLink to="/documentation/comptabilité/écritures">écritures</DocLink> passées au cours d'un{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "exercice-comptable" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "exercice-comptable",
+                        }}
+                    >
                         exercice comptable
                     </DocLink>
                     .
@@ -40,19 +48,39 @@ export function JournalAccountingDocPage() {
             <DocSection title="Structure d'un journal">
                 <DocParagraph>
                     Chaque ligne du journal représente un mouvement comptable. Une{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "ecriture-comptable" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "ecriture-comptable",
+                        }}
+                    >
                         écriture comptable
                     </DocLink>{" "}
                     comprend toujours au moins deux lignes (un{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "debit" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "debit",
+                        }}
+                    >
                         débit
                     </DocLink>{" "}
                     et un{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "credit" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "credit",
+                        }}
+                    >
                         crédit
                     </DocLink>
                     ), conformément au principe de la{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "partie-double" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "partie-double",
+                        }}
+                    >
                         partie double
                     </DocLink>
                     .
@@ -60,21 +88,93 @@ export function JournalAccountingDocPage() {
 
                 <DocExample title="Extrait de journal">
                     <DocTable
-                        headers={["Date", "Compte", "Libellé", "Débit", "Crédit"]}
+                        headers={[
+                            "Date",
+                            "Compte",
+                            "Libellé",
+                            "Débit",
+                            "Crédit",
+                        ]}
                         rows={[
-                            ["03/01", "411 - Clients", "Facture n°001 - Client Dupont", "1 200", ""],
-                            ["", "706 - Prestations de services", "Facture n°001 - Client Dupont", "", "1 000"],
-                            ["", "4457 - TVA collectée", "Facture n°001 - Client Dupont", "", "200"],
-                            ["", "", "", "", ""],
-                            ["10/01", "512 - Banque", "Règlement facture n°001", "1 200", ""],
-                            ["", "411 - Clients", "Règlement facture n°001", "", "1 200"],
-                            ["", "", "", "", ""],
-                            ["15/01", "606 - Achats de fournitures", "Achat papeterie", "150", ""],
-                            ["", "4456 - TVA déductible", "Achat papeterie", "", "30"],
-                            ["", "401 - Fournisseurs", "Achat papeterie", "", "180"],
+                            [
+                                "03/01",
+                                "411 - Clients",
+                                "Facture n°001 - Client Dupont",
+                                "1 200",
+                                "",
+                            ],
+                            [
+                                "",
+                                "706 - Prestations de services",
+                                "Facture n°001 - Client Dupont",
+                                "",
+                                "1 000",
+                            ],
+                            [
+                                "",
+                                "4457 - TVA collectée",
+                                "Facture n°001 - Client Dupont",
+                                "",
+                                "200",
+                            ],
+                            [
+                                "",
+                                "",
+                                "",
+                                "",
+                                "",
+                            ],
+                            [
+                                "10/01",
+                                "512 - Banque",
+                                "Règlement facture n°001",
+                                "1 200",
+                                "",
+                            ],
+                            [
+                                "",
+                                "411 - Clients",
+                                "Règlement facture n°001",
+                                "",
+                                "1 200",
+                            ],
+                            [
+                                "",
+                                "",
+                                "",
+                                "",
+                                "",
+                            ],
+                            [
+                                "15/01",
+                                "606 - Achats de fournitures",
+                                "Achat papeterie",
+                                "150",
+                                "",
+                            ],
+                            [
+                                "",
+                                "4456 - TVA déductible",
+                                "Achat papeterie",
+                                "",
+                                "30",
+                            ],
+                            [
+                                "",
+                                "401 - Fournisseurs",
+                                "Achat papeterie",
+                                "",
+                                "180",
+                            ],
                         ]}
                     />
-                    <p className={css({ marginTop: "2", fontSize: "xs", color: "neutral/60" })}>
+                    <p
+                        className={css({
+                            marginTop: "2",
+                            fontSize: "xs",
+                            color: "neutral/60",
+                        })}
+                    >
                         Chaque écriture est équilibrée : le total des débits est égal au total des crédits.
                     </p>
                 </DocExample>
@@ -136,7 +236,12 @@ export function JournalAccountingDocPage() {
             <DocSection title="Le journal des À-Nouveaux">
                 <DocParagraph>
                     En début d'exercice, les soldes des comptes de{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "bilan" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "bilan",
+                        }}
+                    >
                         bilan
                     </DocLink>{" "}
                     (classes 1 à 5) doivent être repris de l'exercice précédent. Cette reprise s'effectue par des
@@ -151,24 +256,49 @@ export function JournalAccountingDocPage() {
 
                 <DocParagraph>
                     Les comptes de{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "charges-classe-6" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "charges-classe-6",
+                        }}
+                    >
                         charges
                     </DocLink>{" "}
                     et de{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "produits-classe-7" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "produits-classe-7",
+                        }}
+                    >
                         produits
                     </DocLink>{" "}
                     (classes 6 et 7) ne sont pas reportés : ils sont remis à zéro car ils ne concernent qu'un seul
                     exercice. Le{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "resultat" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "resultat",
+                        }}
+                    >
                         résultat
                     </DocLink>{" "}
                     de l'exercice précédent est affecté aux{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "report-a-nouveau" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "report-a-nouveau",
+                        }}
+                    >
                         reports à nouveau
                     </DocLink>{" "}
                     ou aux{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "reserves" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "reserves",
+                        }}
+                    >
                         réserves
                     </DocLink>
                     .
@@ -218,7 +348,10 @@ export function JournalAccountingDocPage() {
                 </DocParagraph>
             </DocSection>
 
-            <DocNextPage to="/documentation/comptabilité/documents/grand-livre" label="Le grand livre" />
+            <DocNextPage
+                to="/documentation/comptabilité/documents/grand-livre"
+                label="Le grand livre"
+            />
 
             <DocSources
                 sources={[

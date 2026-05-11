@@ -20,7 +20,9 @@ function formatAmountFromCents(cents: number): string {
 export const createPaymentMethodCheckoutRoute = apiFactory
     .createApp()
     .post(createPaymentMethodCheckoutRouteDefinition.path, async (c) => {
-        const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+        const { user, idOrganization } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const _body = await validateBodyMiddleware({
             context: c,
             schema: createPaymentMethodCheckoutRouteDefinition.schemas.body,

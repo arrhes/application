@@ -29,8 +29,13 @@ export function EntriesTable(props: {
     accounts: v.InferOutput<typeof readAllAccountsRouteDefinition.schemas.return>
 }) {
     const entriesData = useMemo(
-        () => [...props.entries].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
-        [props.entries],
+        () =>
+            [
+                ...props.entries,
+            ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
+        [
+            props.entries,
+        ],
     )
 
     const linesByEntry = useMemo(() => {
@@ -40,11 +45,15 @@ export function EntriesTable(props: {
             if (existing) {
                 existing.push(row)
             } else {
-                map.set(row.idEntry, [row])
+                map.set(row.idEntry, [
+                    row,
+                ])
             }
         }
         return map
-    }, [props.entryLines])
+    }, [
+        props.entryLines,
+    ])
 
     const journalsMap = useMemo(() => {
         const map = new Map<string, (typeof props.journals)[number]>()
@@ -52,7 +61,9 @@ export function EntriesTable(props: {
             map.set(journal.id, journal)
         }
         return map
-    }, [props.journals])
+    }, [
+        props.journals,
+    ])
 
     const tagsMap = useMemo(() => {
         const map = new Map<string, (typeof props.tags)[number]>()
@@ -60,7 +71,9 @@ export function EntriesTable(props: {
             map.set(tag.id, tag)
         }
         return map
-    }, [props.tags])
+    }, [
+        props.tags,
+    ])
 
     const tagsByEntry = useMemo(() => {
         const map = new Map<string, string[]>()
@@ -69,11 +82,15 @@ export function EntriesTable(props: {
             if (existing) {
                 existing.push(entryTag.idTag)
             } else {
-                map.set(entryTag.idEntry, [entryTag.idTag])
+                map.set(entryTag.idEntry, [
+                    entryTag.idTag,
+                ])
             }
         }
         return map
-    }, [props.entryTags])
+    }, [
+        props.entryTags,
+    ])
 
     const filesMap = useMemo(() => {
         const map = new Map<string, (typeof props.files)[number]>()
@@ -81,7 +98,9 @@ export function EntriesTable(props: {
             map.set(file.id, file)
         }
         return map
-    }, [props.files])
+    }, [
+        props.files,
+    ])
 
     const accountsMap = useMemo(() => {
         const map = new Map<string, (typeof props.accounts)[number]>()
@@ -89,7 +108,9 @@ export function EntriesTable(props: {
             map.set(account.id, account)
         }
         return map
-    }, [props.accounts])
+    }, [
+        props.accounts,
+    ])
 
     return (
         <DataTable
@@ -98,7 +119,10 @@ export function EntriesTable(props: {
             enableRowSelection={true}
             getRowId={(row) => row.id}
             selectionActions={(selectedRows) => (
-                <EntriesTableSelectionActions selectedRows={selectedRows} idYear={props.idYear} />
+                <EntriesTableSelectionActions
+                    selectedRows={selectedRows}
+                    idYear={props.idYear}
+                />
             )}
             emptyStateProps={{
                 icon: <IconPencil />,
@@ -183,7 +207,14 @@ export function EntriesTable(props: {
             renderSubComponent={({ row }) => {
                 const rows = linesByEntry.get(row.original.id)
                 if (!rows || rows.length === 0) {
-                    return <FormatNull text="Aucun mouvement" className={css({ padding: "1rem" })} />
+                    return (
+                        <FormatNull
+                            text="Aucun mouvement"
+                            className={css({
+                                padding: "1rem",
+                            })}
+                        />
+                    )
                 }
                 return (
                     <table

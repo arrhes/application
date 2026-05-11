@@ -11,7 +11,16 @@ import { scenariosAccountingDocLayoutRoute } from "./scenarios/scenariosAccounti
 import { scenariosAccountingDocIndexRoute } from "./scenarios/scenariosAccountingDocRoute.tsx"
 
 export const resourcesAccountingTree: AnyRoute = resourcesAccountingDocLayoutRoute.addChildren([
-    accountsAccountingDocLayoutRoute.addChildren([accountsAccountingDocRoute, accountAccountingDocRoute]),
-    scenariosAccountingDocLayoutRoute.addChildren([scenariosAccountingDocIndexRoute, scenarioAccountingDocRoute]),
-    glossaryAccountingDocLayoutRoute.addChildren([glossaryAccountingDocIndexRoute, glossaryTermAccountingDocRoute]),
+    accountsAccountingDocLayoutRoute.addChildren([
+        accountsAccountingDocRoute,
+        accountAccountingDocRoute,
+    ]),
+    scenariosAccountingDocLayoutRoute.addChildren([
+        scenariosAccountingDocIndexRoute,
+        scenarioAccountingDocRoute,
+    ]),
+    glossaryAccountingDocLayoutRoute.addChildren([
+        glossaryAccountingDocIndexRoute,
+        glossaryTermAccountingDocRoute,
+    ]),
 ])

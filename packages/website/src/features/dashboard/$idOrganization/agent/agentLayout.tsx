@@ -16,7 +16,9 @@ import { useDataFromAPI } from "../../../../utilities/useHTTPData.ts"
 import { extractSnippet } from "./extractSnippet.ts"
 
 export function AgentLayout() {
-    const params = useParams({ from: organizationPathRoute.id })
+    const params = useParams({
+        from: organizationPathRoute.id,
+    })
     const [activeSessionId, setActiveSessionId] = useState<string | undefined>(undefined)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const navigate = useNavigate()
@@ -34,8 +36,13 @@ export function AgentLayout() {
     const { data: sessions } = useDataFromAPI({
         routeDefinition: readAllAgentSessionsRouteDefinition,
         body: searchTrimmed
-            ? { idOrganization: params.idOrganization, search: searchTrimmed }
-            : { idOrganization: params.idOrganization },
+            ? {
+                  idOrganization: params.idOrganization,
+                  search: searchTrimmed,
+              }
+            : {
+                  idOrganization: params.idOrganization,
+              },
     })
 
     const displaySessions = sessions ?? []
@@ -45,7 +52,10 @@ export function AgentLayout() {
             className={css({
                 width: "16rem",
                 flexShrink: 0,
-                display: { base: "none", md: "flex" },
+                display: {
+                    base: "none",
+                    md: "flex",
+                },
                 flexDirection: "column",
                 borderRight: "1px solid",
                 borderRightColor: "neutral/10",
@@ -64,24 +74,48 @@ export function AgentLayout() {
                     padding: "1rem",
                 })}
             >
-                <SearchBar value={search} onChange={setSearch} placeholder="Rechercher une session..." />
+                <SearchBar
+                    value={search}
+                    onChange={setSearch}
+                    placeholder="Rechercher une session..."
+                />
                 <Button
                     onClick={() => {
                         setActiveSessionId(undefined)
                         setIsMenuOpen(false)
                         navigate({
                             to: "/dashboard/organisations/$idOrganization/agent",
-                            params: { idOrganization: params.idOrganization },
+                            params: {
+                                idOrganization: params.idOrganization,
+                            },
                         })
                     }}
                 >
                     <ButtonOutlineContent leftIcon={<IconPlus />} />
                 </Button>
             </div>
-            <div className={css({ flex: 1, overflowY: "auto", minHeight: 0, padding: "1rem" })}>
-                <div className={css({ display: "flex", flexDirection: "column", gap: "0.5rem", width: "100%" })}>
+            <div
+                className={css({
+                    flex: 1,
+                    overflowY: "auto",
+                    minHeight: 0,
+                    padding: "1rem",
+                })}
+            >
+                <div
+                    className={css({
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "0.5rem",
+                        width: "100%",
+                    })}
+                >
                     {displaySessions.length === 0 ? (
-                        <EmptyState icon={<IconMessage />} title="Aucune session" subtitle={undefined} />
+                        <EmptyState
+                            icon={<IconMessage />}
+                            title="Aucune session"
+                            subtitle={undefined}
+                        />
                     ) : null}
                     {displaySessions.map((session) => {
                         const snippet =
@@ -93,7 +127,10 @@ export function AgentLayout() {
                             <LinkButton
                                 key={session.id}
                                 to="/dashboard/organisations/$idOrganization/agent/sessions/$idAgentSession"
-                                params={{ idOrganization: params.idOrganization, idAgentSession: session.id }}
+                                params={{
+                                    idOrganization: params.idOrganization,
+                                    idAgentSession: session.id,
+                                }}
                             >
                                 <div
                                     className={css({
@@ -111,7 +148,9 @@ export function AgentLayout() {
                                         width: "100%",
                                         overflow: "hidden",
                                         backgroundColor: session.id === currentSessionId ? "primary/5" : "transparent",
-                                        _hover: { backgroundColor: "primary/5" },
+                                        _hover: {
+                                            backgroundColor: "primary/5",
+                                        },
                                     })}
                                 >
                                     <span
@@ -204,7 +243,10 @@ export function AgentLayout() {
             >
                 <div
                     className={css({
-                        display: { base: "flex", md: "none" },
+                        display: {
+                            base: "flex",
+                            md: "none",
+                        },
                         flexDirection: "column",
                         justifyContent: "start",
                         alignItems: "start",
@@ -216,7 +258,9 @@ export function AgentLayout() {
                 >
                     <Button
                         aria-label="Menu"
-                        className={css({ margin: "1rem" })}
+                        className={css({
+                            margin: "1rem",
+                        })}
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                     >
                         <ButtonGhostContent leftIcon={<IconMenu />} />
@@ -236,8 +280,16 @@ export function AgentLayout() {
                         </div>
                     )}
                 </div>
-                <div className={css({ padding: "1rem", paddingBottom: "0" })}>
-                    <Banner variant={tokensTotalAvailable > 0 ? "information" : "warning"} title="Assistant IA">
+                <div
+                    className={css({
+                        padding: "1rem",
+                        paddingBottom: "0",
+                    })}
+                >
+                    <Banner
+                        variant={tokensTotalAvailable > 0 ? "information" : "warning"}
+                        title="Assistant IA"
+                    >
                         {tokensTotalAvailable > 0
                             ? `Tokens disponibles: ${tokensTotalAvailable.toLocaleString("fr-FR")}`
                             : "Aucun token disponible. Rechargez votre organisation pour continuer."}

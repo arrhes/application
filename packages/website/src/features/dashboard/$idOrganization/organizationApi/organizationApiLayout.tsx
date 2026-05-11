@@ -4,7 +4,9 @@ import { SubPageLayout } from "../../../../components/layouts/subPageLayout.tsx"
 import { organizationApiLayoutRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/organizationApi/organizationApiLayoutRoute.tsx"
 
 export function OrganizationApiLayout() {
-    const params = useParams({ from: organizationApiLayoutRoute.id })
+    const params = useParams({
+        from: organizationApiLayoutRoute.id,
+    })
 
     return (
         <SubPageLayout

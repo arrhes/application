@@ -10,7 +10,9 @@ import { ComputationsTable } from "./computationsTable.tsx"
 import { CreateOneComputation } from "./createOneComputation.tsx"
 
 export function ComputationsPage() {
-    const params = useParams({ from: incomeStatementsLayoutRoute.id })
+    const params = useParams({
+        from: incomeStatementsLayoutRoute.id,
+    })
 
     return (
         <Section.Root>
@@ -48,12 +50,26 @@ export function ComputationsPage() {
                         gap: "0.5rem",
                     })}
                 >
-                    <CreateOneComputation idOrganization={params.idOrganization} idYear={params.idYear}>
-                        <ButtonPlainContent leftIcon={<IconPlus />} text="Ajouter une ligne de calcul" />
+                    <CreateOneComputation
+                        idOrganization={params.idOrganization}
+                        idYear={params.idYear}
+                    >
+                        <ButtonPlainContent
+                            leftIcon={<IconPlus />}
+                            text="Ajouter une ligne de calcul"
+                        />
                     </CreateOneComputation>
                 </div>
-                <Box className={css({ maxH: "[640px]", overflowY: "auto" })}>
-                    <ComputationsTable idOrganization={params.idOrganization} idYear={params.idYear} />
+                <Box
+                    className={css({
+                        maxH: "[640px]",
+                        overflowY: "auto",
+                    })}
+                >
+                    <ComputationsTable
+                        idOrganization={params.idOrganization}
+                        idYear={params.idYear}
+                    />
                 </Box>
             </Section.Item>
         </Section.Root>

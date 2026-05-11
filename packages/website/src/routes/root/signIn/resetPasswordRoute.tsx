@@ -9,7 +9,9 @@ export const resetPasswordRoute = createRoute({
     pendingComponent: () => <CircularLoader />,
     beforeLoad: async () => {
         if (getIsAuthenticated() === true) {
-            throw redirect({ to: "/dashboard" })
+            throw redirect({
+                to: "/dashboard",
+            })
         }
         return {
             title: "Mot de passe oublié",

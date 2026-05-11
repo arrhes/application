@@ -13,7 +13,10 @@ export function InputDebounced<T>(props: InputDebounced<T>) {
 
     useEffect(() => {
         setValue(props.initialValue || props.value)
-    }, [props.initialValue, props.value])
+    }, [
+        props.initialValue,
+        props.value,
+    ])
 
     useEffect(() => {
         const timeout = setTimeout(
@@ -26,7 +29,11 @@ export function InputDebounced<T>(props: InputDebounced<T>) {
         return () => clearTimeout(timeout)
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [value, props.debounce, props.onChange])
+    }, [
+        value,
+        props.debounce,
+        props.onChange,
+    ])
 
     return cloneElement(props.children, {
         value: value,

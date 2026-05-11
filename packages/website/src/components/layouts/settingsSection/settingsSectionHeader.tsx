@@ -26,7 +26,14 @@ export function SettingsSectionHeader(props: { title: string; description?: stri
                 {props.title}
             </span>
             {props.description !== undefined ? (
-                <span className={css({ fontSize: "sm", color: "neutral/50" })}>{props.description}</span>
+                <span
+                    className={css({
+                        fontSize: "sm",
+                        color: "neutral/50",
+                    })}
+                >
+                    {props.description}
+                </span>
             ) : null}
         </div>
     )

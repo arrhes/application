@@ -154,7 +154,10 @@ const classInfos: Record<number, ClassInfo> = {
 export function ClassesAccountingDocPage() {
     return (
         <DocRoot>
-            <DocHeader title="Les classes de comptes" description="Les 8 classes du Plan Comptable Général" />
+            <DocHeader
+                title="Les classes de comptes"
+                description="Les 8 classes du Plan Comptable Général"
+            />
 
             <DocParagraph>
                 Le Plan Comptable Général organise les comptes en 8 classes.
@@ -166,10 +169,16 @@ export function ClassesAccountingDocPage() {
                 const info = classInfos[cls.number]
                 if (!info) return null
                 return (
-                    <DocSection key={cls.number} title={`Classe ${cls.number} - ${cls.label}`}>
+                    <DocSection
+                        key={cls.number}
+                        title={`Classe ${cls.number} - ${cls.label}`}
+                    >
                         <DocParagraph>{info.description}</DocParagraph>
                         {info.tips.map((tip, i) => (
-                            <DocTip key={i} variant={tip.variant}>
+                            <DocTip
+                                key={i}
+                                variant={tip.variant}
+                            >
                                 {tip.children}
                             </DocTip>
                         ))}
@@ -177,7 +186,10 @@ export function ClassesAccountingDocPage() {
                 )
             })}
 
-            <DocNextPage to="/documentation/comptabilité/comptes/liste" label="Rechercher un compte" />
+            <DocNextPage
+                to="/documentation/comptabilité/comptes/liste"
+                label="Rechercher un compte"
+            />
 
             <DocSources
                 sources={[

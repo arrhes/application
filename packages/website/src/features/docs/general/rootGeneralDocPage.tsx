@@ -44,7 +44,10 @@ export function RootGeneralDocPage() {
                     })}
                 >
                     <LinkButton to="/documentation/fonctionnalités">
-                        <ButtonOutlineContent text="Voir les fonctionnalités" rightIcon={<IconChevronRight />} />
+                        <ButtonOutlineContent
+                            text="Voir les fonctionnalités"
+                            rightIcon={<IconChevronRight />}
+                        />
                     </LinkButton>
                 </div>
             </div>

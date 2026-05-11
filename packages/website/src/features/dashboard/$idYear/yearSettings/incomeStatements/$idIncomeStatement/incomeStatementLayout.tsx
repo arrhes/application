@@ -12,7 +12,9 @@ import { DeleteOneIncomeStatement } from "./deleteOneIncomeStatement.tsx"
 import { UpdateOneIncomeStatement } from "./updateOneIncomeStatement.tsx"
 
 export function IncomeStatementLayout() {
-    const params = useParams({ from: incomeStatementLayoutRoute.id })
+    const params = useParams({
+        from: incomeStatementLayoutRoute.id,
+    })
 
     return (
         <Section.Root>
@@ -26,7 +28,11 @@ export function IncomeStatementLayout() {
                 {(incomeStatement) => {
                     return (
                         <>
-                            <Section.Item className={css({ flexDirection: "row" })}>
+                            <Section.Item
+                                className={css({
+                                    flexDirection: "row",
+                                })}
+                            >
                                 <div
                                     className={css({
                                         display: "flex",
@@ -42,7 +48,10 @@ export function IncomeStatementLayout() {
                                             idYear: incomeStatement.idYear,
                                         }}
                                     >
-                                        <ButtonOutlineContent leftIcon={<IconChevronLeft />} text="Retour" />
+                                        <ButtonOutlineContent
+                                            leftIcon={<IconChevronLeft />}
+                                            text="Retour"
+                                        />
                                     </LinkButton>
                                 </div>
                                 <div
@@ -55,10 +64,16 @@ export function IncomeStatementLayout() {
                                     })}
                                 >
                                     <UpdateOneIncomeStatement incomeStatement={incomeStatement}>
-                                        <ButtonPlainContent leftIcon={<IconPencil />} text="Modifier" />
+                                        <ButtonPlainContent
+                                            leftIcon={<IconPencil />}
+                                            text="Modifier"
+                                        />
                                     </UpdateOneIncomeStatement>
                                     <DeleteOneIncomeStatement incomeStatement={incomeStatement}>
-                                        <ButtonOutlineContent leftIcon={<IconTrash />} color="danger" />
+                                        <ButtonOutlineContent
+                                            leftIcon={<IconTrash />}
+                                            color="danger"
+                                        />
                                     </DeleteOneIncomeStatement>
                                 </div>
                             </Section.Item>

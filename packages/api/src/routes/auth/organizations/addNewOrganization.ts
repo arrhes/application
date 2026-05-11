@@ -8,7 +8,9 @@ import { insertOne } from "../../../utilities/sql/insertOne.js"
 export const addNewOrganizationRoute = apiFactory
     .createApp()
     .post(addNewOrganizationRouteDefinition.path, async (c) => {
-        const { user } = await checkUserSessionMiddleware({ context: c })
+        const { user } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: addNewOrganizationRouteDefinition.schemas.body,

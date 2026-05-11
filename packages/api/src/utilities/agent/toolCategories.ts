@@ -90,7 +90,13 @@ import {
 export interface ToolCategory {
     name: string
     description: string
-    routeDefinitions?: ReadonlyArray<{ path: string; schemas: { body: unknown; return: unknown } }>
+    routeDefinitions?: ReadonlyArray<{
+        path: string
+        schemas: {
+            body: unknown
+            return: unknown
+        }
+    }>
 }
 
 export const toolCategories: ToolCategory[] = [
@@ -98,7 +104,10 @@ export const toolCategories: ToolCategory[] = [
         name: "years",
         description:
             "Gestion des exercices fiscaux : lister tous les exercices de l'organisation et en creer de nouveaux. Necessaire pour obtenir les identifiants d'exercice (idYear) utilises par tous les autres outils.",
-        routeDefinitions: [readAllYearsRouteDefinition, createOneYearRouteDefinition],
+        routeDefinitions: [
+            readAllYearsRouteDefinition,
+            createOneYearRouteDefinition,
+        ],
     },
     {
         name: "entries",
@@ -235,7 +244,10 @@ export const toolCategories: ToolCategory[] = [
     {
         name: "reports",
         description: "Gestion des rapports : générer des rapports de bilan et de résultat.",
-        routeDefinitions: [generateBalanceSheetXmlRouteDefinition, generateIncomeStatementXmlRouteDefinition],
+        routeDefinitions: [
+            generateBalanceSheetXmlRouteDefinition,
+            generateIncomeStatementXmlRouteDefinition,
+        ],
     },
     {
         name: "yearGeneral",

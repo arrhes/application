@@ -29,7 +29,13 @@ function MessageBubble(props: { currentUserId: string | undefined; message: Tick
                     backgroundColor: isAdmin ? "primary/5" : "neutral/2",
                 })}
             >
-                <div className={css({ display: "flex", alignItems: "center", gap: "0.5rem" })}>
+                <div
+                    className={css({
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                    })}
+                >
                     <span
                         className={css({
                             fontSize: "xs",
@@ -39,8 +45,15 @@ function MessageBubble(props: { currentUserId: string | undefined; message: Tick
                     >
                         {isAdmin ? "Admin" : "Utilisateur"}
                     </span>
-                    <span className={css({ fontSize: "xs", color: "neutral/40" })}>
-                        {`Le ${formatDate(message.createdAt, { includeTime: true })}`}
+                    <span
+                        className={css({
+                            fontSize: "xs",
+                            color: "neutral/40",
+                        })}
+                    >
+                        {`Le ${formatDate(message.createdAt, {
+                            includeTime: true,
+                        })}`}
                     </span>
                 </div>
                 <span
@@ -60,7 +73,9 @@ function MessageBubble(props: { currentUserId: string | undefined; message: Tick
 export function TicketMessageList(props: { currentUserId: string | undefined; idTicket: string }) {
     const messages = useDataFromAPI({
         routeDefinition: adminReadAllTicketMessagesRouteDefinition,
-        body: { idTicket: props.idTicket },
+        body: {
+            idTicket: props.idTicket,
+        },
     })
 
     if (messages.isPending) {
@@ -69,7 +84,13 @@ export function TicketMessageList(props: { currentUserId: string | undefined; id
 
     if (messages.isError) {
         return (
-            <span className={css({ fontSize: "sm", color: "danger", padding: "1rem" })}>
+            <span
+                className={css({
+                    fontSize: "sm",
+                    color: "danger",
+                    padding: "1rem",
+                })}
+            >
                 Erreur lors de la recuperation des messages.
             </span>
         )
@@ -77,13 +98,21 @@ export function TicketMessageList(props: { currentUserId: string | undefined; id
 
     if (!messages.data || messages.data.length === 0) {
         return (
-            <span className={css({ fontSize: "sm", color: "neutral/50", padding: "1rem" })}>
+            <span
+                className={css({
+                    fontSize: "sm",
+                    color: "neutral/50",
+                    padding: "1rem",
+                })}
+            >
                 Aucun message pour le moment.
             </span>
         )
     }
 
-    const sortedMessages = [...messages.data].sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+    const sortedMessages = [
+        ...messages.data,
+    ].sort((a, b) => b.createdAt.localeCompare(a.createdAt))
 
     return (
         <div
@@ -99,7 +128,11 @@ export function TicketMessageList(props: { currentUserId: string | undefined; id
             })}
         >
             {sortedMessages.map((message) => (
-                <MessageBubble key={message.id} currentUserId={props.currentUserId} message={message} />
+                <MessageBubble
+                    key={message.id}
+                    currentUserId={props.currentUserId}
+                    message={message}
+                />
             ))}
         </div>
     )

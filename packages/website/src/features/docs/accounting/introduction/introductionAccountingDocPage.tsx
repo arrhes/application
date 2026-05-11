@@ -21,14 +21,24 @@ export function IntroductionAccountingDocPage() {
                 <DocParagraph>
                     La comptabilité est un système d'organisation de l'information financière. Elle permet
                     d'enregistrer, classer et analyser toutes les opérations économiques d'une{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "organisation" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "organisation",
+                        }}
+                    >
                         organisation
                     </DocLink>{" "}
                     (entreprise, association, etc.).
                     <DocSourceRef n={1} />
                 </DocParagraph>
                 <DocParagraph>En termes simples, la comptabilité répond à deux questions essentielles :</DocParagraph>
-                <DocList items={["D'où vient l'argent ? (les ressources)", "Où va l'argent ? (les emplois)"]} />
+                <DocList
+                    items={[
+                        "D'où vient l'argent ? (les ressources)",
+                        "Où va l'argent ? (les emplois)",
+                    ]}
+                />
             </DocSection>
 
             <DocSection title="Un peu d'histoire">
@@ -43,7 +53,12 @@ export function IntroductionAccountingDocPage() {
                     Le tournant majeur intervient à la fin du XV<sup>e</sup> siècle. En 1494, le mathématicien italien{" "}
                     <strong>Luca Pacioli</strong> publie la <em>Summa de arithmetica</em>
                     <DocSourceRef n={3} />, dans laquelle il codifie le système de la{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "partie-double" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "partie-double",
+                        }}
+                    >
                         partie double
                     </DocLink>
                     , déjà utilisé par les banques italiennes depuis la fin du XIII<sup>e</sup> siècle. Ce système, où
@@ -56,7 +71,9 @@ export function IntroductionAccountingDocPage() {
                     <DocSourceRef n={4} /> Puis, en 1947, la France adopte son premier{" "}
                     <DocLink
                         to="/documentation/comptabilité/glossaire/$term"
-                        params={{ term: "plan-comptable-general-pcg" }}
+                        params={{
+                            term: "plan-comptable-general-pcg",
+                        }}
                     >
                         Plan Comptable Général (PCG)
                     </DocLink>
@@ -97,7 +114,10 @@ export function IntroductionAccountingDocPage() {
                 />
             </DocSection>
 
-            <DocNextPage to="/documentation/comptabilité/partie-double" label="La partie double" />
+            <DocNextPage
+                to="/documentation/comptabilité/partie-double"
+                label="La partie double"
+            />
 
             <DocSources
                 sources={[

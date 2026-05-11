@@ -15,7 +15,11 @@ export const entryLineSchema = v.object({
     isComputedForBalanceReport: v.nonNullable(booleanSchema, "Ce champ est requis"),
     isComputedForBalanceSheetReport: v.nonNullable(booleanSchema, "Ce champ est requis"),
     isComputedForIncomeStatementReport: v.nonNullable(booleanSchema, "Ce champ est requis"),
-    label: v.nullable(varcharSchema({ maxLength: 256 })),
+    label: v.nullable(
+        varcharSchema({
+            maxLength: 256,
+        }),
+    ),
     debit: v.nonNullable(numericSchema, "Ce champ est requis"),
     credit: v.nonNullable(numericSchema, "Ce champ est requis"),
     createdAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),

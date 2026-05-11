@@ -11,7 +11,9 @@ import { updateOne } from "../../../../utilities/sql/updateOne.js"
 export const updateLicenceSubscriptionRoute = apiFactory
     .createApp()
     .post(updateLicenceSubscriptionRouteDefinition.path, async (c) => {
-        const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+        const { user, idOrganization } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: updateLicenceSubscriptionRouteDefinition.schemas.body,
@@ -62,6 +64,8 @@ export const updateLicenceSubscriptionRoute = apiFactory
             context: c,
             statusCode: 200,
             schema: updateLicenceSubscriptionRouteDefinition.schemas.return,
-            data: { checkoutUrl: null },
+            data: {
+                checkoutUrl: null,
+            },
         })
     })

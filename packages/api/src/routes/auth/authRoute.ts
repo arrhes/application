@@ -7,7 +7,13 @@ import { apiFactory } from "../../utilities/apiFactory.js"
 
 export const authRoute = apiFactory.createApp()
 
-export const authRoutes = [...adminRoutes, ...agentRoutes, ...organizationsRoutes, ...settingsRoutes, ...supportRoutes]
+export const authRoutes = [
+    ...adminRoutes,
+    ...agentRoutes,
+    ...organizationsRoutes,
+    ...settingsRoutes,
+    ...supportRoutes,
+]
 
 for (const route of authRoutes) {
     authRoute.route("/", route)

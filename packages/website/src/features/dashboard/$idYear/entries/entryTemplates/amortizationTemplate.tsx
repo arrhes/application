@@ -60,7 +60,10 @@ export function AmortizationTemplateForm(props: EntryTemplateFormProps) {
 
         if (dotationAccount) templateForm.setValue("idDotationAccount", dotationAccount.id)
         if (amortizationAccount) templateForm.setValue("idAmortizationAccount", amortizationAccount.id)
-    }, [accounts, templateForm.setValue])
+    }, [
+        accounts,
+        templateForm.setValue,
+    ])
 
     const isReadyRef = useRef(false)
 
@@ -105,7 +108,10 @@ export function AmortizationTemplateForm(props: EntryTemplateFormProps) {
                     name="assetLabel"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel label="Libellé de l'immobilisation" isRequired={true} />
+                            <FormLabel
+                                label="Libellé de l'immobilisation"
+                                isRequired={true}
+                            />
                             <FormControl>
                                 <InputText
                                     value={field.value}
@@ -128,7 +134,10 @@ export function AmortizationTemplateForm(props: EntryTemplateFormProps) {
                     name="originalPrice"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel label="Prix d'origine (HT)" isRequired={true} />
+                            <FormLabel
+                                label="Prix d'origine (HT)"
+                                isRequired={true}
+                            />
                             <FormControl>
                                 <InputPrice
                                     value={field.value}
@@ -147,7 +156,10 @@ export function AmortizationTemplateForm(props: EntryTemplateFormProps) {
                     name="currentYear"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel label="Année en cours" isRequired={true} />
+                            <FormLabel
+                                label="Année en cours"
+                                isRequired={true}
+                            />
                             <FormControl>
                                 <InputPrice
                                     value={field.value}
@@ -167,7 +179,10 @@ export function AmortizationTemplateForm(props: EntryTemplateFormProps) {
                     name="totalYears"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel label="Nombre d'années de l'amortissement" isRequired={true} />
+                            <FormLabel
+                                label="Nombre d'années de l'amortissement"
+                                isRequired={true}
+                            />
                             <FormControl>
                                 <InputPrice
                                     value={field.value}
@@ -187,7 +202,10 @@ export function AmortizationTemplateForm(props: EntryTemplateFormProps) {
                     name="idDotationAccount"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel label="Compte de dotation" isRequired={true} />
+                            <FormLabel
+                                label="Compte de dotation"
+                                isRequired={true}
+                            />
                             <FormControl>
                                 <InputDataCombobox
                                     value={field.value || null}
@@ -215,7 +233,10 @@ export function AmortizationTemplateForm(props: EntryTemplateFormProps) {
                     name="idAmortizationAccount"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel label="Compte d'amortissement" isRequired={true} />
+                            <FormLabel
+                                label="Compte d'amortissement"
+                                isRequired={true}
+                            />
                             <FormControl>
                                 <InputDataCombobox
                                     value={field.value || null}
@@ -239,7 +260,10 @@ export function AmortizationTemplateForm(props: EntryTemplateFormProps) {
                     )}
                 />
                 <Button onClick={computeAndSetRows}>
-                    <ButtonOutlineContent leftIcon={<IconCalculator />} text="Calculer les mouvements" />
+                    <ButtonOutlineContent
+                        leftIcon={<IconCalculator />}
+                        text="Calculer les mouvements"
+                    />
                 </Button>
                 {parentForm.watch("entryLines")?.length > 0 ? (
                     <div
@@ -265,7 +289,11 @@ export function AmortizationTemplateForm(props: EntryTemplateFormProps) {
                             Mouvements générés
                         </span>
                         {(
-                            parentForm.watch("entryLines") as Array<{ label?: string; debit?: string; credit?: string }>
+                            parentForm.watch("entryLines") as Array<{
+                                label?: string
+                                debit?: string
+                                credit?: string
+                            }>
                         ).map((row, index) => (
                             <div
                                 key={`row_${index}`}
@@ -276,8 +304,19 @@ export function AmortizationTemplateForm(props: EntryTemplateFormProps) {
                                     fontSize: "sm",
                                 })}
                             >
-                                <span className={css({ color: "neutral" })}>{row.label}</span>
-                                <span className={css({ color: "neutral", fontWeight: "medium" })}>
+                                <span
+                                    className={css({
+                                        color: "neutral",
+                                    })}
+                                >
+                                    {row.label}
+                                </span>
+                                <span
+                                    className={css({
+                                        color: "neutral",
+                                        fontWeight: "medium",
+                                    })}
+                                >
                                     {Number(row.debit) > 0 ? `${row.debit} (débit)` : `${row.credit} (crédit)`}
                                 </span>
                             </div>

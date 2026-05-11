@@ -10,10 +10,26 @@ import { updateOne } from "../../../../utilities/sql/updateOne.js"
 
 // How much each resource unit removes from limits (mirrors createResourceSubscription)
 const UNIT_LIMITS = {
-    storage_gb: { storageLimit: 1_073_741_824, ocrPagesTotalAvailable: 0, tokensTotalAvailable: 0 },
-    agent_tokens_million: { storageLimit: 0, ocrPagesTotalAvailable: 0, tokensTotalAvailable: 1_000_000 },
-    ocr_pages_hundred: { storageLimit: 0, ocrPagesTotalAvailable: 100, tokensTotalAvailable: 0 },
-    support: { storageLimit: 0, ocrPagesTotalAvailable: 0, tokensTotalAvailable: 0 },
+    storage_gb: {
+        storageLimit: 1_073_741_824,
+        ocrPagesTotalAvailable: 0,
+        tokensTotalAvailable: 0,
+    },
+    agent_tokens_million: {
+        storageLimit: 0,
+        ocrPagesTotalAvailable: 0,
+        tokensTotalAvailable: 1_000_000,
+    },
+    ocr_pages_hundred: {
+        storageLimit: 0,
+        ocrPagesTotalAvailable: 100,
+        tokensTotalAvailable: 0,
+    },
+    support: {
+        storageLimit: 0,
+        ocrPagesTotalAvailable: 0,
+        tokensTotalAvailable: 0,
+    },
 } as const
 
 function getEndOfCurrentMonth(): Date {
@@ -24,7 +40,9 @@ function getEndOfCurrentMonth(): Date {
 export const cancelOrganizationBillingRoute = apiFactory
     .createApp()
     .post(cancelOrganizationBillingRouteDefinition.path, async (c) => {
-        const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+        const { user, idOrganization } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: cancelOrganizationBillingRouteDefinition.schemas.body,

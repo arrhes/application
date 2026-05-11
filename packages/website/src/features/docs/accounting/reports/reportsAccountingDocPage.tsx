@@ -13,17 +13,30 @@ import { DocTip } from "../../../../components/document/docTip.js"
 export function ReportsAccountingDocPage() {
     return (
         <DocRoot>
-            <DocHeader title="Les documents comptables" description="Les états de synthèse et leur signification" />
+            <DocHeader
+                title="Les documents comptables"
+                description="Les états de synthèse et leur signification"
+            />
 
             <DocSection title="Les documents de synthèse">
                 <DocParagraph>
                     À la fin de chaque{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "exercice-comptable" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "exercice-comptable",
+                        }}
+                    >
                         exercice comptable
                     </DocLink>
                     , les écritures sont agrégées pour produire des documents de synthèse. Ces documents offrent une
                     vision globale de la situation financière et des performances de l'
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "organisation" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "organisation",
+                        }}
+                    >
                         organisation
                     </DocLink>
                     .
@@ -31,7 +44,12 @@ export function ReportsAccountingDocPage() {
                 <DocParagraph>
                     Les deux documents principaux sont le{" "}
                     <strong>
-                        <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "bilan" }}>
+                        <DocLink
+                            to="/documentation/comptabilité/glossaire/$term"
+                            params={{
+                                term: "bilan",
+                            }}
+                        >
                             bilan
                         </DocLink>
                     </strong>{" "}
@@ -39,7 +57,9 @@ export function ReportsAccountingDocPage() {
                     <strong>
                         <DocLink
                             to="/documentation/comptabilité/glossaire/$term"
-                            params={{ term: "compte-de-résultat" }}
+                            params={{
+                                term: "compte-de-résultat",
+                            }}
                         >
                             compte de résultat
                         </DocLink>
@@ -109,11 +129,21 @@ export function ReportsAccountingDocPage() {
             <DocSection title="Le calcul du bénéfice">
                 <DocParagraph>
                     Le{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "benefice" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "benefice",
+                        }}
+                    >
                         bénéfice
                     </DocLink>{" "}
                     (ou la{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "perte" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "perte",
+                        }}
+                    >
                         perte
                     </DocLink>
                     ) d'une entreprise peut être calculé de deux manières équivalentes, ce qui constitue un contrôle
@@ -137,7 +167,12 @@ export function ReportsAccountingDocPage() {
 
                 <DocTip variant="tip">
                     Cette double vérification est au cœur de la comptabilité en{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "partie-double" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "partie-double",
+                        }}
+                    >
                         partie double
                     </DocLink>
                     . Si les deux méthodes ne donnent pas le même résultat, c'est qu'il y a une erreur dans les
@@ -145,7 +180,10 @@ export function ReportsAccountingDocPage() {
                 </DocTip>
             </DocSection>
 
-            <DocNextPage to="/documentation/comptabilité/documents/bilan" label="Le bilan" />
+            <DocNextPage
+                to="/documentation/comptabilité/documents/bilan"
+                label="Le bilan"
+            />
 
             <DocSources
                 sources={[

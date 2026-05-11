@@ -68,7 +68,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: null,
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -83,7 +86,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "1",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -98,7 +104,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "10",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -113,7 +122,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "101",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -129,7 +141,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "101",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -145,7 +160,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "101",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -160,7 +178,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "1013",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -175,7 +196,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "1013",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -192,7 +216,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "101",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -207,7 +234,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "10",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -223,7 +253,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "10",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -239,7 +272,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "104",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -256,7 +292,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "104",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -271,7 +310,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "104",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -286,7 +328,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "104",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -303,7 +348,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "104",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -320,7 +368,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "10",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -335,7 +386,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "10",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -350,7 +404,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "106",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -365,7 +422,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "106",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -379,7 +439,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "106",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -393,7 +456,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "106",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -407,7 +473,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "106",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -423,7 +492,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "10",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -438,7 +510,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "10",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -453,7 +528,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "10",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -468,7 +546,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "1",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -483,7 +564,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "11",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -498,7 +582,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "11",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -513,7 +600,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "1",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -527,7 +617,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "12",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -542,7 +635,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "120",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -557,7 +653,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "12",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -572,7 +671,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "1",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -587,7 +689,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "13",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -602,7 +707,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "13",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -618,7 +726,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "1",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -632,7 +743,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "14",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -648,7 +762,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "14",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -662,7 +779,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "14",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -678,7 +798,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "1",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -694,7 +817,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "15",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -708,7 +834,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "151",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -723,7 +852,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "151",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -738,7 +870,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "151",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -753,7 +888,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "151",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -768,7 +906,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "151",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -783,7 +924,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "151",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -800,7 +944,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "15",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -814,7 +961,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "152",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -829,7 +979,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "152",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -844,7 +997,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "152",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -859,7 +1015,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "152",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -875,7 +1034,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "152",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -890,7 +1052,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "152",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -905,7 +1070,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "152",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -921,7 +1089,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "1",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -936,7 +1107,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "16",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -950,7 +1124,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "161",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -968,7 +1145,10 @@ export const accountEntries: AccountEntry[] = [
             side: "passif",
             isOptional: false,
             parent: "16",
-            counterpart: { number: "512", label: "Banques" },
+            counterpart: {
+                number: "512",
+                label: "Banques",
+            },
             usageTips: [
                 "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
             ],
@@ -985,7 +1165,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "16",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -999,7 +1182,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "163",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1014,7 +1200,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "16",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -1029,7 +1218,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "164",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1045,7 +1237,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "16",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -1059,7 +1254,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "165",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1074,7 +1272,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "165",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1089,7 +1290,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "165",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1106,7 +1310,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "16",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -1121,7 +1328,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "166",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1136,7 +1346,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "166",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1151,7 +1364,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "166",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1166,7 +1382,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "16",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -1180,7 +1399,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "167",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -1196,7 +1418,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "1671",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1213,7 +1438,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "1671",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1230,7 +1458,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "1671",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1247,7 +1478,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "167",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -1261,7 +1495,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "167",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -1277,7 +1514,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "1674",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1294,7 +1534,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "167",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -1310,7 +1553,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "1675",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1325,7 +1571,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "16",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -1339,7 +1588,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "168",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1356,7 +1608,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "168",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1373,7 +1628,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "168",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1388,7 +1646,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "168",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1403,7 +1664,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "168",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1419,7 +1683,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "16",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -1434,7 +1701,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "1",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -1448,7 +1718,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "17",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1463,7 +1736,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "17",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1480,7 +1756,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "17",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1497,7 +1776,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "1",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
         ],
@@ -1511,7 +1793,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "18",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1526,7 +1811,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "18",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1541,7 +1829,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "18",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1556,7 +1847,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "18",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de capitaux sont généralement mouvementés lors de la création de l'entreprise, des augmentations de capital, de l'affectation du résultat ou de la constatation d'emprunts.",
@@ -1573,7 +1867,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: null,
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -1587,7 +1884,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "2",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -1602,7 +1902,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "20",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -1616,7 +1919,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "201",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -1631,7 +1937,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "201",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -1646,7 +1955,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "2012",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -1661,7 +1973,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "2012",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -1679,7 +1994,10 @@ export const accountEntries: AccountEntry[] = [
             side: "actif",
             isOptional: true,
             parent: "201",
-            counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+            counterpart: {
+                number: "404",
+                label: "Fournisseurs d'immobilisations",
+            },
             usageTips: [
                 "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
                 "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -1698,7 +2016,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "20",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -1716,7 +2037,10 @@ export const accountEntries: AccountEntry[] = [
             side: "actif",
             isOptional: false,
             parent: "20",
-            counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+            counterpart: {
+                number: "404",
+                label: "Fournisseurs d'immobilisations",
+            },
             usageTips: [
                 "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
             ],
@@ -1735,7 +2059,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "20",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -1751,7 +2078,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "20",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -1765,7 +2095,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "20",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -1779,7 +2112,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "208",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -1794,7 +2130,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "2",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -1808,7 +2147,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "21",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -1822,7 +2164,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "211",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -1837,7 +2182,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "211",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -1852,7 +2200,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "211",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -1867,7 +2218,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "211",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -1882,7 +2236,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "211",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -1897,7 +2254,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "21",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -1914,7 +2274,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "21",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -1928,7 +2291,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "213",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -1943,7 +2309,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "213",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -1958,7 +2327,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "213",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -1973,7 +2345,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "21",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -1987,7 +2362,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "21",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2001,7 +2379,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "215",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2016,7 +2397,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "2151",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2031,7 +2415,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "2151",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2046,7 +2433,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "215",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2061,7 +2451,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "2153",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2076,7 +2469,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "2153",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2091,7 +2487,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "215",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2106,7 +2505,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "215",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2121,7 +2523,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "215",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2137,7 +2542,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "21",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2151,7 +2559,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "218",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2166,7 +2577,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "218",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2181,7 +2595,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "218",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2196,7 +2613,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "218",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2211,7 +2631,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "218",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2226,7 +2649,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "218",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2241,7 +2667,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "218",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2258,7 +2687,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "2",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2273,7 +2705,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "22",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2288,7 +2723,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "2",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2302,7 +2740,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "23",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2316,7 +2757,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "23",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2330,7 +2774,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "23",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2344,7 +2791,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "23",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2360,7 +2810,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "2",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2375,7 +2828,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "26",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2389,7 +2845,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "261",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2404,7 +2863,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "261",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2420,7 +2882,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "26",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2436,7 +2901,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "26",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2450,7 +2918,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "266",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2467,7 +2938,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "26",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2481,7 +2955,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "267",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2496,7 +2973,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "267",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2511,7 +2991,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "267",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2526,7 +3009,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "267",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2541,7 +3027,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "267",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2556,7 +3045,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "267",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2573,7 +3065,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "26",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2587,7 +3082,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "268",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2602,7 +3100,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "268",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2617,7 +3118,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "26",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2633,7 +3137,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "2",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2651,7 +3158,10 @@ export const accountEntries: AccountEntry[] = [
             side: "actif",
             isOptional: false,
             parent: "27",
-            counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+            counterpart: {
+                number: "404",
+                label: "Fournisseurs d'immobilisations",
+            },
             usageTips: [
                 "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
             ],
@@ -2668,7 +3178,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "271",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2683,7 +3196,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "271",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2699,7 +3215,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "27",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2713,7 +3232,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "272",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2728,7 +3250,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "272",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2745,7 +3270,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "27",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2760,7 +3288,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "27",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2774,7 +3305,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "274",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2789,7 +3323,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "274",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2804,7 +3341,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "274",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2819,7 +3359,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "274",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2835,7 +3378,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "27",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2849,7 +3395,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "275",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2864,7 +3413,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "275",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -2879,7 +3431,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "27",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2893,7 +3448,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "276",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2907,7 +3465,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "276",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2921,7 +3482,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "2768",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2935,7 +3499,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "2768",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2949,7 +3516,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "2768",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2963,7 +3533,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "2768",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2978,7 +3551,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "27",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -2993,7 +3569,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "277",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -3009,7 +3588,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "277",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -3024,7 +3606,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "27",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
@@ -3039,7 +3624,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "27",
-        counterpart: { number: "404", label: "Fournisseurs d'immobilisations" },
+        counterpart: {
+            number: "404",
+            label: "Fournisseurs d'immobilisations",
+        },
         usageTips: [
             "Les comptes d'immobilisations sont débités lors de l'acquisition d'un bien durable. Ils sont liés aux comptes d'amortissement (28) et de dépréciation (29).",
         ],
@@ -3980,7 +4568,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: null,
-        counterpart: { number: "603", label: "Variation des stocks d'approvisionnements et de marchandises" },
+        counterpart: {
+            number: "603",
+            label: "Variation des stocks d'approvisionnements et de marchandises",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
         ],
@@ -3996,7 +4587,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "3",
-        counterpart: { number: "6031", label: "Variation des stocks de matières premières et fournitures" },
+        counterpart: {
+            number: "6031",
+            label: "Variation des stocks de matières premières et fournitures",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
         ],
@@ -4010,7 +4604,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "3",
-        counterpart: { number: "6032", label: "Variation des stocks des autres approvisionnements" },
+        counterpart: {
+            number: "6032",
+            label: "Variation des stocks des autres approvisionnements",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
         ],
@@ -4024,7 +4621,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "32",
-        counterpart: { number: "6032", label: "Variation des stocks des autres approvisionnements" },
+        counterpart: {
+            number: "6032",
+            label: "Variation des stocks des autres approvisionnements",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
         ],
@@ -4038,7 +4638,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "32",
-        counterpart: { number: "6032", label: "Variation des stocks des autres approvisionnements" },
+        counterpart: {
+            number: "6032",
+            label: "Variation des stocks des autres approvisionnements",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
         ],
@@ -4052,7 +4655,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "322",
-        counterpart: { number: "6032", label: "Variation des stocks des autres approvisionnements" },
+        counterpart: {
+            number: "6032",
+            label: "Variation des stocks des autres approvisionnements",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
@@ -4067,7 +4673,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "322",
-        counterpart: { number: "6032", label: "Variation des stocks des autres approvisionnements" },
+        counterpart: {
+            number: "6032",
+            label: "Variation des stocks des autres approvisionnements",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
@@ -4082,7 +4691,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "322",
-        counterpart: { number: "6032", label: "Variation des stocks des autres approvisionnements" },
+        counterpart: {
+            number: "6032",
+            label: "Variation des stocks des autres approvisionnements",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
@@ -4097,7 +4709,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "322",
-        counterpart: { number: "6032", label: "Variation des stocks des autres approvisionnements" },
+        counterpart: {
+            number: "6032",
+            label: "Variation des stocks des autres approvisionnements",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
@@ -4112,7 +4727,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "322",
-        counterpart: { number: "6032", label: "Variation des stocks des autres approvisionnements" },
+        counterpart: {
+            number: "6032",
+            label: "Variation des stocks des autres approvisionnements",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
@@ -4127,7 +4745,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "32",
-        counterpart: { number: "6032", label: "Variation des stocks des autres approvisionnements" },
+        counterpart: {
+            number: "6032",
+            label: "Variation des stocks des autres approvisionnements",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
         ],
@@ -4141,7 +4762,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "326",
-        counterpart: { number: "6032", label: "Variation des stocks des autres approvisionnements" },
+        counterpart: {
+            number: "6032",
+            label: "Variation des stocks des autres approvisionnements",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
@@ -4156,7 +4780,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "326",
-        counterpart: { number: "6032", label: "Variation des stocks des autres approvisionnements" },
+        counterpart: {
+            number: "6032",
+            label: "Variation des stocks des autres approvisionnements",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
@@ -4171,7 +4798,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "326",
-        counterpart: { number: "6032", label: "Variation des stocks des autres approvisionnements" },
+        counterpart: {
+            number: "6032",
+            label: "Variation des stocks des autres approvisionnements",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
@@ -4186,7 +4816,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "3",
-        counterpart: { number: "7133", label: "Variation des en-cours de production de biens" },
+        counterpart: {
+            number: "7133",
+            label: "Variation des en-cours de production de biens",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
         ],
@@ -4200,7 +4833,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "33",
-        counterpart: { number: "7133", label: "Variation des en-cours de production de biens" },
+        counterpart: {
+            number: "7133",
+            label: "Variation des en-cours de production de biens",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
         ],
@@ -4214,7 +4850,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "33",
-        counterpart: { number: "7133", label: "Variation des en-cours de production de biens" },
+        counterpart: {
+            number: "7133",
+            label: "Variation des en-cours de production de biens",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
         ],
@@ -4228,7 +4867,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "3",
-        counterpart: { number: "7133", label: "Variation des en-cours de production de biens" },
+        counterpart: {
+            number: "7133",
+            label: "Variation des en-cours de production de biens",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
         ],
@@ -4242,7 +4884,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "34",
-        counterpart: { number: "7133", label: "Variation des en-cours de production de biens" },
+        counterpart: {
+            number: "7133",
+            label: "Variation des en-cours de production de biens",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
         ],
@@ -4256,7 +4901,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "34",
-        counterpart: { number: "7133", label: "Variation des en-cours de production de biens" },
+        counterpart: {
+            number: "7133",
+            label: "Variation des en-cours de production de biens",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
         ],
@@ -4271,7 +4919,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "3",
-        counterpart: { number: "6031", label: "Variation des stocks de matières premières et fournitures" },
+        counterpart: {
+            number: "6031",
+            label: "Variation des stocks de matières premières et fournitures",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
         ],
@@ -4285,7 +4936,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "35",
-        counterpart: { number: "6031", label: "Variation des stocks de matières premières et fournitures" },
+        counterpart: {
+            number: "6031",
+            label: "Variation des stocks de matières premières et fournitures",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
         ],
@@ -4299,7 +4953,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "35",
-        counterpart: { number: "6031", label: "Variation des stocks de matières premières et fournitures" },
+        counterpart: {
+            number: "6031",
+            label: "Variation des stocks de matières premières et fournitures",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
         ],
@@ -4313,7 +4970,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "35",
-        counterpart: { number: "6031", label: "Variation des stocks de matières premières et fournitures" },
+        counterpart: {
+            number: "6031",
+            label: "Variation des stocks de matières premières et fournitures",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
         ],
@@ -4327,7 +4987,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "358",
-        counterpart: { number: "6031", label: "Variation des stocks de matières premières et fournitures" },
+        counterpart: {
+            number: "6031",
+            label: "Variation des stocks de matières premières et fournitures",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
@@ -4342,7 +5005,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "358",
-        counterpart: { number: "6031", label: "Variation des stocks de matières premières et fournitures" },
+        counterpart: {
+            number: "6031",
+            label: "Variation des stocks de matières premières et fournitures",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
@@ -4357,7 +5023,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "358",
-        counterpart: { number: "6031", label: "Variation des stocks de matières premières et fournitures" },
+        counterpart: {
+            number: "6031",
+            label: "Variation des stocks de matières premières et fournitures",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
@@ -4373,7 +5042,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "3",
-        counterpart: { number: "603", label: "Variation des stocks d'approvisionnements et de marchandises" },
+        counterpart: {
+            number: "603",
+            label: "Variation des stocks d'approvisionnements et de marchandises",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
         ],
@@ -4389,7 +5061,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "3",
-        counterpart: { number: "6037", label: "Variation des stocks de marchandises 61/62 Autres charges externes" },
+        counterpart: {
+            number: "6037",
+            label: "Variation des stocks de marchandises 61/62 Autres charges externes",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
         ],
@@ -4406,7 +5081,10 @@ export const accountEntries: AccountEntry[] = [
             side: "actif",
             isOptional: false,
             parent: "3",
-            counterpart: { number: "603", label: "Variation des stocks d'approvisionnements et de marchandises" },
+            counterpart: {
+                number: "603",
+                label: "Variation des stocks d'approvisionnements et de marchandises",
+            },
             usageTips: [
                 "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
             ],
@@ -4424,7 +5102,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "3",
-        counterpart: { number: "6817", label: "Dotations pour dépréciations des actifs circulants" },
+        counterpart: {
+            number: "6817",
+            label: "Dotations pour dépréciations des actifs circulants",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
             "Ce compte enregistre la perte de valeur par dépréciation. Il fonctionne en contrepartie d'un compte de dotation (classe 6) et vient en diminution de la valeur brute de l'actif au bilan.",
@@ -4439,7 +5120,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "39",
-        counterpart: { number: "6817", label: "Dotations pour dépréciations des actifs circulants" },
+        counterpart: {
+            number: "6817",
+            label: "Dotations pour dépréciations des actifs circulants",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
             "Ce compte enregistre la perte de valeur par dépréciation. Il fonctionne en contrepartie d'un compte de dotation (classe 6) et vient en diminution de la valeur brute de l'actif au bilan.",
@@ -4454,7 +5138,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "39",
-        counterpart: { number: "6817", label: "Dotations pour dépréciations des actifs circulants" },
+        counterpart: {
+            number: "6817",
+            label: "Dotations pour dépréciations des actifs circulants",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
             "Ce compte enregistre la perte de valeur par dépréciation. Il fonctionne en contrepartie d'un compte de dotation (classe 6) et vient en diminution de la valeur brute de l'actif au bilan.",
@@ -4469,7 +5156,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "39",
-        counterpart: { number: "6817", label: "Dotations pour dépréciations des actifs circulants" },
+        counterpart: {
+            number: "6817",
+            label: "Dotations pour dépréciations des actifs circulants",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
             "Ce compte enregistre la perte de valeur par dépréciation. Il fonctionne en contrepartie d'un compte de dotation (classe 6) et vient en diminution de la valeur brute de l'actif au bilan.",
@@ -4484,7 +5174,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "39",
-        counterpart: { number: "6817", label: "Dotations pour dépréciations des actifs circulants" },
+        counterpart: {
+            number: "6817",
+            label: "Dotations pour dépréciations des actifs circulants",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
             "Ce compte enregistre la perte de valeur par dépréciation. Il fonctionne en contrepartie d'un compte de dotation (classe 6) et vient en diminution de la valeur brute de l'actif au bilan.",
@@ -4499,7 +5192,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "39",
-        counterpart: { number: "6817", label: "Dotations pour dépréciations des actifs circulants" },
+        counterpart: {
+            number: "6817",
+            label: "Dotations pour dépréciations des actifs circulants",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
             "Ce compte enregistre la perte de valeur par dépréciation. Il fonctionne en contrepartie d'un compte de dotation (classe 6) et vient en diminution de la valeur brute de l'actif au bilan.",
@@ -4514,7 +5210,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "39",
-        counterpart: { number: "6817", label: "Dotations pour dépréciations des actifs circulants" },
+        counterpart: {
+            number: "6817",
+            label: "Dotations pour dépréciations des actifs circulants",
+        },
         usageTips: [
             "Les comptes de stocks sont mis à jour en fin d'exercice lors de l'inventaire. La variation de stock impacte le compte de résultat.",
             "Ce compte enregistre la perte de valeur par dépréciation. Il fonctionne en contrepartie d'un compte de dotation (classe 6) et vient en diminution de la valeur brute de l'actif au bilan.",
@@ -4531,7 +5230,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: null,
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -4546,7 +5248,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "4",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -4561,7 +5266,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "40",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -4575,7 +5283,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "401",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -4590,7 +5301,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "401",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -4605,7 +5319,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "40",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -4620,7 +5337,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "40",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -4634,7 +5354,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "404",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -4649,7 +5372,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "404",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -4664,7 +5390,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "40",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -4679,7 +5408,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "40",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -4693,7 +5425,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "408",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -4707,7 +5442,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "408",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -4721,7 +5459,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "408",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -4735,7 +5476,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "40",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -4750,7 +5494,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "409",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -4765,7 +5512,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "409",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -4779,7 +5529,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "409",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -4793,7 +5546,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "4097",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -4808,7 +5564,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "4097",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -4823,7 +5582,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "409",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -4838,7 +5600,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "4",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -4853,7 +5618,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "41",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -4867,7 +5635,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "411",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -4882,7 +5653,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "411",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -4898,7 +5672,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "41",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -4913,7 +5690,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "41",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -4929,7 +5709,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "41",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -4943,7 +5726,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "418",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -4958,7 +5744,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "418",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -4973,7 +5762,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "41",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -4988,7 +5780,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "419",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5003,7 +5798,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "419",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5017,7 +5815,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "419",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5031,7 +5832,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "419",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5046,7 +5850,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "4",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5061,7 +5868,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "42",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5076,7 +5886,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "42",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5091,7 +5904,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "42",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5105,7 +5921,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "424",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5120,7 +5939,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "424",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5136,7 +5958,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "42",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5151,7 +5976,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "42",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5166,7 +5994,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "42",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5180,7 +6011,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "42",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5194,7 +6028,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "428",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5209,7 +6046,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "428",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5224,7 +6064,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "428",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5240,7 +6083,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "4",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5254,7 +6100,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "43",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5268,7 +6117,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "43",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5282,7 +6134,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "43",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5296,7 +6151,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "438",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5311,7 +6169,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "438",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5326,7 +6187,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "43",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5341,7 +6205,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "4",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5356,7 +6223,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "44",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5371,7 +6241,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "44",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5387,7 +6260,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "442",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5404,7 +6280,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "442",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5420,7 +6299,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "442",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5438,7 +6320,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "44",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5453,7 +6338,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "44",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5467,7 +6355,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "445",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5482,7 +6373,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "445",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5496,7 +6390,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "4455",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5511,7 +6408,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "4455",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5527,7 +6427,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "445",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
             "Ce compte de TVA est mouvementé à chaque opération soumise à la taxe. La TVA collectée (4457) et la TVA déductible (4456) sont régularisées lors de la déclaration de TVA.",
@@ -5542,7 +6445,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "4456",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5558,7 +6464,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "4456",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5574,7 +6483,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "4456",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5590,7 +6502,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "4456",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5606,7 +6521,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "4456",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5623,7 +6541,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: false,
         parent: "445",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
             "Ce compte de TVA est mouvementé à chaque opération soumise à la taxe. La TVA collectée (4457) et la TVA déductible (4456) sont régularisées lors de la déclaration de TVA.",
@@ -5638,7 +6559,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "4457",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5654,7 +6578,10 @@ export const accountEntries: AccountEntry[] = [
         side: "passif",
         isOptional: true,
         parent: "4457",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5670,7 +6597,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "445",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5686,7 +6616,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "4458",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5701,7 +6634,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "4458",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5718,7 +6654,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "4458",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5733,7 +6672,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "4458",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5750,7 +6692,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "4458",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5768,7 +6713,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "44",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5783,7 +6731,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "44",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5799,7 +6750,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "44",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5815,7 +6769,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "448",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5829,7 +6786,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "4481",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5844,7 +6804,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "4481",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5859,7 +6822,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "448",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5873,7 +6839,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "44",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5889,7 +6858,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "4",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5904,7 +6876,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "45",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5919,7 +6894,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "45",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5933,7 +6911,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "455",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5948,7 +6929,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "455",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5964,7 +6948,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "45",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -5978,7 +6965,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "456",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -5993,7 +6983,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "4561",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6008,7 +7001,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "4561",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6023,7 +7019,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "456",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -6037,7 +7036,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "4562",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6054,7 +7056,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "4562",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6069,7 +7074,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "456",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6086,7 +7094,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "456",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6101,7 +7112,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "456",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6116,7 +7130,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "456",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6132,7 +7149,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "45",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -6148,7 +7168,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "45",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -6164,7 +7187,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "458",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6179,7 +7205,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "458",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6195,7 +7224,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "4",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -6210,7 +7242,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "46",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -6224,7 +7259,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "46",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -6240,7 +7278,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "46",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -6256,7 +7297,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "46",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -6272,7 +7316,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "46",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -6289,7 +7336,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "4",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -6303,7 +7353,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "47",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6318,7 +7371,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "47",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6333,7 +7389,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "47",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6348,7 +7407,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "47",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -6362,7 +7424,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "474",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6379,7 +7444,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "474",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6396,7 +7464,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "474",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6413,7 +7484,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "47",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -6427,7 +7501,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "475",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6444,7 +7521,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "475",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6461,7 +7541,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "475",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6479,7 +7562,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "47",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -6493,7 +7579,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "476",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6508,7 +7597,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "476",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6523,7 +7615,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "476",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6541,7 +7636,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "47",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -6555,7 +7653,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "477",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6570,7 +7671,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "477",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6585,7 +7689,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "477",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6602,7 +7709,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "47",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -6616,7 +7726,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "478",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6632,7 +7745,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "4",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -6647,7 +7763,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "48",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -6663,7 +7782,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "48",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -6679,7 +7801,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: false,
         parent: "48",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -6693,7 +7818,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "487",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6712,7 +7840,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "48",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6729,7 +7860,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "488",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6744,7 +7878,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "488",
-        counterpart: { number: "512", label: "Banques" },
+        counterpart: {
+            number: "512",
+            label: "Banques",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6760,7 +7897,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "4",
-        counterpart: { number: "6817", label: "Dotations pour dépréciations des actifs circulants" },
+        counterpart: {
+            number: "6817",
+            label: "Dotations pour dépréciations des actifs circulants",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -6774,7 +7914,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "49",
-        counterpart: { number: "6817", label: "Dotations pour dépréciations des actifs circulants" },
+        counterpart: {
+            number: "6817",
+            label: "Dotations pour dépréciations des actifs circulants",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -6788,7 +7931,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "49",
-        counterpart: { number: "6817", label: "Dotations pour dépréciations des actifs circulants" },
+        counterpart: {
+            number: "6817",
+            label: "Dotations pour dépréciations des actifs circulants",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -6802,7 +7948,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "495",
-        counterpart: { number: "6817", label: "Dotations pour dépréciations des actifs circulants" },
+        counterpart: {
+            number: "6817",
+            label: "Dotations pour dépréciations des actifs circulants",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6817,7 +7966,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "495",
-        counterpart: { number: "6817", label: "Dotations pour dépréciations des actifs circulants" },
+        counterpart: {
+            number: "6817",
+            label: "Dotations pour dépréciations des actifs circulants",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6832,7 +7984,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "495",
-        counterpart: { number: "6817", label: "Dotations pour dépréciations des actifs circulants" },
+        counterpart: {
+            number: "6817",
+            label: "Dotations pour dépréciations des actifs circulants",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6847,7 +8002,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "49",
-        counterpart: { number: "6817", label: "Dotations pour dépréciations des actifs circulants" },
+        counterpart: {
+            number: "6817",
+            label: "Dotations pour dépréciations des actifs circulants",
+        },
         usageTips: [
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
         ],
@@ -6861,7 +8019,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "496",
-        counterpart: { number: "6817", label: "Dotations pour dépréciations des actifs circulants" },
+        counterpart: {
+            number: "6817",
+            label: "Dotations pour dépréciations des actifs circulants",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6876,7 +8037,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "496",
-        counterpart: { number: "6817", label: "Dotations pour dépréciations des actifs circulants" },
+        counterpart: {
+            number: "6817",
+            label: "Dotations pour dépréciations des actifs circulants",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6891,7 +8055,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "496",
-        counterpart: { number: "6817", label: "Dotations pour dépréciations des actifs circulants" },
+        counterpart: {
+            number: "6817",
+            label: "Dotations pour dépréciations des actifs circulants",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de tiers enregistrent les créances et les dettes. Ils sont lettrés lors du règlement pour faciliter le suivi.",
@@ -6908,7 +8075,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: null,
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
         ],
@@ -6923,7 +8093,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "5",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
         ],
@@ -6939,7 +8112,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "50",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
         ],
@@ -6953,7 +8129,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "502",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
@@ -6973,7 +8152,10 @@ export const accountEntries: AccountEntry[] = [
             side: "actif",
             isOptional: true,
             parent: "502",
-            counterpart: { number: "411", label: "Clients" },
+            counterpart: {
+                number: "411",
+                label: "Clients",
+            },
             usageTips: [
                 "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
                 "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
@@ -6991,7 +8173,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "50",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
         ],
@@ -7005,7 +8190,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "503",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
@@ -7020,7 +8208,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "503",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
@@ -7035,7 +8226,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "50",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
         ],
@@ -7049,7 +8243,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "50",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
         ],
@@ -7063,7 +8260,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "50",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
         ],
@@ -7077,7 +8277,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "506",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
@@ -7092,7 +8295,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "506",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
@@ -7107,7 +8313,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "50",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
         ],
@@ -7121,7 +8330,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "50",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
         ],
@@ -7135,7 +8347,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "508",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
@@ -7150,7 +8365,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "508",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
@@ -7165,7 +8383,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "508",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
@@ -7180,7 +8401,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "50",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
         ],
@@ -7194,7 +8418,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "5",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
         ],
@@ -7209,7 +8436,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "51",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
         ],
@@ -7223,7 +8453,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "511",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
@@ -7238,7 +8471,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "511",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
@@ -7253,7 +8489,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "511",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
@@ -7268,7 +8507,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "511",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
@@ -7284,7 +8526,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "51",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
             "Le compte 512 est l'un des plus utilisés en comptabilité. Il est débité lors des encaissements (recettes) et crédité lors des décaissements (dépenses). Il doit être rapproché du relevé bancaire à chaque réception.",
@@ -7299,7 +8544,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "512",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
@@ -7314,7 +8562,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "512",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
@@ -7329,7 +8580,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "51",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
         ],
@@ -7343,7 +8597,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "51",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
         ],
@@ -7357,7 +8614,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "518",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
@@ -7372,7 +8632,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "518",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
@@ -7389,7 +8652,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "51",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
         ],
@@ -7403,7 +8669,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "519",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
@@ -7418,7 +8687,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "519",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
@@ -7433,7 +8705,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "519",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
@@ -7450,7 +8725,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "5",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
         ],
@@ -7464,7 +8742,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "52",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
         ],
@@ -7478,7 +8759,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "52",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
         ],
@@ -7492,7 +8776,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "52",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
         ],
@@ -7506,7 +8793,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "52",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
         ],
@@ -7521,7 +8811,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "5",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
         ],
@@ -7537,7 +8830,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "5",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
         ],
@@ -7552,7 +8848,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "5",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
         ],
@@ -7566,7 +8865,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: false,
         parent: "59",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
         ],
@@ -7580,7 +8882,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "590",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
@@ -7595,7 +8900,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "590",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
@@ -7610,7 +8918,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "590",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
@@ -7625,7 +8936,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif",
         isOptional: true,
         parent: "590",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes financiers suivent la trésorerie de l'entreprise. Ils doivent être régulièrement rapprochés des relevés bancaires.",
@@ -7642,7 +8956,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: null,
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -7658,7 +8975,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "6",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -7672,7 +8992,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "60",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -7686,7 +9009,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "60",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -7700,7 +9026,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "602",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -7715,7 +9044,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "602",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -7730,7 +9062,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6022",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -7745,7 +9080,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6022",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -7760,7 +9098,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6022",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -7775,7 +9116,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6022",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -7790,7 +9134,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6022",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -7805,7 +9152,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "602",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -7820,7 +9170,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6026",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -7835,7 +9188,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6026",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -7850,7 +9206,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6026",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -7865,7 +9224,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6026",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -7881,7 +9243,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "60",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -7897,7 +9262,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "60",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -7912,7 +9280,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "60",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -7926,7 +9297,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "606",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -7941,7 +9315,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "606",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -7956,7 +9333,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "606",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -7971,7 +9351,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "606",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -7987,7 +9370,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "60",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -8004,7 +9390,10 @@ export const accountEntries: AccountEntry[] = [
             side: "charge",
             isOptional: false,
             parent: "60",
-            counterpart: { number: "401", label: "Fournisseurs" },
+            counterpart: {
+                number: "401",
+                label: "Fournisseurs",
+            },
             usageTips: [
                 "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
             ],
@@ -8020,7 +9409,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "60",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -8034,7 +9426,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "609",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8051,7 +9446,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "60",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -8065,7 +9463,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "603",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -8079,7 +9480,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "603",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -8093,7 +9497,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "603",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -8107,7 +9514,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "6",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -8122,7 +9532,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "61",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -8137,7 +9550,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "61",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -8151,7 +9567,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "612",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -8165,7 +9584,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "612",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -8180,7 +9602,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "61",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -8194,7 +9619,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "613",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8209,7 +9637,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "613",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8224,7 +9655,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "61",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -8238,7 +9672,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "61",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -8252,7 +9689,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "615",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8267,7 +9707,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "615",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8282,7 +9725,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "615",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8297,7 +9743,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "61",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -8311,7 +9760,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "616",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8326,7 +9778,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "616",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8341,7 +9796,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "616",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8356,7 +9814,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6163",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8371,7 +9832,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6163",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8386,7 +9850,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6163",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8401,7 +9868,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "616",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8416,7 +9886,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "616",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8431,7 +9904,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "61",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -8445,7 +9921,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "61",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -8459,7 +9938,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "618",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8474,7 +9956,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "618",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8489,7 +9974,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "618",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8504,7 +9992,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "61",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -8518,7 +10009,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "6",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -8532,7 +10026,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "62",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -8546,7 +10043,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "621",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8561,7 +10061,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "621",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8577,7 +10080,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "62",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -8591,7 +10097,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "622",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8606,7 +10115,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "622",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8621,7 +10133,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "622",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8636,7 +10151,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "622",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8651,7 +10169,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "622",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8666,7 +10187,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "622",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8681,7 +10205,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "622",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8696,7 +10223,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "62",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -8710,7 +10240,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "623",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8725,7 +10258,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "623",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8740,7 +10276,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "623",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8755,7 +10294,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "623",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8770,7 +10312,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "623",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8785,7 +10330,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "623",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8800,7 +10348,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "623",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8815,7 +10366,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "623",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8830,7 +10384,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "62",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -8844,7 +10401,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "624",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8859,7 +10419,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "624",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8874,7 +10437,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "624",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8889,7 +10455,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "624",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8904,7 +10473,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "624",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8919,7 +10491,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "624",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8934,7 +10509,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "62",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -8948,7 +10526,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "625",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8963,7 +10544,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "625",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8978,7 +10562,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "625",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -8993,7 +10580,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "625",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9008,7 +10598,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "62",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -9022,7 +10615,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "62",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -9036,7 +10632,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "627",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9051,7 +10650,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "627",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9066,7 +10668,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "627",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9081,7 +10686,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "627",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9096,7 +10704,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "627",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9111,7 +10722,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "62",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -9125,7 +10739,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "628",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9140,7 +10757,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "628",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9155,7 +10775,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "62",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -9170,7 +10793,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "6",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -9186,7 +10812,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "63",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -9200,7 +10829,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "631",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9215,7 +10847,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "631",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9230,7 +10865,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "631",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9247,7 +10885,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "63",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -9261,7 +10902,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "633",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9276,7 +10920,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "633",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9291,7 +10938,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "633",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9306,7 +10956,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "633",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9321,7 +10974,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "633",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9336,7 +10992,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "633",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9351,7 +11010,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "63",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -9365,7 +11027,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "635",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9380,7 +11045,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6351",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9395,7 +11063,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6351",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9410,7 +11081,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6351",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9425,7 +11099,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6351",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9440,7 +11117,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "635",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9455,7 +11135,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "635",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9470,7 +11153,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "635",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9485,7 +11171,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6354",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9500,7 +11189,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "635",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9515,7 +11207,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "63",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -9529,7 +11224,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "637",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9544,7 +11242,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "637",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9559,7 +11260,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "637",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9574,7 +11278,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "637",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9589,7 +11296,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "63",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -9604,7 +11314,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "6",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -9619,7 +11332,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "64",
-        counterpart: { number: "421", label: "Personnel - Rémunérations dues" },
+        counterpart: {
+            number: "421",
+            label: "Personnel - Rémunérations dues",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -9633,7 +11349,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "641",
-        counterpart: { number: "421", label: "Personnel - Rémunérations dues" },
+        counterpart: {
+            number: "421",
+            label: "Personnel - Rémunérations dues",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9648,7 +11367,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "641",
-        counterpart: { number: "421", label: "Personnel - Rémunérations dues" },
+        counterpart: {
+            number: "421",
+            label: "Personnel - Rémunérations dues",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9663,7 +11385,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "641",
-        counterpart: { number: "421", label: "Personnel - Rémunérations dues" },
+        counterpart: {
+            number: "421",
+            label: "Personnel - Rémunérations dues",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9678,7 +11403,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "641",
-        counterpart: { number: "421", label: "Personnel - Rémunérations dues" },
+        counterpart: {
+            number: "421",
+            label: "Personnel - Rémunérations dues",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9693,7 +11421,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "641",
-        counterpart: { number: "421", label: "Personnel - Rémunérations dues" },
+        counterpart: {
+            number: "421",
+            label: "Personnel - Rémunérations dues",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9709,7 +11440,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "64",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9725,7 +11459,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "64",
-        counterpart: { number: "43", label: "Sécurité sociale et autres organismes sociaux" },
+        counterpart: {
+            number: "43",
+            label: "Sécurité sociale et autres organismes sociaux",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -9739,7 +11476,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "645",
-        counterpart: { number: "43", label: "Sécurité sociale et autres organismes sociaux" },
+        counterpart: {
+            number: "43",
+            label: "Sécurité sociale et autres organismes sociaux",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9754,7 +11494,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "645",
-        counterpart: { number: "43", label: "Sécurité sociale et autres organismes sociaux" },
+        counterpart: {
+            number: "43",
+            label: "Sécurité sociale et autres organismes sociaux",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9769,7 +11512,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "645",
-        counterpart: { number: "43", label: "Sécurité sociale et autres organismes sociaux" },
+        counterpart: {
+            number: "43",
+            label: "Sécurité sociale et autres organismes sociaux",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9784,7 +11530,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "645",
-        counterpart: { number: "43", label: "Sécurité sociale et autres organismes sociaux" },
+        counterpart: {
+            number: "43",
+            label: "Sécurité sociale et autres organismes sociaux",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9799,7 +11548,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "645",
-        counterpart: { number: "43", label: "Sécurité sociale et autres organismes sociaux" },
+        counterpart: {
+            number: "43",
+            label: "Sécurité sociale et autres organismes sociaux",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9814,7 +11566,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "64",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9829,7 +11584,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "64",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -9843,7 +11601,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "647",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9858,7 +11619,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "647",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9873,7 +11637,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "647",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9888,7 +11655,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "647",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9903,7 +11673,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "64",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -9918,7 +11691,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "64",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -9934,7 +11710,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "6",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -9951,7 +11730,10 @@ export const accountEntries: AccountEntry[] = [
             side: "charge",
             isOptional: false,
             parent: "65",
-            counterpart: { number: "401", label: "Fournisseurs" },
+            counterpart: {
+                number: "401",
+                label: "Fournisseurs",
+            },
             usageTips: [
                 "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
             ],
@@ -9969,7 +11751,10 @@ export const accountEntries: AccountEntry[] = [
             side: "charge",
             isOptional: true,
             parent: "651",
-            counterpart: { number: "401", label: "Fournisseurs" },
+            counterpart: {
+                number: "401",
+                label: "Fournisseurs",
+            },
             usageTips: [
                 "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
                 "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -9985,7 +11770,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "651",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10000,7 +11788,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "651",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10015,7 +11806,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "65",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10030,7 +11824,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "65",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10044,7 +11841,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "654",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10059,7 +11859,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "654",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10076,7 +11879,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "65",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10090,7 +11896,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "655",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10105,7 +11914,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "655",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10121,7 +11933,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "65",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10137,7 +11952,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "65",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10151,7 +11969,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "65",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10165,7 +11986,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "658",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10180,7 +12004,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "658",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10195,7 +12022,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "658",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10210,7 +12040,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "658",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10225,7 +12058,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "658",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10241,7 +12077,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "6",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10256,7 +12095,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "66",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10270,7 +12112,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "661",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10285,7 +12130,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6611",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10300,7 +12148,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6611",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10315,7 +12166,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "661",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10330,7 +12184,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "661",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10345,7 +12202,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "661",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10360,7 +12220,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "661",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10375,7 +12238,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "661",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10390,7 +12256,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6618",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10405,7 +12274,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6618",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10420,7 +12292,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "66",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10435,7 +12310,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "66",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10450,7 +12328,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "66",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10464,7 +12345,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "66",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10480,7 +12364,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "667",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10494,7 +12381,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "667",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10508,7 +12398,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "667",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10522,7 +12415,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "667",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10536,7 +12432,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "66",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10550,7 +12449,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "668",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10566,7 +12468,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "6",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10583,7 +12488,10 @@ export const accountEntries: AccountEntry[] = [
             side: "charge",
             isOptional: false,
             parent: "67",
-            counterpart: { number: "401", label: "Fournisseurs" },
+            counterpart: {
+                number: "401",
+                label: "Fournisseurs",
+            },
             usageTips: [
                 "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
             ],
@@ -10598,7 +12506,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "67",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10613,7 +12524,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "6",
-        counterpart: { number: "28", label: "Amortissements des immobilisations" },
+        counterpart: {
+            number: "28",
+            label: "Amortissements des immobilisations",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10631,7 +12545,10 @@ export const accountEntries: AccountEntry[] = [
             side: "charge",
             isOptional: false,
             parent: "68",
-            counterpart: { number: "28", label: "Amortissements des immobilisations" },
+            counterpart: {
+                number: "28",
+                label: "Amortissements des immobilisations",
+            },
             usageTips: [
                 "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
             ],
@@ -10646,7 +12563,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "681",
-        counterpart: { number: "28", label: "Amortissements des immobilisations" },
+        counterpart: {
+            number: "28",
+            label: "Amortissements des immobilisations",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10660,7 +12580,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6811",
-        counterpart: { number: "28", label: "Amortissements des immobilisations" },
+        counterpart: {
+            number: "28",
+            label: "Amortissements des immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10675,7 +12598,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6811",
-        counterpart: { number: "28", label: "Amortissements des immobilisations" },
+        counterpart: {
+            number: "28",
+            label: "Amortissements des immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10690,7 +12616,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "681",
-        counterpart: { number: "28", label: "Amortissements des immobilisations" },
+        counterpart: {
+            number: "28",
+            label: "Amortissements des immobilisations",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10704,7 +12633,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "681",
-        counterpart: { number: "28", label: "Amortissements des immobilisations" },
+        counterpart: {
+            number: "28",
+            label: "Amortissements des immobilisations",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10718,7 +12650,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6816",
-        counterpart: { number: "28", label: "Amortissements des immobilisations" },
+        counterpart: {
+            number: "28",
+            label: "Amortissements des immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10733,7 +12668,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6816",
-        counterpart: { number: "28", label: "Amortissements des immobilisations" },
+        counterpart: {
+            number: "28",
+            label: "Amortissements des immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10748,7 +12686,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "681",
-        counterpart: { number: "28", label: "Amortissements des immobilisations" },
+        counterpart: {
+            number: "28",
+            label: "Amortissements des immobilisations",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10762,7 +12703,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6817",
-        counterpart: { number: "28", label: "Amortissements des immobilisations" },
+        counterpart: {
+            number: "28",
+            label: "Amortissements des immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10777,7 +12721,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6817",
-        counterpart: { number: "28", label: "Amortissements des immobilisations" },
+        counterpart: {
+            number: "28",
+            label: "Amortissements des immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10796,7 +12743,10 @@ export const accountEntries: AccountEntry[] = [
             side: "charge",
             isOptional: false,
             parent: "68",
-            counterpart: { number: "28", label: "Amortissements des immobilisations" },
+            counterpart: {
+                number: "28",
+                label: "Amortissements des immobilisations",
+            },
             usageTips: [
                 "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
             ],
@@ -10811,7 +12761,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "686",
-        counterpart: { number: "28", label: "Amortissements des immobilisations" },
+        counterpart: {
+            number: "28",
+            label: "Amortissements des immobilisations",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10825,7 +12778,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "686",
-        counterpart: { number: "28", label: "Amortissements des immobilisations" },
+        counterpart: {
+            number: "28",
+            label: "Amortissements des immobilisations",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10839,7 +12795,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "686",
-        counterpart: { number: "28", label: "Amortissements des immobilisations" },
+        counterpart: {
+            number: "28",
+            label: "Amortissements des immobilisations",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10853,7 +12812,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "686",
-        counterpart: { number: "28", label: "Amortissements des immobilisations" },
+        counterpart: {
+            number: "28",
+            label: "Amortissements des immobilisations",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10867,7 +12829,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6866",
-        counterpart: { number: "28", label: "Amortissements des immobilisations" },
+        counterpart: {
+            number: "28",
+            label: "Amortissements des immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10882,7 +12847,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6866",
-        counterpart: { number: "28", label: "Amortissements des immobilisations" },
+        counterpart: {
+            number: "28",
+            label: "Amortissements des immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10901,7 +12869,10 @@ export const accountEntries: AccountEntry[] = [
             side: "charge",
             isOptional: false,
             parent: "68",
-            counterpart: { number: "28", label: "Amortissements des immobilisations" },
+            counterpart: {
+                number: "28",
+                label: "Amortissements des immobilisations",
+            },
             usageTips: [
                 "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
             ],
@@ -10916,7 +12887,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "687",
-        counterpart: { number: "28", label: "Amortissements des immobilisations" },
+        counterpart: {
+            number: "28",
+            label: "Amortissements des immobilisations",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10930,7 +12904,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "687",
-        counterpart: { number: "28", label: "Amortissements des immobilisations" },
+        counterpart: {
+            number: "28",
+            label: "Amortissements des immobilisations",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10944,7 +12921,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "6872",
-        counterpart: { number: "28", label: "Amortissements des immobilisations" },
+        counterpart: {
+            number: "28",
+            label: "Amortissements des immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -10959,7 +12939,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "687",
-        counterpart: { number: "28", label: "Amortissements des immobilisations" },
+        counterpart: {
+            number: "28",
+            label: "Amortissements des immobilisations",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10973,7 +12956,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "687",
-        counterpart: { number: "28", label: "Amortissements des immobilisations" },
+        counterpart: {
+            number: "28",
+            label: "Amortissements des immobilisations",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -10987,7 +12973,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "687",
-        counterpart: { number: "28", label: "Amortissements des immobilisations" },
+        counterpart: {
+            number: "28",
+            label: "Amortissements des immobilisations",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11001,7 +12990,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "687",
-        counterpart: { number: "28", label: "Amortissements des immobilisations" },
+        counterpart: {
+            number: "28",
+            label: "Amortissements des immobilisations",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11016,7 +13008,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "6",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11031,7 +13026,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "69",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11046,7 +13044,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "69",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11060,7 +13061,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "695",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -11075,7 +13079,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "695",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -11090,7 +13097,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: true,
         parent: "695",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -11106,7 +13116,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "69",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11121,7 +13134,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "69",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11135,7 +13151,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "698",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11149,7 +13168,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "698",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11164,7 +13186,10 @@ export const accountEntries: AccountEntry[] = [
         side: "charge",
         isOptional: false,
         parent: "69",
-        counterpart: { number: "401", label: "Fournisseurs" },
+        counterpart: {
+            number: "401",
+            label: "Fournisseurs",
+        },
         usageTips: [
             "Les comptes de charges sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11180,7 +13205,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: null,
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11195,7 +13223,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "7",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11209,7 +13240,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "70",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11223,7 +13257,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "70",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11237,7 +13274,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "70",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11251,7 +13291,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "70",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11265,7 +13308,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "70",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11279,7 +13325,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "70",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11293,7 +13342,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "70",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11307,7 +13359,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "70",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11321,7 +13376,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "708",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -11336,7 +13394,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "708",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -11351,7 +13412,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "708",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -11366,7 +13430,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "708",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -11381,7 +13448,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "708",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -11396,7 +13466,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "708",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -11411,7 +13484,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "708",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -11426,7 +13502,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "708",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -11442,7 +13521,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "70",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11456,7 +13538,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "709",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11470,7 +13555,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "709",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11484,7 +13572,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "709",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11498,7 +13589,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "709",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11512,7 +13606,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "709",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11526,7 +13623,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "709",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11540,7 +13640,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "709",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11555,7 +13658,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "7",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11570,7 +13676,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "71",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11584,7 +13693,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "713",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11598,7 +13710,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "7133",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -11613,7 +13728,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "7133",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -11628,7 +13746,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "713",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11642,7 +13763,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "7134",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -11657,7 +13781,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "7134",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -11672,7 +13799,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "713",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11686,7 +13816,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "7135",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -11701,7 +13834,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "7135",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -11716,7 +13852,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "7135",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -11732,7 +13871,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "7",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11746,7 +13888,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "72",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11760,7 +13905,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "72",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11776,7 +13924,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "7",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11791,7 +13942,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "74",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11806,7 +13960,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "74",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11821,7 +13978,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "74",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11837,7 +13997,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "7",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11856,7 +14019,10 @@ export const accountEntries: AccountEntry[] = [
             side: "produit",
             isOptional: false,
             parent: "75",
-            counterpart: { number: "411", label: "Clients" },
+            counterpart: {
+                number: "411",
+                label: "Clients",
+            },
             usageTips: [
                 "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
             ],
@@ -11874,7 +14040,10 @@ export const accountEntries: AccountEntry[] = [
             side: "produit",
             isOptional: true,
             parent: "751",
-            counterpart: { number: "411", label: "Clients" },
+            counterpart: {
+                number: "411",
+                label: "Clients",
+            },
             usageTips: [
                 "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
                 "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -11890,7 +14059,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "751",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -11905,7 +14077,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "751",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -11920,7 +14095,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "75",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11934,7 +14112,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "75",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11949,7 +14130,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "75",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11965,7 +14149,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "75",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -11979,7 +14166,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "755",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -11994,7 +14184,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "755",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12010,7 +14203,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "75",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12025,7 +14221,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "75",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12039,7 +14238,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "75",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12053,7 +14255,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "758",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12068,7 +14273,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "758",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12083,7 +14291,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "758",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12098,7 +14309,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "758",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12113,7 +14327,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "758",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12128,7 +14345,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "758",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12143,7 +14363,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "758",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12158,7 +14381,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "758",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12174,7 +14400,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "7",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12189,7 +14418,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "76",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12203,7 +14435,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "761",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12218,7 +14453,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "761",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12233,7 +14471,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "761",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12248,7 +14489,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "761",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12264,7 +14508,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "76",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12278,7 +14525,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "762",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12293,7 +14543,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "762",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12308,7 +14561,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "762",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12324,7 +14580,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "76",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12338,7 +14597,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "763",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12353,7 +14615,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "763",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12368,7 +14633,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "76",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12383,7 +14651,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "76",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12398,7 +14669,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "76",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12413,7 +14687,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "76",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12428,7 +14705,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "767",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12442,7 +14722,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "767",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12456,7 +14739,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "767",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12470,7 +14756,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "767",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12484,7 +14773,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "76",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12501,7 +14793,10 @@ export const accountEntries: AccountEntry[] = [
             side: "produit",
             isOptional: true,
             parent: "768",
-            counterpart: { number: "411", label: "Clients" },
+            counterpart: {
+                number: "411",
+                label: "Clients",
+            },
             usageTips: [
                 "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
                 "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12518,7 +14813,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "7",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12535,7 +14833,10 @@ export const accountEntries: AccountEntry[] = [
             side: "produit",
             isOptional: false,
             parent: "77",
-            counterpart: { number: "411", label: "Clients" },
+            counterpart: {
+                number: "411",
+                label: "Clients",
+            },
             usageTips: [
                 "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
             ],
@@ -12550,7 +14851,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "77",
-        counterpart: { number: "411", label: "Clients" },
+        counterpart: {
+            number: "411",
+            label: "Clients",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12566,7 +14870,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "7",
-        counterpart: { number: "29", label: "Dépréciations des immobilisations" },
+        counterpart: {
+            number: "29",
+            label: "Dépréciations des immobilisations",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12584,7 +14891,10 @@ export const accountEntries: AccountEntry[] = [
             side: "produit",
             isOptional: false,
             parent: "78",
-            counterpart: { number: "29", label: "Dépréciations des immobilisations" },
+            counterpart: {
+                number: "29",
+                label: "Dépréciations des immobilisations",
+            },
             usageTips: [
                 "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
             ],
@@ -12599,7 +14909,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "781",
-        counterpart: { number: "29", label: "Dépréciations des immobilisations" },
+        counterpart: {
+            number: "29",
+            label: "Dépréciations des immobilisations",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12613,7 +14926,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "7811",
-        counterpart: { number: "29", label: "Dépréciations des immobilisations" },
+        counterpart: {
+            number: "29",
+            label: "Dépréciations des immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12628,7 +14944,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "7811",
-        counterpart: { number: "29", label: "Dépréciations des immobilisations" },
+        counterpart: {
+            number: "29",
+            label: "Dépréciations des immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12643,7 +14962,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "781",
-        counterpart: { number: "29", label: "Dépréciations des immobilisations" },
+        counterpart: {
+            number: "29",
+            label: "Dépréciations des immobilisations",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12657,7 +14979,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "781",
-        counterpart: { number: "29", label: "Dépréciations des immobilisations" },
+        counterpart: {
+            number: "29",
+            label: "Dépréciations des immobilisations",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12671,7 +14996,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "7816",
-        counterpart: { number: "29", label: "Dépréciations des immobilisations" },
+        counterpart: {
+            number: "29",
+            label: "Dépréciations des immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12686,7 +15014,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "7816",
-        counterpart: { number: "29", label: "Dépréciations des immobilisations" },
+        counterpart: {
+            number: "29",
+            label: "Dépréciations des immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12701,7 +15032,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "781",
-        counterpart: { number: "29", label: "Dépréciations des immobilisations" },
+        counterpart: {
+            number: "29",
+            label: "Dépréciations des immobilisations",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12715,7 +15049,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "7817",
-        counterpart: { number: "29", label: "Dépréciations des immobilisations" },
+        counterpart: {
+            number: "29",
+            label: "Dépréciations des immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12730,7 +15067,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "7817",
-        counterpart: { number: "29", label: "Dépréciations des immobilisations" },
+        counterpart: {
+            number: "29",
+            label: "Dépréciations des immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12746,7 +15086,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "78",
-        counterpart: { number: "29", label: "Dépréciations des immobilisations" },
+        counterpart: {
+            number: "29",
+            label: "Dépréciations des immobilisations",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12760,7 +15103,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "786",
-        counterpart: { number: "29", label: "Dépréciations des immobilisations" },
+        counterpart: {
+            number: "29",
+            label: "Dépréciations des immobilisations",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12774,7 +15120,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "786",
-        counterpart: { number: "29", label: "Dépréciations des immobilisations" },
+        counterpart: {
+            number: "29",
+            label: "Dépréciations des immobilisations",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12788,7 +15137,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "7866",
-        counterpart: { number: "29", label: "Dépréciations des immobilisations" },
+        counterpart: {
+            number: "29",
+            label: "Dépréciations des immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12803,7 +15155,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "7866",
-        counterpart: { number: "29", label: "Dépréciations des immobilisations" },
+        counterpart: {
+            number: "29",
+            label: "Dépréciations des immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12820,7 +15175,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "78",
-        counterpart: { number: "29", label: "Dépréciations des immobilisations" },
+        counterpart: {
+            number: "29",
+            label: "Dépréciations des immobilisations",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12834,7 +15192,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "787",
-        counterpart: { number: "29", label: "Dépréciations des immobilisations" },
+        counterpart: {
+            number: "29",
+            label: "Dépréciations des immobilisations",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12848,7 +15209,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: true,
         parent: "7872",
-        counterpart: { number: "29", label: "Dépréciations des immobilisations" },
+        counterpart: {
+            number: "29",
+            label: "Dépréciations des immobilisations",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
@@ -12863,7 +15227,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "787",
-        counterpart: { number: "29", label: "Dépréciations des immobilisations" },
+        counterpart: {
+            number: "29",
+            label: "Dépréciations des immobilisations",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12877,7 +15244,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "787",
-        counterpart: { number: "29", label: "Dépréciations des immobilisations" },
+        counterpart: {
+            number: "29",
+            label: "Dépréciations des immobilisations",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12891,7 +15261,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "787",
-        counterpart: { number: "29", label: "Dépréciations des immobilisations" },
+        counterpart: {
+            number: "29",
+            label: "Dépréciations des immobilisations",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12905,7 +15278,10 @@ export const accountEntries: AccountEntry[] = [
         side: "produit",
         isOptional: false,
         parent: "787",
-        counterpart: { number: "29", label: "Dépréciations des immobilisations" },
+        counterpart: {
+            number: "29",
+            label: "Dépréciations des immobilisations",
+        },
         usageTips: [
             "Les comptes de produits sont soldés en fin d'exercice par le compte 12 (Résultat de l'exercice). Ils alimentent le compte de résultat.",
         ],
@@ -12923,7 +15299,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: null,
-        counterpart: { number: "8", label: "Comptes spéciaux (contrepartie)" },
+        counterpart: {
+            number: "8",
+            label: "Comptes spéciaux (contrepartie)",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes spéciaux ne figurent ni au bilan ni au compte de résultat. Les engagements hors bilan (comptes 80) sont mentionnés dans l'annexe. Les contributions volontaires en nature (comptes 86/87) sont présentées au pied du compte de résultat des associations.",
@@ -12940,7 +15319,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "8",
-        counterpart: { number: "8", label: "Comptes spéciaux (contrepartie)" },
+        counterpart: {
+            number: "8",
+            label: "Comptes spéciaux (contrepartie)",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes spéciaux ne figurent ni au bilan ni au compte de résultat. Les engagements hors bilan (comptes 80) sont mentionnés dans l'annexe. Les contributions volontaires en nature (comptes 86/87) sont présentées au pied du compte de résultat des associations.",
@@ -12957,7 +15339,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "80",
-        counterpart: { number: "8", label: "Comptes spéciaux (contrepartie)" },
+        counterpart: {
+            number: "8",
+            label: "Comptes spéciaux (contrepartie)",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes spéciaux ne figurent ni au bilan ni au compte de résultat. Les engagements hors bilan (comptes 80) sont mentionnés dans l'annexe. Les contributions volontaires en nature (comptes 86/87) sont présentées au pied du compte de résultat des associations.",
@@ -12972,7 +15357,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "801",
-        counterpart: { number: "8", label: "Comptes spéciaux (contrepartie)" },
+        counterpart: {
+            number: "8",
+            label: "Comptes spéciaux (contrepartie)",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes spéciaux ne figurent ni au bilan ni au compte de résultat. Les engagements hors bilan (comptes 80) sont mentionnés dans l'annexe. Les contributions volontaires en nature (comptes 86/87) sont présentées au pied du compte de résultat des associations.",
@@ -12987,7 +15375,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "801",
-        counterpart: { number: "8", label: "Comptes spéciaux (contrepartie)" },
+        counterpart: {
+            number: "8",
+            label: "Comptes spéciaux (contrepartie)",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes spéciaux ne figurent ni au bilan ni au compte de résultat. Les engagements hors bilan (comptes 80) sont mentionnés dans l'annexe. Les contributions volontaires en nature (comptes 86/87) sont présentées au pied du compte de résultat des associations.",
@@ -13003,7 +15394,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "801",
-        counterpart: { number: "8", label: "Comptes spéciaux (contrepartie)" },
+        counterpart: {
+            number: "8",
+            label: "Comptes spéciaux (contrepartie)",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes spéciaux ne figurent ni au bilan ni au compte de résultat. Les engagements hors bilan (comptes 80) sont mentionnés dans l'annexe. Les contributions volontaires en nature (comptes 86/87) sont présentées au pied du compte de résultat des associations.",
@@ -13018,7 +15412,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "801",
-        counterpart: { number: "8", label: "Comptes spéciaux (contrepartie)" },
+        counterpart: {
+            number: "8",
+            label: "Comptes spéciaux (contrepartie)",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes spéciaux ne figurent ni au bilan ni au compte de résultat. Les engagements hors bilan (comptes 80) sont mentionnés dans l'annexe. Les contributions volontaires en nature (comptes 86/87) sont présentées au pied du compte de résultat des associations.",
@@ -13033,7 +15430,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "801",
-        counterpart: { number: "8", label: "Comptes spéciaux (contrepartie)" },
+        counterpart: {
+            number: "8",
+            label: "Comptes spéciaux (contrepartie)",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes spéciaux ne figurent ni au bilan ni au compte de résultat. Les engagements hors bilan (comptes 80) sont mentionnés dans l'annexe. Les contributions volontaires en nature (comptes 86/87) sont présentées au pied du compte de résultat des associations.",
@@ -13050,7 +15450,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "80",
-        counterpart: { number: "8", label: "Comptes spéciaux (contrepartie)" },
+        counterpart: {
+            number: "8",
+            label: "Comptes spéciaux (contrepartie)",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes spéciaux ne figurent ni au bilan ni au compte de résultat. Les engagements hors bilan (comptes 80) sont mentionnés dans l'annexe. Les contributions volontaires en nature (comptes 86/87) sont présentées au pied du compte de résultat des associations.",
@@ -13065,7 +15468,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "802",
-        counterpart: { number: "8", label: "Comptes spéciaux (contrepartie)" },
+        counterpart: {
+            number: "8",
+            label: "Comptes spéciaux (contrepartie)",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes spéciaux ne figurent ni au bilan ni au compte de résultat. Les engagements hors bilan (comptes 80) sont mentionnés dans l'annexe. Les contributions volontaires en nature (comptes 86/87) sont présentées au pied du compte de résultat des associations.",
@@ -13080,7 +15486,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "802",
-        counterpart: { number: "8", label: "Comptes spéciaux (contrepartie)" },
+        counterpart: {
+            number: "8",
+            label: "Comptes spéciaux (contrepartie)",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes spéciaux ne figurent ni au bilan ni au compte de résultat. Les engagements hors bilan (comptes 80) sont mentionnés dans l'annexe. Les contributions volontaires en nature (comptes 86/87) sont présentées au pied du compte de résultat des associations.",
@@ -13095,7 +15504,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "802",
-        counterpart: { number: "8", label: "Comptes spéciaux (contrepartie)" },
+        counterpart: {
+            number: "8",
+            label: "Comptes spéciaux (contrepartie)",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes spéciaux ne figurent ni au bilan ni au compte de résultat. Les engagements hors bilan (comptes 80) sont mentionnés dans l'annexe. Les contributions volontaires en nature (comptes 86/87) sont présentées au pied du compte de résultat des associations.",
@@ -13112,7 +15524,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "802",
-        counterpart: { number: "8", label: "Comptes spéciaux (contrepartie)" },
+        counterpart: {
+            number: "8",
+            label: "Comptes spéciaux (contrepartie)",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes spéciaux ne figurent ni au bilan ni au compte de résultat. Les engagements hors bilan (comptes 80) sont mentionnés dans l'annexe. Les contributions volontaires en nature (comptes 86/87) sont présentées au pied du compte de résultat des associations.",
@@ -13129,7 +15544,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "80",
-        counterpart: { number: "8", label: "Comptes spéciaux (contrepartie)" },
+        counterpart: {
+            number: "8",
+            label: "Comptes spéciaux (contrepartie)",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes spéciaux ne figurent ni au bilan ni au compte de résultat. Les engagements hors bilan (comptes 80) sont mentionnés dans l'annexe. Les contributions volontaires en nature (comptes 86/87) sont présentées au pied du compte de résultat des associations.",
@@ -13146,7 +15564,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "80",
-        counterpart: { number: "8", label: "Comptes spéciaux (contrepartie)" },
+        counterpart: {
+            number: "8",
+            label: "Comptes spéciaux (contrepartie)",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes spéciaux ne figurent ni au bilan ni au compte de résultat. Les engagements hors bilan (comptes 80) sont mentionnés dans l'annexe. Les contributions volontaires en nature (comptes 86/87) sont présentées au pied du compte de résultat des associations.",
@@ -13163,7 +15584,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "8",
-        counterpart: { number: "8", label: "Comptes spéciaux (contrepartie)" },
+        counterpart: {
+            number: "8",
+            label: "Comptes spéciaux (contrepartie)",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes spéciaux ne figurent ni au bilan ni au compte de résultat. Les engagements hors bilan (comptes 80) sont mentionnés dans l'annexe. Les contributions volontaires en nature (comptes 86/87) sont présentées au pied du compte de résultat des associations.",
@@ -13180,7 +15604,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "86",
-        counterpart: { number: "8", label: "Comptes spéciaux (contrepartie)" },
+        counterpart: {
+            number: "8",
+            label: "Comptes spéciaux (contrepartie)",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes spéciaux ne figurent ni au bilan ni au compte de résultat. Les engagements hors bilan (comptes 80) sont mentionnés dans l'annexe. Les contributions volontaires en nature (comptes 86/87) sont présentées au pied du compte de résultat des associations.",
@@ -13195,7 +15622,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "86",
-        counterpart: { number: "8", label: "Comptes spéciaux (contrepartie)" },
+        counterpart: {
+            number: "8",
+            label: "Comptes spéciaux (contrepartie)",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes spéciaux ne figurent ni au bilan ni au compte de résultat. Les engagements hors bilan (comptes 80) sont mentionnés dans l'annexe. Les contributions volontaires en nature (comptes 86/87) sont présentées au pied du compte de résultat des associations.",
@@ -13210,7 +15640,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "86",
-        counterpart: { number: "8", label: "Comptes spéciaux (contrepartie)" },
+        counterpart: {
+            number: "8",
+            label: "Comptes spéciaux (contrepartie)",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes spéciaux ne figurent ni au bilan ni au compte de résultat. Les engagements hors bilan (comptes 80) sont mentionnés dans l'annexe. Les contributions volontaires en nature (comptes 86/87) sont présentées au pied du compte de résultat des associations.",
@@ -13225,7 +15658,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "86",
-        counterpart: { number: "8", label: "Comptes spéciaux (contrepartie)" },
+        counterpart: {
+            number: "8",
+            label: "Comptes spéciaux (contrepartie)",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes spéciaux ne figurent ni au bilan ni au compte de résultat. Les engagements hors bilan (comptes 80) sont mentionnés dans l'annexe. Les contributions volontaires en nature (comptes 86/87) sont présentées au pied du compte de résultat des associations.",
@@ -13242,7 +15678,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "8",
-        counterpart: { number: "8", label: "Comptes spéciaux (contrepartie)" },
+        counterpart: {
+            number: "8",
+            label: "Comptes spéciaux (contrepartie)",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes spéciaux ne figurent ni au bilan ni au compte de résultat. Les engagements hors bilan (comptes 80) sont mentionnés dans l'annexe. Les contributions volontaires en nature (comptes 86/87) sont présentées au pied du compte de résultat des associations.",
@@ -13257,7 +15696,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "87",
-        counterpart: { number: "8", label: "Comptes spéciaux (contrepartie)" },
+        counterpart: {
+            number: "8",
+            label: "Comptes spéciaux (contrepartie)",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes spéciaux ne figurent ni au bilan ni au compte de résultat. Les engagements hors bilan (comptes 80) sont mentionnés dans l'annexe. Les contributions volontaires en nature (comptes 86/87) sont présentées au pied du compte de résultat des associations.",
@@ -13272,7 +15714,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "87",
-        counterpart: { number: "8", label: "Comptes spéciaux (contrepartie)" },
+        counterpart: {
+            number: "8",
+            label: "Comptes spéciaux (contrepartie)",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes spéciaux ne figurent ni au bilan ni au compte de résultat. Les engagements hors bilan (comptes 80) sont mentionnés dans l'annexe. Les contributions volontaires en nature (comptes 86/87) sont présentées au pied du compte de résultat des associations.",
@@ -13287,7 +15732,10 @@ export const accountEntries: AccountEntry[] = [
         side: "actif ou passif",
         isOptional: true,
         parent: "87",
-        counterpart: { number: "8", label: "Comptes spéciaux (contrepartie)" },
+        counterpart: {
+            number: "8",
+            label: "Comptes spéciaux (contrepartie)",
+        },
         usageTips: [
             "Ce compte est facultatif dans le système de base du PCG. Il permet une ventilation plus fine des opérations liées au compte parent.",
             "Les comptes spéciaux ne figurent ni au bilan ni au compte de résultat. Les engagements hors bilan (comptes 80) sont mentionnés dans l'annexe. Les contributions volontaires en nature (comptes 86/87) sont présentées au pied du compte de résultat des associations.",
@@ -13298,14 +15746,46 @@ export const accountEntries: AccountEntry[] = [
 ]
 
 export const accountClasses = [
-    { number: 1, label: "Comptes de capitaux", type: "Bilan (passif)" as const },
-    { number: 2, label: "Comptes d'immobilisations", type: "Bilan (actif)" as const },
-    { number: 3, label: "Comptes de stocks et en-cours", type: "Bilan (actif)" as const },
-    { number: 4, label: "Comptes de tiers", type: "Bilan (actif ou passif)" as const },
-    { number: 5, label: "Comptes financiers", type: "Bilan (actif)" as const },
-    { number: 6, label: "Comptes de charges", type: "Résultat" as const },
-    { number: 7, label: "Comptes de produits", type: "Résultat" as const },
-    { number: 8, label: "Comptes spéciaux", type: "Hors bilan" as const },
+    {
+        number: 1,
+        label: "Comptes de capitaux",
+        type: "Bilan (passif)" as const,
+    },
+    {
+        number: 2,
+        label: "Comptes d'immobilisations",
+        type: "Bilan (actif)" as const,
+    },
+    {
+        number: 3,
+        label: "Comptes de stocks et en-cours",
+        type: "Bilan (actif)" as const,
+    },
+    {
+        number: 4,
+        label: "Comptes de tiers",
+        type: "Bilan (actif ou passif)" as const,
+    },
+    {
+        number: 5,
+        label: "Comptes financiers",
+        type: "Bilan (actif)" as const,
+    },
+    {
+        number: 6,
+        label: "Comptes de charges",
+        type: "Résultat" as const,
+    },
+    {
+        number: 7,
+        label: "Comptes de produits",
+        type: "Résultat" as const,
+    },
+    {
+        number: 8,
+        label: "Comptes spéciaux",
+        type: "Hors bilan" as const,
+    },
 ]
 
 export function getAccountBySlug(slug: string): AccountEntry | undefined {
@@ -13319,7 +15799,9 @@ export function getAccountsByClass(): Map<number, AccountEntry[]> {
         if (existing) {
             existing.push(account)
         } else {
-            grouped.set(account.classNumber, [account])
+            grouped.set(account.classNumber, [
+                account,
+            ])
         }
     }
     return grouped

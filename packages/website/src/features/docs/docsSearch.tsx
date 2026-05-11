@@ -50,7 +50,14 @@ function scoreEntry(entry: DocsSearchEntry, tokens: string[]): number {
  * Because normalising may shift character positions we search in the normalised
  * string but slice from the original for display.
  */
-function getMatchSnippet(text: string, query: string): { before: string; match: string; after: string } | null {
+function getMatchSnippet(
+    text: string,
+    query: string,
+): {
+    before: string
+    match: string
+    after: string
+} | null {
     const normText = normalize(text)
     const normQuery = normalize(query)
     const idx = normText.indexOf(normQuery)
@@ -86,7 +93,13 @@ function ResultChunk(props: { entry: DocsSearchEntry; tokens: string[] }) {
                     })}
                 >
                     {snippet.before}
-                    <strong className={css({ color: "neutral" })}>{snippet.match}</strong>
+                    <strong
+                        className={css({
+                            color: "neutral",
+                        })}
+                    >
+                        {snippet.match}
+                    </strong>
                     {snippet.after}
                 </span>
             )
@@ -120,7 +133,11 @@ export function DocsSearch() {
 
     const { results, tokens } = useMemo(() => {
         const trimmed = query.trim()
-        if (!trimmed) return { results: [], tokens: [] }
+        if (!trimmed)
+            return {
+                results: [],
+                tokens: [],
+            }
 
         const toks = trimmed
             .split(/\s+/)
@@ -128,14 +145,22 @@ export function DocsSearch() {
             .filter((t) => t.length > 0)
 
         const scored = docsSearchIndex
-            .map((entry) => ({ entry, score: scoreEntry(entry, toks) }))
+            .map((entry) => ({
+                entry,
+                score: scoreEntry(entry, toks),
+            }))
             .filter((r) => r.score > 0)
             .sort((a, b) => b.score - a.score)
             .slice(0, MAX_RESULTS)
             .map((r) => r.entry)
 
-        return { results: scored, tokens: toks }
-    }, [query])
+        return {
+            results: scored,
+            tokens: toks,
+        }
+    }, [
+        query,
+    ])
 
     // Close on outside click
     useEffect(() => {
@@ -167,7 +192,9 @@ export function DocsSearch() {
     function handleSelect(path: string) {
         setQuery("")
         setOpen(false)
-        void navigate({ to: path as never })
+        void navigate({
+            to: path as never,
+        })
     }
 
     return (
@@ -189,7 +216,10 @@ export function DocsSearch() {
                     border: "1px solid",
                     borderRadius: "md",
                     borderColor: "neutral/20",
-                    _focusWithin: { borderColor: "neutral/50", boxShadow: "inset" },
+                    _focusWithin: {
+                        borderColor: "neutral/50",
+                        boxShadow: "inset",
+                    },
                     padding: "0.5rem",
                     boxSizing: "border-box",
                 })}
@@ -222,7 +252,9 @@ export function DocsSearch() {
                         lineHeight: "1rem",
                         fontWeight: "400",
                         backgroundColor: "transparent",
-                        _placeholder: { color: "neutral/25" },
+                        _placeholder: {
+                            color: "neutral/25",
+                        },
                         outline: "none",
                         minWidth: 0,
                     })}
@@ -264,10 +296,14 @@ export function DocsSearch() {
                                 gap: "0.25rem",
                                 padding: "0.625rem 0.75rem",
                                 cursor: "pointer",
-                                _hover: { backgroundColor: "background" },
+                                _hover: {
+                                    backgroundColor: "background",
+                                },
                                 borderBottom: "1px solid",
                                 borderBottomColor: "neutral/5",
-                                _last: { borderBottom: "none" },
+                                _last: {
+                                    borderBottom: "none",
+                                },
                             })}
                         >
                             <span
@@ -281,7 +317,10 @@ export function DocsSearch() {
                                 {entry.title.trim()}
                             </span>
 
-                            <ResultChunk entry={entry} tokens={tokens} />
+                            <ResultChunk
+                                entry={entry}
+                                tokens={tokens}
+                            />
                         </Button>
                     ))}
                 </div>

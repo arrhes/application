@@ -17,7 +17,9 @@ describe("POST /auth/read-organization-billing", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/read-organization-billing",
-            body: { idOrganization },
+            body: {
+                idOrganization,
+            },
         })
         expect(response.status).toBe(200)
 
@@ -30,7 +32,9 @@ describe("POST /auth/read-organization-billing", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/read-organization-billing",
-            body: { idOrganization },
+            body: {
+                idOrganization,
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -41,7 +45,9 @@ describe("POST /auth/read-all-organization-payments", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/read-all-organization-payments",
-            body: { idOrganization },
+            body: {
+                idOrganization,
+            },
         })
         expect(response.status).toBe(200)
 
@@ -52,7 +58,9 @@ describe("POST /auth/read-all-organization-payments", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/read-all-organization-payments",
-            body: { idOrganization },
+            body: {
+                idOrganization,
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -62,7 +70,9 @@ describe("POST /auth/create-first-payment", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/create-first-payment",
-            body: { idOrganization },
+            body: {
+                idOrganization,
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -72,7 +82,9 @@ describe("POST /auth/cancel-subscription", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/cancel-subscription",
-            body: { idOrganization },
+            body: {
+                idOrganization,
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -81,7 +93,9 @@ describe("POST /auth/cancel-subscription", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/cancel-subscription",
-            body: { idOrganization },
+            body: {
+                idOrganization,
+            },
         })
         // Demo org has no subscription, so this should fail with 400
         expect(response.status).toBe(400)
@@ -92,7 +106,9 @@ describe("POST /auth/read-all-organization-billings", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/read-all-organization-billings",
-            body: { idOrganization },
+            body: {
+                idOrganization,
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -101,7 +117,9 @@ describe("POST /auth/read-all-organization-billings", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/read-all-organization-billings",
-            body: { idOrganization },
+            body: {
+                idOrganization,
+            },
         })
         expect(response.status).toBe(200)
         expect(Array.isArray(response.data)).toBe(true)
@@ -112,7 +130,9 @@ describe("POST /auth/read-all-invoices", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/read-all-invoices",
-            body: { idOrganization },
+            body: {
+                idOrganization,
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -121,7 +141,9 @@ describe("POST /auth/read-all-invoices", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/read-all-invoices",
-            body: { idOrganization },
+            body: {
+                idOrganization,
+            },
         })
         expect(response.status).toBe(200)
         expect(Array.isArray(response.data)).toBe(true)
@@ -132,7 +154,10 @@ describe("POST /auth/update-storage-subscription", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/update-storage-subscription",
-            body: { idOrganization, newQuantity: 1 },
+            body: {
+                idOrganization,
+                newQuantity: 1,
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -150,7 +175,10 @@ describe("POST /auth/update-storage-subscription", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/update-storage-subscription",
-            body: { idOrganization, newQuantity: -1 },
+            body: {
+                idOrganization,
+                newQuantity: -1,
+            },
         })
         expect(response.status).toBe(400)
     })
@@ -160,7 +188,10 @@ describe("POST /auth/update-storage-subscription", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/update-storage-subscription",
-            body: { idOrganization, newQuantity: 0 },
+            body: {
+                idOrganization,
+                newQuantity: 0,
+            },
         })
         expect(response.status).toBe(400)
     })
@@ -169,7 +200,10 @@ describe("POST /auth/update-storage-subscription", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/update-storage-subscription",
-            body: { idOrganization, newQuantity: 2 },
+            body: {
+                idOrganization,
+                newQuantity: 2,
+            },
         })
         expect(response.status).toBe(200)
     })
@@ -179,7 +213,10 @@ describe("POST /auth/create-wallet-withdrawal", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/create-wallet-withdrawal",
-            body: { idOrganization, amountInCents: 100 },
+            body: {
+                idOrganization,
+                amountInCents: 100,
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -198,7 +235,10 @@ describe("POST /auth/update-licence-subscription", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/update-licence-subscription",
-            body: { idOrganization, newAmountInCents: 1000 },
+            body: {
+                idOrganization,
+                newAmountInCents: 1000,
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -216,7 +256,10 @@ describe("POST /auth/update-licence-subscription", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/update-licence-subscription",
-            body: { idOrganization, newAmountInCents: -100 },
+            body: {
+                idOrganization,
+                newAmountInCents: -100,
+            },
         })
         expect(response.status).toBe(400)
     })
@@ -225,7 +268,10 @@ describe("POST /auth/update-licence-subscription", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/update-licence-subscription",
-            body: { idOrganization, newAmountInCents: 5000 },
+            body: {
+                idOrganization,
+                newAmountInCents: 5000,
+            },
         })
         expect(response.status).toBe(200)
     })
@@ -235,7 +281,9 @@ describe("POST /auth/update-licence-subscription", () => {
         const orgResponse = await authenticatedRequest({
             session,
             path: "/auth/read-one-organization",
-            body: { idOrganization },
+            body: {
+                idOrganization,
+            },
         })
         expect(orgResponse.status).toBe(200)
         const currentAmount = (orgResponse.data as any).licenceAmount
@@ -243,7 +291,10 @@ describe("POST /auth/update-licence-subscription", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/update-licence-subscription",
-            body: { idOrganization, newAmountInCents: currentAmount },
+            body: {
+                idOrganization,
+                newAmountInCents: currentAmount,
+            },
         })
         expect(response.status).toBe(200)
     })
@@ -253,7 +304,10 @@ describe("POST /auth/update-ocr-subscription", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/update-ocr-subscription",
-            body: { idOrganization, newQuantity: 1 },
+            body: {
+                idOrganization,
+                newQuantity: 1,
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -271,7 +325,10 @@ describe("POST /auth/update-ocr-subscription", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/update-ocr-subscription",
-            body: { idOrganization, newQuantity: -1 },
+            body: {
+                idOrganization,
+                newQuantity: -1,
+            },
         })
         expect(response.status).toBe(400)
     })
@@ -280,7 +337,9 @@ describe("POST /auth/update-ocr-subscription", () => {
         const orgResponse = await authenticatedRequest({
             session,
             path: "/auth/read-one-organization",
-            body: { idOrganization },
+            body: {
+                idOrganization,
+            },
         })
         expect(orgResponse.status).toBe(200)
         const org = orgResponse.data as any
@@ -289,7 +348,10 @@ describe("POST /auth/update-ocr-subscription", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/update-ocr-subscription",
-            body: { idOrganization, newQuantity: currentAddonPages },
+            body: {
+                idOrganization,
+                newQuantity: currentAddonPages,
+            },
         })
         expect(response.status).toBe(200)
     })
@@ -299,7 +361,10 @@ describe("POST /auth/update-ocr-subscription", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/update-ocr-subscription",
-            body: { idOrganization, newQuantity: 50 },
+            body: {
+                idOrganization,
+                newQuantity: 50,
+            },
         })
         expect(response.status).toBe(400)
     })
@@ -309,7 +374,10 @@ describe("POST /auth/update-ocr-subscription", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/update-ocr-subscription",
-            body: { idOrganization, newQuantity: 9_999_999 },
+            body: {
+                idOrganization,
+                newQuantity: 9_999_999,
+            },
         })
         expect(response.status).toBe(400)
     })
@@ -319,7 +387,10 @@ describe("POST /auth/update-ocr-subscription", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/update-ocr-subscription",
-            body: { idOrganization, newQuantity: 210 },
+            body: {
+                idOrganization,
+                newQuantity: 210,
+            },
         })
         expect(response.status).toBe(200)
     })
@@ -329,7 +400,10 @@ describe("POST /auth/update-tokens-subscription", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/update-tokens-subscription",
-            body: { idOrganization, newQuantity: 1 },
+            body: {
+                idOrganization,
+                newQuantity: 1,
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -347,7 +421,10 @@ describe("POST /auth/update-tokens-subscription", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/update-tokens-subscription",
-            body: { idOrganization, newQuantity: -1 },
+            body: {
+                idOrganization,
+                newQuantity: -1,
+            },
         })
         expect(response.status).toBe(400)
     })
@@ -356,7 +433,9 @@ describe("POST /auth/update-tokens-subscription", () => {
         const orgResponse = await authenticatedRequest({
             session,
             path: "/auth/read-one-organization",
-            body: { idOrganization },
+            body: {
+                idOrganization,
+            },
         })
         expect(orgResponse.status).toBe(200)
         const org = orgResponse.data as any
@@ -368,7 +447,10 @@ describe("POST /auth/update-tokens-subscription", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/update-tokens-subscription",
-            body: { idOrganization, newQuantity: currentAddonPacks },
+            body: {
+                idOrganization,
+                newQuantity: currentAddonPacks,
+            },
         })
         expect(response.status).toBe(200)
     })
@@ -378,7 +460,10 @@ describe("POST /auth/update-tokens-subscription", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/update-tokens-subscription",
-            body: { idOrganization, newQuantity: 0 },
+            body: {
+                idOrganization,
+                newQuantity: 0,
+            },
         })
         expect(response.status).toBe(400)
     })
@@ -388,7 +473,10 @@ describe("POST /auth/update-tokens-subscription", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/update-tokens-subscription",
-            body: { idOrganization, newQuantity: 10_000 },
+            body: {
+                idOrganization,
+                newQuantity: 10_000,
+            },
         })
         expect(response.status).toBe(400)
     })
@@ -398,7 +486,10 @@ describe("POST /auth/update-tokens-subscription", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/update-tokens-subscription",
-            body: { idOrganization, newQuantity: 3 },
+            body: {
+                idOrganization,
+                newQuantity: 3,
+            },
         })
         expect(response.status).toBe(200)
     })

@@ -22,7 +22,10 @@ export function DeleteOneJournal(props: {
         })
 
         if (deleteResponse.ok === false) {
-            toast({ title: "Erreur lors de la suppression du journal", variant: "error" })
+            toast({
+                title: "Erreur lors de la suppression du journal",
+                variant: "error",
+            })
             return
         }
 
@@ -33,7 +36,10 @@ export function DeleteOneJournal(props: {
             },
         })
 
-        toast({ title: "Journal supprimé", variant: "success" })
+        toast({
+            title: "Journal supprimé",
+            variant: "success",
+        })
 
         applicationRouter.navigate({
             to: "/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/journaux",
@@ -54,7 +60,10 @@ export function DeleteOneJournal(props: {
                     Cette action est irréversible.
                 </>
             }
-            submitButtonProps={{ color: "danger", text: "Supprimer le journal" }}
+            submitButtonProps={{
+                color: "danger",
+                text: "Supprimer le journal",
+            }}
             onSubmit={onSubmit}
         >
             {props.children}

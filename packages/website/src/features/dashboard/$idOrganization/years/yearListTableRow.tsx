@@ -13,7 +13,14 @@ export function YearListTableRow(props: {
 
     return (
         <ListTable.Row>
-            <div className={css({ width: "100%", display: "flex", flexDirection: "column", gap: "0.5rem" })}>
+            <div
+                className={css({
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.5rem",
+                })}
+            >
                 <div
                     className={css({
                         width: "100%",
@@ -24,7 +31,13 @@ export function YearListTableRow(props: {
                         gap: "1rem",
                     })}
                 >
-                    <div className={css({ display: "flex", alignItems: "center", gap: "0.75rem" })}>
+                    <div
+                        className={css({
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.75rem",
+                        })}
+                    >
                         <LinkButton
                             to="/dashboard/organisations/$idOrganization/exercices/$idYear"
                             params={{
@@ -38,7 +51,9 @@ export function YearListTableRow(props: {
                                     fontWeight: "semibold",
                                     color: "primary",
                                     textDecoration: "none",
-                                    _hover: { textDecoration: "underline" },
+                                    _hover: {
+                                        textDecoration: "underline",
+                                    },
                                 })}
                             >
                                 {props.year.label}
@@ -46,17 +61,40 @@ export function YearListTableRow(props: {
                         </LinkButton>
                     </div>
                     <div
-                        className={css({ display: "flex", justifyContent: "end", alignItems: "start", gap: "0.5rem" })}
+                        className={css({
+                            display: "flex",
+                            justifyContent: "end",
+                            alignItems: "start",
+                            gap: "0.5rem",
+                        })}
                     >
                         {props.year.isClosed ? (
-                            <Chip text="Clôturé" color="neutral" />
+                            <Chip
+                                text="Clôturé"
+                                color="neutral"
+                            />
                         ) : (
-                            <Chip text="En cours" color="success" />
+                            <Chip
+                                text="En cours"
+                                color="success"
+                            />
                         )}
                     </div>
                 </div>
-                <div className={css({ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" })}>
-                    <span className={css({ fontSize: "xs", color: "neutral/50" })}>
+                <div
+                    className={css({
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                        flexWrap: "wrap",
+                    })}
+                >
+                    <span
+                        className={css({
+                            fontSize: "xs",
+                            color: "neutral/50",
+                        })}
+                    >
                         {startDate} - {endDate}
                     </span>
                 </div>

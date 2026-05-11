@@ -28,7 +28,10 @@ export function UpdateOneComputationIncomeStatement(props: {
     const [open, setOpen] = useState(false)
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Modifier le terme du calcul" />
@@ -49,11 +52,17 @@ export function UpdateOneComputationIncomeStatement(props: {
                                 body: data,
                             })
                             if (updateComputationIncomeStatementResponse.ok === false) {
-                                toast({ title: "Impossible de modifier le terme du calcul", variant: "error" })
+                                toast({
+                                    title: "Impossible de modifier le terme du calcul",
+                                    variant: "error",
+                                })
                                 return false
                             }
 
-                            toast({ title: "Terme du calcul modifié avec succès", variant: "success" })
+                            toast({
+                                title: "Terme du calcul modifié avec succès",
+                                variant: "success",
+                            })
                             return true
                         }}
                         onCancel={undefined}
@@ -123,8 +132,14 @@ export function UpdateOneComputationIncomeStatement(props: {
                                                     value={field.value}
                                                     onChange={field.onChange}
                                                     options={[
-                                                        { label: "Addition", value: "plus" },
-                                                        { label: "Soustraction", value: "minus" },
+                                                        {
+                                                            label: "Addition",
+                                                            value: "plus",
+                                                        },
+                                                        {
+                                                            label: "Soustraction",
+                                                            value: "minus",
+                                                        },
                                                     ]}
                                                 />
                                             </FormControl>

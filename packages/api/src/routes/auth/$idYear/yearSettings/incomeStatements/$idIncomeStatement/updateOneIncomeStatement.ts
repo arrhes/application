@@ -9,7 +9,9 @@ import { updateOne } from "../../../../../../utilities/sql/updateOne.js"
 export const updateOneIncomeStatementRoute = apiFactory
     .createApp()
     .post(updateOneIncomeStatementRouteDefinition.path, async (c) => {
-        const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+        const { user, idOrganization } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: updateOneIncomeStatementRouteDefinition.schemas.body,

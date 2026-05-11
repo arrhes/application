@@ -8,12 +8,18 @@ export function UpdateOneFile(props: { file: v.InferOutput<typeof returnedSchema
     const [open, setOpen] = useState(false)
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Modifier le fichier" />
                 <Drawer.Body>
-                    <UpdateOneFileForm file={props.file} onSuccess={() => setOpen(false)} />
+                    <UpdateOneFileForm
+                        file={props.file}
+                        onSuccess={() => setOpen(false)}
+                    />
                 </Drawer.Body>
             </Drawer.Content>
         </Drawer.Root>

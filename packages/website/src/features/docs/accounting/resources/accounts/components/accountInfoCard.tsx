@@ -49,16 +49,37 @@ export function AccountInfoCard(props: { entry: AccountEntry }) {
             <div
                 className={css({
                     display: "grid",
-                    gridTemplateColumns: { base: "1fr", md: "1fr 1fr" },
+                    gridTemplateColumns: {
+                        base: "1fr",
+                        md: "1fr 1fr",
+                    },
                     gap: "0.75rem",
                 })}
             >
-                <InfoRow label="Numéro" value={entry.number} />
-                <InfoRow label="Intitulé" value={entry.label} />
-                <InfoRow label="Classe" value={`${entry.classNumber} - ${entry.className}`} />
-                <InfoRow label="Type" value={entry.type === "bilan" ? "Bilan" : "Résultat"} />
-                <InfoRow label="Position" value={entry.side.charAt(0).toUpperCase() + entry.side.slice(1)} />
-                <InfoRow label="Système" value={entry.isOptional ? "Facultatif" : "Minimal"} />
+                <InfoRow
+                    label="Numéro"
+                    value={entry.number}
+                />
+                <InfoRow
+                    label="Intitulé"
+                    value={entry.label}
+                />
+                <InfoRow
+                    label="Classe"
+                    value={`${entry.classNumber} - ${entry.className}`}
+                />
+                <InfoRow
+                    label="Type"
+                    value={entry.type === "bilan" ? "Bilan" : "Résultat"}
+                />
+                <InfoRow
+                    label="Position"
+                    value={entry.side.charAt(0).toUpperCase() + entry.side.slice(1)}
+                />
+                <InfoRow
+                    label="Système"
+                    value={entry.isOptional ? "Facultatif" : "Minimal"}
+                />
             </div>
 
             {entry.description && (

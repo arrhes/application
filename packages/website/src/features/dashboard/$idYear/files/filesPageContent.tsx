@@ -14,15 +14,32 @@ type Folder = v.InferOutput<typeof readAllFoldersRouteDefinition.schemas.return>
  * Build the breadcrumb path from the root to the target folder by
  * walking `idFolderParent` links upward, then reversing.
  */
-function buildFolderPath(folders: Array<Folder>, targetId: string | undefined): Array<{ id: string; name: string }> {
+function buildFolderPath(
+    folders: Array<Folder>,
+    targetId: string | undefined,
+): Array<{
+    id: string
+    name: string
+}> {
     if (!targetId) return []
 
-    const map = new Map(folders.map((f) => [f.id, f]))
-    const path: Array<{ id: string; name: string }> = []
+    const map = new Map(
+        folders.map((f) => [
+            f.id,
+            f,
+        ]),
+    )
+    const path: Array<{
+        id: string
+        name: string
+    }> = []
     let current = map.get(targetId)
 
     while (current) {
-        path.push({ id: current.id, name: current.name })
+        path.push({
+            id: current.id,
+            name: current.name,
+        })
         current = current.idFolderParent ? map.get(current.idFolderParent) : undefined
     }
 
@@ -42,7 +59,10 @@ export function FilesPageContent(props: {
     handleBreadcrumbDragOver: (event: DragEvent, targetId: string) => void
     handleBreadcrumbDragLeave: () => void
     handleBreadcrumbDrop: (event: DragEvent, targetFolderId: string | null) => void
-    params: { idOrganization: string; idYear: string }
+    params: {
+        idOrganization: string
+        idYear: string
+    }
 }) {
     const {
         folders,
@@ -57,7 +77,13 @@ export function FilesPageContent(props: {
     } = props
     const [viewMode, _setViewMode] = useState<ViewMode>("list")
 
-    const _folderPath = useMemo(() => buildFolderPath(folders, idFolder), [folders, idFolder])
+    const _folderPath = useMemo(
+        () => buildFolderPath(folders, idFolder),
+        [
+            folders,
+            idFolder,
+        ],
+    )
 
     const currentFolders = folders.filter((f) => (f.idFolderParent ?? null) === currentFolderId)
 
@@ -66,11 +92,19 @@ export function FilesPageContent(props: {
         if (!currentFolderId) return null
         const currentFolder = folders.find((f) => f.id === currentFolderId)
         return currentFolder?.idFolderParent ?? null
-    }, [folders, currentFolderId])
+    }, [
+        folders,
+        currentFolderId,
+    ])
 
     const sortedFolders = useMemo(
-        () => [...currentFolders].sort((a, b) => a.name.localeCompare(b.name)),
-        [currentFolders],
+        () =>
+            [
+                ...currentFolders,
+            ].sort((a, b) => a.name.localeCompare(b.name)),
+        [
+            currentFolders,
+        ],
     )
 
     return (

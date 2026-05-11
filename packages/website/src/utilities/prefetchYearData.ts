@@ -16,7 +16,9 @@ import type * as v from "valibot"
 import { dataClient } from "../contexts/data/queryClient.js"
 import { getResponseBodyFromAPI } from "./getResponseBodyFromAPI.js"
 
-type YearScopedBody = { idYear: string }
+type YearScopedBody = {
+    idYear: string
+}
 
 type YearScopedRouteDefinition = {
     path: string
@@ -57,12 +59,20 @@ export function prefetchYearData(params: YearScopedBody) {
     }
 
     for (const routeDefinition of yearScopedRouteDefinitions) {
-        dataClient.setQueryDefaults([routeDefinition.path], {
-            staleTime: Number.POSITIVE_INFINITY,
-        })
+        dataClient.setQueryDefaults(
+            [
+                routeDefinition.path,
+            ],
+            {
+                staleTime: Number.POSITIVE_INFINITY,
+            },
+        )
 
         dataClient.prefetchQuery({
-            queryKey: [routeDefinition.path, body],
+            queryKey: [
+                routeDefinition.path,
+                body,
+            ],
             queryFn: async ({ signal }) => {
                 const response = await getResponseBodyFromAPI({
                     routeDefinition,

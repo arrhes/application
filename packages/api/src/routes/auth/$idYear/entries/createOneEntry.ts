@@ -6,7 +6,9 @@ import { response } from "../../../../utilities/response.js"
 import { insertOne } from "../../../../utilities/sql/insertOne.js"
 
 export const createOneEntryRoute = apiFactory.createApp().post(createOneEntryRouteDefinition.path, async (c) => {
-    const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+    const { user, idOrganization } = await checkUserSessionMiddleware({
+        context: c,
+    })
     const body = await validateBodyMiddleware({
         context: c,
         schema: createOneEntryRouteDefinition.schemas.body,

@@ -24,7 +24,12 @@ export function EmptyState(props: {
                 props.className,
             )}
         >
-            <div className={css({ color: "neutral", opacity: "0.2" })}>
+            <div
+                className={css({
+                    color: "neutral",
+                    opacity: "0.2",
+                })}
+            >
                 {cloneElement(props.icon, {
                     size: 48,
                 })}

@@ -14,7 +14,10 @@ export function FormatLink(props: FormatLinkProps) {
     if (!props.text) return <FormatNull />
 
     const copyContent = (toCopy: string | null) => {
-        toast({ title: "Contenu copié dans le presse-papier.", variant: "information" })
+        toast({
+            title: "Contenu copié dans le presse-papier.",
+            variant: "information",
+        })
         return navigator.clipboard.writeText(!toCopy ? "" : toCopy)
     }
 
@@ -32,7 +35,9 @@ export function FormatLink(props: FormatLinkProps) {
                     className={css({
                         textAlign: "left",
                         textDecoration: "underline",
-                        _hover: { textDecoration: "none" },
+                        _hover: {
+                            textDecoration: "none",
+                        },
                         maxWidth: "100%",
                         overflowWrap: "normal",
                         whiteSpace: "nowrap",

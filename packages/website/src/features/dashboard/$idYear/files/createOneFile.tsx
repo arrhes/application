@@ -32,7 +32,10 @@ async function uploadOneFile(params: {
     const { file, idOrganization: _idOrganization, idYear, idFolder } = params
 
     if (file.size > MAX_FILE_SIZE) {
-        toast({ title: `"${file.name}" dépasse la taille maximale de 50 Mo`, variant: "error" })
+        toast({
+            title: `"${file.name}" dépasse la taille maximale de 50 Mo`,
+            variant: "error",
+        })
         return "error"
     }
 
@@ -87,7 +90,10 @@ async function uploadOneFile(params: {
         body: file,
     })
     if (uploadResponse.ok === false) {
-        toast({ title: `Échec du téléchargement de "${file.name}"`, variant: "error" })
+        toast({
+            title: `Échec du téléchargement de "${file.name}"`,
+            variant: "error",
+        })
         return "error"
     }
 
@@ -99,7 +105,10 @@ async function uploadOneFile(params: {
         },
     })
     if (finalizeResponse.ok === false) {
-        toast({ title: `Téléversement incomplet pour "${file.name}"`, variant: "error" })
+        toast({
+            title: `Téléversement incomplet pour "${file.name}"`,
+            variant: "error",
+        })
         return "error"
     }
 
@@ -171,7 +180,9 @@ export function CreateOneFile(props: {
                 ref={inputRef}
                 type="file"
                 multiple
-                style={{ display: "none" }}
+                style={{
+                    display: "none",
+                }}
                 onChange={(event) => {
                     if (event.target.files && event.target.files.length > 0) {
                         handleFiles(event.target.files)

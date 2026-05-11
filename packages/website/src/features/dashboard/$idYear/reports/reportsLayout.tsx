@@ -4,7 +4,9 @@ import { SubPageLayout } from "../../../../components/layouts/subPageLayout.js"
 import { reportsLayoutRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/reports/reportsLayoutRoute.js"
 
 export function ReportsLayout() {
-    const params = useParams({ from: reportsLayoutRoute.id })
+    const params = useParams({
+        from: reportsLayoutRoute.id,
+    })
 
     return (
         <SubPageLayout

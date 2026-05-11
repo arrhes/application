@@ -49,7 +49,9 @@ export function ComputationsTable(props: {
                                     idOrganization: props.idOrganization,
                                     idYear: props.idYear,
                                 }}
-                                className={css({ width: "100%" })}
+                                className={css({
+                                    width: "100%",
+                                })}
                             >
                                 <div
                                     className={css({
@@ -61,13 +63,23 @@ export function ComputationsTable(props: {
                                         justifyContent: "flex-start",
                                         alignItems: "center",
                                         gap: "0.5rem",
-                                        _hover: { backgroundColor: "neutral/5" },
+                                        _hover: {
+                                            backgroundColor: "neutral/5",
+                                        },
                                         borderBottom: "1px solid",
                                         borderBottomColor: "neutral/5",
-                                        _last: { borderBottom: "0" },
+                                        _last: {
+                                            borderBottom: "0",
+                                        },
                                     })}
                                 >
-                                    <span className={css({ color: "neutral", fontSize: "xs", lineHeight: "none" })}>
+                                    <span
+                                        className={css({
+                                            color: "neutral",
+                                            fontSize: "xs",
+                                            lineHeight: "none",
+                                        })}
+                                    >
                                         {computation.number}
                                     </span>
                                     <span

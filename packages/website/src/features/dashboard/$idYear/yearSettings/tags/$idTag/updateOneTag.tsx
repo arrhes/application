@@ -23,7 +23,10 @@ export function UpdateOneTag(props: { tag: v.InferOutput<typeof returnedSchemas.
     const [open, setOpen] = useState(false)
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Modifier la catégorie" />
@@ -44,11 +47,17 @@ export function UpdateOneTag(props: { tag: v.InferOutput<typeof returnedSchemas.
                                 body: data,
                             })
                             if (updateTagResponse.ok === false) {
-                                toast({ title: "Impossible de modifier la catégorie", variant: "error" })
+                                toast({
+                                    title: "Impossible de modifier la catégorie",
+                                    variant: "error",
+                                })
                                 return false
                             }
 
-                            toast({ title: "Catégorie modifiée avec succès", variant: "success" })
+                            toast({
+                                title: "Catégorie modifiée avec succès",
+                                variant: "success",
+                            })
                             return true
                         }}
                         onCancel={undefined}
@@ -85,7 +94,10 @@ export function UpdateOneTag(props: { tag: v.InferOutput<typeof returnedSchemas.
                                                 isRequired={false}
                                             />
                                             <FormControl>
-                                                <InputText value={field.value} onChange={field.onChange} />
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>

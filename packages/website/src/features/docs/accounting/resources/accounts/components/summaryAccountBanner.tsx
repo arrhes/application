@@ -26,7 +26,13 @@ export function SummaryAccountBanner(props: { entry: AccountEntry }) {
                     marginTop: "0.125rem",
                 })}
             />
-            <div className={css({ display: "flex", flexDirection: "column", gap: "0.25rem" })}>
+            <div
+                className={css({
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.25rem",
+                })}
+            >
                 <span
                     className={css({
                         fontSize: "sm",

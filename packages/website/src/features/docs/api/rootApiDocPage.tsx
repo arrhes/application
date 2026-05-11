@@ -45,7 +45,10 @@ export function RootApiDocPage() {
                     })}
                 >
                     <LinkButton to="/documentation/api/introduction">
-                        <ButtonOutlineContent text="Commencer" rightIcon={<IconChevronRight />} />
+                        <ButtonOutlineContent
+                            text="Commencer"
+                            rightIcon={<IconChevronRight />}
+                        />
                     </LinkButton>
                 </div>
             </div>

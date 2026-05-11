@@ -17,7 +17,12 @@ export function ListTableFilterable<TItem>(props: {
 }) {
     const [globalFilter, setGlobalFilter] = useState("")
     const [columnFilters, setColumnFilters] = useState<Record<string, string>>({})
-    const [sorting, setSorting] = useState<Array<{ id: string; desc: boolean }>>([])
+    const [sorting, setSorting] = useState<
+        Array<{
+            id: string
+            desc: boolean
+        }>
+    >([])
 
     const filteredAndSorted = useMemo(() => {
         let result = props.items
@@ -54,7 +59,9 @@ export function ListTableFilterable<TItem>(props: {
         }
 
         if (sorting.length > 0) {
-            result = [...result].sort((a, b) => {
+            result = [
+                ...result,
+            ].sort((a, b) => {
                 for (const sort of sorting) {
                     const column = props.columns.find((col) => col.id === sort.id)
                     if (!column) continue
@@ -62,7 +69,9 @@ export function ListTableFilterable<TItem>(props: {
                     const bVal = column.accessor(b)
                     const aStr = aVal !== undefined && aVal !== null ? String(aVal) : ""
                     const bStr = bVal !== undefined && bVal !== null ? String(bVal) : ""
-                    const comparison = aStr.localeCompare(bStr, undefined, { numeric: true })
+                    const comparison = aStr.localeCompare(bStr, undefined, {
+                        numeric: true,
+                    })
                     if (comparison !== 0) return sort.desc ? -comparison : comparison
                 }
                 return 0
@@ -70,11 +79,19 @@ export function ListTableFilterable<TItem>(props: {
         }
 
         return result
-    }, [props.items, props.columns, globalFilter, columnFilters, sorting])
+    }, [
+        props.items,
+        props.columns,
+        globalFilter,
+        columnFilters,
+        sorting,
+    ])
 
     function setColumnFilter(columnId: string, value: string | undefined) {
         setColumnFilters((prev) => {
-            const next = { ...prev }
+            const next = {
+                ...prev,
+            }
             if (value) {
                 next[columnId] = value
             } else {
@@ -91,8 +108,23 @@ export function ListTableFilterable<TItem>(props: {
     function toggleSort(columnId: string) {
         setSorting((prev) => {
             const existing = prev.find((s) => s.id === columnId)
-            if (!existing) return [...prev, { id: columnId, desc: false }]
-            if (!existing.desc) return prev.map((s) => (s.id === columnId ? { ...s, desc: true } : s))
+            if (!existing)
+                return [
+                    ...prev,
+                    {
+                        id: columnId,
+                        desc: false,
+                    },
+                ]
+            if (!existing.desc)
+                return prev.map((s) =>
+                    s.id === columnId
+                        ? {
+                              ...s,
+                              desc: true,
+                          }
+                        : s,
+                )
             return prev.filter((s) => s.id !== columnId)
         })
     }
@@ -126,8 +158,16 @@ export function ListTableFilterable<TItem>(props: {
                     flexWrap: "wrap",
                 })}
             >
-                <InputDebounced value={globalFilter ?? ""} onChange={(value) => setGlobalFilter(value)}>
-                    <InputText placeholder="Recherche" className={css({ maxWidth: "320px" })} />
+                <InputDebounced
+                    value={globalFilter ?? ""}
+                    onChange={(value) => setGlobalFilter(value)}
+                >
+                    <InputText
+                        placeholder="Recherche"
+                        className={css({
+                            maxWidth: "320px",
+                        })}
+                    />
                 </InputDebounced>
                 <FilterPopover
                     columns={props.columns}

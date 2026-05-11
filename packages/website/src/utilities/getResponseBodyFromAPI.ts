@@ -82,7 +82,12 @@ export async function getResponseBodyFromAPI<
         abortController?.abort()
 
         if (parameters.hasToastMessage) {
-            const clientError = error instanceof ClientError ? error : new ClientError({ rawError: error })
+            const clientError =
+                error instanceof ClientError
+                    ? error
+                    : new ClientError({
+                          rawError: error,
+                      })
 
             let validationMessages: string | undefined
             try {

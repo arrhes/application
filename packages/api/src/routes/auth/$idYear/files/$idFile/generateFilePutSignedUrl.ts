@@ -11,7 +11,9 @@ import { generatePutSignedUrl } from "../../../../../utilities/storage/generateP
 export const generateFilePutSignedUrlRoute = apiFactory
     .createApp()
     .post(generateFilePutSignedUrlRouteDefinition.path, async (c) => {
-        const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+        const { user, idOrganization } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: generateFilePutSignedUrlRouteDefinition.schemas.body,

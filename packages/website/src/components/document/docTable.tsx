@@ -50,8 +50,12 @@ export function DocTable(props: { headers: string[]; rows: string[][] }) {
                             className={css({
                                 borderBottom: "1px solid",
                                 borderBottomColor: "neutral/10",
-                                _last: { borderBottom: "none" },
-                                _hover: { backgroundColor: "neutral/3" },
+                                _last: {
+                                    borderBottom: "none",
+                                },
+                                _hover: {
+                                    backgroundColor: "neutral/3",
+                                },
                                 transition: "colors",
                             })}
                         >

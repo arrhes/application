@@ -30,7 +30,12 @@ export function IncomeStatementAccountingDocPage() {
                     Alors que le <DocLink to="/documentation/comptabilité/documents/bilan">bilan</DocLink> est une
                     photographie à un instant donné, le compte de résultat est un <strong>film</strong> : il couvre
                     toute la durée de l'{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "exercice-comptable" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "exercice-comptable",
+                        }}
+                    >
                         exercice comptable
                     </DocLink>
                     . Il répond à la question : l'organisation a-t-elle gagné ou perdu de l'argent sur la période ?
@@ -44,7 +49,9 @@ export function IncomeStatementAccountingDocPage() {
                     <strong>
                         <DocLink
                             to="/documentation/comptabilité/glossaire/$term"
-                            params={{ term: "comptes-d-operations" }}
+                            params={{
+                                term: "comptes-d-operations",
+                            }}
                         >
                             comptes d'opérations
                         </DocLink>
@@ -52,17 +59,29 @@ export function IncomeStatementAccountingDocPage() {
                     (classes 6 et 7 du{" "}
                     <DocLink
                         to="/documentation/comptabilité/glossaire/$term"
-                        params={{ term: "plan-comptable-general-pcg" }}
+                        params={{
+                            term: "plan-comptable-general-pcg",
+                        }}
                     >
                         plan comptable
                     </DocLink>
                     )
                     <DocSourceRef n={2} />. Les comptes de classe 6 enregistrent les{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "charges-classe-6" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "charges-classe-6",
+                        }}
+                    >
                         charges
                     </DocLink>{" "}
                     (ce que l'on dépense), les comptes de classe 7 enregistrent les{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "produits-classe-7" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "produits-classe-7",
+                        }}
+                    >
                         produits
                     </DocLink>{" "}
                     (ce que l'on gagne).
@@ -117,34 +136,81 @@ export function IncomeStatementAccountingDocPage() {
                     <div
                         className={css({
                             display: "grid",
-                            gridTemplateColumns: { base: "1fr", sm: "1fr 1fr" },
+                            gridTemplateColumns: {
+                                base: "1fr",
+                                sm: "1fr 1fr",
+                            },
                             gap: "4",
                         })}
                     >
                         <div>
-                            <p className={css({ fontWeight: "medium", mb: "1" })}>CHARGES</p>
-                            <ul className={css({ fontSize: "xs", color: "neutral/70" })}>
+                            <p
+                                className={css({
+                                    fontWeight: "medium",
+                                    mb: "1",
+                                })}
+                            >
+                                CHARGES
+                            </p>
+                            <ul
+                                className={css({
+                                    fontSize: "xs",
+                                    color: "neutral/70",
+                                })}
+                            >
                                 <li>Achats de marchandises : 3 000</li>
                                 <li>Loyer : 6 000</li>
                                 <li>Salaires : 20 000</li>
                                 <li>Charges sociales : 8 000</li>
                                 <li>Amortissements : 1 000</li>
                                 <li>Intérêts d'emprunt : 500</li>
-                                <li className={css({ fontWeight: "semibold", marginTop: "1" })}>Total : 38 500</li>
+                                <li
+                                    className={css({
+                                        fontWeight: "semibold",
+                                        marginTop: "1",
+                                    })}
+                                >
+                                    Total : 38 500
+                                </li>
                             </ul>
                         </div>
                         <div>
-                            <p className={css({ fontWeight: "medium", mb: "1" })}>PRODUITS</p>
-                            <ul className={css({ fontSize: "xs", color: "neutral/70" })}>
+                            <p
+                                className={css({
+                                    fontWeight: "medium",
+                                    mb: "1",
+                                })}
+                            >
+                                PRODUITS
+                            </p>
+                            <ul
+                                className={css({
+                                    fontSize: "xs",
+                                    color: "neutral/70",
+                                })}
+                            >
                                 <li>Ventes de marchandises : 25 000</li>
                                 <li>Prestations de services : 12 000</li>
                                 <li>Subventions : 4 000</li>
                                 <li>Intérêts reçus : 100</li>
-                                <li className={css({ fontWeight: "semibold", marginTop: "1" })}>Total : 41 100</li>
+                                <li
+                                    className={css({
+                                        fontWeight: "semibold",
+                                        marginTop: "1",
+                                    })}
+                                >
+                                    Total : 41 100
+                                </li>
                             </ul>
                         </div>
                     </div>
-                    <p className={css({ marginTop: "3", fontWeight: "medium", color: "success" })}>
+                    <p
+                        className={css({
+                            marginTop: "3",
+                            fontWeight: "medium",
+                            color: "success",
+                        })}
+                    >
                         Résultat = 41 100 - 38 500 = 2 600 euros (bénéfice)
                     </p>
                 </DocExample>
@@ -186,15 +252,30 @@ export function IncomeStatementAccountingDocPage() {
                 </DocParagraph>
 
                 <DocExample title="Résultat positif, trésorerie négative">
-                    <p className={css({ fontSize: "sm" })}>
+                    <p
+                        className={css({
+                            fontSize: "sm",
+                        })}
+                    >
                         Une entreprise facture 50 000 euros de prestations (produits) et engage 30 000 euros de charges.
                         Son résultat est un bénéfice de 20 000 euros.
                     </p>
-                    <p className={css({ marginTop: "2", fontSize: "sm" })}>
+                    <p
+                        className={css({
+                            marginTop: "2",
+                            fontSize: "sm",
+                        })}
+                    >
                         Mais si ses clients n'ont pas encore payé leurs factures, sa trésorerie peut être négative :
                         elle a un bénéfice comptable mais pas d'argent en banque.
                     </p>
-                    <p className={css({ marginTop: "2", fontSize: "xs", color: "neutral/60" })}>
+                    <p
+                        className={css({
+                            marginTop: "2",
+                            fontSize: "xs",
+                            color: "neutral/60",
+                        })}
+                    >
                         C'est pourquoi on complète souvent le compte de résultat par un tableau des flux de trésorerie,
                         qui mesure les mouvements réels d'argent.
                     </p>
@@ -209,7 +290,12 @@ export function IncomeStatementAccountingDocPage() {
             <DocSection title="Les capitaux propres">
                 <DocParagraph>
                     Les{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "capitaux-propres" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "capitaux-propres",
+                        }}
+                    >
                         capitaux propres
                     </DocLink>{" "}
                     représentent ce que l'entreprise doit à ses propriétaires. Ils comprennent plusieurs éléments :
@@ -230,14 +316,31 @@ export function IncomeStatementAccountingDocPage() {
                 </DocDefinition>
 
                 <DocExample title="Affectation du résultat">
-                    <p className={css({ fontSize: "sm" })}>
+                    <p
+                        className={css({
+                            fontSize: "sm",
+                        })}
+                    >
                         Une entreprise réalise un bénéfice de 10 000 euros. Les associés décident :
                     </p>
-                    <ul className={css({ marginTop: "2", ml: "4", fontSize: "sm", color: "neutral/70" })}>
+                    <ul
+                        className={css({
+                            marginTop: "2",
+                            ml: "4",
+                            fontSize: "sm",
+                            color: "neutral/70",
+                        })}
+                    >
                         <li>Distribution de dividendes : 4 000 euros (versés aux associés)</li>
                         <li>Mise en réserve : 6 000 euros (conservés dans l'entreprise)</li>
                     </ul>
-                    <p className={css({ marginTop: "2", fontSize: "xs", color: "neutral/60" })}>
+                    <p
+                        className={css({
+                            marginTop: "2",
+                            fontSize: "xs",
+                            color: "neutral/60",
+                        })}
+                    >
                         Les réserves augmentent de 6 000 euros, renforçant les capitaux propres.
                     </p>
                 </DocExample>
@@ -246,7 +349,12 @@ export function IncomeStatementAccountingDocPage() {
             <DocSection title="Le lien entre bilan et compte de résultat">
                 <DocParagraph>
                     Le résultat du compte de résultat vient s'ajouter aux{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "capitaux-propres" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "capitaux-propres",
+                        }}
+                    >
                         capitaux propres
                     </DocLink>{" "}
                     du bilan. C'est ce qui fait le lien entre les deux documents :
@@ -260,10 +368,20 @@ export function IncomeStatementAccountingDocPage() {
 
                 <DocParagraph>On peut aussi exprimer le résultat comme la variation du patrimoine net :</DocParagraph>
                 <DocExample title="Vérification par le patrimoine">
-                    <p className={css({ fontWeight: "semibold" })}>
+                    <p
+                        className={css({
+                            fontWeight: "semibold",
+                        })}
+                    >
                         Résultat = Variation des créances - Variation des dettes
                     </p>
-                    <p className={css({ marginTop: "2", fontSize: "sm", color: "neutral/70" })}>
+                    <p
+                        className={css({
+                            marginTop: "2",
+                            fontSize: "sm",
+                            color: "neutral/70",
+                        })}
+                    >
                         Si les créances (ce qu'on possède) ont augmenté de 5 000 euros et les dettes de 2 000 euros, le
                         résultat est de 3 000 euros : l'entreprise s'est enrichie de la différence.
                     </p>
@@ -289,7 +407,10 @@ export function IncomeStatementAccountingDocPage() {
                 </DocParagraph>
             </DocSection>
 
-            <DocNextPage to="/documentation/comptabilité/documents/balance" label="La balance" />
+            <DocNextPage
+                to="/documentation/comptabilité/documents/balance"
+                label="La balance"
+            />
 
             <DocSources
                 sources={[

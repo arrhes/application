@@ -19,8 +19,12 @@ import { CreateOneFolder } from "./createOneFolder.js"
 import { FilesPageContent } from "./filesPageContent.js"
 
 export function FilesPage() {
-    const params = useParams({ from: filesLayoutRoute.id })
-    const { idFolder } = useSearch({ from: filesRoute.id })
+    const params = useParams({
+        from: filesLayoutRoute.id,
+    })
+    const { idFolder } = useSearch({
+        from: filesRoute.id,
+    })
     const navigate = useNavigate()
 
     // Current folder is derived from the URL search param
@@ -29,7 +33,11 @@ export function FilesPage() {
     function navigateToFolder(folderId: string | null) {
         navigate({
             to: ".",
-            search: folderId ? { idFolder: folderId } : {},
+            search: folderId
+                ? {
+                      idFolder: folderId,
+                  }
+                : {},
         })
     }
 
@@ -63,7 +71,10 @@ export function FilesPage() {
         })
 
         if (updateResponse.ok === false) {
-            toast({ title: "Impossible de déplacer le fichier", variant: "error" })
+            toast({
+                title: "Impossible de déplacer le fichier",
+                variant: "error",
+            })
             return
         }
 
@@ -74,7 +85,10 @@ export function FilesPage() {
             },
         })
 
-        toast({ title: "Fichier déplacé", variant: "success" })
+        toast({
+            title: "Fichier déplacé",
+            variant: "success",
+        })
     }
 
     return (
@@ -100,7 +114,10 @@ export function FilesPage() {
                         idYear={params.idYear}
                         idFolder={currentFolderId}
                     >
-                        <ButtonPlainContent leftIcon={<IconPlus />} text="Ajouter un fichier" />
+                        <ButtonPlainContent
+                            leftIcon={<IconPlus />}
+                            text="Ajouter un fichier"
+                        />
                     </CreateOneFile>
                 </div>
 

@@ -20,7 +20,10 @@ describe("Entries", () => {
             const response = await authenticatedRequest({
                 session,
                 path: "/auth/read-all-entries",
-                body: { idOrganization, idYear },
+                body: {
+                    idOrganization,
+                    idYear,
+                },
             })
             expect(response.status).toBe(200)
 
@@ -58,7 +61,10 @@ describe("Entries", () => {
             const response = await authenticatedRequest({
                 session,
                 path: "/auth/create-one-entry",
-                body: { idOrganization, idYear },
+                body: {
+                    idOrganization,
+                    idYear,
+                },
             })
             expect(response.status).toBe(400)
         })
@@ -71,7 +77,10 @@ describe("Entry Lines", () => {
             const response = await authenticatedRequest({
                 session,
                 path: "/auth/read-all-entry-lines",
-                body: { idOrganization, idYear },
+                body: {
+                    idOrganization,
+                    idYear,
+                },
             })
             expect(response.status).toBe(200)
 
@@ -92,7 +101,10 @@ describe("Entry Lines", () => {
             const entriesResponse = await authenticatedRequest({
                 session,
                 path: "/auth/read-all-entries",
-                body: { idOrganization, idYear },
+                body: {
+                    idOrganization,
+                    idYear,
+                },
             })
             const entries = entriesResponse.data as any[]
             const idEntry = entries[0].id
@@ -100,7 +112,10 @@ describe("Entry Lines", () => {
             const accountsResponse = await authenticatedRequest({
                 session,
                 path: "/auth/read-all-accounts",
-                body: { idOrganization, idYear },
+                body: {
+                    idOrganization,
+                    idYear,
+                },
             })
             const accounts = accountsResponse.data as any[]
             const selectableAccount = accounts.find((a: any) => a.isSelectable === true)

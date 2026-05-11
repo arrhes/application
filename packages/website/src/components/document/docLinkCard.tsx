@@ -12,11 +12,29 @@ export function DocLinkCard(props: {
     description: string
     to: ValidRoutes
 }) {
-    const colorStyles: Record<DocLinkCardColor, { bg: string; color: string }> = {
-        information: { bg: "information/10", color: "information" },
-        success: { bg: "success/10", color: "success" },
-        primary: { bg: "primary/10", color: "primary" },
-        warning: { bg: "warning/10", color: "warning" },
+    const colorStyles: Record<
+        DocLinkCardColor,
+        {
+            bg: string
+            color: string
+        }
+    > = {
+        information: {
+            bg: "information/10",
+            color: "information",
+        },
+        success: {
+            bg: "success/10",
+            color: "success",
+        },
+        primary: {
+            bg: "primary/10",
+            color: "primary",
+        },
+        warning: {
+            bg: "warning/10",
+            color: "warning",
+        },
     }
     const style = colorStyles[props.iconColor ?? "primary"]
 

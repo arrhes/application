@@ -20,7 +20,10 @@ export function DeleteOneApiKey(props: {
         })
 
         if (deleteResponse.ok === false) {
-            toast({ title: "Erreur lors de la suppression de la clé API", variant: "error" })
+            toast({
+                title: "Erreur lors de la suppression de la clé API",
+                variant: "error",
+            })
             return
         }
 
@@ -28,14 +31,20 @@ export function DeleteOneApiKey(props: {
             routeDefinition: readAllApiKeysRouteDefinition,
             body: {},
         })
-        toast({ title: "Clé API supprimée avec succès", variant: "success" })
+        toast({
+            title: "Clé API supprimée avec succès",
+            variant: "success",
+        })
     }
 
     return (
         <ConfirmationModal
             title="Voulez-vous supprimer cette clé API ?"
             description="Cette action est irréversible. Les applications utilisant cette clé ne pourront plus accéder à l'API."
-            submitButtonProps={{ color: "danger", text: "Supprimer la clé" }}
+            submitButtonProps={{
+                color: "danger",
+                text: "Supprimer la clé",
+            }}
             onSubmit={onSubmit}
         >
             {props.children}

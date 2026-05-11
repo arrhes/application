@@ -11,7 +11,9 @@ import { AccountsTable } from "./accountsTable.tsx"
 import { CreateOneAccount } from "./createOneAccount.tsx"
 
 export function AccountsPage() {
-    const params = useParams({ from: accountsRoute.id })
+    const params = useParams({
+        from: accountsRoute.id,
+    })
 
     const [globalFilter, setGlobalFilter] = useState("")
     const [, startTransition] = useTransition()
@@ -36,14 +38,32 @@ export function AccountsPage() {
                                 gap: "0.5rem",
                             })}
                         >
-                            <CreateOneAccount idOrganization={params.idOrganization} idYear={params.idYear}>
-                                <ButtonPlainContent leftIcon={<IconPlus />} text="Ajouter un compte" />
+                            <CreateOneAccount
+                                idOrganization={params.idOrganization}
+                                idYear={params.idYear}
+                            >
+                                <ButtonPlainContent
+                                    leftIcon={<IconPlus />}
+                                    text="Ajouter un compte"
+                                />
                             </CreateOneAccount>
                         </div>
-                        <InputDebounced value={globalFilter ?? ""} onChange={handleFilterChange}>
-                            <InputText placeholder="Recherche" className={css({ maxWidth: "[320px]" })} />
+                        <InputDebounced
+                            value={globalFilter ?? ""}
+                            onChange={handleFilterChange}
+                        >
+                            <InputText
+                                placeholder="Recherche"
+                                className={css({
+                                    maxWidth: "[320px]",
+                                })}
+                            />
                         </InputDebounced>
-                        <Box className={css({ maxH: "640px" })}>
+                        <Box
+                            className={css({
+                                maxH: "640px",
+                            })}
+                        >
                             <AccountsTable
                                 idOrganization={params.idOrganization}
                                 idYear={params.idYear}

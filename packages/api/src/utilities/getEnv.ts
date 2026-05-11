@@ -8,7 +8,10 @@ enum Env {
 
 const envSchema = v.object({
     ENV: v.enum_(Env),
-    VERBOSE: v.picklist(["true", "false"]),
+    VERBOSE: v.picklist([
+        "true",
+        "false",
+    ]),
     PORT: v.string(),
 
     CORS_ORIGIN: v.string(),
@@ -33,7 +36,13 @@ const envSchema = v.object({
     MOLLIE_API_KEY: v.string(),
     INTERNAL_API_KEY: v.optional(v.string(), ""),
 
-    LLM_PROVIDER: v.optional(v.picklist(["mistral-api", "ollama"]), "ollama"),
+    LLM_PROVIDER: v.optional(
+        v.picklist([
+            "mistral-api",
+            "ollama",
+        ]),
+        "ollama",
+    ),
     LLM_BASE_URL: v.optional(v.string(), "http://localhost:11434"),
     LLM_MODEL: v.optional(v.string(), "mistral-small3.1"),
     LLM_API_KEY: v.optional(v.string(), ""),

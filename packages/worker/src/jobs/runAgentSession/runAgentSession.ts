@@ -20,7 +20,9 @@ export interface RunAgentSessionJobArgs {
 
 export type RunAgentSessionJob = {
     fn: "runAgentSession"
-    args: [RunAgentSessionJobArgs]
+    args: [
+        RunAgentSessionJobArgs,
+    ]
 }
 
 // ─── Array processing (copied from API executor) ──────────────────────────────
@@ -91,12 +93,21 @@ function stringifyAndCompressForContext(value: unknown, maxCharacters = MAX_MESS
 function resolveArray(
     args: ProcessArrayArgs,
     store: ToolResultStore,
-): { array: unknown[] } | { error: string; available_tools: string[] } {
+):
+    | {
+          array: unknown[]
+      }
+    | {
+          error: string
+          available_tools: string[]
+      } {
     const result = store.get(args.source_tool)
     if (result === undefined)
         return {
             error: `Aucun résultat trouvé pour l'outil "${args.source_tool}". Appelle d'abord cet outil.`,
-            available_tools: [...store.keys()],
+            available_tools: [
+                ...store.keys(),
+            ],
         }
     let data: unknown = result
     if (args.path) {
@@ -105,16 +116,22 @@ function resolveArray(
             else
                 return {
                     error: `Le chemin "${args.path}" n'existe pas dans "${args.source_tool}".`,
-                    available_tools: [...store.keys()],
+                    available_tools: [
+                        ...store.keys(),
+                    ],
                 }
         }
     }
     if (!Array.isArray(data))
         return {
             error: `Le résultat de "${args.source_tool}" n'est pas un tableau.`,
-            available_tools: [...store.keys()],
+            available_tools: [
+                ...store.keys(),
+            ],
         }
-    return { array: data }
+    return {
+        array: data,
+    }
 }
 
 function processArray(args: ProcessArrayArgs, store: ToolResultStore): unknown {
@@ -125,62 +142,113 @@ function processArray(args: ProcessArrayArgs, store: ToolResultStore): unknown {
         const { array } = resolved
         switch (operation) {
             case "length":
-                return { length: array.length }
+                return {
+                    length: array.length,
+                }
             case "sort": {
-                if (!field) return { error: "Le champ 'field' est requis pour 'sort'." }
-                return [...array].sort((a, b) =>
-                    compareValues(getFieldValue(a, field), getFieldValue(b, field), order ?? "asc"),
-                )
+                if (!field)
+                    return {
+                        error: "Le champ 'field' est requis pour 'sort'.",
+                    }
+                return [
+                    ...array,
+                ].sort((a, b) => compareValues(getFieldValue(a, field), getFieldValue(b, field), order ?? "asc"))
             }
             case "filter": {
                 if (!field || value === undefined)
-                    return { error: "Les champs 'field' et 'value' sont requis pour 'filter'." }
+                    return {
+                        error: "Les champs 'field' et 'value' sont requis pour 'filter'.",
+                    }
                 const filtered = array.filter((item) => matchesValue(getFieldValue(item, field), value))
-                return { results: filtered, length: filtered.length }
+                return {
+                    results: filtered,
+                    length: filtered.length,
+                }
             }
             case "slice": {
                 const sliced = array.slice(start ?? 0, end)
-                return { results: sliced, length: sliced.length, totalLength: array.length }
+                return {
+                    results: sliced,
+                    length: sliced.length,
+                    totalLength: array.length,
+                }
             }
             case "find": {
                 if (!field || value === undefined)
-                    return { error: "Les champs 'field' et 'value' sont requis pour 'find'." }
+                    return {
+                        error: "Les champs 'field' et 'value' sont requis pour 'find'.",
+                    }
                 const found = array.find((item) => matchesValue(getFieldValue(item, field), value))
-                return found ?? { error: "Aucun élément trouvé." }
+                return (
+                    found ?? {
+                        error: "Aucun élément trouvé.",
+                    }
+                )
             }
             case "map": {
-                if (!field) return { error: "Le champ 'field' est requis pour 'map'." }
+                if (!field)
+                    return {
+                        error: "Le champ 'field' est requis pour 'map'.",
+                    }
                 const mapped = array.map((item) => getFieldValue(item, field))
-                return { values: mapped, length: mapped.length }
+                return {
+                    values: mapped,
+                    length: mapped.length,
+                }
             }
             case "unique_values": {
-                if (!field) return { error: "Le champ 'field' est requis pour 'unique_values'." }
+                if (!field)
+                    return {
+                        error: "Le champ 'field' est requis pour 'unique_values'.",
+                    }
                 const values = array.map((item) => getFieldValue(item, field))
-                const unique = [...new Set(values.map((v) => String(v ?? "")))]
-                return { values: unique, length: unique.length }
+                const unique = [
+                    ...new Set(values.map((v) => String(v ?? ""))),
+                ]
+                return {
+                    values: unique,
+                    length: unique.length,
+                }
             }
             case "sum": {
-                if (!field) return { error: "Le champ 'field' est requis pour 'sum'." }
+                if (!field)
+                    return {
+                        error: "Le champ 'field' est requis pour 'sum'.",
+                    }
                 let sum = 0
                 for (const item of array) {
                     const val = Number(getFieldValue(item, field))
                     if (!Number.isNaN(val)) sum += val
                 }
-                return { sum, count: array.length }
+                return {
+                    sum,
+                    count: array.length,
+                }
             }
             case "sort_and_slice": {
-                if (!field) return { error: "Le champ 'field' est requis pour 'sort_and_slice'." }
-                const sortedArr = [...array].sort((a, b) =>
-                    compareValues(getFieldValue(a, field), getFieldValue(b, field), order ?? "asc"),
-                )
+                if (!field)
+                    return {
+                        error: "Le champ 'field' est requis pour 'sort_and_slice'.",
+                    }
+                const sortedArr = [
+                    ...array,
+                ].sort((a, b) => compareValues(getFieldValue(a, field), getFieldValue(b, field), order ?? "asc"))
                 const slicedArr = sortedArr.slice(start ?? 0, end)
-                return { results: slicedArr, length: slicedArr.length, totalLength: array.length }
+                return {
+                    results: slicedArr,
+                    length: slicedArr.length,
+                    totalLength: array.length,
+                }
             }
             default:
-                return { error: `Opération inconnue : ${operation}` }
+                return {
+                    error: `Opération inconnue : ${operation}`,
+                }
         }
     } catch (err) {
-        return { error: `Erreur lors du traitement : ${err instanceof Error ? err.message : String(err)}` }
+        return {
+            error: `Erreur lors du traitement : ${err instanceof Error ? err.message : String(err)}`,
+        }
     }
 }
 
@@ -196,14 +264,24 @@ function buildAssistantParts(m: { output: string | null; toolCalls: unknown | nu
 
     // Add text content if present
     if (m.output) {
-        parts.push({ type: "text", content: compressTextForContext(m.output) })
+        parts.push({
+            type: "text",
+            content: compressTextForContext(m.output),
+        })
     }
 
     // Reconstruct tool-call and tool-result parts from stored AG-UI events
     if (m.toolCalls && Array.isArray(m.toolCalls)) {
         const events = m.toolCalls as Array<Record<string, unknown>>
         // Group events by toolCallId
-        const toolCallMap = new Map<string, { name: string; input?: unknown; result?: string }>()
+        const toolCallMap = new Map<
+            string,
+            {
+                name: string
+                input?: unknown
+                result?: string
+            }
+        >()
         // Preserve insertion order for deterministic part ordering
         const toolCallOrder: string[] = []
 
@@ -212,7 +290,9 @@ function buildAssistantParts(m: { output: string | null; toolCalls: unknown | nu
             if (!id) continue
 
             if (!toolCallMap.has(id)) {
-                toolCallMap.set(id, { name: (event.toolName as string) ?? "" })
+                toolCallMap.set(id, {
+                    name: (event.toolName as string) ?? "",
+                })
                 toolCallOrder.push(id)
             }
             const entry = toolCallMap.get(id)!
@@ -250,7 +330,10 @@ function buildAssistantParts(m: { output: string | null; toolCalls: unknown | nu
 
     // Fallback: if no parts were built, add empty text
     if (parts.length === 0) {
-        parts.push({ type: "text", content: compressTextForContext(m.output ?? "") })
+        parts.push({
+            type: "text",
+            content: compressTextForContext(m.output ?? ""),
+        })
     }
 
     return parts
@@ -260,7 +343,9 @@ function buildAssistantParts(m: { output: string | null; toolCalls: unknown | nu
 
 export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<void> {
     const { idAgentMessage } = args
-    console.log("[runAgentSession] Starting job", { idAgentMessage })
+    console.log("[runAgentSession] Starting job", {
+        idAgentMessage,
+    })
     const db = ContextClients.sql
     const redis = ContextClients.redis
 
@@ -286,7 +371,9 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
     if (!session) throw new Error(`Agent session not found: ${agentMessage.idAgentSession}`)
 
     const { idOrganization, idYear, customInstructions } = session
-    console.log("[runAgentSession] Session loaded", { idOrganization })
+    console.log("[runAgentSession] Session loaded", {
+        idOrganization,
+    })
 
     // Load conversation history (all completed messages before this one, ordered ASC)
     const historyRows = await db
@@ -298,12 +385,21 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
     // Build UIMessages from DB rows. A row may have a nullable userMessage (e.g. delegated/subagent rows),
     // so we only emit a user turn when present. Assistant output is still included when completed.
     // so that convertMessagesToModelMessages gets a proper user→assistant alternation.
-    const uiMessages: Array<{ id: string; role: "user" | "assistant"; parts: unknown[]; createdAt?: Date }> = []
+    const uiMessages: Array<{
+        id: string
+        role: "user" | "assistant"
+        parts: unknown[]
+        createdAt?: Date
+    }> = []
     for (const m of historyRows) {
         // Build the user message content, appending resolved references if present
         let userContent = compressTextForContext(m.userMessage ?? "")
 
-        const refs = (m as any).references as Array<{ id: string; type: string; label: string }> | null
+        const refs = (m as any).references as Array<{
+            id: string
+            type: string
+            label: string
+        }> | null
         if (refs && refs.length > 0 && m.id === idAgentMessage) {
             // Resolve references for the current message only
             const resolvedParts: string[] = []
@@ -367,7 +463,12 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
             uiMessages.push({
                 id: `${m.id}-user`,
                 role: "user",
-                parts: [{ type: "text", content: userContent }],
+                parts: [
+                    {
+                        type: "text",
+                        content: userContent,
+                    },
+                ],
                 createdAt: m.createdAt ? new Date(m.createdAt) : undefined,
             })
         }
@@ -411,7 +512,10 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
         inputSchema: {
             type: "object",
             properties: {
-                source_tool: { type: "string", description: "Le nom de l'outil dont le résultat doit être traité." },
+                source_tool: {
+                    type: "string",
+                    description: "Le nom de l'outil dont le résultat doit être traité.",
+                },
                 path: {
                     type: "string",
                     description: "Chemin vers le tableau dans le résultat si celui-ci est un objet.",
@@ -430,13 +534,30 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                         "sort_and_slice",
                     ],
                 },
-                field: { type: "string" },
-                order: { type: "string", enum: ["asc", "desc"] },
-                value: { type: "string" },
-                start: { type: "number" },
-                end: { type: "number" },
+                field: {
+                    type: "string",
+                },
+                order: {
+                    type: "string",
+                    enum: [
+                        "asc",
+                        "desc",
+                    ],
+                },
+                value: {
+                    type: "string",
+                },
+                start: {
+                    type: "number",
+                },
+                end: {
+                    type: "number",
+                },
             },
-            required: ["source_tool", "operation"],
+            required: [
+                "source_tool",
+                "operation",
+            ],
         },
     }).server(async (args) => processArray(args as ProcessArrayArgs, toolResultStore))
     tools.push(arrayTool)
@@ -449,13 +570,25 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
         inputSchema: {
             type: "object",
             properties: {
-                idFile: { type: "string", description: "L'identifiant du fichier source à traiter." },
-                idYear: { type: "string", description: "L'identifiant de l'exercice." },
+                idFile: {
+                    type: "string",
+                    description: "L'identifiant du fichier source à traiter.",
+                },
+                idYear: {
+                    type: "string",
+                    description: "L'identifiant de l'exercice.",
+                },
             },
-            required: ["idFile", "idYear"],
+            required: [
+                "idFile",
+                "idYear",
+            ],
         },
     }).server(async (args) => {
-        const { idFile, idYear } = args as { idFile: string; idYear: string }
+        const { idFile, idYear } = args as {
+            idFile: string
+            idYear: string
+        }
         try {
             const organizationRows = await db
                 .select({
@@ -466,7 +599,10 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                 .where(eq(models.organization.id, idOrganization))
                 .limit(1)
             const organization = organizationRows.at(0)
-            if (!organization) return { error: "Organisation introuvable." }
+            if (!organization)
+                return {
+                    error: "Organisation introuvable.",
+                }
 
             const fileRows = await db
                 .select()
@@ -480,12 +616,23 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                 )
                 .limit(1)
             const sourceFile = fileRows.at(0)
-            if (!sourceFile) return { error: "Fichier non trouvé." }
-            if (!sourceFile.storageKey) return { error: "Le fichier source n'a pas de contenu associé." }
+            if (!sourceFile)
+                return {
+                    error: "Fichier non trouvé.",
+                }
+            if (!sourceFile.storageKey)
+                return {
+                    error: "Le fichier source n'a pas de contenu associé.",
+                }
 
-            const storageResponse = await getObject({ storageKey: sourceFile.storageKey })
+            const storageResponse = await getObject({
+                storageKey: sourceFile.storageKey,
+            })
             const fileBytes = await storageResponse.Body?.transformToByteArray()
-            if (!fileBytes) return { error: "Impossible de lire le fichier source." }
+            if (!fileBytes)
+                return {
+                    error: "Impossible de lire le fichier source.",
+                }
 
             const base64Content = Buffer.from(fileBytes).toString("base64")
             const mimeType = sourceFile.type ?? "application/octet-stream"
@@ -499,11 +646,20 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
             const dataUri = `data:${mimeType};base64,${base64Content}`
 
             const mistralApiKey = ContextEnv.LLM_API_KEY
-            if (!mistralApiKey) return { error: "La clé API Mistral n'est pas configurée." }
+            if (!mistralApiKey)
+                return {
+                    error: "La clé API Mistral n'est pas configurée.",
+                }
 
             const document = isImage
-                ? { type: "image_url" as const, image_url: dataUri }
-                : { type: "document_url" as const, document_url: dataUri }
+                ? {
+                      type: "image_url" as const,
+                      image_url: dataUri,
+                  }
+                : {
+                      type: "document_url" as const,
+                      document_url: dataUri,
+                  }
 
             const ocrResponse = await fetch("https://api.mistral.ai/v1/ocr", {
                 method: "POST",
@@ -519,24 +675,35 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
 
             if (!ocrResponse.ok) {
                 const errorText = await ocrResponse.text().catch(() => "")
-                return { error: `Erreur Mistral OCR: ${ocrResponse.status} ${errorText}` }
+                return {
+                    error: `Erreur Mistral OCR: ${ocrResponse.status} ${errorText}`,
+                }
             }
 
             const ocrResult = (await ocrResponse.json()) as {
-                pages?: Array<{ markdown: string }>
+                pages?: Array<{
+                    markdown: string
+                }>
             }
 
             const extractedPagesCount = ocrResult.pages?.length ?? 0
             if (extractedPagesCount <= 0) {
-                return { error: "L'extraction OCR n'a retourné aucune page." }
+                return {
+                    error: "L'extraction OCR n'a retourné aucune page.",
+                }
             }
 
             if (extractedPagesCount > organization.ocrPagesTotalAvailable) {
-                return { error: "Limite mensuelle de pages OCR atteinte pour votre organisation." }
+                return {
+                    error: "Limite mensuelle de pages OCR atteinte pour votre organisation.",
+                }
             }
 
             const markdownContent = ocrResult.pages?.map((p) => p.markdown).join("\n\n---\n\n")
-            if (!markdownContent) return { error: "L'extraction de texte n'a retourné aucun résultat." }
+            if (!markdownContent)
+                return {
+                    error: "L'extraction de texte n'a retourné aucun résultat.",
+                }
 
             const normalizedMarkdownContent = fixCommonMojibake(markdownContent)
             const markdownBuffer = Buffer.from(normalizedMarkdownContent, "utf-8")
@@ -566,7 +733,10 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                 storageKey: storageKey,
                 contentLength: markdownBuffer.length,
                 contentType: "text/markdown; charset=utf-8",
-                metadata: { idOrganization, idYear },
+                metadata: {
+                    idOrganization,
+                    idYear,
+                },
                 body: markdownBuffer,
             })
 
@@ -582,13 +752,19 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
             toolResultStore.set("ocr_file", newFile)
             return newFile
         } catch (err) {
-            return { error: `Erreur OCR : ${err instanceof Error ? err.message : String(err)}` }
+            return {
+                error: `Erreur OCR : ${err instanceof Error ? err.message : String(err)}`,
+            }
         }
     })
     tools.push(ocrTool)
 
     // Add entry template tool — creates an entry with lines from a predefined template
-    const entryTemplateTool = buildEntryTemplateTool({ db, idOrganization, toolResultStore })
+    const entryTemplateTool = buildEntryTemplateTool({
+        db,
+        idOrganization,
+        toolResultStore,
+    })
     tools.push(entryTemplateTool)
 
     // Add subagent delegation tool
@@ -639,7 +815,9 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
             }
 
             try {
-                const storageResponse = await getObject({ storageKey: file.storageKey })
+                const storageResponse = await getObject({
+                    storageKey: file.storageKey,
+                })
                 const body = await storageResponse.Body?.transformToString("utf-8")
                 if (!body) {
                     console.warn(
@@ -722,13 +900,17 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
     }
 
     const llmInputPayload = JSON.stringify({
-        systemPrompts: [systemPrompt],
+        systemPrompts: [
+            systemPrompt,
+        ],
         messages: modelMessages,
     })
 
     await db
         .update(models.agentMessage)
-        .set({ input: llmInputPayload })
+        .set({
+            input: llmInputPayload,
+        })
         .where(eq(models.agentMessage.id, idAgentMessage))
 
     let accumulatedContent = ""
@@ -754,7 +936,12 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
             (charsSinceCheckpoint > 0 && msSinceCheckpoint >= CHECKPOINT_INTERVAL_MS)
         ) {
             const contentSnapshot = accumulatedContent
-            const toolCallsSnapshot = accumulatedToolCalls.length > 0 ? [...accumulatedToolCalls] : null
+            const toolCallsSnapshot =
+                accumulatedToolCalls.length > 0
+                    ? [
+                          ...accumulatedToolCalls,
+                      ]
+                    : null
             lastCheckpointLength = accumulatedContent.length
             lastCheckpointTime = Date.now()
             // Fire-and-forget — non-critical, don't block the stream
@@ -762,7 +949,12 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                 .set({
                     output: contentSnapshot || null,
                     toolCalls: toolCallsSnapshot,
-                    usedTools: usedToolNames.size > 0 ? [...usedToolNames] : null,
+                    usedTools:
+                        usedToolNames.size > 0
+                            ? [
+                                  ...usedToolNames,
+                              ]
+                            : null,
                 })
                 .where(eq(models.agentMessage.id, idAgentMessage))
                 .catch(() => {})
@@ -775,7 +967,9 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
             adapter,
             messages: modelMessages as any,
             tools,
-            systemPrompts: [systemPrompt],
+            systemPrompts: [
+                systemPrompt,
+            ],
             agentLoopStrategy: maxIterations(20),
         })
 
@@ -804,7 +998,10 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
             if (chunk.type === "TOOL_CALL_START" && "toolName" in chunk) {
                 // Emit text boundary if text has been accumulated since the last boundary
                 if (accumulatedContent.length > lastBoundaryContentLength) {
-                    accumulatedToolCalls.push({ type: "TEXT_BOUNDARY", contentLength: accumulatedContent.length })
+                    accumulatedToolCalls.push({
+                        type: "TEXT_BOUNDARY",
+                        contentLength: accumulatedContent.length,
+                    })
                     lastBoundaryContentLength = accumulatedContent.length
                 }
                 accumulatedToolCalls.push(chunk)
@@ -824,7 +1021,9 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
         }
 
         console.log(
-            `[runAgentSession] Stream ended. content=${accumulatedContent.length} chars, toolCalls=${accumulatedToolCalls.length}, usedTools=${[...usedToolNames].join(",")}${runError ? `, error=${runError}` : ""}`,
+            `[runAgentSession] Stream ended. content=${accumulatedContent.length} chars, toolCalls=${accumulatedToolCalls.length}, usedTools=${[
+                ...usedToolNames,
+            ].join(",")}${runError ? `, error=${runError}` : ""}`,
         )
 
         if (runError) {
@@ -835,7 +1034,12 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                     state: "error",
                     output: accumulatedContent || runError,
                     toolCalls: accumulatedToolCalls.length > 0 ? accumulatedToolCalls : null,
-                    usedTools: usedToolNames.size > 0 ? [...usedToolNames] : null,
+                    usedTools:
+                        usedToolNames.size > 0
+                            ? [
+                                  ...usedToolNames,
+                              ]
+                            : null,
                 })
                 .where(eq(models.agentMessage.id, idAgentMessage))
         } else {
@@ -846,7 +1050,12 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                     state: "completed",
                     output: accumulatedContent || null,
                     toolCalls: accumulatedToolCalls.length > 0 ? accumulatedToolCalls : null,
-                    usedTools: usedToolNames.size > 0 ? [...usedToolNames] : null,
+                    usedTools:
+                        usedToolNames.size > 0
+                            ? [
+                                  ...usedToolNames,
+                              ]
+                            : null,
                     inputTokens: capturedInputTokens || null,
                     outputTokens: capturedOutputTokens || null,
                 })
@@ -886,7 +1095,9 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
             } else {
                 await db
                     .update(models.agentSession)
-                    .set({ lastUpdatedAt: new Date().toISOString() })
+                    .set({
+                        lastUpdatedAt: new Date().toISOString(),
+                    })
                     .where(eq(models.agentSession.id, agentMessage.idAgentSession))
             }
         }
@@ -896,7 +1107,10 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
 
         await db
             .update(models.agentMessage)
-            .set({ state: "error", output: msg })
+            .set({
+                state: "error",
+                output: msg,
+            })
             .where(eq(models.agentMessage.id, idAgentMessage))
     } finally {
         // Always close the stream so the SSE subscriber terminates

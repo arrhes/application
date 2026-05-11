@@ -12,7 +12,9 @@ const containerStyle = css({
     overflowY: "auto",
 })
 
-const rowStyle = css({ width: "100%" })
+const rowStyle = css({
+    width: "100%",
+})
 
 export function Virtualizer<TData>(props: {
     data: Array<TData>
@@ -31,7 +33,10 @@ export function Virtualizer<TData>(props: {
     })
 
     return (
-        <div ref={parentRef} className={cx(containerStyle, props.className)}>
+        <div
+            ref={parentRef}
+            className={cx(containerStyle, props.className)}
+        >
             <div
                 style={{
                     position: "relative",

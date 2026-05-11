@@ -20,7 +20,11 @@ export function ModelsAiDocPage() {
                     L'assistant utilise deux modèles distincts dans son architecture en deux passes :
                 </DocParagraph>
                 <DocTable
-                    headers={["Passe", "Rôle", "Description"]}
+                    headers={[
+                        "Passe",
+                        "Rôle",
+                        "Description",
+                    ]}
                     rows={[
                         [
                             "1. Routeur",
@@ -57,10 +61,22 @@ export function ModelsAiDocPage() {
                     fournisseurs sont actuellement supportés :
                 </DocParagraph>
                 <DocTable
-                    headers={["Fournisseur", "Usage", "Protocole"]}
+                    headers={[
+                        "Fournisseur",
+                        "Usage",
+                        "Protocole",
+                    ]}
                     rows={[
-                        ["Mistral API", "Production et développement", "API Chat Completions (compatible OpenAI)"],
-                        ["Ollama", "Auto-hébergement", "API locale compatible OpenAI"],
+                        [
+                            "Mistral API",
+                            "Production et développement",
+                            "API Chat Completions (compatible OpenAI)",
+                        ],
+                        [
+                            "Ollama",
+                            "Auto-hébergement",
+                            "API locale compatible OpenAI",
+                        ],
                     ]}
                 />
                 <DocTip variant="info">
@@ -77,7 +93,10 @@ export function ModelsAiDocPage() {
                 </DocParagraph>
             </DocSection>
 
-            <DocNextPage to="/documentation/dashboard/assistant/outils" label="Outils" />
+            <DocNextPage
+                to="/documentation/dashboard/assistant/outils"
+                label="Outils"
+            />
         </DocRoot>
     )
 }

@@ -13,21 +13,41 @@ import { CreateOneEntryLine } from "./createOneEntryLine.tsx"
 import { EntryLinesTable } from "./entryLinesTable.tsx"
 import { UpdateManyEntryLines } from "./updateManyEntryLines.tsx"
 
-const requiredKeys = ["entries", "entryLines", "accounts"] as const satisfies readonly YearDataKey[]
+const requiredKeys = [
+    "entries",
+    "entryLines",
+    "accounts",
+] as const satisfies readonly YearDataKey[]
 
 export function EntryLinesTab() {
-    const params = useParams({ from: entryLayoutRoute.id })
+    const params = useParams({
+        from: entryLayoutRoute.id,
+    })
 
     return (
-        <YearDataWrapper idYear={params.idYear} requiredKeys={requiredKeys}>
+        <YearDataWrapper
+            idYear={params.idYear}
+            requiredKeys={requiredKeys}
+        >
             {({ entries, entryLines: allEntryLines, accounts }) => {
                 const entry = entries.find((r) => r.id === params.idEntry)
                 if (entry === undefined) return null
 
                 const entryLines = allEntryLines.filter((row) => row.idEntry === params.idEntry)
-                const accountsMap = new Map(accounts.map((account) => [account.id, account]))
+                const accountsMap = new Map(
+                    accounts.map((account) => [
+                        account.id,
+                        account,
+                    ]),
+                )
 
-                return <EntryLinesTabContent entry={entry} entryLines={entryLines} accounts={accountsMap} />
+                return (
+                    <EntryLinesTabContent
+                        entry={entry}
+                        entryLines={entryLines}
+                        accounts={accountsMap}
+                    />
+                )
             }}
         </YearDataWrapper>
     )
@@ -50,13 +70,23 @@ function EntryLinesTabContent(props: {
                 })}
             >
                 <CreateOneEntryLine entry={props.entry}>
-                    <ButtonPlainContent leftIcon={<IconPlus />} text="Ajouter un mouvement" />
+                    <ButtonPlainContent
+                        leftIcon={<IconPlus />}
+                        text="Ajouter un mouvement"
+                    />
                 </CreateOneEntryLine>
                 <UpdateManyEntryLines entry={props.entry}>
-                    <ButtonOutlineContent leftIcon={<IconEdit />} text="Modifier plusieurs mouvements" />
+                    <ButtonOutlineContent
+                        leftIcon={<IconEdit />}
+                        text="Modifier plusieurs mouvements"
+                    />
                 </UpdateManyEntryLines>
             </div>
-            <EntryLinesTable entry={props.entry} entryLines={props.entryLines} accounts={props.accounts} />
+            <EntryLinesTable
+                entry={props.entry}
+                entryLines={props.entryLines}
+                accounts={props.accounts}
+            />
         </Section.Item>
     )
 }

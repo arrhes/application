@@ -7,7 +7,13 @@ import { LinkButton } from "../../components/linkButton.tsx"
 export interface NavigationSection {
     title?: string
     icon?: ReactElement<IconProps & React.RefAttributes<Icon>>
-    items: { path: string; hash?: string; label: string; chipText?: string; chipColor?: ChipColors }[]
+    items: {
+        path: string
+        hash?: string
+        label: string
+        chipText?: string
+        chipColor?: ChipColors
+    }[]
 }
 
 export function SidebarNavigation(props: {
@@ -26,7 +32,10 @@ export function SidebarNavigation(props: {
             })}
         >
             {Object.entries(props.navigation).map(([key, section]) => (
-                <div key={key} className={css({})}>
+                <div
+                    key={key}
+                    className={css({})}
+                >
                     {section.title && section.icon && (
                         <div
                             className={css({
@@ -82,19 +91,26 @@ export function SidebarNavigation(props: {
                                     key={item.path + (item.hash ?? "")}
                                     to={item.path}
                                     hash={item.hash}
-                                    className={css({ width: "100%" })}
+                                    className={css({
+                                        width: "100%",
+                                    })}
                                     onClick={props.onClick}
                                 >
                                     <ButtonGhostContent
                                         text={item.label}
                                         isCurrent={isCurrent}
-                                        className={css({ width: "100%", justifyContent: "start" })}
+                                        className={css({
+                                            width: "100%",
+                                            justifyContent: "start",
+                                        })}
                                     >
                                         {item.chipText ? (
                                             <Chip
                                                 text={item.chipText}
                                                 color={item.chipColor ?? "neutral"}
-                                                className={css({ marginLeft: "auto" })}
+                                                className={css({
+                                                    marginLeft: "auto",
+                                                })}
                                             />
                                         ) : null}
                                     </ButtonGhostContent>

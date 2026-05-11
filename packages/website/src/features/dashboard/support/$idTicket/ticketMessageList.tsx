@@ -4,7 +4,9 @@ import { css } from "@arrhes/ui/utilities/cn.js"
 import type * as v from "valibot"
 
 export function TicketMessageList(props: { messages: v.InferOutput<typeof returnedSchemas.ticketMessage>[] }) {
-    const sortedMessages = [...props.messages].sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+    const sortedMessages = [
+        ...props.messages,
+    ].sort((a, b) => b.createdAt.localeCompare(a.createdAt))
 
     return (
         <div
@@ -20,7 +22,9 @@ export function TicketMessageList(props: { messages: v.InferOutput<typeof return
             })}
         >
             {sortedMessages.map((message) => {
-                const createdAt = formatDate(message.createdAt, { includeTime: true })
+                const createdAt = formatDate(message.createdAt, {
+                    includeTime: true,
+                })
                 const isAdmin = message.idAdminUser !== null
 
                 return (
@@ -60,7 +64,14 @@ export function TicketMessageList(props: { messages: v.InferOutput<typeof return
                                 >
                                     {isAdmin ? "Support" : "Vous"}
                                 </span>
-                                <span className={css({ fontSize: "xs", color: "neutral/40" })}>{createdAt}</span>
+                                <span
+                                    className={css({
+                                        fontSize: "xs",
+                                        color: "neutral/40",
+                                    })}
+                                >
+                                    {createdAt}
+                                </span>
                             </div>
                             <span
                                 className={css({

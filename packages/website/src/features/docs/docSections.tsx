@@ -24,20 +24,44 @@ export const docSections: Record<string, DocSection> = {
                 title: "Introduction",
                 icon: <IconHome />,
                 items: [
-                    { path: "/documentation", label: "Accueil" },
-                    { path: "/documentation/fonctionnalités", label: "Fonctionnalités" },
-                    { path: "/documentation/philosophie", label: "Philosophie" },
-                    { path: "/documentation/tarifs", label: "Tarifs" },
-                    { path: "/documentation/support", label: "Support" },
+                    {
+                        path: "/documentation",
+                        label: "Accueil",
+                    },
+                    {
+                        path: "/documentation/fonctionnalités",
+                        label: "Fonctionnalités",
+                    },
+                    {
+                        path: "/documentation/philosophie",
+                        label: "Philosophie",
+                    },
+                    {
+                        path: "/documentation/tarifs",
+                        label: "Tarifs",
+                    },
+                    {
+                        path: "/documentation/support",
+                        label: "Support",
+                    },
                 ],
             },
             legal: {
                 title: "Légal",
                 icon: <IconGavel />,
                 items: [
-                    { path: "/documentation/mentions-légales", label: "Mentions légales" },
-                    { path: "/documentation/cgu", label: "Conditions Générales d'Utilisation" },
-                    { path: "/documentation/confidentialité", label: "Politique de confidentialité" },
+                    {
+                        path: "/documentation/mentions-légales",
+                        label: "Mentions légales",
+                    },
+                    {
+                        path: "/documentation/cgu",
+                        label: "Conditions Générales d'Utilisation",
+                    },
+                    {
+                        path: "/documentation/confidentialité",
+                        label: "Politique de confidentialité",
+                    },
                 ],
             },
         },
@@ -51,24 +75,47 @@ export const docSections: Record<string, DocSection> = {
             home: {
                 title: undefined,
                 icon: undefined,
-                items: [{ path: "/documentation/comptabilité", label: "Accueil" }],
+                items: [
+                    {
+                        path: "/documentation/comptabilité",
+                        label: "Accueil",
+                    },
+                ],
             },
             introduction: {
                 title: "Les bases",
                 icon: <IconStack />,
                 items: [
-                    { path: "/documentation/comptabilité/introduction/", label: "Introduction" },
-                    { path: "/documentation/comptabilité/introduction/partie-double", label: "La partie double" },
-                    { path: "/documentation/comptabilité/introduction/écritures", label: "Les écritures" },
-                    { path: "/documentation/comptabilité/introduction/comptes", label: "Les comptes" },
-                    { path: "/documentation/comptabilité/introduction/classes", label: "Classes de comptes" },
+                    {
+                        path: "/documentation/comptabilité/introduction/",
+                        label: "Introduction",
+                    },
+                    {
+                        path: "/documentation/comptabilité/introduction/partie-double",
+                        label: "La partie double",
+                    },
+                    {
+                        path: "/documentation/comptabilité/introduction/écritures",
+                        label: "Les écritures",
+                    },
+                    {
+                        path: "/documentation/comptabilité/introduction/comptes",
+                        label: "Les comptes",
+                    },
+                    {
+                        path: "/documentation/comptabilité/introduction/classes",
+                        label: "Classes de comptes",
+                    },
                 ],
             },
             documents: {
                 title: "Documents",
                 icon: <IconReport />,
                 items: [
-                    { path: "/documentation/comptabilité/documents", label: "Introduction" },
+                    {
+                        path: "/documentation/comptabilité/documents",
+                        label: "Introduction",
+                    },
                     {
                         path: "/documentation/comptabilité/documents/journal",
                         label: "Journal",
@@ -81,7 +128,10 @@ export const docSections: Record<string, DocSection> = {
                         path: "/documentation/comptabilité/documents/balance",
                         label: "Balance",
                     },
-                    { path: "/documentation/comptabilité/documents/bilan", label: "Bilan" },
+                    {
+                        path: "/documentation/comptabilité/documents/bilan",
+                        label: "Bilan",
+                    },
                     {
                         path: "/documentation/comptabilité/documents/compte-de-résultat",
                         label: "Compte de résultat",
@@ -100,9 +150,18 @@ export const docSections: Record<string, DocSection> = {
                 title: "Ressources",
                 icon: <IconBooks />,
                 items: [
-                    { path: "/documentation/comptabilité/ressources/comptes", label: "Liste des comptes" },
-                    { path: "/documentation/comptabilité/ressources/scénarios", label: "Scénarios" },
-                    { path: "/documentation/comptabilité/ressources/glossaire", label: "Glossaire" },
+                    {
+                        path: "/documentation/comptabilité/ressources/comptes",
+                        label: "Liste des comptes",
+                    },
+                    {
+                        path: "/documentation/comptabilité/ressources/scénarios",
+                        label: "Scénarios",
+                    },
+                    {
+                        path: "/documentation/comptabilité/ressources/glossaire",
+                        label: "Glossaire",
+                    },
                 ],
             },
             glossaire: {
@@ -117,35 +176,78 @@ export const docSections: Record<string, DocSection> = {
         icon: <IconLayout />,
         navigation: {
             home: {
-                items: [{ path: "/documentation/dashboard", label: "Accueil" }],
+                items: [
+                    {
+                        path: "/documentation/dashboard",
+                        label: "Accueil",
+                    },
+                ],
             },
             guide: {
                 title: "Guide d'utilisation",
                 icon: <IconLayout />,
                 items: [
-                    { path: "/documentation/dashboard/démarrage", label: "Démarrage" },
-                    { path: "/documentation/dashboard/organisations", label: "Organisations" },
-                    { path: "/documentation/dashboard/exercices", label: "Exercices" },
-                    { path: "/documentation/dashboard/écritures", label: "Saisie des écritures" },
-                    { path: "/documentation/dashboard/stockage", label: "Stockage" },
-                    { path: "/documentation/dashboard/documents", label: "Documents comptables" },
-                    { path: "/documentation/dashboard/facturation", label: "Facturation" },
+                    {
+                        path: "/documentation/dashboard/démarrage",
+                        label: "Démarrage",
+                    },
+                    {
+                        path: "/documentation/dashboard/organisations",
+                        label: "Organisations",
+                    },
+                    {
+                        path: "/documentation/dashboard/exercices",
+                        label: "Exercices",
+                    },
+                    {
+                        path: "/documentation/dashboard/écritures",
+                        label: "Saisie des écritures",
+                    },
+                    {
+                        path: "/documentation/dashboard/stockage",
+                        label: "Stockage",
+                    },
+                    {
+                        path: "/documentation/dashboard/documents",
+                        label: "Documents comptables",
+                    },
+                    {
+                        path: "/documentation/dashboard/facturation",
+                        label: "Facturation",
+                    },
                 ],
             },
             assistant: {
                 title: "Assistant IA",
                 icon: <IconRobot />,
                 items: [
-                    { path: "/documentation/dashboard/assistant", label: "Introduction" },
-                    { path: "/documentation/dashboard/assistant/modèles", label: "Modèles" },
-                    { path: "/documentation/dashboard/assistant/outils", label: "Outils" },
-                    { path: "/documentation/dashboard/assistant/ocr", label: "OCR" },
+                    {
+                        path: "/documentation/dashboard/assistant",
+                        label: "Introduction",
+                    },
+                    {
+                        path: "/documentation/dashboard/assistant/modèles",
+                        label: "Modèles",
+                    },
+                    {
+                        path: "/documentation/dashboard/assistant/outils",
+                        label: "Outils",
+                    },
+                    {
+                        path: "/documentation/dashboard/assistant/ocr",
+                        label: "OCR",
+                    },
                 ],
             },
             updates: {
                 title: undefined,
                 icon: undefined,
-                items: [{ path: "/documentation/dashboard/màj", label: "Mises à jour" }],
+                items: [
+                    {
+                        path: "/documentation/dashboard/màj",
+                        label: "Mises à jour",
+                    },
+                ],
             },
         },
     },
@@ -159,12 +261,30 @@ export const docSections: Record<string, DocSection> = {
                 title: "API",
                 icon: <IconCode />,
                 items: [
-                    { path: "/documentation/api", label: "Présentation" },
-                    { path: "/documentation/api/introduction", label: "Introduction" },
-                    { path: "/documentation/api/authentification", label: "Authentification" },
-                    { path: "/documentation/api/organisation", label: "Organisation" },
-                    { path: "/documentation/api/exercice", label: "Exercice" },
-                    { path: "/documentation/api/stockage", label: "Fichiers et documents" },
+                    {
+                        path: "/documentation/api",
+                        label: "Présentation",
+                    },
+                    {
+                        path: "/documentation/api/introduction",
+                        label: "Introduction",
+                    },
+                    {
+                        path: "/documentation/api/authentification",
+                        label: "Authentification",
+                    },
+                    {
+                        path: "/documentation/api/organisation",
+                        label: "Organisation",
+                    },
+                    {
+                        path: "/documentation/api/exercice",
+                        label: "Exercice",
+                    },
+                    {
+                        path: "/documentation/api/stockage",
+                        label: "Fichiers et documents",
+                    },
                 ],
             },
         },

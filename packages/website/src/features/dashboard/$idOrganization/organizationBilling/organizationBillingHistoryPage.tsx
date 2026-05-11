@@ -110,7 +110,12 @@ const columns: Array<ColumnDef<Payment>> = [
         accessorFn: (payment) => statusLabel[payment.status] ?? payment.status,
         cell: (context) => {
             const status = context.row.original.status
-            return <Chip text={statusLabel[status] ?? status} color={statusColor[status] ?? "neutral"} />
+            return (
+                <Chip
+                    text={statusLabel[status] ?? status}
+                    color={statusColor[status] ?? "neutral"}
+                />
+            )
         },
     },
     {
@@ -137,7 +142,10 @@ export function OrganizationBillingHistoryPage() {
             <Page.Content>
                 <SettingsSection.Root>
                     <SettingsSection.Header title="Historique des paiements" />
-                    <DataWrapper routeDefinition={readAllOrganizationPaymentsRouteDefinition} body={{}}>
+                    <DataWrapper
+                        routeDefinition={readAllOrganizationPaymentsRouteDefinition}
+                        body={{}}
+                    >
                         {(payments) => {
                             if (payments.length === 0) {
                                 return (
@@ -151,7 +159,9 @@ export function OrganizationBillingHistoryPage() {
 
                             return (
                                 <DataTable
-                                    data={[...payments].sort((a, b) => b.createdAt.localeCompare(a.createdAt))}
+                                    data={[
+                                        ...payments,
+                                    ].sort((a, b) => b.createdAt.localeCompare(a.createdAt))}
                                     columns={columns}
                                     pageSize={12}
                                     defaultColumnVisibility={{

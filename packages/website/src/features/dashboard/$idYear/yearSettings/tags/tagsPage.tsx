@@ -9,7 +9,9 @@ import { CreateOneTag } from "./createOneTag.tsx"
 import { TagsListTable } from "./tagsListTable.tsx"
 
 export function TagsPage() {
-    const params = useParams({ from: tagsRoute.id })
+    const params = useParams({
+        from: tagsRoute.id,
+    })
 
     return (
         <Page.Root>
@@ -25,11 +27,20 @@ export function TagsPage() {
                                 gap: "0.5rem",
                             })}
                         >
-                            <CreateOneTag idOrganization={params.idOrganization} idYear={params.idYear}>
-                                <ButtonPlainContent leftIcon={<IconPlus />} text="Ajouter une catégorie" />
+                            <CreateOneTag
+                                idOrganization={params.idOrganization}
+                                idYear={params.idYear}
+                            >
+                                <ButtonPlainContent
+                                    leftIcon={<IconPlus />}
+                                    text="Ajouter une catégorie"
+                                />
                             </CreateOneTag>
                         </div>
-                        <TagsListTable idOrganization={params.idOrganization} idYear={params.idYear} />
+                        <TagsListTable
+                            idOrganization={params.idOrganization}
+                            idYear={params.idYear}
+                        />
                     </Section.Item>
                 </Section.Root>
             </Page.Content>

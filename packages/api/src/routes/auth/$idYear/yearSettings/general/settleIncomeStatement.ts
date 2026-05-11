@@ -14,7 +14,9 @@ import { selectOne } from "../../../../../utilities/sql/selectOne.js"
 export const settleIncomeStatementRoute = apiFactory
     .createApp()
     .post(settleIncomeStatementRouteDefinition.path, async (c) => {
-        const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+        const { user, idOrganization } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: settleIncomeStatementRouteDefinition.schemas.body,

@@ -29,17 +29,26 @@ describe("variables", () => {
     describe("getCookieSecurityOptions", () => {
         it("returns secure + SameSite=None in production", () => {
             const options = getCookieSecurityOptions("production")
-            expect(options).toEqual({ secure: true, sameSite: "None" })
+            expect(options).toEqual({
+                secure: true,
+                sameSite: "None",
+            })
         })
 
         it("returns insecure + SameSite=Lax in development", () => {
             const options = getCookieSecurityOptions("development")
-            expect(options).toEqual({ secure: false, sameSite: "Lax" })
+            expect(options).toEqual({
+                secure: false,
+                sameSite: "Lax",
+            })
         })
 
         it("returns insecure + SameSite=Lax for unknown environments", () => {
             const options = getCookieSecurityOptions("staging")
-            expect(options).toEqual({ secure: false, sameSite: "Lax" })
+            expect(options).toEqual({
+                secure: false,
+                sameSite: "Lax",
+            })
         })
     })
 })

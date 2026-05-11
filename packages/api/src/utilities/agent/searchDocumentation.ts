@@ -72,8 +72,14 @@ function extractTextFromJsx(source: string): string {
  * Extract searchable text from the glossary data file.
  * Returns one block per term for targeted search results.
  */
-function extractGlossaryEntries(source: string): { term: string; text: string }[] {
-    const entries: { term: string; text: string }[] = []
+function extractGlossaryEntries(source: string): {
+    term: string
+    text: string
+}[] {
+    const entries: {
+        term: string
+        text: string
+    }[] = []
     for (const match of source.matchAll(/defineTerm\(\s*"([^"]+)",\s*"([^"]+)",\s*"([^"]+)"/g)) {
         const [, term, english, definition] = match
 
@@ -88,11 +94,17 @@ function extractGlossaryEntries(source: string): { term: string; text: string }[
                   .filter(Boolean)
             : []
 
-        const parts = [`Terme : ${term} (${english})`, `Définition : ${definition}`]
+        const parts = [
+            `Terme : ${term} (${english})`,
+            `Définition : ${definition}`,
+        ]
         if (relatedTerms.length > 0) {
             parts.push(`Termes liés : ${relatedTerms.join(", ")}`)
         }
-        entries.push({ term, text: parts.join("\n") })
+        entries.push({
+            term,
+            text: parts.join("\n"),
+        })
     }
     return entries
 }
@@ -101,9 +113,19 @@ function extractGlossaryEntries(source: string): { term: string; text: string }[
  * Extract searchable text from the accounts data file.
  * Each account becomes a searchable block.
  */
-function extractAccountEntries(source: string): { number: string; label: string; text: string }[] {
-    const entries: { number: string; label: string; text: string }[] = []
-    const allMatches = [...source.matchAll(/defineAccount\(\s*"([^"]+)",\s*"([^"]+)",\s*\{/g)]
+function extractAccountEntries(source: string): {
+    number: string
+    label: string
+    text: string
+}[] {
+    const entries: {
+        number: string
+        label: string
+        text: string
+    }[] = []
+    const allMatches = [
+        ...source.matchAll(/defineAccount\(\s*"([^"]+)",\s*"([^"]+)",\s*\{/g),
+    ]
 
     for (let i = 0; i < allMatches.length; i++) {
         const match = allMatches[i]
@@ -123,7 +145,9 @@ function extractAccountEntries(source: string): { number: string; label: string;
         const counterpartNumMatch = block.match(/counterpart:\s*\{\s*number:\s*"([^"]*)"/)
         const counterpartLabelMatch = block.match(/label:\s*"([^"]*)"/)
 
-        const parts = [`Compte ${number} — ${label}`]
+        const parts = [
+            `Compte ${number} — ${label}`,
+        ]
         if (descMatch) parts.push(`Description : ${descMatch[1]}`)
         if (typeMatch && sideMatch) parts.push(`Type : ${typeMatch[1]}, ${sideMatch[1]}`)
         if (debitMatch) parts.push(`Débit : ${debitMatch[1]}`)
@@ -146,7 +170,11 @@ function extractAccountEntries(source: string): { number: string; label: string;
             parts.push(`Contrepartie courante : ${counterpartNumMatch[1]} ${counterpartLabelMatch[1]}`)
         }
 
-        entries.push({ number, label, text: parts.join("\n") })
+        entries.push({
+            number,
+            label,
+            text: parts.join("\n"),
+        })
     }
     return entries
 }
@@ -156,7 +184,9 @@ function extractAccountEntries(source: string): { number: string; label: string;
 async function getAllDocFiles(basePath: string): Promise<string[]> {
     const files: string[] = []
     async function walk(dir: string) {
-        const entries = await readdir(dir, { withFileTypes: true })
+        const entries = await readdir(dir, {
+            withFileTypes: true,
+        })
         for (const entry of entries) {
             const fullPath = join(dir, entry.name)
             if (entry.isDirectory()) {

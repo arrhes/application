@@ -12,7 +12,10 @@ describe("isHealthyStreamResponse", () => {
     })
 
     it("returns false when response body is missing", () => {
-        const result = isHealthyStreamResponse({ ok: true, body: null })
+        const result = isHealthyStreamResponse({
+            ok: true,
+            body: null,
+        })
 
         expect(result).toBe(false)
     })

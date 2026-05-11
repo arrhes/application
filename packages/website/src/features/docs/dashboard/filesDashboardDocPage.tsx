@@ -91,7 +91,10 @@ export function FilesDashboardDocPage() {
                 réglementation.
             </DocTip>
 
-            <DocNextPage to="/documentation/dashboard/documents" label="Documents de synthèse" />
+            <DocNextPage
+                to="/documentation/dashboard/documents"
+                label="Documents de synthèse"
+            />
         </DocRoot>
     )
 }

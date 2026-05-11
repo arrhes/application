@@ -26,7 +26,10 @@ export function UpdateOneEntry(props: { entry: v.InferOutput<typeof returnedSche
     const [open, setOpen] = useState(false)
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Modifier une écriture" />
@@ -47,11 +50,17 @@ export function UpdateOneEntry(props: { entry: v.InferOutput<typeof returnedSche
                                 body: data,
                             })
                             if (updateEntryResponse.ok === false) {
-                                toast({ title: "Impossible de modifier l'écriture", variant: "error" })
+                                toast({
+                                    title: "Impossible de modifier l'écriture",
+                                    variant: "error",
+                                })
                                 return false
                             }
 
-                            toast({ title: "Écriture modifiée avec succès", variant: "success" })
+                            toast({
+                                title: "Écriture modifiée avec succès",
+                                variant: "success",
+                            })
                             return true
                         }}
                         onCancel={undefined}
@@ -82,7 +91,10 @@ export function UpdateOneEntry(props: { entry: v.InferOutput<typeof returnedSche
                                     name="label"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel label="Libellé" isRequired={true} />
+                                            <FormLabel
+                                                label="Libellé"
+                                                isRequired={true}
+                                            />
                                             <FormControl>
                                                 <InputText
                                                     value={field.value}
@@ -99,9 +111,15 @@ export function UpdateOneEntry(props: { entry: v.InferOutput<typeof returnedSche
                                     name="date"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel label="Date" isRequired={true} />
+                                            <FormLabel
+                                                label="Date"
+                                                isRequired={true}
+                                            />
                                             <FormControl>
-                                                <InputDate value={field.value} onChange={field.onChange} />
+                                                <InputDate
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -112,7 +130,10 @@ export function UpdateOneEntry(props: { entry: v.InferOutput<typeof returnedSche
                                     name="idJournal"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel label="Journal" isRequired={false} />
+                                            <FormLabel
+                                                label="Journal"
+                                                isRequired={false}
+                                            />
                                             <FormControl>
                                                 <InputDataCombobox
                                                     value={field.value}
@@ -137,7 +158,10 @@ export function UpdateOneEntry(props: { entry: v.InferOutput<typeof returnedSche
                                     name="idFile"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel label="Pièce justificative" isRequired={false} />
+                                            <FormLabel
+                                                label="Pièce justificative"
+                                                isRequired={false}
+                                            />
                                             <FormControl>
                                                 <InputDataCombobox
                                                     value={field.value}

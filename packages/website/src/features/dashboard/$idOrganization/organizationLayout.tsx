@@ -12,7 +12,9 @@ import { PageNavigation } from "../../../components/layouts/page/pageNavigation.
 import { organizationLayoutRoute } from "../../../routes/root/dashboard/organizations/$idOrganization/organizationLayoutRoute.tsx"
 
 export function OrganizationLayout() {
-    const params = useParams({ from: organizationLayoutRoute.id })
+    const params = useParams({
+        from: organizationLayoutRoute.id,
+    })
 
     return (
         <Fragment>

@@ -17,7 +17,11 @@ export function FormatText(props: {
                     overflowX: "hidden",
                     textOverflow: "ellipsis",
                 }),
-                !props.wrap ? css({ whiteSpace: "nowrap" }) : undefined,
+                !props.wrap
+                    ? css({
+                          whiteSpace: "nowrap",
+                      })
+                    : undefined,
                 props.className,
             )}
         >

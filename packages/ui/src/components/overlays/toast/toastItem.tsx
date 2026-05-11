@@ -13,10 +13,38 @@ import { ButtonGhostContent } from "../../buttons/buttonGhostContent.js"
 import type { ToasterToast, ToastVariant } from "./useToast.js"
 
 const toastIcons: Record<ToastVariant, ReactElement<IconProps & React.RefAttributes<Icon>>> = {
-    error: <IconAlertTriangle size={20} className={css({ color: "error" })} />,
-    success: <IconCircleCheck size={20} className={css({ color: "success" })} />,
-    warning: <IconAlertTriangle size={20} className={css({ color: "warning" })} />,
-    information: <IconInfoSquare size={20} className={css({ color: "information" })} />,
+    error: (
+        <IconAlertTriangle
+            size={20}
+            className={css({
+                color: "error",
+            })}
+        />
+    ),
+    success: (
+        <IconCircleCheck
+            size={20}
+            className={css({
+                color: "success",
+            })}
+        />
+    ),
+    warning: (
+        <IconAlertTriangle
+            size={20}
+            className={css({
+                color: "warning",
+            })}
+        />
+    ),
+    information: (
+        <IconInfoSquare
+            size={20}
+            className={css({
+                color: "information",
+            })}
+        />
+    ),
 }
 
 export function ToastItem(props: { toast: ToasterToast; onDismiss: (id: string) => void }) {
@@ -83,7 +111,10 @@ export function ToastItem(props: { toast: ToasterToast; onDismiss: (id: string) 
                     </span>
                 )}
             </div>
-            <Button title="Fermer" onClick={() => props.onDismiss(props.toast.id)}>
+            <Button
+                title="Fermer"
+                onClick={() => props.onDismiss(props.toast.id)}
+            >
                 <ButtonGhostContent leftIcon={<IconX />} />
             </Button>
         </div>

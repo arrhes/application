@@ -19,7 +19,9 @@ export const getStreamForAgentMessageRoute = apiFactory
         await next()
     })
     .post(getStreamForAgentMessageRouteDefinition.path, async (c) => {
-        await checkUserSessionMiddleware({ context: c })
+        await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: getStreamForAgentMessageRouteDefinition.schemas.body,
@@ -37,7 +39,10 @@ export const getStreamForAgentMessageRoute = apiFactory
             return streamText(c, async (stream) => {
                 if (agentMessage.output) {
                     await stream.write(
-                        `data: ${JSON.stringify({ type: "TEXT_MESSAGE_CONTENT", delta: agentMessage.output })}\n\n`,
+                        `data: ${JSON.stringify({
+                            type: "TEXT_MESSAGE_CONTENT",
+                            delta: agentMessage.output,
+                        })}\n\n`,
                     )
                 }
             })
@@ -46,7 +51,10 @@ export const getStreamForAgentMessageRoute = apiFactory
         if (agentMessage.state === "error") {
             return streamText(c, async (stream) => {
                 await stream.write(
-                    `data: ${JSON.stringify({ type: "TEXT_MESSAGE_CONTENT", delta: agentMessage.output ?? "Une erreur est survenue lors de la génération de la réponse." })}\n\n`,
+                    `data: ${JSON.stringify({
+                        type: "TEXT_MESSAGE_CONTENT",
+                        delta: agentMessage.output ?? "Une erreur est survenue lors de la génération de la réponse.",
+                    })}\n\n`,
                 )
             })
         }
@@ -63,7 +71,10 @@ export const getStreamForAgentMessageRoute = apiFactory
         const failStreamImmediately = async (internalMessage: string): Promise<never> => {
             await c.var.clients.sql
                 .update(models.agentMessage)
-                .set({ state: "error", output: STREAM_UNAVAILABLE_MESSAGE })
+                .set({
+                    state: "error",
+                    output: STREAM_UNAVAILABLE_MESSAGE,
+                })
                 .where(and(eq(models.agentMessage.id, body.idAgentMessage), eq(models.agentMessage.state, "streaming")))
 
             throw new Exception({
@@ -135,7 +146,10 @@ export const getStreamForAgentMessageRoute = apiFactory
                 return streamText(c, async (stream) => {
                     if (freshMessage.output) {
                         await stream.write(
-                            `data: ${JSON.stringify({ type: "TEXT_MESSAGE_CONTENT", delta: freshMessage.output })}\n\n`,
+                            `data: ${JSON.stringify({
+                                type: "TEXT_MESSAGE_CONTENT",
+                                delta: freshMessage.output,
+                            })}\n\n`,
                         )
                     }
                     if (freshMessage.toolCalls && Array.isArray(freshMessage.toolCalls)) {
@@ -149,7 +163,11 @@ export const getStreamForAgentMessageRoute = apiFactory
             if (freshMessage.state === "error") {
                 return streamText(c, async (stream) => {
                     await stream.write(
-                        `data: ${JSON.stringify({ type: "TEXT_MESSAGE_CONTENT", delta: freshMessage.output ?? "Une erreur est survenue lors de la génération de la réponse." })}\n\n`,
+                        `data: ${JSON.stringify({
+                            type: "TEXT_MESSAGE_CONTENT",
+                            delta:
+                                freshMessage.output ?? "Une erreur est survenue lors de la génération de la réponse.",
+                        })}\n\n`,
                     )
                 })
             }
@@ -241,7 +259,10 @@ export const getStreamForAgentMessageRoute = apiFactory
                 // Worker already finished — send the completed content and close
                 if (freshMessage.output) {
                     await stream.write(
-                        `data: ${JSON.stringify({ type: "TEXT_MESSAGE_CONTENT", delta: freshMessage.output })}\n\n`,
+                        `data: ${JSON.stringify({
+                            type: "TEXT_MESSAGE_CONTENT",
+                            delta: freshMessage.output,
+                        })}\n\n`,
                     )
                 }
                 if (freshMessage.toolCalls && Array.isArray(freshMessage.toolCalls)) {
@@ -258,7 +279,10 @@ export const getStreamForAgentMessageRoute = apiFactory
             if (freshMessage.output) {
                 checkpointContentLength = freshMessage.output.length
                 await stream.write(
-                    `data: ${JSON.stringify({ type: "TEXT_MESSAGE_CONTENT", delta: freshMessage.output })}\n\n`,
+                    `data: ${JSON.stringify({
+                        type: "TEXT_MESSAGE_CONTENT",
+                        delta: freshMessage.output,
+                    })}\n\n`,
                 )
             }
             if (freshMessage.toolCalls && Array.isArray(freshMessage.toolCalls)) {

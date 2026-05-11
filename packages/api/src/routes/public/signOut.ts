@@ -19,7 +19,9 @@ export const signOutRoute = apiFactory.createApp().post(signOutRouteDefinition.p
 
     try {
         const idUserSession = unsignString({
-            signedValue: parseCookies({ value: c.req.header("cookie") })[`${productName}_${"id_user_session"}`],
+            signedValue: parseCookies({
+                value: c.req.header("cookie"),
+            })[`${productName}_${"id_user_session"}`],
             secret: c.var.env.COOKIES_KEY,
         })
 

@@ -3,13 +3,17 @@ import { Exception } from "#/utilities/exception.js"
 
 describe("Exception", () => {
     it("creates an exception with an internal message", () => {
-        const ex = new Exception({ internalMessage: "Something failed" })
+        const ex = new Exception({
+            internalMessage: "Something failed",
+        })
         expect(ex.internalMessage).toBe("Something failed")
         expect(ex.message).toBe("Something failed")
     })
 
     it("sets a default external message of 'Internal error'", () => {
-        const ex = new Exception({ internalMessage: "DB error" })
+        const ex = new Exception({
+            internalMessage: "DB error",
+        })
         expect(ex.externalMessage).toBe("Internal error")
     })
 
@@ -57,12 +61,16 @@ describe("Exception", () => {
     })
 
     it("is an instance of Error", () => {
-        const ex = new Exception({ internalMessage: "test" })
+        const ex = new Exception({
+            internalMessage: "test",
+        })
         expect(ex).toBeInstanceOf(Error)
     })
 
     it("defaults statusCode to undefined when not provided", () => {
-        const ex = new Exception({ internalMessage: "test" })
+        const ex = new Exception({
+            internalMessage: "test",
+        })
         expect(ex.statusCode).toBeUndefined()
     })
 })

@@ -4,7 +4,9 @@ import { SubPageLayout } from "../../../../components/layouts/subPageLayout.tsx"
 import { organizationBillingLayoutRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/organizationBilling/organizationBillingLayoutRoute.tsx"
 
 export function OrganizationBillingLayout() {
-    const params = useParams({ from: organizationBillingLayoutRoute.id })
+    const params = useParams({
+        from: organizationBillingLayoutRoute.id,
+    })
 
     return (
         <SubPageLayout

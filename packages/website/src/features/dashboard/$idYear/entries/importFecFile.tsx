@@ -131,7 +131,12 @@ function parseFecFile(content: string): FecEntry[] {
 
     const separator = detectSeparator(lines[0])
     const headers = lines[0].split(separator).map((value) => value.trim())
-    const indexByHeader = new Map(headers.map((header, index) => [header, index]))
+    const indexByHeader = new Map(
+        headers.map((header, index) => [
+            header,
+            index,
+        ]),
+    )
 
     for (const requiredHeader of REQUIRED_HEADERS) {
         if (!indexByHeader.has(requiredHeader)) {
@@ -194,7 +199,9 @@ function parseFecFile(content: string): FecEntry[] {
                 journalLabel,
                 key,
                 label: entryLabel,
-                lines: [fecLine],
+                lines: [
+                    fecLine,
+                ],
             })
             continue
         }
@@ -202,7 +209,9 @@ function parseFecFile(content: string): FecEntry[] {
         existingEntry.lines.push(fecLine)
     }
 
-    const entries = [...entriesByKey.values()].sort((left, right) => {
+    const entries = [
+        ...entriesByKey.values(),
+    ].sort((left, right) => {
         const dateCompare = left.date.localeCompare(right.date)
         if (dateCompare !== 0) {
             return dateCompare
@@ -237,11 +246,16 @@ export function ImportFecFile(props: {
             return "Aucun fichier sélectionné"
         }
         return selectedFile.name
-    }, [selectedFile])
+    }, [
+        selectedFile,
+    ])
 
     async function handleImport() {
         if (selectedFile === null) {
-            toast({ title: "Sélectionnez un fichier FEC", variant: "warning" })
+            toast({
+                title: "Sélectionnez un fichier FEC",
+                variant: "warning",
+            })
             return
         }
 
@@ -252,12 +266,25 @@ export function ImportFecFile(props: {
             entries = parseFecFile(fileContent)
         } catch (error) {
             const message = error instanceof Error ? error.message : "Fichier FEC invalide"
-            toast({ title: message, variant: "error" })
+            toast({
+                title: message,
+                variant: "error",
+            })
             return
         }
 
-        const journalsByCode = new Map(props.journals.map((journal) => [journal.code, journal]))
-        const accountsByNumber = new Map(props.accounts.map((account) => [account.number, account]))
+        const journalsByCode = new Map(
+            props.journals.map((journal) => [
+                journal.code,
+                journal,
+            ]),
+        )
+        const accountsByNumber = new Map(
+            props.accounts.map((account) => [
+                account.number,
+                account,
+            ]),
+        )
 
         let createdJournalsCount = 0
         let createdAccountsCount = 0
@@ -277,7 +304,10 @@ export function ImportFecFile(props: {
                 })
 
                 if (createJournalResponse.ok === false) {
-                    toast({ title: `Impossible de créer le journal ${entry.journalCode}`, variant: "error" })
+                    toast({
+                        title: `Impossible de créer le journal ${entry.journalCode}`,
+                        variant: "error",
+                    })
                     return
                 }
 
@@ -317,7 +347,10 @@ export function ImportFecFile(props: {
                     })
 
                     if (createAccountResponse.ok === false) {
-                        toast({ title: `Impossible de créer le compte ${line.accountNumber}`, variant: "error" })
+                        toast({
+                            title: `Impossible de créer le compte ${line.accountNumber}`,
+                            variant: "error",
+                        })
                         return
                     }
 
@@ -352,7 +385,10 @@ export function ImportFecFile(props: {
             })
 
             if (createEntryResponse.ok === false) {
-                toast({ title: `Impossible de créer l'écriture ${entry.label}`, variant: "error" })
+                toast({
+                    title: `Impossible de créer l'écriture ${entry.label}`,
+                    variant: "error",
+                })
                 return
             }
 
@@ -363,19 +399,27 @@ export function ImportFecFile(props: {
         await Promise.all([
             invalidateData({
                 routeDefinition: readAllEntriesRouteDefinition,
-                body: { idYear: props.idYear },
+                body: {
+                    idYear: props.idYear,
+                },
             }),
             invalidateData({
                 routeDefinition: readAllEntryLinesRouteDefinition,
-                body: { idYear: props.idYear },
+                body: {
+                    idYear: props.idYear,
+                },
             }),
             invalidateData({
                 routeDefinition: readAllJournalsRouteDefinition,
-                body: { idYear: props.idYear },
+                body: {
+                    idYear: props.idYear,
+                },
             }),
             invalidateData({
                 routeDefinition: readAllAccountsRouteDefinition,
-                body: { idYear: props.idYear },
+                body: {
+                    idYear: props.idYear,
+                },
             }),
         ])
 
@@ -401,12 +445,30 @@ export function ImportFecFile(props: {
             <Drawer.Content>
                 <Drawer.Header title="Importer un FEC" />
                 <Drawer.Body>
-                    <div className={css({ display: "flex", flexDirection: "column", gap: "1rem" })}>
-                        <p className={css({ fontSize: "sm", color: "neutral/70", lineHeight: "relaxed" })}>
+                    <div
+                        className={css({
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "1rem",
+                        })}
+                    >
+                        <p
+                            className={css({
+                                fontSize: "sm",
+                                color: "neutral/70",
+                                lineHeight: "relaxed",
+                            })}
+                        >
                             Importez un FEC pour créer automatiquement les journaux, comptes, écritures et mouvements
                             manquants de l'exercice.
                         </p>
-                        <p className={css({ fontSize: "sm", color: "neutral/70", lineHeight: "relaxed" })}>
+                        <p
+                            className={css({
+                                fontSize: "sm",
+                                color: "neutral/70",
+                                lineHeight: "relaxed",
+                            })}
+                        >
                             Nous avons créé également un outil de validation de conformité du FEC, disponible
                             gratuitement en ligne sur{" "}
                             <a
@@ -419,7 +481,9 @@ export function ImportFecFile(props: {
                                     textDecoration: "underline",
                                     textDecorationColor: "primary/30",
                                     textUnderlineOffset: "2px",
-                                    _hover: { textDecorationColor: "primary" },
+                                    _hover: {
+                                        textDecorationColor: "primary",
+                                    },
                                     transition: "all 0.15s",
                                 })}
                             >
@@ -437,14 +501,37 @@ export function ImportFecFile(props: {
                                 setSelectedFile(file)
                             }}
                         />
-                        <p className={css({ fontSize: "sm", color: "neutral/60" })}>
+                        <p
+                            className={css({
+                                fontSize: "sm",
+                                color: "neutral/60",
+                            })}
+                        >
                             Format supporté: fichier texte FEC avec séparateur tabulation ou "|".
                         </p>
-                        <p className={css({ fontSize: "xs", color: "neutral/50" })}>{selectedFileLabel}</p>
-                        <Button hasLoader onClick={handleImport}>
-                            <ButtonPlainContent leftIcon={<IconFileImport />} text="Importer le FEC" />
+                        <p
+                            className={css({
+                                fontSize: "xs",
+                                color: "neutral/50",
+                            })}
+                        >
+                            {selectedFileLabel}
+                        </p>
+                        <Button
+                            hasLoader
+                            onClick={handleImport}
+                        >
+                            <ButtonPlainContent
+                                leftIcon={<IconFileImport />}
+                                text="Importer le FEC"
+                            />
                         </Button>
-                        <p className={css({ fontSize: "xs", color: "neutral/50" })}>
+                        <p
+                            className={css({
+                                fontSize: "xs",
+                                color: "neutral/50",
+                            })}
+                        >
                             Le contrôle de compatibilité vérifie les colonnes requises et l'équilibre débit/crédit de
                             chaque écriture.
                         </p>

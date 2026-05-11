@@ -19,7 +19,14 @@ export function convertStoredMessagesToUIMessages(
     id: string
     role: "user" | "assistant" | "system"
     createdAt: Date
-    parts: Array<{ type: string; content?: string | null; id?: string; name?: string; state?: string; args?: unknown }>
+    parts: Array<{
+        type: string
+        content?: string | null
+        id?: string
+        name?: string
+        state?: string
+        args?: unknown
+    }>
 }> {
     const result: Array<{
         id: string
@@ -42,7 +49,12 @@ export function convertStoredMessagesToUIMessages(
                 id: `${m.id}-user`,
                 role: "user",
                 createdAt: new Date(m.createdAt),
-                parts: [{ type: "text", content: m.userMessage }],
+                parts: [
+                    {
+                        type: "text",
+                        content: m.userMessage,
+                    },
+                ],
             })
         }
 
@@ -69,7 +81,10 @@ export function convertStoredMessagesToUIMessages(
                 content: "Une erreur est survenue lors de la génération de la réponse.",
             })
         } else if (m.output) {
-            parts.push({ type: "text", content: m.output })
+            parts.push({
+                type: "text",
+                content: m.output,
+            })
         }
 
         // Only add assistant message if it has visible parts

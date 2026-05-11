@@ -13,7 +13,9 @@ import { updateOne } from "../../../../utilities/sql/updateOne.js"
 export const updateOneAgentSessionRoute = apiFactory
     .createApp()
     .post(updateOneAgentSessionRouteDefinition.path, async (c) => {
-        const { user } = await checkUserSessionMiddleware({ context: c })
+        const { user } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: updateOneAgentSessionRouteDefinition.schemas.body,
@@ -82,7 +84,12 @@ export const updateOneAgentSessionRoute = apiFactory
                     mimeType: string
                     idOcrFile: string | null
                 }>
-                const existingMap = new Map(existingAttached.map((f) => [f.idFile, f]))
+                const existingMap = new Map(
+                    existingAttached.map((f) => [
+                        f.idFile,
+                        f,
+                    ]),
+                )
 
                 const attachedFiles: Array<{
                     idFile: string
@@ -131,7 +138,12 @@ export const updateOneAgentSessionRoute = apiFactory
                             })
                         }
                     } else if (isTextLike) {
-                        attachedFiles.push({ idFile: file.id, name: file.name ?? "fichier", mimeType, idOcrFile: null })
+                        attachedFiles.push({
+                            idFile: file.id,
+                            name: file.name ?? "fichier",
+                            mimeType,
+                            idOcrFile: null,
+                        })
                     }
                 }
 

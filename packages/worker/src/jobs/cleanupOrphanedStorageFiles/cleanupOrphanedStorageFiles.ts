@@ -68,7 +68,9 @@ async function getExistingFileIds(ids: string[]): Promise<Set<string>> {
         }
 
         const rows = await ContextClients.sql
-            .select({ id: models.file.id })
+            .select({
+                id: models.file.id,
+            })
             .from(models.file)
             .where(inArray(models.file.id, chunk))
 
@@ -86,7 +88,9 @@ export async function cleanupOrphanedStorageFiles(): Promise<void> {
         return
     }
 
-    const uniqueIds = [...new Set(candidates.map((candidate) => candidate.idFile))]
+    const uniqueIds = [
+        ...new Set(candidates.map((candidate) => candidate.idFile)),
+    ]
     const existingIds = await getExistingFileIds(uniqueIds)
 
     const orphaned = candidates.filter((candidate) => !existingIds.has(candidate.idFile))

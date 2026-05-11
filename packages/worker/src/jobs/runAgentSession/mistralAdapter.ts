@@ -12,7 +12,11 @@ let lastApiCallTimestamp = 0
 
 function getRetryDelay(error: unknown, attempt: number): number {
     if (error && typeof error === "object" && "headers" in error) {
-        const headers = (error as { headers?: Headers }).headers
+        const headers = (
+            error as {
+                headers?: Headers
+            }
+        ).headers
         const retryAfter = headers?.get?.("retry-after")
         if (retryAfter) {
             const seconds = Number.parseFloat(retryAfter)
@@ -23,7 +27,14 @@ function getRetryDelay(error: unknown, attempt: number): number {
 }
 
 function isRateLimitError(error: unknown): boolean {
-    if (error && typeof error === "object" && "status" in error) return (error as { status: number }).status === 429
+    if (error && typeof error === "object" && "status" in error)
+        return (
+            (
+                error as {
+                    status: number
+                }
+            ).status === 429
+        )
     if (error instanceof Error && error.message.includes("429")) return true
     return false
 }
@@ -42,16 +53,33 @@ async function throttle(): Promise<void> {
 export class MistralChatAdapter extends BaseTextAdapter<
     string,
     Record<string, any>,
-    readonly ["text"],
-    { text: unknown; image: unknown; audio: unknown; video: unknown; document: unknown }
+    readonly [
+        "text",
+    ],
+    {
+        text: unknown
+        image: unknown
+        audio: unknown
+        video: unknown
+        document: unknown
+    }
 > {
     readonly kind = "text" as const
     readonly name = "mistral" as const
     private client: OpenAI
 
-    constructor(model: string, options: { apiKey: string; baseURL: string }) {
+    constructor(
+        model: string,
+        options: {
+            apiKey: string
+            baseURL: string
+        },
+    ) {
         super({}, model)
-        this.client = new OpenAI({ apiKey: options.apiKey, baseURL: options.baseURL })
+        this.client = new OpenAI({
+            apiKey: options.apiKey,
+            baseURL: options.baseURL,
+        })
     }
 
     async *chatStream(options: TextOptions): AsyncIterable<StreamChunk> {
@@ -64,7 +92,12 @@ export class MistralChatAdapter extends BaseTextAdapter<
         let accumulatedContent = ""
         const toolCallsAccumulated = new Map<
             number,
-            { id: string; name: string; arguments: string; started: boolean }
+            {
+                id: string
+                name: string
+                arguments: string
+                started: boolean
+            }
         >()
         const messages = this.formatMessages(options)
         const tools = options.tools ? this.formatTools(options.tools) : undefined
@@ -227,7 +260,9 @@ export class MistralChatAdapter extends BaseTextAdapter<
                 model: options.model,
                 timestamp,
                 message: err.message || "Unknown error",
-                error: { message: err.message || "Unknown error" },
+                error: {
+                    message: err.message || "Unknown error",
+                },
             }
         }
     }
@@ -249,7 +284,11 @@ export class MistralChatAdapter extends BaseTextAdapter<
                     top_p: chatOptions.topP,
                     response_format: {
                         type: "json_schema" as any,
-                        json_schema: { name: "structured_output", schema: outputSchema, strict: true },
+                        json_schema: {
+                            name: "structured_output",
+                            schema: outputSchema,
+                            strict: true,
+                        },
                     } as any,
                     stream: false,
                 })
@@ -270,12 +309,19 @@ export class MistralChatAdapter extends BaseTextAdapter<
         } catch {
             throw new Error(`Failed to parse structured output: ${rawText.slice(0, 200)}`)
         }
-        return { data: parsed, rawText }
+        return {
+            data: parsed,
+            rawText,
+        }
     }
 
     private formatMessages(options: TextOptions): OpenAI.Chat.Completions.ChatCompletionMessageParam[] {
         const result: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = []
-        if (options.systemPrompts?.length) result.push({ role: "system", content: options.systemPrompts.join("\n") })
+        if (options.systemPrompts?.length)
+            result.push({
+                role: "system",
+                content: options.systemPrompts.join("\n"),
+            })
         for (const msg of options.messages) {
             if (msg.role === "user") {
                 result.push({
@@ -298,7 +344,11 @@ export class MistralChatAdapter extends BaseTextAdapter<
                 result.push({
                     role: "assistant",
                     content: text || null,
-                    ...(toolCalls?.length ? { tool_calls: toolCalls } : {}),
+                    ...(toolCalls?.length
+                        ? {
+                              tool_calls: toolCalls,
+                          }
+                        : {}),
                 })
             } else if (msg.role === "tool") {
                 result.push({
@@ -328,12 +378,22 @@ export class MistralChatAdapter extends BaseTextAdapter<
             function: {
                 name: tool.name,
                 description: tool.description ?? "",
-                parameters: (tool.inputSchema ?? { type: "object", properties: {}, required: [] }) as any,
+                parameters: (tool.inputSchema ?? {
+                    type: "object",
+                    properties: {},
+                    required: [],
+                }) as any,
             },
         }))
     }
 }
 
-export function createMistralChat(model: string, options: { apiKey: string; baseURL: string }): MistralChatAdapter {
+export function createMistralChat(
+    model: string,
+    options: {
+        apiKey: string
+        baseURL: string
+    },
+): MistralChatAdapter {
     return new MistralChatAdapter(model, options)
 }

@@ -18,13 +18,22 @@ export const organizationPaymentSchema = v.object({
     flow: v.nonNullable(v.picklist(organizationPaymentFlow, "Valeur invalide"), "Ce champ est requis"),
     status: v.nonNullable(v.picklist(organizationPaymentStatus, "Valeur invalide"), "Ce champ est requis"),
     molliePaymentId: v.nullable(v.string()),
-    sequenceType: v.nullable(varcharSchema({ maxLength: 16 })),
+    sequenceType: v.nullable(
+        varcharSchema({
+            maxLength: 16,
+        }),
+    ),
     serviceType: v.nullable(v.picklist(organizationBillingType, "Valeur invalide")),
     quantity: v.nonNullable(integerSchema, "Ce champ est requis"),
     unitAmountHTInCents: v.nonNullable(integerSchema, "Ce champ est requis"),
     amountHTInCents: v.nonNullable(integerSchema, "Ce champ est requis"),
     amountTVAInCents: v.nonNullable(integerSchema, "Ce champ est requis"),
-    currency: v.nonNullable(varcharSchema({ maxLength: 3 }), "Ce champ est requis"),
+    currency: v.nonNullable(
+        varcharSchema({
+            maxLength: 3,
+        }),
+        "Ce champ est requis",
+    ),
     description: v.nullable(v.string()),
     periodStart: v.nullable(dateTimeSchema),
     periodEnd: v.nullable(dateTimeSchema),

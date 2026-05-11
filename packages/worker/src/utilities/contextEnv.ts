@@ -8,7 +8,10 @@ enum Env {
 
 const envSchema = v.object({
     ENV: v.enum_(Env),
-    VERBOSE: v.picklist(["true", "false"]),
+    VERBOSE: v.picklist([
+        "true",
+        "false",
+    ]),
 
     SQL_DATABASE_URL: v.string(),
 
@@ -23,7 +26,13 @@ const envSchema = v.object({
 
     REDIS_URL: v.string(),
 
-    LLM_PROVIDER: v.optional(v.picklist(["mistral-api", "ollama"]), "ollama"),
+    LLM_PROVIDER: v.optional(
+        v.picklist([
+            "mistral-api",
+            "ollama",
+        ]),
+        "ollama",
+    ),
     LLM_BASE_URL: v.optional(v.string(), "http://localhost:11434"),
     LLM_MODEL: v.optional(v.string(), "mistral-small3.1"),
     LLM_API_KEY: v.optional(v.string(), ""),

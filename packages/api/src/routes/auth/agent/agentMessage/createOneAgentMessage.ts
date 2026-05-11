@@ -12,7 +12,9 @@ import { selectOne } from "../../../../utilities/sql/selectOne.js"
 export const createOneAgentMessageRoute = apiFactory
     .createApp()
     .post(createOneAgentMessageRouteDefinition.path, async (c) => {
-        const { user } = await checkUserSessionMiddleware({ context: c })
+        const { user } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: createOneAgentMessageRouteDefinition.schemas.body,
@@ -85,7 +87,11 @@ export const createOneAgentMessageRoute = apiFactory
         await c.var.clients.queue.add(
             {
                 fn: "runAgentSession",
-                args: [{ idAgentMessage: assistantMessage.id }],
+                args: [
+                    {
+                        idAgentMessage: assistantMessage.id,
+                    },
+                ],
             },
             {
                 jobId: assistantMessage.id,

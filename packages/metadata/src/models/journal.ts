@@ -11,13 +11,23 @@ export const journalModel = pgTable(
     {
         id: idColumn("id").primaryKey(),
         idOrganization: idColumn("id_organization")
-            .references(() => organizationModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => organizationModel.id, {
+                onDelete: "cascade",
+                onUpdate: "cascade",
+            })
             .notNull(),
         idYear: idColumn("id_year")
-            .references(() => yearModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => yearModel.id, {
+                onDelete: "cascade",
+                onUpdate: "cascade",
+            })
             .notNull(),
-        code: varchar("code", { length: 32 }).notNull(),
-        label: varchar("label", { length: 256 }),
+        code: varchar("code", {
+            length: 32,
+        }).notNull(),
+        label: varchar("label", {
+            length: 256,
+        }),
         createdAt: dateTimeColumn("created_at").notNull(),
         lastUpdatedAt: dateTimeColumn("last_updated_at"),
         createdBy: idColumn("created_by").references((): AnyPgColumn => userModel.id, {
@@ -29,5 +39,7 @@ export const journalModel = pgTable(
             onUpdate: "cascade",
         }),
     },
-    (t) => [unique().on(t.idOrganization, t.idYear, t.code)],
+    (t) => [
+        unique().on(t.idOrganization, t.idYear, t.code),
+    ],
 )

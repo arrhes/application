@@ -10,7 +10,10 @@ import { DocSection } from "../../../components/document/docSection.js"
 export function YearsDashboardDocPage() {
     return (
         <DocRoot>
-            <DocHeader title="Gérer les exercices" description="Configuration et administration de vos exercices" />
+            <DocHeader
+                title="Gérer les exercices"
+                description="Configuration et administration de vos exercices"
+            />
 
             <DocSection title="Les exercices comptables">
                 <DocParagraph>
@@ -63,7 +66,10 @@ export function YearsDashboardDocPage() {
                 </DocParagraph>
             </DocSection>
 
-            <DocNextPage to="/documentation/dashboard/écritures" label="Saisir des écritures" />
+            <DocNextPage
+                to="/documentation/dashboard/écritures"
+                label="Saisir des écritures"
+            />
         </DocRoot>
     )
 }

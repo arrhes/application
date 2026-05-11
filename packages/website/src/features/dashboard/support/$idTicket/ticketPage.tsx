@@ -16,16 +16,35 @@ const categoryLabels: Record<string, string> = {
     other: "Autre",
 }
 
-const statusLabels: Record<string, { text: string; color: "success" | "neutral" }> = {
-    open: { text: "Ouvert", color: "success" },
-    closed: { text: "Fermé", color: "neutral" },
+const statusLabels: Record<
+    string,
+    {
+        text: string
+        color: "success" | "neutral"
+    }
+> = {
+    open: {
+        text: "Ouvert",
+        color: "success",
+    },
+    closed: {
+        text: "Fermé",
+        color: "neutral",
+    },
 }
 
 export function TicketPage() {
-    const params = useParams({ from: ticketLayoutRoute.id })
+    const params = useParams({
+        from: ticketLayoutRoute.id,
+    })
 
     return (
-        <Section.Item className={css({ flexDirection: "column", gap: "1rem" })}>
+        <Section.Item
+            className={css({
+                flexDirection: "column",
+                gap: "1rem",
+            })}
+        >
             <DataWrapper
                 routeDefinition={readOneTicketRouteDefinition}
                 body={{
@@ -33,7 +52,10 @@ export function TicketPage() {
                 }}
             >
                 {(ticket) => {
-                    const status = statusLabels[ticket.status] ?? { text: ticket.status, color: "neutral" }
+                    const status = statusLabels[ticket.status] ?? {
+                        text: ticket.status,
+                        color: "neutral",
+                    }
                     const categoryLabel = categoryLabels[ticket.category] ?? ticket.category
 
                     return (
@@ -66,10 +88,27 @@ export function TicketPage() {
                                         gap: "0.5rem",
                                     })}
                                 >
-                                    <h1 className={css({ fontSize: "lg", color: "neutral" })}>Ticket</h1>
-                                    <span className={css({ fontSize: "lg", color: "neutral/50" })}>{ticket.id}</span>
+                                    <h1
+                                        className={css({
+                                            fontSize: "lg",
+                                            color: "neutral",
+                                        })}
+                                    >
+                                        Ticket
+                                    </h1>
+                                    <span
+                                        className={css({
+                                            fontSize: "lg",
+                                            color: "neutral/50",
+                                        })}
+                                    >
+                                        {ticket.id}
+                                    </span>
                                 </div>
-                                <Chip text={status.text} color={status.color} />
+                                <Chip
+                                    text={status.text}
+                                    color={status.color}
+                                />
                             </div>
 
                             <div
@@ -81,18 +120,46 @@ export function TicketPage() {
                                     gap: "0.5rem",
                                 })}
                             >
-                                <span className={css({ fontSize: "sm", color: "neutral/50" })}>Catégorie : </span>
-                                <span className={css({ fontSize: "sm", color: "neutral" })}>{categoryLabel}</span>
+                                <span
+                                    className={css({
+                                        fontSize: "sm",
+                                        color: "neutral/50",
+                                    })}
+                                >
+                                    Catégorie :{" "}
+                                </span>
+                                <span
+                                    className={css({
+                                        fontSize: "sm",
+                                        color: "neutral",
+                                    })}
+                                >
+                                    {categoryLabel}
+                                </span>
                             </div>
 
                             {/* Dates */}
-                            <span className={css({ fontSize: "xs", color: "neutral/50" })}>
-                                {`Créé le ${formatDate(ticket.createdAt, { includeTime: true })}`}
+                            <span
+                                className={css({
+                                    fontSize: "xs",
+                                    color: "neutral/50",
+                                })}
+                            >
+                                {`Créé le ${formatDate(ticket.createdAt, {
+                                    includeTime: true,
+                                })}`}
                             </span>
 
                             {ticket.lastUpdatedAt ? (
-                                <span className={css({ fontSize: "xs", color: "neutral/50" })}>
-                                    {`Mis à jour le ${formatDate(ticket.lastUpdatedAt, { includeTime: true })}`}
+                                <span
+                                    className={css({
+                                        fontSize: "xs",
+                                        color: "neutral/50",
+                                    })}
+                                >
+                                    {`Mis à jour le ${formatDate(ticket.lastUpdatedAt, {
+                                        includeTime: true,
+                                    })}`}
                                 </span>
                             ) : null}
 
@@ -101,10 +168,14 @@ export function TicketPage() {
                             {/* Last message info + close/reopen */}
                             <DataWrapper
                                 routeDefinition={readAllTicketMessagesRouteDefinition}
-                                body={{ idTicket: params.idTicket }}
+                                body={{
+                                    idTicket: params.idTicket,
+                                }}
                             >
                                 {(messages) => {
-                                    const sorted = [...messages].sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+                                    const sorted = [
+                                        ...messages,
+                                    ].sort((a, b) => b.createdAt.localeCompare(a.createdAt))
                                     const lastMessage = sorted[0]
 
                                     return (
@@ -118,13 +189,23 @@ export function TicketPage() {
                                             })}
                                         >
                                             {lastMessage ? (
-                                                <span className={css({ fontSize: "sm", color: "neutral/60" })}>
+                                                <span
+                                                    className={css({
+                                                        fontSize: "sm",
+                                                        color: "neutral/60",
+                                                    })}
+                                                >
                                                     {lastMessage.idAdminUser !== null
                                                         ? "Dernier message : Support (en attente de votre réponse)"
                                                         : "Dernier message : Vous (en attente d'une réponse)"}
                                                 </span>
                                             ) : (
-                                                <span className={css({ fontSize: "sm", color: "neutral/50" })}>
+                                                <span
+                                                    className={css({
+                                                        fontSize: "sm",
+                                                        color: "neutral/50",
+                                                    })}
+                                                >
                                                     Aucun message
                                                 </span>
                                             )}
@@ -138,12 +219,20 @@ export function TicketPage() {
             </DataWrapper>
 
             {/* Reply form — only when open */}
-            <DataWrapper routeDefinition={readOneTicketRouteDefinition} body={{ idTicket: params.idTicket }}>
+            <DataWrapper
+                routeDefinition={readOneTicketRouteDefinition}
+                body={{
+                    idTicket: params.idTicket,
+                }}
+            >
                 {(ticket) =>
                     ticket.status === "open" ? (
                         <CreateOneTicketMessage idTicket={params.idTicket} />
                     ) : (
-                        <Banner variant="error" title="Ticket fermé">
+                        <Banner
+                            variant="error"
+                            title="Ticket fermé"
+                        >
                             Ce ticket est fermé. Ouvrez-le de nouveau pour envoyer un message.
                         </Banner>
                     )

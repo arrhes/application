@@ -93,7 +93,10 @@ describe("POST /auth/add-new-organization", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/add-new-organization",
-            body: { scope: "company", name: "Test" },
+            body: {
+                scope: "company",
+                name: "Test",
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -114,7 +117,9 @@ describe("POST /auth/read-one-organization", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/read-one-organization",
-            body: { idOrganization },
+            body: {
+                idOrganization,
+            },
         })
         expect(response.status).toBe(200)
 
@@ -127,7 +132,9 @@ describe("POST /auth/read-one-organization", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/read-one-organization",
-            body: { idOrganization: "fake-id" },
+            body: {
+                idOrganization: "fake-id",
+            },
         })
         expect(response.status).toBe(401)
     })

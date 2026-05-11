@@ -21,7 +21,10 @@ export function DeleteOneYear(props: {
         })
 
         if (deleteResponse.ok === false) {
-            toast({ title: "Erreur lors de la suppression de l'exercice", variant: "error" })
+            toast({
+                title: "Erreur lors de la suppression de l'exercice",
+                variant: "error",
+            })
             return
         }
 
@@ -30,7 +33,10 @@ export function DeleteOneYear(props: {
             body: {},
         })
 
-        toast({ title: "Exercice supprimé", variant: "success" })
+        toast({
+            title: "Exercice supprimé",
+            variant: "success",
+        })
 
         applicationRouter.navigate({
             to: "/dashboard/organisations/$idOrganization/exercices",
@@ -50,7 +56,10 @@ export function DeleteOneYear(props: {
                     Cette action est irréversible.
                 </>
             }
-            submitButtonProps={{ color: "danger", text: "Supprimer l'exercice" }}
+            submitButtonProps={{
+                color: "danger",
+                text: "Supprimer l'exercice",
+            }}
             onSubmit={onSubmit}
         >
             {props.children}

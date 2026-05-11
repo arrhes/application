@@ -19,10 +19,16 @@ function AccountRow(props: { account: AccountEntry }) {
     const isFacultatif = account.isOptional
     const depth = account.number.length - 1
     return (
-        <div style={{ paddingLeft: `${depth * 1}rem` }}>
+        <div
+            style={{
+                paddingLeft: `${depth * 1}rem`,
+            }}
+        >
             <LinkButton
                 to="/documentation/comptabilité/ressources/comptes/$account"
-                params={{ account: account.slug }}
+                params={{
+                    account: account.slug,
+                }}
                 className={css({
                     display: "flex",
                     alignItems: "center",
@@ -32,7 +38,10 @@ function AccountRow(props: { account: AccountEntry }) {
                     fontSize: "sm",
                     color: "neutral",
                     borderRadius: "md",
-                    _hover: { backgroundColor: "primary/5", color: "primary" },
+                    _hover: {
+                        backgroundColor: "primary/5",
+                        color: "primary",
+                    },
                     transition: "all 0.1s",
                     cursor: "pointer",
                     width: "100%",
@@ -115,7 +124,9 @@ export function AccountsResourcesAccountingDocPage() {
                             textDecoration: "underline",
                             textDecorationColor: "primary/30",
                             textUnderlineOffset: "2px",
-                            _hover: { textDecorationColor: "primary" },
+                            _hover: {
+                                textDecorationColor: "primary",
+                            },
                             transition: "all 0.15s",
                         })}
                     >

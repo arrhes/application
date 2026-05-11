@@ -3,7 +3,14 @@ import { IconAlertTriangle, IconBulb, IconCircleCheck, IconInfoCircle } from "@t
 import type { ComponentType, ReactNode } from "react"
 
 const docTipRecipe = sva({
-    slots: ["container", "header", "iconWrapper", "icon", "label", "content"],
+    slots: [
+        "container",
+        "header",
+        "iconWrapper",
+        "icon",
+        "label",
+        "content",
+    ],
     base: {
         container: {
             padding: "1.25rem",
@@ -48,40 +55,60 @@ const docTipRecipe = sva({
                     backgroundColor: "warning/5",
                     borderColor: "warning/20",
                 },
-                icon: { stroke: "warning" },
-                label: { color: "warning" },
+                icon: {
+                    stroke: "warning",
+                },
+                label: {
+                    color: "warning",
+                },
             },
             warning: {
                 container: {
                     backgroundColor: "error/5",
                     borderColor: "error/20",
                 },
-                icon: { stroke: "error" },
-                label: { color: "error" },
+                icon: {
+                    stroke: "error",
+                },
+                label: {
+                    color: "error",
+                },
             },
             info: {
                 container: {
                     backgroundColor: "information/5",
                     borderColor: "information/20",
                 },
-                icon: { stroke: "information" },
-                label: { color: "information" },
+                icon: {
+                    stroke: "information",
+                },
+                label: {
+                    color: "information",
+                },
             },
             success: {
                 container: {
                     backgroundColor: "success/5",
                     borderColor: "success/20",
                 },
-                icon: { stroke: "success" },
-                label: { color: "success" },
+                icon: {
+                    stroke: "success",
+                },
+                label: {
+                    color: "success",
+                },
             },
             neutral: {
                 container: {
                     backgroundColor: "white",
                     borderColor: "neutral/15",
                 },
-                icon: { stroke: "neutral/50" },
-                label: { color: "neutral/50" },
+                icon: {
+                    stroke: "neutral/50",
+                },
+                label: {
+                    color: "neutral/50",
+                },
             },
         },
     },
@@ -109,11 +136,15 @@ const variantLabels = {
 export function DocTip(props: {
     variant?: "tip" | "warning" | "info" | "success" | "neutral"
     title?: string
-    icon?: ComponentType<{ className?: string }>
+    icon?: ComponentType<{
+        className?: string
+    }>
     children: ReactNode
 }) {
     const variant = props.variant ?? "tip"
-    const classes = docTipRecipe({ variant })
+    const classes = docTipRecipe({
+        variant,
+    })
     const Icon = props.icon ?? variantIcons[variant]
     const label = props.title ?? variantLabels[variant]
 

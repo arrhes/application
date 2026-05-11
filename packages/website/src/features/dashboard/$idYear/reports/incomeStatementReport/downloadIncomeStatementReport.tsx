@@ -46,7 +46,10 @@ export function DownloadIncomeStatementReport(props: {
             },
         })
         if (generateResponse.ok === false) {
-            toast({ title: "Impossible de générer le fichier XBRL", variant: "error" })
+            toast({
+                title: "Impossible de générer le fichier XBRL",
+                variant: "error",
+            })
             return
         }
 
@@ -66,7 +69,10 @@ export function DownloadIncomeStatementReport(props: {
         <Popover.Root>
             <Popover.Trigger asChild>
                 <Button>
-                    <ButtonOutlineContent leftIcon={<IconDownload />} text="Télécharger" />
+                    <ButtonOutlineContent
+                        leftIcon={<IconDownload />}
+                        text="Télécharger"
+                    />
                 </Button>
             </Popover.Trigger>
             <Popover.Content
@@ -79,20 +85,36 @@ export function DownloadIncomeStatementReport(props: {
                 })}
             >
                 <Popover.Close asChild>
-                    <Button onClick={handlePdf} className={css({ width: "100%" })}>
+                    <Button
+                        onClick={handlePdf}
+                        className={css({
+                            width: "100%",
+                        })}
+                    >
                         <ButtonGhostContent
                             leftIcon={<IconFileTypePdf />}
                             text="Télécharger en PDF"
-                            className={css({ width: "100%", justifyContent: "start" })}
+                            className={css({
+                                width: "100%",
+                                justifyContent: "start",
+                            })}
                         />
                     </Button>
                 </Popover.Close>
                 <Popover.Close asChild>
-                    <Button onClick={handleXml} className={css({ width: "100%" })}>
+                    <Button
+                        onClick={handleXml}
+                        className={css({
+                            width: "100%",
+                        })}
+                    >
                         <ButtonGhostContent
                             leftIcon={<IconFileTypeXml />}
                             text="Télécharger en XML"
-                            className={css({ width: "100%", justifyContent: "start" })}
+                            className={css({
+                                width: "100%",
+                                justifyContent: "start",
+                            })}
                         />
                     </Button>
                 </Popover.Close>

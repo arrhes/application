@@ -8,7 +8,11 @@ export const userSchema = v.object({
     id: v.nonNullable(idSchema, "Ce champ est requis"),
     isActive: v.nonNullable(booleanSchema, "Ce champ est requis"),
     isSuperAdmin: v.nonNullable(booleanSchema, "Ce champ est requis"),
-    alias: v.nullable(varcharSchema({ maxLength: 256 })),
+    alias: v.nullable(
+        varcharSchema({
+            maxLength: 256,
+        }),
+    ),
     email: v.nonNullable(emailSchema, "Ce champ est requis"),
     isEmailValidated: v.nonNullable(booleanSchema, "Ce champ est requis"),
     emailToValidate: v.nullable(emailSchema),

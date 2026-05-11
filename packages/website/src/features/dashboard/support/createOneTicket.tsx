@@ -19,7 +19,10 @@ export function CreateOneTicket(props: { children: JSX.Element }) {
     const createdTicketIdRef = useRef<string | undefined>(undefined)
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Créer un nouveau ticket" />
@@ -39,12 +42,18 @@ export function CreateOneTicket(props: { children: JSX.Element }) {
                                 body: data,
                             })
                             if (response.ok === false) {
-                                toast({ title: "Impossible de créer le ticket", variant: "error" })
+                                toast({
+                                    title: "Impossible de créer le ticket",
+                                    variant: "error",
+                                })
                                 return false
                             }
 
                             createdTicketIdRef.current = response.data.id
-                            toast({ title: "Ticket créé avec succès", variant: "success" })
+                            toast({
+                                title: "Ticket créé avec succès",
+                                variant: "success",
+                            })
                             return true
                         }}
                         onCancel={undefined}
@@ -84,10 +93,22 @@ export function CreateOneTicket(props: { children: JSX.Element }) {
                                                     value={field.value}
                                                     onChange={field.onChange}
                                                     options={[
-                                                        { value: "bug", label: "Remonter une erreur" },
-                                                        { value: "enhancement", label: "Suggestion d'amélioration" },
-                                                        { value: "feature", label: "Demande de fonctionnalité" },
-                                                        { value: "other", label: "Autre" },
+                                                        {
+                                                            value: "bug",
+                                                            label: "Remonter une erreur",
+                                                        },
+                                                        {
+                                                            value: "enhancement",
+                                                            label: "Suggestion d'amélioration",
+                                                        },
+                                                        {
+                                                            value: "feature",
+                                                            label: "Demande de fonctionnalité",
+                                                        },
+                                                        {
+                                                            value: "other",
+                                                            label: "Autre",
+                                                        },
                                                     ]}
                                                 />
                                             </FormControl>
@@ -107,7 +128,10 @@ export function CreateOneTicket(props: { children: JSX.Element }) {
                                                 tooltip={undefined}
                                             />
                                             <FormControl>
-                                                <InputTextArea value={field.value} onChange={field.onChange} />
+                                                <InputTextArea
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>

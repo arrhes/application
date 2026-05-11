@@ -4,7 +4,13 @@ import { IconAlertHexagon, IconAlertTriangle, IconCircleCheck, IconInfoSquare } 
 import type { ComponentProps, ReactElement } from "react"
 
 const bannerRecipe = sva({
-    slots: ["container", "header", "icon", "title", "text"],
+    slots: [
+        "container",
+        "header",
+        "icon",
+        "title",
+        "text",
+    ],
     base: {
         container: {
             width: "100%",
@@ -44,45 +50,75 @@ const bannerRecipe = sva({
                     backgroundColor: "background",
                     borderColor: "neutral/15",
                 },
-                icon: { stroke: "neutral" },
-                title: { color: "neutral" },
-                text: { color: "neutral" },
+                icon: {
+                    stroke: "neutral",
+                },
+                title: {
+                    color: "neutral",
+                },
+                text: {
+                    color: "neutral",
+                },
             },
             information: {
                 container: {
                     backgroundColor: "information/5",
                     borderColor: "information/15",
                 },
-                icon: { stroke: "information" },
-                title: { color: "information" },
-                text: { color: "information" },
+                icon: {
+                    stroke: "information",
+                },
+                title: {
+                    color: "information",
+                },
+                text: {
+                    color: "information",
+                },
             },
             error: {
                 container: {
                     backgroundColor: "error/5",
                     borderColor: "error/15",
                 },
-                icon: { stroke: "error" },
-                title: { color: "error" },
-                text: { color: "error" },
+                icon: {
+                    stroke: "error",
+                },
+                title: {
+                    color: "error",
+                },
+                text: {
+                    color: "error",
+                },
             },
             warning: {
                 container: {
                     backgroundColor: "warning/5",
                     borderColor: "warning/15",
                 },
-                icon: { stroke: "warning" },
-                title: { color: "warning" },
-                text: { color: "warning" },
+                icon: {
+                    stroke: "warning",
+                },
+                title: {
+                    color: "warning",
+                },
+                text: {
+                    color: "warning",
+                },
             },
             success: {
                 container: {
                     backgroundColor: "success/5",
                     borderColor: "success/15",
                 },
-                icon: { stroke: "success" },
-                title: { color: "success" },
-                text: { color: "success" },
+                icon: {
+                    stroke: "success",
+                },
+                title: {
+                    color: "success",
+                },
+                text: {
+                    color: "success",
+                },
             },
         },
     },
@@ -116,7 +152,9 @@ export function Banner(props: {
     children?: ReactElement | string | null | Array<ReactElement | string | null>
 }) {
     const variant = props.variant ?? "neutral"
-    const classes = bannerRecipe({ variant })
+    const classes = bannerRecipe({
+        variant,
+    })
     const Icon = variantIcons[variant]
     const title = props.title === undefined ? variantTitles[variant] : props.title
 
@@ -124,7 +162,12 @@ export function Banner(props: {
         <div className={cx(classes.container, props.className)}>
             {(Icon || title) && (
                 <div className={classes.header}>
-                    {Icon && <Icon className={classes.icon} size={16} />}
+                    {Icon && (
+                        <Icon
+                            className={classes.icon}
+                            size={16}
+                        />
+                    )}
                     {title && <span className={classes.title}>{title}</span>}
                 </div>
             )}

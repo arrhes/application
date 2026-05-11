@@ -49,14 +49,44 @@ function getFileTypeLabel(type: string | null): string | null {
     return null
 }
 
-function getFileTypeBadgeColor(type: string | null): { bg: string; text: string } {
-    if (!type) return { bg: "neutral/8", text: "neutral/50" }
-    if (type.startsWith("image/")) return { bg: "blue.50", text: "blue.600" }
-    if (type === "application/pdf") return { bg: "red.50", text: "red.600" }
-    if (type.startsWith("text/")) return { bg: "green.50", text: "green.600" }
-    if (type.includes("spreadsheet") || type.includes("excel")) return { bg: "emerald.50", text: "emerald.600" }
-    if (type.includes("document") || type.includes("word")) return { bg: "indigo.50", text: "indigo.600" }
-    return { bg: "neutral/8", text: "neutral/50" }
+function getFileTypeBadgeColor(type: string | null): {
+    bg: string
+    text: string
+} {
+    if (!type)
+        return {
+            bg: "neutral/8",
+            text: "neutral/50",
+        }
+    if (type.startsWith("image/"))
+        return {
+            bg: "blue.50",
+            text: "blue.600",
+        }
+    if (type === "application/pdf")
+        return {
+            bg: "red.50",
+            text: "red.600",
+        }
+    if (type.startsWith("text/"))
+        return {
+            bg: "green.50",
+            text: "green.600",
+        }
+    if (type.includes("spreadsheet") || type.includes("excel"))
+        return {
+            bg: "emerald.50",
+            text: "emerald.600",
+        }
+    if (type.includes("document") || type.includes("word"))
+        return {
+            bg: "indigo.50",
+            text: "indigo.600",
+        }
+    return {
+        bg: "neutral/8",
+        text: "neutral/50",
+    }
 }
 
 const cardStyle = css({
@@ -79,8 +109,16 @@ const cardStyle = css({
 })
 
 type DragPayload =
-    | { kind: "file"; id: string; sourceFolderId: string | null }
-    | { kind: "folder"; id: string; sourceParentFolderId: string | null }
+    | {
+          kind: "file"
+          id: string
+          sourceFolderId: string | null
+      }
+    | {
+          kind: "folder"
+          id: string
+          sourceParentFolderId: string | null
+      }
 
 export function FilesGrid(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
@@ -138,7 +176,13 @@ export function FilesGrid(props: {
         return parameters.payload.sourceParentFolderId !== parameters.targetFolderId
     }
 
-    function handleDragOver(event: DragEvent, parameters: { targetId: string; targetFolderId: string | null }) {
+    function handleDragOver(
+        event: DragEvent,
+        parameters: {
+            targetId: string
+            targetFolderId: string | null
+        },
+    ) {
         event.preventDefault()
         event.dataTransfer.dropEffect = "move"
         setDragOverFolderId(parameters.targetId)
@@ -154,7 +198,13 @@ export function FilesGrid(props: {
 
         const payload = draggingPayloadRef.current ?? draggingPayload ?? getDragPayload(event)
         if (!payload) return
-        if (!canDropOnTarget({ payload, targetFolderId: folderId })) return
+        if (
+            !canDropOnTarget({
+                payload,
+                targetFolderId: folderId,
+            })
+        )
+            return
 
         if (payload.kind === "file") {
             const updateResponse = await getResponseBodyFromAPI({
@@ -167,7 +217,10 @@ export function FilesGrid(props: {
             })
 
             if (updateResponse.ok === false) {
-                toast({ title: "Impossible de déplacer le fichier", variant: "error" })
+                toast({
+                    title: "Impossible de déplacer le fichier",
+                    variant: "error",
+                })
                 return
             }
 
@@ -178,7 +231,10 @@ export function FilesGrid(props: {
                 },
             })
 
-            toast({ title: "Fichier déplacé", variant: "success" })
+            toast({
+                title: "Fichier déplacé",
+                variant: "success",
+            })
             return
         }
 
@@ -196,7 +252,10 @@ export function FilesGrid(props: {
         })
 
         if (updateResponse.ok === false) {
-            toast({ title: "Impossible de déplacer le dossier", variant: "error" })
+            toast({
+                title: "Impossible de déplacer le dossier",
+                variant: "error",
+            })
             return
         }
 
@@ -207,7 +266,10 @@ export function FilesGrid(props: {
             },
         })
 
-        toast({ title: "Dossier déplacé", variant: "success" })
+        toast({
+            title: "Dossier déplacé",
+            variant: "success",
+        })
     }
 
     if (isEmpty) {
@@ -290,7 +352,11 @@ export function FilesGrid(props: {
                                 alignItems: "center",
                             })}
                         >
-                            <div className={css({ color: "neutral/30" })}>
+                            <div
+                                className={css({
+                                    color: "neutral/30",
+                                })}
+                            >
                                 <IconArrowUp size={32} />
                             </div>
                         </div>
@@ -386,7 +452,11 @@ export function FilesGrid(props: {
                                     backgroundColor: "amber.50",
                                 })}
                             >
-                                <div className={css({ color: "amber.500" })}>
+                                <div
+                                    className={css({
+                                        color: "amber.500",
+                                    })}
+                                >
                                     <IconFolder size={40} />
                                 </div>
                             </div>
@@ -480,7 +550,11 @@ export function FilesGrid(props: {
                                         position: "relative",
                                     })}
                                 >
-                                    <div className={css({ color: getFileIconColor(file.type) })}>
+                                    <div
+                                        className={css({
+                                            color: getFileIconColor(file.type),
+                                        })}
+                                    >
                                         {getFileIcon(file.type)}
                                     </div>
                                     {/* File type badge */}
@@ -556,7 +630,13 @@ export function FilesGrid(props: {
                                         <FormatDate date={file.createdAt} />
                                         {file.size && (
                                             <>
-                                                <span className={css({ color: "neutral/20" })}>·</span>
+                                                <span
+                                                    className={css({
+                                                        color: "neutral/20",
+                                                    })}
+                                                >
+                                                    ·
+                                                </span>
                                                 <FormatFileSize size={file.size} />
                                             </>
                                         )}

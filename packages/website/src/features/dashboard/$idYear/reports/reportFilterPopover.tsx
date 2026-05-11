@@ -14,10 +14,24 @@ import { Popover } from "../../../../components/overlays/popover/popover.js"
 export function ReportFilterPopover(props: {
     selectedJournalId: string | null
     onJournalChange: (value: string | null) => void
-    journalOptions: Array<{ key: string; label: string }>
-    selectedTags: Array<{ key: string; label: string }>
-    onTagsChange: (values: Array<{ key: string; label: string }>) => void
-    tagOptions: Array<{ key: string; label: string }>
+    journalOptions: Array<{
+        key: string
+        label: string
+    }>
+    selectedTags: Array<{
+        key: string
+        label: string
+    }>
+    onTagsChange: (
+        values: Array<{
+            key: string
+            label: string
+        }>,
+    ) => void
+    tagOptions: Array<{
+        key: string
+        label: string
+    }>
 }) {
     const activeFilterCount = (props.selectedJournalId ? 1 : 0) + (props.selectedTags.length > 0 ? 1 : 0)
 
@@ -31,9 +45,15 @@ export function ReportFilterPopover(props: {
             <Popover.Trigger asChild>
                 <Button>
                     {activeFilterCount > 0 ? (
-                        <ButtonPlainContent leftIcon={<IconFilter />} text={`Filtrer (${activeFilterCount})`} />
+                        <ButtonPlainContent
+                            leftIcon={<IconFilter />}
+                            text={`Filtrer (${activeFilterCount})`}
+                        />
                     ) : (
-                        <ButtonOutlineContent leftIcon={<IconFilter />} text="Filtrer" />
+                        <ButtonOutlineContent
+                            leftIcon={<IconFilter />}
+                            text="Filtrer"
+                        />
                     )}
                 </Button>
             </Popover.Trigger>
@@ -51,14 +71,19 @@ export function ReportFilterPopover(props: {
             >
                 <Button
                     onClick={handleClearAll}
-                    className={css({ width: "100%" })}
+                    className={css({
+                        width: "100%",
+                    })}
                     isDisabled={activeFilterCount === 0}
                 >
                     <ButtonGhostContent
                         color="danger"
                         leftIcon={<IconX />}
                         text="Effacer les filtres"
-                        className={css({ width: "100%", justifyContent: "start" })}
+                        className={css({
+                            width: "100%",
+                            justifyContent: "start",
+                        })}
                         isDisabled={activeFilterCount === 0}
                     />
                 </Button>

@@ -54,7 +54,11 @@ export function PageNavigation(props: {
                             matchRoute === undefined || !currentPath ? false : currentPath.includes(matchRoute.routeId)
 
                         return (
-                            <LinkButton key={String(tab.to)} to={tab.to} params={tab.params}>
+                            <LinkButton
+                                key={String(tab.to)}
+                                to={tab.to}
+                                params={tab.params}
+                            >
                                 <ButtonGhostContent
                                     leftIcon={tab.icon}
                                     text={tab.label}

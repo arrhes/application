@@ -8,7 +8,9 @@ import { CreateOneOrganizationUser } from "./createOneOrganizationUser.tsx"
 import { OrganizationUsersListTable } from "./organizationUsersListTable.tsx"
 
 export function OrganizationUsersPage() {
-    const params = useParams({ from: organizationUsersRoute.id })
+    const params = useParams({
+        from: organizationUsersRoute.id,
+    })
 
     return (
         <Page.Root>
@@ -18,9 +20,19 @@ export function OrganizationUsersPage() {
                 </Page.Title>
             </Page.Header> */}
             <Page.Content>
-                <div className={css({ width: "100%", display: "flex", justifyContent: "end", alignItems: "center" })}>
+                <div
+                    className={css({
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "end",
+                        alignItems: "center",
+                    })}
+                >
                     <CreateOneOrganizationUser idOrganization={params.idOrganization}>
-                        <ButtonOutlineContent leftIcon={<IconUserPlus />} text="Inviter un collaborateur" />
+                        <ButtonOutlineContent
+                            leftIcon={<IconUserPlus />}
+                            text="Inviter un collaborateur"
+                        />
                     </CreateOneOrganizationUser>
                 </div>
                 <OrganizationUsersListTable idOrganization={params.idOrganization} />

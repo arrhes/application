@@ -8,7 +8,9 @@ import { selectOne } from "../../../utilities/sql/selectOne.js"
 import { updateOne } from "../../../utilities/sql/updateOne.js"
 
 export const updateOneTicketRoute = apiFactory.createApp().post(updateOneTicketRouteDefinition.path, async (c) => {
-    const { user } = await checkUserSessionMiddleware({ context: c })
+    const { user } = await checkUserSessionMiddleware({
+        context: c,
+    })
     const body = await validateBodyMiddleware({
         context: c,
         schema: updateOneTicketRouteDefinition.schemas.body,

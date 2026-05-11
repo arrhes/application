@@ -8,7 +8,9 @@ import { insertOne } from "../../../../../utilities/sql/insertOne.js"
 export const createOneBalanceSheetRoute = apiFactory
     .createApp()
     .post(createOneBalanceSheetRouteDefinition.path, async (c) => {
-        const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+        const { user, idOrganization } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: createOneBalanceSheetRouteDefinition.schemas.body,

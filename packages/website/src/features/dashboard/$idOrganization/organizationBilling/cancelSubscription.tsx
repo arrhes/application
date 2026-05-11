@@ -45,10 +45,17 @@ export function CancelSubscription(_props: { idOrganization: string }) {
                     body: {},
                 })
 
-                toast({ title: "Abonnement mis en pause", variant: "success" })
+                toast({
+                    title: "Abonnement mis en pause",
+                    variant: "success",
+                })
             }}
         >
-            <ButtonOutlineContent leftIcon={<IconPlayerPause />} text="Mettre en pause l'abonnement" color="danger" />
+            <ButtonOutlineContent
+                leftIcon={<IconPlayerPause />}
+                text="Mettre en pause l'abonnement"
+                color="danger"
+            />
         </ConfirmationModal>
     )
 }

@@ -40,7 +40,10 @@ export function ComputationIncomeStatementsTable(props: {
                                             idComputationIncomeStatement: row.original.id,
                                         }}
                                     >
-                                        <ButtonGhostContent leftIcon={<IconEye />} text={undefined} />
+                                        <ButtonGhostContent
+                                            leftIcon={<IconEye />}
+                                            text={undefined}
+                                        />
                                     </LinkButton>
                                 ),
                                 enableSorting: false,

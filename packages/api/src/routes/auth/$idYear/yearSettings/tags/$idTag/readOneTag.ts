@@ -7,7 +7,9 @@ import { response } from "../../../../../../utilities/response.js"
 import { selectOne } from "../../../../../../utilities/sql/selectOne.js"
 
 export const readOneTagRoute = apiFactory.createApp().post(readOneTagRouteDefinition.path, async (c) => {
-    const { idOrganization } = await checkUserSessionMiddleware({ context: c })
+    const { idOrganization } = await checkUserSessionMiddleware({
+        context: c,
+    })
     const body = await validateBodyMiddleware({
         context: c,
         schema: readOneTagRouteDefinition.schemas.body,

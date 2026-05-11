@@ -8,7 +8,9 @@ import { productName } from "../utilities/variables.js"
 import { checkUserSessionMiddleware } from "./checkUserSessionMiddleware.js"
 
 async function trySuperAdminDashboardFallback(parameters: { context: Context<any> }) {
-    const userSession = await checkUserSessionMiddleware({ context: parameters.context })
+    const userSession = await checkUserSessionMiddleware({
+        context: parameters.context,
+    })
     if (userSession.user.isSuperAdmin !== true) {
         throw new Exception({
             internalMessage: "Admin auth error",
@@ -35,7 +37,9 @@ export async function checkAdminUserSessionMiddleware(parameters: { context: Con
         })
 
         if (!idAdminUserSession) {
-            return trySuperAdminDashboardFallback({ context: parameters.context })
+            return trySuperAdminDashboardFallback({
+                context: parameters.context,
+            })
         }
 
         const adminUserSession = await parameters.context.var.clients.sql.query.userSessionModel.findFirst({
@@ -43,7 +47,9 @@ export async function checkAdminUserSessionMiddleware(parameters: { context: Con
         })
 
         if (!adminUserSession || adminUserSession.isActive === false) {
-            return trySuperAdminDashboardFallback({ context: parameters.context })
+            return trySuperAdminDashboardFallback({
+                context: parameters.context,
+            })
         }
 
         const adminUser = await parameters.context.var.clients.sql.query.userModel.findFirst({
@@ -51,7 +57,9 @@ export async function checkAdminUserSessionMiddleware(parameters: { context: Con
         })
 
         if (!adminUser || adminUser.isSuperAdmin !== true) {
-            return trySuperAdminDashboardFallback({ context: parameters.context })
+            return trySuperAdminDashboardFallback({
+                context: parameters.context,
+            })
         }
 
         parameters.context.set("adminUser", adminUser)

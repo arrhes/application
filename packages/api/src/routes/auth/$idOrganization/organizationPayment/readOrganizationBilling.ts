@@ -11,7 +11,9 @@ import { selectOne } from "../../../../utilities/sql/selectOne.js"
 export const readOrganizationBillingRoute = apiFactory
     .createApp()
     .post(readOrganizationBillingRouteDefinition.path, async (c) => {
-        const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+        const { user, idOrganization } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const _body = await validateBodyMiddleware({
             context: c,
             schema: readOrganizationBillingRouteDefinition.schemas.body,
@@ -40,7 +42,10 @@ export const readOrganizationBillingRoute = apiFactory
         })
 
         const latestPayment = payments.at(0)
-        const totalSubscriptionAmountInCents = await computeMonthlyTotal({ var: c.var, idOrganization })
+        const totalSubscriptionAmountInCents = await computeMonthlyTotal({
+            var: c.var,
+            idOrganization,
+        })
 
         return response({
             context: c,

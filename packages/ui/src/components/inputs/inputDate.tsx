@@ -14,7 +14,11 @@ function isoToDisplay(value: string | undefined | null) {
 
     if (date.getDate() < 10) day = `0${day}`
     if (date.getMonth() + 1 < 10) month = `0${month}`
-    return [day, month, year].join(" / ")
+    return [
+        day,
+        month,
+        year,
+    ].join(" / ")
 }
 
 function displayToIso(value: string | undefined) {
@@ -56,10 +60,23 @@ export function InputDate(
                     gap: "0.5rem",
                     border: "1px solid",
                     borderRadius: "md",
-                    _hover: { borderColor: "neutral/50" },
-                    _focusWithin: { borderColor: "neutral/50", boxShadow: "inset" },
+                    _hover: {
+                        borderColor: "neutral/50",
+                    },
+                    _focusWithin: {
+                        borderColor: "neutral/50",
+                        boxShadow: "inset",
+                    },
                 }),
-                css(props.error ? { borderColor: "error" } : { borderColor: "neutral/20" }),
+                css(
+                    props.error
+                        ? {
+                              borderColor: "error",
+                          }
+                        : {
+                              borderColor: "neutral/20",
+                          },
+                ),
                 props.className,
             )}
         >
@@ -108,12 +125,17 @@ export function InputDate(
                     fontSize: "0.875rem",
                     lineHeight: "1rem",
                     fontWeight: "400",
-                    _placeholder: { color: "neutral/25" },
+                    _placeholder: {
+                        color: "neutral/25",
+                    },
                     padding: "0.5rem",
                     overflow: "hidden",
                     whiteSpace: "nowrap",
                     textOverflow: "ellipsis",
-                    _focusWithin: { borderColor: "neutral/50", outline: "none" },
+                    _focusWithin: {
+                        borderColor: "neutral/50",
+                        outline: "none",
+                    },
                 })}
                 inputMode="decimal"
             />

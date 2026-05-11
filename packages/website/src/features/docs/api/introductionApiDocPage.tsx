@@ -43,22 +43,52 @@ export function IntroductionApiDocPage() {
             <DocSection title="Gestion des erreurs">
                 <DocParagraph>Toutes les erreurs sont retournées avec un message en français :</DocParagraph>
                 <DocTable
-                    headers={["Code", "Signification"]}
+                    headers={[
+                        "Code",
+                        "Signification",
+                    ]}
                     rows={[
-                        ["400", "Requête invalide - erreur de validation, règle métier non respectée"],
-                        ["401", "Non autorisé - session manquante/invalide, permissions insuffisantes"],
-                        ["404", "Non trouvé - la route n'existe pas"],
-                        ["500", "Erreur interne du serveur"],
+                        [
+                            "400",
+                            "Requête invalide - erreur de validation, règle métier non respectée",
+                        ],
+                        [
+                            "401",
+                            "Non autorisé - session manquante/invalide, permissions insuffisantes",
+                        ],
+                        [
+                            "404",
+                            "Non trouvé - la route n'existe pas",
+                        ],
+                        [
+                            "500",
+                            "Erreur interne du serveur",
+                        ],
                     ]}
                 />
                 <DocParagraph>Les messages d'erreur courants incluent :</DocParagraph>
                 <DocTable
-                    headers={["Message", "Signification"]}
+                    headers={[
+                        "Message",
+                        "Signification",
+                    ]}
                     rows={[
-                        ["\"Vous n'êtes pas administrateur de l'organisation\"", "Accès administrateur requis"],
-                        ['"Données invalides"', "La validation du corps de la requête a échoué"],
-                        ['"Fichier trop volumineux"', "Le fichier dépasse la limite de 50 Mo"],
-                        ['"Limite de stockage atteinte"', "Limite de stockage de l'organisation atteinte"],
+                        [
+                            "\"Vous n'êtes pas administrateur de l'organisation\"",
+                            "Accès administrateur requis",
+                        ],
+                        [
+                            '"Données invalides"',
+                            "La validation du corps de la requête a échoué",
+                        ],
+                        [
+                            '"Fichier trop volumineux"',
+                            "Le fichier dépasse la limite de 50 Mo",
+                        ],
+                        [
+                            '"Limite de stockage atteinte"',
+                            "Limite de stockage de l'organisation atteinte",
+                        ],
                     ]}
                 />
             </DocSection>
@@ -69,30 +99,123 @@ export function IntroductionApiDocPage() {
                     catégorie :
                 </DocParagraph>
                 <DocTable
-                    headers={["#", "Catégorie", "Routes", "Scope"]}
+                    headers={[
+                        "#",
+                        "Catégorie",
+                        "Routes",
+                        "Scope",
+                    ]}
                     rows={[
-                        ["1", "Paramètres d'organisation", "3", "Organisation"],
-                        ["2", "Clés API", "3", "Organisation"],
-                        ["3", "Abonnement et paiements", "4", "Organisation"],
-                        ["4", "Utilisateurs d'organisation", "5", "Organisation"],
-                        ["5", "Exercices", "9", "Organisation"],
-                        ["6", "Comptes", "5", "Exercice"],
-                        ["7", "Journaux", "5", "Exercice"],
-                        ["8", "Bilans", "5", "Exercice"],
-                        ["9", "Comptes de résultat", "5", "Exercice"],
-                        ["10", "Calculs", "5", "Exercice"],
-                        ["11", "Calculs - comptes de résultat", "5", "Exercice"],
-                        ["12", "Libellés d'écriture", "5", "Exercice"],
-                        ["13", "Écritures", "8", "Exercice"],
-                        ["14", "Mouvements", "6", "Exercice"],
-                        ["15", "Fichiers", "7", "Exercice"],
-                        ["16", "Dossiers", "5", "Exercice"],
-                        ["17", "Documents et rapports", "5", "Exercice"],
+                        [
+                            "1",
+                            "Paramètres d'organisation",
+                            "3",
+                            "Organisation",
+                        ],
+                        [
+                            "2",
+                            "Clés API",
+                            "3",
+                            "Organisation",
+                        ],
+                        [
+                            "3",
+                            "Abonnement et paiements",
+                            "4",
+                            "Organisation",
+                        ],
+                        [
+                            "4",
+                            "Utilisateurs d'organisation",
+                            "5",
+                            "Organisation",
+                        ],
+                        [
+                            "5",
+                            "Exercices",
+                            "9",
+                            "Organisation",
+                        ],
+                        [
+                            "6",
+                            "Comptes",
+                            "5",
+                            "Exercice",
+                        ],
+                        [
+                            "7",
+                            "Journaux",
+                            "5",
+                            "Exercice",
+                        ],
+                        [
+                            "8",
+                            "Bilans",
+                            "5",
+                            "Exercice",
+                        ],
+                        [
+                            "9",
+                            "Comptes de résultat",
+                            "5",
+                            "Exercice",
+                        ],
+                        [
+                            "10",
+                            "Calculs",
+                            "5",
+                            "Exercice",
+                        ],
+                        [
+                            "11",
+                            "Calculs - comptes de résultat",
+                            "5",
+                            "Exercice",
+                        ],
+                        [
+                            "12",
+                            "Libellés d'écriture",
+                            "5",
+                            "Exercice",
+                        ],
+                        [
+                            "13",
+                            "Écritures",
+                            "8",
+                            "Exercice",
+                        ],
+                        [
+                            "14",
+                            "Mouvements",
+                            "6",
+                            "Exercice",
+                        ],
+                        [
+                            "15",
+                            "Fichiers",
+                            "7",
+                            "Exercice",
+                        ],
+                        [
+                            "16",
+                            "Dossiers",
+                            "5",
+                            "Exercice",
+                        ],
+                        [
+                            "17",
+                            "Documents et rapports",
+                            "5",
+                            "Exercice",
+                        ],
                     ]}
                 />
             </DocSection>
 
-            <DocNextPage to="/documentation/api/authentification" label="Authentification" />
+            <DocNextPage
+                to="/documentation/api/authentification"
+                label="Authentification"
+            />
         </DocRoot>
     )
 }

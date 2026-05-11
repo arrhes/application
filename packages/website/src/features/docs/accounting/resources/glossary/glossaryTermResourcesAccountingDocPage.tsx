@@ -13,15 +13,25 @@ import { LinkButton } from "../../../../../components/linkButton.js"
 import { getGlossaryTermBySlug, glossaryTerms } from "./glossaryData.js"
 
 export function GlossaryTermResourcesAccountingDocPage() {
-    const { term: slug } = useParams({ strict: false }) as { term: string }
+    const { term: slug } = useParams({
+        strict: false,
+    }) as {
+        term: string
+    }
     const entry = getGlossaryTermBySlug(slug)
 
     if (!entry) {
         return (
             <DocRoot>
-                <DocHeader title="Terme introuvable" description="Ce terme n'existe pas dans le glossaire." />
+                <DocHeader
+                    title="Terme introuvable"
+                    description="Ce terme n'existe pas dans le glossaire."
+                />
                 <LinkButton to="/documentation/comptabilité/ressources/glossaire">
-                    <ButtonOutlineContent leftIcon={<IconArrowLeft />} text="Retour au glossaire" />
+                    <ButtonOutlineContent
+                        leftIcon={<IconArrowLeft />}
+                        text="Retour au glossaire"
+                    />
                 </LinkButton>
             </DocRoot>
         )
@@ -30,10 +40,16 @@ export function GlossaryTermResourcesAccountingDocPage() {
     return (
         <DocRoot>
             <LinkButton to="/documentation/comptabilité/ressources/glossaire">
-                <ButtonOutlineContent leftIcon={<IconArrowLeft />} text="Retour au glossaire" />
+                <ButtonOutlineContent
+                    leftIcon={<IconArrowLeft />}
+                    text="Retour au glossaire"
+                />
             </LinkButton>
 
-            <DocHeader title={entry.term} description="Glossaire comptable" />
+            <DocHeader
+                title={entry.term}
+                description="Glossaire comptable"
+            />
 
             {/* Definition card */}
             <div
@@ -46,7 +62,11 @@ export function GlossaryTermResourcesAccountingDocPage() {
                 })}
             >
                 <DocDefinition>{entry.definition}</DocDefinition>
-                <DocTip variant="neutral" title="Traduction anglaise" icon={IconLanguage}>
+                <DocTip
+                    variant="neutral"
+                    title="Traduction anglaise"
+                    icon={IconLanguage}
+                >
                     {entry.englishTranslation}
                 </DocTip>
             </div>
@@ -69,9 +89,14 @@ export function GlossaryTermResourcesAccountingDocPage() {
                                 <LinkButton
                                     key={relatedEntry.slug}
                                     to="/documentation/comptabilité/ressources/glossaire/$term"
-                                    params={{ term: relatedEntry.slug }}
+                                    params={{
+                                        term: relatedEntry.slug,
+                                    }}
                                 >
-                                    <ButtonOutlineContent leftIcon={<IconLink />} text={relatedEntry.term} />
+                                    <ButtonOutlineContent
+                                        leftIcon={<IconLink />}
+                                        text={relatedEntry.term}
+                                    />
                                 </LinkButton>
                             )
                         })}
@@ -84,8 +109,14 @@ export function GlossaryTermResourcesAccountingDocPage() {
                 <DocSection title="Pages associées">
                     <DocParagraph>
                         {entry.relatedPages.map((page) => (
-                            <LinkButton key={page.path} to={page.path}>
-                                <ButtonOutlineContent leftIcon={<IconLink />} text={page.label} />
+                            <LinkButton
+                                key={page.path}
+                                to={page.path}
+                            >
+                                <ButtonOutlineContent
+                                    leftIcon={<IconLink />}
+                                    text={page.label}
+                                />
                             </LinkButton>
                         ))}
                     </DocParagraph>

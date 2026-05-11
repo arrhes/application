@@ -3,7 +3,10 @@ import type { ComponentPropsWithRef } from "react"
 
 export function DialogRoot(props: ComponentPropsWithRef<typeof DialogPrimitive.Root>) {
     return (
-        <DialogPrimitive.Root {...props} modal={true}>
+        <DialogPrimitive.Root
+            {...props}
+            modal={true}
+        >
             {props.children}
         </DialogPrimitive.Root>
     )

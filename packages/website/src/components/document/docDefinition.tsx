@@ -5,7 +5,11 @@ import { DocTip } from "./docTip.js"
 
 export function DocDefinition(props: { term?: string; children: ReactNode }) {
     return (
-        <DocTip variant="neutral" title="Définition" icon={IconBookmark}>
+        <DocTip
+            variant="neutral"
+            title="Définition"
+            icon={IconBookmark}
+        >
             <div
                 className={css({
                     display: "flex",

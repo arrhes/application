@@ -7,7 +7,9 @@ import { Exception } from "#src/utilities/exception.js"
 export function sqlClient() {
     try {
         const queryClient = postgres(ContextEnv.SQL_DATABASE_URL)
-        const db = drizzle(queryClient, { schema: modelSchemas })
+        const db = drizzle(queryClient, {
+            schema: modelSchemas,
+        })
         return db
     } catch (error) {
         throw new Exception({

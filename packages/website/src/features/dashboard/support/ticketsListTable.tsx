@@ -8,7 +8,10 @@ import { TicketListTableRow } from "./ticketListTableRow.tsx"
 export function TicketsListTable() {
     return (
         <ListTable.Root>
-            <DataWrapper routeDefinition={readAllTicketsRouteDefinition} body={{}}>
+            <DataWrapper
+                routeDefinition={readAllTicketsRouteDefinition}
+                body={{}}
+            >
                 {(tickets) => {
                     const sortedTickets = tickets.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
 
@@ -21,7 +24,12 @@ export function TicketsListTable() {
                             />
                         )
                     }
-                    return sortedTickets.map((ticket) => <TicketListTableRow key={ticket.id} ticket={ticket} />)
+                    return sortedTickets.map((ticket) => (
+                        <TicketListTableRow
+                            key={ticket.id}
+                            ticket={ticket}
+                        />
+                    ))
                 }}
             </DataWrapper>
         </ListTable.Root>

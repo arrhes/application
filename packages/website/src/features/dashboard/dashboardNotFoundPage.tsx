@@ -71,7 +71,10 @@ export function DashboardNotFoundPage() {
                     })}
                 >
                     <LinkButton to="/dashboard">
-                        <ButtonOutlineContent text="Tableau de bord" leftIcon={<IconHome />} />
+                        <ButtonOutlineContent
+                            text="Tableau de bord"
+                            leftIcon={<IconHome />}
+                        />
                     </LinkButton>
                 </div>
             </div>

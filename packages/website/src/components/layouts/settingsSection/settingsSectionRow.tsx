@@ -26,9 +26,29 @@ export function SettingsSectionRow(props: {
                 },
             })}
         >
-            <div className={css({ display: "flex", flexDirection: "column", gap: "0.25rem" })}>
-                <span className={css({ fontSize: "sm", fontWeight: "semibold" })}>{props.title}</span>
-                <span className={css({ fontSize: "xs", color: "neutral/50" })}>{props.description}</span>
+            <div
+                className={css({
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.25rem",
+                })}
+            >
+                <span
+                    className={css({
+                        fontSize: "sm",
+                        fontWeight: "semibold",
+                    })}
+                >
+                    {props.title}
+                </span>
+                <span
+                    className={css({
+                        fontSize: "xs",
+                        color: "neutral/50",
+                    })}
+                >
+                    {props.description}
+                </span>
             </div>
             {props.children}
         </div>

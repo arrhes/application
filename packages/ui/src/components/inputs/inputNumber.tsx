@@ -7,9 +7,22 @@ export function InputNumber(props: { value: number; onChange: (value: number) =>
     const min = props.min ?? 0
 
     return (
-        <div className={css({ display: "flex", alignItems: "center", gap: "0.25rem" })}>
-            <Button onClick={() => props.onChange(Math.max(props.value - 1, min))} isDisabled={props.value <= min}>
-                <ButtonOutlineContent leftIcon={<IconMinus />} text={undefined} isDisabled={props.value <= min} />
+        <div
+            className={css({
+                display: "flex",
+                alignItems: "center",
+                gap: "0.25rem",
+            })}
+        >
+            <Button
+                onClick={() => props.onChange(Math.max(props.value - 1, min))}
+                isDisabled={props.value <= min}
+            >
+                <ButtonOutlineContent
+                    leftIcon={<IconMinus />}
+                    text={undefined}
+                    isDisabled={props.value <= min}
+                />
             </Button>
             <input
                 type="number"
@@ -31,13 +44,26 @@ export function InputNumber(props: { value: number; onChange: (value: number) =>
                     fontVariantNumeric: "tabular-nums",
                     outline: "none",
                     appearance: "textfield",
-                    "&::-webkit-inner-spin-button": { display: "none" },
-                    "&::-webkit-outer-spin-button": { display: "none" },
-                    _focus: { border: "1px solid token(colors.neutral/50)" },
+                    "&::-webkit-inner-spin-button": {
+                        display: "none",
+                    },
+                    "&::-webkit-outer-spin-button": {
+                        display: "none",
+                    },
+                    _focus: {
+                        border: "1px solid token(colors.neutral/50)",
+                    },
                 })}
             />
-            <Button onClick={() => props.onChange(props.value + 1)} isDisabled={false}>
-                <ButtonOutlineContent leftIcon={<IconPlus />} text={undefined} isDisabled={false} />
+            <Button
+                onClick={() => props.onChange(props.value + 1)}
+                isDisabled={false}
+            >
+                <ButtonOutlineContent
+                    leftIcon={<IconPlus />}
+                    text={undefined}
+                    isDisabled={false}
+                />
             </Button>
         </div>
     )

@@ -17,7 +17,14 @@ export function formatDateTime(rawDate?: string | Date | undefined | null) {
     if (date.getHours() < 10) hour = `0${hour}`
     if (date.getMinutes() < 10) minute = `0${minute}`
 
-    return `${[day, month, year].join("/")} ${[hour, minute].join(":")}`
+    return `${[
+        day,
+        month,
+        year,
+    ].join("/")} ${[
+        hour,
+        minute,
+    ].join(":")}`
 }
 
 type FormatDateTime = {
@@ -40,7 +47,14 @@ export function FormatDateTime(props: FormatDateTime) {
                 gap: "0.25rem",
             })}
         >
-            <span className={css({ fontSize: "sm", fontFamily: "mono" })}>{datePart}</span>
+            <span
+                className={css({
+                    fontSize: "sm",
+                    fontFamily: "mono",
+                })}
+            >
+                {datePart}
+            </span>
             <span
                 className={css({
                     fontSize: "xs",

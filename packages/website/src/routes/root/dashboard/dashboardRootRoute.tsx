@@ -11,7 +11,9 @@ export const dashboardRootRoute = createRoute({
         if (storedOrganizationId) {
             throw redirect({
                 to: "/dashboard/organisations/$idOrganization",
-                params: { idOrganization: storedOrganizationId },
+                params: {
+                    idOrganization: storedOrganizationId,
+                },
             })
         }
         throw redirect({

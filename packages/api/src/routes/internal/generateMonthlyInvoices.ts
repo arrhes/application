@@ -16,7 +16,9 @@ import { response } from "../../utilities/response.js"
 import { updateOne } from "../../utilities/sql/updateOne.js"
 import { putObject } from "../../utilities/storage/putObject.js"
 
-const generateMonthlyInvoicesReturnSchema = v.object({ generatedCount: v.number() })
+const generateMonthlyInvoicesReturnSchema = v.object({
+    generatedCount: v.number(),
+})
 
 type InvoiceLineType = "support" | "storage_gb" | "agent_tokens_million" | "ocr_pages_hundred"
 type ServicePaymentRecord = {
@@ -34,7 +36,10 @@ function getCurrentMonthRange(date: Date) {
     const periodStart = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1))
     const periodEnd = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + 1, 0, 23, 59, 59, 999))
 
-    return { periodStart, periodEnd }
+    return {
+        periodStart,
+        periodEnd,
+    }
 }
 
 function isInvoiceLineType(value: string | null): value is InvoiceLineType {
@@ -84,7 +89,11 @@ function getResolvedPaymentUnitAmountInCents(payment: ServicePaymentRecord) {
 }
 
 function buildRecurringInvoiceLines(organization: typeof models.organization.$inferSelect) {
-    const lines: Array<{ type: "support" | "storage_gb"; quantity: number; amountInCents: number }> = []
+    const lines: Array<{
+        type: "support" | "storage_gb"
+        quantity: number
+        amountInCents: number
+    }> = []
 
     if (organization.licenceAmount > 0) {
         lines.push({
@@ -114,7 +123,10 @@ export const generateMonthlyInvoicesRoute = apiFactory
         // Protect this route with the INTERNAL_API_KEY
         const apiKey = c.req.header("x-internal-api-key")
         if (!c.var.env.INTERNAL_API_KEY || apiKey !== c.var.env.INTERNAL_API_KEY) {
-            throw new Exception({ statusCode: 401, internalMessage: "Unauthorized" })
+            throw new Exception({
+                statusCode: 401,
+                internalMessage: "Unauthorized",
+            })
         }
 
         const now = new Date()
@@ -130,11 +142,18 @@ export const generateMonthlyInvoicesRoute = apiFactory
                 context: c,
                 statusCode: 200,
                 schema: generateMonthlyInvoicesReturnSchema,
-                data: { generatedCount: 0 },
+                data: {
+                    generatedCount: 0,
+                },
             })
         }
 
-        const orgMap = new Map(organizations.map((organization) => [organization.id, organization]))
+        const orgMap = new Map(
+            organizations.map((organization) => [
+                organization.id,
+                organization,
+            ]),
+        )
 
         // ── Phase 0: Apply pending subscription changes ──────────────────────────
         // Changes set by users during the previous month are applied now before billing.
@@ -149,7 +168,10 @@ export const generateMonthlyInvoicesRoute = apiFactory
                     table: models.organization,
                     data: {
                         ...(org.licenceAmountPending !== null
-                            ? { licenceAmount: org.licenceAmountPending, licenceAmountPending: null }
+                            ? {
+                                  licenceAmount: org.licenceAmountPending,
+                                  licenceAmountPending: null,
+                              }
                             : {}),
                         ...(org.storageLimitPending !== null
                             ? {
@@ -423,6 +445,8 @@ export const generateMonthlyInvoicesRoute = apiFactory
             context: c,
             statusCode: 200,
             schema: generateMonthlyInvoicesReturnSchema,
-            data: { generatedCount },
+            data: {
+                generatedCount,
+            },
         })
     })

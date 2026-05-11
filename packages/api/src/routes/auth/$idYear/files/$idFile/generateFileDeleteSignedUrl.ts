@@ -11,7 +11,9 @@ import { generateDeleteSignedUrl } from "../../../../../utilities/storage/genera
 export const generateFileDeleteSignedUrlRoute = apiFactory
     .createApp()
     .post(generateFileDeleteSignedUrlRouteDefinition.path, async (c) => {
-        const { idOrganization } = await checkUserSessionMiddleware({ context: c })
+        const { idOrganization } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: generateFileDeleteSignedUrlRouteDefinition.schemas.body,
@@ -40,6 +42,8 @@ export const generateFileDeleteSignedUrlRoute = apiFactory
             context: c,
             statusCode: 200,
             schema: generateFileDeleteSignedUrlRouteDefinition.schemas.return,
-            data: { url },
+            data: {
+                url,
+            },
         })
     })

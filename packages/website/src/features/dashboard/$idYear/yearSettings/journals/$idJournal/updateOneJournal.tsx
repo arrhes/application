@@ -26,7 +26,10 @@ export function UpdateOneJournal(props: {
     const [open, setOpen] = useState(false)
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Modifier le journal" />
@@ -47,11 +50,17 @@ export function UpdateOneJournal(props: {
                                 body: data,
                             })
                             if (updateJournalResponse.ok === false) {
-                                toast({ title: "Impossible de modifier le journal", variant: "error" })
+                                toast({
+                                    title: "Impossible de modifier le journal",
+                                    variant: "error",
+                                })
                                 return false
                             }
 
-                            toast({ title: "Journal modifié avec succès", variant: "success" })
+                            toast({
+                                title: "Journal modifié avec succès",
+                                variant: "success",
+                            })
                             return true
                         }}
                         onCancel={undefined}
@@ -109,7 +118,10 @@ export function UpdateOneJournal(props: {
                                                 isRequired={false}
                                             />
                                             <FormControl>
-                                                <InputText value={field.value} onChange={field.onChange} />
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>

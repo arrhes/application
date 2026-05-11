@@ -13,13 +13,22 @@ export const agentSessionModel = pgTable(
     {
         id: idColumn("id").primaryKey(),
         idOrganization: idColumn("id_organization")
-            .references(() => organizationModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => organizationModel.id, {
+                onDelete: "cascade",
+                onUpdate: "cascade",
+            })
             .notNull(),
         idUser: idColumn("id_user")
-            .references(() => userModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => userModel.id, {
+                onDelete: "cascade",
+                onUpdate: "cascade",
+            })
             .notNull(),
         title: text("title"),
-        idYear: idColumn("id_year").references(() => yearModel.id, { onDelete: "set null", onUpdate: "cascade" }),
+        idYear: idColumn("id_year").references(() => yearModel.id, {
+            onDelete: "set null",
+            onUpdate: "cascade",
+        }),
         customInstructions: text("custom_instructions"),
         attachedFiles: jsonb("attached_files"),
         totalInputTokens: integer("total_input_tokens").notNull().default(0),
@@ -27,18 +36,28 @@ export const agentSessionModel = pgTable(
         createdAt: dateTimeColumn("created_at").notNull(),
         lastUpdatedAt: dateTimeColumn("last_updated_at"),
     },
-    (t) => [index().on(t.idOrganization, t.idUser)],
+    (t) => [
+        index().on(t.idOrganization, t.idUser),
+    ],
 )
 
 // Relations
 export const agentSessionRelations = relations(agentSessionModel, ({ one, many }) => ({
     organization: one(organizationModel, {
-        fields: [agentSessionModel.idOrganization],
-        references: [organizationModel.id],
+        fields: [
+            agentSessionModel.idOrganization,
+        ],
+        references: [
+            organizationModel.id,
+        ],
     }),
     user: one(userModel, {
-        fields: [agentSessionModel.idUser],
-        references: [userModel.id],
+        fields: [
+            agentSessionModel.idUser,
+        ],
+        references: [
+            userModel.id,
+        ],
     }),
     messages: many(agentMessageModel),
 }))

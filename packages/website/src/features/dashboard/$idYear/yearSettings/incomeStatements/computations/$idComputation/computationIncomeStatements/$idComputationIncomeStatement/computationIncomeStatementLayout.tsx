@@ -12,7 +12,9 @@ import { DeleteOneComputationIncomeStatement } from "./deleteOneComputationIncom
 import { UpdateOneComputationIncomeStatement } from "./updateOneComputationIncomeStatement.tsx"
 
 export function ComputationIncomeStatementLayout() {
-    const params = useParams({ from: computationIncomeStatementLayoutRoute.id })
+    const params = useParams({
+        from: computationIncomeStatementLayoutRoute.id,
+    })
 
     return (
         <Section.Root>
@@ -26,7 +28,11 @@ export function ComputationIncomeStatementLayout() {
                 {(computationIncomeStatement) => {
                     return (
                         <>
-                            <Section.Item className={css({ flexDirection: "row" })}>
+                            <Section.Item
+                                className={css({
+                                    flexDirection: "row",
+                                })}
+                            >
                                 <div
                                     className={css({
                                         display: "flex",
@@ -43,7 +49,10 @@ export function ComputationIncomeStatementLayout() {
                                             idComputation: params.idComputation,
                                         }}
                                     >
-                                        <ButtonOutlineContent leftIcon={<IconChevronLeft />} text="Retour" />
+                                        <ButtonOutlineContent
+                                            leftIcon={<IconChevronLeft />}
+                                            text="Retour"
+                                        />
                                     </LinkButton>
                                 </div>
                                 <div
@@ -58,12 +67,18 @@ export function ComputationIncomeStatementLayout() {
                                     <UpdateOneComputationIncomeStatement
                                         computationIncomeStatement={computationIncomeStatement}
                                     >
-                                        <ButtonPlainContent leftIcon={<IconPencil />} text="Modifier" />
+                                        <ButtonPlainContent
+                                            leftIcon={<IconPencil />}
+                                            text="Modifier"
+                                        />
                                     </UpdateOneComputationIncomeStatement>
                                     <DeleteOneComputationIncomeStatement
                                         computationIncomeStatement={computationIncomeStatement}
                                     >
-                                        <ButtonOutlineContent leftIcon={<IconTrash />} color="danger" />
+                                        <ButtonOutlineContent
+                                            leftIcon={<IconTrash />}
+                                            color="danger"
+                                        />
                                     </DeleteOneComputationIncomeStatement>
                                 </div>
                             </Section.Item>

@@ -5,7 +5,9 @@ import { PageNavigation } from "../../../components/layouts/page/pageNavigation.
 import { yearLayoutRoute } from "../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearLayoutRoute.tsx"
 
 export function YearLayout() {
-    const params = useParams({ from: yearLayoutRoute.id })
+    const params = useParams({
+        from: yearLayoutRoute.id,
+    })
 
     return (
         <Fragment>

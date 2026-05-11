@@ -9,19 +9,26 @@ import { organizationSecurityRoute } from "../../../../routes/root/dashboard/org
 import { DeleteOneOrganization } from "./deleteOneOrganization.tsx"
 
 export function OrganizationSecurityPage() {
-    const params = useParams({ from: organizationSecurityRoute.id })
+    const params = useParams({
+        from: organizationSecurityRoute.id,
+    })
 
     return (
         <Page.Root>
             <Page.Content>
                 <DataWrapper
                     routeDefinition={readOneOrganizationRouteDefinition}
-                    body={{ idOrganization: params.idOrganization }}
+                    body={{
+                        idOrganization: params.idOrganization,
+                    }}
                 >
                     {(organization) => {
                         return (
                             <SettingsSection.Root variant="danger">
-                                <SettingsSection.Header title="Zone de danger" variant="danger" />
+                                <SettingsSection.Header
+                                    title="Zone de danger"
+                                    variant="danger"
+                                />
                                 <SettingsSection.Row
                                     title="Supprimer l'organisation"
                                     description="Cette action est irréversible."

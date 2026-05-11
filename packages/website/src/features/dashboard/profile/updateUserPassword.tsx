@@ -16,7 +16,10 @@ export function UpdateUserPassword(props: { children: JSX.Element }) {
     const [open, setOpen] = useState(false)
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Changer le mot de passe" />
@@ -44,7 +47,10 @@ export function UpdateUserPassword(props: { children: JSX.Element }) {
                                 })
                                 return false
                             }
-                            toast({ title: "Mot de passe mis à jour avec succès", variant: "success" })
+                            toast({
+                                title: "Mot de passe mis à jour avec succès",
+                                variant: "success",
+                            })
                             return true
                         }}
                         onCancel={undefined}
@@ -58,9 +64,15 @@ export function UpdateUserPassword(props: { children: JSX.Element }) {
                                     name="currentPassword"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel label="Mot de passe actuel" isRequired />
+                                            <FormLabel
+                                                label="Mot de passe actuel"
+                                                isRequired
+                                            />
                                             <FormControl>
-                                                <InputPassword value={field.value} onChange={field.onChange} />
+                                                <InputPassword
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -71,9 +83,15 @@ export function UpdateUserPassword(props: { children: JSX.Element }) {
                                     name="newPassword"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel label="Nouveau mot de passe" isRequired />
+                                            <FormLabel
+                                                label="Nouveau mot de passe"
+                                                isRequired
+                                            />
                                             <FormControl>
-                                                <InputPassword value={field.value} onChange={field.onChange} />
+                                                <InputPassword
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -84,9 +102,15 @@ export function UpdateUserPassword(props: { children: JSX.Element }) {
                                     name="newPasswordCheck"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel label="Confirmer le nouveau mot de passe" isRequired />
+                                            <FormLabel
+                                                label="Confirmer le nouveau mot de passe"
+                                                isRequired
+                                            />
                                             <FormControl>
-                                                <InputPassword value={field.value} onChange={field.onChange} />
+                                                <InputPassword
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>

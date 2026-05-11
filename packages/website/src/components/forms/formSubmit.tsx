@@ -47,7 +47,10 @@ export function FormSubmit<T>(props: FormSubmit<T>) {
                         <ButtonGhostContent text={props.previousLabel} />
                     </Button>
                 )}
-                <Button onClick={handleNext} hasLoader>
+                <Button
+                    onClick={handleNext}
+                    hasLoader
+                >
                     <ButtonPlainContent text={props.nextLabel} />
                 </Button>
             </div>
@@ -63,10 +66,24 @@ export function FormSubmit<T>(props: FormSubmit<T>) {
                     })}
                 >
                     {!props.stepCount ? null : (
-                        <span className={css({ fontSize: "sm", color: "neutral/50" })}>{props.stepCount}</span>
+                        <span
+                            className={css({
+                                fontSize: "sm",
+                                color: "neutral/50",
+                            })}
+                        >
+                            {props.stepCount}
+                        </span>
                     )}
                     {!props.stepName ? null : (
-                        <span className={css({ fontSize: "sm", color: "neutral/50" })}>{props.stepName}</span>
+                        <span
+                            className={css({
+                                fontSize: "sm",
+                                color: "neutral/50",
+                            })}
+                        >
+                            {props.stepName}
+                        </span>
                     )}
                 </div>
             )}

@@ -72,8 +72,14 @@ function computeAssetAmounts(
     allBalanceSheets: BalanceSheet[],
     accounts: Account[],
     entryLines: EntryLine[],
-): { gross: number; amortization: number } {
-    const children = getBalanceSheetChildren({ balanceSheet, balanceSheets: allBalanceSheets })
+): {
+    gross: number
+    amortization: number
+} {
+    const children = getBalanceSheetChildren({
+        balanceSheet,
+        balanceSheets: allBalanceSheets,
+    })
     let grossTotalAmount = 0
     let amortizationTotalAmount = 0
 
@@ -106,7 +112,10 @@ function computeAssetAmounts(
             }
         })
 
-    return { gross: grossTotalAmount, amortization: amortizationTotalAmount }
+    return {
+        gross: grossTotalAmount,
+        amortization: amortizationTotalAmount,
+    }
 }
 
 function computeLiabilityAmount(
@@ -115,7 +124,10 @@ function computeLiabilityAmount(
     accounts: Account[],
     entryLines: EntryLine[],
 ): number {
-    const children = getBalanceSheetChildren({ balanceSheet, balanceSheets: allBalanceSheets })
+    const children = getBalanceSheetChildren({
+        balanceSheet,
+        balanceSheets: allBalanceSheets,
+    })
     let netTotalAmount = 0
 
     accounts
@@ -174,7 +186,14 @@ function AssetPdfRows({
                 return (
                     <View key={bs.id}>
                         <View style={number ? styles.sectionRow : styles.row}>
-                            <View style={[styles.labelCell, { paddingLeft: level * 12 }]}>
+                            <View
+                                style={[
+                                    styles.labelCell,
+                                    {
+                                        paddingLeft: level * 12,
+                                    },
+                                ]}
+                            >
                                 <Text style={number ? styles.boldText : {}}>
                                     {number ? `${number}  ` : ""}
                                     {bs.label}
@@ -234,7 +253,14 @@ function LiabilityPdfRows({
                 return (
                     <View key={bs.id}>
                         <View style={number ? styles.sectionRow : styles.row}>
-                            <View style={[styles.labelCell, { paddingLeft: level * 12 }]}>
+                            <View
+                                style={[
+                                    styles.labelCell,
+                                    {
+                                        paddingLeft: level * 12,
+                                    },
+                                ]}
+                            >
                                 <Text style={number ? styles.boldText : {}}>
                                     {number ? `${number}  ` : ""}
                                     {bs.label}
@@ -276,7 +302,10 @@ export function BalanceSheetReportPdf(props: {
 
     return (
         <Document>
-            <Page size="A4" style={styles.page}>
+            <Page
+                size="A4"
+                style={styles.page}
+            >
                 <Text style={styles.title}>Bilan</Text>
 
                 {/* Asset section */}

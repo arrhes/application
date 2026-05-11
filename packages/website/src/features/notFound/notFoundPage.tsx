@@ -80,10 +80,16 @@ export function NotFoundPage() {
                         })}
                     >
                         <LinkButton to="/">
-                            <ButtonOutlineContent text="Accueil" leftIcon={<IconHome />} />
+                            <ButtonOutlineContent
+                                text="Accueil"
+                                leftIcon={<IconHome />}
+                            />
                         </LinkButton>
                         <LinkButton to="/documentation">
-                            <ButtonOutlineContent text="Documentation" leftIcon={<IconBook2 />} />
+                            <ButtonOutlineContent
+                                text="Documentation"
+                                leftIcon={<IconBook2 />}
+                            />
                         </LinkButton>
                     </div>
                 </div>

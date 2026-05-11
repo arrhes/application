@@ -1,3 +1,5 @@
 import { createOneAgentFileRoute } from "./createOneAgentFile.js"
 
-export const agentFileRoutes = [createOneAgentFileRoute]
+export const agentFileRoutes = [
+    createOneAgentFileRoute,
+]

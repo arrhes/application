@@ -8,7 +8,9 @@ import { response } from "../../../utilities/response.js"
 export const getAllMyOrganizationsRoute = apiFactory
     .createApp()
     .post(getAllMyOrganizationsRouteDefinition.path, async (c) => {
-        const { user } = await checkUserSessionMiddleware({ context: c })
+        const { user } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const _body = await validateBodyMiddleware({
             context: c,
             schema: getAllMyOrganizationsRouteDefinition.schemas.body,

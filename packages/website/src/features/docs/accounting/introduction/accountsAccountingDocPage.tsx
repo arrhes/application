@@ -17,12 +17,20 @@ import { accountClasses } from "../resources/accounts/accountsData.js"
 export function AccountsAccountingDocPage() {
     return (
         <DocRoot>
-            <DocHeader title="Les comptes comptables" description="Comprendre l'organisation du plan comptable" />
+            <DocHeader
+                title="Les comptes comptables"
+                description="Comprendre l'organisation du plan comptable"
+            />
 
             <DocSection title="Qu'est-ce qu'un compte ?">
                 <DocParagraph>
                     Un{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "compte" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "compte",
+                        }}
+                    >
                         compte
                     </DocLink>{" "}
                     est une catégorie qui regroupe des opérations de même nature. Chaque compte possède un numéro et un
@@ -33,7 +41,9 @@ export function AccountsAccountingDocPage() {
                     En France, les comptes sont organisés selon le{" "}
                     <DocLink
                         to="/documentation/comptabilité/glossaire/$term"
-                        params={{ term: "plan-comptable-general-pcg" }}
+                        params={{
+                            term: "plan-comptable-general-pcg",
+                        }}
                     >
                         Plan Comptable Général (PCG)
                     </DocLink>
@@ -59,14 +69,21 @@ export function AccountsAccountingDocPage() {
                     <strong>
                         <DocLink
                             to="/documentation/comptabilité/glossaire/$term"
-                            params={{ term: "comptes-d-operations" }}
+                            params={{
+                                term: "comptes-d-operations",
+                            }}
                         >
                             comptes d'opérations
                         </DocLink>
                     </strong>{" "}
                     et les{" "}
                     <strong>
-                        <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "comptes-d-agents" }}>
+                        <DocLink
+                            to="/documentation/comptabilité/glossaire/$term"
+                            params={{
+                                term: "comptes-d-agents",
+                            }}
+                        >
                             comptes d'agents
                         </DocLink>
                     </strong>
@@ -84,7 +101,14 @@ export function AccountsAccountingDocPage() {
 
                 <DocExample title="Point de vue des comptes d'agents">
                     <p>Le compte Clients est tenu du point de vue des clients :</p>
-                    <ul className={css({ marginTop: "2", ml: "4", fontSize: "sm", spaceY: "1" })}>
+                    <ul
+                        className={css({
+                            marginTop: "2",
+                            ml: "4",
+                            fontSize: "sm",
+                            spaceY: "1",
+                        })}
+                    >
                         <li>
                             Quand un client vous doit de l'argent - le compte est <strong>débité</strong> (sa dette
                             augmente)
@@ -93,10 +117,21 @@ export function AccountsAccountingDocPage() {
                             Quand il vous paye - le compte est <strong>crédité</strong> (sa dette diminue)
                         </li>
                     </ul>
-                    <p className={css({ marginTop: "3" })}>
+                    <p
+                        className={css({
+                            marginTop: "3",
+                        })}
+                    >
                         Le compte Fournisseurs est tenu du point de vue des fournisseurs :
                     </p>
-                    <ul className={css({ marginTop: "2", ml: "4", fontSize: "sm", spaceY: "1" })}>
+                    <ul
+                        className={css({
+                            marginTop: "2",
+                            ml: "4",
+                            fontSize: "sm",
+                            spaceY: "1",
+                        })}
+                    >
                         <li>
                             Quand vous leur devez de l'argent - le compte est <strong>crédité</strong> (leur créance
                             augmente)
@@ -109,19 +144,39 @@ export function AccountsAccountingDocPage() {
 
                 <DocParagraph>
                     Cette distinction explique pourquoi les comptes d'{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "actif" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "actif",
+                        }}
+                    >
                         actif
                     </DocLink>{" "}
                     (Banque, Caisse, Clients) augmentent au{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "debit" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "debit",
+                        }}
+                    >
                         débit
                     </DocLink>
                     , tandis que les comptes de{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "passif" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "passif",
+                        }}
+                    >
                         passif
                     </DocLink>{" "}
                     (Fournisseurs, Capital) augmentent au{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "credit" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "credit",
+                        }}
+                    >
                         crédit
                     </DocLink>{" "}
                     : on adopte toujours le point de vue de l'agent concerné.
@@ -135,14 +190,27 @@ export function AccountsAccountingDocPage() {
                 </DocParagraph>
 
                 <DocTable
-                    headers={["Classe", "Intitulé", "Type"]}
-                    rows={accountClasses.map((c) => [String(c.number), c.label, c.type])}
+                    headers={[
+                        "Classe",
+                        "Intitulé",
+                        "Type",
+                    ]}
+                    rows={accountClasses.map((c) => [
+                        String(c.number),
+                        c.label,
+                        c.type,
+                    ])}
                 />
 
                 <DocParagraph>
                     Les classes 1 à 5 concernent le{" "}
                     <strong>
-                        <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "bilan" }}>
+                        <DocLink
+                            to="/documentation/comptabilité/glossaire/$term"
+                            params={{
+                                term: "bilan",
+                            }}
+                        >
                             bilan
                         </DocLink>
                     </strong>{" "}
@@ -150,7 +218,9 @@ export function AccountsAccountingDocPage() {
                     <strong>
                         <DocLink
                             to="/documentation/comptabilité/glossaire/$term"
-                            params={{ term: "compte-de-résultat" }}
+                            params={{
+                                term: "compte-de-résultat",
+                            }}
                         >
                             compte de résultat
                         </DocLink>
@@ -171,23 +241,59 @@ export function AccountsAccountingDocPage() {
                 </DocParagraph>
 
                 <DocTable
-                    headers={["Type de compte", "Débit (+)", "Crédit (-)"]}
+                    headers={[
+                        "Type de compte",
+                        "Débit (+)",
+                        "Crédit (-)",
+                    ]}
                     rows={[
-                        ["Actif (ce que vous avez)", "Augmentation", "Diminution"],
-                        ["Passif (ce que vous devez)", "Diminution", "Augmentation"],
-                        ["Charges (dépenses)", "Augmentation", "Diminution"],
-                        ["Produits (recettes)", "Diminution", "Augmentation"],
+                        [
+                            "Actif (ce que vous avez)",
+                            "Augmentation",
+                            "Diminution",
+                        ],
+                        [
+                            "Passif (ce que vous devez)",
+                            "Diminution",
+                            "Augmentation",
+                        ],
+                        [
+                            "Charges (dépenses)",
+                            "Augmentation",
+                            "Diminution",
+                        ],
+                        [
+                            "Produits (recettes)",
+                            "Diminution",
+                            "Augmentation",
+                        ],
                     ]}
                 />
 
                 <DocExample title="Fonctionnement concret">
                     <p>Quand vous recevez de l'argent sur votre compte bancaire :</p>
-                    <p className={css({ marginTop: "2" })}>- Le compte 512 (Banque) est un compte d'actif</p>
+                    <p
+                        className={css({
+                            marginTop: "2",
+                        })}
+                    >
+                        - Le compte 512 (Banque) est un compte d'actif
+                    </p>
                     <p>
                         - Une augmentation se traduit par un <strong>débit</strong>
                     </p>
-                    <p className={css({ marginTop: "3" })}>Quand vous payez une facture depuis ce compte :</p>
-                    <p className={css({ marginTop: "2" })}>
+                    <p
+                        className={css({
+                            marginTop: "3",
+                        })}
+                    >
+                        Quand vous payez une facture depuis ce compte :
+                    </p>
+                    <p
+                        className={css({
+                            marginTop: "2",
+                        })}
+                    >
                         - Une diminution se traduit par un <strong>crédit</strong>
                     </p>
                 </DocExample>
@@ -210,7 +316,14 @@ export function AccountsAccountingDocPage() {
 
                 <DocExample title="Mécanisme de la TVA">
                     <p>À la fin de la période :</p>
-                    <ul className={css({ marginTop: "2", ml: "4", fontSize: "sm", spaceY: "1" })}>
+                    <ul
+                        className={css({
+                            marginTop: "2",
+                            ml: "4",
+                            fontSize: "sm",
+                            spaceY: "1",
+                        })}
+                    >
                         <li>Si TVA collectée &gt; TVA déductible - vous devez la différence à l'État</li>
                         <li>Si TVA collectée &lt; TVA déductible - l'État vous doit la différence (crédit de TVA)</li>
                     </ul>
@@ -235,10 +348,21 @@ export function AccountsAccountingDocPage() {
                 />
 
                 <DocExample title="Lecture d'un numéro de compte">
-                    <p className={css({ fontSize: "sm" })}>
+                    <p
+                        className={css({
+                            fontSize: "sm",
+                        })}
+                    >
                         Le compte <strong>60611</strong> se décompose ainsi :
                     </p>
-                    <ul className={css({ marginTop: "2", ml: "4", fontSize: "sm", color: "neutral/70" })}>
+                    <ul
+                        className={css({
+                            marginTop: "2",
+                            ml: "4",
+                            fontSize: "sm",
+                            color: "neutral/70",
+                        })}
+                    >
                         <li>
                             <strong>6</strong> = Classe 6 (Charges)
                         </li>
@@ -280,7 +404,12 @@ export function AccountsAccountingDocPage() {
                     Dans Arrhes, vous pouvez{" "}
                     <DocLink to="/documentation/dashboard/organisations">configurer votre plan comptable</DocLink> selon
                     les besoins de votre{" "}
-                    <DocLink to="/documentation/comptabilité/glossaire/$term" params={{ term: "organisation" }}>
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "organisation",
+                        }}
+                    >
                         organisation
                     </DocLink>
                     . Le logiciel propose un plan comptable par défaut adapté aux entreprises et aux associations

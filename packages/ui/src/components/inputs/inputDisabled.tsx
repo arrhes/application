@@ -25,7 +25,15 @@ export function InputDisabled(
                     cursor: "not-allowed",
                     opacity: "0.5",
                 }),
-                css(props.error ? { borderColor: "error" } : { borderColor: "neutral/20" }),
+                css(
+                    props.error
+                        ? {
+                              borderColor: "error",
+                          }
+                        : {
+                              borderColor: "neutral/20",
+                          },
+                ),
             )}
         >
             <input

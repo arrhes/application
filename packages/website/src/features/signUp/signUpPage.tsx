@@ -64,12 +64,21 @@ export function SignUpPage() {
                         })}
                     >
                         <LinkButton to="/">
-                            <ButtonGhostContent leftIcon={<Logo />} text="Dashboard" />
+                            <ButtonGhostContent
+                                leftIcon={<Logo />}
+                                text="Dashboard"
+                            />
                         </LinkButton>
-                        <LinkButton to="/documentation" title="Documentation">
+                        <LinkButton
+                            to="/documentation"
+                            title="Documentation"
+                        >
                             <ButtonGhostContent
                                 leftIcon={<IconBook2 />}
-                                className={css({ width: "100%", justifyContent: "center" })}
+                                className={css({
+                                    width: "100%",
+                                    justifyContent: "center",
+                                })}
                             />
                         </LinkButton>
                     </div>
@@ -106,12 +115,18 @@ export function SignUpPage() {
                         submitButtonProps={{
                             leftIcon: <IconUserPlus />,
                             text: "Créer un compte",
-                            className: css({ width: "100%", justifyContent: "center" }),
+                            className: css({
+                                width: "100%",
+                                justifyContent: "center",
+                            }),
                         }}
                         submitOnPressEnterKey={true}
                         onSubmit={async (data) => {
                             if (data.password !== data.passwordCheck) {
-                                toast({ title: "Les mots de passe ne correspondent pas", variant: "error" })
+                                toast({
+                                    title: "Les mots de passe ne correspondent pas",
+                                    variant: "error",
+                                })
                                 return false
                             }
 
@@ -120,11 +135,17 @@ export function SignUpPage() {
                                 body: data,
                             })
                             if (!response.ok) {
-                                toast({ title: "Inscription impossible", variant: "error" })
+                                toast({
+                                    title: "Inscription impossible",
+                                    variant: "error",
+                                })
                                 return false
                             }
 
-                            toast({ title: "Inscription réussie", variant: "success" })
+                            toast({
+                                title: "Inscription réussie",
+                                variant: "success",
+                            })
                             return true
                         }}
                         onCancel={undefined}
@@ -148,7 +169,11 @@ export function SignUpPage() {
                                                 tooltip={undefined}
                                             />
                                             <FormControl>
-                                                <InputText value={field.value} onChange={field.onChange} type="email" />
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                    type="email"
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -166,7 +191,10 @@ export function SignUpPage() {
                                                 tooltip={undefined}
                                             />
                                             <FormControl>
-                                                <InputPassword value={field.value} onChange={field.onChange} />
+                                                <InputPassword
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -184,7 +212,10 @@ export function SignUpPage() {
                                                 tooltip={undefined}
                                             />
                                             <FormControl>
-                                                <InputPassword value={field.value} onChange={field.onChange} />
+                                                <InputPassword
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -206,11 +237,19 @@ export function SignUpPage() {
                             gap: "0.5rem",
                         })}
                     >
-                        <LinkButton to="/connexion" className={css({ width: "100%" })}>
+                        <LinkButton
+                            to="/connexion"
+                            className={css({
+                                width: "100%",
+                            })}
+                        >
                             <ButtonOutlineContent
                                 leftIcon={<IconLogin2 />}
                                 text="Se connecter"
-                                className={css({ width: "100%", justifyContent: "center" })}
+                                className={css({
+                                    width: "100%",
+                                    justifyContent: "center",
+                                })}
                             />
                         </LinkButton>
                     </div>

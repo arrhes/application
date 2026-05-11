@@ -66,16 +66,51 @@ export function BalanceSheetAssetsReportTable(props: {
                 <Table.Header.Root>
                     <Table.Header.Row>
                         <Table.Header.Cell />
-                        <Table.Header.Cell className={css({ width: "[1%]" })} align="right">
-                            <span className={css({ color: "neutral/75", fontSize: "sm" })}>Brut</span>
+                        <Table.Header.Cell
+                            className={css({
+                                width: "[1%]",
+                            })}
+                            align="right"
+                        >
+                            <span
+                                className={css({
+                                    color: "neutral/75",
+                                    fontSize: "sm",
+                                })}
+                            >
+                                Brut
+                            </span>
                         </Table.Header.Cell>
-                        <Table.Header.Cell className={css({ width: "[1%]" })} align="right">
-                            <span className={css({ color: "neutral/75", fontSize: "sm", whiteSpace: "nowrap" })}>
+                        <Table.Header.Cell
+                            className={css({
+                                width: "[1%]",
+                            })}
+                            align="right"
+                        >
+                            <span
+                                className={css({
+                                    color: "neutral/75",
+                                    fontSize: "sm",
+                                    whiteSpace: "nowrap",
+                                })}
+                            >
                                 Amort. & Dépré.
                             </span>
                         </Table.Header.Cell>
-                        <Table.Header.Cell className={css({ width: "[1%]" })} align="right">
-                            <span className={css({ color: "neutral/75", fontSize: "sm" })}>Net</span>
+                        <Table.Header.Cell
+                            className={css({
+                                width: "[1%]",
+                            })}
+                            align="right"
+                        >
+                            <span
+                                className={css({
+                                    color: "neutral/75",
+                                    fontSize: "sm",
+                                })}
+                            >
+                                Net
+                            </span>
                         </Table.Header.Cell>
                     </Table.Header.Row>
                 </Table.Header.Root>
@@ -85,7 +120,9 @@ export function BalanceSheetAssetsReportTable(props: {
                             className={css({
                                 borderBottom: "1px solid",
                                 borderBottomColor: "neutral/10",
-                                _last: { borderBottom: "0" },
+                                _last: {
+                                    borderBottom: "0",
+                                },
                             })}
                         >
                             <Table.Body.Row>

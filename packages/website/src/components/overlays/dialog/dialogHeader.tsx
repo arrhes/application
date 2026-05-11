@@ -32,7 +32,14 @@ export function DialogHeader(props: HTMLAttributes<HTMLDivElement>) {
                 {props.children}
             </div>
             <DialogPrimitive.Close asChild>
-                <button type="button" aria-label="Fermer" className={css({ display: "flex", alignItems: "center" })}>
+                <button
+                    type="button"
+                    aria-label="Fermer"
+                    className={css({
+                        display: "flex",
+                        alignItems: "center",
+                    })}
+                >
                     <ButtonGhostContent leftIcon={<IconX />} />
                 </button>
             </DialogPrimitive.Close>

@@ -11,7 +11,9 @@ const MAX_TOTAL = 50
 export const searchReferenceableRoute = apiFactory
     .createApp()
     .post(searchReferenceableRouteDefinition.path, async (c) => {
-        await checkUserSessionMiddleware({ context: c })
+        await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: searchReferenceableRouteDefinition.schemas.body,
@@ -21,13 +23,21 @@ export const searchReferenceableRoute = apiFactory
         const { idOrganization, idYear, query } = body
         const pattern = `%${query}%`
 
-        const results: Array<{ id: string; type: "account" | "entry" | "journal" | "tag" | "file"; label: string }> = []
+        const results: Array<{
+            id: string
+            type: "account" | "entry" | "journal" | "tag" | "file"
+            label: string
+        }> = []
 
         const yearFilter = idYear ? eq(models.account.idYear, idYear) : undefined
 
         // Accounts: search by number or label
         const accounts = await db
-            .select({ id: models.account.id, number: models.account.number, label: models.account.label })
+            .select({
+                id: models.account.id,
+                number: models.account.number,
+                label: models.account.label,
+            })
             .from(models.account)
             .where(
                 and(
@@ -39,12 +49,20 @@ export const searchReferenceableRoute = apiFactory
             .limit(MAX_PER_TYPE)
 
         for (const a of accounts) {
-            results.push({ id: a.id, type: "account", label: `${a.number} — ${a.label}` })
+            results.push({
+                id: a.id,
+                type: "account",
+                label: `${a.number} — ${a.label}`,
+            })
         }
 
         // Entries: search by label
         const entries = await db
-            .select({ id: models.entry.id, label: models.entry.label, date: models.entry.date })
+            .select({
+                id: models.entry.id,
+                label: models.entry.label,
+                date: models.entry.date,
+            })
             .from(models.entry)
             .where(
                 and(
@@ -57,12 +75,20 @@ export const searchReferenceableRoute = apiFactory
 
         for (const e of entries) {
             const dateStr = e.date ? new Date(e.date).toLocaleDateString("fr-FR") : ""
-            results.push({ id: e.id, type: "entry", label: dateStr ? `${e.label} (${dateStr})` : e.label })
+            results.push({
+                id: e.id,
+                type: "entry",
+                label: dateStr ? `${e.label} (${dateStr})` : e.label,
+            })
         }
 
         // Journals: search by code or label
         const journals = await db
-            .select({ id: models.journal.id, code: models.journal.code, label: models.journal.label })
+            .select({
+                id: models.journal.id,
+                code: models.journal.code,
+                label: models.journal.label,
+            })
             .from(models.journal)
             .where(
                 and(
@@ -74,12 +100,19 @@ export const searchReferenceableRoute = apiFactory
             .limit(MAX_PER_TYPE)
 
         for (const j of journals) {
-            results.push({ id: j.id, type: "journal", label: j.label ? `${j.code} — ${j.label}` : j.code })
+            results.push({
+                id: j.id,
+                type: "journal",
+                label: j.label ? `${j.code} — ${j.label}` : j.code,
+            })
         }
 
         // Tags: search by label
         const tags = await db
-            .select({ id: models.tag.id, label: models.tag.label })
+            .select({
+                id: models.tag.id,
+                label: models.tag.label,
+            })
             .from(models.tag)
             .where(
                 and(
@@ -91,12 +124,20 @@ export const searchReferenceableRoute = apiFactory
             .limit(MAX_PER_TYPE)
 
         for (const t of tags) {
-            results.push({ id: t.id, type: "tag", label: t.label })
+            results.push({
+                id: t.id,
+                type: "tag",
+                label: t.label,
+            })
         }
 
         // Files: search by name or reference
         const files = await db
-            .select({ id: models.file.id, name: models.file.name, reference: models.file.reference })
+            .select({
+                id: models.file.id,
+                name: models.file.name,
+                reference: models.file.reference,
+            })
             .from(models.file)
             .where(
                 and(
@@ -112,7 +153,11 @@ export const searchReferenceableRoute = apiFactory
 
         for (const f of files) {
             const label = f.reference && f.name ? `${f.reference} — ${f.name}` : (f.name ?? f.reference ?? "Fichier")
-            results.push({ id: f.id, type: "file", label })
+            results.push({
+                id: f.id,
+                type: "file",
+                label,
+            })
         }
 
         return response({

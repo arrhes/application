@@ -12,12 +12,18 @@ import { FileData } from "./fileData.tsx"
 import { UpdateOneFile } from "./updateOneFile.tsx"
 
 export function FileLayout() {
-    const params = useParams({ from: fileLayoutRoute.id })
+    const params = useParams({
+        from: fileLayoutRoute.id,
+    })
 
     return (
         <Page.Root>
             <Page.Content>
-                <FileData idOrganization={params.idOrganization} idYear={params.idYear} idFile={params.idFile}>
+                <FileData
+                    idOrganization={params.idOrganization}
+                    idYear={params.idYear}
+                    idFile={params.idFile}
+                >
                     {(file) => {
                         return (
                             <Section.Root>
@@ -37,7 +43,10 @@ export function FileLayout() {
                                                 idYear: file.idYear,
                                             }}
                                         >
-                                            <ButtonOutlineContent leftIcon={<IconChevronLeft />} text="Retour" />
+                                            <ButtonOutlineContent
+                                                leftIcon={<IconChevronLeft />}
+                                                text="Retour"
+                                            />
                                         </LinkButton>
                                     </div>
                                     <div
@@ -50,10 +59,16 @@ export function FileLayout() {
                                         })}
                                     >
                                         <UpdateOneFile file={file}>
-                                            <ButtonPlainContent leftIcon={<IconPencil />} text="Modifier" />
+                                            <ButtonPlainContent
+                                                leftIcon={<IconPencil />}
+                                                text="Modifier"
+                                            />
                                         </UpdateOneFile>
                                         <DeleteOneFile file={file}>
-                                            <ButtonOutlineContent leftIcon={<IconTrash />} color="danger" />
+                                            <ButtonOutlineContent
+                                                leftIcon={<IconTrash />}
+                                                color="danger"
+                                            />
                                         </DeleteOneFile>
                                     </div>
                                 </Section.Item>

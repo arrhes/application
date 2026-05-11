@@ -12,7 +12,9 @@ import { DeleteOneBalanceSheet } from "./deleteOneBalanceSheet.tsx"
 import { UpdateOneBalanceSheet } from "./updateOneBalanceSheet.tsx"
 
 export function BalanceSheetLayout() {
-    const params = useParams({ from: balanceSheetLayoutRoute.id })
+    const params = useParams({
+        from: balanceSheetLayoutRoute.id,
+    })
 
     return (
         <Section.Root>
@@ -26,7 +28,11 @@ export function BalanceSheetLayout() {
                 {(balanceSheet) => {
                     return (
                         <>
-                            <Section.Item className={css({ flexDirection: "row" })}>
+                            <Section.Item
+                                className={css({
+                                    flexDirection: "row",
+                                })}
+                            >
                                 <div
                                     className={css({
                                         display: "flex",
@@ -42,7 +48,10 @@ export function BalanceSheetLayout() {
                                             idYear: balanceSheet.idYear,
                                         }}
                                     >
-                                        <ButtonOutlineContent leftIcon={<IconChevronLeft />} text="Retour" />
+                                        <ButtonOutlineContent
+                                            leftIcon={<IconChevronLeft />}
+                                            text="Retour"
+                                        />
                                     </LinkButton>
                                 </div>
                                 <div
@@ -55,10 +64,16 @@ export function BalanceSheetLayout() {
                                     })}
                                 >
                                     <UpdateOneBalanceSheet balanceSheet={balanceSheet}>
-                                        <ButtonPlainContent leftIcon={<IconPencil />} text="Modifier" />
+                                        <ButtonPlainContent
+                                            leftIcon={<IconPencil />}
+                                            text="Modifier"
+                                        />
                                     </UpdateOneBalanceSheet>
                                     <DeleteOneBalanceSheet balanceSheet={balanceSheet}>
-                                        <ButtonOutlineContent leftIcon={<IconTrash />} color="danger" />
+                                        <ButtonOutlineContent
+                                            leftIcon={<IconTrash />}
+                                            color="danger"
+                                        />
                                     </DeleteOneBalanceSheet>
                                 </div>
                             </Section.Item>

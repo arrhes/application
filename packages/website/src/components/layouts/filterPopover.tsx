@@ -62,14 +62,19 @@ export function FilterPopover(props: {
             >
                 <Button
                     onClick={props.onClearAll}
-                    className={css({ width: "100%" })}
+                    className={css({
+                        width: "100%",
+                    })}
                     isDisabled={activeFilterCount === 0}
                 >
                     <ButtonGhostContent
                         color="danger"
                         leftIcon={<IconX />}
                         text="Effacer les filtres"
-                        className={css({ width: "100%", justifyContent: "start" })}
+                        className={css({
+                            width: "100%",
+                            justifyContent: "start",
+                        })}
                         isDisabled={activeFilterCount === 0}
                     />
                 </Button>

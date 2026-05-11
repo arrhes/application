@@ -56,7 +56,10 @@ export function Button(
         setIsLoading(true)
 
         try {
-            await Promise.all([sleep(100), props.onClick(e)])
+            await Promise.all([
+                sleep(100),
+                props.onClick(e),
+            ])
         } finally {
             isLoadingRef.current = false
             setIsLoading(false)
@@ -83,7 +86,9 @@ export function Button(
                         border: "none",
                         padding: "0",
                         cursor: "pointer",
-                        _disabled: { cursor: "not-allowed" },
+                        _disabled: {
+                            cursor: "not-allowed",
+                        },
                     }),
                     className,
                 )}

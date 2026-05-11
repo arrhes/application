@@ -12,7 +12,9 @@ import { BalanceSheetTable } from "./balanceSheetTable.tsx"
 import { CreateOneBalanceSheet } from "./createOneBalanceSheet.tsx"
 
 export function BalanceSheetsPage() {
-    const params = useParams({ from: balanceSheetsLayoutRoute.id })
+    const params = useParams({
+        from: balanceSheetsLayoutRoute.id,
+    })
     const [globalFilter, setGlobalFilter] = useState("")
     const [, startTransition] = useTransition()
     const pathname = useRouterState({
@@ -65,14 +67,35 @@ export function BalanceSheetsPage() {
                                 flexWrap: "wrap",
                             })}
                         >
-                            <CreateOneBalanceSheet idOrganization={params.idOrganization} idYear={params.idYear}>
-                                <ButtonPlainContent leftIcon={<IconPlus />} text="Ajouter une ligne de bilan" />
+                            <CreateOneBalanceSheet
+                                idOrganization={params.idOrganization}
+                                idYear={params.idYear}
+                            >
+                                <ButtonPlainContent
+                                    leftIcon={<IconPlus />}
+                                    text="Ajouter une ligne de bilan"
+                                />
                             </CreateOneBalanceSheet>
                         </div>
-                        <InputDebounced value={globalFilter ?? ""} onChange={handleFilterChange}>
-                            <InputText placeholder="Recherche" className={css({ maxWidth: "[320px]" })} />
+                        <InputDebounced
+                            value={globalFilter ?? ""}
+                            onChange={handleFilterChange}
+                        >
+                            <InputText
+                                placeholder="Recherche"
+                                className={css({
+                                    maxWidth: "[320px]",
+                                })}
+                            />
                         </InputDebounced>
-                        <Box className={css({ padding: "4", gap: "4", maxH: "[640px]", overflowY: "auto" })}>
+                        <Box
+                            className={css({
+                                padding: "4",
+                                gap: "4",
+                                maxH: "[640px]",
+                                overflowY: "auto",
+                            })}
+                        >
                             <BalanceSheetTable
                                 idOrganization={params.idOrganization}
                                 idYear={params.idYear}

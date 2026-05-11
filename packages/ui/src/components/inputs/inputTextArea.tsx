@@ -33,7 +33,15 @@ export function InputTextArea(
         return value
     }
 
-    const borderClass = css(props.error ? { borderColor: "error" } : { borderColor: "neutral/20" })
+    const borderClass = css(
+        props.error
+            ? {
+                  borderColor: "error",
+              }
+            : {
+                  borderColor: "neutral/20",
+              },
+    )
 
     return (
         <div
@@ -66,9 +74,16 @@ export function InputTextArea(
                     sharedStyles,
                     borderClass,
                     css({
-                        _placeholder: { color: "neutral/25" },
-                        _hover: { borderColor: "neutral/50" },
-                        _focusWithin: { borderColor: "neutral/50", boxShadow: "inset" },
+                        _placeholder: {
+                            color: "neutral/25",
+                        },
+                        _hover: {
+                            borderColor: "neutral/50",
+                        },
+                        _focusWithin: {
+                            borderColor: "neutral/50",
+                            boxShadow: "inset",
+                        },
                         overflow: "hidden",
                     }),
                     props.className,

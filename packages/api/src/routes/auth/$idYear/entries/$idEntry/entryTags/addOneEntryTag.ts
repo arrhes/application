@@ -8,7 +8,9 @@ import { insertOne } from "../../../../../../utilities/sql/insertOne.js"
 import { selectOne } from "../../../../../../utilities/sql/selectOne.js"
 
 export const addOneEntryTagRoute = apiFactory.createApp().post(addOneEntryTagRouteDefinition.path, async (c) => {
-    const { idOrganization } = await checkUserSessionMiddleware({ context: c })
+    const { idOrganization } = await checkUserSessionMiddleware({
+        context: c,
+    })
     const body = await validateBodyMiddleware({
         context: c,
         schema: addOneEntryTagRouteDefinition.schemas.body,

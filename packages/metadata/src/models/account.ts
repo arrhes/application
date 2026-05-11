@@ -16,10 +16,16 @@ export const accountModel = pgTable(
     {
         id: idColumn("id").primaryKey(),
         idOrganization: idColumn("id_organization")
-            .references(() => organizationModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => organizationModel.id, {
+                onDelete: "cascade",
+                onUpdate: "cascade",
+            })
             .notNull(),
         idYear: idColumn("id_year")
-            .references(() => yearModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => yearModel.id, {
+                onDelete: "cascade",
+                onUpdate: "cascade",
+            })
             .notNull(),
         idAccountParent: idColumn("id_account_parent").references((): AnyPgColumn => accountModel.id, {
             onDelete: "set null",
@@ -30,8 +36,14 @@ export const accountModel = pgTable(
             onDelete: "set null",
             onUpdate: "cascade",
         }),
-        balanceSheetAssetColumn: varchar("balance_sheet_asset_column", { length: 32, enum: balanceSheetColumn }),
-        balanceSheetAssetFlow: varchar("balance_sheet_asset_flow", { length: 32, enum: balanceSheetFlow }),
+        balanceSheetAssetColumn: varchar("balance_sheet_asset_column", {
+            length: 32,
+            enum: balanceSheetColumn,
+        }),
+        balanceSheetAssetFlow: varchar("balance_sheet_asset_flow", {
+            length: 32,
+            enum: balanceSheetFlow,
+        }),
 
         idBalanceSheetLiability: idColumn("id_balance_sheet_liability").references(() => balanceSheetModel.id, {
             onDelete: "set null",
@@ -41,7 +53,10 @@ export const accountModel = pgTable(
             length: 32,
             enum: balanceSheetColumn,
         }),
-        balanceSheetLiabilityFlow: varchar("balance_sheet_liability_flow", { length: 32, enum: balanceSheetFlow }),
+        balanceSheetLiabilityFlow: varchar("balance_sheet_liability_flow", {
+            length: 32,
+            enum: balanceSheetFlow,
+        }),
 
         idIncomeStatement: idColumn("id_income_statement").references(() => incomeStatementModel.id, {
             onDelete: "set null",
@@ -51,9 +66,16 @@ export const accountModel = pgTable(
         isOptional: boolean("is_optional").notNull(),
         isSelectable: boolean("is_selectable").notNull(),
         isDefault: boolean("is_default").notNull(),
-        number: varchar("number", { length: 32 }).notNull(),
-        label: varchar("label", { length: 256 }).notNull(),
-        type: varchar("type", { length: 16, enum: accountType }).notNull(),
+        number: varchar("number", {
+            length: 32,
+        }).notNull(),
+        label: varchar("label", {
+            length: 256,
+        }).notNull(),
+        type: varchar("type", {
+            length: 16,
+            enum: accountType,
+        }).notNull(),
 
         createdAt: dateTimeColumn("created_at").notNull(),
         lastUpdatedAt: dateTimeColumn("last_updated_at"),
@@ -66,22 +88,36 @@ export const accountModel = pgTable(
             onUpdate: "cascade",
         }),
     },
-    (t) => [unique().on(t.idOrganization, t.idYear, t.number)],
+    (t) => [
+        unique().on(t.idOrganization, t.idYear, t.number),
+    ],
 )
 
 // Relations
 export const accountRelations = relations(accountModel, ({ one, many }) => ({
     balanceSheetAsset: one(balanceSheetModel, {
-        fields: [accountModel.idBalanceSheetAsset],
-        references: [balanceSheetModel.id],
+        fields: [
+            accountModel.idBalanceSheetAsset,
+        ],
+        references: [
+            balanceSheetModel.id,
+        ],
     }),
     balanceSheetLiability: one(balanceSheetModel, {
-        fields: [accountModel.idBalanceSheetLiability],
-        references: [balanceSheetModel.id],
+        fields: [
+            accountModel.idBalanceSheetLiability,
+        ],
+        references: [
+            balanceSheetModel.id,
+        ],
     }),
     incomeStatement: one(incomeStatementModel, {
-        fields: [accountModel.idIncomeStatement],
-        references: [incomeStatementModel.id],
+        fields: [
+            accountModel.idIncomeStatement,
+        ],
+        references: [
+            incomeStatementModel.id,
+        ],
     }),
     lines: many(entryLineModel),
 }))

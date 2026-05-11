@@ -4,7 +4,12 @@ import type * as v from "valibot"
 export function sortAccounts(parameters: { accounts: Array<v.InferOutput<typeof returnedSchemas.account>> }) {
     if (parameters.accounts.length === 0) return []
 
-    const map = new Map(parameters.accounts.map((i) => [i.id, i]))
+    const map = new Map(
+        parameters.accounts.map((i) => [
+            i.id,
+            i,
+        ]),
+    )
     const levelCache = new Map<string, number>()
 
     function getLevel(account: (typeof parameters.accounts)[number]): number {

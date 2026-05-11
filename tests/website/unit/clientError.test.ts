@@ -7,7 +7,9 @@ import { ClientError } from "src/utilities/clientError.js"
 
 describe("ClientError", () => {
     it("creates an error with a message", () => {
-        const error = new ClientError({ message: "Something failed" })
+        const error = new ClientError({
+            message: "Something failed",
+        })
         expect(error.message).toBe("Something failed")
     })
 
@@ -22,7 +24,9 @@ describe("ClientError", () => {
 
     it("extracts message from a raw Error", () => {
         const rawError = new Error("Original error")
-        const error = new ClientError({ rawError })
+        const error = new ClientError({
+            rawError,
+        })
         expect(error.message).toBe("Original error")
         expect(error.stack).toBeDefined()
     })
@@ -32,7 +36,9 @@ describe("ClientError", () => {
             message: "Original",
             cause: "Some cause",
         })
-        const wrapped = new ClientError({ rawError: original })
+        const wrapped = new ClientError({
+            rawError: original,
+        })
         expect(wrapped.message).toBe("Original")
         expect(wrapped.cause).toBe("Some cause")
     })
@@ -43,14 +49,18 @@ describe("ClientError", () => {
     })
 
     it("has a stack trace", () => {
-        const error = new ClientError({ message: "test" })
+        const error = new ClientError({
+            message: "test",
+        })
         expect(error.stack).toBeDefined()
     })
 
     it("extracts cause from raw Error when no explicit cause given", () => {
         const rawError = new Error("msg")
         rawError.cause = "error cause"
-        const error = new ClientError({ rawError })
+        const error = new ClientError({
+            rawError,
+        })
         expect(error.cause).toBe("error cause")
     })
 })

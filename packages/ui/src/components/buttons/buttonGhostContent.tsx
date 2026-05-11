@@ -3,7 +3,12 @@ import { useButtonLoading } from "./button"
 import { type ButtonContentProps, renderButtonContent } from "./buttonContent"
 
 const ghostRecipe = sva({
-    slots: ["container", "leftIcon", "text", "rightIcon"],
+    slots: [
+        "container",
+        "leftIcon",
+        "text",
+        "rightIcon",
+    ],
     base: {
         container: {
             width: "fit-content",
@@ -23,8 +28,12 @@ const ghostRecipe = sva({
             borderStyle: "solid",
             borderColor: "transparent",
             backgroundColor: "transparent",
-            _hover: { backgroundColor: "neutral/5" },
-            _current: { backgroundColor: "primary/5" },
+            _hover: {
+                backgroundColor: "neutral/5",
+            },
+            _current: {
+                backgroundColor: "primary/5",
+            },
             _disabled: {
                 opacity: 0.5,
             },
@@ -36,8 +45,12 @@ const ghostRecipe = sva({
             height: "14px",
             flexShrink: 0,
             stroke: "neutral/70",
-            _disabled: { stroke: "neutral/50" },
-            _current: { stroke: "primary" },
+            _disabled: {
+                stroke: "neutral/50",
+            },
+            _current: {
+                stroke: "primary",
+            },
         },
         text: {
             overflow: "hidden",
@@ -47,8 +60,12 @@ const ghostRecipe = sva({
             lineHeight: "1rem",
             fontWeight: "400",
             color: "neutral/75",
-            _disabled: { color: "neutral/50" },
-            _current: { color: "primary" },
+            _disabled: {
+                color: "neutral/50",
+            },
+            _current: {
+                color: "primary",
+            },
         },
         rightIcon: {
             minWidth: "14px",
@@ -70,18 +87,42 @@ const ghostRecipe = sva({
                 container: {
                     _hover: {
                         backgroundColor: "error/5",
-                        _disabled: { backgroundColor: "transparent" },
+                        _disabled: {
+                            backgroundColor: "transparent",
+                        },
                     },
                 },
-                leftIcon: { stroke: "error", _disabled: { stroke: "neutral/50" } },
-                text: { color: "error", _disabled: { color: "neutral/50" } },
+                leftIcon: {
+                    stroke: "error",
+                    _disabled: {
+                        stroke: "neutral/50",
+                    },
+                },
+                text: {
+                    color: "error",
+                    _disabled: {
+                        color: "neutral/50",
+                    },
+                },
             },
             success: {
                 container: {
-                    _hover: { backgroundColor: "success/8" },
+                    _hover: {
+                        backgroundColor: "success/8",
+                    },
                 },
-                leftIcon: { stroke: "success", _disabled: { stroke: "neutral/50" } },
-                text: { color: "success", _disabled: { color: "neutral/50" } },
+                leftIcon: {
+                    stroke: "success",
+                    _disabled: {
+                        stroke: "neutral/50",
+                    },
+                },
+                text: {
+                    color: "success",
+                    _disabled: {
+                        color: "neutral/50",
+                    },
+                },
             },
         },
     },
@@ -91,7 +132,9 @@ const ghostRecipe = sva({
 })
 
 export function ButtonGhostContent(props: ButtonContentProps) {
-    const classes = ghostRecipe({ color: props.color ?? "default" })
+    const classes = ghostRecipe({
+        color: props.color ?? "default",
+    })
     const contextLoading = useButtonLoading()
     return renderButtonContent(props, classes, contextLoading)
 }

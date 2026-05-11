@@ -29,7 +29,9 @@ function validateEn16931(xml: string): En16931Validation {
     if (document.getElementsByTagName("parsererror").length > 0) {
         return {
             isValid: false,
-            issues: ["XML invalide (erreur de parsing)."],
+            issues: [
+                "XML invalide (erreur de parsing).",
+            ],
         }
     }
 
@@ -171,7 +173,12 @@ function validateEn16931(xml: string): En16931Validation {
 }
 
 export function ValidEN16931XML(props: { xmlContent: string }) {
-    const en16931 = useMemo(() => validateEn16931(props.xmlContent), [props.xmlContent])
+    const en16931 = useMemo(
+        () => validateEn16931(props.xmlContent),
+        [
+            props.xmlContent,
+        ],
+    )
     return (
         <div
             className={css({
@@ -185,13 +192,25 @@ export function ValidEN16931XML(props: { xmlContent: string }) {
                 gap: "0.5rem",
             })}
         >
-            <p className={css({ fontSize: "sm", color: en16931.isValid ? "success" : "danger" })}>
+            <p
+                className={css({
+                    fontSize: "sm",
+                    color: en16931.isValid ? "success" : "danger",
+                })}
+            >
                 {en16931.isValid
                     ? "Validation EN16931: conforme"
                     : `Validation EN16931: ${en16931.issues.length} non-conformite(s)`}
             </p>
             {!en16931.isValid && (
-                <ul className={css({ margin: 0, paddingLeft: "1rem", fontSize: "xs", color: "danger" })}>
+                <ul
+                    className={css({
+                        margin: 0,
+                        paddingLeft: "1rem",
+                        fontSize: "xs",
+                        color: "danger",
+                    })}
+                >
                     {en16931.issues.map((issue) => (
                         <li key={issue}>{issue}</li>
                     ))}

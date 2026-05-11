@@ -16,10 +16,16 @@ export const entryModel = pgTable(
     {
         id: idColumn("id").primaryKey(),
         idOrganization: idColumn("id_organization")
-            .references(() => organizationModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => organizationModel.id, {
+                onDelete: "cascade",
+                onUpdate: "cascade",
+            })
             .notNull(),
         idYear: idColumn("id_year")
-            .references(() => yearModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => yearModel.id, {
+                onDelete: "cascade",
+                onUpdate: "cascade",
+            })
             .notNull(),
         idJournal: idColumn("id_journal").references(() => journalModel.id, {
             onDelete: "set null",
@@ -29,7 +35,9 @@ export const entryModel = pgTable(
             onDelete: "set null",
             onUpdate: "cascade",
         }),
-        label: varchar("label", { length: 256 }).notNull(),
+        label: varchar("label", {
+            length: 256,
+        }).notNull(),
         date: dateTimeColumn("date").notNull(),
         createdAt: dateTimeColumn("created_at").notNull(),
         lastUpdatedAt: dateTimeColumn("last_updated_at"),
@@ -42,7 +50,9 @@ export const entryModel = pgTable(
             onUpdate: "cascade",
         }),
     },
-    (t) => [index().on(t.idOrganization, t.idYear)],
+    (t) => [
+        index().on(t.idOrganization, t.idYear),
+    ],
 )
 
 // Relations

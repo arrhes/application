@@ -3,7 +3,13 @@ import { css } from "../../utilities/cn.js"
 import { FormatBase } from "./formatBase.js"
 import { FormatNull } from "./formatNull.js"
 
-const sizes = ["o", "ko", "Mo", "Go", "To"]
+const sizes = [
+    "o",
+    "ko",
+    "Mo",
+    "Go",
+    "To",
+]
 
 export function formatFileSize(size?: number | null) {
     if (size === undefined || size === null) return "/"

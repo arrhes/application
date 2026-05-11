@@ -1,1 +1,6 @@
-export const organizationPaymentStatus = <const>["pending", "paid", "failed", "refunded"]
+export const organizationPaymentStatus = <const>[
+    "pending",
+    "paid",
+    "failed",
+    "refunded",
+]

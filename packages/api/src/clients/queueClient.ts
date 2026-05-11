@@ -12,7 +12,10 @@ export function queueClient(env: ReturnType<typeof getEnv>) {
             defaultJobOptions: {
                 attempts: 3,
                 timeout: 180_000,
-                backoff: { type: "fixed", delay: 15_000 },
+                backoff: {
+                    type: "fixed",
+                    delay: 15_000,
+                },
                 removeOnComplete: true,
                 removeOnFail: true,
             },

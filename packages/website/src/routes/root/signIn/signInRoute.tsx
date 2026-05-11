@@ -9,7 +9,9 @@ export const signInRoute = createRoute({
     pendingComponent: () => <CircularLoader />,
     beforeLoad: async () => {
         if (getIsAuthenticated() === true) {
-            throw redirect({ to: "/dashboard" })
+            throw redirect({
+                to: "/dashboard",
+            })
         }
         return {
             title: "Connexion",

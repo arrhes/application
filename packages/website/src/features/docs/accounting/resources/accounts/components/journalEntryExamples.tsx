@@ -23,7 +23,10 @@ export function JournalEntryExamples(props: { entry: AccountEntry }) {
                     })}
                 >
                     {entry.usageTips.map((tip) => (
-                        <DocTip key={tip} variant="tip">
+                        <DocTip
+                            key={tip}
+                            variant="tip"
+                        >
                             {tip}
                         </DocTip>
                     ))}
@@ -78,7 +81,15 @@ export function JournalEntryExamples(props: { entry: AccountEntry }) {
                                     {example.description}
                                 </span>
                             </div>
-                            <DocTable headers={["Compte", "Intitulé", "Débit", "Crédit"]} rows={example.entry.rows} />
+                            <DocTable
+                                headers={[
+                                    "Compte",
+                                    "Intitulé",
+                                    "Débit",
+                                    "Crédit",
+                                ]}
+                                rows={example.entry.rows}
+                            />
                         </div>
                     )),
                 )}

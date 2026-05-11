@@ -44,7 +44,9 @@ export const signInRoute = apiFactory.createApp().post(signInRouteDefinition.pat
             idUser: user.id,
             isActive: true,
             expiresAt: new Date(Date.now() + userSessionCookieMaxAge).toISOString(),
-            ip: getRemoteAddress({ context: c }),
+            ip: getRemoteAddress({
+                context: c,
+            }),
             createdAt: new Date().toISOString(),
             lastUpdatedAt: null,
         },

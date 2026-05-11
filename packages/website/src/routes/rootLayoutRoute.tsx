@@ -79,10 +79,16 @@ export const rootLayoutRoute = createRootRouteWithContext<{
     pendingComponent: () => <CircularLoader text="Chargement de l'application..." />,
     beforeLoad: (_ctx) => {},
     component: () => {
-        const matches = useRouterState({ select: (s) => s.matches })
-        const pathname = useRouterState({ select: (s) => s.location.pathname })
+        const matches = useRouterState({
+            select: (s) => s.matches,
+        })
+        const pathname = useRouterState({
+            select: (s) => s.location.pathname,
+        })
 
-        const reversedMatches = [...matches].reverse()
+        const reversedMatches = [
+            ...matches,
+        ].reverse()
 
         const matchWithTitle = reversedMatches.find((d) => d.context.title)
         const matchWithSection = reversedMatches.find((d) => d.context.section)
@@ -149,44 +155,90 @@ export const rootLayoutRoute = createRootRouteWithContext<{
         return (
             <Fragment>
                 <title>{title}</title>
-                <meta name="description" content={description} />
-                <link rel="canonical" href={canonicalUrl} />
-                {robots && <meta name="robots" content={robots} />}
+                <meta
+                    name="description"
+                    content={description}
+                />
+                <link
+                    rel="canonical"
+                    href={canonicalUrl}
+                />
+                {robots && (
+                    <meta
+                        name="robots"
+                        content={robots}
+                    />
+                )}
 
                 {/* Open Graph */}
-                <meta property="og:title" content={title} />
-                <meta property="og:description" content={description} />
-                <meta property="og:type" content="website" />
-                <meta property="og:url" content={canonicalUrl} />
-                <meta property="og:locale" content="fr_FR" />
-                <meta property="og:site_name" content={SITE_NAME} />
+                <meta
+                    property="og:title"
+                    content={title}
+                />
+                <meta
+                    property="og:description"
+                    content={description}
+                />
+                <meta
+                    property="og:type"
+                    content="website"
+                />
+                <meta
+                    property="og:url"
+                    content={canonicalUrl}
+                />
+                <meta
+                    property="og:locale"
+                    content="fr_FR"
+                />
+                <meta
+                    property="og:site_name"
+                    content={SITE_NAME}
+                />
 
                 {/* Twitter Card */}
-                <meta name="twitter:card" content="summary" />
-                <meta name="twitter:title" content={title} />
-                <meta name="twitter:description" content={description} />
+                <meta
+                    name="twitter:card"
+                    content="summary"
+                />
+                <meta
+                    name="twitter:title"
+                    content={title}
+                />
+                <meta
+                    name="twitter:description"
+                    content={description}
+                />
 
                 {/* JSON-LD Structured Data */}
                 <script
                     type="application/ld+json"
-                    dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify(organizationJsonLd),
+                    }}
                 />
                 {websiteJsonLd && (
                     <script
                         type="application/ld+json"
-                        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+                        dangerouslySetInnerHTML={{
+                            __html: JSON.stringify(websiteJsonLd),
+                        }}
                     />
                 )}
                 {softwareJsonLd && (
                     <script
                         type="application/ld+json"
-                        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
+                        dangerouslySetInnerHTML={{
+                            __html: JSON.stringify(softwareJsonLd),
+                        }}
                     />
                 )}
                 {breadcrumbJsonLd && (
                     <script
                         type="application/ld+json"
-                        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+                        dangerouslySetInnerHTML={{
+                            __html: JSON.stringify(breadcrumbJsonLd),
+                        }}
                     />
                 )}
 

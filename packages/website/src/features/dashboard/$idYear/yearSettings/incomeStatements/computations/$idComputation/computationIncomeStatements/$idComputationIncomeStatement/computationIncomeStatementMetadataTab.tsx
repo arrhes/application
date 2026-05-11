@@ -8,7 +8,9 @@ import { Section } from "../../../../../../../../../components/layouts/section/s
 import { computationIncomeStatementLayoutRoute } from "../../../../../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/computations/$idComputation/$idComputationIncomeStatement/computationIncomeStatementLayoutRoute.tsx"
 
 export function ComputationIncomeStatementMetadataTab() {
-    const params = useParams({ from: computationIncomeStatementLayoutRoute.id })
+    const params = useParams({
+        from: computationIncomeStatementLayoutRoute.id,
+    })
 
     return (
         <DataWrapper
@@ -20,7 +22,11 @@ export function ComputationIncomeStatementMetadataTab() {
         >
             {(computationIncomeStatement) => {
                 return (
-                    <Section.Item className={css({ flexDirection: "column" })}>
+                    <Section.Item
+                        className={css({
+                            flexDirection: "column",
+                        })}
+                    >
                         <DataBlock.Root>
                             <DataBlock.Header title="Métadonnées" />
                             <DataBlock.Content>

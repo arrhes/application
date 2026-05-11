@@ -31,7 +31,12 @@ export function JournalsListTable(props: {
                             />
                         )
                     }
-                    return sortedJournals.map((journal) => <JournalListTableRow key={journal.id} journal={journal} />)
+                    return sortedJournals.map((journal) => (
+                        <JournalListTableRow
+                            key={journal.id}
+                            journal={journal}
+                        />
+                    ))
                 }}
             </DataWrapper>
         </ListTable.Root>

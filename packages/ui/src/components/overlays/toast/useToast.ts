@@ -79,14 +79,24 @@ export const reducer = (state: State, action: Action): State => {
                 : state.toasts
             return {
                 ...state,
-                toasts: [action.toast, ...deduplicated].slice(0, TOAST_LIMIT),
+                toasts: [
+                    action.toast,
+                    ...deduplicated,
+                ].slice(0, TOAST_LIMIT),
             }
         }
 
         case "UPDATE_TOAST":
             return {
                 ...state,
-                toasts: state.toasts.map((t) => (t.id === action.toast.id ? { ...t, ...action.toast } : t)),
+                toasts: state.toasts.map((t) =>
+                    t.id === action.toast.id
+                        ? {
+                              ...t,
+                              ...action.toast,
+                          }
+                        : t,
+                ),
             }
 
         case "DISMISS_TOAST": {
@@ -128,7 +138,9 @@ export const reducer = (state: State, action: Action): State => {
 
 const listeners: Array<(state: State) => void> = []
 
-let memoryState: State = { toasts: [] }
+let memoryState: State = {
+    toasts: [],
+}
 
 function dispatch(action: Action) {
     memoryState = reducer(memoryState, action)
@@ -145,9 +157,16 @@ function toast({ ...props }: Toast) {
     const update = (props: ToasterToast) =>
         dispatch({
             type: "UPDATE_TOAST",
-            toast: { ...props, id },
+            toast: {
+                ...props,
+                id,
+            },
         })
-    const dismiss = () => dispatch({ type: "DISMISS_TOAST", toastId: id })
+    const dismiss = () =>
+        dispatch({
+            type: "DISMISS_TOAST",
+            toastId: id,
+        })
 
     dispatch({
         type: "ADD_TOAST",
@@ -159,7 +178,10 @@ function toast({ ...props }: Toast) {
     })
 
     setTimeout(() => {
-        dispatch({ type: "DISMISS_TOAST", toastId: id })
+        dispatch({
+            type: "DISMISS_TOAST",
+            toastId: id,
+        })
     }, TOAST_AUTO_DISMISS_DELAY)
 
     return {
@@ -185,7 +207,11 @@ function useToast() {
     return {
         ...state,
         toast,
-        dismiss: (toastId?: string) => dispatch({ type: "DISMISS_TOAST", toastId }),
+        dismiss: (toastId?: string) =>
+            dispatch({
+                type: "DISMISS_TOAST",
+                toastId,
+            }),
     }
 }
 

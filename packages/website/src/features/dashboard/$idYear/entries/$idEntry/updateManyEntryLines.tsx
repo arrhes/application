@@ -26,7 +26,10 @@ export function UpdateManyEntryLines(props: {
     const [open, setOpen] = useState(false)
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Modifier tous les mouvements" />
@@ -47,11 +50,17 @@ export function UpdateManyEntryLines(props: {
                                 body: data,
                             })
                             if (updateManyEntryLinesResponse.ok === false) {
-                                toast({ title: "Impossible de modifier les mouvements", variant: "error" })
+                                toast({
+                                    title: "Impossible de modifier les mouvements",
+                                    variant: "error",
+                                })
                                 return false
                             }
 
-                            toast({ title: "Mouvements modifiés avec succès", variant: "success" })
+                            toast({
+                                title: "Mouvements modifiés avec succès",
+                                variant: "success",
+                            })
                             return true
                         }}
                         onCancel={undefined}
@@ -82,7 +91,10 @@ export function UpdateManyEntryLines(props: {
                                     name="label"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel label="Libellé" isRequired={false} />
+                                            <FormLabel
+                                                label="Libellé"
+                                                isRequired={false}
+                                            />
                                             <FormControl>
                                                 <InputText
                                                     value={field.value}
@@ -104,7 +116,10 @@ export function UpdateManyEntryLines(props: {
                                         gap: "0.5rem",
                                     })}
                                 >
-                                    <FormLabel label="Mouvement ajouté aux calculs ?" isRequired={false} />
+                                    <FormLabel
+                                        label="Mouvement ajouté aux calculs ?"
+                                        isRequired={false}
+                                    />
                                     <div
                                         className={css({
                                             width: "100%",
@@ -119,15 +134,28 @@ export function UpdateManyEntryLines(props: {
                                             control={form.control}
                                             name="isComputedForJournalReport"
                                             render={({ field }) => (
-                                                <FormItem className={css({ width: "fit-content" })}>
-                                                    <FormLabel label="Journal" isRequired={true} />
+                                                <FormItem
+                                                    className={css({
+                                                        width: "fit-content",
+                                                    })}
+                                                >
+                                                    <FormLabel
+                                                        label="Journal"
+                                                        isRequired={true}
+                                                    />
                                                     <FormControl>
                                                         <InputToggle
                                                             value={field.value}
                                                             onChange={field.onChange}
                                                             options={[
-                                                                { value: true, label: "Oui" },
-                                                                { value: false, label: "Non" },
+                                                                {
+                                                                    value: true,
+                                                                    label: "Oui",
+                                                                },
+                                                                {
+                                                                    value: false,
+                                                                    label: "Non",
+                                                                },
                                                             ]}
                                                         />
                                                     </FormControl>
@@ -139,15 +167,28 @@ export function UpdateManyEntryLines(props: {
                                             control={form.control}
                                             name="isComputedForLedgerReport"
                                             render={({ field }) => (
-                                                <FormItem className={css({ width: "fit-content" })}>
-                                                    <FormLabel label="Grand-livre" isRequired={true} />
+                                                <FormItem
+                                                    className={css({
+                                                        width: "fit-content",
+                                                    })}
+                                                >
+                                                    <FormLabel
+                                                        label="Grand-livre"
+                                                        isRequired={true}
+                                                    />
                                                     <FormControl>
                                                         <InputToggle
                                                             value={field.value}
                                                             onChange={field.onChange}
                                                             options={[
-                                                                { value: true, label: "Oui" },
-                                                                { value: false, label: "Non" },
+                                                                {
+                                                                    value: true,
+                                                                    label: "Oui",
+                                                                },
+                                                                {
+                                                                    value: false,
+                                                                    label: "Non",
+                                                                },
                                                             ]}
                                                         />
                                                     </FormControl>
@@ -159,15 +200,28 @@ export function UpdateManyEntryLines(props: {
                                             control={form.control}
                                             name="isComputedForBalanceReport"
                                             render={({ field }) => (
-                                                <FormItem className={css({ width: "fit-content" })}>
-                                                    <FormLabel label="Balance" isRequired={true} />
+                                                <FormItem
+                                                    className={css({
+                                                        width: "fit-content",
+                                                    })}
+                                                >
+                                                    <FormLabel
+                                                        label="Balance"
+                                                        isRequired={true}
+                                                    />
                                                     <FormControl>
                                                         <InputToggle
                                                             value={field.value}
                                                             onChange={field.onChange}
                                                             options={[
-                                                                { value: true, label: "Oui" },
-                                                                { value: false, label: "Non" },
+                                                                {
+                                                                    value: true,
+                                                                    label: "Oui",
+                                                                },
+                                                                {
+                                                                    value: false,
+                                                                    label: "Non",
+                                                                },
                                                             ]}
                                                         />
                                                     </FormControl>
@@ -179,15 +233,28 @@ export function UpdateManyEntryLines(props: {
                                             control={form.control}
                                             name="isComputedForBalanceSheetReport"
                                             render={({ field }) => (
-                                                <FormItem className={css({ width: "fit-content" })}>
-                                                    <FormLabel label="Bilan" isRequired={true} />
+                                                <FormItem
+                                                    className={css({
+                                                        width: "fit-content",
+                                                    })}
+                                                >
+                                                    <FormLabel
+                                                        label="Bilan"
+                                                        isRequired={true}
+                                                    />
                                                     <FormControl>
                                                         <InputToggle
                                                             value={field.value}
                                                             onChange={field.onChange}
                                                             options={[
-                                                                { value: true, label: "Oui" },
-                                                                { value: false, label: "Non" },
+                                                                {
+                                                                    value: true,
+                                                                    label: "Oui",
+                                                                },
+                                                                {
+                                                                    value: false,
+                                                                    label: "Non",
+                                                                },
                                                             ]}
                                                         />
                                                     </FormControl>
@@ -199,15 +266,28 @@ export function UpdateManyEntryLines(props: {
                                             control={form.control}
                                             name="isComputedForIncomeStatementReport"
                                             render={({ field }) => (
-                                                <FormItem className={css({ width: "fit-content" })}>
-                                                    <FormLabel label="Compte de résultat" isRequired={true} />
+                                                <FormItem
+                                                    className={css({
+                                                        width: "fit-content",
+                                                    })}
+                                                >
+                                                    <FormLabel
+                                                        label="Compte de résultat"
+                                                        isRequired={true}
+                                                    />
                                                     <FormControl>
                                                         <InputToggle
                                                             value={field.value}
                                                             onChange={field.onChange}
                                                             options={[
-                                                                { value: true, label: "Oui" },
-                                                                { value: false, label: "Non" },
+                                                                {
+                                                                    value: true,
+                                                                    label: "Oui",
+                                                                },
+                                                                {
+                                                                    value: false,
+                                                                    label: "Non",
+                                                                },
                                                             ]}
                                                         />
                                                     </FormControl>

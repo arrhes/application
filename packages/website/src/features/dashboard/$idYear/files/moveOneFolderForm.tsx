@@ -28,11 +28,16 @@ function getDescendantFolderIds(parameters: {
         }
 
         const currentChildren = childrenByParentId.get(folder.idFolderParent) ?? []
-        childrenByParentId.set(folder.idFolderParent, [...currentChildren, folder.id])
+        childrenByParentId.set(folder.idFolderParent, [
+            ...currentChildren,
+            folder.id,
+        ])
     }
 
     const descendants = new Set<string>()
-    const stack = [...(childrenByParentId.get(parameters.folderId) ?? [])]
+    const stack = [
+        ...(childrenByParentId.get(parameters.folderId) ?? []),
+    ]
 
     while (stack.length > 0) {
         const current = stack.pop()
@@ -68,7 +73,10 @@ export function MoveOneFolderForm(props: {
         blockedFolderIds.add(props.folder.id)
 
         return [
-            { key: rootOptionKey, label: "/" },
+            {
+                key: rootOptionKey,
+                label: "/",
+            },
             ...allFolders
                 .filter((folder) => !blockedFolderIds.has(folder.id))
                 .map((folder) => ({
@@ -76,7 +84,10 @@ export function MoveOneFolderForm(props: {
                     label: folder.name,
                 })),
         ]
-    }, [foldersResponse.data, props.folder.id])
+    }, [
+        foldersResponse.data,
+        props.folder.id,
+    ])
 
     return (
         <FormRoot
@@ -101,11 +112,17 @@ export function MoveOneFolderForm(props: {
                 })
 
                 if (updateResponse.ok === false) {
-                    toast({ title: "Impossible de déplacer le dossier", variant: "error" })
+                    toast({
+                        title: "Impossible de déplacer le dossier",
+                        variant: "error",
+                    })
                     return false
                 }
 
-                toast({ title: "Dossier déplacé avec succès", variant: "success" })
+                toast({
+                    title: "Dossier déplacé avec succès",
+                    variant: "success",
+                })
                 return true
             }}
             onCancel={undefined}

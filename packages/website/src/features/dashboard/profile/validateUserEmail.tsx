@@ -20,15 +20,26 @@ export function ValidateUserEmail(props: { emailToValidate: string }) {
         setIsValidating(true)
         const response = await getResponseBodyFromAPI({
             routeDefinition: validateUserEmailRouteDefinition,
-            body: { emailToken: emailToken.trim() },
+            body: {
+                emailToken: emailToken.trim(),
+            },
         })
         setIsValidating(false)
         if (response.ok === false) {
-            toast({ title: response.error?.cause ?? "Code incorrect", variant: "error" })
+            toast({
+                title: response.error?.cause ?? "Code incorrect",
+                variant: "error",
+            })
             return
         }
-        toast({ title: "Adresse email mise à jour avec succès", variant: "success" })
-        await invalidateData({ routeDefinition: readUserSessionRouteDefinition, body: {} })
+        toast({
+            title: "Adresse email mise à jour avec succès",
+            variant: "success",
+        })
+        await invalidateData({
+            routeDefinition: readUserSessionRouteDefinition,
+            body: {},
+        })
     }
 
     async function handleResend() {
@@ -39,10 +50,16 @@ export function ValidateUserEmail(props: { emailToValidate: string }) {
         })
         setIsResending(false)
         if (response.ok === false) {
-            toast({ title: response.error?.cause ?? "Impossible de renvoyer l'email", variant: "error" })
+            toast({
+                title: response.error?.cause ?? "Impossible de renvoyer l'email",
+                variant: "error",
+            })
             return
         }
-        toast({ title: "Un nouveau code de vérification a été envoyé", variant: "success" })
+        toast({
+            title: "Un nouveau code de vérification a été envoyé",
+            variant: "success",
+        })
     }
 
     return (
@@ -58,23 +75,57 @@ export function ValidateUserEmail(props: { emailToValidate: string }) {
                 borderColor: "information/20",
             })}
         >
-            <div className={css({ display: "flex", alignItems: "center", gap: "0.5rem" })}>
-                <IconMail size={18} className={css({ color: "information", flexShrink: "0" })} />
-                <span className={css({ fontSize: "sm" })}>
+            <div
+                className={css({
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                })}
+            >
+                <IconMail
+                    size={18}
+                    className={css({
+                        color: "information",
+                        flexShrink: "0",
+                    })}
+                />
+                <span
+                    className={css({
+                        fontSize: "sm",
+                    })}
+                >
                     Un code de vérification a été envoyé à <strong>{props.emailToValidate}</strong>
                 </span>
             </div>
-            <div className={css({ display: "flex", alignItems: "center", gap: "0.5rem" })}>
+            <div
+                className={css({
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                })}
+            >
                 <InputText
                     value={emailToken}
                     onChange={(value) => setEmailToken(value ?? "")}
                     placeholder="Code à 6 chiffres"
                 />
-                <Button onClick={handleResend} isDisabled={isResending}>
-                    <ButtonOutlineContent leftIcon={<IconMailForward />} text="Renvoyer" />
+                <Button
+                    onClick={handleResend}
+                    isDisabled={isResending}
+                >
+                    <ButtonOutlineContent
+                        leftIcon={<IconMailForward />}
+                        text="Renvoyer"
+                    />
                 </Button>
-                <Button onClick={handleValidate} isDisabled={isValidating || !emailToken.trim()}>
-                    <ButtonPlainContent leftIcon={<IconCheck />} text="Valider" />
+                <Button
+                    onClick={handleValidate}
+                    isDisabled={isValidating || !emailToken.trim()}
+                >
+                    <ButtonPlainContent
+                        leftIcon={<IconCheck />}
+                        text="Valider"
+                    />
                 </Button>
             </div>
         </div>

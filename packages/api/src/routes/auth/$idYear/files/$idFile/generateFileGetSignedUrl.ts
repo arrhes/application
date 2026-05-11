@@ -11,7 +11,9 @@ import { generateGetSignedUrl } from "../../../../../utilities/storage/generateG
 export const generateFileGetSignedUrlRoute = apiFactory
     .createApp()
     .post(generateFileGetSignedUrlRouteDefinition.path, async (c) => {
-        const { idOrganization } = await checkUserSessionMiddleware({ context: c })
+        const { idOrganization } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: generateFileGetSignedUrlRouteDefinition.schemas.body,
@@ -45,6 +47,8 @@ export const generateFileGetSignedUrlRoute = apiFactory
             context: c,
             statusCode: 200,
             schema: generateFileGetSignedUrlRouteDefinition.schemas.return,
-            data: { url },
+            data: {
+                url,
+            },
         })
     })

@@ -9,14 +9,18 @@ import { organizationSettingsRoute } from "../../../../routes/root/dashboard/org
 import { UpdateOneOrganization } from "./updateOneOrganization.tsx"
 
 export function OrganizationSettingsPage() {
-    const params = useParams({ from: organizationSettingsRoute.id })
+    const params = useParams({
+        from: organizationSettingsRoute.id,
+    })
 
     return (
         <Page.Root>
             <Page.Content>
                 <DataWrapper
                     routeDefinition={readOneOrganizationRouteDefinition}
-                    body={{ idOrganization: params.idOrganization }}
+                    body={{
+                        idOrganization: params.idOrganization,
+                    }}
                 >
                     {(organization) => {
                         return (
@@ -27,7 +31,10 @@ export function OrganizationSettingsPage() {
                                     description="Changez le nom, l'email ou encore le numéro de SIREN."
                                 >
                                     <UpdateOneOrganization organization={organization}>
-                                        <ButtonOutlineContent leftIcon={<IconPencil />} text="Modifier" />
+                                        <ButtonOutlineContent
+                                            leftIcon={<IconPencil />}
+                                            text="Modifier"
+                                        />
                                     </UpdateOneOrganization>
                                 </SettingsSection.Row>
                             </SettingsSection.Root>

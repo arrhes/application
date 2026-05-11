@@ -46,7 +46,10 @@ export function UpdateOneFileForm(props: { file: v.InferOutput<typeof returnedSc
                     },
                 })
                 if (updateFileResponse.ok === false) {
-                    toast({ title: "Impossible de modifier le fichier", variant: "error" })
+                    toast({
+                        title: "Impossible de modifier le fichier",
+                        variant: "error",
+                    })
                     return false
                 }
 
@@ -60,7 +63,10 @@ export function UpdateOneFileForm(props: { file: v.InferOutput<typeof returnedSc
                         },
                     })
                     if (signedUrlResponse.ok === false) {
-                        toast({ title: "Impossible de télécharger le fichier", variant: "error" })
+                        toast({
+                            title: "Impossible de télécharger le fichier",
+                            variant: "error",
+                        })
                         return false
                     }
                     const uploadFileResponse = await fetch(signedUrlResponse.data.url, {
@@ -68,7 +74,10 @@ export function UpdateOneFileForm(props: { file: v.InferOutput<typeof returnedSc
                         body: data.file,
                     })
                     if (uploadFileResponse.ok === false) {
-                        toast({ title: "Le fichier ne peut pas être téléchargé", variant: "error" })
+                        toast({
+                            title: "Le fichier ne peut pas être téléchargé",
+                            variant: "error",
+                        })
                         return false
                     }
 
@@ -79,12 +88,18 @@ export function UpdateOneFileForm(props: { file: v.InferOutput<typeof returnedSc
                         },
                     })
                     if (finalizeResponse.ok === false) {
-                        toast({ title: "Le téléversement du fichier a échoué", variant: "error" })
+                        toast({
+                            title: "Le téléversement du fichier a échoué",
+                            variant: "error",
+                        })
                         return false
                     }
                 }
 
-                toast({ title: "Fichier modifié avec succès", variant: "success" })
+                toast({
+                    title: "Fichier modifié avec succès",
+                    variant: "success",
+                })
                 return true
             }}
             onCancel={undefined}
@@ -115,9 +130,15 @@ export function UpdateOneFileForm(props: { file: v.InferOutput<typeof returnedSc
                         name="file"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel label="Fichier" isRequired />
+                                <FormLabel
+                                    label="Fichier"
+                                    isRequired
+                                />
                                 <FormControl>
-                                    <InputFile value={field.value} onChange={field.onChange} />
+                                    <InputFile
+                                        value={field.value}
+                                        onChange={field.onChange}
+                                    />
                                 </FormControl>
                                 <FormError />
                             </FormItem>
@@ -128,9 +149,16 @@ export function UpdateOneFileForm(props: { file: v.InferOutput<typeof returnedSc
                         name="reference"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel label="Référence" isRequired />
+                                <FormLabel
+                                    label="Référence"
+                                    isRequired
+                                />
                                 <FormControl>
-                                    <InputText value={field.value} onChange={field.onChange} autoFocus />
+                                    <InputText
+                                        value={field.value}
+                                        onChange={field.onChange}
+                                        autoFocus
+                                    />
                                 </FormControl>
                                 <FormError />
                             </FormItem>
@@ -148,7 +176,10 @@ export function UpdateOneFileForm(props: { file: v.InferOutput<typeof returnedSc
                                     tooltip={undefined}
                                 />
                                 <FormControl>
-                                    <InputText value={field.value} onChange={field.onChange} />
+                                    <InputText
+                                        value={field.value}
+                                        onChange={field.onChange}
+                                    />
                                 </FormControl>
                                 <FormError />
                             </FormItem>

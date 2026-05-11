@@ -11,7 +11,9 @@ import { DeleteOneYear } from "./deleteOneYear.tsx"
 import { UpdateOneYear } from "./updateOneYear.tsx"
 
 export function YearSettingsPage() {
-    const params = useParams({ from: yearSettingsRoute.id })
+    const params = useParams({
+        from: yearSettingsRoute.id,
+    })
 
     return (
         <PageRoot>
@@ -32,12 +34,18 @@ export function YearSettingsPage() {
                                         description="Mettez à jour les informations principales."
                                     >
                                         <UpdateOneYear year={year}>
-                                            <ButtonOutlineContent leftIcon={<IconPencil />} text="Modifier" />
+                                            <ButtonOutlineContent
+                                                leftIcon={<IconPencil />}
+                                                text="Modifier"
+                                            />
                                         </UpdateOneYear>
                                     </SettingsSection.Row>
                                 </SettingsSection.Root>
                                 <SettingsSection.Root variant="danger">
-                                    <SettingsSection.Header title="Zone de danger" variant="danger" />
+                                    <SettingsSection.Header
+                                        title="Zone de danger"
+                                        variant="danger"
+                                    />
                                     <SettingsSection.Row
                                         title="Supprimer l'exercice"
                                         description="Cette action est irréversible."

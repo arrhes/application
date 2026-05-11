@@ -7,19 +7,30 @@ import { entryLayoutRoute } from "../../../../../routes/root/dashboard/organizat
 import type { YearDataKey } from "../../yearDataWrapper.tsx"
 import { YearDataWrapper } from "../../yearDataWrapper.tsx"
 
-const requiredKeys = ["entries"] as const satisfies readonly YearDataKey[]
+const requiredKeys = [
+    "entries",
+] as const satisfies readonly YearDataKey[]
 
 export function EntryMetadataTab() {
-    const params = useParams({ from: entryLayoutRoute.id })
+    const params = useParams({
+        from: entryLayoutRoute.id,
+    })
 
     return (
-        <YearDataWrapper idYear={params.idYear} requiredKeys={requiredKeys}>
+        <YearDataWrapper
+            idYear={params.idYear}
+            requiredKeys={requiredKeys}
+        >
             {({ entries }) => {
                 const entry = entries.find((r) => r.id === params.idEntry)
                 if (entry === undefined) return null
 
                 return (
-                    <Section.Item className={css({ flexDirection: "column" })}>
+                    <Section.Item
+                        className={css({
+                            flexDirection: "column",
+                        })}
+                    >
                         <DataBlock.Root>
                             <DataBlock.Header title="Métadonnées" />
                             <DataBlock.Content>

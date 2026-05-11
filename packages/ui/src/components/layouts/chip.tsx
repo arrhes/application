@@ -5,29 +5,59 @@ export type ChipColors = keyof typeof chipColors
 
 const chipColors = {
     neutral: {
-        backgroundColor: css({ backgroundColor: "neutral/5" }),
-        border: css({ borderColor: "neutral/10" }),
-        text: css({ color: "neutral" }),
+        backgroundColor: css({
+            backgroundColor: "neutral/5",
+        }),
+        border: css({
+            borderColor: "neutral/10",
+        }),
+        text: css({
+            color: "neutral",
+        }),
     },
     information: {
-        backgroundColor: css({ backgroundColor: "information/5" }),
-        border: css({ borderColor: "information/10" }),
-        text: css({ color: "information" }),
+        backgroundColor: css({
+            backgroundColor: "information/5",
+        }),
+        border: css({
+            borderColor: "information/10",
+        }),
+        text: css({
+            color: "information",
+        }),
     },
     error: {
-        backgroundColor: css({ backgroundColor: "error/5" }),
-        border: css({ borderColor: "error/10" }),
-        text: css({ color: "error" }),
+        backgroundColor: css({
+            backgroundColor: "error/5",
+        }),
+        border: css({
+            borderColor: "error/10",
+        }),
+        text: css({
+            color: "error",
+        }),
     },
     warning: {
-        backgroundColor: css({ backgroundColor: "warning/5" }),
-        border: css({ borderColor: "warning/10" }),
-        text: css({ color: "warning" }),
+        backgroundColor: css({
+            backgroundColor: "warning/5",
+        }),
+        border: css({
+            borderColor: "warning/10",
+        }),
+        text: css({
+            color: "warning",
+        }),
     },
     success: {
-        backgroundColor: css({ backgroundColor: "success/5" }),
-        border: css({ borderColor: "success/10" }),
-        text: css({ color: "success" }),
+        backgroundColor: css({
+            backgroundColor: "success/5",
+        }),
+        border: css({
+            borderColor: "success/10",
+        }),
+        text: css({
+            color: "success",
+        }),
     },
 }
 

@@ -57,14 +57,20 @@ function typeLabel(type: string): string {
 function InvoiceTemplate(props: InvoiceData) {
     const periodStartDate = new Date(props.periodStart)
     const periodEndDate = new Date(props.periodEnd)
-    const periodLabel = `${periodStartDate.toLocaleDateString("fr-FR", { month: "long", year: "numeric" })}`
+    const periodLabel = `${periodStartDate.toLocaleDateString("fr-FR", {
+        month: "long",
+        year: "numeric",
+    })}`
     const issuedAtLabel = formatDateFr(props.issuedAt)
 
     return (
         <html lang="fr">
             <head>
                 <meta charset="UTF-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1.0"
+                />
                 <Style />
             </head>
             <body
@@ -149,7 +155,10 @@ function InvoiceTemplate(props: InvoiceData) {
                     </thead>
                     <tbody>
                         {props.subscriptions.map((sub, idx) => (
-                            <tr key={idx} style="border-bottom: 1px solid #e5e5e5;">
+                            <tr
+                                key={idx}
+                                style="border-bottom: 1px solid #e5e5e5;"
+                            >
                                 <td style="padding: 12px 0;">{typeLabel(sub.type)}</td>
                                 <td style="padding: 12px 0; text-align: center;">{sub.quantity}</td>
                                 <td style="padding: 12px 0; text-align: right;">
@@ -188,7 +197,10 @@ function InvoiceTemplate(props: InvoiceData) {
                     </thead>
                     <tbody>
                         {props.payments.map((payment, idx) => (
-                            <tr key={idx} style="border-bottom: 1px solid #e5e5e5;">
+                            <tr
+                                key={idx}
+                                style="border-bottom: 1px solid #e5e5e5;"
+                            >
                                 <td style="padding: 10px 0;">{formatDateFr(payment.paidAt)}</td>
                                 <td style="padding: 10px 0;">{payment.description}</td>
                                 <td style="padding: 10px 0; text-align: right;">

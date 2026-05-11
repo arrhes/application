@@ -1,1 +1,4 @@
-export const ticketStatus = <const>["open", "closed"]
+export const ticketStatus = <const>[
+    "open",
+    "closed",
+]

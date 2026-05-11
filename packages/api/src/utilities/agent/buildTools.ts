@@ -121,7 +121,11 @@ function routePathToToolName(path: string): string {
 function unwrapSchema(schema: any): any {
     if (!schema || typeof schema !== "object") return schema
 
-    const unsupportedWrappers = new Set(["non_nullable", "non_nullish", "non_optional"])
+    const unsupportedWrappers = new Set([
+        "non_nullable",
+        "non_nullish",
+        "non_optional",
+    ])
 
     // Unwrap wrapper schemas
     if (unsupportedWrappers.has(schema.type) && schema.wrapped) {
@@ -144,7 +148,10 @@ function unwrapSchema(schema: any): any {
             return true
         })
         if (filteredPipe.length !== schema.pipe.length) {
-            return unwrapSchema({ ...schema, pipe: filteredPipe })
+            return unwrapSchema({
+                ...schema,
+                pipe: filteredPipe,
+            })
         }
     }
 
@@ -154,22 +161,34 @@ function unwrapSchema(schema: any): any {
         for (const [key, value] of Object.entries(schema.entries)) {
             newEntries[key] = unwrapSchema(value)
         }
-        return { ...schema, entries: newEntries }
+        return {
+            ...schema,
+            entries: newEntries,
+        }
     }
 
     // For array/set schemas with an item sub-schema
     if (schema.item) {
-        return { ...schema, item: unwrapSchema(schema.item) }
+        return {
+            ...schema,
+            item: unwrapSchema(schema.item),
+        }
     }
 
     // For union/intersect schemas with options
     if (schema.options && Array.isArray(schema.options)) {
-        return { ...schema, options: schema.options.map(unwrapSchema) }
+        return {
+            ...schema,
+            options: schema.options.map(unwrapSchema),
+        }
     }
 
     // For optional/nullable/nullish schemas
     if (schema.wrapped) {
-        return { ...schema, wrapped: unwrapSchema(schema.wrapped) }
+        return {
+            ...schema,
+            wrapped: unwrapSchema(schema.wrapped),
+        }
     }
 
     return schema
@@ -189,7 +208,9 @@ function bodySchemaToJsonSchema(bodySchema: v.ObjectSchema<v.ObjectEntries, unde
     }
 
     // Remove auto-injected fields
-    const fieldsToRemove = ["idOrganization"]
+    const fieldsToRemove = [
+        "idOrganization",
+    ]
 
     if (jsonSchema.properties) {
         for (const field of fieldsToRemove) {

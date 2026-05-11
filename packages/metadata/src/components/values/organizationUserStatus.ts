@@ -1,1 +1,5 @@
-export const organizationUserStatus = <const>["invited", "active", "removed"]
+export const organizationUserStatus = <const>[
+    "invited",
+    "active",
+    "removed",
+]

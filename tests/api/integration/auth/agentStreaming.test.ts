@@ -16,7 +16,9 @@ beforeAll(async () => {
 
 describe("Agent stream fallback", () => {
     it("returns 410 and marks message as error when stream is unavailable", async () => {
-        const sessionResponse = await authenticatedRequest<{ id: string }>({
+        const sessionResponse = await authenticatedRequest<{
+            id: string
+        }>({
             session,
             path: "/auth/create-one-agent-session",
             body: {
@@ -28,7 +30,9 @@ describe("Agent stream fallback", () => {
         expect(sessionResponse.status).toBe(200)
         const idAgentSession = sessionResponse.data.id
 
-        const messageResponse = await authenticatedRequest<{ id: string }>({
+        const messageResponse = await authenticatedRequest<{
+            id: string
+        }>({
             session,
             path: "/auth/create-one-agent-message",
             body: {
@@ -51,11 +55,17 @@ describe("Agent stream fallback", () => {
         expect(streamResponse.status).toBe(410)
 
         const messagesResponse = await authenticatedRequest<
-            Array<{ id: string; state: string; output: string | null }>
+            Array<{
+                id: string
+                state: string
+                output: string | null
+            }>
         >({
             session,
             path: "/auth/read-all-agent-messages",
-            body: { idAgentSession },
+            body: {
+                idAgentSession,
+            },
         })
         expect(messagesResponse.status).toBe(200)
 

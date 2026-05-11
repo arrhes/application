@@ -24,7 +24,12 @@ export function DataWrapper<TRouteDefinition extends ReturnType<typeof routeDefi
                 <CircularLoader
                     {...props.loaderProps}
                     text={props.loaderProps?.text ?? "Chargement des données..."}
-                    className={cx(css({ padding: "1rem" }), props.loaderProps?.className)}
+                    className={cx(
+                        css({
+                            padding: "1rem",
+                        }),
+                        props.loaderProps?.className,
+                    )}
                 />
             )
         }
@@ -32,7 +37,9 @@ export function DataWrapper<TRouteDefinition extends ReturnType<typeof routeDefi
             <FormatError
                 {...props.errorProps}
                 text={props.errorProps?.text ?? "Erreur lors de la récupération des données."}
-                className={css({ padding: "1rem" })}
+                className={css({
+                    padding: "1rem",
+                })}
             />
         )
     }

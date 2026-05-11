@@ -12,9 +12,14 @@ export function ParentAccountSection(props: { parentAccount: AccountEntry }) {
         <DocSection title="Compte parent">
             <LinkButton
                 to="/documentation/comptabilité/ressources/comptes/$account"
-                params={{ account: parentAccount.slug }}
+                params={{
+                    account: parentAccount.slug,
+                }}
             >
-                <ButtonOutlineContent leftIcon={<IconCornerUpLeft />} text={undefined}>
+                <ButtonOutlineContent
+                    leftIcon={<IconCornerUpLeft />}
+                    text={undefined}
+                >
                     <div
                         className={css({
                             display: "flex",
@@ -33,7 +38,14 @@ export function ParentAccountSection(props: { parentAccount: AccountEntry }) {
                         >
                             {parentAccount.number}
                         </span>
-                        <span className={css({ fontSize: "0.875rem", lineHeight: "1rem" })}>{parentAccount.label}</span>
+                        <span
+                            className={css({
+                                fontSize: "0.875rem",
+                                lineHeight: "1rem",
+                            })}
+                        >
+                            {parentAccount.label}
+                        </span>
                     </div>
                 </ButtonOutlineContent>
             </LinkButton>

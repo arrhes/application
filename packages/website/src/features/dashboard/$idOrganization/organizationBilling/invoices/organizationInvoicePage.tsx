@@ -28,7 +28,13 @@ function InvoiceTabsContent(props: {
     const [activeTab, setActiveTab] = useState<InvoiceTab>("payments")
 
     return (
-        <div className={css({ display: "flex", flexDirection: "column", gap: "0.9rem" })}>
+        <div
+            className={css({
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.9rem",
+            })}
+        >
             <div
                 className={css({
                     display: "flex",
@@ -40,10 +46,16 @@ function InvoiceTabsContent(props: {
                 })}
             >
                 <Button onClick={() => setActiveTab("payments")}>
-                    <ButtonGhostContent text="Paiements" isCurrent={activeTab === "payments"} />
+                    <ButtonGhostContent
+                        text="Paiements"
+                        isCurrent={activeTab === "payments"}
+                    />
                 </Button>
                 <Button onClick={() => setActiveTab("xml")}>
-                    <ButtonGhostContent text="Vue XML" isCurrent={activeTab === "xml"} />
+                    <ButtonGhostContent
+                        text="Vue XML"
+                        isCurrent={activeTab === "xml"}
+                    />
                 </Button>
             </div>
 
@@ -51,7 +63,10 @@ function InvoiceTabsContent(props: {
 
             {activeTab === "xml" &&
                 (props.invoice.xmlStorageKey === null ? (
-                    <Banner variant="information" title="Facture non disponible">
+                    <Banner
+                        variant="information"
+                        title="Facture non disponible"
+                    >
                         La facture XML/PDF n'est pas encore générée. Elle sera disponible au début du mois prochain.
                     </Banner>
                 ) : (
@@ -61,20 +76,30 @@ function InvoiceTabsContent(props: {
     )
 }
 export function OrganizationInvoicePage() {
-    const params = useParams({ from: organizationInvoiceUblRoute.id })
+    const params = useParams({
+        from: organizationInvoiceUblRoute.id,
+    })
 
     return (
         <Page.Root>
             <Page.Content>
                 <SettingsSection.Root>
-                    <DataWrapper routeDefinition={readOneInvoiceRouteDefinition} body={{ idInvoice: params.idInvoice }}>
+                    <DataWrapper
+                        routeDefinition={readOneInvoiceRouteDefinition}
+                        body={{
+                            idInvoice: params.idInvoice,
+                        }}
+                    >
                         {(invoice) => {
                             return (
                                 <>
                                     <SettingsSection.Header
                                         title={`Facture ${invoice.reference} (${formatInvoiceMonthYear(invoice.startingAt)})`}
                                     />
-                                    <InvoiceTabsContent idInvoice={params.idInvoice} invoice={invoice} />
+                                    <InvoiceTabsContent
+                                        idInvoice={params.idInvoice}
+                                        invoice={invoice}
+                                    />
                                 </>
                             )
                         }}

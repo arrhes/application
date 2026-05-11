@@ -37,11 +37,18 @@ export function CreateOneEntry(props: {
     const [open, setOpen] = useState(false)
     const [selectedTemplate, setSelectedTemplate] = useState<EntryTemplateKey | "empty">("empty")
     const [isTemplateReady, setIsTemplateReady] = useState(false)
-    const [selectedTags, setSelectedTags] = useState<Array<{ key: string; label: string }>>([])
+    const [selectedTags, setSelectedTags] = useState<
+        Array<{
+            key: string
+            label: string
+        }>
+    >([])
 
     const tagsResponse = useDataFromAPI({
         routeDefinition: readAllTagsRouteDefinition,
-        body: { idYear: props.idYear },
+        body: {
+            idYear: props.idYear,
+        },
     })
 
     const activeTemplate = entryTemplates.find((t) => t.key === selectedTemplate)
@@ -83,7 +90,10 @@ export function CreateOneEntry(props: {
                                 body: data,
                             })
                             if (createEntryResponse.ok === false) {
-                                toast({ title: "Impossible d'ajouter l'écriture", variant: "error" })
+                                toast({
+                                    title: "Impossible d'ajouter l'écriture",
+                                    variant: "error",
+                                })
                                 return false
                             }
 
@@ -102,7 +112,10 @@ export function CreateOneEntry(props: {
                                 )
                             }
 
-                            toast({ title: "Écriture ajoutée avec succès", variant: "success" })
+                            toast({
+                                title: "Écriture ajoutée avec succès",
+                                variant: "success",
+                            })
                             applicationRouter.navigate({
                                 to: "/dashboard/organisations/$idOrganization/exercices/$idYear/écritures/$idEntry",
                                 params: {
@@ -140,7 +153,10 @@ export function CreateOneEntry(props: {
                                     name="label"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel label="Libellé" isRequired={true} />
+                                            <FormLabel
+                                                label="Libellé"
+                                                isRequired={true}
+                                            />
                                             <FormControl>
                                                 <InputText
                                                     value={field.value}
@@ -157,9 +173,15 @@ export function CreateOneEntry(props: {
                                     name="date"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel label="Date" isRequired={true} />
+                                            <FormLabel
+                                                label="Date"
+                                                isRequired={true}
+                                            />
                                             <FormControl>
-                                                <InputDate value={field.value} onChange={field.onChange} />
+                                                <InputDate
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -170,7 +192,10 @@ export function CreateOneEntry(props: {
                                     name="idJournal"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel label="Journal" isRequired={false} />
+                                            <FormLabel
+                                                label="Journal"
+                                                isRequired={false}
+                                            />
                                             <FormControl>
                                                 <InputDataCombobox
                                                     value={field.value}
@@ -195,7 +220,10 @@ export function CreateOneEntry(props: {
                                     name="idFile"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel label="Pièce justificative" isRequired={false} />
+                                            <FormLabel
+                                                label="Pièce justificative"
+                                                isRequired={false}
+                                            />
                                             <FormControl>
                                                 <InputDataCombobox
                                                     value={field.value}
@@ -216,7 +244,10 @@ export function CreateOneEntry(props: {
                                     )}
                                 />
                                 <FormItem>
-                                    <FormLabel label="Catégories" isRequired={false} />
+                                    <FormLabel
+                                        label="Catégories"
+                                        isRequired={false}
+                                    />
                                     <InputComboboxMultiple
                                         placeholder="Ajouter une catégorie"
                                         emptyLabel="Aucune catégorie sélectionnée"
@@ -235,7 +266,12 @@ export function CreateOneEntry(props: {
                                 </FormItem>
                                 <FormGroup title="Modèle d'écriture">
                                     <FormItem>
-                                        <span className={css({ fontSize: "xs", color: "neutral/50" })}>
+                                        <span
+                                            className={css({
+                                                fontSize: "xs",
+                                                color: "neutral/50",
+                                            })}
+                                        >
                                             Choisir un modèle
                                         </span>
                                         <InputSelect

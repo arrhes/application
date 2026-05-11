@@ -20,15 +20,29 @@ export function EntriesTableSelectionActions(props: { selectedRows: Array<Row<En
             props.selectedRows.map((row) =>
                 getResponseBodyFromAPI({
                     routeDefinition: deleteOneEntryRouteDefinition,
-                    body: { idEntry: row.original.id, idYear: props.idYear },
+                    body: {
+                        idEntry: row.original.id,
+                        idYear: props.idYear,
+                    },
                 }),
             ),
         )
-        await invalidateData({ routeDefinition: readAllEntriesRouteDefinition, body: { idYear: props.idYear } })
+        await invalidateData({
+            routeDefinition: readAllEntriesRouteDefinition,
+            body: {
+                idYear: props.idYear,
+            },
+        })
         if (results.some((r) => r.ok === false)) {
-            toast({ title: "Certaines écritures n'ont pas pu être supprimées", variant: "error" })
+            toast({
+                title: "Certaines écritures n'ont pas pu être supprimées",
+                variant: "error",
+            })
         } else {
-            toast({ title: "Écritures supprimées", variant: "success" })
+            toast({
+                title: "Écritures supprimées",
+                variant: "success",
+            })
         }
     }
 
@@ -37,17 +51,34 @@ export function EntriesTableSelectionActions(props: { selectedRows: Array<Row<En
             <Popover.Root>
                 <Popover.Trigger asChild>
                     <Button>
-                        <ButtonGhostContent leftIcon={<IconChevronDown />} text={undefined} />
+                        <ButtonGhostContent
+                            leftIcon={<IconChevronDown />}
+                            text={undefined}
+                        />
                     </Button>
                 </Popover.Trigger>
-                <Popover.Content align="start" className={css({ padding: "0.5rem", gap: "0.25rem" })}>
+                <Popover.Content
+                    align="start"
+                    className={css({
+                        padding: "0.5rem",
+                        gap: "0.25rem",
+                    })}
+                >
                     <Popover.Close asChild>
-                        <Button className={css({ width: "100%" })} onClick={() => setDeleteOpen(true)}>
+                        <Button
+                            className={css({
+                                width: "100%",
+                            })}
+                            onClick={() => setDeleteOpen(true)}
+                        >
                             <ButtonGhostContent
                                 leftIcon={<IconTrash />}
                                 text="Supprimer"
                                 color="danger"
-                                className={css({ width: "100%", justifyContent: "start" })}
+                                className={css({
+                                    width: "100%",
+                                    justifyContent: "start",
+                                })}
                             />
                         </Button>
                     </Popover.Close>

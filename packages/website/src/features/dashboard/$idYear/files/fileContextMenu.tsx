@@ -32,7 +32,10 @@ export function FileContextMenu(props: {
         })
 
         if (isDeleted === false) {
-            toast({ title: "Erreur lors de la suppression du fichier", variant: "error" })
+            toast({
+                title: "Erreur lors de la suppression du fichier",
+                variant: "error",
+            })
             return
         }
 
@@ -43,7 +46,10 @@ export function FileContextMenu(props: {
             },
         })
 
-        toast({ title: "Fichier supprimé", variant: "success" })
+        toast({
+            title: "Fichier supprimé",
+            variant: "success",
+        })
     }
 
     return (
@@ -66,36 +72,63 @@ export function FileContextMenu(props: {
                     >
                         Ouvrir
                     </ContextMenu.Item>
-                    <ContextMenu.Item leftIcon={<IconPencil />} onSelect={() => setEditOpen(true)}>
+                    <ContextMenu.Item
+                        leftIcon={<IconPencil />}
+                        onSelect={() => setEditOpen(true)}
+                    >
                         Modifier
                     </ContextMenu.Item>
-                    <ContextMenu.Item leftIcon={<IconArrowsMove />} onSelect={() => setMoveOpen(true)}>
+                    <ContextMenu.Item
+                        leftIcon={<IconArrowsMove />}
+                        onSelect={() => setMoveOpen(true)}
+                    >
                         Déplacer
                     </ContextMenu.Item>
                     <ContextMenu.Separator />
-                    <ContextMenu.Item leftIcon={<IconTrash />} color="danger" onSelect={() => setDeleteOpen(true)}>
+                    <ContextMenu.Item
+                        leftIcon={<IconTrash />}
+                        color="danger"
+                        onSelect={() => setDeleteOpen(true)}
+                    >
                         Supprimer
                     </ContextMenu.Item>
                 </ContextMenu.Content>
             </ContextMenu.Root>
 
             {/* Edit drawer (controlled externally) */}
-            <Drawer.Root open={editOpen} onOpenChange={setEditOpen}>
+            <Drawer.Root
+                open={editOpen}
+                onOpenChange={setEditOpen}
+            >
                 <Drawer.Content>
                     <Drawer.Header title="Modifier le fichier" />
                     <Drawer.Body>
-                        <UpdateOneFileForm file={props.file} onSuccess={() => setEditOpen(false)} />
+                        <UpdateOneFileForm
+                            file={props.file}
+                            onSuccess={() => setEditOpen(false)}
+                        />
                     </Drawer.Body>
                 </Drawer.Content>
             </Drawer.Root>
 
-            <Dialog.Root open={moveOpen} onOpenChange={setMoveOpen}>
+            <Dialog.Root
+                open={moveOpen}
+                onOpenChange={setMoveOpen}
+            >
                 <Dialog.Content>
                     <Dialog.Header>
                         <Dialog.Title>Déplacer le fichier</Dialog.Title>
                     </Dialog.Header>
-                    <Dialog.Body className={css({ alignItems: "stretch" })}>
-                        <MoveOneFileForm file={props.file} idYear={props.idYear} onSuccess={() => setMoveOpen(false)} />
+                    <Dialog.Body
+                        className={css({
+                            alignItems: "stretch",
+                        })}
+                    >
+                        <MoveOneFileForm
+                            file={props.file}
+                            idYear={props.idYear}
+                            onSuccess={() => setMoveOpen(false)}
+                        />
                     </Dialog.Body>
                 </Dialog.Content>
             </Dialog.Root>
@@ -110,7 +143,10 @@ export function FileContextMenu(props: {
                         Cette action est irréversible.
                     </>
                 }
-                submitButtonProps={{ color: "danger", text: "Supprimer le fichier" }}
+                submitButtonProps={{
+                    color: "danger",
+                    text: "Supprimer le fichier",
+                }}
                 onSubmit={handleDelete}
                 open={deleteOpen}
                 onOpenChange={setDeleteOpen}

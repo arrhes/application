@@ -12,15 +12,36 @@ export function DocSectionCard(props: {
     iconColor?: DocSectionCardColor
     title: string
     description: string
-    links: { to: ValidRoutes; label: string }[]
+    links: {
+        to: ValidRoutes
+        label: string
+    }[]
     ctaTo: ValidRoutes
     ctaLabel: string
 }) {
-    const colorStyles: Record<DocSectionCardColor, { bg: string; color: string }> = {
-        information: { bg: "information/10", color: "information" },
-        success: { bg: "success/10", color: "success" },
-        primary: { bg: "primary/10", color: "primary" },
-        warning: { bg: "warning/10", color: "warning" },
+    const colorStyles: Record<
+        DocSectionCardColor,
+        {
+            bg: string
+            color: string
+        }
+    > = {
+        information: {
+            bg: "information/10",
+            color: "information",
+        },
+        success: {
+            bg: "success/10",
+            color: "success",
+        },
+        primary: {
+            bg: "primary/10",
+            color: "primary",
+        },
+        warning: {
+            bg: "warning/10",
+            color: "warning",
+        },
     }
     const style = colorStyles[props.iconColor ?? "primary"]
 
@@ -123,7 +144,10 @@ export function DocSectionCard(props: {
 
             {/* CTA */}
             <LinkButton to={props.ctaTo}>
-                <ButtonOutlineContent text={props.ctaLabel} rightIcon={<IconChevronRight />} />
+                <ButtonOutlineContent
+                    text={props.ctaLabel}
+                    rightIcon={<IconChevronRight />}
+                />
             </LinkButton>
         </div>
     )

@@ -14,7 +14,10 @@ export function DownloadInvoiceAsPDFButton(props: {
 
     async function handleDownload() {
         if (!props.invoice.xmlStorageKey) {
-            toast({ title: "La facture n'est pas encore disponible", variant: "error" })
+            toast({
+                title: "La facture n'est pas encore disponible",
+                variant: "error",
+            })
             return
         }
 
@@ -23,7 +26,10 @@ export function DownloadInvoiceAsPDFButton(props: {
         setIsDownloading(false)
 
         if (!res.ok) {
-            toast({ title: res.errorMessage, variant: "error" })
+            toast({
+                title: res.errorMessage,
+                variant: "error",
+            })
             return
         }
 

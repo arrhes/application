@@ -9,8 +9,18 @@ export const computationSchema = v.object({
     idOrganization: v.nonNullable(idSchema, "Ce champ est requis"),
     idYear: v.nonNullable(idSchema, "Ce champ est requis"),
     index: v.nonNullable(integerSchema, "Ce champ est requis"),
-    number: v.nonNullable(varcharSchema({ maxLength: 32 }), "Ce champ est requis"),
-    label: v.nonNullable(varcharSchema({ maxLength: 256 }), "Ce champ est requis"),
+    number: v.nonNullable(
+        varcharSchema({
+            maxLength: 32,
+        }),
+        "Ce champ est requis",
+    ),
+    label: v.nonNullable(
+        varcharSchema({
+            maxLength: 256,
+        }),
+        "Ce champ est requis",
+    ),
     createdAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),
     lastUpdatedAt: v.nullable(dateTimeSchema),
     createdBy: v.nullable(idSchema),

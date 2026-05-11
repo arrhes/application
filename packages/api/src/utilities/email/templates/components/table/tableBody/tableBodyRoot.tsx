@@ -6,7 +6,10 @@ export function TableBodyRoot(props: { children?: JSX.Element | JSX.Element[]; c
     return (
         <>
             <Style />
-            <tbody class={cx(css`width: 100%;`, props.class)} children={props.children} />
+            <tbody
+                class={cx(css`width: 100%;`, props.class)}
+                children={props.children}
+            />
         </>
     )
 }

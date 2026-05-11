@@ -31,7 +31,9 @@ interface PendingFileItem {
 }
 
 export function AgentPage() {
-    const params = useParams({ from: organizationPathRoute.id })
+    const params = useParams({
+        from: organizationPathRoute.id,
+    })
     const [input, setInput] = useState("")
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
@@ -54,15 +56,23 @@ export function AgentPage() {
             autoSelectedRef.current = true
             setSelectedYearId(yearsData[0].id)
         }
-    }, [yearsData])
+    }, [
+        yearsData,
+    ])
 
     async function createNewSession(text: string) {
         if (text.trim() === "") {
-            toast({ title: "Veuillez saisir une requête pour démarrer une session", variant: "warning" })
+            toast({
+                title: "Veuillez saisir une requête pour démarrer une session",
+                variant: "warning",
+            })
             return
         }
         if (isLoading) {
-            toast({ title: "Une session est déjà en cours de création", variant: "warning" })
+            toast({
+                title: "Une session est déjà en cours de création",
+                variant: "warning",
+            })
             return
         }
         setIsLoading(true)
@@ -79,7 +89,10 @@ export function AgentPage() {
             })
 
             if (agentSessionResponse.ok === false) {
-                toast({ title: "Impossible de créer la session", variant: "error" })
+                toast({
+                    title: "Impossible de créer la session",
+                    variant: "error",
+                })
                 return
             }
 
@@ -105,7 +118,10 @@ export function AgentPage() {
                 })
 
                 if (createFileResponse.ok === false) {
-                    toast({ title: `Impossible d'importer ${pendingFile.name}`, variant: "error" })
+                    toast({
+                        title: `Impossible d'importer ${pendingFile.name}`,
+                        variant: "error",
+                    })
                     continue
                 }
 
@@ -113,12 +129,17 @@ export function AgentPage() {
                 if (createFileResponse.data.url) {
                     const uploadResponse = await fetch(createFileResponse.data.url, {
                         method: "PUT",
-                        headers: { "Content-Type": file.type || "application/octet-stream" },
+                        headers: {
+                            "Content-Type": file.type || "application/octet-stream",
+                        },
                         body: file,
                     })
 
                     if (!uploadResponse.ok) {
-                        toast({ title: `Échec de l'envoi de ${pendingFile.name}`, variant: "error" })
+                        toast({
+                            title: `Échec de l'envoi de ${pendingFile.name}`,
+                            variant: "error",
+                        })
                         continue
                     }
                 }
@@ -147,23 +168,34 @@ export function AgentPage() {
             })
 
             if (agentMessageResponse.ok === false) {
-                toast({ title: "Impossible de créer le message", variant: "error" })
+                toast({
+                    title: "Impossible de créer le message",
+                    variant: "error",
+                })
                 return
             }
 
             // Invalidate session list so the new session appears in the sidebar
             dataClient.invalidateQueries({
-                queryKey: [readAllAgentSessionsRouteDefinition.path],
+                queryKey: [
+                    readAllAgentSessionsRouteDefinition.path,
+                ],
                 exact: false,
             })
 
             navigate({
                 to: "/dashboard/organisations/$idOrganization/agent/sessions/$idAgentSession",
-                params: { idOrganization: params.idOrganization, idAgentSession: agentSessionResponse.data.id },
+                params: {
+                    idOrganization: params.idOrganization,
+                    idAgentSession: agentSessionResponse.data.id,
+                },
             })
         } catch (error) {
             console.error("[createNewSession]", error)
-            toast({ title: "Une erreur est survenue lors de la création de la session", variant: "error" })
+            toast({
+                title: "Une erreur est survenue lors de la création de la session",
+                variant: "error",
+            })
         } finally {
             setIsLoading(false)
             setPendingFiles([])
@@ -264,13 +296,17 @@ export function AgentPage() {
                             }}
                             placeholder="Votre message..."
                             disabled={isLoading}
-                            className={css({ flex: 1 })}
+                            className={css({
+                                flex: 1,
+                            })}
                         />
                         <input
                             ref={fileInputRef}
                             type="file"
                             multiple
-                            style={{ display: "none" }}
+                            style={{
+                                display: "none",
+                            }}
                             accept="text/*,application/pdf,application/json,application/xml,application/csv,image/*"
                             onChange={(event) => {
                                 const files = event.target.files
@@ -280,7 +316,10 @@ export function AgentPage() {
                                         file,
                                         name: file.name,
                                     }))
-                                    setPendingFiles((prev) => [...prev, ...localFiles])
+                                    setPendingFiles((prev) => [
+                                        ...prev,
+                                        ...localFiles,
+                                    ])
                                 }
                                 event.target.value = ""
                             }}
@@ -333,7 +372,12 @@ export function AgentPage() {
                                                 maxWidth: "260px",
                                             })}
                                         >
-                                            <IconPaperclip size={12} className={css({ flexShrink: 0 })} />
+                                            <IconPaperclip
+                                                size={12}
+                                                className={css({
+                                                    flexShrink: 0,
+                                                })}
+                                            />
                                             <span
                                                 className={css({
                                                     overflow: "hidden",
@@ -355,7 +399,9 @@ export function AgentPage() {
                                                     alignItems: "center",
                                                     cursor: "pointer",
                                                     color: "neutral/40",
-                                                    _hover: { color: "danger" },
+                                                    _hover: {
+                                                        color: "danger",
+                                                    },
                                                     background: "none",
                                                     border: "none",
                                                     padding: 0,
@@ -398,18 +444,39 @@ export function AgentPage() {
                                         padding: "0.75rem",
                                     })}
                                 >
-                                    <div className={css({ display: "flex", flexDirection: "column", gap: "0.25rem" })}>
+                                    <div
+                                        className={css({
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            gap: "0.25rem",
+                                        })}
+                                    >
                                         <span
-                                            className={css({ fontSize: "sm", fontWeight: "medium", color: "neutral" })}
+                                            className={css({
+                                                fontSize: "sm",
+                                                fontWeight: "medium",
+                                                color: "neutral",
+                                            })}
                                         >
                                             Contexte de la session
                                         </span>
-                                        <span className={css({ fontSize: "xs", color: "neutral/60" })}>
+                                        <span
+                                            className={css({
+                                                fontSize: "xs",
+                                                color: "neutral/60",
+                                            })}
+                                        >
                                             Ce contexte guide les réponses de l'assistant pour la session.
                                         </span>
                                     </div>
 
-                                    <div className={css({ display: "flex", flexDirection: "column", gap: "0.75rem" })}>
+                                    <div
+                                        className={css({
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            gap: "0.75rem",
+                                        })}
+                                    >
                                         <div
                                             className={css({
                                                 display: "flex",
@@ -497,7 +564,11 @@ export function AgentPage() {
                                     createNewSession(input)
                                 }}
                             >
-                                <ButtonPlainContent isLoading={isLoading} leftIcon={<IconSend />} text="Envoyer" />
+                                <ButtonPlainContent
+                                    isLoading={isLoading}
+                                    leftIcon={<IconSend />}
+                                    text="Envoyer"
+                                />
                             </Button>
                         </div>
                     </div>
@@ -514,7 +585,11 @@ export function AgentPage() {
                     })}
                 >
                     {suggestionChips.map((chipText) => (
-                        <Button key={chipText} onClick={() => setInput(chipText)} isDisabled={isLoading}>
+                        <Button
+                            key={chipText}
+                            onClick={() => setInput(chipText)}
+                            isDisabled={isLoading}
+                        >
                             <ButtonOutlineContent text={chipText} />
                         </Button>
                     ))}
@@ -539,7 +614,9 @@ export function AgentPage() {
                         className={css({
                             color: "primary/60",
                             textDecoration: "underline",
-                            _hover: { color: "primary" },
+                            _hover: {
+                                color: "primary",
+                            },
                         })}
                     >
                         En savoir plus

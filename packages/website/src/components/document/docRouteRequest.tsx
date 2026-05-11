@@ -38,7 +38,11 @@ function isOptional(schema: SchemaLike): boolean {
     return false
 }
 
-function extractFields(schema: SchemaLike): { name: string; type: string; required: boolean }[] {
+function extractFields(schema: SchemaLike): {
+    name: string
+    type: string
+    required: boolean
+}[] {
     if (schema.type !== "object" || !schema.entries) return []
 
     return Object.entries(schema.entries).map(([name, fieldSchema]) => ({
@@ -48,17 +52,42 @@ function extractFields(schema: SchemaLike): { name: string; type: string; requir
     }))
 }
 
-function extractReturnFields(
-    schema: SchemaLike,
-): { name: string; type: string }[] | { isArray: true; fields: { name: string; type: string }[] } {
+function extractReturnFields(schema: SchemaLike):
+    | {
+          name: string
+          type: string
+      }[]
+    | {
+          isArray: true
+          fields: {
+              name: string
+              type: string
+          }[]
+      } {
     if (schema.type === "array" && schema.item) {
-        const fields = extractFields(schema.item).map(({ name, type }) => ({ name, type }))
-        return { isArray: true, fields }
+        const fields = extractFields(schema.item).map(({ name, type }) => ({
+            name,
+            type,
+        }))
+        return {
+            isArray: true,
+            fields,
+        }
     }
-    return extractFields(schema).map(({ name, type }) => ({ name, type }))
+    return extractFields(schema).map(({ name, type }) => ({
+        name,
+        type,
+    }))
 }
 
-function FieldTable(props: { fields: { name: string; type: string; required?: boolean }[]; showRequired: boolean }) {
+function FieldTable(props: {
+    fields: {
+        name: string
+        type: string
+        required?: boolean
+    }[]
+    showRequired: boolean
+}) {
     if (props.fields.length === 0) {
         return (
             <div
@@ -133,8 +162,12 @@ function FieldTable(props: { fields: { name: string; type: string; required?: bo
                         className={css({
                             borderBottom: "1px solid",
                             borderBottomColor: "neutral/10",
-                            _last: { borderBottom: "none" },
-                            _hover: { backgroundColor: "neutral/3" },
+                            _last: {
+                                borderBottom: "none",
+                            },
+                            _hover: {
+                                backgroundColor: "neutral/3",
+                            },
                             transition: "colors",
                         })}
                     >
@@ -184,7 +217,12 @@ export function DocRouteRequest(props: { routeDefinition: ReturnType<typeof rout
     const bodyFields = extractFields(props.routeDefinition.schemas.body as SchemaLike)
     const returnData = extractReturnFields(props.routeDefinition.schemas.return as SchemaLike)
     const isArrayReturn = !Array.isArray(returnData) && returnData.isArray
-    const returnFields = isArrayReturn ? returnData.fields : (returnData as { name: string; type: string }[])
+    const returnFields = isArrayReturn
+        ? returnData.fields
+        : (returnData as {
+              name: string
+              type: string
+          }[])
 
     return (
         <div
@@ -248,10 +286,22 @@ export function DocRouteRequest(props: { routeDefinition: ReturnType<typeof rout
                         gap: "0.15rem",
                     })}
                 >
-                    <span className={css({ fontSize: "xs", color: "neutral/50", fontFamily: "mono" })}>
+                    <span
+                        className={css({
+                            fontSize: "xs",
+                            color: "neutral/50",
+                            fontFamily: "mono",
+                        })}
+                    >
                         Content-Type: application/json
                     </span>
-                    <span className={css({ fontSize: "xs", color: "neutral/50", fontFamily: "mono" })}>
+                    <span
+                        className={css({
+                            fontSize: "xs",
+                            color: "neutral/50",
+                            fontFamily: "mono",
+                        })}
+                    >
                         Authorization: Bearer {"<clé>"}
                     </span>
                 </div>
@@ -294,7 +344,9 @@ export function DocRouteRequest(props: { routeDefinition: ReturnType<typeof rout
                         backgroundColor: "transparent",
                         cursor: "pointer",
                         transition: "all 0.15s",
-                        _hover: { color: activeTab === "body" ? "primary" : "neutral/70" },
+                        _hover: {
+                            color: activeTab === "body" ? "primary" : "neutral/70",
+                        },
                     })}
                 >
                     Requête{bodyFields.length > 0 ? ` (${bodyFields.length})` : ""}
@@ -312,7 +364,9 @@ export function DocRouteRequest(props: { routeDefinition: ReturnType<typeof rout
                         backgroundColor: "transparent",
                         cursor: "pointer",
                         transition: "all 0.15s",
-                        _hover: { color: activeTab === "response" ? "primary" : "neutral/70" },
+                        _hover: {
+                            color: activeTab === "response" ? "primary" : "neutral/70",
+                        },
                     })}
                 >
                     Réponse{isArrayReturn ? " (tableau)" : returnFields.length > 0 ? ` (${returnFields.length})` : ""}
@@ -320,9 +374,23 @@ export function DocRouteRequest(props: { routeDefinition: ReturnType<typeof rout
             </div>
 
             {/* Tab content */}
-            <div className={css({ overflowX: "auto" })}>
-                {activeTab === "body" && <FieldTable fields={bodyFields} showRequired={true} />}
-                {activeTab === "response" && <FieldTable fields={returnFields} showRequired={false} />}
+            <div
+                className={css({
+                    overflowX: "auto",
+                })}
+            >
+                {activeTab === "body" && (
+                    <FieldTable
+                        fields={bodyFields}
+                        showRequired={true}
+                    />
+                )}
+                {activeTab === "response" && (
+                    <FieldTable
+                        fields={returnFields}
+                        showRequired={false}
+                    />
+                )}
             </div>
         </div>
     )

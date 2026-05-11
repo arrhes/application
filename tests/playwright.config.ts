@@ -7,7 +7,14 @@ export default defineConfig({
     forbidOnly: !!process.env.CI,
     retries: process.env.CI ? 2 : 0,
     workers: 1,
-    reporter: [["html", { outputFolder: "./playwright-report" }]],
+    reporter: [
+        [
+            "html",
+            {
+                outputFolder: "./playwright-report",
+            },
+        ],
+    ],
     timeout: 30000,
     use: {
         baseURL: "http://localhost:5173",
@@ -16,7 +23,9 @@ export default defineConfig({
     projects: [
         {
             name: "chromium",
-            use: { ...devices["Desktop Chrome"] },
+            use: {
+                ...devices["Desktop Chrome"],
+            },
         },
     ],
     webServer: undefined,

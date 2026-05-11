@@ -21,6 +21,8 @@ export async function generateMonthlyInvoices(): Promise<void> {
         throw new Error(`Invoice generation failed: ${res.status} ${text}`)
     }
 
-    const body = (await res.json()) as { generatedCount?: number }
+    const body = (await res.json()) as {
+        generatedCount?: number
+    }
     console.log(`[generateMonthlyInvoices] Processed ${body.generatedCount ?? 0} monthly billing cycle(s).`)
 }

@@ -200,7 +200,10 @@ export function YearApiDocPage() {
                 <DocRouteRequest routeDefinition={deleteOneEntryLineRouteDefinition} />
             </DocSection>
 
-            <DocNextPage to="/documentation/api/stockage" label="Fichiers et documents" />
+            <DocNextPage
+                to="/documentation/api/stockage"
+                label="Fichiers et documents"
+            />
         </DocRoot>
     )
 }

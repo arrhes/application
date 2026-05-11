@@ -23,9 +23,18 @@ export function EntryLinesTable(props: {
                     accessorKey: "actions",
                     header: " ",
                     cell: ({ row }) => (
-                        <div className={css({ display: "flex", justifyContent: "center", alignItems: "center" })}>
+                        <div
+                            className={css({
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                            })}
+                        >
                             <UpdateOneEntryLine entryLine={row.original}>
-                                <ButtonGhostContent leftIcon={<IconPencil />} text={undefined} />
+                                <ButtonGhostContent
+                                    leftIcon={<IconPencil />}
+                                    text={undefined}
+                                />
                             </UpdateOneEntryLine>
                             <LinkButton
                                 to="/dashboard/organisations/$idOrganization/exercices/$idYear/écritures/$idEntry/mouvements/$idEntryLine"
@@ -36,7 +45,10 @@ export function EntryLinesTable(props: {
                                     idEntryLine: row.original.id,
                                 }}
                             >
-                                <ButtonGhostContent leftIcon={<IconEye />} text={undefined} />
+                                <ButtonGhostContent
+                                    leftIcon={<IconEye />}
+                                    text={undefined}
+                                />
                             </LinkButton>
                         </div>
                     ),
@@ -64,8 +76,19 @@ export function EntryLinesTable(props: {
                                     gap: "0.5rem",
                                 })}
                             >
-                                <FormatText className={css({ overflow: "visible" })}>{account.number}</FormatText>
-                                <FormatText wrap={true} className={css({ color: "neutral/50" })}>
+                                <FormatText
+                                    className={css({
+                                        overflow: "visible",
+                                    })}
+                                >
+                                    {account.number}
+                                </FormatText>
+                                <FormatText
+                                    wrap={true}
+                                    className={css({
+                                        color: "neutral/50",
+                                    })}
+                                >
                                     {account.label}
                                 </FormatText>
                             </div>

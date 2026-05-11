@@ -20,7 +20,10 @@ describe("Files", () => {
             const response = await authenticatedRequest({
                 session,
                 path: "/auth/read-all-files",
-                body: { idOrganization, idYear },
+                body: {
+                    idOrganization,
+                    idYear,
+                },
             })
             expect(response.status).toBe(200)
 
@@ -37,7 +40,10 @@ describe("Documents", () => {
             const response = await authenticatedRequest({
                 session,
                 path: "/auth/read-all-documents",
-                body: { idOrganization, idYear },
+                body: {
+                    idOrganization,
+                    idYear,
+                },
             })
             expect(response.status).toBe(200)
 

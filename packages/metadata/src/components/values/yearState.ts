@@ -1,1 +1,4 @@
-export const yearState = <const>["open", "closed"]
+export const yearState = <const>[
+    "open",
+    "closed",
+]

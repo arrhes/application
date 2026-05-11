@@ -32,10 +32,17 @@ export function AccountsTable(props: { idOrganization: string; idYear: string; g
                       return text.includes(normalizedFilter)
                   })
 
-        const sorted = [...filtered].sort((a, b) => a.number.toString().localeCompare(b.number.toString()))
+        const sorted = [
+            ...filtered,
+        ].sort((a, b) => a.number.toString().localeCompare(b.number.toString()))
 
-        return sortAccounts({ accounts: sorted })
-    }, [response.data, props.globalFilter])
+        return sortAccounts({
+            accounts: sorted,
+        })
+    }, [
+        response.data,
+        props.globalFilter,
+    ])
 
     const hrefBase = `/dashboard/organisations/${props.idOrganization}/exercices/${props.idYear}/param%C3%A8tres/comptes/`
 
@@ -62,7 +69,11 @@ export function AccountsTable(props: { idOrganization: string; idYear: string; g
                 },
             })
         },
-        [navigate, props.idOrganization, props.idYear],
+        [
+            navigate,
+            props.idOrganization,
+            props.idYear,
+        ],
     )
 
     const renderAccount = useCallback(
@@ -73,7 +84,9 @@ export function AccountsTable(props: { idOrganization: string; idYear: string; g
                 href={`${hrefBase}${sortedAccount.account.id}`}
             />
         ),
-        [hrefBase],
+        [
+            hrefBase,
+        ],
     )
 
     return (
@@ -90,13 +103,19 @@ export function AccountsTable(props: { idOrganization: string; idYear: string; g
         >
             {response.data === undefined ? (
                 response.isPending ? (
-                    <div className={css({ padding: "1rem" })}>
+                    <div
+                        className={css({
+                            padding: "1rem",
+                        })}
+                    >
                         <CircularLoader text="Chargement des données..." />
                     </div>
                 ) : (
                     <FormatError
                         text="Erreur lors de la récupération des données."
-                        className={css({ padding: "1rem" })}
+                        className={css({
+                            padding: "1rem",
+                        })}
                     />
                 )
             ) : structuredAccounts.length === 0 ? (
@@ -106,8 +125,17 @@ export function AccountsTable(props: { idOrganization: string; idYear: string; g
                     subtitle={props.globalFilter ? undefined : "Ajoutez un compte pour commencer"}
                 />
             ) : (
-                <div onClick={handleContainerClick} className={css({ width: "100%", height: "100%" })}>
-                    <Virtualizer data={structuredAccounts} childSize={ACCOUNT_ITEM_HEIGHT}>
+                <div
+                    onClick={handleContainerClick}
+                    className={css({
+                        width: "100%",
+                        height: "100%",
+                    })}
+                >
+                    <Virtualizer
+                        data={structuredAccounts}
+                        childSize={ACCOUNT_ITEM_HEIGHT}
+                    >
                         {renderAccount}
                     </Virtualizer>
                 </div>

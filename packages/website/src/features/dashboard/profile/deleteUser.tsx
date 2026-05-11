@@ -17,7 +17,10 @@ export function DeleteUser(props: { children: JSX.Element }) {
     const [open, setOpen] = useState(false)
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Supprimer le compte" />
@@ -44,7 +47,10 @@ export function DeleteUser(props: { children: JSX.Element }) {
                                 })
                                 return false
                             }
-                            toast({ title: "Compte supprimé", variant: "success" })
+                            toast({
+                                title: "Compte supprimé",
+                                variant: "success",
+                            })
                             return true
                         }}
                         onCancel={undefined}
@@ -68,7 +74,10 @@ export function DeleteUser(props: { children: JSX.Element }) {
                                             isRequired
                                         />
                                         <FormControl>
-                                            <InputPassword value={field.value} onChange={field.onChange} />
+                                            <InputPassword
+                                                value={field.value}
+                                                onChange={field.onChange}
+                                            />
                                         </FormControl>
                                         <FormError />
                                     </FormItem>

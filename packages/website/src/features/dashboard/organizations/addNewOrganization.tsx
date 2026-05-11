@@ -20,7 +20,10 @@ export function AddNewOrganization(props: { children: JSX.Element }) {
     const [open, setOpen] = useState(false)
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Ajouter une nouvelle organisation" />
@@ -40,11 +43,17 @@ export function AddNewOrganization(props: { children: JSX.Element }) {
                                 body: data,
                             })
                             if (!response.ok) {
-                                toast({ title: "Impossible d'ajouter l'organisation", variant: "error" })
+                                toast({
+                                    title: "Impossible d'ajouter l'organisation",
+                                    variant: "error",
+                                })
                                 return false
                             }
 
-                            toast({ title: "Organisation ajoutée avec succès", variant: "success" })
+                            toast({
+                                title: "Organisation ajoutée avec succès",
+                                variant: "success",
+                            })
                             return true
                         }}
                         onCancel={undefined}
@@ -75,8 +84,14 @@ export function AddNewOrganization(props: { children: JSX.Element }) {
                                                     value={field.value}
                                                     onChange={field.onChange}
                                                     options={[
-                                                        { value: "company", label: "Entreprise" },
-                                                        { value: "association", label: "Association" },
+                                                        {
+                                                            value: "company",
+                                                            label: "Entreprise",
+                                                        },
+                                                        {
+                                                            value: "association",
+                                                            label: "Association",
+                                                        },
                                                     ]}
                                                 />
                                             </FormControl>
@@ -96,7 +111,10 @@ export function AddNewOrganization(props: { children: JSX.Element }) {
                                                 tooltip={undefined}
                                             />
                                             <FormControl>
-                                                <InputText value={field.value} onChange={field.onChange} />
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -114,7 +132,10 @@ export function AddNewOrganization(props: { children: JSX.Element }) {
                                                 tooltip={undefined}
                                             />
                                             <FormControl>
-                                                <InputText value={field.value} onChange={field.onChange} />
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -132,7 +153,11 @@ export function AddNewOrganization(props: { children: JSX.Element }) {
                                                 tooltip={undefined}
                                             />
                                             <FormControl>
-                                                <InputText value={field.value} onChange={field.onChange} type="email" />
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                    type="email"
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>

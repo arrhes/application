@@ -8,7 +8,9 @@ import { response } from "../../../../utilities/response.js"
 import { selectOne } from "../../../../utilities/sql/selectOne.js"
 
 export const undoAgentActionRoute = apiFactory.createApp().post(undoAgentActionRouteDefinition.path, async (c) => {
-    const { user } = await checkUserSessionMiddleware({ context: c })
+    const { user } = await checkUserSessionMiddleware({
+        context: c,
+    })
     const body = await validateBodyMiddleware({
         context: c,
         schema: undoAgentActionRouteDefinition.schemas.body,

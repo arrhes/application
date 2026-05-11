@@ -34,13 +34,18 @@ export function MoveOneFileForm(props: {
 
     const folderOptions = useMemo(
         () => [
-            { key: rootOptionKey, label: "/" },
+            {
+                key: rootOptionKey,
+                label: "/",
+            },
             ...(foldersResponse.data ?? []).map((folder) => ({
                 key: folder.id,
                 label: folder.name,
             })),
         ],
-        [foldersResponse.data],
+        [
+            foldersResponse.data,
+        ],
     )
 
     return (
@@ -66,11 +71,17 @@ export function MoveOneFileForm(props: {
                 })
 
                 if (updateResponse.ok === false) {
-                    toast({ title: "Impossible de déplacer le fichier", variant: "error" })
+                    toast({
+                        title: "Impossible de déplacer le fichier",
+                        variant: "error",
+                    })
                     return false
                 }
 
-                toast({ title: "Fichier déplacé avec succès", variant: "success" })
+                toast({
+                    title: "Fichier déplacé avec succès",
+                    variant: "success",
+                })
                 return true
             }}
             onCancel={undefined}

@@ -7,7 +7,9 @@ import { response } from "../../../../../../utilities/response.js"
 import { deleteOne } from "../../../../../../utilities/sql/deleteOne.js"
 
 export const removeOneEntryTagRoute = apiFactory.createApp().post(removeOneEntryTagRouteDefinition.path, async (c) => {
-    const { idOrganization } = await checkUserSessionMiddleware({ context: c })
+    const { idOrganization } = await checkUserSessionMiddleware({
+        context: c,
+    })
     const body = await validateBodyMiddleware({
         context: c,
         schema: removeOneEntryTagRouteDefinition.schemas.body,

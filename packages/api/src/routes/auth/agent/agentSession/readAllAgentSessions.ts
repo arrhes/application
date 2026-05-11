@@ -9,7 +9,9 @@ import { selectMany } from "../../../../utilities/sql/selectMany.js"
 export const readAllAgentSessionsRoute = apiFactory
     .createApp()
     .post(readAllAgentSessionsRouteDefinition.path, async (c) => {
-        const { user } = await checkUserSessionMiddleware({ context: c })
+        const { user } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: readAllAgentSessionsRouteDefinition.schemas.body,
@@ -22,15 +24,20 @@ export const readAllAgentSessionsRoute = apiFactory
             const pattern = `%${searchQuery}%`
 
             const rows = await c.var.clients.sql
-                .selectDistinctOn([models.agentSession.id], {
-                    id: models.agentSession.id,
-                    idOrganization: models.agentSession.idOrganization,
-                    idUser: models.agentSession.idUser,
-                    title: models.agentSession.title,
-                    createdAt: models.agentSession.createdAt,
-                    lastUpdatedAt: models.agentSession.lastUpdatedAt,
-                    matchedContent: models.agentMessage.output,
-                })
+                .selectDistinctOn(
+                    [
+                        models.agentSession.id,
+                    ],
+                    {
+                        id: models.agentSession.id,
+                        idOrganization: models.agentSession.idOrganization,
+                        idUser: models.agentSession.idUser,
+                        title: models.agentSession.title,
+                        createdAt: models.agentSession.createdAt,
+                        lastUpdatedAt: models.agentSession.lastUpdatedAt,
+                        matchedContent: models.agentMessage.output,
+                    },
+                )
                 .from(models.agentSession)
                 .leftJoin(models.agentMessage, eq(models.agentMessage.idAgentSession, models.agentSession.id))
                 .where(
@@ -65,6 +72,9 @@ export const readAllAgentSessionsRoute = apiFactory
             context: c,
             statusCode: 200,
             schema: readAllAgentSessionsRouteDefinition.schemas.return,
-            data: sessions.map((s) => ({ ...s, matchedContent: null })),
+            data: sessions.map((s) => ({
+                ...s,
+                matchedContent: null,
+            })),
         })
     })

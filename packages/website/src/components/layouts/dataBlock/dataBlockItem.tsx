@@ -43,7 +43,12 @@ export function DataBlockItem(props: { label: string; description?: string; chil
                 </span>
                 {!props.description ? null : (
                     <Tooltip.Root delayDuration={0}>
-                        <Tooltip.Trigger className={css({ cursor: "help" })} onClick={(e) => e.preventDefault()}>
+                        <Tooltip.Trigger
+                            className={css({
+                                cursor: "help",
+                            })}
+                            onClick={(e) => e.preventDefault()}
+                        >
                             <IconInfoSquareRounded
                                 size={16}
                                 strokeWidth={1}
@@ -56,7 +61,11 @@ export function DataBlockItem(props: { label: string; description?: string; chil
                                 })}
                             />
                         </Tooltip.Trigger>
-                        <Tooltip.Content className={css({ backgroundColor: "neutral" })}>
+                        <Tooltip.Content
+                            className={css({
+                                backgroundColor: "neutral",
+                            })}
+                        >
                             <p
                                 className={css({
                                     wordBreak: "break-word",

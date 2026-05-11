@@ -21,10 +21,15 @@ const requiredKeys = [
 ] as const satisfies readonly YearDataKey[]
 
 export function EntryPage() {
-    const params = useParams({ from: entryLayoutRoute.id })
+    const params = useParams({
+        from: entryLayoutRoute.id,
+    })
 
     return (
-        <YearDataWrapper idYear={params.idYear} requiredKeys={requiredKeys}>
+        <YearDataWrapper
+            idYear={params.idYear}
+            requiredKeys={requiredKeys}
+        >
             {({ entries, entryLines: allEntryLines, entryTags, journals, tags, files }) => {
                 const entry = entries.find((r) => r.id === params.idEntry)
                 if (entry === undefined) return null
@@ -70,7 +75,11 @@ function EntryInformationsTab(props: {
     totalCredit: number
 }) {
     return (
-        <Section.Item className={css({ flexDirection: "column" })}>
+        <Section.Item
+            className={css({
+                flexDirection: "column",
+            })}
+        >
             <div
                 className={css({
                     width: "100%",
@@ -81,7 +90,10 @@ function EntryInformationsTab(props: {
                 })}
             >
                 <UpdateOneEntry entry={props.entry}>
-                    <ButtonPlainContent leftIcon={<IconPencil />} text="Modifier" />
+                    <ButtonPlainContent
+                        leftIcon={<IconPencil />}
+                        text="Modifier"
+                    />
                 </UpdateOneEntry>
             </div>
             <DataBlock.Root>

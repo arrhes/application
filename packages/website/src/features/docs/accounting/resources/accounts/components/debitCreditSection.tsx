@@ -8,10 +8,19 @@ export function DebitCreditSection(props: { entry: AccountEntry }) {
     return (
         <DocSection title="Fonctionnement">
             <DocTable
-                headers={["Mouvement", "Signification"]}
+                headers={[
+                    "Mouvement",
+                    "Signification",
+                ]}
                 rows={[
-                    ["Débit", entry.debitMeaning],
-                    ["Crédit", entry.creditMeaning],
+                    [
+                        "Débit",
+                        entry.debitMeaning,
+                    ],
+                    [
+                        "Crédit",
+                        entry.creditMeaning,
+                    ],
                 ]}
             />
         </DocSection>

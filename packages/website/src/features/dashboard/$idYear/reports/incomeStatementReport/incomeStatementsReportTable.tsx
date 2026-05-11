@@ -26,8 +26,20 @@ export function IncomeStatementsReportTable(props: {
                 <Table.Header.Root>
                     <Table.Header.Row>
                         <Table.Header.Cell />
-                        <Table.Header.Cell className={css({ width: "[1%]" })} align="right">
-                            <span className={css({ color: "neutral/75", fontSize: "sm" })}>Net</span>
+                        <Table.Header.Cell
+                            className={css({
+                                width: "[1%]",
+                            })}
+                            align="right"
+                        >
+                            <span
+                                className={css({
+                                    color: "neutral/75",
+                                    fontSize: "sm",
+                                })}
+                            >
+                                Net
+                            </span>
                         </Table.Header.Cell>
                     </Table.Header.Row>
                 </Table.Header.Root>
@@ -60,7 +72,9 @@ export function IncomeStatementsReportTable(props: {
                         <Table.Body.Root
                             className={css({
                                 borderBottom: "1px solid token(colors.neutral/10)",
-                                _last: { borderBottom: "0" },
+                                _last: {
+                                    borderBottom: "0",
+                                },
                             })}
                         >
                             <Table.Body.Row>
@@ -168,7 +182,12 @@ export function IncomeStatementsReportTable(props: {
                                                 gap: "0.5rem",
                                             })}
                                         >
-                                            <FormatText className={css({ whiteSpace: "normal", textAlign: "right" })}>
+                                            <FormatText
+                                                className={css({
+                                                    whiteSpace: "normal",
+                                                    textAlign: "right",
+                                                })}
+                                            >
                                                 {computation.label}
                                             </FormatText>
                                             <FormatText
@@ -182,7 +201,12 @@ export function IncomeStatementsReportTable(props: {
                                             </FormatText>
                                         </div>
                                     </Table.Body.Cell>
-                                    <Table.Body.Cell className={css({ width: "[1%]" })} align="right">
+                                    <Table.Body.Cell
+                                        className={css({
+                                            width: "[1%]",
+                                        })}
+                                        align="right"
+                                    >
                                         <FormatPrice price={computationAmount} />
                                     </Table.Body.Cell>
                                 </Table.Body.Row>

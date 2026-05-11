@@ -17,7 +17,11 @@ export function RootLayout() {
                 padding: "4",
             })}
         >
-            <span className={css({ color: "warning" })}>
+            <span
+                className={css({
+                    color: "warning",
+                })}
+            >
                 La plateforme n'est pas encore disponible sur mobile.
                 <br />
                 Veuillez utiliser un ordinateur ou passer votre navigateur mobile en mode ordinateur.

@@ -31,7 +31,12 @@ export function TagsListTable(props: {
                             />
                         )
                     }
-                    return sortedTags.map((tag) => <TagListTableRow key={tag.id} tag={tag} />)
+                    return sortedTags.map((tag) => (
+                        <TagListTableRow
+                            key={tag.id}
+                            tag={tag}
+                        />
+                    ))
                 }}
             </DataWrapper>
         </ListTable.Root>

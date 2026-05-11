@@ -1,1 +1,4 @@
-export const balanceSheetFlow = <const>["debit", "credit"]
+export const balanceSheetFlow = <const>[
+    "debit",
+    "credit",
+]

@@ -16,7 +16,9 @@ describe("POST /auth/read-all-api-keys", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/read-all-api-keys",
-            body: { idOrganization },
+            body: {
+                idOrganization,
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -25,7 +27,9 @@ describe("POST /auth/read-all-api-keys", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/read-all-api-keys",
-            body: { idOrganization },
+            body: {
+                idOrganization,
+            },
         })
         expect(response.status).toBe(200)
         expect(Array.isArray(response.data)).toBe(true)
@@ -36,7 +40,9 @@ describe("POST /auth/create-one-api-key", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/create-one-api-key",
-            body: { idOrganization },
+            body: {
+                idOrganization,
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -45,7 +51,9 @@ describe("POST /auth/create-one-api-key", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/create-one-api-key",
-            body: { idOrganization },
+            body: {
+                idOrganization,
+            },
         })
         expect(response.status).toBe(200)
 
@@ -60,7 +68,10 @@ describe("POST /auth/create-one-api-key", () => {
         const response = await authenticatedRequest({
             session,
             path: "/auth/create-one-api-key",
-            body: { idOrganization, name: "CI key" },
+            body: {
+                idOrganization,
+                name: "CI key",
+            },
         })
         expect(response.status).toBe(200)
 
@@ -74,7 +85,10 @@ describe("POST /auth/delete-one-api-key", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             path: "/auth/delete-one-api-key",
-            body: { idOrganization, idApiKey: "fake-id" },
+            body: {
+                idOrganization,
+                idApiKey: "fake-id",
+            },
         })
         expect(response.status).toBe(401)
     })
@@ -92,7 +106,10 @@ describe("POST /auth/delete-one-api-key", () => {
         const createResponse = await authenticatedRequest({
             session,
             path: "/auth/create-one-api-key",
-            body: { idOrganization, name: "to-delete" },
+            body: {
+                idOrganization,
+                name: "to-delete",
+            },
         })
         expect(createResponse.status).toBe(200)
         const idApiKey = (createResponse.data as any).id
@@ -100,7 +117,10 @@ describe("POST /auth/delete-one-api-key", () => {
         const deleteResponse = await authenticatedRequest({
             session,
             path: "/auth/delete-one-api-key",
-            body: { idOrganization, idApiKey },
+            body: {
+                idOrganization,
+                idApiKey,
+            },
         })
         expect(deleteResponse.status).toBe(200)
     })

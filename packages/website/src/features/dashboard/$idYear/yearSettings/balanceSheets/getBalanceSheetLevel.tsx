@@ -5,7 +5,12 @@ export function getBalanceSheetLevel(parameters: {
     balanceSheet: v.InferOutput<typeof returnedSchemas.balanceSheet>
     balanceSheets: Array<v.InferOutput<typeof returnedSchemas.balanceSheet>>
 }) {
-    const map = new Map(parameters.balanceSheets.map((i) => [i.id, i]))
+    const map = new Map(
+        parameters.balanceSheets.map((i) => [
+            i.id,
+            i,
+        ]),
+    )
 
     let level = 0
     let current = parameters.balanceSheet

@@ -15,7 +15,13 @@ export const searchReferenceableRouteDefinition = routeDefinition({
         return: v.array(
             v.object({
                 id: v.nonNullable(idSchema, "Ce champ est requis"),
-                type: v.picklist(["account", "entry", "journal", "tag", "file"]),
+                type: v.picklist([
+                    "account",
+                    "entry",
+                    "journal",
+                    "tag",
+                    "file",
+                ]),
                 label: v.string(),
             }),
         ),

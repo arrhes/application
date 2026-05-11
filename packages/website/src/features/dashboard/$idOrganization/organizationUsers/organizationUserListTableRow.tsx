@@ -45,7 +45,12 @@ export function OrganizationUserListTableRow(props: {
                             {props.organizationUser.user.email}
                         </span>
                         {props.organizationUser.user.alias && (
-                            <span className={css({ fontSize: "md", color: "neutral/50" })}>
+                            <span
+                                className={css({
+                                    fontSize: "md",
+                                    color: "neutral/50",
+                                })}
+                            >
                                 {props.organizationUser.user.alias}
                             </span>
                         )}
@@ -57,10 +62,30 @@ export function OrganizationUserListTableRow(props: {
                             gap: "0.5rem",
                         })}
                     >
-                        {props.organizationUser.isAdmin && <Chip text="Admin" color="information" />}
-                        {props.organizationUser.status === "active" && <Chip text="Actif" color="success" />}
-                        {props.organizationUser.status === "invited" && <Chip text="Invité" color="warning" />}
-                        {props.organizationUser.status === "removed" && <Chip text="Retiré" color="error" />}
+                        {props.organizationUser.isAdmin && (
+                            <Chip
+                                text="Admin"
+                                color="information"
+                            />
+                        )}
+                        {props.organizationUser.status === "active" && (
+                            <Chip
+                                text="Actif"
+                                color="success"
+                            />
+                        )}
+                        {props.organizationUser.status === "invited" && (
+                            <Chip
+                                text="Invité"
+                                color="warning"
+                            />
+                        )}
+                        {props.organizationUser.status === "removed" && (
+                            <Chip
+                                text="Retiré"
+                                color="error"
+                            />
+                        )}
                     </div>
                 </div>
                 <div
@@ -72,10 +97,17 @@ export function OrganizationUserListTableRow(props: {
                     })}
                 >
                     <UpdateOneOrganizationUser organizationUser={props.organizationUser}>
-                        <ButtonOutlineContent leftIcon={<IconUserEdit />} title="Changer les droits" />
+                        <ButtonOutlineContent
+                            leftIcon={<IconUserEdit />}
+                            title="Changer les droits"
+                        />
                     </UpdateOneOrganizationUser>
                     <DeleteOneOrganizationUser organizationUser={props.organizationUser}>
-                        <ButtonOutlineContent leftIcon={<IconUserX />} title="Retirer l'utilisateur" color="danger" />
+                        <ButtonOutlineContent
+                            leftIcon={<IconUserX />}
+                            title="Retirer l'utilisateur"
+                            color="danger"
+                        />
                     </DeleteOneOrganizationUser>
                 </div>
             </div>

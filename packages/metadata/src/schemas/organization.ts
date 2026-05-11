@@ -15,7 +15,12 @@ export const organizationSchema = v.object({
     id: v.nonNullable(idSchema, "Ce champ est requis"),
     isArchived: v.nonNullable(booleanSchema, "Ce champ est requis"),
     scope: v.nonNullable(v.picklist(organizationScope, "Valeur invalide"), "Ce champ est requis"),
-    name: v.nonNullable(varcharSchema({ maxLength: 256 }), "Ce champ est requis"),
+    name: v.nonNullable(
+        varcharSchema({
+            maxLength: 256,
+        }),
+        "Ce champ est requis",
+    ),
     siren: v.nullable(sirenSchema),
     email: v.nullable(emailSchema),
     mollieCustomerId: v.nullable(v.string()),

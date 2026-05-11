@@ -11,7 +11,11 @@ export const agentToolsCatalog: AgentToolDefinition[] = [
         descriptionFr:
             "Lister tous les exercices fiscaux de l'organisation. Retourne les identifiants (id), labels, dates de début et fin.",
     },
-    { name: "create_one_year", labelFr: "Créer un exercice fiscal", descriptionFr: "Créer un nouvel exercice fiscal." },
+    {
+        name: "create_one_year",
+        labelFr: "Créer un exercice fiscal",
+        descriptionFr: "Créer un nouvel exercice fiscal.",
+    },
 
     {
         name: "create_one_entry",
@@ -28,13 +32,21 @@ export const agentToolsCatalog: AgentToolDefinition[] = [
         labelFr: "Lister les écritures",
         descriptionFr: "Lister toutes les écritures comptables de l'exercice.",
     },
-    { name: "read_one_entry", labelFr: "Lire une écriture", descriptionFr: "Lire le détail d'une écriture comptable." },
+    {
+        name: "read_one_entry",
+        labelFr: "Lire une écriture",
+        descriptionFr: "Lire le détail d'une écriture comptable.",
+    },
     {
         name: "update_one_entry",
         labelFr: "Modifier une écriture",
         descriptionFr: "Modifier une écriture comptable existante.",
     },
-    { name: "delete_one_entry", labelFr: "Supprimer une écriture", descriptionFr: "Supprimer une écriture comptable." },
+    {
+        name: "delete_one_entry",
+        labelFr: "Supprimer une écriture",
+        descriptionFr: "Supprimer une écriture comptable.",
+    },
     {
         name: "duplicate_one_entry",
         labelFr: "Dupliquer une écriture",
@@ -103,7 +115,11 @@ export const agentToolsCatalog: AgentToolDefinition[] = [
         labelFr: "Lister les comptes",
         descriptionFr: "Lister tous les comptes du plan comptable.",
     },
-    { name: "read_one_account", labelFr: "Lire un compte", descriptionFr: "Lire le détail d'un compte." },
+    {
+        name: "read_one_account",
+        labelFr: "Lire un compte",
+        descriptionFr: "Lire le détail d'un compte.",
+    },
     {
         name: "update_one_account",
         labelFr: "Modifier un compte",
@@ -115,21 +131,57 @@ export const agentToolsCatalog: AgentToolDefinition[] = [
         descriptionFr: "Supprimer un compte du plan comptable.",
     },
 
-    { name: "create_one_journal", labelFr: "Créer un journal", descriptionFr: "Créer un nouveau journal comptable." },
+    {
+        name: "create_one_journal",
+        labelFr: "Créer un journal",
+        descriptionFr: "Créer un nouveau journal comptable.",
+    },
     {
         name: "read_all_journals",
         labelFr: "Lister les journaux",
         descriptionFr: "Lister tous les journaux comptables.",
     },
-    { name: "read_one_journal", labelFr: "Lire un journal", descriptionFr: "Lire le détail d'un journal." },
-    { name: "update_one_journal", labelFr: "Modifier un journal", descriptionFr: "Modifier un journal comptable." },
-    { name: "delete_one_journal", labelFr: "Supprimer un journal", descriptionFr: "Supprimer un journal comptable." },
+    {
+        name: "read_one_journal",
+        labelFr: "Lire un journal",
+        descriptionFr: "Lire le détail d'un journal.",
+    },
+    {
+        name: "update_one_journal",
+        labelFr: "Modifier un journal",
+        descriptionFr: "Modifier un journal comptable.",
+    },
+    {
+        name: "delete_one_journal",
+        labelFr: "Supprimer un journal",
+        descriptionFr: "Supprimer un journal comptable.",
+    },
 
-    { name: "create_one_tag", labelFr: "Créer une étiquette", descriptionFr: "Créer une nouvelle étiquette." },
-    { name: "read_all_tags", labelFr: "Lister les étiquettes", descriptionFr: "Lister toutes les étiquettes." },
-    { name: "read_one_tag", labelFr: "Lire une étiquette", descriptionFr: "Lire le détail d'une étiquette." },
-    { name: "update_one_tag", labelFr: "Modifier une étiquette", descriptionFr: "Modifier une étiquette." },
-    { name: "delete_one_tag", labelFr: "Supprimer une étiquette", descriptionFr: "Supprimer une étiquette." },
+    {
+        name: "create_one_tag",
+        labelFr: "Créer une étiquette",
+        descriptionFr: "Créer une nouvelle étiquette.",
+    },
+    {
+        name: "read_all_tags",
+        labelFr: "Lister les étiquettes",
+        descriptionFr: "Lister toutes les étiquettes.",
+    },
+    {
+        name: "read_one_tag",
+        labelFr: "Lire une étiquette",
+        descriptionFr: "Lire le détail d'une étiquette.",
+    },
+    {
+        name: "update_one_tag",
+        labelFr: "Modifier une étiquette",
+        descriptionFr: "Modifier une étiquette.",
+    },
+    {
+        name: "delete_one_tag",
+        labelFr: "Supprimer une étiquette",
+        descriptionFr: "Supprimer une étiquette.",
+    },
 
     {
         name: "create_one_balance_sheet",
@@ -183,11 +235,31 @@ export const agentToolsCatalog: AgentToolDefinition[] = [
         descriptionFr: "Supprimer un poste du compte de résultat.",
     },
 
-    { name: "create_one_computation", labelFr: "Créer un calcul", descriptionFr: "Créer un nouveau calcul." },
-    { name: "read_all_computations", labelFr: "Lister les calculs", descriptionFr: "Lister tous les calculs." },
-    { name: "read_one_computation", labelFr: "Lire un calcul", descriptionFr: "Lire le détail d'un calcul." },
-    { name: "update_one_computation", labelFr: "Modifier un calcul", descriptionFr: "Modifier un calcul." },
-    { name: "delete_one_computation", labelFr: "Supprimer un calcul", descriptionFr: "Supprimer un calcul." },
+    {
+        name: "create_one_computation",
+        labelFr: "Créer un calcul",
+        descriptionFr: "Créer un nouveau calcul.",
+    },
+    {
+        name: "read_all_computations",
+        labelFr: "Lister les calculs",
+        descriptionFr: "Lister tous les calculs.",
+    },
+    {
+        name: "read_one_computation",
+        labelFr: "Lire un calcul",
+        descriptionFr: "Lire le détail d'un calcul.",
+    },
+    {
+        name: "update_one_computation",
+        labelFr: "Modifier un calcul",
+        descriptionFr: "Modifier un calcul.",
+    },
+    {
+        name: "delete_one_computation",
+        labelFr: "Supprimer un calcul",
+        descriptionFr: "Supprimer un calcul.",
+    },
     {
         name: "create_one_computation_income_statement",
         labelFr: "Associer un poste à un calcul",
@@ -214,11 +286,31 @@ export const agentToolsCatalog: AgentToolDefinition[] = [
         descriptionFr: "Supprimer une association.",
     },
 
-    { name: "create_one_file", labelFr: "Créer un fichier", descriptionFr: "Créer un nouveau fichier." },
-    { name: "read_all_files", labelFr: "Lister les fichiers", descriptionFr: "Lister tous les fichiers." },
-    { name: "read_one_file", labelFr: "Lire un fichier", descriptionFr: "Lire le détail d'un fichier." },
-    { name: "update_one_file", labelFr: "Modifier un fichier", descriptionFr: "Modifier un fichier." },
-    { name: "delete_one_file", labelFr: "Supprimer un fichier", descriptionFr: "Supprimer un fichier." },
+    {
+        name: "create_one_file",
+        labelFr: "Créer un fichier",
+        descriptionFr: "Créer un nouveau fichier.",
+    },
+    {
+        name: "read_all_files",
+        labelFr: "Lister les fichiers",
+        descriptionFr: "Lister tous les fichiers.",
+    },
+    {
+        name: "read_one_file",
+        labelFr: "Lire un fichier",
+        descriptionFr: "Lire le détail d'un fichier.",
+    },
+    {
+        name: "update_one_file",
+        labelFr: "Modifier un fichier",
+        descriptionFr: "Modifier un fichier.",
+    },
+    {
+        name: "delete_one_file",
+        labelFr: "Supprimer un fichier",
+        descriptionFr: "Supprimer un fichier.",
+    },
     {
         name: "ocr_file",
         labelFr: "Extraire le texte d'un fichier (OCR)",
@@ -226,18 +318,42 @@ export const agentToolsCatalog: AgentToolDefinition[] = [
             "Extraire le texte d'un PDF ou d'une image et créer un fichier Markdown. Le quota mensuel est compté en nombre de pages OCR.",
     },
 
-    { name: "create_one_folder", labelFr: "Créer un dossier", descriptionFr: "Créer un nouveau dossier." },
-    { name: "read_all_folders", labelFr: "Lister les dossiers", descriptionFr: "Lister tous les dossiers." },
-    { name: "read_one_folder", labelFr: "Lire un dossier", descriptionFr: "Lire le détail d'un dossier." },
-    { name: "update_one_folder", labelFr: "Modifier un dossier", descriptionFr: "Modifier un dossier." },
-    { name: "delete_one_folder", labelFr: "Supprimer un dossier", descriptionFr: "Supprimer un dossier." },
+    {
+        name: "create_one_folder",
+        labelFr: "Créer un dossier",
+        descriptionFr: "Créer un nouveau dossier.",
+    },
+    {
+        name: "read_all_folders",
+        labelFr: "Lister les dossiers",
+        descriptionFr: "Lister tous les dossiers.",
+    },
+    {
+        name: "read_one_folder",
+        labelFr: "Lire un dossier",
+        descriptionFr: "Lire le détail d'un dossier.",
+    },
+    {
+        name: "update_one_folder",
+        labelFr: "Modifier un dossier",
+        descriptionFr: "Modifier un dossier.",
+    },
+    {
+        name: "delete_one_folder",
+        labelFr: "Supprimer un dossier",
+        descriptionFr: "Supprimer un dossier.",
+    },
 
     {
         name: "read_all_documents",
         labelFr: "Lister les documents générés",
         descriptionFr: "Lister tous les documents générés.",
     },
-    { name: "read_one_document", labelFr: "Lire un document", descriptionFr: "Lire le détail d'un document." },
+    {
+        name: "read_one_document",
+        labelFr: "Lire un document",
+        descriptionFr: "Lire le détail d'un document.",
+    },
     {
         name: "generate_balance_sheet_report_document",
         labelFr: "Générer un rapport de bilan",
@@ -259,9 +375,21 @@ export const agentToolsCatalog: AgentToolDefinition[] = [
         labelFr: "Modifier l'exercice",
         descriptionFr: "Modifier les paramètres de l'exercice.",
     },
-    { name: "close_year", labelFr: "Clôturer l'exercice", descriptionFr: "Clôturer l'exercice." },
-    { name: "open_year", labelFr: "Rouvrir l'exercice", descriptionFr: "Rouvrir l'exercice." },
-    { name: "settle_balance_sheet", labelFr: "Lettrer le bilan", descriptionFr: "Lettrer le bilan." },
+    {
+        name: "close_year",
+        labelFr: "Clôturer l'exercice",
+        descriptionFr: "Clôturer l'exercice.",
+    },
+    {
+        name: "open_year",
+        labelFr: "Rouvrir l'exercice",
+        descriptionFr: "Rouvrir l'exercice.",
+    },
+    {
+        name: "settle_balance_sheet",
+        labelFr: "Lettrer le bilan",
+        descriptionFr: "Lettrer le bilan.",
+    },
     {
         name: "settle_income_statement",
         labelFr: "Lettrer le compte de résultat",
@@ -287,7 +415,12 @@ export const agentToolsCatalog: AgentToolDefinition[] = [
     },
 ]
 
-const agentToolsCatalogByName = new Map(agentToolsCatalog.map((tool) => [tool.name, tool]))
+const agentToolsCatalogByName = new Map(
+    agentToolsCatalog.map((tool) => [
+        tool.name,
+        tool,
+    ]),
+)
 
 export function getAgentToolDefinitionByName(toolName?: string): AgentToolDefinition | undefined {
     if (!toolName) return undefined

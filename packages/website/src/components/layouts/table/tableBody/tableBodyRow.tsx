@@ -12,7 +12,9 @@ export function TableBodyRow(props: {
                     width: "100%",
                     borderBottom: "1px solid",
                     borderBottomColor: "neutral/5",
-                    _last: { borderBottom: "0" },
+                    _last: {
+                        borderBottom: "0",
+                    },
                 }),
                 props.className,
             )}

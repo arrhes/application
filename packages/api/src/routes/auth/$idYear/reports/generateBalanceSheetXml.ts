@@ -14,11 +14,22 @@ import { putObject } from "../../../../utilities/storage/putObject.js"
 // ---------------------------------------------------------------------------
 
 function getAllDescendants(
-    root: { id: string },
-    all: Array<{ id: string; idBalanceSheetParent: string | null }>,
-): Array<{ id: string; idBalanceSheetParent: string | null }> {
+    root: {
+        id: string
+    },
+    all: Array<{
+        id: string
+        idBalanceSheetParent: string | null
+    }>,
+): Array<{
+    id: string
+    idBalanceSheetParent: string | null
+}> {
     const direct = all.filter((bs) => bs.idBalanceSheetParent === root.id)
-    return direct.flatMap((child) => [child, ...getAllDescendants(child, all)])
+    return direct.flatMap((child) => [
+        child,
+        ...getAllDescendants(child, all),
+    ])
 }
 
 type Account = (typeof models.account)["$inferSelect"]
@@ -30,7 +41,11 @@ function computeAssetRow(
     all: BalanceSheet[],
     accounts: Account[],
     entryLines: EntryLine[],
-): { gross: number; amortization: number; net: number } {
+): {
+    gross: number
+    amortization: number
+    net: number
+} {
     const descendants = getAllDescendants(row, all)
     let gross = 0
     let amortization = 0
@@ -54,7 +69,11 @@ function computeAssetRow(
             if (account.balanceSheetAssetColumn === "amortization") amortization += signed
         })
 
-    return { gross, amortization, net: gross + amortization }
+    return {
+        gross,
+        amortization,
+        net: gross + amortization,
+    }
 }
 
 function computeLiabilityRow(
@@ -227,7 +246,9 @@ ${facts.join("\n")}
 export const generateBalanceSheetXmlRoute = apiFactory
     .createApp()
     .post(generateBalanceSheetXmlRouteDefinition.path, async (c) => {
-        const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+        const { user, idOrganization } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: generateBalanceSheetXmlRouteDefinition.schemas.body,
@@ -292,12 +313,17 @@ export const generateBalanceSheetXmlRoute = apiFactory
             },
         })
 
-        const url = await generateGetSignedUrl({ var: c.var, storageKey })
+        const url = await generateGetSignedUrl({
+            var: c.var,
+            storageKey,
+        })
 
         return response({
             context: c,
             statusCode: 200,
             schema: generateBalanceSheetXmlRouteDefinition.schemas.return,
-            data: { url },
+            data: {
+                url,
+            },
         })
     })

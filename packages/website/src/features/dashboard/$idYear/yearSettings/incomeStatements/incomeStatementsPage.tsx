@@ -11,7 +11,9 @@ import { CreateOneIncomeStatement } from "./createOneIncomeStatement.tsx"
 import { IncomeStatementsTable } from "./incomeStatementsTable.tsx"
 
 export function IncomeStatementsPage() {
-    const params = useParams({ from: incomeStatementsLayoutRoute.id })
+    const params = useParams({
+        from: incomeStatementsLayoutRoute.id,
+    })
     const [globalFilter, setGlobalFilter] = useState("")
     const [, startTransition] = useTransition()
 
@@ -58,14 +60,33 @@ export function IncomeStatementsPage() {
                         flexWrap: "wrap",
                     })}
                 >
-                    <CreateOneIncomeStatement idOrganization={params.idOrganization} idYear={params.idYear}>
-                        <ButtonPlainContent leftIcon={<IconPlus />} text="Ajouter une ligne de compte de résultat" />
+                    <CreateOneIncomeStatement
+                        idOrganization={params.idOrganization}
+                        idYear={params.idYear}
+                    >
+                        <ButtonPlainContent
+                            leftIcon={<IconPlus />}
+                            text="Ajouter une ligne de compte de résultat"
+                        />
                     </CreateOneIncomeStatement>
                 </div>
-                <InputDebounced value={globalFilter ?? ""} onChange={handleFilterChange}>
-                    <InputText placeholder="Recherche" className={css({ maxWidth: "[320px]" })} />
+                <InputDebounced
+                    value={globalFilter ?? ""}
+                    onChange={handleFilterChange}
+                >
+                    <InputText
+                        placeholder="Recherche"
+                        className={css({
+                            maxWidth: "[320px]",
+                        })}
+                    />
                 </InputDebounced>
-                <Box className={css({ maxH: "[640px]", overflowY: "auto" })}>
+                <Box
+                    className={css({
+                        maxH: "[640px]",
+                        overflowY: "auto",
+                    })}
+                >
                     <IncomeStatementsTable
                         idOrganization={params.idOrganization}
                         idYear={params.idYear}

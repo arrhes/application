@@ -49,7 +49,9 @@ export function FormLabel(props: FormLabel) {
                             className={css({
                                 fontSize: "xs",
                                 color: "neutral/50",
-                                _before: { content: "'\\200b'" },
+                                _before: {
+                                    content: "'\\200b'",
+                                },
                             })}
                         >
                             {props.label}
@@ -81,7 +83,9 @@ export function FormLabel(props: FormLabel) {
                 <TooltipProvider>
                     <Tooltip delayDuration={0}>
                         <TooltipTrigger
-                            className={css({ cursor: "help" })}
+                            className={css({
+                                cursor: "help",
+                            })}
                             onClick={(e) => e.preventDefault()}
                             tabIndex={-1}
                         >
@@ -89,13 +93,19 @@ export function FormLabel(props: FormLabel) {
                                 size={16}
                                 className={css({
                                     stroke: "neutral/50",
-                                    _hover: { stroke: "neutral" },
+                                    _hover: {
+                                        stroke: "neutral",
+                                    },
                                 })}
                             />
                         </TooltipTrigger>
                         <TooltipPortal>
                             <TooltipContent
-                                className={css({ backgroundColor: "neutral", padding: "0.5rem", zIndex: "9999" })}
+                                className={css({
+                                    backgroundColor: "neutral",
+                                    padding: "0.5rem",
+                                    zIndex: "9999",
+                                })}
                             >
                                 <p
                                     className={css({

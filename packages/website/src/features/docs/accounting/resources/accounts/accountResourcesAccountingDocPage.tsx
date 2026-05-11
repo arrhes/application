@@ -14,7 +14,11 @@ import { ParentAccountSection } from "./components/parentAccountSection.js"
 import { SummaryAccountBanner } from "./components/summaryAccountBanner.js"
 
 export function AccountResourcesAccountingDocPage() {
-    const { account: slug } = useParams({ strict: false }) as { account: string }
+    const { account: slug } = useParams({
+        strict: false,
+    }) as {
+        account: string
+    }
     const entry = getAccountBySlug(slug)
 
     if (!entry) {
@@ -28,7 +32,10 @@ export function AccountResourcesAccountingDocPage() {
     return (
         <DocRoot>
             <LinkButton to="/documentation/comptabilité/ressources/comptes">
-                <ButtonOutlineContent leftIcon={<IconArrowLeft />} text="Retour aux comptes" />
+                <ButtonOutlineContent
+                    leftIcon={<IconArrowLeft />}
+                    text="Retour aux comptes"
+                />
             </LinkButton>
 
             <DocHeader

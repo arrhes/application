@@ -16,12 +16,18 @@ const MAX_AGENT_FILE_SIZE = 50_000_000
 export const createOneAgentFileRoute = apiFactory
     .createApp()
     .post(createOneAgentFileRouteDefinition.path, async (c) => {
-        const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+        const { user, idOrganization } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: createOneAgentFileRouteDefinition.schemas.body,
         })
-        await checkOrganizationSubscriptionSessionMiddleware({ context: c, idOrganization, checkType: "tokens" })
+        await checkOrganizationSubscriptionSessionMiddleware({
+            context: c,
+            idOrganization,
+            checkType: "tokens",
+        })
 
         if (body.fileSize > MAX_AGENT_FILE_SIZE) {
             throw new Exception({

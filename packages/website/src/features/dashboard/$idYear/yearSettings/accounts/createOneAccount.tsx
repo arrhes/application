@@ -25,7 +25,10 @@ export function CreateOneAccount(props: {
     const [open, setOpen] = useState(false)
 
     return (
-        <Drawer.Root open={open} onOpenChange={setOpen}>
+        <Drawer.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Drawer.Trigger>{props.children}</Drawer.Trigger>
             <Drawer.Content>
                 <Drawer.Header title="Ajouter un nouveau fichier" />
@@ -47,11 +50,17 @@ export function CreateOneAccount(props: {
                                 body: data,
                             })
                             if (createAccountResponse.ok === false) {
-                                toast({ title: "Impossible d'ajouter le compte", variant: "error" })
+                                toast({
+                                    title: "Impossible d'ajouter le compte",
+                                    variant: "error",
+                                })
                                 return false
                             }
 
-                            toast({ title: "Compte ajouté avec succès", variant: "success" })
+                            toast({
+                                title: "Compte ajouté avec succès",
+                                variant: "success",
+                            })
                             return true
                         }}
                         onCancel={undefined}
@@ -79,7 +88,10 @@ export function CreateOneAccount(props: {
                                                 isRequired
                                             />
                                             <FormControl>
-                                                <InputText value={field.value} onChange={field.onChange} />
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -96,7 +108,11 @@ export function CreateOneAccount(props: {
                                                 isRequired
                                             />
                                             <FormControl>
-                                                <InputText value={field.value} onChange={field.onChange} autoFocus />
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                    autoFocus
+                                                />
                                             </FormControl>
                                             <FormError />
                                         </FormItem>
@@ -137,8 +153,14 @@ export function CreateOneAccount(props: {
                                                     value={field.value}
                                                     onChange={field.onChange}
                                                     options={[
-                                                        { label: "Oui", value: true },
-                                                        { label: "Non", value: false },
+                                                        {
+                                                            label: "Oui",
+                                                            value: true,
+                                                        },
+                                                        {
+                                                            label: "Non",
+                                                            value: false,
+                                                        },
                                                     ]}
                                                 />
                                             </FormControl>
@@ -160,9 +182,18 @@ export function CreateOneAccount(props: {
                                                     value={field.value}
                                                     onChange={field.onChange}
                                                     options={[
-                                                        { label: "Compte de bilan", value: "balance-sheet" },
-                                                        { label: "Compte de gestion", value: "income-statement" },
-                                                        { label: "Compte spécial", value: "special" },
+                                                        {
+                                                            label: "Compte de bilan",
+                                                            value: "balance-sheet",
+                                                        },
+                                                        {
+                                                            label: "Compte de gestion",
+                                                            value: "income-statement",
+                                                        },
+                                                        {
+                                                            label: "Compte spécial",
+                                                            value: "special",
+                                                        },
                                                     ]}
                                                 />
                                             </FormControl>
@@ -206,8 +237,14 @@ export function CreateOneAccount(props: {
                                                     value={field.value}
                                                     onChange={field.onChange}
                                                     options={[
-                                                        { label: "Brut", value: "gross" },
-                                                        { label: "Amort. & Dépré.", value: "amortization" },
+                                                        {
+                                                            label: "Brut",
+                                                            value: "gross",
+                                                        },
+                                                        {
+                                                            label: "Amort. & Dépré.",
+                                                            value: "amortization",
+                                                        },
                                                     ]}
                                                 />
                                             </FormControl>

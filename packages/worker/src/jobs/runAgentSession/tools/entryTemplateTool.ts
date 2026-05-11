@@ -26,17 +26,34 @@ export function buildEntryTemplateTool(parameters: {
                     enum: templateKeys,
                     description: "La clé du modèle à utiliser.",
                 },
-                idYear: { type: "string", description: "L'identifiant de l'exercice fiscal." },
-                idJournal: { type: "string", description: "L'identifiant du journal (optionnel)." },
-                idFile: { type: "string", description: "L'identifiant du fichier/pièce justificative (optionnel)." },
-                date: { type: "string", description: "La date de l'écriture (format ISO)." },
+                idYear: {
+                    type: "string",
+                    description: "L'identifiant de l'exercice fiscal.",
+                },
+                idJournal: {
+                    type: "string",
+                    description: "L'identifiant du journal (optionnel).",
+                },
+                idFile: {
+                    type: "string",
+                    description: "L'identifiant du fichier/pièce justificative (optionnel).",
+                },
+                date: {
+                    type: "string",
+                    description: "La date de l'écriture (format ISO).",
+                },
                 templateInput: {
                     type: "object",
                     description:
                         "Les paramètres spécifiques au modèle. Pour 'amortization' : { assetLabel, originalPrice, currentYear, totalYears, idDotationAccount (numéro de compte ex: '68112'), idAmortizationAccount (numéro de compte ex: '2818') }.",
                 },
             },
-            required: ["templateKey", "idYear", "date", "templateInput"],
+            required: [
+                "templateKey",
+                "idYear",
+                "date",
+                "templateInput",
+            ],
         },
     }).server(async (args) => {
         const { templateKey, idYear, idJournal, idFile, date, templateInput } = args as {
@@ -50,11 +67,15 @@ export function buildEntryTemplateTool(parameters: {
 
         const template = entryTemplateDefinitions.find((t) => t.key === templateKey)
         if (!template) {
-            return { error: `Modèle inconnu : "${templateKey}". Modèles disponibles : ${templateKeys.join(", ")}` }
+            return {
+                error: `Modèle inconnu : "${templateKey}". Modèles disponibles : ${templateKeys.join(", ")}`,
+            }
         }
 
         // Resolve account numbers to IDs for fields ending with "Account"
-        const resolvedInput = { ...templateInput }
+        const resolvedInput = {
+            ...templateInput,
+        }
         const accounts = await db
             .select()
             .from(models.account)
@@ -67,7 +88,9 @@ export function buildEntryTemplateTool(parameters: {
                 if (isAccountNumber) {
                     const account = accounts.find((a) => a.number === value)
                     if (!account) {
-                        return { error: `Compte "${value}" introuvable dans le plan comptable de cet exercice.` }
+                        return {
+                            error: `Compte "${value}" introuvable dans le plan comptable de cet exercice.`,
+                        }
                     }
                     resolvedInput[key] = account.id
                 }

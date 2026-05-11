@@ -22,7 +22,10 @@ export function DeleteOneEntry(props: {
         })
 
         if (deleteResponse.ok === false) {
-            toast({ title: "Erreur lors de la suppression de l'écriture", variant: "error" })
+            toast({
+                title: "Erreur lors de la suppression de l'écriture",
+                variant: "error",
+            })
             return
         }
 
@@ -33,7 +36,10 @@ export function DeleteOneEntry(props: {
             },
         })
 
-        toast({ title: "Écriture supprimée", variant: "success" })
+        toast({
+            title: "Écriture supprimée",
+            variant: "success",
+        })
 
         applicationRouter.navigate({
             to: "/dashboard/organisations/$idOrganization/exercices/$idYear/écritures",
@@ -54,7 +60,10 @@ export function DeleteOneEntry(props: {
                     Cette action est irréversible.
                 </>
             }
-            submitButtonProps={{ color: "danger", text: "Supprimer l'écriture" }}
+            submitButtonProps={{
+                color: "danger",
+                text: "Supprimer l'écriture",
+            }}
             onSubmit={onSubmit}
         >
             {props.children}

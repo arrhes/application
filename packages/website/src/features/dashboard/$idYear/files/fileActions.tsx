@@ -46,7 +46,10 @@ export function FileActions(props: {
         })
 
         if (isDeleted === false) {
-            toast({ title: "Erreur lors de la suppression du fichier", variant: "error" })
+            toast({
+                title: "Erreur lors de la suppression du fichier",
+                variant: "error",
+            })
             return
         }
 
@@ -57,7 +60,10 @@ export function FileActions(props: {
             },
         })
 
-        toast({ title: "Fichier supprimé", variant: "success" })
+        toast({
+            title: "Fichier supprimé",
+            variant: "success",
+        })
     }
 
     async function handleOcr() {
@@ -83,7 +89,10 @@ export function FileActions(props: {
             },
         })
 
-        toast({ title: "Fichier converti en Markdown", variant: "success" })
+        toast({
+            title: "Fichier converti en Markdown",
+            variant: "success",
+        })
     }
 
     return (
@@ -91,10 +100,19 @@ export function FileActions(props: {
             <Popover.Root>
                 <Popover.Trigger asChild>
                     <Button>
-                        <ButtonGhostContent leftIcon={<IconDotsVertical />} text={undefined} />
+                        <ButtonGhostContent
+                            leftIcon={<IconDotsVertical />}
+                            text={undefined}
+                        />
                     </Button>
                 </Popover.Trigger>
-                <Popover.Content align="end" className={css({ padding: "0.5rem", gap: "0.25rem" })}>
+                <Popover.Content
+                    align="end"
+                    className={css({
+                        padding: "0.5rem",
+                        gap: "0.25rem",
+                    })}
+                >
                     <Popover.Close asChild>
                         <LinkButton
                             to="/dashboard/organisations/$idOrganization/exercices/$idYear/stockage/$idFile"
@@ -103,36 +121,59 @@ export function FileActions(props: {
                                 idYear: props.idYear,
                                 idFile: props.file.id,
                             }}
-                            className={css({ width: "100%" })}
+                            className={css({
+                                width: "100%",
+                            })}
                         >
                             <ButtonGhostContent
                                 leftIcon={<IconEye />}
                                 text="Ouvrir"
-                                className={css({ width: "100%", justifyContent: "start" })}
+                                className={css({
+                                    width: "100%",
+                                    justifyContent: "start",
+                                })}
                             />
                         </LinkButton>
                     </Popover.Close>
                     <Popover.Close asChild>
-                        <Button className={css({ width: "100%" })} onClick={() => setEditOpen(true)}>
+                        <Button
+                            className={css({
+                                width: "100%",
+                            })}
+                            onClick={() => setEditOpen(true)}
+                        >
                             <ButtonGhostContent
                                 leftIcon={<IconPencil />}
                                 text="Modifier"
-                                className={css({ width: "100%", justifyContent: "start" })}
+                                className={css({
+                                    width: "100%",
+                                    justifyContent: "start",
+                                })}
                             />
                         </Button>
                     </Popover.Close>
                     <Popover.Close asChild>
-                        <Button className={css({ width: "100%" })} onClick={() => setMoveOpen(true)}>
+                        <Button
+                            className={css({
+                                width: "100%",
+                            })}
+                            onClick={() => setMoveOpen(true)}
+                        >
                             <ButtonGhostContent
                                 leftIcon={<IconArrowsMove />}
                                 text="Déplacer"
-                                className={css({ width: "100%", justifyContent: "start" })}
+                                className={css({
+                                    width: "100%",
+                                    justifyContent: "start",
+                                })}
                             />
                         </Button>
                     </Popover.Close>
                     {props.file.storageKey && isOcrSupportedType && (
                         <div
-                            className={css({ position: "relative" })}
+                            className={css({
+                                position: "relative",
+                            })}
                             onPointerEnter={() => {
                                 if (!hasOcrAvailable) {
                                     setOcrTooltipOpen(true)
@@ -142,7 +183,9 @@ export function FileActions(props: {
                         >
                             <Popover.Close asChild>
                                 <Button
-                                    className={css({ width: "100%" })}
+                                    className={css({
+                                        width: "100%",
+                                    })}
                                     onClick={hasOcrAvailable && !ocrLoading ? handleOcr : undefined}
                                     isDisabled={!hasOcrAvailable || ocrLoading}
                                 >
@@ -186,34 +229,59 @@ export function FileActions(props: {
                     )}
                     <Separator />
                     <Popover.Close asChild>
-                        <Button className={css({ width: "100%" })} onClick={() => setDeleteOpen(true)}>
+                        <Button
+                            className={css({
+                                width: "100%",
+                            })}
+                            onClick={() => setDeleteOpen(true)}
+                        >
                             <ButtonGhostContent
                                 leftIcon={<IconTrash />}
                                 text="Supprimer"
                                 color="danger"
-                                className={css({ width: "100%", justifyContent: "start" })}
+                                className={css({
+                                    width: "100%",
+                                    justifyContent: "start",
+                                })}
                             />
                         </Button>
                     </Popover.Close>
                 </Popover.Content>
             </Popover.Root>
 
-            <Drawer.Root open={editOpen} onOpenChange={setEditOpen}>
+            <Drawer.Root
+                open={editOpen}
+                onOpenChange={setEditOpen}
+            >
                 <Drawer.Content>
                     <Drawer.Header title="Modifier le fichier" />
                     <Drawer.Body>
-                        <UpdateOneFileForm file={props.file} onSuccess={() => setEditOpen(false)} />
+                        <UpdateOneFileForm
+                            file={props.file}
+                            onSuccess={() => setEditOpen(false)}
+                        />
                     </Drawer.Body>
                 </Drawer.Content>
             </Drawer.Root>
 
-            <Dialog.Root open={moveOpen} onOpenChange={setMoveOpen}>
+            <Dialog.Root
+                open={moveOpen}
+                onOpenChange={setMoveOpen}
+            >
                 <Dialog.Content>
                     <Dialog.Header>
                         <Dialog.Title>Déplacer le fichier</Dialog.Title>
                     </Dialog.Header>
-                    <Dialog.Body className={css({ alignItems: "stretch" })}>
-                        <MoveOneFileForm file={props.file} idYear={props.idYear} onSuccess={() => setMoveOpen(false)} />
+                    <Dialog.Body
+                        className={css({
+                            alignItems: "stretch",
+                        })}
+                    >
+                        <MoveOneFileForm
+                            file={props.file}
+                            idYear={props.idYear}
+                            onSuccess={() => setMoveOpen(false)}
+                        />
                     </Dialog.Body>
                 </Dialog.Content>
             </Dialog.Root>
@@ -227,7 +295,10 @@ export function FileActions(props: {
                         Cette action est irréversible.
                     </>
                 }
-                submitButtonProps={{ color: "danger", text: "Supprimer le fichier" }}
+                submitButtonProps={{
+                    color: "danger",
+                    text: "Supprimer le fichier",
+                }}
                 onSubmit={handleDelete}
                 open={deleteOpen}
                 onOpenChange={setDeleteOpen}

@@ -38,10 +38,16 @@ export function UpdateOneFolderForm(props: {
                     },
                 })
                 if (updateResponse.ok === false) {
-                    toast({ title: "Impossible de modifier le dossier", variant: "error" })
+                    toast({
+                        title: "Impossible de modifier le dossier",
+                        variant: "error",
+                    })
                     return false
                 }
-                toast({ title: "Dossier modifié avec succès", variant: "success" })
+                toast({
+                    title: "Dossier modifié avec succès",
+                    variant: "success",
+                })
                 return true
             }}
             onCancel={undefined}
@@ -61,9 +67,16 @@ export function UpdateOneFolderForm(props: {
                     name="name"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel label="Nom du dossier" isRequired />
+                            <FormLabel
+                                label="Nom du dossier"
+                                isRequired
+                            />
                             <FormControl>
-                                <InputText value={field.value} onChange={field.onChange} autoFocus />
+                                <InputText
+                                    value={field.value}
+                                    onChange={field.onChange}
+                                    autoFocus
+                                />
                             </FormControl>
                             <FormError />
                         </FormItem>

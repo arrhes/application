@@ -14,7 +14,9 @@ import { ExportFecFile } from "./exportFecFile.js"
 import { ImportFecFile } from "./importFecFile.js"
 
 export function EntriesPage() {
-    const params = useParams({ from: entriesRoute.id })
+    const params = useParams({
+        from: entriesRoute.id,
+    })
     const [exportOpen, setExportOpen] = useState(false)
     const [fecOpen, setFecOpen] = useState(false)
     const [importFecOpen, setImportFecOpen] = useState(false)
@@ -24,7 +26,15 @@ export function EntriesPage() {
             <Page.Content>
                 <YearDataWrapper
                     idYear={params.idYear}
-                    requiredKeys={["entries", "entryLines", "entryTags", "journals", "tags", "files", "accounts"]}
+                    requiredKeys={[
+                        "entries",
+                        "entryLines",
+                        "entryTags",
+                        "journals",
+                        "tags",
+                        "files",
+                        "accounts",
+                    ]}
                 >
                     {(data) => (
                         <Fragment>
@@ -40,48 +50,81 @@ export function EntriesPage() {
                                 <Popover.Root>
                                     <Popover.Trigger asChild>
                                         <Button>
-                                            <ButtonGhostContent leftIcon={<IconDotsVertical />} text={undefined} />
+                                            <ButtonGhostContent
+                                                leftIcon={<IconDotsVertical />}
+                                                text={undefined}
+                                            />
                                         </Button>
                                     </Popover.Trigger>
-                                    <Popover.Content align="end" className={css({ padding: "0.5rem", gap: "0.25rem" })}>
+                                    <Popover.Content
+                                        align="end"
+                                        className={css({
+                                            padding: "0.5rem",
+                                            gap: "0.25rem",
+                                        })}
+                                    >
                                         <Popover.Close asChild>
                                             <Button
-                                                className={css({ width: "100%" })}
+                                                className={css({
+                                                    width: "100%",
+                                                })}
                                                 onClick={() => setExportOpen(true)}
                                             >
                                                 <ButtonGhostContent
                                                     leftIcon={<IconDownload />}
                                                     text="Exporter en CSV"
-                                                    className={css({ width: "100%", justifyContent: "start" })}
-                                                />
-                                            </Button>
-                                        </Popover.Close>
-                                        <Popover.Close asChild>
-                                            <Button className={css({ width: "100%" })} onClick={() => setFecOpen(true)}>
-                                                <ButtonGhostContent
-                                                    leftIcon={<IconFileExport />}
-                                                    text="Exporter le FEC"
-                                                    className={css({ width: "100%", justifyContent: "start" })}
+                                                    className={css({
+                                                        width: "100%",
+                                                        justifyContent: "start",
+                                                    })}
                                                 />
                                             </Button>
                                         </Popover.Close>
                                         <Popover.Close asChild>
                                             <Button
-                                                className={css({ width: "100%" })}
+                                                className={css({
+                                                    width: "100%",
+                                                })}
+                                                onClick={() => setFecOpen(true)}
+                                            >
+                                                <ButtonGhostContent
+                                                    leftIcon={<IconFileExport />}
+                                                    text="Exporter le FEC"
+                                                    className={css({
+                                                        width: "100%",
+                                                        justifyContent: "start",
+                                                    })}
+                                                />
+                                            </Button>
+                                        </Popover.Close>
+                                        <Popover.Close asChild>
+                                            <Button
+                                                className={css({
+                                                    width: "100%",
+                                                })}
                                                 onClick={() => setImportFecOpen(true)}
                                             >
                                                 <ButtonGhostContent
                                                     leftIcon={<IconFileImport />}
                                                     text="Importer un FEC"
-                                                    className={css({ width: "100%", justifyContent: "start" })}
+                                                    className={css({
+                                                        width: "100%",
+                                                        justifyContent: "start",
+                                                    })}
                                                 />
                                             </Button>
                                         </Popover.Close>
                                     </Popover.Content>
                                 </Popover.Root>
-                                <CreateOneEntry idOrganization={params.idOrganization} idYear={params.idYear}>
+                                <CreateOneEntry
+                                    idOrganization={params.idOrganization}
+                                    idYear={params.idYear}
+                                >
                                     <Button>
-                                        <ButtonPlainContent leftIcon={<IconPlus />} text="Ajouter une écriture" />
+                                        <ButtonPlainContent
+                                            leftIcon={<IconPlus />}
+                                            text="Ajouter une écriture"
+                                        />
                                     </Button>
                                 </CreateOneEntry>
                             </div>

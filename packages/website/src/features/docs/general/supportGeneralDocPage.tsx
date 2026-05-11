@@ -40,7 +40,10 @@ export function SupportGeneralDocPage() {
             <div
                 className={css({
                     display: "grid",
-                    gridTemplateColumns: { base: "1fr", md: "repeat(2, 1fr)" },
+                    gridTemplateColumns: {
+                        base: "1fr",
+                        md: "repeat(2, 1fr)",
+                    },
                     gap: "1rem",
                 })}
             >
@@ -102,7 +105,10 @@ export function SupportGeneralDocPage() {
                     >
                         Contactez notre équipe par email pour toute question ou demande d'assistance.
                     </p>
-                    <a href="mailto:support@arrhes.com" className={css({})}>
+                    <a
+                        href="mailto:support@arrhes.com"
+                        className={css({})}
+                    >
                         <LinkContent>support@arrhes.com</LinkContent>
                     </a>
                 </div>
@@ -165,8 +171,15 @@ export function SupportGeneralDocPage() {
                     >
                         Signalez un bug, proposez une amélioration ou consultez le code source.
                     </p>
-                    <a href="https://github.com/arrhes/arrhes" target="_blank" rel="noopener noreferrer">
-                        <ButtonOutlineContent leftIcon={<IconExternalLink />} text="Voir sur GitHub" />
+                    <a
+                        href="https://github.com/arrhes/arrhes"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <ButtonOutlineContent
+                            leftIcon={<IconExternalLink />}
+                            text="Voir sur GitHub"
+                        />
                     </a>
                 </div>
 
@@ -228,8 +241,15 @@ export function SupportGeneralDocPage() {
                     >
                         Suivez-nous sur LinkedIn pour les dernières nouvelles.
                     </p>
-                    <a href="https://linkedin.com/company/arrhes" target="_blank" rel="noopener noreferrer">
-                        <ButtonOutlineContent leftIcon={<IconExternalLink />} text="Voir sur LinkedIn" />
+                    <a
+                        href="https://linkedin.com/company/arrhes"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <ButtonOutlineContent
+                            leftIcon={<IconExternalLink />}
+                            text="Voir sur LinkedIn"
+                        />
                     </a>
                 </div>
             </div>

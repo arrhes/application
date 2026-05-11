@@ -26,9 +26,14 @@ export function AccountScenariosSection(props: { entry: AccountEntry }) {
                         <LinkButton
                             key={scenario.id}
                             to="/documentation/comptabilité/ressources/scénarios/$scenario"
-                            params={{ scenario: scenario.id }}
+                            params={{
+                                scenario: scenario.id,
+                            }}
                         >
-                            <ButtonOutlineContent leftIcon={<IconMasksTheater />} text={scenario.title} />
+                            <ButtonOutlineContent
+                                leftIcon={<IconMasksTheater />}
+                                text={scenario.title}
+                            />
                         </LinkButton>
                     ))}
                 </div>

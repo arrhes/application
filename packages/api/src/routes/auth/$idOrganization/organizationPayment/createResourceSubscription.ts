@@ -24,7 +24,9 @@ import { updateOne } from "../../../../utilities/sql/updateOne.js"
 export const createResourceSubscriptionRoute = apiFactory
     .createApp()
     .post(createResourceSubscriptionRouteDefinition.path, async (c) => {
-        const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+        const { user, idOrganization } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const body = await validateBodyMiddleware({
             context: c,
             schema: createResourceSubscriptionRouteDefinition.schemas.body,
@@ -98,7 +100,9 @@ export const createResourceSubscriptionRoute = apiFactory
                 context: c,
                 statusCode: 200,
                 schema: createResourceSubscriptionRouteDefinition.schemas.return,
-                data: { checkoutUrl: null },
+                data: {
+                    checkoutUrl: null,
+                },
             })
         }
 
@@ -181,6 +185,8 @@ export const createResourceSubscriptionRoute = apiFactory
             context: c,
             statusCode: 200,
             schema: createResourceSubscriptionRouteDefinition.schemas.return,
-            data: { checkoutUrl: null },
+            data: {
+                checkoutUrl: null,
+            },
         })
     })

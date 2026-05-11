@@ -72,45 +72,85 @@ export function ExportFecFile(props: {
         if (!props.open) return
         getResponseBodyFromAPI({
             routeDefinition: readOneOrganizationRouteDefinition,
-            body: { idOrganization: props.idOrganization },
+            body: {
+                idOrganization: props.idOrganization,
+            },
         }).then((response) => {
             if (response.ok) {
                 setSiren(response.data.siren ?? "")
             }
         })
-    }, [props.idOrganization, props.open])
+    }, [
+        props.idOrganization,
+        props.open,
+    ])
 
     const entriesMap = useMemo(() => {
-        return new Map(props.entries.map((r) => [r.id, r]))
-    }, [props.entries])
+        return new Map(
+            props.entries.map((r) => [
+                r.id,
+                r,
+            ]),
+        )
+    }, [
+        props.entries,
+    ])
 
     async function handleExport() {
         if (props.entryLines.length === 0) {
-            toast({ title: "Aucun mouvement à exporter", variant: "warning" })
+            toast({
+                title: "Aucun mouvement à exporter",
+                variant: "warning",
+            })
             return
         }
 
         const [accountsResponse, journalsResponse] = await Promise.all([
             getResponseBodyFromAPI({
                 routeDefinition: readAllAccountsRouteDefinition,
-                body: { idYear: props.idYear },
+                body: {
+                    idYear: props.idYear,
+                },
             }),
             getResponseBodyFromAPI({
                 routeDefinition: readAllJournalsRouteDefinition,
-                body: { idYear: props.idYear },
+                body: {
+                    idYear: props.idYear,
+                },
             }),
         ])
 
         if (!accountsResponse.ok || !journalsResponse.ok) {
-            toast({ title: "Impossible de charger les données", variant: "error" })
+            toast({
+                title: "Impossible de charger les données",
+                variant: "error",
+            })
             return
         }
 
-        const accountsMap = new Map(accountsResponse.data.map((a) => [a.id, { number: a.number, label: a.label }]))
-        const journalsMap = new Map(journalsResponse.data.map((j) => [j.id, { code: j.code, label: j.label }]))
+        const accountsMap = new Map(
+            accountsResponse.data.map((a) => [
+                a.id,
+                {
+                    number: a.number,
+                    label: a.label,
+                },
+            ]),
+        )
+        const journalsMap = new Map(
+            journalsResponse.data.map((j) => [
+                j.id,
+                {
+                    code: j.code,
+                    label: j.label,
+                },
+            ]),
+        )
 
         // Build a sequential EcritureNum per entry, sorted by date then id
-        const sortedEntries = [...props.entries].sort((a, b) => {
+        const sortedEntries = [
+            ...props.entries,
+        ].sort((a, b) => {
             const dateCompare = a.date.localeCompare(b.date)
             if (dateCompare !== 0) return dateCompare
             return a.id.localeCompare(b.id)
@@ -121,7 +161,9 @@ export function ExportFecFile(props: {
         }
 
         // Build rows sorted by entry date, then EcritureNum, then row order
-        const sortedRows = [...props.entryLines].sort((a, b) => {
+        const sortedRows = [
+            ...props.entryLines,
+        ].sort((a, b) => {
             const entryA = entriesMap.get(a.idEntry)
             const entryB = entriesMap.get(b.idEntry)
             if (!entryA || !entryB) return 0
@@ -130,7 +172,9 @@ export function ExportFecFile(props: {
             const numCompare = (ecritureNumMap.get(a.idEntry) ?? "").localeCompare(
                 ecritureNumMap.get(b.idEntry) ?? "",
                 undefined,
-                { numeric: true },
+                {
+                    numeric: true,
+                },
             )
             if (numCompare !== 0) return numCompare
             return a.id.localeCompare(b.id)
@@ -171,10 +215,20 @@ export function ExportFecFile(props: {
             })
             .filter((row) => row !== null)
 
-        const fecContent = [FEC_HEADERS.join("\t"), ...rows].join("\n")
+        const fecContent = [
+            FEC_HEADERS.join("\t"),
+            ...rows,
+        ].join("\n")
 
         const BOM = "\uFEFF"
-        const blob = new Blob([BOM + fecContent], { type: "text/plain;charset=utf-8;" })
+        const blob = new Blob(
+            [
+                BOM + fecContent,
+            ],
+            {
+                type: "text/plain;charset=utf-8;",
+            },
+        )
         const url = URL.createObjectURL(blob)
         const link = document.createElement("a")
         link.href = url
@@ -182,21 +236,45 @@ export function ExportFecFile(props: {
         link.click()
         URL.revokeObjectURL(url)
 
-        toast({ title: `${sortedRows.length} mouvements exportés au format FEC`, variant: "success" })
+        toast({
+            title: `${sortedRows.length} mouvements exportés au format FEC`,
+            variant: "success",
+        })
         props.onOpenChange(false)
     }
 
     return (
-        <Drawer.Root open={props.open} onOpenChange={props.onOpenChange}>
+        <Drawer.Root
+            open={props.open}
+            onOpenChange={props.onOpenChange}
+        >
             <Drawer.Content>
                 <Drawer.Header title="Exporter au format FEC" />
                 <Drawer.Body>
-                    <div className={css({ display: "flex", flexDirection: "column", gap: "1rem" })}>
-                        <p className={css({ fontSize: "sm", color: "neutral/70", lineHeight: "relaxed" })}>
+                    <div
+                        className={css({
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "1rem",
+                        })}
+                    >
+                        <p
+                            className={css({
+                                fontSize: "sm",
+                                color: "neutral/70",
+                                lineHeight: "relaxed",
+                            })}
+                        >
                             Le Fichier des Écritures Comptables (FEC) est un export normé de toutes les écritures de
                             l'exercice, au format requis par l'administration fiscale.
                         </p>
-                        <p className={css({ fontSize: "sm", color: "neutral/70", lineHeight: "relaxed" })}>
+                        <p
+                            className={css({
+                                fontSize: "sm",
+                                color: "neutral/70",
+                                lineHeight: "relaxed",
+                            })}
+                        >
                             Nous avons créé également un outil de validation de conformité du FEC, disponible
                             gratuitement en ligne sur{" "}
                             <a
@@ -209,7 +287,9 @@ export function ExportFecFile(props: {
                                     textDecoration: "underline",
                                     textDecorationColor: "primary/30",
                                     textUnderlineOffset: "2px",
-                                    _hover: { textDecorationColor: "primary" },
+                                    _hover: {
+                                        textDecorationColor: "primary",
+                                    },
                                     transition: "all 0.15s",
                                 })}
                             >
@@ -223,22 +303,39 @@ export function ExportFecFile(props: {
                                 conforme. Vous pouvez l'ajouter dans les{" "}
                                 <LinkButton
                                     to="/dashboard/organisations/$idOrganization/paramètres"
-                                    params={{ idOrganization: props.idOrganization }}
+                                    params={{
+                                        idOrganization: props.idOrganization,
+                                    }}
                                     onClick={() => props.onOpenChange(false)}
                                 >
-                                    <LinkContent className={css({ color: "warning" })}>
+                                    <LinkContent
+                                        className={css({
+                                            color: "warning",
+                                        })}
+                                    >
                                         paramètres de l'organisation
                                     </LinkContent>
                                 </LinkButton>
                                 .
                             </Banner>
                         )}
-                        <p className={css({ fontSize: "sm", color: "neutral/50" })}>
+                        <p
+                            className={css({
+                                fontSize: "sm",
+                                color: "neutral/50",
+                            })}
+                        >
                             {props.entries.length} écriture{props.entries.length > 1 ? "s" : ""} -{" "}
                             {props.entryLines.length} mouvement{props.entryLines.length > 1 ? "s" : ""}
                         </p>
-                        <Button hasLoader onClick={handleExport}>
-                            <ButtonPlainContent leftIcon={<IconFileExport />} text="Exporter le FEC" />
+                        <Button
+                            hasLoader
+                            onClick={handleExport}
+                        >
+                            <ButtonPlainContent
+                                leftIcon={<IconFileExport />}
+                                text="Exporter le FEC"
+                            />
                         </Button>
                     </div>
                 </Drawer.Body>

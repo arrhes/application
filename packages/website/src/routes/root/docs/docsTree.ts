@@ -70,7 +70,12 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
         billingDashboardDocRoute,
         updatesDashboardDocRoute,
         // AI sub-section (assistant IA)
-        aiDocLayoutRoute.addChildren([rootAiDocRoute, modelsAiDocRoute, toolsAiDocRoute, ocrAiDocRoute]),
+        aiDocLayoutRoute.addChildren([
+            rootAiDocRoute,
+            modelsAiDocRoute,
+            toolsAiDocRoute,
+            ocrAiDocRoute,
+        ]),
     ]),
 
     // API section (documentation technique)

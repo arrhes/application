@@ -29,7 +29,9 @@ export async function signInAsDemo(): Promise<AuthSession> {
         throw new Error("Sign-in succeeded but no session cookies were returned")
     }
 
-    return { cookies }
+    return {
+        cookies,
+    }
 }
 
 /**
@@ -72,16 +74,24 @@ export async function getDemoOrganizationId(session: AuthSession): Promise<strin
 /**
  * Returns the first idYear for the "Demo company" organization.
  */
-export async function getDemoYearId(session: AuthSession): Promise<{ idOrganization: string; idYear: string }> {
+export async function getDemoYearId(session: AuthSession): Promise<{
+    idOrganization: string
+    idYear: string
+}> {
     const idOrganization = await getDemoOrganizationId(session)
     const response = await authenticatedRequest({
         session,
         path: "/auth/read-all-years",
-        body: { idOrganization },
+        body: {
+            idOrganization,
+        },
     })
     const years = response.data as any[]
     if (years.length === 0) {
         throw new Error(`No years found for organization "${DEMO_ORG_NAME}" (${idOrganization})`)
     }
-    return { idOrganization, idYear: years[0].id }
+    return {
+        idOrganization,
+        idYear: years[0].id,
+    }
 }

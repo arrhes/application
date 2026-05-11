@@ -11,7 +11,9 @@ import { selectOne } from "../../../../utilities/sql/selectOne.js"
 export const deleteOneOrganizationRoute = apiFactory
     .createApp()
     .post(deleteOneOrganizationRouteDefinition.path, async (c) => {
-        const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+        const { user, idOrganization } = await checkUserSessionMiddleware({
+            context: c,
+        })
         const _body = await validateBodyMiddleware({
             context: c,
             schema: deleteOneOrganizationRouteDefinition.schemas.body,

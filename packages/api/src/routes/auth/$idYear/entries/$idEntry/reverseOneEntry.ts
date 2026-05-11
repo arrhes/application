@@ -10,7 +10,9 @@ import { selectMany } from "../../../../../utilities/sql/selectMany.js"
 import { selectOne } from "../../../../../utilities/sql/selectOne.js"
 
 export const reverseOneEntryRoute = apiFactory.createApp().post(reverseOneEntryRouteDefinition.path, async (c) => {
-    const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+    const { user, idOrganization } = await checkUserSessionMiddleware({
+        context: c,
+    })
     const body = await validateBodyMiddleware({
         context: c,
         schema: reverseOneEntryRouteDefinition.schemas.body,

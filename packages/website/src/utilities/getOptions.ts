@@ -1,4 +1,8 @@
-export function getOptions<T extends { [key: string]: string }>(object: T) {
+export function getOptions<
+    T extends {
+        [key: string]: string
+    },
+>(object: T) {
     const options = []
     for (const key in object) {
         options.push({

@@ -10,7 +10,9 @@ import { insertOne } from "../../../../utilities/sql/insertOne.js"
 import { selectOne } from "../../../../utilities/sql/selectOne.js"
 
 export const createOneApiKeyRoute = apiFactory.createApp().post(createOneApiKeyRouteDefinition.path, async (c) => {
-    const { user, idOrganization } = await checkUserSessionMiddleware({ context: c })
+    const { user, idOrganization } = await checkUserSessionMiddleware({
+        context: c,
+    })
     const body = await validateBodyMiddleware({
         context: c,
         schema: createOneApiKeyRouteDefinition.schemas.body,

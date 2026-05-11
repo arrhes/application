@@ -12,7 +12,9 @@ import { DeleteOneAccount } from "./deleteOneAccount.tsx"
 import { UpdateOneAccount } from "./updateOneAccount.tsx"
 
 export function AccountLayout() {
-    const params = useParams({ from: accountLayoutRoute.id })
+    const params = useParams({
+        from: accountLayoutRoute.id,
+    })
 
     return (
         <Section.Root>
@@ -26,7 +28,11 @@ export function AccountLayout() {
                 {(account) => {
                     return (
                         <>
-                            <Section.Item className={css({ flexDirection: "row" })}>
+                            <Section.Item
+                                className={css({
+                                    flexDirection: "row",
+                                })}
+                            >
                                 <div
                                     className={css({
                                         display: "flex",
@@ -42,7 +48,10 @@ export function AccountLayout() {
                                             idYear: account.idYear,
                                         }}
                                     >
-                                        <ButtonOutlineContent leftIcon={<IconChevronLeft />} text="Retour" />
+                                        <ButtonOutlineContent
+                                            leftIcon={<IconChevronLeft />}
+                                            text="Retour"
+                                        />
                                     </LinkButton>
                                 </div>
                                 <div
@@ -55,7 +64,10 @@ export function AccountLayout() {
                                     })}
                                 >
                                     <UpdateOneAccount account={account}>
-                                        <ButtonPlainContent leftIcon={<IconPencil />} text="Modifier" />
+                                        <ButtonPlainContent
+                                            leftIcon={<IconPencil />}
+                                            text="Modifier"
+                                        />
                                     </UpdateOneAccount>
                                     <DeleteOneAccount account={account}>
                                         <ButtonOutlineContent

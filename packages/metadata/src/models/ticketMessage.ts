@@ -11,7 +11,10 @@ export const ticketMessageModel = pgTable(
     {
         id: idColumn("id").primaryKey(),
         idTicket: idColumn("id_ticket")
-            .references(() => ticketModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => ticketModel.id, {
+                onDelete: "cascade",
+                onUpdate: "cascade",
+            })
             .notNull(),
         idUser: idColumn("id_user").references((): AnyPgColumn => userModel.id, {
             onDelete: "set null",
@@ -24,21 +27,35 @@ export const ticketMessageModel = pgTable(
         message: text("message").notNull(),
         createdAt: dateTimeColumn("created_at").notNull(),
     },
-    (t) => [index().on(t.idTicket)],
+    (t) => [
+        index().on(t.idTicket),
+    ],
 )
 
 // Relations
 export const ticketMessageRelations = relations(ticketMessageModel, ({ one }) => ({
     ticket: one(ticketModel, {
-        fields: [ticketMessageModel.idTicket],
-        references: [ticketModel.id],
+        fields: [
+            ticketMessageModel.idTicket,
+        ],
+        references: [
+            ticketModel.id,
+        ],
     }),
     user: one(userModel, {
-        fields: [ticketMessageModel.idUser],
-        references: [userModel.id],
+        fields: [
+            ticketMessageModel.idUser,
+        ],
+        references: [
+            userModel.id,
+        ],
     }),
     adminUser: one(userModel, {
-        fields: [ticketMessageModel.idAdminUser],
-        references: [userModel.id],
+        fields: [
+            ticketMessageModel.idAdminUser,
+        ],
+        references: [
+            userModel.id,
+        ],
     }),
 }))

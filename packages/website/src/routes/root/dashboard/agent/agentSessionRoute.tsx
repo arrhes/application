@@ -11,7 +11,9 @@ const AgentSessionPage = lazy(() =>
 // Wrapper that keys AgentSessionPage on idAgentSession so the component
 // fully remounts when the user switches sessions — resetting all state/refs.
 function AgentSessionPageKeyed() {
-    const { idAgentSession } = useParams({ from: agentSessionRoute.id })
+    const { idAgentSession } = useParams({
+        from: agentSessionRoute.id,
+    })
     return (
         <Suspense fallback={null}>
             <AgentSessionPage key={idAgentSession} />

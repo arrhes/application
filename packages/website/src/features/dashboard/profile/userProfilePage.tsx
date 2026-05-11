@@ -17,15 +17,24 @@ export function UserProfilePage() {
                 <Page.Description>Modifiez votre adresse email ou votre mot de passe.</Page.Description>
             </Page.Header>
             <Page.Content>
-                <DataWrapper routeDefinition={readUserSessionRouteDefinition} body={{}}>
+                <DataWrapper
+                    routeDefinition={readUserSessionRouteDefinition}
+                    body={{}}
+                >
                     {(userSession) => (
                         <>
                             <SettingsSection.Root>
                                 <SettingsSection.Header title="Informations du compte" />
-                                <SettingsSection.Row title="Adresse email" description={userSession.user.email}>
+                                <SettingsSection.Row
+                                    title="Adresse email"
+                                    description={userSession.user.email}
+                                >
                                     <UpdateUserEmail>
                                         <Button>
-                                            <ButtonOutlineContent leftIcon={<IconMail />} text="Modifier" />
+                                            <ButtonOutlineContent
+                                                leftIcon={<IconMail />}
+                                                text="Modifier"
+                                            />
                                         </Button>
                                     </UpdateUserEmail>
                                 </SettingsSection.Row>
@@ -38,13 +47,19 @@ export function UserProfilePage() {
                                 >
                                     <UpdateUserPassword>
                                         <Button>
-                                            <ButtonOutlineContent leftIcon={<IconKey />} text="Modifier" />
+                                            <ButtonOutlineContent
+                                                leftIcon={<IconKey />}
+                                                text="Modifier"
+                                            />
                                         </Button>
                                     </UpdateUserPassword>
                                 </SettingsSection.Row>
                             </SettingsSection.Root>
                             <SettingsSection.Root variant="danger">
-                                <SettingsSection.Header title="Zone de danger" variant="danger" />
+                                <SettingsSection.Header
+                                    title="Zone de danger"
+                                    variant="danger"
+                                />
                                 <SettingsSection.Row
                                     title="Supprimer le compte"
                                     description="Cette action est irréversible. Toutes vos données seront supprimées."

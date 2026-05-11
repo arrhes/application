@@ -13,7 +13,12 @@ export const TableBodyRoot = forwardRef<
         <tbody
             ref={ref}
             data-index={props["data-index"]}
-            className={cx(css({ width: "100%" }), props.className)}
+            className={cx(
+                css({
+                    width: "100%",
+                }),
+                props.className,
+            )}
             children={props.children}
         />
     )

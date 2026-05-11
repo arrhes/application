@@ -40,7 +40,9 @@ function getInvoiceTotalAmountInCents(invoice: Invoice) {
 type Invoice = v.InferOutput<typeof returnedSchemas.invoice>
 
 export function InvoicesTable(props: { invoices: Array<Invoice> }) {
-    const params = useParams({ from: organizationInvoicesRoute.id })
+    const params = useParams({
+        from: organizationInvoicesRoute.id,
+    })
 
     const columns: Array<ColumnDef<Invoice>> = [
         {
@@ -74,23 +76,39 @@ export function InvoicesTable(props: { invoices: Array<Invoice> }) {
             cell: (context) => {
                 const status = context.row.original.status
                 return (
-                    <Chip text={invoiceStatusLabel[status] ?? status} color={invoiceStatusColor[status] ?? "neutral"} />
+                    <Chip
+                        text={invoiceStatusLabel[status] ?? status}
+                        color={invoiceStatusColor[status] ?? "neutral"}
+                    />
                 )
             },
         },
         {
             id: "actions",
-            meta: { fit: true },
+            meta: {
+                fit: true,
+            },
             enableSorting: false,
             enableGlobalFilter: false,
             header: " ",
             cell: (context) => (
-                <InvoiceActionsPopover idOrganization={params.idOrganization} invoice={context.row.original} />
+                <InvoiceActionsPopover
+                    idOrganization={params.idOrganization}
+                    invoice={context.row.original}
+                />
             ),
         },
     ]
 
-    const sortedInvoices = [...props.invoices].sort((a, b) => b.startingAt.localeCompare(a.startingAt))
+    const sortedInvoices = [
+        ...props.invoices,
+    ].sort((a, b) => b.startingAt.localeCompare(a.startingAt))
 
-    return <DataTable data={sortedInvoices} columns={columns} pageSize={12} />
+    return (
+        <DataTable
+            data={sortedInvoices}
+            columns={columns}
+            pageSize={12}
+        />
+    )
 }

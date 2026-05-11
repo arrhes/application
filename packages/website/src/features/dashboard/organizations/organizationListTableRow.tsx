@@ -14,7 +14,14 @@ export function OrganizationListTableRow(props: {
 
     return (
         <ListTable.Row>
-            <div className={css({ width: "100%", display: "flex", flexDirection: "column", gap: "0.5rem" })}>
+            <div
+                className={css({
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.5rem",
+                })}
+            >
                 <div
                     className={css({
                         width: "100%",
@@ -37,7 +44,9 @@ export function OrganizationListTableRow(props: {
                                 fontWeight: "semibold",
                                 color: "primary",
                                 textDecoration: "none",
-                                _hover: { textDecoration: "underline" },
+                                _hover: {
+                                    textDecoration: "underline",
+                                },
                             })}
                         >
                             {organization.name}
@@ -51,14 +60,39 @@ export function OrganizationListTableRow(props: {
                             gap: "0.5rem",
                         })}
                     >
-                        {props.organizationUser.isAdmin && <Chip text="Administrateur" color="success" />}
-                        {props.organizationUser.status === "invited" && <Chip text="En attente" color="warning" />}
+                        {props.organizationUser.isAdmin && (
+                            <Chip
+                                text="Administrateur"
+                                color="success"
+                            />
+                        )}
+                        {props.organizationUser.status === "invited" && (
+                            <Chip
+                                text="En attente"
+                                color="warning"
+                            />
+                        )}
                     </div>
                 </div>
-                <div className={css({ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" })}>
-                    <Chip text={scopeLabel} color="neutral" />
+                <div
+                    className={css({
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.5rem",
+                        flexWrap: "wrap",
+                    })}
+                >
+                    <Chip
+                        text={scopeLabel}
+                        color="neutral"
+                    />
                     {organization.siren && (
-                        <span className={css({ fontSize: "xs", color: "neutral/50" })}>
+                        <span
+                            className={css({
+                                fontSize: "xs",
+                                color: "neutral/50",
+                            })}
+                        >
                             SIREN: {organization.siren}
                         </span>
                     )}

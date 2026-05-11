@@ -13,12 +13,23 @@ export const organizationBillingModel = pgTable(
     {
         id: idColumn("id").primaryKey(),
         idOrganization: idColumn("id_organization")
-            .references(() => organizationModel.id, { onDelete: "cascade", onUpdate: "cascade" })
+            .references(() => organizationModel.id, {
+                onDelete: "cascade",
+                onUpdate: "cascade",
+            })
             .notNull(),
-        type: varchar("type", { length: 32, enum: organizationBillingType }).notNull(),
+        type: varchar("type", {
+            length: 32,
+            enum: organizationBillingType,
+        }).notNull(),
         quantity: integer("quantity").notNull().default(1),
         amountInCents: integer("amount_in_cents").notNull(),
-        status: varchar("status", { length: 16, enum: organizationBillingStatus }).notNull().default("active"),
+        status: varchar("status", {
+            length: 16,
+            enum: organizationBillingStatus,
+        })
+            .notNull()
+            .default("active"),
         startsAt: dateTimeColumn("starts_at").notNull(),
         endsAt: dateTimeColumn("ends_at"),
         createdAt: dateTimeColumn("created_at").notNull(),
@@ -32,13 +43,19 @@ export const organizationBillingModel = pgTable(
             onUpdate: "cascade",
         }),
     },
-    (t) => [index().on(t.idOrganization)],
+    (t) => [
+        index().on(t.idOrganization),
+    ],
 )
 
 // Relations
 export const organizationBillingRelations = relations(organizationBillingModel, ({ one }) => ({
     organization: one(organizationModel, {
-        fields: [organizationBillingModel.idOrganization],
-        references: [organizationModel.id],
+        fields: [
+            organizationBillingModel.idOrganization,
+        ],
+        references: [
+            organizationModel.id,
+        ],
     }),
 }))

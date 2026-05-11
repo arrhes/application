@@ -8,7 +8,9 @@ export const adminLayoutRoute = createRoute({
         const userSession = await context.userSession
 
         if (userSession?.user.isSuperAdmin !== true) {
-            throw redirect({ to: "/dashboard" })
+            throw redirect({
+                to: "/dashboard",
+            })
         }
 
         return {

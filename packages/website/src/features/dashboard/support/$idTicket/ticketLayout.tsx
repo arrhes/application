@@ -11,13 +11,19 @@ import { ticketLayoutRoute } from "../../../../routes/root/dashboard/support/tic
 import { StatusToggle } from "./statusToggle.tsx"
 
 export function TicketLayout() {
-    const params = useParams({ from: ticketLayoutRoute.id })
+    const params = useParams({
+        from: ticketLayoutRoute.id,
+    })
 
     return (
         <Page.Root>
             <Page.Content>
                 <Section.Root>
-                    <Section.Item className={css({ flexDirection: "row" })}>
+                    <Section.Item
+                        className={css({
+                            flexDirection: "row",
+                        })}
+                    >
                         <DataWrapper
                             routeDefinition={readOneTicketRouteDefinition}
                             body={{
@@ -35,10 +41,19 @@ export function TicketLayout() {
                                             gap: "0.5rem",
                                         })}
                                     >
-                                        <LinkButton to="/dashboard/support" params={{}}>
-                                            <ButtonOutlineContent leftIcon={<IconChevronLeft />} text="Retour" />
+                                        <LinkButton
+                                            to="/dashboard/support"
+                                            params={{}}
+                                        >
+                                            <ButtonOutlineContent
+                                                leftIcon={<IconChevronLeft />}
+                                                text="Retour"
+                                            />
                                         </LinkButton>
-                                        <StatusToggle idTicket={params.idTicket} currentStatus={ticket.status} />
+                                        <StatusToggle
+                                            idTicket={params.idTicket}
+                                            currentStatus={ticket.status}
+                                        />
                                     </div>
                                 )
                             }}

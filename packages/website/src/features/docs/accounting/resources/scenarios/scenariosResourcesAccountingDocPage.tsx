@@ -19,7 +19,9 @@ function ScenarioRow(props: { scenario: ScenarioEntry }) {
     return (
         <LinkButton
             to="/documentation/comptabilité/ressources/scénarios/$scenario"
-            params={{ scenario: scenario.id }}
+            params={{
+                scenario: scenario.id,
+            }}
             className={css({
                 width: "100%",
             })}

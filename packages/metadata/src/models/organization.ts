@@ -12,17 +12,32 @@ import { userModel } from "./user.js"
 export const organizationModel = pgTable("table_organization", {
     id: idColumn("id").primaryKey(),
     isArchived: boolean("is_archived").notNull(),
-    scope: varchar("scope", { length: 32, enum: organizationScope }).notNull(),
-    name: varchar("name", { length: 256 }).notNull(),
+    scope: varchar("scope", {
+        length: 32,
+        enum: organizationScope,
+    }).notNull(),
+    name: varchar("name", {
+        length: 256,
+    }).notNull(),
     siren: text("siren"),
     email: text("email"),
     mollieCustomerId: text("mollie_customer_id"),
     licenceAmount: integer("licence_amount").notNull().default(0),
     licenceAmountPending: integer("licence_amount_pending"),
-    storageLimitPending: bigint("storage_limit_pending", { mode: "number" }),
+    storageLimitPending: bigint("storage_limit_pending", {
+        mode: "number",
+    }),
     walletBalanceInCents: integer("wallet_balance_in_cents").notNull().default(0),
-    storageLimit: bigint("storage_limit", { mode: "number" }).notNull().default(1_073_741_824),
-    storageCurrentUsage: bigint("storage_current_usage", { mode: "number" }).notNull().default(0),
+    storageLimit: bigint("storage_limit", {
+        mode: "number",
+    })
+        .notNull()
+        .default(1_073_741_824),
+    storageCurrentUsage: bigint("storage_current_usage", {
+        mode: "number",
+    })
+        .notNull()
+        .default(0),
     ocrPagesTotalAvailable: integer("ocr_pages_total_available").notNull().default(100),
     ocrPagesTotalUsed: integer("ocr_pages_total_used").notNull().default(0),
     tokensTotalAvailable: integer("tokens_total_available").notNull().default(1_000_000),

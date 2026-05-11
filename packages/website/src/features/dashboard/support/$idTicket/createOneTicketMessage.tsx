@@ -37,11 +37,17 @@ export function CreateOneTicketMessage(props: { idTicket: v.InferOutput<typeof r
                     body: data,
                 })
                 if (response.ok === false) {
-                    toast({ title: "Impossible d'envoyer le message", variant: "error" })
+                    toast({
+                        title: "Impossible d'envoyer le message",
+                        variant: "error",
+                    })
                     return false
                 }
 
-                toast({ title: "Message envoyé", variant: "success" })
+                toast({
+                    title: "Message envoyé",
+                    variant: "success",
+                })
                 return true
             }}
             onCancel={undefined}

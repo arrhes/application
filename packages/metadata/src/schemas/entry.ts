@@ -10,7 +10,12 @@ export const entrySchema = v.object({
     idYear: v.nonNullable(idSchema, "Ce champ est requis"),
     idJournal: v.nullable(idSchema),
     idFile: v.nullable(idSchema),
-    label: v.nonNullable(varcharSchema({ maxLength: 256 }), "Ce champ est requis"),
+    label: v.nonNullable(
+        varcharSchema({
+            maxLength: 256,
+        }),
+        "Ce champ est requis",
+    ),
     date: v.nonNullable(dateTimeSchema, "Ce champ est requis"),
     createdAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),
     lastUpdatedAt: v.nullable(dateTimeSchema),

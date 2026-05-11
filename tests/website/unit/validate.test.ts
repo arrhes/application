@@ -16,17 +16,26 @@ describe("validate", () => {
     it("returns success with parsed data for valid input", () => {
         const result = validate({
             schema,
-            data: { name: "Alice", age: 30 },
+            data: {
+                name: "Alice",
+                age: 30,
+            },
         })
         expect(result.success).toBe(true)
-        expect(result.data).toEqual({ name: "Alice", age: 30 })
+        expect(result.data).toEqual({
+            name: "Alice",
+            age: 30,
+        })
         expect(result.error).toBeUndefined()
     })
 
     it("returns failure with ClientError for invalid input", () => {
         const result = validate({
             schema,
-            data: { name: 123, age: "not a number" },
+            data: {
+                name: 123,
+                age: "not a number",
+            },
         })
         expect(result.success).toBe(false)
         expect(result.data).toBeUndefined()
@@ -36,7 +45,9 @@ describe("validate", () => {
     it("returns failure for missing required fields", () => {
         const result = validate({
             schema,
-            data: { name: "Alice" },
+            data: {
+                name: "Alice",
+            },
         })
         expect(result.success).toBe(false)
         expect(result.error).toBeInstanceOf(ClientError)

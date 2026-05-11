@@ -3,7 +3,12 @@ import { useButtonLoading } from "./button"
 import { type ButtonContentProps, renderButtonContent } from "./buttonContent"
 
 const outlineRecipe = sva({
-    slots: ["container", "leftIcon", "text", "rightIcon"],
+    slots: [
+        "container",
+        "leftIcon",
+        "text",
+        "rightIcon",
+    ],
     base: {
         container: {
             width: "fit-content",
@@ -23,8 +28,13 @@ const outlineRecipe = sva({
             borderColor: "neutral/20",
             backgroundColor: "transparent",
             boxShadow: "inset 0 1px 0 rgba(87, 87, 87, 0.05)",
-            _hover: { backgroundColor: "primary/5", borderColor: "primary/50" },
-            _active: { backgroundColor: "neutral/10" },
+            _hover: {
+                backgroundColor: "primary/5",
+                borderColor: "primary/50",
+            },
+            _active: {
+                backgroundColor: "neutral/10",
+            },
             _disabled: {
                 opacity: 0.5,
             },
@@ -61,20 +71,38 @@ const outlineRecipe = sva({
             danger: {
                 container: {
                     borderColor: "error/40",
-                    _hover: { backgroundColor: "error/5", borderColor: "error/50" },
+                    _hover: {
+                        backgroundColor: "error/5",
+                        borderColor: "error/50",
+                    },
                 },
-                leftIcon: { stroke: "error" },
-                text: { color: "error" },
-                rightIcon: { stroke: "error/50" },
+                leftIcon: {
+                    stroke: "error",
+                },
+                text: {
+                    color: "error",
+                },
+                rightIcon: {
+                    stroke: "error/50",
+                },
             },
             success: {
                 container: {
                     borderColor: "success/40",
-                    _hover: { backgroundColor: "success/5", borderColor: "success/50" },
+                    _hover: {
+                        backgroundColor: "success/5",
+                        borderColor: "success/50",
+                    },
                 },
-                leftIcon: { stroke: "success" },
-                text: { color: "success" },
-                rightIcon: { stroke: "success/50" },
+                leftIcon: {
+                    stroke: "success",
+                },
+                text: {
+                    color: "success",
+                },
+                rightIcon: {
+                    stroke: "success/50",
+                },
             },
         },
     },
@@ -84,7 +112,9 @@ const outlineRecipe = sva({
 })
 
 export function ButtonOutlineContent(props: ButtonContentProps) {
-    const classes = outlineRecipe({ color: props.color ?? "default" })
+    const classes = outlineRecipe({
+        color: props.color ?? "default",
+    })
     const contextLoading = useButtonLoading()
     return renderButtonContent(props, classes, contextLoading)
 }

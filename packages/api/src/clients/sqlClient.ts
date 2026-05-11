@@ -7,7 +7,9 @@ import type { getEnv } from "../utilities/getEnv.js"
 export function sqlClient(env: ReturnType<typeof getEnv>) {
     try {
         const queryClient = postgres(env.SQL_DATABASE_URL)
-        const db = drizzle(queryClient, { schema: modelSchemas })
+        const db = drizzle(queryClient, {
+            schema: modelSchemas,
+        })
         return db
     } catch (error) {
         throw new Exception({

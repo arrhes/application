@@ -25,8 +25,12 @@ function TicketRow(props: { ticket: Ticket }) {
     return (
         <LinkButton
             to="/dashboard/admin/tickets/$idTicket"
-            params={{ idTicket: ticket.id }}
-            className={css({ width: "100%" })}
+            params={{
+                idTicket: ticket.id,
+            }}
+            className={css({
+                width: "100%",
+            })}
         >
             <div
                 className={css({
@@ -40,7 +44,9 @@ function TicketRow(props: { ticket: Ticket }) {
                     borderColor: "neutral/10",
                     borderRadius: "lg",
                     cursor: "pointer",
-                    _hover: { backgroundColor: "neutral/3" },
+                    _hover: {
+                        backgroundColor: "neutral/3",
+                    },
                     transition: "background-color 0.15s ease",
                 })}
             >
@@ -61,20 +67,41 @@ function TicketRow(props: { ticket: Ticket }) {
                             flexWrap: "wrap",
                         })}
                     >
-                        <span className={css({ fontSize: "sm", fontWeight: "medium", color: "neutral" })}>
+                        <span
+                            className={css({
+                                fontSize: "sm",
+                                fontWeight: "medium",
+                                color: "neutral",
+                            })}
+                        >
                             {ticket.id}
                         </span>
                         <Badge>{statusLabels[ticket.status] ?? ticket.status}</Badge>
                         <Badge>{categoryLabels[ticket.category] ?? ticket.category}</Badge>
                     </div>
-                    <span className={css({ fontSize: "xs", color: "neutral/50" })}>
-                        {`Cree le ${formatDate(ticket.createdAt, { includeTime: true })}`}
+                    <span
+                        className={css({
+                            fontSize: "xs",
+                            color: "neutral/50",
+                        })}
+                    >
+                        {`Cree le ${formatDate(ticket.createdAt, {
+                            includeTime: true,
+                        })}`}
                         {ticket.lastUpdatedAt
-                            ? ` - Mis a jour le ${formatDate(ticket.lastUpdatedAt, { includeTime: true })}`
+                            ? ` - Mis a jour le ${formatDate(ticket.lastUpdatedAt, {
+                                  includeTime: true,
+                              })}`
                             : ""}
                     </span>
                 </div>
-                <IconExternalLink size={16} className={css({ color: "neutral/40", flexShrink: 0 })} />
+                <IconExternalLink
+                    size={16}
+                    className={css({
+                        color: "neutral/40",
+                        flexShrink: 0,
+                    })}
+                />
             </div>
         </LinkButton>
     )
@@ -95,7 +122,15 @@ export function TicketsPage() {
                 gap: "1rem",
             })}
         >
-            <h1 className={css({ fontSize: "lg", fontWeight: "bold", color: "neutral" })}>Tickets</h1>
+            <h1
+                className={css({
+                    fontSize: "lg",
+                    fontWeight: "bold",
+                    color: "neutral",
+                })}
+            >
+                Tickets
+            </h1>
 
             {tickets.isPending && <CircularLoader text="Chargement des tickets..." />}
 
@@ -109,24 +144,47 @@ export function TicketsPage() {
                         borderColor: "danger/20",
                     })}
                 >
-                    <span className={css({ fontSize: "sm", color: "danger" })}>
+                    <span
+                        className={css({
+                            fontSize: "sm",
+                            color: "danger",
+                        })}
+                    >
                         Erreur lors de la recuperation des tickets.
                     </span>
                 </div>
             )}
 
             {tickets.data && tickets.data.length === 0 && (
-                <span className={css({ fontSize: "sm", color: "neutral/50", padding: "1rem" })}>
+                <span
+                    className={css({
+                        fontSize: "sm",
+                        color: "neutral/50",
+                        padding: "1rem",
+                    })}
+                >
                     Aucun ticket pour le moment.
                 </span>
             )}
 
             {tickets.data && tickets.data.length > 0 && (
-                <div className={css({ width: "100%", display: "flex", flexDirection: "column", gap: "0.5rem" })}>
-                    {[...tickets.data]
+                <div
+                    className={css({
+                        width: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "0.5rem",
+                    })}
+                >
+                    {[
+                        ...tickets.data,
+                    ]
                         .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
                         .map((ticket) => (
-                            <TicketRow key={ticket.id} ticket={ticket} />
+                            <TicketRow
+                                key={ticket.id}
+                                ticket={ticket}
+                            />
                         ))}
                 </div>
             )}
