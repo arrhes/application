@@ -142,7 +142,7 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
         })
     }
 
-    if (extractedPagesCount > organization.ocrPagesTotalLeft) {
+    if (extractedPagesCount > organization.ocrPagesTotalAvailable) {
         throw new Exception({
             statusCode: 429,
             internalMessage: "OCR balance exhausted",
@@ -184,8 +184,7 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
             database: params.var.clients.sql,
             table: models.organization,
             data: {
-                ocrCurrentMonthPagesUsage: organization.ocrPagesTotalUsed + extractedPagesCount,
-                ocrPagesTotalLeft: organization.ocrPagesTotalLeft - extractedPagesCount,
+                ocrPagesTotalAvailable: organization.ocrPagesTotalAvailable - extractedPagesCount,
                 ocrPagesTotalUsed: organization.ocrPagesTotalUsed + extractedPagesCount,
             },
             where: (table) => eq(table.id, idOrganization),
@@ -237,8 +236,7 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
         table: models.organization,
         data: {
             storageCurrentUsage: sql`${models.organization.storageCurrentUsage} + ${markdownBuffer.length}`,
-            ocrCurrentMonthPagesUsage: organization.ocrPagesTotalUsed + extractedPagesCount,
-            ocrPagesTotalLeft: organization.ocrPagesTotalLeft - extractedPagesCount,
+            ocrPagesTotalAvailable: organization.ocrPagesTotalAvailable - extractedPagesCount,
             ocrPagesTotalUsed: organization.ocrPagesTotalUsed + extractedPagesCount,
         },
         where: (table) => eq(table.id, idOrganization),

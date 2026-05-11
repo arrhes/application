@@ -1,8 +1,9 @@
-import { type DocsSearchEntry, docsSearchIndex } from "virtual:docs-search-index"
+import { Button } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconSearch } from "@tabler/icons-react"
 import { useNavigate } from "@tanstack/react-router"
 import { useEffect, useMemo, useRef, useState } from "react"
+import { type DocsSearchEntry, docsSearchIndex } from "virtual:docs-search-index"
 
 const MAX_RESULTS = 8
 
@@ -249,9 +250,8 @@ export function DocsSearch() {
                     })}
                 >
                     {results.map((entry) => (
-                        <button
+                        <Button
                             key={entry.path}
-                            type="button"
                             onMouseDown={(e) => {
                                 e.preventDefault()
                                 handleSelect(entry.path)
@@ -296,7 +296,7 @@ export function DocsSearch() {
                             >
                                 {entry.title}
                             </span>
-                        </button>
+                        </Button>
                     ))}
                 </div>
             )}

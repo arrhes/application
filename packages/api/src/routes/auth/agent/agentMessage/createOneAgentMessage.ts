@@ -52,7 +52,7 @@ export const createOneAgentMessageRoute = apiFactory
             where: (table) => eq(table.id, session.idOrganization),
         })
 
-        if (organization.tokensTotalLeft <= 0) {
+        if (organization.tokensTotalAvailable <= 0) {
             throw new Exception({
                 statusCode: 429,
                 internalMessage: "Agent token balance exhausted",

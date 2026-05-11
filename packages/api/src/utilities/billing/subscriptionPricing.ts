@@ -55,12 +55,12 @@ export function getResourceSubscriptionMinimumQuantity(type: ResourceSubscriptio
     return RESOURCE_MINIMUM_QUANTITY[type]
 }
 
-export function getStorageAddonQuantity(storageMaxUsage: number): number {
-    return Math.max(Math.round((storageMaxUsage - FREE_STORAGE_BYTES) / FREE_STORAGE_BYTES), 0)
+export function getStorageAddonQuantity(storageLimit: number): number {
+    return Math.max(Math.round((storageLimit - FREE_STORAGE_BYTES) / FREE_STORAGE_BYTES), 0)
 }
 
-export function getStorageRecurringAmountInCents(storageMaxUsage: number): number {
-    return getStorageAddonQuantity(storageMaxUsage) * RESOURCE_UNIT_PRICE_IN_CENTS.storage_gb
+export function getStorageRecurringAmountInCents(storageLimit: number): number {
+    return getStorageAddonQuantity(storageLimit) * RESOURCE_UNIT_PRICE_IN_CENTS.storage_gb
 }
 
 export function getTokenAddonQuantity(totalTokens: number): number {

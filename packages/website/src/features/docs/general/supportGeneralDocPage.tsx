@@ -226,7 +226,7 @@ export function SupportGeneralDocPage() {
                             lineHeight: "relaxed",
                         })}
                     >
-                        Suivez-nous sur LinkedIn pour les dernières mises à jour et nouvelles.
+                        Suivez-nous sur LinkedIn pour les dernières nouvelles.
                     </p>
                     <a href="https://linkedin.com/company/arrhes" target="_blank" rel="noopener noreferrer">
                         <ButtonOutlineContent leftIcon={<IconExternalLink />} text="Voir sur LinkedIn" />
@@ -236,7 +236,7 @@ export function SupportGeneralDocPage() {
 
             {/* Response time info */}
             <DocTip variant="info">
-                Nous nous efforçons de répondre à toutes les demandes dans un délai de 48 heures ouvrées.
+                Nous nous efforçons de répondre à toutes les demandes dans un délai raisonnable.
             </DocTip>
 
             {/* Documentation section */}
@@ -335,7 +335,7 @@ export function SupportGeneralDocPage() {
                                     color: "neutral/50",
                                 })}
                             >
-                                Apprenez à utiliser Arrhes efficacement
+                                Apprenez à utiliser l'interface web efficacement
                             </p>
                         </div>
                     </LinkButton>

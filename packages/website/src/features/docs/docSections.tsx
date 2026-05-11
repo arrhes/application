@@ -1,5 +1,6 @@
 import {
     IconBook,
+    IconBooks,
     IconCode,
     IconGavel,
     IconHome,
@@ -56,18 +57,11 @@ export const docSections: Record<string, DocSection> = {
                 title: "Les bases",
                 icon: <IconStack />,
                 items: [
-                    { path: "/documentation/comptabilité/introduction", label: "Introduction" },
-                    { path: "/documentation/comptabilité/partie-double", label: "La partie double" },
-                    { path: "/documentation/comptabilité/écritures", label: "Les écritures" },
-                ],
-            },
-            comptes: {
-                title: "Comptes",
-                icon: <IconBook />,
-                items: [
-                    { path: "/documentation/comptabilité/comptes/introduction", label: "Introduction" },
-                    { path: "/documentation/comptabilité/comptes/classes", label: "Classes de comptes" },
-                    { path: "/documentation/comptabilité/comptes/liste", label: "Liste des comptes" },
+                    { path: "/documentation/comptabilité/introduction/", label: "Introduction" },
+                    { path: "/documentation/comptabilité/introduction/partie-double", label: "La partie double" },
+                    { path: "/documentation/comptabilité/introduction/écritures", label: "Les écritures" },
+                    { path: "/documentation/comptabilité/introduction/comptes", label: "Les comptes" },
+                    { path: "/documentation/comptabilité/introduction/classes", label: "Classes de comptes" },
                 ],
             },
             documents: {
@@ -103,12 +97,16 @@ export const docSections: Record<string, DocSection> = {
                 ],
             },
             scenarios: {
-                title: "Scénarios",
-                icon: <IconBook />,
-                items: [{ path: "/documentation/comptabilité/scénarios", label: "Scénarios" }],
+                title: "Ressources",
+                icon: <IconBooks />,
+                items: [
+                    { path: "/documentation/comptabilité/ressources/comptes", label: "Liste des comptes" },
+                    { path: "/documentation/comptabilité/ressources/scénarios", label: "Scénarios" },
+                    { path: "/documentation/comptabilité/ressources/glossaire", label: "Glossaire" }
+                ],
             },
             glossaire: {
-                items: [{ path: "/documentation/comptabilité/glossaire", label: "Glossaire" }],
+                items: [],
             },
         },
     },

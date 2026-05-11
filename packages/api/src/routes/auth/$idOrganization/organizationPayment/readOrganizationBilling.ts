@@ -48,12 +48,13 @@ export const readOrganizationBillingRoute = apiFactory
             schema: readOrganizationBillingRouteDefinition.schemas.return,
             data: {
                 status: latestPayment?.status ?? null,
-                ocrCurrentMonthUsage: organization.ocrPagesTotalUsed,
-                ocrMonthlyLimit: organization.ocrPagesTotalLeft + organization.ocrPagesTotalUsed,
-                agentTokensCurrentMonthUsage: organization.tokensTotalUsed,
-                agentTokensMonthlyLimit: organization.tokensTotalLeft + organization.tokensTotalUsed,
-                storageLimit: organization.storageMaxUsage,
+                licenceAmount: organization.licenceAmount,
+                storageLimit: organization.storageLimit,
                 storageCurrentUsage: organization.storageCurrentUsage,
+                ocrPagesTotalAvailable: organization.ocrPagesTotalAvailable,
+                ocrPagesTotalUsed: organization.ocrPagesTotalUsed,
+                tokensTotalAvailable: organization.tokensTotalAvailable,
+                tokensTotalUsed: organization.tokensTotalUsed,
                 totalSubscriptionAmountInCents,
             },
         })

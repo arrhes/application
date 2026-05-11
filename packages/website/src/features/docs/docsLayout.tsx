@@ -29,10 +29,11 @@ export function DocsLayout() {
         <div
             className={css({
                 width: "100%",
-                minHeight: "100vh",
-                display: "flex",
-                flexDirection: "column",
+                height: "100vh",
+                display: "grid",
+                gridTemplateRows: "auto minmax(0, 1fr)",
                 backgroundColor: "background",
+                overflow: "hidden",
             })}
         >
             {/* Header */}
@@ -66,7 +67,7 @@ export function DocsLayout() {
                     <div
                         className={css({
                             width: "100%",
-                            maxWidth: "xl",
+                            // maxWidth: "xl",
                             display: "flex",
                             justifyContent: "start",
                             alignItems: "center",
@@ -145,7 +146,7 @@ export function DocsLayout() {
                     <div
                         className={css({
                             width: "100%",
-                            maxWidth: "xl",
+                            // maxWidth: "xl",
                             display: "flex",
                             alignItems: "center",
                             flexWrap: "wrap",
@@ -167,15 +168,19 @@ export function DocsLayout() {
                     justifyContent: "start",
                     alignItems: "center",
                     backgroundColor: "white",
-                    flex: "1",
+                    height: "100%",
+                    minHeight: "0",
+                    overflow: "hidden",
                 })}
             >
                 <div
                     className={css({
                         width: "100%",
-                        maxWidth: "xl",
+                        // maxWidth: "xl",
                         display: "flex",
-                        flex: "1",
+                        height: "100%",
+                        minHeight: "0",
+                        overflow: "hidden",
                     })}
                 >
                     {/* Sidebar */}
@@ -184,9 +189,13 @@ export function DocsLayout() {
                             css({
                                 borderRight: "1px solid",
                                 borderRightColor: "neutral/10",
+                                overflowX: "hidden",
                                 overflowY: "auto",
                                 flexShrink: 0,
                                 display: { base: "none", md: "flex" },
+                                alignSelf: "stretch",
+                                height: "100%",
+                                boxSizing: "border-box",
                                 padding: "1rem",
                             }),
                         )}
@@ -205,9 +214,11 @@ export function DocsLayout() {
                         className={css({
                             flex: "1",
                             minWidth: "0",
+                            minHeight: "0",
                             display: "flex",
                             flexDirection: "column",
                             justifyContent: "start",
+                            overflowY: "auto",
                         })}
                     >
                         <div

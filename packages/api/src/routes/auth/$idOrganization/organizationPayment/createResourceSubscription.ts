@@ -62,10 +62,10 @@ export const createResourceSubscriptionRoute = apiFactory
 
         const currentQuantity =
             body.type === "storage_gb"
-                ? getStorageAddonQuantity(organization.storageMaxUsage)
+                ? getStorageAddonQuantity(organization.storageLimit)
                 : body.type === "agent_tokens_million"
-                  ? getTokenAddonQuantity(organization.tokensTotalLeft + organization.tokensTotalUsed)
-                  : getOcrAddonQuantity(organization.ocrPagesTotalLeft + organization.ocrPagesTotalUsed)
+                    ? getTokenAddonQuantity(organization.tokensTotalAvailable + organization.tokensTotalUsed)
+                    : getOcrAddonQuantity(organization.ocrPagesTotalAvailable + organization.ocrPagesTotalUsed)
 
         if (body.type === "storage_gb") {
             const minimumStorageQuantityFromUsage = Math.max(
@@ -104,7 +104,7 @@ export const createResourceSubscriptionRoute = apiFactory
 
         const now = new Date()
 
-        const nextStorageMaxUsage =
+        const nextStorageLimit =
             body.type === "storage_gb" ? FREE_STORAGE_BYTES + body.quantity * FREE_STORAGE_BYTES : undefined
         const nextTokensTotal =
             body.type === "agent_tokens_million" ? getTotalTokensFromQuantity(body.quantity) : undefined
@@ -144,8 +144,8 @@ export const createResourceSubscriptionRoute = apiFactory
                     body.type === "storage_gb"
                         ? "Augmentation du stockage"
                         : body.type === "agent_tokens_million"
-                          ? "Achat tokens Assistant IA"
-                          : "Achat pages OCR",
+                            ? "Achat tokens Assistant IA"
+                            : "Achat pages OCR",
             })
         }
 
@@ -164,13 +164,10 @@ export const createResourceSubscriptionRoute = apiFactory
             database: c.var.clients.sql,
             table: models.organization,
             data: {
-                storageLimit: nextStorageMaxUsage,
-                storageMaxUsage: nextStorageMaxUsage,
-                ocrMonthlyLimit: nextOcrTotal,
-                ocrPagesTotalLeft:
+                storageLimit: nextStorageLimit,
+                ocrPagesTotalAvailable:
                     nextOcrTotal !== undefined ? Math.max(nextOcrTotal - organization.ocrPagesTotalUsed, 0) : undefined,
-                agentTokensMonthlyLimit: nextTokensTotal,
-                tokensTotalLeft:
+                tokensTotalAvailable:
                     nextTokensTotal !== undefined
                         ? Math.max(nextTokensTotal - organization.tokensTotalUsed, 0)
                         : undefined,

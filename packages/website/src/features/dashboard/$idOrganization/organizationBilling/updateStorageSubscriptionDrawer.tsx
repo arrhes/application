@@ -34,7 +34,7 @@ function formatBytes(bytes: number): string {
     return `${bytes} o`
 }
 
-function getStorageMaxUsageFromQuantity(quantity: number): number {
+function getStorageLimitFromQuantity(quantity: number): number {
     return FREE_STORAGE_BYTES + quantity * FREE_STORAGE_BYTES
 }
 
@@ -106,7 +106,7 @@ export function UpdateStorageSubscriptionDrawer(props: {
     const deltaAmountInCents = nextAmountInCents - currentAmountInCents
     const proRataAmountInCents = Math.round(deltaAmountInCents * getProRataFraction())
     const proRataAmountTTCInCents = getAmountTTCFromHTInCents(proRataAmountInCents)
-    const nextStorageMaxUsageInBytes = getStorageMaxUsageFromQuantity(nextQuantity)
+    const nextStorageLimitInBytes = getStorageLimitFromQuantity(nextQuantity)
 
     useEffect(() => {
         if (open) {
@@ -162,8 +162,8 @@ export function UpdateStorageSubscriptionDrawer(props: {
                             {quantityDelta > 0
                                 ? `Augmenter le stockage est immédiat : le montant prorata du mois est débité du portefeuille. Montants en HT (TVA ${VAT_PERCENT}\u00a0%).`
                                 : quantityDelta < 0
-                                  ? `Réduire le stockage est effectif le 1er du mois prochain. Aucun remboursement n'est appliqué. Montants en HT (TVA ${VAT_PERCENT}\u00a0%).`
-                                  : `Ajustez le stockage disponible pour l'organisation. Montants en HT (TVA ${VAT_PERCENT}\u00a0%).`}
+                                    ? `Réduire le stockage est effectif le 1er du mois prochain. Aucun remboursement n'est appliqué. Montants en HT (TVA ${VAT_PERCENT}\u00a0%).`
+                                    : `Ajustez le stockage disponible pour l'organisation. Montants en HT (TVA ${VAT_PERCENT}\u00a0%).`}
                         </p>
                         <DrawerSection
                             title="État actuel"
@@ -283,7 +283,7 @@ export function UpdateStorageSubscriptionDrawer(props: {
                                         Capacité après modification
                                     </span>
                                     <span className={css({ fontSize: "sm", fontWeight: "600", color: "neutral" })}>
-                                        {formatBytes(nextStorageMaxUsageInBytes)}
+                                        {formatBytes(nextStorageLimitInBytes)}
                                     </span>
                                 </div>
                                 <div
@@ -296,16 +296,16 @@ export function UpdateStorageSubscriptionDrawer(props: {
                                             deltaAmountInCents > 0
                                                 ? "warning/5"
                                                 : deltaAmountInCents < 0
-                                                  ? "success/5"
-                                                  : "neutral/1",
+                                                    ? "success/5"
+                                                    : "neutral/1",
                                     })}
                                 >
                                     <span className={css({ fontSize: "xs", color: "neutral/50" })}>
                                         {deltaAmountInCents > 0
                                             ? "Débité maintenant (prorata)"
                                             : deltaAmountInCents < 0
-                                              ? "Effectif le 1er du mois"
-                                              : "Ajustement portefeuille"}
+                                                ? "Effectif le 1er du mois"
+                                                : "Ajustement portefeuille"}
                                     </span>
                                     <span className={css({ fontSize: "sm", fontWeight: "600", color: "neutral" })}>
                                         {deltaAmountInCents > 0

@@ -36,7 +36,7 @@ export function FileActions(props: {
         routeDefinition: readOrganizationBillingRouteDefinition,
         body: {},
     })
-    const isPremium = (subscription.data?.ocrMonthlyLimit ?? 0) > 0
+    const hasOcrAvailable = (subscription.data?.ocrPagesTotalAvailable ?? 0) > 0
     const isOcrSupportedType = props.file.type === "application/pdf" || (props.file.type?.startsWith("image/") ?? false)
 
     async function handleDelete() {
@@ -134,7 +134,7 @@ export function FileActions(props: {
                         <div
                             className={css({ position: "relative" })}
                             onPointerEnter={() => {
-                                if (!isPremium) {
+                                if (!hasOcrAvailable) {
                                     setOcrTooltipOpen(true)
                                 }
                             }}
@@ -143,24 +143,24 @@ export function FileActions(props: {
                             <Popover.Close asChild>
                                 <Button
                                     className={css({ width: "100%" })}
-                                    onClick={isPremium && !ocrLoading ? handleOcr : undefined}
-                                    isDisabled={!isPremium || ocrLoading}
+                                    onClick={hasOcrAvailable && !ocrLoading ? handleOcr : undefined}
+                                    isDisabled={!hasOcrAvailable || ocrLoading}
                                 >
                                     <ButtonGhostContent
                                         leftIcon={<IconFileText />}
                                         text={ocrLoading ? "Extraction..." : "Extraire le texte (OCR)"}
-                                        isDisabled={!isPremium}
+                                        isDisabled={!hasOcrAvailable}
                                         className={css({
                                             width: "100%",
                                             justifyContent: "start",
-                                            ...(!isPremium && {
+                                            ...(!hasOcrAvailable && {
                                                 textDecoration: "line-through",
                                             }),
                                         })}
                                     />
                                 </Button>
                             </Popover.Close>
-                            {!isPremium && ocrTooltipOpen && (
+                            {!hasOcrAvailable && ocrTooltipOpen && (
                                 <div
                                     className={css({
                                         position: "absolute",
@@ -179,7 +179,7 @@ export function FileActions(props: {
                                         boxShadow: "md",
                                     })}
                                 >
-                                    Fonctionnalité réservée aux abonnements premium
+                                    Aucune page OCR disponible
                                 </div>
                             )}
                         </div>

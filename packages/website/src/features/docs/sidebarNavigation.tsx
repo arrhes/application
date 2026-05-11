@@ -22,10 +22,14 @@ export function SidebarNavigation(props: {
                 display: "flex",
                 flexDirection: "column",
                 gap: "0.5rem",
+                minHeight: "fit-content",
             })}
         >
             {Object.entries(props.navigation).map(([key, section]) => (
-                <div key={key} className={css({ marginBottom: "0.5rem" })}>
+                <div
+                    key={key}
+                    className={css({})}
+                >
                     {section.title && section.icon && (
                         <div
                             className={css({
@@ -54,7 +58,6 @@ export function SidebarNavigation(props: {
                     )}
                     <div
                         className={css({
-                            marginTop: section.title ? "0.25rem" : "0",
                             display: "flex",
                             flexDirection: "column",
                             gap: "0.25rem",

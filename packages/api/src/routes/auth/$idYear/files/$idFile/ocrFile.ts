@@ -131,7 +131,7 @@ export const ocrFileRoute = apiFactory.createApp().post(ocrFileRouteDefinition.p
         })
     }
 
-    if (extractedPagesCount > organization.ocrPagesTotalLeft) {
+    if (extractedPagesCount > organization.ocrPagesTotalAvailable) {
         throw new Exception({
             statusCode: 429,
             internalMessage: "OCR balance exhausted",
@@ -193,8 +193,7 @@ export const ocrFileRoute = apiFactory.createApp().post(ocrFileRouteDefinition.p
         table: models.organization,
         data: {
             storageCurrentUsage: sql`${models.organization.storageCurrentUsage} + ${markdownBuffer.length}`,
-            ocrCurrentMonthPagesUsage: organization.ocrPagesTotalUsed + extractedPagesCount,
-            ocrPagesTotalLeft: organization.ocrPagesTotalLeft - extractedPagesCount,
+            ocrPagesTotalAvailable: organization.ocrPagesTotalAvailable - extractedPagesCount,
             ocrPagesTotalUsed: organization.ocrPagesTotalUsed + extractedPagesCount,
         },
         where: (table) => eq(table.id, idOrganization),

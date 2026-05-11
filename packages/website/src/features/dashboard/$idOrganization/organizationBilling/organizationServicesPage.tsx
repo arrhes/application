@@ -21,12 +21,12 @@ import { UpdateStorageSubscriptionDrawer } from "./updateStorageSubscriptionDraw
 import { UpdateTokensSubscriptionDrawer } from "./updateTokensSubscriptionDrawer.tsx"
 import { OrganizationBillingDisclaimerBanner } from "./wallet/OrganizationBillingDisclaimerBanner.tsx"
 
-function getStorageAddonQuantity(storageMaxUsage: number) {
-    return Math.max(Math.round((storageMaxUsage - FREE_STORAGE_BYTES) / FREE_STORAGE_BYTES), 0)
+function getStorageAddonQuantity(storageLimit: number) {
+    return Math.max(Math.round((storageLimit - FREE_STORAGE_BYTES) / FREE_STORAGE_BYTES), 0)
 }
 
-function getRecurringStorageAmountInCents(storageMaxUsage: number) {
-    return getStorageAddonQuantity(storageMaxUsage) * STORAGE_PRICE_PER_GB_IN_CENTS
+function getRecurringStorageAmountInCents(storageLimit: number) {
+    return getStorageAddonQuantity(storageLimit) * STORAGE_PRICE_PER_GB_IN_CENTS
 }
 
 function getTokenAddonQuantity(totalTokens: number) {
@@ -242,14 +242,14 @@ export function OrganizationServicesPage() {
                     {(organization) => {
                         const currentSupportAmountInCents = organization.licenceAmount
                         const currentStorageAmountInCents = getRecurringStorageAmountInCents(
-                            organization.storageMaxUsage,
+                            organization.storageLimit,
                         )
-                        const currentStorageQuantity = getStorageAddonQuantity(organization.storageMaxUsage)
+                        const currentStorageQuantity = getStorageAddonQuantity(organization.storageLimit)
                         const currentTokenQuantity = getTokenAddonQuantity(
-                            organization.tokensTotalLeft + organization.tokensTotalUsed,
+                            organization.tokensTotalAvailable + organization.tokensTotalUsed,
                         )
                         const currentOcrAddonPages = Math.max(
-                            organization.ocrPagesTotalLeft + organization.ocrPagesTotalUsed - INCLUDED_OCR_PAGES,
+                            organization.ocrPagesTotalAvailable + organization.ocrPagesTotalUsed - INCLUDED_OCR_PAGES,
                             0,
                         )
                         const nextMonthSubscriptionAmountInCents =
@@ -329,11 +329,11 @@ export function OrganizationServicesPage() {
                                             label: "Montant mensuel",
                                             value: `${formatEuros(currentSupportAmountInCents)} HT`,
                                         },
-                                        ...(organization.pendingLicenceAmount !== null
+                                        ...(organization.licenceAmountPending !== null
                                             ? [
                                                   {
                                                       label: "En attente le 1er",
-                                                      value: `${formatEuros(organization.pendingLicenceAmount)} HT`,
+                                                      value: `${formatEuros(organization.licenceAmountPending)} HT`,
                                                   },
                                               ]
                                             : []),
@@ -361,11 +361,11 @@ export function OrganizationServicesPage() {
                                             label: "Montant actuel",
                                             value: `${formatEuros(currentStorageAmountInCents)} HT / mois`,
                                         },
-                                        ...(organization.pendingStorageMaxUsage !== null
+                                        ...(organization.storageLimitPending !== null
                                             ? [
                                                   {
                                                       label: "En attente le 1er",
-                                                      value: `${formatStorageValue(organization.pendingStorageMaxUsage)} / mois`,
+                                                      value: `${formatStorageValue(organization.storageLimitPending)} / mois`,
                                                   },
                                               ]
                                             : []),
@@ -373,7 +373,7 @@ export function OrganizationServicesPage() {
                                     usage={
                                         <UsageBar
                                             current={organization.storageCurrentUsage}
-                                            limit={organization.storageMaxUsage}
+                                            limit={organization.storageLimit}
                                             formatValue={formatStorageValue}
                                         />
                                     }
@@ -382,7 +382,7 @@ export function OrganizationServicesPage() {
                                             idOrganization={params.idOrganization}
                                             currentQuantity={currentStorageQuantity}
                                             currentUsageInBytes={organization.storageCurrentUsage}
-                                            currentMaxUsageInBytes={organization.storageMaxUsage}
+                                            currentMaxUsageInBytes={organization.storageLimit}
                                             onSuccess={() => setRefreshKey((key) => key + 1)}
                                         >
                                             <Button>
@@ -398,7 +398,7 @@ export function OrganizationServicesPage() {
                                     details={[
                                         {
                                             label: "Restants",
-                                            value: `${formatTokenValue(organization.tokensTotalLeft)} tokens`,
+                                            value: `${formatTokenValue(organization.tokensTotalAvailable)} tokens`,
                                         },
                                         {
                                             label: "Prix unitaire",
@@ -408,7 +408,7 @@ export function OrganizationServicesPage() {
                                     action={
                                         <UpdateTokensSubscriptionDrawer
                                             currentQuantity={currentTokenQuantity}
-                                            currentTokensLeft={organization.tokensTotalLeft}
+                                            currentTokensLeft={organization.tokensTotalAvailable}
                                             onSuccess={() => setRefreshKey((key) => key + 1)}
                                         >
                                             <Button>
@@ -424,14 +424,14 @@ export function OrganizationServicesPage() {
                                     details={[
                                         {
                                             label: "Restantes",
-                                            value: `${organization.ocrPagesTotalLeft.toLocaleString("fr-FR")} pages`,
+                                            value: `${organization.ocrPagesTotalAvailable.toLocaleString("fr-FR")} pages`,
                                         },
                                         { label: "Prix unitaire", value: `0,01 EUR HT / page (TVA ${VAT_PERCENT}%)` },
                                     ]}
                                     action={
                                         <UpdateOcrSubscriptionDrawer
                                             currentQuantity={currentOcrAddonPages}
-                                            currentPagesLeft={organization.ocrPagesTotalLeft}
+                                            currentPagesLeft={organization.ocrPagesTotalAvailable}
                                             onSuccess={() => setRefreshKey((key) => key + 1)}
                                         >
                                             <Button>

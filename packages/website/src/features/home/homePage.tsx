@@ -126,7 +126,7 @@ export function HomePage() {
                         >
                             Le logiciel de comptabilité moderne et intuitif,
                             <br />
-                            pour les{" "}
+                            pour {" "}
                             <span
                                 className={css({
                                     fontSize: "inherit",
@@ -134,19 +134,9 @@ export function HomePage() {
                                     fontWeight: "semibold",
                                 })}
                             >
-                                entreprises
-                            </span>{" "}
-                            et{" "}
-                            <span
-                                className={css({
-                                    fontSize: "inherit",
-                                    color: "primary",
-                                    fontWeight: "semibold",
-                                })}
-                            >
-                                associations
+                                ceux qui veulent reprendre la main sur leur comptabilité
                             </span>
-                            .
+                            {" "}.
                         </h1>
 
                         <div
@@ -224,7 +214,7 @@ export function HomePage() {
                         Un logiciel de comptabilité conçu pour être simple et transparent, tout en respectant les
                         exigences de la comptabilité française.
                         <br />
-                        Il s'adresse à tous ceux qui souhaitent reprendre la main sur leur comptabilité.
+                        Il s'adresse à tous : indépendants, entreprises, associations, experts-comptables...
                     </p>
 
                     {/* Pricing columns */}

@@ -94,7 +94,7 @@ export const createOneAgentFileRoute = apiFactory
             where: (table) => eq(table.id, idOrganization),
         })
 
-        if (organization.storageCurrentUsage + body.fileSize > organization.storageMaxUsage) {
+        if (organization.storageCurrentUsage + body.fileSize > organization.storageLimit) {
             throw new Exception({
                 internalMessage: "Storage limit exceeded",
                 statusCode: 400,

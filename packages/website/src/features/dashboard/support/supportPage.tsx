@@ -25,17 +25,17 @@ function SupportBanner() {
         return null
     }
 
-    if ((subscription.data?.totalSubscriptionAmountInCents ?? 0) > 0) {
+    if ((subscription.data?.licenceAmount ?? 0) > 0) {
         return (
             <Banner variant="success" title="Support prioritaire">
-                Vos tickets sont traités en priorité grâce à votre abonnement Avancé.
+                Vos tickets sont traités en priorité grâce à votre licence active.
             </Banner>
         )
     }
 
     return (
         <Banner variant="information" title="Support standard">
-            Abonnez-vous au plan Avancé pour bénéficier d'un traitement prioritaire de vos tickets.
+            Activez une licence pour bénéficier d'un traitement prioritaire de vos tickets.
         </Banner>
     )
 }

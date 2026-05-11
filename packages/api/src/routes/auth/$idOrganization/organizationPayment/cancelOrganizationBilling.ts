@@ -10,10 +10,10 @@ import { updateOne } from "../../../../utilities/sql/updateOne.js"
 
 // How much each resource unit removes from limits (mirrors createResourceSubscription)
 const UNIT_LIMITS = {
-    storage_gb: { storageLimit: 1_073_741_824, ocrMonthlyLimit: 0, agentTokensMonthlyLimit: 0 },
-    agent_tokens_million: { storageLimit: 0, ocrMonthlyLimit: 0, agentTokensMonthlyLimit: 1_000_000 },
-    ocr_pages_hundred: { storageLimit: 0, ocrMonthlyLimit: 100, agentTokensMonthlyLimit: 0 },
-    support: { storageLimit: 0, ocrMonthlyLimit: 0, agentTokensMonthlyLimit: 0 },
+    storage_gb: { storageLimit: 1_073_741_824, ocrPagesTotalAvailable: 0, tokensTotalAvailable: 0 },
+    agent_tokens_million: { storageLimit: 0, ocrPagesTotalAvailable: 0, tokensTotalAvailable: 1_000_000 },
+    ocr_pages_hundred: { storageLimit: 0, ocrPagesTotalAvailable: 100, tokensTotalAvailable: 0 },
+    support: { storageLimit: 0, ocrPagesTotalAvailable: 0, tokensTotalAvailable: 0 },
 } as const
 
 function getEndOfCurrentMonth(): Date {
@@ -77,13 +77,13 @@ export const cancelOrganizationBillingRoute = apiFactory
                         limits.storageLimit > 0
                             ? sql`${models.organization.storageLimit} - ${limits.storageLimit * subscription.quantity}`
                             : undefined,
-                    ocrMonthlyLimit:
-                        limits.ocrMonthlyLimit > 0
-                            ? sql`${models.organization.ocrMonthlyLimit} - ${limits.ocrMonthlyLimit * subscription.quantity}`
+                    ocrPagesTotalAvailable:
+                        limits.ocrPagesTotalAvailable > 0
+                            ? sql`${models.organization.ocrPagesTotalAvailable} - ${limits.ocrPagesTotalAvailable * subscription.quantity}`
                             : undefined,
-                    agentTokensMonthlyLimit:
-                        limits.agentTokensMonthlyLimit > 0
-                            ? sql`${models.organization.agentTokensMonthlyLimit} - ${limits.agentTokensMonthlyLimit * subscription.quantity}`
+                    tokensTotalAvailable:
+                        limits.tokensTotalAvailable > 0
+                            ? sql`${models.organization.tokensTotalAvailable} - ${limits.tokensTotalAvailable * subscription.quantity}`
                             : undefined,
                     lastUpdatedAt: now.toISOString(),
                 },

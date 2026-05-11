@@ -18,15 +18,15 @@ import { WalletTopUpDrawer } from "./WalletTopUpDrawer.tsx"
 import { WalletWithdrawalDrawer } from "./WalletWithdrawalDrawer.tsx"
 import { WalletCurrentMonth } from "./walletCurrentMonth.tsx"
 
-function getRecurringStorageAmountInCents(storageMaxUsage: number) {
+function getRecurringStorageAmountInCents(storageLimit: number) {
     return (
-        Math.max(Math.round((storageMaxUsage - FREE_STORAGE_BYTES) / FREE_STORAGE_BYTES), 0) *
+        Math.max(Math.round((storageLimit - FREE_STORAGE_BYTES) / FREE_STORAGE_BYTES), 0) *
         STORAGE_PRICE_PER_GB_IN_CENTS
     )
 }
 
-function getNextMonthSubscriptionAmountInCents(organization: { licenceAmount: number; storageMaxUsage: number }) {
-    return organization.licenceAmount + getRecurringStorageAmountInCents(organization.storageMaxUsage)
+function getNextMonthSubscriptionAmountInCents(organization: { licenceAmount: number; storageLimit: number }) {
+    return organization.licenceAmount + getRecurringStorageAmountInCents(organization.storageLimit)
 }
 
 function hasCurrentMonthWithdrawal(payments: Array<{ category: string; createdAt: string; status: string }>) {

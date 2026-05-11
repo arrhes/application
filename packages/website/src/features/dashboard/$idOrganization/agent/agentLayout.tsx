@@ -27,12 +27,8 @@ export function AgentLayout() {
         body: {},
     })
 
-    const isPremium = (subscription.data?.agentTokensMonthlyLimit ?? 0) > 0
-
-    // Use the context's activeSessionId (set by chat on session-created) if available,
-    // otherwise fall back to the URL param (set by TanStack Router on navigation)
+    const tokensTotalAvailable = subscription.data?.tokensTotalAvailable ?? 0
     const currentSessionId = activeSessionId ?? params.idAgentSession
-
     const searchTrimmed = search.trim()
 
     const { data: sessions } = useDataFromAPI({
@@ -68,9 +64,6 @@ export function AgentLayout() {
                     padding: "1rem",
                 })}
             >
-                {/* <LinkButton to="/dashboard/organisations/$idOrganization/agent" params={{ idOrganization: params.idOrganization }}>
-                    <ButtonGhostContent leftIcon={<IconRobot />} text="Assistant" />
-                </LinkButton> */}
                 <SearchBar value={search} onChange={setSearch} placeholder="Rechercher une session..." />
                 <Button
                     onClick={() => {
@@ -86,14 +79,7 @@ export function AgentLayout() {
                 </Button>
             </div>
             <div className={css({ flex: 1, overflowY: "auto", minHeight: 0, padding: "1rem" })}>
-                <div
-                    className={css({
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "0.5rem",
-                        width: "100%",
-                    })}
-                >
+                <div className={css({ display: "flex", flexDirection: "column", gap: "0.5rem", width: "100%" })}>
                     {displaySessions.length === 0 ? (
                         <EmptyState icon={<IconMessage />} title="Aucune session" subtitle={undefined} />
                     ) : null}
@@ -125,9 +111,7 @@ export function AgentLayout() {
                                         width: "100%",
                                         overflow: "hidden",
                                         backgroundColor: session.id === currentSessionId ? "primary/5" : "transparent",
-                                        _hover: {
-                                            backgroundColor: "primary/5",
-                                        },
+                                        _hover: { backgroundColor: "primary/5" },
                                     })}
                                 >
                                     <span
@@ -141,13 +125,7 @@ export function AgentLayout() {
                                         {session.title ?? formatDateTime(session.createdAt)}
                                     </span>
                                     {session.title && (
-                                        <span
-                                            className={css({
-                                                fontSize: "xs",
-                                                color: "neutral/40",
-                                                whiteSpace: "nowrap",
-                                            })}
-                                        >
+                                        <span className={css({ fontSize: "xs", color: "neutral/40", whiteSpace: "nowrap" })}>
                                             {formatDateTime(session.createdAt)}
                                         </span>
                                     )}
@@ -196,19 +174,6 @@ export function AgentLayout() {
         )
     }
 
-    if (!isPremium) {
-        return (
-            <Page.Root>
-                <Page.Content>
-                    <Banner variant="information" title="Assistant IA">
-                        L'assistant comptable est une fonctionnalité premium. Abonnez-vous au plan Avancé pour y
-                        accéder.
-                    </Banner>
-                </Page.Content>
-            </Page.Root>
-        )
-    }
-
     return (
         <div
             className={css({
@@ -220,10 +185,7 @@ export function AgentLayout() {
                 overflow: "hidden",
             })}
         >
-            {/* Sidebar — visible on md+ */}
             {sidebarContent}
-
-            {/* Content area — rendered by child route */}
             <div
                 className={css({
                     flex: 1,
@@ -234,7 +196,6 @@ export function AgentLayout() {
                     overflow: "hidden",
                 })}
             >
-                {/* Mobile hamburger toggle */}
                 <div
                     className={css({
                         display: { base: "flex", md: "none" },
@@ -268,6 +229,13 @@ export function AgentLayout() {
                             {sidebarContent}
                         </div>
                     )}
+                </div>
+                <div className={css({ padding: "1rem", paddingBottom: "0" })}>
+                    <Banner variant={tokensTotalAvailable > 0 ? "information" : "warning"} title="Assistant IA">
+                        {tokensTotalAvailable > 0
+                            ? `Tokens disponibles: ${tokensTotalAvailable.toLocaleString("fr-FR")}`
+                            : "Aucun token disponible. Rechargez votre organisation pour continuer."}
+                    </Banner>
                 </div>
                 <div
                     className={css({

@@ -459,7 +459,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
         try {
             const organizationRows = await db
                 .select({
-                    ocrPagesTotalLeft: models.organization.ocrPagesTotalLeft,
+                    ocrPagesTotalAvailable: models.organization.ocrPagesTotalAvailable,
                     ocrPagesTotalUsed: models.organization.ocrPagesTotalUsed,
                 })
                 .from(models.organization)
@@ -531,7 +531,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                 return { error: "L'extraction OCR n'a retourné aucune page." }
             }
 
-            if (extractedPagesCount > organization.ocrPagesTotalLeft) {
+            if (extractedPagesCount > organization.ocrPagesTotalAvailable) {
                 return { error: "Limite mensuelle de pages OCR atteinte pour votre organisation." }
             }
 
@@ -574,8 +574,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                 UPDATE table_organization
                 SET
                     storage_current_usage = storage_current_usage + ${markdownBuffer.length},
-                    ocr_current_month_pages_usage = ${organization.ocrPagesTotalUsed + extractedPagesCount},
-                    ocr_pages_total_left = GREATEST(ocr_pages_total_left - ${extractedPagesCount}, 0),
+                    ocr_pages_total_available = GREATEST(ocr_pages_total_available - ${extractedPagesCount}, 0),
                     ocr_pages_total_used = ocr_pages_total_used + ${extractedPagesCount},
                 WHERE id = ${idOrganization}
             `)
@@ -868,7 +867,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                 // Increment organization-level monthly token usage
                 const orgRows = await db
                     .select({
-                        tokensTotalLeft: models.organization.tokensTotalLeft,
+                        tokensTotalAvailable: models.organization.tokensTotalAvailable,
                         tokensTotalUsed: models.organization.tokensTotalUsed,
                     })
                     .from(models.organization)
@@ -879,8 +878,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                     await db
                         .update(models.organization)
                         .set({
-                            agentTokensCurrentMonthUsage: org.tokensTotalUsed + capturedTotalTokens,
-                            tokensTotalLeft: Math.max(org.tokensTotalLeft - capturedTotalTokens, 0),
+                            tokensTotalAvailable: Math.max(org.tokensTotalAvailable - capturedTotalTokens, 0),
                             tokensTotalUsed: org.tokensTotalUsed + capturedTotalTokens,
                         })
                         .where(eq(models.organization.id, idOrganization))

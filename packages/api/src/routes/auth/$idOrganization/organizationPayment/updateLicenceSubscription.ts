@@ -51,7 +51,7 @@ export const updateLicenceSubscriptionRoute = apiFactory
             database: c.var.clients.sql,
             table: models.organization,
             data: {
-                pendingLicenceAmount: pendingValue,
+                licenceAmountPending: pendingValue,
                 lastUpdatedAt: new Date().toISOString(),
                 lastUpdatedBy: user.id,
             },

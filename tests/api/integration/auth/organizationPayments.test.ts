@@ -23,8 +23,8 @@ describe("POST /auth/read-organization-billing", () => {
 
         const data = response.data as any
         expect(data).toHaveProperty("status")
-        expect(data).toHaveProperty("ocrCurrentMonthUsage")
-        expect(data).toHaveProperty("agentTokensCurrentMonthUsage")
+        expect(data).toHaveProperty("ocrPagesTotalUsed")
+        expect(data).toHaveProperty("tokensTotalUsed")
     })
 
     it("rejects unauthenticated requests", async () => {
@@ -285,7 +285,7 @@ describe("POST /auth/update-ocr-subscription", () => {
         expect(orgResponse.status).toBe(200)
         const org = orgResponse.data as any
         const INCLUDED_PAGES = 100
-        const currentAddonPages = Math.max(org.ocrPagesTotalLeft + org.ocrPagesTotalUsed - INCLUDED_PAGES, 0)
+        const currentAddonPages = Math.max(org.ocrPagesTotalAvailable + org.ocrPagesTotalUsed - INCLUDED_PAGES, 0)
         const response = await authenticatedRequest({
             session,
             path: "/auth/update-ocr-subscription",
@@ -362,7 +362,7 @@ describe("POST /auth/update-tokens-subscription", () => {
         const org = orgResponse.data as any
         const INCLUDED_TOKENS = 1_000_000
         const currentAddonPacks = Math.max(
-            Math.round((org.tokensTotalLeft + org.tokensTotalUsed - INCLUDED_TOKENS) / INCLUDED_TOKENS),
+            Math.round((org.tokensTotalAvailable + org.tokensTotalUsed - INCLUDED_TOKENS) / INCLUDED_TOKENS),
             0,
         )
         const response = await authenticatedRequest({

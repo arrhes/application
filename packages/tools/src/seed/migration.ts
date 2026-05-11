@@ -8,15 +8,6 @@ async function migration() {
             await tx.execute(
                 sql`ALTER TABLE table_organization ADD COLUMN IF NOT EXISTS storage_limit integer NOT NULL DEFAULT 1073741824`,
             )
-            await tx.execute(
-                sql`ALTER TABLE table_organization ADD COLUMN IF NOT EXISTS usage_month_start_at timestamp`,
-            )
-            await tx.execute(
-                sql`ALTER TABLE table_organization ADD COLUMN IF NOT EXISTS ocr_current_month_pages_usage integer NOT NULL DEFAULT 0`,
-            )
-            await tx.execute(
-                sql`ALTER TABLE table_organization ADD COLUMN IF NOT EXISTS agent_messages_current_month_usage integer NOT NULL DEFAULT 0`,
-            )
             console.log("Migration complete: added storage_limit column to table_organization.")
         })
     } catch (error) {

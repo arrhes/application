@@ -94,8 +94,8 @@ function buildRecurringInvoiceLines(organization: typeof models.organization.$in
         })
     }
 
-    const storageAddonQuantity = getStorageAddonQuantity(organization.storageMaxUsage)
-    const storageAmountInCents = getStorageRecurringAmountInCents(organization.storageMaxUsage)
+    const storageAddonQuantity = getStorageAddonQuantity(organization.storageLimit)
+    const storageAmountInCents = getStorageRecurringAmountInCents(organization.storageLimit)
 
     if (storageAddonQuantity > 0 && storageAmountInCents > 0) {
         lines.push({
@@ -139,7 +139,7 @@ export const generateMonthlyInvoicesRoute = apiFactory
         // ── Phase 0: Apply pending subscription changes ──────────────────────────
         // Changes set by users during the previous month are applied now before billing.
         const orgsWithPendingChanges = organizations.filter(
-            (org) => org.pendingLicenceAmount !== null || org.pendingStorageMaxUsage !== null,
+            (org) => org.licenceAmountPending !== null || org.storageLimitPending !== null,
         )
 
         for (const org of orgsWithPendingChanges) {
@@ -148,14 +148,13 @@ export const generateMonthlyInvoicesRoute = apiFactory
                     database: c.var.clients.sql,
                     table: models.organization,
                     data: {
-                        ...(org.pendingLicenceAmount !== null
-                            ? { licenceAmount: org.pendingLicenceAmount, pendingLicenceAmount: null }
+                        ...(org.licenceAmountPending !== null
+                            ? { licenceAmount: org.licenceAmountPending, licenceAmountPending: null }
                             : {}),
-                        ...(org.pendingStorageMaxUsage !== null
+                        ...(org.storageLimitPending !== null
                             ? {
-                                storageMaxUsage: org.pendingStorageMaxUsage,
-                                storageLimit: org.pendingStorageMaxUsage,
-                                pendingStorageMaxUsage: null,
+                                storageLimit: org.storageLimitPending,
+                                storageLimitPending: null,
                             }
                             : {}),
                         lastUpdatedAt: now.toISOString(),
@@ -165,14 +164,13 @@ export const generateMonthlyInvoicesRoute = apiFactory
 
                 const orgInMap = orgMap.get(org.id)
                 if (orgInMap) {
-                    if (org.pendingLicenceAmount !== null) {
-                        orgInMap.licenceAmount = org.pendingLicenceAmount
-                        orgInMap.pendingLicenceAmount = null
+                    if (org.licenceAmountPending !== null) {
+                        orgInMap.licenceAmount = org.licenceAmountPending
+                        orgInMap.licenceAmountPending = null
                     }
-                    if (org.pendingStorageMaxUsage !== null) {
-                        orgInMap.storageMaxUsage = org.pendingStorageMaxUsage
-                        orgInMap.storageLimit = org.pendingStorageMaxUsage
-                        orgInMap.pendingStorageMaxUsage = null
+                    if (org.storageLimitPending !== null) {
+                        orgInMap.storageLimit = org.storageLimitPending
+                        orgInMap.storageLimitPending = null
                     }
                 }
             } catch (error) {

@@ -68,7 +68,7 @@ export function PricingGeneralDocPage() {
                 >
                     <FaqItem
                         question="Puis-je modifier mes services payants à tout moment ?"
-                        answer="Oui. Vous pouvez ajuster votre licence, votre stockage et vos recharges OCR/tokens depuis le dashboard selon vos besoins."
+                        answer="Oui. Vous pouvez ajuster votre licence et votre stockage depuis le dashboard selon vos besoins actuels."
                     />
                     <FaqItem
                         question="Y a-t-il un abonnement obligatoire ?"
@@ -80,7 +80,7 @@ export function PricingGeneralDocPage() {
                     />
                     <FaqItem
                         question="Pourquoi avoir choisi ce modèle ?"
-                        answer="Ce modèle permet de garder un accès gratuit à Arrhes tout en couvrant les coûts réels des services à forte consommation comme le stockage, l'OCR et l'IA."
+                        answer="Ce modèle permet de garder un accès gratuit à Arrhes tout en couvrant les coûts réels de l'infrastructure."
                     />
                 </div>
             </div>

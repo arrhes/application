@@ -65,8 +65,8 @@ export const updateStorageSubscriptionRoute = apiFactory
             })
         }
 
-        const nextStorageMaxUsage = FREE_STORAGE_BYTES + body.newQuantity * FREE_STORAGE_BYTES
-        const currentQuantity = getStorageAddonQuantity(organization.storageMaxUsage)
+        const nextStorageLimit = FREE_STORAGE_BYTES + body.newQuantity * FREE_STORAGE_BYTES
+        const currentQuantity = getStorageAddonQuantity(organization.storageLimit)
         const deltaQuantity = body.newQuantity - currentQuantity
         const now = new Date()
 
@@ -88,9 +88,8 @@ export const updateStorageSubscriptionRoute = apiFactory
                 database: c.var.clients.sql,
                 table: models.organization,
                 data: {
-                    storageLimit: nextStorageMaxUsage,
-                    storageMaxUsage: nextStorageMaxUsage,
-                    pendingStorageMaxUsage: null,
+                    storageLimit: nextStorageLimit,
+                    storageLimitPending: null,
                     lastUpdatedAt: now.toISOString(),
                     lastUpdatedBy: user.id,
                 },
@@ -98,13 +97,13 @@ export const updateStorageSubscriptionRoute = apiFactory
             })
         } else {
             // Decrease: store as pending — applied on the 1st of next month
-            const pendingValue = nextStorageMaxUsage === organization.storageMaxUsage ? null : nextStorageMaxUsage
+            const pendingValue = nextStorageLimit === organization.storageLimit ? null : nextStorageLimit
 
             await updateOne({
                 database: c.var.clients.sql,
                 table: models.organization,
                 data: {
-                    pendingStorageMaxUsage: pendingValue,
+                    storageLimitPending: pendingValue,
                     lastUpdatedAt: now.toISOString(),
                     lastUpdatedBy: user.id,
                 },
