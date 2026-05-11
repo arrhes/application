@@ -1,6 +1,6 @@
+import react from "@vitejs/plugin-react"
 import { readFileSync, writeFileSync } from "node:fs"
 import { resolve } from "node:path"
-import react from "@vitejs/plugin-react"
 import { defineConfig, type Plugin } from "vite"
 
 // ─────────────────────────── Docs Search Index Plugin ─────────────────────────────
@@ -90,14 +90,14 @@ const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
         navLabel: "Introduction",
     },
     {
-        path: "/documentation/comptabilité/partie-double",
+        path: "/documentation/comptabilité/introduction/partie-double",
         file: "src/features/docs/accounting/introduction/doubleEntryAccountingDocPage.tsx",
         section: "Comptabilité",
         navGroup: "Introduction",
         navLabel: "La partie double",
     },
     {
-        path: "/documentation/comptabilité/écritures",
+        path: "/documentation/comptabilité/introduction/écritures",
         file: "src/features/docs/accounting/introduction/entriesAccountingDocPage.tsx",
         section: "Comptabilité",
         navGroup: "Introduction",
@@ -105,22 +105,22 @@ const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     },
     // ── Comptabilité / Comptes ────────────────────────────────────────────────
     {
-        path: "/documentation/comptabilité/comptes/introduction",
-        file: "src/features/docs/accounting/accounts/accountsAccountingDocPage.tsx",
+        path: "/documentation/comptabilité/introduction/comptes",
+        file: "src/features/docs/accounting/introduction/accountsAccountingDocPage.tsx",
         section: "Comptabilité",
         navGroup: "Comptes",
         navLabel: "Introduction",
     },
     {
-        path: "/documentation/comptabilité/comptes/classes",
-        file: "src/features/docs/accounting/accounts/classesAccountingDocPage.tsx",
+        path: "/documentation/comptabilité/introduction/classes",
+        file: "src/features/docs/accounting/introduction/classesAccountingDocPage.tsx",
         section: "Comptabilité",
         navGroup: "Comptes",
         navLabel: "Classes de comptes",
     },
     {
-        path: "/documentation/comptabilité/comptes/liste",
-        file: "src/features/docs/accounting/accounts/accountsListAccountingDocPage.tsx",
+        path: "/documentation/comptabilité/ressources/comptes",
+        file: "src/features/docs/accounting/resources/accounts/accountsResourcesAccountingDocPage.tsx",
         section: "Comptabilité",
         navGroup: "Comptes",
         navLabel: "Liste des comptes",
@@ -184,16 +184,16 @@ const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     },
     // ── Comptabilité / Scénarios ─────────────────────────────────────────────
     {
-        path: "/documentation/comptabilité/scénarios",
-        file: "src/features/docs/accounting/scenarios/scenariosAccountingDocPage.tsx",
+        path: "/documentation/comptabilité/ressources/scénarios",
+        file: "src/features/docs/accounting/resources/scenarios/scenariosResourcesAccountingDocPage.tsx",
         section: "Comptabilité",
         navGroup: "Scénarios",
         navLabel: "Scénarios",
     },
     // ── Comptabilité / Glossaire ──────────────────────────────────────────────
     {
-        path: "/documentation/comptabilité/glossaire",
-        file: "src/features/docs/accounting/glossary/glossaryAccountingDocPage.tsx",
+        path: "/documentation/comptabilité/ressources/glossaire",
+        file: "src/features/docs/accounting/resources/glossary/glossaryResourcesAccountingDocPage.tsx",
         section: "Comptabilité",
         navGroup: "Glossaire",
         navLabel: "Glossaire",
@@ -249,11 +249,18 @@ const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
         navLabel: "Documents comptables",
     },
     {
-        path: "/documentation/dashboard/devlog",
+        path: "/documentation/dashboard/facturation",
+        file: "src/features/docs/dashboard/BillingDashboardDocPage.tsx",
+        section: "Dashboard",
+        navGroup: "Guide d'utilisation",
+        navLabel: "Facturation",
+    },
+    {
+        path: "/documentation/dashboard/màj",
         file: "src/features/docs/dashboard/UpdatesDashboardDocPage.tsx",
         section: "Dashboard",
         navGroup: "Guide d'utilisation",
-        navLabel: "Devlog",
+        navLabel: "Mises à jour",
     },
     // ── Dashboard / Assistant IA ──────────────────────────────────────────────
     {
@@ -456,8 +463,8 @@ function extractGlossaryEntries(source: string): GeneratedSearchEntry[] {
 
 function docsSearchIndexPlugin(): Plugin {
     const pkgRoot = resolve(__dirname)
-    const accountsDataPath = resolve(pkgRoot, "src/features/docs/accounting/accounts/accountsData.ts")
-    const glossaryDataPath = resolve(pkgRoot, "src/features/docs/accounting/glossary/glossaryData.ts")
+    const accountsDataPath = resolve(pkgRoot, "src/features/docs/accounting/resources/accounts/accountsData.ts")
+    const glossaryDataPath = resolve(pkgRoot, "src/features/docs/accounting/resources/glossary/glossaryData.ts")
 
     function buildIndex(): string {
         const pageEntries = DOC_PAGE_MANIFEST.map((entry) => {
@@ -619,12 +626,12 @@ function sitemapPlugin(): Plugin {
             ]
 
             // Extract dynamic account slugs from source
-            const accountsDataPath = resolve(__dirname, "src/features/docs/accounting/accounts/accountsData.ts")
+            const accountsDataPath = resolve(__dirname, "src/features/docs/accounting/resources/accounts/accountsData.ts")
             const accountsSrc = readFileSync(accountsDataPath, "utf-8")
             const accountSlugs = [...accountsSrc.matchAll(/defineAccount\(\s*\n?\s*"([^"]+)"/g)].map((m) => m[1])
 
             // Extract dynamic glossary slugs from source
-            const glossaryDataPath = resolve(__dirname, "src/features/docs/accounting/glossary/glossaryData.ts")
+            const glossaryDataPath = resolve(__dirname, "src/features/docs/accounting/resources/glossary/glossaryData.ts")
             const glossarySrc = readFileSync(glossaryDataPath, "utf-8")
             // The toSlug function: lowercase, NFD normalize, strip diacritics, replace non-alnum with -, trim -
             const glossaryTerms = [...glossarySrc.matchAll(/defineTerm\(\s*\n?\s*"([^"]+)"/g)].map((m) => m[1])
@@ -637,21 +644,10 @@ function sitemapPlugin(): Plugin {
                     .replace(/(^-|-$)/g, "")
             const glossarySlugs = glossaryTerms.map(toSlug)
 
-            // Rebuild scenario slugs from account examples using the same pattern as scenariosData.ts.
-            const scenarioSlugs: string[] = []
-            const accountBlocks = [
-                ...accountsSrc.matchAll(/defineAccount\(\s*"([^"]+)"\s*,[\s\S]*?\{([\s\S]*?)\}\s*\),/g),
-            ]
-            for (const block of accountBlocks) {
-                const accountSlug = block[1]
-                const optionsBody = block[2]
-                const examplesMatch = optionsBody.match(/examples:\s*\[([\s\S]*?)\]/)
-                if (!examplesMatch) continue
-                const examples = [...examplesMatch[1].matchAll(/"((?:[^"\\]|\\.)*)"/g)].map((m) => m[1])
-                for (const [index, exampleText] of examples.entries()) {
-                    scenarioSlugs.push(`${accountSlug}-${index + 1}-${toSlug(exampleText).slice(0, 42)}`)
-                }
-            }
+            // Extract scenario paths directly from scenariosData.ts
+            const scenariosDataPath = resolve(__dirname, "src/features/docs/accounting/resources/scenarios/scenariosData.ts")
+            const scenariosSrc = readFileSync(scenariosDataPath, "utf-8")
+            const scenarioPaths = [...scenariosSrc.matchAll(/path:\s*"(\/documentation\/comptabilité\/scénarios\/[^"]+)"/g)].map((m) => m[1])
 
             // Build URL entries
             const routeMap = new Map<string, { changefreq: string; priority: string }>()
@@ -673,8 +669,8 @@ function sitemapPlugin(): Plugin {
                 addRoute(`/documentation/comptabilité/glossaire/${slug}`, "monthly", "0.5")
             }
 
-            for (const slug of scenarioSlugs) {
-                addRoute(`/documentation/comptabilité/scénarios/${slug}`, "monthly", "0.5")
+            for (const path of scenarioPaths) {
+                addRoute(path, "monthly", "0.5")
             }
 
             const urls = [...routeMap.entries()]
