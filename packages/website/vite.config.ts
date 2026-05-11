@@ -1,6 +1,6 @@
-import react from "@vitejs/plugin-react"
 import { readFileSync, writeFileSync } from "node:fs"
 import { resolve } from "node:path"
+import react from "@vitejs/plugin-react"
 import { defineConfig, type Plugin } from "vite"
 
 // ─────────────────────────── Docs Search Index Plugin ─────────────────────────────
@@ -411,7 +411,7 @@ function extractAccountEntries(source: string): GeneratedSearchEntry[] {
         const type = chunk.match(/\btype\s*:\s*"([^"]+)"/)?.[1] ?? ""
         const side = chunk.match(/\bside\s*:\s*"([^"]+)"/)?.[1] ?? ""
         entries.push({
-            path: `/documentation/comptabilité/comptes/liste/${number}`,
+            path: `/documentation/comptabilité/ressources/comptes/${number}`,
             title: `${number} — ${label}`,
             description,
             section: "Comptabilité",
@@ -449,7 +449,7 @@ function extractGlossaryEntries(source: string): GeneratedSearchEntry[] {
             for (const rt of rtBlock[1].matchAll(/"([^"]+)"/g)) relatedTerms.push(rt[1])
         }
         entries.push({
-            path: `/documentation/comptabilité/glossaire/${toSlug(term)}`,
+            path: `/documentation/comptabilité/ressources/glossaire/${toSlug(term)}`,
             title: term,
             description: definition,
             section: "Comptabilité",
@@ -626,12 +626,18 @@ function sitemapPlugin(): Plugin {
             ]
 
             // Extract dynamic account slugs from source
-            const accountsDataPath = resolve(__dirname, "src/features/docs/accounting/resources/accounts/accountsData.ts")
+            const accountsDataPath = resolve(
+                __dirname,
+                "src/features/docs/accounting/resources/accounts/accountsData.ts",
+            )
             const accountsSrc = readFileSync(accountsDataPath, "utf-8")
             const accountSlugs = [...accountsSrc.matchAll(/defineAccount\(\s*\n?\s*"([^"]+)"/g)].map((m) => m[1])
 
             // Extract dynamic glossary slugs from source
-            const glossaryDataPath = resolve(__dirname, "src/features/docs/accounting/resources/glossary/glossaryData.ts")
+            const glossaryDataPath = resolve(
+                __dirname,
+                "src/features/docs/accounting/resources/glossary/glossaryData.ts",
+            )
             const glossarySrc = readFileSync(glossaryDataPath, "utf-8")
             // The toSlug function: lowercase, NFD normalize, strip diacritics, replace non-alnum with -, trim -
             const glossaryTerms = [...glossarySrc.matchAll(/defineTerm\(\s*\n?\s*"([^"]+)"/g)].map((m) => m[1])
@@ -645,9 +651,14 @@ function sitemapPlugin(): Plugin {
             const glossarySlugs = glossaryTerms.map(toSlug)
 
             // Extract scenario paths directly from scenariosData.ts
-            const scenariosDataPath = resolve(__dirname, "src/features/docs/accounting/resources/scenarios/scenariosData.ts")
+            const scenariosDataPath = resolve(
+                __dirname,
+                "src/features/docs/accounting/resources/scenarios/scenariosData.ts",
+            )
             const scenariosSrc = readFileSync(scenariosDataPath, "utf-8")
-            const scenarioPaths = [...scenariosSrc.matchAll(/path:\s*"(\/documentation\/comptabilité\/scénarios\/[^"]+)"/g)].map((m) => m[1])
+            const scenarioPaths = [
+                ...scenariosSrc.matchAll(/path:\s*"(\/documentation\/comptabilité\/scénarios\/[^"]+)"/g),
+            ].map((m) => m[1])
 
             // Build URL entries
             const routeMap = new Map<string, { changefreq: string; priority: string }>()
@@ -675,12 +686,14 @@ function sitemapPlugin(): Plugin {
 
             const urls = [...routeMap.entries()]
                 .sort(([pathA], [pathB]) => pathA.localeCompare(pathB, "fr"))
-                .map(([path, metadata]) => `    <url>
+                .map(
+                    ([path, metadata]) => `    <url>
         <loc>${encodeURI(`${baseUrl}${path}`)}</loc>
         <lastmod>${today}</lastmod>
         <changefreq>${metadata.changefreq}</changefreq>
         <priority>${metadata.priority}</priority>
-    </url>`)
+    </url>`,
+                )
 
             const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

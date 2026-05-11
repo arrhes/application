@@ -1,9 +1,9 @@
+import { type DocsSearchEntry, docsSearchIndex } from "virtual:docs-search-index"
 import { Button } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconSearch } from "@tabler/icons-react"
 import { useNavigate } from "@tanstack/react-router"
 import { useEffect, useMemo, useRef, useState } from "react"
-import { type DocsSearchEntry, docsSearchIndex } from "virtual:docs-search-index"
 
 const MAX_RESULTS = 8
 
@@ -79,14 +79,14 @@ function ResultChunk(props: { entry: DocsSearchEntry; tokens: string[] }) {
             return (
                 <span
                     className={css({
-                        fontSize: "sm",
-                        color: "neutral/70",
-                        lineHeight: "1.5",
                         display: "block",
+                        fontSize: "xs",
+                        color: "neutral/50",
+                        textAlign: "left",
                     })}
                 >
                     {snippet.before}
-                    <strong className={css({ color: "neutral", fontWeight: "semibold" })}>{snippet.match}</strong>
+                    <strong className={css({ color: "neutral" })}>{snippet.match}</strong>
                     {snippet.after}
                 </span>
             )
@@ -259,9 +259,10 @@ export function DocsSearch() {
                             className={css({
                                 display: "flex",
                                 flexDirection: "column",
-                                gap: "0.125rem",
+                                justifyContent: "start",
+                                alignItems: "start",
+                                gap: "0.25rem",
                                 padding: "0.625rem 0.75rem",
-                                textAlign: "left",
                                 cursor: "pointer",
                                 _hover: { backgroundColor: "background" },
                                 borderBottom: "1px solid",
@@ -269,33 +270,18 @@ export function DocsSearch() {
                                 _last: { borderBottom: "none" },
                             })}
                         >
-                            {/* 1st: chunk with matched words highlighted */}
+                            <span
+                                className={css({
+                                    fontSize: "sm",
+                                    color: "neutral",
+                                    textAlign: "left",
+                                    fontWeight: "semibold",
+                                })}
+                            >
+                                {entry.title.trim()}
+                            </span>
+
                             <ResultChunk entry={entry} tokens={tokens} />
-
-                            {/* 2nd: path of the article — most subdued */}
-                            <span
-                                className={css({
-                                    fontSize: "xs",
-                                    color: "neutral/30",
-                                    overflow: "hidden",
-                                    textOverflow: "ellipsis",
-                                    whiteSpace: "nowrap",
-                                    marginTop: "0.25rem",
-                                })}
-                            >
-                                {entry.path}
-                            </span>
-
-                            {/* 3rd: title of the article — slightly less subdued */}
-                            <span
-                                className={css({
-                                    fontSize: "xs",
-                                    color: "neutral/50",
-                                    fontWeight: "medium",
-                                })}
-                            >
-                                {entry.title}
-                            </span>
                         </Button>
                     ))}
                 </div>
