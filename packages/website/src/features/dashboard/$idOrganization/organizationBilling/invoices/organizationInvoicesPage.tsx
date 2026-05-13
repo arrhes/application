@@ -5,13 +5,15 @@ import { DataWrapper } from "../../../../../components/layouts/dataWrapper.tsx"
 import { EmptyState } from "../../../../../components/layouts/emptyState.tsx"
 import { Page } from "../../../../../components/layouts/page/page.tsx"
 import { SettingsSection } from "../../../../../components/layouts/settingsSection/settingsSection.tsx"
-import { organizationInvoicesRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/organizationBilling/organizationInvoicesRoute.tsx"
 import { InvoicesTable } from "./InvoicesTable.tsx"
 
-export function OrganizationInvoicesPage() {
-    const _params = useParams({
-        from: organizationInvoicesRoute.id,
-    })
+export function OrganizationInvoicesPage({ idOrganization: idOrganizationProp }: { idOrganization?: string } = {}) {
+    const params = useParams({
+        strict: false,
+    }) as {
+        idOrganization?: string
+    }
+    const idOrganization = idOrganizationProp ?? params.idOrganization ?? ""
 
     return (
         <Page.Root>
@@ -33,7 +35,12 @@ export function OrganizationInvoicesPage() {
                                 )
                             }
 
-                            return <InvoicesTable invoices={invoices} />
+                            return (
+                                <InvoicesTable
+                                    idOrganization={idOrganization}
+                                    invoices={invoices}
+                                />
+                            )
                         }}
                     </DataWrapper>
                 </SettingsSection.Root>

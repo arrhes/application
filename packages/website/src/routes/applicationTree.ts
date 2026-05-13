@@ -1,6 +1,6 @@
 import type { AnyRoute } from "@tanstack/react-router"
 import { catchRoute } from "./catchRoute.js"
-import { dashboardTree } from "./root/dashboard/dashboardTree.js"
+import { fullDashboardTree } from "./root/dashboard/fullDashboardTree.js"
 import { docsTree } from "./root/docs/docsTree.js"
 import { homeLayoutRoute } from "./root/home/homeLayoutRoute.js"
 import { homeRootRoute } from "./root/home/homeRootRoute.js"
@@ -18,7 +18,7 @@ export const applicationTree: AnyRoute = rootLayoutRoute.addChildren([
     signUpRoute,
     signInRoute,
     resetPasswordRoute,
-    dashboardTree,
+    fullDashboardTree,
 
     catchRoute,
 ])

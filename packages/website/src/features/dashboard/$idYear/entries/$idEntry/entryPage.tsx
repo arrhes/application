@@ -1,18 +1,51 @@
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { ButtonPlainContent, FormatDate, FormatNull, FormatPrice, FormatText, LinkContent } from "@arrhes/ui"
+import { Button, ButtonPlainContent, FormatDate, FormatNull, FormatPrice, FormatText, LinkContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconPencil } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import type * as v from "valibot"
 import { DataBlock } from "../../../../../components/layouts/dataBlock/dataBlock.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
-import { LinkButton } from "../../../../../components/linkButton.tsx"
-import { entryLayoutRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/entries/$idEntry/entryLayoutRoute.tsx"
+import { useTabs } from "../../../../../contexts/tabs/tabsContext.tsx"
 import type { YearDataKey } from "../../yearDataWrapper.tsx"
 import { YearDataWrapper } from "../../yearDataWrapper.tsx"
 import { UpdateOneEntry } from "./updateOneEntry.tsx"
 
-const requiredKeys = [
+export type EntryPageData = {
+    entry: v.InferOutput<typeof returnedSchemas.entry>
+    journal: v.InferOutput<typeof returnedSchemas.journal> | null
+    entryTagLabels: string[]
+    file: v.InferOutput<typeof returnedSchemas.file> | null
+    totalDebit: number
+    totalCredit: number
+}
+
+// Used by the tab system — receives pre-resolved data from EntryTabContent's YearDataWrapper.
+export function EntryPage(props: EntryPageData) {
+    const { openTab } = useTabs()
+
+    return (
+        <EntryInformationsTab
+            entry={props.entry}
+            journal={props.journal}
+            entryTagLabels={props.entryTagLabels}
+            file={props.file}
+            totalDebit={props.totalDebit}
+            totalCredit={props.totalCredit}
+            onFileClick={(idOrganization, idFile) =>
+                openTab({
+                    component: "fichier",
+                    props: {
+                        idOrganization,
+                        idFile,
+                    },
+                })
+            }
+        />
+    )
+}
+
+const routeRequiredKeys = [
     "entries",
     "entryLines",
     "entryTags",
@@ -21,21 +54,23 @@ const requiredKeys = [
     "files",
 ] as const satisfies readonly YearDataKey[]
 
-export function EntryPage() {
-    const params = useParams({
-        from: entryLayoutRoute.id,
-    })
+// Used by TanStack Router as a standalone route component — resolves data itself via YearDataWrapper.
+export function EntryRoutePage() {
+    const params = useParams({ strict: false }) as { idYear?: string; idEntry?: string }
+    const idYear = params.idYear ?? ""
+    const idEntry = params.idEntry ?? ""
+    const { openTab } = useTabs()
 
     return (
         <YearDataWrapper
-            idYear={params.idYear}
-            requiredKeys={requiredKeys}
+            idYear={idYear}
+            requiredKeys={routeRequiredKeys}
         >
             {({ entries, entryLines: allEntryLines, entryTags, journals, tags, files }) => {
-                const entry = entries.find((r) => r.id === params.idEntry)
+                const entry = entries.find((r) => r.id === idEntry)
                 if (entry === undefined) return null
 
-                const entryLines = allEntryLines.filter((row) => row.idEntry === params.idEntry)
+                const entryLines = allEntryLines.filter((row) => row.idEntry === idEntry)
                 const journal =
                     entry.idJournal !== null ? (journals.find((j) => j.id === entry.idJournal) ?? null) : null
                 const entryTagIds = entryTags.filter((et) => et.idEntry === entry.id).map((et) => et.idTag)
@@ -60,6 +95,12 @@ export function EntryPage() {
                         file={file}
                         totalDebit={totalDebit}
                         totalCredit={totalCredit}
+                        onFileClick={(idOrganization, idFile) =>
+                            openTab({
+                                component: "fichier",
+                                props: { idOrganization, idFile },
+                            })
+                        }
                     />
                 )
             }}
@@ -74,6 +115,7 @@ function EntryInformationsTab(props: {
     file: v.InferOutput<typeof returnedSchemas.file> | null
     totalDebit: number
     totalCredit: number
+    onFileClick: (idOrganization: string, idFile: string) => void
 }) {
     return (
         <Section.Item
@@ -119,15 +161,9 @@ function EntryInformationsTab(props: {
                         {props.entry.idFile === null || props.file === null ? (
                             <FormatNull />
                         ) : (
-                            <LinkButton
-                                to="/dashboard/organisations/$idOrganization/stockage/$idFile"
-                                params={{
-                                    idOrganization: props.entry.idOrganization,
-                                    idFile: props.file.id,
-                                }}
-                            >
+                            <Button onClick={() => props.onFileClick(props.entry.idOrganization, props.file!.id)}>
                                 <LinkContent>{props.file.name}</LinkContent>
-                            </LinkButton>
+                            </Button>
                         )}
                     </DataBlock.Item>
                 </DataBlock.Content>

@@ -6,7 +6,6 @@ import { useState } from "react"
 import { Box } from "../../../../../components/layouts/box.tsx"
 import { Page } from "../../../../../components/layouts/page/page.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
-import { journalReportRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/reports/journalReportRoute.tsx"
 import type { YearDataKey } from "../../yearDataWrapper.tsx"
 import { YearDataWrapper } from "../../yearDataWrapper.tsx"
 import { ReportFilterPopover } from "../reportFilterPopover.tsx"
@@ -23,10 +22,13 @@ const requiredKeys = [
     "entryTags",
 ] as const satisfies readonly YearDataKey[]
 
-export function JournalReportPage() {
+export function JournalReportPage({ idYear: idYearProp }: { idYear?: string } = {}) {
     const params = useParams({
-        from: journalReportRoute.id,
-    })
+        strict: false,
+    }) as {
+        idYear?: string
+    }
+    const idYear = idYearProp ?? params.idYear ?? ""
     const [pageIndex, setPageIndex] = useState(0)
     const [selectedJournalId, setSelectedJournalId] = useState<string | null>(null)
     const [selectedTags, setSelectedTags] = useState<
@@ -38,7 +40,7 @@ export function JournalReportPage() {
 
     return (
         <YearDataWrapper
-            idYear={params.idYear}
+            idYear={idYear}
             requiredKeys={requiredKeys}
         >
             {({ entries, entryLines, accounts, journals, tags, entryTags }) => {

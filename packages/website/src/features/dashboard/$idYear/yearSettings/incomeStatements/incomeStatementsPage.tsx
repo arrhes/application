@@ -6,14 +6,24 @@ import { useCallback, useState, useTransition } from "react"
 import { Box } from "../../../../../components/layouts/box.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
 import { Tab } from "../../../../../components/layouts/tab/tab.tsx"
-import { incomeStatementsLayoutRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/incomeStatementsLayoutRoute.tsx"
 import { CreateOneIncomeStatement } from "./createOneIncomeStatement.tsx"
 import { IncomeStatementsTable } from "./incomeStatementsTable.tsx"
 
-export function IncomeStatementsPage() {
+export function IncomeStatementsPage({
+    idOrganization: idOrganizationProp,
+    idYear: idYearProp,
+}: {
+    idOrganization?: string
+    idYear?: string
+} = {}) {
     const params = useParams({
-        from: incomeStatementsLayoutRoute.id,
-    })
+        strict: false,
+    }) as {
+        idOrganization?: string
+        idYear?: string
+    }
+    const idOrganization = idOrganizationProp ?? params.idOrganization ?? ""
+    const idYear = idYearProp ?? params.idYear ?? ""
     const [globalFilter, setGlobalFilter] = useState("")
     const [, startTransition] = useTransition()
 
@@ -33,8 +43,8 @@ export function IncomeStatementsPage() {
                             icon: <IconReportMoney />,
                             to: "/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/compte-de-résultat",
                             params: {
-                                idOrganization: params.idOrganization,
-                                idYear: params.idYear,
+                                idOrganization: idOrganization,
+                                idYear: idYear,
                             },
                         },
                         {
@@ -42,8 +52,8 @@ export function IncomeStatementsPage() {
                             icon: <IconCalculator />,
                             to: "/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/compte-de-résultat/calculs",
                             params: {
-                                idOrganization: params.idOrganization,
-                                idYear: params.idYear,
+                                idOrganization: idOrganization,
+                                idYear: idYear,
                             },
                         },
                     ]}
@@ -61,8 +71,8 @@ export function IncomeStatementsPage() {
                     })}
                 >
                     <CreateOneIncomeStatement
-                        idOrganization={params.idOrganization}
-                        idYear={params.idYear}
+                        idOrganization={idOrganization}
+                        idYear={idYear}
                     >
                         <ButtonPlainContent
                             leftIcon={<IconPlus />}
@@ -88,8 +98,8 @@ export function IncomeStatementsPage() {
                     })}
                 >
                     <IncomeStatementsTable
-                        idOrganization={params.idOrganization}
-                        idYear={params.idYear}
+                        idOrganization={idOrganization}
+                        idYear={idYear}
                         globalFilter={globalFilter}
                     />
                 </Box>

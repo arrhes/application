@@ -5,7 +5,6 @@ import { useState } from "react"
 import { Box } from "../../../../../components/layouts/box.tsx"
 import { Page } from "../../../../../components/layouts/page/page.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
-import { balanceSheetReportRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/reports/balanceSheetReportRoute.tsx"
 import type { YearDataKey } from "../../yearDataWrapper.tsx"
 import { YearDataWrapper } from "../../yearDataWrapper.tsx"
 import { ReportFilterPopover } from "../reportFilterPopover.tsx"
@@ -23,10 +22,21 @@ const requiredKeys = [
     "entryTags",
 ] as const satisfies readonly YearDataKey[]
 
-export function BalanceSheetReportPage() {
+export function BalanceSheetReportPage({
+    idOrganization: idOrganizationProp,
+    idYear: idYearProp,
+}: {
+    idOrganization?: string
+    idYear?: string
+} = {}) {
     const params = useParams({
-        from: balanceSheetReportRoute.id,
-    })
+        strict: false,
+    }) as {
+        idOrganization?: string
+        idYear?: string
+    }
+    const idOrganization = idOrganizationProp ?? params.idOrganization ?? ""
+    const idYear = idYearProp ?? params.idYear ?? ""
     const [selectedJournalId, setSelectedJournalId] = useState<string | null>(null)
     const [selectedTags, setSelectedTags] = useState<
         Array<{
@@ -37,7 +47,7 @@ export function BalanceSheetReportPage() {
     const [activeTab, setActiveTab] = useState<"asset" | "liability">("asset")
     return (
         <YearDataWrapper
-            idYear={params.idYear}
+            idYear={idYear}
             requiredKeys={requiredKeys}
         >
             {({ accounts, entries, entryLines, balanceSheets, journals, tags, entryTags }) => {
@@ -94,8 +104,8 @@ export function BalanceSheetReportPage() {
                                             tagOptions={tagOptions}
                                         />
                                         <DownloadBalanceSheetReport
-                                            idOrganization={params.idOrganization}
-                                            idYear={params.idYear}
+                                            idOrganization={idOrganization}
+                                            idYear={idYear}
                                             balanceSheets={balanceSheets}
                                             entryLines={filteredEntryLines}
                                             accounts={filteredAccounts}

@@ -2,9 +2,10 @@ import {
     addNewOrganizationRouteDefinition,
     getAllMyOrganizationsRouteDefinition,
 } from "@arrhes/application-metadata/routes"
-import { InputText, InputToggle, toast } from "@arrhes/ui"
+import { Button, InputText, InputToggle, toast } from "@arrhes/ui"
+import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconPlus } from "@tabler/icons-react"
-import { type JSX, useState } from "react"
+import type { JSX } from "react"
 import { Fragment } from "react/jsx-runtime"
 import { FormControl } from "../../../components/forms/formControl.tsx"
 import { FormError } from "../../../components/forms/formError.tsx"
@@ -12,162 +13,179 @@ import { FormField } from "../../../components/forms/formField.tsx"
 import { FormItem } from "../../../components/forms/formItem.tsx"
 import { FormLabel } from "../../../components/forms/formLabel.tsx"
 import { FormRoot } from "../../../components/forms/formRoot.tsx"
-import { Drawer } from "../../../components/overlays/drawer/drawer.tsx"
+import { useTabs } from "../../../contexts/tabs/tabsContext.tsx"
 import { getResponseBodyFromAPI } from "../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../utilities/invalidateData.ts"
 
 export function AddNewOrganization(props: { children: JSX.Element }) {
-    const [open, setOpen] = useState(false)
+    const { openPanelTab, closeTab } = useTabs()
 
     return (
-        <Drawer.Root
-            open={open}
-            onOpenChange={setOpen}
-        >
-            <Drawer.Trigger>{props.children}</Drawer.Trigger>
-            <Drawer.Content>
-                <Drawer.Header title="Ajouter une nouvelle organisation" />
-                <Drawer.Body>
-                    <FormRoot
-                        schema={addNewOrganizationRouteDefinition.schemas.body}
-                        defaultValues={{
-                            scope: "company",
-                        }}
-                        submitButtonProps={{
-                            leftIcon: <IconPlus />,
-                            text: "Ajouter l'organisation",
-                        }}
-                        onSubmit={async (data) => {
-                            const response = await getResponseBodyFromAPI({
-                                routeDefinition: addNewOrganizationRouteDefinition,
-                                body: data,
-                            })
-                            if (!response.ok) {
-                                toast({
-                                    title: "Impossible d'ajouter l'organisation",
-                                    variant: "error",
-                                })
-                                return false
-                            }
-
-                            toast({
-                                title: "Organisation ajoutée avec succès",
-                                variant: "success",
-                            })
-                            return true
-                        }}
-                        onCancel={undefined}
-                        onSuccess={async () => {
-                            await invalidateData({
-                                routeDefinition: getAllMyOrganizationsRouteDefinition,
-                                body: {},
-                            })
-
-                            setOpen(false)
-                        }}
+        <Button
+            className={css({
+                padding: "0",
+                border: "none",
+                backgroundColor: "transparent",
+                width: "fit-content",
+                height: "fit-content",
+            })}
+            onClick={() => {
+                const r = {
+                    current: "",
+                }
+                r.current = openPanelTab(
+                    "Ajouter une nouvelle organisation",
+                    <div
+                        className={css({
+                            padding: "2rem",
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "1rem",
+                        })}
                     >
-                        {(form) => (
-                            <Fragment>
-                                <FormField
-                                    control={form.control}
-                                    name="scope"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel
-                                                label="Type d'organisation"
-                                                isRequired={true}
-                                                description={undefined}
-                                                tooltip={undefined}
-                                            />
-                                            <FormControl>
-                                                <InputToggle
-                                                    value={field.value}
-                                                    onChange={field.onChange}
-                                                    options={[
-                                                        {
-                                                            value: "company",
-                                                            label: "Entreprise",
-                                                        },
-                                                        {
-                                                            value: "association",
-                                                            label: "Association",
-                                                        },
-                                                    ]}
+                        <FormRoot
+                            schema={addNewOrganizationRouteDefinition.schemas.body}
+                            defaultValues={{
+                                scope: "company",
+                            }}
+                            submitButtonProps={{
+                                leftIcon: <IconPlus />,
+                                text: "Ajouter l'organisation",
+                            }}
+                            onSubmit={async (data) => {
+                                const response = await getResponseBodyFromAPI({
+                                    routeDefinition: addNewOrganizationRouteDefinition,
+                                    body: data,
+                                })
+                                if (!response.ok) {
+                                    toast({
+                                        title: "Impossible d'ajouter l'organisation",
+                                        variant: "error",
+                                    })
+                                    return false
+                                }
+
+                                toast({
+                                    title: "Organisation ajoutée avec succès",
+                                    variant: "success",
+                                })
+                                return true
+                            }}
+                            onCancel={undefined}
+                            onSuccess={async () => {
+                                await invalidateData({
+                                    routeDefinition: getAllMyOrganizationsRouteDefinition,
+                                    body: {},
+                                })
+
+                                closeTab(r.current)
+                            }}
+                        >
+                            {(form) => (
+                                <Fragment>
+                                    <FormField
+                                        control={form.control}
+                                        name="scope"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel
+                                                    label="Type d'organisation"
+                                                    isRequired={true}
+                                                    description={undefined}
+                                                    tooltip={undefined}
                                                 />
-                                            </FormControl>
-                                            <FormError />
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    control={form.control}
-                                    name="name"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel
-                                                label="Raison sociale ou nom de l'organisation"
-                                                isRequired={true}
-                                                description={undefined}
-                                                tooltip={undefined}
-                                            />
-                                            <FormControl>
-                                                <InputText
-                                                    value={field.value}
-                                                    onChange={field.onChange}
+                                                <FormControl>
+                                                    <InputToggle
+                                                        value={field.value}
+                                                        onChange={field.onChange}
+                                                        options={[
+                                                            {
+                                                                value: "company",
+                                                                label: "Entreprise",
+                                                            },
+                                                            {
+                                                                value: "association",
+                                                                label: "Association",
+                                                            },
+                                                        ]}
+                                                    />
+                                                </FormControl>
+                                                <FormError />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name="name"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel
+                                                    label="Raison sociale ou nom de l'organisation"
+                                                    isRequired={true}
+                                                    description={undefined}
+                                                    tooltip={undefined}
                                                 />
-                                            </FormControl>
-                                            <FormError />
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    control={form.control}
-                                    name="siren"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel
-                                                label="SIREN"
-                                                isRequired={false}
-                                                description={undefined}
-                                                tooltip={undefined}
-                                            />
-                                            <FormControl>
-                                                <InputText
-                                                    value={field.value}
-                                                    onChange={field.onChange}
+                                                <FormControl>
+                                                    <InputText
+                                                        value={field.value}
+                                                        onChange={field.onChange}
+                                                    />
+                                                </FormControl>
+                                                <FormError />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name="siren"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel
+                                                    label="SIREN"
+                                                    isRequired={false}
+                                                    description={undefined}
+                                                    tooltip={undefined}
                                                 />
-                                            </FormControl>
-                                            <FormError />
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    control={form.control}
-                                    name="email"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel
-                                                label="Email"
-                                                isRequired={false}
-                                                description={undefined}
-                                                tooltip={undefined}
-                                            />
-                                            <FormControl>
-                                                <InputText
-                                                    value={field.value}
-                                                    onChange={field.onChange}
-                                                    type="email"
+                                                <FormControl>
+                                                    <InputText
+                                                        value={field.value}
+                                                        onChange={field.onChange}
+                                                    />
+                                                </FormControl>
+                                                <FormError />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name="email"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel
+                                                    label="Email"
+                                                    isRequired={false}
+                                                    description={undefined}
+                                                    tooltip={undefined}
                                                 />
-                                            </FormControl>
-                                            <FormError />
-                                        </FormItem>
-                                    )}
-                                />
-                            </Fragment>
-                        )}
-                    </FormRoot>
-                </Drawer.Body>
-            </Drawer.Content>
-        </Drawer.Root>
+                                                <FormControl>
+                                                    <InputText
+                                                        value={field.value}
+                                                        onChange={field.onChange}
+                                                        type="email"
+                                                    />
+                                                </FormControl>
+                                                <FormError />
+                                            </FormItem>
+                                        )}
+                                    />
+                                </Fragment>
+                            )}
+                        </FormRoot>
+                    </div>,
+                )
+            }}
+        >
+            {props.children}
+        </Button>
     )
 }

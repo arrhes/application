@@ -12,8 +12,8 @@ import { IconFileExport } from "@tabler/icons-react"
 import { useEffect, useMemo, useState } from "react"
 import type * as v from "valibot"
 import { Banner } from "../../../../components/layouts/banner.js"
-import { LinkButton } from "../../../../components/linkButton.js"
-import { Drawer } from "../../../../components/overlays/drawer/drawer.js"
+import { useTabs } from "../../../../contexts/tabs/tabsContext.js"
+
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 
 /**
@@ -63,13 +63,12 @@ export function ExportFecFile(props: {
     idYear: v.InferOutput<typeof returnedSchemas.year>["id"]
     entries: v.InferOutput<typeof readAllEntriesRouteDefinition.schemas.return>
     entryLines: v.InferOutput<typeof readAllEntryLinesRouteDefinition.schemas.return>
-    open: boolean
-    onOpenChange: (open: boolean) => void
+    onClose: () => void
 }) {
     const [siren, setSiren] = useState<string | null>(null)
+    const { openTab } = useTabs()
 
     useEffect(() => {
-        if (!props.open) return
         getResponseBodyFromAPI({
             routeDefinition: readOneOrganizationRouteDefinition,
             body: {
@@ -82,7 +81,6 @@ export function ExportFecFile(props: {
         })
     }, [
         props.idOrganization,
-        props.open,
     ])
 
     const entriesMap = useMemo(() => {
@@ -240,106 +238,101 @@ export function ExportFecFile(props: {
             title: `${sortedRows.length} mouvements exportés au format FEC`,
             variant: "success",
         })
-        props.onOpenChange(false)
+        props.onClose()
     }
 
     return (
-        <Drawer.Root
-            open={props.open}
-            onOpenChange={props.onOpenChange}
+        <div
+            className={css({
+                padding: "2rem",
+                display: "flex",
+                flexDirection: "column",
+                gap: "1rem",
+            })}
         >
-            <Drawer.Content>
-                <Drawer.Header title="Exporter au format FEC" />
-                <Drawer.Body>
-                    <div
-                        className={css({
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "1rem",
-                        })}
+            <p
+                className={css({
+                    fontSize: "sm",
+                    color: "neutral/70",
+                    lineHeight: "relaxed",
+                })}
+            >
+                Le Fichier des Écritures Comptables (FEC) est un export normé de toutes les écritures de l'exercice, au
+                format requis par l'administration fiscale.
+            </p>
+            <p
+                className={css({
+                    fontSize: "sm",
+                    color: "neutral/70",
+                    lineHeight: "relaxed",
+                })}
+            >
+                Nous avons créé également un outil de validation de conformité du FEC, disponible gratuitement en ligne
+                sur{" "}
+                <a
+                    href="https://fec.arrhes.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={css({
+                        color: "primary",
+                        fontWeight: "medium",
+                        textDecoration: "underline",
+                        textDecorationColor: "primary/30",
+                        textUnderlineOffset: "2px",
+                        _hover: {
+                            textDecorationColor: "primary",
+                        },
+                        transition: "all 0.15s",
+                    })}
+                >
+                    fec.arrhes.com
+                </a>
+                .
+            </p>
+            {siren === "" && (
+                <Banner variant="warning">
+                    Le numéro SIREN de l'organisation n'est pas renseigné. Le nom du fichier FEC ne sera pas conforme.
+                    Vous pouvez l'ajouter dans les{" "}
+                    <Button
+                        onClick={() => {
+                            props.onClose()
+                            openTab({
+                                component: "organisation-paramètres",
+                                props: {
+                                    idOrganization: props.idOrganization,
+                                },
+                            })
+                        }}
                     >
-                        <p
+                        <LinkContent
                             className={css({
-                                fontSize: "sm",
-                                color: "neutral/70",
-                                lineHeight: "relaxed",
+                                color: "warning",
                             })}
                         >
-                            Le Fichier des Écritures Comptables (FEC) est un export normé de toutes les écritures de
-                            l'exercice, au format requis par l'administration fiscale.
-                        </p>
-                        <p
-                            className={css({
-                                fontSize: "sm",
-                                color: "neutral/70",
-                                lineHeight: "relaxed",
-                            })}
-                        >
-                            Nous avons créé également un outil de validation de conformité du FEC, disponible
-                            gratuitement en ligne sur{" "}
-                            <a
-                                href="https://fec.arrhes.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={css({
-                                    color: "primary",
-                                    fontWeight: "medium",
-                                    textDecoration: "underline",
-                                    textDecorationColor: "primary/30",
-                                    textUnderlineOffset: "2px",
-                                    _hover: {
-                                        textDecorationColor: "primary",
-                                    },
-                                    transition: "all 0.15s",
-                                })}
-                            >
-                                fec.arrhes.com
-                            </a>
-                            .
-                        </p>
-                        {siren === "" && (
-                            <Banner variant="warning">
-                                Le numéro SIREN de l'organisation n'est pas renseigné. Le nom du fichier FEC ne sera pas
-                                conforme. Vous pouvez l'ajouter dans les{" "}
-                                <LinkButton
-                                    to="/dashboard/organisations/$idOrganization/paramètres"
-                                    params={{
-                                        idOrganization: props.idOrganization,
-                                    }}
-                                    onClick={() => props.onOpenChange(false)}
-                                >
-                                    <LinkContent
-                                        className={css({
-                                            color: "warning",
-                                        })}
-                                    >
-                                        paramètres de l'organisation
-                                    </LinkContent>
-                                </LinkButton>
-                                .
-                            </Banner>
-                        )}
-                        <p
-                            className={css({
-                                fontSize: "sm",
-                                color: "neutral/50",
-                            })}
-                        >
-                            {props.entries.length} écriture{props.entries.length > 1 ? "s" : ""} -{" "}
-                            {props.entryLines.length} mouvement{props.entryLines.length > 1 ? "s" : ""}
-                        </p>
-                        <Button
-                            hasLoader
-                            onClick={handleExport}
-                        >
-                            <ButtonPlainContent
-                                leftIcon={<IconFileExport />}
-                                text="Exporter le FEC"
-                            />
-                        </Button>
-                    </div>
-                </Drawer.Body>
-            </Drawer.Content>
-        </Drawer.Root>
+                            paramètres de l'organisation
+                        </LinkContent>
+                    </Button>
+                    .
+                </Banner>
+            )}
+            <p
+                className={css({
+                    fontSize: "sm",
+                    color: "neutral/50",
+                })}
+            >
+                {props.entries.length} écriture{props.entries.length > 1 ? "s" : ""} - {props.entryLines.length}{" "}
+                mouvement{props.entryLines.length > 1 ? "s" : ""}
+            </p>
+            <Button
+                hasLoader
+                onClick={handleExport}
+            >
+                <ButtonPlainContent
+                    leftIcon={<IconFileExport />}
+                    text="Exporter le FEC"
+                />
+            </Button>
+        </div>
     )
 }

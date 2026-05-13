@@ -7,7 +7,9 @@ export const readAllYearsRouteDefinition = routeDefinition({
     protocol: "http",
     path: `${routePath.auth}/read-all-years`,
     schemas: {
-        body: v.object({}),
+        body: v.object({
+            idOrganization: v.optional(v.string()),
+        }),
         return: v.array(yearSchemaReturn),
     },
 })

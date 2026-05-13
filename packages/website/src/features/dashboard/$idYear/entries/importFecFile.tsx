@@ -13,7 +13,6 @@ import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconFileImport } from "@tabler/icons-react"
 import { useMemo, useState } from "react"
 import type * as v from "valibot"
-import { Drawer } from "../../../../components/overlays/drawer/drawer.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
 
@@ -236,8 +235,7 @@ export function ImportFecFile(props: {
     idYear: v.InferOutput<typeof returnedSchemas.year>["id"]
     journals: v.InferOutput<typeof readAllJournalsRouteDefinition.schemas.return>
     accounts: v.InferOutput<typeof readAllAccountsRouteDefinition.schemas.return>
-    open: boolean
-    onOpenChange: (open: boolean) => void
+    onClose: () => void
 }) {
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
@@ -429,115 +427,101 @@ export function ImportFecFile(props: {
         })
 
         setSelectedFile(null)
-        props.onOpenChange(false)
+        props.onClose()
     }
 
     return (
-        <Drawer.Root
-            open={props.open}
-            onOpenChange={(open) => {
-                props.onOpenChange(open)
-                if (open === false) {
-                    setSelectedFile(null)
-                }
-            }}
+        <div
+            className={css({
+                padding: "2rem",
+                display: "flex",
+                flexDirection: "column",
+                gap: "1rem",
+            })}
         >
-            <Drawer.Content>
-                <Drawer.Header title="Importer un FEC" />
-                <Drawer.Body>
-                    <div
-                        className={css({
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "1rem",
-                        })}
-                    >
-                        <p
-                            className={css({
-                                fontSize: "sm",
-                                color: "neutral/70",
-                                lineHeight: "relaxed",
-                            })}
-                        >
-                            Importez un FEC pour créer automatiquement les journaux, comptes, écritures et mouvements
-                            manquants de l'exercice.
-                        </p>
-                        <p
-                            className={css({
-                                fontSize: "sm",
-                                color: "neutral/70",
-                                lineHeight: "relaxed",
-                            })}
-                        >
-                            Nous avons créé également un outil de validation de conformité du FEC, disponible
-                            gratuitement en ligne sur{" "}
-                            <a
-                                href="https://fec.arrhes.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={css({
-                                    color: "primary",
-                                    fontWeight: "medium",
-                                    textDecoration: "underline",
-                                    textDecorationColor: "primary/30",
-                                    textUnderlineOffset: "2px",
-                                    _hover: {
-                                        textDecorationColor: "primary",
-                                    },
-                                    transition: "all 0.15s",
-                                })}
-                            >
-                                fec.arrhes.com
-                            </a>
-                            .
-                        </p>
-                        <InputFile
-                            accept=".txt,.csv,text/plain"
-                            onChange={(file) => {
-                                if (file === undefined) {
-                                    setSelectedFile(null)
-                                    return
-                                }
-                                setSelectedFile(file)
-                            }}
-                        />
-                        <p
-                            className={css({
-                                fontSize: "sm",
-                                color: "neutral/60",
-                            })}
-                        >
-                            Format supporté: fichier texte FEC avec séparateur tabulation ou "|".
-                        </p>
-                        <p
-                            className={css({
-                                fontSize: "xs",
-                                color: "neutral/50",
-                            })}
-                        >
-                            {selectedFileLabel}
-                        </p>
-                        <Button
-                            hasLoader
-                            onClick={handleImport}
-                        >
-                            <ButtonPlainContent
-                                leftIcon={<IconFileImport />}
-                                text="Importer le FEC"
-                            />
-                        </Button>
-                        <p
-                            className={css({
-                                fontSize: "xs",
-                                color: "neutral/50",
-                            })}
-                        >
-                            Le contrôle de compatibilité vérifie les colonnes requises et l'équilibre débit/crédit de
-                            chaque écriture.
-                        </p>
-                    </div>
-                </Drawer.Body>
-            </Drawer.Content>
-        </Drawer.Root>
+            <p
+                className={css({
+                    fontSize: "sm",
+                    color: "neutral/70",
+                    lineHeight: "relaxed",
+                })}
+            >
+                Importez un FEC pour créer automatiquement les journaux, comptes, écritures et mouvements manquants de
+                l'exercice.
+            </p>
+            <p
+                className={css({
+                    fontSize: "sm",
+                    color: "neutral/70",
+                    lineHeight: "relaxed",
+                })}
+            >
+                Nous avons créé également un outil de validation de conformité du FEC, disponible gratuitement en ligne
+                sur{" "}
+                <a
+                    href="https://fec.arrhes.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={css({
+                        color: "primary",
+                        fontWeight: "medium",
+                        textDecoration: "underline",
+                        textDecorationColor: "primary/30",
+                        textUnderlineOffset: "2px",
+                        _hover: {
+                            textDecorationColor: "primary",
+                        },
+                        transition: "all 0.15s",
+                    })}
+                >
+                    fec.arrhes.com
+                </a>
+                .
+            </p>
+            <InputFile
+                accept=".txt,.csv,text/plain"
+                onChange={(file) => {
+                    if (file === undefined) {
+                        setSelectedFile(null)
+                        return
+                    }
+                    setSelectedFile(file)
+                }}
+            />
+            <p
+                className={css({
+                    fontSize: "sm",
+                    color: "neutral/60",
+                })}
+            >
+                Format supporté: fichier texte FEC avec séparateur tabulation ou "|".
+            </p>
+            <p
+                className={css({
+                    fontSize: "xs",
+                    color: "neutral/50",
+                })}
+            >
+                {selectedFileLabel}
+            </p>
+            <Button
+                hasLoader
+                onClick={handleImport}
+            >
+                <ButtonPlainContent
+                    leftIcon={<IconFileImport />}
+                    text="Importer le FEC"
+                />
+            </Button>
+            <p
+                className={css({
+                    fontSize: "xs",
+                    color: "neutral/50",
+                })}
+            >
+                Le contrôle de compatibilité vérifie les colonnes requises et l'équilibre débit/crédit de chaque
+                écriture.
+            </p>
+        </div>
     )
 }

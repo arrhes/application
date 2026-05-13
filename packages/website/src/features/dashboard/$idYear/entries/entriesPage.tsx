@@ -2,10 +2,10 @@ import { Button, ButtonGhostContent, ButtonPlainContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconDotsVertical, IconDownload, IconFileExport, IconFileImport, IconPlus } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
-import { Fragment, useState } from "react"
+import { Fragment } from "react"
 import { Page } from "../../../../components/layouts/page/page.js"
 import { Popover } from "../../../../components/overlays/popover/popover.js"
-import { entriesRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/entries/entriesRoute.js"
+import { useTabs } from "../../../../contexts/tabs/tabsContext.js"
 import { YearDataWrapper } from "../yearDataWrapper.tsx"
 import { CreateOneEntry } from "./createOneEntry.js"
 import { EntriesTable } from "./entriesTable.js"
@@ -13,19 +13,28 @@ import { ExportEntryLines } from "./exportEntryLines.js"
 import { ExportFecFile } from "./exportFecFile.js"
 import { ImportFecFile } from "./importFecFile.js"
 
-export function EntriesPage() {
+export function EntriesPage({
+    idOrganization: idOrganizationProp,
+    idYear: idYearProp,
+}: {
+    idOrganization?: string
+    idYear?: string
+}) {
     const params = useParams({
-        from: entriesRoute.id,
-    })
-    const [exportOpen, setExportOpen] = useState(false)
-    const [fecOpen, setFecOpen] = useState(false)
-    const [importFecOpen, setImportFecOpen] = useState(false)
+        strict: false,
+    }) as {
+        idOrganization?: string
+        idYear?: string
+    }
+    const idOrganization = idOrganizationProp ?? params.idOrganization ?? ""
+    const idYear = idYearProp ?? params.idYear ?? ""
+    const { openPanelTab, closeTab } = useTabs()
 
     return (
         <Page.Root>
             <Page.Content>
                 <YearDataWrapper
-                    idYear={params.idYear}
+                    idYear={idYear}
                     requiredKeys={[
                         "entries",
                         "entryLines",
@@ -68,7 +77,21 @@ export function EntriesPage() {
                                                 className={css({
                                                     width: "100%",
                                                 })}
-                                                onClick={() => setExportOpen(true)}
+                                                onClick={() => {
+                                                    const r = {
+                                                        current: "",
+                                                    }
+                                                    r.current = openPanelTab(
+                                                        "Exporter les mouvements",
+                                                        <ExportEntryLines
+                                                            idOrganization={idOrganization}
+                                                            idYear={idYear}
+                                                            entries={data.entries}
+                                                            entryLines={data.entryLines}
+                                                            onClose={() => closeTab(r.current)}
+                                                        />,
+                                                    )
+                                                }}
                                             >
                                                 <ButtonGhostContent
                                                     leftIcon={<IconDownload />}
@@ -85,7 +108,21 @@ export function EntriesPage() {
                                                 className={css({
                                                     width: "100%",
                                                 })}
-                                                onClick={() => setFecOpen(true)}
+                                                onClick={() => {
+                                                    const r = {
+                                                        current: "",
+                                                    }
+                                                    r.current = openPanelTab(
+                                                        "Exporter au format FEC",
+                                                        <ExportFecFile
+                                                            idOrganization={idOrganization}
+                                                            idYear={idYear}
+                                                            entries={data.entries}
+                                                            entryLines={data.entryLines}
+                                                            onClose={() => closeTab(r.current)}
+                                                        />,
+                                                    )
+                                                }}
                                             >
                                                 <ButtonGhostContent
                                                     leftIcon={<IconFileExport />}
@@ -102,7 +139,20 @@ export function EntriesPage() {
                                                 className={css({
                                                     width: "100%",
                                                 })}
-                                                onClick={() => setImportFecOpen(true)}
+                                                onClick={() => {
+                                                    const r = {
+                                                        current: "",
+                                                    }
+                                                    r.current = openPanelTab(
+                                                        "Importer un FEC",
+                                                        <ImportFecFile
+                                                            idYear={idYear}
+                                                            journals={data.journals}
+                                                            accounts={data.accounts}
+                                                            onClose={() => closeTab(r.current)}
+                                                        />,
+                                                    )
+                                                }}
                                             >
                                                 <ButtonGhostContent
                                                     leftIcon={<IconFileImport />}
@@ -117,8 +167,8 @@ export function EntriesPage() {
                                     </Popover.Content>
                                 </Popover.Root>
                                 <CreateOneEntry
-                                    idOrganization={params.idOrganization}
-                                    idYear={params.idYear}
+                                    idOrganization={idOrganization}
+                                    idYear={idYear}
                                 >
                                     <Button>
                                         <ButtonPlainContent
@@ -129,38 +179,15 @@ export function EntriesPage() {
                                 </CreateOneEntry>
                             </div>
                             <EntriesTable
-                                idOrganization={params.idOrganization}
-                                idYear={params.idYear}
+                                idOrganization={idOrganization}
+                                idYear={idYear}
                                 entries={data.entries}
-                                entryLines={data.entryLines}
-                                entryTags={data.entryTags}
-                                journals={data.journals}
-                                tags={data.tags}
-                                files={data.files}
-                                accounts={data.accounts}
-                            />
-                            <ExportEntryLines
-                                idOrganization={params.idOrganization}
-                                idYear={params.idYear}
-                                entries={data.entries}
-                                entryLines={data.entryLines}
-                                open={exportOpen}
-                                onOpenChange={setExportOpen}
-                            />
-                            <ExportFecFile
-                                idOrganization={params.idOrganization}
-                                idYear={params.idYear}
-                                entries={data.entries}
-                                entryLines={data.entryLines}
-                                open={fecOpen}
-                                onOpenChange={setFecOpen}
-                            />
-                            <ImportFecFile
-                                idYear={params.idYear}
-                                journals={data.journals}
-                                accounts={data.accounts}
-                                open={importFecOpen}
-                                onOpenChange={setImportFecOpen}
+                                entryLinesByEntryId={data.entryLinesByEntryId}
+                                entryTagsByEntryId={data.entryTagsByEntryId}
+                                journalById={data.journalById}
+                                tagById={data.tagById}
+                                fileById={data.fileById}
+                                accountById={data.accountById}
                             />
                         </Fragment>
                     )}

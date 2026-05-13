@@ -1,9 +1,9 @@
 import type { getAllMyOrganizationsRouteDefinition } from "@arrhes/application-metadata/routes"
-import { Chip, LinkContent } from "@arrhes/ui"
+import { Button, Chip, LinkContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import type * as v from "valibot"
 import { ListTable } from "../../../components/layouts/listTable/listTable.tsx"
-import { LinkButton } from "../../../components/linkButton.tsx"
+import { TabLink } from "../../../components/layouts/tabBar/tabLink.js"
 
 export function OrganizationListTableRow(props: {
     organizationUser: v.InferOutput<typeof getAllMyOrganizationsRouteDefinition.schemas.return>[number]
@@ -32,26 +32,30 @@ export function OrganizationListTableRow(props: {
                         gap: "1rem",
                     })}
                 >
-                    <LinkButton
-                        to="/dashboard/organisations/$idOrganization"
-                        params={{
-                            idOrganization: organization.id,
+                    <TabLink
+                        args={{
+                            component: "organisation",
+                            props: {
+                                idOrganization: organization.id,
+                            },
                         }}
                     >
-                        <LinkContent
-                            className={css({
-                                fontSize: "base",
-                                fontWeight: "semibold",
-                                color: "primary",
-                                textDecoration: "none",
-                                _hover: {
-                                    textDecoration: "underline",
-                                },
-                            })}
-                        >
-                            {organization.name}
-                        </LinkContent>
-                    </LinkButton>
+                        <Button>
+                            <LinkContent
+                                className={css({
+                                    fontSize: "base",
+                                    fontWeight: "semibold",
+                                    color: "primary",
+                                    textDecoration: "none",
+                                    _hover: {
+                                        textDecoration: "underline",
+                                    },
+                                })}
+                            >
+                                {organization.name}
+                            </LinkContent>
+                        </Button>
+                    </TabLink>
                     <div
                         className={css({
                             display: "flex",

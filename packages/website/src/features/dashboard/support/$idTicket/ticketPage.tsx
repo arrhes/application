@@ -5,7 +5,6 @@ import { useParams } from "@tanstack/react-router"
 import { Banner } from "../../../../components/layouts/banner.tsx"
 import { DataWrapper } from "../../../../components/layouts/dataWrapper.tsx"
 import { Section } from "../../../../components/layouts/section/section.tsx"
-import { ticketLayoutRoute } from "../../../../routes/root/dashboard/support/ticketLayoutRoute.tsx"
 import { CreateOneTicketMessage } from "./createOneTicketMessage.tsx"
 import { TicketMessageList } from "./ticketMessageList.tsx"
 
@@ -33,10 +32,11 @@ const statusLabels: Record<
     },
 }
 
-export function TicketPage() {
+export function TicketPage(props: { idTicket?: string } = {}) {
     const params = useParams({
-        from: ticketLayoutRoute.id,
+        strict: false,
     })
+    const idTicket = props.idTicket ?? params.idTicket ?? ""
 
     return (
         <Section.Item
@@ -48,7 +48,7 @@ export function TicketPage() {
             <DataWrapper
                 routeDefinition={readOneTicketRouteDefinition}
                 body={{
-                    idTicket: params.idTicket,
+                    idTicket: idTicket,
                 }}
             >
                 {(ticket) => {
@@ -169,7 +169,7 @@ export function TicketPage() {
                             <DataWrapper
                                 routeDefinition={readAllTicketMessagesRouteDefinition}
                                 body={{
-                                    idTicket: params.idTicket,
+                                    idTicket: idTicket,
                                 }}
                             >
                                 {(messages) => {
@@ -222,12 +222,12 @@ export function TicketPage() {
             <DataWrapper
                 routeDefinition={readOneTicketRouteDefinition}
                 body={{
-                    idTicket: params.idTicket,
+                    idTicket: idTicket,
                 }}
             >
                 {(ticket) =>
                     ticket.status === "open" ? (
-                        <CreateOneTicketMessage idTicket={params.idTicket} />
+                        <CreateOneTicketMessage idTicket={idTicket} />
                     ) : (
                         <Banner
                             variant="error"
@@ -243,7 +243,7 @@ export function TicketPage() {
             <DataWrapper
                 routeDefinition={readAllTicketMessagesRouteDefinition}
                 body={{
-                    idTicket: params.idTicket,
+                    idTicket: idTicket,
                 }}
             >
                 {(messages) => <TicketMessageList messages={messages} />}

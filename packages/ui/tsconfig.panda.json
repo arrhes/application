@@ -1,0 +1,4 @@
+{
+    "extends": "./tsconfig.json",
+    "include": ["panda.config.ts", "src", "styled-system"]
+}

@@ -10,15 +10,11 @@ import { Button, ButtonOutlineContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconAlertTriangle, IconPencil } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
-import { type JSX, useState } from "react"
+import type { JSX } from "react"
 import { DataWrapper } from "../../../../components/layouts/dataWrapper.tsx"
 import { Page } from "../../../../components/layouts/page/page.tsx"
-import { organizationServicesRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/organizationBilling/organizationBillingsRoute.tsx"
+import { useTabs } from "../../../../contexts/tabs/tabsContext.js"
 import { formatEuros } from "../../../../utilities/formatEuros.tsx"
-import { UpdateLicenceSubscriptionDrawer } from "./updateLicenceSubscriptionDrawer.tsx"
-import { UpdateOcrSubscriptionDrawer } from "./updateOcrSubscriptionDrawer.tsx"
-import { UpdateStorageSubscriptionDrawer } from "./updateStorageSubscriptionDrawer.tsx"
-import { UpdateTokensSubscriptionDrawer } from "./updateTokensSubscriptionDrawer.tsx"
 import { OrganizationBillingDisclaimerBanner } from "./wallet/OrganizationBillingDisclaimerBanner.tsx"
 
 function getStorageAddonQuantity(storageLimit: number) {
@@ -290,20 +286,22 @@ function ServiceCard(props: {
     )
 }
 
-export function OrganizationServicesPage() {
-    const [refreshKey, setRefreshKey] = useState(0)
+export function OrganizationServicesPage({ idOrganization: idOrganizationProp }: { idOrganization?: string } = {}) {
+    const { openTab } = useTabs()
     const params = useParams({
-        from: organizationServicesRoute.id,
-    })
+        strict: false,
+    }) as {
+        idOrganization?: string
+    }
+    const idOrganization = idOrganizationProp ?? params.idOrganization ?? ""
 
     return (
         <Page.Root>
             <Page.Content>
                 <DataWrapper
-                    key={refreshKey}
                     routeDefinition={readOneOrganizationRouteDefinition}
                     body={{
-                        idOrganization: params.idOrganization,
+                        idOrganization,
                     }}
                 >
                     {(organization) => {
@@ -332,7 +330,7 @@ export function OrganizationServicesPage() {
                                     gap: "1.25rem",
                                 })}
                             >
-                                <OrganizationBillingDisclaimerBanner idOrganization={params.idOrganization} />
+                                <OrganizationBillingDisclaimerBanner idOrganization={idOrganization} />
                                 {isWalletInsufficient ? (
                                     <div
                                         className={css({
@@ -404,18 +402,21 @@ export function OrganizationServicesPage() {
                                             : []),
                                     ]}
                                     action={
-                                        <UpdateLicenceSubscriptionDrawer
-                                            idOrganization={params.idOrganization}
-                                            currentAmountInCents={currentSupportAmountInCents}
-                                            onSuccess={() => setRefreshKey((key) => key + 1)}
+                                        <Button
+                                            onClick={() =>
+                                                openTab({
+                                                    component: "facturation-licence",
+                                                    props: {
+                                                        idOrganization,
+                                                    },
+                                                })
+                                            }
                                         >
-                                            <Button>
-                                                <ButtonOutlineContent
-                                                    leftIcon={<IconPencil />}
-                                                    text="Modifier"
-                                                />
-                                            </Button>
-                                        </UpdateLicenceSubscriptionDrawer>
+                                            <ButtonOutlineContent
+                                                leftIcon={<IconPencil />}
+                                                text="Modifier"
+                                            />
+                                        </Button>
                                     }
                                 />
                                 <ServiceCard
@@ -449,20 +450,21 @@ export function OrganizationServicesPage() {
                                         />
                                     }
                                     action={
-                                        <UpdateStorageSubscriptionDrawer
-                                            idOrganization={params.idOrganization}
-                                            currentQuantity={currentStorageQuantity}
-                                            currentUsageInBytes={organization.storageCurrentUsage}
-                                            currentMaxUsageInBytes={organization.storageLimit}
-                                            onSuccess={() => setRefreshKey((key) => key + 1)}
+                                        <Button
+                                            onClick={() =>
+                                                openTab({
+                                                    component: "facturation-stockage",
+                                                    props: {
+                                                        idOrganization,
+                                                    },
+                                                })
+                                            }
                                         >
-                                            <Button>
-                                                <ButtonOutlineContent
-                                                    leftIcon={<IconPencil />}
-                                                    text="Modifier"
-                                                />
-                                            </Button>
-                                        </UpdateStorageSubscriptionDrawer>
+                                            <ButtonOutlineContent
+                                                leftIcon={<IconPencil />}
+                                                text="Modifier"
+                                            />
+                                        </Button>
                                     }
                                 />
                                 <ServiceCard
@@ -480,18 +482,21 @@ export function OrganizationServicesPage() {
                                         },
                                     ]}
                                     action={
-                                        <UpdateTokensSubscriptionDrawer
-                                            currentQuantity={currentTokenQuantity}
-                                            currentTokensLeft={organization.tokensTotalAvailable}
-                                            onSuccess={() => setRefreshKey((key) => key + 1)}
+                                        <Button
+                                            onClick={() =>
+                                                openTab({
+                                                    component: "facturation-tokens",
+                                                    props: {
+                                                        idOrganization,
+                                                    },
+                                                })
+                                            }
                                         >
-                                            <Button>
-                                                <ButtonOutlineContent
-                                                    leftIcon={<IconPencil />}
-                                                    text="Modifier"
-                                                />
-                                            </Button>
-                                        </UpdateTokensSubscriptionDrawer>
+                                            <ButtonOutlineContent
+                                                leftIcon={<IconPencil />}
+                                                text="Modifier"
+                                            />
+                                        </Button>
                                     }
                                 />
                                 <ServiceCard
@@ -509,18 +514,21 @@ export function OrganizationServicesPage() {
                                         },
                                     ]}
                                     action={
-                                        <UpdateOcrSubscriptionDrawer
-                                            currentQuantity={currentOcrAddonPages}
-                                            currentPagesLeft={organization.ocrPagesTotalAvailable}
-                                            onSuccess={() => setRefreshKey((key) => key + 1)}
+                                        <Button
+                                            onClick={() =>
+                                                openTab({
+                                                    component: "facturation-ocr",
+                                                    props: {
+                                                        idOrganization,
+                                                    },
+                                                })
+                                            }
                                         >
-                                            <Button>
-                                                <ButtonOutlineContent
-                                                    leftIcon={<IconPencil />}
-                                                    text="Modifier"
-                                                />
-                                            </Button>
-                                        </UpdateOcrSubscriptionDrawer>
+                                            <ButtonOutlineContent
+                                                leftIcon={<IconPencil />}
+                                                text="Modifier"
+                                            />
+                                        </Button>
                                     }
                                 />
                             </div>

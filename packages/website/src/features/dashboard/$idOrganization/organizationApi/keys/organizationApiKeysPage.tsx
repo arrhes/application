@@ -3,14 +3,16 @@ import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconPlus } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { Page } from "../../../../../components/layouts/page/page.tsx"
-import { organizationApiKeysRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/organizationApi/organizationApiKeysRoute.tsx"
 import { ApiKeysListTable } from "./apiKeysListTable.tsx"
 import { CreateOneApiKey } from "./createOneApiKey.tsx"
 
-export function OrganizationApiKeysPage() {
+export function OrganizationApiKeysPage({ idOrganization: idOrganizationProp }: { idOrganization?: string } = {}) {
     const params = useParams({
-        from: organizationApiKeysRoute.id,
-    })
+        strict: false,
+    }) as {
+        idOrganization?: string
+    }
+    const idOrganization = idOrganizationProp ?? params.idOrganization ?? ""
 
     return (
         <Page.Root>
@@ -23,14 +25,14 @@ export function OrganizationApiKeysPage() {
                         alignItems: "center",
                     })}
                 >
-                    <CreateOneApiKey idOrganization={params.idOrganization}>
+                    <CreateOneApiKey idOrganization={idOrganization}>
                         <ButtonOutlineContent
                             leftIcon={<IconPlus />}
                             text="Créer une clé API"
                         />
                     </CreateOneApiKey>
                 </div>
-                <ApiKeysListTable idOrganization={params.idOrganization} />
+                <ApiKeysListTable idOrganization={idOrganization} />
             </Page.Content>
         </Page.Root>
     )

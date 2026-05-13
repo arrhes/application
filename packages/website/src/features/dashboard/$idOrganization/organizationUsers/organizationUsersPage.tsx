@@ -3,14 +3,16 @@ import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconUserPlus } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { Page } from "../../../../components/layouts/page/page.tsx"
-import { organizationUsersRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/organizationUsers/organizationUsersRoute.tsx"
 import { CreateOneOrganizationUser } from "./createOneOrganizationUser.tsx"
 import { OrganizationUsersListTable } from "./organizationUsersListTable.tsx"
 
-export function OrganizationUsersPage() {
+export function OrganizationUsersPage({ idOrganization: idOrganizationProp }: { idOrganization?: string }) {
     const params = useParams({
-        from: organizationUsersRoute.id,
-    })
+        strict: false,
+    }) as {
+        idOrganization?: string
+    }
+    const idOrganization = idOrganizationProp ?? params.idOrganization ?? ""
 
     return (
         <Page.Root>
@@ -28,14 +30,14 @@ export function OrganizationUsersPage() {
                         alignItems: "center",
                     })}
                 >
-                    <CreateOneOrganizationUser idOrganization={params.idOrganization}>
+                    <CreateOneOrganizationUser idOrganization={idOrganization}>
                         <ButtonOutlineContent
                             leftIcon={<IconUserPlus />}
                             text="Inviter un collaborateur"
                         />
                     </CreateOneOrganizationUser>
                 </div>
-                <OrganizationUsersListTable idOrganization={params.idOrganization} />
+                <OrganizationUsersListTable idOrganization={idOrganization} />
             </Page.Content>
         </Page.Root>
     )

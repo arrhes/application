@@ -3,14 +3,16 @@ import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconCalendarPlus } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { Page } from "../../../../components/layouts/page/page.tsx"
-import { yearsRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/years/yearsRoute.tsx"
 import { CreateOneYear } from "./createOneYear.tsx"
 import { YearsListTable } from "./yearsListTable.tsx"
 
-export function YearsPage() {
+export function YearsPage({ idOrganization: idOrganizationProp }: { idOrganization?: string }) {
     const params = useParams({
-        from: yearsRoute.id,
-    })
+        strict: false,
+    }) as {
+        idOrganization?: string
+    }
+    const idOrganization = idOrganizationProp ?? params.idOrganization ?? ""
 
     return (
         <Page.Root>
@@ -28,14 +30,14 @@ export function YearsPage() {
                         alignItems: "center",
                     })}
                 >
-                    <CreateOneYear idOrganization={params.idOrganization}>
+                    <CreateOneYear idOrganization={idOrganization}>
                         <ButtonOutlineContent
                             leftIcon={<IconCalendarPlus />}
                             text="Ajouter un exercice"
                         />
                     </CreateOneYear>
                 </div>
-                <YearsListTable idOrganization={params.idOrganization} />
+                <YearsListTable idOrganization={idOrganization} />
             </Page.Content>
         </Page.Root>
     )

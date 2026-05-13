@@ -5,13 +5,15 @@ import { useParams } from "@tanstack/react-router"
 import { DataWrapper } from "../../../../components/layouts/dataWrapper.tsx"
 import { Page } from "../../../../components/layouts/page/page.tsx"
 import { SettingsSection } from "../../../../components/layouts/settingsSection/settingsSection.tsx"
-import { organizationSettingsRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/organizationSettings/organizationSettingsRoute.tsx"
 import { UpdateOneOrganization } from "./updateOneOrganization.tsx"
 
-export function OrganizationSettingsPage() {
+export function OrganizationSettingsPage({ idOrganization: idOrganizationProp }: { idOrganization?: string } = {}) {
     const params = useParams({
-        from: organizationSettingsRoute.id,
-    })
+        strict: false,
+    }) as {
+        idOrganization?: string
+    }
+    const idOrganization = idOrganizationProp ?? params.idOrganization ?? ""
 
     return (
         <Page.Root>
@@ -19,7 +21,7 @@ export function OrganizationSettingsPage() {
                 <DataWrapper
                     routeDefinition={readOneOrganizationRouteDefinition}
                     body={{
-                        idOrganization: params.idOrganization,
+                        idOrganization,
                     }}
                 >
                     {(organization) => {

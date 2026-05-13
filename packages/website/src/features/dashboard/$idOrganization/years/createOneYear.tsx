@@ -1,8 +1,9 @@
 import { createOneYearRouteDefinition, readAllYearsRouteDefinition } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { InputDate, InputText, toast } from "@arrhes/ui"
+import { Button, InputDate, InputText, toast } from "@arrhes/ui"
+import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconPlus } from "@tabler/icons-react"
-import { type JSX, useState } from "react"
+import type { JSX } from "react"
 import { Fragment } from "react/jsx-runtime"
 import type * as v from "valibot"
 import { FormControl } from "../../../../components/forms/formControl.tsx"
@@ -11,7 +12,7 @@ import { FormField } from "../../../../components/forms/formField.tsx"
 import { FormItem } from "../../../../components/forms/formItem.tsx"
 import { FormLabel } from "../../../../components/forms/formLabel.tsx"
 import { FormRoot } from "../../../../components/forms/formRoot.tsx"
-import { Drawer } from "../../../../components/overlays/drawer/drawer.tsx"
+import { useTabs } from "../../../../contexts/tabs/tabsContext.tsx"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
 import { YearSelect } from "./yearSelect.tsx"
@@ -20,150 +21,167 @@ export function CreateOneYear(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
     children: JSX.Element
 }) {
-    const [open, setOpen] = useState(false)
+    const { openPanelTab, closeTab } = useTabs()
     const currentDate = new Date()
 
     return (
-        <Drawer.Root
-            open={open}
-            onOpenChange={setOpen}
-        >
-            <Drawer.Trigger>{props.children}</Drawer.Trigger>
-            <Drawer.Content>
-                <Drawer.Header title="Ajouter un nouvel exercice" />
-                <Drawer.Body>
-                    <FormRoot
-                        schema={createOneYearRouteDefinition.schemas.body}
-                        defaultValues={{
-                            startingAt: new Date(currentDate.getFullYear(), 0, 1).toISOString(),
-                            endingAt: new Date(currentDate.getFullYear(), 11, 31).toISOString(),
-                            label: undefined,
-                        }}
-                        submitButtonProps={{
-                            leftIcon: <IconPlus />,
-                            text: "Ajouter l'exercice",
-                        }}
-                        onSubmit={async (data) => {
-                            const response = await getResponseBodyFromAPI({
-                                routeDefinition: createOneYearRouteDefinition,
-                                body: data,
-                            })
-                            if (!response.ok) {
-                                toast({
-                                    title: "Impossible de créer l'exercice",
-                                    variant: "error",
-                                })
-                                return false
-                            }
-
-                            toast({
-                                title: "Exercice créé avec succès",
-                                variant: "success",
-                            })
-                            return true
-                        }}
-                        onCancel={undefined}
-                        onSuccess={async () => {
-                            await invalidateData({
-                                routeDefinition: readAllYearsRouteDefinition,
-                                body: {},
-                            })
-
-                            setOpen(false)
-                        }}
+        <Button
+            className={css({
+                padding: "0",
+                border: "none",
+                backgroundColor: "transparent",
+                width: "fit-content",
+                height: "fit-content",
+            })}
+            onClick={() => {
+                const r = {
+                    current: "",
+                }
+                r.current = openPanelTab(
+                    "Ajouter un nouvel exercice",
+                    <div
+                        className={css({
+                            padding: "2rem",
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "1rem",
+                        })}
                     >
-                        {(form) => (
-                            <Fragment>
-                                <FormField
-                                    control={form.control}
-                                    name="startingAt"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel
-                                                label="Date de début"
-                                                isRequired={true}
-                                                description={undefined}
-                                                tooltip={undefined}
-                                            />
-                                            <FormControl>
-                                                <InputDate
-                                                    value={field.value}
-                                                    onChange={field.onChange}
+                        <FormRoot
+                            schema={createOneYearRouteDefinition.schemas.body}
+                            defaultValues={{
+                                startingAt: new Date(currentDate.getFullYear(), 0, 1).toISOString(),
+                                endingAt: new Date(currentDate.getFullYear(), 11, 31).toISOString(),
+                                label: undefined,
+                            }}
+                            submitButtonProps={{
+                                leftIcon: <IconPlus />,
+                                text: "Ajouter l'exercice",
+                            }}
+                            onSubmit={async (data) => {
+                                const response = await getResponseBodyFromAPI({
+                                    routeDefinition: createOneYearRouteDefinition,
+                                    body: data,
+                                })
+                                if (!response.ok) {
+                                    toast({
+                                        title: "Impossible de créer l'exercice",
+                                        variant: "error",
+                                    })
+                                    return false
+                                }
+
+                                toast({
+                                    title: "Exercice créé avec succès",
+                                    variant: "success",
+                                })
+                                return true
+                            }}
+                            onCancel={undefined}
+                            onSuccess={async () => {
+                                await invalidateData({
+                                    routeDefinition: readAllYearsRouteDefinition,
+                                    body: {},
+                                })
+
+                                closeTab(r.current)
+                            }}
+                        >
+                            {(form) => (
+                                <Fragment>
+                                    <FormField
+                                        control={form.control}
+                                        name="startingAt"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel
+                                                    label="Date de début"
+                                                    isRequired={true}
+                                                    description={undefined}
+                                                    tooltip={undefined}
                                                 />
-                                            </FormControl>
-                                            <FormError />
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    control={form.control}
-                                    name="endingAt"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel
-                                                label="Date de fin"
-                                                isRequired={true}
-                                                description={undefined}
-                                                tooltip={undefined}
-                                            />
-                                            <FormControl>
-                                                <InputDate
-                                                    value={field.value}
-                                                    onChange={field.onChange}
+                                                <FormControl>
+                                                    <InputDate
+                                                        value={field.value}
+                                                        onChange={field.onChange}
+                                                    />
+                                                </FormControl>
+                                                <FormError />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name="endingAt"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel
+                                                    label="Date de fin"
+                                                    isRequired={true}
+                                                    description={undefined}
+                                                    tooltip={undefined}
                                                 />
-                                            </FormControl>
-                                            <FormError />
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    control={form.control}
-                                    name="idYearPrevious"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel
-                                                label="Exercice précédent ?"
-                                                isRequired={false}
-                                                description={undefined}
-                                                tooltip={undefined}
-                                            />
-                                            <FormControl>
-                                                <YearSelect
-                                                    idOrganization={props.idOrganization}
-                                                    value={field.value}
-                                                    onChange={field.onChange}
+                                                <FormControl>
+                                                    <InputDate
+                                                        value={field.value}
+                                                        onChange={field.onChange}
+                                                    />
+                                                </FormControl>
+                                                <FormError />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name="idYearPrevious"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel
+                                                    label="Exercice précédent ?"
+                                                    isRequired={false}
+                                                    description={undefined}
+                                                    tooltip={undefined}
                                                 />
-                                            </FormControl>
-                                            <FormError />
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    control={form.control}
-                                    name="label"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel
-                                                label="Libellé de l'exercice"
-                                                isRequired={false}
-                                                description={undefined}
-                                                tooltip={undefined}
-                                            />
-                                            <FormControl>
-                                                <InputText
-                                                    value={field.value}
-                                                    onChange={field.onChange}
+                                                <FormControl>
+                                                    <YearSelect
+                                                        idOrganization={props.idOrganization}
+                                                        value={field.value}
+                                                        onChange={field.onChange}
+                                                    />
+                                                </FormControl>
+                                                <FormError />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name="label"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel
+                                                    label="Libellé de l'exercice"
+                                                    isRequired={false}
+                                                    description={undefined}
+                                                    tooltip={undefined}
                                                 />
-                                            </FormControl>
-                                            <FormError />
-                                        </FormItem>
-                                    )}
-                                />
-                            </Fragment>
-                        )}
-                    </FormRoot>
-                </Drawer.Body>
-            </Drawer.Content>
-        </Drawer.Root>
+                                                <FormControl>
+                                                    <InputText
+                                                        value={field.value}
+                                                        onChange={field.onChange}
+                                                    />
+                                                </FormControl>
+                                                <FormError />
+                                            </FormItem>
+                                        )}
+                                    />
+                                </Fragment>
+                            )}
+                        </FormRoot>
+                    </div>,
+                )
+            }}
+        >
+            {props.children}
+        </Button>
     )
 }

@@ -1,9 +1,9 @@
 import type { readAllYearsRouteDefinition } from "@arrhes/application-metadata/routes"
-import { Chip, formatDate, LinkContent } from "@arrhes/ui"
+import { Button, Chip, formatDate, LinkContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import type * as v from "valibot"
 import { ListTable } from "../../../../components/layouts/listTable/listTable.tsx"
-import { LinkButton } from "../../../../components/linkButton.tsx"
+import { TabLink } from "../../../../components/layouts/tabBar/tabLink.js"
 
 export function YearListTableRow(props: {
     year: v.InferOutput<typeof readAllYearsRouteDefinition.schemas.return>[number]
@@ -38,27 +38,31 @@ export function YearListTableRow(props: {
                             gap: "0.75rem",
                         })}
                     >
-                        <LinkButton
-                            to="/dashboard/organisations/$idOrganization/exercices/$idYear"
-                            params={{
-                                idOrganization: props.year.idOrganization,
-                                idYear: props.year.id,
+                        <TabLink
+                            args={{
+                                component: "exercice-écritures",
+                                props: {
+                                    idOrganization: props.year.idOrganization,
+                                    idYear: props.year.id,
+                                },
                             }}
                         >
-                            <LinkContent
-                                className={css({
-                                    fontSize: "base",
-                                    fontWeight: "semibold",
-                                    color: "primary",
-                                    textDecoration: "none",
-                                    _hover: {
-                                        textDecoration: "underline",
-                                    },
-                                })}
-                            >
-                                {props.year.label}
-                            </LinkContent>
-                        </LinkButton>
+                            <Button>
+                                <LinkContent
+                                    className={css({
+                                        fontSize: "base",
+                                        fontWeight: "semibold",
+                                        color: "primary",
+                                        textDecoration: "none",
+                                        _hover: {
+                                            textDecoration: "underline",
+                                        },
+                                    })}
+                                >
+                                    {props.year.label}
+                                </LinkContent>
+                            </Button>
+                        </TabLink>
                     </div>
                     <div
                         className={css({

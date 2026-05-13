@@ -35,7 +35,6 @@ import { DataWrapper } from "../../../../components/layouts/dataWrapper.tsx"
 import { ConfirmationModal } from "../../../../components/overlays/dialog/confirmationModal.tsx"
 import { Popover } from "../../../../components/overlays/popover/popover.tsx"
 import { dataClient } from "../../../../contexts/data/queryClient.ts"
-import { agentSessionRoute } from "../../../../routes/root/dashboard/agent/agentSessionRoute.tsx"
 import { getCookie } from "../../../../utilities/cookies/getCookie.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
@@ -147,10 +146,23 @@ function ContextInitialiser(props: {
     return <>{props.children}</>
 }
 
-export function AgentSessionContent() {
+export function AgentSessionContent({
+    idOrganization: idOrganizationProp,
+    idAgentSession: idAgentSessionProp,
+    onDeleteSession,
+}: {
+    idOrganization?: string
+    idAgentSession?: string
+    onDeleteSession?: () => void
+} = {}) {
     const params = useParams({
-        from: agentSessionRoute.id,
-    })
+        strict: false,
+    }) as {
+        idOrganization?: string
+        idAgentSession?: string
+    }
+    const idOrganization = idOrganizationProp ?? params.idOrganization ?? ""
+    const idAgentSession = idAgentSessionProp ?? params.idAgentSession ?? ""
 
     const [input, setInput] = useState<string | null | undefined>(undefined)
     const [draftReferences, setDraftReferences] = useState<MentionReference[]>([])
@@ -177,7 +189,7 @@ export function AgentSessionContent() {
             const result = await getResponseBodyFromAPI({
                 routeDefinition: updateOneAgentSessionRouteDefinition,
                 body: {
-                    idAgentSession: params.idAgentSession,
+                    idAgentSession: idAgentSession,
                     idYear: editYear || null,
                     customInstructions: editInstructions?.trim() || null,
                 },
@@ -190,7 +202,7 @@ export function AgentSessionContent() {
                 await invalidateData({
                     routeDefinition: readOneAgentSessionRouteDefinition,
                     body: {
-                        idAgentSession: params.idAgentSession,
+                        idAgentSession: idAgentSession,
                     },
                 })
             } else {
@@ -203,13 +215,13 @@ export function AgentSessionContent() {
             setIsSavingContext(false)
         }
     }, [
-        params.idAgentSession,
+        idAgentSession,
         editYear,
         editInstructions,
     ])
 
     const handleDeleteSession = useCallback(async () => {
-        const sessionId = params.idAgentSession
+        const sessionId = idAgentSession
         setIsDeleting(true)
         try {
             await getResponseBodyFromAPI({
@@ -224,19 +236,24 @@ export function AgentSessionContent() {
                 ],
                 exact: false,
             })
-            navigate({
-                to: "/dashboard/organisations/$idOrganization/agent",
-                params: {
-                    idOrganization: params.idOrganization,
-                },
-            })
+            if (onDeleteSession) {
+                onDeleteSession()
+            } else {
+                navigate({
+                    to: "/dashboard/organisations/$idOrganization/agent",
+                    params: {
+                        idOrganization: idOrganization,
+                    },
+                })
+            }
         } finally {
             setIsDeleting(false)
         }
     }, [
         navigate,
-        params.idAgentSession,
-        params.idOrganization,
+        idAgentSession,
+        idOrganization,
+        onDeleteSession,
     ])
 
     // ── Streaming state ─────────────────────────────────────────────────────────
@@ -278,7 +295,7 @@ export function AgentSessionContent() {
     const { data: messagesData } = useDataFromAPI({
         routeDefinition: readAllAgentMessagesRouteDefinition,
         body: {
-            idAgentSession: params.idAgentSession,
+            idAgentSession: idAgentSession,
         },
     })
 
@@ -334,7 +351,7 @@ export function AgentSessionContent() {
             await invalidateData({
                 routeDefinition: readAllAgentMessagesRouteDefinition,
                 body: {
-                    idAgentSession: params.idAgentSession,
+                    idAgentSession: idAgentSession,
                 },
             })
             setStreamingContent("")
@@ -366,7 +383,7 @@ export function AgentSessionContent() {
                     signal: controller.signal,
                     headers,
                     body: JSON.stringify({
-                        idOrganization: params.idOrganization,
+                        idOrganization: idOrganization,
                         idAgentMessage: streamMessageId,
                     }),
                 })
@@ -496,7 +513,7 @@ export function AgentSessionContent() {
                 const result = await getResponseBodyFromAPI({
                     routeDefinition: readAllAgentMessagesRouteDefinition,
                     body: {
-                        idAgentSession: params.idAgentSession,
+                        idAgentSession: idAgentSession,
                     },
                     signal: controller.signal,
                 })
@@ -518,8 +535,8 @@ export function AgentSessionContent() {
         }
     }, [
         streamMessageId,
-        params.idAgentSession,
-        params.idOrganization,
+        idAgentSession,
+        idOrganization,
     ])
 
     // ── Send message ────────────────────────────────────────────────────────────
@@ -561,8 +578,8 @@ export function AgentSessionContent() {
                         const createFileResponse = await getResponseBodyFromAPI({
                             routeDefinition: createOneAgentFileRouteDefinition,
                             body: {
-                                idOrganization: params.idOrganization,
-                                idAgentSession: params.idAgentSession,
+                                idOrganization: idOrganization,
+                                idAgentSession: idAgentSession,
                                 fileName: file.name,
                                 fileType: file.type || "application/octet-stream",
                                 fileSize: file.size,
@@ -604,7 +621,7 @@ export function AgentSessionContent() {
                         const attachResult = await getResponseBodyFromAPI({
                             routeDefinition: updateOneAgentSessionRouteDefinition,
                             body: {
-                                idAgentSession: params.idAgentSession,
+                                idAgentSession: idAgentSession,
                                 fileIds: [
                                     ...existingIds,
                                     ...newIds,
@@ -623,7 +640,7 @@ export function AgentSessionContent() {
                         await invalidateData({
                             routeDefinition: readOneAgentSessionRouteDefinition,
                             body: {
-                                idAgentSession: params.idAgentSession,
+                                idAgentSession: idAgentSession,
                             },
                         })
                     }
@@ -634,8 +651,8 @@ export function AgentSessionContent() {
                 const result = await getResponseBodyFromAPI({
                     routeDefinition: createOneAgentMessageRouteDefinition,
                     body: {
-                        idOrganization: params.idOrganization,
-                        idAgentSession: params.idAgentSession,
+                        idOrganization: idOrganization,
+                        idAgentSession: idAgentSession,
                         message: text.trim(),
                         references: references && references.length > 0 ? references : null,
                     },
@@ -656,7 +673,7 @@ export function AgentSessionContent() {
                 await invalidateData({
                     routeDefinition: readAllAgentMessagesRouteDefinition,
                     body: {
-                        idAgentSession: params.idAgentSession,
+                        idAgentSession: idAgentSession,
                     },
                 })
                 scrollToBottom()
@@ -674,8 +691,8 @@ export function AgentSessionContent() {
         },
         [
             isSending,
-            params.idOrganization,
-            params.idAgentSession,
+            idOrganization,
+            idAgentSession,
             pendingFiles,
             scrollToBottom,
         ],
@@ -689,7 +706,7 @@ export function AgentSessionContent() {
         <DataWrapper
             routeDefinition={readOneAgentSessionRouteDefinition}
             body={{
-                idAgentSession: params.idAgentSession,
+                idAgentSession: idAgentSession,
             }}
         >
             {(agentSession) => {
@@ -714,7 +731,7 @@ export function AgentSessionContent() {
                             <DataWrapper
                                 routeDefinition={readAllAgentMessagesRouteDefinition}
                                 body={{
-                                    idAgentSession: params.idAgentSession,
+                                    idAgentSession: idAgentSession,
                                 }}
                             >
                                 {(agentMessages) => {
@@ -817,7 +834,7 @@ export function AgentSessionContent() {
                                         setDraftReferences(references)
                                     }}
                                     disabled={isSubmitting}
-                                    idOrganization={params.idOrganization}
+                                    idOrganization={idOrganization}
                                     idYear={agentSession.idYear}
                                 />
                                 <input
@@ -908,7 +925,7 @@ export function AgentSessionContent() {
                                                                         routeDefinition:
                                                                             updateOneAgentSessionRouteDefinition,
                                                                         body: {
-                                                                            idAgentSession: params.idAgentSession,
+                                                                            idAgentSession: idAgentSession,
                                                                             fileIds: remaining.map((f) => f.idFile),
                                                                         },
                                                                     })
@@ -917,7 +934,7 @@ export function AgentSessionContent() {
                                                                             routeDefinition:
                                                                                 readOneAgentSessionRouteDefinition,
                                                                             body: {
-                                                                                idAgentSession: params.idAgentSession,
+                                                                                idAgentSession: idAgentSession,
                                                                             },
                                                                         })
                                                                     }

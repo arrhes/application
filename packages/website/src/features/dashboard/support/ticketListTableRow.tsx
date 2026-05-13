@@ -1,9 +1,9 @@
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Chip, formatDate, LinkContent } from "@arrhes/ui"
+import { Button, Chip, formatDate, LinkContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import type * as v from "valibot"
 import { ListTable } from "../../../components/layouts/listTable/listTable.tsx"
-import { LinkButton } from "../../../components/linkButton.tsx"
+import { TabLink } from "../../../components/layouts/tabBar/tabLink.js"
 
 const categoryLabels: Record<string, string> = {
     bug: "Erreur",
@@ -64,26 +64,30 @@ export function TicketListTableRow(props: { ticket: v.InferOutput<typeof returne
                             gap: "0.75rem",
                         })}
                     >
-                        <LinkButton
-                            to="/dashboard/support/tickets/$idTicket"
-                            params={{
-                                idTicket: props.ticket.id,
+                        <TabLink
+                            args={{
+                                component: "ticket",
+                                props: {
+                                    idTicket: props.ticket.id,
+                                },
                             }}
                         >
-                            <LinkContent
-                                className={css({
-                                    fontSize: "base",
-                                    fontWeight: "semibold",
-                                    color: "primary",
-                                    textDecoration: "none",
-                                    _hover: {
-                                        textDecoration: "underline",
-                                    },
-                                })}
-                            >
-                                {`Ticket - ${categoryLabel}`}
-                            </LinkContent>
-                        </LinkButton>
+                            <Button>
+                                <LinkContent
+                                    className={css({
+                                        fontSize: "base",
+                                        fontWeight: "semibold",
+                                        color: "primary",
+                                        textDecoration: "none",
+                                        _hover: {
+                                            textDecoration: "underline",
+                                        },
+                                    })}
+                                >
+                                    {`Ticket - ${categoryLabel}`}
+                                </LinkContent>
+                            </Button>
+                        </TabLink>
                     </div>
                     <div
                         className={css({

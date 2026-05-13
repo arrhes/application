@@ -9,6 +9,7 @@ export const updateUserRouteDefinition = routeDefinition({
     schemas: {
         body: v.object({
             alias: v.optional(userSchema.entries.alias),
+            dashboardMode: v.optional(userSchema.entries.dashboardMode),
         }),
         return: userSchemaReturn,
     },

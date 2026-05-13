@@ -17,7 +17,10 @@ export async function checkDatabaseSchema(db: DbClient) {
     }
 
     // Query all columns present in the public schema
-    const rows = await db.execute<{ table_name: string; column_name: string }>(
+    const rows = await db.execute<{
+        table_name: string
+        column_name: string
+    }>(
         sql`SELECT table_name, column_name
             FROM information_schema.columns
             WHERE table_schema = 'public'`,
@@ -62,9 +65,7 @@ export async function checkDatabaseSchema(db: DbClient) {
     }
 
     if (drift.length > 0) {
-        throw new Error(
-            `Database schema is out of date — run migrations before starting the API:\n${drift.join("\n")}`,
-        )
+        throw new Error(`Database schema is out of date — run migrations before starting the API:\n${drift.join("\n")}`)
     }
 
     console.info(`Database schema check passed (${expected.size} tables verified)`)

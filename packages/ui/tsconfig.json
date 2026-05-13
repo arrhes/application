@@ -27,7 +27,9 @@
         "noFallthroughCasesInSwitch": true,
         "noUncheckedSideEffectImports": true,
         "ignoreDeprecations": "6.0",
-        "baseUrl": "."
+        "baseUrl": ".",
+        "incremental": true,
+        "tsBuildInfoFile": "./.tsbuildinfo"
     },
-    "include": ["panda.config.ts", "src", "styled-system"]
+    "include": ["panda.config.ts", "src"]
 }

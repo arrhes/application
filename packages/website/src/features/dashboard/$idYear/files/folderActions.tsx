@@ -7,8 +7,8 @@ import { useState } from "react"
 import type * as v from "valibot"
 import { ConfirmationModal } from "../../../../components/overlays/dialog/confirmationModal.js"
 import { Dialog } from "../../../../components/overlays/dialog/dialog.js"
-import { Drawer } from "../../../../components/overlays/drawer/drawer.js"
 import { Popover } from "../../../../components/overlays/popover/popover.js"
+import { useTabs } from "../../../../contexts/tabs/tabsContext.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
 import { MoveOneFolderForm } from "./moveOneFolderForm.js"
@@ -19,9 +19,9 @@ export function FolderActions(props: {
     idOrganization: string
     onFolderOpen: (folderId: string | null) => void
 }) {
-    const [editOpen, setEditOpen] = useState(false)
     const [moveOpen, setMoveOpen] = useState(false)
     const [deleteOpen, setDeleteOpen] = useState(false)
+    const { openPanelTab, closeTab } = useTabs()
 
     async function handleDelete() {
         const deleteResponse = await getResponseBodyFromAPI({
@@ -90,7 +90,24 @@ export function FolderActions(props: {
                             className={css({
                                 width: "100%",
                             })}
-                            onClick={() => setEditOpen(true)}
+                            onClick={() => {
+                                const r = {
+                                    current: "",
+                                }
+                                r.current = openPanelTab(
+                                    "Renommer le dossier",
+                                    <div
+                                        className={css({
+                                            padding: "2rem",
+                                        })}
+                                    >
+                                        <UpdateOneFolderForm
+                                            folder={props.folder}
+                                            onSuccess={() => closeTab(r.current)}
+                                        />
+                                    </div>,
+                                )
+                            }}
                         >
                             <ButtonGhostContent
                                 leftIcon={<IconPencil />}
@@ -140,21 +157,6 @@ export function FolderActions(props: {
                     </Popover.Close>
                 </Popover.Content>
             </Popover.Root>
-
-            <Drawer.Root
-                open={editOpen}
-                onOpenChange={setEditOpen}
-            >
-                <Drawer.Content>
-                    <Drawer.Header title="Renommer le dossier" />
-                    <Drawer.Body>
-                        <UpdateOneFolderForm
-                            folder={props.folder}
-                            onSuccess={() => setEditOpen(false)}
-                        />
-                    </Drawer.Body>
-                </Drawer.Content>
-            </Drawer.Root>
 
             <Dialog.Root
                 open={moveOpen}

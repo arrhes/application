@@ -9,11 +9,10 @@ import { css } from "@arrhes/ui/css"
 import { IconArrowsMove, IconDotsVertical, IconEye, IconFileText, IconPencil, IconTrash } from "@tabler/icons-react"
 import { useState } from "react"
 import type * as v from "valibot"
-import { LinkButton } from "../../../../components/linkButton.js"
 import { ConfirmationModal } from "../../../../components/overlays/dialog/confirmationModal.js"
 import { Dialog } from "../../../../components/overlays/dialog/dialog.js"
-import { Drawer } from "../../../../components/overlays/drawer/drawer.js"
 import { Popover } from "../../../../components/overlays/popover/popover.js"
+import { useTabs } from "../../../../contexts/tabs/tabsContext.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
 import { useDataFromAPI } from "../../../../utilities/useHTTPData.ts"
@@ -22,11 +21,11 @@ import { deleteFileWithSignedUrl } from "./deleteFileWithSignedUrl.js"
 import { MoveOneFileForm } from "./moveOneFileForm.js"
 
 export function FileActions(props: { file: v.InferOutput<typeof returnedSchemas.file>; idOrganization: string }) {
-    const [editOpen, setEditOpen] = useState(false)
     const [moveOpen, setMoveOpen] = useState(false)
     const [deleteOpen, setDeleteOpen] = useState(false)
     const [ocrLoading, setOcrLoading] = useState(false)
     const [ocrTooltipOpen, setOcrTooltipOpen] = useState(false)
+    const { openPanelTab, closeTab, openTab } = useTabs()
 
     const subscription = useDataFromAPI({
         routeDefinition: readOrganizationBillingRouteDefinition,
@@ -104,12 +103,16 @@ export function FileActions(props: { file: v.InferOutput<typeof returnedSchemas.
                     })}
                 >
                     <Popover.Close asChild>
-                        <LinkButton
-                            to="/dashboard/organisations/$idOrganization/stockage/$idFile"
-                            params={{
-                                idOrganization: props.idOrganization,
-                                idFile: props.file.id,
-                            }}
+                        <Button
+                            onClick={() =>
+                                openTab({
+                                    component: "fichier",
+                                    props: {
+                                        idOrganization: props.idOrganization,
+                                        idFile: props.file.id,
+                                    },
+                                })
+                            }
                             className={css({
                                 width: "100%",
                             })}
@@ -122,14 +125,31 @@ export function FileActions(props: { file: v.InferOutput<typeof returnedSchemas.
                                     justifyContent: "start",
                                 })}
                             />
-                        </LinkButton>
+                        </Button>
                     </Popover.Close>
                     <Popover.Close asChild>
                         <Button
                             className={css({
                                 width: "100%",
                             })}
-                            onClick={() => setEditOpen(true)}
+                            onClick={() => {
+                                const r = {
+                                    current: "",
+                                }
+                                r.current = openPanelTab(
+                                    "Modifier le fichier",
+                                    <div
+                                        className={css({
+                                            padding: "2rem",
+                                        })}
+                                    >
+                                        <UpdateOneFileForm
+                                            file={props.file}
+                                            onSuccess={() => closeTab(r.current)}
+                                        />
+                                    </div>,
+                                )
+                            }}
                         >
                             <ButtonGhostContent
                                 leftIcon={<IconPencil />}
@@ -237,21 +257,6 @@ export function FileActions(props: { file: v.InferOutput<typeof returnedSchemas.
                     </Popover.Close>
                 </Popover.Content>
             </Popover.Root>
-
-            <Drawer.Root
-                open={editOpen}
-                onOpenChange={setEditOpen}
-            >
-                <Drawer.Content>
-                    <Drawer.Header title="Modifier le fichier" />
-                    <Drawer.Body>
-                        <UpdateOneFileForm
-                            file={props.file}
-                            onSuccess={() => setEditOpen(false)}
-                        />
-                    </Drawer.Body>
-                </Drawer.Content>
-            </Drawer.Root>
 
             <Dialog.Root
                 open={moveOpen}

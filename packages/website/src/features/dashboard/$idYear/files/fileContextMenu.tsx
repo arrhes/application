@@ -8,7 +8,7 @@ import type * as v from "valibot"
 import { ContextMenu } from "../../../../components/overlays/contextMenu/contextMenu.js"
 import { ConfirmationModal } from "../../../../components/overlays/dialog/confirmationModal.js"
 import { Dialog } from "../../../../components/overlays/dialog/dialog.js"
-import { Drawer } from "../../../../components/overlays/drawer/drawer.js"
+import { useTabs } from "../../../../contexts/tabs/tabsContext.js"
 import { applicationRouter } from "../../../../routes/applicationRouter.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
 import { UpdateOneFileForm } from "./$idFile/updateOneFileForm.js"
@@ -20,9 +20,9 @@ export function FileContextMenu(props: {
     idOrganization: string
     children: ReactElement
 }) {
-    const [editOpen, setEditOpen] = useState(false)
     const [moveOpen, setMoveOpen] = useState(false)
     const [deleteOpen, setDeleteOpen] = useState(false)
+    const { openPanelTab, closeTab } = useTabs()
 
     async function handleDelete() {
         const isDeleted = await deleteFileWithSignedUrl({
@@ -69,7 +69,24 @@ export function FileContextMenu(props: {
                     </ContextMenu.Item>
                     <ContextMenu.Item
                         leftIcon={<IconPencil />}
-                        onSelect={() => setEditOpen(true)}
+                        onSelect={() => {
+                            const r = {
+                                current: "",
+                            }
+                            r.current = openPanelTab(
+                                "Modifier le fichier",
+                                <div
+                                    className={css({
+                                        padding: "2rem",
+                                    })}
+                                >
+                                    <UpdateOneFileForm
+                                        file={props.file}
+                                        onSuccess={() => closeTab(r.current)}
+                                    />
+                                </div>,
+                            )
+                        }}
                     >
                         Modifier
                     </ContextMenu.Item>
@@ -89,22 +106,6 @@ export function FileContextMenu(props: {
                     </ContextMenu.Item>
                 </ContextMenu.Content>
             </ContextMenu.Root>
-
-            {/* Edit drawer (controlled externally) */}
-            <Drawer.Root
-                open={editOpen}
-                onOpenChange={setEditOpen}
-            >
-                <Drawer.Content>
-                    <Drawer.Header title="Modifier le fichier" />
-                    <Drawer.Body>
-                        <UpdateOneFileForm
-                            file={props.file}
-                            onSuccess={() => setEditOpen(false)}
-                        />
-                    </Drawer.Body>
-                </Drawer.Content>
-            </Drawer.Root>
 
             <Dialog.Root
                 open={moveOpen}

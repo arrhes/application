@@ -12,7 +12,6 @@ import { useState } from "react"
 import type * as v from "valibot"
 import { DataBlock } from "../../../../../components/layouts/dataBlock/dataBlock.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
-import { entryLayoutRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/entries/$idEntry/entryLayoutRoute.tsx"
 import { getResponseBodyFromAPI } from "../../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../../utilities/invalidateData.js"
 import type { YearDataKey } from "../../yearDataWrapper.tsx"
@@ -24,18 +23,23 @@ const requiredKeys = [
     "tags",
 ] as const satisfies readonly YearDataKey[]
 
-export function EntryCategoriesTab() {
+export function EntryCategoriesTab(props: { idYear?: string; idEntry?: string } = {}) {
     const params = useParams({
-        from: entryLayoutRoute.id,
-    })
+        strict: false,
+    }) as {
+        idYear?: string
+        idEntry?: string
+    }
+    const idYear = props.idYear ?? params.idYear ?? ""
+    const idEntry = props.idEntry ?? params.idEntry ?? ""
 
     return (
         <YearDataWrapper
-            idYear={params.idYear}
+            idYear={idYear}
             requiredKeys={requiredKeys}
         >
             {({ entries, entryTags, tags }) => {
-                const entry = entries.find((r) => r.id === params.idEntry)
+                const entry = entries.find((r) => r.id === idEntry)
                 if (entry === undefined) return null
 
                 return (
@@ -43,7 +47,7 @@ export function EntryCategoriesTab() {
                         entry={entry}
                         entryTags={entryTags}
                         tags={tags}
-                        idYear={params.idYear}
+                        idYear={idYear}
                     />
                 )
             }}

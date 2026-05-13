@@ -3,6 +3,7 @@ import { and, eq } from "drizzle-orm"
 import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
+import { Exception } from "../../../../utilities/exception.js"
 import { response } from "../../../../utilities/response.js"
 import { selectMany } from "../../../../utilities/sql/selectMany.js"
 
@@ -10,6 +11,13 @@ export const readAllYearsRoute = apiFactory.createApp().post(readAllYearsRouteDe
     const { idOrganization } = await checkUserSessionMiddleware({
         context: c,
     })
+    if (!idOrganization) {
+        throw new Exception({
+            statusCode: 400,
+            internalMessage: "idOrganization is required for readAllYears",
+            externalMessage: "Organization identifier is required",
+        })
+    }
     const _body = await validateBodyMiddleware({
         context: c,
         schema: readAllYearsRouteDefinition.schemas.body,

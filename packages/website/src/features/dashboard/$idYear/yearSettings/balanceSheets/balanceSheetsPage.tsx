@@ -7,14 +7,24 @@ import { Box } from "../../../../../components/layouts/box.tsx"
 import { Page } from "../../../../../components/layouts/page/page.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
 import { Tab } from "../../../../../components/layouts/tab/tab.tsx"
-import { balanceSheetsLayoutRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/balanceSheets/balanceSheetsLayoutRoute.tsx"
 import { BalanceSheetTable } from "./balanceSheetTable.tsx"
 import { CreateOneBalanceSheet } from "./createOneBalanceSheet.tsx"
 
-export function BalanceSheetsPage() {
+export function BalanceSheetsPage({
+    idOrganization: idOrganizationProp,
+    idYear: idYearProp,
+}: {
+    idOrganization?: string
+    idYear?: string
+} = {}) {
     const params = useParams({
-        from: balanceSheetsLayoutRoute.id,
-    })
+        strict: false,
+    }) as {
+        idOrganization?: string
+        idYear?: string
+    }
+    const idOrganization = idOrganizationProp ?? params.idOrganization ?? ""
+    const idYear = idYearProp ?? params.idYear ?? ""
     const [globalFilter, setGlobalFilter] = useState("")
     const [, startTransition] = useTransition()
     const pathname = useRouterState({
@@ -40,8 +50,8 @@ export function BalanceSheetsPage() {
                                     icon: <IconScale />,
                                     to: "/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/bilan/actif",
                                     params: {
-                                        idOrganization: params.idOrganization,
-                                        idYear: params.idYear,
+                                        idOrganization: idOrganization,
+                                        idYear: idYear,
                                     },
                                 },
                                 {
@@ -49,8 +59,8 @@ export function BalanceSheetsPage() {
                                     icon: <IconScale />,
                                     to: "/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/bilan/passif",
                                     params: {
-                                        idOrganization: params.idOrganization,
-                                        idYear: params.idYear,
+                                        idOrganization: idOrganization,
+                                        idYear: idYear,
                                     },
                                 },
                             ]}
@@ -68,8 +78,8 @@ export function BalanceSheetsPage() {
                             })}
                         >
                             <CreateOneBalanceSheet
-                                idOrganization={params.idOrganization}
-                                idYear={params.idYear}
+                                idOrganization={idOrganization}
+                                idYear={idYear}
                             >
                                 <ButtonPlainContent
                                     leftIcon={<IconPlus />}
@@ -97,8 +107,8 @@ export function BalanceSheetsPage() {
                             })}
                         >
                             <BalanceSheetTable
-                                idOrganization={params.idOrganization}
-                                idYear={params.idYear}
+                                idOrganization={idOrganization}
+                                idYear={idYear}
                                 side={side}
                                 globalFilter={globalFilter}
                             />

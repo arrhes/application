@@ -22,6 +22,13 @@ export const userSchema = v.object({
     passwordSalt: v.nonNullable(stringSchema, "Ce champ est requis"),
     createdAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),
     lastUpdatedAt: v.nullable(dateTimeSchema),
+    dashboardMode: v.nonNullable(
+        v.picklist([
+            "tabs",
+            "classic",
+        ]),
+        "Ce champ est requis",
+    ),
 }) satisfies v.GenericSchema<typeof userModel.$inferSelect>
 
 export const userSchemaReturn = v.pick(userSchema, [
@@ -38,4 +45,5 @@ export const userSchemaReturn = v.pick(userSchema, [
     "passwordSalt",
     "createdAt",
     "lastUpdatedAt",
+    "dashboardMode",
 ])

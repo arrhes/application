@@ -6,14 +6,24 @@ import { useCallback, useState, useTransition } from "react"
 import { Box } from "../../../../../components/layouts/box.tsx"
 import { Page } from "../../../../../components/layouts/page/page.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
-import { accountsRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/accounts/accountsRoute.tsx"
 import { AccountsTable } from "./accountsTable.tsx"
 import { CreateOneAccount } from "./createOneAccount.tsx"
 
-export function AccountsPage() {
+export function AccountsPage({
+    idOrganization: idOrganizationProp,
+    idYear: idYearProp,
+}: {
+    idOrganization?: string
+    idYear?: string
+} = {}) {
     const params = useParams({
-        from: accountsRoute.id,
-    })
+        strict: false,
+    }) as {
+        idOrganization?: string
+        idYear?: string
+    }
+    const idOrganization = idOrganizationProp ?? params.idOrganization ?? ""
+    const idYear = idYearProp ?? params.idYear ?? ""
 
     const [globalFilter, setGlobalFilter] = useState("")
     const [, startTransition] = useTransition()
@@ -39,8 +49,8 @@ export function AccountsPage() {
                             })}
                         >
                             <CreateOneAccount
-                                idOrganization={params.idOrganization}
-                                idYear={params.idYear}
+                                idOrganization={idOrganization}
+                                idYear={idYear}
                             >
                                 <ButtonPlainContent
                                     leftIcon={<IconPlus />}
@@ -65,8 +75,8 @@ export function AccountsPage() {
                             })}
                         >
                             <AccountsTable
-                                idOrganization={params.idOrganization}
-                                idYear={params.idYear}
+                                idOrganization={idOrganization}
+                                idYear={idYear}
                                 globalFilter={globalFilter}
                             />
                         </Box>

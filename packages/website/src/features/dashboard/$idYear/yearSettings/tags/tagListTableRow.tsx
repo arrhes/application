@@ -3,7 +3,7 @@ import { formatDate, LinkContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import type * as v from "valibot"
 import { ListTable } from "../../../../../components/layouts/listTable/listTable.tsx"
-import { LinkButton } from "../../../../../components/linkButton.tsx"
+import { UpdateOneTag } from "./$idTag/updateOneTag.tsx"
 
 export function TagListTableRow(props: { tag: v.InferOutput<typeof schemas.tag> }) {
     const createdAt = formatDate(props.tag.createdAt)
@@ -35,14 +35,7 @@ export function TagListTableRow(props: { tag: v.InferOutput<typeof schemas.tag> 
                             gap: "0.75rem",
                         })}
                     >
-                        <LinkButton
-                            to="/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/catégories/$idTag"
-                            params={{
-                                idOrganization: props.tag.idOrganization,
-                                idYear: props.tag.idYear,
-                                idTag: props.tag.id,
-                            }}
-                        >
+                        <UpdateOneTag tag={props.tag}>
                             <LinkContent
                                 className={css({
                                     fontSize: "base",
@@ -56,7 +49,7 @@ export function TagListTableRow(props: { tag: v.InferOutput<typeof schemas.tag> 
                             >
                                 {props.tag.label ?? undefined}
                             </LinkContent>
-                        </LinkButton>
+                        </UpdateOneTag>
                     </div>
                 </div>
                 <div

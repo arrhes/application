@@ -3,7 +3,6 @@ import { css } from "@arrhes/ui/utilities/cn.js"
 import { useParams } from "@tanstack/react-router"
 import { DataBlock } from "../../../../../components/layouts/dataBlock/dataBlock.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
-import { entryLayoutRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/entries/$idEntry/entryLayoutRoute.tsx"
 import type { YearDataKey } from "../../yearDataWrapper.tsx"
 import { YearDataWrapper } from "../../yearDataWrapper.tsx"
 
@@ -11,18 +10,23 @@ const requiredKeys = [
     "entries",
 ] as const satisfies readonly YearDataKey[]
 
-export function EntryMetadataTab() {
+export function EntryMetadataTab(props: { idYear?: string; idEntry?: string } = {}) {
     const params = useParams({
-        from: entryLayoutRoute.id,
-    })
+        strict: false,
+    }) as {
+        idYear?: string
+        idEntry?: string
+    }
+    const idYear = props.idYear ?? params.idYear ?? ""
+    const idEntry = props.idEntry ?? params.idEntry ?? ""
 
     return (
         <YearDataWrapper
-            idYear={params.idYear}
+            idYear={idYear}
             requiredKeys={requiredKeys}
         >
             {({ entries }) => {
-                const entry = entries.find((r) => r.id === params.idEntry)
+                const entry = entries.find((r) => r.id === idEntry)
                 if (entry === undefined) return null
 
                 return (

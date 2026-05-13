@@ -2,8 +2,8 @@ import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import type { ComponentProps } from "react"
 import type * as v from "valibot"
-import { LinkButton } from "../../../../../components/linkButton.tsx"
 import { ACCOUNT_ITEM_HEIGHT, INDENT_PER_LEVEL } from "../accounts/accountItem.tsx"
+import { UpdateOneBalanceSheet } from "./$idBalanceSheet/updateOneBalanceSheet.tsx"
 
 export function BalanceSheetRow(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
@@ -13,13 +13,8 @@ export function BalanceSheetRow(props: {
     className?: ComponentProps<"div">["className"]
 }) {
     return (
-        <LinkButton
-            to="/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/bilan/$idBalanceSheet"
-            params={{
-                idOrganization: props.idOrganization,
-                idYear: props.idYear,
-                idBalanceSheet: props.balanceSheet.id,
-            }}
+        <UpdateOneBalanceSheet
+            balanceSheet={props.balanceSheet}
             className={css({
                 width: "100%",
             })}
@@ -69,6 +64,6 @@ export function BalanceSheetRow(props: {
                     {props.balanceSheet.label}
                 </span>
             </div>
-        </LinkButton>
+        </UpdateOneBalanceSheet>
     )
 }

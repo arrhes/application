@@ -1,32 +1,28 @@
 import type {
     readAllAccountsRouteDefinition,
     readAllEntriesRouteDefinition,
-    readAllEntryLinesRouteDefinition,
-    readAllEntryTagsRouteDefinition,
-    readAllFilesRouteDefinition,
-    readAllJournalsRouteDefinition,
-    readAllTagsRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { FormatDate, FormatDateTime, FormatNull, FormatPrice, FormatText, LinkContent } from "@arrhes/ui"
+import { Button, FormatDate, FormatDateTime, FormatNull, FormatPrice, FormatText, LinkContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconPencil } from "@tabler/icons-react"
 import { useMemo } from "react"
 import type * as v from "valibot"
 import { DataTable } from "../../../../components/layouts/dataTable.js"
-import { LinkButton } from "../../../../components/linkButton.js"
+import { TabLink } from "../../../../components/layouts/tabBar/tabLink.js"
+import type { YearDataMaps } from "../yearDataWrapper.tsx"
 import { EntriesTableSelectionActions } from "./entriesTableSelectionActions.js"
 
 export function EntriesTable(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
     idYear: v.InferOutput<typeof returnedSchemas.year>["id"]
     entries: v.InferOutput<typeof readAllEntriesRouteDefinition.schemas.return>
-    entryLines: v.InferOutput<typeof readAllEntryLinesRouteDefinition.schemas.return>
-    entryTags: v.InferOutput<typeof readAllEntryTagsRouteDefinition.schemas.return>
-    journals: v.InferOutput<typeof readAllJournalsRouteDefinition.schemas.return>
-    tags: v.InferOutput<typeof readAllTagsRouteDefinition.schemas.return>
-    files: v.InferOutput<typeof readAllFilesRouteDefinition.schemas.return>
-    accounts: v.InferOutput<typeof readAllAccountsRouteDefinition.schemas.return>
+    accountById: YearDataMaps["accountById"]
+    entryLinesByEntryId: YearDataMaps["entryLinesByEntryId"]
+    entryTagsByEntryId: YearDataMaps["entryTagsByEntryId"]
+    journalById: YearDataMaps["journalById"]
+    tagById: YearDataMaps["tagById"]
+    fileById: YearDataMaps["fileById"]
 }) {
     const entriesData = useMemo(
         () =>
@@ -38,79 +34,18 @@ export function EntriesTable(props: {
         ],
     )
 
-    const linesByEntry = useMemo(() => {
-        const map = new Map<string, typeof props.entryLines>()
-        for (const row of props.entryLines) {
-            const existing = map.get(row.idEntry)
-            if (existing) {
-                existing.push(row)
-            } else {
-                map.set(row.idEntry, [
-                    row,
-                ])
-            }
-        }
-        return map
-    }, [
-        props.entryLines,
-    ])
-
-    const journalsMap = useMemo(() => {
-        const map = new Map<string, (typeof props.journals)[number]>()
-        for (const journal of props.journals) {
-            map.set(journal.id, journal)
-        }
-        return map
-    }, [
-        props.journals,
-    ])
-
-    const tagsMap = useMemo(() => {
-        const map = new Map<string, (typeof props.tags)[number]>()
-        for (const tag of props.tags) {
-            map.set(tag.id, tag)
-        }
-        return map
-    }, [
-        props.tags,
-    ])
-
+    const linesByEntry = props.entryLinesByEntryId
+    const journalsMap = props.journalById
+    const tagsMap = props.tagById
     const tagsByEntry = useMemo(() => {
-        const map = new Map<string, string[]>()
-        for (const entryTag of props.entryTags) {
-            const existing = map.get(entryTag.idEntry)
-            if (existing) {
-                existing.push(entryTag.idTag)
-            } else {
-                map.set(entryTag.idEntry, [
-                    entryTag.idTag,
-                ])
-            }
+        const m = new Map<string, string[]>()
+        for (const [entryId, ets] of props.entryTagsByEntryId) {
+            m.set(entryId, ets.map((et) => et.idTag))
         }
-        return map
-    }, [
-        props.entryTags,
-    ])
-
-    const filesMap = useMemo(() => {
-        const map = new Map<string, (typeof props.files)[number]>()
-        for (const file of props.files) {
-            map.set(file.id, file)
-        }
-        return map
-    }, [
-        props.files,
-    ])
-
-    const accountsMap = useMemo(() => {
-        const map = new Map<string, (typeof props.accounts)[number]>()
-        for (const account of props.accounts) {
-            map.set(account.id, account)
-        }
-        return map
-    }, [
-        props.accounts,
-    ])
+        return m
+    }, [props.entryTagsByEntryId])
+    const filesMap = props.fileById
+    const accountsMap = props.accountById
 
     return (
         <DataTable
@@ -134,16 +69,20 @@ export function EntriesTable(props: {
                     accessorKey: "label",
                     header: "Libellé",
                     cell: ({ row }) => (
-                        <LinkButton
-                            to="/dashboard/organisations/$idOrganization/exercices/$idYear/écritures/$idEntry"
-                            params={{
-                                idOrganization: row.original.idOrganization,
-                                idYear: row.original.idYear,
-                                idEntry: row.original.id,
+                        <TabLink
+                            args={{
+                                component: "\u00e9criture",
+                                props: {
+                                    idOrganization: row.original.idOrganization,
+                                    idYear: row.original.idYear,
+                                    idEntry: row.original.id,
+                                },
                             }}
                         >
-                            <LinkContent>{row.original.label}</LinkContent>
-                        </LinkButton>
+                            <Button>
+                                <LinkContent>{row.original.label}</LinkContent>
+                            </Button>
+                        </TabLink>
                     ),
                     filterFn: "includesString",
                 },
@@ -188,15 +127,19 @@ export function EntriesTable(props: {
                         const file = filesMap.get(row.original.idFile)
                         if (!file) return <FormatNull />
                         return (
-                            <LinkButton
-                                to="/dashboard/organisations/$idOrganization/stockage/$idFile"
-                                params={{
-                                    idOrganization: props.idOrganization,
-                                    idFile: file.id,
+                            <TabLink
+                                args={{
+                                    component: "fichier",
+                                    props: {
+                                        idOrganization: props.idOrganization,
+                                        idFile: file.id,
+                                    },
                                 }}
                             >
-                                <LinkContent>{file.name}</LinkContent>
-                            </LinkButton>
+                                <Button>
+                                    <LinkContent>{file.name}</LinkContent>
+                                </Button>
+                            </TabLink>
                         )
                     },
                     filterFn: "includesString",

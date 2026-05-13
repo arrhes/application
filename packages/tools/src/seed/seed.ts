@@ -63,13 +63,21 @@ async function triggerSeededMonthlyBilling() {
         return
     }
 
-    const response = await fetch(`${apiBaseUrl}${SEED_INTERNAL_API_PATH}`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "x-internal-api-key": internalApiKey,
-        },
-    })
+    let response: Response
+    try {
+        response = await fetch(`${apiBaseUrl}${SEED_INTERNAL_API_PATH}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "x-internal-api-key": internalApiKey,
+            },
+        })
+    } catch (err) {
+        console.warn(
+            `Skipping seeded monthly billing generation: API unreachable at ${apiBaseUrl} (${(err as Error).message}).`,
+        )
+        return
+    }
 
     if (!response.ok) {
         const body = await response.text()

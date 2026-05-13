@@ -1,11 +1,9 @@
 import type { returnedSchemas } from "@arrhes/application-metadata"
 import { getAmountTTCFromHTInCents, getTaxAmountFromHTInCents } from "@arrhes/application-metadata/utilities"
 import { Chip, type ChipColors } from "@arrhes/ui"
-import { useParams } from "@tanstack/react-router"
 import type { ColumnDef } from "@tanstack/react-table"
 import type * as v from "valibot"
 import { DataTable } from "../../../../../components/layouts/dataTable.tsx"
-import { organizationInvoicesRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/organizationBilling/organizationInvoicesRoute.tsx"
 import { InvoiceActionsPopover } from "./InvoiceActionsPopover.tsx"
 
 const invoiceStatusLabel: Record<string, string> = {
@@ -39,11 +37,7 @@ function getInvoiceTotalAmountInCents(invoice: Invoice) {
 
 type Invoice = v.InferOutput<typeof returnedSchemas.invoice>
 
-export function InvoicesTable(props: { invoices: Array<Invoice> }) {
-    const params = useParams({
-        from: organizationInvoicesRoute.id,
-    })
-
+export function InvoicesTable(props: { invoices: Array<Invoice>; idOrganization: string }) {
     const columns: Array<ColumnDef<Invoice>> = [
         {
             id: "period",
@@ -93,7 +87,7 @@ export function InvoicesTable(props: { invoices: Array<Invoice> }) {
             header: " ",
             cell: (context) => (
                 <InvoiceActionsPopover
-                    idOrganization={params.idOrganization}
+                    idOrganization={props.idOrganization}
                     invoice={context.row.original}
                 />
             ),

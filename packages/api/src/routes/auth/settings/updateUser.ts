@@ -20,6 +20,7 @@ export const updateUserRoute = apiFactory.createApp().post(updateUserRouteDefini
         table: models.user,
         data: {
             alias: body.alias,
+            dashboardMode: body.dashboardMode,
             lastUpdatedAt: new Date().toISOString(),
         },
         where: (table) => eq(table.id, user.id),

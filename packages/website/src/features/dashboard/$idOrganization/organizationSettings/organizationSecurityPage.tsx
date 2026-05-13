@@ -5,13 +5,15 @@ import { useParams } from "@tanstack/react-router"
 import { DataWrapper } from "../../../../components/layouts/dataWrapper.tsx"
 import { Page } from "../../../../components/layouts/page/page.tsx"
 import { SettingsSection } from "../../../../components/layouts/settingsSection/settingsSection.tsx"
-import { organizationSecurityRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/organizationSettings/organizationSecurityRoute.tsx"
 import { DeleteOneOrganization } from "./deleteOneOrganization.tsx"
 
-export function OrganizationSecurityPage() {
+export function OrganizationSecurityPage({ idOrganization: idOrganizationProp }: { idOrganization?: string } = {}) {
     const params = useParams({
-        from: organizationSecurityRoute.id,
-    })
+        strict: false,
+    }) as {
+        idOrganization?: string
+    }
+    const idOrganization = idOrganizationProp ?? params.idOrganization ?? ""
 
     return (
         <Page.Root>
@@ -19,7 +21,7 @@ export function OrganizationSecurityPage() {
                 <DataWrapper
                     routeDefinition={readOneOrganizationRouteDefinition}
                     body={{
-                        idOrganization: params.idOrganization,
+                        idOrganization,
                     }}
                 >
                     {(organization) => {

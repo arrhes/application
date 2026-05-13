@@ -4,7 +4,7 @@ import { toast } from "@arrhes/ui"
 import type { ComponentPropsWithRef, ReactElement } from "react"
 import type * as v from "valibot"
 import { ConfirmationModal } from "../../../../components/overlays/dialog/confirmationModal.tsx"
-import { applicationRouter } from "../../../../routes/applicationRouter.tsx"
+import { useTabs } from "../../../../contexts/tabs/tabsContext.tsx"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
 
@@ -12,6 +12,8 @@ export function DeleteOneYear(props: {
     year: v.InferOutput<typeof returnedSchemas.year>
     children: ReactElement<ComponentPropsWithRef<"div">>
 }) {
+    const { openTab } = useTabs()
+
     async function onSubmit() {
         const deleteResponse = await getResponseBodyFromAPI({
             routeDefinition: deleteOneYearRouteDefinition,
@@ -38,12 +40,17 @@ export function DeleteOneYear(props: {
             variant: "success",
         })
 
-        applicationRouter.navigate({
-            to: "/dashboard/organisations/$idOrganization/exercices",
-            params: {
-                idOrganization: props.year.idOrganization,
+        openTab(
+            {
+                component: "exercices",
+                props: {
+                    idOrganization: props.year.idOrganization,
+                },
             },
-        })
+            {
+                newTab: true,
+            },
+        )
     }
 
     return (

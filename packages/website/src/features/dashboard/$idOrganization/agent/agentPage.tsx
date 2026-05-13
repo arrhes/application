@@ -14,7 +14,6 @@ import type { KeyboardEvent } from "react"
 import { useEffect, useRef, useState } from "react"
 import { Popover } from "../../../../components/overlays/popover/popover.tsx"
 import { dataClient } from "../../../../contexts/data/queryClient.js"
-import { organizationPathRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/organizationPathRoute.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { useDataFromAPI } from "../../../../utilities/useHTTPData.js"
 
@@ -30,10 +29,19 @@ interface PendingFileItem {
     name: string
 }
 
-export function AgentPage() {
+export function AgentPage({
+    idOrganization: idOrganizationProp,
+    onSessionCreated,
+}: {
+    idOrganization?: string
+    onSessionCreated?: (id: string) => void
+} = {}) {
     const params = useParams({
-        from: organizationPathRoute.id,
-    })
+        strict: false,
+    }) as {
+        idOrganization?: string
+    }
+    const idOrganization = idOrganizationProp ?? params.idOrganization ?? ""
     const [input, setInput] = useState("")
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
@@ -81,7 +89,7 @@ export function AgentPage() {
             const agentSessionResponse = await getResponseBodyFromAPI({
                 routeDefinition: createOneAgentSessionRouteDefinition,
                 body: {
-                    idOrganization: params.idOrganization,
+                    idOrganization: idOrganization,
                     message: text.trim(),
                     idYear: selectedYearId || null,
                     customInstructions: customInstructions.trim() || null,
@@ -108,7 +116,7 @@ export function AgentPage() {
                 const createFileResponse = await getResponseBodyFromAPI({
                     routeDefinition: createOneAgentFileRouteDefinition,
                     body: {
-                        idOrganization: params.idOrganization,
+                        idOrganization: idOrganization,
                         idAgentSession: agentSessionResponse.data.id,
                         fileName: pendingFile.name,
                         fileType: file.type || "application/octet-stream",
@@ -161,7 +169,7 @@ export function AgentPage() {
             const agentMessageResponse = await getResponseBodyFromAPI({
                 routeDefinition: createOneAgentMessageRouteDefinition,
                 body: {
-                    idOrganization: params.idOrganization,
+                    idOrganization: idOrganization,
                     idAgentSession: agentSessionResponse.data.id,
                     message: text.trim(),
                 },
@@ -183,13 +191,17 @@ export function AgentPage() {
                 exact: false,
             })
 
-            navigate({
-                to: "/dashboard/organisations/$idOrganization/agent/sessions/$idAgentSession",
-                params: {
-                    idOrganization: params.idOrganization,
-                    idAgentSession: agentSessionResponse.data.id,
-                },
-            })
+            if (onSessionCreated) {
+                onSessionCreated(agentSessionResponse.data.id)
+            } else {
+                navigate({
+                    to: "/dashboard/organisations/$idOrganization/agent/sessions/$idAgentSession",
+                    params: {
+                        idOrganization: idOrganization,
+                        idAgentSession: agentSessionResponse.data.id,
+                    },
+                })
+            }
         } catch (error) {
             console.error("[createNewSession]", error)
             toast({

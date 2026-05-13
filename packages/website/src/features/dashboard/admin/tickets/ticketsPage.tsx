@@ -1,9 +1,9 @@
 import { adminReadAllTicketsRouteDefinition } from "@arrhes/application-metadata/routes"
-import { Badge, CircularLoader, formatDate } from "@arrhes/ui"
+import { Badge, Button, CircularLoader, formatDate } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconExternalLink } from "@tabler/icons-react"
 import type * as v from "valibot"
-import { LinkButton } from "../../../../components/linkButton.js"
+import { TabLink } from "../../../../components/layouts/tabBar/tabLink.js"
 import { useDataFromAPI } from "../../../../utilities/useHTTPData.js"
 
 const statusLabels: Record<string, string> = {
@@ -23,87 +23,92 @@ type Ticket = v.InferOutput<(typeof adminReadAllTicketsRouteDefinition)["schemas
 function TicketRow(props: { ticket: Ticket }) {
     const { ticket } = props
     return (
-        <LinkButton
-            to="/dashboard/admin/tickets/$idTicket"
-            params={{
-                idTicket: ticket.id,
+        <TabLink
+            args={{
+                component: "admin-ticket",
+                props: {
+                    idTicket: ticket.id,
+                },
             }}
-            className={css({
-                width: "100%",
-            })}
         >
-            <div
+            <Button
                 className={css({
                     width: "100%",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    gap: "1rem",
-                    padding: "0.75rem 1rem",
-                    border: "1px solid",
-                    borderColor: "neutral/10",
-                    borderRadius: "lg",
-                    cursor: "pointer",
-                    _hover: {
-                        backgroundColor: "neutral/3",
-                    },
-                    transition: "background-color 0.15s ease",
                 })}
             >
                 <div
                     className={css({
+                        width: "100%",
                         display: "flex",
-                        flexDirection: "column",
-                        gap: "0.25rem",
-                        minWidth: 0,
-                        flex: 1,
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        gap: "1rem",
+                        padding: "0.75rem 1rem",
+                        border: "1px solid",
+                        borderColor: "neutral/10",
+                        borderRadius: "lg",
+                        cursor: "pointer",
+                        _hover: {
+                            backgroundColor: "neutral/3",
+                        },
+                        transition: "background-color 0.15s ease",
                     })}
                 >
                     <div
                         className={css({
                             display: "flex",
-                            alignItems: "center",
-                            gap: "0.5rem",
-                            flexWrap: "wrap",
+                            flexDirection: "column",
+                            gap: "0.25rem",
+                            minWidth: 0,
+                            flex: 1,
                         })}
                     >
-                        <span
+                        <div
                             className={css({
-                                fontSize: "sm",
-                                fontWeight: "medium",
-                                color: "neutral",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "0.5rem",
+                                flexWrap: "wrap",
                             })}
                         >
-                            {ticket.id}
+                            <span
+                                className={css({
+                                    fontSize: "sm",
+                                    fontWeight: "medium",
+                                    color: "neutral",
+                                })}
+                            >
+                                {ticket.id}
+                            </span>
+                            <Badge>{statusLabels[ticket.status] ?? ticket.status}</Badge>
+                            <Badge>{categoryLabels[ticket.category] ?? ticket.category}</Badge>
+                        </div>
+                        <span
+                            className={css({
+                                fontSize: "xs",
+                                color: "neutral/50",
+                            })}
+                        >
+                            {`Cree le ${formatDate(ticket.createdAt, {
+                                includeTime: true,
+                            })}`}
+                            {ticket.lastUpdatedAt
+                                ? ` - Mis a jour le ${formatDate(ticket.lastUpdatedAt, {
+                                      includeTime: true,
+                                  })}`
+                                : ""}
                         </span>
-                        <Badge>{statusLabels[ticket.status] ?? ticket.status}</Badge>
-                        <Badge>{categoryLabels[ticket.category] ?? ticket.category}</Badge>
                     </div>
-                    <span
+                    <IconExternalLink
+                        size={16}
                         className={css({
-                            fontSize: "xs",
-                            color: "neutral/50",
+                            color: "neutral/40",
+                            flexShrink: 0,
                         })}
-                    >
-                        {`Cree le ${formatDate(ticket.createdAt, {
-                            includeTime: true,
-                        })}`}
-                        {ticket.lastUpdatedAt
-                            ? ` - Mis a jour le ${formatDate(ticket.lastUpdatedAt, {
-                                  includeTime: true,
-                              })}`
-                            : ""}
-                    </span>
+                    />
                 </div>
-                <IconExternalLink
-                    size={16}
-                    className={css({
-                        color: "neutral/40",
-                        flexShrink: 0,
-                    })}
-                />
-            </div>
-        </LinkButton>
+            </Button>
+        </TabLink>
     )
 }
 

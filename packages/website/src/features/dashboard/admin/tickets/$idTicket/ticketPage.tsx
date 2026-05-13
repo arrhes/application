@@ -7,7 +7,6 @@ import { Badge, CircularLoader, formatDate, Separator } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconCheck } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
-import { $idTicketLayoutRoute } from "../../../../../routes/root/dashboard/admin/tickets/$idTicket/$idTicketLayoutRoute.tsx"
 import { useDataFromAPI } from "../../../../../utilities/useHTTPData.js"
 import { CreateOneTicketMessage } from "./createOneTicketMessage.js"
 import { TicketMessageList } from "./ticketMessageList.js"
@@ -24,22 +23,23 @@ const categoryLabels: Record<string, string> = {
     other: "Autre",
 }
 
-export function TicketPage() {
+export function TicketPage(props: { idTicket?: string } = {}) {
     const params = useParams({
-        from: $idTicketLayoutRoute.id,
+        strict: false,
     })
+    const idTicket = props.idTicket ?? params.idTicket ?? ""
 
     const ticket = useDataFromAPI({
         routeDefinition: adminReadOneTicketRouteDefinition,
         body: {
-            idTicket: params.idTicket,
+            idTicket: idTicket,
         },
     })
 
     const messages = useDataFromAPI({
         routeDefinition: adminReadAllTicketMessagesRouteDefinition,
         body: {
-            idTicket: params.idTicket,
+            idTicket: idTicket,
         },
     })
 
@@ -227,7 +227,7 @@ export function TicketPage() {
 
             {ticket.data &&
                 (ticket.data.status === "open" ? (
-                    <CreateOneTicketMessage idTicket={params.idTicket} />
+                    <CreateOneTicketMessage idTicket={idTicket} />
                 ) : (
                     <div
                         className={css({
@@ -260,7 +260,7 @@ export function TicketPage() {
 
             <TicketMessageList
                 currentUserId={userSession.data?.user.id}
-                idTicket={params.idTicket}
+                idTicket={idTicket}
             />
         </div>
     )

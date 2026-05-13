@@ -2,8 +2,8 @@ import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import type { ComponentProps } from "react"
 import type * as v from "valibot"
-import { LinkButton } from "../../../../../components/linkButton.tsx"
 import { ACCOUNT_ITEM_HEIGHT, INDENT_PER_LEVEL } from "../accounts/accountItem.tsx"
+import { UpdateOneIncomeStatement } from "./$idIncomeStatement/updateOneIncomeStatement.tsx"
 
 export function IncomeStatementRow(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
@@ -13,13 +13,8 @@ export function IncomeStatementRow(props: {
     className?: ComponentProps<"div">["className"]
 }) {
     return (
-        <LinkButton
-            to="/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/compte-de-résultat/$idIncomeStatement"
-            params={{
-                idOrganization: props.idOrganization,
-                idYear: props.idYear,
-                idIncomeStatement: props.incomeStatement.id,
-            }}
+        <UpdateOneIncomeStatement
+            incomeStatement={props.incomeStatement}
             className={css({
                 width: "100%",
             })}
@@ -69,6 +64,6 @@ export function IncomeStatementRow(props: {
                     {props.incomeStatement.label}
                 </span>
             </div>
-        </LinkButton>
+        </UpdateOneIncomeStatement>
     )
 }

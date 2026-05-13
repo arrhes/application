@@ -9,6 +9,6 @@ export const entryRoute = createRoute({
     }),
     component: lazyRouteComponent(
         () => import("../../../../../../../../../features/dashboard/$idYear/entries/$idEntry/entryPage.js"),
-        "EntryPage",
+        "EntryRoutePage",
     ),
 })

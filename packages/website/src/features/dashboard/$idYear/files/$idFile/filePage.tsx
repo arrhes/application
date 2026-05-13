@@ -3,18 +3,19 @@ import { css } from "@arrhes/ui/utilities/cn.js"
 import { useParams } from "@tanstack/react-router"
 import { DataBlock } from "../../../../../components/layouts/dataBlock/dataBlock.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
-import { fileLayoutRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/storage/$idFile/fileLayoutRoute.tsx"
 import { FileData } from "./fileData.tsx"
 
-export function FilePage() {
+export function FilePage(props: { idOrganization?: string; idFile?: string } = {}) {
     const params = useParams({
-        from: fileLayoutRoute.id,
+        strict: false,
     })
+    const idOrganization = props.idOrganization ?? params.idOrganization ?? ""
+    const idFile = props.idFile ?? params.idFile ?? ""
 
     return (
         <FileData
-            idOrganization={params.idOrganization}
-            idFile={params.idFile}
+            idOrganization={idOrganization}
+            idFile={idFile}
         >
             {(file) => (
                 <Section.Item

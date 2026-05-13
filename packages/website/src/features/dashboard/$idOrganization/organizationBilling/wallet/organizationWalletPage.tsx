@@ -1,21 +1,15 @@
-import {
-    readAllOrganizationPaymentsRouteDefinition,
-    readOneOrganizationRouteDefinition,
-} from "@arrhes/application-metadata/routes"
+import { readOneOrganizationRouteDefinition } from "@arrhes/application-metadata/routes"
 import { FREE_STORAGE_BYTES, STORAGE_PRICE_PER_GB_IN_CENTS } from "@arrhes/application-metadata/utilities"
 import { Button, ButtonOutlineContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconAlertTriangle, IconCashMinus, IconPigMoney, IconPlus, IconWallet } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
-import { useState } from "react"
 import { DataWrapper } from "../../../../../components/layouts/dataWrapper.tsx"
 import { Page } from "../../../../../components/layouts/page/page.tsx"
 import { SettingsSection } from "../../../../../components/layouts/settingsSection/settingsSection.tsx"
-import { organizationBillingRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/organizationBilling/organizationBillingRoute.tsx"
+import { useTabs } from "../../../../../contexts/tabs/tabsContext.js"
 import { formatEuros } from "../../../../../utilities/formatEuros.tsx"
 import { OrganizationBillingDisclaimerBanner } from "./OrganizationBillingDisclaimerBanner.tsx"
-import { WalletTopUpDrawer } from "./WalletTopUpDrawer.tsx"
-import { WalletWithdrawalDrawer } from "./WalletWithdrawalDrawer.tsx"
 import { WalletCurrentMonth } from "./walletCurrentMonth.tsx"
 
 function getRecurringStorageAmountInCents(storageLimit: number) {
@@ -29,39 +23,22 @@ function getNextMonthSubscriptionAmountInCents(organization: { licenceAmount: nu
     return organization.licenceAmount + getRecurringStorageAmountInCents(organization.storageLimit)
 }
 
-function hasCurrentMonthWithdrawal(
-    payments: Array<{
-        category: string
-        createdAt: string
-        status: string
-    }>,
-) {
-    const now = new Date()
-
-    return payments.some((payment) => {
-        if (payment.category !== "withdrawal" || payment.status === "failed") {
-            return false
-        }
-
-        const createdAt = new Date(payment.createdAt)
-        return createdAt.getUTCFullYear() === now.getUTCFullYear() && createdAt.getUTCMonth() === now.getUTCMonth()
-    })
-}
-
-export function OrganizationWalletPage() {
-    const [refreshKey, setRefreshKey] = useState(0)
+export function OrganizationWalletPage({ idOrganization: idOrganizationProp }: { idOrganization?: string } = {}) {
+    const { openTab } = useTabs()
     const params = useParams({
-        from: organizationBillingRoute.id,
-    })
+        strict: false,
+    }) as {
+        idOrganization?: string
+    }
+    const idOrganization = idOrganizationProp ?? params.idOrganization ?? ""
 
     return (
         <Page.Root>
             <Page.Content>
                 <DataWrapper
-                    key={refreshKey}
                     routeDefinition={readOneOrganizationRouteDefinition}
                     body={{
-                        idOrganization: params.idOrganization,
+                        idOrganization,
                     }}
                 >
                     {(organization) => (
@@ -82,7 +59,7 @@ export function OrganizationWalletPage() {
 
                                 return (
                                     <>
-                                        <OrganizationBillingDisclaimerBanner idOrganization={params.idOrganization} />
+                                        <OrganizationBillingDisclaimerBanner idOrganization={idOrganization} />
                                         {isWalletShortForNextMonth ? (
                                             <div
                                                 className={css({
@@ -141,137 +118,139 @@ export function OrganizationWalletPage() {
                                                         </span>
                                                     </div>
                                                 </div>
-                                                <WalletTopUpDrawer onSuccess={() => setRefreshKey((key) => key + 1)}>
-                                                    <Button>
-                                                        <ButtonOutlineContent
-                                                            leftIcon={<IconPlus />}
-                                                            text="Recharger maintenant"
-                                                        />
-                                                    </Button>
-                                                </WalletTopUpDrawer>
+                                                <Button
+                                                    onClick={() =>
+                                                        openTab({
+                                                            component: "facturation-recharge",
+                                                            props: {
+                                                                idOrganization,
+                                                            },
+                                                        })
+                                                    }
+                                                >
+                                                    <ButtonOutlineContent
+                                                        leftIcon={<IconPlus />}
+                                                        text="Recharger maintenant"
+                                                    />
+                                                </Button>
                                             </div>
                                         ) : null}
-                                        <DataWrapper
-                                            routeDefinition={readAllOrganizationPaymentsRouteDefinition}
-                                            body={{}}
-                                        >
-                                            {(payments) => (
-                                                <SettingsSection.Root>
-                                                    <SettingsSection.Header
-                                                        title="Portefeuille"
-                                                        description="Montant actuellement disponible dans votre portefeuille."
-                                                    />
+                                        <SettingsSection.Root>
+                                            <SettingsSection.Header
+                                                title="Portefeuille"
+                                                description="Montant actuellement disponible dans votre portefeuille."
+                                            />
+                                            <div
+                                                className={css({
+                                                    display: "flex",
+                                                    flexDirection: "column",
+                                                    gap: "1rem",
+                                                })}
+                                            >
+                                                <div
+                                                    className={css({
+                                                        display: "flex",
+                                                        flexDirection: "row",
+                                                        justifyContent: "flex-end",
+                                                        alignItems: "center",
+                                                        gap: "0.5rem",
+                                                    })}
+                                                >
+                                                    <Button
+                                                        onClick={() =>
+                                                            openTab({
+                                                                component: "facturation-recharge",
+                                                                props: {
+                                                                    idOrganization,
+                                                                },
+                                                            })
+                                                        }
+                                                    >
+                                                        <ButtonOutlineContent
+                                                            leftIcon={<IconPigMoney />}
+                                                            text="Recharger le portefeuille"
+                                                        />
+                                                    </Button>
+                                                    <Button
+                                                        isDisabled={organization.walletBalanceInCents <= 0}
+                                                        onClick={() =>
+                                                            openTab({
+                                                                component: "facturation-retrait",
+                                                                props: {
+                                                                    idOrganization,
+                                                                },
+                                                            })
+                                                        }
+                                                    >
+                                                        <ButtonOutlineContent
+                                                            leftIcon={<IconCashMinus />}
+                                                            text="Retirer"
+                                                        />
+                                                    </Button>
+                                                </div>
+                                                <div className={css({})}>
                                                     <div
                                                         className={css({
-                                                            display: "flex",
-                                                            flexDirection: "column",
-                                                            gap: "1rem",
+                                                            borderRadius: "3xl",
+                                                            padding: {
+                                                                base: "1.25rem",
+                                                                md: "1.5rem",
+                                                            },
+                                                            background:
+                                                                "radial-gradient(circle at top right, rgba(111, 184, 200, 0.2), transparent 28%), linear-gradient(180deg, #06111b 0%, #0d1726 48%, #111c2d 100%)",
+                                                            color: "white",
+                                                            border: "1px solid rgba(148, 163, 184, 0.28)",
+                                                            // boxShadow: "0 24px 50px rgba(2, 6, 23, 0.38)",
                                                         })}
                                                     >
                                                         <div
                                                             className={css({
                                                                 display: "flex",
-                                                                flexDirection: "row",
-                                                                justifyContent: "flex-end",
-                                                                alignItems: "center",
+                                                                flexDirection: "column",
                                                                 gap: "0.5rem",
                                                             })}
                                                         >
-                                                            <WalletTopUpDrawer
-                                                                onSuccess={() => setRefreshKey((key) => key + 1)}
-                                                            >
-                                                                <Button>
-                                                                    <ButtonOutlineContent
-                                                                        leftIcon={<IconPigMoney />}
-                                                                        text="Recharger le portefeuille"
-                                                                    />
-                                                                </Button>
-                                                            </WalletTopUpDrawer>
-                                                            <WalletWithdrawalDrawer
-                                                                currentBalanceInCents={
-                                                                    organization.walletBalanceInCents
-                                                                }
-                                                                hasWithdrawalThisMonth={hasCurrentMonthWithdrawal(
-                                                                    payments,
-                                                                )}
-                                                                onSuccess={() => setRefreshKey((key) => key + 1)}
-                                                            >
-                                                                <Button
-                                                                    isDisabled={organization.walletBalanceInCents <= 0}
-                                                                >
-                                                                    <ButtonOutlineContent
-                                                                        leftIcon={<IconCashMinus />}
-                                                                        text="Retirer"
-                                                                    />
-                                                                </Button>
-                                                            </WalletWithdrawalDrawer>
-                                                        </div>
-                                                        <div className={css({})}>
-                                                            <div
+                                                            <span
                                                                 className={css({
-                                                                    borderRadius: "3xl",
-                                                                    padding: {
-                                                                        base: "1.25rem",
-                                                                        md: "1.5rem",
-                                                                    },
-                                                                    background:
-                                                                        "radial-gradient(circle at top right, rgba(111, 184, 200, 0.2), transparent 28%), linear-gradient(180deg, #06111b 0%, #0d1726 48%, #111c2d 100%)",
-                                                                    color: "white",
-                                                                    border: "1px solid rgba(148, 163, 184, 0.28)",
-                                                                    // boxShadow: "0 24px 50px rgba(2, 6, 23, 0.38)",
+                                                                    display: "inline-flex",
+                                                                    alignItems: "center",
+                                                                    gap: "0.5rem",
+                                                                    fontSize: "xs",
+                                                                    fontWeight: "600",
+                                                                    letterSpacing: "0.06em",
+                                                                    textTransform: "uppercase",
+                                                                    color: "rgba(226, 232, 240, 0.98)",
                                                                 })}
                                                             >
-                                                                <div
+                                                                <IconWallet
+                                                                    size={15}
                                                                     className={css({
-                                                                        display: "flex",
-                                                                        flexDirection: "column",
-                                                                        gap: "0.5rem",
+                                                                        stroke: "white",
                                                                     })}
-                                                                >
-                                                                    <span
-                                                                        className={css({
-                                                                            display: "inline-flex",
-                                                                            alignItems: "center",
-                                                                            gap: "0.5rem",
-                                                                            fontSize: "xs",
-                                                                            fontWeight: "600",
-                                                                            letterSpacing: "0.06em",
-                                                                            textTransform: "uppercase",
-                                                                            color: "rgba(226, 232, 240, 0.98)",
-                                                                        })}
-                                                                    >
-                                                                        <IconWallet
-                                                                            size={15}
-                                                                            className={css({
-                                                                                stroke: "white",
-                                                                            })}
-                                                                        />
-                                                                        Montant disponible
-                                                                    </span>
-                                                                    <span
-                                                                        className={css({
-                                                                            fontSize: {
-                                                                                base: "3xl",
-                                                                                md: "4xl",
-                                                                            },
-                                                                            lineHeight: "1",
-                                                                            fontWeight: "700",
-                                                                            fontVariantNumeric: "tabular-nums",
-                                                                            letterSpacing: "-0.03em",
-                                                                            textShadow:
-                                                                                "0 6px 18px rgba(0, 0, 0, 0.24)",
-                                                                            color: "white",
-                                                                        })}
-                                                                    >
-                                                                        {formatEuros(organization.walletBalanceInCents)}
-                                                                    </span>
-                                                                </div>
-                                                            </div>
+                                                                />
+                                                                Montant disponible
+                                                            </span>
+                                                            <span
+                                                                className={css({
+                                                                    fontSize: {
+                                                                        base: "3xl",
+                                                                        md: "4xl",
+                                                                    },
+                                                                    lineHeight: "1",
+                                                                    fontWeight: "700",
+                                                                    fontVariantNumeric: "tabular-nums",
+                                                                    letterSpacing: "-0.03em",
+                                                                    textShadow: "0 6px 18px rgba(0, 0, 0, 0.24)",
+                                                                    color: "white",
+                                                                })}
+                                                            >
+                                                                {formatEuros(organization.walletBalanceInCents)}
+                                                            </span>
                                                         </div>
                                                     </div>
-                                                </SettingsSection.Root>
-                                            )}
-                                        </DataWrapper>
+                                                </div>
+                                            </div>
+                                        </SettingsSection.Root>
                                         <SettingsSection.Root>
                                             <SettingsSection.Header
                                                 title="Mois en cours"

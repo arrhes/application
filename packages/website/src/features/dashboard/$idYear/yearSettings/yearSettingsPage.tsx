@@ -6,14 +6,25 @@ import { DataWrapper } from "../../../../components/layouts/dataWrapper.tsx"
 import { Page } from "../../../../components/layouts/page/page.tsx"
 import { PageRoot } from "../../../../components/layouts/page/pageRoot.tsx"
 import { SettingsSection } from "../../../../components/layouts/settingsSection/settingsSection.tsx"
-import { yearSettingsRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/yearSettingsRoute.tsx"
 import { DeleteOneYear } from "./deleteOneYear.tsx"
 import { UpdateOneYear } from "./updateOneYear.tsx"
 
-export function YearSettingsPage() {
+export function YearSettingsPage({
+    idOrganization: idOrganizationProp,
+    idYear: idYearProp,
+}: {
+    idOrganization?: string
+    idYear?: string
+} = {}) {
     const params = useParams({
-        from: yearSettingsRoute.id,
-    })
+        strict: false,
+    }) as {
+        idOrganization?: string
+        idYear?: string
+    }
+    const idOrganization = idOrganizationProp ?? params.idOrganization ?? ""
+    const idYear = idYearProp ?? params.idYear ?? ""
+    void idOrganization
 
     return (
         <PageRoot>
@@ -21,7 +32,7 @@ export function YearSettingsPage() {
                 <DataWrapper
                     routeDefinition={readOneYearRouteDefinition}
                     body={{
-                        idYear: params.idYear,
+                        idYear: idYear,
                     }}
                 >
                     {(year) => {

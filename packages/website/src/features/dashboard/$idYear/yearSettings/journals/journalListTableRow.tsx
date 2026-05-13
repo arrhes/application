@@ -3,7 +3,7 @@ import { Chip, formatDate, LinkContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import type * as v from "valibot"
 import { ListTable } from "../../../../../components/layouts/listTable/listTable.tsx"
-import { LinkButton } from "../../../../../components/linkButton.tsx"
+import { UpdateOneJournal } from "./$idJournal/updateOneJournal.tsx"
 
 export function JournalListTableRow(props: { journal: v.InferOutput<typeof schemas.journal> }) {
     const createdAt = formatDate(props.journal.createdAt)
@@ -35,14 +35,7 @@ export function JournalListTableRow(props: { journal: v.InferOutput<typeof schem
                             gap: "0.75rem",
                         })}
                     >
-                        <LinkButton
-                            to="/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/journaux/$idJournal"
-                            params={{
-                                idOrganization: props.journal.idOrganization,
-                                idYear: props.journal.idYear,
-                                idJournal: props.journal.id,
-                            }}
-                        >
+                        <UpdateOneJournal journal={props.journal}>
                             <LinkContent
                                 className={css({
                                     fontSize: "base",
@@ -56,7 +49,7 @@ export function JournalListTableRow(props: { journal: v.InferOutput<typeof schem
                             >
                                 {props.journal.label ?? undefined}
                             </LinkContent>
-                        </LinkButton>
+                        </UpdateOneJournal>
                     </div>
                     <div
                         className={css({

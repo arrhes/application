@@ -607,12 +607,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
             const fileRows = await db
                 .select()
                 .from(models.file)
-                .where(
-                    and(
-                        eq(models.file.idOrganization, idOrganization),
-                        eq(models.file.id, idFile),
-                    ),
-                )
+                .where(and(eq(models.file.idOrganization, idOrganization), eq(models.file.id, idFile)))
                 .limit(1)
             const sourceFile = fileRows.at(0)
             if (!sourceFile)
