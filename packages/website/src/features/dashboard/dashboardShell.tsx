@@ -12,8 +12,9 @@ import {
     IconUser,
 } from "@tabler/icons-react"
 import { Outlet } from "@tanstack/react-router"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { CommandPalette } from "../../components/layouts/commandPalette/commandPalette.js"
+import { SplitTabBar } from "../../components/layouts/tabBar/splitTabBar.js"
 import { TabBar } from "../../components/layouts/tabBar/tabBar.js"
 import { Popover } from "../../components/overlays/popover/popover.js"
 import { type ComponentTab, currentEntry, useTabs } from "../../contexts/tabs/tabsContext.js"
@@ -22,8 +23,8 @@ import { useOuterRouter } from "../../contexts/tabs/useOuterRouter.js"
 import { deleteCookies } from "../../utilities/cookies/deleteCookies.js"
 import { setCookie } from "../../utilities/cookies/setCookie.js"
 import { getResponseBodyFromAPI } from "../../utilities/getResponseBodyFromAPI.js"
-import { cookiePrefix } from "../../utilities/variables.js"
 import { useDataFromAPI } from "../../utilities/useHTTPData.js"
+import { cookiePrefix } from "../../utilities/variables.js"
 import { OrganizationContextSelect } from "./OrganizationContextSelect.js"
 import { YearContextSelect } from "./YearContextSelect.js"
 
@@ -33,8 +34,56 @@ const SELECTED_YEAR_KEY = "arrhes:context-year"
 // ─── Inner shell — rendered inside TabsProvider ──────────────────────────────
 
 export function DashboardShell() {
-    const { tabs, activeTabId, openTab } = useTabs()
+    const { tabs, activeTabId, activateTab, openTab, reorderTabs, closeTab } = useTabs()
     const applicationRouter = useOuterRouter()
+    const [splitPosition, setSplitPosition] = useState(50)
+    const containerRef = useRef<HTMLDivElement>(null)
+    const isDragging = useRef(false)
+    const dragStartX = useRef(0)
+    const dragStartPosition = useRef(50)
+
+    const handleMouseMove = useCallback((e: MouseEvent) => {
+        if (!isDragging.current || !containerRef.current) return
+        const rect = containerRef.current.getBoundingClientRect()
+        const deltaX = e.clientX - dragStartX.current
+        const deltaPct = (deltaX / rect.width) * 100
+        const newPct = Math.min(80, Math.max(20, dragStartPosition.current + deltaPct))
+        setSplitPosition(newPct)
+    }, [])
+
+    const handleMouseUp = useCallback(() => {
+        isDragging.current = false
+        window.removeEventListener("mousemove", handleMouseMove)
+        window.removeEventListener("mouseup", handleMouseUp)
+        document.body.style.cursor = ""
+        document.body.style.userSelect = ""
+    }, [handleMouseMove])
+
+    const handleDragStart = useCallback(
+        (e: React.MouseEvent) => {
+            isDragging.current = true
+            dragStartX.current = e.clientX
+            dragStartPosition.current = splitPosition
+            document.body.style.cursor = "col-resize"
+            document.body.style.userSelect = "none"
+            window.addEventListener("mousemove", handleMouseMove)
+            window.addEventListener("mouseup", handleMouseUp)
+        },
+        [splitPosition, handleMouseMove, handleMouseUp],
+    )
+
+    useEffect(
+        () => () => {
+            window.removeEventListener("mousemove", handleMouseMove)
+            window.removeEventListener("mouseup", handleMouseUp)
+        },
+        [handleMouseMove, handleMouseUp],
+    )
+
+    const [rightPanel, setRightPanel] = useState<{
+        tabIds: string[]
+        activeTabId: string
+    } | null>(null)
     const [selectedOrgId, setSelectedOrgId] = useState<string | null>(() => {
         try {
             const id = localStorage.getItem(SELECTED_ORG_KEY) ?? null
@@ -51,6 +100,62 @@ export function DashboardShell() {
             return null
         }
     })
+
+    // Listen for split-tab events dispatched from the tab bar context menu.
+    const handleSplitTab = useCallback(
+        (e: Event) => {
+            const tabId = (e as CustomEvent<{ tabId: string }>).detail.tabId
+            setRightPanel((prev) => {
+                if (!prev) return { tabIds: [tabId], activeTabId: tabId }
+                if (prev.tabIds.includes(tabId)) return { ...prev, activeTabId: tabId }
+                return { tabIds: [...prev.tabIds, tabId], activeTabId: tabId }
+            })
+            // If the tab was active in the left panel, switch to another left-panel tab.
+            if (tabId === activeTabId) {
+                const rightIds = new Set(rightPanel?.tabIds ?? [])
+                rightIds.add(tabId)
+                const remaining = tabs.filter((t) => !rightIds.has(t.id))
+                if (remaining.length > 0) activateTab(remaining[remaining.length - 1].id)
+            }
+        },
+        [activeTabId, tabs, rightPanel, activateTab],
+    )
+
+    useEffect(() => {
+        window.addEventListener("arrhes:split-tab", handleSplitTab)
+        return () => window.removeEventListener("arrhes:split-tab", handleSplitTab)
+    }, [handleSplitTab])
+
+    // Remove closed tabs from right panel.
+    useEffect(() => {
+        if (!rightPanel) return
+        const existingIds = new Set(tabs.map((t) => t.id))
+        const filtered = rightPanel.tabIds.filter((id) => existingIds.has(id))
+        if (filtered.length === rightPanel.tabIds.length) return
+        if (filtered.length === 0) {
+            setRightPanel(null)
+        } else {
+            const newActive = filtered.includes(rightPanel.activeTabId)
+                ? rightPanel.activeTabId
+                : filtered[filtered.length - 1]
+            setRightPanel({
+                tabIds: filtered,
+                activeTabId: newActive,
+            })
+        }
+    }, [
+        tabs,
+        rightPanel,
+    ])
+
+    // Auto-close split view when the left panel would have no tabs.
+    useEffect(() => {
+        if (!rightPanel) return
+        const rightSet = new Set(rightPanel.tabIds)
+        if (tabs.filter((t) => !rightSet.has(t.id)).length === 0) {
+            setRightPanel(null)
+        }
+    }, [tabs, rightPanel])
 
     // Update browser title when active tab changes.
     useEffect(() => {
@@ -359,26 +464,145 @@ export function DashboardShell() {
                 </nav>
             </header>
 
-            {/* Tab bar */}
-            <TabBar />
-
-            {/* Tab content area */}
+            {/* Tab bar + content area — panels side by side when split */}
             <div
+                ref={containerRef}
                 className={css({
                     width: "100%",
                     flex: "1",
                     display: "flex",
-                    flexDirection: "column",
+                    flexDirection: "row",
                     minHeight: 0,
                     overflow: "hidden",
                     backgroundColor: "white",
                 })}
             >
-                <Outlet />
-                <TabContentArea
-                    activeTabId={activeTabId}
-                    tabs={tabs}
-                />
+                {/* Main / left panel — has its own tab bar */}
+                <div
+                    style={{
+                        flex: rightPanel ? `0 0 ${splitPosition}%` : "1 1 0%",
+                        display: "flex",
+                        flexDirection: "column",
+                        minHeight: 0,
+                        overflow: "hidden",
+                    }}
+                >
+                    <TabBar
+                        excludeTabIds={rightPanel?.tabIds ?? []}
+                        onMergePanels={rightPanel ? () => setRightPanel(null) : undefined}
+                        onDropFromRight={(tabId, insertBeforeTabId) => {
+                            setRightPanel((prev) => {
+                                if (!prev) return null
+                                const next = prev.tabIds.filter((id) => id !== tabId)
+                                return next.length === 0
+                                    ? null
+                                    : {
+                                          tabIds: next,
+                                          activeTabId: next.includes(prev.activeTabId)
+                                              ? prev.activeTabId
+                                              : next[next.length - 1],
+                                      }
+                            })
+                            reorderTabs(tabId, insertBeforeTabId)
+                            activateTab(tabId)
+                        }}
+                    />
+                    <Outlet />
+                    <TabContentArea
+                        activeTabId={activeTabId}
+                        tabs={tabs.filter((t) => !rightPanel?.tabIds.includes(t.id))}
+                    />
+                </div>
+
+                {/* Split / right panel */}
+                {rightPanel && (
+                    <>
+                        {/* Drag handle */}
+                        <div
+                            className={css({
+                                flexShrink: 0,
+                                width: "4px",
+                                cursor: "col-resize",
+                                background: "neutral/10",
+                                transition: "background 0.15s",
+                                _hover: { background: "neutral/30" },
+                                _active: { background: "neutral/50" },
+                            })}
+                            onMouseDown={handleDragStart}
+                        />
+                        {/* Right panel */}
+                        <div
+                            style={{
+                                flex: "1 1 0%",
+                                display: "flex",
+                                flexDirection: "column",
+                                minHeight: 0,
+                                overflow: "hidden",
+                            }}
+                        >
+                            <SplitTabBar
+                                tabIds={rightPanel.tabIds}
+                                activeTabId={rightPanel.activeTabId}
+                                onActivate={(tabId) =>
+                                    setRightPanel(
+                                        (prev) =>
+                                            prev && {
+                                                ...prev,
+                                                activeTabId: tabId,
+                                            },
+                                    )
+                                }
+                                onRemove={(tabId) => {
+                                    setRightPanel((prev) => {
+                                        if (!prev) return null
+                                        const next = prev.tabIds.filter((id) => id !== tabId)
+                                        if (next.length === 0) {
+                                            closeTab(tabId)
+                                            return null
+                                        }
+                                        const newActive =
+                                            prev.activeTabId === tabId ? next[next.length - 1] : prev.activeTabId
+                                        return {
+                                            tabIds: next,
+                                            activeTabId: newActive,
+                                        }
+                                    })
+                                }}
+                                onReorder={(tabId, insertBeforeTabId) =>
+                                    setRightPanel((prev) => {
+                                        if (!prev) return null
+                                        const without = prev.tabIds.filter((id) => id !== tabId)
+                                        if (insertBeforeTabId === null)
+                                            return { ...prev, tabIds: [...without, tabId] }
+                                        const idx = without.indexOf(insertBeforeTabId)
+                                        const tabIds =
+                                            idx === -1
+                                                ? [...without, tabId]
+                                                : [...without.slice(0, idx), tabId, ...without.slice(idx)]
+                                        return { ...prev, tabIds }
+                                    })
+                                }
+                                onDropFromLeft={(tabId, insertBeforeTabId) =>
+                                    setRightPanel((prev) => {
+                                        const existing = prev?.tabIds.filter((id) => id !== tabId) ?? []
+                                        if (insertBeforeTabId === null)
+                                            return { tabIds: [...existing, tabId], activeTabId: tabId }
+                                        const idx = existing.indexOf(insertBeforeTabId)
+                                        const tabIds =
+                                            idx === -1
+                                                ? [...existing, tabId]
+                                                : [...existing.slice(0, idx), tabId, ...existing.slice(idx)]
+                                        return { tabIds, activeTabId: tabId }
+                                    })
+                                }
+                            />
+                            <TabContentArea
+                                activeTabId={rightPanel.activeTabId}
+                                tabs={tabs.filter((t) => rightPanel.tabIds.includes(t.id))}
+                            />
+                        </div>
+                    </>
+                )}
             </div>
 
             {/* Command palette / search */}

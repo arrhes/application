@@ -488,6 +488,18 @@ export function TabsProvider({ children }: Props) {
         )
     }, [])
 
+    const reorderTabs = useCallback((tabId: string, beforeTabId: string | null) => {
+        setTabs((prev) => {
+            const tab = prev.find((t) => t.id === tabId)
+            if (!tab) return prev
+            const without = prev.filter((t) => t.id !== tabId)
+            if (beforeTabId === null) return [...without, tab]
+            const idx = without.findIndex((t) => t.id === beforeTabId)
+            if (idx === -1) return [...without, tab]
+            return [...without.slice(0, idx), tab, ...without.slice(idx)]
+        })
+    }, [])
+
     const value = useMemo<TabsContextValue>(
         () => ({
             tabs,
@@ -499,6 +511,7 @@ export function TabsProvider({ children }: Props) {
             navigateForward,
             openPanelTab,
             updateTabTitle,
+            reorderTabs,
         }),
         [
             tabs,
@@ -510,6 +523,7 @@ export function TabsProvider({ children }: Props) {
             navigateForward,
             openPanelTab,
             updateTabTitle,
+            reorderTabs,
         ],
     )
 

@@ -170,10 +170,15 @@ export function CommandPalette(props: { selectedOrgId: string | null; selectedYe
 
     function activate(item: SearchRoute) {
         setOpen(false)
-        openTab({
-            component: item.tabComponent,
-            props: item.tabProps,
-        } as OpenTabArgs)
+        openTab(
+            {
+                component: item.tabComponent,
+                props: item.tabProps,
+            } as OpenTabArgs,
+            {
+                newTab: true,
+            },
+        )
     }
 
     function handleKeyDown(e: React.KeyboardEvent) {

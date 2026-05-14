@@ -28,6 +28,10 @@ export function ContextMenuItem(
                     _hover: {
                         backgroundColor: "neutral/5",
                     },
+                    "&[data-highlighted]": {
+                        backgroundColor: "neutral/5",
+                        outline: "none",
+                    },
                 }),
                 color === "danger"
                     ? css({

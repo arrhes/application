@@ -75,6 +75,7 @@ export type TabsContextValue = {
     navigateForward: (tabId: string) => void
     openPanelTab: (title: string, component: React.ReactNode, icon?: string) => string
     updateTabTitle: (id: string, title: string) => void
+    reorderTabs: (tabId: string, beforeTabId: string | null) => void
 }
 
 export const TabsContext = createContext<TabsContextValue | null>(null)
