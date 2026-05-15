@@ -9,5 +9,5 @@ export const rootAiDocRoute = createRoute({
         description:
             "Documentation de l'assistant IA d'Arrhes : un assistant comptable intelligent pour gérer vos données.",
     }),
-    component: lazyRouteComponent(() => import("../../../../features/docs/ai/rootAiDocPage.tsx"), "RootAiDocPage"),
+    component: lazyRouteComponent(() => import("../../../../features/docs/ai/RootAiDocPage.tsx"), "RootAiDocPage"),
 })

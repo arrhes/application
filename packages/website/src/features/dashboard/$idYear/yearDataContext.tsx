@@ -13,7 +13,7 @@ import {
     readAllTagsRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import { type UseQueryResult, useQuery } from "@tanstack/react-query"
-import { createContext, type ReactNode, useContext, useMemo } from "react"
+import { createContext, type ReactNode, useMemo } from "react"
 import type * as v from "valibot"
 import { ClientError } from "../../../utilities/clientError.ts"
 import { getResponseBodyFromAPI } from "../../../utilities/getResponseBodyFromAPI.ts"
@@ -46,16 +46,16 @@ type YearScopedRouteDefinition = {
     schemas: {
         body: v.ObjectSchema<v.ObjectEntries, undefined>
         return:
-            | v.ObjectSchema<v.ObjectEntries, undefined>
-            | v.ArraySchema<v.ObjectSchema<v.ObjectEntries, undefined>, undefined>
+        | v.ObjectSchema<v.ObjectEntries, undefined>
+        | v.ArraySchema<v.ObjectSchema<v.ObjectEntries, undefined>, undefined>
     }
 }
 
-type YearDataContextValue = {
+export type YearDataContextValue = {
     [K in YearDataKey]: UseQueryResult<YearData[K]>
 }
 
-const YearDataContext = createContext<YearDataContextValue | null>(null)
+export const YearDataContext = createContext<YearDataContextValue | null>(null)
 
 function useYearQuery<K extends YearDataKey>(
     key: K,
@@ -145,10 +145,4 @@ export function YearDataProvider(props: { idYear: string; children: ReactNode })
     return <YearDataContext.Provider value={value}>{props.children}</YearDataContext.Provider>
 }
 
-export function useYearData(): YearDataContextValue {
-    const context = useContext(YearDataContext)
-    if (context === null) {
-        throw new Error("useYearData must be used within a YearDataProvider")
-    }
-    return context
-}
+

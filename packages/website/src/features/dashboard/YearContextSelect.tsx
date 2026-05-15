@@ -1,17 +1,18 @@
 import { readAllYearsRouteDefinition } from "@arrhes/application-metadata"
 import { Button, ButtonGhostContent, ButtonPlainContent, Separator } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
+import { IconChevronDown } from "@tabler/icons-react"
+import { useState } from "react"
 import { Popover } from "../../components/overlays/popover/popover.js"
-import { useTabs } from "../../contexts/tabs/tabsContext.js"
 import { useDataFromAPI } from "../../utilities/useHTTPData.js"
+import { CreateOneYear } from "./$idOrganization/years/CreateOneYear.js"
 
 export function YearContextSelect(props: {
     value: string | null
     onChange: (v: string | null) => void
     idOrganizationSelected: string | null
 }) {
-    const { openTab } = useTabs()
-
+    const [open, setOpen] = useState(false)
     const yearsData = useDataFromAPI({
         routeDefinition: readAllYearsRouteDefinition,
         body: { idOrganization: props.idOrganizationSelected ?? undefined },
@@ -28,30 +29,22 @@ export function YearContextSelect(props: {
     const selectedLabel = options.find((option) => option.key === props.value)?.label
 
     if (options.length === 0) {
+        if (!props.idOrganizationSelected) return null
         return (
-            <Button
-                onClick={() =>
-                    props.idOrganizationSelected !== null &&
-                    openTab({
-                        component: "exercices",
-                        props: {
-                            idOrganization: props.idOrganizationSelected,
-                        },
-                    })
-                }
-            >
+            <CreateOneYear idOrganization={props.idOrganizationSelected}>
                 <ButtonPlainContent text="Ajouter un exercice" />
-            </Button>
+            </CreateOneYear>
         )
     }
 
     return (
-        <Popover.Root>
+        <Popover.Root open={open} onOpenChange={setOpen}>
             <Popover.Trigger asChild>
                 <Button hasLoader={yearsData.isPending}>
                     <ButtonGhostContent
                         text={selectedLabel ?? "Sélectionner un exercice"}
                         isLoading={yearsData.isPending}
+                        rightIcon={<IconChevronDown />}
                     />
                 </Button>
             </Popover.Trigger>
@@ -68,11 +61,13 @@ export function YearContextSelect(props: {
                 {options.map((option) => (
                     <Button
                         key={option.key}
-                        onClick={() => props.onChange(option.key === props.value ? null : option.key)}
+                        onClick={() => {
+                            props.onChange(option.key === props.value ? null : option.key)
+                            setOpen(false)
+                        }}
                         className={css({
                             width: "100%",
-                        })}
-                    >
+                        })}>
                         <ButtonGhostContent
                             text={option.label}
                             isCurrent={option.key === props.value}
@@ -88,28 +83,24 @@ export function YearContextSelect(props: {
                         marginY: "0.25rem",
                     })}
                 />
-                <Button
-                    onClick={() =>
-                        props.idOrganizationSelected !== null &&
-                        openTab({
-                            component: "exercices",
-                            props: {
-                                idOrganization: props.idOrganizationSelected,
-                            },
-                        })
-                    }
-                    className={css({
-                        width: "100%",
-                    })}
-                >
-                    <ButtonGhostContent
-                        text="Ajouter un exercice"
-                        className={css({
-                            width: "100%",
-                            justifyContent: "start",
-                        })}
-                    />
-                </Button>
+                {props.idOrganizationSelected !== null && (
+                    <div onClick={() => setOpen(false)}>
+                        <CreateOneYear
+                            idOrganization={props.idOrganizationSelected}
+                            className={css({
+                                width: "100%",
+                            })}
+                        >
+                            <ButtonGhostContent
+                                text="Ajouter un exercice"
+                                className={css({
+                                    width: "100%",
+                                    justifyContent: "start",
+                                })}
+                            />
+                        </CreateOneYear>
+                    </div>
+                )}
             </Popover.Content>
         </Popover.Root>
     )

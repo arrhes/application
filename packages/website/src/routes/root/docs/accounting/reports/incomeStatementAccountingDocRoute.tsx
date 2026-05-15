@@ -10,7 +10,7 @@ export const incomeStatementAccountingDocRoute = createRoute({
             "Le compte de résultat : document de synthèse présentant les produits et charges de l'exercice pour déterminer le résultat net.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../features/docs/accounting/reports/incomeStatementAccountingDocPage.tsx"),
+        () => import("../../../../../features/docs/accounting/reports/IncomeStatementAccountingDocPage.tsx"),
         "IncomeStatementAccountingDocPage",
     ),
 })

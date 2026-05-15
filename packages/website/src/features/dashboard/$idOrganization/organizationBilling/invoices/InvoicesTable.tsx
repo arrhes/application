@@ -3,7 +3,7 @@ import { getAmountTTCFromHTInCents, getTaxAmountFromHTInCents } from "@arrhes/ap
 import { Chip, type ChipColors } from "@arrhes/ui"
 import type { ColumnDef } from "@tanstack/react-table"
 import type * as v from "valibot"
-import { DataTable } from "../../../../../components/layouts/dataTable.tsx"
+import { DataTable } from "../../../../../components/layouts/DataTable.tsx"
 import { InvoiceActionsPopover } from "./InvoiceActionsPopover.tsx"
 
 const invoiceStatusLabel: Record<string, string> = {

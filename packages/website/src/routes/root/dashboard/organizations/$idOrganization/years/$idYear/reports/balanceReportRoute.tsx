@@ -8,7 +8,7 @@ export const balanceReportRoute = createRoute({
         title: "Balance",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../../../../features/dashboard/$idYear/reports/balanceReport/balanceReportPage.js"),
+        () => import("../../../../../../../../features/dashboard/$idYear/reports/balanceReport/BalanceReportPage.js"),
         "BalanceReportPage",
     ),
 })

@@ -10,7 +10,7 @@ export const organizationInvoicesRoute = createRoute({
     component: lazyRouteComponent(
         () =>
             import(
-                "../../../../../../features/dashboard/$idOrganization/organizationBilling/invoices/organizationInvoicesPage.js"
+                "../../../../../../features/dashboard/$idOrganization/organizationBilling/invoices/OrganizationInvoicesPage.js"
             ),
         "OrganizationInvoicesPage",
     ),

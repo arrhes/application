@@ -1,8 +1,8 @@
-import { ContextMenuContent } from "./contextMenuContent.js"
-import { ContextMenuItem } from "./contextMenuItem.js"
-import { ContextMenuRoot } from "./contextMenuRoot.js"
-import { ContextMenuSeparator } from "./contextMenuSeparator.js"
-import { ContextMenuTrigger } from "./contextMenuTrigger.js"
+import { ContextMenuContent } from "./ContextMenuContent.js"
+import { ContextMenuItem } from "./ContextMenuItem.js"
+import { ContextMenuRoot } from "./ContextMenuRoot.js"
+import { ContextMenuSeparator } from "./ContextMenuSeparator.js"
+import { ContextMenuTrigger } from "./ContextMenuTrigger.js"
 
 export const ContextMenu = {
     Root: ContextMenuRoot,

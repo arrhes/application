@@ -8,7 +8,7 @@ export const entryLinesRoute = createRoute({
         title: "Mouvements",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../../../../../features/dashboard/$idYear/entries/$idEntry/entryLinesTab.js"),
+        () => import("../../../../../../../../../features/dashboard/$idYear/entries/$idEntry/EntryLinesTab.js"),
         "EntryLinesTab",
     ),
 })

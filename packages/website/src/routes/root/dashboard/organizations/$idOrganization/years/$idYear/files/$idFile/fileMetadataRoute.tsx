@@ -8,7 +8,7 @@ export const fileMetadataRoute = createRoute({
         title: "Métadonnées",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../../../../../features/dashboard/$idYear/files/$idFile/fileMetadataTab.js"),
+        () => import("../../../../../../../../../features/dashboard/$idYear/files/$idFile/FileMetadataTab.js"),
         "FileMetadataTab",
     ),
 })

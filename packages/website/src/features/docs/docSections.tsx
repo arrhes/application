@@ -10,7 +10,7 @@ import {
     IconRobot,
     IconStack,
 } from "@tabler/icons-react"
-import type { DocSection } from "./sectionTab.tsx"
+import type { DocSection } from "./SectionTab.tsx"
 
 // Documentation sections configuration
 export const docSections: Record<string, DocSection> = {

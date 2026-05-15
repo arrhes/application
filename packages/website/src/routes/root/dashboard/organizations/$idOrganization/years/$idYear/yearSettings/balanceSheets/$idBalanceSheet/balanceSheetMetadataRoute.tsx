@@ -10,7 +10,7 @@ export const balanceSheetMetadataRoute = createRoute({
     component: lazyRouteComponent(
         () =>
             import(
-                "../../../../../../../../../../features/dashboard/$idYear/yearSettings/balanceSheets/$idBalanceSheet/balanceSheetMetadataTab.js"
+                "../../../../../../../../../../features/dashboard/$idYear/yearSettings/balanceSheets/$idBalanceSheet/BalanceSheetMetadataTab.js"
             ),
         "BalanceSheetMetadataTab",
     ),

@@ -118,6 +118,10 @@ export function TabsProvider({ children }: Props) {
         return null
     })
 
+    // Ordered list of recently focused tab IDs (most recent last).
+    // Used to determine which tab to activate after closing the active one.
+    const focusHistoryRef = useRef<string[]>([])
+
     // Track whether Ctrl / Meta is currently held so openTab can decide
     // whether to replace-in-place or create a new tab — without requiring
     // every call site to pass a flag.
@@ -200,7 +204,7 @@ export function TabsProvider({ children }: Props) {
             const entryId = tab ? currentEntry(tab).id : "0"
             window.history.replaceState({ tabId: activeTabId, entryId }, "", `/dashboard/${activeTabId}/${entryId}`)
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     // React to browser back/forward (mouse buttons, keyboard, browser UI).
@@ -292,10 +296,10 @@ export function TabsProvider({ children }: Props) {
                         prev.map((t) =>
                             t.id === activeTab.id
                                 ? {
-                                      ...t,
-                                      history: newHistory,
-                                      historyIndex: newIndex,
-                                  }
+                                    ...t,
+                                    history: newHistory,
+                                    historyIndex: newIndex,
+                                }
                                 : t,
                         ),
                         activeTab.id,
@@ -381,13 +385,20 @@ export function TabsProvider({ children }: Props) {
         if (idx === -1) return
         const next = current.filter((t) => t.id !== id)
         const currentActiveId = activeTabIdRef.current
+
+        // Remove closed tab from focus history.
+        focusHistoryRef.current = focusHistoryRef.current.filter((fid) => fid !== id)
+
         let newActiveId: string | null
         if (next.length === 0) {
             newActiveId = null
         } else if (currentActiveId !== id) {
             newActiveId = currentActiveId
         } else {
-            newActiveId = next[Math.min(idx, next.length - 1)].id
+            // Find the most recently focused tab that still exists.
+            const existingIds = new Set(next.map((t) => t.id))
+            const lastFocused = [...focusHistoryRef.current].reverse().find((fid) => existingIds.has(fid))
+            newActiveId = lastFocused ?? next[Math.min(idx, next.length - 1)].id
         }
 
         setTabs((prev) => {
@@ -400,7 +411,9 @@ export function TabsProvider({ children }: Props) {
             }
             setActiveTabId((currentActive) => {
                 if (currentActive !== id) return currentActive
-                return n[Math.min(i, n.length - 1)].id
+                const existingIds = new Set(n.map((t) => t.id))
+                const lastFocused = [...focusHistoryRef.current].reverse().find((fid) => existingIds.has(fid))
+                return lastFocused ?? n[Math.min(i, n.length - 1)].id
             })
             return n
         })
@@ -419,6 +432,9 @@ export function TabsProvider({ children }: Props) {
     }, [])
 
     const activateTab = useCallback((id: string) => {
+        // Record in focus history (append, deduplicate from earlier positions).
+        focusHistoryRef.current = [...focusHistoryRef.current.filter((fid) => fid !== id), id]
+
         setTabs((prev) => {
             const revived = prev.map((t) => {
                 if (t.type === "component" && t.id === id && !t.isAlive) {
@@ -441,13 +457,55 @@ export function TabsProvider({ children }: Props) {
         window.history.replaceState({ tabId: id, entryId }, "", `/dashboard/${id}/${entryId}`)
     }, [])
 
-    // Delegate to browser history — the popstate handler above updates React state.
-    const navigateBack = useCallback((_tabId: string) => {
-        window.history.back()
+    // Navigate within the tab's own history stack (does not add browser history entries).
+    const navigateBack = useCallback((tabId: string) => {
+        const tab = tabsRef.current.find((t): t is ComponentTab => t.type === "component" && t.id === tabId)
+        if (!tab || tab.historyIndex <= 0) return
+        const newIndex = tab.historyIndex - 1
+        const targetEntry = tab.history[newIndex]
+        setTabs((prev) => {
+            const t = prev.find((pt): pt is ComponentTab => pt.type === "component" && pt.id === tabId)
+            if (!t || t.historyIndex <= 0) return prev
+            const idx = t.historyIndex - 1
+            const history = t.history.map((e, i) => {
+                if (i !== idx || e.component !== null) return e
+                return buildEntry(e.definitionKey, e.definitionProps, e.id)
+            })
+            return applyLruEviction(
+                prev.map((pt) => (pt.id === tabId ? { ...t, history, historyIndex: idx } : pt)),
+                tabId,
+            )
+        })
+        window.history.replaceState(
+            { tabId, entryId: targetEntry.id },
+            "",
+            `/dashboard/${tabId}/${targetEntry.id}`,
+        )
     }, [])
 
-    const navigateForward = useCallback((_tabId: string) => {
-        window.history.forward()
+    const navigateForward = useCallback((tabId: string) => {
+        const tab = tabsRef.current.find((t): t is ComponentTab => t.type === "component" && t.id === tabId)
+        if (!tab || tab.historyIndex >= tab.history.length - 1) return
+        const newIndex = tab.historyIndex + 1
+        const targetEntry = tab.history[newIndex]
+        setTabs((prev) => {
+            const t = prev.find((pt): pt is ComponentTab => pt.type === "component" && pt.id === tabId)
+            if (!t || t.historyIndex >= t.history.length - 1) return prev
+            const idx = t.historyIndex + 1
+            const history = t.history.map((e, i) => {
+                if (i !== idx || e.component !== null) return e
+                return buildEntry(e.definitionKey, e.definitionProps, e.id)
+            })
+            return applyLruEviction(
+                prev.map((pt) => (pt.id === tabId ? { ...t, history, historyIndex: idx } : pt)),
+                tabId,
+            )
+        })
+        window.history.replaceState(
+            { tabId, entryId: targetEntry.id },
+            "",
+            `/dashboard/${tabId}/${targetEntry.id}`,
+        )
     }, [])
 
     const openPanelTab = useCallback((title: string, component: React.ReactNode, icon?: string): string => {
@@ -475,9 +533,9 @@ export function TabsProvider({ children }: Props) {
                 const history = t.history.map((e, i) =>
                     i === t.historyIndex
                         ? {
-                              ...e,
-                              title,
-                          }
+                            ...e,
+                            title,
+                        }
                         : e,
                 )
                 return {
@@ -534,62 +592,3 @@ export function TabsProvider({ children }: Props) {
     )
 }
 
-// ─── Pre-render each alive route tab so React keep-alive works ────────────────
-// For each alive ComponentTab we render ALL history entries in the DOM,
-// hiding non-current ones with display:none — this preserves React state
-// (scroll position, form values etc.) across back/forward navigation.
-
-type TabContentAreaProps = {
-    activeTabId: string | null
-    tabs: Tab[]
-}
-
-export function TabContentArea({ activeTabId, tabs }: TabContentAreaProps) {
-    const visibleStyle: React.CSSProperties = {
-        flex: 1,
-        minHeight: 0,
-        display: "flex",
-        flexDirection: "column",
-    }
-    const hiddenStyle: React.CSSProperties = {
-        display: "none",
-    }
-
-    return (
-        <>
-            {tabs.map((tab) => {
-                const isActiveTab = tab.id === activeTabId
-
-                if (tab.type === "panel") {
-                    return (
-                        <div
-                            key={tab.id}
-                            style={isActiveTab ? visibleStyle : hiddenStyle}
-                        >
-                            {tab.component}
-                        </div>
-                    )
-                }
-
-                // Component tab: only render if alive.
-                if (!tab.isAlive) return null
-
-                return (
-                    <div
-                        key={tab.id}
-                        style={isActiveTab ? visibleStyle : hiddenStyle}
-                    >
-                        {tab.history.map((entry, idx) => (
-                            <div
-                                key={`${tab.id}-h${idx}`}
-                                style={idx === tab.historyIndex ? visibleStyle : hiddenStyle}
-                            >
-                                {entry.component}
-                            </div>
-                        ))}
-                    </div>
-                )
-            })}
-        </>
-    )
-}

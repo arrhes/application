@@ -10,7 +10,7 @@ export const authenticationApiDocRoute = createRoute({
             "Authentification à l'API Arrhes : gestion des clés API, sessions utilisateurs et sécurité des requêtes.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../features/docs/api/authenticationApiDocPage.tsx"),
+        () => import("../../../../features/docs/api/AuthenticationApiDocPage.tsx"),
         "AuthenticationApiDocPage",
     ),
 })

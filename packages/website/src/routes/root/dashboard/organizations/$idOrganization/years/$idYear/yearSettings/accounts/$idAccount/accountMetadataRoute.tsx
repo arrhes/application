@@ -10,7 +10,7 @@ export const accountMetadataRoute = createRoute({
     component: lazyRouteComponent(
         () =>
             import(
-                "../../../../../../../../../../features/dashboard/$idYear/yearSettings/accounts/$idAccount/accountMetadataTab.js"
+                "../../../../../../../../../../features/dashboard/$idYear/yearSettings/accounts/$idAccount/AccountMetadataTab.js"
             ),
         "AccountMetadataTab",
     ),

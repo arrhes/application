@@ -10,7 +10,7 @@ export const introductionAccountingDocRoute = createRoute({
             "Introduction aux fondamentaux de la comptabilité française : principes, obligations légales et concepts de base.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../features/docs/accounting/introduction/introductionAccountingDocPage.js"),
+        () => import("../../../../../features/docs/accounting/introduction/IntroductionAccountingDocPage.js"),
         "IntroductionAccountingDocPage",
     ),
 })

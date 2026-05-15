@@ -8,7 +8,7 @@ export const entryLayoutRoute = createRoute({
         title: "Écriture",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../../../../../features/dashboard/$idYear/entries/$idEntry/entryLayout.js"),
+        () => import("../../../../../../../../../features/dashboard/$idYear/entries/$idEntry/EntryLayout.js"),
         "EntryLayout",
     ),
 })

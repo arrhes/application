@@ -16,7 +16,7 @@ export const scenarioAccountingDocRoute = createRoute({
     component: lazyRouteComponent(
         () =>
             import(
-                "../../../../../../features/docs/accounting/resources/scenarios/scenarioResourcesAccountingDocPage.tsx"
+                "../../../../../../features/docs/accounting/resources/scenarios/ScenarioResourcesAccountingDocPage.js"
             ),
         "ScenarioResourcesAccountingDocPage",
     ),

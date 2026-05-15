@@ -10,7 +10,7 @@ export const computationPostesRoute = createRoute({
     component: lazyRouteComponent(
         () =>
             import(
-                "../../../../../../../../../../../features/dashboard/$idYear/yearSettings/incomeStatements/computations/$idComputation/computationPostesTab.js"
+                "../../../../../../../../../../../features/dashboard/$idYear/yearSettings/incomeStatements/computations/$idComputation/ComputationPostesTab.js"
             ),
         "ComputationPostesTab",
     ),

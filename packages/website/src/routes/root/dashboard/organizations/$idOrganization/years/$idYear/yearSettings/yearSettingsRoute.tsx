@@ -8,7 +8,7 @@ export const yearSettingsRoute = createRoute({
         title: undefined,
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../../../../features/dashboard/$idYear/yearSettings/yearSettingsPage.js"),
+        () => import("../../../../../../../../features/dashboard/$idYear/yearSettings/YearSettingsPage.js"),
         "YearSettingsPage",
     ),
 })

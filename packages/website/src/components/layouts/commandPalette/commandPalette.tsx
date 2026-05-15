@@ -1,11 +1,10 @@
 import { getAllMyOrganizationsRouteDefinition } from "@arrhes/application-metadata/routes"
-import { InputCombobox } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconBuilding, IconCalendar, IconLayoutGrid, IconSearch, IconUser } from "@tabler/icons-react"
 import { useEffect, useMemo, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import type { OpenTabArgs } from "../../../contexts/tabs/tabDefinitions.js"
-import { useTabs } from "../../../contexts/tabs/tabsContext.js"
+import { useTabs } from "../../../contexts/tabs/useTabs.js"
 import { levenshtein } from "../../../utilities/levenshtein.js"
 import { useDataFromAPI } from "../../../utilities/useHTTPData.js"
 import {
@@ -367,30 +366,6 @@ export function CommandPalette(props: { selectedOrgId: string | null; selectedYe
             </div>
         </div>,
         document.body,
-    )
-}
-
-// ─── ContextSelect ────────────────────────────────────────────────────────────
-
-export function ContextSelect(props: {
-    placeholder: string
-    value: string | null
-    onChange: (v: string | null) => void
-    options: {
-        key: string
-        label: string
-    }[]
-    isLoading?: boolean
-}) {
-    return (
-        <InputCombobox
-            placeholder={props.placeholder}
-            value={props.value}
-            onChange={(v) => props.onChange(v ?? null)}
-            options={props.options}
-            isLoading={props.isLoading}
-            allowEmpty={true}
-        />
     )
 }
 

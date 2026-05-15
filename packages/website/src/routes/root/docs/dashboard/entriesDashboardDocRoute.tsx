@@ -10,7 +10,7 @@ export const entriesDashboardDocRoute = createRoute({
             "Saisissez et gérez vos écritures comptables dans Arrhes : création, modification, suppression et recherche d'écritures.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../features/docs/dashboard/entriesDashboardDocPage.js"),
+        () => import("../../../../features/docs/dashboard/EntriesDashboardDocPage.js"),
         "EntriesDashboardDocPage",
     ),
 })

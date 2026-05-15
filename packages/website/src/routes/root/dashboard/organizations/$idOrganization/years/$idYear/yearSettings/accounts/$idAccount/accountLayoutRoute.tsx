@@ -10,7 +10,7 @@ export const accountLayoutRoute = createRoute({
     component: lazyRouteComponent(
         () =>
             import(
-                "../../../../../../../../../../features/dashboard/$idYear/yearSettings/accounts/$idAccount/accountLayout.js"
+                "../../../../../../../../../../features/dashboard/$idYear/yearSettings/accounts/$idAccount/AccountLayout.js"
             ),
         "AccountLayout",
     ),

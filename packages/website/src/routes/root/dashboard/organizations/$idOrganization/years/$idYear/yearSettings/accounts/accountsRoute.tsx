@@ -8,7 +8,7 @@ export const accountsRoute = createRoute({
         title: undefined,
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../../../../../features/dashboard/$idYear/yearSettings/accounts/accountsPage.js"),
+        () => import("../../../../../../../../../features/dashboard/$idYear/yearSettings/accounts/AccountsPage.js"),
         "AccountsPage",
     ),
 })

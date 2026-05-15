@@ -10,7 +10,7 @@ export const journalMetadataRoute = createRoute({
     component: lazyRouteComponent(
         () =>
             import(
-                "../../../../../../../../../../features/dashboard/$idYear/yearSettings/journals/$idJournal/journalMetadataTab.js"
+                "../../../../../../../../../../features/dashboard/$idYear/yearSettings/journals/$idJournal/JournalMetadataTab.js"
             ),
         "JournalMetadataTab",
     ),

@@ -8,7 +8,7 @@ export const organizationUsersRoute = createRoute({
         title: undefined,
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../../features/dashboard/$idOrganization/organizationUsers/organizationUsersPage.js"),
+        () => import("../../../../../../features/dashboard/$idOrganization/organizationUsers/OrganizationUsersPage.js"),
         "OrganizationUsersPage",
     ),
 })

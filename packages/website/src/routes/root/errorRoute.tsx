@@ -8,5 +8,5 @@ export const errorRoute = createRoute({
         title: "Error",
         robots: "noindex",
     }),
-    component: lazyRouteComponent(() => import("../../features/error/errorPage.js"), "ErrorPage"),
+    component: lazyRouteComponent(() => import("../../features/error/ErrorPage.js"), "ErrorPage"),
 })

@@ -8,7 +8,7 @@ export const organizationApiLayoutRoute = createRoute({
         title: "API",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../../features/dashboard/$idOrganization/organizationApi/organizationApiLayout.js"),
+        () => import("../../../../../../features/dashboard/$idOrganization/organizationApi/OrganizationApiLayout.js"),
         "OrganizationApiLayout",
     ),
 })

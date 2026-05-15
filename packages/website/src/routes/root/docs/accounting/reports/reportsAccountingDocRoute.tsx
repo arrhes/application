@@ -10,7 +10,7 @@ export const reportsAccountingDocRoute = createRoute({
             "Les documents comptables obligatoires : journal, grand livre, balance, bilan, compte de résultat et annexe.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../features/docs/accounting/reports/reportsAccountingDocPage.tsx"),
+        () => import("../../../../../features/docs/accounting/reports/ReportsAccountingDocPage.tsx"),
         "ReportsAccountingDocPage",
     ),
 })

@@ -10,7 +10,7 @@ export const entriesAccountingDocRoute = createRoute({
             "Apprenez à passer des écritures comptables : lignes de débit et crédit, pièces justificatives et enregistrement des opérations.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../features/docs/accounting/introduction/entriesAccountingDocPage.tsx"),
+        () => import("../../../../../features/docs/accounting/introduction/EntriesAccountingDocPage.tsx"),
         "EntriesAccountingDocPage",
     ),
 })

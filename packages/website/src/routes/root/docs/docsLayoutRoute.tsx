@@ -12,5 +12,5 @@ export const docsLayoutRoute = createRoute({
         description:
             "Documentation complète d'Arrhes : guide d'utilisation, cours de comptabilité, référence API et informations générales.",
     }),
-    component: lazyRouteComponent(() => import("../../../features/docs/docsLayout.js"), "DocsLayout"),
+    component: lazyRouteComponent(() => import("../../../features/docs/DocsLayout.js"), "DocsLayout"),
 })

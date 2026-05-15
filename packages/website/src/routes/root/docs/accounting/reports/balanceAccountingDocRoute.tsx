@@ -10,7 +10,7 @@ export const balanceAccountingDocRoute = createRoute({
             "La balance comptable : tableau récapitulatif des soldes débiteurs et créditeurs de tous les comptes d'un exercice.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../features/docs/accounting/reports/balanceAccountingDocPage.tsx"),
+        () => import("../../../../../features/docs/accounting/reports/BalanceAccountingDocPage.tsx"),
         "BalanceAccountingDocPage",
     ),
 })

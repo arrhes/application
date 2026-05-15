@@ -10,7 +10,7 @@ export const tagMetadataRoute = createRoute({
     component: lazyRouteComponent(
         () =>
             import(
-                "../../../../../../../../../../features/dashboard/$idYear/yearSettings/tags/$idTag/tagMetadataTab.js"
+                "../../../../../../../../../../features/dashboard/$idYear/yearSettings/tags/$idTag/TagMetadataTab.js"
             ),
         "TagMetadataTab",
     ),

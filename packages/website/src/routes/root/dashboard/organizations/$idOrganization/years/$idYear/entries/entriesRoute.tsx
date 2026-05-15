@@ -8,7 +8,7 @@ export const entriesRoute = createRoute({
         title: undefined,
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../../../../features/dashboard/$idYear/entries/entriesPage.js"),
+        () => import("../../../../../../../../features/dashboard/$idYear/entries/EntriesPage.js"),
         "EntriesPage",
     ),
 })

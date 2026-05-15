@@ -8,7 +8,7 @@ export const ticketLayoutRoute = createRoute({
         title: "Ticket",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../features/dashboard/support/$idTicket/ticketLayout.js"),
+        () => import("../../../../features/dashboard/support/$idTicket/TicketLayout.js"),
         "TicketLayout",
     ),
 })

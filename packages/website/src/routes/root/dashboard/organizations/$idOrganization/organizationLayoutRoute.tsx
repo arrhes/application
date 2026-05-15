@@ -8,7 +8,7 @@ export const organizationLayoutRoute = createRoute({
         title: undefined,
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../features/dashboard/$idOrganization/organizationLayout.js"),
+        () => import("../../../../../features/dashboard/$idOrganization/OrganizationLayout.js"),
         "OrganizationLayout",
     ),
 })

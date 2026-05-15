@@ -10,7 +10,7 @@ export const incomeStatementMetadataRoute = createRoute({
     component: lazyRouteComponent(
         () =>
             import(
-                "../../../../../../../../../../features/dashboard/$idYear/yearSettings/incomeStatements/$idIncomeStatement/incomeStatementMetadataTab.js"
+                "../../../../../../../../../../features/dashboard/$idYear/yearSettings/incomeStatements/$idIncomeStatement/IncomeStatementMetadataTab.js"
             ),
         "IncomeStatementMetadataTab",
     ),

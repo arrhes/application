@@ -10,7 +10,7 @@ export const journalLayoutRoute = createRoute({
     component: lazyRouteComponent(
         () =>
             import(
-                "../../../../../../../../../../features/dashboard/$idYear/yearSettings/journals/$idJournal/journalLayout.js"
+                "../../../../../../../../../../features/dashboard/$idYear/yearSettings/journals/$idJournal/JournalLayout.js"
             ),
         "JournalLayout",
     ),

@@ -9,5 +9,5 @@ export const catchRoute = createRoute({
         description: "La page que vous recherchez n'existe pas ou a été déplacée.",
         robots: "noindex",
     }),
-    component: lazyRouteComponent(() => import("../features/notFound/notFoundPage.js"), "NotFoundPage"),
+    component: lazyRouteComponent(() => import("../features/notFound/NotFoundPage.js"), "NotFoundPage"),
 })

@@ -3,7 +3,7 @@ import { lazy, Suspense } from "react"
 import { agentSessionsLayoutRoute } from "./agentSessionsLayoutRoute.js"
 
 const AgentSessionPage = lazy(() =>
-    import("../../../../features/dashboard/$idOrganization/agent/agentSessionPage.js").then((m) => ({
+    import("../../../../features/dashboard/$idOrganization/agent/AgentSessionPage.js").then((m) => ({
         default: m.AgentSessionPage,
     })),
 )

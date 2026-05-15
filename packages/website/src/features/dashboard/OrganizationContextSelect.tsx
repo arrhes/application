@@ -1,13 +1,14 @@
 import { Button, ButtonGhostContent, ButtonPlainContent, Separator } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
+import { IconChevronDown } from "@tabler/icons-react"
 import { getAllMyOrganizationsRouteDefinition } from "../../../../metadata/src/routes/dashboard/auth/index.js"
 import { Popover } from "../../components/overlays/popover/popover.js"
-import { useTabs } from "../../contexts/tabs/tabsContext.js"
 import { useDataFromAPI } from "../../utilities/useHTTPData.js"
+import { useState } from "react"
+import { AddNewOrganization } from "./organizations/AddNewOrganization.js"
 
 export function OrganizationContextSelect(props: { value: string | null; onChange: (v: string | null) => void }) {
-    const { openTab } = useTabs()
-
+    const [open, setOpen] = useState(false)
     const organizationUsersData = useDataFromAPI({
         routeDefinition: getAllMyOrganizationsRouteDefinition,
         body: {},
@@ -21,26 +22,20 @@ export function OrganizationContextSelect(props: { value: string | null; onChang
 
     if (options.length === 0) {
         return (
-            <Button
-                onClick={() =>
-                    openTab({
-                        component: "organisations",
-                        props: {},
-                    })
-                }
-            >
+            <AddNewOrganization>
                 <ButtonPlainContent text="Ajouter une organisation" />
-            </Button>
+            </AddNewOrganization>
         )
     }
 
     return (
-        <Popover.Root>
+        <Popover.Root open={open} onOpenChange={setOpen}>
             <Popover.Trigger asChild>
                 <Button hasLoader={organizationUsersData.isPending}>
                     <ButtonGhostContent
                         text={selectedLabel ?? "Sélectionner une organisation"}
                         isLoading={organizationUsersData.isPending}
+                        rightIcon={<IconChevronDown />}
                     />
                 </Button>
             </Popover.Trigger>
@@ -57,11 +52,13 @@ export function OrganizationContextSelect(props: { value: string | null; onChang
                 {options.map((option) => (
                     <Button
                         key={option.key}
-                        onClick={() => props.onChange(option.key === props.value ? null : option.key)}
+                        onClick={() => {
+                            props.onChange(option.key === props.value ? null : option.key)
+                            setOpen(false)
+                        }}
                         className={css({
                             width: "100%",
-                        })}
-                    >
+                        })}>
                         <ButtonGhostContent
                             text={option.label}
                             isCurrent={option.key === props.value}
@@ -77,25 +74,21 @@ export function OrganizationContextSelect(props: { value: string | null; onChang
                         marginY: "0.25rem",
                     })}
                 />
-                <Button
-                    onClick={() =>
-                        openTab({
-                            component: "organisations",
-                            props: {},
-                        })
-                    }
-                    className={css({
-                        width: "100%",
-                    })}
-                >
-                    <ButtonGhostContent
-                        text="Ajouter une organisation"
+                <div onClick={() => setOpen(false)}>
+                    <AddNewOrganization
                         className={css({
                             width: "100%",
-                            justifyContent: "start",
                         })}
-                    />
-                </Button>
+                    >
+                        <ButtonGhostContent
+                            text="Ajouter une organisation"
+                            className={css({
+                                width: "100%",
+                                justifyContent: "start",
+                            })}
+                        />
+                    </AddNewOrganization>
+                </div>
             </Popover.Content>
         </Popover.Root>
     )

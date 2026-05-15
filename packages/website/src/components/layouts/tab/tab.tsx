@@ -1,4 +1,4 @@
-import { TabRoot } from "./tabRoot.js"
+import { TabRoot } from "./TabRoot.js"
 
 export const Tab = {
     Root: TabRoot,

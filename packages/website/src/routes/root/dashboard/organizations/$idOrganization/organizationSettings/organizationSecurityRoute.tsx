@@ -10,7 +10,7 @@ export const organizationSecurityRoute = createRoute({
     component: lazyRouteComponent(
         () =>
             import(
-                "../../../../../../features/dashboard/$idOrganization/organizationSettings/organizationSecurityPage.js"
+                "../../../../../../features/dashboard/$idOrganization/organizationSettings/OrganizationSecurityPage.js"
             ),
         "OrganizationSecurityPage",
     ),

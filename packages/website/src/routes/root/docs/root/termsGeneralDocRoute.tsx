@@ -10,7 +10,7 @@ export const termsGeneralDocRoute = createRoute({
             "Conditions Générales d'Utilisation d'Arrhes. Consultez les règles et conditions d'utilisation du logiciel.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../features/docs/general/termsGeneralDocPage.tsx"),
+        () => import("../../../../features/docs/general/TermsGeneralDocPage.tsx"),
         "TermsGeneralDocPage",
     ),
 })

@@ -1,7 +1,7 @@
 import type { Icon, IconProps, ReactNode } from "@tabler/icons-react"
 import { cloneElement, type ReactElement } from "react"
 import { css, cx } from "../../utilities/cn.ts"
-import { CircularLoader } from "../layouts/circularLoader"
+import { CircularLoader } from "../layouts/CircularLoader"
 
 export type ButtonColor = "default" | "neutral" | "danger" | "success"
 

@@ -10,7 +10,7 @@ export const reportsDashboardDocRoute = createRoute({
             "Générez vos documents comptables de synthèse dans Arrhes : journal, grand livre, balance, bilan et compte de résultat.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../features/docs/dashboard/reportsDashboardDocPage.tsx"),
+        () => import("../../../../features/docs/dashboard/ReportsDashboardDocPage.tsx"),
         "ReportsDashboardDocPage",
     ),
 })

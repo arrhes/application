@@ -8,7 +8,7 @@ export const journalsRoute = createRoute({
         title: undefined,
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../../../../../features/dashboard/$idYear/yearSettings/journals/journalsPage.js"),
+        () => import("../../../../../../../../../features/dashboard/$idYear/yearSettings/journals/JournalsPage.js"),
         "JournalsPage",
     ),
 })

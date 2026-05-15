@@ -7,5 +7,5 @@ export const supportRoute = createRoute({
     beforeLoad: () => ({
         title: undefined,
     }),
-    component: lazyRouteComponent(() => import("../../../../features/dashboard/support/supportPage.js"), "SupportPage"),
+    component: lazyRouteComponent(() => import("../../../../features/dashboard/support/SupportPage.js"), "SupportPage"),
 })

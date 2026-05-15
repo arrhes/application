@@ -2,7 +2,7 @@ import { readAllOrganizationPaymentsRouteDefinition } from "@arrhes/application-
 import { getTaxAmountFromHTInCents, OCR_PAGE_PRICE_IN_CENTS } from "@arrhes/application-metadata/utilities"
 import { FormatDateTime, FormatPrice } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { DataWrapper } from "../../../../../components/layouts/dataWrapper.tsx"
+import { DataWrapper } from "../../../../../components/layouts/DataWrapper.tsx"
 
 function getPaymentServiceLabel(serviceType: string | null) {
     if (serviceType === "support") return "Licence"

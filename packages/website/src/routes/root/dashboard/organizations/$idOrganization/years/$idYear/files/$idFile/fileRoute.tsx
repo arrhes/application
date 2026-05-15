@@ -8,7 +8,7 @@ export const fileRoute = createRoute({
         title: undefined,
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../../../../../features/dashboard/$idYear/files/$idFile/filePage.js"),
+        () => import("../../../../../../../../../features/dashboard/$idYear/files/$idFile/FilePage.js"),
         "FilePage",
     ),
 })

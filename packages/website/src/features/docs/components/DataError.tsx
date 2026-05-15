@@ -1,5 +1,5 @@
 import { LinkContent } from "@arrhes/ui"
-import { DocTip } from "../../../components/document/docTip.js"
+import { DocTip } from "../../../components/document/DocTip.js"
 
 export function DataError() {
     return (

@@ -10,7 +10,7 @@ export const adminTicketsRoute = createRoute({
         title: "Tickets",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../features/dashboard/admin/tickets/ticketsPage.js"),
+        () => import("../../../../../features/dashboard/admin/tickets/TicketsPage.js"),
         "TicketsPage",
     ),
 })

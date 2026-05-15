@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react"
+import { createContext } from "react"
 import type { OpenTabArgs } from "./tabDefinitions.js"
 
 // ─── History ─────────────────────────────────────────────────────────────────
@@ -79,11 +79,3 @@ export type TabsContextValue = {
 }
 
 export const TabsContext = createContext<TabsContextValue | null>(null)
-
-export function useTabs(): TabsContextValue {
-    const ctx = useContext(TabsContext)
-    if (ctx === null) {
-        throw new Error("useTabs must be used within a TabsProvider")
-    }
-    return ctx
-}

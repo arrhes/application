@@ -1,9 +1,9 @@
-import { DocHeader } from "../../../components/document/docHeader.js"
-import { DocLink } from "../../../components/document/docLink.js"
-import { DocList } from "../../../components/document/docList.js"
-import { DocParagraph } from "../../../components/document/docParagraph.js"
-import { DocRoot } from "../../../components/document/docRoot.js"
-import { DocSection } from "../../../components/document/docSection.js"
+import { DocHeader } from "../../../components/document/DocHeader.js"
+import { DocLink } from "../../../components/document/DocLink.js"
+import { DocList } from "../../../components/document/DocList.js"
+import { DocParagraph } from "../../../components/document/DocParagraph.js"
+import { DocRoot } from "../../../components/document/DocRoot.js"
+import { DocSection } from "../../../components/document/DocSection.js"
 
 export function BillingDashboardDocPage() {
     return (

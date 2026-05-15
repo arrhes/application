@@ -18,5 +18,5 @@ export const signInRoute = createRoute({
             description: "Connectez-vous à votre compte Arrhes pour accéder à votre espace comptable.",
         }
     },
-    component: lazyRouteComponent(() => import("../../../features/signIn/signInPage.js"), "SignInPage"),
+    component: lazyRouteComponent(() => import("../../../features/signIn/SignInPage.js"), "SignInPage"),
 })

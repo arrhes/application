@@ -8,7 +8,7 @@ export const yearsRoute = createRoute({
         title: "Exercices fiscaux",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../../features/dashboard/$idOrganization/years/yearsPage.js"),
+        () => import("../../../../../../features/dashboard/$idOrganization/years/YearsPage.js"),
         "YearsPage",
     ),
 })

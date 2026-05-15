@@ -10,7 +10,7 @@ export const entryLineRoute = createRoute({
     component: lazyRouteComponent(
         () =>
             import(
-                "../../../../../../../../../../features/dashboard/$idYear/entries/$idEntry/$idEntryLine/entryLinePage.js"
+                "../../../../../../../../../../features/dashboard/$idYear/entries/$idEntry/$idEntryLine/EntryLinePage.js"
             ),
         "EntryLinePage",
     ),

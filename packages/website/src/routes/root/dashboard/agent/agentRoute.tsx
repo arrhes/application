@@ -8,7 +8,7 @@ export const agentRoute = createRoute({
         title: undefined,
     }),
     component: lazyRouteComponent(
-        () => import("../../../../features/dashboard/$idOrganization/agent/agentPage.js"),
+        () => import("../../../../features/dashboard/$idOrganization/agent/AgentPage.js"),
         "AgentPage",
     ),
 })

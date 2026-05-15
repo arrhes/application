@@ -21,5 +21,5 @@ export const dashboardLayoutRoute = createRoute({
             robots: "noindex, nofollow",
         }
     },
-    component: lazyRouteComponent(() => import("../../../features/dashboard/dashboardLayout.js"), "DashboardLayout"),
+    component: lazyRouteComponent(() => import("../../../features/dashboard/dashboardLayout/DashboardLayout.js"), "DashboardLayout"),
 })

@@ -8,7 +8,7 @@ export const tagLayoutRoute = createRoute({
         title: "Catégorie",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../../../../../../features/dashboard/$idYear/yearSettings/tags/$idTag/tagLayout.js"),
+        () => import("../../../../../../../../../../features/dashboard/$idYear/yearSettings/tags/$idTag/TagLayout.js"),
         "TagLayout",
     ),
 })

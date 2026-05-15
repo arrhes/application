@@ -1,4 +1,4 @@
-import { TooltipContent } from "./tooltipContent.js"
+import { TooltipContent } from "./TooltipContent.js"
 import { TooltipPortal } from "./tooltipPortal.js"
 import { TooltipProvider } from "./tooltipProvider.js"
 import { TooltipRoot } from "./tooltipRoot.js"

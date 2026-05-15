@@ -8,7 +8,7 @@ export const ledgerReportRoute = createRoute({
         title: "Grand livre",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../../../../features/dashboard/$idYear/reports/ledgerReport/ledgerReportPage.js"),
+        () => import("../../../../../../../../features/dashboard/$idYear/reports/ledgerReport/LedgerReportPage.js"),
         "LedgerReportPage",
     ),
 })

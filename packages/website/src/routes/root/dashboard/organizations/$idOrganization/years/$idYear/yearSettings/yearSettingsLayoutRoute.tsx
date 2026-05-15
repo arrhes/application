@@ -8,7 +8,7 @@ export const yearSettingsLayoutRoute = createRoute({
         title: "Paramètres",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../../../../features/dashboard/$idYear/yearSettings/yearSettingsLayout.js"),
+        () => import("../../../../../../../../features/dashboard/$idYear/yearSettings/YearSettingsLayout.js"),
         "YearSettingsLayout",
     ),
 })

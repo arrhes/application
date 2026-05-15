@@ -10,7 +10,7 @@ export const organizationApiRoute = createRoute({
     component: lazyRouteComponent(
         () =>
             import(
-                "../../../../../../features/dashboard/$idOrganization/organizationApi/organizationApiGeneralPage.js"
+                "../../../../../../features/dashboard/$idOrganization/organizationApi/OrganizationApiGeneralPage.js"
             ),
         "OrganizationApiGeneralPage",
     ),

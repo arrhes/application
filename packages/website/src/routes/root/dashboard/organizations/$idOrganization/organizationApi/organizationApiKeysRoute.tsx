@@ -10,7 +10,7 @@ export const organizationApiKeysRoute = createRoute({
     component: lazyRouteComponent(
         () =>
             import(
-                "../../../../../../features/dashboard/$idOrganization/organizationApi/keys/organizationApiKeysPage.js"
+                "../../../../../../features/dashboard/$idOrganization/organizationApi/keys/OrganizationApiKeysPage.js"
             ),
         "OrganizationApiKeysPage",
     ),

@@ -8,7 +8,7 @@ export const dashboardCatchRoute = createRoute({
         title: "Page introuvable",
     }),
     component: lazyRouteComponent(
-        () => import("../../../features/dashboard/dashboardNotFoundPage.js"),
+        () => import("../../../features/dashboard/DashboardNotFoundPage.js"),
         "DashboardNotFoundPage",
     ),
 })

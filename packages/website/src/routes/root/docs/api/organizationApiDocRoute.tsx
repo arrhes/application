@@ -10,7 +10,7 @@ export const organizationApiDocRoute = createRoute({
             "Endpoints API pour la gestion des organisations Arrhes : création, lecture, mise à jour et suppression.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../features/docs/api/organizationApiDocPage.tsx"),
+        () => import("../../../../features/docs/api/OrganizationApiDocPage.tsx"),
         "OrganizationApiDocPage",
     ),
 })

@@ -7,8 +7,8 @@ import { Button, ButtonOutlineContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconAlertTriangle, IconPencil } from "@tabler/icons-react"
 import type * as v from "valibot"
-import { DataWrapper } from "../../../../../components/layouts/dataWrapper.tsx"
-import { UpdateOneOrganization } from "../../organizationSettings/updateOneOrganization.tsx"
+import { DataWrapper } from "../../../../../components/layouts/DataWrapper.tsx"
+import { UpdateOneOrganization } from "../../organizationSettings/UpdateOneOrganization.tsx"
 
 export type SubscriptionFeatureType = "storage_gb" | "agent_tokens_million" | "ocr_pages_hundred"
 

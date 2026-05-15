@@ -8,7 +8,7 @@ export const fileLayoutRoute = createRoute({
         title: "Pièce justificative",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../../../features/dashboard/$idYear/files/$idFile/fileLayout.js"),
+        () => import("../../../../../../../features/dashboard/$idYear/files/$idFile/FileLayout.js"),
         "FileLayout",
     ),
 })

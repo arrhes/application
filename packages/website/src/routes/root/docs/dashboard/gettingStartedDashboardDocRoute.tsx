@@ -10,7 +10,7 @@ export const gettingStartedDashboardDocRoute = createRoute({
             "Guide de démarrage rapide d'Arrhes : créez votre compte, configurez votre première organisation et commencez votre comptabilité.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../features/docs/dashboard/gettingStartedDashboardDocPage.tsx"),
+        () => import("../../../../features/docs/dashboard/GettingStartedDashboardDocPage.tsx"),
         "GettingStartedDashboardDocPage",
     ),
 })

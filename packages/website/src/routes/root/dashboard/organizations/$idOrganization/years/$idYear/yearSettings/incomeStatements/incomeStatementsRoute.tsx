@@ -10,7 +10,7 @@ export const incomeStatementsRoute = createRoute({
     component: lazyRouteComponent(
         () =>
             import(
-                "../../../../../../../../../features/dashboard/$idYear/yearSettings/incomeStatements/incomeStatementsPage.js"
+                "../../../../../../../../../features/dashboard/$idYear/yearSettings/incomeStatements/IncomeStatementsPage.js"
             ),
         "IncomeStatementsPage",
     ),

@@ -10,7 +10,7 @@ export const passifRoute = createRoute({
     component: lazyRouteComponent(
         () =>
             import(
-                "../../../../../../../../../../features/dashboard/$idYear/yearSettings/balanceSheets/balanceSheetsPage.js"
+                "../../../../../../../../../../features/dashboard/$idYear/yearSettings/balanceSheets/BalanceSheetsPage.js"
             ),
         "BalanceSheetsPage",
     ),

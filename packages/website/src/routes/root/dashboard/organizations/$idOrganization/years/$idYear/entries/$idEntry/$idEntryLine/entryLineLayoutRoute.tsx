@@ -10,7 +10,7 @@ export const entryLineLayoutRoute = createRoute({
     component: lazyRouteComponent(
         () =>
             import(
-                "../../../../../../../../../../features/dashboard/$idYear/entries/$idEntry/$idEntryLine/entryLineLayout.js"
+                "../../../../../../../../../../features/dashboard/$idYear/entries/$idEntry/$idEntryLine/EntryLineLayout.js"
             ),
         "EntryLineLayout",
     ),

@@ -8,7 +8,7 @@ export const fileVisualisationRoute = createRoute({
         title: "Visualisation",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../../../../../features/dashboard/$idYear/files/$idFile/fileVisualisationTab.js"),
+        () => import("../../../../../../../../../features/dashboard/$idYear/files/$idFile/FileVisualisationTab.js"),
         "FileVisualisationTab",
     ),
 })

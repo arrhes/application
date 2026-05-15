@@ -1,5 +1,5 @@
-import { ToastItem } from "./toastItem.js"
-import { ToastViewport } from "./toastViewport.js"
+import { ToastItem } from "./ToastItem.js"
+import { ToastViewport } from "./ToastViewport.js"
 
 export const Toast = {
     Item: ToastItem,

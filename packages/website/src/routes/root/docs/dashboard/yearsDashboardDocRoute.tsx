@@ -10,7 +10,7 @@ export const yearsDashboardDocRoute = createRoute({
             "Gérez vos exercices comptables dans Arrhes : création, ouverture, clôture et paramétrage des périodes fiscales.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../features/docs/dashboard/yearsDashboardDocPage.js"),
+        () => import("../../../../features/docs/dashboard/YearsDashboardDocPage.js"),
         "YearsDashboardDocPage",
     ),
 })

@@ -3,7 +3,7 @@ import { CircularLoader } from "@arrhes/ui"
 import { createRootRouteWithContext, useRouterState } from "@tanstack/react-router"
 import { Fragment } from "react/jsx-runtime"
 import type * as v from "valibot"
-import { RootLayout } from "../features/rootLayout.js"
+import { RootLayout } from "../features/RootLayout.js"
 
 const DEFAULT_DESCRIPTION =
     "Logiciel de comptabilité open source pour les entreprises et associations françaises. Gérez vos écritures, comptes et documents comptables simplement."

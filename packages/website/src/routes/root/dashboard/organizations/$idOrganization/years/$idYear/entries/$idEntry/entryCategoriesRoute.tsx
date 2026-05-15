@@ -8,7 +8,7 @@ export const entryCategoriesRoute = createRoute({
         title: "Catégories",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../../../../../features/dashboard/$idYear/entries/$idEntry/entryCategoriesTab.js"),
+        () => import("../../../../../../../../../features/dashboard/$idYear/entries/$idEntry/EntryCategoriesTab.js"),
         "EntryCategoriesTab",
     ),
 })

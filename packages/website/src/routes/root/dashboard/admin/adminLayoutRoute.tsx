@@ -18,7 +18,7 @@ export const adminLayoutRoute = createRoute({
         }
     },
     component: lazyRouteComponent(
-        () => import("../../../../features/dashboard/admin/adminPanelLayout.js"),
+        () => import("../../../../features/dashboard/admin/AdminPanelLayout.js"),
         "AdminPanelLayout",
     ),
 })

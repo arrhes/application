@@ -8,7 +8,7 @@ export const reportsLayoutRoute = createRoute({
         title: "Documents comptables",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../../../../features/dashboard/$idYear/reports/reportsLayout.js"),
+        () => import("../../../../../../../../features/dashboard/$idYear/reports/ReportsLayout.js"),
         "ReportsLayout",
     ),
 })

@@ -6,7 +6,7 @@ export const userProfileRoute = createRoute({
     path: "/",
     beforeLoad: () => {},
     component: lazyRouteComponent(
-        () => import("../../../../features/dashboard/profile/userProfilePage.js"),
+        () => import("../../../../features/dashboard/profile/UserProfilePage.js"),
         "UserProfilePage",
     ),
 })

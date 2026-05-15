@@ -6,7 +6,7 @@ export const settingsRoute = createRoute({
     path: "/",
     beforeLoad: () => {},
     component: lazyRouteComponent(
-        () => import("../../../../features/dashboard/settings/settingsPage.js"),
+        () => import("../../../../features/dashboard/settings/SettingsPage.js"),
         "SettingsPage",
     ),
 })

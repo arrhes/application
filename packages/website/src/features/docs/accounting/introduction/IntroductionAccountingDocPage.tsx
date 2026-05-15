@@ -1,0 +1,152 @@
+import { DocHeader } from "../../../../components/document/DocHeader.tsx"
+import { DocLink } from "../../../../components/document/DocLink.tsx"
+import { DocList } from "../../../../components/document/DocList.tsx"
+import { DocNextPage } from "../../../../components/document/DocNextPage.tsx"
+import { DocParagraph } from "../../../../components/document/DocParagraph.tsx"
+import { DocRoot } from "../../../../components/document/DocRoot.tsx"
+import { DocSection } from "../../../../components/document/DocSection.tsx"
+import { DocSourceRef } from "../../../../components/document/DocSourceRef.tsx"
+import { DocSources } from "../../../../components/document/DocSources.tsx"
+import { DocTip } from "../../../../components/document/DocTip.tsx"
+
+export function IntroductionAccountingDocPage() {
+    return (
+        <DocRoot>
+            <DocHeader
+                title="Introduction à la comptabilité"
+                description="Comprendre les fondamentaux de la comptabilité"
+            />
+
+            <DocSection title="Qu'est-ce que la comptabilité ?">
+                <DocParagraph>
+                    La comptabilité est un système d'organisation de l'information financière. Elle permet
+                    d'enregistrer, classer et analyser toutes les opérations économiques d'une{" "}
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "organisation",
+                        }}
+                    >
+                        organisation
+                    </DocLink>{" "}
+                    (entreprise, association, etc.).
+                    <DocSourceRef n={1} />
+                </DocParagraph>
+                <DocParagraph>En termes simples, la comptabilité répond à deux questions essentielles :</DocParagraph>
+                <DocList
+                    items={[
+                        "D'où vient l'argent ? (les ressources)",
+                        "Où va l'argent ? (les emplois)",
+                    ]}
+                />
+            </DocSection>
+
+            <DocSection title="Un peu d'histoire">
+                <DocParagraph>
+                    La comptabilité est l'une des plus anciennes pratiques de gestion. Les premières traces remontent à
+                    l'Antiquité : les Sumériens enregistraient déjà les transactions commerciales sur des tablettes
+                    d'argile, et le Code de Hammurabi (vers 1750 av. J.-C.) imposait aux commerçants de tenir des
+                    registres.
+                    <DocSourceRef n={2} />
+                </DocParagraph>
+                <DocParagraph>
+                    Le tournant majeur intervient à la fin du XV<sup>e</sup> siècle. En 1494, le mathématicien italien{" "}
+                    <strong>Luca Pacioli</strong> publie la <em>Summa de arithmetica</em>
+                    <DocSourceRef n={3} />, dans laquelle il codifie le système de la{" "}
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "partie-double",
+                        }}
+                    >
+                        partie double
+                    </DocLink>
+                    , déjà utilisé par les banques italiennes depuis la fin du XIII<sup>e</sup> siècle. Ce système, où
+                    chaque opération est enregistrée simultanément au débit et au crédit, reste le fondement de toute
+                    comptabilité moderne.
+                </DocParagraph>
+                <DocParagraph>
+                    En France, c'est l'ordonnance de Colbert de 1673 qui impose pour la première fois la tenue de livres
+                    comptables aux commerçants.
+                    <DocSourceRef n={4} /> Puis, en 1947, la France adopte son premier{" "}
+                    <DocLink
+                        to="/documentation/comptabilité/glossaire/$term"
+                        params={{
+                            term: "plan-comptable-general-pcg",
+                        }}
+                    >
+                        Plan Comptable Général (PCG)
+                    </DocLink>
+                    , unifiant les pratiques comptables à l'échelle nationale. Ce plan a été révisé plusieurs fois
+                    (1957, 1982) et est aujourd'hui défini par le règlement n°2014-03 de l'Autorité des Normes
+                    Comptables (ANC).
+                    <DocSourceRef n={5} />
+                </DocParagraph>
+            </DocSection>
+
+            <DocSection title="Pourquoi tenir une comptabilité ?">
+                <DocParagraph>
+                    La tenue d'une comptabilité est une <strong>obligation légale</strong> pour la plupart des
+                    structures en France. Le Code de commerce (articles L.123-12 à L.123-28) impose à toute personne
+                    physique ou morale ayant la qualité de commerçant d'enregistrer chronologiquement les mouvements
+                    affectant le patrimoine de l'entreprise, de contrôler par inventaire l'existence et la valeur de ses
+                    éléments, et d'établir des comptes annuels à la clôture de chaque exercice.
+                    <DocSourceRef n={6} />
+                </DocParagraph>
+
+                <DocTip variant="info">
+                    Les très petites entreprises (TPE) relevant du régime micro peuvent bénéficier d'une comptabilité
+                    simplifiée, dite <strong>comptabilité de caisse</strong> : elles n'enregistrent que les
+                    encaissements et les décaissements, sans comptabiliser les créances et les dettes.
+                </DocTip>
+
+                <DocParagraph>
+                    Au-delà de l'obligation légale, la comptabilité offre plusieurs avantages concrets :
+                </DocParagraph>
+                <DocList
+                    items={[
+                        "Connaître la situation financière de votre organisation à tout moment",
+                        "Prendre des décisions éclairées basées sur des chiffres réels",
+                        "Justifier vos opérations auprès de l'administration fiscale",
+                        "Calculer le bénéfice ou la perte de l'exercice",
+                        "Communiquer avec vos partenaires (banques, fournisseurs, membres)",
+                    ]}
+                />
+            </DocSection>
+
+            <DocNextPage
+                to="/documentation/comptabilité/partie-double"
+                label="La partie double"
+            />
+
+            <DocSources
+                sources={[
+                    {
+                        label: "Comptabilité - Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Comptabilit%C3%A9",
+                    },
+                    {
+                        label: "Code de Hammurabi - Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Code_de_Hammurabi",
+                    },
+                    {
+                        label: "Luca Pacioli - Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Luca_Pacioli",
+                    },
+                    {
+                        label: "Ordonnance de Colbert (1673) - Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Code_de_commerce_(France)",
+                    },
+                    {
+                        label: "Plan comptable général (France) - Wikipédia",
+                        url: "https://fr.wikipedia.org/wiki/Plan_comptable_g%C3%A9n%C3%A9ral_(France)",
+                    },
+                    {
+                        label: "Code de commerce, article L.123-12 - Légifrance",
+                        url: "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000005634379/LEGISCTA000006161250/",
+                    },
+                ]}
+            />
+        </DocRoot>
+    )
+}

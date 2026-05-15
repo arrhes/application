@@ -10,7 +10,7 @@ export const supportGeneralDocRoute = createRoute({
             "Besoin d'aide avec Arrhes ? Contactez notre support ou consultez la documentation pour résoudre vos problèmes.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../features/docs/general/supportGeneralDocPage.tsx"),
+        () => import("../../../../features/docs/general/SupportGeneralDocPage.tsx"),
         "SupportGeneralDocPage",
     ),
 })

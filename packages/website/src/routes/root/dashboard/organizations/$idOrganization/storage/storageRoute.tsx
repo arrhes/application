@@ -11,7 +11,7 @@ export const storageRoute = createRoute({
         title: undefined,
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../../features/dashboard/$idYear/files/filesPage.js"),
+        () => import("../../../../../../features/dashboard/$idYear/files/FilesPage.js"),
         "FilesPage",
     ),
 })

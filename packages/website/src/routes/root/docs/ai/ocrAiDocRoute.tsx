@@ -8,5 +8,5 @@ export const ocrAiDocRoute = createRoute({
         title: "OCR",
         description: "Reconnaissance optique de caractères pour l'extraction automatique de données comptables.",
     }),
-    component: lazyRouteComponent(() => import("../../../../features/docs/ai/ocrAiDocPage.tsx"), "OcrAiDocPage"),
+    component: lazyRouteComponent(() => import("../../../../features/docs/ai/OcrAiDocPage.tsx"), "OcrAiDocPage"),
 })

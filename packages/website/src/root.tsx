@@ -1,7 +1,7 @@
 import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 import "./assets/css/root.css"
-import { RootProvider } from "./contexts/rootProvider.js"
+import { RootProvider } from "./contexts/RootProvider.js"
 
 const rootElement = document.getElementById("root")!
 if (!rootElement.innerHTML) {

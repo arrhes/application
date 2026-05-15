@@ -24,7 +24,7 @@ export const yearLayoutRoute = createRoute({
         }
     },
     component: lazyRouteComponent(
-        () => import("../../../../../../../features/dashboard/$idYear/yearLayout.js"),
+        () => import("../../../../../../../features/dashboard/$idYear/YearLayout.js"),
         "YearLayout",
     ),
 })

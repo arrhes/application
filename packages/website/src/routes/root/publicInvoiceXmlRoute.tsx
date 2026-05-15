@@ -12,7 +12,7 @@ export const publicInvoiceXmlRoute = createRoute({
         robots: "noindex, nofollow",
     }),
     component: lazyRouteComponent(
-        () => import("../../features/public/invoiceXml/publicInvoiceXmlPage.js"),
+        () => import("../../features/public/invoiceXml/PublicInvoiceXmlPage.js"),
         "PublicInvoiceXmlPage",
     ),
 })

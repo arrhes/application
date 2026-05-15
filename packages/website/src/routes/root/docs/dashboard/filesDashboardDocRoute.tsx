@@ -10,7 +10,7 @@ export const filesDashboardDocRoute = createRoute({
             "Gérez vos pièces justificatives dans Arrhes : importation, association aux écritures et stockage sécurisé de vos documents.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../features/docs/dashboard/filesDashboardDocPage.js"),
+        () => import("../../../../features/docs/dashboard/FilesDashboardDocPage.js"),
         "FilesDashboardDocPage",
     ),
 })

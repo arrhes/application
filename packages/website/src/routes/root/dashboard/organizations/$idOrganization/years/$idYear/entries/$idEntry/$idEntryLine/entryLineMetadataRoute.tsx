@@ -10,7 +10,7 @@ export const entryLineMetadataRoute = createRoute({
     component: lazyRouteComponent(
         () =>
             import(
-                "../../../../../../../../../../features/dashboard/$idYear/entries/$idEntry/$idEntryLine/entryLineMetadataTab.js"
+                "../../../../../../../../../../features/dashboard/$idYear/entries/$idEntry/$idEntryLine/EntryLineMetadataTab.js"
             ),
         "EntryLineMetadataTab",
     ),

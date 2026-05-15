@@ -10,7 +10,7 @@ export const fecAccountingDocRoute = createRoute({
             "Le FEC : fichier normé des écritures comptables requis par l'administration fiscale lors d'un contrôle.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../features/docs/accounting/reports/fecAccountingDocPage.tsx"),
+        () => import("../../../../../features/docs/accounting/reports/FecAccountingDocPage.tsx"),
         "FecAccountingDocPage",
     ),
 })

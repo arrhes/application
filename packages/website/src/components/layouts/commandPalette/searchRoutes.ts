@@ -17,12 +17,6 @@ export const userSearchRoutes: SearchRoute[] = [
         tabProps: {},
     },
     {
-        label: "Agent IA",
-        description: "Assistant comptable intelligent",
-        tabComponent: "agent",
-        tabProps: {},
-    },
-    {
         label: "Profil",
         description: "Votre profil utilisateur",
         tabComponent: "profil",
@@ -53,6 +47,11 @@ export type OrgSearchRoute = {
 
 export const orgSearchRoutes: OrgSearchRoute[] = [
     {
+        label: "Agent IA",
+        description: "Assistant comptable intelligent",
+        tabComponent: "agent",
+    },
+    {
         label: "Exercices",
         description: "Années fiscales",
         tabComponent: "exercices",
@@ -78,7 +77,7 @@ export const orgSearchRoutes: OrgSearchRoute[] = [
         tabComponent: "organisation-paramètres",
     },
     {
-        label: "Clés API",
+        label: "API",
         description: "Accès API de l'organisation",
         tabComponent: "organisation-api",
     },
@@ -103,11 +102,6 @@ export const yearSearchRoutes: YearSearchRoute[] = [
         label: "Documents",
         description: "Rapports, bilans et compte de résultat",
         tabComponent: "exercice-documents",
-    },
-    {
-        label: "Stockage de l'exercice",
-        description: "Fichiers attachés à l'exercice",
-        tabComponent: "exercice-stockage",
     },
     {
         label: "Paramètres de l'exercice",

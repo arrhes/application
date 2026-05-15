@@ -1,30 +1,30 @@
 import { createElement } from "react"
-import { AgentTabContent } from "../../features/dashboard/$idOrganization/agent/agentTabContent.js"
-import { OrganizationApiTabContent } from "../../features/dashboard/$idOrganization/organizationApi/organizationApiTabContent.js"
-import { OrganizationBillingTabContent } from "../../features/dashboard/$idOrganization/organizationBilling/organizationBillingTabContent.js"
-import { UpdateLicencePage } from "../../features/dashboard/$idOrganization/organizationBilling/updateLicencePage.js"
-import { UpdateOcrPage } from "../../features/dashboard/$idOrganization/organizationBilling/updateOcrPage.js"
-import { UpdateStoragePage } from "../../features/dashboard/$idOrganization/organizationBilling/updateStoragePage.js"
-import { UpdateTokensPage } from "../../features/dashboard/$idOrganization/organizationBilling/updateTokensPage.js"
-import { WalletTopUpPage } from "../../features/dashboard/$idOrganization/organizationBilling/wallet/walletTopUpPage.js"
-import { WalletWithdrawalPage } from "../../features/dashboard/$idOrganization/organizationBilling/wallet/walletWithdrawalPage.js"
-import { OrganizationSettingsTabContent } from "../../features/dashboard/$idOrganization/organizationSettings/organizationSettingsTabContent.js"
-import { OrganizationTabContent } from "../../features/dashboard/$idOrganization/organizationTabContent.js"
-import { OrganizationUsersPage } from "../../features/dashboard/$idOrganization/organizationUsers/organizationUsersPage.js"
-import { YearsPage } from "../../features/dashboard/$idOrganization/years/yearsPage.js"
-import { EntryTabContent } from "../../features/dashboard/$idYear/entries/$idEntry/entryTabContent.js"
-import { EntriesPage } from "../../features/dashboard/$idYear/entries/entriesPage.js"
-import { FileTabContent } from "../../features/dashboard/$idYear/files/$idFile/fileTabContent.js"
-import { FilesPage } from "../../features/dashboard/$idYear/files/filesPage.js"
-import { ReportsTabContent } from "../../features/dashboard/$idYear/reports/reportsTabContent.js"
-import { YearSettingsTabContent } from "../../features/dashboard/$idYear/yearSettings/yearSettingsTabContent.js"
-import { AdminTicketTabContent } from "../../features/dashboard/admin/tickets/$idTicket/adminTicketTabContent.js"
-import { TicketsPage } from "../../features/dashboard/admin/tickets/ticketsPage.js"
-import { OrganizationsPage } from "../../features/dashboard/organizations/organizationsPage.js"
-import { UserProfilePage } from "../../features/dashboard/profile/userProfilePage.js"
-import { SettingsPage } from "../../features/dashboard/settings/settingsPage.js"
-import { TicketTabContent } from "../../features/dashboard/support/$idTicket/ticketTabContent.js"
-import { SupportPage } from "../../features/dashboard/support/supportPage.js"
+import { AgentTabContent } from "../../features/dashboard/$idOrganization/agent/AgentTabContent.js"
+import { OrganizationApiTabContent } from "../../features/dashboard/$idOrganization/organizationApi/OrganizationApiTabContent.js"
+import { OrganizationBillingTabContent } from "../../features/dashboard/$idOrganization/organizationBilling/OrganizationBillingTabContent.js"
+import { UpdateLicencePage } from "../../features/dashboard/$idOrganization/organizationBilling/UpdateLicencePage.js"
+import { UpdateOcrPage } from "../../features/dashboard/$idOrganization/organizationBilling/UpdateOcrPage.js"
+import { UpdateStoragePage } from "../../features/dashboard/$idOrganization/organizationBilling/UpdateStoragePage.js"
+import { UpdateTokensPage } from "../../features/dashboard/$idOrganization/organizationBilling/UpdateTokensPage.js"
+import { WalletTopUpPage } from "../../features/dashboard/$idOrganization/organizationBilling/wallet/WalletTopUpPage.js"
+import { WalletWithdrawalPage } from "../../features/dashboard/$idOrganization/organizationBilling/wallet/WalletWithdrawalPage.js"
+import { OrganizationSettingsTabContent } from "../../features/dashboard/$idOrganization/organizationSettings/OrganizationSettingsTabContent.js"
+import { OrganizationTabContent } from "../../features/dashboard/$idOrganization/OrganizationTabContent.js"
+import { OrganizationUsersPage } from "../../features/dashboard/$idOrganization/organizationUsers/OrganizationUsersPage.js"
+import { YearsPage } from "../../features/dashboard/$idOrganization/years/YearsPage.js"
+import { EntryTabContent } from "../../features/dashboard/$idYear/entries/$idEntry/EntryTabContent.js"
+import { EntriesPage } from "../../features/dashboard/$idYear/entries/EntriesPage.js"
+import { FileTabContent } from "../../features/dashboard/$idYear/files/$idFile/FileTabContent.js"
+import { FilesPage } from "../../features/dashboard/$idYear/files/FilesPage.js"
+import { ReportsTabContent } from "../../features/dashboard/$idYear/reports/ReportsTabContent.js"
+import { YearSettingsTabContent } from "../../features/dashboard/$idYear/yearSettings/YearSettingsTabContent.js"
+import { AdminTicketTabContent } from "../../features/dashboard/admin/tickets/$idTicket/AdminTicketTabContent.js"
+import { TicketsPage } from "../../features/dashboard/admin/tickets/TicketsPage.js"
+import { OrganizationsPage } from "../../features/dashboard/organizations/OrganizationsPage.js"
+import { UserProfilePage } from "../../features/dashboard/profile/UserProfilePage.js"
+import { SettingsPage } from "../../features/dashboard/settings/SettingsPage.js"
+import { TicketTabContent } from "../../features/dashboard/support/$idTicket/TicketTabContent.js"
+import { SupportPage } from "../../features/dashboard/support/SupportPage.js"
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -243,9 +243,10 @@ export const TAB_REGISTRY = {
 
     // ─── Detail tabs ───────────────────────────────────────────────────────
 
-    écriture: (props: { idOrganization: string; idYear: string; idEntry: string }): TabDefinition => ({
+    écriture: (props: { idOrganization: string; idYear: string; idEntry: string; label?: string }): TabDefinition => ({
         id: `écriture-${props.idOrganization}-${props.idYear}-${props.idEntry}`,
         title: "Écriture",
+        description: props.label,
         component: createElement(EntryTabContent, {
             idOrganization: props.idOrganization,
             idYear: props.idYear,
