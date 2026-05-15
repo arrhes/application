@@ -8,13 +8,12 @@ import {
     STORAGE_PRICE_PER_GB_IN_CENTS,
     VAT_PERCENT,
 } from "@arrhes/application-metadata/utilities"
-import { Button, ButtonOutlineContent, InputNumber, toast } from "@arrhes/ui"
+import { Button, ButtonOutlineContent, Dialog, InputNumber, toast, useModalStore } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconMinus, IconPlus } from "@tabler/icons-react"
-import { type ReactNode, useEffect, useState } from "react"
+import { type ReactNode, useEffect, useId, useState } from "react"
 import { DataWrapper } from "../../../../components/layouts/DataWrapper.tsx"
 import { Page } from "../../../../components/layouts/page/page.tsx"
-import { ConfirmationModal } from "../../../../components/overlays/dialog/ConfirmationModal.tsx"
 import { formatEuros } from "../../../../utilities/formatEuros.tsx"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
@@ -110,7 +109,8 @@ function UpdateStorageForm(props: {
     currentUsageInBytes: number
     currentMaxUsageInBytes: number
 }) {
-    const [confirmOpen, setConfirmOpen] = useState(false)
+    const confirmModalId = useId()
+    const { open: openModal, close: closeModal } = useModalStore()
     const [quantityDelta, setQuantityDelta] = useState(0)
     const [isLoading, setIsLoading] = useState(false)
     const minimumQuantity = getMinimumStorageQuantityFromUsage(props.currentUsageInBytes)
@@ -179,8 +179,8 @@ function UpdateStorageForm(props: {
                 {quantityDelta > 0
                     ? `Augmenter le stockage est immédiat : le montant prorata du mois est débité du portefeuille. Montants en HT (TVA ${VAT_PERCENT}\u00a0%).`
                     : quantityDelta < 0
-                      ? `Réduire le stockage est effectif le 1er du mois prochain. Aucun remboursement n'est appliqué. Montants en HT (TVA ${VAT_PERCENT}\u00a0%).`
-                      : `Ajustez le stockage disponible pour l'organisation. Montants en HT (TVA ${VAT_PERCENT}\u00a0%).`}
+                        ? `Réduire le stockage est effectif le 1er du mois prochain. Aucun remboursement n'est appliqué. Montants en HT (TVA ${VAT_PERCENT}\u00a0%).`
+                        : `Ajustez le stockage disponible pour l'organisation. Montants en HT (TVA ${VAT_PERCENT}\u00a0%).`}
             </p>
             <FormSection
                 title="État actuel"
@@ -326,8 +326,8 @@ function UpdateStorageForm(props: {
                                 deltaAmountInCents > 0
                                     ? "warning/5"
                                     : deltaAmountInCents < 0
-                                      ? "success/5"
-                                      : "neutral/1",
+                                        ? "success/5"
+                                        : "neutral/1",
                         })}
                     >
                         <span
@@ -339,8 +339,8 @@ function UpdateStorageForm(props: {
                             {deltaAmountInCents > 0
                                 ? "Débité maintenant (prorata)"
                                 : deltaAmountInCents < 0
-                                  ? "Effectif le 1er du mois"
-                                  : "Ajustement portefeuille"}
+                                    ? "Effectif le 1er du mois"
+                                    : "Ajustement portefeuille"}
                         </span>
                         <span
                             className={css({
@@ -413,7 +413,31 @@ function UpdateStorageForm(props: {
                 </div>
             </FormSection>
             <Button
-                onClick={() => setConfirmOpen(true)}
+                onClick={() =>
+                    openModal(
+                        confirmModalId,
+                        <Dialog.Content>
+                            <Dialog.Header>
+                                <Dialog.Title>Confirmer la modification du stockage</Dialog.Title>
+                            </Dialog.Header>
+                            <Dialog.Body>
+                                <Dialog.Description>
+                                    {quantityDelta > 0
+                                        ? `${formatBytes(nextStorageLimitInBytes)} de stockage. ≈ ${formatEuros(proRataAmountTTCInCents)} TTC seront débités du portefeuille (prorata du mois en cours).`
+                                        : `Le stockage sera réduit à ${formatBytes(nextStorageLimitInBytes)}, effectif le 1er du mois prochain.`}
+                                </Dialog.Description>
+                            </Dialog.Body>
+                            <Dialog.Footer>
+                                <Button onClick={() => closeModal(confirmModalId)}>
+                                    <ButtonOutlineContent text="Annuler" />
+                                </Button>
+                                <Button hasLoader onClick={async () => { await handleSave(); closeModal(confirmModalId) }}>
+                                    <ButtonOutlineContent text="Confirmer" />
+                                </Button>
+                            </Dialog.Footer>
+                        </Dialog.Content>,
+                    )
+                }
                 isDisabled={isLoading || quantityDelta === 0}
             >
                 <ButtonOutlineContent
@@ -421,20 +445,7 @@ function UpdateStorageForm(props: {
                     text="Enregistrer le stockage"
                 />
             </Button>
-            <ConfirmationModal
-                open={confirmOpen}
-                onOpenChange={setConfirmOpen}
-                title="Confirmer la modification du stockage"
-                description={
-                    quantityDelta > 0
-                        ? `${formatBytes(nextStorageLimitInBytes)} de stockage. ≈\u2009${formatEuros(proRataAmountTTCInCents)} TTC seront débités du portefeuille (prorata du mois en cours).`
-                        : `Le stockage sera réduit à ${formatBytes(nextStorageLimitInBytes)}, effectif le 1er du mois prochain.`
-                }
-                submitButtonProps={{
-                    text: "Confirmer",
-                }}
-                onSubmit={handleSave}
-            />
+
         </div>
     )
 }

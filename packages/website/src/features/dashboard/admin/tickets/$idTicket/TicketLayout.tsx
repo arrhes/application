@@ -4,14 +4,14 @@ import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconArrowLeft } from "@tabler/icons-react"
 import { Outlet, useParams } from "@tanstack/react-router"
 import { LinkButton } from "../../../../../components/LinkButton.js"
-import { $idTicketLayoutRoute } from "../../../../../routes/root/dashboard/admin/tickets/$idTicket/$idTicketLayoutRoute.tsx"
+
 import { useDataFromAPI } from "../../../../../utilities/useHTTPData.js"
 import { StatusToggle } from "./StatusToggle.js"
 
 export function TicketLayout() {
     const params = useParams({
-        from: $idTicketLayoutRoute.id,
-    })
+        strict: false,
+    }) as { idTicket?: string }
 
     const ticket = useDataFromAPI({
         routeDefinition: adminReadOneTicketRouteDefinition,

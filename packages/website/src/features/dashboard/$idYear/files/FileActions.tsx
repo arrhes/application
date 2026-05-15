@@ -4,12 +4,11 @@ import {
     readOrganizationBillingRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button, ButtonGhostContent, Separator, toast } from "@arrhes/ui"
+import { Button, ButtonGhostContent, ButtonOutlineContent, ButtonPlainContent, Separator, toast, useModalStore } from "@arrhes/ui"
 import { css } from "@arrhes/ui/css"
 import { IconArrowsMove, IconDotsVertical, IconEye, IconFileText, IconPencil, IconTrash } from "@tabler/icons-react"
-import { useState } from "react"
+import { useId, useState } from "react"
 import type * as v from "valibot"
-import { ConfirmationModal } from "../../../../components/overlays/dialog/ConfirmationModal.js"
 import { Dialog } from "../../../../components/overlays/dialog/dialog.js"
 import { Popover } from "../../../../components/overlays/popover/popover.js"
 import { useTabs } from "../../../../contexts/tabs/useTabs.js"
@@ -21,8 +20,9 @@ import { deleteFileWithSignedUrl } from "./deleteFileWithSignedUrl.js"
 import { MoveOneFileForm } from "./MoveOneFileForm.js"
 
 export function FileActions(props: { file: v.InferOutput<typeof returnedSchemas.file>; idOrganization: string }) {
-    const [moveOpen, setMoveOpen] = useState(false)
-    const [deleteOpen, setDeleteOpen] = useState(false)
+    const moveModalId = useId()
+    const deleteModalId = useId()
+    const { open: openModal, close: closeModal } = useModalStore()
     const [ocrLoading, setOcrLoading] = useState(false)
     const [ocrTooltipOpen, setOcrTooltipOpen] = useState(false)
     const { openPanelTab, closeTab, openTab } = useTabs()
@@ -166,7 +166,26 @@ export function FileActions(props: { file: v.InferOutput<typeof returnedSchemas.
                             className={css({
                                 width: "100%",
                             })}
-                            onClick={() => setMoveOpen(true)}
+                            onClick={() =>
+                                openModal(
+                                    moveModalId,
+                                    <Dialog.Content>
+                                        <Dialog.Header>
+                                            <Dialog.Title>Déplacer le fichier</Dialog.Title>
+                                        </Dialog.Header>
+                                        <Dialog.Body
+                                            className={css({
+                                                alignItems: "stretch",
+                                            })}
+                                        >
+                                            <MoveOneFileForm
+                                                file={props.file}
+                                                onSuccess={() => closeModal(moveModalId)}
+                                            />
+                                        </Dialog.Body>
+                                    </Dialog.Content>,
+                                )
+                            }
                         >
                             <ButtonGhostContent
                                 leftIcon={<IconArrowsMove />}
@@ -242,7 +261,30 @@ export function FileActions(props: { file: v.InferOutput<typeof returnedSchemas.
                             className={css({
                                 width: "100%",
                             })}
-                            onClick={() => setDeleteOpen(true)}
+                            onClick={() =>
+                                openModal(
+                                    deleteModalId,
+                                    <Dialog.Content>
+                                        <Dialog.Header>
+                                            <Dialog.Title>Voulez-vous supprimer ce fichier ?</Dialog.Title>
+                                        </Dialog.Header>
+                                        <Dialog.Body>
+                                            <Dialog.Description>
+                                                Cette action supprimera le fichier et toutes les données associées.
+                                                Cette action est irréversible.
+                                            </Dialog.Description>
+                                        </Dialog.Body>
+                                        <Dialog.Footer>
+                                            <Button onClick={() => closeModal(deleteModalId)}>
+                                                <ButtonOutlineContent text="Annuler" />
+                                            </Button>
+                                            <Button hasLoader onClick={async () => { await handleDelete(); closeModal(deleteModalId) }}>
+                                                <ButtonPlainContent color="danger" text="Supprimer le fichier" />
+                                            </Button>
+                                        </Dialog.Footer>
+                                    </Dialog.Content>,
+                                )
+                            }
                         >
                             <ButtonGhostContent
                                 leftIcon={<IconTrash />}
@@ -257,45 +299,6 @@ export function FileActions(props: { file: v.InferOutput<typeof returnedSchemas.
                     </Popover.Close>
                 </Popover.Content>
             </Popover.Root>
-
-            <Dialog.Root
-                open={moveOpen}
-                onOpenChange={setMoveOpen}
-            >
-                <Dialog.Content>
-                    <Dialog.Header>
-                        <Dialog.Title>Déplacer le fichier</Dialog.Title>
-                    </Dialog.Header>
-                    <Dialog.Body
-                        className={css({
-                            alignItems: "stretch",
-                        })}
-                    >
-                        <MoveOneFileForm
-                            file={props.file}
-                            onSuccess={() => setMoveOpen(false)}
-                        />
-                    </Dialog.Body>
-                </Dialog.Content>
-            </Dialog.Root>
-
-            <ConfirmationModal
-                title="Voulez-vous supprimer ce fichier ?"
-                description={
-                    <>
-                        Cette action supprimera le fichier et toutes les données associées.
-                        <br />
-                        Cette action est irréversible.
-                    </>
-                }
-                submitButtonProps={{
-                    color: "danger",
-                    text: "Supprimer le fichier",
-                }}
-                onSubmit={handleDelete}
-                open={deleteOpen}
-                onOpenChange={setDeleteOpen}
-            />
         </>
     )
 }

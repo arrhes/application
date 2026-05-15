@@ -39,6 +39,7 @@ export type PanelTab = {
     id: string
     type: "panel"
     title: string
+    description?: string
     icon?: string
     component: React.ReactNode // never serialized
 }
@@ -73,7 +74,7 @@ export type TabsContextValue = {
     activateTab: (id: string) => void
     navigateBack: (tabId: string) => void
     navigateForward: (tabId: string) => void
-    openPanelTab: (title: string, component: React.ReactNode, icon?: string) => string
+    openPanelTab: (title: string, component: React.ReactNode, description?: string, icon?: string) => string
     updateTabTitle: (id: string, title: string) => void
     reorderTabs: (tabId: string, beforeTabId: string | null) => void
 }

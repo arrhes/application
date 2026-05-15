@@ -5,14 +5,14 @@ import { useParams } from "@tanstack/react-router"
 import { Box } from "../../../../../../components/layouts/Box.tsx"
 import { Section } from "../../../../../../components/layouts/section/section.tsx"
 import { Tab } from "../../../../../../components/layouts/tab/tab.tsx"
-import { incomeStatementsLayoutRoute } from "../../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/incomeStatementsLayoutRoute.tsx"
+
 import { ComputationsTable } from "./ComputationsTable.tsx"
 import { CreateOneComputation } from "./CreateOneComputation.tsx"
 
 export function ComputationsPage() {
     const params = useParams({
-        from: incomeStatementsLayoutRoute.id,
-    })
+        strict: false,
+    }) as { idYear?: string }
 
     return (
         <Section.Root>

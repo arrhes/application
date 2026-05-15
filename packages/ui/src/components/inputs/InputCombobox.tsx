@@ -52,7 +52,6 @@ export function InputCombobox<TValue extends string>(props: {
         <Popover.Root
             open={open}
             onOpenChange={setOpen}
-            modal
         >
             <Popover.Trigger asChild>
                 <Button
@@ -68,8 +67,8 @@ export function InputCombobox<TValue extends string>(props: {
                         }),
                         props.isDisabled
                             ? css({
-                                  cursor: "not-allowed",
-                              })
+                                cursor: "not-allowed",
+                            })
                             : "",
                         props.className,
                     )}
@@ -97,15 +96,15 @@ export function InputCombobox<TValue extends string>(props: {
                             }),
                             props.error !== undefined
                                 ? css({
-                                      borderColor: "error",
-                                  })
+                                    borderColor: "error",
+                                })
                                 : "",
                             currentOption === undefined
                                 ? css({
-                                      "& span": {
-                                          color: "neutral/50",
-                                      },
-                                  })
+                                    "& span": {
+                                        color: "neutral/50",
+                                    },
+                                })
                                 : "",
                         )}
                     />
@@ -173,8 +172,8 @@ export function InputCombobox<TValue extends string>(props: {
                                                 }),
                                                 isSelected
                                                     ? css({
-                                                          backgroundColor: "background",
-                                                      })
+                                                        backgroundColor: "background",
+                                                    })
                                                     : "",
                                             )}
                                             isCurrent={isSelected}

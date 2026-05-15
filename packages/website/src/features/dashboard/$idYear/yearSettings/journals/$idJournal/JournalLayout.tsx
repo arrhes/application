@@ -7,14 +7,14 @@ import { DataWrapper } from "../../../../../../components/layouts/DataWrapper.ts
 import { Section } from "../../../../../../components/layouts/section/section.tsx"
 import { Tab } from "../../../../../../components/layouts/tab/tab.tsx"
 import { LinkButton } from "../../../../../../components/LinkButton.tsx"
-import { journalLayoutRoute } from "../../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/journals/$idJournal/journalLayoutRoute.tsx"
+
 import { DeleteOneJournal } from "./DeleteOneJournal.tsx"
 import { UpdateOneJournal } from "./UpdateOneJournal.tsx"
 
 export function JournalLayout() {
     const params = useParams({
-        from: journalLayoutRoute.id,
-    })
+        strict: false,
+    }) as { idYear?: string; idJournal?: string }
 
     return (
         <Section.Root>

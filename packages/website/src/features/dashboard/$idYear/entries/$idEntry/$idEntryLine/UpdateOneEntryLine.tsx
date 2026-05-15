@@ -400,6 +400,7 @@ export function UpdateOneEntryLine(props: {
                             )}
                         </FormRoot>
                     </div>,
+                    props.entryLine.label ?? undefined,
                 )
             }}
         >

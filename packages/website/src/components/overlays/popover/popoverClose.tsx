@@ -1,3 +1,1 @@
-import * as PopoverPrimitive from "@radix-ui/react-popover"
-
-export const PopoverClose = PopoverPrimitive.Close
+export { PopoverClose } from "@arrhes/ui/components/overlays/popover/popoverClose.js"

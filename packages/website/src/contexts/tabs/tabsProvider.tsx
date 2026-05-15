@@ -211,7 +211,19 @@ export function TabsProvider({ children }: Props) {
     // Parse the destination URL/state and update tab context accordingly.
     useEffect(() => {
         const onPopState = (e: PopStateEvent) => {
-            const state = e.state as { tabId?: string; entryId?: string } | null
+            const state = e.state as { tabId?: string; entryId?: string; panelTabId?: string } | null
+
+            // Panel-tab back/forward: re-activate the panel if it still exists,
+            // otherwise fall through to URL-based component-tab restoration.
+            if (state?.panelTabId !== undefined) {
+                const stillOpen = tabsRef.current.some((t) => t.id === state.panelTabId)
+                if (stillOpen) {
+                    setActiveTabId(state.panelTabId)
+                    return
+                }
+                // Panel was closed — fall through to URL restoration below.
+            }
+
             let tabId: string | null = null
             let entryId: string | null = null
             if (state?.tabId !== undefined && state.entryId !== undefined) {
@@ -348,11 +360,20 @@ export function TabsProvider({ children }: Props) {
                 ),
             )
             setActiveTabId(existing.id)
-            window.history.replaceState(
-                { tabId: existing.id, entryId: currentEntry(existing).id },
-                "",
-                `/dashboard/${existing.id}/${currentEntry(existing).id}`,
-            )
+            // Push so the previous tab's position is preserved in browser history.
+            if (currentActiveId !== existing.id) {
+                window.history.pushState(
+                    { tabId: existing.id, entryId: currentEntry(existing).id },
+                    "",
+                    `/dashboard/${existing.id}/${currentEntry(existing).id}`,
+                )
+            } else {
+                window.history.replaceState(
+                    { tabId: existing.id, entryId: currentEntry(existing).id },
+                    "",
+                    `/dashboard/${existing.id}/${currentEntry(existing).id}`,
+                )
+            }
             return
         }
 
@@ -376,7 +397,12 @@ export function TabsProvider({ children }: Props) {
                 newTab.id,
             ),
         )
-        window.history.replaceState({ tabId: newTab.id, entryId: entry.id }, "", `/dashboard/${newTab.id}/${entry.id}`)
+        // Push so the previous tab's position is preserved in browser history.
+        if (currentActiveId !== null) {
+            window.history.pushState({ tabId: newTab.id, entryId: entry.id }, "", `/dashboard/${newTab.id}/${entry.id}`)
+        } else {
+            window.history.replaceState({ tabId: newTab.id, entryId: entry.id }, "", `/dashboard/${newTab.id}/${entry.id}`)
+        }
     }, [])
 
     const closeTab = useCallback((id: string) => {
@@ -454,7 +480,14 @@ export function TabsProvider({ children }: Props) {
         setActiveTabId(id)
         const tab = tabsRef.current.find((t): t is ComponentTab => t.type === "component" && t.id === id)
         const entryId = tab ? currentEntry(tab).id : "0"
-        window.history.replaceState({ tabId: id, entryId }, "", `/dashboard/${id}/${entryId}`)
+        // Push a new browser history entry when switching to a different tab so
+        // the back button returns to the previous tab at its exact position.
+        // Replace (no-op) when re-activating the already-active tab.
+        if (activeTabIdRef.current !== id) {
+            window.history.pushState({ tabId: id, entryId }, "", `/dashboard/${id}/${entryId}`)
+        } else {
+            window.history.replaceState({ tabId: id, entryId }, "", `/dashboard/${id}/${entryId}`)
+        }
     }, [])
 
     // Navigate within the tab's own history stack (does not add browser history entries).
@@ -508,12 +541,21 @@ export function TabsProvider({ children }: Props) {
         )
     }, [])
 
-    const openPanelTab = useCallback((title: string, component: React.ReactNode, icon?: string): string => {
+    const openPanelTab = useCallback((title: string, component: React.ReactNode, description?: string, icon?: string): string => {
+        // Dedup: if a panel tab with the same title already exists, focus it.
+        const existing = tabsRef.current.find((t): t is PanelTab => t.type === "panel" && t.title === title)
+        if (existing) {
+            setActiveTabId(existing.id)
+            window.history.pushState({ panelTabId: existing.id }, "", window.location.href)
+            return existing.id
+        }
+
         const id = generateId()
         const newTab: PanelTab = {
             id,
             type: "panel",
             title,
+            description,
             icon,
             component,
         }
@@ -522,6 +564,10 @@ export function TabsProvider({ children }: Props) {
             newTab,
         ])
         setActiveTabId(id)
+        // Push a browser history entry so that pressing Back from a panel tab
+        // returns to the previous tab/panel rather than skipping it.
+        // Store the panel tab ID so popstate can re-activate it on forward.
+        window.history.pushState({ panelTabId: id }, "", window.location.href)
         return id
     }, [])
 

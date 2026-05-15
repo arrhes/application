@@ -10,8 +10,7 @@ import { useNavigate, useParams, useSearch } from "@tanstack/react-router"
 import { type DragEvent, useState } from "react"
 import { DataWrapper } from "../../../../components/layouts/DataWrapper.js"
 import { Page } from "../../../../components/layouts/page/page.js"
-import { storageLayoutRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/storage/storageLayoutRoute.js"
-import { storageRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/storage/storageRoute.js"
+
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
 import { CreateOneFile } from "./CreateOneFile.js"
@@ -20,11 +19,11 @@ import { FilesPageContent } from "./FilesPageContent.js"
 
 export function FilesPage() {
     const params = useParams({
-        from: storageLayoutRoute.id,
-    })
+        strict: false,
+    }) as { idOrganization?: string }
     const { idFolder } = useSearch({
-        from: storageRoute.id,
-    })
+        strict: false,
+    }) as { idFolder?: string }
     const navigate = useNavigate()
 
     // Current folder is derived from the URL search param
@@ -35,8 +34,8 @@ export function FilesPage() {
             to: ".",
             search: folderId
                 ? {
-                      idFolder: folderId,
-                  }
+                    idFolder: folderId,
+                }
                 : {},
         })
     }

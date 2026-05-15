@@ -23,7 +23,10 @@ import { useTabs } from "../../../../../contexts/tabs/useTabs.tsx"
 import { getResponseBodyFromAPI } from "../../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../../utilities/invalidateData.ts"
 
-export function UpdateOneEntry(props: { entry: v.InferOutput<typeof returnedSchemas.entry>; children: JSX.Element }) {
+export function UpdateOneEntry(props: {
+    entry: v.InferOutput<typeof returnedSchemas.entry>
+    children: JSX.Element
+}) {
     const { openPanelTab, closeTab } = useTabs()
 
     return (
@@ -36,10 +39,7 @@ export function UpdateOneEntry(props: { entry: v.InferOutput<typeof returnedSche
                 height: "fit-content",
             })}
             onClick={() => {
-                const r = {
-                    current: "",
-                }
-                r.current = openPanelTab(
+                const id = openPanelTab(
                     "Modifier une écriture",
                     <div
                         className={css({
@@ -96,7 +96,7 @@ export function UpdateOneEntry(props: { entry: v.InferOutput<typeof returnedSche
                                     }),
                                 ])
 
-                                closeTab(r.current)
+                                closeTab(id)
                             }}
                         >
                             {(form) => (
@@ -202,6 +202,7 @@ export function UpdateOneEntry(props: { entry: v.InferOutput<typeof returnedSche
                             )}
                         </FormRoot>
                     </div>,
+                    props.entry.label ?? undefined,
                 )
             }}
         >

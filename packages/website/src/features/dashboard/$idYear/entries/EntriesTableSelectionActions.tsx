@@ -1,11 +1,10 @@
 import { deleteOneEntryRouteDefinition, readAllEntriesRouteDefinition } from "@arrhes/application-metadata/routes"
-import { Button, ButtonGhostContent, toast } from "@arrhes/ui"
+import { Button, ButtonGhostContent, ButtonOutlineContent, ButtonPlainContent, Dialog, toast, useModalStore } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconChevronDown, IconTrash } from "@tabler/icons-react"
 import type { Row } from "@tanstack/react-table"
-import { useState } from "react"
+import { useId } from "react"
 import type * as v from "valibot"
-import { ConfirmationModal } from "../../../../components/overlays/dialog/ConfirmationModal.js"
 import { Popover } from "../../../../components/overlays/popover/popover.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
@@ -13,7 +12,8 @@ import { invalidateData } from "../../../../utilities/invalidateData.js"
 type EntryRow = v.InferOutput<typeof readAllEntriesRouteDefinition.schemas.return>[number]
 
 export function EntriesTableSelectionActions(props: { selectedRows: Array<Row<EntryRow>>; idYear: string }) {
-    const [deleteOpen, setDeleteOpen] = useState(false)
+    const deleteModalId = useId()
+    const { open: openModal, close: closeModal } = useModalStore()
 
     async function handleDelete() {
         const results = await Promise.all(
@@ -69,7 +69,30 @@ export function EntriesTableSelectionActions(props: { selectedRows: Array<Row<En
                             className={css({
                                 width: "100%",
                             })}
-                            onClick={() => setDeleteOpen(true)}
+                            onClick={() =>
+                                openModal(
+                                    deleteModalId,
+                                    <Dialog.Content>
+                                        <Dialog.Header>
+                                            <Dialog.Title>Supprimer les écritures sélectionnées</Dialog.Title>
+                                        </Dialog.Header>
+                                        <Dialog.Body>
+                                            <Dialog.Description>
+                                                {`Voulez-vous supprimer ${props.selectedRows.length} écriture${props.selectedRows.length > 1 ? "s" : ""
+                                                    } ? Cette action est irréversible.`}
+                                            </Dialog.Description>
+                                        </Dialog.Body>
+                                        <Dialog.Footer>
+                                            <Button onClick={() => closeModal(deleteModalId)}>
+                                                <ButtonOutlineContent text="Annuler" />
+                                            </Button>
+                                            <Button hasLoader onClick={async () => { await handleDelete(); closeModal(deleteModalId) }}>
+                                                <ButtonPlainContent color="danger" leftIcon={<IconTrash />} text="Supprimer" />
+                                            </Button>
+                                        </Dialog.Footer>
+                                    </Dialog.Content>,
+                                )
+                            }
                         >
                             <ButtonGhostContent
                                 leftIcon={<IconTrash />}
@@ -84,20 +107,7 @@ export function EntriesTableSelectionActions(props: { selectedRows: Array<Row<En
                     </Popover.Close>
                 </Popover.Content>
             </Popover.Root>
-            <ConfirmationModal
-                open={deleteOpen}
-                onOpenChange={setDeleteOpen}
-                title="Supprimer les écritures sélectionnées"
-                description={`Voulez-vous supprimer ${props.selectedRows.length} écriture${
-                    props.selectedRows.length > 1 ? "s" : ""
-                } ? Cette action est irréversible.`}
-                submitButtonProps={{
-                    text: "Supprimer",
-                    leftIcon: <IconTrash />,
-                    color: "danger",
-                }}
-                onSubmit={handleDelete}
-            />
+
         </>
     )
 }

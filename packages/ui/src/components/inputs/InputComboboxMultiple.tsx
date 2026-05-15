@@ -128,7 +128,6 @@ export function InputComboboxMultiple<TValue extends string>(props: InputCombobo
             <Popover.Root
                 open={open}
                 onOpenChange={setOpen}
-                modal
             >
                 <Popover.Trigger asChild>
                     <Button
@@ -140,8 +139,8 @@ export function InputComboboxMultiple<TValue extends string>(props: InputCombobo
                             }),
                             props.isDisabled
                                 ? css({
-                                      cursor: "not-allowed",
-                                  })
+                                    cursor: "not-allowed",
+                                })
                                 : "",
                         )}
                         onClick={() => {

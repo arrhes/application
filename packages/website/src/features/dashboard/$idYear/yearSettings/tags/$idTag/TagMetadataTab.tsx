@@ -5,12 +5,12 @@ import { useParams } from "@tanstack/react-router"
 import { DataBlock } from "../../../../../../components/layouts/dataBlock/dataBlock.tsx"
 import { DataWrapper } from "../../../../../../components/layouts/DataWrapper.tsx"
 import { Section } from "../../../../../../components/layouts/section/section.tsx"
-import { tagLayoutRoute } from "../../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/tags/$idTag/tagLayoutRoute.tsx"
+
 
 export function TagMetadataTab() {
     const params = useParams({
-        from: tagLayoutRoute.id,
-    })
+        strict: false,
+    }) as { idYear?: string; idTag?: string }
 
     return (
         <DataWrapper

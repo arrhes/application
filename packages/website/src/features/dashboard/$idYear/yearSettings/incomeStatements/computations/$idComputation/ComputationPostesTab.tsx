@@ -5,14 +5,14 @@ import { IconPlus } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { DataWrapper } from "../../../../../../../components/layouts/DataWrapper.tsx"
 import { Section } from "../../../../../../../components/layouts/section/section.tsx"
-import { computationLayoutRoute } from "../../../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/computations/$idComputation/computationLayoutRoute.tsx"
+
 import { ComputationIncomeStatementsTable } from "./computationIncomeStatements/ComputationIncomeStatementsTable.tsx"
 import { CreateOneComputationIncomeStatement } from "./computationIncomeStatements/CreateOneComputationIncomeStatement.tsx"
 
 export function ComputationPostesTab() {
     const params = useParams({
-        from: computationLayoutRoute.id,
-    })
+        strict: false,
+    }) as { idYear?: string; idComputation?: string }
 
     return (
         <DataWrapper

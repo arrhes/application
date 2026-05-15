@@ -7,14 +7,14 @@ import { DataWrapper } from "../../../../../../../../../components/layouts/DataW
 import { Section } from "../../../../../../../../../components/layouts/section/section.tsx"
 import { Tab } from "../../../../../../../../../components/layouts/tab/tab.tsx"
 import { LinkButton } from "../../../../../../../../../components/LinkButton.tsx"
-import { computationIncomeStatementLayoutRoute } from "../../../../../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/computations/$idComputation/$idComputationIncomeStatement/computationIncomeStatementLayoutRoute.tsx"
+
 import { DeleteOneComputationIncomeStatement } from "./DeleteOneComputationIncomeStatement.tsx"
 import { UpdateOneComputationIncomeStatement } from "./UpdateOneComputationIncomeStatement.tsx"
 
 export function ComputationIncomeStatementLayout() {
     const params = useParams({
-        from: computationIncomeStatementLayoutRoute.id,
-    })
+        strict: false,
+    }) as { idYear?: string; idComputationIncomeStatement?: string }
 
     return (
         <Section.Root>

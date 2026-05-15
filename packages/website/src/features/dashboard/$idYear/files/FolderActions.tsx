@@ -1,11 +1,10 @@
 import { deleteOneFolderRouteDefinition, readAllFoldersRouteDefinition } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button, ButtonGhostContent, Separator, toast } from "@arrhes/ui"
+import { Button, ButtonGhostContent, ButtonOutlineContent, ButtonPlainContent, Separator, toast, useModalStore } from "@arrhes/ui"
 import { css } from "@arrhes/ui/css"
 import { IconArrowsMove, IconDotsVertical, IconEye, IconPencil, IconTrash } from "@tabler/icons-react"
-import { useState } from "react"
+import { useId } from "react"
 import type * as v from "valibot"
-import { ConfirmationModal } from "../../../../components/overlays/dialog/ConfirmationModal.js"
 import { Dialog } from "../../../../components/overlays/dialog/dialog.js"
 import { Popover } from "../../../../components/overlays/popover/popover.js"
 import { useTabs } from "../../../../contexts/tabs/useTabs.js"
@@ -19,8 +18,9 @@ export function FolderActions(props: {
     idOrganization: string
     onFolderOpen: (folderId: string | null) => void
 }) {
-    const [moveOpen, setMoveOpen] = useState(false)
-    const [deleteOpen, setDeleteOpen] = useState(false)
+    const moveModalId = useId()
+    const deleteModalId = useId()
+    const { open: openModal, close: closeModal } = useModalStore()
     const { openPanelTab, closeTab } = useTabs()
 
     async function handleDelete() {
@@ -124,7 +124,26 @@ export function FolderActions(props: {
                             className={css({
                                 width: "100%",
                             })}
-                            onClick={() => setMoveOpen(true)}
+                            onClick={() =>
+                                openModal(
+                                    moveModalId,
+                                    <Dialog.Content>
+                                        <Dialog.Header>
+                                            <Dialog.Title>Déplacer le dossier</Dialog.Title>
+                                        </Dialog.Header>
+                                        <Dialog.Body
+                                            className={css({
+                                                alignItems: "stretch",
+                                            })}
+                                        >
+                                            <MoveOneFolderForm
+                                                folder={props.folder}
+                                                onSuccess={() => closeModal(moveModalId)}
+                                            />
+                                        </Dialog.Body>
+                                    </Dialog.Content>,
+                                )
+                            }
                         >
                             <ButtonGhostContent
                                 leftIcon={<IconArrowsMove />}
@@ -142,7 +161,31 @@ export function FolderActions(props: {
                             className={css({
                                 width: "100%",
                             })}
-                            onClick={() => setDeleteOpen(true)}
+                            onClick={() =>
+                                openModal(
+                                    deleteModalId,
+                                    <Dialog.Content>
+                                        <Dialog.Header>
+                                            <Dialog.Title>Voulez-vous supprimer ce dossier ?</Dialog.Title>
+                                        </Dialog.Header>
+                                        <Dialog.Body>
+                                            <Dialog.Description>
+                                                Cette action supprimera le dossier et tous ses sous-dossiers.
+                                                Les fichiers contenus ne seront pas supprimés.
+                                                Cette action est irréversible.
+                                            </Dialog.Description>
+                                        </Dialog.Body>
+                                        <Dialog.Footer>
+                                            <Button onClick={() => closeModal(deleteModalId)}>
+                                                <ButtonOutlineContent text="Annuler" />
+                                            </Button>
+                                            <Button hasLoader onClick={async () => { await handleDelete(); closeModal(deleteModalId) }}>
+                                                <ButtonPlainContent color="danger" text="Supprimer le dossier" />
+                                            </Button>
+                                        </Dialog.Footer>
+                                    </Dialog.Content>,
+                                )
+                            }
                         >
                             <ButtonGhostContent
                                 leftIcon={<IconTrash />}
@@ -157,47 +200,6 @@ export function FolderActions(props: {
                     </Popover.Close>
                 </Popover.Content>
             </Popover.Root>
-
-            <Dialog.Root
-                open={moveOpen}
-                onOpenChange={setMoveOpen}
-            >
-                <Dialog.Content>
-                    <Dialog.Header>
-                        <Dialog.Title>Déplacer le dossier</Dialog.Title>
-                    </Dialog.Header>
-                    <Dialog.Body
-                        className={css({
-                            alignItems: "stretch",
-                        })}
-                    >
-                        <MoveOneFolderForm
-                            folder={props.folder}
-                            onSuccess={() => setMoveOpen(false)}
-                        />
-                    </Dialog.Body>
-                </Dialog.Content>
-            </Dialog.Root>
-
-            <ConfirmationModal
-                title="Voulez-vous supprimer ce dossier ?"
-                description={
-                    <>
-                        Cette action supprimera le dossier et tous ses sous-dossiers.
-                        <br />
-                        Les fichiers contenus ne seront pas supprimés.
-                        <br />
-                        Cette action est irréversible.
-                    </>
-                }
-                submitButtonProps={{
-                    color: "danger",
-                    text: "Supprimer le dossier",
-                }}
-                onSubmit={handleDelete}
-                open={deleteOpen}
-                onOpenChange={setDeleteOpen}
-            />
         </>
     )
 }

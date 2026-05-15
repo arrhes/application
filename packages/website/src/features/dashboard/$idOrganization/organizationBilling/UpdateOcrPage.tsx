@@ -9,13 +9,12 @@ import {
     OCR_PAGE_TIERS,
     VAT_PERCENT,
 } from "@arrhes/application-metadata/utilities"
-import { Button, ButtonOutlineContent, ButtonPlainContent, InputNumber, toast } from "@arrhes/ui"
+import { Button, ButtonOutlineContent, ButtonPlainContent, Dialog, InputNumber, toast, useModalStore } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconCreditCard, IconX } from "@tabler/icons-react"
-import { type ReactNode, useEffect, useState } from "react"
+import { type ReactNode, useEffect, useId, useState } from "react"
 import { DataWrapper } from "../../../../components/layouts/DataWrapper.tsx"
 import { Page } from "../../../../components/layouts/page/page.tsx"
-import { ConfirmationModal } from "../../../../components/overlays/dialog/ConfirmationModal.tsx"
 import { formatEuros } from "../../../../utilities/formatEuros.tsx"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
@@ -71,7 +70,8 @@ function FormSection(props: { title: string; description?: string; children: Rea
 }
 
 function UpdateOcrForm(props: { idOrganization: string; currentQuantity: number; currentPagesLeft: number }) {
-    const [confirmOpen, setConfirmOpen] = useState(false)
+    const confirmModalId = useId()
+    const { open: openModal, close: closeModal } = useModalStore()
     const [quantityDelta, setQuantityDelta] = useState(0)
     const nextQuantity = props.currentQuantity + quantityDelta
     const deltaAmountInCents = quantityDelta * OCR_PAGE_PRICE_IN_CENTS
@@ -246,7 +246,29 @@ function UpdateOcrForm(props: { idOrganization: string; currentQuantity: number;
                     />
                 </Button>
                 <Button
-                    onClick={() => setConfirmOpen(true)}
+                    onClick={() =>
+                        openModal(
+                            confirmModalId,
+                            <Dialog.Content>
+                                <Dialog.Header>
+                                    <Dialog.Title>Confirmer l'achat de pages OCR</Dialog.Title>
+                                </Dialog.Header>
+                                <Dialog.Body>
+                                    <Dialog.Description>
+                                        {`${formatPageDelta(quantityDelta)} seront ajoutées et ${formatEuros(deltaAmountTTCInCents)} (TTC) seront débités de votre portefeuille (${formatEuros(deltaAmountInCents)} HT + TVA ${VAT_PERCENT}%).`}
+                                    </Dialog.Description>
+                                </Dialog.Body>
+                                <Dialog.Footer>
+                                    <Button onClick={() => closeModal(confirmModalId)}>
+                                        <ButtonOutlineContent text="Annuler" />
+                                    </Button>
+                                    <Button hasLoader onClick={async () => { await handleSave(); closeModal(confirmModalId) }}>
+                                        <ButtonPlainContent leftIcon={<IconCreditCard />} text="Confirmer l'achat" />
+                                    </Button>
+                                </Dialog.Footer>
+                            </Dialog.Content>,
+                        )
+                    }
                     isDisabled={quantityDelta === 0}
                 >
                     <ButtonPlainContent
@@ -256,16 +278,6 @@ function UpdateOcrForm(props: { idOrganization: string; currentQuantity: number;
                     />
                 </Button>
             </div>
-            <ConfirmationModal
-                open={confirmOpen}
-                onOpenChange={setConfirmOpen}
-                title="Confirmer l'achat de pages OCR"
-                description={`${formatPageDelta(quantityDelta)} seront ajoutées et ${formatEuros(deltaAmountTTCInCents)} (TTC) seront débités de votre portefeuille (${formatEuros(deltaAmountInCents)} HT + TVA ${VAT_PERCENT}%).`}
-                submitButtonProps={{
-                    text: "Confirmer l'achat",
-                }}
-                onSubmit={handleSave}
-            />
         </div>
     )
 }
@@ -288,8 +300,8 @@ export function UpdateOcrPage({ idOrganization }: { idOrganization: string }) {
                             idOrganization={idOrganization}
                             currentQuantity={Math.max(
                                 organization.ocrPagesTotalAvailable +
-                                    organization.ocrPagesTotalUsed -
-                                    INCLUDED_OCR_PAGES,
+                                organization.ocrPagesTotalUsed -
+                                INCLUDED_OCR_PAGES,
                                 0,
                             )}
                             currentPagesLeft={organization.ocrPagesTotalAvailable}

@@ -57,7 +57,13 @@ export { PageNavigation } from "./components/layouts/PageNavigation.js"
 export { Separator } from "./components/layouts/Separator.js"
 export { Virtualizer } from "./components/layouts/Virtualizer.js"
 // Components - Overlays
+export { Dialog } from "./components/overlays/dialog/dialog.js"
 export { Popover } from "./components/overlays/popover/popover.js"
+// Stores
+export { ModalProvider, useModalStore, useModalItem } from "./stores/modalStore.js"
+export type { ModalStoreValue } from "./stores/modalStore.js"
+export { PopoverProvider, usePopoverStore } from "./stores/popoverStore.js"
+export type { PopoverStoreValue } from "./stores/popoverStore.js"
 export { Toast } from "./components/overlays/toast/toast.js"
 export { ToasterProvider } from "./components/overlays/toast/ToasterProvider.js"
 export type { ToasterToast, ToastVariant } from "./components/overlays/toast/useToast.js"

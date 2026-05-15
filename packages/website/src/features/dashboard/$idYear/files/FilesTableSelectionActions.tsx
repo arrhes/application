@@ -4,13 +4,12 @@ import {
     readAllFilesRouteDefinition,
     readAllFoldersRouteDefinition,
 } from "@arrhes/application-metadata/routes"
-import { Button, ButtonGhostContent, toast } from "@arrhes/ui"
+import { Button, ButtonGhostContent, ButtonOutlineContent, ButtonPlainContent, Dialog, toast, useModalStore } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconChevronDown, IconTrash } from "@tabler/icons-react"
 import type { Row } from "@tanstack/react-table"
-import { useState } from "react"
+import { useId } from "react"
 import type * as v from "valibot"
-import { ConfirmationModal } from "../../../../components/overlays/dialog/ConfirmationModal.js"
 import { Popover } from "../../../../components/overlays/popover/popover.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
@@ -18,19 +17,20 @@ import { deleteFileWithSignedUrl } from "./deleteFileWithSignedUrl.js"
 
 export type TableRow =
     | {
-          kind: "back"
-      }
+        kind: "back"
+    }
     | {
-          kind: "folder"
-          data: v.InferOutput<typeof returnedSchemas.folder>
-      }
+        kind: "folder"
+        data: v.InferOutput<typeof returnedSchemas.folder>
+    }
     | {
-          kind: "file"
-          data: v.InferOutput<typeof returnedSchemas.file>
-      }
+        kind: "file"
+        data: v.InferOutput<typeof returnedSchemas.file>
+    }
 
 export function FilesTableSelectionActions(props: { selectedRows: Array<Row<TableRow>> }) {
-    const [deleteOpen, setDeleteOpen] = useState(false)
+    const deleteModalId = useId()
+    const { open: openModal, close: closeModal } = useModalStore()
     const selectedFiles = props.selectedRows
         .filter((r) => r.original.kind === "file")
         .map(
@@ -122,7 +122,30 @@ export function FilesTableSelectionActions(props: { selectedRows: Array<Row<Tabl
                             className={css({
                                 width: "100%",
                             })}
-                            onClick={() => setDeleteOpen(true)}
+                            onClick={() =>
+                                openModal(
+                                    deleteModalId,
+                                    <Dialog.Content>
+                                        <Dialog.Header>
+                                            <Dialog.Title>Supprimer les éléments sélectionnés</Dialog.Title>
+                                        </Dialog.Header>
+                                        <Dialog.Body>
+                                            <Dialog.Description>
+                                                {`Voulez-vous supprimer ${props.selectedRows.length} élément${props.selectedRows.length > 1 ? "s" : ""
+                                                    } ? Cette action est irréversible.`}
+                                            </Dialog.Description>
+                                        </Dialog.Body>
+                                        <Dialog.Footer>
+                                            <Button onClick={() => closeModal(deleteModalId)}>
+                                                <ButtonOutlineContent text="Annuler" />
+                                            </Button>
+                                            <Button hasLoader onClick={async () => { await handleDelete(); closeModal(deleteModalId) }}>
+                                                <ButtonPlainContent color="danger" leftIcon={<IconTrash />} text="Supprimer" />
+                                            </Button>
+                                        </Dialog.Footer>
+                                    </Dialog.Content>,
+                                )
+                            }
                         >
                             <ButtonGhostContent
                                 leftIcon={<IconTrash />}
@@ -137,20 +160,7 @@ export function FilesTableSelectionActions(props: { selectedRows: Array<Row<Tabl
                     </Popover.Close>
                 </Popover.Content>
             </Popover.Root>
-            <ConfirmationModal
-                open={deleteOpen}
-                onOpenChange={setDeleteOpen}
-                title="Supprimer les éléments sélectionnés"
-                description={`Voulez-vous supprimer ${props.selectedRows.length} élément${
-                    props.selectedRows.length > 1 ? "s" : ""
-                } ? Cette action est irréversible.`}
-                submitButtonProps={{
-                    text: "Supprimer",
-                    leftIcon: <IconTrash />,
-                    color: "danger",
-                }}
-                onSubmit={handleDelete}
-            />
+
         </>
     )
 }

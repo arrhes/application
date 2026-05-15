@@ -122,6 +122,7 @@ export function UpdateOneTag(props: { tag: v.InferOutput<typeof returnedSchemas.
                             )}
                         </FormRoot>
                     </div>,
+                    props.tag.label ?? undefined,
                 )
             }}
         >

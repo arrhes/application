@@ -7,14 +7,14 @@ import { DataWrapper } from "../../../../../../components/layouts/DataWrapper.ts
 import { Section } from "../../../../../../components/layouts/section/section.tsx"
 import { Tab } from "../../../../../../components/layouts/tab/tab.tsx"
 import { LinkButton } from "../../../../../../components/LinkButton.tsx"
-import { balanceSheetLayoutRoute } from "../../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/balanceSheets/$idBalanceSheet/balanceSheetLayoutRoute.tsx"
+
 import { DeleteOneBalanceSheet } from "./DeleteOneBalanceSheet.tsx"
 import { UpdateOneBalanceSheet } from "./UpdateOneBalanceSheet.tsx"
 
 export function BalanceSheetLayout() {
     const params = useParams({
-        from: balanceSheetLayoutRoute.id,
-    })
+        strict: false,
+    }) as { idYear?: string; idBalanceSheet?: string }
 
     return (
         <Section.Root>

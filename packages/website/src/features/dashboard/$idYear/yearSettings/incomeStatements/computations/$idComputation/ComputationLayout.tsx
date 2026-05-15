@@ -7,14 +7,14 @@ import { DataWrapper } from "../../../../../../../components/layouts/DataWrapper
 import { Section } from "../../../../../../../components/layouts/section/section.tsx"
 import { Tab } from "../../../../../../../components/layouts/tab/tab.tsx"
 import { LinkButton } from "../../../../../../../components/LinkButton.tsx"
-import { computationLayoutRoute } from "../../../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/computations/$idComputation/computationLayoutRoute.tsx"
+
 import { DeleteOneComputation } from "./DeleteOneComputation.tsx"
 import { UpdateOneComputation } from "./UpdateOneComputation.tsx"
 
 export function ComputationLayout() {
     const params = useParams({
-        from: computationLayoutRoute.id,
-    })
+        strict: false,
+    }) as { idYear?: string; idComputation?: string }
 
     return (
         <Section.Root>

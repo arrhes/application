@@ -73,7 +73,7 @@ export function SplitTabBar({ tabIds, activeTabId, onActivate, onRemove, onReord
                             title: string
                         }
                     ).title
-                const description = entry?.description
+                const description = entry?.description ?? (tab.type === "panel" ? tab.description : undefined)
                 return (
                     <div
                         key={tab.id}

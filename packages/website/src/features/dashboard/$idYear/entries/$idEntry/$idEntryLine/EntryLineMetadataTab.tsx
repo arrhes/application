@@ -5,12 +5,12 @@ import { useParams } from "@tanstack/react-router"
 import { DataBlock } from "../../../../../../components/layouts/dataBlock/dataBlock.tsx"
 import { DataWrapper } from "../../../../../../components/layouts/DataWrapper.tsx"
 import { Section } from "../../../../../../components/layouts/section/section.tsx"
-import { entryLineLayoutRoute } from "../../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/entries/$idEntry/$idEntryLine/entryLineLayoutRoute.tsx"
+
 
 export function EntryLineMetadataTab() {
     const params = useParams({
-        from: entryLineLayoutRoute.id,
-    })
+        strict: false,
+    }) as { idYear?: string; idEntryLine?: string }
 
     return (
         <DataWrapper

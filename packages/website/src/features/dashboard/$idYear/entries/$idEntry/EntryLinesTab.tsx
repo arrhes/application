@@ -3,7 +3,6 @@ import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { ButtonOutlineContent, ButtonPlainContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconEdit, IconPlus } from "@tabler/icons-react"
-import { useParams } from "@tanstack/react-router"
 import type * as v from "valibot"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
 import type { YearDataKey } from "../../YearDataWrapper.tsx"
@@ -18,15 +17,13 @@ const requiredKeys = [
     "accounts",
 ] as const satisfies readonly YearDataKey[]
 
-export function EntryLinesTab(props: { idYear?: string; idEntry?: string } = {}) {
-    const params = useParams({
-        strict: false,
-    }) as {
-        idYear?: string
-        idEntry?: string
-    }
-    const idYear = props.idYear ?? params.idYear ?? ""
-    const idEntry = props.idEntry ?? params.idEntry ?? ""
+export function EntryLinesTab(props: {
+    idYear: string
+    idEntry: string
+}) {
+
+    const idYear = props.idYear
+    const idEntry = props.idEntry
 
     return (
         <YearDataWrapper

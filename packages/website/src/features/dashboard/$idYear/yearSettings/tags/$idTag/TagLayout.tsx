@@ -7,14 +7,14 @@ import { DataWrapper } from "../../../../../../components/layouts/DataWrapper.ts
 import { Section } from "../../../../../../components/layouts/section/section.tsx"
 import { Tab } from "../../../../../../components/layouts/tab/tab.tsx"
 import { LinkButton } from "../../../../../../components/LinkButton.tsx"
-import { tagLayoutRoute } from "../../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/tags/$idTag/tagLayoutRoute.tsx"
+
 import { DeleteOneTag } from "./DeleteOneTag.tsx"
 import { UpdateOneTag } from "./UpdateOneTag.tsx"
 
 export function TagLayout() {
     const params = useParams({
-        from: tagLayoutRoute.id,
-    })
+        strict: false,
+    }) as { idYear?: string; idTag?: string }
 
     return (
         <Section.Root>

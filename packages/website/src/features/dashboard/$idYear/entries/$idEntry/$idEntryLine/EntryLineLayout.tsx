@@ -8,14 +8,14 @@ import { Page } from "../../../../../../components/layouts/page/page.tsx"
 import { Section } from "../../../../../../components/layouts/section/section.tsx"
 import { Tab } from "../../../../../../components/layouts/tab/tab.tsx"
 import { LinkButton } from "../../../../../../components/LinkButton.tsx"
-import { entryLineLayoutRoute } from "../../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/entries/$idEntry/$idEntryLine/entryLineLayoutRoute.tsx"
+
 import { DeleteOneEntryLine } from "./DeleteOneEntryLine.tsx"
 import { UpdateOneEntryLine } from "./UpdateOneEntryLine.tsx"
 
 export function EntryLineLayout() {
     const params = useParams({
-        from: entryLineLayoutRoute.id,
-    })
+        strict: false,
+    }) as { idYear?: string; idEntryLine?: string }
 
     return (
         <Page.Root>

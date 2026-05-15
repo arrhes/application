@@ -405,6 +405,7 @@ export function CreateOneEntryLine(props: {
                             )}
                         </FormRoot>
                     </div>,
+                    props.entry.label ?? undefined,
                 )
             }}
         >

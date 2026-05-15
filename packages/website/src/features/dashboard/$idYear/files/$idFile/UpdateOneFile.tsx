@@ -34,6 +34,7 @@ export function UpdateOneFile(props: { file: v.InferOutput<typeof returnedSchema
                             onSuccess={() => closeTab(r.current)}
                         />
                     </div>,
+                    props.file.name,
                 )
             }}
         >

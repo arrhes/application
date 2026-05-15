@@ -8,12 +8,12 @@ import { useParams } from "@tanstack/react-router"
 import { DataBlock } from "../../../../../../../../../components/layouts/dataBlock/dataBlock.tsx"
 import { DataWrapper } from "../../../../../../../../../components/layouts/DataWrapper.tsx"
 import { Section } from "../../../../../../../../../components/layouts/section/section.tsx"
-import { computationIncomeStatementLayoutRoute } from "../../../../../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/computations/$idComputation/$idComputationIncomeStatement/computationIncomeStatementLayoutRoute.tsx"
+
 
 export function ComputationIncomeStatementPage() {
     const params = useParams({
-        from: computationIncomeStatementLayoutRoute.id,
-    })
+        strict: false,
+    }) as { idYear?: string; idComputationIncomeStatement?: string }
 
     return (
         <DataWrapper

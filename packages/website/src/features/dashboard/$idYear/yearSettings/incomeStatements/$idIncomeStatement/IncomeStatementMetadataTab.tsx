@@ -5,12 +5,12 @@ import { useParams } from "@tanstack/react-router"
 import { DataBlock } from "../../../../../../components/layouts/dataBlock/dataBlock.tsx"
 import { DataWrapper } from "../../../../../../components/layouts/DataWrapper.tsx"
 import { Section } from "../../../../../../components/layouts/section/section.tsx"
-import { incomeStatementLayoutRoute } from "../../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/$idIncomeStatement/incomeStatementLayoutRoute.tsx"
+
 
 export function IncomeStatementMetadataTab() {
     const params = useParams({
-        from: incomeStatementLayoutRoute.id,
-    })
+        strict: false,
+    }) as { idYear?: string; idIncomeStatement?: string }
 
     return (
         <DataWrapper

@@ -8,7 +8,7 @@ import { Banner } from "../../../../../components/layouts/Banner.tsx"
 import { DataWrapper } from "../../../../../components/layouts/DataWrapper.tsx"
 import { Page } from "../../../../../components/layouts/page/page.tsx"
 import { SettingsSection } from "../../../../../components/layouts/settingsSection/settingsSection.tsx"
-import { organizationInvoiceUblRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/organizationBilling/organizationInvoiceUblRoute.js"
+
 import { InvoicePaymentsTable } from "./InvoicePaymentsTable.tsx"
 import { InvoiceXMLViewer } from "./InvoiceXMLViewer.tsx"
 
@@ -77,8 +77,8 @@ function InvoiceTabsContent(props: {
 }
 export function OrganizationInvoicePage() {
     const params = useParams({
-        from: organizationInvoiceUblRoute.id,
-    })
+        strict: false,
+    }) as { idInvoice?: string }
 
     return (
         <Page.Root>

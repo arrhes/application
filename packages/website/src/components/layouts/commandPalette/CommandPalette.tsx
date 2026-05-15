@@ -18,9 +18,16 @@ import {
 
 // ─── Fuzzy filter ─────────────────────────────────────────────────────────────
 
+function normalize(s: string): string {
+    return s
+        .normalize("NFD")
+        .replace(/\p{Diacritic}/gu, "")
+        .toLowerCase()
+}
+
 function scoreMatch(query: string, target: string): number {
-    const q = query.toLowerCase()
-    const t = target.toLowerCase()
+    const q = normalize(query)
+    const t = normalize(target)
     if (t.includes(q)) return 0
     return levenshtein(q, t.slice(0, Math.max(t.length, q.length)))
 }

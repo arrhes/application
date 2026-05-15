@@ -315,6 +315,7 @@ export function UpdateManyEntryLines(props: {
                             )}
                         </FormRoot>
                     </div>,
+                    props.entry.label ?? undefined,
                 )
             }}
         >

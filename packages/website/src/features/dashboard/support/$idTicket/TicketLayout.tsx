@@ -7,13 +7,13 @@ import { DataWrapper } from "../../../../components/layouts/DataWrapper.tsx"
 import { Page } from "../../../../components/layouts/page/page.tsx"
 import { Section } from "../../../../components/layouts/section/section.tsx"
 import { LinkButton } from "../../../../components/LinkButton.tsx"
-import { ticketLayoutRoute } from "../../../../routes/root/dashboard/support/ticketLayoutRoute.tsx"
+
 import { StatusToggle } from "./StatusToggle.tsx"
 
 export function TicketLayout() {
     const params = useParams({
-        from: ticketLayoutRoute.id,
-    })
+        strict: false,
+    }) as { idTicket?: string }
 
     return (
         <Page.Root>

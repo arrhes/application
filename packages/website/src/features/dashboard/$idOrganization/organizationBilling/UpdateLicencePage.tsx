@@ -3,20 +3,20 @@ import {
     updateLicenceSubscriptionRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import { getAmountTTCFromHTInCents, SUPPORT_TIERS, VAT_PERCENT } from "@arrhes/application-metadata/utilities"
-import { Button, ButtonOutlineContent, toast } from "@arrhes/ui"
+import { Button, ButtonOutlineContent, Dialog, toast, useModalStore } from "@arrhes/ui"
 import { InputCurrency } from "@arrhes/ui/components/inputs/InputCurrency.js"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconDeviceFloppy } from "@tabler/icons-react"
-import { useState } from "react"
+import { useId, useState } from "react"
 import { DataWrapper } from "../../../../components/layouts/DataWrapper.tsx"
 import { Page } from "../../../../components/layouts/page/page.tsx"
-import { ConfirmationModal } from "../../../../components/overlays/dialog/ConfirmationModal.tsx"
 import { formatEuros } from "../../../../utilities/formatEuros.tsx"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
 
 function UpdateLicenceForm(props: { idOrganization: string; currentAmountInCents: number }) {
-    const [confirmOpen, setConfirmOpen] = useState(false)
+    const confirmModalId = useId()
+    const { open: openModal, close: closeModal } = useModalStore()
     const [value, setValue] = useState<number>(props.currentAmountInCents)
     const [isSaving, setIsSaving] = useState(false)
     const valueTTCInCents = getAmountTTCFromHTInCents(value)
@@ -129,7 +129,29 @@ function UpdateLicenceForm(props: { idOrganization: string; currentAmountInCents
                 </div>
             </div>
             <Button
-                onClick={() => setConfirmOpen(true)}
+                onClick={() =>
+                    openModal(
+                        confirmModalId,
+                        <Dialog.Content>
+                            <Dialog.Header>
+                                <Dialog.Title>Confirmer la modification de la licence</Dialog.Title>
+                            </Dialog.Header>
+                            <Dialog.Body>
+                                <Dialog.Description>
+                                    {`Votre contribution mensuelle passera à ${formatEuros(valueTTCInCents)} TTC (${formatEuros(value)} HT + TVA ${VAT_PERCENT} %), effective le 1er du mois prochain.`}
+                                </Dialog.Description>
+                            </Dialog.Body>
+                            <Dialog.Footer>
+                                <Button onClick={() => closeModal(confirmModalId)}>
+                                    <ButtonOutlineContent text="Annuler" />
+                                </Button>
+                                <Button hasLoader onClick={async () => { await handleSave(); closeModal(confirmModalId) }}>
+                                    <ButtonOutlineContent text="Confirmer" />
+                                </Button>
+                            </Dialog.Footer>
+                        </Dialog.Content>,
+                    )
+                }
                 hasLoader
                 isDisabled={isSaving}
             >
@@ -138,16 +160,7 @@ function UpdateLicenceForm(props: { idOrganization: string; currentAmountInCents
                     text={isSaving ? "Enregistrement..." : "Enregistrer"}
                 />
             </Button>
-            <ConfirmationModal
-                open={confirmOpen}
-                onOpenChange={setConfirmOpen}
-                title="Confirmer la modification de la licence"
-                description={`Votre contribution mensuelle passera à ${formatEuros(valueTTCInCents)} TTC (${formatEuros(value)} HT + TVA ${VAT_PERCENT}%), effective le 1er du mois prochain.`}
-                submitButtonProps={{
-                    text: "Confirmer",
-                }}
-                onSubmit={handleSave}
-            />
+
         </div>
     )
 }

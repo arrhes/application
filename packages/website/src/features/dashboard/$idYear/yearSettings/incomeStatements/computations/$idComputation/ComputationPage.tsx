@@ -5,12 +5,12 @@ import { useParams } from "@tanstack/react-router"
 import { DataBlock } from "../../../../../../../components/layouts/dataBlock/dataBlock.tsx"
 import { DataWrapper } from "../../../../../../../components/layouts/DataWrapper.tsx"
 import { Section } from "../../../../../../../components/layouts/section/section.tsx"
-import { computationLayoutRoute } from "../../../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/computations/$idComputation/computationLayoutRoute.tsx"
+
 
 export function ComputationPage() {
     const params = useParams({
-        from: computationLayoutRoute.id,
-    })
+        strict: false,
+    }) as { idYear?: string; idComputation?: string }
 
     return (
         <DataWrapper

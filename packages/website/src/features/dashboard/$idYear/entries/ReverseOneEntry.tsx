@@ -5,10 +5,9 @@ import {
     readAllEntryTagsRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { toast } from "@arrhes/ui"
-import type { ComponentPropsWithRef, ReactElement } from "react"
+import { Button, ButtonOutlineContent, ButtonPlainContent, Dialog, toast, useModalStore } from "@arrhes/ui"
+import { type ComponentPropsWithRef, type ReactElement, useId } from "react"
 import type * as v from "valibot"
-import { ConfirmationModal } from "../../../../components/overlays/dialog/ConfirmationModal.tsx"
 import { applicationRouter } from "../../../../routes/applicationRouter.tsx"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
@@ -17,6 +16,9 @@ export function ReverseOneEntry(props: {
     entry: v.InferOutput<typeof returnedSchemas.entry>
     children: ReactElement<ComponentPropsWithRef<"div">>
 }) {
+    const modalId = useId()
+    const { open: openModal, close: closeModal } = useModalStore()
+
     async function onSubmit() {
         const reverseResponse = await getResponseBodyFromAPI({
             routeDefinition: reverseOneEntryRouteDefinition,
@@ -71,21 +73,33 @@ export function ReverseOneEntry(props: {
     }
 
     return (
-        <ConfirmationModal
-            title="Voulez-vous extourner cette écriture ?"
-            description={
-                <>
-                    Cette action créera une écriture d'extourne avec les mêmes mouvements inversés.
-                    <br />
-                    L'écriture originale ne sera pas modifiée.
-                </>
+        <Button
+            onClick={() =>
+                openModal(
+                    modalId,
+                    <Dialog.Content>
+                        <Dialog.Header>
+                            <Dialog.Title>Voulez-vous extourner cette écriture ?</Dialog.Title>
+                        </Dialog.Header>
+                        <Dialog.Body>
+                            <Dialog.Description>
+                                Cette action créera une écriture d'extourne avec les mêmes mouvements inversés.
+                                L'écriture originale ne sera pas modifiée.
+                            </Dialog.Description>
+                        </Dialog.Body>
+                        <Dialog.Footer>
+                            <Button onClick={() => closeModal(modalId)}>
+                                <ButtonOutlineContent text="Annuler" />
+                            </Button>
+                            <Button hasLoader onClick={async () => { await onSubmit(); closeModal(modalId) }}>
+                                <ButtonPlainContent text="Extourner l'écriture" />
+                            </Button>
+                        </Dialog.Footer>
+                    </Dialog.Content>,
+                )
             }
-            submitButtonProps={{
-                text: "Extourner l'écriture",
-            }}
-            onSubmit={onSubmit}
         >
             {props.children}
-        </ConfirmationModal>
+        </Button>
     )
 }

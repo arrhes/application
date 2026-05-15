@@ -1,37 +1,5 @@
-import { IconHome, IconLock } from "@tabler/icons-react"
-import { useParams } from "@tanstack/react-router"
-import { SubPageLayout } from "../../../../components/layouts/SubPageLayout.tsx"
-import { organizationSettingsLayoutRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/organizationSettings/organizationSettingsLayoutRoute.tsx"
+import { Outlet } from "@tanstack/react-router"
 
 export function OrganizationSettingsLayout() {
-    const params = useParams({
-        from: organizationSettingsLayoutRoute.id,
-    })
-
-    return (
-        <SubPageLayout
-            sections={{
-                settings: {
-                    items: [
-                        {
-                            label: "Général",
-                            icon: <IconHome />,
-                            to: "/dashboard/organisations/$idOrganization/paramètres",
-                            params: {
-                                idOrganization: params.idOrganization,
-                            },
-                        },
-                        {
-                            label: "Sécurité",
-                            icon: <IconLock />,
-                            to: "/dashboard/organisations/$idOrganization/paramètres/sécurité",
-                            params: {
-                                idOrganization: params.idOrganization,
-                            },
-                        },
-                    ],
-                },
-            }}
-        />
-    )
+    return <Outlet />
 }

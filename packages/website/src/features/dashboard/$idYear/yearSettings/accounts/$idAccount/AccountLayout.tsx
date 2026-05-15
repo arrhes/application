@@ -7,14 +7,14 @@ import { DataWrapper } from "../../../../../../components/layouts/DataWrapper.ts
 import { Section } from "../../../../../../components/layouts/section/section.tsx"
 import { Tab } from "../../../../../../components/layouts/tab/tab.tsx"
 import { LinkButton } from "../../../../../../components/LinkButton.tsx"
-import { accountLayoutRoute } from "../../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/accounts/$idAccount/accountLayoutRoute.tsx"
+
 import { DeleteOneAccount } from "./DeleteOneAccount.tsx"
 import { UpdateOneAccount } from "./UpdateOneAccount.tsx"
 
 export function AccountLayout() {
     const params = useParams({
-        from: accountLayoutRoute.id,
-    })
+        strict: false,
+    }) as { idYear?: string; idAccount?: string }
 
     return (
         <Section.Root>

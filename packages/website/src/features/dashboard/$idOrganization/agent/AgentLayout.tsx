@@ -11,14 +11,14 @@ import { Banner } from "../../../../components/layouts/Banner.tsx"
 import { EmptyState } from "../../../../components/layouts/EmptyState.tsx"
 import { Page } from "../../../../components/layouts/page/page.tsx"
 import { SearchBar } from "../../../../components/layouts/SearchBar.tsx"
-import { organizationPathRoute } from "../../../../routes/root/dashboard/organizations/$idOrganization/organizationPathRoute.tsx"
+
 import { useDataFromAPI } from "../../../../utilities/useHTTPData.ts"
 import { extractSnippet } from "./extractSnippet.ts"
 
 export function AgentLayout() {
     const params = useParams({
-        from: organizationPathRoute.id,
-    })
+        strict: false,
+    }) as { idOrganization?: string; idAgentSession?: string }
     const [activeSessionId, setActiveSessionId] = useState<string | undefined>(undefined)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const navigate = useNavigate()
@@ -37,12 +37,12 @@ export function AgentLayout() {
         routeDefinition: readAllAgentSessionsRouteDefinition,
         body: searchTrimmed
             ? {
-                  idOrganization: params.idOrganization,
-                  search: searchTrimmed,
-              }
+                idOrganization: params.idOrganization,
+                search: searchTrimmed,
+            }
             : {
-                  idOrganization: params.idOrganization,
-              },
+                idOrganization: params.idOrganization,
+            },
     })
 
     const displaySessions = sessions ?? []

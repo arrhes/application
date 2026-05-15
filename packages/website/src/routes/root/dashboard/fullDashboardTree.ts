@@ -1,4 +1,5 @@
 import type { AnyRoute } from "@tanstack/react-router"
+import { dashboardCatchRoute } from "./dashboardCatchRoute.js"
 import { dashboardLayoutRoute } from "./dashboardLayoutRoute.js"
 import { dashboardRootRoute } from "./dashboardRootRoute.js"
 import { dashboardTabHistoryRoute } from "./dashboardTabHistoryRoute.js"
@@ -10,4 +11,5 @@ export const fullDashboardTree: AnyRoute = dashboardLayoutRoute.addChildren([
     dashboardRootRoute,
     dashboardTabRoute,
     dashboardTabHistoryRoute,
+    dashboardCatchRoute,
 ])

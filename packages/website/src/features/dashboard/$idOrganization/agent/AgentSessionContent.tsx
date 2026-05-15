@@ -15,9 +15,11 @@ import {
     ButtonOutlineContent,
     ButtonPlainContent,
     CircularLoader,
+    Dialog,
     InputSelect,
     InputTextArea,
     toast,
+    useModalStore,
 } from "@arrhes/ui"
 import { css } from "@arrhes/ui/css"
 import {
@@ -30,9 +32,8 @@ import {
     IconX,
 } from "@tabler/icons-react"
 import { useNavigate, useParams } from "@tanstack/react-router"
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useId, useRef, useState } from "react"
 import { DataWrapper } from "../../../../components/layouts/DataWrapper.tsx"
-import { ConfirmationModal } from "../../../../components/overlays/dialog/ConfirmationModal.tsx"
 import { Popover } from "../../../../components/overlays/popover/popover.tsx"
 import { dataClient } from "../../../../contexts/data/queryClient.ts"
 import { getCookie } from "../../../../utilities/cookies/getCookie.js"
@@ -170,7 +171,8 @@ export function AgentSessionContent({
     const _scrollContainerRef = useRef<HTMLDivElement>(null)
     const navigate = useNavigate()
     const [isDeleting, setIsDeleting] = useState(false)
-    const [deleteOpen, setDeleteOpen] = useState(false)
+    const deleteModalId = useId()
+    const { open: openModal, close: closeModal } = useModalStore()
     const [editYear, setEditYear] = useState<string | null | undefined>(undefined)
     const [editInstructions, setEditInstructions] = useState<string | null | undefined>(undefined)
     const [isSavingContext, setIsSavingContext] = useState(false)
@@ -360,151 +362,151 @@ export function AgentSessionContent({
             setStreamMessageId(undefined)
         }
 
-        // SSE stream
-        ;(async () => {
-            let streamCompleted = false
-            try {
-                const headers: Record<string, string> = {
-                    "Content-Type": "application/json",
-                }
-                const orgCookie = getCookie(`${cookiePrefix}_id_organization`)
-                if (orgCookie) {
-                    headers["X-Organization-Id"] = orgCookie
-                }
-
-                const apiBaseUrl = resolveApiBaseUrl(import.meta.env.VITE_API_BASE_URL)
-                if (!apiBaseUrl) {
-                    throw new Error("VITE_API_BASE_URL is not configured")
-                }
-
-                const response = await fetch(new URL(`${apiBaseUrl}${getStreamForAgentMessageRouteDefinition.path}`), {
-                    method: "POST",
-                    credentials: "include",
-                    signal: controller.signal,
-                    headers,
-                    body: JSON.stringify({
-                        idOrganization: idOrganization,
-                        idAgentMessage: streamMessageId,
-                    }),
-                })
-
-                if (!isHealthyStreamResponse(response)) {
-                    toast({
-                        title: "Le flux de reponse est indisponible",
-                        description: "Veuillez renvoyer votre message.",
-                        variant: "error",
-                    })
-                    if (!controller.signal.aborted) {
-                        await finish()
+            // SSE stream
+            ; (async () => {
+                let streamCompleted = false
+                try {
+                    const headers: Record<string, string> = {
+                        "Content-Type": "application/json",
                     }
-                    return
-                }
+                    const orgCookie = getCookie(`${cookiePrefix}_id_organization`)
+                    if (orgCookie) {
+                        headers["X-Organization-Id"] = orgCookie
+                    }
 
-                const reader = response.body.getReader()
-                const decoder = new TextDecoder()
-                let buffer = ""
+                    const apiBaseUrl = resolveApiBaseUrl(import.meta.env.VITE_API_BASE_URL)
+                    if (!apiBaseUrl) {
+                        throw new Error("VITE_API_BASE_URL is not configured")
+                    }
 
-                while (true) {
-                    const { done, value } = await reader.read()
-                    if (done) break
-
-                    buffer += decoder.decode(value, {
-                        stream: true,
+                    const response = await fetch(new URL(`${apiBaseUrl}${getStreamForAgentMessageRouteDefinition.path}`), {
+                        method: "POST",
+                        credentials: "include",
+                        signal: controller.signal,
+                        headers,
+                        body: JSON.stringify({
+                            idOrganization: idOrganization,
+                            idAgentMessage: streamMessageId,
+                        }),
                     })
 
-                    const parts = buffer.split("\n\n")
-                    buffer = parts.pop() ?? ""
+                    if (!isHealthyStreamResponse(response)) {
+                        toast({
+                            title: "Le flux de reponse est indisponible",
+                            description: "Veuillez renvoyer votre message.",
+                            variant: "error",
+                        })
+                        if (!controller.signal.aborted) {
+                            await finish()
+                        }
+                        return
+                    }
 
-                    for (const part of parts) {
-                        for (const line of part.split("\n")) {
-                            if (!line.startsWith("data: ")) continue
-                            const jsonStr = line.slice(6).trim()
-                            if (!jsonStr) continue
+                    const reader = response.body.getReader()
+                    const decoder = new TextDecoder()
+                    let buffer = ""
 
-                            try {
-                                const chunk = JSON.parse(jsonStr)
-                                if (chunk.type === "TEXT_MESSAGE_CONTENT" && typeof chunk.delta === "string") {
-                                    if (chunk.subagentSkills && subagentStack.length > 0) {
-                                        // Accumulate subagent content
-                                        const current = subagentStack[subagentStack.length - 1]
-                                        if (current) {
-                                            current.content += chunk.delta
-                                            setActiveSubagents([
-                                                ...subagentStack,
-                                            ])
+                    while (true) {
+                        const { done, value } = await reader.read()
+                        if (done) break
+
+                        buffer += decoder.decode(value, {
+                            stream: true,
+                        })
+
+                        const parts = buffer.split("\n\n")
+                        buffer = parts.pop() ?? ""
+
+                        for (const part of parts) {
+                            for (const line of part.split("\n")) {
+                                if (!line.startsWith("data: ")) continue
+                                const jsonStr = line.slice(6).trim()
+                                if (!jsonStr) continue
+
+                                try {
+                                    const chunk = JSON.parse(jsonStr)
+                                    if (chunk.type === "TEXT_MESSAGE_CONTENT" && typeof chunk.delta === "string") {
+                                        if (chunk.subagentSkills && subagentStack.length > 0) {
+                                            // Accumulate subagent content
+                                            const current = subagentStack[subagentStack.length - 1]
+                                            if (current) {
+                                                current.content += chunk.delta
+                                                setActiveSubagents([
+                                                    ...subagentStack,
+                                                ])
+                                            }
+                                        } else {
+                                            accumulated += chunk.delta
+                                            setStreamingContent(accumulated)
                                         }
-                                    } else {
-                                        accumulated += chunk.delta
-                                        setStreamingContent(accumulated)
                                     }
-                                }
-                                if (chunk.type === "TOOL_CALL_START") {
-                                    // Emit text boundary if text accumulated since last boundary
-                                    if (accumulated.length > lastBoundaryLen) {
-                                        accumulatedToolCalls.push({
-                                            type: "TEXT_BOUNDARY",
-                                            contentLength: accumulated.length,
+                                    if (chunk.type === "TOOL_CALL_START") {
+                                        // Emit text boundary if text accumulated since last boundary
+                                        if (accumulated.length > lastBoundaryLen) {
+                                            accumulatedToolCalls.push({
+                                                type: "TEXT_BOUNDARY",
+                                                contentLength: accumulated.length,
+                                            })
+                                            lastBoundaryLen = accumulated.length
+                                        }
+                                        accumulatedToolCalls.push(chunk)
+                                        setStreamingToolCalls([
+                                            ...accumulatedToolCalls,
+                                        ])
+                                    }
+                                    if (chunk.type === "CONTEXT_LIMIT_WARNING") {
+                                        toast({
+                                            title: "La conversation approche de sa limite de contexte",
+                                            description: `${chunk.usage}% de la capacité utilisée. Envisagez de créer une nouvelle session.`,
+                                            variant: "warning",
                                         })
-                                        lastBoundaryLen = accumulated.length
                                     }
-                                    accumulatedToolCalls.push(chunk)
-                                    setStreamingToolCalls([
-                                        ...accumulatedToolCalls,
-                                    ])
+                                    if (chunk.type === "TOOL_CALL_END") {
+                                        // Deduplicate: framework re-emits TOOL_CALL_END after RUN_FINISHED
+                                        const tcId = chunk.toolCallId as string | undefined
+                                        if (tcId && seenEnds.has(tcId)) continue
+                                        if (tcId) seenEnds.add(tcId)
+                                        accumulatedToolCalls.push(chunk)
+                                        setStreamingToolCalls([
+                                            ...accumulatedToolCalls,
+                                        ])
+                                    }
+                                    if (chunk.type === "SUBAGENT_RUN_START") {
+                                        subagentStack.push({
+                                            role: (chunk.skills as string) ?? "subagent",
+                                            depth: chunk.depth as number,
+                                            content: "",
+                                        })
+                                        setActiveSubagents([
+                                            ...subagentStack,
+                                        ])
+                                    }
+                                    if (chunk.type === "SUBAGENT_RUN_END") {
+                                        subagentStack.pop()
+                                        setActiveSubagents([
+                                            ...subagentStack,
+                                        ])
+                                    }
+                                } catch {
+                                    // ignore malformed chunks
                                 }
-                                if (chunk.type === "CONTEXT_LIMIT_WARNING") {
-                                    toast({
-                                        title: "La conversation approche de sa limite de contexte",
-                                        description: `${chunk.usage}% de la capacité utilisée. Envisagez de créer une nouvelle session.`,
-                                        variant: "warning",
-                                    })
-                                }
-                                if (chunk.type === "TOOL_CALL_END") {
-                                    // Deduplicate: framework re-emits TOOL_CALL_END after RUN_FINISHED
-                                    const tcId = chunk.toolCallId as string | undefined
-                                    if (tcId && seenEnds.has(tcId)) continue
-                                    if (tcId) seenEnds.add(tcId)
-                                    accumulatedToolCalls.push(chunk)
-                                    setStreamingToolCalls([
-                                        ...accumulatedToolCalls,
-                                    ])
-                                }
-                                if (chunk.type === "SUBAGENT_RUN_START") {
-                                    subagentStack.push({
-                                        role: (chunk.skills as string) ?? "subagent",
-                                        depth: chunk.depth as number,
-                                        content: "",
-                                    })
-                                    setActiveSubagents([
-                                        ...subagentStack,
-                                    ])
-                                }
-                                if (chunk.type === "SUBAGENT_RUN_END") {
-                                    subagentStack.pop()
-                                    setActiveSubagents([
-                                        ...subagentStack,
-                                    ])
-                                }
-                            } catch {
-                                // ignore malformed chunks
                             }
                         }
                     }
-                }
 
-                streamCompleted = true
-            } catch (err: unknown) {
-                if (err instanceof Error && err.name === "AbortError") return
-                console.error("[stream] SSE error — falling back to polling", err)
-            } finally {
-                // Only finish when the stream completed naturally.
-                // If the SSE failed (network/auth error), let the polling
-                // fallback continue running so it can detect completion.
-                if (streamCompleted && !controller.signal.aborted) {
-                    finish()
+                    streamCompleted = true
+                } catch (err: unknown) {
+                    if (err instanceof Error && err.name === "AbortError") return
+                    console.error("[stream] SSE error — falling back to polling", err)
+                } finally {
+                    // Only finish when the stream completed naturally.
+                    // If the SSE failed (network/auth error), let the polling
+                    // fallback continue running so it can detect completion.
+                    if (streamCompleted && !controller.signal.aborted) {
+                        finish()
+                    }
                 }
-            }
-        })()
+            })()
 
         // Polling failsafe: if SSE fails or is slow, periodically
         // check the DB for the completed message
@@ -1083,7 +1085,29 @@ export function AgentSessionContent({
                                                     className={css({
                                                         width: "100%",
                                                     })}
-                                                    onClick={() => setDeleteOpen(true)}
+                                                    onClick={() =>
+                                                        openModal(
+                                                            deleteModalId,
+                                                            <Dialog.Content>
+                                                                <Dialog.Header>
+                                                                    <Dialog.Title>Voulez-vous supprimer cette session ?</Dialog.Title>
+                                                                </Dialog.Header>
+                                                                <Dialog.Body>
+                                                                    <Dialog.Description>
+                                                                        Cette action supprimera définitivement la conversation et son historique. Cette action est irréversible.
+                                                                    </Dialog.Description>
+                                                                </Dialog.Body>
+                                                                <Dialog.Footer>
+                                                                    <Button onClick={() => closeModal(deleteModalId)}>
+                                                                        <ButtonOutlineContent text="Annuler" />
+                                                                    </Button>
+                                                                    <Button hasLoader onClick={async () => { await handleDeleteSession(); closeModal(deleteModalId) }}>
+                                                                        <ButtonPlainContent color="danger" text="Supprimer la session" />
+                                                                    </Button>
+                                                                </Dialog.Footer>
+                                                            </Dialog.Content>,
+                                                        )
+                                                    }
                                                 >
                                                     <ButtonGhostContent
                                                         leftIcon={<IconTrash />}
@@ -1103,7 +1127,7 @@ export function AgentSessionContent({
                                             <Button title="Contexte de la session">
                                                 <ButtonOutlineContent
                                                     leftIcon={<IconNotebook />}
-                                                    // text="Contexte"
+                                                // text="Contexte"
                                                 />
                                             </Button>
                                         </Popover.Trigger>
@@ -1181,9 +1205,9 @@ export function AgentSessionContent({
                                                             yearsData === undefined
                                                                 ? []
                                                                 : yearsData.map((year) => ({
-                                                                      key: year.id,
-                                                                      label: year.label,
-                                                                  }))
+                                                                    key: year.id,
+                                                                    label: year.label,
+                                                                }))
                                                         }
                                                     />
                                                 </div>
@@ -1267,17 +1291,6 @@ export function AgentSessionContent({
                                         />
                                     </Button>
                                 </div>
-                                <ConfirmationModal
-                                    title="Voulez-vous supprimer cette session ?"
-                                    description="Cette action supprimera définitivement la conversation et son historique. Cette action est irréversible."
-                                    submitButtonProps={{
-                                        color: "danger",
-                                        text: "Supprimer la session",
-                                    }}
-                                    onSubmit={handleDeleteSession}
-                                    open={deleteOpen}
-                                    onOpenChange={setDeleteOpen}
-                                />
                             </div>
                         </div>
                     </ContextInitialiser>

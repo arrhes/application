@@ -5,12 +5,12 @@ import { useParams } from "@tanstack/react-router"
 import { DataBlock } from "../../../../../../components/layouts/dataBlock/dataBlock.tsx"
 import { DataWrapper } from "../../../../../../components/layouts/DataWrapper.tsx"
 import { Section } from "../../../../../../components/layouts/section/section.tsx"
-import { balanceSheetLayoutRoute } from "../../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/balanceSheets/$idBalanceSheet/balanceSheetLayoutRoute.tsx"
+
 
 export function BalanceSheetMetadataTab() {
     const params = useParams({
-        from: balanceSheetLayoutRoute.id,
-    })
+        strict: false,
+    }) as { idYear?: string; idBalanceSheet?: string }
 
     return (
         <DataWrapper

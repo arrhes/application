@@ -3,10 +3,9 @@ import {
     readOneOrganizationRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { toast } from "@arrhes/ui"
-import type { ComponentPropsWithRef, ReactElement } from "react"
+import { Button, ButtonOutlineContent, ButtonPlainContent, Dialog, toast, useModalStore } from "@arrhes/ui"
+import { type ComponentPropsWithRef, type ReactElement, useId } from "react"
 import type * as v from "valibot"
-import { ConfirmationModal } from "../../../../../components/overlays/dialog/ConfirmationModal.tsx"
 import { getResponseBodyFromAPI } from "../../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../../utilities/invalidateData.ts"
 
@@ -14,6 +13,9 @@ export function DeleteOneOrganizationUser(props: {
     organizationUser: v.InferOutput<typeof returnedSchemas.organizationUser>
     children: ReactElement<ComponentPropsWithRef<"div">>
 }) {
+    const modalId = useId()
+    const { open: openModal, close: closeModal } = useModalStore()
+
     async function onSubmit() {
         const deleteResponse = await getResponseBodyFromAPI({
             routeDefinition: deleteOneOrganizationUserRouteDefinition,
@@ -43,16 +45,30 @@ export function DeleteOneOrganizationUser(props: {
     }
 
     return (
-        <ConfirmationModal
-            title="Voulez-vous révoquer l'utilisateur de cette organisation ?"
-            description="Cette action est irréversible."
-            submitButtonProps={{
-                color: "danger",
-                text: "Révoquer l'utilisateur",
-            }}
-            onSubmit={onSubmit}
+        <Button
+            onClick={() =>
+                openModal(
+                    modalId,
+                    <Dialog.Content>
+                        <Dialog.Header>
+                            <Dialog.Title>Voulez-vous révoquer l'utilisateur de cette organisation ?</Dialog.Title>
+                        </Dialog.Header>
+                        <Dialog.Body>
+                            <Dialog.Description>Cette action est irréversible.</Dialog.Description>
+                        </Dialog.Body>
+                        <Dialog.Footer>
+                            <Button onClick={() => closeModal(modalId)}>
+                                <ButtonOutlineContent text="Annuler" />
+                            </Button>
+                            <Button hasLoader onClick={async () => { await onSubmit(); closeModal(modalId) }}>
+                                <ButtonPlainContent color="danger" text="Révoquer l'utilisateur" />
+                            </Button>
+                        </Dialog.Footer>
+                    </Dialog.Content>,
+                )
+            }
         >
             {props.children}
-        </ConfirmationModal>
+        </Button>
     )
 }

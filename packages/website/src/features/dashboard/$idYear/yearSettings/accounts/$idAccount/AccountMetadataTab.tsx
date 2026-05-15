@@ -5,12 +5,12 @@ import { useParams } from "@tanstack/react-router"
 import { DataBlock } from "../../../../../../components/layouts/dataBlock/dataBlock.tsx"
 import { DataWrapper } from "../../../../../../components/layouts/DataWrapper.tsx"
 import { Section } from "../../../../../../components/layouts/section/section.tsx"
-import { accountLayoutRoute } from "../../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/accounts/$idAccount/accountLayoutRoute.tsx"
+
 
 export function AccountMetadataTab() {
     const params = useParams({
-        from: accountLayoutRoute.id,
-    })
+        strict: false,
+    }) as { idYear?: string; idAccount?: string }
 
     return (
         <DataWrapper

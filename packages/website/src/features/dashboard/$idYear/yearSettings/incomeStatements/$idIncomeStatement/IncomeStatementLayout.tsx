@@ -7,14 +7,14 @@ import { DataWrapper } from "../../../../../../components/layouts/DataWrapper.ts
 import { Section } from "../../../../../../components/layouts/section/section.tsx"
 import { Tab } from "../../../../../../components/layouts/tab/tab.tsx"
 import { LinkButton } from "../../../../../../components/LinkButton.tsx"
-import { incomeStatementLayoutRoute } from "../../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/yearSettings/incomeStatements/$idIncomeStatement/incomeStatementLayoutRoute.tsx"
+
 import { DeleteOneIncomeStatement } from "./DeleteOneIncomeStatement.tsx"
 import { UpdateOneIncomeStatement } from "./UpdateOneIncomeStatement.tsx"
 
 export function IncomeStatementLayout() {
     const params = useParams({
-        from: incomeStatementLayoutRoute.id,
-    })
+        strict: false,
+    }) as { idYear?: string; idIncomeStatement?: string }
 
     return (
         <Section.Root>

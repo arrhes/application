@@ -1,12 +1,11 @@
 import { deleteOneFolderRouteDefinition, readAllFoldersRouteDefinition } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { toast } from "@arrhes/ui"
+import { Button, ButtonOutlineContent, ButtonPlainContent, toast, useModalStore } from "@arrhes/ui"
 import { css } from "@arrhes/ui/css"
 import { IconArrowsMove, IconPencil, IconTrash } from "@tabler/icons-react"
-import { type ReactElement, useState } from "react"
+import { type ReactElement, useId } from "react"
 import type * as v from "valibot"
 import { ContextMenu } from "../../../../components/overlays/contextMenu/contextMenu.js"
-import { ConfirmationModal } from "../../../../components/overlays/dialog/ConfirmationModal.js"
 import { Dialog } from "../../../../components/overlays/dialog/dialog.js"
 import { useTabs } from "../../../../contexts/tabs/useTabs.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
@@ -19,8 +18,9 @@ export function FolderContextMenu(props: {
     idOrganization: string
     children: ReactElement
 }) {
-    const [moveOpen, setMoveOpen] = useState(false)
-    const [deleteOpen, setDeleteOpen] = useState(false)
+    const moveModalId = useId()
+    const deleteModalId = useId()
+    const { open: openModal, close: closeModal } = useModalStore()
     const { openPanelTab, closeTab } = useTabs()
 
     async function handleDelete() {
@@ -80,7 +80,26 @@ export function FolderContextMenu(props: {
                     </ContextMenu.Item>
                     <ContextMenu.Item
                         leftIcon={<IconArrowsMove />}
-                        onSelect={() => setMoveOpen(true)}
+                        onSelect={() =>
+                            openModal(
+                                moveModalId,
+                                <Dialog.Content>
+                                    <Dialog.Header>
+                                        <Dialog.Title>Déplacer le dossier</Dialog.Title>
+                                    </Dialog.Header>
+                                    <Dialog.Body
+                                        className={css({
+                                            alignItems: "stretch",
+                                        })}
+                                    >
+                                        <MoveOneFolderForm
+                                            folder={props.folder}
+                                            onSuccess={() => closeModal(moveModalId)}
+                                        />
+                                    </Dialog.Body>
+                                </Dialog.Content>,
+                            )
+                        }
                     >
                         Déplacer
                     </ContextMenu.Item>
@@ -88,54 +107,36 @@ export function FolderContextMenu(props: {
                     <ContextMenu.Item
                         leftIcon={<IconTrash />}
                         color="danger"
-                        onSelect={() => setDeleteOpen(true)}
+                        onSelect={() =>
+                            openModal(
+                                deleteModalId,
+                                <Dialog.Content>
+                                    <Dialog.Header>
+                                        <Dialog.Title>Voulez-vous supprimer ce dossier ?</Dialog.Title>
+                                    </Dialog.Header>
+                                    <Dialog.Body>
+                                        <Dialog.Description>
+                                            Cette action supprimera le dossier et tous ses sous-dossiers.
+                                            Les fichiers contenus ne seront pas supprimés.
+                                            Cette action est irréversible.
+                                        </Dialog.Description>
+                                    </Dialog.Body>
+                                    <Dialog.Footer>
+                                        <Button onClick={() => closeModal(deleteModalId)}>
+                                            <ButtonOutlineContent text="Annuler" />
+                                        </Button>
+                                        <Button hasLoader onClick={async () => { await handleDelete(); closeModal(deleteModalId) }}>
+                                            <ButtonPlainContent color="danger" text="Supprimer le dossier" />
+                                        </Button>
+                                    </Dialog.Footer>
+                                </Dialog.Content>,
+                            )
+                        }
                     >
                         Supprimer
                     </ContextMenu.Item>
                 </ContextMenu.Content>
             </ContextMenu.Root>
-
-            <Dialog.Root
-                open={moveOpen}
-                onOpenChange={setMoveOpen}
-            >
-                <Dialog.Content>
-                    <Dialog.Header>
-                        <Dialog.Title>Déplacer le dossier</Dialog.Title>
-                    </Dialog.Header>
-                    <Dialog.Body
-                        className={css({
-                            alignItems: "stretch",
-                        })}
-                    >
-                        <MoveOneFolderForm
-                            folder={props.folder}
-                            onSuccess={() => setMoveOpen(false)}
-                        />
-                    </Dialog.Body>
-                </Dialog.Content>
-            </Dialog.Root>
-
-            {/* Delete dialog (controlled externally) */}
-            <ConfirmationModal
-                title="Voulez-vous supprimer ce dossier ?"
-                description={
-                    <>
-                        Cette action supprimera le dossier et tous ses sous-dossiers.
-                        <br />
-                        Les fichiers contenus ne seront pas supprimés.
-                        <br />
-                        Cette action est irréversible.
-                    </>
-                }
-                submitButtonProps={{
-                    color: "danger",
-                    text: "Supprimer le dossier",
-                }}
-                onSubmit={handleDelete}
-                open={deleteOpen}
-                onOpenChange={setDeleteOpen}
-            />
         </>
     )
 }

@@ -18,7 +18,7 @@ import { Page } from "../../../../../components/layouts/page/page.tsx"
 import { Tab } from "../../../../../components/layouts/tab/tab.tsx"
 import { LinkButton } from "../../../../../components/LinkButton.js"
 import { Popover } from "../../../../../components/overlays/popover/popover.js"
-import { entryLayoutRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/years/$idYear/entries/$idEntry/entryLayoutRoute.tsx"
+
 import { compareAmounts } from "../../../../../utilities/compareAmounts.ts"
 import type { YearDataKey } from "../../YearDataWrapper.tsx"
 import { YearDataWrapper } from "../../YearDataWrapper.tsx"
@@ -38,8 +38,8 @@ const requiredKeys = [
 
 export function EntryLayout() {
     const params = useParams({
-        from: entryLayoutRoute.id,
-    })
+        strict: false,
+    }) as { idOrganization?: string; idYear?: string; idEntry?: string }
     const [menuOpen, setMenuOpen] = useState(false)
 
     return (

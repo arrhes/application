@@ -111,7 +111,7 @@ export function TabBar({ excludeTabIds, rightSlot, onDropFromRight, onMergePanel
                         const isActive = tab.id === activeTabId
                         const entry = tab.type === "component" ? currentEntry(tab as ComponentTab) : null
                         const title = entry ? entry.title : (tab as { title: string }).title
-                        const description = entry?.description
+                        const description = entry?.description ?? (tab.type === "panel" ? tab.description : undefined)
                         return (
                             <div
                                 key={tab.id}

@@ -10,13 +10,12 @@ import {
     TOKENS_PER_PACK,
     VAT_PERCENT,
 } from "@arrhes/application-metadata/utilities"
-import { Button, ButtonOutlineContent, InputNumber, toast } from "@arrhes/ui"
+import { Button, ButtonOutlineContent, Dialog, InputNumber, toast, useModalStore } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconPlus } from "@tabler/icons-react"
-import { type ReactNode, useEffect, useState } from "react"
+import { type ReactNode, useEffect, useId, useState } from "react"
 import { DataWrapper } from "../../../../components/layouts/DataWrapper.tsx"
 import { Page } from "../../../../components/layouts/page/page.tsx"
-import { ConfirmationModal } from "../../../../components/overlays/dialog/ConfirmationModal.tsx"
 import { formatEuros } from "../../../../utilities/formatEuros.tsx"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
@@ -88,7 +87,8 @@ function FormSection(props: { title: string; description?: string; children: Rea
 }
 
 function UpdateTokensForm(props: { idOrganization: string; currentQuantity: number; currentTokensLeft: number }) {
-    const [confirmOpen, setConfirmOpen] = useState(false)
+    const confirmModalId = useId()
+    const { open: openModal, close: closeModal } = useModalStore()
     const [quantityDelta, setQuantityDelta] = useState(0)
     const nextQuantity = props.currentQuantity + quantityDelta
     const deltaAmountInCents = quantityDelta * TOKEN_PACK_PRICE_IN_CENTS
@@ -262,7 +262,29 @@ function UpdateTokensForm(props: { idOrganization: string; currentQuantity: numb
                 </div>
             </FormSection>
             <Button
-                onClick={() => setConfirmOpen(true)}
+                onClick={() =>
+                    openModal(
+                        confirmModalId,
+                        <Dialog.Content>
+                            <Dialog.Header>
+                                <Dialog.Title>Confirmer l'achat de tokens</Dialog.Title>
+                            </Dialog.Header>
+                            <Dialog.Body>
+                                <Dialog.Description>
+                                    {`${formatTokenUnitDelta(quantityDelta)} seront ajoutés et ${formatEuros(deltaAmountTTCInCents)} (TTC) seront débités de votre portefeuille (${formatEuros(deltaAmountInCents)} (HT) + TVA ${VAT_PERCENT}%).`}
+                                </Dialog.Description>
+                            </Dialog.Body>
+                            <Dialog.Footer>
+                                <Button onClick={() => closeModal(confirmModalId)}>
+                                    <ButtonOutlineContent text="Annuler" />
+                                </Button>
+                                <Button hasLoader onClick={async () => { await handleSave(); closeModal(confirmModalId) }}>
+                                    <ButtonOutlineContent leftIcon={<IconPlus />} text="Confirmer l'achat" />
+                                </Button>
+                            </Dialog.Footer>
+                        </Dialog.Content>,
+                    )
+                }
                 isDisabled={quantityDelta === 0}
             >
                 <ButtonOutlineContent
@@ -270,16 +292,6 @@ function UpdateTokensForm(props: { idOrganization: string; currentQuantity: numb
                     text="Enregistrer les tokens"
                 />
             </Button>
-            <ConfirmationModal
-                open={confirmOpen}
-                onOpenChange={setConfirmOpen}
-                title="Confirmer l'achat de tokens"
-                description={`${formatTokenUnitDelta(quantityDelta)} seront ajoutés et ${formatEuros(deltaAmountTTCInCents)} (TTC) seront débités de votre portefeuille (${formatEuros(deltaAmountInCents)} (HT) + TVA ${VAT_PERCENT}%).`}
-                submitButtonProps={{
-                    text: "Confirmer l'achat",
-                }}
-                onSubmit={handleSave}
-            />
         </div>
     )
 }
@@ -305,7 +317,7 @@ export function UpdateTokensPage({ idOrganization }: { idOrganization: string })
                                     (organization.tokensTotalAvailable +
                                         organization.tokensTotalUsed -
                                         INCLUDED_AGENT_TOKENS) /
-                                        INCLUDED_AGENT_TOKENS,
+                                    INCLUDED_AGENT_TOKENS,
                                 ),
                                 0,
                             )}

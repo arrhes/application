@@ -6,15 +6,15 @@ import { Page } from "../../../../../components/layouts/page/page.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
 import { Tab } from "../../../../../components/layouts/tab/tab.tsx"
 import { LinkButton } from "../../../../../components/LinkButton.tsx"
-import { fileLayoutRoute } from "../../../../../routes/root/dashboard/organizations/$idOrganization/storage/$idFile/fileLayoutRoute.tsx"
+
 import { DeleteOneFile } from "./DeleteOneFile.tsx"
 import { FileData } from "./FileData.tsx"
 import { UpdateOneFile } from "./UpdateOneFile.tsx"
 
 export function FileLayout() {
     const params = useParams({
-        from: fileLayoutRoute.id,
-    })
+        strict: false,
+    }) as { idOrganization?: string; idFile?: string }
 
     return (
         <Page.Root>
