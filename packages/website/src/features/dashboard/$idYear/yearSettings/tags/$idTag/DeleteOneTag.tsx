@@ -63,16 +63,25 @@ export function DeleteOneTag(props: {
                         </Dialog.Header>
                         <Dialog.Body>
                             <Dialog.Description>
-                                Cette action supprimera la catégorie et toutes ses mentions associées.
-                                Cette action est irréversible.
+                                Cette action supprimera la catégorie et toutes ses mentions associées. Cette action est
+                                irréversible.
                             </Dialog.Description>
                         </Dialog.Body>
                         <Dialog.Footer>
                             <Button onClick={() => closeModal(modalId)}>
                                 <ButtonOutlineContent text="Annuler" />
                             </Button>
-                            <Button hasLoader onClick={async () => { await onSubmit(); closeModal(modalId) }}>
-                                <ButtonPlainContent color="danger" text="Supprimer la catégorie" />
+                            <Button
+                                hasLoader
+                                onClick={async () => {
+                                    await onSubmit()
+                                    closeModal(modalId)
+                                }}
+                            >
+                                <ButtonPlainContent
+                                    color="danger"
+                                    text="Supprimer la catégorie"
+                                />
                             </Button>
                         </Dialog.Footer>
                     </Dialog.Content>,

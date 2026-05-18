@@ -17,11 +17,7 @@ const requiredKeys = [
     "accounts",
 ] as const satisfies readonly YearDataKey[]
 
-export function EntryLinesTab(props: {
-    idYear: string
-    idEntry: string
-}) {
-
+export function EntryLinesTab(props: { idYear: string; idEntry: string }) {
     const idYear = props.idYear
     const idEntry = props.idEntry
 

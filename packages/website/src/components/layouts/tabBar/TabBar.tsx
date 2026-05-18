@@ -25,14 +25,29 @@ type TabBarProps = {
 }
 
 export function TabBar({ excludeTabIds, rightSlot, onDropFromRight, onMergePanels, panel }: TabBarProps = {}) {
-    const { tabs: allTabs, activeTabId: contextActiveTabId, activateTab, closeTab, navigateBack, navigateForward, reorderTabs } = useTabs()
+    const {
+        tabs: allTabs,
+        activeTabId: contextActiveTabId,
+        activateTab,
+        closeTab,
+        navigateBack,
+        navigateForward,
+        reorderTabs,
+    } = useTabs()
 
     const isRightPanel = panel !== undefined
     const dragDataType = isRightPanel ? "application/arrhes-right-tab" : "application/arrhes-left-tab"
     const crossDragDataType = isRightPanel ? "application/arrhes-left-tab" : "application/arrhes-right-tab"
 
     const tabs = isRightPanel
-        ? panel.tabIds.flatMap((id) => { const t = allTabs.find((x) => x.id === id); return t ? [t] : [] })
+        ? panel.tabIds.flatMap((id) => {
+              const t = allTabs.find((x) => x.id === id)
+              return t
+                  ? [
+                        t,
+                    ]
+                  : []
+          })
         : allTabs.filter((t) => !excludeTabIds?.includes(t.id))
 
     const activeTabId = isRightPanel ? panel.activeTabId : contextActiveTabId
@@ -60,14 +75,17 @@ export function TabBar({ excludeTabIds, rightSlot, onDropFromRight, onMergePanel
     const [dragOverTabId, setDragOverTabId] = useState<string | null>(null)
     const [contextMenuTabId, setContextMenuTabId] = useState<string | null>(null)
     const contextTab = contextMenuTabId !== null ? (tabs.find((t) => t.id === contextMenuTabId) ?? null) : null
-    const contextTabCanGoBack =
-        contextTab?.type === "component" && (contextTab as ComponentTab).historyIndex > 0
+    const contextTabCanGoBack = contextTab?.type === "component" && (contextTab as ComponentTab).historyIndex > 0
     const contextTabCanGoForward =
         contextTab?.type === "component" &&
         (contextTab as ComponentTab).historyIndex < (contextTab as ComponentTab).history.length - 1
 
     return (
-        <ContextMenu.Root onOpenChange={(open) => { if (!open) setContextMenuTabId(null) }}>
+        <ContextMenu.Root
+            onOpenChange={(open) => {
+                if (!open) setContextMenuTabId(null)
+            }}
+        >
             <ContextMenu.Trigger asChild>
                 <div
                     className={css({
@@ -110,7 +128,13 @@ export function TabBar({ excludeTabIds, rightSlot, onDropFromRight, onMergePanel
                     {tabs.map((tab, index) => {
                         const isActive = tab.id === activeTabId
                         const entry = tab.type === "component" ? currentEntry(tab as ComponentTab) : null
-                        const title = entry ? entry.title : (tab as { title: string }).title
+                        const title = entry
+                            ? entry.title
+                            : (
+                                  tab as {
+                                      title: string
+                                  }
+                              ).title
                         const description = entry?.description ?? (tab.type === "panel" ? tab.description : undefined)
                         return (
                             <div
@@ -137,9 +161,7 @@ export function TabBar({ excludeTabIds, rightSlot, onDropFromRight, onMergePanel
                                 })}
                                 style={{
                                     boxShadow:
-                                        dragOverTabId === tab.id
-                                            ? "inset 2px 0 0 var(--colors-primary)"
-                                            : "none",
+                                        dragOverTabId === tab.id ? "inset 2px 0 0 var(--colors-primary)" : "none",
                                 }}
                                 draggable
                                 onDragStart={(e) => {
@@ -151,7 +173,9 @@ export function TabBar({ excludeTabIds, rightSlot, onDropFromRight, onMergePanel
                                     if (!isRightPanel && e.dataTransfer.dropEffect === "none") {
                                         window.dispatchEvent(
                                             new CustomEvent("arrhes:split-tab", {
-                                                detail: { tabId: tab.id },
+                                                detail: {
+                                                    tabId: tab.id,
+                                                },
                                             }),
                                         )
                                     }
@@ -186,9 +210,7 @@ export function TabBar({ excludeTabIds, rightSlot, onDropFromRight, onMergePanel
                                     if (!draggedTabId) return
                                     const rect = e.currentTarget.getBoundingClientRect()
                                     const insertBeforeTabId =
-                                        e.clientX < rect.left + rect.width / 2
-                                            ? tab.id
-                                            : (tabs[index + 1]?.id ?? null)
+                                        e.clientX < rect.left + rect.width / 2 ? tab.id : (tabs[index + 1]?.id ?? null)
                                     if (fromSamePanel) onReorderTab(draggedTabId, insertBeforeTabId)
                                     else onCrossDropTab(draggedTabId, insertBeforeTabId)
                                 }}
@@ -302,7 +324,9 @@ export function TabBar({ excludeTabIds, rightSlot, onDropFromRight, onMergePanel
                                 onSelect={() =>
                                     window.dispatchEvent(
                                         new CustomEvent("arrhes:split-tab", {
-                                            detail: { tabId: contextTab.id },
+                                            detail: {
+                                                tabId: contextTab.id,
+                                            },
                                         }),
                                     )
                                 }

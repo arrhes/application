@@ -1,7 +1,4 @@
-import type {
-    readAllAccountsRouteDefinition,
-    readAllEntriesRouteDefinition,
-} from "@arrhes/application-metadata/routes"
+import type { readAllAccountsRouteDefinition, readAllEntriesRouteDefinition } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { Button, FormatDate, FormatDateTime, FormatNull, FormatPrice, FormatText, LinkContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
@@ -40,10 +37,15 @@ export function EntriesTable(props: {
     const tagsByEntry = useMemo(() => {
         const m = new Map<string, string[]>()
         for (const [entryId, ets] of props.entryTagsByEntryId) {
-            m.set(entryId, ets.map((et) => et.idTag))
+            m.set(
+                entryId,
+                ets.map((et) => et.idTag),
+            )
         }
         return m
-    }, [props.entryTagsByEntryId])
+    }, [
+        props.entryTagsByEntryId,
+    ])
     const filesMap = props.fileById
     const accountsMap = props.accountById
 

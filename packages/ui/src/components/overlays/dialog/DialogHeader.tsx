@@ -1,8 +1,8 @@
-import { ButtonGhostContent } from "../../buttons/ButtonGhostContent.js"
-import { css, cx } from "../../../utilities/cn.js"
 import { IconX } from "@tabler/icons-react"
-import { useModalItem } from "../../../stores/modalStore.js"
 import type { HTMLAttributes } from "react"
+import { useModalItem } from "../../../stores/modalStore.js"
+import { css, cx } from "../../../utilities/cn.js"
+import { ButtonGhostContent } from "../../buttons/ButtonGhostContent.js"
 
 export function DialogHeader(props: HTMLAttributes<HTMLDivElement>) {
     const modalItem = useModalItem()

@@ -5,9 +5,8 @@ import { IconPencil } from "@tabler/icons-react"
 import type * as v from "valibot"
 import { DataBlock } from "../../../../../components/layouts/dataBlock/dataBlock.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
-import { UpdateOneEntry } from "./UpdateOneEntry.tsx"
 import { useTabs } from "../../../../../contexts/tabs/useTabs.tsx"
-
+import { UpdateOneEntry } from "./UpdateOneEntry.tsx"
 
 export function EntryInformationsTab(props: {
     entry: v.InferOutput<typeof returnedSchemas.entry>

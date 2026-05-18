@@ -1,7 +1,6 @@
 import { readUserSessionRouteDefinition, signOutRouteDefinition } from "@arrhes/application-metadata/routes"
 import { Button, ButtonGhostContent, ButtonOutlineContent, Logo, Separator, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { useDashboardContext } from "../../../contexts/dashboard/dashboardContext.js"
 import {
     IconBook2,
     IconLifebuoy,
@@ -17,10 +16,11 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { CommandPalette } from "../../../components/layouts/commandPalette/CommandPalette.js"
 import { TabBar } from "../../../components/layouts/tabBar/TabBar.js"
 import { Popover } from "../../../components/overlays/popover/popover.js"
-import { type ComponentTab, currentEntry } from "../../../contexts/tabs/tabsContext.js"
-import { useTabs } from "../../../contexts/tabs/useTabs.js"
+import { useDashboardContext } from "../../../contexts/dashboard/dashboardContext.js"
 import { TabContentArea } from "../../../contexts/tabs/TabContentArea.js"
+import { type ComponentTab, currentEntry } from "../../../contexts/tabs/tabsContext.js"
 import { useOuterRouter } from "../../../contexts/tabs/useOuterRouter.js"
+import { useTabs } from "../../../contexts/tabs/useTabs.js"
 import { deleteCookies } from "../../../utilities/cookies/deleteCookies.js"
 import { getResponseBodyFromAPI } from "../../../utilities/getResponseBodyFromAPI.js"
 import { useDataFromAPI } from "../../../utilities/useHTTPData.js"
@@ -54,7 +54,9 @@ export function DashboardShell() {
         window.removeEventListener("mouseup", handleMouseUp)
         document.body.style.cursor = ""
         document.body.style.userSelect = ""
-    }, [handleMouseMove])
+    }, [
+        handleMouseMove,
+    ])
 
     const handleDragStart = useCallback(
         (e: React.MouseEvent) => {
@@ -66,7 +68,11 @@ export function DashboardShell() {
             window.addEventListener("mousemove", handleMouseMove)
             window.addEventListener("mouseup", handleMouseUp)
         },
-        [splitPosition, handleMouseMove, handleMouseUp],
+        [
+            splitPosition,
+            handleMouseMove,
+            handleMouseUp,
+        ],
     )
 
     useEffect(
@@ -74,7 +80,10 @@ export function DashboardShell() {
             window.removeEventListener("mousemove", handleMouseMove)
             window.removeEventListener("mouseup", handleMouseUp)
         },
-        [handleMouseMove, handleMouseUp],
+        [
+            handleMouseMove,
+            handleMouseUp,
+        ],
     )
 
     const [rightPanel, setRightPanel] = useState<{
@@ -85,11 +94,31 @@ export function DashboardShell() {
     // Listen for split-tab events dispatched from the tab bar context menu.
     const handleSplitTab = useCallback(
         (e: Event) => {
-            const tabId = (e as CustomEvent<{ tabId: string }>).detail.tabId
+            const tabId = (
+                e as CustomEvent<{
+                    tabId: string
+                }>
+            ).detail.tabId
             setRightPanel((prev) => {
-                if (!prev) return { tabIds: [tabId], activeTabId: tabId }
-                if (prev.tabIds.includes(tabId)) return { ...prev, activeTabId: tabId }
-                return { tabIds: [...prev.tabIds, tabId], activeTabId: tabId }
+                if (!prev)
+                    return {
+                        tabIds: [
+                            tabId,
+                        ],
+                        activeTabId: tabId,
+                    }
+                if (prev.tabIds.includes(tabId))
+                    return {
+                        ...prev,
+                        activeTabId: tabId,
+                    }
+                return {
+                    tabIds: [
+                        ...prev.tabIds,
+                        tabId,
+                    ],
+                    activeTabId: tabId,
+                }
             })
             // If the tab was active in the left panel, switch to another left-panel tab.
             if (tabId === activeTabId) {
@@ -99,13 +128,20 @@ export function DashboardShell() {
                 if (remaining.length > 0) activateTab(remaining[remaining.length - 1].id)
             }
         },
-        [activeTabId, tabs, rightPanel, activateTab],
+        [
+            activeTabId,
+            tabs,
+            rightPanel,
+            activateTab,
+        ],
     )
 
     useEffect(() => {
         window.addEventListener("arrhes:split-tab", handleSplitTab)
         return () => window.removeEventListener("arrhes:split-tab", handleSplitTab)
-    }, [handleSplitTab])
+    }, [
+        handleSplitTab,
+    ])
 
     // Remove closed tabs from right panel.
     useEffect(() => {
@@ -136,7 +172,10 @@ export function DashboardShell() {
         if (tabs.filter((t) => !rightSet.has(t.id)).length === 0) {
             setRightPanel(null)
         }
-    }, [tabs, rightPanel])
+    }, [
+        tabs,
+        rightPanel,
+    ])
 
     // Update browser title when active tab changes.
     useEffect(() => {
@@ -465,11 +504,11 @@ export function DashboardShell() {
                                 return next.length === 0
                                     ? null
                                     : {
-                                        tabIds: next,
-                                        activeTabId: next.includes(prev.activeTabId)
-                                            ? prev.activeTabId
-                                            : next[next.length - 1],
-                                    }
+                                          tabIds: next,
+                                          activeTabId: next.includes(prev.activeTabId)
+                                              ? prev.activeTabId
+                                              : next[next.length - 1],
+                                      }
                             })
                             reorderTabs(tabId, insertBeforeTabId)
                             activateTab(tabId)
@@ -493,8 +532,12 @@ export function DashboardShell() {
                                 cursor: "col-resize",
                                 background: "neutral/10",
                                 transition: "background 0.15s",
-                                _hover: { background: "neutral/30" },
-                                _active: { background: "neutral/50" },
+                                _hover: {
+                                    background: "neutral/30",
+                                },
+                                _active: {
+                                    background: "neutral/50",
+                                },
                             })}
                             onMouseDown={handleDragStart}
                         />
@@ -542,25 +585,57 @@ export function DashboardShell() {
                                             if (!prev) return null
                                             const without = prev.tabIds.filter((id) => id !== tabId)
                                             if (insertBeforeTabId === null)
-                                                return { ...prev, tabIds: [...without, tabId] }
+                                                return {
+                                                    ...prev,
+                                                    tabIds: [
+                                                        ...without,
+                                                        tabId,
+                                                    ],
+                                                }
                                             const idx = without.indexOf(insertBeforeTabId)
                                             const tabIds =
                                                 idx === -1
-                                                    ? [...without, tabId]
-                                                    : [...without.slice(0, idx), tabId, ...without.slice(idx)]
-                                            return { ...prev, tabIds }
+                                                    ? [
+                                                          ...without,
+                                                          tabId,
+                                                      ]
+                                                    : [
+                                                          ...without.slice(0, idx),
+                                                          tabId,
+                                                          ...without.slice(idx),
+                                                      ]
+                                            return {
+                                                ...prev,
+                                                tabIds,
+                                            }
                                         }),
                                     onDropFromLeft: (tabId, insertBeforeTabId) =>
                                         setRightPanel((prev) => {
                                             const existing = prev?.tabIds.filter((id) => id !== tabId) ?? []
                                             if (insertBeforeTabId === null)
-                                                return { tabIds: [...existing, tabId], activeTabId: tabId }
+                                                return {
+                                                    tabIds: [
+                                                        ...existing,
+                                                        tabId,
+                                                    ],
+                                                    activeTabId: tabId,
+                                                }
                                             const idx = existing.indexOf(insertBeforeTabId)
                                             const tabIds =
                                                 idx === -1
-                                                    ? [...existing, tabId]
-                                                    : [...existing.slice(0, idx), tabId, ...existing.slice(idx)]
-                                            return { tabIds, activeTabId: tabId }
+                                                    ? [
+                                                          ...existing,
+                                                          tabId,
+                                                      ]
+                                                    : [
+                                                          ...existing.slice(0, idx),
+                                                          tabId,
+                                                          ...existing.slice(idx),
+                                                      ]
+                                            return {
+                                                tabIds,
+                                                activeTabId: tabId,
+                                            }
                                         }),
                                 }}
                             />

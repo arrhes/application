@@ -18,7 +18,10 @@ import { extractSnippet } from "./extractSnippet.ts"
 export function AgentLayout() {
     const params = useParams({
         strict: false,
-    }) as { idOrganization?: string; idAgentSession?: string }
+    }) as {
+        idOrganization: string
+        idAgentSession: string
+    }
     const [activeSessionId, setActiveSessionId] = useState<string | undefined>(undefined)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const navigate = useNavigate()
@@ -37,12 +40,12 @@ export function AgentLayout() {
         routeDefinition: readAllAgentSessionsRouteDefinition,
         body: searchTrimmed
             ? {
-                idOrganization: params.idOrganization,
-                search: searchTrimmed,
-            }
+                  idOrganization: params.idOrganization,
+                  search: searchTrimmed,
+              }
             : {
-                idOrganization: params.idOrganization,
-            },
+                  idOrganization: params.idOrganization,
+              },
     })
 
     const displaySessions = sessions ?? []

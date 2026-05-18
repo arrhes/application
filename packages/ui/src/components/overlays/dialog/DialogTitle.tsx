@@ -1,5 +1,5 @@
-import { css, cx } from "../../../utilities/cn.js"
 import type { HTMLAttributes } from "react"
+import { css, cx } from "../../../utilities/cn.js"
 
 export function DialogTitle(props: HTMLAttributes<HTMLHeadingElement>) {
     return (

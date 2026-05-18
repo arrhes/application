@@ -60,8 +60,17 @@ export function DeleteOneOrganizationUser(props: {
                             <Button onClick={() => closeModal(modalId)}>
                                 <ButtonOutlineContent text="Annuler" />
                             </Button>
-                            <Button hasLoader onClick={async () => { await onSubmit(); closeModal(modalId) }}>
-                                <ButtonPlainContent color="danger" text="Révoquer l'utilisateur" />
+                            <Button
+                                hasLoader
+                                onClick={async () => {
+                                    await onSubmit()
+                                    closeModal(modalId)
+                                }}
+                            >
+                                <ButtonPlainContent
+                                    color="danger"
+                                    text="Révoquer l'utilisateur"
+                                />
                             </Button>
                         </Dialog.Footer>
                     </Dialog.Content>,

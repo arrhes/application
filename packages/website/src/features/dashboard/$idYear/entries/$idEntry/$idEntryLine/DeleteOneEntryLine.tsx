@@ -76,16 +76,25 @@ export function DeleteOneEntryLine(props: {
                         </Dialog.Header>
                         <Dialog.Body>
                             <Dialog.Description>
-                                Cette action supprimera le mouvement et toutes les données associées.
-                                Cette action est irréversible.
+                                Cette action supprimera le mouvement et toutes les données associées. Cette action est
+                                irréversible.
                             </Dialog.Description>
                         </Dialog.Body>
                         <Dialog.Footer>
                             <Button onClick={() => closeModal(modalId)}>
                                 <ButtonOutlineContent text="Annuler" />
                             </Button>
-                            <Button hasLoader onClick={async () => { await onSubmit(); closeModal(modalId) }}>
-                                <ButtonPlainContent color="danger" text="Supprimer le mouvement" />
+                            <Button
+                                hasLoader
+                                onClick={async () => {
+                                    await onSubmit()
+                                    closeModal(modalId)
+                                }}
+                            >
+                                <ButtonPlainContent
+                                    color="danger"
+                                    text="Supprimer le mouvement"
+                                />
                             </Button>
                         </Dialog.Footer>
                     </Dialog.Content>,

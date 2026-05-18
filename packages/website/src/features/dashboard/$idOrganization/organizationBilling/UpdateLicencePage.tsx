@@ -145,7 +145,13 @@ function UpdateLicenceForm(props: { idOrganization: string; currentAmountInCents
                                 <Button onClick={() => closeModal(confirmModalId)}>
                                     <ButtonOutlineContent text="Annuler" />
                                 </Button>
-                                <Button hasLoader onClick={async () => { await handleSave(); closeModal(confirmModalId) }}>
+                                <Button
+                                    hasLoader
+                                    onClick={async () => {
+                                        await handleSave()
+                                        closeModal(confirmModalId)
+                                    }}
+                                >
                                     <ButtonOutlineContent text="Confirmer" />
                                 </Button>
                             </Dialog.Footer>
@@ -160,7 +166,6 @@ function UpdateLicenceForm(props: { idOrganization: string; currentAmountInCents
                     text={isSaving ? "Enregistrement..." : "Enregistrer"}
                 />
             </Button>
-
         </div>
     )
 }

@@ -66,16 +66,25 @@ export function DeleteOneComputation(props: {
                         </Dialog.Header>
                         <Dialog.Body>
                             <Dialog.Description>
-                                Cette action supprimera la ligne de calcul et toutes les données associées.
-                                Cette action est irréversible.
+                                Cette action supprimera la ligne de calcul et toutes les données associées. Cette action
+                                est irréversible.
                             </Dialog.Description>
                         </Dialog.Body>
                         <Dialog.Footer>
                             <Button onClick={() => closeModal(modalId)}>
                                 <ButtonOutlineContent text="Annuler" />
                             </Button>
-                            <Button hasLoader onClick={async () => { await onSubmit(); closeModal(modalId) }}>
-                                <ButtonPlainContent color="danger" text="Supprimer la ligne de calcul" />
+                            <Button
+                                hasLoader
+                                onClick={async () => {
+                                    await onSubmit()
+                                    closeModal(modalId)
+                                }}
+                            >
+                                <ButtonPlainContent
+                                    color="danger"
+                                    text="Supprimer la ligne de calcul"
+                                />
                             </Button>
                         </Dialog.Footer>
                     </Dialog.Content>,

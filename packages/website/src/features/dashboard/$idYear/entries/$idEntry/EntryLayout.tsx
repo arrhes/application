@@ -13,10 +13,10 @@ import {
 } from "@tabler/icons-react"
 import { Outlet, useParams } from "@tanstack/react-router"
 import { useState } from "react"
+import { LinkButton } from "../../../../../components/LinkButton.js"
 import { Banner } from "../../../../../components/layouts/Banner.tsx"
 import { Page } from "../../../../../components/layouts/page/page.tsx"
 import { Tab } from "../../../../../components/layouts/tab/tab.tsx"
-import { LinkButton } from "../../../../../components/LinkButton.js"
 import { Popover } from "../../../../../components/overlays/popover/popover.js"
 
 import { compareAmounts } from "../../../../../utilities/compareAmounts.ts"
@@ -39,7 +39,11 @@ const requiredKeys = [
 export function EntryLayout() {
     const params = useParams({
         strict: false,
-    }) as { idOrganization?: string; idYear?: string; idEntry?: string }
+    }) as {
+        idOrganization: string
+        idYear: string
+        idEntry: string
+    }
     const [menuOpen, setMenuOpen] = useState(false)
 
     return (

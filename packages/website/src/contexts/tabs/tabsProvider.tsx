@@ -202,7 +202,14 @@ export function TabsProvider({ children }: Props) {
         } else {
             const tab = tabsRef.current.find((t): t is ComponentTab => t.type === "component" && t.id === activeTabId)
             const entryId = tab ? currentEntry(tab).id : "0"
-            window.history.replaceState({ tabId: activeTabId, entryId }, "", `/dashboard/${activeTabId}/${entryId}`)
+            window.history.replaceState(
+                {
+                    tabId: activeTabId,
+                    entryId,
+                },
+                "",
+                `/dashboard/${activeTabId}/${entryId}`,
+            )
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -211,7 +218,11 @@ export function TabsProvider({ children }: Props) {
     // Parse the destination URL/state and update tab context accordingly.
     useEffect(() => {
         const onPopState = (e: PopStateEvent) => {
-            const state = e.state as { tabId?: string; entryId?: string; panelTabId?: string } | null
+            const state = e.state as {
+                tabId?: string
+                entryId?: string
+                panelTabId?: string
+            } | null
 
             // Panel-tab back/forward: re-activate the panel if it still exists,
             // otherwise fall through to URL-based component-tab restoration.
@@ -245,15 +256,17 @@ export function TabsProvider({ children }: Props) {
                 applyLruEviction(
                     prev.map((t) => {
                         if (t.type !== "component" || t.id !== tabId) return t
-                        const historyIndex = entryId
-                            ? t.history.findIndex((e) => e.id === entryId)
-                            : t.historyIndex
+                        const historyIndex = entryId ? t.history.findIndex((e) => e.id === entryId) : t.historyIndex
                         if (historyIndex < 0) return t
                         const history = t.history.map((e, i) => {
                             if (i !== historyIndex || e.component !== null) return e
                             return buildEntry(e.definitionKey, e.definitionProps, e.id)
                         })
-                        return { ...t, history, historyIndex }
+                        return {
+                            ...t,
+                            history,
+                            historyIndex,
+                        }
                     }),
                     tabId,
                 ),
@@ -308,17 +321,20 @@ export function TabsProvider({ children }: Props) {
                         prev.map((t) =>
                             t.id === activeTab.id
                                 ? {
-                                    ...t,
-                                    history: newHistory,
-                                    historyIndex: newIndex,
-                                }
+                                      ...t,
+                                      history: newHistory,
+                                      historyIndex: newIndex,
+                                  }
                                 : t,
                         ),
                         activeTab.id,
                     ),
                 )
                 window.history.pushState(
-                    { tabId: activeTab.id, entryId: entry.id },
+                    {
+                        tabId: activeTab.id,
+                        entryId: entry.id,
+                    },
                     "",
                     `/dashboard/${activeTab.id}/${entry.id}`,
                 )
@@ -363,13 +379,19 @@ export function TabsProvider({ children }: Props) {
             // Push so the previous tab's position is preserved in browser history.
             if (currentActiveId !== existing.id) {
                 window.history.pushState(
-                    { tabId: existing.id, entryId: currentEntry(existing).id },
+                    {
+                        tabId: existing.id,
+                        entryId: currentEntry(existing).id,
+                    },
                     "",
                     `/dashboard/${existing.id}/${currentEntry(existing).id}`,
                 )
             } else {
                 window.history.replaceState(
-                    { tabId: existing.id, entryId: currentEntry(existing).id },
+                    {
+                        tabId: existing.id,
+                        entryId: currentEntry(existing).id,
+                    },
                     "",
                     `/dashboard/${existing.id}/${currentEntry(existing).id}`,
                 )
@@ -399,9 +421,23 @@ export function TabsProvider({ children }: Props) {
         )
         // Push so the previous tab's position is preserved in browser history.
         if (currentActiveId !== null) {
-            window.history.pushState({ tabId: newTab.id, entryId: entry.id }, "", `/dashboard/${newTab.id}/${entry.id}`)
+            window.history.pushState(
+                {
+                    tabId: newTab.id,
+                    entryId: entry.id,
+                },
+                "",
+                `/dashboard/${newTab.id}/${entry.id}`,
+            )
         } else {
-            window.history.replaceState({ tabId: newTab.id, entryId: entry.id }, "", `/dashboard/${newTab.id}/${entry.id}`)
+            window.history.replaceState(
+                {
+                    tabId: newTab.id,
+                    entryId: entry.id,
+                },
+                "",
+                `/dashboard/${newTab.id}/${entry.id}`,
+            )
         }
     }, [])
 
@@ -423,7 +459,11 @@ export function TabsProvider({ children }: Props) {
         } else {
             // Find the most recently focused tab that still exists.
             const existingIds = new Set(next.map((t) => t.id))
-            const lastFocused = [...focusHistoryRef.current].reverse().find((fid) => existingIds.has(fid))
+            const lastFocused = [
+                ...focusHistoryRef.current,
+            ]
+                .reverse()
+                .find((fid) => existingIds.has(fid))
             newActiveId = lastFocused ?? next[Math.min(idx, next.length - 1)].id
         }
 
@@ -438,7 +478,11 @@ export function TabsProvider({ children }: Props) {
             setActiveTabId((currentActive) => {
                 if (currentActive !== id) return currentActive
                 const existingIds = new Set(n.map((t) => t.id))
-                const lastFocused = [...focusHistoryRef.current].reverse().find((fid) => existingIds.has(fid))
+                const lastFocused = [
+                    ...focusHistoryRef.current,
+                ]
+                    .reverse()
+                    .find((fid) => existingIds.has(fid))
                 return lastFocused ?? n[Math.min(i, n.length - 1)].id
             })
             return n
@@ -450,7 +494,10 @@ export function TabsProvider({ children }: Props) {
             const newActiveTab = next.find((t): t is ComponentTab => t.type === "component" && t.id === newActiveId)
             const entryId = newActiveTab ? currentEntry(newActiveTab).id : "0"
             window.history.replaceState(
-                { tabId: newActiveId, entryId },
+                {
+                    tabId: newActiveId,
+                    entryId,
+                },
                 "",
                 `/dashboard/${newActiveId}/${entryId}`,
             )
@@ -459,7 +506,10 @@ export function TabsProvider({ children }: Props) {
 
     const activateTab = useCallback((id: string) => {
         // Record in focus history (append, deduplicate from earlier positions).
-        focusHistoryRef.current = [...focusHistoryRef.current.filter((fid) => fid !== id), id]
+        focusHistoryRef.current = [
+            ...focusHistoryRef.current.filter((fid) => fid !== id),
+            id,
+        ]
 
         setTabs((prev) => {
             const revived = prev.map((t) => {
@@ -484,9 +534,23 @@ export function TabsProvider({ children }: Props) {
         // the back button returns to the previous tab at its exact position.
         // Replace (no-op) when re-activating the already-active tab.
         if (activeTabIdRef.current !== id) {
-            window.history.pushState({ tabId: id, entryId }, "", `/dashboard/${id}/${entryId}`)
+            window.history.pushState(
+                {
+                    tabId: id,
+                    entryId,
+                },
+                "",
+                `/dashboard/${id}/${entryId}`,
+            )
         } else {
-            window.history.replaceState({ tabId: id, entryId }, "", `/dashboard/${id}/${entryId}`)
+            window.history.replaceState(
+                {
+                    tabId: id,
+                    entryId,
+                },
+                "",
+                `/dashboard/${id}/${entryId}`,
+            )
         }
     }, [])
 
@@ -505,12 +569,23 @@ export function TabsProvider({ children }: Props) {
                 return buildEntry(e.definitionKey, e.definitionProps, e.id)
             })
             return applyLruEviction(
-                prev.map((pt) => (pt.id === tabId ? { ...t, history, historyIndex: idx } : pt)),
+                prev.map((pt) =>
+                    pt.id === tabId
+                        ? {
+                              ...t,
+                              history,
+                              historyIndex: idx,
+                          }
+                        : pt,
+                ),
                 tabId,
             )
         })
         window.history.replaceState(
-            { tabId, entryId: targetEntry.id },
+            {
+                tabId,
+                entryId: targetEntry.id,
+            },
             "",
             `/dashboard/${tabId}/${targetEntry.id}`,
         )
@@ -530,46 +605,72 @@ export function TabsProvider({ children }: Props) {
                 return buildEntry(e.definitionKey, e.definitionProps, e.id)
             })
             return applyLruEviction(
-                prev.map((pt) => (pt.id === tabId ? { ...t, history, historyIndex: idx } : pt)),
+                prev.map((pt) =>
+                    pt.id === tabId
+                        ? {
+                              ...t,
+                              history,
+                              historyIndex: idx,
+                          }
+                        : pt,
+                ),
                 tabId,
             )
         })
         window.history.replaceState(
-            { tabId, entryId: targetEntry.id },
+            {
+                tabId,
+                entryId: targetEntry.id,
+            },
             "",
             `/dashboard/${tabId}/${targetEntry.id}`,
         )
     }, [])
 
-    const openPanelTab = useCallback((title: string, component: React.ReactNode, description?: string, icon?: string): string => {
-        // Dedup: if a panel tab with the same title already exists, focus it.
-        const existing = tabsRef.current.find((t): t is PanelTab => t.type === "panel" && t.title === title)
-        if (existing) {
-            setActiveTabId(existing.id)
-            window.history.pushState({ panelTabId: existing.id }, "", window.location.href)
-            return existing.id
-        }
+    const openPanelTab = useCallback(
+        (title: string, component: React.ReactNode, description?: string, icon?: string): string => {
+            // Dedup: if a panel tab with the same title already exists, focus it.
+            const existing = tabsRef.current.find((t): t is PanelTab => t.type === "panel" && t.title === title)
+            if (existing) {
+                setActiveTabId(existing.id)
+                window.history.pushState(
+                    {
+                        panelTabId: existing.id,
+                    },
+                    "",
+                    window.location.href,
+                )
+                return existing.id
+            }
 
-        const id = generateId()
-        const newTab: PanelTab = {
-            id,
-            type: "panel",
-            title,
-            description,
-            icon,
-            component,
-        }
-        setTabs((prev) => [
-            ...prev,
-            newTab,
-        ])
-        setActiveTabId(id)
-        // Push a browser history entry so that pressing Back from a panel tab
-        // returns to the previous tab/panel rather than skipping it.
-        // Store the panel tab ID so popstate can re-activate it on forward.
-        window.history.pushState({ panelTabId: id }, "", window.location.href)
-        return id
-    }, [])
+            const id = generateId()
+            const newTab: PanelTab = {
+                id,
+                type: "panel",
+                title,
+                description,
+                icon,
+                component,
+            }
+            setTabs((prev) => [
+                ...prev,
+                newTab,
+            ])
+            setActiveTabId(id)
+            // Push a browser history entry so that pressing Back from a panel tab
+            // returns to the previous tab/panel rather than skipping it.
+            // Store the panel tab ID so popstate can re-activate it on forward.
+            window.history.pushState(
+                {
+                    panelTabId: id,
+                },
+                "",
+                window.location.href,
+            )
+            return id
+        },
+        [],
+    )
 
     const updateTabTitle = useCallback((id: string, title: string) => {
         setTabs((prev) =>
@@ -579,9 +680,9 @@ export function TabsProvider({ children }: Props) {
                 const history = t.history.map((e, i) =>
                     i === t.historyIndex
                         ? {
-                            ...e,
-                            title,
-                        }
+                              ...e,
+                              title,
+                          }
                         : e,
                 )
                 return {
@@ -597,10 +698,22 @@ export function TabsProvider({ children }: Props) {
             const tab = prev.find((t) => t.id === tabId)
             if (!tab) return prev
             const without = prev.filter((t) => t.id !== tabId)
-            if (beforeTabId === null) return [...without, tab]
+            if (beforeTabId === null)
+                return [
+                    ...without,
+                    tab,
+                ]
             const idx = without.findIndex((t) => t.id === beforeTabId)
-            if (idx === -1) return [...without, tab]
-            return [...without.slice(0, idx), tab, ...without.slice(idx)]
+            if (idx === -1)
+                return [
+                    ...without,
+                    tab,
+                ]
+            return [
+                ...without.slice(0, idx),
+                tab,
+                ...without.slice(idx),
+            ]
         })
     }, [])
 
@@ -637,4 +750,3 @@ export function TabsProvider({ children }: Props) {
         </OuterRouterProvider>
     )
 }
-

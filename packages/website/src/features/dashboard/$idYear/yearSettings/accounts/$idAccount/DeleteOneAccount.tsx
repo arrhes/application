@@ -64,16 +64,26 @@ export function DeleteOneAccount(props: {
                         </Dialog.Header>
                         <Dialog.Body>
                             <Dialog.Description>
-                                Cette action supprimera le compte et toutes les données associées.
-                                Cette action est irréversible.
+                                Cette action supprimera le compte et toutes les données associées. Cette action est
+                                irréversible.
                             </Dialog.Description>
                         </Dialog.Body>
                         <Dialog.Footer>
                             <Button onClick={() => closeModal(modalId)}>
                                 <ButtonOutlineContent text="Annuler" />
                             </Button>
-                            <Button hasLoader onClick={async () => { await onSubmit(); closeModal(modalId) }}>
-                                <ButtonPlainContent color="danger" leftIcon={<IconTrash />} text="Supprimer le compte" />
+                            <Button
+                                hasLoader
+                                onClick={async () => {
+                                    await onSubmit()
+                                    closeModal(modalId)
+                                }}
+                            >
+                                <ButtonPlainContent
+                                    color="danger"
+                                    leftIcon={<IconTrash />}
+                                    text="Supprimer le compte"
+                                />
                             </Button>
                         </Dialog.Footer>
                     </Dialog.Content>,

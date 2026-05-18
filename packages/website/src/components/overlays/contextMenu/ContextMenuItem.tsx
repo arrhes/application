@@ -40,14 +40,14 @@ export function ContextMenuItem(
                 }),
                 color === "danger"
                     ? css({
-                        color: "error",
-                        _hover: {
-                            backgroundColor: "red.50",
-                        },
-                    })
+                          color: "error",
+                          _hover: {
+                              backgroundColor: "red.50",
+                          },
+                      })
                     : css({
-                        color: "neutral",
-                    }),
+                          color: "neutral",
+                      }),
                 props.className,
             )}
         >

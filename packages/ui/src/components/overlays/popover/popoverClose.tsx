@@ -1,10 +1,7 @@
-import { type ReactElement, cloneElement, isValidElement } from "react"
+import { cloneElement, isValidElement, type ReactElement } from "react"
 import { usePopoverContext } from "./popoverRoot.js"
 
-export function PopoverClose(props: {
-    children: ReactElement
-    asChild?: boolean
-}) {
+export function PopoverClose(props: { children: ReactElement; asChild?: boolean }) {
     const { setOpen } = usePopoverContext()
 
     function handleClick() {
@@ -25,7 +22,10 @@ export function PopoverClose(props: {
     }
 
     return (
-        <button type="button" onClick={handleClick}>
+        <button
+            type="button"
+            onClick={handleClick}
+        >
             {props.children}
         </button>
     )

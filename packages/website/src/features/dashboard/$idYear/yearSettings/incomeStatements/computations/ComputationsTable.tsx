@@ -3,9 +3,9 @@ import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconCalculator } from "@tabler/icons-react"
 import type * as v from "valibot"
+import { LinkButton } from "../../../../../../components/LinkButton.tsx"
 import { DataWrapper } from "../../../../../../components/layouts/DataWrapper.tsx"
 import { EmptyState } from "../../../../../../components/layouts/EmptyState.tsx"
-import { LinkButton } from "../../../../../../components/LinkButton.tsx"
 
 export function ComputationsTable(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]

@@ -4,10 +4,7 @@ import { FormatBase } from "../FormatBase.js"
 import { FormatNull } from "../FormatNull.js"
 import { formatFileSize } from "../formatFileSize.js"
 
-export function FormatFileSize(props: {
-    size?: number | null
-    className?: ComponentProps<"div">["className"]
-}) {
+export function FormatFileSize(props: { size?: number | null; className?: ComponentProps<"div">["className"] }) {
     if (props.size === undefined || props.size === null) return <FormatNull />
     return (
         <FormatBase className={props.className}>

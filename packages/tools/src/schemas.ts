@@ -7,17 +7,17 @@
 // =============================================================================
 
 export {
+    agentMessageModel,
+    agentMessageRelations,
+    agentMessageStateEnum,
+} from "../../metadata/src/models/AgentMessage.ts"
+export {
     accountBalanceSheetColumnEnum,
     accountBalanceSheetFlowEnum,
     accountModel,
     accountRelations,
     accountTypeEnum,
 } from "../../metadata/src/models/account.ts"
-export {
-    agentMessageModel,
-    agentMessageRelations,
-    agentMessageStateEnum,
-} from "../../metadata/src/models/AgentMessage.ts"
 export { agentSessionModel, agentSessionRelations } from "../../metadata/src/models/agentSession.ts"
 export { apiKeyModel, apiKeyRelations } from "../../metadata/src/models/apiKey.ts"
 export { balanceSheetModel, balanceSheetRelations } from "../../metadata/src/models/balanceSheet.ts"

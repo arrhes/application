@@ -3,10 +3,10 @@ import { ButtonOutlineContent, ButtonPlainContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconChevronLeft, IconDatabase, IconInfoCircle, IconPencil, IconTrash } from "@tabler/icons-react"
 import { Outlet, useParams } from "@tanstack/react-router"
+import { LinkButton } from "../../../../../../../../../components/LinkButton.tsx"
 import { DataWrapper } from "../../../../../../../../../components/layouts/DataWrapper.tsx"
 import { Section } from "../../../../../../../../../components/layouts/section/section.tsx"
 import { Tab } from "../../../../../../../../../components/layouts/tab/tab.tsx"
-import { LinkButton } from "../../../../../../../../../components/LinkButton.tsx"
 
 import { DeleteOneComputationIncomeStatement } from "./DeleteOneComputationIncomeStatement.tsx"
 import { UpdateOneComputationIncomeStatement } from "./UpdateOneComputationIncomeStatement.tsx"
@@ -14,7 +14,12 @@ import { UpdateOneComputationIncomeStatement } from "./UpdateOneComputationIncom
 export function ComputationIncomeStatementLayout() {
     const params = useParams({
         strict: false,
-    }) as { idYear?: string; idComputationIncomeStatement?: string }
+    }) as {
+        idYear: string
+        idComputationIncomeStatement: string
+        idOrganization: string
+        idComputation: string
+    }
 
     return (
         <Section.Root>

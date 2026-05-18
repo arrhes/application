@@ -50,15 +50,25 @@ export function DeleteOneApiKey(props: {
                         </Dialog.Header>
                         <Dialog.Body>
                             <Dialog.Description>
-                                Cette action est irréversible. Les applications utilisant cette clé ne pourront plus accéder à l'API.
+                                Cette action est irréversible. Les applications utilisant cette clé ne pourront plus
+                                accéder à l'API.
                             </Dialog.Description>
                         </Dialog.Body>
                         <Dialog.Footer>
                             <Button onClick={() => closeModal(modalId)}>
                                 <ButtonOutlineContent text="Annuler" />
                             </Button>
-                            <Button hasLoader onClick={async () => { await onSubmit(); closeModal(modalId) }}>
-                                <ButtonPlainContent color="danger" text="Supprimer la clé" />
+                            <Button
+                                hasLoader
+                                onClick={async () => {
+                                    await onSubmit()
+                                    closeModal(modalId)
+                                }}
+                            >
+                                <ButtonPlainContent
+                                    color="danger"
+                                    text="Supprimer la clé"
+                                />
                             </Button>
                         </Dialog.Footer>
                     </Dialog.Content>,

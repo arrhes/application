@@ -76,7 +76,12 @@ const yearQueryEntries = Object.entries(yearQueries) as [
 ][]
 
 // Stable index for dereferencing results by key name (avoids magic numbers).
-const KEY_INDEX = Object.fromEntries(yearQueryEntries.map(([key], i) => [key, i])) as Record<YearDataKey, number>
+const KEY_INDEX = Object.fromEntries(
+    yearQueryEntries.map(([key], i) => [
+        key,
+        i,
+    ]),
+) as Record<YearDataKey, number>
 
 export function YearDataWrapper<const K extends readonly YearDataKey[]>(props: {
     idYear: string
@@ -87,12 +92,17 @@ export function YearDataWrapper<const K extends readonly YearDataKey[]>(props: {
         () => ({
             idYear: props.idYear,
         }),
-        [props.idYear],
+        [
+            props.idYear,
+        ],
     )
 
     const results = useQueries({
         queries: yearQueryEntries.map(([_key, routeDef]) => ({
-            queryKey: [routeDef.path, body],
+            queryKey: [
+                routeDef.path,
+                body,
+            ],
             queryFn: async (context: { signal: AbortSignal }) => {
                 const response = await getResponseBodyFromAPI({
                     routeDefinition: routeDef,
@@ -113,7 +123,9 @@ export function YearDataWrapper<const K extends readonly YearDataKey[]>(props: {
 
     const requiredIndices = useMemo(
         () => props.requiredKeys.map((key) => KEY_INDEX[key]),
-        [props.requiredKeys],
+        [
+            props.requiredKeys,
+        ],
     )
 
     const isPending = requiredIndices.some((index) => results[index].isPending)
@@ -132,7 +144,9 @@ export function YearDataWrapper<const K extends readonly YearDataKey[]>(props: {
     const balanceSheetsData = results[KEY_INDEX.balanceSheets].data as YearData["balanceSheets"] | undefined
     const incomeStatementsData = results[KEY_INDEX.incomeStatements].data as YearData["incomeStatements"] | undefined
     const computationsData = results[KEY_INDEX.computations].data as YearData["computations"] | undefined
-    const computationIncomeStatementsData = results[KEY_INDEX.computationIncomeStatements].data as YearData["computationIncomeStatements"] | undefined
+    const computationIncomeStatementsData = results[KEY_INDEX.computationIncomeStatements].data as
+        | YearData["computationIncomeStatements"]
+        | undefined
 
     // Memoized raw-array object — reference stable as long as query data references don't change.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -175,81 +189,111 @@ export function YearDataWrapper<const K extends readonly YearDataKey[]>(props: {
         const m = new Map<string, YearData["entries"][number]>()
         for (const e of arrays.entries) m.set(e.id, e)
         return m
-    }, [arrays.entries])
+    }, [
+        arrays.entries,
+    ])
 
     const entryLinesByEntryId = useMemo(() => {
         const m = new Map<string, Array<YearData["entryLines"][number]>>()
         for (const line of arrays.entryLines) {
             const arr = m.get(line.idEntry)
             if (arr) arr.push(line)
-            else m.set(line.idEntry, [line])
+            else
+                m.set(line.idEntry, [
+                    line,
+                ])
         }
         return m
-    }, [arrays.entryLines])
+    }, [
+        arrays.entryLines,
+    ])
 
     const entryTagsByEntryId = useMemo(() => {
         const m = new Map<string, Array<YearData["entryTags"][number]>>()
         for (const et of arrays.entryTags) {
             const arr = m.get(et.idEntry)
             if (arr) arr.push(et)
-            else m.set(et.idEntry, [et])
+            else
+                m.set(et.idEntry, [
+                    et,
+                ])
         }
         return m
-    }, [arrays.entryTags])
+    }, [
+        arrays.entryTags,
+    ])
 
     const journalById = useMemo(() => {
         const m = new Map<string, YearData["journals"][number]>()
         for (const j of arrays.journals) m.set(j.id, j)
         return m
-    }, [arrays.journals])
+    }, [
+        arrays.journals,
+    ])
 
     const tagById = useMemo(() => {
         const m = new Map<string, YearData["tags"][number]>()
         for (const t of arrays.tags) m.set(t.id, t)
         return m
-    }, [arrays.tags])
+    }, [
+        arrays.tags,
+    ])
 
     const fileById = useMemo(() => {
         const m = new Map<string, YearData["files"][number]>()
         for (const f of arrays.files) m.set(f.id, f)
         return m
-    }, [arrays.files])
+    }, [
+        arrays.files,
+    ])
 
     const folderById = useMemo(() => {
         const m = new Map<string, YearData["folders"][number]>()
         for (const f of arrays.folders) m.set(f.id, f)
         return m
-    }, [arrays.folders])
+    }, [
+        arrays.folders,
+    ])
 
     const accountById = useMemo(() => {
         const m = new Map<string, YearData["accounts"][number]>()
         for (const a of arrays.accounts) m.set(a.id, a)
         return m
-    }, [arrays.accounts])
+    }, [
+        arrays.accounts,
+    ])
 
     const accountByNumber = useMemo(() => {
         const m = new Map<string, YearData["accounts"][number]>()
         for (const a of arrays.accounts) m.set(a.number, a)
         return m
-    }, [arrays.accounts])
+    }, [
+        arrays.accounts,
+    ])
 
     const balanceSheetById = useMemo(() => {
         const m = new Map<string, YearData["balanceSheets"][number]>()
         for (const bs of arrays.balanceSheets) m.set(bs.id, bs)
         return m
-    }, [arrays.balanceSheets])
+    }, [
+        arrays.balanceSheets,
+    ])
 
     const incomeStatementById = useMemo(() => {
         const m = new Map<string, YearData["incomeStatements"][number]>()
         for (const is of arrays.incomeStatements) m.set(is.id, is)
         return m
-    }, [arrays.incomeStatements])
+    }, [
+        arrays.incomeStatements,
+    ])
 
     const computationById = useMemo(() => {
         const m = new Map<string, YearData["computations"][number]>()
         for (const c of arrays.computations) m.set(c.id, c)
         return m
-    }, [arrays.computations])
+    }, [
+        arrays.computations,
+    ])
 
     const maps: YearDataMaps = useMemo(
         () => ({
@@ -309,4 +353,3 @@ export function YearDataWrapper<const K extends readonly YearDataKey[]>(props: {
         ...maps,
     })
 }
-

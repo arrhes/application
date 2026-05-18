@@ -4,8 +4,8 @@ import { ButtonGhostContent, FormatDateTime, FormatNull, FormatPrice, FormatText
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconEye, IconPencil } from "@tabler/icons-react"
 import type * as v from "valibot"
-import { DataTable } from "../../../../../components/layouts/DataTable.tsx"
 import { LinkButton } from "../../../../../components/LinkButton.tsx"
+import { DataTable } from "../../../../../components/layouts/DataTable.tsx"
 import { UpdateOneEntryLine } from "./$idEntryLine/UpdateOneEntryLine.tsx"
 
 export function EntryLinesTable(props: {

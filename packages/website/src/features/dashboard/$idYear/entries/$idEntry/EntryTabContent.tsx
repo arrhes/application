@@ -22,9 +22,9 @@ import { ReverseOneEntry } from "../ReverseOneEntry.tsx"
 import { DeleteOneEntry } from "./DeleteOneEntry.tsx"
 import { DuplicateOneEntry } from "./DuplicateOneEntry.tsx"
 import { EntryCategoriesTab } from "./EntryCategoriesTab.tsx"
+import { EntryInformationsTab } from "./EntryInformationsTab.tsx"
 import { EntryLinesTab } from "./EntryLinesTab.tsx"
 import { EntryMetadataTab } from "./EntryMetadataTab.tsx"
-import { EntryInformationsTab } from "./EntryInformationsTab.tsx"
 
 const requiredKeys = [
     "entries",

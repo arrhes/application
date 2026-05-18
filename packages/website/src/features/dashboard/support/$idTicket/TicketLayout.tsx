@@ -3,17 +3,19 @@ import { ButtonOutlineContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconChevronLeft } from "@tabler/icons-react"
 import { Outlet, useParams } from "@tanstack/react-router"
+import { LinkButton } from "../../../../components/LinkButton.tsx"
 import { DataWrapper } from "../../../../components/layouts/DataWrapper.tsx"
 import { Page } from "../../../../components/layouts/page/page.tsx"
 import { Section } from "../../../../components/layouts/section/section.tsx"
-import { LinkButton } from "../../../../components/LinkButton.tsx"
 
 import { StatusToggle } from "./StatusToggle.tsx"
 
 export function TicketLayout() {
     const params = useParams({
         strict: false,
-    }) as { idTicket?: string }
+    }) as {
+        idTicket: string
+    }
 
     return (
         <Page.Root>

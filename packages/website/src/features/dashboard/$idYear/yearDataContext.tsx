@@ -46,8 +46,8 @@ type YearScopedRouteDefinition = {
     schemas: {
         body: v.ObjectSchema<v.ObjectEntries, undefined>
         return:
-        | v.ObjectSchema<v.ObjectEntries, undefined>
-        | v.ArraySchema<v.ObjectSchema<v.ObjectEntries, undefined>, undefined>
+            | v.ObjectSchema<v.ObjectEntries, undefined>
+            | v.ArraySchema<v.ObjectSchema<v.ObjectEntries, undefined>, undefined>
     }
 }
 
@@ -144,5 +144,3 @@ export function YearDataProvider(props: { idYear: string; children: ReactNode })
 
     return <YearDataContext.Provider value={value}>{props.children}</YearDataContext.Provider>
 }
-
-

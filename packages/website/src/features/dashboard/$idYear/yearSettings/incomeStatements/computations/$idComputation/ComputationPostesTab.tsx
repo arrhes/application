@@ -12,7 +12,10 @@ import { CreateOneComputationIncomeStatement } from "./computationIncomeStatemen
 export function ComputationPostesTab() {
     const params = useParams({
         strict: false,
-    }) as { idYear?: string; idComputation?: string }
+    }) as {
+        idYear: string
+        idComputation: string
+    }
 
     return (
         <DataWrapper

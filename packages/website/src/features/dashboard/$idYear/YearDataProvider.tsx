@@ -144,5 +144,3 @@ export function YearDataProvider(props: { idYear: string; children: ReactNode })
 
     return <YearDataContext.Provider value={value}>{props.children}</YearDataContext.Provider>
 }
-
-

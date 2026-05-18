@@ -110,8 +110,7 @@ export function GettingStartedDashboardDocPage() {
 
                 <DocTip variant="tip">
                     Vous pouvez naviguer dans l'historique d'un onglet avec les raccourcis clavier{" "}
-                    <strong>Alt+Flèche gauche</strong> et <strong>Alt+Flèche droite</strong>, ou via le menu
-                    contextuel.
+                    <strong>Alt+Flèche gauche</strong> et <strong>Alt+Flèche droite</strong>, ou via le menu contextuel.
                 </DocTip>
             </DocSection>
 
@@ -144,8 +143,8 @@ export function GettingStartedDashboardDocPage() {
 
             <DocSection title="Vue divisée">
                 <DocParagraph>
-                    Arrhes permet d'afficher deux panneaux côte à côte pour comparer ou travailler sur deux vues en
-                    même temps, par exemple consulter le journal pendant la saisie d'une écriture.
+                    Arrhes permet d'afficher deux panneaux côte à côte pour comparer ou travailler sur deux vues en même
+                    temps, par exemple consulter le journal pendant la saisie d'une écriture.
                 </DocParagraph>
                 <DocExample title="Activer la vue divisée">
                     <DocList

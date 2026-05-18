@@ -48,17 +48,26 @@ export function CancelSubscription(_props: { idOrganization: string }) {
                         </Dialog.Header>
                         <Dialog.Body>
                             <Dialog.Description>
-                                Votre accès Premium sera maintenu jusqu'à la fin de la période en cours.
-                                Aucun nouveau paiement ne sera prélevé.
-                                Vous pourrez vous abonner de nouveau à tout moment.
+                                Votre accès Premium sera maintenu jusqu'à la fin de la période en cours. Aucun nouveau
+                                paiement ne sera prélevé. Vous pourrez vous abonner de nouveau à tout moment.
                             </Dialog.Description>
                         </Dialog.Body>
                         <Dialog.Footer>
                             <Button onClick={() => closeModal(modalId)}>
                                 <ButtonOutlineContent text="Annuler" />
                             </Button>
-                            <Button hasLoader onClick={async () => { await onSubmit(); closeModal(modalId) }}>
-                                <ButtonPlainContent color="danger" leftIcon={<IconPlayerPause />} text="Mettre en pause l'abonnement" />
+                            <Button
+                                hasLoader
+                                onClick={async () => {
+                                    await onSubmit()
+                                    closeModal(modalId)
+                                }}
+                            >
+                                <ButtonPlainContent
+                                    color="danger"
+                                    leftIcon={<IconPlayerPause />}
+                                    text="Mettre en pause l'abonnement"
+                                />
                             </Button>
                         </Dialog.Footer>
                     </Dialog.Content>,

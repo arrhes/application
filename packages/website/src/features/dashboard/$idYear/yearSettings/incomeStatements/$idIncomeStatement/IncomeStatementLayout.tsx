@@ -3,10 +3,10 @@ import { ButtonOutlineContent, ButtonPlainContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconChevronLeft, IconDatabase, IconInfoCircle, IconPencil, IconTrash } from "@tabler/icons-react"
 import { Outlet, useParams } from "@tanstack/react-router"
+import { LinkButton } from "../../../../../../components/LinkButton.tsx"
 import { DataWrapper } from "../../../../../../components/layouts/DataWrapper.tsx"
 import { Section } from "../../../../../../components/layouts/section/section.tsx"
 import { Tab } from "../../../../../../components/layouts/tab/tab.tsx"
-import { LinkButton } from "../../../../../../components/LinkButton.tsx"
 
 import { DeleteOneIncomeStatement } from "./DeleteOneIncomeStatement.tsx"
 import { UpdateOneIncomeStatement } from "./UpdateOneIncomeStatement.tsx"
@@ -14,7 +14,11 @@ import { UpdateOneIncomeStatement } from "./UpdateOneIncomeStatement.tsx"
 export function IncomeStatementLayout() {
     const params = useParams({
         strict: false,
-    }) as { idYear?: string; idIncomeStatement?: string }
+    }) as {
+        idYear: string
+        idIncomeStatement: string
+        idOrganization: string
+    }
 
     return (
         <Section.Root>

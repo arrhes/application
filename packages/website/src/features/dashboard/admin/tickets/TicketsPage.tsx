@@ -95,8 +95,8 @@ function TicketRow(props: { ticket: Ticket }) {
                             })}`}
                             {ticket.lastUpdatedAt
                                 ? ` - Mis a jour le ${formatDate(ticket.lastUpdatedAt, {
-                                    includeTime: true,
-                                })}`
+                                      includeTime: true,
+                                  })}`
                                 : ""}
                         </span>
                     </div>

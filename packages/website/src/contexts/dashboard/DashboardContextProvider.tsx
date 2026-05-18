@@ -19,7 +19,7 @@ function writeStorage(key: string, value: string | null): void {
     try {
         if (value !== null) localStorage.setItem(key, value)
         else localStorage.removeItem(key)
-    } catch { }
+    } catch {}
 }
 
 export function DashboardContextProvider(props: { children: ReactNode }) {
@@ -45,7 +45,14 @@ export function DashboardContextProvider(props: { children: ReactNode }) {
     }, [])
 
     return (
-        <DashboardContext.Provider value={{ selectedOrgId, selectedYearId, setOrg, setYear }}>
+        <DashboardContext.Provider
+            value={{
+                selectedOrgId,
+                selectedYearId,
+                setOrg,
+                setYear,
+            }}
+        >
             {props.children}
         </DashboardContext.Provider>
     )

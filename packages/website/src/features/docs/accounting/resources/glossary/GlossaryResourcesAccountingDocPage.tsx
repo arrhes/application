@@ -6,8 +6,8 @@ import { DocLink } from "../../../../../components/document/DocLink.js"
 import { DocParagraph } from "../../../../../components/document/DocParagraph.js"
 import { DocRoot } from "../../../../../components/document/DocRoot.js"
 import { DocTip } from "../../../../../components/document/DocTip.js"
-import { getGlossaryTermsByLetter, searchGlossaryTerms } from "./glossaryData.js"
 import { GlossaryListItem } from "./GlossaryListItem.js"
+import { getGlossaryTermsByLetter, searchGlossaryTerms } from "./glossaryData.js"
 
 export function GlossaryResourcesAccountingDocPage() {
     const [query, setQuery] = useState("")

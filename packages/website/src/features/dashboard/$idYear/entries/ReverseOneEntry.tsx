@@ -91,7 +91,13 @@ export function ReverseOneEntry(props: {
                             <Button onClick={() => closeModal(modalId)}>
                                 <ButtonOutlineContent text="Annuler" />
                             </Button>
-                            <Button hasLoader onClick={async () => { await onSubmit(); closeModal(modalId) }}>
+                            <Button
+                                hasLoader
+                                onClick={async () => {
+                                    await onSubmit()
+                                    closeModal(modalId)
+                                }}
+                            >
                                 <ButtonPlainContent text="Extourner l'écriture" />
                             </Button>
                         </Dialog.Footer>

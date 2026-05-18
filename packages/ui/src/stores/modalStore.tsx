@@ -1,13 +1,4 @@
-import {
-    type ReactNode,
-    createContext,
-    useCallback,
-    useContext,
-    useEffect,
-    useMemo,
-    useReducer,
-    useRef,
-} from "react"
+import { createContext, type ReactNode, useCallback, useContext, useEffect, useMemo, useReducer, useRef } from "react"
 
 // ---------------------------------------------------------------------------
 // Types
@@ -21,8 +12,15 @@ type ModalEntry = {
 type ModalState = Record<string, ModalEntry>
 
 type ModalAction =
-    | { type: "open"; id: string; content: ReactNode }
-    | { type: "close"; id: string }
+    | {
+          type: "open"
+          id: string
+          content: ReactNode
+      }
+    | {
+          type: "close"
+          id: string
+      }
 
 // ---------------------------------------------------------------------------
 // Reducer
@@ -31,11 +29,23 @@ type ModalAction =
 function reducer(state: ModalState, action: ModalAction): ModalState {
     switch (action.type) {
         case "open":
-            return { ...state, [action.id]: { content: action.content, isOpen: true } }
+            return {
+                ...state,
+                [action.id]: {
+                    content: action.content,
+                    isOpen: true,
+                },
+            }
         case "close": {
             const entry = state[action.id]
             if (entry === undefined) return state
-            return { ...state, [action.id]: { ...entry, isOpen: false } }
+            return {
+                ...state,
+                [action.id]: {
+                    ...entry,
+                    isOpen: false,
+                },
+            }
         }
         default:
             return state
@@ -56,7 +66,9 @@ export const ModalStoreContext = createContext<ModalStoreValue | null>(null)
 
 /** Provided by ModalProvider around each rendered modal entry so sub-components
  *  (DialogHeader close button) can close the modal without needing to know its id. */
-export const ModalItemContext = createContext<{ closeModal: () => void } | null>(null)
+export const ModalItemContext = createContext<{
+    closeModal: () => void
+} | null>(null)
 
 // ---------------------------------------------------------------------------
 // Hooks
@@ -76,15 +88,7 @@ export function useModalItem() {
 // ModalItem — one native <dialog> per modal entry
 // ---------------------------------------------------------------------------
 
-function ModalItem({
-    id,
-    entry,
-    close,
-}: {
-    id: string
-    entry: ModalEntry
-    close: (id: string) => void
-}) {
+function ModalItem({ id, entry, close }: { id: string; entry: ModalEntry; close: (id: string) => void }) {
     const dialogRef = useRef<HTMLDialogElement>(null)
     const wrapperRef = useRef<HTMLDivElement>(null)
 
@@ -96,7 +100,9 @@ function ModalItem({
         } else {
             if (dialog.open) dialog.close()
         }
-    }, [entry.isOpen])
+    }, [
+        entry.isOpen,
+    ])
 
     function handleCancel(e: React.SyntheticEvent) {
         e.preventDefault()
@@ -142,7 +148,11 @@ function ModalItem({
                     height: "100%",
                 }}
             >
-                <ModalItemContext.Provider value={{ closeModal: () => close(id) }}>
+                <ModalItemContext.Provider
+                    value={{
+                        closeModal: () => close(id),
+                    }}
+                >
                     {entry.content}
                 </ModalItemContext.Provider>
             </div>
@@ -158,16 +168,39 @@ export function ModalProvider({ children }: { children: ReactNode }) {
     const [state, dispatch] = useReducer(reducer, {})
 
     const open = useCallback((id: string, content: ReactNode) => {
-        dispatch({ type: "open", id, content })
+        dispatch({
+            type: "open",
+            id,
+            content,
+        })
     }, [])
 
     const close = useCallback((id: string) => {
-        dispatch({ type: "close", id })
+        dispatch({
+            type: "close",
+            id,
+        })
     }, [])
 
-    const isOpen = useCallback((id: string) => state[id]?.isOpen ?? false, [state])
+    const isOpen = useCallback(
+        (id: string) => state[id]?.isOpen ?? false,
+        [
+            state,
+        ],
+    )
 
-    const value = useMemo(() => ({ open, close, isOpen }), [open, close, isOpen])
+    const value = useMemo(
+        () => ({
+            open,
+            close,
+            isOpen,
+        }),
+        [
+            open,
+            close,
+            isOpen,
+        ],
+    )
 
     return (
         <ModalStoreContext.Provider value={value}>

@@ -1,5 +1,13 @@
 import { deleteOneEntryRouteDefinition, readAllEntriesRouteDefinition } from "@arrhes/application-metadata/routes"
-import { Button, ButtonGhostContent, ButtonOutlineContent, ButtonPlainContent, Dialog, toast, useModalStore } from "@arrhes/ui"
+import {
+    Button,
+    ButtonGhostContent,
+    ButtonOutlineContent,
+    ButtonPlainContent,
+    Dialog,
+    toast,
+    useModalStore,
+} from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconChevronDown, IconTrash } from "@tabler/icons-react"
 import type { Row } from "@tanstack/react-table"
@@ -78,16 +86,27 @@ export function EntriesTableSelectionActions(props: { selectedRows: Array<Row<En
                                         </Dialog.Header>
                                         <Dialog.Body>
                                             <Dialog.Description>
-                                                {`Voulez-vous supprimer ${props.selectedRows.length} écriture${props.selectedRows.length > 1 ? "s" : ""
-                                                    } ? Cette action est irréversible.`}
+                                                {`Voulez-vous supprimer ${props.selectedRows.length} écriture${
+                                                    props.selectedRows.length > 1 ? "s" : ""
+                                                } ? Cette action est irréversible.`}
                                             </Dialog.Description>
                                         </Dialog.Body>
                                         <Dialog.Footer>
                                             <Button onClick={() => closeModal(deleteModalId)}>
                                                 <ButtonOutlineContent text="Annuler" />
                                             </Button>
-                                            <Button hasLoader onClick={async () => { await handleDelete(); closeModal(deleteModalId) }}>
-                                                <ButtonPlainContent color="danger" leftIcon={<IconTrash />} text="Supprimer" />
+                                            <Button
+                                                hasLoader
+                                                onClick={async () => {
+                                                    await handleDelete()
+                                                    closeModal(deleteModalId)
+                                                }}
+                                            >
+                                                <ButtonPlainContent
+                                                    color="danger"
+                                                    leftIcon={<IconTrash />}
+                                                    text="Supprimer"
+                                                />
                                             </Button>
                                         </Dialog.Footer>
                                     </Dialog.Content>,
@@ -107,7 +126,6 @@ export function EntriesTableSelectionActions(props: { selectedRows: Array<Row<En
                     </Popover.Close>
                 </Popover.Content>
             </Popover.Root>
-
         </>
     )
 }

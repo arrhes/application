@@ -1,10 +1,10 @@
 import { Button, ButtonGhostContent, ButtonPlainContent, Separator } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconChevronDown } from "@tabler/icons-react"
+import { useState } from "react"
 import { getAllMyOrganizationsRouteDefinition } from "../../../../metadata/src/routes/dashboard/auth/index.js"
 import { Popover } from "../../components/overlays/popover/popover.js"
 import { useDataFromAPI } from "../../utilities/useHTTPData.js"
-import { useState } from "react"
 import { AddNewOrganization } from "./organizations/AddNewOrganization.js"
 
 export function OrganizationContextSelect(props: { value: string | null; onChange: (v: string | null) => void }) {
@@ -29,7 +29,10 @@ export function OrganizationContextSelect(props: { value: string | null; onChang
     }
 
     return (
-        <Popover.Root open={open} onOpenChange={setOpen}>
+        <Popover.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Popover.Trigger asChild>
                 <Button hasLoader={organizationUsersData.isPending}>
                     <ButtonGhostContent
@@ -58,7 +61,8 @@ export function OrganizationContextSelect(props: { value: string | null; onChang
                         }}
                         className={css({
                             width: "100%",
-                        })}>
+                        })}
+                    >
                         <ButtonGhostContent
                             text={option.label}
                             isCurrent={option.key === props.value}

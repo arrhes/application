@@ -57,16 +57,25 @@ export function DeleteOneOrganization(props: {
                         </Dialog.Header>
                         <Dialog.Body>
                             <Dialog.Description>
-                                Cette action supprimera l'organisation et toutes les données associées.
-                                Cette action est irréversible.
+                                Cette action supprimera l'organisation et toutes les données associées. Cette action est
+                                irréversible.
                             </Dialog.Description>
                         </Dialog.Body>
                         <Dialog.Footer>
                             <Button onClick={() => closeModal(modalId)}>
                                 <ButtonOutlineContent text="Annuler" />
                             </Button>
-                            <Button hasLoader onClick={async () => { await onSubmit(); closeModal(modalId) }}>
-                                <ButtonPlainContent color="danger" text="Supprimer l'organisation" />
+                            <Button
+                                hasLoader
+                                onClick={async () => {
+                                    await onSubmit()
+                                    closeModal(modalId)
+                                }}
+                            >
+                                <ButtonPlainContent
+                                    color="danger"
+                                    text="Supprimer l'organisation"
+                                />
                             </Button>
                         </Dialog.Footer>
                     </Dialog.Content>,

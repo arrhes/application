@@ -1,4 +1,4 @@
-import { type ReactElement, cloneElement, isValidElement } from "react"
+import { cloneElement, isValidElement, type ReactElement } from "react"
 import { usePopoverContext } from "./popoverRoot.js"
 
 export function PopoverTrigger(props: {
@@ -35,7 +35,11 @@ export function PopoverTrigger(props: {
         <button
             type="button"
             data-popover-trigger=""
-            style={{ anchorName } as React.CSSProperties}
+            style={
+                {
+                    anchorName,
+                } as React.CSSProperties
+            }
             onClick={handleClick}
         >
             {props.children}

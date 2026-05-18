@@ -2,10 +2,10 @@ import { ButtonOutlineContent, ButtonPlainContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconChevronLeft, IconDatabase, IconEye, IconInfoCircle, IconPencil, IconTrash } from "@tabler/icons-react"
 import { Outlet, useParams } from "@tanstack/react-router"
+import { LinkButton } from "../../../../../components/LinkButton.tsx"
 import { Page } from "../../../../../components/layouts/page/page.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
 import { Tab } from "../../../../../components/layouts/tab/tab.tsx"
-import { LinkButton } from "../../../../../components/LinkButton.tsx"
 
 import { DeleteOneFile } from "./DeleteOneFile.tsx"
 import { FileData } from "./FileData.tsx"
@@ -14,7 +14,10 @@ import { UpdateOneFile } from "./UpdateOneFile.tsx"
 export function FileLayout() {
     const params = useParams({
         strict: false,
-    }) as { idOrganization?: string; idFile?: string }
+    }) as {
+        idOrganization: string
+        idFile: string
+    }
 
     return (
         <Page.Root>

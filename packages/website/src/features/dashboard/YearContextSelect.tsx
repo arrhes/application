@@ -15,7 +15,9 @@ export function YearContextSelect(props: {
     const [open, setOpen] = useState(false)
     const yearsData = useDataFromAPI({
         routeDefinition: readAllYearsRouteDefinition,
-        body: { idOrganization: props.idOrganizationSelected ?? undefined },
+        body: {
+            idOrganization: props.idOrganizationSelected ?? undefined,
+        },
         enabled: props.idOrganizationSelected !== null,
     })
 
@@ -38,7 +40,10 @@ export function YearContextSelect(props: {
     }
 
     return (
-        <Popover.Root open={open} onOpenChange={setOpen}>
+        <Popover.Root
+            open={open}
+            onOpenChange={setOpen}
+        >
             <Popover.Trigger asChild>
                 <Button hasLoader={yearsData.isPending}>
                     <ButtonGhostContent
@@ -67,7 +72,8 @@ export function YearContextSelect(props: {
                         }}
                         className={css({
                             width: "100%",
-                        })}>
+                        })}
+                    >
                         <ButtonGhostContent
                             text={option.label}
                             isCurrent={option.key === props.value}

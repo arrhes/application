@@ -74,8 +74,17 @@ export function DeleteOneIncomeStatement(props: {
                             <Button onClick={() => closeModal(modalId)}>
                                 <ButtonOutlineContent text="Annuler" />
                             </Button>
-                            <Button hasLoader onClick={async () => { await onSubmit(); closeModal(modalId) }}>
-                                <ButtonPlainContent color="danger" text="Supprimer la ligne de compte de résultat" />
+                            <Button
+                                hasLoader
+                                onClick={async () => {
+                                    await onSubmit()
+                                    closeModal(modalId)
+                                }}
+                            >
+                                <ButtonPlainContent
+                                    color="danger"
+                                    text="Supprimer la ligne de compte de résultat"
+                                />
                             </Button>
                         </Dialog.Footer>
                     </Dialog.Content>,

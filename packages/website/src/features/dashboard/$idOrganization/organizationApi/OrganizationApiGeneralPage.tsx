@@ -1,8 +1,8 @@
 import { ButtonOutlineContent } from "@arrhes/ui"
 import { IconBook2 } from "@tabler/icons-react"
+import { LinkButton } from "../../../../components/LinkButton.tsx"
 import { Page } from "../../../../components/layouts/page/page.tsx"
 import { SettingsSection } from "../../../../components/layouts/settingsSection/settingsSection.tsx"
-import { LinkButton } from "../../../../components/LinkButton.tsx"
 
 export function OrganizationApiGeneralPage() {
     return (

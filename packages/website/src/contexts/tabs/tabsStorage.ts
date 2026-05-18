@@ -96,7 +96,14 @@ export function normalisePersisted(state: PersistedState): PersistedState {
         ...state,
         tabs: state.tabs.map((t) => ({
             ...t,
-            history: t.history.map((e) => (e.id ? e : { ...e, id: generateId() })),
+            history: t.history.map((e) =>
+                e.id
+                    ? e
+                    : {
+                          ...e,
+                          id: generateId(),
+                      },
+            ),
         })),
     }
 }

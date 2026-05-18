@@ -179,8 +179,8 @@ function UpdateStorageForm(props: {
                 {quantityDelta > 0
                     ? `Augmenter le stockage est immédiat : le montant prorata du mois est débité du portefeuille. Montants en HT (TVA ${VAT_PERCENT}\u00a0%).`
                     : quantityDelta < 0
-                        ? `Réduire le stockage est effectif le 1er du mois prochain. Aucun remboursement n'est appliqué. Montants en HT (TVA ${VAT_PERCENT}\u00a0%).`
-                        : `Ajustez le stockage disponible pour l'organisation. Montants en HT (TVA ${VAT_PERCENT}\u00a0%).`}
+                      ? `Réduire le stockage est effectif le 1er du mois prochain. Aucun remboursement n'est appliqué. Montants en HT (TVA ${VAT_PERCENT}\u00a0%).`
+                      : `Ajustez le stockage disponible pour l'organisation. Montants en HT (TVA ${VAT_PERCENT}\u00a0%).`}
             </p>
             <FormSection
                 title="État actuel"
@@ -326,8 +326,8 @@ function UpdateStorageForm(props: {
                                 deltaAmountInCents > 0
                                     ? "warning/5"
                                     : deltaAmountInCents < 0
-                                        ? "success/5"
-                                        : "neutral/1",
+                                      ? "success/5"
+                                      : "neutral/1",
                         })}
                     >
                         <span
@@ -339,8 +339,8 @@ function UpdateStorageForm(props: {
                             {deltaAmountInCents > 0
                                 ? "Débité maintenant (prorata)"
                                 : deltaAmountInCents < 0
-                                    ? "Effectif le 1er du mois"
-                                    : "Ajustement portefeuille"}
+                                  ? "Effectif le 1er du mois"
+                                  : "Ajustement portefeuille"}
                         </span>
                         <span
                             className={css({
@@ -431,7 +431,13 @@ function UpdateStorageForm(props: {
                                 <Button onClick={() => closeModal(confirmModalId)}>
                                     <ButtonOutlineContent text="Annuler" />
                                 </Button>
-                                <Button hasLoader onClick={async () => { await handleSave(); closeModal(confirmModalId) }}>
+                                <Button
+                                    hasLoader
+                                    onClick={async () => {
+                                        await handleSave()
+                                        closeModal(confirmModalId)
+                                    }}
+                                >
                                     <ButtonOutlineContent text="Confirmer" />
                                 </Button>
                             </Dialog.Footer>
@@ -445,7 +451,6 @@ function UpdateStorageForm(props: {
                     text="Enregistrer le stockage"
                 />
             </Button>
-
         </div>
     )
 }

@@ -78,7 +78,9 @@ function InvoiceTabsContent(props: {
 export function OrganizationInvoicePage() {
     const params = useParams({
         strict: false,
-    }) as { idInvoice?: string }
+    }) as {
+        idInvoice: string
+    }
 
     return (
         <Page.Root>

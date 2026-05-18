@@ -2,15 +2,17 @@ import { readOneIncomeStatementRouteDefinition } from "@arrhes/application-metad
 import { FormatText } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { useParams } from "@tanstack/react-router"
-import { DataBlock } from "../../../../../../components/layouts/dataBlock/dataBlock.tsx"
 import { DataWrapper } from "../../../../../../components/layouts/DataWrapper.tsx"
+import { DataBlock } from "../../../../../../components/layouts/dataBlock/dataBlock.tsx"
 import { Section } from "../../../../../../components/layouts/section/section.tsx"
-
 
 export function IncomeStatementPage() {
     const params = useParams({
         strict: false,
-    }) as { idYear?: string; idIncomeStatement?: string }
+    }) as {
+        idYear: string
+        idIncomeStatement: string
+    }
 
     return (
         <DataWrapper

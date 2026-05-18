@@ -1,6 +1,6 @@
 import { sva } from "@arrhes/ui/css"
-import { useButtonLoading } from "./useButtonLoading"
 import { type ButtonContentProps, renderButtonContent } from "./buttonContent"
+import { useButtonLoading } from "./useButtonLoading"
 
 const plainRecipe = sva({
     slots: [

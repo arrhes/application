@@ -2,15 +2,17 @@ import { readOneBalanceSheetRouteDefinition } from "@arrhes/application-metadata
 import { FormatText } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { useParams } from "@tanstack/react-router"
-import { DataBlock } from "../../../../../../components/layouts/dataBlock/dataBlock.tsx"
 import { DataWrapper } from "../../../../../../components/layouts/DataWrapper.tsx"
+import { DataBlock } from "../../../../../../components/layouts/dataBlock/dataBlock.tsx"
 import { Section } from "../../../../../../components/layouts/section/section.tsx"
-
 
 export function BalanceSheetPage() {
     const params = useParams({
         strict: false,
-    }) as { idYear?: string; idBalanceSheet?: string }
+    }) as {
+        idYear: string
+        idBalanceSheet: string
+    }
 
     return (
         <DataWrapper

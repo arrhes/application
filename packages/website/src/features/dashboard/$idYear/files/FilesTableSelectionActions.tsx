@@ -4,7 +4,15 @@ import {
     readAllFilesRouteDefinition,
     readAllFoldersRouteDefinition,
 } from "@arrhes/application-metadata/routes"
-import { Button, ButtonGhostContent, ButtonOutlineContent, ButtonPlainContent, Dialog, toast, useModalStore } from "@arrhes/ui"
+import {
+    Button,
+    ButtonGhostContent,
+    ButtonOutlineContent,
+    ButtonPlainContent,
+    Dialog,
+    toast,
+    useModalStore,
+} from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconChevronDown, IconTrash } from "@tabler/icons-react"
 import type { Row } from "@tanstack/react-table"
@@ -17,16 +25,16 @@ import { deleteFileWithSignedUrl } from "./deleteFileWithSignedUrl.js"
 
 export type TableRow =
     | {
-        kind: "back"
-    }
+          kind: "back"
+      }
     | {
-        kind: "folder"
-        data: v.InferOutput<typeof returnedSchemas.folder>
-    }
+          kind: "folder"
+          data: v.InferOutput<typeof returnedSchemas.folder>
+      }
     | {
-        kind: "file"
-        data: v.InferOutput<typeof returnedSchemas.file>
-    }
+          kind: "file"
+          data: v.InferOutput<typeof returnedSchemas.file>
+      }
 
 export function FilesTableSelectionActions(props: { selectedRows: Array<Row<TableRow>> }) {
     const deleteModalId = useId()
@@ -131,16 +139,27 @@ export function FilesTableSelectionActions(props: { selectedRows: Array<Row<Tabl
                                         </Dialog.Header>
                                         <Dialog.Body>
                                             <Dialog.Description>
-                                                {`Voulez-vous supprimer ${props.selectedRows.length} élément${props.selectedRows.length > 1 ? "s" : ""
-                                                    } ? Cette action est irréversible.`}
+                                                {`Voulez-vous supprimer ${props.selectedRows.length} élément${
+                                                    props.selectedRows.length > 1 ? "s" : ""
+                                                } ? Cette action est irréversible.`}
                                             </Dialog.Description>
                                         </Dialog.Body>
                                         <Dialog.Footer>
                                             <Button onClick={() => closeModal(deleteModalId)}>
                                                 <ButtonOutlineContent text="Annuler" />
                                             </Button>
-                                            <Button hasLoader onClick={async () => { await handleDelete(); closeModal(deleteModalId) }}>
-                                                <ButtonPlainContent color="danger" leftIcon={<IconTrash />} text="Supprimer" />
+                                            <Button
+                                                hasLoader
+                                                onClick={async () => {
+                                                    await handleDelete()
+                                                    closeModal(deleteModalId)
+                                                }}
+                                            >
+                                                <ButtonPlainContent
+                                                    color="danger"
+                                                    leftIcon={<IconTrash />}
+                                                    text="Supprimer"
+                                                />
                                             </Button>
                                         </Dialog.Footer>
                                     </Dialog.Content>,
@@ -160,7 +179,6 @@ export function FilesTableSelectionActions(props: { selectedRows: Array<Row<Tabl
                     </Popover.Close>
                 </Popover.Content>
             </Popover.Root>
-
         </>
     )
 }

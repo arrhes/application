@@ -1,8 +1,8 @@
 import {
+    createContext,
     type Dispatch,
     type ReactNode,
     type SetStateAction,
-    createContext,
     useCallback,
     useContext,
     useEffect,
@@ -22,11 +22,25 @@ type PopoverEntry = {
 type PopoverState = Record<string, PopoverEntry>
 
 type PopoverAction =
-    | { type: "register"; id: string }
-    | { type: "unregister"; id: string }
-    | { type: "open"; id: string }
-    | { type: "close"; id: string }
-    | { type: "closeAll" }
+    | {
+          type: "register"
+          id: string
+      }
+    | {
+          type: "unregister"
+          id: string
+      }
+    | {
+          type: "open"
+          id: string
+      }
+    | {
+          type: "close"
+          id: string
+      }
+    | {
+          type: "closeAll"
+      }
 
 // ---------------------------------------------------------------------------
 // Reducer
@@ -35,7 +49,12 @@ type PopoverAction =
 function reducer(state: PopoverState, action: PopoverAction): PopoverState {
     switch (action.type) {
         case "register":
-            return { ...state, [action.id]: { isOpen: false } }
+            return {
+                ...state,
+                [action.id]: {
+                    isOpen: false,
+                },
+            }
         case "unregister": {
             const { [action.id]: _removed, ...rest } = state
             return rest
@@ -43,17 +62,29 @@ function reducer(state: PopoverState, action: PopoverAction): PopoverState {
         case "open":
             if (state[action.id] === undefined) return state
             if (state[action.id].isOpen) return state
-            return { ...state, [action.id]: { isOpen: true } }
+            return {
+                ...state,
+                [action.id]: {
+                    isOpen: true,
+                },
+            }
         case "close":
             if (state[action.id] === undefined) return state
             if (!state[action.id].isOpen) return state
-            return { ...state, [action.id]: { isOpen: false } }
+            return {
+                ...state,
+                [action.id]: {
+                    isOpen: false,
+                },
+            }
         case "closeAll": {
             const hasOpen = Object.values(state).some((e) => e.isOpen)
             if (!hasOpen) return state
             const next: PopoverState = {}
             for (const id of Object.keys(state)) {
-                next[id] = { isOpen: false }
+                next[id] = {
+                    isOpen: false,
+                }
             }
             return next
         }
@@ -99,37 +130,70 @@ export function PopoverProvider({ children }: { children: ReactNode }) {
     const setOpenCallbacksRef = useRef<Record<string, Dispatch<SetStateAction<boolean>>>>({})
 
     const open = useCallback((id: string) => {
-        dispatch({ type: "open", id })
+        dispatch({
+            type: "open",
+            id,
+        })
         setOpenCallbacksRef.current[id]?.(true)
     }, [])
 
     const close = useCallback((id: string) => {
-        dispatch({ type: "close", id })
+        dispatch({
+            type: "close",
+            id,
+        })
         setOpenCallbacksRef.current[id]?.(false)
     }, [])
 
     const closeAll = useCallback(() => {
-        dispatch({ type: "closeAll" })
+        dispatch({
+            type: "closeAll",
+        })
         for (const setter of Object.values(setOpenCallbacksRef.current)) {
             setter(false)
         }
     }, [])
 
-    const isOpen = useCallback((id: string) => state[id]?.isOpen ?? false, [state])
+    const isOpen = useCallback(
+        (id: string) => state[id]?.isOpen ?? false,
+        [
+            state,
+        ],
+    )
 
     const register = useCallback((id: string, setOpen: Dispatch<SetStateAction<boolean>>) => {
-        dispatch({ type: "register", id })
+        dispatch({
+            type: "register",
+            id,
+        })
         setOpenCallbacksRef.current[id] = setOpen
     }, [])
 
     const unregister = useCallback((id: string) => {
-        dispatch({ type: "unregister", id })
+        dispatch({
+            type: "unregister",
+            id,
+        })
         delete setOpenCallbacksRef.current[id]
     }, [])
 
     const value = useMemo(
-        () => ({ open, close, closeAll, isOpen, register, unregister }),
-        [open, close, closeAll, isOpen, register, unregister],
+        () => ({
+            open,
+            close,
+            closeAll,
+            isOpen,
+            register,
+            unregister,
+        }),
+        [
+            open,
+            close,
+            closeAll,
+            isOpen,
+            register,
+            unregister,
+        ],
     )
 
     // Close all open popovers when the user clicks outside any popover/trigger
@@ -140,7 +204,9 @@ export function PopoverProvider({ children }: { children: ReactNode }) {
                 target.closest("[data-popover-content]") === null &&
                 target.closest("[data-popover-trigger]") === null
             ) {
-                dispatch({ type: "closeAll" })
+                dispatch({
+                    type: "closeAll",
+                })
                 for (const setter of Object.values(setOpenCallbacksRef.current)) {
                     setter(false)
                 }
@@ -154,7 +220,9 @@ export function PopoverProvider({ children }: { children: ReactNode }) {
     useEffect(() => {
         function handleKeyDown(e: KeyboardEvent) {
             if (e.key === "Escape") {
-                dispatch({ type: "closeAll" })
+                dispatch({
+                    type: "closeAll",
+                })
                 for (const setter of Object.values(setOpenCallbacksRef.current)) {
                     setter(false)
                 }

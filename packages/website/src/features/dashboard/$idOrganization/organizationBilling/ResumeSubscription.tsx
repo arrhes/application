@@ -53,8 +53,17 @@ export function ResumeSubscription() {
                             <Button onClick={() => closeModal(modalId)}>
                                 <ButtonOutlineContent text="Annuler" />
                             </Button>
-                            <Button hasLoader onClick={async () => { await onSubmit(); closeModal(modalId) }}>
-                                <ButtonPlainContent leftIcon={<IconPlayerPlay />} text="Reprendre les paiements" />
+                            <Button
+                                hasLoader
+                                onClick={async () => {
+                                    await onSubmit()
+                                    closeModal(modalId)
+                                }}
+                            >
+                                <ButtonPlainContent
+                                    leftIcon={<IconPlayerPlay />}
+                                    text="Reprendre les paiements"
+                                />
                             </Button>
                         </Dialog.Footer>
                     </Dialog.Content>,

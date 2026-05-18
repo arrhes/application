@@ -1,7 +1,7 @@
 import { useParams } from "@tanstack/react-router"
 import type { YearDataKey } from "../../YearDataWrapper.js"
 import { YearDataWrapper } from "../../YearDataWrapper.js"
-import { EntryPage } from "./EntryPage.js"
+import { EntryInformationsTab } from "./EntryInformationsTab.js"
 
 const routeRequiredKeys = [
     "entries",
@@ -14,7 +14,12 @@ const routeRequiredKeys = [
 
 // Used by TanStack Router as a standalone route component — resolves data itself via YearDataWrapper.
 export function EntryRoutePage() {
-    const params = useParams({ strict: false }) as { idYear?: string; idEntry?: string }
+    const params = useParams({
+        strict: false,
+    }) as {
+        idYear?: string
+        idEntry?: string
+    }
     const idYear = params.idYear ?? ""
     const idEntry = params.idEntry ?? ""
 
@@ -45,7 +50,7 @@ export function EntryRoutePage() {
                 }
 
                 return (
-                    <EntryPage
+                    <EntryInformationsTab
                         entry={entry}
                         journal={journal}
                         entryTagLabels={entryTagLabels}

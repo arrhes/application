@@ -278,8 +278,17 @@ function UpdateTokensForm(props: { idOrganization: string; currentQuantity: numb
                                 <Button onClick={() => closeModal(confirmModalId)}>
                                     <ButtonOutlineContent text="Annuler" />
                                 </Button>
-                                <Button hasLoader onClick={async () => { await handleSave(); closeModal(confirmModalId) }}>
-                                    <ButtonOutlineContent leftIcon={<IconPlus />} text="Confirmer l'achat" />
+                                <Button
+                                    hasLoader
+                                    onClick={async () => {
+                                        await handleSave()
+                                        closeModal(confirmModalId)
+                                    }}
+                                >
+                                    <ButtonOutlineContent
+                                        leftIcon={<IconPlus />}
+                                        text="Confirmer l'achat"
+                                    />
                                 </Button>
                             </Dialog.Footer>
                         </Dialog.Content>,
@@ -317,7 +326,7 @@ export function UpdateTokensPage({ idOrganization }: { idOrganization: string })
                                     (organization.tokensTotalAvailable +
                                         organization.tokensTotalUsed -
                                         INCLUDED_AGENT_TOKENS) /
-                                    INCLUDED_AGENT_TOKENS,
+                                        INCLUDED_AGENT_TOKENS,
                                 ),
                                 0,
                             )}

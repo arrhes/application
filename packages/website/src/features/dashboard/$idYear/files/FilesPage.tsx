@@ -20,10 +20,14 @@ import { FilesPageContent } from "./FilesPageContent.js"
 export function FilesPage() {
     const params = useParams({
         strict: false,
-    }) as { idOrganization?: string }
+    }) as {
+        idOrganization: string
+    }
     const { idFolder } = useSearch({
         strict: false,
-    }) as { idFolder?: string }
+    }) as {
+        idFolder?: string
+    }
     const navigate = useNavigate()
 
     // Current folder is derived from the URL search param
@@ -34,8 +38,8 @@ export function FilesPage() {
             to: ".",
             search: folderId
                 ? {
-                    idFolder: folderId,
-                }
+                      idFolder: folderId,
+                  }
                 : {},
         })
     }

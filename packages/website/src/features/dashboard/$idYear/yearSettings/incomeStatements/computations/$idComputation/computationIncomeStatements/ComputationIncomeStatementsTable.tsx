@@ -6,9 +6,9 @@ import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { ButtonGhostContent, Chip, FormatDateTime, FormatText } from "@arrhes/ui"
 import { IconEye } from "@tabler/icons-react"
 import type * as v from "valibot"
+import { LinkButton } from "../../../../../../../../components/LinkButton.tsx"
 import { DataTable } from "../../../../../../../../components/layouts/DataTable.tsx"
 import { DataWrapper } from "../../../../../../../../components/layouts/DataWrapper.tsx"
-import { LinkButton } from "../../../../../../../../components/LinkButton.tsx"
 
 export function ComputationIncomeStatementsTable(props: {
     computation: v.InferOutput<typeof returnedSchemas.computation>

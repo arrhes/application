@@ -194,7 +194,9 @@ export function OrganizationTabContent(props: { idOrganization: string }) {
             {items.map((item) => (
                 <div
                     key={item.label}
-                    className={css({ aspectRatio: "1" })}
+                    className={css({
+                        aspectRatio: "1",
+                    })}
                 >
                     <NavCard item={item} />
                 </div>

@@ -2,15 +2,17 @@ import { readOneAccountRouteDefinition } from "@arrhes/application-metadata/rout
 import { FormatBoolean, FormatText } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { useParams } from "@tanstack/react-router"
-import { DataBlock } from "../../../../../../components/layouts/dataBlock/dataBlock.tsx"
 import { DataWrapper } from "../../../../../../components/layouts/DataWrapper.tsx"
+import { DataBlock } from "../../../../../../components/layouts/dataBlock/dataBlock.tsx"
 import { Section } from "../../../../../../components/layouts/section/section.tsx"
-
 
 export function AccountPage() {
     const params = useParams({
         strict: false,
-    }) as { idYear?: string; idAccount?: string }
+    }) as {
+        idYear: string
+        idAccount: string
+    }
 
     return (
         <DataWrapper

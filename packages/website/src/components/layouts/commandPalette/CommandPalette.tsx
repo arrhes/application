@@ -180,15 +180,28 @@ export function CommandPalette(props: { selectedOrgId: string | null; selectedYe
 
     const orgLabel = selectedOrgId ? "Organisation" : "Organisations"
 
-    const allItems: Array<SearchRoute & { group: string }> = [
+    const allItems: Array<
+        SearchRoute & {
+            group: string
+        }
+    > = [
         ...(groupFilter === null || groupFilter === "user"
-            ? filteredUserPages.map((r) => ({ ...r, group: "Utilisateur" }))
+            ? filteredUserPages.map((r) => ({
+                  ...r,
+                  group: "Utilisateur",
+              }))
             : []),
         ...(groupFilter === null || groupFilter === "org"
-            ? filteredOrgItems.map((r) => ({ ...r, group: orgLabel }))
+            ? filteredOrgItems.map((r) => ({
+                  ...r,
+                  group: orgLabel,
+              }))
             : []),
         ...(groupFilter === null || groupFilter === "year"
-            ? filteredYearItems.map((r) => ({ ...r, group: "Exercice" }))
+            ? filteredYearItems.map((r) => ({
+                  ...r,
+                  group: "Exercice",
+              }))
             : []),
     ]
 
@@ -316,15 +329,29 @@ export function CommandPalette(props: { selectedOrgId: string | null; selectedYe
                 >
                     {(
                         [
-                            { key: null, label: "Tout", icon: null },
-                            { key: "user" as const, label: "Utilisateur", icon: <IconUser size={11} /> },
+                            {
+                                key: null,
+                                label: "Tout",
+                                icon: null,
+                            },
+                            {
+                                key: "user" as const,
+                                label: "Utilisateur",
+                                icon: <IconUser size={11} />,
+                            },
                             {
                                 key: "org" as const,
                                 label: selectedOrgId ? "Organisation" : "Organisations",
                                 icon: <IconBuilding size={11} />,
                             },
                             ...(selectedOrgId && selectedYearId
-                                ? [{ key: "year" as const, label: "Exercice", icon: <IconCalendar size={11} /> }]
+                                ? [
+                                      {
+                                          key: "year" as const,
+                                          label: "Exercice",
+                                          icon: <IconCalendar size={11} />,
+                                      },
+                                  ]
                                 : []),
                         ] as const
                     ).map((group) => {
@@ -349,29 +376,28 @@ export function CommandPalette(props: { selectedOrgId: string | null; selectedYe
                                     }),
                                     isActive
                                         ? css({
-                                            backgroundColor: "primary",
-                                            borderColor: "primary",
-                                            color: "white",
-                                        })
+                                              backgroundColor: "primary",
+                                              borderColor: "primary",
+                                              color: "white",
+                                          })
                                         : css({
-                                            backgroundColor: "transparent",
-                                            borderColor: "neutral/20",
-                                            color: "neutral/60",
-                                            _hover: {
-                                                borderColor: "neutral/40",
-                                                color: "neutral",
-                                            },
-                                        }),
+                                              backgroundColor: "transparent",
+                                              borderColor: "neutral/20",
+                                              color: "neutral/60",
+                                              _hover: {
+                                                  borderColor: "neutral/40",
+                                                  color: "neutral",
+                                              },
+                                          }),
                                 )}
                             >
-                                {group.icon && (
+                                {group.icon &&
                                     cloneElement(group.icon, {
                                         size: 12,
                                         className: css({
                                             stroke: isActive ? "white" : "currentColor",
-                                        })
-                                    })
-                                )}
+                                        }),
+                                    })}
                                 {group.label}
                             </button>
                         )

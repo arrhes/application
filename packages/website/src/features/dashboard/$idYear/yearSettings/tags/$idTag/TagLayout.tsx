@@ -3,10 +3,10 @@ import { ButtonOutlineContent, ButtonPlainContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconChevronLeft, IconDatabase, IconInfoCircle, IconPencil, IconTrash } from "@tabler/icons-react"
 import { Outlet, useParams } from "@tanstack/react-router"
+import { LinkButton } from "../../../../../../components/LinkButton.tsx"
 import { DataWrapper } from "../../../../../../components/layouts/DataWrapper.tsx"
 import { Section } from "../../../../../../components/layouts/section/section.tsx"
 import { Tab } from "../../../../../../components/layouts/tab/tab.tsx"
-import { LinkButton } from "../../../../../../components/LinkButton.tsx"
 
 import { DeleteOneTag } from "./DeleteOneTag.tsx"
 import { UpdateOneTag } from "./UpdateOneTag.tsx"
@@ -14,7 +14,11 @@ import { UpdateOneTag } from "./UpdateOneTag.tsx"
 export function TagLayout() {
     const params = useParams({
         strict: false,
-    }) as { idYear?: string; idTag?: string }
+    }) as {
+        idYear: string
+        idTag: string
+        idOrganization: string
+    }
 
     return (
         <Section.Root>

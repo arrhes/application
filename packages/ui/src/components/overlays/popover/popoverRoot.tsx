@@ -1,4 +1,13 @@
-import { type Dispatch, type ReactNode, type SetStateAction, createContext, useContext, useEffect, useId, useState } from "react"
+import {
+    createContext,
+    type Dispatch,
+    type ReactNode,
+    type SetStateAction,
+    useContext,
+    useEffect,
+    useId,
+    useState,
+} from "react"
 import { usePopoverStore } from "../../../stores/popoverStore.js"
 
 // ---------------------------------------------------------------------------
@@ -54,7 +63,20 @@ export function PopoverRoot(props: {
         store.register(id, setOpen)
         return () => store.unregister(id)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [id])
+    }, [
+        id,
+    ])
 
-    return <PopoverContext.Provider value={{ id, anchorName, isOpen, setOpen }}>{props.children}</PopoverContext.Provider>
+    return (
+        <PopoverContext.Provider
+            value={{
+                id,
+                anchorName,
+                isOpen,
+                setOpen,
+            }}
+        >
+            {props.children}
+        </PopoverContext.Provider>
+    )
 }

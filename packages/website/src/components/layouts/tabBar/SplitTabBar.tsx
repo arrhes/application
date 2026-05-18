@@ -19,7 +19,11 @@ export function SplitTabBar({ tabIds, activeTabId, onActivate, onRemove, onReord
     const [dragOverTabId, setDragOverTabId] = useState<string | null>(null)
     const panelTabs = tabIds.flatMap((id) => {
         const t = tabs.find((x) => x.id === id)
-        return t ? [t] : []
+        return t
+            ? [
+                  t,
+              ]
+            : []
     })
 
     function handleDrop(e: React.DragEvent<HTMLDivElement>, insertBeforeTabId: string | null) {
@@ -69,10 +73,10 @@ export function SplitTabBar({ tabIds, activeTabId, onActivate, onRemove, onReord
                 const title = entry
                     ? entry.title
                     : (
-                        tab as {
-                            title: string
-                        }
-                    ).title
+                          tab as {
+                              title: string
+                          }
+                      ).title
                 const description = entry?.description ?? (tab.type === "panel" ? tab.description : undefined)
                 return (
                     <div
@@ -98,10 +102,7 @@ export function SplitTabBar({ tabIds, activeTabId, onActivate, onRemove, onReord
                             },
                         })}
                         style={{
-                            boxShadow:
-                                dragOverTabId === tab.id
-                                    ? "inset 2px 0 0 var(--colors-primary)"
-                                    : "none",
+                            boxShadow: dragOverTabId === tab.id ? "inset 2px 0 0 var(--colors-primary)" : "none",
                         }}
                         draggable
                         onDragStart={(e) => {
@@ -118,22 +119,17 @@ export function SplitTabBar({ tabIds, activeTabId, onActivate, onRemove, onReord
                                 e.stopPropagation()
                                 const rect = e.currentTarget.getBoundingClientRect()
                                 const insertBeforeTabId =
-                                    e.clientX < rect.left + rect.width / 2
-                                        ? tab.id
-                                        : (panelTabs[index + 1]?.id ?? null)
+                                    e.clientX < rect.left + rect.width / 2 ? tab.id : (panelTabs[index + 1]?.id ?? null)
                                 setDragOverTabId(insertBeforeTabId)
                             }
                         }}
                         onDragLeave={(e) => {
-                            if (!e.currentTarget.contains(e.relatedTarget as Node | null))
-                                setDragOverTabId(null)
+                            if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setDragOverTabId(null)
                         }}
                         onDrop={(e) => {
                             const rect = e.currentTarget.getBoundingClientRect()
                             const insertBeforeTabId =
-                                e.clientX < rect.left + rect.width / 2
-                                    ? tab.id
-                                    : (panelTabs[index + 1]?.id ?? null)
+                                e.clientX < rect.left + rect.width / 2 ? tab.id : (panelTabs[index + 1]?.id ?? null)
                             handleDrop(e, insertBeforeTabId)
                         }}
                         onClick={() => onActivate(tab.id)}
@@ -153,8 +149,7 @@ export function SplitTabBar({ tabIds, activeTabId, onActivate, onRemove, onReord
                                 <Button
                                     aria-label="Suivant"
                                     isDisabled={
-                                        (tab as ComponentTab).historyIndex >=
-                                        (tab as ComponentTab).history.length - 1
+                                        (tab as ComponentTab).historyIndex >= (tab as ComponentTab).history.length - 1
                                     }
                                     onClick={(e) => {
                                         e.stopPropagation()
@@ -213,7 +208,6 @@ export function SplitTabBar({ tabIds, activeTabId, onActivate, onRemove, onReord
                     </div>
                 )
             })}
-
         </div>
     )
 }

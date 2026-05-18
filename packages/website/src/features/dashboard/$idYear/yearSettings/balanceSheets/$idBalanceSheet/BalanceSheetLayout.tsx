@@ -3,10 +3,10 @@ import { ButtonOutlineContent, ButtonPlainContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconChevronLeft, IconDatabase, IconInfoCircle, IconPencil, IconTrash } from "@tabler/icons-react"
 import { Outlet, useParams } from "@tanstack/react-router"
+import { LinkButton } from "../../../../../../components/LinkButton.tsx"
 import { DataWrapper } from "../../../../../../components/layouts/DataWrapper.tsx"
 import { Section } from "../../../../../../components/layouts/section/section.tsx"
 import { Tab } from "../../../../../../components/layouts/tab/tab.tsx"
-import { LinkButton } from "../../../../../../components/LinkButton.tsx"
 
 import { DeleteOneBalanceSheet } from "./DeleteOneBalanceSheet.tsx"
 import { UpdateOneBalanceSheet } from "./UpdateOneBalanceSheet.tsx"
@@ -14,7 +14,11 @@ import { UpdateOneBalanceSheet } from "./UpdateOneBalanceSheet.tsx"
 export function BalanceSheetLayout() {
     const params = useParams({
         strict: false,
-    }) as { idYear?: string; idBalanceSheet?: string }
+    }) as {
+        idYear: string
+        idBalanceSheet: string
+        idOrganization: string
+    }
 
     return (
         <Section.Root>

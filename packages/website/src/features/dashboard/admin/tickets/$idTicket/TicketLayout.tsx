@@ -11,7 +11,9 @@ import { StatusToggle } from "./StatusToggle.js"
 export function TicketLayout() {
     const params = useParams({
         strict: false,
-    }) as { idTicket?: string }
+    }) as {
+        idTicket: string
+    }
 
     const ticket = useDataFromAPI({
         routeDefinition: adminReadOneTicketRouteDefinition,

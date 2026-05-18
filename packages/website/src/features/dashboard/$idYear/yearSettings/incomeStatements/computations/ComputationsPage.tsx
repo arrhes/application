@@ -12,7 +12,10 @@ import { CreateOneComputation } from "./CreateOneComputation.tsx"
 export function ComputationsPage() {
     const params = useParams({
         strict: false,
-    }) as { idYear?: string }
+    }) as {
+        idYear: string
+        idOrganization: string
+    }
 
     return (
         <Section.Root>

@@ -262,8 +262,17 @@ function UpdateOcrForm(props: { idOrganization: string; currentQuantity: number;
                                     <Button onClick={() => closeModal(confirmModalId)}>
                                         <ButtonOutlineContent text="Annuler" />
                                     </Button>
-                                    <Button hasLoader onClick={async () => { await handleSave(); closeModal(confirmModalId) }}>
-                                        <ButtonPlainContent leftIcon={<IconCreditCard />} text="Confirmer l'achat" />
+                                    <Button
+                                        hasLoader
+                                        onClick={async () => {
+                                            await handleSave()
+                                            closeModal(confirmModalId)
+                                        }}
+                                    >
+                                        <ButtonPlainContent
+                                            leftIcon={<IconCreditCard />}
+                                            text="Confirmer l'achat"
+                                        />
                                     </Button>
                                 </Dialog.Footer>
                             </Dialog.Content>,
@@ -300,8 +309,8 @@ export function UpdateOcrPage({ idOrganization }: { idOrganization: string }) {
                             idOrganization={idOrganization}
                             currentQuantity={Math.max(
                                 organization.ocrPagesTotalAvailable +
-                                organization.ocrPagesTotalUsed -
-                                INCLUDED_OCR_PAGES,
+                                    organization.ocrPagesTotalUsed -
+                                    INCLUDED_OCR_PAGES,
                                 0,
                             )}
                             currentPagesLeft={organization.ocrPagesTotalAvailable}

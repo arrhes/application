@@ -4,7 +4,15 @@ import {
     readOrganizationBillingRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button, ButtonGhostContent, ButtonOutlineContent, ButtonPlainContent, Separator, toast, useModalStore } from "@arrhes/ui"
+import {
+    Button,
+    ButtonGhostContent,
+    ButtonOutlineContent,
+    ButtonPlainContent,
+    Separator,
+    toast,
+    useModalStore,
+} from "@arrhes/ui"
 import { css } from "@arrhes/ui/css"
 import { IconArrowsMove, IconDotsVertical, IconEye, IconFileText, IconPencil, IconTrash } from "@tabler/icons-react"
 import { useId, useState } from "react"
@@ -278,8 +286,17 @@ export function FileActions(props: { file: v.InferOutput<typeof returnedSchemas.
                                             <Button onClick={() => closeModal(deleteModalId)}>
                                                 <ButtonOutlineContent text="Annuler" />
                                             </Button>
-                                            <Button hasLoader onClick={async () => { await handleDelete(); closeModal(deleteModalId) }}>
-                                                <ButtonPlainContent color="danger" text="Supprimer le fichier" />
+                                            <Button
+                                                hasLoader
+                                                onClick={async () => {
+                                                    await handleDelete()
+                                                    closeModal(deleteModalId)
+                                                }}
+                                            >
+                                                <ButtonPlainContent
+                                                    color="danger"
+                                                    text="Supprimer le fichier"
+                                                />
                                             </Button>
                                         </Dialog.Footer>
                                     </Dialog.Content>,

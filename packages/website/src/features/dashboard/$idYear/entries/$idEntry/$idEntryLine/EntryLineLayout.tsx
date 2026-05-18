@@ -3,11 +3,11 @@ import { ButtonOutlineContent, ButtonPlainContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconChevronLeft, IconDatabase, IconInfoCircle, IconPencil, IconTrash } from "@tabler/icons-react"
 import { Outlet, useParams } from "@tanstack/react-router"
+import { LinkButton } from "../../../../../../components/LinkButton.tsx"
 import { DataWrapper } from "../../../../../../components/layouts/DataWrapper.tsx"
 import { Page } from "../../../../../../components/layouts/page/page.tsx"
 import { Section } from "../../../../../../components/layouts/section/section.tsx"
 import { Tab } from "../../../../../../components/layouts/tab/tab.tsx"
-import { LinkButton } from "../../../../../../components/LinkButton.tsx"
 
 import { DeleteOneEntryLine } from "./DeleteOneEntryLine.tsx"
 import { UpdateOneEntryLine } from "./UpdateOneEntryLine.tsx"
@@ -15,7 +15,12 @@ import { UpdateOneEntryLine } from "./UpdateOneEntryLine.tsx"
 export function EntryLineLayout() {
     const params = useParams({
         strict: false,
-    }) as { idYear?: string; idEntryLine?: string }
+    }) as {
+        idYear: string
+        idEntryLine: string
+        idOrganization: string
+        idEntry: string
+    }
 
     return (
         <Page.Root>

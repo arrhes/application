@@ -116,17 +116,25 @@ export function FolderContextMenu(props: {
                                     </Dialog.Header>
                                     <Dialog.Body>
                                         <Dialog.Description>
-                                            Cette action supprimera le dossier et tous ses sous-dossiers.
-                                            Les fichiers contenus ne seront pas supprimés.
-                                            Cette action est irréversible.
+                                            Cette action supprimera le dossier et tous ses sous-dossiers. Les fichiers
+                                            contenus ne seront pas supprimés. Cette action est irréversible.
                                         </Dialog.Description>
                                     </Dialog.Body>
                                     <Dialog.Footer>
                                         <Button onClick={() => closeModal(deleteModalId)}>
                                             <ButtonOutlineContent text="Annuler" />
                                         </Button>
-                                        <Button hasLoader onClick={async () => { await handleDelete(); closeModal(deleteModalId) }}>
-                                            <ButtonPlainContent color="danger" text="Supprimer le dossier" />
+                                        <Button
+                                            hasLoader
+                                            onClick={async () => {
+                                                await handleDelete()
+                                                closeModal(deleteModalId)
+                                            }}
+                                        >
+                                            <ButtonPlainContent
+                                                color="danger"
+                                                text="Supprimer le dossier"
+                                            />
                                         </Button>
                                     </Dialog.Footer>
                                 </Dialog.Content>,

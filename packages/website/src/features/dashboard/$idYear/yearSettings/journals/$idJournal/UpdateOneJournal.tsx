@@ -146,7 +146,7 @@ export function UpdateOneJournal(props: {
                             )}
                         </FormRoot>
                     </div>,
-                    props.journal.label,
+                    props.journal.label ?? undefined,
                 )
             }}
         >
