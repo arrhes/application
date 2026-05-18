@@ -11,7 +11,7 @@ import { Virtualizer } from "../layouts/Virtualizer.js"
 import { Popover } from "../overlays/popover/popover.js"
 import { InputText } from "./InputText.js"
 
-type InputComboboxMultiple<TValue extends string> = {
+export function InputComboboxMultiple<TValue extends string>(props: {
     placeholder: string
     emptyLabel?: string
     options: Array<{
@@ -32,9 +32,7 @@ type InputComboboxMultiple<TValue extends string> = {
     autoFocus?: boolean
     loading?: boolean
     isDisabled?: boolean
-}
-
-export function InputComboboxMultiple<TValue extends string>(props: InputComboboxMultiple<TValue>) {
+}) {
     const [open, setOpen] = useState(false)
     const [rawQuery, setRawQuery] = useState<string | null | undefined>(undefined)
     const [currentOptions, setCurrentOptions] = useState<
@@ -70,6 +68,7 @@ export function InputComboboxMultiple<TValue extends string>(props: InputCombobo
     return (
         <div
             className={css({
+                width: "100%",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "flex-start",

@@ -1,25 +1,23 @@
-import * as SwitchPrimitives from "@radix-ui/react-switch"
-import type { ComponentProps } from "react"
+import type { ComponentPropsWithRef } from "react"
 import { css, cx } from "../../utilities/cn.js"
 
-type InputSwitch = Omit<ComponentProps<typeof SwitchPrimitives.Root>, "value" | "onChange"> & {
+type InputSwitch = {
     value: boolean
     onChange: (value: boolean) => void
+    ref?: ComponentPropsWithRef<"button">["ref"]
+    className?: string
+    autoFocus?: boolean
+    disabled?: boolean
 }
 
 export function InputSwitch(props: InputSwitch) {
-    function input(value: boolean | undefined | null) {
-        if (!value) return false
-        return value
-    }
-
-    function output(value: boolean) {
-        return value
-    }
-
     return (
-        <SwitchPrimitives.Root
+        <button
             ref={props.ref}
+            type="button"
+            role="switch"
+            aria-checked={props.value}
+            data-state={props.value ? "checked" : "unchecked"}
             className={cx(
                 css({
                     display: "inline-flex",
@@ -36,7 +34,7 @@ export function InputSwitch(props: InputSwitch) {
                         opacity: "0.5",
                     },
                     backgroundColor: "white",
-                    _checked: {
+                    "&[data-state=checked]": {
                         backgroundColor: "success/5",
                         borderColor: "neutral",
                     },
@@ -46,27 +44,27 @@ export function InputSwitch(props: InputSwitch) {
                 }),
                 props.className,
             )}
-            checked={input(props.value)}
-            onCheckedChange={(checked) => props.onChange(output(checked))}
-            autoFocus={props.autoFocus}
+            onClick={() => !props.disabled && props.onChange(!props.value)}
+            disabled={props.disabled}
         >
-            <SwitchPrimitives.Thumb
+            <span
+                data-state={props.value ? "checked" : "unchecked"}
                 className={css({
                     pointerEvents: "none",
                     display: "block",
                     height: "4",
                     width: "4",
                     borderRadius: "100%",
-                    _checked: {
-                        backgroundColor: "neutral",
-                        transform: "translateX(18px)",
-                    },
                     backgroundColor: "neutral/10",
                     transform: "translateX(4px)",
                     boxShadow: "lg",
                     transition: "transform",
+                    "&[data-state=checked]": {
+                        backgroundColor: "neutral",
+                        transform: "translateX(18px)",
+                    },
                 })}
             />
-        </SwitchPrimitives.Root>
+        </button>
     )
 }

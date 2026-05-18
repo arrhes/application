@@ -1,12 +1,59 @@
 import { css, cx } from "@arrhes/ui/utilities/cn.js"
-import * as TooltipPrimitive from "@radix-ui/react-tooltip"
-import type { ComponentProps } from "react"
+import { type ComponentPropsWithRef, useLayoutEffect, useRef, useState } from "react"
+import { createPortal } from "react-dom"
+import { useTooltipRoot } from "./tooltipRoot.js"
 
-export function TooltipContent(props: ComponentProps<typeof TooltipPrimitive.Content>) {
-    return (
-        <TooltipPrimitive.Content
-            ref={props.ref}
-            sideOffset={props.sideOffset}
+type TooltipContentProps = ComponentPropsWithRef<"div"> & {
+    sideOffset?: number
+}
+
+export function TooltipContent({ sideOffset = 4, children, className, style, ...props }: TooltipContentProps) {
+    const ctx = useTooltipRoot()
+    const ref = useRef<HTMLDivElement>(null)
+    const [pos, setPos] = useState<{
+        top: number
+        left: number
+        ready: boolean
+    }>({
+        top: 0,
+        left: 0,
+        ready: false,
+    })
+
+    useLayoutEffect(() => {
+        if (!ctx?.open) {
+            setPos((p) => ({
+                ...p,
+                ready: false,
+            }))
+            return
+        }
+        if (!ref.current || !ctx.triggerRef.current) return
+        const tr = ctx.triggerRef.current.getBoundingClientRect()
+        const cr = ref.current.getBoundingClientRect()
+        setPos({
+            top: tr.top - cr.height - sideOffset,
+            left: Math.max(8, tr.left + tr.width / 2 - cr.width / 2),
+            ready: true,
+        })
+    }, [
+        ctx?.open,
+        sideOffset,
+    ])
+
+    if (!ctx?.open) return null
+
+    return createPortal(
+        <div
+            ref={ref}
+            {...props}
+            style={{
+                position: "fixed",
+                top: pos.top,
+                left: pos.left,
+                visibility: pos.ready ? "visible" : "hidden",
+                ...style,
+            }}
             className={cx(
                 css({
                     zIndex: "50",
@@ -16,24 +63,18 @@ export function TooltipContent(props: ComponentProps<typeof TooltipPrimitive.Con
                     backgroundColor: "neutral",
                     padding: "0.5rem",
                     fontSize: "xs",
-                    "&[data-state=open]": {
-                        animation: "fadeIn 0.2s ease-out, zoomIn 0.2s ease-out",
-                    },
-                    "&[data-state=closed]": {
-                        animation: "fadeOut 0.2s ease-in, zoomOut 0.2s ease-in",
-                    },
                 }),
-                props.className,
+                className,
             )}
-            {...props}
         >
             <span
                 className={css({
                     color: "white",
                 })}
             >
-                {props.children}
+                {children}
             </span>
-        </TooltipPrimitive.Content>
+        </div>,
+        document.body,
     )
 }

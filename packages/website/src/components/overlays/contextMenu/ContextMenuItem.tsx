@@ -1,17 +1,32 @@
 import { css, cx } from "@arrhes/ui/utilities/cn.js"
-import { ContextMenuItem as RadixContextMenuItem } from "@radix-ui/react-context-menu"
 import type { ComponentPropsWithRef, ReactElement } from "react"
+import { useContextMenu } from "./ContextMenuRoot.js"
 
-export function ContextMenuItem(
-    props: ComponentPropsWithRef<typeof RadixContextMenuItem> & {
-        leftIcon?: ReactElement
-        color?: "default" | "danger"
-    },
-) {
-    const { leftIcon, color = "default", ...rest } = props
+type ContextMenuItemProps = ComponentPropsWithRef<"button"> & {
+    leftIcon?: ReactElement
+    color?: "default" | "danger"
+    onSelect?: () => void
+}
+
+export function ContextMenuItem({
+    leftIcon,
+    color = "default",
+    onSelect,
+    onClick,
+    children,
+    className,
+    ...props
+}: ContextMenuItemProps) {
+    const ctx = useContextMenu()
     return (
-        <RadixContextMenuItem
-            {...rest}
+        <button
+            type="button"
+            {...props}
+            onClick={(e) => {
+                ctx?.closeMenu()
+                onSelect?.()
+                onClick?.(e)
+            }}
             className={cx(
                 css({
                     width: "100%",
@@ -28,11 +43,7 @@ export function ContextMenuItem(
                     _hover: {
                         backgroundColor: "neutral/5",
                     },
-                    "&[data-highlighted]": {
-                        backgroundColor: "neutral/5",
-                        outline: "none",
-                    },
-                    "&[data-disabled]": {
+                    _disabled: {
                         opacity: 0.4,
                         cursor: "default",
                         pointerEvents: "none",
@@ -48,7 +59,7 @@ export function ContextMenuItem(
                     : css({
                           color: "neutral",
                       }),
-                props.className,
+                className,
             )}
         >
             {leftIcon && (
@@ -61,7 +72,7 @@ export function ContextMenuItem(
                     {leftIcon}
                 </span>
             )}
-            {props.children}
-        </RadixContextMenuItem>
+            {children}
+        </button>
     )
 }

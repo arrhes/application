@@ -30,7 +30,7 @@
         "incremental": true,
         "tsBuildInfoFile": "./.tsbuildinfo"
     },
-    "include": ["src"],
+    "include": ["src", "plugins"],
     "exclude": ["styled-system", "build", "node_modules"],
     "references": [
         {

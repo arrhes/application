@@ -1,7 +1,11 @@
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { Tooltip, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger } from "@radix-ui/react-tooltip"
 import { IconInfoSquare } from "@tabler/icons-react"
 import type { HTMLAttributes } from "react"
+import { TooltipContent } from "../overlays/tooltip/TooltipContent.js"
+import { TooltipPortal } from "../overlays/tooltip/tooltipPortal.js"
+import { TooltipProvider } from "../overlays/tooltip/tooltipProvider.js"
+import { TooltipRoot as Tooltip } from "../overlays/tooltip/tooltipRoot.js"
+import { TooltipTrigger } from "../overlays/tooltip/tooltipTrigger.js"
 import { useFormField } from "./useFormField.js"
 
 type FormLabel = {

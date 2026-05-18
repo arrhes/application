@@ -1,10 +1,9 @@
 import { css, cx } from "@arrhes/ui/utilities/cn.js"
-import { ContextMenuSeparator as RadixContextMenuSeparator } from "@radix-ui/react-context-menu"
 import type { ComponentPropsWithRef } from "react"
 
-export function ContextMenuSeparator(props: ComponentPropsWithRef<typeof RadixContextMenuSeparator>) {
+export function ContextMenuSeparator({ className, ...props }: ComponentPropsWithRef<"div">) {
     return (
-        <RadixContextMenuSeparator
+        <div
             {...props}
             className={cx(
                 css({
@@ -12,7 +11,7 @@ export function ContextMenuSeparator(props: ComponentPropsWithRef<typeof RadixCo
                     height: "1px",
                     backgroundColor: "neutral/10",
                 }),
-                props.className,
+                className,
             )}
         />
     )

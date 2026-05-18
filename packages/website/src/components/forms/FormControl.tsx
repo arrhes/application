@@ -1,9 +1,19 @@
 import { CircularLoader } from "@arrhes/ui"
-import { Slot } from "@radix-ui/react-slot"
-import { type ComponentProps, Suspense } from "react"
+import { cloneElement, type HTMLAttributes, isValidElement, type ReactElement, Suspense } from "react"
 import { useFormField } from "./useFormField.js"
 
-type FormControl = ComponentProps<typeof Slot>
+type FormControl = HTMLAttributes<HTMLElement> & {
+    children?: ReactElement
+}
+
+function Slot({ children, ...slotProps }: FormControl) {
+    if (!isValidElement(children)) return null
+    const element = children as ReactElement<Record<string, unknown>>
+    return cloneElement(element, {
+        ...slotProps,
+        ...element.props,
+    })
+}
 
 export function FormControl(props: FormControl) {
     const { error, formItemId, formDescriptionId, formMessageId } = useFormField()

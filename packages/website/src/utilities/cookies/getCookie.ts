@@ -1,4 +1,5 @@
 export function getCookie(name: string) {
+    if (typeof document === "undefined") return undefined
     const encodedName = encodeURIComponent(name)
     const stringCookies = document?.cookie?.split("; ")
     const cookie = stringCookies?.find((x) => x.startsWith(`${encodedName}=`))

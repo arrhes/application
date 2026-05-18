@@ -96,7 +96,7 @@ export const TAB_REGISTRY = {
 
     agent: (props: { idOrganization: string }): TabDefinition => ({
         id: `agent-${props.idOrganization}`,
-        title: "Agent IA",
+        title: "Assistant IA",
         description: "Assistant comptable intelligent",
         component: createElement(AgentTabContent, {
             idOrganization: props.idOrganization,

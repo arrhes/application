@@ -47,7 +47,7 @@ export type OrgSearchRoute = {
 
 export const orgSearchRoutes: OrgSearchRoute[] = [
     {
-        label: "Agent IA",
+        label: "Assistant IA",
         description: "Assistant comptable intelligent",
         tabComponent: "agent",
     },
