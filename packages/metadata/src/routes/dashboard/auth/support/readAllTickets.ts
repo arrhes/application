@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const readAllTicketsRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/read-all-tickets`,
+    method: "GET",
+    path: `${routePath.v1}/support/tickets`,
     schemas: {
         body: v.object({}),
         return: v.array(ticketSchemaReturn),

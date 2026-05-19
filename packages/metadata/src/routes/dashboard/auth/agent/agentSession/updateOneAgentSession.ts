@@ -6,7 +6,8 @@ import { routeDefinition } from "../../../../../utilities/routeDefinition.js"
 
 export const updateOneAgentSessionRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/update-one-agent-session`,
+    method: "PATCH",
+    path: `${routePath.v1}/agent/sessions/:idAgentSession`,
     schemas: {
         body: v.object({
             idAgentSession: v.nonNullable(idSchema, "Ce champ est requis"),

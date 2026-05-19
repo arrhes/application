@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const createOneTicketRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/create-one-ticket`,
+    method: "POST",
+    path: `${routePath.v1}/support/tickets`,
     schemas: {
         body: v.object({
             category: v.picklist(ticketType, "Valeur invalide"),

@@ -1,6 +1,6 @@
 import { timingSafeEqual } from "node:crypto"
-import { signString } from "../../utilities/cookies/signString.js"
-import { Exception } from "../../utilities/exception.js"
+import { Exception } from "../exception.js"
+import { signString } from "./signString.js"
 
 export function unsignString(parameters: { signedValue: string | undefined; secret: string }) {
     try {

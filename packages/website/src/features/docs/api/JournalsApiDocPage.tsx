@@ -1,0 +1,35 @@
+import {
+    createOneJournalRouteDefinition,
+    deleteOneJournalRouteDefinition,
+    readAllJournalsRouteDefinition,
+    readOneJournalRouteDefinition,
+    updateOneJournalRouteDefinition,
+} from "@arrhes/application-metadata/routes"
+import { DocHeader } from "../../../components/document/DocHeader.tsx"
+import { DocParagraph } from "../../../components/document/DocParagraph.tsx"
+import { DocRoot } from "../../../components/document/DocRoot.tsx"
+import { DocRouteRequest } from "../../../components/document/DocRouteRequest.tsx"
+import { DocSection } from "../../../components/document/DocSection.tsx"
+
+export function JournalsApiDocPage() {
+    return (
+        <DocRoot>
+            <DocHeader
+                title="Journaux"
+                description="Journaux comptables de l'exercice : création, lecture, modification et suppression"
+            />
+
+            <DocSection title="Journaux">
+                <DocParagraph>
+                    Les journaux comptables regroupent les écritures par type d'opération (achats, ventes, trésorerie,
+                    OD, etc.).
+                </DocParagraph>
+                <DocRouteRequest routeDefinition={createOneJournalRouteDefinition} />
+                <DocRouteRequest routeDefinition={readAllJournalsRouteDefinition} />
+                <DocRouteRequest routeDefinition={readOneJournalRouteDefinition} />
+                <DocRouteRequest routeDefinition={updateOneJournalRouteDefinition} />
+                <DocRouteRequest routeDefinition={deleteOneJournalRouteDefinition} />
+            </DocSection>
+        </DocRoot>
+    )
+}

@@ -1,6 +1,7 @@
 import { css } from "@arrhes/ui/utilities/cn.js"
+import type { ReactNode } from "react"
 
-export function DocTable(props: { headers: string[]; rows: string[][] }) {
+export function DocTable(props: { headers: string[]; rows: (string | ReactNode)[][] }) {
     return (
         <div
             className={css({

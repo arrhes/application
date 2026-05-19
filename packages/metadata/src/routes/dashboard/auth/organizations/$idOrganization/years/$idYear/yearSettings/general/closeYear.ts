@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../utilities/routeDefin
 
 export const closeYearRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/close-year`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/close`,
     schemas: {
         body: v.object({
             idYear: yearSchema.entries.id,

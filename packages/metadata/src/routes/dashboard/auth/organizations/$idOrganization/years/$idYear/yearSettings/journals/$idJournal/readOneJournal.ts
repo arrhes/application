@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../../utilities/routeDe
 
 export const readOneJournalRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/read-one-journal`,
+    method: "GET",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/journals/:idJournal`,
     schemas: {
         body: v.object({
             idJournal: journalSchema.entries.id,

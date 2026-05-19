@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../utilities/routeDefin
 
 export const updateOneFileRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/update-one-file`,
+    method: "PATCH",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/files/:idFile`,
     schemas: {
         body: v.object({
             idFile: fileSchema.entries.id,

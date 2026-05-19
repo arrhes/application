@@ -13,18 +13,22 @@ export function useDataFromAPI<
 >(parameters: {
     routeDefinition: ReturnType<typeof routeDefinition<string, TSchemaBody, TSchemaReturn>>
     body: v.InferOutput<TSchemaBody>
+    /** URL path params to interpolate (e.g. `{ idOrganization: "abc" }` for `:idOrganization`) */
+    params?: Record<string, string>
     enabled?: boolean
     select?: (data: v.InferOutput<TSchemaReturn>) => TSelected
 }) {
     return useQuery({
         queryKey: [
             parameters.routeDefinition.path,
+            parameters.params,
             parameters.body,
         ],
         queryFn: async (context) => {
             const response = await getResponseBodyFromAPI({
                 routeDefinition: parameters.routeDefinition,
                 body: parameters.body,
+                params: parameters.params,
                 signal: context.signal,
             })
             if (response.ok === false) {

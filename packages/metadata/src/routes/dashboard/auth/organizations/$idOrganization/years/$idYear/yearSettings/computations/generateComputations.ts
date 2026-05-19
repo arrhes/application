@@ -1,4 +1,3 @@
-/*
 import * as v from "valibot"
 import { routePath } from "../../../../../../../../../components/index.js"
 import { computationSchema, computationSchemaReturn } from "../../../../../../../../../schemas/computation.js"
@@ -6,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../utilities/routeDefin
 
 export const generateComputationsRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/generate-computations`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/computations/generate`,
     schemas: {
         body: v.object({
             idYear: computationSchema.entries.idYear,
@@ -14,4 +14,3 @@ export const generateComputationsRouteDefinition = routeDefinition({
         return: v.array(computationSchemaReturn),
     },
 })
-*/

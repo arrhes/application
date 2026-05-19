@@ -4,7 +4,6 @@ import { DocExample } from "../../../../components/document/DocExample.tsx"
 import { DocHeader } from "../../../../components/document/DocHeader.tsx"
 import { DocLink } from "../../../../components/document/DocLink.tsx"
 import { DocList } from "../../../../components/document/DocList.tsx"
-import { DocNextPage } from "../../../../components/document/DocNextPage.tsx"
 import { DocParagraph } from "../../../../components/document/DocParagraph.tsx"
 import { DocRoot } from "../../../../components/document/DocRoot.tsx"
 import { DocSection } from "../../../../components/document/DocSection.tsx"
@@ -543,12 +542,6 @@ export function EntriesAccountingDocPage() {
                     des comptes. Vous pouvez également créer des modèles d'écritures pour les opérations répétitives.
                 </DocParagraph>
             </DocSection>
-
-            <DocNextPage
-                to="/documentation/comptabilité/comptes"
-                label="Les comptes comptables"
-                description="N'oubliez pas : chaque écriture doit toujours être équilibrée (total débits = total crédits). Arrhes vérifie automatiquement cet équilibre lors de la saisie."
-            />
 
             <DocSources
                 sources={[

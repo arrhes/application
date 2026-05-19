@@ -3,6 +3,7 @@ import {
     type Dispatch,
     type ReactNode,
     type SetStateAction,
+    useCallback,
     useContext,
     useEffect,
     useId,
@@ -51,11 +52,18 @@ export function PopoverRoot(props: {
 
     const isOpen = isControlled ? (props.open ?? false) : localOpen
 
-    const setOpen: Dispatch<SetStateAction<boolean>> = (valueOrUpdater) => {
-        const next = typeof valueOrUpdater === "function" ? valueOrUpdater(isOpen) : valueOrUpdater
-        if (!isControlled) setLocalOpen(next)
-        props.onOpenChange?.(next)
-    }
+    const setOpen: Dispatch<SetStateAction<boolean>> = useCallback(
+        (valueOrUpdater) => {
+            const next = typeof valueOrUpdater === "function" ? valueOrUpdater(isOpen) : valueOrUpdater
+            if (!isControlled) setLocalOpen(next)
+            props.onOpenChange?.(next)
+        },
+        [
+            isControlled,
+            isOpen,
+            props.onOpenChange,
+        ],
+    )
 
     const store = usePopoverStore()
 
@@ -65,6 +73,9 @@ export function PopoverRoot(props: {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         id,
+        store.unregister,
+        store.register,
+        setOpen,
     ])
 
     return (

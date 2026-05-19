@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../utilities/routeDefin
 
 export const updateOneFolderRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/update-one-folder`,
+    method: "PATCH",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/folders/:idFolder`,
     schemas: {
         body: v.object({
             idFolder: folderSchema.entries.id,

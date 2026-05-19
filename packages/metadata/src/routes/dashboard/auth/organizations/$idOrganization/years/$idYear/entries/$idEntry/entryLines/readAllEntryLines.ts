@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../../utilities/routeDe
 
 export const readAllEntryLinesRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/read-all-entry-lines`,
+    method: "GET",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/entries/:idEntry/lines`,
     schemas: {
         body: v.object({
             idYear: entryLineSchema.entries.idYear,

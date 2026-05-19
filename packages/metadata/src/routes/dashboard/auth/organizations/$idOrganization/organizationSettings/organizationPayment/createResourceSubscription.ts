@@ -4,7 +4,8 @@ import { routeDefinition } from "../../../../../../../utilities/routeDefinition.
 
 export const createResourceSubscriptionRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/create-resource-subscription`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/billing/resource-subscription`,
     schemas: {
         body: v.object({
             type: v.picklist(

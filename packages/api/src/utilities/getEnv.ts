@@ -1,5 +1,5 @@
 import * as v from "valibot"
-import { validate } from "../utilities/validate.js"
+import { validate } from "./validate.js"
 
 enum Env {
     development = "development",

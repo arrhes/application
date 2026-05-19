@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../../utilities/routeDe
 
 export const deleteOneTagRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/delete-one-tag`,
+    method: "DELETE",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/tags/:idTag`,
     schemas: {
         body: v.object({
             idTag: tagSchema.entries.id,

@@ -1,7 +1,6 @@
 import { DocHeader } from "../../../../components/document/DocHeader.tsx"
 import { DocLink } from "../../../../components/document/DocLink.tsx"
 import { DocList } from "../../../../components/document/DocList.tsx"
-import { DocNextPage } from "../../../../components/document/DocNextPage.tsx"
 import { DocParagraph } from "../../../../components/document/DocParagraph.tsx"
 import { DocRoot } from "../../../../components/document/DocRoot.tsx"
 import { DocSection } from "../../../../components/document/DocSection.tsx"
@@ -45,11 +44,6 @@ export function RootAccountingDocPage() {
                     comment <DocLink to="/documentation/dashboard/démarrage">utiliser Arrhes</DocLink> efficacement.
                 </DocParagraph>
             </DocSection>
-
-            <DocNextPage
-                to="/documentation/comptabilité/introduction"
-                label="Introduction à la comptabilité"
-            />
         </DocRoot>
     )
 }

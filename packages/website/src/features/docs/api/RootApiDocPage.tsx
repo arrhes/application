@@ -1,6 +1,7 @@
 import { ButtonOutlineContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconChevronRight } from "@tabler/icons-react"
+import { DocCode } from "../../../components/document/DocCode.tsx"
 import { DocHeader } from "../../../components/document/DocHeader.tsx"
 import { DocLink } from "../../../components/document/DocLink.tsx"
 import { DocRoot } from "../../../components/document/DocRoot.tsx"
@@ -35,8 +36,9 @@ export function RootApiDocPage() {
                         lineHeight: "relaxed",
                     })}
                 >
-                    L'API d'Arrhes utilise exclusivement la méthode POST. L'organisation est identifiée via la clé API
-                    (Bearer token). L'API expose 90 routes protégées réparties en 17 catégories.
+                    L'API d'Arrhes suit les conventions REST (GET, POST, PATCH, DELETE). L'organisation est identifiée
+                    via la clé API (Bearer token) ou l'en-tête <DocCode>X-Organization-Id</DocCode>. L'API expose 110
+                    routes protégées réparties en 19 catégories.
                 </p>
                 <div
                     className={css({
@@ -55,7 +57,7 @@ export function RootApiDocPage() {
 
             <DocTip variant="info">
                 L'API supporte deux méthodes d'authentification : les cookies de session (pour l'interface web) et les
-                clés API avec l'en-tête <code>Authorization: Bearer &lt;clé&gt;</code> (pour l'intégration
+                clés API avec l'en-tête <DocCode>Authorization: Bearer &lt;clé&gt;</DocCode> (pour l'intégration
                 programmatique).
             </DocTip>
 

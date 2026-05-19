@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../utilities/routeDefinition.
 
 export const readAllInvoicesRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/read-all-invoices`,
+    method: "GET",
+    path: `${routePath.v1}/organizations/:idOrganization/invoices`,
     schemas: {
         body: v.object({}),
         return: v.array(invoiceSchemaReturn),

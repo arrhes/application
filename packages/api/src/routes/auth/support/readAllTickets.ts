@@ -1,13 +1,13 @@
 import { models, readAllTicketsRouteDefinition } from "@arrhes/application-metadata"
 import { eq } from "drizzle-orm"
-import { checkUserSessionMiddleware } from "../../../middlewares/checkUserSessionMiddleware.js"
+import { checkAuthMiddleware } from "../../../middlewares/checkAuthMiddleware.js"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"
-import { apiFactory } from "../../../utilities/apiFactory.js"
+import { registerRoute } from "../../../utilities/registerRoute.js"
 import { response } from "../../../utilities/response.js"
 import { selectMany } from "../../../utilities/sql/selectMany.js"
 
-export const readAllTicketsRoute = apiFactory.createApp().post(readAllTicketsRouteDefinition.path, async (c) => {
-    const { user } = await checkUserSessionMiddleware({
+export const readAllTicketsRoute = registerRoute(readAllTicketsRouteDefinition, async (c) => {
+    const { user } = await checkAuthMiddleware({
         context: c,
     })
     await validateBodyMiddleware({

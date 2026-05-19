@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../utilities/routeDefin
 
 export const ocrFileRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/ocr-file`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/files/:idFile/ocr`,
     schemas: {
         body: v.object({
             idFile: fileSchema.entries.id,

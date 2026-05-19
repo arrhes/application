@@ -1,7 +1,8 @@
 import { createOneAgentFileRouteDefinition, generateId, models } from "@arrhes/application-metadata"
 import { and, eq, isNull, sql } from "drizzle-orm"
+import { checkAuthMiddleware } from "../../../../middlewares/checkAuthMiddleware.js"
 import { checkOrganizationSubscriptionSessionMiddleware } from "../../../../middlewares/checkOrganizationSubscriptionSessionMiddleware.js"
-import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
+import { requireOrganizationMiddleware } from "../../../../middlewares/requireOrganizationMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
 import { Exception } from "../../../../utilities/exception.js"
@@ -16,8 +17,11 @@ const MAX_AGENT_FILE_SIZE = 50_000_000
 export const createOneAgentFileRoute = apiFactory
     .createApp()
     .post(createOneAgentFileRouteDefinition.path, async (c) => {
-        const { user, idOrganization } = await checkUserSessionMiddleware({
+        const auth = await checkAuthMiddleware({
             context: c,
+        })
+        const idOrganization = await requireOrganizationMiddleware({
+            idOrganization: auth.idOrganization,
         })
         const body = await validateBodyMiddleware({
             context: c,
@@ -43,7 +47,7 @@ export const createOneAgentFileRoute = apiFactory
             where: (table) => eq(table.id, body.idAgentSession),
         })
 
-        if (session.idUser !== user.id) {
+        if (session.idUser !== auth.user.id) {
             throw new Exception({
                 statusCode: 403,
                 internalMessage: "Agent session access denied",
@@ -127,7 +131,7 @@ export const createOneAgentFileRoute = apiFactory
                     idFolderParent: null,
                     name: ".agent",
                     createdAt: new Date().toISOString(),
-                    createdBy: user.id,
+                    createdBy: auth.user.id,
                 },
             })
             agentFolderId = newFolder.id
@@ -150,7 +154,7 @@ export const createOneAgentFileRoute = apiFactory
                 size: body.fileSize,
                 hash: body.fileHash,
                 createdAt: new Date().toISOString(),
-                createdBy: user.id,
+                createdBy: auth.user.id,
             },
         })
 
@@ -170,7 +174,7 @@ export const createOneAgentFileRoute = apiFactory
             contentType: body.fileType,
             metadata: {
                 idOrganization: idOrganization,
-                idUser: user.id,
+                idUser: auth.user.id,
             },
         })
 

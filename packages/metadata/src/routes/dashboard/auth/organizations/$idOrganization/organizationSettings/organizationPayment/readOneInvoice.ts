@@ -6,7 +6,8 @@ import { routeDefinition } from "../../../../../../../utilities/routeDefinition.
 
 export const readOneInvoiceRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/read-one-invoice`,
+    method: "GET",
+    path: `${routePath.v1}/organizations/:idOrganization/invoices/:idInvoice`,
     schemas: {
         body: v.object({
             idInvoice: v.nonNullable(idSchema, "Ce champ est requis"),

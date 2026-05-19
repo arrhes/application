@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../../utilities/routeDe
 
 export const readOneComputationRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/read-one-computation`,
+    method: "GET",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/computations/:idComputation`,
     schemas: {
         body: v.object({
             idComputation: computationSchema.entries.id,

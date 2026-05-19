@@ -1,7 +1,6 @@
 import { DocHeader } from "../../../../components/document/DocHeader.tsx"
 import { DocLink } from "../../../../components/document/DocLink.tsx"
 import { DocList } from "../../../../components/document/DocList.tsx"
-import { DocNextPage } from "../../../../components/document/DocNextPage.tsx"
 import { DocParagraph } from "../../../../components/document/DocParagraph.tsx"
 import { DocRoot } from "../../../../components/document/DocRoot.tsx"
 import { DocSection } from "../../../../components/document/DocSection.tsx"
@@ -113,11 +112,6 @@ export function IntroductionAccountingDocPage() {
                     ]}
                 />
             </DocSection>
-
-            <DocNextPage
-                to="/documentation/comptabilité/partie-double"
-                label="La partie double"
-            />
 
             <DocSources
                 sources={[

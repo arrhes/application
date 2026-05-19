@@ -6,7 +6,8 @@ import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const updateUserEmailRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/update-user-email`,
+    method: "PATCH",
+    path: `${routePath.v1}/users/me/email`,
     schemas: {
         body: v.object({
             currentPassword: v.nonNullable(stringSchema, "Le mot de passe doit être renseigné"),

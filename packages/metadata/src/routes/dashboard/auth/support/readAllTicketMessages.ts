@@ -6,7 +6,8 @@ import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const readAllTicketMessagesRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/read-all-ticket-messages`,
+    method: "GET",
+    path: `${routePath.v1}/support/tickets/:idTicket/messages`,
     schemas: {
         body: v.object({
             idTicket: v.nonNullable(idSchema, "Ce champ est requis"),

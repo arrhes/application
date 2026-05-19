@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const activateOrganizationMembershipRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/activate-organization-membership`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/activate-membership`,
     schemas: {
         body: v.object({
             idOrganizationUser: organizationUserSchema.entries.id,

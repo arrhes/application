@@ -46,6 +46,9 @@ export { createOneEntryRouteDefinition } from "./years/$idYear/entries/createOne
 export { createOneEntryFromTemplateRouteDefinition } from "./years/$idYear/entries/createOneEntryFromTemplate.js"
 export { readAllEntriesRouteDefinition } from "./years/$idYear/entries/readAllEntries.js"
 export { readAllEntryTagsRouteDefinition } from "./years/$idYear/entries/readAllEntryTags.js"
+export { generateBalanceSheetXmlRouteDefinition } from "./years/$idYear/exports/generateBalanceSheetXml.js"
+export { generateFecRouteDefinition } from "./years/$idYear/exports/generateFec.js"
+export { generateIncomeStatementXmlRouteDefinition } from "./years/$idYear/exports/generateIncomeStatementXml.js"
 export { deleteOneFileRouteDefinition } from "./years/$idYear/files/$idFile/deleteOneFile.js"
 export { finalizeFileUploadRouteDefinition } from "./years/$idYear/files/$idFile/finalizeFileUpload.js"
 export { generateFileDeleteSignedUrlRouteDefinition } from "./years/$idYear/files/$idFile/generateFileDeleteSignedUrl.js"
@@ -64,8 +67,6 @@ export { createOneFolderRouteDefinition } from "./years/$idYear/folders/createOn
 export { readAllFoldersRouteDefinition } from "./years/$idYear/folders/readAllFolders.js"
 // year
 export { readOneYearRouteDefinition } from "./years/$idYear/readOneYear.js"
-export { generateBalanceSheetXmlRouteDefinition } from "./years/$idYear/reports/generateBalanceSheetXml.js"
-export { generateIncomeStatementXmlRouteDefinition } from "./years/$idYear/reports/generateIncomeStatementXml.js"
 export { deleteOneAccountRouteDefinition } from "./years/$idYear/yearSettings/accounts/$idAccount/deleteOneAccount.js"
 export { readOneAccountRouteDefinition } from "./years/$idYear/yearSettings/accounts/$idAccount/readOneAccount.js"
 export { updateOneAccountRouteDefinition } from "./years/$idYear/yearSettings/accounts/$idAccount/updateOneAccount.js"

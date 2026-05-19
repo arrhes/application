@@ -1,5 +1,5 @@
 import * as v from "valibot"
-import { Exception } from "../utilities/exception.js"
+import { Exception } from "./exception.js"
 
 export function validate<T extends v.GenericSchema<unknown, unknown>>(parameters: {
     schema: T

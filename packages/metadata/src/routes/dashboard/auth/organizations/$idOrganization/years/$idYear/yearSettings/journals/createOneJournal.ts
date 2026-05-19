@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../utilities/routeDefin
 
 export const createOneJournalRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/create-one-journal`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/journals`,
     schemas: {
         body: v.object({
             idYear: journalSchema.entries.idYear,

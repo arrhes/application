@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const getChatStreamRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/get-chat-stream`,
+    method: "GET",
+    path: `${routePath.v1}/agent/sessions/:idAgentSession/stream`,
     schemas: {
         body: v.object({
             idAgentMessage: v.nonNullable(idSchema, "Ce champ est requis"),

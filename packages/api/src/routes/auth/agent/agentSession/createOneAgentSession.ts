@@ -1,6 +1,6 @@
 import { createOneAgentSessionRouteDefinition, generateId, models } from "@arrhes/application-metadata"
+import { checkAuthMiddleware } from "../../../../middlewares/checkAuthMiddleware.js"
 import { checkOrganizationSubscriptionSessionMiddleware } from "../../../../middlewares/checkOrganizationSubscriptionSessionMiddleware.js"
-import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
 import { response } from "../../../../utilities/response.js"
@@ -9,7 +9,7 @@ import { insertOne } from "../../../../utilities/sql/insertOne.js"
 export const createOneAgentSessionRoute = apiFactory
     .createApp()
     .post(createOneAgentSessionRouteDefinition.path, async (c) => {
-        const { user } = await checkUserSessionMiddleware({
+        const { user } = await checkAuthMiddleware({
             context: c,
         })
         const body = await validateBodyMiddleware({

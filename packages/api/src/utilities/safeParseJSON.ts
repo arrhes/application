@@ -1,5 +1,5 @@
-import { completeStringifiedJSON } from "../utilities/completeStringifiedJSON.js"
-import { Exception } from "../utilities/exception.js"
+import { completeStringifiedJSON } from "./completeStringifiedJSON.js"
+import { Exception } from "./exception.js"
 
 export function safeParseJSON(parameters: { rawString: string }) {
     try {

@@ -6,7 +6,8 @@ import { routeDefinition } from "../../../../../utilities/routeDefinition.js"
 
 export const readOneAgentSessionRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/read-one-agent-session`,
+    method: "GET",
+    path: `${routePath.v1}/agent/sessions/:idAgentSession`,
     schemas: {
         body: v.object({
             idAgentSession: v.nonNullable(idSchema, "Ce champ est requis"),

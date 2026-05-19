@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const resendEmailValidationRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/resend-email-validation`,
+    method: "POST",
+    path: `${routePath.v1}/users/me/email/resend-validation`,
     schemas: {
         body: v.object({}),
         return: userSchemaReturn,

@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../../utilities/routeDe
 
 export const readOneTagRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/read-one-tag`,
+    method: "GET",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/tags/:idTag`,
     schemas: {
         body: v.object({
             idTag: tagSchema.entries.id,

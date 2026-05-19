@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../utilities/routeDefin
 
 export const deleteOneYearRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/delete-one-year`,
+    method: "DELETE",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear`,
     schemas: {
         body: v.object({
             idYear: yearSchema.entries.id,

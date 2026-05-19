@@ -3,7 +3,6 @@ import { DocDefinition } from "../../../../components/document/DocDefinition.tsx
 import { DocExample } from "../../../../components/document/DocExample.tsx"
 import { DocHeader } from "../../../../components/document/DocHeader.tsx"
 import { DocLink } from "../../../../components/document/DocLink.tsx"
-import { DocNextPage } from "../../../../components/document/DocNextPage.tsx"
 import { DocParagraph } from "../../../../components/document/DocParagraph.tsx"
 import { DocRoot } from "../../../../components/document/DocRoot.tsx"
 import { DocSection } from "../../../../components/document/DocSection.tsx"
@@ -325,12 +324,6 @@ export function DoubleEntryAccountingDocPage() {
                     est respecté.
                 </DocParagraph>
             </DocSection>
-
-            <DocNextPage
-                to="/documentation/comptabilité/écritures"
-                label="Les écritures comptables"
-                description="Maintenant que vous connaissez le principe de la partie double, découvrez comment les opérations sont concrètement enregistrées sous forme d'écritures comptables."
-            />
 
             <DocSources
                 sources={[

@@ -2,7 +2,6 @@ import { DocDefinition } from "../../../../components/document/DocDefinition.js"
 import { DocHeader } from "../../../../components/document/DocHeader.js"
 import { DocLink } from "../../../../components/document/DocLink.js"
 import { DocList } from "../../../../components/document/DocList.js"
-import { DocNextPage } from "../../../../components/document/DocNextPage.js"
 import { DocParagraph } from "../../../../components/document/DocParagraph.js"
 import { DocRoot } from "../../../../components/document/DocRoot.js"
 import { DocSection } from "../../../../components/document/DocSection.js"
@@ -179,11 +178,6 @@ export function ReportsAccountingDocPage() {
                     écritures.
                 </DocTip>
             </DocSection>
-
-            <DocNextPage
-                to="/documentation/comptabilité/documents/bilan"
-                label="Le bilan"
-            />
 
             <DocSources
                 sources={[

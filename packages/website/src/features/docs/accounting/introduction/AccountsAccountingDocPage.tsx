@@ -4,7 +4,6 @@ import { DocExample } from "../../../../components/document/DocExample.js"
 import { DocHeader } from "../../../../components/document/DocHeader.js"
 import { DocLink } from "../../../../components/document/DocLink.js"
 import { DocList } from "../../../../components/document/DocList.js"
-import { DocNextPage } from "../../../../components/document/DocNextPage.js"
 import { DocParagraph } from "../../../../components/document/DocParagraph.js"
 import { DocRoot } from "../../../../components/document/DocRoot.js"
 import { DocSection } from "../../../../components/document/DocSection.js"
@@ -416,12 +415,6 @@ export function AccountsAccountingDocPage() {
                     françaises, que vous pouvez personnaliser.
                 </DocParagraph>
             </DocSection>
-
-            <DocNextPage
-                to="/documentation/comptabilité/comptes/classes"
-                label="Les classes de comptes"
-                description="Retenez que le premier chiffre d'un compte indique toujours sa classe. Avec un peu de pratique, vous reconnaîtrez rapidement les comptes courants."
-            />
 
             <DocSources
                 sources={[

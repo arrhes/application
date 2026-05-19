@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../utilities/routeDefiniti
 
 export const readAllFoldersRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/read-all-folders`,
+    method: "GET",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/folders`,
     schemas: {
         body: v.object({}),
         return: v.array(folderSchemaReturn),

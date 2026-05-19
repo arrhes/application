@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../utilities/routeDefinition.
 
 export const generateInvoiceGetSignedUrlRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/generate-invoice-get-signed-url`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/invoices/:idInvoice/download-url`,
     schemas: {
         body: v.object({
             idInvoice: v.nonNullable(idSchema, "Ce champ est requis"),

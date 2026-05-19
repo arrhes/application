@@ -5,21 +5,28 @@ import { productName } from "../utilities/variables.js"
 
 /**
  * Resolves idOrganization from the request context using the following priority:
- * 1. X-Organization-Id header
- * 2. arrhes_id_organization cookie
- * 3. body.idOrganization (legacy fallback)
+ * 1. URL path param `:idOrganization` (highest — used by REST routes like /v1/organizations/:idOrganization)
+ * 2. X-Organization-Id header
+ * 3. arrhes_id_organization cookie
+ * 4. body.idOrganization (legacy fallback)
  *
  * For Bearer token auth, the caller should use apiKey.idOrganization directly
  * instead of calling this middleware.
  */
 export async function resolveOrganizationMiddleware(parameters: { context: Context<any> }): Promise<string> {
-    // 1. X-Organization-Id header
+    // 1. URL path param (REST routes)
+    const paramValue = parameters.context.req.param("idOrganization")
+    if (paramValue) {
+        return paramValue
+    }
+
+    // 2. X-Organization-Id header
     const headerValue = parameters.context.req.header("X-Organization-Id")
     if (headerValue) {
         return headerValue
     }
 
-    // 2. arrhes_id_organization cookie
+    // 3. arrhes_id_organization cookie
     const cookieMap = parseCookies({
         value: parameters.context.req.header("Cookie"),
     })
@@ -28,7 +35,7 @@ export async function resolveOrganizationMiddleware(parameters: { context: Conte
         return cookieValue
     }
 
-    // 3. body.idOrganization (legacy fallback)
+    // 4. body.idOrganization (legacy fallback)
     try {
         const body = await parameters.context.req.json()
         if (body?.idOrganization) {
@@ -42,6 +49,6 @@ export async function resolveOrganizationMiddleware(parameters: { context: Conte
         statusCode: 400,
         internalMessage: "Could not resolve organization",
         externalMessage: "Organization identifier is required",
-        cause: "No idOrganization found in X-Organization-Id header, cookie, or request body",
+        cause: "No idOrganization found in URL param, X-Organization-Id header, cookie, or request body",
     })
 }

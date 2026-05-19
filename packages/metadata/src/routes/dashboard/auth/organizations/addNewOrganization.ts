@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const addNewOrganizationRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/add-new-organization`,
+    method: "POST",
+    path: `${routePath.v1}/organizations`,
     schemas: {
         body: v.object({
             scope: organizationSchema.entries.scope,

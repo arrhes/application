@@ -15,6 +15,7 @@ function getCurrentSection(pathname: string): DocSectionId {
     if (pathname.startsWith("/documentation/comptabilité")) return "comptabilite"
     if (pathname.startsWith("/documentation/dashboard")) return "dashboard"
     if (pathname.startsWith("/documentation/api")) return "api"
+    if (pathname.startsWith("/documentation/cli")) return "cli"
     return "general"
 }
 

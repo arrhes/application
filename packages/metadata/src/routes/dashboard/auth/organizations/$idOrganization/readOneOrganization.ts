@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../utilities/routeDefinition.js"
 
 export const readOneOrganizationRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/read-one-organization`,
+    method: "GET",
+    path: `${routePath.v1}/organizations/:idOrganization`,
     schemas: {
         body: v.object({
             idOrganization: organizationSchema.entries.id,

@@ -42,6 +42,7 @@ export type YearData = {
 export type YearDataKey = keyof YearData
 
 type YearScopedRouteDefinition = {
+    method: "GET" | "POST" | "PATCH" | "DELETE"
     path: string
     schemas: {
         body: v.ObjectSchema<v.ObjectEntries, undefined>

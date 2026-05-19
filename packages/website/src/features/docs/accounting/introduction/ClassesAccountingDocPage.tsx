@@ -1,5 +1,4 @@
 import { DocHeader } from "../../../../components/document/DocHeader.js"
-import { DocNextPage } from "../../../../components/document/DocNextPage.js"
 import { DocParagraph } from "../../../../components/document/DocParagraph.js"
 import { DocRoot } from "../../../../components/document/DocRoot.js"
 import { DocSection } from "../../../../components/document/DocSection.js"
@@ -185,11 +184,6 @@ export function ClassesAccountingDocPage() {
                     </DocSection>
                 )
             })}
-
-            <DocNextPage
-                to="/documentation/comptabilité/comptes/liste"
-                label="Rechercher un compte"
-            />
 
             <DocSources
                 sources={[

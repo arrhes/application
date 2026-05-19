@@ -1,14 +1,14 @@
 import { models, validateUserEmailRouteDefinition } from "@arrhes/application-metadata"
 import { eq } from "drizzle-orm"
-import { checkUserSessionMiddleware } from "../../../middlewares/checkUserSessionMiddleware.js"
+import { requireCookieSessionMiddleware } from "../../../middlewares/requireCookieSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"
-import { apiFactory } from "../../../utilities/apiFactory.js"
 import { Exception } from "../../../utilities/exception.js"
+import { registerRoute } from "../../../utilities/registerRoute.js"
 import { response } from "../../../utilities/response.js"
 import { updateOne } from "../../../utilities/sql/updateOne.js"
 
-export const validateUserEmailRoute = apiFactory.createApp().post(validateUserEmailRouteDefinition.path, async (c) => {
-    const { user } = await checkUserSessionMiddleware({
+export const validateUserEmailRoute = registerRoute(validateUserEmailRouteDefinition, async (c) => {
+    const { user } = await requireCookieSessionMiddleware({
         context: c,
     })
     const body = await validateBodyMiddleware({

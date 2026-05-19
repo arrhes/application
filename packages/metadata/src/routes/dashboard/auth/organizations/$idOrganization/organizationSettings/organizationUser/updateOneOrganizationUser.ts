@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../utilities/routeDefinition.
 
 export const updateOneOrganizationUserRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/update-one-organization-user`,
+    method: "PATCH",
+    path: `${routePath.v1}/organizations/:idOrganization/users/:idOrganizationUser`,
     schemas: {
         body: v.object({
             idOrganizationUser: organizationUserSchema.entries.id,

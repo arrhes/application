@@ -1,4 +1,4 @@
-import { Exception } from "../../utilities/exception.js"
+import { Exception } from "../exception.js"
 
 export function parseCookies(parameters: { value: string | undefined }) {
     try {

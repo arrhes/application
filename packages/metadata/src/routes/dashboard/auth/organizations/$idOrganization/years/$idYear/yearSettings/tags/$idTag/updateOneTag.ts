@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../../utilities/routeDe
 
 export const updateOneTagRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/update-one-tag`,
+    method: "PATCH",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/tags/:idTag`,
     schemas: {
         body: v.object({
             idTag: tagSchema.entries.id,

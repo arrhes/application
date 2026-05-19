@@ -3,11 +3,11 @@ import {
     createOneFolderRouteDefinition,
     deleteOneFileRouteDefinition,
     deleteOneFolderRouteDefinition,
-    generateBalanceSheetXmlRouteDefinition,
+    finalizeFileUploadRouteDefinition,
     generateFileDeleteSignedUrlRouteDefinition,
     generateFileGetSignedUrlRouteDefinition,
     generateFilePutSignedUrlRouteDefinition,
-    generateIncomeStatementXmlRouteDefinition,
+    ocrFileRouteDefinition,
     readAllFilesRouteDefinition,
     readAllFoldersRouteDefinition,
     readOneFileRouteDefinition,
@@ -15,6 +15,7 @@ import {
     updateOneFileRouteDefinition,
     updateOneFolderRouteDefinition,
 } from "@arrhes/application-metadata/routes"
+import { DocCode } from "../../../components/document/DocCode.tsx"
 import { DocHeader } from "../../../components/document/DocHeader.tsx"
 import { DocParagraph } from "../../../components/document/DocParagraph.tsx"
 import { DocRoot } from "../../../components/document/DocRoot.tsx"
@@ -26,8 +27,8 @@ export function FilesApiDocPage() {
     return (
         <DocRoot>
             <DocHeader
-                title="Fichiers et documents"
-                description="Gestion des fichiers, dossiers, URLs signées et génération de rapports PDF"
+                title="Stockage"
+                description="Fichiers, pièces justificatives et organisation en dossiers"
             />
 
             <DocSection title="Fichiers">
@@ -52,32 +53,30 @@ export function FilesApiDocPage() {
                     routeDefinition={generateFileDeleteSignedUrlRouteDefinition}
                     description="Générer une URL signée pour supprimer un fichier."
                 />
+                <DocRouteRequest
+                    routeDefinition={finalizeFileUploadRouteDefinition}
+                    description="Finaliser l'upload d'un fichier après avoir utilisé l'URL signée PUT."
+                />
+                <DocRouteRequest
+                    routeDefinition={ocrFileRouteDefinition}
+                    description="Lancer la reconnaissance optique de caractères (OCR) sur un fichier. Nécessite des pages OCR disponibles."
+                />
                 <DocTip variant="warning">
-                    La taille maximale par fichier est de 50 Mo. Au-delà, l'API retourne une erreur <code>400</code>.
+                    La taille maximale par fichier est de 50 Mo. Au-delà, l'API retourne une erreur{" "}
+                    <DocCode>400</DocCode>.
                 </DocTip>
             </DocSection>
 
             <DocSection title="Dossiers">
-                <DocParagraph>Les dossiers permettent d'organiser les fichiers au sein d'un exercice.</DocParagraph>
+                <DocParagraph>
+                    Les dossiers permettent d'organiser les fichiers au sein d'un exercice. Ils supportent une
+                    hiérarchie imbriquée via le champ <code>idFolderParent</code>.
+                </DocParagraph>
                 <DocRouteRequest routeDefinition={createOneFolderRouteDefinition} />
                 <DocRouteRequest routeDefinition={readAllFoldersRouteDefinition} />
                 <DocRouteRequest routeDefinition={readOneFolderRouteDefinition} />
                 <DocRouteRequest routeDefinition={updateOneFolderRouteDefinition} />
                 <DocRouteRequest routeDefinition={deleteOneFolderRouteDefinition} />
-            </DocSection>
-
-            <DocSection title="Rapports XBRL">
-                <DocParagraph>
-                    Génération de rapports comptables en XBRL (taxonomie ANC française) : bilans et comptes de résultat.
-                </DocParagraph>
-                <DocRouteRequest
-                    routeDefinition={generateBalanceSheetXmlRouteDefinition}
-                    description="Générer un bilan en XBRL (conformité française ANC) et retourner l'URL signée."
-                />
-                <DocRouteRequest
-                    routeDefinition={generateIncomeStatementXmlRouteDefinition}
-                    description="Générer un compte de résultat en XBRL (conformité française ANC) et retourner l'URL signée."
-                />
             </DocSection>
         </DocRoot>
     )

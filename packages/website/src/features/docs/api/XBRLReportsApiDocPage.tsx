@@ -1,0 +1,52 @@
+import {
+    generateBalanceSheetXmlRouteDefinition,
+    generateFecRouteDefinition,
+    generateIncomeStatementXmlRouteDefinition,
+} from "@arrhes/application-metadata/routes"
+import { DocHeader } from "../../../components/document/DocHeader.tsx"
+import { DocParagraph } from "../../../components/document/DocParagraph.tsx"
+import { DocRoot } from "../../../components/document/DocRoot.tsx"
+import { DocRouteRequest } from "../../../components/document/DocRouteRequest.tsx"
+import { DocSection } from "../../../components/document/DocSection.tsx"
+import { DocTip } from "../../../components/document/DocTip.tsx"
+
+export function XBRLReportsApiDocPage() {
+    return (
+        <DocRoot>
+            <DocHeader
+                title="Exports"
+                description="Export FEC et génération de rapports comptables XBRL selon la taxonomie ANC française"
+            />
+
+            <DocSection title="Export FEC">
+                <DocParagraph>
+                    Le Fichier des Écritures Comptables (FEC) est un export normalisé requis par l'administration
+                    fiscale française. Généré côté serveur et retourne une URL signée pour téléchargement.
+                </DocParagraph>
+                <DocRouteRequest
+                    routeDefinition={generateFecRouteDefinition}
+                    description="Générer le FEC de l'exercice et retourner une URL signée pour télécharger le fichier."
+                />
+            </DocSection>
+
+            <DocSection title="Exports XBRL">
+                <DocParagraph>
+                    Génération de rapports comptables en XBRL (taxonomie ANC française) : bilan et compte de résultat.
+                    Ces rapports sont générés côté serveur et retournent une URL signée pour le téléchargement.
+                </DocParagraph>
+                <DocRouteRequest
+                    routeDefinition={generateBalanceSheetXmlRouteDefinition}
+                    description="Générer le bilan en XBRL (conformité ANC française) et retourner l'URL signée."
+                />
+                <DocRouteRequest
+                    routeDefinition={generateIncomeStatementXmlRouteDefinition}
+                    description="Générer le compte de résultat en XBRL (conformité ANC française) et retourner l'URL signée."
+                />
+                <DocTip variant="info">
+                    Les URLs signées retournent une durée de validité limitée. Téléchargez le fichier immédiatement
+                    après génération.
+                </DocTip>
+            </DocSection>
+        </DocRoot>
+    )
+}

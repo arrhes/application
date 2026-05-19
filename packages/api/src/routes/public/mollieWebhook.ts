@@ -1,12 +1,12 @@
 import { models, mollieWebhookRouteDefinition } from "@arrhes/application-metadata"
 import { eq } from "drizzle-orm"
-import { apiFactory } from "../../utilities/apiFactory.js"
 import { apiLog } from "../../utilities/apiLog.js"
+import { registerRoute } from "../../utilities/registerRoute.js"
 import { response } from "../../utilities/response.js"
 import { updateOne } from "../../utilities/sql/updateOne.js"
 import { validate } from "../../utilities/validate.js"
 
-export const mollieWebhookRoute = apiFactory.createApp().post(mollieWebhookRouteDefinition.path, async (c) => {
+export const mollieWebhookRoute = registerRoute(mollieWebhookRouteDefinition, async (c) => {
     try {
         // Mollie sends webhooks as application/x-www-form-urlencoded (body: id=tr_xxx)
         const rawBody = await c.req.parseBody()

@@ -1,7 +1,7 @@
+import { DocCode } from "../../../components/document/DocCode.tsx"
 import { DocHeader } from "../../../components/document/DocHeader.tsx"
 import { DocLink } from "../../../components/document/DocLink.tsx"
 import { DocList } from "../../../components/document/DocList.tsx"
-import { DocNextPage } from "../../../components/document/DocNextPage.tsx"
 import { DocParagraph } from "../../../components/document/DocParagraph.tsx"
 import { DocRoot } from "../../../components/document/DocRoot.tsx"
 import { DocSection } from "../../../components/document/DocSection.tsx"
@@ -17,19 +17,26 @@ export function IntroductionApiDocPage() {
             />
 
             <DocSection title="Conventions">
-                <DocParagraph>L'API d'Arrhes suit un ensemble de conventions simples et uniformes :</DocParagraph>
+                <DocParagraph>L'API d'Arrhes suit les conventions REST standard :</DocParagraph>
                 <DocList
                     items={[
-                        "Toutes les routes utilisent la méthode POST",
+                        "GET pour la lecture, POST pour la création, PATCH pour la modification, DELETE pour la suppression",
                         "Le corps de la requête et la réponse sont en JSON",
                         "Les dates suivent le format ISO 8601",
                         'Les montants (débit, crédit) sont des chaînes numériques (ex : "100.00")',
                     ]}
                 />
                 <DocTip variant="info">
-                    Les identifiants d'entités (idYear, idEntry, idAccount, etc.) sont passés dans le corps de la
-                    requête. L'organisation est identifiée via le token d'authentification, et non dans le corps de la
-                    requête, ni dans l'URL.
+                    Les identifiants d'entités (idYear, idEntry, idAccount, etc.) sont passés dans les paramètres d'URL
+                    (ex : <DocCode>:idOrganization</DocCode>, <DocCode>:idYear</DocCode>). L'organisation est identifiée
+                    via le token d'authentification ou l'en-tête <DocCode>X-Organization-Id</DocCode>, et non dans le
+                    corps de la requête.
+                </DocTip>
+                <DocTip variant="warning">
+                    Les chemins affichés dans cette documentation n'incluent pas le préfixe de version{" "}
+                    <DocCode>/v1</DocCode>. Utilisez toujours la <strong>dernière version du CLI Arrhes</strong> pour
+                    bénéficier automatiquement du bon préfixe de version. Si vous appelez l'API directement, préfixez
+                    chaque chemin avec <DocCode>/v1</DocCode>.
                 </DocTip>
             </DocSection>
 
@@ -95,7 +102,7 @@ export function IntroductionApiDocPage() {
 
             <DocSection title="Catégories de routes">
                 <DocParagraph>
-                    L'API expose 90 routes protégées réparties en 17 catégories. Le tableau ci-dessous résume chaque
+                    L'API expose 110 routes protégées réparties en 19 catégories. Le tableau ci-dessous résume chaque
                     catégorie :
                 </DocParagraph>
                 <DocTable
@@ -108,114 +115,121 @@ export function IntroductionApiDocPage() {
                     rows={[
                         [
                             "1",
+                            "Organisations",
+                            "3",
+                            "Utilisateur",
+                        ],
+                        [
+                            "2",
                             "Paramètres d'organisation",
                             "3",
                             "Organisation",
                         ],
                         [
-                            "2",
+                            "3",
                             "Clés API",
                             "3",
                             "Organisation",
                         ],
                         [
-                            "3",
-                            "Abonnement et paiements",
                             "4",
+                            "Abonnement et paiements",
+                            "17",
                             "Organisation",
                         ],
                         [
-                            "4",
+                            "5",
                             "Utilisateurs d'organisation",
                             "5",
                             "Organisation",
                         ],
                         [
-                            "5",
+                            "6",
                             "Exercices",
                             "9",
-                            "Organisation",
+                            "Organisation / Exercice",
                         ],
                         [
-                            "6",
+                            "7",
                             "Comptes",
                             "5",
                             "Exercice",
                         ],
                         [
-                            "7",
+                            "8",
                             "Journaux",
                             "5",
                             "Exercice",
                         ],
                         [
-                            "8",
+                            "9",
                             "Bilans",
                             "5",
                             "Exercice",
                         ],
                         [
-                            "9",
+                            "10",
                             "Comptes de résultat",
                             "5",
                             "Exercice",
                         ],
                         [
-                            "10",
+                            "11",
                             "Calculs",
                             "5",
                             "Exercice",
                         ],
                         [
-                            "11",
+                            "12",
                             "Calculs - comptes de résultat",
                             "5",
                             "Exercice",
                         ],
                         [
-                            "12",
+                            "13",
                             "Libellés d'écriture",
                             "5",
                             "Exercice",
                         ],
                         [
-                            "13",
-                            "Écritures",
-                            "8",
-                            "Exercice",
-                        ],
-                        [
                             "14",
-                            "Mouvements",
-                            "6",
+                            "Écritures",
+                            "10",
                             "Exercice",
                         ],
                         [
                             "15",
-                            "Fichiers",
-                            "7",
+                            "Lignes d'écriture",
+                            "6",
                             "Exercice",
                         ],
                         [
                             "16",
+                            "Tags d'écriture",
+                            "2",
+                            "Exercice",
+                        ],
+                        [
+                            "17",
+                            "Fichiers",
+                            "10",
+                            "Exercice",
+                        ],
+                        [
+                            "18",
                             "Dossiers",
                             "5",
                             "Exercice",
                         ],
                         [
-                            "17",
-                            "Documents et rapports",
-                            "5",
+                            "19",
+                            "Rapports XBRL",
+                            "2",
                             "Exercice",
                         ],
                     ]}
                 />
             </DocSection>
-
-            <DocNextPage
-                to="/documentation/api/authentification"
-                label="Authentification"
-            />
         </DocRoot>
     )
 }

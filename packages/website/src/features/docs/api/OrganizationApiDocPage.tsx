@@ -1,24 +1,9 @@
 import {
-    cancelSubscriptionRouteDefinition,
-    createFirstPaymentRouteDefinition,
-    createOneApiKeyRouteDefinition,
-    createOneOrganizationUserRouteDefinition,
-    createOneYearRouteDefinition,
-    deleteOneApiKeyRouteDefinition,
     deleteOneOrganizationRouteDefinition,
-    deleteOneOrganizationUserRouteDefinition,
-    readAllApiKeysRouteDefinition,
-    readAllOrganizationPaymentsRouteDefinition,
-    readAllOrganizationUsersRouteDefinition,
-    readAllYearsRouteDefinition,
     readOneOrganizationRouteDefinition,
-    readOneOrganizationUserRouteDefinition,
-    readOrganizationBillingRouteDefinition,
     updateOneOrganizationRouteDefinition,
-    updateOneOrganizationUserRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import { DocHeader } from "../../../components/document/DocHeader.tsx"
-import { DocNextPage } from "../../../components/document/DocNextPage.tsx"
 import { DocParagraph } from "../../../components/document/DocParagraph.tsx"
 import { DocRoot } from "../../../components/document/DocRoot.tsx"
 import { DocRouteRequest } from "../../../components/document/DocRouteRequest.tsx"
@@ -30,17 +15,17 @@ export function OrganizationApiDocPage() {
         <DocRoot>
             <DocHeader
                 title="Organisation"
-                description="Paramètres de l'organisation, des exercices, des utilisateurs, des clés API et de l'abonnement/paiements"
+                description="Gestion des organisations et de leurs paramètres"
             />
 
             <DocSection title="Paramètres d'organisation">
                 <DocParagraph>
-                    Lecture, modification et suppression de l'organisation. Les routes de modification et suppression
+                    Lecture, modification et suppression de l'organisation. La modification et la suppression
                     nécessitent que l'utilisateur soit administrateur.
                 </DocParagraph>
                 <DocRouteRequest
                     routeDefinition={readOneOrganizationRouteDefinition}
-                    description="Lire les détails de l'organisation active. Le corps doit contenir `idOrganization`."
+                    description="Lire les détails de l'organisation active."
                 />
                 <DocRouteRequest
                     routeDefinition={updateOneOrganizationRouteDefinition}
@@ -51,63 +36,9 @@ export function OrganizationApiDocPage() {
                     description="Supprimer l'organisation et toutes ses données. Nécessite le rôle administrateur."
                 />
                 <DocTip variant="warning">
-                    La suppression d'une organisation est irréversible et supprime toutes les données associées. Cela
-                    supprimera également la clé utilisée pour la suppression.
+                    La suppression d'une organisation est irréversible et supprime toutes les données associées.
                 </DocTip>
             </DocSection>
-
-            <DocSection title="Clés API">
-                <DocParagraph>
-                    Gestion des clés API de l'organisation. Nécessite un abonnement premium actif.
-                </DocParagraph>
-                <DocRouteRequest
-                    routeDefinition={createOneApiKeyRouteDefinition}
-                    description="Retourne l'objet clé API avec le champ rawKey."
-                />
-                <DocRouteRequest routeDefinition={readAllApiKeysRouteDefinition} />
-                <DocRouteRequest routeDefinition={deleteOneApiKeyRouteDefinition} />
-                <DocTip variant="info">
-                    La clé brute (<code>rawKey</code>) n'est retournée qu'au moment de la création. Conservez-la
-                    précieusement.
-                </DocTip>
-            </DocSection>
-
-            <DocSection title="Abonnement et paiements">
-                <DocParagraph>
-                    Gestion de l'abonnement premium et de l'historique des paiements. Les routes de paiement et
-                    d'annulation nécessitent le rôle administrateur.
-                </DocParagraph>
-                <DocRouteRequest routeDefinition={readOrganizationBillingRouteDefinition} />
-                <DocRouteRequest
-                    routeDefinition={createFirstPaymentRouteDefinition}
-                    description="Initier le premier paiement. Retourne un objet { checkoutUrl: string } vers lequel l'utilisateur doit être redirigé pour procéder au paiement."
-                />
-                <DocRouteRequest routeDefinition={cancelSubscriptionRouteDefinition} />
-                <DocRouteRequest routeDefinition={readAllOrganizationPaymentsRouteDefinition} />
-            </DocSection>
-
-            <DocSection title="Utilisateurs d'organisation">
-                <DocParagraph>Gestion des membres d'une organisation.</DocParagraph>
-                <DocRouteRequest
-                    routeDefinition={createOneOrganizationUserRouteDefinition}
-                    description="Inviter un utilisateur dans l'organisation."
-                />
-                <DocRouteRequest routeDefinition={readAllOrganizationUsersRouteDefinition} />
-                <DocRouteRequest routeDefinition={readOneOrganizationUserRouteDefinition} />
-                <DocRouteRequest routeDefinition={updateOneOrganizationUserRouteDefinition} />
-                <DocRouteRequest routeDefinition={deleteOneOrganizationUserRouteDefinition} />
-            </DocSection>
-
-            <DocSection title="Exercices">
-                <DocParagraph>Création et listing des exercices comptables d'une organisation.</DocParagraph>
-                <DocRouteRequest routeDefinition={createOneYearRouteDefinition} />
-                <DocRouteRequest routeDefinition={readAllYearsRouteDefinition} />
-            </DocSection>
-
-            <DocNextPage
-                to="/documentation/comptabilité"
-                label="Comptabilité"
-            />
         </DocRoot>
     )
 }

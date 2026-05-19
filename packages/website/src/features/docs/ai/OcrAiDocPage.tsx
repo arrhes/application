@@ -1,3 +1,4 @@
+import { DocCode } from "../../../components/document/DocCode.tsx"
 import { DocHeader } from "../../../components/document/DocHeader.tsx"
 import { DocLink } from "../../../components/document/DocLink.tsx"
 import { DocList } from "../../../components/document/DocList.tsx"
@@ -20,7 +21,8 @@ export function OcrAiDocPage() {
                     PDF) et de créer un nouveau fichier au format Markdown dans votre espace de stockage.
                 </DocParagraph>
                 <DocParagraph>
-                    L'OCR est disponible depuis l'interface de stockage et via l'outil assistant <code>ocr_file</code>.
+                    L'OCR est disponible depuis l'interface de stockage et via l'outil assistant{" "}
+                    <DocCode>ocr_file</DocCode>.
                 </DocParagraph>
             </DocSection>
 

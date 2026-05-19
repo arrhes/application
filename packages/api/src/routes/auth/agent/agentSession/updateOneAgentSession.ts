@@ -1,7 +1,7 @@
 import { models, updateOneAgentSessionRouteDefinition } from "@arrhes/application-metadata"
 import { and, eq, inArray } from "drizzle-orm"
+import { checkAuthMiddleware } from "../../../../middlewares/checkAuthMiddleware.js"
 import { checkOrganizationSubscriptionSessionMiddleware } from "../../../../middlewares/checkOrganizationSubscriptionSessionMiddleware.js"
-import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
 import { Exception } from "../../../../utilities/exception.js"
@@ -13,7 +13,7 @@ import { updateOne } from "../../../../utilities/sql/updateOne.js"
 export const updateOneAgentSessionRoute = apiFactory
     .createApp()
     .post(updateOneAgentSessionRouteDefinition.path, async (c) => {
-        const { user } = await checkUserSessionMiddleware({
+        const { user } = await checkAuthMiddleware({
             context: c,
         })
         const body = await validateBodyMiddleware({

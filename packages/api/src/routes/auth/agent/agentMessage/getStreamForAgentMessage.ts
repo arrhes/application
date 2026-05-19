@@ -1,7 +1,7 @@
 import { getStreamForAgentMessageRouteDefinition, models } from "@arrhes/application-metadata"
 import { and, eq } from "drizzle-orm"
 import { streamText } from "hono/streaming"
-import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
+import { checkAuthMiddleware } from "../../../../middlewares/checkAuthMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
 import { Exception } from "../../../../utilities/exception.js"
@@ -19,7 +19,7 @@ export const getStreamForAgentMessageRoute = apiFactory
         await next()
     })
     .post(getStreamForAgentMessageRouteDefinition.path, async (c) => {
-        await checkUserSessionMiddleware({
+        await checkAuthMiddleware({
             context: c,
         })
         const body = await validateBodyMiddleware({

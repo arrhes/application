@@ -1,8 +1,3 @@
-import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs"
-import { dirname, resolve } from "node:path"
-import react from "@vitejs/plugin-react"
-import { defineConfig, type Plugin, build as viteBuild } from "vite"
-
 // ─────────────────────────── Docs Search Index Plugin ─────────────────────────────
 
 interface DocPageManifestEntry {

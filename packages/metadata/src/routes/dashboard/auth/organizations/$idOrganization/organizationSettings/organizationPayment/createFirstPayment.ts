@@ -4,7 +4,8 @@ import { routeDefinition } from "../../../../../../../utilities/routeDefinition.
 
 export const createFirstPaymentRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/create-first-payment`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/billing/first-payment`,
     schemas: {
         body: v.object({}),
         return: v.object({

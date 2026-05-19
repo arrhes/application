@@ -1,4 +1,3 @@
-/*
 import * as v from "valibot"
 import { routePath } from "../../../../../../../../../components/index.js"
 import { balanceSheetSchema, balanceSheetSchemaReturn } from "../../../../../../../../../schemas/balanceSheet.js"
@@ -6,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../utilities/routeDefin
 
 export const generateBalanceSheetsRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/generate-balance-sheets`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/balance-sheets/generate`,
     schemas: {
         body: v.object({
             idYear: balanceSheetSchema.entries.idYear,
@@ -14,4 +14,3 @@ export const generateBalanceSheetsRouteDefinition = routeDefinition({
         return: v.array(balanceSheetSchemaReturn),
     },
 })
-*/

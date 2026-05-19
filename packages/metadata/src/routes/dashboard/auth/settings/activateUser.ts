@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const activateUserRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/activate-user`,
+    method: "POST",
+    path: `${routePath.v1}/users/me/activate`,
     schemas: {
         body: v.object({
             emailToken: v.nonNullable(userSchema.entries.emailToken),

@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../utilities/routeDefinition.
 
 export const createWalletTopUpCheckoutRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/create-wallet-top-up-checkout`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/billing/wallet-top-up`,
     schemas: {
         body: v.object({
             amountInCents: v.pipe(integerSchema, v.minValue(1)),

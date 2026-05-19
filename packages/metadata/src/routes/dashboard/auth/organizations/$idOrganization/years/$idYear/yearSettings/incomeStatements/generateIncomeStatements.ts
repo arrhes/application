@@ -1,12 +1,15 @@
-/*
 import * as v from "valibot"
 import { routePath } from "../../../../../../../../../components/index.js"
-import { incomeStatementSchema, incomeStatementSchemaReturn } from "../../../../../../../../../schemas/incomeStatement.js"
+import {
+    incomeStatementSchema,
+    incomeStatementSchemaReturn,
+} from "../../../../../../../../../schemas/incomeStatement.js"
 import { routeDefinition } from "../../../../../../../../../utilities/routeDefinition.js"
 
 export const generateIncomeStatementsRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/generate-income-statements`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/income-statements/generate`,
     schemas: {
         body: v.object({
             idYear: incomeStatementSchema.entries.idYear,
@@ -14,4 +17,3 @@ export const generateIncomeStatementsRouteDefinition = routeDefinition({
         return: v.array(incomeStatementSchemaReturn),
     },
 })
-*/

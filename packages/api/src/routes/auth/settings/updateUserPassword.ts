@@ -1,7 +1,7 @@
 import { pbkdf2Sync } from "node:crypto"
 import { models, updateUserPasswordRouteDefinition } from "@arrhes/application-metadata"
 import { eq } from "drizzle-orm"
-import { checkUserSessionMiddleware } from "../../../middlewares/checkUserSessionMiddleware.js"
+import { requireCookieSessionMiddleware } from "../../../middlewares/requireCookieSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../utilities/apiFactory.js"
 import { Exception } from "../../../utilities/exception.js"
@@ -11,7 +11,7 @@ import { updateOne } from "../../../utilities/sql/updateOne.js"
 export const updateUserPasswordRoute = apiFactory
     .createApp()
     .post(updateUserPasswordRouteDefinition.path, async (c) => {
-        const { user } = await checkUserSessionMiddleware({
+        const { user } = await requireCookieSessionMiddleware({
             context: c,
         })
         const body = await validateBodyMiddleware({

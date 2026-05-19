@@ -1,14 +1,14 @@
 import { createOneTicketRouteDefinition, generateId, models } from "@arrhes/application-metadata"
-import { checkUserSessionMiddleware } from "../../../middlewares/checkUserSessionMiddleware.js"
+import { checkAuthMiddleware } from "../../../middlewares/checkAuthMiddleware.js"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"
-import { apiFactory } from "../../../utilities/apiFactory.js"
 import { sendEmail } from "../../../utilities/email/sendEmail.js"
 import { supportTemplate } from "../../../utilities/email/templates/support.js"
+import { registerRoute } from "../../../utilities/registerRoute.js"
 import { response } from "../../../utilities/response.js"
 import { insertOne } from "../../../utilities/sql/insertOne.js"
 
-export const createOneTicketRoute = apiFactory.createApp().post(createOneTicketRouteDefinition.path, async (c) => {
-    const { user } = await checkUserSessionMiddleware({
+export const createOneTicketRoute = registerRoute(createOneTicketRouteDefinition, async (c) => {
+    const { user } = await checkAuthMiddleware({
         context: c,
     })
     const body = await validateBodyMiddleware({

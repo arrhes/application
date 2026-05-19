@@ -1,9 +1,9 @@
 import { GetObjectCommand } from "@aws-sdk/client-s3"
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
-import { Exception } from "../../utilities/exception.js"
-import type { getClients } from "../../utilities/getClients.js"
-import type { getEnv } from "../../utilities/getEnv.js"
-import { storageFileExpiresIn } from "../../utilities/variables.js"
+import { Exception } from "../exception.js"
+import type { getClients } from "../getClients.js"
+import type { getEnv } from "../getEnv.js"
+import { storageFileExpiresIn } from "../variables.js"
 
 export async function generateGetSignedUrl(parameters: {
     var: {

@@ -1,6 +1,5 @@
 import { DocHeader } from "../../../components/document/DocHeader.tsx"
 import { DocList } from "../../../components/document/DocList.tsx"
-import { DocNextPage } from "../../../components/document/DocNextPage.tsx"
 import { DocParagraph } from "../../../components/document/DocParagraph.tsx"
 import { DocRoot } from "../../../components/document/DocRoot.tsx"
 import { DocSection } from "../../../components/document/DocSection.tsx"
@@ -92,11 +91,6 @@ export function ModelsAiDocPage() {
                     appels d'outils par message pour garantir des temps de réponse raisonnables.
                 </DocParagraph>
             </DocSection>
-
-            <DocNextPage
-                to="/documentation/dashboard/assistant/outils"
-                label="Outils"
-            />
         </DocRoot>
     )
 }

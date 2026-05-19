@@ -1,6 +1,6 @@
+import { DocCode } from "../../../components/document/DocCode.tsx"
 import { DocHeader } from "../../../components/document/DocHeader.tsx"
 import { DocList } from "../../../components/document/DocList.tsx"
-import { DocNextPage } from "../../../components/document/DocNextPage.tsx"
 import { DocParagraph } from "../../../components/document/DocParagraph.tsx"
 import { DocRoot } from "../../../components/document/DocRoot.tsx"
 import { DocSection } from "../../../components/document/DocSection.tsx"
@@ -43,16 +43,17 @@ export function AuthenticationApiDocPage() {
 
             <DocSection title="Authentification par cookie de session">
                 <DocParagraph>
-                    Lors de la connexion via l'interface web, un cookie <code>arrhes_id_user_session</code> (httpOnly)
-                    est automatiquement défini. Ce cookie identifie l'utilisateur pour toutes les requêtes suivantes.
+                    Lors de la connexion via l'interface web, un cookie <DocCode>arrhes_id_user_session</DocCode>{" "}
+                    (httpOnly) est automatiquement défini. Ce cookie identifie l'utilisateur pour toutes les requêtes
+                    suivantes.
                 </DocParagraph>
                 <DocParagraph>
                     Avec cette méthode, l'organisation cible doit être spécifiée séparément via l'en-tête{" "}
-                    <code>X-Organization-Id</code> ou le cookie <code>arrhes_id_organization</code>.
+                    <DocCode>X-Organization-Id</DocCode> ou le cookie <DocCode>arrhes_id_organization</DocCode>.
                 </DocParagraph>
                 <DocTip variant="info">
-                    L'en-tête <code>X-Organization-Id</code> a la priorité sur le cookie{" "}
-                    <code>arrhes_id_organization</code>.
+                    L'en-tête <DocCode>X-Organization-Id</DocCode> a la priorité sur le cookie{",  "}
+                    <DocCode>arrhes_id_organization</DocCode>.
                 </DocTip>
             </DocSection>
 
@@ -62,7 +63,7 @@ export function AuthenticationApiDocPage() {
                     spécifique et nécessitent un abonnement premium.
                 </DocParagraph>
                 <DocParagraph>
-                    L'en-tête <code>Authorization</code> doit contenir le token au format Bearer :
+                    L'en-tête <DocCode>Authorization</DocCode> doit contenir le token au format Bearer :
                 </DocParagraph>
                 <DocTable
                     headers={[
@@ -78,12 +79,13 @@ export function AuthenticationApiDocPage() {
                 />
                 <DocParagraph>
                     Avec une clé API, l'organisation est automatiquement déterminée par la clé elle-même. Il n'est pas
-                    nécessaire de fournir l'en-tête <code>X-Organization-Id</code>.
+                    nécessaire de fournir l'en-tête <DocCode>X-Organization-Id</DocCode>.
                 </DocParagraph>
                 <DocTip variant="warning">
-                    La clé brute (<code>rawKey</code>) n'est retournée qu'au moment de la création via la route{" "}
-                    <code>POST /auth/create-one-api-key</code>. Conservez-la précieusement, elle ne pourra pas être
-                    récupérée ultérieurement.
+                    La clé brute (<DocCode>rawKey</DocCode>) n'est retournée qu'au moment de la création via la route
+                    {",  "}
+                    <DocCode>POST /v1/organizations/:idOrganization/api-keys</DocCode>. Conservez-la précieusement, elle
+                    ne pourra pas être récupérée ultérieurement.
                 </DocTip>
             </DocSection>
 
@@ -114,8 +116,8 @@ export function AuthenticationApiDocPage() {
                     ]}
                 />
                 <DocParagraph>
-                    * L'en-tête <code>X-Organization-Id</code> peut être remplacé par le cookie{" "}
-                    <code>arrhes_id_organization</code>.
+                    * L'en-tête <DocCode>X-Organization-Id</DocCode> peut être remplacé par le cookie{",  "}
+                    <DocCode>arrhes_id_organization</DocCode>.
                 </DocParagraph>
             </DocSection>
 
@@ -136,11 +138,6 @@ export function AuthenticationApiDocPage() {
                     ]}
                 />
             </DocSection>
-
-            <DocNextPage
-                to="/documentation/api/organisation"
-                label="Organisations"
-            />
         </DocRoot>
     )
 }

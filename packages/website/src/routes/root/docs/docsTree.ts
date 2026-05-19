@@ -9,13 +9,28 @@ import { modelsAiDocRoute } from "./ai/modelsAiDocRoute.js"
 import { ocrAiDocRoute } from "./ai/ocrAiDocRoute.js"
 import { rootAiDocRoute } from "./ai/rootAiDocRoute.js"
 import { toolsAiDocRoute } from "./ai/toolsAiDocRoute.js"
+import { accountsApiDocRoute } from "./api/accountsApiDocRoute.js"
 import { apiDocLayoutRoute } from "./api/apiDocLayoutRoute.js"
+import { apiKeysApiDocRoute } from "./api/apiKeysApiDocRoute.js"
 import { authenticationApiDocRoute } from "./api/authenticationApiDocRoute.js"
+import { balanceSheetsApiDocRoute } from "./api/balanceSheetsApiDocRoute.js"
+import { entriesApiDocRoute } from "./api/entriesApiDocRoute.js"
 import { filesApiDocRoute } from "./api/filesApiDocRoute.js"
+import { incomeStatementsApiDocRoute } from "./api/incomeStatementsApiDocRoute.js"
 import { introductionApiDocRoute } from "./api/introductionApiDocRoute.js"
+import { journalsApiDocRoute } from "./api/journalsApiDocRoute.js"
 import { organizationApiDocRoute } from "./api/organizationApiDocRoute.js"
+import { orgUsersApiDocRoute } from "./api/orgUsersApiDocRoute.js"
 import { rootApiDocRoute } from "./api/rootApiDocRoute.js"
+import { tagsApiDocRoute } from "./api/tagsApiDocRoute.js"
+import { xbrlReportsApiDocRoute } from "./api/xbrlReportsApiDocRoute.js"
 import { yearApiDocRoute } from "./api/yearApiDocRoute.js"
+import { authenticationCliDocRoute } from "./cli/authenticationCliDocRoute.js"
+import { cliDocLayoutRoute } from "./cli/cliDocLayoutRoute.js"
+import { commandsCliDocTree } from "./cli/commands/commandsCliDocTree.js"
+import { demarrerCliDocRoute } from "./cli/demarrerCliDocRoute.js"
+import { installationCliDocRoute } from "./cli/installationCliDocRoute.js"
+import { rootCliDocRoute } from "./cli/rootCliDocRoute.js"
 import { billingDashboardDocRoute } from "./dashboard/BillingDashboardDocRoute.js"
 import { dashboardDocLayoutRoute } from "./dashboard/dashboardDocLayoutRoute.js"
 import { entriesDashboardDocRoute } from "./dashboard/entriesDashboardDocRoute.js"
@@ -58,6 +73,15 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
         resourcesAccountingTree,
     ]),
 
+    // CLI section
+    cliDocLayoutRoute.addChildren([
+        rootCliDocRoute,
+        installationCliDocRoute,
+        demarrerCliDocRoute,
+        authenticationCliDocRoute,
+        commandsCliDocTree,
+    ]),
+
     // Dashboard section (guide d'utilisation)
     dashboardDocLayoutRoute.addChildren([
         rootDashboardDocRoute,
@@ -84,7 +108,16 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
         introductionApiDocRoute,
         authenticationApiDocRoute,
         organizationApiDocRoute,
-        yearApiDocRoute,
+        apiKeysApiDocRoute,
+        orgUsersApiDocRoute,
         filesApiDocRoute,
+        yearApiDocRoute,
+        accountsApiDocRoute,
+        journalsApiDocRoute,
+        balanceSheetsApiDocRoute,
+        incomeStatementsApiDocRoute,
+        tagsApiDocRoute,
+        entriesApiDocRoute,
+        xbrlReportsApiDocRoute,
     ]),
 ])

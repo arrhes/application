@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../utilities/routeDefin
 
 export const computeOneEntryRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/compute-one-entry`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/entries/:idEntry/compute`,
     schemas: {
         body: v.object({
             idEntry: entrySchema.entries.id,

@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../../utilities/routeDe
 
 export const updateOneComputationRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/update-one-computation`,
+    method: "PATCH",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/computations/:idComputation`,
     schemas: {
         body: v.object({
             idComputation: computationSchema.entries.id,

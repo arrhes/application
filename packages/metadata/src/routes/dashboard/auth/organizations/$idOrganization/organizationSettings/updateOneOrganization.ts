@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../utilities/routeDefinition.js"
 
 export const updateOneOrganizationRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/update-one-organization`,
+    method: "PATCH",
+    path: `${routePath.v1}/organizations/:idOrganization`,
     schemas: {
         body: v.object({
             siren: v.optional(organizationSchema.entries.siren),

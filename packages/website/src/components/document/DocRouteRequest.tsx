@@ -2,6 +2,53 @@ import type { routeDefinition } from "@arrhes/application-metadata/utilities"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { useState } from "react"
 
+const methodBadgeClassName: Record<"GET" | "POST" | "PATCH" | "DELETE", string> = {
+    GET: css({
+        fontSize: "xs",
+        fontWeight: "bold",
+        paddingX: "0.5rem",
+        paddingY: "0.15rem",
+        borderRadius: "sm",
+        backgroundColor: "information/10",
+        color: "information",
+        textTransform: "uppercase",
+        letterSpacing: "wider",
+    }),
+    POST: css({
+        fontSize: "xs",
+        fontWeight: "bold",
+        paddingX: "0.5rem",
+        paddingY: "0.15rem",
+        borderRadius: "sm",
+        backgroundColor: "success/10",
+        color: "success",
+        textTransform: "uppercase",
+        letterSpacing: "wider",
+    }),
+    PATCH: css({
+        fontSize: "xs",
+        fontWeight: "bold",
+        paddingX: "0.5rem",
+        paddingY: "0.15rem",
+        borderRadius: "sm",
+        backgroundColor: "warning/10",
+        color: "warning",
+        textTransform: "uppercase",
+        letterSpacing: "wider",
+    }),
+    DELETE: css({
+        fontSize: "xs",
+        fontWeight: "bold",
+        paddingX: "0.5rem",
+        paddingY: "0.15rem",
+        borderRadius: "sm",
+        backgroundColor: "error/10",
+        color: "error",
+        textTransform: "uppercase",
+        letterSpacing: "wider",
+    }),
+}
+
 type SchemaLike = {
     type: string
     entries?: Readonly<Record<string, SchemaLike>>
@@ -253,20 +300,8 @@ export function DocRouteRequest(props: { routeDefinition: ReturnType<typeof rout
                         gap: "0.5rem",
                     })}
                 >
-                    <span
-                        className={css({
-                            fontSize: "xs",
-                            fontWeight: "bold",
-                            paddingX: "0.5rem",
-                            paddingY: "0.15rem",
-                            borderRadius: "sm",
-                            backgroundColor: "primary/10",
-                            color: "primary",
-                            textTransform: "uppercase",
-                            letterSpacing: "wider",
-                        })}
-                    >
-                        POST
+                    <span className={methodBadgeClassName[props.routeDefinition.method]}>
+                        {props.routeDefinition.method}
                     </span>
                     <code
                         className={css({
@@ -276,7 +311,7 @@ export function DocRouteRequest(props: { routeDefinition: ReturnType<typeof rout
                             fontWeight: "semibold",
                         })}
                     >
-                        {props.routeDefinition.path}
+                        {props.routeDefinition.path.replace(/^\/v1/, "")}
                     </code>
                 </div>
                 <div

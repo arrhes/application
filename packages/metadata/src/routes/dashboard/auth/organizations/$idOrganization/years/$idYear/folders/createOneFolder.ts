@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../utilities/routeDefiniti
 
 export const createOneFolderRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/create-one-folder`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/folders`,
     schemas: {
         body: v.object({
             idFolderParent: v.optional(folderSchema.entries.idFolderParent),

@@ -1,7 +1,7 @@
-import { $idOrganizationRoutes } from "../../../routes/auth/$idOrganization/$idOrganizationRoutes.js"
-import { activateOrganizationMembershipRoute } from "../../../routes/auth/organizations/activateOrganizationMembership.js"
-import { addNewOrganizationRoute } from "../../../routes/auth/organizations/addNewOrganization.js"
-import { getAllMyOrganizationsRoute } from "../../../routes/auth/organizations/getAllMyOrganizations.js"
+import { $idOrganizationRoutes } from "./$idOrganization/$idOrganizationRoutes.js"
+import { activateOrganizationMembershipRoute } from "./activateOrganizationMembership.js"
+import { addNewOrganizationRoute } from "./addNewOrganization.js"
+import { getAllMyOrganizationsRoute } from "./getAllMyOrganizations.js"
 
 export const organizationsRoutes = [
     activateOrganizationMembershipRoute,

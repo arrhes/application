@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../../utilities/routeDe
 
 export const deleteOneJournalRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/delete-one-journal`,
+    method: "DELETE",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/journals/:idJournal`,
     schemas: {
         body: v.object({
             idJournal: journalSchema.entries.id,
