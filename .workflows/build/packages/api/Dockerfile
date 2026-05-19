@@ -7,7 +7,7 @@ RUN npm install -g pnpm@10.26.1
 FROM base AS build
 WORKDIR /root
 COPY . .
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 RUN pnpm --filter @arrhes/application-api... run build
 
 # Create a self-contained deploy output with production dependencies only

@@ -1,17 +1,4 @@
 {
     "name": "@arrhes/cli",
-    "version": "0.1.0",
-    "bin": {
-        "arrhes": "dist/index.cjs"
-    },
-    "main": "dist/index.cjs",
-    "files": [
-        "dist"
-    ],
-    "publishConfig": {
-        "access": "public"
-    },
-    "devDependencies": {
-        "postject": "1.0.0-alpha.6"
-    }
+    "version": "0.1.0"
 }

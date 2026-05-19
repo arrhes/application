@@ -3,165 +3,21 @@ name: Release CLI
 on:
   release:
     types: [published]
-  workflow_dispatch:
-    inputs:
-      publish_npm:
-        description: "Publish to npm"
-        type: boolean
-        default: false
 
 jobs:
-  build-binaries:
-    name: Build binary (${{ matrix.asset_name }})
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-22.04
-            asset_name: arrhes-linux-x64
-            node_version: 22
-          - os: macos-13
-            asset_name: arrhes-macos-x64
-            node_version: 22
-          - os: macos-15
-            asset_name: arrhes-macos-arm64
-            node_version: 22
-          - os: windows-2025
-            asset_name: arrhes-windows-x64.exe
-            node_version: 22
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: ${{ matrix.node_version }}
-
-      - name: Install pnpm
-        run: npm install -g pnpm
-
-      - name: Install dependencies
-        run: CI=true pnpm install --no-frozen-lockfile
-
-      - name: Build metadata
-        run: pnpm --filter @arrhes/application-metadata build
-
-      - name: Generate SEA blob
-        working-directory: packages/cli
-        run: node --experimental-sea-config sea-config.json
-
-      - name: Create standalone binary (Linux / macOS)
-        if: runner.os != 'Windows'
-        working-directory: packages/cli
-        run: |
-          mkdir -p binaries
-          cp $(which node) binaries/${{ matrix.asset_name }}
-          node_modules/.bin/postject binaries/${{ matrix.asset_name }} NODE_SEA_BLOB sea-prep.blob \
-            --sentinel-fuse NODE_SEA_FUSE_fce680ab2cc467b6e072b8b5df1996b2
-          if [[ "$RUNNER_OS" == "macOS" ]]; then
-            # macOS: codesign BEFORE UPX (UPX is skipped on macOS — breaks signing)
-            codesign --sign - binaries/${{ matrix.asset_name }}
-          fi
-
-      - name: Create standalone binary (Windows)
-        if: runner.os == 'Windows'
-        working-directory: packages/cli
-        shell: pwsh
-        run: |
-          New-Item -ItemType Directory -Force -Path binaries
-          $nodePath = (Get-Command node).Source
-          Copy-Item $nodePath binaries\${{ matrix.asset_name }}
-          node_modules\.bin\postject binaries\${{ matrix.asset_name }} NODE_SEA_BLOB sea-prep.blob `
-            --sentinel-fuse NODE_SEA_FUSE_fce680ab2cc467b6e072b8b5df1996b2
-
-      # UPX compresses ~60-65% (123 MB → ~40 MB).
-      # Skipped on macOS: UPX invalidates the codesignature and Gatekeeper rejects the binary.
-      - name: Compress binary with UPX (Linux)
-        if: runner.os == 'Linux'
-        working-directory: packages/cli
-        run: |
-          sudo apt-get install -y upx-ucl -q
-          upx --best --lzma binaries/${{ matrix.asset_name }}
-
-      - name: Compress binary with UPX (Windows)
-        if: runner.os == 'Windows'
-        working-directory: packages/cli
-        shell: pwsh
-        run: |
-          choco install upx -y --no-progress
-          upx --best --lzma binaries\${{ matrix.asset_name }}
-
-      - name: Upload binary to release
-        if: github.event_name == 'release'
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: packages/cli/binaries/${{ matrix.asset_name }}
-          asset_name: ${{ matrix.asset_name }}
-          asset_content_type: application/octet-stream
-
-      # Upload install scripts once (only from the Linux runner to avoid duplicates)
-      - name: Upload install.sh to release
-        if: github.event_name == 'release' && runner.os == 'Linux'
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: packages/cli/install.sh
-          asset_name: install.sh
-          asset_content_type: text/plain
-
-      - name: Upload install.ps1 to release
-        if: github.event_name == 'release' && runner.os == 'Linux'
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: packages/cli/install.ps1
-          asset_name: install.ps1
-          asset_content_type: text/plain
-
-  publish-npm:
-    name: Publish to npm
+  upload-assets:
+    name: Upload CLI scripts
     runs-on: ubuntu-22.04
-    needs: build-binaries
-    if: github.event_name == 'release' || inputs.publish_npm
 
     steps:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: 22
-          registry-url: https://registry.npmjs.org
-
-      - name: Install pnpm
-        run: npm install -g pnpm
-
-      - name: Install dependencies
-        run: CI=true pnpm install --no-frozen-lockfile
-
-      - name: Build metadata
-        run: pnpm --filter @arrhes/application-metadata build
-
-      - name: Set version from release tag
-        if: github.event_name == 'release'
-        working-directory: packages/cli
+      - name: Upload release assets
         run: |
-          VERSION="${{ github.event.release.tag_name }}"
-          VERSION="${VERSION#v}"  # strip leading 'v'
-          npm pkg set version="$VERSION"
-
-      - name: Publish
-        working-directory: packages/cli
-        run: npm publish --access public
+          gh release upload "${{ github.event.release.tag_name }}" \
+            packages/cli/arrhes.sh \
+            packages/cli/install.sh \
+            packages/cli/install.ps1
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

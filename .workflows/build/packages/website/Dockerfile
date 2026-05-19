@@ -12,7 +12,7 @@ ARG VITE_API_BASE_URL
 
 WORKDIR /root
 COPY . .
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 
 # Write VITE_* build args to .env so Vite can read them during build.
 # Vite reads import.meta.env from .env files, not from process.env.

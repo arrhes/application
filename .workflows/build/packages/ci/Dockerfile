@@ -21,7 +21,7 @@ COPY packages/ ./packages/
 COPY tests/ ./tests/
 
 # Install dependencies
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 
 # Build all packages (must run before tests so workspace deps are compiled)
 RUN pnpm run build
