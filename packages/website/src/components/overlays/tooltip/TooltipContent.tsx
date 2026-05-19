@@ -39,6 +39,8 @@ export function TooltipContent({ sideOffset = 4, children, className, style, ...
     }, [
         ctx?.open,
         sideOffset,
+        ctx?.triggerRef?.current?.getBoundingClientRect,
+        ctx?.triggerRef?.current,
     ])
 
     if (!ctx?.open) return null

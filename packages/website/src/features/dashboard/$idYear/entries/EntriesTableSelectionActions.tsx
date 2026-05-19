@@ -55,77 +55,75 @@ export function EntriesTableSelectionActions(props: { selectedRows: Array<Row<En
     }
 
     return (
-        <>
-            <Popover.Root>
-                <Popover.Trigger asChild>
-                    <Button>
+        <Popover.Root>
+            <Popover.Trigger asChild>
+                <Button>
+                    <ButtonGhostContent
+                        leftIcon={<IconChevronDown />}
+                        text={undefined}
+                    />
+                </Button>
+            </Popover.Trigger>
+            <Popover.Content
+                align="start"
+                className={css({
+                    padding: "0.5rem",
+                    gap: "0.25rem",
+                })}
+            >
+                <Popover.Close asChild>
+                    <Button
+                        className={css({
+                            width: "100%",
+                        })}
+                        onClick={() =>
+                            openModal(
+                                deleteModalId,
+                                <Dialog.Content>
+                                    <Dialog.Header>
+                                        <Dialog.Title>Supprimer les écritures sélectionnées</Dialog.Title>
+                                    </Dialog.Header>
+                                    <Dialog.Body>
+                                        <Dialog.Description>
+                                            {`Voulez-vous supprimer ${props.selectedRows.length} écriture${
+                                                props.selectedRows.length > 1 ? "s" : ""
+                                            } ? Cette action est irréversible.`}
+                                        </Dialog.Description>
+                                    </Dialog.Body>
+                                    <Dialog.Footer>
+                                        <Button onClick={() => closeModal(deleteModalId)}>
+                                            <ButtonOutlineContent text="Annuler" />
+                                        </Button>
+                                        <Button
+                                            hasLoader
+                                            onClick={async () => {
+                                                await handleDelete()
+                                                closeModal(deleteModalId)
+                                            }}
+                                        >
+                                            <ButtonPlainContent
+                                                color="danger"
+                                                leftIcon={<IconTrash />}
+                                                text="Supprimer"
+                                            />
+                                        </Button>
+                                    </Dialog.Footer>
+                                </Dialog.Content>,
+                            )
+                        }
+                    >
                         <ButtonGhostContent
-                            leftIcon={<IconChevronDown />}
-                            text={undefined}
-                        />
-                    </Button>
-                </Popover.Trigger>
-                <Popover.Content
-                    align="start"
-                    className={css({
-                        padding: "0.5rem",
-                        gap: "0.25rem",
-                    })}
-                >
-                    <Popover.Close asChild>
-                        <Button
+                            leftIcon={<IconTrash />}
+                            text="Supprimer"
+                            color="danger"
                             className={css({
                                 width: "100%",
+                                justifyContent: "start",
                             })}
-                            onClick={() =>
-                                openModal(
-                                    deleteModalId,
-                                    <Dialog.Content>
-                                        <Dialog.Header>
-                                            <Dialog.Title>Supprimer les écritures sélectionnées</Dialog.Title>
-                                        </Dialog.Header>
-                                        <Dialog.Body>
-                                            <Dialog.Description>
-                                                {`Voulez-vous supprimer ${props.selectedRows.length} écriture${
-                                                    props.selectedRows.length > 1 ? "s" : ""
-                                                } ? Cette action est irréversible.`}
-                                            </Dialog.Description>
-                                        </Dialog.Body>
-                                        <Dialog.Footer>
-                                            <Button onClick={() => closeModal(deleteModalId)}>
-                                                <ButtonOutlineContent text="Annuler" />
-                                            </Button>
-                                            <Button
-                                                hasLoader
-                                                onClick={async () => {
-                                                    await handleDelete()
-                                                    closeModal(deleteModalId)
-                                                }}
-                                            >
-                                                <ButtonPlainContent
-                                                    color="danger"
-                                                    leftIcon={<IconTrash />}
-                                                    text="Supprimer"
-                                                />
-                                            </Button>
-                                        </Dialog.Footer>
-                                    </Dialog.Content>,
-                                )
-                            }
-                        >
-                            <ButtonGhostContent
-                                leftIcon={<IconTrash />}
-                                text="Supprimer"
-                                color="danger"
-                                className={css({
-                                    width: "100%",
-                                    justifyContent: "start",
-                                })}
-                            />
-                        </Button>
-                    </Popover.Close>
-                </Popover.Content>
-            </Popover.Root>
-        </>
+                        />
+                    </Button>
+                </Popover.Close>
+            </Popover.Content>
+        </Popover.Root>
     )
 }

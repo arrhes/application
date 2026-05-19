@@ -59,164 +59,161 @@ export function FolderActions(props: {
     }
 
     return (
-        <>
-            <Popover.Root>
-                <Popover.Trigger asChild>
-                    <Button>
+        <Popover.Root>
+            <Popover.Trigger asChild>
+                <Button>
+                    <ButtonGhostContent
+                        leftIcon={<IconDotsVertical />}
+                        text={undefined}
+                    />
+                </Button>
+            </Popover.Trigger>
+            <Popover.Content
+                align="end"
+                className={css({
+                    padding: "0.5rem",
+                    gap: "0.25rem",
+                })}
+            >
+                <Popover.Close asChild>
+                    <Button
+                        className={css({
+                            width: "100%",
+                        })}
+                        onClick={() => props.onFolderOpen(props.folder.id)}
+                    >
                         <ButtonGhostContent
-                            leftIcon={<IconDotsVertical />}
-                            text={undefined}
+                            leftIcon={<IconEye />}
+                            text="Ouvrir"
+                            className={css({
+                                width: "100%",
+                                justifyContent: "start",
+                            })}
                         />
                     </Button>
-                </Popover.Trigger>
-                <Popover.Content
-                    align="end"
-                    className={css({
-                        padding: "0.5rem",
-                        gap: "0.25rem",
-                    })}
-                >
-                    <Popover.Close asChild>
-                        <Button
+                </Popover.Close>
+                <Popover.Close asChild>
+                    <Button
+                        className={css({
+                            width: "100%",
+                        })}
+                        onClick={() => {
+                            const r = {
+                                current: "",
+                            }
+                            r.current = openPanelTab(
+                                "Renommer le dossier",
+                                <div
+                                    className={css({
+                                        padding: "2rem",
+                                    })}
+                                >
+                                    <UpdateOneFolderForm
+                                        folder={props.folder}
+                                        onSuccess={() => closeTab(r.current)}
+                                    />
+                                </div>,
+                            )
+                        }}
+                    >
+                        <ButtonGhostContent
+                            leftIcon={<IconPencil />}
+                            text="Renommer"
                             className={css({
                                 width: "100%",
+                                justifyContent: "start",
                             })}
-                            onClick={() => props.onFolderOpen(props.folder.id)}
-                        >
-                            <ButtonGhostContent
-                                leftIcon={<IconEye />}
-                                text="Ouvrir"
-                                className={css({
-                                    width: "100%",
-                                    justifyContent: "start",
-                                })}
-                            />
-                        </Button>
-                    </Popover.Close>
-                    <Popover.Close asChild>
-                        <Button
-                            className={css({
-                                width: "100%",
-                            })}
-                            onClick={() => {
-                                const r = {
-                                    current: "",
-                                }
-                                r.current = openPanelTab(
-                                    "Renommer le dossier",
-                                    <div
+                        />
+                    </Button>
+                </Popover.Close>
+                <Popover.Close asChild>
+                    <Button
+                        className={css({
+                            width: "100%",
+                        })}
+                        onClick={() =>
+                            openModal(
+                                moveModalId,
+                                <Dialog.Content>
+                                    <Dialog.Header>
+                                        <Dialog.Title>Déplacer le dossier</Dialog.Title>
+                                    </Dialog.Header>
+                                    <Dialog.Body
                                         className={css({
-                                            padding: "2rem",
+                                            alignItems: "stretch",
                                         })}
                                     >
-                                        <UpdateOneFolderForm
+                                        <MoveOneFolderForm
                                             folder={props.folder}
-                                            onSuccess={() => closeTab(r.current)}
+                                            onSuccess={() => closeModal(moveModalId)}
                                         />
-                                    </div>,
-                                )
-                            }}
-                        >
-                            <ButtonGhostContent
-                                leftIcon={<IconPencil />}
-                                text="Renommer"
-                                className={css({
-                                    width: "100%",
-                                    justifyContent: "start",
-                                })}
-                            />
-                        </Button>
-                    </Popover.Close>
-                    <Popover.Close asChild>
-                        <Button
+                                    </Dialog.Body>
+                                </Dialog.Content>,
+                            )
+                        }
+                    >
+                        <ButtonGhostContent
+                            leftIcon={<IconArrowsMove />}
+                            text="Déplacer"
                             className={css({
                                 width: "100%",
+                                justifyContent: "start",
                             })}
-                            onClick={() =>
-                                openModal(
-                                    moveModalId,
-                                    <Dialog.Content>
-                                        <Dialog.Header>
-                                            <Dialog.Title>Déplacer le dossier</Dialog.Title>
-                                        </Dialog.Header>
-                                        <Dialog.Body
-                                            className={css({
-                                                alignItems: "stretch",
-                                            })}
+                        />
+                    </Button>
+                </Popover.Close>
+                <Separator />
+                <Popover.Close asChild>
+                    <Button
+                        className={css({
+                            width: "100%",
+                        })}
+                        onClick={() =>
+                            openModal(
+                                deleteModalId,
+                                <Dialog.Content>
+                                    <Dialog.Header>
+                                        <Dialog.Title>Voulez-vous supprimer ce dossier ?</Dialog.Title>
+                                    </Dialog.Header>
+                                    <Dialog.Body>
+                                        <Dialog.Description>
+                                            Cette action supprimera le dossier et tous ses sous-dossiers. Les fichiers
+                                            contenus ne seront pas supprimés. Cette action est irréversible.
+                                        </Dialog.Description>
+                                    </Dialog.Body>
+                                    <Dialog.Footer>
+                                        <Button onClick={() => closeModal(deleteModalId)}>
+                                            <ButtonOutlineContent text="Annuler" />
+                                        </Button>
+                                        <Button
+                                            hasLoader
+                                            onClick={async () => {
+                                                await handleDelete()
+                                                closeModal(deleteModalId)
+                                            }}
                                         >
-                                            <MoveOneFolderForm
-                                                folder={props.folder}
-                                                onSuccess={() => closeModal(moveModalId)}
+                                            <ButtonPlainContent
+                                                color="danger"
+                                                text="Supprimer le dossier"
                                             />
-                                        </Dialog.Body>
-                                    </Dialog.Content>,
-                                )
-                            }
-                        >
-                            <ButtonGhostContent
-                                leftIcon={<IconArrowsMove />}
-                                text="Déplacer"
-                                className={css({
-                                    width: "100%",
-                                    justifyContent: "start",
-                                })}
-                            />
-                        </Button>
-                    </Popover.Close>
-                    <Separator />
-                    <Popover.Close asChild>
-                        <Button
+                                        </Button>
+                                    </Dialog.Footer>
+                                </Dialog.Content>,
+                            )
+                        }
+                    >
+                        <ButtonGhostContent
+                            leftIcon={<IconTrash />}
+                            text="Supprimer"
+                            color="danger"
                             className={css({
                                 width: "100%",
+                                justifyContent: "start",
                             })}
-                            onClick={() =>
-                                openModal(
-                                    deleteModalId,
-                                    <Dialog.Content>
-                                        <Dialog.Header>
-                                            <Dialog.Title>Voulez-vous supprimer ce dossier ?</Dialog.Title>
-                                        </Dialog.Header>
-                                        <Dialog.Body>
-                                            <Dialog.Description>
-                                                Cette action supprimera le dossier et tous ses sous-dossiers. Les
-                                                fichiers contenus ne seront pas supprimés. Cette action est
-                                                irréversible.
-                                            </Dialog.Description>
-                                        </Dialog.Body>
-                                        <Dialog.Footer>
-                                            <Button onClick={() => closeModal(deleteModalId)}>
-                                                <ButtonOutlineContent text="Annuler" />
-                                            </Button>
-                                            <Button
-                                                hasLoader
-                                                onClick={async () => {
-                                                    await handleDelete()
-                                                    closeModal(deleteModalId)
-                                                }}
-                                            >
-                                                <ButtonPlainContent
-                                                    color="danger"
-                                                    text="Supprimer le dossier"
-                                                />
-                                            </Button>
-                                        </Dialog.Footer>
-                                    </Dialog.Content>,
-                                )
-                            }
-                        >
-                            <ButtonGhostContent
-                                leftIcon={<IconTrash />}
-                                text="Supprimer"
-                                color="danger"
-                                className={css({
-                                    width: "100%",
-                                    justifyContent: "start",
-                                })}
-                            />
-                        </Button>
-                    </Popover.Close>
-                </Popover.Content>
-            </Popover.Root>
-        </>
+                        />
+                    </Button>
+                </Popover.Close>
+            </Popover.Content>
+        </Popover.Root>
     )
 }

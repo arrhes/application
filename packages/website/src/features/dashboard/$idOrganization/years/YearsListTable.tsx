@@ -7,7 +7,7 @@ import { EmptyState } from "../../../../components/layouts/EmptyState.tsx"
 import { ListTable } from "../../../../components/layouts/listTable/listTable.tsx"
 import { YearListTableRow } from "./YearListTableRow.tsx"
 
-export function YearsListTable(props: { idOrganization: v.InferOutput<typeof schemas.organization>["id"] }) {
+export function YearsListTable(_props: { idOrganization: v.InferOutput<typeof schemas.organization>["id"] }) {
     return (
         <ListTable.Root>
             <DataWrapper

@@ -25,6 +25,7 @@ export function ContextMenuContent({ children, className, ...props }: ComponentP
         }
     }, [
         ctx?.open,
+        ctx?.closeMenu,
     ])
 
     if (!ctx?.open) return null

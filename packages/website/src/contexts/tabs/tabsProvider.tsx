@@ -212,7 +212,9 @@ export function TabsProvider({ children }: Props) {
             )
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [
+        activeTabId,
+    ])
 
     // React to browser back/forward (mouse buttons, keyboard, browser UI).
     // Parse the destination URL/state and update tab context accordingly.

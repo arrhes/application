@@ -1,4 +1,4 @@
-import type { readAllAccountsRouteDefinition, readAllEntriesRouteDefinition } from "@arrhes/application-metadata/routes"
+import type { readAllEntriesRouteDefinition } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { Button, FormatDate, FormatDateTime, FormatNull, FormatPrice, FormatText, LinkContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"

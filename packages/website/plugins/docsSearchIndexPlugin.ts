@@ -1,7 +1,6 @@
-import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs"
-import { dirname, resolve } from "node:path"
-import react from "@vitejs/plugin-react"
-import { defineConfig, type Plugin, build as viteBuild } from "vite"
+import { readFileSync } from "node:fs"
+import { resolve } from "node:path"
+import type { Plugin } from "vite"
 import { DOC_PAGE_MANIFEST } from "./DOC_PAGE_MANIFEST.ts"
 
 /**

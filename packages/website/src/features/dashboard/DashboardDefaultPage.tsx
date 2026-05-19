@@ -1,7 +1,5 @@
-import { Button, ButtonGhostContent, ButtonOutlineContent, Kbd, LinkButton, LinkContent } from "@arrhes/ui"
+import { Kbd } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconBook, IconPlus } from "@tabler/icons-react"
-import { Link } from "@tanstack/react-router"
 
 export function DashboardDefaultPage() {
     return (

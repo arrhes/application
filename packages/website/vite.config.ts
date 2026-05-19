@@ -1,7 +1,5 @@
-import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs"
-import { dirname, resolve } from "node:path"
 import react from "@vitejs/plugin-react"
-import { defineConfig, type Plugin, build as viteBuild } from "vite"
+import { defineConfig } from "vite"
 import { docsSearchIndexPlugin } from "./plugins/docsSearchIndexPlugin"
 import { fontPreloadPlugin } from "./plugins/fontPreloadPlugin"
 import { prerenderPlugin } from "./plugins/prerenderPlugin"

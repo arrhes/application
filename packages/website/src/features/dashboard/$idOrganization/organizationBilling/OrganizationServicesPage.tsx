@@ -307,11 +307,11 @@ export function OrganizationServicesPage({ idOrganization: idOrganizationProp }:
                     {(organization) => {
                         const currentSupportAmountInCents = organization.licenceAmount
                         const currentStorageAmountInCents = getRecurringStorageAmountInCents(organization.storageLimit)
-                        const currentStorageQuantity = getStorageAddonQuantity(organization.storageLimit)
-                        const currentTokenQuantity = getTokenAddonQuantity(
+                        const _currentStorageQuantity = getStorageAddonQuantity(organization.storageLimit)
+                        const _currentTokenQuantity = getTokenAddonQuantity(
                             organization.tokensTotalAvailable + organization.tokensTotalUsed,
                         )
-                        const currentOcrAddonPages = Math.max(
+                        const _currentOcrAddonPages = Math.max(
                             organization.ocrPagesTotalAvailable + organization.ocrPagesTotalUsed - INCLUDED_OCR_PAGES,
                             0,
                         )
