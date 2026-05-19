@@ -48,10 +48,6 @@ jobs:
       - name: Build metadata
         run: pnpm --filter @arrhes/application-metadata build
 
-      - name: Bundle CLI (inline all deps)
-        working-directory: packages/cli
-        run: pnpm bundle
-
       - name: Generate SEA blob
         working-directory: packages/cli
         run: node --experimental-sea-config sea-config.json
@@ -98,6 +94,7 @@ jobs:
           upx --best --lzma binaries\${{ matrix.asset_name }}
 
       - name: Upload binary to release
+        if: github.event_name == 'release'
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -109,7 +106,7 @@ jobs:
 
       # Upload install scripts once (only from the Linux runner to avoid duplicates)
       - name: Upload install.sh to release
-        if: runner.os == 'Linux'
+        if: github.event_name == 'release' && runner.os == 'Linux'
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -120,7 +117,7 @@ jobs:
           asset_content_type: text/plain
 
       - name: Upload install.ps1 to release
-        if: runner.os == 'Linux'
+        if: github.event_name == 'release' && runner.os == 'Linux'
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -154,10 +151,6 @@ jobs:
 
       - name: Build metadata
         run: pnpm --filter @arrhes/application-metadata build
-
-      - name: Build CLI (tsc)
-        working-directory: packages/cli
-        run: pnpm build
 
       - name: Set version from release tag
         if: github.event_name == 'release'
