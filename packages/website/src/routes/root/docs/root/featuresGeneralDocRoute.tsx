@@ -10,7 +10,7 @@ export const featuresGeneralDocRoute = createRoute({
             "Découvrez les fonctionnalités d'Arrhes : saisie d'écritures, plan comptable, documents de synthèse, gestion multi-organisations et plus.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../features/docs/general/features/featuresGeneralDocPage.tsx"),
+        () => import("../../../../features/docs/general/features/FeaturesGeneralDocPage.tsx"),
         "FeaturesGeneralDocPage",
     ),
 })

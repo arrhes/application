@@ -1,13 +1,15 @@
-import { PageContent } from "./pageContent.js"
-import { PageDescription } from "./pageDescription.js"
-import { PageHeader } from "./pageHeader.js"
-import { PageNavigation } from "./pageNavigation.js"
-import { PageRoot } from "./pageRoot.js"
-import { PageSeparator } from "./pageSeparator.js"
-import { PageTitle } from "./pageTitle.js"
+import { PageBanners } from "./PageBanners.js"
+import { PageContent } from "./PageContent.js"
+import { PageDescription } from "./PageDescription.js"
+import { PageHeader } from "./PageHeader.js"
+import { PageNavigation } from "./PageNavigation.js"
+import { PageRoot } from "./PageRoot.js"
+import { PageSeparator } from "./PageSeparator.js"
+import { PageTitle } from "./PageTitle.js"
 
 export const Page = {
     Root: PageRoot,
+    Banners: PageBanners,
     Navigation: PageNavigation,
     Header: PageHeader,
     Title: PageTitle,

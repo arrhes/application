@@ -6,7 +6,7 @@
         "useIgnoreFile": true
     },
     "files": {
-        "includes": ["**", "!**/dist", "!**/build", "!**/styled-system", "!**/.workflows"]
+        "includes": ["**", "!**/dist", "!**/build", "!**/styled-system", "!**/.workflows", "!scripts"]
     },
     "assist": { "actions": { "source": { "organizeImports": "on" } } },
     "formatter": {

@@ -4,7 +4,8 @@ import { routeDefinition } from "../../../../../../../utilities/routeDefinition.
 
 export const updateLicenceSubscriptionRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/update-licence-subscription`,
+    method: "PATCH",
+    path: `${routePath.v1}/organizations/:idOrganization/billing/licence-subscription`,
     schemas: {
         body: v.object({
             newAmountInCents: v.pipe(integerSchema, v.minValue(0)),

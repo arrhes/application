@@ -10,7 +10,7 @@ export const organizationsDashboardDocRoute = createRoute({
             "Gérez vos organisations dans Arrhes : création, paramétrage, gestion des membres et des abonnements.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../features/docs/dashboard/organizationsDashboardDocPage.js"),
+        () => import("../../../../features/docs/dashboard/OrganizationsDashboardDocPage.js"),
         "OrganizationsDashboardDocPage",
     ),
 })

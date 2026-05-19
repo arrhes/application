@@ -9,6 +9,10 @@ build
 .vscode
 .agents
 
+packages/cli/binaries/
+packages/cli/dist/
+packages/cli/sea-prep.blob
+
 .pnpm-store
 
 *.tsbuildinfo

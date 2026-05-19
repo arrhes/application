@@ -1,7 +1,7 @@
 import type { SQL, TableConfig } from "drizzle-orm"
 import type { PgTable, PgUpdateSetSource } from "drizzle-orm/pg-core"
 import type { sqlClient } from "../../clients/sqlClient.js"
-import { Exception } from "../../utilities/exception.js"
+import { Exception } from "../exception.js"
 
 export async function updateOne<T extends PgTable<TableConfig>>(parameters: {
     database: ReturnType<typeof sqlClient> | Parameters<Parameters<ReturnType<typeof sqlClient>["transaction"]>[0]>[0]

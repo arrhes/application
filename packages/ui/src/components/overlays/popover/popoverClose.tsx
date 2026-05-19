@@ -1,3 +1,32 @@
-import * as PopoverPrimitive from "@radix-ui/react-popover"
+import { cloneElement, isValidElement, type ReactElement } from "react"
+import { usePopoverContext } from "./popoverRoot.js"
 
-export const PopoverClose = PopoverPrimitive.Close
+export function PopoverClose(props: { children: ReactElement; asChild?: boolean }) {
+    const { setOpen } = usePopoverContext()
+
+    function handleClick() {
+        setOpen(false)
+    }
+
+    if (props.asChild && isValidElement(props.children)) {
+        const child = props.children as ReactElement<Record<string, unknown>>
+        return cloneElement(child, {
+            ...child.props,
+            onClick: (e: React.MouseEvent) => {
+                if (typeof child.props.onClick === "function") {
+                    child.props.onClick(e)
+                }
+                handleClick()
+            },
+        })
+    }
+
+    return (
+        <button
+            type="button"
+            onClick={handleClick}
+        >
+            {props.children}
+        </button>
+    )
+}

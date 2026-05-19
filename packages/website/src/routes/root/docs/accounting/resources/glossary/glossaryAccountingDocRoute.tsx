@@ -12,7 +12,7 @@ export const glossaryAccountingDocIndexRoute = createRoute({
     component: lazyRouteComponent(
         () =>
             import(
-                "../../../../../../features/docs/accounting/resources/glossary/glossaryResourcesAccountingDocPage.tsx"
+                "../../../../../../features/docs/accounting/resources/glossary/GlossaryResourcesAccountingDocPage.js"
             ),
         "GlossaryResourcesAccountingDocPage",
     ),

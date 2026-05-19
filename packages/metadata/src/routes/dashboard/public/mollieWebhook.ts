@@ -4,7 +4,8 @@ import { routeDefinition } from "../../../utilities/routeDefinition.js"
 
 export const mollieWebhookRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.public}/mollie-webhook`,
+    method: "POST",
+    path: `${routePath.v1}/webhooks/mollie`,
     schemas: {
         body: v.object({
             id: v.string("Ce champ est requis"),

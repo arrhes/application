@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../utilities/routeDefin
 
 export const createOneComputationRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/create-one-computation`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/computations`,
     schemas: {
         body: v.object({
             idYear: computationSchema.entries.idYear,

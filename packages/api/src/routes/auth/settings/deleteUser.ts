@@ -1,16 +1,16 @@
 import { pbkdf2Sync } from "node:crypto"
 import { deleteUserRouteDefinition, models } from "@arrhes/application-metadata"
 import { and, eq } from "drizzle-orm"
-import { checkUserSessionMiddleware } from "../../../middlewares/checkUserSessionMiddleware.js"
+import { requireCookieSessionMiddleware } from "../../../middlewares/requireCookieSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"
-import { apiFactory } from "../../../utilities/apiFactory.js"
 import { Exception } from "../../../utilities/exception.js"
+import { registerRoute } from "../../../utilities/registerRoute.js"
 import { response } from "../../../utilities/response.js"
 import { deleteOne } from "../../../utilities/sql/deleteOne.js"
 import { selectMany } from "../../../utilities/sql/selectMany.js"
 
-export const deleteUserRoute = apiFactory.createApp().post(deleteUserRouteDefinition.path, async (c) => {
-    const { user } = await checkUserSessionMiddleware({
+export const deleteUserRoute = registerRoute(deleteUserRouteDefinition, async (c) => {
+    const { user } = await requireCookieSessionMiddleware({
         context: c,
     })
     const body = await validateBodyMiddleware({

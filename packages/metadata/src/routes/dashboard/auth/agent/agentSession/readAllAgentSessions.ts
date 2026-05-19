@@ -16,7 +16,8 @@ export const agentSessionWithMatchedContentSchema = v.object({
 
 export const readAllAgentSessionsRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/read-all-agent-sessions`,
+    method: "GET",
+    path: `${routePath.v1}/agent/sessions`,
     schemas: {
         body: v.object({
             idOrganization: v.nonNullable(idSchema, "Ce champ est requis"),

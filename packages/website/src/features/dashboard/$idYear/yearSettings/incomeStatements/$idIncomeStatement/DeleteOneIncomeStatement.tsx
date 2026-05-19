@@ -1,0 +1,97 @@
+import {
+    deleteOneIncomeStatementRouteDefinition,
+    readAllIncomeStatementsRouteDefinition,
+} from "@arrhes/application-metadata/routes"
+import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { Button, ButtonOutlineContent, ButtonPlainContent, Dialog, toast, useModalStore } from "@arrhes/ui"
+import { type ComponentPropsWithRef, type ReactElement, useId } from "react"
+import type * as v from "valibot"
+import { applicationRouter } from "../../../../../../routes/applicationRouter.tsx"
+import { getResponseBodyFromAPI } from "../../../../../../utilities/getResponseBodyFromAPI.ts"
+import { invalidateData } from "../../../../../../utilities/invalidateData.ts"
+
+export function DeleteOneIncomeStatement(props: {
+    incomeStatement: v.InferOutput<typeof returnedSchemas.incomeStatement>
+    children: ReactElement<ComponentPropsWithRef<"div">>
+}) {
+    const modalId = useId()
+    const { open: openModal, close: closeModal } = useModalStore()
+
+    async function onSubmit() {
+        const deleteResponse = await getResponseBodyFromAPI({
+            routeDefinition: deleteOneIncomeStatementRouteDefinition,
+            body: {
+                idIncomeStatement: props.incomeStatement.id,
+                idYear: props.incomeStatement.idYear,
+            },
+        })
+
+        if (deleteResponse.ok === false) {
+            toast({
+                title: "Erreur lors de la suppression de la ligne de compte de résultat",
+                variant: "error",
+            })
+            return
+        }
+
+        await invalidateData({
+            routeDefinition: readAllIncomeStatementsRouteDefinition,
+            body: {
+                idYear: props.incomeStatement.idYear,
+            },
+        })
+
+        toast({
+            title: "Ligne de compte de résultat supprimée",
+            variant: "success",
+        })
+
+        applicationRouter.navigate({
+            to: "/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/compte-de-résultat",
+            params: {
+                idOrganization: props.incomeStatement.idOrganization,
+                idYear: props.incomeStatement.idYear,
+            },
+        })
+    }
+
+    return (
+        <Button
+            onClick={() =>
+                openModal(
+                    modalId,
+                    <Dialog.Content>
+                        <Dialog.Header>
+                            <Dialog.Title>Voulez-vous supprimer cette ligne de compte de résultat ?</Dialog.Title>
+                        </Dialog.Header>
+                        <Dialog.Body>
+                            <Dialog.Description>
+                                Cette action supprimera la ligne de compte de résultat et toutes les données associées.
+                                Cette action est irréversible.
+                            </Dialog.Description>
+                        </Dialog.Body>
+                        <Dialog.Footer>
+                            <Button onClick={() => closeModal(modalId)}>
+                                <ButtonOutlineContent text="Annuler" />
+                            </Button>
+                            <Button
+                                hasLoader
+                                onClick={async () => {
+                                    await onSubmit()
+                                    closeModal(modalId)
+                                }}
+                            >
+                                <ButtonPlainContent
+                                    color="danger"
+                                    text="Supprimer la ligne de compte de résultat"
+                                />
+                            </Button>
+                        </Dialog.Footer>
+                    </Dialog.Content>,
+                )
+            }
+        >
+            {props.children}
+        </Button>
+    )
+}

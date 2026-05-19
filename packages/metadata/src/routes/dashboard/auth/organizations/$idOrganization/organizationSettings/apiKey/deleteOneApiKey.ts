@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../utilities/routeDefinition.
 
 export const deleteOneApiKeyRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/delete-one-api-key`,
+    method: "DELETE",
+    path: `${routePath.v1}/organizations/:idOrganization/api-keys/:idApiKey`,
     schemas: {
         body: v.object({
             idApiKey: apiKeySchema.entries.id,

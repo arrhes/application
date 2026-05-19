@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../utilities/routeDefin
 
 export const readAllJournalsRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/read-all-journals`,
+    method: "GET",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/journals`,
     schemas: {
         body: v.object({
             idYear: journalSchema.entries.idYear,

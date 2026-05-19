@@ -1,5 +1,5 @@
-import { SectionItem } from "./sectionItem.js"
-import { SectionRoot } from "./sectionRoot.js"
+import { SectionItem } from "./SectionItem.js"
+import { SectionRoot } from "./SectionRoot.js"
 
 export const Section = {
     Root: SectionRoot,

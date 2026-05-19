@@ -1,6 +1,6 @@
 import { models, searchReferenceableRouteDefinition } from "@arrhes/application-metadata"
 import { and, eq, ilike, or, sql } from "drizzle-orm"
-import { checkUserSessionMiddleware } from "../../../middlewares/checkUserSessionMiddleware.js"
+import { checkAuthMiddleware } from "../../../middlewares/checkAuthMiddleware.js"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../utilities/apiFactory.js"
 import { response } from "../../../utilities/response.js"
@@ -11,7 +11,7 @@ const MAX_TOTAL = 50
 export const searchReferenceableRoute = apiFactory
     .createApp()
     .post(searchReferenceableRouteDefinition.path, async (c) => {
-        await checkUserSessionMiddleware({
+        await checkAuthMiddleware({
             context: c,
         })
         const body = await validateBodyMiddleware({
@@ -142,7 +142,6 @@ export const searchReferenceableRoute = apiFactory
             .where(
                 and(
                     eq(models.file.idOrganization, idOrganization),
-                    idYear ? eq(models.file.idYear, idYear) : undefined,
                     or(
                         ilike(sql`COALESCE(${models.file.name}, '')`, pattern),
                         ilike(sql`COALESCE(${models.file.reference}, '')`, pattern),

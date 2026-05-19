@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../utilities/routeDefinition.
 
 export const readAllOrganizationBillingsRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/read-all-organization-billings`,
+    method: "GET",
+    path: `${routePath.v1}/organizations/:idOrganization/billings`,
     schemas: {
         body: v.object({}),
         return: v.array(organizationBillingSchemaReturn),

@@ -5,13 +5,13 @@ import { routeDefinition } from "../../../../../../../../utilities/routeDefiniti
 
 export const createOneFileRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/create-one-file`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/files`,
     schemas: {
         body: v.object({
-            idYear: fileSchema.entries.idYear,
             idFolder: v.optional(fileSchema.entries.idFolder),
             reference: fileSchema.entries.reference,
-            name: v.optional(fileSchema.entries.name),
+            name: fileSchema.entries.name,
             hash: fileSchema.entries.hash,
         }),
         return: fileSchemaReturn,

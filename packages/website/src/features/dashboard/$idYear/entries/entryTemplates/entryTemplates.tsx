@@ -1,6 +1,6 @@
 import type { ReactElement } from "react"
 import type { UseFormReturn } from "react-hook-form"
-import { AmortizationTemplateForm } from "./amortizationTemplate.tsx"
+import { AmortizationTemplateForm } from "./AmortizationTemplateForm.tsx"
 
 export type EntryTemplateKey = "empty" | "amortization"
 

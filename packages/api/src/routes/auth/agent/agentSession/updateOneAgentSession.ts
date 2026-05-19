@@ -1,7 +1,7 @@
 import { models, updateOneAgentSessionRouteDefinition } from "@arrhes/application-metadata"
 import { and, eq, inArray } from "drizzle-orm"
+import { checkAuthMiddleware } from "../../../../middlewares/checkAuthMiddleware.js"
 import { checkOrganizationSubscriptionSessionMiddleware } from "../../../../middlewares/checkOrganizationSubscriptionSessionMiddleware.js"
-import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
 import { Exception } from "../../../../utilities/exception.js"
@@ -13,7 +13,7 @@ import { updateOne } from "../../../../utilities/sql/updateOne.js"
 export const updateOneAgentSessionRoute = apiFactory
     .createApp()
     .post(updateOneAgentSessionRouteDefinition.path, async (c) => {
-        const { user } = await checkUserSessionMiddleware({
+        const { user } = await checkAuthMiddleware({
             context: c,
         })
         const body = await validateBodyMiddleware({
@@ -43,15 +43,6 @@ export const updateOneAgentSessionRoute = apiFactory
             if (body.fileIds === null || body.fileIds.length === 0) {
                 data.attachedFiles = null
             } else {
-                const idYear = body.idYear !== undefined ? body.idYear : session.idYear
-                if (!idYear) {
-                    throw new Exception({
-                        statusCode: 400,
-                        internalMessage: "Agent session has no year for file import",
-                        externalMessage: "Veuillez sélectionner un exercice fiscal pour importer des fichiers",
-                    })
-                }
-
                 await checkOrganizationSubscriptionSessionMiddleware({
                     context: c,
                     idOrganization: session.idOrganization,
@@ -64,7 +55,6 @@ export const updateOneAgentSessionRoute = apiFactory
                     .where(
                         and(
                             eq(models.file.idOrganization, session.idOrganization),
-                            eq(models.file.idYear, idYear),
                             inArray(models.file.id, body.fileIds),
                         ),
                     )
@@ -119,7 +109,7 @@ export const updateOneAgentSessionRoute = apiFactory
                             const { ocrFile } = await processOcr({
                                 var: c.var,
                                 idOrganization: session.idOrganization,
-                                idYear: idYear,
+                                idYear: session.idYear ?? "",
                                 idUser: user.id,
                                 sourceFile: file,
                             })

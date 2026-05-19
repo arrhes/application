@@ -1,6 +1,6 @@
 import type { PgInsertValue, PgTable, TableConfig } from "drizzle-orm/pg-core"
 import type { sqlClient } from "../../clients/sqlClient.js"
-import { Exception } from "../../utilities/exception.js"
+import { Exception } from "../exception.js"
 
 // : Promise<Array<T["$inferInsert"]>>
 

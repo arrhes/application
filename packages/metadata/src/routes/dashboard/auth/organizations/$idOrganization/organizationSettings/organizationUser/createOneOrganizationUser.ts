@@ -6,7 +6,8 @@ import { routeDefinition } from "../../../../../../../utilities/routeDefinition.
 
 export const createOneOrganizationUserRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/create-one-organization-user`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/users`,
     schemas: {
         body: v.object({
             isAdmin: organizationUserSchema.entries.isAdmin,

@@ -84,15 +84,28 @@ POSTGRES_HOST_PORT=$postgres_host_port
 REDIS_HOST_PORT=$redis_host_port
 EOF
 
-WEBSITE_HOST_PORT="$website_host_port" \
-API_HOST_PORT="$api_host_port" \
-STORAGE_HOST_PORT="$storage_host_port" \
-RUSTFS_UI_HOST_PORT="$rustfs_ui_host_port" \
-MAILPIT_UI_HOST_PORT="$mailpit_ui_host_port" \
-MAILPIT_SMTP_HOST_PORT="$mailpit_smtp_host_port" \
-POSTGRES_HOST_PORT="$postgres_host_port" \
-REDIS_HOST_PORT="$redis_host_port" \
-    "${DC[@]}" up --detach --build --force-recreate
+if ! WEBSITE_HOST_PORT="$website_host_port" \
+   API_HOST_PORT="$api_host_port" \
+   STORAGE_HOST_PORT="$storage_host_port" \
+   RUSTFS_UI_HOST_PORT="$rustfs_ui_host_port" \
+   MAILPIT_UI_HOST_PORT="$mailpit_ui_host_port" \
+   MAILPIT_SMTP_HOST_PORT="$mailpit_smtp_host_port" \
+   POSTGRES_HOST_PORT="$postgres_host_port" \
+   REDIS_HOST_PORT="$redis_host_port" \
+       "${DC[@]}" up --detach --build --force-recreate --wait; then
+    echo ""
+    echo "=============================================="
+    echo "  ERROR: one or more services failed to start"
+    echo "=============================================="
+    echo ""
+    # Print logs for every exited container so the error is visible
+    for container in $("${DC[@]}" ps --all --filter status=exited --format '{{.Name}}' 2>/dev/null); do
+        echo "--- Logs for $container ---"
+        docker logs "$container" 2>&1 | tail -30
+        echo ""
+    done
+    exit 1
+fi
 
 echo ""
 echo "=============================================="

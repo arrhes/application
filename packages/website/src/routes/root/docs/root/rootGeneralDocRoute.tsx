@@ -10,7 +10,7 @@ export const rootGeneralDocRoute = createRoute({
             "Documentation complète d'Arrhes : guide d'utilisation, cours de comptabilité, référence API et informations générales.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../features/docs/general/rootGeneralDocPage.tsx"),
+        () => import("../../../../features/docs/general/RootGeneralDocPage.tsx"),
         "RootGeneralDocPage",
     ),
 })

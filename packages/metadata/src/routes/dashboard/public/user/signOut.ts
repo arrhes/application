@@ -4,7 +4,8 @@ import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const signOutRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.public}/sign-out`,
+    method: "POST",
+    path: `${routePath.v1}/auth/sign-out`,
     schemas: {
         body: v.object({}),
         return: v.object({}),

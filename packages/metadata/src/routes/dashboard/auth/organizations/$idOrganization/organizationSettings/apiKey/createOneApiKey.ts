@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../utilities/routeDefinition.
 
 export const createOneApiKeyRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/create-one-api-key`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/api-keys`,
     schemas: {
         body: v.object({
             name: v.optional(apiKeySchema.entries.name),

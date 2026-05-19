@@ -10,7 +10,7 @@ export const doubleEntryAccountingDocRoute = createRoute({
             "Comprendre le principe de la partie double en comptabilité : chaque opération génère au moins un débit et un crédit.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../features/docs/accounting/introduction/doubleEntryAccountingDocPage.js"),
+        () => import("../../../../../features/docs/accounting/introduction/DoubleEntryAccountingDocPage.js"),
         "DoubleEntryAccountingDocPage",
     ),
 })

@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../../utilities/routeDe
 
 export const updateOneJournalRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/update-one-journal`,
+    method: "PATCH",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/journals/:idJournal`,
     schemas: {
         body: v.object({
             idJournal: journalSchema.entries.id,

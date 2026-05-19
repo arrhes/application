@@ -1,7 +1,7 @@
 import { DeleteObjectCommand } from "@aws-sdk/client-s3"
-import { Exception } from "../../utilities/exception.js"
-import type { getClients } from "../../utilities/getClients.js"
-import type { getEnv } from "../../utilities/getEnv.js"
+import { Exception } from "../exception.js"
+import type { getClients } from "../getClients.js"
+import type { getEnv } from "../getEnv.js"
 
 export async function deleteObject(parameters: {
     var: {

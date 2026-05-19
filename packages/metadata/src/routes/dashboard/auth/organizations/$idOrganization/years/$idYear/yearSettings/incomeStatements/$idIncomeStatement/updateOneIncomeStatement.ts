@@ -8,7 +8,8 @@ import { routeDefinition } from "../../../../../../../../../../utilities/routeDe
 
 export const updateOneIncomeStatementRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/update-one-income-statement`,
+    method: "PATCH",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/income-statements/:idIncomeStatement`,
     schemas: {
         body: v.object({
             idIncomeStatement: incomeStatementSchema.entries.id,

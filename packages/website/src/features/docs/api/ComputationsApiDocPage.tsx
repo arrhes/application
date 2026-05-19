@@ -1,0 +1,52 @@
+import {
+    createOneComputationIncomeStatementRouteDefinition,
+    createOneComputationRouteDefinition,
+    deleteOneComputationIncomeStatementRouteDefinition,
+    deleteOneComputationRouteDefinition,
+    readAllComputationIncomeStatementsRouteDefinition,
+    readAllComputationsRouteDefinition,
+    readOneComputationIncomeStatementRouteDefinition,
+    readOneComputationRouteDefinition,
+    updateOneComputationIncomeStatementRouteDefinition,
+    updateOneComputationRouteDefinition,
+} from "@arrhes/application-metadata/routes"
+import { DocHeader } from "../../../components/document/DocHeader.tsx"
+import { DocParagraph } from "../../../components/document/DocParagraph.tsx"
+import { DocRoot } from "../../../components/document/DocRoot.tsx"
+import { DocRouteRequest } from "../../../components/document/DocRouteRequest.tsx"
+import { DocSection } from "../../../components/document/DocSection.tsx"
+
+export function ComputationsApiDocPage() {
+    return (
+        <DocRoot>
+            <DocHeader
+                title="Calculs"
+                description="Formules personnalisées combinant des lignes de compte de résultat"
+            />
+
+            <DocSection title="Calculs">
+                <DocParagraph>
+                    Les calculs sont des formules personnalisées qui combinent des lignes de compte de résultat pour
+                    produire des valeurs dérivées (résultat d'exploitation, EBE, etc.).
+                </DocParagraph>
+                <DocRouteRequest routeDefinition={createOneComputationRouteDefinition} />
+                <DocRouteRequest routeDefinition={readAllComputationsRouteDefinition} />
+                <DocRouteRequest routeDefinition={readOneComputationRouteDefinition} />
+                <DocRouteRequest routeDefinition={updateOneComputationRouteDefinition} />
+                <DocRouteRequest routeDefinition={deleteOneComputationRouteDefinition} />
+            </DocSection>
+
+            <DocSection title="Lignes de calcul">
+                <DocParagraph>
+                    Liens entre les calculs et les lignes de compte de résultat. Chaque lien définit si la ligne est
+                    ajoutée ou soustraite dans le calcul.
+                </DocParagraph>
+                <DocRouteRequest routeDefinition={createOneComputationIncomeStatementRouteDefinition} />
+                <DocRouteRequest routeDefinition={readAllComputationIncomeStatementsRouteDefinition} />
+                <DocRouteRequest routeDefinition={readOneComputationIncomeStatementRouteDefinition} />
+                <DocRouteRequest routeDefinition={updateOneComputationIncomeStatementRouteDefinition} />
+                <DocRouteRequest routeDefinition={deleteOneComputationIncomeStatementRouteDefinition} />
+            </DocSection>
+        </DocRoot>
+    )
+}

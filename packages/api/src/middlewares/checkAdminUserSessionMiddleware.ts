@@ -5,10 +5,10 @@ import { parseCookies } from "../utilities/cookies/parseCookies.js"
 import { unsignString } from "../utilities/cookies/unsignString.js"
 import { Exception } from "../utilities/exception.js"
 import { productName } from "../utilities/variables.js"
-import { checkUserSessionMiddleware } from "./checkUserSessionMiddleware.js"
+import { checkAuthMiddleware } from "./checkAuthMiddleware.js"
 
 async function trySuperAdminDashboardFallback(parameters: { context: Context<any> }) {
-    const userSession = await checkUserSessionMiddleware({
+    const userSession = await checkAuthMiddleware({
         context: parameters.context,
     })
     if (userSession.user.isSuperAdmin !== true) {

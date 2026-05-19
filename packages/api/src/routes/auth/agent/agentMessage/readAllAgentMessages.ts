@@ -1,6 +1,6 @@
 import { models, readAllAgentMessagesRouteDefinition } from "@arrhes/application-metadata"
 import { and, asc, eq } from "drizzle-orm"
-import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
+import { checkAuthMiddleware } from "../../../../middlewares/checkAuthMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
 import { response } from "../../../../utilities/response.js"
@@ -9,7 +9,7 @@ import { selectMany } from "../../../../utilities/sql/selectMany.js"
 export const readAllAgentMessagesRoute = apiFactory
     .createApp()
     .post(readAllAgentMessagesRouteDefinition.path, async (c) => {
-        await checkUserSessionMiddleware({
+        await checkAuthMiddleware({
             context: c,
         })
         const body = await validateBodyMiddleware({

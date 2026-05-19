@@ -10,7 +10,7 @@ export const rootAccountingDocRoute = createRoute({
             "Cours de comptabilité française complet : partie double, écritures, comptes, documents de synthèse et glossaire.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../features/docs/accounting/introduction/rootAccountingDocPage.js"),
+        () => import("../../../../features/docs/accounting/introduction/RootAccountingDocPage.js"),
         "RootAccountingDocPage",
     ),
 })

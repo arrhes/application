@@ -10,7 +10,7 @@ export const whitepaperGeneralDocRoute = createRoute({
             "La philosophie d'Arrhes : transparence, open source et accessibilité pour la comptabilité des entreprises et associations.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../features/docs/general/whitepaperGeneralDocPage.tsx"),
+        () => import("../../../../features/docs/general/WhitepaperGeneralDocPage.tsx"),
         "WhitepaperGeneralDocPage",
     ),
 })

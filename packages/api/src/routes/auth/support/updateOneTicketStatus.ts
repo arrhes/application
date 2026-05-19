@@ -1,6 +1,6 @@
 import { models, updateOneTicketStatusRouteDefinition } from "@arrhes/application-metadata"
 import { and, eq } from "drizzle-orm"
-import { checkUserSessionMiddleware } from "../../../middlewares/checkUserSessionMiddleware.js"
+import { checkAuthMiddleware } from "../../../middlewares/checkAuthMiddleware.js"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../utilities/apiFactory.js"
 import { response } from "../../../utilities/response.js"
@@ -10,7 +10,7 @@ import { updateOne } from "../../../utilities/sql/updateOne.js"
 export const updateOneTicketStatusRoute = apiFactory
     .createApp()
     .post(updateOneTicketStatusRouteDefinition.path, async (c) => {
-        const { user } = await checkUserSessionMiddleware({
+        const { user } = await checkAuthMiddleware({
             context: c,
         })
         const body = await validateBodyMiddleware({

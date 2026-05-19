@@ -4,7 +4,8 @@ import { routeDefinition } from "../../../../../../../utilities/routeDefinition.
 
 export const cancelSubscriptionRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/cancel-subscription`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/billing/cancel-subscription`,
     schemas: {
         body: v.object({}),
         return: v.object({}),

@@ -19,11 +19,10 @@ export const fnMap: Record<string, (...args: any[]) => Promise<unknown> | unknow
 
 export async function processJobs() {
     try {
-        console.log(await ContextClients.queue.getJobCounts())
+        console.log("Job counts:", await ContextClients.queue.getJobCounts())
         ContextClients.queue.process(10, async (job) => {
             try {
-                console.log(await ContextClients.queue.getJobCounts())
-                console.log(`process job : (${await job.getState()}) ${job.id}`)
+                console.log(`[processJobs] Processing job: (${await job.getState()}) ${job.id}`)
                 const validatedJob = validate({
                     schema: jobSchema,
                     data: job.data,

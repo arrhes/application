@@ -4,7 +4,8 @@ import { routeDefinition } from "../../../../../../utilities/routeDefinition.js"
 
 export const deleteOneOrganizationRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/delete-one-organization`,
+    method: "DELETE",
+    path: `${routePath.v1}/organizations/:idOrganization`,
     schemas: {
         body: v.object({}),
         return: v.object({}),

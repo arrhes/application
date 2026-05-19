@@ -1,5 +1,5 @@
+import { PopoverContent } from "./PopoverContent.js"
 import { PopoverClose } from "./popoverClose.js"
-import { PopoverContent } from "./popoverContent.js"
 import { PopoverRoot } from "./popoverRoot.js"
 import { PopoverTrigger } from "./popoverTrigger.js"
 

@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../../utilities/routeDe
 
 export const addOneEntryTagRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/add-one-entry-tag`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/entries/:idEntry/tags`,
     schemas: {
         body: v.object({
             idYear: entryTagSchema.entries.idYear,

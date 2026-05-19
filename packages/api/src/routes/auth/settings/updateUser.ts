@@ -1,13 +1,13 @@
 import { models, updateUserRouteDefinition } from "@arrhes/application-metadata"
 import { eq } from "drizzle-orm"
-import { checkUserSessionMiddleware } from "../../../middlewares/checkUserSessionMiddleware.js"
+import { requireCookieSessionMiddleware } from "../../../middlewares/requireCookieSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"
-import { apiFactory } from "../../../utilities/apiFactory.js"
+import { registerRoute } from "../../../utilities/registerRoute.js"
 import { response } from "../../../utilities/response.js"
 import { updateOne } from "../../../utilities/sql/updateOne.js"
 
-export const updateUserRoute = apiFactory.createApp().post(updateUserRouteDefinition.path, async (c) => {
-    const { user } = await checkUserSessionMiddleware({
+export const updateUserRoute = registerRoute(updateUserRouteDefinition, async (c) => {
+    const { user } = await requireCookieSessionMiddleware({
         context: c,
     })
     const body = await validateBodyMiddleware({
@@ -20,6 +20,7 @@ export const updateUserRoute = apiFactory.createApp().post(updateUserRouteDefini
         table: models.user,
         data: {
             alias: body.alias,
+            dashboardMode: body.dashboardMode,
             lastUpdatedAt: new Date().toISOString(),
         },
         where: (table) => eq(table.id, user.id),

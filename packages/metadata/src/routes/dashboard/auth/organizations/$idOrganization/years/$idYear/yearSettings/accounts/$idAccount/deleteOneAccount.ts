@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../../utilities/routeDe
 
 export const deleteOneAccountRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/delete-one-account`,
+    method: "DELETE",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/accounts/:idAccount`,
     schemas: {
         body: v.object({
             idAccount: accountSchema.entries.id,

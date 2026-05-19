@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const signUpRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.public}/sign-up`,
+    method: "POST",
+    path: `${routePath.v1}/auth/sign-up`,
     schemas: {
         body: v.object({
             email: userSchema.entries.email,

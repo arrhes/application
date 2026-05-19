@@ -5,7 +5,6 @@ import { idColumn } from "../components/models/idColumn.js"
 import { folderModel } from "./folder.js"
 import { organizationModel } from "./organization.js"
 import { userModel } from "./user.js"
-import { yearModel } from "./year.js"
 
 // Model
 export const fileModel = pgTable(
@@ -18,10 +17,6 @@ export const fileModel = pgTable(
                 onUpdate: "cascade",
             })
             .notNull(),
-        idYear: idColumn("id_year").references(() => yearModel.id, {
-            onDelete: "cascade",
-            onUpdate: "cascade",
-        }),
         idFolder: idColumn("id_folder").references(() => folderModel.id, {
             onDelete: "set null",
             onUpdate: "cascade",
@@ -31,11 +26,12 @@ export const fileModel = pgTable(
         }),
         name: varchar("name", {
             length: 256,
-        }),
+        }).notNull(),
         storageKey: text("storage_key"),
         type: text("type"),
         size: integer("size"),
         hash: text("hash"),
+        date: dateTimeColumn("date"),
         createdAt: dateTimeColumn("created_at").notNull(),
         lastUpdatedAt: dateTimeColumn("last_updated_at"),
         createdBy: idColumn("created_by").references((): AnyPgColumn => userModel.id, {
@@ -48,8 +44,8 @@ export const fileModel = pgTable(
         }),
     },
     (table) => [
-        uniqueIndex("table_file_id_organization_id_year_hash_unique")
-            .on(table.idOrganization, table.idYear, table.hash)
+        uniqueIndex("table_file_id_organization_hash_unique")
+            .on(table.idOrganization, table.hash)
             .where(sql`${table.hash} IS NOT NULL`),
     ],
 )

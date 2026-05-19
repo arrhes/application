@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../utilities/routeDefinition.
 
 export const readAllApiKeysRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/read-all-api-keys`,
+    method: "GET",
+    path: `${routePath.v1}/organizations/:idOrganization/api-keys`,
     schemas: {
         body: v.object({}),
         return: v.array(apiKeySchemaReturn),

@@ -5,10 +5,12 @@ import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const updateUserRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/update-user`,
+    method: "PATCH",
+    path: `${routePath.v1}/users/me`,
     schemas: {
         body: v.object({
             alias: v.optional(userSchema.entries.alias),
+            dashboardMode: v.optional(userSchema.entries.dashboardMode),
         }),
         return: userSchemaReturn,
     },

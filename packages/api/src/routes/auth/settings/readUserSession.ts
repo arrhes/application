@@ -1,10 +1,10 @@
 import { readUserSessionRouteDefinition } from "@arrhes/application-metadata"
-import { checkUserSessionMiddleware } from "../../../middlewares/checkUserSessionMiddleware.js"
-import { apiFactory } from "../../../utilities/apiFactory.js"
+import { requireCookieSessionMiddleware } from "../../../middlewares/requireCookieSessionMiddleware.js"
+import { registerRoute } from "../../../utilities/registerRoute.js"
 import { response } from "../../../utilities/response.js"
 
-export const readUserSessionRoute = apiFactory.createApp().post(readUserSessionRouteDefinition.path, async (c) => {
-    const { user, userSession } = await checkUserSessionMiddleware({
+export const readUserSessionRoute = registerRoute(readUserSessionRouteDefinition, async (c) => {
+    const { user, userSession } = await requireCookieSessionMiddleware({
         context: c,
     })
 

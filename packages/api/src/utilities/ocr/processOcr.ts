@@ -42,7 +42,7 @@ interface ProcessOcrResult {
 }
 
 export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrResult> {
-    const { idOrganization, idYear, idUser, sourceFile } = params
+    const { idOrganization, idUser, sourceFile } = params
 
     console.log(
         `[processOcr] Starting OCR for file "${sourceFile.name}" (id=${sourceFile.id}, type=${sourceFile.type}, storageKey=${sourceFile.storageKey})`,
@@ -175,13 +175,7 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
     const existingOcrFiles = await params.var.clients.sql
         .select()
         .from(models.file)
-        .where(
-            and(
-                eq(models.file.idOrganization, idOrganization),
-                eq(models.file.idYear, idYear),
-                eq(models.file.hash, ocrHash),
-            ),
-        )
+        .where(and(eq(models.file.idOrganization, idOrganization), eq(models.file.hash, ocrHash)))
         .limit(1)
 
     if (existingOcrFiles.length > 0 && existingOcrFiles[0]) {
@@ -208,7 +202,7 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
     const originalName = sourceFile.name ?? sourceFile.reference ?? "document"
     const baseName = originalName.replace(/\.[^.]+$/, "")
     const markdownName = `${baseName}.md`
-    const storageKey = `organizations/${idOrganization}/${idYear}/files/${newFileId}`
+    const storageKey = `organizations/${idOrganization}/storage/${newFileId}`
 
     const ocrFile = await insertOne({
         database: params.var.clients.sql,
@@ -216,7 +210,6 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
         data: {
             id: newFileId,
             idOrganization: idOrganization,
-            idYear: idYear,
             idFolder: sourceFile.idFolder,
             reference: null,
             name: markdownName,
@@ -236,7 +229,6 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
         contentType: "text/markdown; charset=utf-8",
         metadata: {
             idOrganization: idOrganization,
-            idYear: idYear,
             idUser: idUser,
         },
         body: markdownBuffer,

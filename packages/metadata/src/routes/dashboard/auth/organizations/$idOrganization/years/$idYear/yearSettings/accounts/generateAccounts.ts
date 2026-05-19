@@ -1,4 +1,3 @@
-/*
 import * as v from "valibot"
 import { routePath } from "../../../../../../../../../components/index.js"
 import { booleanSchema } from "../../../../../../../../../components/schemas/booleanSchema.js"
@@ -7,7 +6,8 @@ import { routeDefinition } from "../../../../../../../../../utilities/routeDefin
 
 export const generateAccountsRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/generate-accounts`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/accounts/generate`,
     schemas: {
         body: v.object({
             idYear: accountSchema.entries.idYear,
@@ -17,4 +17,3 @@ export const generateAccountsRouteDefinition = routeDefinition({
         return: v.array(accountSchemaReturn),
     },
 })
-*/

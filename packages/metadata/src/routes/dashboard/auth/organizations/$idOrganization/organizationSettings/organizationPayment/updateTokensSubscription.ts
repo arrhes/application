@@ -4,7 +4,8 @@ import { routeDefinition } from "../../../../../../../utilities/routeDefinition.
 
 export const updateTokensSubscriptionRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/update-tokens-subscription`,
+    method: "PATCH",
+    path: `${routePath.v1}/organizations/:idOrganization/billing/tokens-subscription`,
     schemas: {
         body: v.object({
             newQuantity: v.pipe(integerSchema, v.minValue(0)),

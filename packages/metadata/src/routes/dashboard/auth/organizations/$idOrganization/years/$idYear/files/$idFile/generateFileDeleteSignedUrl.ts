@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../utilities/routeDefin
 
 export const generateFileDeleteSignedUrlRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/generate-file-delete-signed-url`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/files/:idFile/delete-url`,
     schemas: {
         body: v.object({
             idFile: fileSchema.entries.id,

@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../utilities/routeDefin
 
 export const duplicateOneEntryRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/duplicate-one-entry`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/entries/:idEntry/duplicate`,
     schemas: {
         body: v.object({
             idEntry: entrySchema.entries.id,

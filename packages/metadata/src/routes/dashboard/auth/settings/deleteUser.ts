@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const deleteUserRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/delete-user`,
+    method: "DELETE",
+    path: `${routePath.v1}/users/me`,
     schemas: {
         body: v.object({
             currentPassword: v.nonNullable(stringSchema, "Le mot de passe doit être renseigné"),

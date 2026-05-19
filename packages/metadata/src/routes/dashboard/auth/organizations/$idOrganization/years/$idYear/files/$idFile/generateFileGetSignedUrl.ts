@@ -5,11 +5,11 @@ import { routeDefinition } from "../../../../../../../../../utilities/routeDefin
 
 export const generateFileGetSignedUrlRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/generate-file-get-signed-url`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/files/:idFile/download-url`,
     schemas: {
         body: v.object({
             idFile: fileSchema.entries.id,
-            idYear: fileSchema.entries.idYear,
         }),
         return: v.object({
             url: v.string(),

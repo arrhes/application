@@ -1,8 +1,8 @@
 import { LinkContent } from "@arrhes/ui"
-import { DocHeader } from "../../../components/document/docHeader.js"
-import { DocParagraph } from "../../../components/document/docParagraph.js"
-import { DocRoot } from "../../../components/document/docRoot.js"
-import { DocSection } from "../../../components/document/docSection.js"
+import { DocHeader } from "../../../components/document/DocHeader.js"
+import { DocParagraph } from "../../../components/document/DocParagraph.js"
+import { DocRoot } from "../../../components/document/DocRoot.js"
+import { DocSection } from "../../../components/document/DocSection.js"
 
 export function UpdatesDashboardDocPage() {
     return (

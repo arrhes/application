@@ -5,11 +5,11 @@ import { routeDefinition } from "../../../../../../../../../utilities/routeDefin
 
 export const deleteOneFolderRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/delete-one-folder`,
+    method: "DELETE",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/folders/:idFolder`,
     schemas: {
         body: v.object({
             idFolder: folderSchema.entries.id,
-            idYear: folderSchema.entries.idYear,
         }),
         return: v.object({}),
     },

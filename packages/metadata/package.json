@@ -17,30 +17,37 @@
     },
     "exports": {
         ".": {
+            "source": "./src/index.ts",
             "types": "./build/index.d.ts",
             "default": "./build/index.js"
         },
         "./models": {
+            "source": "./src/models/index.ts",
             "types": "./build/models/index.d.ts",
             "default": "./build/models/index.js"
         },
         "./components": {
+            "source": "./src/components/index.ts",
             "types": "./build/components/index.d.ts",
             "default": "./build/components/index.js"
         },
         "./schemas": {
+            "source": "./src/schemas/index.ts",
             "types": "./build/schemas/index.d.ts",
             "default": "./build/schemas/index.js"
         },
         "./routes": {
+            "source": "./src/routes/index.ts",
             "types": "./build/routes/index.d.ts",
             "default": "./build/routes/index.js"
         },
         "./utilities": {
+            "source": "./src/utilities/index.ts",
             "types": "./build/utilities/index.d.ts",
             "default": "./build/utilities/index.js"
         },
         "./entryTemplates": {
+            "source": "./src/entryTemplates/index.ts",
             "types": "./build/entryTemplates/index.d.ts",
             "default": "./build/entryTemplates/index.js"
         }

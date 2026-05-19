@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const validateUserEmailRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/validate-user-email`,
+    method: "POST",
+    path: `${routePath.v1}/users/me/email/validate`,
     schemas: {
         body: v.object({
             emailToken: v.nonNullable(userSchema.entries.emailToken),

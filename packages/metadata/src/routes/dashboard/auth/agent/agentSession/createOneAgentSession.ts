@@ -6,7 +6,8 @@ import { routeDefinition } from "../../../../../utilities/routeDefinition.js"
 
 export const createOneAgentSessionRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/create-one-agent-session`,
+    method: "POST",
+    path: `${routePath.v1}/agent/sessions`,
     schemas: {
         body: v.object({
             idOrganization: v.nonNullable(idSchema, "Ce champ est requis"),

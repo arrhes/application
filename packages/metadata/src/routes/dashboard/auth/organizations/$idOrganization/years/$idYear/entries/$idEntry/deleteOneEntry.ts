@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../utilities/routeDefin
 
 export const deleteOneEntryRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/delete-one-entry`,
+    method: "DELETE",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/entries/:idEntry`,
     schemas: {
         body: v.object({
             idEntry: entrySchema.entries.id,

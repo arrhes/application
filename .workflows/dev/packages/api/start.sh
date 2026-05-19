@@ -2,14 +2,17 @@
 # ==============================================================================
 # Start API Server
 # ==============================================================================
-# Starts the API development server with hot reload.
-# Builds workspace dependencies first (tsc --build follows project references).
+# 1. Runs a one-off schema drift check (plain tsx, no watch).
+#    If the DB is out of sync with the Drizzle models the script exits non-zero,
+#    the container stops, and `docker compose up --wait` surfaces the error.
+# 2. Starts the API dev server with hot reload (tsx watch).
+#    tsx is started with --conditions source so that @arrhes/application-metadata
+#    resolves to ./src/index.ts directly — no build step needed in dev.
 # ==============================================================================
 set -e
 
-echo "Building workspace dependencies..."
-cd /workspace/packages/api
-pnpm run build
+echo "Checking database schema..."
+SCHEMA_CHECK_ONLY=1 pnpm --filter="@arrhes/application-api" exec tsx --conditions source ./src/server.ts
 
 echo "Starting API dev server..."
 exec pnpm --filter="@arrhes/application-api" dev

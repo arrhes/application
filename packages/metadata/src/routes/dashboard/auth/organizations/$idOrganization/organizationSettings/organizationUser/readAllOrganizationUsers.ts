@@ -6,7 +6,8 @@ import { routeDefinition } from "../../../../../../../utilities/routeDefinition.
 
 export const readAllOrganizationUsersRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/read-all-organization-users`,
+    method: "GET",
+    path: `${routePath.v1}/organizations/:idOrganization/users`,
     schemas: {
         body: v.object({}),
         return: v.array(

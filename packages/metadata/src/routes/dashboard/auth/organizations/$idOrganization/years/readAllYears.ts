@@ -5,9 +5,12 @@ import { routeDefinition } from "../../../../../../utilities/routeDefinition.js"
 
 export const readAllYearsRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/read-all-years`,
+    method: "GET",
+    path: `${routePath.v1}/organizations/:idOrganization/years`,
     schemas: {
-        body: v.object({}),
+        body: v.object({
+            idOrganization: v.optional(v.string()),
+        }),
         return: v.array(yearSchemaReturn),
     },
 })

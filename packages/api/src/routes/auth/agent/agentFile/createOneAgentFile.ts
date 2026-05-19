@@ -1,7 +1,8 @@
 import { createOneAgentFileRouteDefinition, generateId, models } from "@arrhes/application-metadata"
 import { and, eq, isNull, sql } from "drizzle-orm"
+import { checkAuthMiddleware } from "../../../../middlewares/checkAuthMiddleware.js"
 import { checkOrganizationSubscriptionSessionMiddleware } from "../../../../middlewares/checkOrganizationSubscriptionSessionMiddleware.js"
-import { checkUserSessionMiddleware } from "../../../../middlewares/checkUserSessionMiddleware.js"
+import { requireOrganizationMiddleware } from "../../../../middlewares/requireOrganizationMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
 import { Exception } from "../../../../utilities/exception.js"
@@ -16,8 +17,11 @@ const MAX_AGENT_FILE_SIZE = 50_000_000
 export const createOneAgentFileRoute = apiFactory
     .createApp()
     .post(createOneAgentFileRouteDefinition.path, async (c) => {
-        const { user, idOrganization } = await checkUserSessionMiddleware({
+        const auth = await checkAuthMiddleware({
             context: c,
+        })
+        const idOrganization = await requireOrganizationMiddleware({
+            idOrganization: auth.idOrganization,
         })
         const body = await validateBodyMiddleware({
             context: c,
@@ -43,7 +47,7 @@ export const createOneAgentFileRoute = apiFactory
             where: (table) => eq(table.id, body.idAgentSession),
         })
 
-        if (session.idUser !== user.id) {
+        if (session.idUser !== auth.user.id) {
             throw new Exception({
                 statusCode: 403,
                 internalMessage: "Agent session access denied",
@@ -67,19 +71,11 @@ export const createOneAgentFileRoute = apiFactory
             })
         }
 
-        const idYear = session.idYear
-
-        // Check for duplicate file by hash within the same organization and year
+        // Check for duplicate file by hash within the same organization
         const existingFiles = await c.var.clients.sql
             .select()
             .from(models.file)
-            .where(
-                and(
-                    eq(models.file.idOrganization, idOrganization),
-                    eq(models.file.idYear, idYear),
-                    eq(models.file.hash, body.fileHash),
-                ),
-            )
+            .where(and(eq(models.file.idOrganization, idOrganization), eq(models.file.hash, body.fileHash)))
             .limit(1)
 
         if (existingFiles.length > 0 && existingFiles[0]) {
@@ -108,14 +104,13 @@ export const createOneAgentFileRoute = apiFactory
             })
         }
 
-        // Find or create the ".agent" folder at the root of the year
+        // Find or create the ".agent" folder at the root
         const existingFolders = await c.var.clients.sql
             .select()
             .from(models.folder)
             .where(
                 and(
                     eq(models.folder.idOrganization, idOrganization),
-                    eq(models.folder.idYear, idYear),
                     eq(models.folder.name, ".agent"),
                     isNull(models.folder.idFolderParent),
                 ),
@@ -133,18 +128,17 @@ export const createOneAgentFileRoute = apiFactory
                 data: {
                     id: generateId(),
                     idOrganization: idOrganization,
-                    idYear: idYear,
                     idFolderParent: null,
                     name: ".agent",
                     createdAt: new Date().toISOString(),
-                    createdBy: user.id,
+                    createdBy: auth.user.id,
                 },
             })
             agentFolderId = newFolder.id
         }
 
         const newFileId = generateId()
-        const storageKey = `organizations/${idOrganization}/${idYear}/files/${newFileId}`
+        const storageKey = `organizations/${idOrganization}/storage/${newFileId}`
 
         const newFile = await insertOne({
             database: c.var.clients.sql,
@@ -152,7 +146,6 @@ export const createOneAgentFileRoute = apiFactory
             data: {
                 id: newFileId,
                 idOrganization: idOrganization,
-                idYear: idYear,
                 idFolder: agentFolderId,
                 reference: null,
                 name: body.fileName,
@@ -161,7 +154,7 @@ export const createOneAgentFileRoute = apiFactory
                 size: body.fileSize,
                 hash: body.fileHash,
                 createdAt: new Date().toISOString(),
-                createdBy: user.id,
+                createdBy: auth.user.id,
             },
         })
 
@@ -181,8 +174,7 @@ export const createOneAgentFileRoute = apiFactory
             contentType: body.fileType,
             metadata: {
                 idOrganization: idOrganization,
-                idYear: idYear,
-                idUser: user.id,
+                idUser: auth.user.id,
             },
         })
 

@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const undoAgentActionRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/undo-agent-action`,
+    method: "POST",
+    path: `${routePath.v1}/agent/sessions/:idAgentSession/undo`,
     schemas: {
         body: v.object({
             idAgentMessage: v.nonNullable(idSchema, "Ce champ est requis"),

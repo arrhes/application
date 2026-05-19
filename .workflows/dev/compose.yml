@@ -161,6 +161,12 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"require('http').get('http://localhost:' + process.env.PORT, r => process.exit(r.statusCode < 500 ? 0 : 1)).on('error', () => process.exit(1))\""]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
 
   # Website - Frontend interface (React + Vite)
   website:
@@ -191,6 +197,11 @@ services:
   worker:
     container_name: arrhes-worker
     image: arrhes-dev-worker:latest
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "5"
     build:
       context: ../..
       dockerfile: .workflows/dev/packages/worker/Dockerfile

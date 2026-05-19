@@ -4,7 +4,8 @@ import { routeDefinition } from "../../../../../../../utilities/routeDefinition.
 
 export const updateStorageSubscriptionRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/update-storage-subscription`,
+    method: "PATCH",
+    path: `${routePath.v1}/organizations/:idOrganization/billing/storage-subscription`,
     schemas: {
         body: v.object({
             newQuantity: v.pipe(integerSchema, v.minValue(0)),

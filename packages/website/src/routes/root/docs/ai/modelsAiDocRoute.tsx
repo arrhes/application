@@ -8,5 +8,5 @@ export const modelsAiDocRoute = createRoute({
         title: "Modèles IA",
         description: "Les modèles de langage utilisés par l'assistant comptable d'Arrhes.",
     }),
-    component: lazyRouteComponent(() => import("../../../../features/docs/ai/modelsAiDocPage.tsx"), "ModelsAiDocPage"),
+    component: lazyRouteComponent(() => import("../../../../features/docs/ai/ModelsAiDocPage.tsx"), "ModelsAiDocPage"),
 })

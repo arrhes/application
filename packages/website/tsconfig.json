@@ -26,9 +26,12 @@
         "noFallthroughCasesInSwitch": true,
         /* Path aliases */
         "ignoreDeprecations": "6.0",
-        "baseUrl": "."
+        "baseUrl": ".",
+        "incremental": true,
+        "tsBuildInfoFile": "./.tsbuildinfo"
     },
-    "include": ["src"],
+    "include": ["src", "plugins"],
+    "exclude": ["styled-system", "build", "node_modules"],
     "references": [
         {
             "path": "../metadata"

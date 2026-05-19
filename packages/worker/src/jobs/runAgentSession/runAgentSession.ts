@@ -607,13 +607,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
             const fileRows = await db
                 .select()
                 .from(models.file)
-                .where(
-                    and(
-                        eq(models.file.idOrganization, idOrganization),
-                        eq(models.file.idYear, idYear),
-                        eq(models.file.id, idFile),
-                    ),
-                )
+                .where(and(eq(models.file.idOrganization, idOrganization), eq(models.file.id, idFile)))
                 .limit(1)
             const sourceFile = fileRows.at(0)
             if (!sourceFile)
@@ -711,14 +705,13 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
             const originalName = sourceFile.name ?? sourceFile.reference ?? "document"
             const baseName = originalName.replace(/\.[^.]+$/, "")
             const markdownName = `${baseName}.md`
-            const storageKey = `organizations/${idOrganization}/${idYear}/files/${newFileId}`
+            const storageKey = `organizations/${idOrganization}/storage/${newFileId}`
 
             const [newFile] = await db
                 .insert(models.file)
                 .values({
                     id: newFileId,
                     idOrganization: idOrganization,
-                    idYear: idYear,
                     idFolder: sourceFile.idFolder,
                     reference: sourceFile.reference,
                     name: markdownName,
@@ -974,7 +967,6 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
         })
 
         for await (const chunk of stream) {
-            console.log(`[runAgentSession] chunk: ${chunk.type}`)
             // Publish every chunk as a Redis message for the SSE subscriber
             try {
                 await redis.publish(streamKey, JSON.stringify(chunk))

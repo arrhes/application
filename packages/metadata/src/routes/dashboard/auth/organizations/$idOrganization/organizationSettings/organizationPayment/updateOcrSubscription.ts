@@ -4,7 +4,8 @@ import { routeDefinition } from "../../../../../../../utilities/routeDefinition.
 
 export const updateOcrSubscriptionRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/update-ocr-subscription`,
+    method: "PATCH",
+    path: `${routePath.v1}/organizations/:idOrganization/billing/ocr-subscription`,
     schemas: {
         body: v.object({
             newQuantity: v.pipe(integerSchema, v.minValue(0)),

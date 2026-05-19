@@ -1,5 +1,5 @@
 import { createRoute } from "@tanstack/react-router"
-import { HomePage } from "../../../features/home/homePage.tsx"
+import { HomePage } from "../../../features/home/HomePage.tsx"
 import { homeLayoutRoute } from "./homeLayoutRoute.tsx"
 
 export const homeRootRoute = createRoute({

@@ -8,7 +8,8 @@ import { routeDefinition } from "../../../../../../../../../../utilities/routeDe
 
 export const deleteOneIncomeStatementRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/delete-one-income-statement`,
+    method: "DELETE",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/income-statements/:idIncomeStatement`,
     schemas: {
         body: v.object({
             idIncomeStatement: incomeStatementSchema.entries.id,

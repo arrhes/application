@@ -1,0 +1,260 @@
+import { signUpRouteDefinition } from "@arrhes/application-metadata/routes"
+import { ButtonGhostContent, ButtonOutlineContent, InputPassword, InputText, Logo, Separator, toast } from "@arrhes/ui"
+import { css } from "@arrhes/ui/utilities/cn.js"
+import { IconBook2, IconLogin2, IconUserPlus } from "@tabler/icons-react"
+import { Fragment } from "react/jsx-runtime"
+import { FormControl } from "../../components/forms/FormControl.js"
+import { FormError } from "../../components/forms/FormError.js"
+import { FormField } from "../../components/forms/FormField.js"
+import { FormItem } from "../../components/forms/FormItem.js"
+import { FormLabel } from "../../components/forms/FormLabel.js"
+import { FormRoot } from "../../components/forms/FormRoot.js"
+import { LinkButton } from "../../components/LinkButton.js"
+import { setCookie } from "../../utilities/cookies/setCookie.js"
+import { getResponseBodyFromAPI } from "../../utilities/getResponseBodyFromAPI.js"
+import { cookiePrefix } from "../../utilities/variables.js"
+
+export function SignUpPage() {
+    return (
+        <div
+            className={css({
+                width: "100%",
+                minHeight: "100vh",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "start",
+                alignItems: "stretch",
+                backgroundColor: "background",
+            })}
+        >
+            {/* Main content */}
+            <section
+                className={css({
+                    width: "100%",
+                    flex: "1",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    paddingX: "1rem",
+                    paddingY: "4rem",
+                })}
+            >
+                <div
+                    className={css({
+                        width: "100%",
+                        maxWidth: "sm",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "1.5rem",
+                        padding: "2rem",
+                        borderRadius: "lg",
+                        border: "1px solid",
+                        borderColor: "neutral/10",
+                        backgroundColor: "white",
+                    })}
+                >
+                    <div
+                        className={css({
+                            width: "100%",
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "start",
+                            gap: "0.5rem",
+                        })}
+                    >
+                        <LinkButton to="/">
+                            <ButtonGhostContent
+                                leftIcon={<Logo />}
+                                text="Dashboard"
+                            />
+                        </LinkButton>
+                        <LinkButton
+                            to="/documentation"
+                            title="Documentation"
+                        >
+                            <ButtonGhostContent
+                                leftIcon={<IconBook2 />}
+                                className={css({
+                                    width: "100%",
+                                    justifyContent: "center",
+                                })}
+                            />
+                        </LinkButton>
+                    </div>
+
+                    <div
+                        className={css({
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "0.5rem",
+                        })}
+                    >
+                        <h1
+                            className={css({
+                                fontSize: "lg",
+                                fontWeight: "bold",
+                                color: "neutral",
+                            })}
+                        >
+                            Inscription
+                        </h1>
+                        <p
+                            className={css({
+                                color: "neutral/60",
+                                fontSize: "sm",
+                            })}
+                        >
+                            Créez votre compte gratuitement
+                        </p>
+                    </div>
+
+                    <FormRoot
+                        schema={signUpRouteDefinition.schemas.body}
+                        defaultValues={{}}
+                        submitButtonProps={{
+                            leftIcon: <IconUserPlus />,
+                            text: "Créer un compte",
+                            className: css({
+                                width: "100%",
+                                justifyContent: "center",
+                            }),
+                        }}
+                        submitOnPressEnterKey={true}
+                        onSubmit={async (data) => {
+                            if (data.password !== data.passwordCheck) {
+                                toast({
+                                    title: "Les mots de passe ne correspondent pas",
+                                    variant: "error",
+                                })
+                                return false
+                            }
+
+                            const response = await getResponseBodyFromAPI({
+                                routeDefinition: signUpRouteDefinition,
+                                body: data,
+                            })
+                            if (!response.ok) {
+                                toast({
+                                    title: "Inscription impossible",
+                                    variant: "error",
+                                })
+                                return false
+                            }
+
+                            toast({
+                                title: "Inscription réussie",
+                                variant: "success",
+                            })
+                            return true
+                        }}
+                        onCancel={undefined}
+                        onSuccess={() => {
+                            // Mirror backend auth cookie to avoid a transient undefined state during immediate redirect.
+                            setCookie(`${cookiePrefix}_is_auth`, "true")
+                            window.location.assign("/dashboard")
+                        }}
+                    >
+                        {(form) => (
+                            <Fragment>
+                                <FormField
+                                    control={form.control}
+                                    name="email"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel
+                                                label="Email"
+                                                isRequired={false}
+                                                description={undefined}
+                                                tooltip={undefined}
+                                            />
+                                            <FormControl>
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                    type="email"
+                                                />
+                                            </FormControl>
+                                            <FormError />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="password"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel
+                                                label="Mot de passe"
+                                                isRequired={false}
+                                                description={undefined}
+                                                tooltip={undefined}
+                                            />
+                                            <FormControl>
+                                                <InputPassword
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
+                                            </FormControl>
+                                            <FormError />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="passwordCheck"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel
+                                                label="Mot de passe (encore)"
+                                                isRequired={false}
+                                                description={undefined}
+                                                tooltip={undefined}
+                                            />
+                                            <FormControl>
+                                                <InputPassword
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
+                                            </FormControl>
+                                            <FormError />
+                                        </FormItem>
+                                    )}
+                                />
+                            </Fragment>
+                        )}
+                    </FormRoot>
+
+                    <Separator />
+
+                    <div
+                        className={css({
+                            width: "100%",
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "start",
+                            alignItems: "stretch",
+                            gap: "0.5rem",
+                        })}
+                    >
+                        <LinkButton
+                            to="/connexion"
+                            className={css({
+                                width: "100%",
+                            })}
+                        >
+                            <ButtonOutlineContent
+                                leftIcon={<IconLogin2 />}
+                                text="Se connecter"
+                                className={css({
+                                    width: "100%",
+                                    justifyContent: "center",
+                                })}
+                            />
+                        </LinkButton>
+                    </div>
+                </div>
+            </section>
+        </div>
+    )
+}

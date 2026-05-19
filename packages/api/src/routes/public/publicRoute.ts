@@ -1,10 +1,10 @@
-import { mollieWebhookRoute } from "../../routes/public/mollieWebhook.js"
-import { resetPasswordRoute } from "../../routes/public/resetPassword.js"
-import { sendMagicLinkRoute } from "../../routes/public/sendMagicLink.js"
-import { signInRoute } from "../../routes/public/signIn.js"
-import { signOutRoute } from "../../routes/public/signOut.js"
-import { signUpRoute } from "../../routes/public/signUp.js"
 import { apiFactory } from "../../utilities/apiFactory.js"
+import { mollieWebhookRoute } from "./mollieWebhook.js"
+import { resetPasswordRoute } from "./user/resetPassword.js"
+import { sendMagicLinkRoute } from "./user/sendMagicLink.js"
+import { signInRoute } from "./user/signIn.js"
+import { signOutRoute } from "./user/signOut.js"
+import { signUpRoute } from "./user/signUp.js"
 
 export const publicRoute = apiFactory
     .createApp()

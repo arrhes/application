@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../utilities/routeDefinition.js"
 
 export const deleteOneAgentSessionRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/delete-one-agent-session`,
+    method: "DELETE",
+    path: `${routePath.v1}/agent/sessions/:idAgentSession`,
     schemas: {
         body: v.object({
             idAgentSession: v.nonNullable(idSchema, "Ce champ est requis"),

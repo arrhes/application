@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../../utilities/routeDe
 
 export const deleteOneBalanceSheetRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/delete-one-balance-sheet`,
+    method: "DELETE",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/balance-sheets/:idBalanceSheet`,
     schemas: {
         body: v.object({
             idBalanceSheet: balanceSheetSchema.entries.id,

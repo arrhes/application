@@ -1,3 +1,1 @@
-import * as PopoverPrimitive from "@radix-ui/react-popover"
-
-export const PopoverRoot = PopoverPrimitive.Root
+export { PopoverRoot } from "@arrhes/ui/components/overlays/popover/popoverRoot.js"

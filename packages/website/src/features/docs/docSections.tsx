@@ -9,8 +9,9 @@ import {
     IconReport,
     IconRobot,
     IconStack,
+    IconTerminal,
 } from "@tabler/icons-react"
-import type { DocSection } from "./sectionTab.tsx"
+import type { DocSection } from "./SectionTab.tsx"
 
 // Documentation sections configuration
 export const docSections: Record<string, DocSection> = {
@@ -31,6 +32,10 @@ export const docSections: Record<string, DocSection> = {
                     {
                         path: "/documentation/fonctionnalités",
                         label: "Fonctionnalités",
+                    },
+                    {
+                        path: "/documentation/architecture",
+                        label: "Architecture",
                     },
                     {
                         path: "/documentation/philosophie",
@@ -257,14 +262,20 @@ export const docSections: Record<string, DocSection> = {
         path: "/documentation/api",
         icon: <IconCode />,
         navigation: {
-            api: {
-                title: "API",
-                icon: <IconCode />,
+            home: {
+                title: undefined,
+                icon: undefined,
                 items: [
                     {
                         path: "/documentation/api",
                         label: "Présentation",
                     },
+                ],
+            },
+            basicsGroup: {
+                title: "Généralités",
+                icon: <IconInfoCircle />,
+                items: [
                     {
                         path: "/documentation/api/introduction",
                         label: "Introduction",
@@ -273,17 +284,159 @@ export const docSections: Record<string, DocSection> = {
                         path: "/documentation/api/authentification",
                         label: "Authentification",
                     },
+                ],
+            },
+            organisationGroup: {
+                title: "Organisation",
+                icon: <IconLayout />,
+                items: [
                     {
                         path: "/documentation/api/organisation",
                         label: "Organisation",
                     },
                     {
-                        path: "/documentation/api/exercice",
-                        label: "Exercice",
+                        path: "/documentation/api/membres",
+                        label: "Membres",
+                    },
+                    {
+                        path: "/documentation/api/clés-api",
+                        label: "Clés API",
                     },
                     {
                         path: "/documentation/api/stockage",
-                        label: "Fichiers et documents",
+                        label: "Stockage",
+                    },
+                ],
+            },
+            exerciceGroup: {
+                title: "Exercice",
+                icon: <IconBooks />,
+                items: [
+                    {
+                        path: "/documentation/api/exercice",
+                        label: "Exercices",
+                    },
+                    {
+                        path: "/documentation/api/comptes",
+                        label: "Comptes",
+                    },
+                    {
+                        path: "/documentation/api/journaux",
+                        label: "Journaux",
+                    },
+                    {
+                        path: "/documentation/api/bilans",
+                        label: "Bilans",
+                    },
+                    {
+                        path: "/documentation/api/comptes-de-résultat",
+                        label: "Comptes de résultat",
+                    },
+                    {
+                        path: "/documentation/api/libellés",
+                        label: "Libellés",
+                    },
+                    {
+                        path: "/documentation/api/écritures",
+                        label: "Écritures",
+                    },
+                    {
+                        path: "/documentation/api/exports",
+                        label: "Exports",
+                    },
+                ],
+            },
+        },
+    },
+    cli: {
+        id: "cli",
+        label: "CLI",
+        path: "/documentation/cli",
+        icon: <IconTerminal />,
+        navigation: {
+            home: {
+                items: [
+                    {
+                        path: "/documentation/cli",
+                        label: "Présentation",
+                    },
+                ],
+            },
+            guide: {
+                title: "Guide",
+                icon: <IconTerminal />,
+                items: [
+                    {
+                        path: "/documentation/cli/installation",
+                        label: "Installation",
+                    },
+                    {
+                        path: "/documentation/cli/demarrer",
+                        label: "Démarrer",
+                    },
+                    {
+                        path: "/documentation/cli/authentification",
+                        label: "Authentification",
+                    },
+                ],
+            },
+            organisationGroup: {
+                title: "Organisation",
+                icon: <IconLayout />,
+                items: [
+                    {
+                        path: "/documentation/cli/commandes/organisation",
+                        label: "Organisation",
+                    },
+                    {
+                        path: "/documentation/cli/commandes/membres",
+                        label: "Membres",
+                    },
+                    {
+                        path: "/documentation/cli/commandes/cles-api",
+                        label: "Clés API",
+                    },
+                    {
+                        path: "/documentation/cli/commandes/stockage",
+                        label: "Stockage",
+                    },
+                ],
+            },
+            exerciceGroup: {
+                title: "Exercice",
+                icon: <IconBooks />,
+                items: [
+                    {
+                        path: "/documentation/cli/commandes/exercices",
+                        label: "Exercices",
+                    },
+                    {
+                        path: "/documentation/cli/commandes/journaux",
+                        label: "Journaux",
+                    },
+                    {
+                        path: "/documentation/cli/commandes/comptes",
+                        label: "Comptes",
+                    },
+                    {
+                        path: "/documentation/cli/commandes/libelles",
+                        label: "Libellés",
+                    },
+                    {
+                        path: "/documentation/cli/commandes/ecritures",
+                        label: "Écritures",
+                    },
+                    {
+                        path: "/documentation/cli/commandes/exports",
+                        label: "Exports",
+                    },
+                    {
+                        path: "/documentation/cli/commandes/bilans",
+                        label: "Bilans",
+                    },
+                    {
+                        path: "/documentation/cli/commandes/comptes-de-resultat",
+                        label: "Comptes de résultat",
                     },
                 ],
             },

@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const sendMagicLinkRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.public}/send-magic-link`,
+    method: "POST",
+    path: `${routePath.v1}/auth/magic-link`,
     schemas: {
         body: v.object({
             email: v.nonNullable(userSchema.entries.email),

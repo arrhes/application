@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const resetPasswordRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.public}/reset-password`,
+    method: "POST",
+    path: `${routePath.v1}/auth/reset-password`,
     schemas: {
         body: v.object({
             email: v.nonNullable(userSchema.entries.email),

@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../utilities/routeDefin
 
 export const finalizeFileUploadRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/finalize-file-upload`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/files/:idFile/finalize`,
     schemas: {
         body: v.object({
             idFile: fileSchema.entries.id,

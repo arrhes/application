@@ -1,7 +1,3 @@
-import type { ComponentProps } from "react"
-import { css } from "../../utilities/cn.js"
-import { FormatNull } from "./formatNull.js"
-
 export function formatDateTime(rawDate?: string | Date | undefined | null) {
     if (!rawDate || String(new Date(rawDate)) === "Invalid Date") return undefined
 
@@ -25,46 +21,4 @@ export function formatDateTime(rawDate?: string | Date | undefined | null) {
         hour,
         minute,
     ].join(":")}`
-}
-
-type FormatDateTime = {
-    date?: string | Date | undefined | null
-    className?: ComponentProps<"div">["className"]
-}
-
-export function FormatDateTime(props: FormatDateTime) {
-    const formatted = formatDateTime(props.date)
-    if (!formatted) return <FormatNull />
-
-    const [datePart, timePart] = formatted.split(" ")
-
-    return (
-        <div
-            className={css({
-                display: "flex",
-                justifyContent: "flex-start",
-                alignItems: "center",
-                gap: "0.25rem",
-            })}
-        >
-            <span
-                className={css({
-                    fontSize: "sm",
-                    fontFamily: "mono",
-                })}
-            >
-                {datePart}
-            </span>
-            <span
-                className={css({
-                    fontSize: "xs",
-                    lineHeight: "none",
-                    fontFamily: "mono",
-                    color: "neutral/75",
-                })}
-            >
-                {timePart}
-            </span>
-        </div>
-    )
 }

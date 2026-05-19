@@ -1,6 +1,6 @@
-import { SettingsSectionHeader } from "./settingsSectionHeader.js"
-import { SettingsSectionRoot } from "./settingsSectionRoot.js"
-import { SettingsSectionRow } from "./settingsSectionRow.js"
+import { SettingsSectionHeader } from "./SettingsSectionHeader.js"
+import { SettingsSectionRoot } from "./SettingsSectionRoot.js"
+import { SettingsSectionRow } from "./SettingsSectionRow.js"
 
 export const SettingsSection = {
     Root: SettingsSectionRoot,

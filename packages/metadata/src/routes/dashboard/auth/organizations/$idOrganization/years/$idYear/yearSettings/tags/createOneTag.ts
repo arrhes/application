@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../utilities/routeDefin
 
 export const createOneTagRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/create-one-tag`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/tags`,
     schemas: {
         body: v.object({
             idYear: tagSchema.entries.idYear,

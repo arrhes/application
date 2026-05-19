@@ -6,7 +6,8 @@ import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const readUserSessionRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/read-user-session`,
+    method: "GET",
+    path: `${routePath.v1}/users/me`,
     schemas: {
         body: v.object({}),
         return: v.object({

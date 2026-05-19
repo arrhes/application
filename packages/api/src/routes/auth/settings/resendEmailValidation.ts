@@ -1,6 +1,6 @@
 import { models, resendEmailValidationRouteDefinition } from "@arrhes/application-metadata"
 import { eq } from "drizzle-orm"
-import { checkUserSessionMiddleware } from "../../../middlewares/checkUserSessionMiddleware.js"
+import { requireCookieSessionMiddleware } from "../../../middlewares/requireCookieSessionMiddleware.js"
 import { apiFactory } from "../../../utilities/apiFactory.js"
 import { sendEmail } from "../../../utilities/email/sendEmail.js"
 import { emailValidationTemplate } from "../../../utilities/email/templates/emailValidation.js"
@@ -12,7 +12,7 @@ import { updateOne } from "../../../utilities/sql/updateOne.js"
 export const resendEmailValidationRoute = apiFactory
     .createApp()
     .post(resendEmailValidationRouteDefinition.path, async (c) => {
-        const { user } = await checkUserSessionMiddleware({
+        const { user } = await requireCookieSessionMiddleware({
             context: c,
         })
 

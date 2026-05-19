@@ -10,7 +10,7 @@ export const journalAccountingDocRoute = createRoute({
             "Le journal comptable : document chronologique enregistrant toutes les opérations comptables de l'entreprise.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../../features/docs/accounting/reports/journalAccountingDocPage.tsx"),
+        () => import("../../../../../features/docs/accounting/reports/JournalAccountingDocPage.tsx"),
         "JournalAccountingDocPage",
     ),
 })

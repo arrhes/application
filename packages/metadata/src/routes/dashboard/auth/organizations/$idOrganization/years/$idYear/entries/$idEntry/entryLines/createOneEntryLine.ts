@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../../utilities/routeDe
 
 export const createOneEntryLineRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/create-one-entry-line`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/entries/:idEntry/lines`,
     schemas: {
         body: v.object({
             idYear: entryLineSchema.entries.idYear,

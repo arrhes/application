@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../utilities/routeDefin
 
 export const createOneBalanceSheetRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/create-one-balance-sheet`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/balance-sheets`,
     schemas: {
         body: v.object({
             idYear: balanceSheetSchema.entries.idYear,

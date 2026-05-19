@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const searchReferenceableRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/search-referenceable`,
+    method: "GET",
+    path: `${routePath.v1}/agent/search`,
     schemas: {
         body: v.object({
             idOrganization: v.nonNullable(idSchema, "Ce champ est requis"),

@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../utilities/routeDefin
 
 export const createOneAccountRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/create-one-account`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/accounts`,
     schemas: {
         body: v.object({
             idYear: accountSchema.entries.idYear,

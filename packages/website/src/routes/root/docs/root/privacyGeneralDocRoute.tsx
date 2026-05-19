@@ -10,7 +10,7 @@ export const privacyGeneralDocRoute = createRoute({
             "Politique de confidentialité d'Arrhes. Découvrez comment nous protégeons vos données personnelles et comptables.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../features/docs/general/privacyGeneralDocPage.tsx"),
+        () => import("../../../../features/docs/general/PrivacyGeneralDocPage.tsx"),
         "PrivacyGeneralDocPage",
     ),
 })

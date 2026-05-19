@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../../../utilities/routeDefin
 
 export const readAllBalanceSheetsRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/read-all-balance-sheets`,
+    method: "GET",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/balance-sheets`,
     schemas: {
         body: v.object({
             idYear: balanceSheetSchema.entries.idYear,

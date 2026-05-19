@@ -5,7 +5,8 @@ import { routeDefinition } from "../../../../../../../utilities/routeDefinition.
 
 export const cancelOrganizationBillingRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/cancel-organization-billing`,
+    method: "DELETE",
+    path: `${routePath.v1}/organizations/:idOrganization/billing`,
     schemas: {
         body: v.object({
             idBilling: v.nonNullable(idSchema, "Ce champ est requis"),

@@ -6,7 +6,8 @@ import { routeDefinition } from "../../../../utilities/routeDefinition.js"
 
 export const updateOneTicketStatusRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/update-one-ticket-status`,
+    method: "PATCH",
+    path: `${routePath.v1}/support/tickets/:idTicket/status`,
     schemas: {
         body: v.object({
             idTicket: v.nonNullable(idSchema, "Ce champ est requis"),

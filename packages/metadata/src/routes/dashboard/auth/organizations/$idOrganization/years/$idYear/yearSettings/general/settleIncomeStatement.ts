@@ -7,7 +7,8 @@ import { routeDefinition } from "../../../../../../../../../utilities/routeDefin
 
 export const settleIncomeStatementRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/settle-income-statement`,
+    method: "POST",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/settle-income-statement`,
     schemas: {
         body: v.object({
             idYear: yearSchema.entries.id,

@@ -10,7 +10,7 @@ export const rootDashboardDocRoute = createRoute({
             "Guide d'utilisation du dashboard Arrhes : créez vos organisations, gérez vos exercices et saisissez vos écritures comptables.",
     }),
     component: lazyRouteComponent(
-        () => import("../../../../features/docs/dashboard/rootDashboardDocPage.tsx"),
+        () => import("../../../../features/docs/dashboard/RootDashboardDocPage.tsx"),
         "RootDashboardDocPage",
     ),
 })

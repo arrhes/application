@@ -9,5 +9,5 @@ export const rootApiDocRoute = createRoute({
         description:
             "Documentation de l'API Arrhes : endpoints REST pour intégrer la comptabilité dans vos applications.",
     }),
-    component: lazyRouteComponent(() => import("../../../../features/docs/api/rootApiDocPage.tsx"), "RootApiDocPage"),
+    component: lazyRouteComponent(() => import("../../../../features/docs/api/RootApiDocPage.tsx"), "RootApiDocPage"),
 })

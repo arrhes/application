@@ -5,11 +5,11 @@ import { routeDefinition } from "../../../../../../../../../utilities/routeDefin
 
 export const readOneFolderRouteDefinition = routeDefinition({
     protocol: "http",
-    path: `${routePath.auth}/read-one-folder`,
+    method: "GET",
+    path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/folders/:idFolder`,
     schemas: {
         body: v.object({
             idFolder: folderSchema.entries.id,
-            idYear: folderSchema.entries.idYear,
         }),
         return: folderSchemaReturn,
     },
