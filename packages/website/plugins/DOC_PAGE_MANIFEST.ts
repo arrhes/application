@@ -27,6 +27,13 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
         navLabel: "Fonctionnalités",
     },
     {
+        path: "/documentation/architecture",
+        file: "src/features/docs/general/architecture/ArchitectureGeneralDocPage.tsx",
+        section: "Général",
+        navGroup: "Introduction",
+        navLabel: "Architecture",
+    },
+    {
         path: "/documentation/philosophie",
         file: "src/features/docs/general/whitepaperGeneralDocPage.tsx",
         section: "Général",

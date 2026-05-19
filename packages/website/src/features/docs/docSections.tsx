@@ -34,6 +34,10 @@ export const docSections: Record<string, DocSection> = {
                         label: "Fonctionnalités",
                     },
                     {
+                        path: "/documentation/architecture",
+                        label: "Architecture",
+                    },
+                    {
                         path: "/documentation/philosophie",
                         label: "Philosophie",
                     },

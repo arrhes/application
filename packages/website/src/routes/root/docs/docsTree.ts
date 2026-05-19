@@ -42,6 +42,7 @@ import { rootDashboardDocRoute } from "./dashboard/rootDashboardDocRoute.js"
 import { updatesDashboardDocRoute } from "./dashboard/updatesDashboardDocRoute.js"
 import { yearsDashboardDocRoute } from "./dashboard/yearsDashboardDocRoute.js"
 import { docsLayoutRoute } from "./docsLayoutRoute.js"
+import { architectureGeneralDocRoute } from "./root/architectureGeneralDocRoute.js"
 import { featuresGeneralDocRoute } from "./root/featuresGeneralDocRoute.js"
 import { generalDocLayoutRoute } from "./root/generalDocLayoutRoute.js"
 import { legalGeneralDocRoute } from "./root/legalGeneralDocRoute.js"
@@ -57,6 +58,7 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
     generalDocLayoutRoute.addChildren([
         rootGeneralDocRoute,
         featuresGeneralDocRoute,
+        architectureGeneralDocRoute,
         pricingGeneralDocRoute,
         whitepaperGeneralDocRoute,
         supportGeneralDocRoute,
