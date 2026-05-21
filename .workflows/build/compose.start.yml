@@ -130,7 +130,7 @@ services:
     container_name: arrhes-prod-website
     image: arrhes-website:${ARRHES_VERSION:-dev}
     ports:
-      - "5173:3101"
+      - "5173:80"
 
   worker:
     container_name: arrhes-prod-worker

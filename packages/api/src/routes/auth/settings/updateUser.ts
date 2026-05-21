@@ -20,7 +20,6 @@ export const updateUserRoute = registerRoute(updateUserRouteDefinition, async (c
         table: models.user,
         data: {
             alias: body.alias,
-            dashboardMode: body.dashboardMode,
             lastUpdatedAt: new Date().toISOString(),
         },
         where: (table) => eq(table.id, user.id),
