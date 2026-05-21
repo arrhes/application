@@ -11,7 +11,7 @@ command -v curl >/dev/null 2>&1 || { echo "Error: curl is required."; exit 1; }
 
 URL="https://github.com/${REPO}/releases/latest/download/arrhes.sh"
 
-echo "Downloading arrhes CLI (${ASSET})..."
+echo "Downloading arrhes CLI..."
 mkdir -p "$INSTALL_DIR"
 curl -fsSL --progress-bar "$URL" -o "$DEST"
 chmod +x "$DEST"

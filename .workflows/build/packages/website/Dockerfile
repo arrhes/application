@@ -22,11 +22,18 @@ RUN printf "VITE_WEBSITE_BASE_URL=%s\nVITE_API_BASE_URL=%s\n" \
 
 RUN pnpm --filter @arrhes/application-website... run build
 
+# Stamp CLI files from VERSION
+RUN VER=$(cat VERSION | tr -d 'v[:space:]') && \
+    sed -i "s/^VERSION=\".*\"/VERSION=\"$VER\"/" packages/cli/arrhes.sh && \
+    printf '%s\n' "$VER" > packages/cli/version
+
 # Start application
 FROM nginx:alpine AS deploy
 WORKDIR /
 COPY .workflows/build/packages/website/nginx/default.conf /etc/nginx/nginx.conf
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=build /root/packages/website/build /usr/share/nginx/html
+COPY --from=build /root/packages/cli/install.sh /usr/share/nginx/html/cli/install.sh
+COPY --from=build /root/packages/cli/version /usr/share/nginx/html/cli/version
 EXPOSE 80
 CMD ["nginx"]
