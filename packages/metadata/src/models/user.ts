@@ -23,12 +23,6 @@ export const userModel = pgTable(
         passwordSalt: text("password_salt").notNull(),
         createdAt: dateTimeColumn("created_at").notNull(),
         lastUpdatedAt: dateTimeColumn("last_updated_at"),
-        dashboardMode: varchar("dashboard_mode", {
-            length: 16,
-        })
-            .notNull()
-            .default("tabs")
-            .$type<"tabs" | "classic">(),
     },
     (t) => [
         index().on(t.emailToken),

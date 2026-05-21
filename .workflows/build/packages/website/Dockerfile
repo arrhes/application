@@ -28,5 +28,5 @@ WORKDIR /
 COPY .workflows/build/packages/website/nginx/default.conf /etc/nginx/nginx.conf
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=build /root/packages/website/build /usr/share/nginx/html
-EXPOSE 3101
+EXPOSE 80
 CMD ["nginx"]
