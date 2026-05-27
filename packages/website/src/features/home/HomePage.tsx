@@ -75,9 +75,9 @@ export function HomePage() {
                                 text="Documentation"
                             />
                         </LinkButton>
-                        <LinkButton to="/dashboard">
+                        <a href={import.meta.env.VITE_DASHBOARD_BASE_URL}>
                             <ButtonPlainContent text="Dashboard" />
-                        </LinkButton>
+                        </a>
                     </nav>
                 </div>
             </header>

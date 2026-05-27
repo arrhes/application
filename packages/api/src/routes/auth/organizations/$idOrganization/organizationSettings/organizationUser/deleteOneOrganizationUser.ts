@@ -11,7 +11,7 @@ import { selectOne } from "../../../../../../utilities/sql/selectOne.js"
 
 export const deleteOneOrganizationUserRoute = apiFactory
     .createApp()
-    .post(deleteOneOrganizationUserRouteDefinition.path, async (c) => {
+    .delete(deleteOneOrganizationUserRouteDefinition.path, async (c) => {
         const auth = await checkAuthMiddleware({
             context: c,
         })

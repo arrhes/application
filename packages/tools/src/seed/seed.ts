@@ -182,6 +182,18 @@ async function seed() {
             }
             await tx.insert(models.organizationUser).values(emptyOrganizationUser)
 
+            // Create a year for the empty organization
+            const emptyOrganizationYear: typeof models.year.$inferInsert = {
+                id: generateId(),
+                idOrganization: emptyOrganization.id,
+                isClosed: false,
+                label: `Exercice ${new Date().getFullYear()}`,
+                startingAt: new Date(new Date().getFullYear(), 0, 1, 0, 0).toISOString(),
+                endingAt: new Date(new Date().getFullYear(), 11, 31, 23, 59, 59).toISOString(),
+                createdAt: createdAt,
+            }
+            await tx.insert(models.year).values(emptyOrganizationYear)
+
             // ==========================================
             // ORGANIZATION 2: Fully populated organization
             // ==========================================
@@ -1960,7 +1972,7 @@ async function seed() {
             console.log("Seed completed successfully!")
             console.log(`- 1 user created`)
             console.log(`- 2 organizations created (1 empty, 1 populated with premium subscription)`)
-            console.log(`- 1 year created`)
+            console.log(`- 2 years created (1 per organization)`)
             console.log(`- ${newJournals.length} journals created`)
             console.log(`- ${newBalanceSheets.length} balance sheets created`)
             console.log(`- ${newIncomeStatements.length} income statements created`)

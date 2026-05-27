@@ -10,7 +10,7 @@ import { selectOne } from "../../../../utilities/sql/selectOne.js"
 
 export const readOneOrganizationRoute = apiFactory
     .createApp()
-    .post(readOneOrganizationRouteDefinition.path, async (c) => {
+    .get(readOneOrganizationRouteDefinition.path, async (c) => {
         const auth = await checkAuthMiddleware({
             context: c,
         })

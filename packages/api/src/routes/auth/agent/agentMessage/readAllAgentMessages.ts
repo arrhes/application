@@ -8,7 +8,7 @@ import { selectMany } from "../../../../utilities/sql/selectMany.js"
 
 export const readAllAgentMessagesRoute = apiFactory
     .createApp()
-    .post(readAllAgentMessagesRouteDefinition.path, async (c) => {
+    .get(readAllAgentMessagesRouteDefinition.path, async (c) => {
         await checkAuthMiddleware({
             context: c,
         })

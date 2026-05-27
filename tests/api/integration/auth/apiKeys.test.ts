@@ -12,13 +12,11 @@ beforeAll(async () => {
     idOrganization = await getDemoOrganizationId(session)
 })
 
-describe("POST /auth/read-all-api-keys", () => {
+describe("GET /v1/organizations/:idOrganization/api-keys", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
-            path: "/auth/read-all-api-keys",
-            body: {
-                idOrganization,
-            },
+            method: "GET",
+            path: `/v1/organizations/${idOrganization}/api-keys`,
         })
         expect(response.status).toBe(401)
     })
@@ -26,23 +24,20 @@ describe("POST /auth/read-all-api-keys", () => {
     it("returns an array of API keys", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/read-all-api-keys",
-            body: {
-                idOrganization,
-            },
+            method: "GET",
+            path: `/v1/organizations/${idOrganization}/api-keys`,
         })
         expect(response.status).toBe(200)
         expect(Array.isArray(response.data)).toBe(true)
     })
 })
 
-describe("POST /auth/create-one-api-key", () => {
+describe("POST /v1/organizations/:idOrganization/api-keys", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
-            path: "/auth/create-one-api-key",
-            body: {
-                idOrganization,
-            },
+            method: "POST",
+            path: `/v1/organizations/${idOrganization}/api-keys`,
+            body: {},
         })
         expect(response.status).toBe(401)
     })
@@ -50,10 +45,9 @@ describe("POST /auth/create-one-api-key", () => {
     it("creates an API key without a name", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/create-one-api-key",
-            body: {
-                idOrganization,
-            },
+            method: "POST",
+            path: `/v1/organizations/${idOrganization}/api-keys`,
+            body: {},
         })
         expect(response.status).toBe(200)
 
@@ -67,9 +61,9 @@ describe("POST /auth/create-one-api-key", () => {
     it("creates an API key with a name", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/create-one-api-key",
+            method: "POST",
+            path: `/v1/organizations/${idOrganization}/api-keys`,
             body: {
-                idOrganization,
                 name: "CI key",
             },
         })
@@ -81,33 +75,21 @@ describe("POST /auth/create-one-api-key", () => {
     })
 })
 
-describe("POST /auth/delete-one-api-key", () => {
+describe("DELETE /v1/organizations/:idOrganization/api-keys/:idApiKey", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
-            path: "/auth/delete-one-api-key",
-            body: {
-                idOrganization,
-                idApiKey: "fake-id",
-            },
+            method: "DELETE",
+            path: `/v1/organizations/${idOrganization}/api-keys/fake-id`,
         })
         expect(response.status).toBe(401)
-    })
-
-    it("rejects requests with empty body", async () => {
-        const response = await authenticatedRequest({
-            session,
-            path: "/auth/delete-one-api-key",
-            body: {},
-        })
-        expect(response.status).toBe(400)
     })
 
     it("creates then deletes an API key", async () => {
         const createResponse = await authenticatedRequest({
             session,
-            path: "/auth/create-one-api-key",
+            method: "POST",
+            path: `/v1/organizations/${idOrganization}/api-keys`,
             body: {
-                idOrganization,
                 name: "to-delete",
             },
         })
@@ -116,11 +98,8 @@ describe("POST /auth/delete-one-api-key", () => {
 
         const deleteResponse = await authenticatedRequest({
             session,
-            path: "/auth/delete-one-api-key",
-            body: {
-                idOrganization,
-                idApiKey,
-            },
+            method: "DELETE",
+            path: `/v1/organizations/${idOrganization}/api-keys/${idApiKey}`,
         })
         expect(deleteResponse.status).toBe(200)
     })

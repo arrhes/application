@@ -8,7 +8,7 @@ import { selectMany } from "../../../../utilities/sql/selectMany.js"
 
 export const readAllAgentSessionsRoute = apiFactory
     .createApp()
-    .post(readAllAgentSessionsRouteDefinition.path, async (c) => {
+    .get(readAllAgentSessionsRouteDefinition.path, async (c) => {
         const { user } = await checkAuthMiddleware({
             context: c,
         })

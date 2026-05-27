@@ -15,15 +15,12 @@ beforeAll(async () => {
 })
 
 describe("Files", () => {
-    describe("POST /auth/read-all-files", () => {
+    describe("GET /v1/organizations/:idOrganization/years/:idYear/files", () => {
         it("returns all files for the year", async () => {
             const response = await authenticatedRequest({
                 session,
-                path: "/auth/read-all-files",
-                body: {
-                    idOrganization,
-                    idYear,
-                },
+                method: "GET",
+                path: `/v1/organizations/${idOrganization}/years/${idYear}/files`,
             })
             expect(response.status).toBe(200)
 
@@ -34,22 +31,19 @@ describe("Files", () => {
     })
 })
 
-describe("Documents", () => {
-    describe("POST /auth/read-all-documents", () => {
-        it("returns all documents for the year", async () => {
+describe("Folders", () => {
+    describe("GET /v1/organizations/:idOrganization/years/:idYear/folders", () => {
+        it("returns all folders for the year", async () => {
             const response = await authenticatedRequest({
                 session,
-                path: "/auth/read-all-documents",
-                body: {
-                    idOrganization,
-                    idYear,
-                },
+                method: "GET",
+                path: `/v1/organizations/${idOrganization}/years/${idYear}/folders`,
             })
             expect(response.status).toBe(200)
 
             const data = response.data as any[]
             expect(Array.isArray(data)).toBe(true)
-            // Seed data may or may not have documents
+            // Seed data may or may not have folders
         })
     })
 })

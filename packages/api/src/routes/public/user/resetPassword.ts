@@ -19,11 +19,22 @@ export const resetPasswordRoute = registerRoute(resetPasswordRouteDefinition, as
         schema: resetPasswordRouteDefinition.schemas.body,
     })
 
+    // Security: always return 200 regardless of whether the email exists
+    // to prevent email enumeration attacks.
     const user = await selectOne({
         database: c.var.clients.sql,
         table: models.user,
         where: (table) => eq(table.email, body.email.trim().toLowerCase()),
-    })
+    }).catch(() => null)
+
+    if (user === null) {
+        return response({
+            context: c,
+            statusCode: 200,
+            schema: resetPasswordRouteDefinition.schemas.return,
+            data: {},
+        })
+    }
 
     const temporaryPassword = generateTemporaryPassword()
     const passwordSalt = randomBytes(32).toString("hex")

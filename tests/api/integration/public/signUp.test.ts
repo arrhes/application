@@ -6,11 +6,12 @@ beforeAll(async () => {
     await verifyApiIsRunning()
 })
 
-describe("POST /public/sign-up", () => {
+describe("POST /v1/auth/sign-up", () => {
     it("creates a new user with valid data", async () => {
         const uniqueEmail = `test-signup-${Date.now()}@arrhes.com`
         const response = await apiRequest({
-            path: "/public/sign-up",
+            method: "POST",
+            path: "/v1/auth/sign-up",
             body: {
                 email: uniqueEmail,
                 password: "TestPassword123!",
@@ -29,7 +30,8 @@ describe("POST /public/sign-up", () => {
     it("rejects mismatched passwords", async () => {
         const uniqueEmail = `test-mismatch-${Date.now()}@arrhes.com`
         const response = await apiRequest({
-            path: "/public/sign-up",
+            method: "POST",
+            path: "/v1/auth/sign-up",
             body: {
                 email: uniqueEmail,
                 password: "TestPassword123!",
@@ -41,7 +43,8 @@ describe("POST /public/sign-up", () => {
 
     it("rejects empty body", async () => {
         const response = await apiRequest({
-            path: "/public/sign-up",
+            method: "POST",
+            path: "/v1/auth/sign-up",
             body: {},
         })
         expect(response.status).toBe(400)
@@ -49,7 +52,8 @@ describe("POST /public/sign-up", () => {
 
     it("rejects missing email", async () => {
         const response = await apiRequest({
-            path: "/public/sign-up",
+            method: "POST",
+            path: "/v1/auth/sign-up",
             body: {
                 password: "TestPassword123!",
                 passwordCheck: "TestPassword123!",
@@ -60,7 +64,8 @@ describe("POST /public/sign-up", () => {
 
     it("rejects duplicate email (existing demo user)", async () => {
         const response = await apiRequest({
-            path: "/public/sign-up",
+            method: "POST",
+            path: "/v1/auth/sign-up",
             body: {
                 email: "demo@arrhes.com",
                 password: "SomePassword123!",

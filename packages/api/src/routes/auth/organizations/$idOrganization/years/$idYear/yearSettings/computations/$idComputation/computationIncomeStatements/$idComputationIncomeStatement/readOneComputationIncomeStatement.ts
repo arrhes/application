@@ -9,7 +9,7 @@ import { selectOne } from "../../../../../../../../../../../utilities/sql/select
 
 export const readOneComputationIncomeStatementRoute = apiFactory
     .createApp()
-    .post(readOneComputationIncomeStatementRouteDefinition.path, async (c) => {
+    .get(readOneComputationIncomeStatementRouteDefinition.path, async (c) => {
         const auth = await checkAuthMiddleware({
             context: c,
         })

@@ -9,7 +9,7 @@ import { updateOne } from "../../../../../../../../../utilities/sql/updateOne.js
 
 export const updateOneBalanceSheetRoute = apiFactory
     .createApp()
-    .post(updateOneBalanceSheetRouteDefinition.path, async (c) => {
+    .patch(updateOneBalanceSheetRouteDefinition.path, async (c) => {
         const auth = await checkAuthMiddleware({
             context: c,
         })

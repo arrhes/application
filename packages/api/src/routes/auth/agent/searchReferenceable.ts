@@ -10,7 +10,7 @@ const MAX_TOTAL = 50
 
 export const searchReferenceableRoute = apiFactory
     .createApp()
-    .post(searchReferenceableRouteDefinition.path, async (c) => {
+    .get(searchReferenceableRouteDefinition.path, async (c) => {
         await checkAuthMiddleware({
             context: c,
         })

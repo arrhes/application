@@ -1,0 +1,52 @@
+{
+    "name": "@arrhes/application-dashboard",
+    "type": "module",
+    "private": false,
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "test": "vitest run",
+        "test:watch": "vitest"
+    },
+    "devDependencies": {
+        "@pandacss/dev": "1.11.0",
+        "@types/node": "25.6.0",
+        "@types/react": "19.2.14",
+        "@types/react-dom": "19.2.3",
+        "@vitejs/plugin-react": "6.0.1",
+        "typescript": "6.0.3",
+        "vite": "8.0.10",
+        "vitest": "4.1.5"
+    },
+    "dependencies": {
+        "@arrhes/application-metadata": "workspace:*",
+        "@arrhes/ui": "workspace:*",
+        "@hookform/resolvers": "5.2.2",
+        "@react-pdf/renderer": "4.5.1",
+        "@tabler/icons-react": "3.42.0",
+        "@tanstack/react-query": "5.100.9",
+        "@tanstack/react-router": "1.169.2",
+        "@tanstack/react-table": "8.21.3",
+        "@tanstack/react-virtual": "3.13.24",
+        "mdast-util-gfm-table": "2.0.0",
+        "micromark-extension-gfm-table": "2.1.1",
+        "react": "19.2.6",
+        "react-dom": "19.2.6",
+        "react-hook-form": "7.75.0",
+        "react-markdown": "10.1.0",
+        "valibot": "1.4.0"
+    },
+    "browserslist": {
+        "production": [
+            "cover 99.99%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "cover 99.99%",
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
+}

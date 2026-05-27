@@ -21,7 +21,7 @@ import { updateOne } from "../../../../../../utilities/sql/updateOne.js"
 
 export const updateTokensSubscriptionRoute = apiFactory
     .createApp()
-    .post(updateTokensSubscriptionRouteDefinition.path, async (c) => {
+    .patch(updateTokensSubscriptionRouteDefinition.path, async (c) => {
         const auth = await checkAuthMiddleware({
             context: c,
         })

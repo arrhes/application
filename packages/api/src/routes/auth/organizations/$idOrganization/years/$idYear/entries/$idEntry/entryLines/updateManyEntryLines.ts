@@ -10,7 +10,7 @@ import { updateOne } from "../../../../../../../../../utilities/sql/updateOne.js
 
 export const updateManyEntryLinesRoute = apiFactory
     .createApp()
-    .post(updateManyEntryLinesRouteDefinition.path, async (c) => {
+    .patch(updateManyEntryLinesRouteDefinition.path, async (c) => {
         const auth = await checkAuthMiddleware({
             context: c,
         })

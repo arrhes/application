@@ -11,7 +11,7 @@ import { selectOne } from "../../../../../../utilities/sql/selectOne.js"
 
 export const readOrganizationBillingRoute = apiFactory
     .createApp()
-    .post(readOrganizationBillingRouteDefinition.path, async (c) => {
+    .get(readOrganizationBillingRouteDefinition.path, async (c) => {
         const auth = await checkAuthMiddleware({
             context: c,
         })

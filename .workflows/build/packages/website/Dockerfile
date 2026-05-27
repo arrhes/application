@@ -9,6 +9,7 @@ FROM base AS build
 # Build arguments for Vite environment variables
 ARG VITE_WEBSITE_BASE_URL
 ARG VITE_API_BASE_URL
+ARG VITE_DASHBOARD_BASE_URL
 
 WORKDIR /root
 COPY . .
@@ -16,8 +17,8 @@ RUN pnpm install
 
 # Write VITE_* build args to .env so Vite can read them during build.
 # Vite reads import.meta.env from .env files, not from process.env.
-RUN printf "VITE_WEBSITE_BASE_URL=%s\nVITE_API_BASE_URL=%s\n" \
-    "$VITE_WEBSITE_BASE_URL" "$VITE_API_BASE_URL" \
+RUN printf "VITE_WEBSITE_BASE_URL=%s\nVITE_API_BASE_URL=%s\nVITE_DASHBOARD_BASE_URL=%s\n" \
+    "$VITE_WEBSITE_BASE_URL" "$VITE_API_BASE_URL" "$VITE_DASHBOARD_BASE_URL" \
     > packages/website/.env
 
 RUN pnpm --filter @arrhes/application-website... run build

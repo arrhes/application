@@ -151,9 +151,9 @@ export function DocsLayout() {
                                     text="Retour au site"
                                 />
                             </LinkButton> */}
-                            <LinkButton to="/dashboard">
+                            <a href={import.meta.env.VITE_DASHBOARD_BASE_URL}>
                                 <ButtonPlainContent text="Dashboard" />
-                            </LinkButton>
+                            </a>
                         </nav>
                     </div>
                 </div>
