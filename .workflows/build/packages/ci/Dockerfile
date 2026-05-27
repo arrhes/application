@@ -26,8 +26,8 @@ RUN pnpm install
 # Build all packages (must run before tests so workspace deps are compiled)
 RUN pnpm run build
 
-# Auto-format, then run Biome check (lint)
-RUN pnpm format:fix && pnpm check
+# Auto-fix formatting + imports, then run Biome check (lint)
+RUN pnpm check:fix && pnpm check
 
 # Run unit tests
 RUN pnpm --recursive --if-present --filter='./packages/**' run test:unit
