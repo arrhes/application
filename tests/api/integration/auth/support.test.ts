@@ -11,10 +11,11 @@ beforeAll(async () => {
     session = await signInAsDemo()
 })
 
-describe("POST /auth/create-one-ticket", () => {
+describe("POST /v1/support/tickets", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
-            path: "/auth/create-one-ticket",
+            method: "POST",
+            path: "/v1/support/tickets",
             body: {
                 category: "billing",
                 message: "Help",
@@ -26,7 +27,8 @@ describe("POST /auth/create-one-ticket", () => {
     it("rejects requests with empty body", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/create-one-ticket",
+            method: "POST",
+            path: "/v1/support/tickets",
             body: {},
         })
         expect(response.status).toBe(400)
@@ -35,7 +37,8 @@ describe("POST /auth/create-one-ticket", () => {
     it("creates a support ticket", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/create-one-ticket",
+            method: "POST",
+            path: "/v1/support/tickets",
             body: {
                 category: "bug",
                 message: "Integration test ticket",
@@ -52,11 +55,11 @@ describe("POST /auth/create-one-ticket", () => {
     })
 })
 
-describe("POST /auth/read-all-tickets", () => {
+describe("GET /v1/support/tickets", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
-            path: "/auth/read-all-tickets",
-            body: {},
+            method: "GET",
+            path: "/v1/support/tickets",
         })
         expect(response.status).toBe(401)
     })
@@ -64,8 +67,8 @@ describe("POST /auth/read-all-tickets", () => {
     it("returns an array of tickets for the current user", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/read-all-tickets",
-            body: {},
+            method: "GET",
+            path: "/v1/support/tickets",
         })
         expect(response.status).toBe(200)
 
@@ -77,33 +80,20 @@ describe("POST /auth/read-all-tickets", () => {
     })
 })
 
-describe("POST /auth/read-one-ticket", () => {
+describe("GET /v1/support/tickets/:idTicket", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
-            path: "/auth/read-one-ticket",
-            body: {
-                idTicket: "fake-id",
-            },
+            method: "GET",
+            path: "/v1/support/tickets/fake-id",
         })
         expect(response.status).toBe(401)
-    })
-
-    it("rejects requests with empty body", async () => {
-        const response = await authenticatedRequest({
-            session,
-            path: "/auth/read-one-ticket",
-            body: {},
-        })
-        expect(response.status).toBe(400)
     })
 
     it("returns the ticket by id", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/read-one-ticket",
-            body: {
-                idTicket,
-            },
+            method: "GET",
+            path: `/v1/support/tickets/${idTicket}`,
         })
         expect(response.status).toBe(200)
 
@@ -113,12 +103,12 @@ describe("POST /auth/read-one-ticket", () => {
     })
 })
 
-describe("POST /auth/create-one-ticket-message", () => {
+describe("POST /v1/support/tickets/:idTicket/messages", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
-            path: "/auth/create-one-ticket-message",
+            method: "POST",
+            path: "/v1/support/tickets/fake-id/messages",
             body: {
-                idTicket: "fake-id",
                 message: "test",
             },
         })
@@ -128,7 +118,8 @@ describe("POST /auth/create-one-ticket-message", () => {
     it("rejects requests with empty body", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/create-one-ticket-message",
+            method: "POST",
+            path: `/v1/support/tickets/${idTicket}/messages`,
             body: {},
         })
         expect(response.status).toBe(400)
@@ -137,9 +128,9 @@ describe("POST /auth/create-one-ticket-message", () => {
     it("adds a message to the ticket", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/create-one-ticket-message",
+            method: "POST",
+            path: `/v1/support/tickets/${idTicket}/messages`,
             body: {
-                idTicket,
                 message: "Follow-up message",
             },
         })
@@ -152,33 +143,20 @@ describe("POST /auth/create-one-ticket-message", () => {
     })
 })
 
-describe("POST /auth/read-all-ticket-messages", () => {
+describe("GET /v1/support/tickets/:idTicket/messages", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
-            path: "/auth/read-all-ticket-messages",
-            body: {
-                idTicket,
-            },
+            method: "GET",
+            path: "/v1/support/tickets/fake-id/messages",
         })
         expect(response.status).toBe(401)
-    })
-
-    it("rejects requests with empty body", async () => {
-        const response = await authenticatedRequest({
-            session,
-            path: "/auth/read-all-ticket-messages",
-            body: {},
-        })
-        expect(response.status).toBe(400)
     })
 
     it("returns messages for the ticket", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/read-all-ticket-messages",
-            body: {
-                idTicket,
-            },
+            method: "GET",
+            path: `/v1/support/tickets/${idTicket}/messages`,
         })
         expect(response.status).toBe(200)
 
@@ -191,33 +169,34 @@ describe("POST /auth/read-all-ticket-messages", () => {
     })
 })
 
-describe("POST /auth/update-one-ticket", () => {
+describe("PATCH /v1/support/tickets/:idTicket", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
-            path: "/auth/update-one-ticket",
+            method: "PATCH",
+            path: "/v1/support/tickets/fake-id",
             body: {
-                idTicket,
                 category: "technical",
             },
         })
         expect(response.status).toBe(401)
     })
 
-    it("rejects requests with empty body", async () => {
+    it("accepts an empty body (idTicket in URL, category and status are optional)", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/update-one-ticket",
+            method: "PATCH",
+            path: `/v1/support/tickets/${idTicket}`,
             body: {},
         })
-        expect(response.status).toBe(400)
+        expect(response.status).toBe(200)
     })
 
     it("updates the ticket category", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/update-one-ticket",
+            method: "PATCH",
+            path: `/v1/support/tickets/${idTicket}`,
             body: {
-                idTicket,
                 category: "feature",
             },
         })
@@ -229,12 +208,12 @@ describe("POST /auth/update-one-ticket", () => {
     })
 })
 
-describe("POST /auth/update-one-ticket-status", () => {
+describe("PATCH /v1/support/tickets/:idTicket/status", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
-            path: "/auth/update-one-ticket-status",
+            method: "PATCH",
+            path: "/v1/support/tickets/fake-id/status",
             body: {
-                idTicket,
                 status: "closed",
             },
         })
@@ -244,7 +223,8 @@ describe("POST /auth/update-one-ticket-status", () => {
     it("rejects requests with empty body", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/update-one-ticket-status",
+            method: "PATCH",
+            path: `/v1/support/tickets/${idTicket}/status`,
             body: {},
         })
         expect(response.status).toBe(400)
@@ -253,9 +233,9 @@ describe("POST /auth/update-one-ticket-status", () => {
     it("updates the ticket status to closed", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/update-one-ticket-status",
+            method: "PATCH",
+            path: `/v1/support/tickets/${idTicket}/status`,
             body: {
-                idTicket,
                 status: "closed",
             },
         })

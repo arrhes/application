@@ -15,15 +15,12 @@ beforeAll(async () => {
 })
 
 describe("Balance Sheets", () => {
-    describe("POST /auth/read-all-balance-sheets", () => {
+    describe("GET /v1/organizations/:idOrganization/years/:idYear/balance-sheets", () => {
         it("returns all balance sheets for the year", async () => {
             const response = await authenticatedRequest({
                 session,
-                path: "/auth/read-all-balance-sheets",
-                body: {
-                    idOrganization,
-                    idYear,
-                },
+                method: "GET",
+                path: `/v1/organizations/${idOrganization}/years/${idYear}/balance-sheets`,
             })
             expect(response.status).toBe(200)
 
@@ -39,15 +36,12 @@ describe("Balance Sheets", () => {
 })
 
 describe("Income Statements", () => {
-    describe("POST /auth/read-all-income-statements", () => {
+    describe("GET /v1/organizations/:idOrganization/years/:idYear/income-statements", () => {
         it("returns all income statements for the year", async () => {
             const response = await authenticatedRequest({
                 session,
-                path: "/auth/read-all-income-statements",
-                body: {
-                    idOrganization,
-                    idYear,
-                },
+                method: "GET",
+                path: `/v1/organizations/${idOrganization}/years/${idYear}/income-statements`,
             })
             expect(response.status).toBe(200)
 
@@ -63,15 +57,12 @@ describe("Income Statements", () => {
 })
 
 describe("Computations", () => {
-    describe("POST /auth/read-all-computations", () => {
+    describe("GET /v1/organizations/:idOrganization/years/:idYear/computations", () => {
         it("returns all computations for the year", async () => {
             const response = await authenticatedRequest({
                 session,
-                path: "/auth/read-all-computations",
-                body: {
-                    idOrganization,
-                    idYear,
-                },
+                method: "GET",
+                path: `/v1/organizations/${idOrganization}/years/${idYear}/computations`,
             })
             expect(response.status).toBe(200)
 

@@ -40,7 +40,7 @@ function getEndOfCurrentMonth(): Date {
 
 export const cancelOrganizationBillingRoute = apiFactory
     .createApp()
-    .post(cancelOrganizationBillingRouteDefinition.path, async (c) => {
+    .delete(cancelOrganizationBillingRouteDefinition.path, async (c) => {
         const auth = await checkAuthMiddleware({
             context: c,
         })

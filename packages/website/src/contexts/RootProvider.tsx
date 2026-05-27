@@ -1,6 +1,5 @@
 import { CircularLoader, ModalProvider, PopoverProvider, ToasterProvider } from "@arrhes/ui"
 import { Fragment, Suspense } from "react"
-import { DataProvider } from "./data/DataProvider.js"
 import { RouterProvider } from "./router/RouterProvider.js"
 
 export function RootProvider() {
@@ -9,11 +8,9 @@ export function RootProvider() {
             <ToasterProvider />
             <ModalProvider>
                 <PopoverProvider>
-                    <DataProvider>
-                        <Suspense fallback={<CircularLoader text="Application loading..." />}>
-                            <RouterProvider />
-                        </Suspense>
-                    </DataProvider>
+                    <Suspense fallback={<CircularLoader text="Application loading..." />}>
+                        <RouterProvider />
+                    </Suspense>
                 </PopoverProvider>
             </ModalProvider>
         </Fragment>

@@ -71,6 +71,13 @@ COMPOSE_START := "docker compose -f .workflows/build/compose.start.yml --project
 build cmd:
     @just build-{{cmd}}
 
+# Stamp packages/cli/arrhes.sh and packages/cli/version from the VERSION file
+build-cli:
+    @VER=$(cat VERSION | tr -d 'v[:space:]') && \
+    sed -i "s/^VERSION=\".*\"/VERSION=\"$VER\"/" packages/cli/arrhes.sh && \
+    printf '%s\n' "$VER" > packages/cli/version && \
+    echo "CLI stamped: $VER"
+
 # Run CI gate: lint + typecheck + unit tests + build
 build-ci:
     @echo "=============================================="

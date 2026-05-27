@@ -27,7 +27,7 @@ function calculateProRataAmountCents(fullMonthlyAmountCents: number, from: Date)
 
 export const updateStorageSubscriptionRoute = apiFactory
     .createApp()
-    .post(updateStorageSubscriptionRouteDefinition.path, async (c) => {
+    .patch(updateStorageSubscriptionRouteDefinition.path, async (c) => {
         const auth = await checkAuthMiddleware({
             context: c,
         })

@@ -10,7 +10,7 @@ import { updateOne } from "../../../utilities/sql/updateOne.js"
 
 export const updateUserPasswordRoute = apiFactory
     .createApp()
-    .post(updateUserPasswordRouteDefinition.path, async (c) => {
+    .patch(updateUserPasswordRouteDefinition.path, async (c) => {
         const { user } = await requireCookieSessionMiddleware({
             context: c,
         })

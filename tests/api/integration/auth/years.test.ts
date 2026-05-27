@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it } from "vitest"
 import { type AuthSession, authenticatedRequest, getDemoOrganizationId, signInAsDemo } from "../../helpers/auth.js"
 import { verifyApiIsRunning } from "../../helpers/setup.js"
+import { apiRequest } from "../../helpers/testClient.js"
 
 let session: AuthSession
 let idOrganization: string
@@ -11,14 +12,12 @@ beforeAll(async () => {
     idOrganization = await getDemoOrganizationId(session)
 })
 
-describe("POST /auth/read-all-years", () => {
+describe("GET /v1/organizations/:idOrganization/years", () => {
     it("returns all years for the organization", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/read-all-years",
-            body: {
-                idOrganization,
-            },
+            method: "GET",
+            path: `/v1/organizations/${idOrganization}/years`,
         })
         expect(response.status).toBe(200)
 
@@ -33,23 +32,22 @@ describe("POST /auth/read-all-years", () => {
         expect(year).toHaveProperty("endingAt")
     })
 
-    it("rejects requests without idOrganization", async () => {
-        const response = await authenticatedRequest({
-            session,
-            path: "/auth/read-all-years",
-            body: {},
+    it("rejects unauthenticated requests", async () => {
+        const response = await apiRequest({
+            method: "GET",
+            path: `/v1/organizations/${idOrganization}/years`,
         })
-        expect(response.status).toBe(400)
+        expect(response.status).toBe(401)
     })
 })
 
-describe("POST /auth/create-one-year", () => {
+describe("POST /v1/organizations/:idOrganization/years", () => {
     it("creates a new year for the organization", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/create-one-year",
+            method: "POST",
+            path: `/v1/organizations/${idOrganization}/years`,
             body: {
-                idOrganization,
                 startingAt: "2099-01-01T00:00:00.000Z",
                 endingAt: "2099-12-31T23:59:59.999Z",
                 label: `Test Year ${Date.now()}`,
@@ -66,35 +64,29 @@ describe("POST /auth/create-one-year", () => {
     it("rejects missing required fields", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/create-one-year",
-            body: {
-                idOrganization,
-            },
+            method: "POST",
+            path: `/v1/organizations/${idOrganization}/years`,
+            body: {},
         })
         expect(response.status).toBe(400)
     })
 })
 
-describe("POST /auth/read-one-year", () => {
+describe("GET /v1/organizations/:idOrganization/years/:idYear", () => {
     it("reads a specific year by id", async () => {
         // Get all years first
         const yearsResponse = await authenticatedRequest({
             session,
-            path: "/auth/read-all-years",
-            body: {
-                idOrganization,
-            },
+            method: "GET",
+            path: `/v1/organizations/${idOrganization}/years`,
         })
         const years = yearsResponse.data as any[]
         const idYear = years[0].id
 
         const response = await authenticatedRequest({
             session,
-            path: "/auth/read-one-year",
-            body: {
-                idYear,
-                idOrganization,
-            },
+            method: "GET",
+            path: `/v1/organizations/${idOrganization}/years/${idYear}`,
         })
         expect(response.status).toBe(200)
 

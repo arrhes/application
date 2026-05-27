@@ -72,6 +72,7 @@ mailpit_ui_host_port=$(_allocate_port_for_key MAILPIT_UI_HOST_PORT)
 mailpit_smtp_host_port=$(_allocate_port_for_key MAILPIT_SMTP_HOST_PORT)
 postgres_host_port=$(_allocate_port_for_key POSTGRES_HOST_PORT)
 redis_host_port=$(_allocate_port_for_key REDIS_HOST_PORT)
+dashboard_host_port=$(_allocate_port_for_key DASHBOARD_HOST_PORT)
 
 cat > "$PORTS_FILE" <<EOF
 WEBSITE_HOST_PORT=$website_host_port
@@ -82,6 +83,7 @@ MAILPIT_UI_HOST_PORT=$mailpit_ui_host_port
 MAILPIT_SMTP_HOST_PORT=$mailpit_smtp_host_port
 POSTGRES_HOST_PORT=$postgres_host_port
 REDIS_HOST_PORT=$redis_host_port
+DASHBOARD_HOST_PORT=$dashboard_host_port
 EOF
 
 if ! WEBSITE_HOST_PORT="$website_host_port" \
@@ -92,6 +94,7 @@ if ! WEBSITE_HOST_PORT="$website_host_port" \
    MAILPIT_SMTP_HOST_PORT="$mailpit_smtp_host_port" \
    POSTGRES_HOST_PORT="$postgres_host_port" \
    REDIS_HOST_PORT="$redis_host_port" \
+   DASHBOARD_HOST_PORT="$dashboard_host_port" \
        "${DC[@]}" up --detach --build --force-recreate --wait; then
     echo ""
     echo "=============================================="
@@ -113,6 +116,7 @@ echo "  Arrhes Development Environment"
 echo "=============================================="
 echo ""
 echo "  Services:"
+echo "    Dashboard:  http://localhost:$dashboard_host_port"
 echo "    Website:    http://localhost:$website_host_port"
 echo "    API:        http://localhost:$api_host_port"
 echo ""
@@ -134,3 +138,4 @@ echo "    Password:   admin"
 echo ""
 echo "  Logs: docker compose -f $COMPOSE_FILE logs -f"
 echo "=============================================="
+echo ""

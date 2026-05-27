@@ -28,6 +28,7 @@
         "typecheck": "tsc --noEmit"
     },
     "dependencies": {
+        "@hookform/resolvers": "5.2.2",
         "@pandacss/dev": "1.11.0",
         "@tabler/icons-react": "3.42.0",
         "@tanstack/react-router": "1.169.2",
@@ -35,7 +36,8 @@
         "react": "19.2.6",
         "react-dom": "19.2.6",
         "react-hook-form": "7.75.0",
-        "react-imask": "7.6.1"
+        "react-imask": "7.6.1",
+        "valibot": "1.4.0"
     },
     "devDependencies": {
         "@types/react": "19.2.14",

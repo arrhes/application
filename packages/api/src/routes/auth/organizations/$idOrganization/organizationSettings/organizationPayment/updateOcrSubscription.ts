@@ -18,7 +18,7 @@ import { updateOne } from "../../../../../../utilities/sql/updateOne.js"
 
 export const updateOcrSubscriptionRoute = apiFactory
     .createApp()
-    .post(updateOcrSubscriptionRouteDefinition.path, async (c) => {
+    .patch(updateOcrSubscriptionRouteDefinition.path, async (c) => {
         const auth = await checkAuthMiddleware({
             context: c,
         })

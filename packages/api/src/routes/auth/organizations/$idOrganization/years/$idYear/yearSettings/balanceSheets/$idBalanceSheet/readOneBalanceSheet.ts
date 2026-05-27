@@ -9,7 +9,7 @@ import { selectOne } from "../../../../../../../../../utilities/sql/selectOne.js
 
 export const readOneBalanceSheetRoute = apiFactory
     .createApp()
-    .post(readOneBalanceSheetRouteDefinition.path, async (c) => {
+    .get(readOneBalanceSheetRouteDefinition.path, async (c) => {
         const auth = await checkAuthMiddleware({
             context: c,
         })

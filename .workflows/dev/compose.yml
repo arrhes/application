@@ -128,11 +128,12 @@ services:
       ENV: development
       VERBOSE: "true"
       PORT: "${API_HOST_PORT}"
-      CORS_ORIGIN: "http://localhost:${WEBSITE_HOST_PORT}"
+      CORS_ORIGIN: localhost
       COOKIES_DOMAIN: localhost
       COOKIES_KEY: development-secret-key-change-in-production-min-32-chars
       API_BASE_URL: "http://localhost:${API_HOST_PORT}"
       WEBSITE_BASE_URL: "http://localhost:${WEBSITE_HOST_PORT}"
+      DASHBOARD_BASE_URL: "http://localhost:${DASHBOARD_HOST_PORT}"
       SQL_DATABASE_URL: "postgres://postgres:admin@localhost:${POSTGRES_HOST_PORT}/default"
       STORAGE_ENDPOINT: "http://localhost:${STORAGE_HOST_PORT}"
       STORAGE_BUCKET_NAME: arrhes-files
@@ -189,6 +190,32 @@ services:
     environment:
       # Vite reads VITE_* from .env files, not process.env.
       # The entrypoint writes these to packages/website/.env at startup.
+      VITE_ENV: development
+      VITE_API_BASE_URL: "http://localhost:${API_HOST_PORT}"
+      VITE_WEBSITE_BASE_URL: "http://localhost:${WEBSITE_HOST_PORT}"
+      VITE_DASHBOARD_BASE_URL: "http://localhost:${DASHBOARD_HOST_PORT}"
+
+  # Dashboard - SPA dashboard interface (React + Vite)
+  dashboard:
+    container_name: arrhes-dashboard
+    image: arrhes-dev-dashboard:latest
+    build:
+      context: ../..
+      dockerfile: .workflows/dev/packages/dashboard/Dockerfile
+      args:
+        NODE_VERSION: "25.2.1"
+        PNPM_VERSION: "10.26.1"
+    networks:
+      default:
+        aliases:
+          - dashboard.arrhes.localhost
+    volumes:
+      - ../..:/workspace:cached
+    ports:
+      - "127.0.0.1:${DASHBOARD_HOST_PORT}:5174"
+    environment:
+      # Vite reads VITE_* from .env files, not process.env.
+      # The entrypoint writes these to packages/dashboard/.env at startup.
       VITE_ENV: development
       VITE_API_BASE_URL: "http://localhost:${API_HOST_PORT}"
       VITE_WEBSITE_BASE_URL: "http://localhost:${WEBSITE_HOST_PORT}"

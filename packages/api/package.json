@@ -24,15 +24,12 @@
         "@aws-sdk/s3-request-presigner": "3.1043.0",
         "@mollie/api-client": "4.5.0",
         "@tanstack/ai": "0.14.0",
-        "@tanstack/ai-ollama": "0.6.10",
-        "@tanstack/ai-openai": "0.8.2",
         "@valibot/to-json-schema": "1.7.0",
         "bull": "4.16.5",
         "drizzle-orm": "0.45.2",
         "hono": "4.12.18",
         "ioredis": "5.10.1",
         "nodemailer": "8.0.7",
-        "openai": "6.36.0",
         "postgres": "3.4.9",
         "valibot": "1.4.0"
     }

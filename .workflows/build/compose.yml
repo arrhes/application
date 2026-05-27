@@ -8,6 +8,7 @@
 #   ci        - Lint + unit tests + build (gate before packaging)
 #   api       - Production API image
 #   website   - Production Website image (nginx + static)
+#   dashboard - Production Dashboard image (nginx + SPA)
 #   worker    - Production Worker image (background job processor)
 #
 # Usage:
@@ -35,6 +36,17 @@ services:
       args:
         - VITE_WEBSITE_BASE_URL=${VITE_WEBSITE_BASE_URL:-}
         - VITE_API_BASE_URL=${VITE_API_BASE_URL:-}
+        - VITE_DASHBOARD_BASE_URL=${VITE_DASHBOARD_BASE_URL:-}
+
+  dashboard:
+    image: arrhes-dashboard:${ARRHES_VERSION:-dev}
+    build:
+      context: ../..
+      dockerfile: .workflows/build/packages/dashboard/Dockerfile
+      args:
+        - VITE_API_BASE_URL=${VITE_API_BASE_URL:-}
+        - VITE_WEBSITE_BASE_URL=${VITE_WEBSITE_BASE_URL:-}
+
 
   worker:
     image: arrhes-worker:${ARRHES_VERSION:-dev}

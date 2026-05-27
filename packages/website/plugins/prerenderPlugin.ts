@@ -127,6 +127,13 @@ export function prerenderPlugin(): Plugin {
                     recursive: true,
                     force: true,
                 })
+                // Keep a clean SPA shell (no prerendered route content) as the
+                // Nginx fallback for routes that have no prerendered file (e.g.
+                // /dashboard).  Without this, Nginx falls back to index.html
+                // which contains the prerendered home-page HTML and causes a
+                // visible flash of the "/" page on every other route refresh.
+                writeFileSync(resolve(buildDir, "__app.html"), spaShell, "utf-8")
+
                 console.log(`[prerender] Generated ${count} static HTML files`)
             } finally {
                 delete process.env.BUILD_PRERENDER

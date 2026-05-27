@@ -32,8 +32,16 @@ export async function api(parameters: {
 
             // Set CORS
             .use("/*", async (c, next) => {
+                const allowedDomain = c.var.env.CORS_ORIGIN
                 const corsMiddlewareHandler = cors({
-                    origin: c.var.env.CORS_ORIGIN.split(",") ?? "*",
+                    origin: (origin) => {
+                        if (!origin) return null
+                        const host = origin.replace(/^https?:\/\//, "").split(":")[0]
+                        if (host === allowedDomain || host.endsWith(`.${allowedDomain}`)) {
+                            return origin
+                        }
+                        return null
+                    },
                     allowHeaders: [
                         "Content-Type",
                         "Authorization",

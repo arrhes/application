@@ -7,7 +7,7 @@ import { response } from "../../../utilities/response.js"
 
 export const getAllMyOrganizationsRoute = apiFactory
     .createApp()
-    .post(getAllMyOrganizationsRouteDefinition.path, async (c) => {
+    .get(getAllMyOrganizationsRouteDefinition.path, async (c) => {
         const { user } = await checkAuthMiddleware({
             context: c,
         })

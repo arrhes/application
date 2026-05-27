@@ -20,6 +20,7 @@ const envSchema = v.object({
 
     API_BASE_URL: v.string(),
     WEBSITE_BASE_URL: v.string(),
+    DASHBOARD_BASE_URL: v.string(),
 
     SQL_DATABASE_URL: v.string(),
 

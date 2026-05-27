@@ -8,7 +8,7 @@ import { selectOne } from "../../../../utilities/sql/selectOne.js"
 
 export const readOneAgentSessionRoute = apiFactory
     .createApp()
-    .post(readOneAgentSessionRouteDefinition.path, async (c) => {
+    .get(readOneAgentSessionRouteDefinition.path, async (c) => {
         const { user } = await checkAuthMiddleware({
             context: c,
         })

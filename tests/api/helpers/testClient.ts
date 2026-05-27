@@ -9,24 +9,31 @@ export type TestResponse<T = unknown> = {
 
 /**
  * HTTP client for API integration tests.
- * All endpoints are POST-only.
+ * Supports all HTTP methods; body is omitted for GET and HEAD requests.
  */
 export async function apiRequest<T = unknown>(parameters: {
     path: string
+    method?: "GET" | "POST" | "PATCH" | "DELETE" | "PUT"
     body?: Record<string, unknown>
     cookies?: string
 }): Promise<TestResponse<T>> {
+    const method = parameters.method ?? "POST"
+    const hasBody = method !== "GET" && method !== "HEAD"
     const response = await fetch(`${API_BASE_URL}${parameters.path}`, {
-        method: "POST",
+        method,
         headers: {
-            "Content-Type": "application/json",
+            ...(hasBody
+                ? {
+                      "Content-Type": "application/json",
+                  }
+                : {}),
             ...(parameters.cookies
                 ? {
                       Cookie: parameters.cookies,
                   }
                 : {}),
         },
-        body: JSON.stringify(parameters.body ?? {}),
+        body: hasBody && parameters.body !== undefined ? JSON.stringify(parameters.body) : undefined,
     })
 
     const setCookieHeaders = response.headers.getSetCookie?.() ?? []
@@ -46,7 +53,7 @@ export async function apiRequest<T = unknown>(parameters: {
  * Mollie POSTs the payment id as a form field, not JSON.
  */
 export async function mollieWebhookRequest<T = unknown>(paymentId: string): Promise<TestResponse<T>> {
-    const response = await fetch(`${API_BASE_URL}/public/mollie-webhook`, {
+    const response = await fetch(`${API_BASE_URL}/v1/webhooks/mollie`, {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",

@@ -1,3 +1,4 @@
+import { type AgentToolDefinition, agentToolsCatalog } from "@arrhes/application-metadata"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { useMemo, useState } from "react"
 import { DocHeader } from "../../../components/document/DocHeader.tsx"
@@ -6,7 +7,6 @@ import { DocParagraph } from "../../../components/document/DocParagraph.tsx"
 import { DocRoot } from "../../../components/document/DocRoot.tsx"
 import { DocSection } from "../../../components/document/DocSection.tsx"
 import { DocTip } from "../../../components/document/DocTip.tsx"
-import { type AgentToolDefinition, agentToolsCatalog } from "../../dashboard/$idOrganization/agent/agentToolsCatalog.ts"
 
 const categoryOrder = [
     "Exercices fiscaux",

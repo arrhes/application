@@ -6,11 +6,12 @@ beforeAll(async () => {
     await verifyApiIsRunning()
 })
 
-describe("POST /public/sign-out", () => {
+describe("POST /v1/auth/sign-out", () => {
     it("signs out a signed-in user", async () => {
         // First sign in to get cookies
         const signInResponse = await apiRequest({
-            path: "/public/sign-in",
+            method: "POST",
+            path: "/v1/auth/sign-in",
             body: {
                 email: "demo@arrhes.com",
                 password: "demo",
@@ -21,7 +22,8 @@ describe("POST /public/sign-out", () => {
 
         // Then sign out
         const signOutResponse = await apiRequest({
-            path: "/public/sign-out",
+            method: "POST",
+            path: "/v1/auth/sign-out",
             body: {},
             cookies,
         })
@@ -35,7 +37,8 @@ describe("POST /public/sign-out", () => {
 
     it("succeeds even without session cookies (no-op sign-out)", async () => {
         const response = await apiRequest({
-            path: "/public/sign-out",
+            method: "POST",
+            path: "/v1/auth/sign-out",
             body: {},
         })
         expect(response.status).toBe(200)
@@ -45,7 +48,8 @@ describe("POST /public/sign-out", () => {
     it("invalidates the session after sign-out", async () => {
         // Sign in
         const signInResponse = await apiRequest({
-            path: "/public/sign-in",
+            method: "POST",
+            path: "/v1/auth/sign-in",
             body: {
                 email: "demo@arrhes.com",
                 password: "demo",
@@ -55,15 +59,16 @@ describe("POST /public/sign-out", () => {
 
         // Sign out
         await apiRequest({
-            path: "/public/sign-out",
+            method: "POST",
+            path: "/v1/auth/sign-out",
             body: {},
             cookies,
         })
 
         // Try to use the old session to read user session
         const sessionResponse = await apiRequest({
-            path: "/auth/read-user-session",
-            body: {},
+            method: "GET",
+            path: "/v1/users/me",
             cookies,
         })
         // Should fail because session was deactivated

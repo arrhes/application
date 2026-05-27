@@ -1,3 +1,4 @@
+export * from "./agentToolsCatalog.js"
 export * from "./components/index.js"
 export * from "./entryTemplates/index.js"
 export * from "./models/index.js"

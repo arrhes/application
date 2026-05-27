@@ -22,19 +22,11 @@
     "dependencies": {
         "@arrhes/application-metadata": "workspace:*",
         "@arrhes/ui": "workspace:*",
-        "@hookform/resolvers": "5.2.2",
-        "@react-pdf/renderer": "4.5.1",
         "@tabler/icons-react": "3.42.0",
-        "@tanstack/react-query": "5.100.9",
         "@tanstack/react-router": "1.169.2",
-        "@tanstack/react-table": "8.21.3",
         "@tanstack/react-virtual": "3.13.24",
-        "mdast-util-gfm-table": "2.0.0",
-        "micromark-extension-gfm-table": "2.1.1",
         "react": "19.2.6",
         "react-dom": "19.2.6",
-        "react-hook-form": "7.75.0",
-        "react-markdown": "10.1.0",
         "valibot": "1.4.0"
     },
     "browserslist": {

@@ -4,7 +4,7 @@
 # Config:   ~/.arrhes/config  (ARRHES_URL, ARRHES_API_KEY)
 set -e
 
-VERSION="0.1.0"
+VERSION="1.3.5"
 DEFAULT_URL="https://api.arrhes.com"
 CONFIG_FILE="${ARRHES_CONFIG:-${HOME}/.arrhes/config}"
 
@@ -13,6 +13,17 @@ CONFIG_FILE="${ARRHES_CONFIG:-${HOME}/.arrhes/config}"
 _die()      { printf 'arrhes: %s\n' "$*" >&2; exit 1; }
 _need_cmd() { command -v "$1" >/dev/null 2>&1 || _die "'$1' is required but not found"; }
 _jesc()     { printf '%s' "$1" | sed 's/\\/\\\\/g; s/"/\\"/g'; }
+
+_check_version() {
+    latest=$(curl -fsSL --max-time 5 "https://arrhes.com/cli/version" 2>/dev/null) || return 0
+    latest=$(printf '%s' "$latest" | tr -d '[:space:]')
+    # Ignore response if it doesn't look like a semver (e.g. HTML fallback)
+    case "$latest" in
+        [0-9]*.[0-9]*.[0-9]*) ;;
+        *) return 0 ;;
+    esac
+    [ "$latest" = "$VERSION" ] || _die "CLI is outdated (installed: $VERSION, latest: $latest). Update: curl -fsSL https://arrhes.com/cli/install.sh | sh"
+}
 
 # JSON body accumulator
 _JBODY=''
@@ -1036,6 +1047,11 @@ main() {
     _need_cmd curl
     cmd="${1:-}"; [ $# -gt 0 ] && shift
     case "$cmd" in
+        --version|-v) printf 'arrhes %s\n' "$VERSION"; return ;;
+        --help|-h|''|help) _usage; return ;;
+    esac
+    _check_version
+    case "$cmd" in
         login)             _cmd_login "$@" ;;
         whoami)            _cmd_whoami ;;
         logout)            _cmd_logout ;;
@@ -1051,9 +1067,7 @@ main() {
         exports)           _cmd_exports "$@" ;;
         balance-sheets)    _cmd_balance_sheets "$@" ;;
         income-statements) _cmd_income_statements "$@" ;;
-        --version|-v)      printf 'arrhes %s\n' "$VERSION" ;;
-        --help|-h|'')      _usage ;;
-        *) printf 'arrhes: unknown command: %s\n' "$cmd" >&2; _usage >&2; exit 1 ;;
+        *) printf 'arrhes: unknown command "%s". Run "arrhes --help" for usage.\n' "$cmd" >&2; exit 1 ;;
     esac
 }
 

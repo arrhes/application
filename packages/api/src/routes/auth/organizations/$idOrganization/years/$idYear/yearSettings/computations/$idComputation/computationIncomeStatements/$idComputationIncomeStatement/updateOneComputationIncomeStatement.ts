@@ -9,7 +9,7 @@ import { updateOne } from "../../../../../../../../../../../utilities/sql/update
 
 export const updateOneComputationIncomeStatementRoute = apiFactory
     .createApp()
-    .post(updateOneComputationIncomeStatementRouteDefinition.path, async (c) => {
+    .patch(updateOneComputationIncomeStatementRouteDefinition.path, async (c) => {
         const auth = await checkAuthMiddleware({
             context: c,
         })

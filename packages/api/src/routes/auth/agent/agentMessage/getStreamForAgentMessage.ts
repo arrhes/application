@@ -18,7 +18,7 @@ export const getStreamForAgentMessageRoute = apiFactory
         c.header("Connection", "keep-alive")
         await next()
     })
-    .post(getStreamForAgentMessageRouteDefinition.path, async (c) => {
+    .get(getStreamForAgentMessageRouteDefinition.path, async (c) => {
         await checkAuthMiddleware({
             context: c,
         })

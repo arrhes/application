@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /connexion
+Allow: /inscription
+Disallow: /
+Sitemap: https://app.arrhes.com/sitemap.xml

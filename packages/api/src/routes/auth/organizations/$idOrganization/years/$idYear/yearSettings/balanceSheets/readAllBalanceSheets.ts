@@ -9,7 +9,7 @@ import { selectMany } from "../../../../../../../../utilities/sql/selectMany.js"
 
 export const readAllBalanceSheetsRoute = apiFactory
     .createApp()
-    .post(readAllBalanceSheetsRouteDefinition.path, async (c) => {
+    .get(readAllBalanceSheetsRouteDefinition.path, async (c) => {
         const auth = await checkAuthMiddleware({
             context: c,
         })

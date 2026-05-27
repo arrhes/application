@@ -10,12 +10,12 @@ beforeAll(async () => {
     session = await signInAsDemo()
 })
 
-describe("POST /auth/read-user-session", () => {
+describe("GET /v1/users/me", () => {
     it("returns the current user session and user data", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/read-user-session",
-            body: {},
+            method: "GET",
+            path: "/v1/users/me",
         })
         expect(response.status).toBe(200)
 
@@ -32,19 +32,20 @@ describe("POST /auth/read-user-session", () => {
 
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
-            path: "/auth/read-user-session",
-            body: {},
+            method: "GET",
+            path: "/v1/users/me",
         })
         expect(response.status).toBe(401)
     })
 })
 
-describe("POST /auth/update-user", () => {
+describe("PATCH /v1/users/me", () => {
     it("updates the user alias", async () => {
         const newAlias = `TestAlias-${Date.now()}`
         const response = await authenticatedRequest({
             session,
-            path: "/auth/update-user",
+            method: "PATCH",
+            path: "/v1/users/me",
             body: {
                 alias: newAlias,
             },
@@ -59,7 +60,8 @@ describe("POST /auth/update-user", () => {
     it("allows setting alias to null", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/update-user",
+            method: "PATCH",
+            path: "/v1/users/me",
             body: {
                 alias: null,
             },
@@ -72,7 +74,8 @@ describe("POST /auth/update-user", () => {
 
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
-            path: "/auth/update-user",
+            method: "PATCH",
+            path: "/v1/users/me",
             body: {
                 alias: "test",
             },
@@ -81,11 +84,12 @@ describe("POST /auth/update-user", () => {
     })
 })
 
-describe("POST /auth/update-user-password", () => {
+describe("PATCH /v1/users/me/password", () => {
     it("succeeds when new passwords match and current password is correct", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/update-user-password",
+            method: "PATCH",
+            path: "/v1/users/me/password",
             body: {
                 currentPassword: "demo",
                 newPassword: "NewPassword123!",
@@ -97,7 +101,8 @@ describe("POST /auth/update-user-password", () => {
         // Restore original password so other tests are not affected
         const restoreResponse = await authenticatedRequest({
             session,
-            path: "/auth/update-user-password",
+            method: "PATCH",
+            path: "/v1/users/me/password",
             body: {
                 currentPassword: "NewPassword123!",
                 newPassword: "demo",
@@ -110,7 +115,8 @@ describe("POST /auth/update-user-password", () => {
     it("rejects request with wrong current password and mismatched new passwords", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/update-user-password",
+            method: "PATCH",
+            path: "/v1/users/me/password",
             body: {
                 currentPassword: "wrong_password",
                 newPassword: "NewPassword123!",
@@ -123,7 +129,8 @@ describe("POST /auth/update-user-password", () => {
 
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
-            path: "/auth/update-user-password",
+            method: "PATCH",
+            path: "/v1/users/me/password",
             body: {
                 currentPassword: "demo",
                 newPassword: "NewPassword123!",
@@ -134,10 +141,11 @@ describe("POST /auth/update-user-password", () => {
     })
 })
 
-describe("POST /auth/update-user-email", () => {
+describe("PATCH /v1/users/me/email", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
-            path: "/auth/update-user-email",
+            method: "PATCH",
+            path: "/v1/users/me/email",
             body: {
                 currentPassword: "demo",
                 emailToValidate: "new@example.com",
@@ -149,7 +157,8 @@ describe("POST /auth/update-user-email", () => {
     it("rejects requests with empty body", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/update-user-email",
+            method: "PATCH",
+            path: "/v1/users/me/email",
             body: {},
         })
         expect(response.status).toBe(400)
@@ -158,7 +167,8 @@ describe("POST /auth/update-user-email", () => {
     it("rejects an incorrect current password", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/update-user-email",
+            method: "PATCH",
+            path: "/v1/users/me/email",
             body: {
                 currentPassword: "wrong_password",
                 emailToValidate: "new@example.com",
@@ -168,11 +178,11 @@ describe("POST /auth/update-user-email", () => {
     })
 })
 
-describe("POST /auth/resend-email-validation", () => {
+describe("POST /v1/users/me/email/resend-validation", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
-            path: "/auth/resend-email-validation",
-            body: {},
+            method: "POST",
+            path: "/v1/users/me/email/resend-validation",
         })
         expect(response.status).toBe(401)
     })
@@ -181,8 +191,8 @@ describe("POST /auth/resend-email-validation", () => {
         // The demo user has no pending emailToValidate, so this should fail
         const response = await authenticatedRequest({
             session,
-            path: "/auth/resend-email-validation",
-            body: {},
+            method: "POST",
+            path: "/v1/users/me/email/resend-validation",
         })
         expect(response.status).toBe(400)
     })

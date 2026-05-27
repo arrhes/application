@@ -9,7 +9,7 @@ import { deleteOne } from "../../../../../../../../../../../utilities/sql/delete
 
 export const deleteOneComputationIncomeStatementRoute = apiFactory
     .createApp()
-    .post(deleteOneComputationIncomeStatementRouteDefinition.path, async (c) => {
+    .delete(deleteOneComputationIncomeStatementRouteDefinition.path, async (c) => {
         const auth = await checkAuthMiddleware({
             context: c,
         })

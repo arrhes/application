@@ -6,10 +6,11 @@ beforeAll(async () => {
     await verifyApiIsRunning()
 })
 
-describe("POST /public/send-magic-link", () => {
+describe("POST /v1/auth/magic-link", () => {
     it("accepts a valid existing email", async () => {
         const response = await apiRequest({
-            path: "/public/send-magic-link",
+            method: "POST",
+            path: "/v1/auth/magic-link",
             body: {
                 email: "demo@arrhes.com",
             },
@@ -20,7 +21,8 @@ describe("POST /public/send-magic-link", () => {
 
     it("rejects an empty body", async () => {
         const response = await apiRequest({
-            path: "/public/send-magic-link",
+            method: "POST",
+            path: "/v1/auth/magic-link",
             body: {},
         })
         expect(response.status).toBe(400)
@@ -28,7 +30,8 @@ describe("POST /public/send-magic-link", () => {
 
     it("fails for a non-existent email (user not found)", async () => {
         const response = await apiRequest({
-            path: "/public/send-magic-link",
+            method: "POST",
+            path: "/v1/auth/magic-link",
             body: {
                 email: "nonexistent@arrhes.com",
             },

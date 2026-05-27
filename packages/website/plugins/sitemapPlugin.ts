@@ -11,24 +11,15 @@ export function sitemapPlugin(): Plugin {
 
             // Static public routes
             const staticRoutes = [
+                // Home
                 {
                     path: "/",
                     priority: "1.0",
                     changefreq: "weekly",
                 },
                 {
-                    path: "/connexion",
-                    priority: "0.5",
-                    changefreq: "monthly",
-                },
-                {
-                    path: "/inscription",
-                    priority: "0.6",
-                    changefreq: "monthly",
-                },
-                {
-                    path: "/mot-de-passe-oublié",
-                    priority: "0.5",
+                    path: "/cli",
+                    priority: "0.7",
                     changefreq: "monthly",
                 },
 
@@ -41,6 +32,11 @@ export function sitemapPlugin(): Plugin {
                 {
                     path: "/documentation/fonctionnalités",
                     priority: "0.7",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/architecture",
+                    priority: "0.5",
                     changefreq: "monthly",
                 },
                 {
@@ -86,29 +82,24 @@ export function sitemapPlugin(): Plugin {
                     changefreq: "monthly",
                 },
                 {
-                    path: "/documentation/comptabilité/partie-double",
+                    path: "/documentation/comptabilité/introduction/partie-double",
                     priority: "0.7",
                     changefreq: "monthly",
                 },
                 {
-                    path: "/documentation/comptabilité/écritures",
+                    path: "/documentation/comptabilité/introduction/écritures",
                     priority: "0.7",
                     changefreq: "monthly",
                 },
                 {
-                    path: "/documentation/comptabilité/comptes/introduction",
+                    path: "/documentation/comptabilité/introduction/comptes",
                     priority: "0.7",
                     changefreq: "monthly",
                 },
                 {
-                    path: "/documentation/comptabilité/comptes/classes",
+                    path: "/documentation/comptabilité/introduction/classes",
                     priority: "0.7",
                     changefreq: "monthly",
-                },
-                {
-                    path: "/documentation/comptabilité/comptes/liste",
-                    priority: "0.8",
-                    changefreq: "weekly",
                 },
                 {
                     path: "/documentation/comptabilité/documents",
@@ -151,12 +142,17 @@ export function sitemapPlugin(): Plugin {
                     changefreq: "monthly",
                 },
                 {
-                    path: "/documentation/comptabilité/scénarios",
+                    path: "/documentation/comptabilité/ressources/comptes",
+                    priority: "0.8",
+                    changefreq: "weekly",
+                },
+                {
+                    path: "/documentation/comptabilité/ressources/scénarios",
                     priority: "0.7",
                     changefreq: "monthly",
                 },
                 {
-                    path: "/documentation/comptabilité/glossaire",
+                    path: "/documentation/comptabilité/ressources/glossaire",
                     priority: "0.7",
                     changefreq: "monthly",
                 },
@@ -203,11 +199,6 @@ export function sitemapPlugin(): Plugin {
                     changefreq: "monthly",
                 },
                 {
-                    path: "/documentation/dashboard/màj",
-                    priority: "0.6",
-                    changefreq: "monthly",
-                },
-                {
                     path: "/documentation/dashboard/assistant",
                     priority: "0.6",
                     changefreq: "monthly",
@@ -224,6 +215,93 @@ export function sitemapPlugin(): Plugin {
                 },
                 {
                     path: "/documentation/dashboard/assistant/ocr",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/dashboard/màj",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+
+                // CLI docs
+                {
+                    path: "/documentation/cli",
+                    priority: "0.7",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/cli/installation",
+                    priority: "0.7",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/cli/demarrer",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/cli/authentification",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/cli/commandes/organisation",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/cli/commandes/membres",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/cli/commandes/cles-api",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/cli/commandes/stockage",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/cli/commandes/exercices",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/cli/commandes/journaux",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/cli/commandes/comptes",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/cli/commandes/libelles",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/cli/commandes/ecritures",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/cli/commandes/exports",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/cli/commandes/bilans",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/cli/commandes/comptes-de-resultat",
                     priority: "0.6",
                     changefreq: "monthly",
                 },
@@ -250,12 +328,72 @@ export function sitemapPlugin(): Plugin {
                     changefreq: "monthly",
                 },
                 {
-                    path: "/documentation/api/exercice",
+                    path: "/documentation/api/membres",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/api/clés-api",
                     priority: "0.6",
                     changefreq: "monthly",
                 },
                 {
                     path: "/documentation/api/stockage",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/api/dossiers",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/api/exercice",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/api/comptes",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/api/journaux",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/api/bilans",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/api/comptes-de-résultat",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/api/libellés",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/api/écritures",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/api/lignes",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/api/exports",
+                    priority: "0.6",
+                    changefreq: "monthly",
+                },
+                {
+                    path: "/documentation/api/calculs",
                     priority: "0.6",
                     changefreq: "monthly",
                 },
@@ -296,9 +434,6 @@ export function sitemapPlugin(): Plugin {
                 "../src/features/docs/accounting/resources/scenarios/scenariosData.ts",
             )
             const scenariosSrc = readFileSync(scenariosDataPath, "utf-8")
-            const scenarioPaths = [
-                ...scenariosSrc.matchAll(/path:\s*"(\/documentation\/comptabilité\/scénarios\/[^"]+)"/g),
-            ].map((m) => m[1])
 
             // Build URL entries
             const routeMap = new Map<
@@ -322,15 +457,19 @@ export function sitemapPlugin(): Plugin {
             }
 
             for (const slug of accountSlugs) {
-                addRoute(`/documentation/comptabilité/comptes/liste/${slug}`, "monthly", "0.5")
+                addRoute(`/documentation/comptabilité/ressources/comptes/${slug}`, "monthly", "0.5")
             }
 
             for (const slug of glossarySlugs) {
-                addRoute(`/documentation/comptabilité/glossaire/${slug}`, "monthly", "0.5")
+                addRoute(`/documentation/comptabilité/ressources/glossaire/${slug}`, "monthly", "0.5")
             }
 
-            for (const path of scenarioPaths) {
-                addRoute(path, "monthly", "0.5")
+            const scenarioSlugs = [
+                ...scenariosSrc.matchAll(/path:\s*"\/documentation\/comptabilité\/scénarios\/([^"]+)"/g),
+            ].map((m) => m[1])
+
+            for (const slug of scenarioSlugs) {
+                addRoute(`/documentation/comptabilité/ressources/scénarios/${slug}`, "monthly", "0.5")
             }
 
             const urls = [

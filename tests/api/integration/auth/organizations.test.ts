@@ -10,12 +10,12 @@ beforeAll(async () => {
     session = await signInAsDemo()
 })
 
-describe("POST /auth/get-all-my-organization", () => {
+describe("GET /v1/organizations", () => {
     it("returns an array of organizations for the demo user", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/get-all-my-organization",
-            body: {},
+            method: "GET",
+            path: "/v1/organizations",
         })
         expect(response.status).toBe(200)
 
@@ -35,19 +35,20 @@ describe("POST /auth/get-all-my-organization", () => {
 
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
-            path: "/auth/get-all-my-organization",
-            body: {},
+            method: "GET",
+            path: "/v1/organizations",
         })
         expect(response.status).toBe(401)
     })
 })
 
-describe("POST /auth/add-new-organization", () => {
+describe("POST /v1/organizations", () => {
     it("creates a new organization", async () => {
         const orgName = `Test Org ${Date.now()}`
         const response = await authenticatedRequest({
             session,
-            path: "/auth/add-new-organization",
+            method: "POST",
+            path: "/v1/organizations",
             body: {
                 scope: "company",
                 name: orgName,
@@ -65,7 +66,8 @@ describe("POST /auth/add-new-organization", () => {
         const orgName = `Full Org ${Date.now()}`
         const response = await authenticatedRequest({
             session,
-            path: "/auth/add-new-organization",
+            method: "POST",
+            path: "/v1/organizations",
             body: {
                 scope: "association",
                 name: orgName,
@@ -84,7 +86,8 @@ describe("POST /auth/add-new-organization", () => {
     it("rejects empty body", async () => {
         const response = await authenticatedRequest({
             session,
-            path: "/auth/add-new-organization",
+            method: "POST",
+            path: "/v1/organizations",
             body: {},
         })
         expect(response.status).toBe(400)
@@ -92,7 +95,8 @@ describe("POST /auth/add-new-organization", () => {
 
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
-            path: "/auth/add-new-organization",
+            method: "POST",
+            path: "/v1/organizations",
             body: {
                 scope: "company",
                 name: "Test",
@@ -102,13 +106,13 @@ describe("POST /auth/add-new-organization", () => {
     })
 })
 
-describe("POST /auth/read-one-organization", () => {
+describe("GET /v1/organizations/:idOrganization", () => {
     it("reads a specific organization by id", async () => {
         // First get all orgs to find an id
         const allOrgs = await authenticatedRequest({
             session,
-            path: "/auth/get-all-my-organization",
-            body: {},
+            method: "GET",
+            path: "/v1/organizations",
         })
         const orgs = allOrgs.data as any[]
         expect(orgs.length).toBeGreaterThanOrEqual(1)
@@ -116,10 +120,8 @@ describe("POST /auth/read-one-organization", () => {
         const idOrganization = orgs[0].organization.id
         const response = await authenticatedRequest({
             session,
-            path: "/auth/read-one-organization",
-            body: {
-                idOrganization,
-            },
+            method: "GET",
+            path: `/v1/organizations/${idOrganization}`,
         })
         expect(response.status).toBe(200)
 
@@ -131,10 +133,8 @@ describe("POST /auth/read-one-organization", () => {
 
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
-            path: "/auth/read-one-organization",
-            body: {
-                idOrganization: "fake-id",
-            },
+            method: "GET",
+            path: "/v1/organizations/fake-id",
         })
         expect(response.status).toBe(401)
     })

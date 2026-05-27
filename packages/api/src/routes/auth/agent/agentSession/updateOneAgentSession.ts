@@ -12,7 +12,7 @@ import { updateOne } from "../../../../utilities/sql/updateOne.js"
 
 export const updateOneAgentSessionRoute = apiFactory
     .createApp()
-    .post(updateOneAgentSessionRouteDefinition.path, async (c) => {
+    .patch(updateOneAgentSessionRouteDefinition.path, async (c) => {
         const { user } = await checkAuthMiddleware({
             context: c,
         })

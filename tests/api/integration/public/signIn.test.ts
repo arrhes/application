@@ -6,10 +6,11 @@ beforeAll(async () => {
     await verifyApiIsRunning()
 })
 
-describe("POST /public/sign-in", () => {
+describe("POST /v1/auth/sign-in", () => {
     it("signs in with valid demo credentials", async () => {
         const response = await apiRequest({
-            path: "/public/sign-in",
+            method: "POST",
+            path: "/v1/auth/sign-in",
             body: {
                 email: "demo@arrhes.com",
                 password: "demo",
@@ -27,7 +28,8 @@ describe("POST /public/sign-in", () => {
 
     it("rejects invalid password", async () => {
         const response = await apiRequest({
-            path: "/public/sign-in",
+            method: "POST",
+            path: "/v1/auth/sign-in",
             body: {
                 email: "demo@arrhes.com",
                 password: "wrong_password",
@@ -38,7 +40,8 @@ describe("POST /public/sign-in", () => {
 
     it("rejects non-existent user", async () => {
         const response = await apiRequest({
-            path: "/public/sign-in",
+            method: "POST",
+            path: "/v1/auth/sign-in",
             body: {
                 email: "nonexistent@arrhes.com",
                 password: "demo",
@@ -49,7 +52,8 @@ describe("POST /public/sign-in", () => {
 
     it("rejects empty body", async () => {
         const response = await apiRequest({
-            path: "/public/sign-in",
+            method: "POST",
+            path: "/v1/auth/sign-in",
             body: {},
         })
         expect(response.status).toBe(400)
@@ -57,7 +61,8 @@ describe("POST /public/sign-in", () => {
 
     it("rejects missing password", async () => {
         const response = await apiRequest({
-            path: "/public/sign-in",
+            method: "POST",
+            path: "/v1/auth/sign-in",
             body: {
                 email: "demo@arrhes.com",
             },
