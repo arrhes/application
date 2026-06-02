@@ -17,8 +17,8 @@ export function YearContextSelect(props: {
         body: {},
         params: props.idOrganizationSelected
             ? {
-                idOrganization: props.idOrganizationSelected,
-            }
+                  idOrganization: props.idOrganizationSelected,
+              }
             : undefined,
         enabled: props.idOrganizationSelected !== null,
     })

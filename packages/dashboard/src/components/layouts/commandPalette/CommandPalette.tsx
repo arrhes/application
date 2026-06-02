@@ -75,7 +75,8 @@ export function CommandPalette(props: { selectedOrgId: string | null; selectedYe
             setQuery("")
             setSelected(0)
             setGroupFilter(null)
-            setTimeout(() => inputRef.current?.focus(), 50)
+            const id = setTimeout(() => inputRef.current?.focus(), 50)
+            return () => clearTimeout(id)
         }
     }, [
         open,

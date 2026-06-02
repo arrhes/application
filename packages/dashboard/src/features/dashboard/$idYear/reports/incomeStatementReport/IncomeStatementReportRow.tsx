@@ -15,8 +15,8 @@ export function IncomeStatementReportRow(props: {
                 css({}),
                 props.number
                     ? css({
-                        backgroundColor: "neutral/5",
-                    })
+                          backgroundColor: "neutral/5",
+                      })
                     : "",
             )}
         >
@@ -32,8 +32,8 @@ export function IncomeStatementReportRow(props: {
                         },
                         props.number
                             ? {
-                                fontWeight: "bold",
-                            }
+                                  fontWeight: "bold",
+                              }
                             : undefined,
                     )}
                 >

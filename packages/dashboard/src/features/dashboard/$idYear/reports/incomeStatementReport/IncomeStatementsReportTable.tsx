@@ -167,9 +167,9 @@ export function IncomeStatementsReportTable(props: {
                                         css({}),
                                         index === 0
                                             ? css({
-                                                borderTop: "1px solid token(colors.neutral/25)",
-                                                borderBottomColor: "neutral/5",
-                                            })
+                                                  borderTop: "1px solid token(colors.neutral/25)",
+                                                  borderBottomColor: "neutral/5",
+                                              })
                                             : "",
                                     )}
                                 >

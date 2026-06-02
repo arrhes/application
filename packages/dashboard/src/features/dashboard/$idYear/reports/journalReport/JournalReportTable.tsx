@@ -250,8 +250,8 @@ export function JournalReportTable(props: {
                                                     })
                                                         ? undefined
                                                         : {
-                                                            color: "error",
-                                                        },
+                                                              color: "error",
+                                                          },
                                                 )}
                                             />
                                         </Table.Body.Cell>
@@ -272,11 +272,11 @@ export function JournalReportTable(props: {
                                                         b: entryTotalCredit,
                                                     })
                                                         ? {
-                                                            color: "neutral",
-                                                        }
+                                                              color: "neutral",
+                                                          }
                                                         : {
-                                                            color: "error",
-                                                        },
+                                                              color: "error",
+                                                          },
                                                 )}
                                             />
                                         </Table.Body.Cell>

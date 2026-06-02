@@ -1,7 +1,7 @@
 import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import { type ComponentPropsWithRef, useEffect, useRef } from "react"
 import { createPortal } from "react-dom"
-import { useContextMenu } from "./ContextMenuRoot.js"
+import { useContextMenu } from "./contextMenuContext.js"
 
 export function ContextMenuContent({ children, className, ...props }: ComponentPropsWithRef<"div">) {
     const ctx = useContextMenu()

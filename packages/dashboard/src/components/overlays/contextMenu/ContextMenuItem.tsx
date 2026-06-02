@@ -1,6 +1,6 @@
 import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import type { ComponentPropsWithRef, ReactElement } from "react"
-import { useContextMenu } from "./ContextMenuRoot.js"
+import { useContextMenu } from "./contextMenuContext.js"
 
 type ContextMenuItemProps = ComponentPropsWithRef<"button"> & {
     leftIcon?: ReactElement

@@ -1,20 +1,5 @@
-import { createContext, type ReactNode, useContext, useState } from "react"
-
-type ContextMenuContextValue = {
-    open: boolean
-    position: {
-        x: number
-        y: number
-    }
-    openMenu: (x: number, y: number) => void
-    closeMenu: () => void
-}
-
-export const ContextMenuContext = createContext<ContextMenuContextValue | null>(null)
-
-export function useContextMenu() {
-    return useContext(ContextMenuContext)
-}
+import { type ReactNode, useState } from "react"
+import { ContextMenuContext } from "./contextMenuContext.js"
 
 type ContextMenuRootProps = {
     children: ReactNode
