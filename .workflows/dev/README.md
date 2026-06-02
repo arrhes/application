@@ -33,7 +33,7 @@ Docker-based development environment for the Arrhes application.
 ### Networking
 - The API and Worker containers use `network_mode: host`, sharing the host
   network stack directly.
-- All services are reached via `localhost:<PORT>` — the same address works
+- All services are reached via `localhost:<PORT>` - the same address works
   inside containers, in the browser, and in local dev tools.
 - Infrastructure services (Postgres, Redis, RustFS, Mailpit) are published on
   `127.0.0.1:<RANDOM_PORT>`.
@@ -65,7 +65,7 @@ Docker-based development environment for the Arrhes application.
 **Applications:**
 - API (`http://localhost:<API_HOST_PORT>`)
 - Website (`http://localhost:<WEBSITE_HOST_PORT>`)
-- Worker (no exposed port — internal background processor)
+- Worker (no exposed port - internal background processor)
 
 ## Prerequisites
 

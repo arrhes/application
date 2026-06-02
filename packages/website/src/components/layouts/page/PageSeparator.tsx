@@ -1,4 +1,4 @@
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import type { ComponentProps } from "react"
 
 type PageSeparator = ComponentProps<"div">
@@ -6,7 +6,7 @@ type PageSeparator = ComponentProps<"div">
 export function PageSeparator(props: PageSeparator) {
     return (
         <div
-            className={cx(
+            className={cn(
                 css({
                     width: "100%",
                     height: "1px",

@@ -191,7 +191,7 @@ export function ReportsDashboardDocPage() {
             <DocSection title="Filtrer par période">
                 <DocParagraph>
                     La plupart des rapports peuvent être filtrés par période pour analyser une portion spécifique de
-                    l'exercice (mois, trimestre...).
+                    l'exercice (mois, trimestre…).
                 </DocParagraph>
                 <DocList
                     items={[

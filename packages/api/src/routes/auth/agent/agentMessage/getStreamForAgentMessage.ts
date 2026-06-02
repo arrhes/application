@@ -177,7 +177,7 @@ export const getStreamForAgentMessageRoute = apiFactory
 
         return streamText(c, async (stream) => {
             // Create a dedicated Redis client for this subscription
-            // (pub/sub requires a dedicated connection — the shared client cannot be used)
+            // (pub/sub requires a dedicated connection - the shared client cannot be used)
             const subscriberRedis = c.var.clients.redis.duplicate()
             let closed = false
             // Track how much content the worker has streamed so far via Redis
@@ -256,7 +256,7 @@ export const getStreamForAgentMessageRoute = apiFactory
                 where: (table) => and(eq(table.id, body.idAgentMessage)),
             })
             if (freshMessage.state !== "streaming") {
-                // Worker already finished — send the completed content and close
+                // Worker already finished - send the completed content and close
                 if (freshMessage.output) {
                     await stream.write(
                         `data: ${JSON.stringify({

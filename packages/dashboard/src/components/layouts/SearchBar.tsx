@@ -1,5 +1,4 @@
 import { InputDebounced, InputText } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
 
 export function SearchBar(props: { value: string; onChange: (value: string) => void; placeholder?: string }) {
     return (
@@ -9,9 +8,9 @@ export function SearchBar(props: { value: string; onChange: (value: string) => v
         >
             <InputText
                 placeholder={props.placeholder ?? "Recherche"}
-                className={css({
+                className={{
                     maxWidth: "320px",
-                })}
+                }}
             />
         </InputDebounced>
     )

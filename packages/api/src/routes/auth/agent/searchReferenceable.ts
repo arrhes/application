@@ -52,7 +52,7 @@ export const searchReferenceableRoute = apiFactory
             results.push({
                 id: a.id,
                 type: "account",
-                label: `${a.number} — ${a.label}`,
+                label: `${a.number} - ${a.label}`,
             })
         }
 
@@ -103,7 +103,7 @@ export const searchReferenceableRoute = apiFactory
             results.push({
                 id: j.id,
                 type: "journal",
-                label: j.label ? `${j.code} — ${j.label}` : j.code,
+                label: j.label ? `${j.code} - ${j.label}` : j.code,
             })
         }
 
@@ -151,7 +151,7 @@ export const searchReferenceableRoute = apiFactory
             .limit(MAX_PER_TYPE)
 
         for (const f of files) {
-            const label = f.reference && f.name ? `${f.reference} — ${f.name}` : (f.name ?? f.reference ?? "Fichier")
+            const label = f.reference && f.name ? `${f.reference} - ${f.name}` : (f.name ?? f.reference ?? "Fichier")
             results.push({
                 id: f.id,
                 type: "file",

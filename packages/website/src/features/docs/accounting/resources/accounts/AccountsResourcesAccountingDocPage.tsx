@@ -29,7 +29,7 @@ function AccountRow(props: { account: AccountEntry }) {
                 params={{
                     account: account.slug,
                 }}
-                className={css({
+                className={{
                     display: "flex",
                     alignItems: "center",
                     gap: "0.5rem",
@@ -45,7 +45,7 @@ function AccountRow(props: { account: AccountEntry }) {
                     transition: "all 0.1s",
                     cursor: "pointer",
                     width: "100%",
-                })}
+                }}
             >
                 <span
                     className={css({
@@ -117,7 +117,7 @@ export function AccountsResourcesAccountingDocPage() {
                     chaque classe, consultez la page{" "}
                     <LinkButton
                         to="/documentation/comptabilité/comptes/classes"
-                        className={css({
+                        className={{
                             fontSize: "sm",
                             color: "primary",
                             fontWeight: "medium",
@@ -128,7 +128,7 @@ export function AccountsResourcesAccountingDocPage() {
                                 textDecorationColor: "primary",
                             },
                             transition: "all 0.15s",
-                        })}
+                        }}
                     >
                         classes de comptes
                     </LinkButton>
@@ -170,6 +170,7 @@ export function AccountsResourcesAccountingDocPage() {
                 )}
                 <input
                     type="text"
+                    aria-label="Rechercher un compte"
                     placeholder="512, banque, fournisseurs, capital..."
                     value={query}
                     onChange={(e) => handleSearch(e.target.value)}

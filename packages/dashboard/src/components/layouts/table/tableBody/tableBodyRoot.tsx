@@ -1,4 +1,4 @@
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import { type ComponentProps, forwardRef, type ReactElement } from "react"
 
 export const TableBodyRoot = forwardRef<
@@ -13,7 +13,7 @@ export const TableBodyRoot = forwardRef<
         <tbody
             ref={ref}
             data-index={props["data-index"]}
-            className={cx(
+            className={cn(
                 css({
                     width: "100%",
                 }),

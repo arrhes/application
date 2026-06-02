@@ -6,7 +6,7 @@ export function DocIndexLink(props: { to: ValidRoutes; label: string }) {
     return (
         <LinkButton
             to={props.to}
-            className={css({
+            className={{
                 width: "100%",
                 gap: "0.5rem",
                 py: "1.5",
@@ -16,7 +16,7 @@ export function DocIndexLink(props: { to: ValidRoutes; label: string }) {
                     color: "primary",
                 },
                 transition: "colors",
-            })}
+            }}
         >
             <span
                 className={css({

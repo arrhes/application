@@ -1,4 +1,4 @@
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import { type ComponentPropsWithRef, useEffect, useRef } from "react"
 import { createPortal } from "react-dom"
 import { useContextMenu } from "./ContextMenuRoot.js"
@@ -39,7 +39,7 @@ export function ContextMenuContent({ children, className, ...props }: ComponentP
                 top: ctx.position.y,
                 left: ctx.position.x,
             }}
-            className={cx(
+            className={cn(
                 css({
                     backgroundColor: "white",
                     borderRadius: "lg",

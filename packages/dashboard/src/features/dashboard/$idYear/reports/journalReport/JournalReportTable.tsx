@@ -1,6 +1,6 @@
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { FormatDate, FormatNull, FormatPrice, FormatText } from "@arrhes/ui"
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { Fragment, useRef } from "react"
 import type * as v from "valibot"
@@ -135,9 +135,9 @@ export function JournalReportTable(props: {
                         >
                             <FormatPrice
                                 price={totalDebit}
-                                className={css({
+                                className={{
                                     fontWeight: "bold",
-                                })}
+                                }}
                             />
                         </Table.Body.Cell>
                         <Table.Body.Cell
@@ -148,9 +148,9 @@ export function JournalReportTable(props: {
                         >
                             <FormatPrice
                                 price={totalCredit}
-                                className={css({
+                                className={{
                                     fontWeight: "bold",
-                                })}
+                                }}
                             />
                         </Table.Body.Cell>
                     </Table.Body.Row>
@@ -214,7 +214,7 @@ export function JournalReportTable(props: {
                                     })}
                                 >
                                     <Table.Body.Row
-                                        className={cx(
+                                        className={cn(
                                             css({
                                                 borderColor: "neutral/10",
                                                 backgroundColor: "background",
@@ -223,9 +223,9 @@ export function JournalReportTable(props: {
                                     >
                                         <Table.Body.Cell>
                                             <FormatDate
-                                                className={css({
+                                                className={{
                                                     fontStyle: "italic",
-                                                })}
+                                                }}
                                                 date={entry.date}
                                             />
                                         </Table.Body.Cell>
@@ -240,18 +240,18 @@ export function JournalReportTable(props: {
                                         >
                                             <FormatPrice
                                                 price={entryTotalDebit}
-                                                className={cx(
-                                                    css({
+                                                className={css.raw(
+                                                    {
                                                         fontWeight: "bold",
-                                                    }),
+                                                    },
                                                     compareAmounts({
                                                         a: entryTotalDebit,
                                                         b: entryTotalCredit,
                                                     })
-                                                        ? ""
-                                                        : css({
-                                                              color: "error",
-                                                          }),
+                                                        ? undefined
+                                                        : {
+                                                            color: "error",
+                                                        },
                                                 )}
                                             />
                                         </Table.Body.Cell>
@@ -263,20 +263,20 @@ export function JournalReportTable(props: {
                                         >
                                             <FormatPrice
                                                 price={entryTotalCredit}
-                                                className={cx(
-                                                    css({
+                                                className={css.raw(
+                                                    {
                                                         fontWeight: "bold",
-                                                    }),
+                                                    },
                                                     compareAmounts({
                                                         a: entryTotalDebit,
                                                         b: entryTotalCredit,
                                                     })
-                                                        ? css({
-                                                              color: "neutral",
-                                                          })
-                                                        : css({
-                                                              color: "error",
-                                                          }),
+                                                        ? {
+                                                            color: "neutral",
+                                                        }
+                                                        : {
+                                                            color: "error",
+                                                        },
                                                 )}
                                             />
                                         </Table.Body.Cell>
@@ -304,17 +304,17 @@ export function JournalReportTable(props: {
                                                             {account && (
                                                                 <Fragment>
                                                                     <FormatText
-                                                                        className={css({
+                                                                        className={{
                                                                             overflow: "visible",
-                                                                        })}
+                                                                        }}
                                                                     >
                                                                         {account.number}
                                                                     </FormatText>
                                                                     <FormatText
                                                                         wrap={true}
-                                                                        className={css({
+                                                                        className={{
                                                                             color: "neutral/50",
-                                                                        })}
+                                                                        }}
                                                                     >
                                                                         {account.label}
                                                                     </FormatText>

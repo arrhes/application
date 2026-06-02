@@ -6,7 +6,7 @@ import {
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { FormatDate, FormatFileSize, toast } from "@arrhes/ui"
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import { IconArrowUp, IconFile, IconFileTypePdf, IconFolder, IconPhoto } from "@tabler/icons-react"
 import { type DragEvent, useRef, useState } from "react"
 import type * as v from "valibot"
@@ -406,7 +406,7 @@ export function FilesGrid(props: {
                             }
                             onDragLeave={handleDragLeave}
                             onDrop={(event) => handleDrop(event, folder.id)}
-                            className={cx(
+                            className={cn(
                                 css({
                                     display: "flex",
                                     flexDirection: "column",

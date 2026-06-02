@@ -113,9 +113,9 @@ export function AccountsTable(props: { idOrganization: string; idYear: string; g
                 ) : (
                     <FormatError
                         text="Erreur lors de la récupération des données."
-                        className={css({
+                        className={{
                             padding: "1rem",
-                        })}
+                        }}
                     />
                 )
             ) : structuredAccounts.length === 0 ? (

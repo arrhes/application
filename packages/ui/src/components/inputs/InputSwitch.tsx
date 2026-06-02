@@ -1,11 +1,12 @@
 import type { ComponentPropsWithRef } from "react"
-import { css, cx } from "../../utilities/cn.js"
+import type { Styles } from "../../../styled-system/css/css"
+import { css } from "../../utilities/cn.js"
 
 type InputSwitch = {
     value: boolean
     onChange: (value: boolean) => void
     ref?: ComponentPropsWithRef<"button">["ref"]
-    className?: string
+    className?: Styles
     autoFocus?: boolean
     disabled?: boolean
 }
@@ -16,10 +17,11 @@ export function InputSwitch(props: InputSwitch) {
             ref={props.ref}
             type="button"
             role="switch"
+            aria-label="Interrupteur"
             aria-checked={props.value}
             data-state={props.value ? "checked" : "unchecked"}
-            className={cx(
-                css({
+            className={css(
+                {
                     display: "inline-flex",
                     height: "6",
                     width: "10",
@@ -41,7 +43,7 @@ export function InputSwitch(props: InputSwitch) {
                     _focus: {
                         boxShadow: "inset",
                     },
-                }),
+                },
                 props.className,
             )}
             onClick={() => !props.disabled && props.onChange(!props.value)}

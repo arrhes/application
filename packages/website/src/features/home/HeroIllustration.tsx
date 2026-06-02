@@ -1,45 +1,45 @@
 import { css } from "@arrhes/ui/utilities/cn.js"
 
-export function HeroIllustration() {
-    const dim = css({
-        color: "neutral/30",
-    })
-    const muted = css({
-        color: "neutral/50",
-    })
-    const text = css({
-        color: "neutral/100",
-    })
-    const accent = css({
-        color: "primary",
-    })
-    const success = css({
-        color: "success",
-    })
-    const error = css({
-        color: "error",
-    })
-    const row = css({
-        display: "block",
-        whiteSpace: "pre",
-    })
-    const contentWidth = 38
-    const innerPaddedWidth = contentWidth - 2
-    const padJournal = (value: string) => value.padEnd(contentWidth, " ")
-    const padWithSides = (value: string) => ` ${value.padEnd(innerPaddedWidth, " ")} `
-    const topLeft = " ◆ Arrhes"
-    const topRight = "Exercice 2026 "
-    const topGap = " ".repeat(Math.max(1, contentWidth - topLeft.length - topRight.length))
-    const formatKPIGap = (label: string, amount: string) =>
-        " ".repeat(Math.max(1, innerPaddedWidth - label.length - amount.length))
-    const formatEntryAmount = (value: string) => (value === "-" ? "-".padStart(8, " ") : value.padStart(8, " "))
-    const formatEntryLine = (account: string, label: string, debit: string, credit: string) =>
-        padWithSides(
-            `${account.padStart(5, " ")}  ${label.slice(0, 11).padEnd(11, " ")} ${formatEntryAmount(debit)} ${formatEntryAmount(credit)}`,
-        )
-    const formatFooterGap = (label: string, amount: string, trend: string) =>
-        " ".repeat(Math.max(1, innerPaddedWidth - label.length - amount.length - trend.length - 1))
+const dim = css({
+    color: "neutral/30",
+})
+const muted = css({
+    color: "neutral/50",
+})
+const text = css({
+    color: "neutral/100",
+})
+const accent = css({
+    color: "primary",
+})
+const success = css({
+    color: "success",
+})
+const error = css({
+    color: "error",
+})
+const row = css({
+    display: "block",
+    whiteSpace: "pre",
+})
+const contentWidth = 38
+const innerPaddedWidth = contentWidth - 2
+const padJournal = (value: string) => value.padEnd(contentWidth, " ")
+const padWithSides = (value: string) => ` ${value.padEnd(innerPaddedWidth, " ")} `
+const topLeft = " ◆ Arrhes"
+const topRight = "Exercice 2026 "
+const topGap = " ".repeat(Math.max(1, contentWidth - topLeft.length - topRight.length))
+const formatKPIGap = (label: string, amount: string) =>
+    " ".repeat(Math.max(1, innerPaddedWidth - label.length - amount.length))
+const formatEntryAmount = (value: string) => (value === "-" ? "-".padStart(8, " ") : value.padStart(8, " "))
+const formatEntryLine = (account: string, label: string, debit: string, credit: string) =>
+    padWithSides(
+        `${account.padStart(5, " ")}  ${label.slice(0, 11).padEnd(11, " ")} ${formatEntryAmount(debit)} ${formatEntryAmount(credit)}`,
+    )
+const formatFooterGap = (label: string, amount: string, trend: string) =>
+    " ".repeat(Math.max(1, innerPaddedWidth - label.length - amount.length - trend.length - 1))
 
+export function HeroIllustration() {
     return (
         <div
             className={css({

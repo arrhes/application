@@ -104,10 +104,10 @@ export function FileActions(props: { file: v.InferOutput<typeof returnedSchemas.
             </Popover.Trigger>
             <Popover.Content
                 align="end"
-                className={css({
+                className={{
                     padding: "0.5rem",
                     gap: "0.25rem",
-                })}
+                }}
             >
                 <Popover.Close asChild>
                     <Button
@@ -120,25 +120,25 @@ export function FileActions(props: { file: v.InferOutput<typeof returnedSchemas.
                                 },
                             })
                         }
-                        className={css({
+                        className={{
                             width: "100%",
-                        })}
+                        }}
                     >
                         <ButtonGhostContent
                             leftIcon={<IconEye />}
                             text="Ouvrir"
-                            className={css({
+                            className={{
                                 width: "100%",
                                 justifyContent: "start",
-                            })}
+                            }}
                         />
                     </Button>
                 </Popover.Close>
                 <Popover.Close asChild>
                     <Button
-                        className={css({
+                        className={{
                             width: "100%",
-                        })}
+                        }}
                         onClick={() => {
                             const r = {
                                 current: "",
@@ -161,18 +161,18 @@ export function FileActions(props: { file: v.InferOutput<typeof returnedSchemas.
                         <ButtonGhostContent
                             leftIcon={<IconPencil />}
                             text="Modifier"
-                            className={css({
+                            className={{
                                 width: "100%",
                                 justifyContent: "start",
-                            })}
+                            }}
                         />
                     </Button>
                 </Popover.Close>
                 <Popover.Close asChild>
                     <Button
-                        className={css({
+                        className={{
                             width: "100%",
-                        })}
+                        }}
                         onClick={() =>
                             openModal(
                                 moveModalId,
@@ -181,9 +181,9 @@ export function FileActions(props: { file: v.InferOutput<typeof returnedSchemas.
                                         <Dialog.Title>Déplacer le fichier</Dialog.Title>
                                     </Dialog.Header>
                                     <Dialog.Body
-                                        className={css({
+                                        className={{
                                             alignItems: "stretch",
-                                        })}
+                                        }}
                                     >
                                         <MoveOneFileForm
                                             file={props.file}
@@ -197,10 +197,10 @@ export function FileActions(props: { file: v.InferOutput<typeof returnedSchemas.
                         <ButtonGhostContent
                             leftIcon={<IconArrowsMove />}
                             text="Déplacer"
-                            className={css({
+                            className={{
                                 width: "100%",
                                 justifyContent: "start",
-                            })}
+                            }}
                         />
                     </Button>
                 </Popover.Close>
@@ -218,9 +218,9 @@ export function FileActions(props: { file: v.InferOutput<typeof returnedSchemas.
                     >
                         <Popover.Close asChild>
                             <Button
-                                className={css({
+                                className={{
                                     width: "100%",
-                                })}
+                                }}
                                 onClick={hasOcrAvailable && !ocrLoading ? handleOcr : undefined}
                                 isDisabled={!hasOcrAvailable || ocrLoading}
                             >
@@ -228,13 +228,13 @@ export function FileActions(props: { file: v.InferOutput<typeof returnedSchemas.
                                     leftIcon={<IconFileText />}
                                     text={ocrLoading ? "Extraction..." : "Extraire le texte (OCR)"}
                                     isDisabled={!hasOcrAvailable}
-                                    className={css({
+                                    className={{
                                         width: "100%",
                                         justifyContent: "start",
                                         ...(!hasOcrAvailable && {
                                             textDecoration: "line-through",
                                         }),
-                                    })}
+                                    }}
                                 />
                             </Button>
                         </Popover.Close>
@@ -265,9 +265,9 @@ export function FileActions(props: { file: v.InferOutput<typeof returnedSchemas.
                 <Separator />
                 <Popover.Close asChild>
                     <Button
-                        className={css({
+                        className={{
                             width: "100%",
-                        })}
+                        }}
                         onClick={() =>
                             openModal(
                                 deleteModalId,
@@ -306,10 +306,10 @@ export function FileActions(props: { file: v.InferOutput<typeof returnedSchemas.
                             leftIcon={<IconTrash />}
                             text="Supprimer"
                             color="danger"
-                            className={css({
+                            className={{
                                 width: "100%",
                                 justifyContent: "start",
-                            })}
+                            }}
                         />
                     </Button>
                 </Popover.Close>

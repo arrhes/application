@@ -1,34 +1,19 @@
 import {
-    createContext,
     type Dispatch,
     type ReactNode,
     type SetStateAction,
     useCallback,
-    useContext,
     useEffect,
     useId,
+    useMemo,
     useState,
 } from "react"
 import { usePopoverStore } from "../../../stores/popoverStore.js"
+import { PopoverContext } from "./popoverContext.js"
 
 // ---------------------------------------------------------------------------
 // Context shared between Root / Trigger / Content / Close
 // ---------------------------------------------------------------------------
-
-export type PopoverContextValue = {
-    id: string
-    anchorName: string
-    isOpen: boolean
-    setOpen: Dispatch<SetStateAction<boolean>>
-}
-
-export const PopoverContext = createContext<PopoverContextValue | null>(null)
-
-export function usePopoverContext(): PopoverContextValue {
-    const ctx = useContext(PopoverContext)
-    if (ctx === null) throw new Error("Popover sub-component used outside <Popover.Root>")
-    return ctx
-}
 
 // ---------------------------------------------------------------------------
 // PopoverRoot
@@ -78,16 +63,20 @@ export function PopoverRoot(props: {
         setOpen,
     ])
 
-    return (
-        <PopoverContext.Provider
-            value={{
-                id,
-                anchorName,
-                isOpen,
-                setOpen,
-            }}
-        >
-            {props.children}
-        </PopoverContext.Provider>
+    const popoverContextValue = useMemo(
+        () => ({
+            id,
+            anchorName,
+            isOpen,
+            setOpen,
+        }),
+        [
+            id,
+            anchorName,
+            isOpen,
+            setOpen,
+        ],
     )
+
+    return <PopoverContext.Provider value={popoverContextValue}>{props.children}</PopoverContext.Provider>
 }

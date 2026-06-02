@@ -17,7 +17,7 @@ export function DemarrerCliDocPage() {
 
             <DocSection title="1. Installer le CLI">
                 <DocParagraph>
-                    Le CLI est un binaire autonome — aucune installation de Node.js ou de dépendance requise. Collez
+                    Le CLI est un binaire autonome - aucune installation de Node.js ou de dépendance requise. Collez
                     l'une des commandes suivantes dans votre terminal :
                 </DocParagraph>
                 <DocCodeBlock>curl -fsSL https://arrhes.com/cli/install.sh | sh</DocCodeBlock>
@@ -41,7 +41,7 @@ export function DemarrerCliDocPage() {
                     <strong>Dashboard → Organisation → API → Clés → Nouvelle clé</strong>
                 </DocParagraph>
                 <DocTip variant="warning">
-                    Copiez la clé immédiatement après sa création — elle ne sera plus affichée ensuite.
+                    Copiez la clé immédiatement après sa création - elle ne sera plus affichée ensuite.
                 </DocTip>
             </DocSection>
 
@@ -51,7 +51,7 @@ export function DemarrerCliDocPage() {
                 </DocCodeBlock>
                 <DocParagraph>
                     Le CLI vérifie la clé et enregistre la configuration dans <DocCode>~/.arrhes/config.json</DocCode>.
-                    L'identifiant d'organisation est requis — il est utilisé automatiquement pour toutes les commandes.
+                    L'identifiant d'organisation est requis - il est utilisé automatiquement pour toutes les commandes.
                 </DocParagraph>
             </DocSection>
 

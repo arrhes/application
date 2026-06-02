@@ -1,30 +1,32 @@
 import type { InputHTMLAttributes } from "react"
 import type { FieldError } from "react-hook-form"
 import { IMask, IMaskInput } from "react-imask"
-import { css, cx } from "../../utilities/cn.js"
+import type { Styles } from "../../../styled-system/css/css"
+import { css } from "../../utilities/cn.js"
+
+function inputPrice(value: string | undefined | null) {
+    if (value === null || value === undefined) return undefined
+    return value
+}
+
+function outputPrice(value: string | undefined) {
+    if (value === undefined) return value
+    return value
+}
 
 export function InputPrice(
-    props: Omit<InputHTMLAttributes<HTMLInputElement>, "defaultValue" | "value" | "onChange"> & {
+    props: Omit<InputHTMLAttributes<HTMLInputElement>, "defaultValue" | "value" | "onChange" | "className"> & {
         error?: FieldError
         defaultValue?: string | undefined | null
         value?: string | undefined | null
         onChange: (value: string | undefined) => void
+        className?: Styles
     },
 ) {
-    function input(value: string | undefined | null) {
-        if (value === null || value === undefined) return undefined
-        return value
-    }
-
-    function output(value: string | undefined) {
-        if (value === undefined) return value
-        return value
-    }
-
     return (
         <div
-            className={cx(
-                css({
+            className={css(
+                {
                     height: "32px",
                     width: "100%",
                     display: "flex",
@@ -39,16 +41,14 @@ export function InputPrice(
                         borderColor: "neutral/50",
                         boxShadow: "inset",
                     },
-                }),
-                css(
-                    props.error
-                        ? {
-                              borderColor: "error",
-                          }
-                        : {
-                              borderColor: "neutral/20",
-                          },
-                ),
+                },
+                props.error
+                    ? {
+                          borderColor: "error",
+                      }
+                    : {
+                          borderColor: "neutral/20",
+                      },
                 props.className,
             )}
         >
@@ -64,8 +64,8 @@ export function InputPrice(
                 lazy={false}
                 overwrite={false}
                 unmask={"typed"}
-                onAccept={(value: unknown) => props.onChange(output(String(value)))}
-                value={input(props.value)}
+                onAccept={(value: unknown) => props.onChange(outputPrice(String(value)))}
+                value={inputPrice(props.value)}
                 className={css({
                     borderRadius: "inherit",
                     width: "100%",

@@ -1,30 +1,37 @@
-import { type HTMLAttributes, useId } from "react"
-import { css, cx } from "../../utilities/cn.js"
+import { type HTMLAttributes, useId, useMemo } from "react"
+import type { Styles } from "../../../styled-system/css/css"
+import { css } from "../../utilities/cn.js"
 import { FormItemContext } from "./formItemContext.js"
 
-type FormItem = HTMLAttributes<HTMLDivElement>
+type FormItem = Omit<HTMLAttributes<HTMLDivElement>, "className"> & {
+    className?: Styles
+}
 
-export function FormItem(props: FormItem) {
+export function FormItem({ className, ...props }: FormItem) {
     const id = useId()
+    const formItemContextValue = useMemo(
+        () => ({
+            id,
+        }),
+        [
+            id,
+        ],
+    )
 
     return (
-        <FormItemContext.Provider
-            value={{
-                id,
-            }}
-        >
+        <FormItemContext.Provider value={formItemContextValue}>
             <div
                 {...props}
-                className={cx(
-                    css({
+                className={css(
+                    {
                         width: "100%",
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "flex-start",
                         alignItems: "flex-start",
                         gap: "1",
-                    }),
-                    props.className,
+                    },
+                    className,
                 )}
             />
         </FormItemContext.Provider>

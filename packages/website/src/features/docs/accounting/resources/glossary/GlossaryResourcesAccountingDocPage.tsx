@@ -54,6 +54,7 @@ export function GlossaryResourcesAccountingDocPage() {
                 />
                 <input
                     type="text"
+                    aria-label="Rechercher un terme"
                     placeholder="Rechercher un terme..."
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}

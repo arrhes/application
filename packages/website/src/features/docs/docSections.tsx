@@ -21,14 +21,18 @@ export const docSections: Record<string, DocSection> = {
         path: "/documentation",
         icon: <IconInfoCircle />,
         navigation: {
-            introduction: {
-                title: "Introduction",
-                icon: <IconHome />,
+            root: {
                 items: [
                     {
                         path: "/documentation",
                         label: "Accueil",
                     },
+                ],
+            },
+            introduction: {
+                title: "Introduction",
+                icon: <IconHome />,
+                items: [
                     {
                         path: "/documentation/fonctionnalités",
                         label: "Fonctionnalités",

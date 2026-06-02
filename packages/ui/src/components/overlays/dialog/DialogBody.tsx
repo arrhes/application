@@ -1,19 +1,25 @@
 import type { HTMLAttributes } from "react"
-import { css, cx } from "../../../utilities/cn.js"
+import type { Styles } from "../../../../styled-system/css/css"
+import { css } from "../../../utilities/cn.js"
 
-export function DialogBody(props: HTMLAttributes<HTMLDivElement>) {
+export function DialogBody({
+    className,
+    ...props
+}: Omit<HTMLAttributes<HTMLDivElement>, "className"> & {
+    className?: Styles
+}) {
     return (
         <div
             {...props}
-            className={cx(
-                css({
+            className={css(
+                {
                     width: "100%",
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
                     padding: "1rem",
-                }),
-                props.className,
+                },
+                className,
             )}
         >
             {props.children}

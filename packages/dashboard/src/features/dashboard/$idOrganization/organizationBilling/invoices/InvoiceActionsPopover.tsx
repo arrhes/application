@@ -1,6 +1,5 @@
 import type { returnedSchemas } from "@arrhes/application-metadata"
 import { Button, ButtonGhostContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconDotsVertical, IconDownload, IconEye } from "@tabler/icons-react"
 import type * as v from "valibot"
 import { LinkButton } from "../../../../../components/LinkButton.js"
@@ -24,11 +23,11 @@ export function InvoiceActionsPopover(props: {
             </Popover.Trigger>
             <Popover.Content
                 align="end"
-                className={css({
+                className={{
                     padding: "0.5rem",
                     minWidth: "auto",
                     gap: "0.25rem",
-                })}
+                }}
             >
                 <LinkButton
                     to="/dashboard/organisations/$idOrganization/facturation/facture/$idInvoice"
@@ -36,24 +35,24 @@ export function InvoiceActionsPopover(props: {
                         idOrganization: props.idOrganization,
                         idInvoice: props.invoice.id,
                     }}
-                    className={css({
+                    className={{
                         width: "100%",
-                    })}
+                    }}
                 >
                     <ButtonGhostContent
                         leftIcon={<IconEye />}
                         text="Voir la facture"
-                        className={css({
+                        className={{
                             width: "100%",
                             justifyContent: "start",
-                        })}
+                        }}
                     />
                 </LinkButton>
                 <DownloadInvoiceAsPDFButton
                     invoice={props.invoice}
-                    className={css({
+                    className={{
                         width: "100%",
-                    })}
+                    }}
                 >
                     <ButtonGhostContent
                         leftIcon={<IconDownload />}
@@ -62,9 +61,9 @@ export function InvoiceActionsPopover(props: {
                 </DownloadInvoiceAsPDFButton>
                 <DownloadInvoiceAsXMLButton
                     invoice={props.invoice}
-                    className={css({
+                    className={{
                         width: "100%",
-                    })}
+                    }}
                 >
                     <ButtonGhostContent
                         leftIcon={<IconDownload />}

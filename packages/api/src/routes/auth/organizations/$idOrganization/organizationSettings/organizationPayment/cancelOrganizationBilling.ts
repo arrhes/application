@@ -65,7 +65,7 @@ export const cancelOrganizationBillingRoute = apiFactory
             })
         }
 
-        // Find the subscription to cancel — must belong to this org
+        // Find the subscription to cancel - must belong to this org
         const subscription = await selectOne({
             database: c.var.clients.sql,
             table: models.organizationBilling,

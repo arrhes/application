@@ -160,7 +160,7 @@ export async function createOneEntryLine(db: DB, _idOrganization: string, body: 
         .values({
             id: generateId(),
             ...body,
-            // Default boolean flags to true — the LLM should not need to know about these
+            // Default boolean flags to true - the LLM should not need to know about these
             isComputedForJournalReport: body.isComputedForJournalReport ?? true,
             isComputedForLedgerReport: body.isComputedForLedgerReport ?? true,
             isComputedForBalanceReport: body.isComputedForBalanceReport ?? true,

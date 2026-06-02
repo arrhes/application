@@ -75,7 +75,11 @@ export function HomePage() {
                                 text="Documentation"
                             />
                         </LinkButton>
-                        <a href={import.meta.env.VITE_DASHBOARD_BASE_URL}>
+                        <a
+                            href={import.meta.env.VITE_DASHBOARD_BASE_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             <ButtonPlainContent text="Dashboard" />
                         </a>
                     </nav>
@@ -238,7 +242,7 @@ export function HomePage() {
                         Un logiciel de comptabilité conçu pour être simple et transparent, tout en respectant les
                         exigences de la comptabilité française.
                         <br />
-                        Il s'adresse à tous : indépendants, entreprises, associations, experts-comptables...
+                        Il s'adresse à tous : indépendants, entreprises, associations, experts-comptables…
                     </p>
 
                     {/* Pricing columns */}
@@ -289,7 +293,7 @@ export function HomePage() {
                     >
                         Notre documentation inclut un cours sur les bases de la comptabilité française.
                         <br />
-                        Apprenez les concepts essentiels : partie double, plan comptable, écritures, journaux...
+                        Apprenez les concepts essentiels : partie double, plan comptable, écritures, journaux…
                     </p>
                     <LinkButton to="/documentation/comptabilité">
                         <ButtonOutlineContent

@@ -1,39 +1,41 @@
 import type { InputHTMLAttributes } from "react"
 import type { FieldError } from "react-hook-form"
 import { IMaskInput } from "react-imask"
-import { css, cx } from "../../utilities/cn.js"
+import type { Styles } from "../../../styled-system/css/css"
+import { css } from "../../utilities/cn.js"
+
+function inputCurrency(value: number | undefined | null) {
+    if (value === null || value === undefined) return undefined
+    return (value / 100).toFixed(2).replace(".", ",")
+}
+
+function outputCurrency(value: string | number | undefined) {
+    if (value === undefined) return undefined
+
+    if (typeof value === "number") {
+        if (Number.isNaN(value)) return undefined
+        return Math.round(value * 100)
+    }
+
+    const normalizedValue = value.replaceAll("\u202f", "").replaceAll(" ", "").replace(",", ".")
+    const numberValue = Number(normalizedValue)
+    if (Number.isNaN(numberValue)) return undefined
+    return Math.round(numberValue * 100)
+}
 
 export function InputCurrency(
-    props: Omit<InputHTMLAttributes<HTMLInputElement>, "defaultValue" | "value" | "onChange"> & {
+    props: Omit<InputHTMLAttributes<HTMLInputElement>, "defaultValue" | "value" | "onChange" | "className"> & {
         error?: FieldError
         defaultValue?: number | undefined | null
         value?: number | undefined | null
         onChange: (value: number | undefined) => void
+        className?: Styles
     },
 ) {
-    function input(value: typeof props.value) {
-        if (value === null || value === undefined) return undefined
-        return (value / 100).toFixed(2).replace(".", ",")
-    }
-
-    function output(value: string | number | undefined) {
-        if (value === undefined) return undefined
-
-        if (typeof value === "number") {
-            if (Number.isNaN(value)) return undefined
-            return Math.round(value * 100)
-        }
-
-        const normalizedValue = value.replaceAll("\u202f", "").replaceAll(" ", "").replace(",", ".")
-        const numberValue = Number(normalizedValue)
-        if (Number.isNaN(numberValue)) return undefined
-        return Math.round(numberValue * 100)
-    }
-
     return (
         <div
-            className={cx(
-                css({
+            className={css(
+                {
                     width: "100%",
                     display: "flex",
                     justifyContent: "space-between",
@@ -48,16 +50,14 @@ export function InputCurrency(
                         borderColor: "neutral/50",
                         boxShadow: "inset",
                     },
-                }),
-                css(
-                    !props.error
-                        ? {
-                              borderColor: "neutral/20",
-                          }
-                        : {
-                              borderColor: "error",
-                          },
-                ),
+                },
+                !props.error
+                    ? {
+                          borderColor: "neutral/20",
+                      }
+                    : {
+                          borderColor: "error",
+                      },
                 props.className,
             )}
         >
@@ -76,8 +76,8 @@ export function InputCurrency(
                 overwrite={false}
                 eager="append"
                 unmask={"typed"}
-                onAccept={(value) => props.onChange(output(value))}
-                value={input(props.value)}
+                onAccept={(value) => props.onChange(outputCurrency(value))}
+                value={inputCurrency(props.value)}
                 className={css({
                     width: "100%",
                     fontSize: "0.875rem",

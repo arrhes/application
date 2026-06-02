@@ -1,4 +1,4 @@
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import type { ComponentProps, ReactElement } from "react"
 
 export function SectionRoot(props: {
@@ -7,7 +7,7 @@ export function SectionRoot(props: {
 }) {
     return (
         <div
-            className={cx(
+            className={cn(
                 css({
                     flexGrow: "1",
                     minWidth: "0",

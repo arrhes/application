@@ -1,7 +1,17 @@
 import { IconStarFilled } from "@tabler/icons-react"
 import type { InputHTMLAttributes } from "react"
 import type { FieldError } from "react-hook-form"
-import { css, cx } from "../../utilities/cn.js"
+import { css } from "../../utilities/cn.js"
+
+function inputRating(value: number | undefined | null) {
+    if (!value) return 0
+    return value
+}
+
+function outputRating(value: number) {
+    if (value === 0) return undefined
+    return value
+}
 
 export function InputRating(
     props: Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "onChange"> & {
@@ -11,16 +21,6 @@ export function InputRating(
         ref?: React.Ref<HTMLInputElement>
     },
 ) {
-    function input(value: number | undefined | null) {
-        if (!value) return 0
-        return value
-    }
-
-    function output(value: number) {
-        if (value === 0) return undefined
-        return value
-    }
-
     return (
         <div
             className={css({
@@ -28,6 +28,8 @@ export function InputRating(
             })}
         >
             <input
+                type="hidden"
+                aria-label="Note"
                 className={css({
                     display: "none",
                 })}
@@ -36,36 +38,39 @@ export function InputRating(
             {Array(5)
                 .fill(0)
                 .map((_, i) => (
-                    <div
+                    <button
+                        type="button"
                         key={i}
+                        aria-label={`Note ${i + 1}`}
                         className={css({
                             cursor: "pointer",
+                            border: 0,
+                            padding: 0,
+                            background: "transparent",
                         })}
                         onClick={() => {
                             if (!props.onChange) return
-                            props?.onChange(output(i === +input(props.value) - 1 ? 0 : i + 1))
+                            props?.onChange(outputRating(i === +inputRating(props.value) - 1 ? 0 : i + 1))
                         }}
                     >
                         <IconStarFilled
                             size={16}
-                            className={cx(
-                                css({
+                            className={css(
+                                {
                                     fill: "none",
                                     stroke: "neutral/50",
                                     _hover: {
                                         fill: "neutral/10",
                                     },
-                                }),
-                                css(
-                                    i < +input(props.value)
-                                        ? {
-                                              fill: "neutral",
-                                          }
-                                        : {},
-                                ),
+                                },
+                                i < +inputRating(props.value)
+                                    ? {
+                                          fill: "neutral",
+                                      }
+                                    : undefined,
                             )}
                         />
-                    </div>
+                    </button>
                 ))}
         </div>
     )

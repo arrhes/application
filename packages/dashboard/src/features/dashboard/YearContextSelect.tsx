@@ -1,6 +1,5 @@
 import { readAllYearsRouteDefinition } from "@arrhes/application-metadata"
 import { Button, ButtonGhostContent, ButtonPlainContent, Separator } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconChevronDown } from "@tabler/icons-react"
 import { useState } from "react"
 import { Popover } from "../../components/overlays/popover/popover.js"
@@ -18,8 +17,8 @@ export function YearContextSelect(props: {
         body: {},
         params: props.idOrganizationSelected
             ? {
-                  idOrganization: props.idOrganizationSelected,
-              }
+                idOrganization: props.idOrganizationSelected,
+            }
             : undefined,
         enabled: props.idOrganizationSelected !== null,
     })
@@ -58,13 +57,13 @@ export function YearContextSelect(props: {
             </Popover.Trigger>
             <Popover.Content
                 align="start"
-                className={css({
+                className={{
                     padding: "0.5rem",
                     minWidth: "160px",
                     maxHeight: "260px",
                     overflowY: "auto",
                     gap: "0.25rem",
-                })}
+                }}
             >
                 {options.map((option) => (
                     <Button
@@ -73,39 +72,39 @@ export function YearContextSelect(props: {
                             props.onChange(option.key === props.value ? null : option.key)
                             setOpen(false)
                         }}
-                        className={css({
+                        className={{
                             width: "100%",
-                        })}
+                        }}
                     >
                         <ButtonGhostContent
                             text={option.label}
                             isCurrent={option.key === props.value}
-                            className={css({
+                            className={{
                                 width: "100%",
                                 justifyContent: "start",
-                            })}
+                            }}
                         />
                     </Button>
                 ))}
                 <Separator
-                    className={css({
+                    className={{
                         marginY: "0.25rem",
-                    })}
+                    }}
                 />
                 {props.idOrganizationSelected !== null && (
                     <div onClick={() => setOpen(false)}>
                         <CreateOneYear
                             idOrganization={props.idOrganizationSelected}
-                            className={css({
+                            className={{
                                 width: "100%",
-                            })}
+                            }}
                         >
                             <ButtonGhostContent
                                 text="Ajouter un exercice"
-                                className={css({
+                                className={{
                                     width: "100%",
                                     justifyContent: "start",
-                                })}
+                                }}
                             />
                         </CreateOneYear>
                     </div>

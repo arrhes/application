@@ -1,23 +1,24 @@
-import type { ComponentProps, ReactNode } from "react"
-import { css, cx } from "../../utilities/cn.js"
+import type { ReactNode } from "react"
+import type { Styles } from "../../../styled-system/css/css"
+import { css } from "../../utilities/cn.js"
 
 type FormatBase = {
     children: ReactNode
-    className?: ComponentProps<"div">["className"]
+    className?: Styles
 }
 
 export function FormatBase(props: FormatBase) {
     return (
         <div
-            className={cx(
-                css({
+            className={css(
+                {
                     width: "fit",
                     maxWidth: "100%",
                     overflow: "auto",
                     display: "flex",
                     justifyContent: "flex-start",
                     alignItems: "center",
-                }),
+                },
                 props.className,
             )}
         >

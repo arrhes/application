@@ -70,33 +70,33 @@ export function FolderActions(props: {
             </Popover.Trigger>
             <Popover.Content
                 align="end"
-                className={css({
+                className={{
                     padding: "0.5rem",
                     gap: "0.25rem",
-                })}
+                }}
             >
                 <Popover.Close asChild>
                     <Button
-                        className={css({
+                        className={{
                             width: "100%",
-                        })}
+                        }}
                         onClick={() => props.onFolderOpen(props.folder.id)}
                     >
                         <ButtonGhostContent
                             leftIcon={<IconEye />}
                             text="Ouvrir"
-                            className={css({
+                            className={{
                                 width: "100%",
                                 justifyContent: "start",
-                            })}
+                            }}
                         />
                     </Button>
                 </Popover.Close>
                 <Popover.Close asChild>
                     <Button
-                        className={css({
+                        className={{
                             width: "100%",
-                        })}
+                        }}
                         onClick={() => {
                             const r = {
                                 current: "",
@@ -119,18 +119,18 @@ export function FolderActions(props: {
                         <ButtonGhostContent
                             leftIcon={<IconPencil />}
                             text="Renommer"
-                            className={css({
+                            className={{
                                 width: "100%",
                                 justifyContent: "start",
-                            })}
+                            }}
                         />
                     </Button>
                 </Popover.Close>
                 <Popover.Close asChild>
                     <Button
-                        className={css({
+                        className={{
                             width: "100%",
-                        })}
+                        }}
                         onClick={() =>
                             openModal(
                                 moveModalId,
@@ -139,9 +139,9 @@ export function FolderActions(props: {
                                         <Dialog.Title>Déplacer le dossier</Dialog.Title>
                                     </Dialog.Header>
                                     <Dialog.Body
-                                        className={css({
+                                        className={{
                                             alignItems: "stretch",
-                                        })}
+                                        }}
                                     >
                                         <MoveOneFolderForm
                                             folder={props.folder}
@@ -155,19 +155,19 @@ export function FolderActions(props: {
                         <ButtonGhostContent
                             leftIcon={<IconArrowsMove />}
                             text="Déplacer"
-                            className={css({
+                            className={{
                                 width: "100%",
                                 justifyContent: "start",
-                            })}
+                            }}
                         />
                     </Button>
                 </Popover.Close>
                 <Separator />
                 <Popover.Close asChild>
                     <Button
-                        className={css({
+                        className={{
                             width: "100%",
-                        })}
+                        }}
                         onClick={() =>
                             openModal(
                                 deleteModalId,
@@ -206,10 +206,10 @@ export function FolderActions(props: {
                             leftIcon={<IconTrash />}
                             text="Supprimer"
                             color="danger"
-                            className={css({
+                            className={{
                                 width: "100%",
                                 justifyContent: "start",
-                            })}
+                            }}
                         />
                     </Button>
                 </Popover.Close>

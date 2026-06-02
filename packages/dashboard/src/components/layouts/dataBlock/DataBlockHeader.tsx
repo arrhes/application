@@ -1,10 +1,10 @@
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import type { ComponentProps } from "react"
 
 export function DataBlockHeader(props: { title: string; className?: ComponentProps<"div">["className"] }) {
     return (
         <div
-            className={cx(
+            className={cn(
                 css({
                     flexShrink: "0",
                     width: "100%",

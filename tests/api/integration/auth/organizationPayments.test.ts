@@ -449,7 +449,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/tokens-subscription", 
     })
 
     it("rejects when wallet balance is insufficient", async () => {
-        // 10_000 packs × 100 cents = 1_000_000 cents — far beyond the demo wallet
+        // 10_000 packs × 100 cents = 1_000_000 cents - far beyond the demo wallet
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
@@ -462,7 +462,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/tokens-subscription", 
     })
 
     it("purchases additional token packs and deducts from wallet", async () => {
-        // Add 1 more pack (100 cents) — demo wallet has 21_470 cents so this succeeds
+        // Add 1 more pack (100 cents) - demo wallet has 21_470 cents so this succeeds
         const response = await authenticatedRequest({
             session,
             method: "PATCH",

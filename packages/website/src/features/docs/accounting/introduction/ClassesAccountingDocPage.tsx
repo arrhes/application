@@ -173,9 +173,9 @@ export function ClassesAccountingDocPage() {
                         title={`Classe ${cls.number} - ${cls.label}`}
                     >
                         <DocParagraph>{info.description}</DocParagraph>
-                        {info.tips.map((tip, i) => (
+                        {info.tips.map((tip) => (
                             <DocTip
-                                key={i}
+                                key={`${tip.variant}-${String(tip.children)}`}
                                 variant={tip.variant}
                             >
                                 {tip.children}

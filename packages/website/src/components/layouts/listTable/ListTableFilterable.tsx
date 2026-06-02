@@ -164,9 +164,9 @@ export function ListTableFilterable<TItem>(props: {
                 >
                     <InputText
                         placeholder="Recherche"
-                        className={css({
+                        className={{
                             maxWidth: "320px",
-                        })}
+                        }}
                     />
                 </InputDebounced>
                 <FilterPopover

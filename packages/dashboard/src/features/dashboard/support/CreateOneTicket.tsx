@@ -21,13 +21,13 @@ export function CreateOneTicket(props: { children: JSX.Element }) {
 
     return (
         <Button
-            className={css({
+            className={{
                 padding: "0",
                 border: "none",
                 backgroundColor: "transparent",
                 width: "fit-content",
                 height: "fit-content",
-            })}
+            }}
             onClick={() => {
                 const r = {
                     current: "",

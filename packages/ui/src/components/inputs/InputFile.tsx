@@ -1,4 +1,4 @@
-import { type InputHTMLAttributes, useEffect, useRef, useState } from "react"
+import { type InputHTMLAttributes, useRef, useState } from "react"
 import type { FieldError } from "react-hook-form"
 import { css } from "../../utilities/cn.js"
 import { Button } from "../buttons/Button.js"
@@ -13,23 +13,14 @@ export function InputFile(
     },
 ) {
     const inputRef = useRef<HTMLInputElement | null>(null)
-    const [selectedFile, setSelectedFile] = useState<File | null>(props.value ?? null)
-
-    useEffect(() => {
-        if (props.value === null) {
-            setSelectedFile(null)
-            return
-        }
-
-        if (props.value !== undefined) {
-            setSelectedFile(props.value)
-        }
-    }, [
-        props.value,
-    ])
+    const [localFile, setLocalFile] = useState<File | null>(null)
+    // When props.value is provided (controlled mode), derive selectedFile from it;
+    // otherwise use the locally-tracked file from the picker / drop zone.
+    const selectedFile = props.value !== undefined ? (props.value ?? null) : localFile
 
     return (
         <div
+            aria-label="Zone de dépôt de fichier"
             className={css({
                 width: "100%",
                 border: "1px solid",
@@ -48,7 +39,7 @@ export function InputFile(
                 event.preventDefault()
                 if (event.dataTransfer.files) {
                     const file = event.dataTransfer.files[0]
-                    setSelectedFile(file ?? null)
+                    setLocalFile(file ?? null)
                     props.onChange?.(file)
                 }
             }}
@@ -58,10 +49,11 @@ export function InputFile(
                 ref={inputRef}
                 multiple={false}
                 type="file"
+                aria-label="Sélectionner un fichier"
                 onChange={(event) => {
                     if (event.target.files) {
                         const file = event.target.files[0]
-                        setSelectedFile(file ?? null)
+                        setLocalFile(file ?? null)
                         props.onChange?.(file)
                     }
                 }}
@@ -76,7 +68,7 @@ export function InputFile(
                 onClick={(_event) => {
                     inputRef.current?.click()
                 }}
-                className={css({
+                className={{
                     cursor: "pointer",
                     width: "100%",
                     height: "100%",
@@ -84,7 +76,7 @@ export function InputFile(
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                })}
+                }}
             >
                 <span
                     className={css({

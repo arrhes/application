@@ -1,7 +1,8 @@
 import { type InputHTMLAttributes, useRef, useState } from "react"
 import type { FieldError } from "react-hook-form"
 import { IMask, IMaskInput } from "react-imask"
-import { css, cx } from "../../utilities/cn.js"
+import type { Styles } from "../../../styled-system/css/css"
+import { css } from "../../utilities/cn.js"
 
 function isoToDisplay(value: string | undefined | null) {
     if (!value) return ""
@@ -33,13 +34,15 @@ function displayToIso(value: string | undefined) {
 }
 
 export function InputDate(
-    props: Omit<InputHTMLAttributes<HTMLInputElement>, "defaultValue" | "value" | "onChange"> & {
+    props: Omit<InputHTMLAttributes<HTMLInputElement>, "defaultValue" | "value" | "onChange" | "className"> & {
         error?: FieldError
         defaultValue?: string | undefined | null
         value?: string | undefined | null
         onChange: (value: string | undefined) => void
+        className?: Styles
     },
 ) {
+    const { className } = props
     const lastEmittedIso = useRef<string | undefined>(undefined)
     const [displayValue, setDisplayValue] = useState(() => isoToDisplay(props.value))
 
@@ -51,8 +54,8 @@ export function InputDate(
 
     return (
         <div
-            className={cx(
-                css({
+            className={css(
+                {
                     width: "100%",
                     display: "flex",
                     justifyContent: "flex-start",
@@ -67,17 +70,15 @@ export function InputDate(
                         borderColor: "neutral/50",
                         boxShadow: "inset",
                     },
-                }),
-                css(
-                    props.error
-                        ? {
-                              borderColor: "error",
-                          }
-                        : {
-                              borderColor: "neutral/20",
-                          },
-                ),
-                props.className,
+                },
+                props.error
+                    ? {
+                          borderColor: "error",
+                      }
+                    : {
+                          borderColor: "neutral/20",
+                      },
+                className,
             )}
         >
             <IMaskInput

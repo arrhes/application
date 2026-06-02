@@ -45,7 +45,7 @@ export function ClesApiCommandsCliDocPage() {
             <DocSection title="arrhes api-keys create">
                 <DocParagraph>
                     Crée une nouvelle clé API. La valeur brute de la clé n'est affichée qu'une seule fois à la création
-                    — conservez-la en lieu sûr.
+                    - conservez-la en lieu sûr.
                 </DocParagraph>
                 <DocTable
                     headers={[

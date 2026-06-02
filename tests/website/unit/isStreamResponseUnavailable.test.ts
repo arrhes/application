@@ -1,5 +1,5 @@
-import { isHealthyStreamResponse } from "../../../packages/dashboard/src/features/dashboard/$idOrganization/agent/isStreamResponseUnavailable.ts"
 import { describe, expect, it } from "vitest"
+import { isHealthyStreamResponse } from "../../../packages/dashboard/src/features/dashboard/$idOrganization/agent/isStreamResponseUnavailable.ts"
 
 describe("isHealthyStreamResponse", () => {
     it("returns false when response is not ok", () => {

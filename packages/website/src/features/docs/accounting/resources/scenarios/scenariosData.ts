@@ -37,7 +37,7 @@ export const scenarioEntries: ScenarioEntry[] = [
         examples: [
             {
                 description:
-                    "Étape 1 — Souscription : les associés s'engagent à apporter 10 000 € (SARL, capital intégralement libéré dès la constitution)",
+                    "Étape 1 - Souscription : les associés s'engagent à apporter 10 000 € (SARL, capital intégralement libéré dès la constitution)",
                 entry: {
                     rows: [
                         [
@@ -56,7 +56,7 @@ export const scenarioEntries: ScenarioEntry[] = [
                 },
             },
             {
-                description: "Étape 2 — Libération : les fonds sont versés sur le compte bancaire de la société",
+                description: "Étape 2 - Libération : les fonds sont versés sur le compte bancaire de la société",
                 entry: {
                     rows: [
                         [
@@ -90,7 +90,7 @@ export const scenarioEntries: ScenarioEntry[] = [
         examples: [
             {
                 description:
-                    "Augmentation par apport en numéraire : 20 000 € de capital nouveau + 5 000 € de prime d'émission — les souscripteurs versent 25 000 € en banque",
+                    "Augmentation par apport en numéraire : 20 000 € de capital nouveau + 5 000 € de prime d'émission - les souscripteurs versent 25 000 € en banque",
                 entry: {
                     rows: [
                         [
@@ -150,7 +150,7 @@ export const scenarioEntries: ScenarioEntry[] = [
             "L'achat de marchandises destinées à la revente est enregistré dès la réception de la facture (et non à la livraison ou au paiement). La TVA déductible sur les biens est récupérable immédiatement. Le compte 401 Fournisseurs enregistre la dette jusqu'au règlement ; le compte 607 Achats de marchandises est soldé en fin d'exercice lors du calcul de la variation de stock.",
         examples: [
             {
-                description: "Facture d'achat de marchandises reçue : 1 000 € HT, TVA 20 % — règlement sous 30 jours",
+                description: "Facture d'achat de marchandises reçue : 1 000 € HT, TVA 20 % - règlement sous 30 jours",
                 entry: {
                     rows: [
                         [
@@ -275,7 +275,7 @@ export const scenarioEntries: ScenarioEntry[] = [
             "Le chiffre d'affaires est enregistré à la date de transfert de propriété des biens (généralement la livraison), indépendamment de la date d'encaissement. La TVA collectée constitue une dette envers l'État. La créance sur le client (compte 411) est soldée lors de l'encaissement.",
         examples: [
             {
-                description: "Facture de vente émise : 2 000 € HT, TVA 20 % — paiement attendu à 30 jours",
+                description: "Facture de vente émise : 2 000 € HT, TVA 20 % - paiement attendu à 30 jours",
                 entry: {
                     rows: [
                         [
@@ -300,7 +300,7 @@ export const scenarioEntries: ScenarioEntry[] = [
                 },
             },
             {
-                description: "Vente de marchandises au comptant : 800 € HT, TVA 20 % — encaissement immédiat en banque",
+                description: "Vente de marchandises au comptant : 800 € HT, TVA 20 % - encaissement immédiat en banque",
                 entry: {
                     rows: [
                         [
@@ -372,7 +372,7 @@ export const scenarioEntries: ScenarioEntry[] = [
             "Le produit d'une prestation de services est comptabilisé au compte 706 à la date d'achèvement ou, pour les prestations continues, de manière proratisée sur la durée. Si la facture est émise avant la réalisation complète, la partie non encore réalisée est inscrite en produit constaté d'avance (compte 487). La TVA sur services est déductible chez le client dès le paiement.",
         examples: [
             {
-                description: "Facture de prestation de conseil émise : 5 000 € HT, TVA 20 % — client à 30 jours",
+                description: "Facture de prestation de conseil émise : 5 000 € HT, TVA 20 % - client à 30 jours",
                 entry: {
                     rows: [
                         [
@@ -412,7 +412,7 @@ export const scenarioEntries: ScenarioEntry[] = [
         examples: [
             {
                 description:
-                    "Achat d'un ordinateur 800 € HT, TVA 20 % — facture du fournisseur d'immobilisations, règlement à 30 jours",
+                    "Achat d'un ordinateur 800 € HT, TVA 20 % - facture du fournisseur d'immobilisations, règlement à 30 jours",
                 entry: {
                     rows: [
                         [
@@ -437,7 +437,7 @@ export const scenarioEntries: ScenarioEntry[] = [
                 },
             },
             {
-                description: "Achat d'une machine industrielle 15 000 € HT, TVA 20 % — payée comptant par virement",
+                description: "Achat d'une machine industrielle 15 000 € HT, TVA 20 % - payée comptant par virement",
                 entry: {
                     rows: [
                         [
@@ -660,7 +660,7 @@ export const scenarioEntries: ScenarioEntry[] = [
         examples: [
             {
                 description:
-                    "Réception des fonds d'un emprunt bancaire de 50 000 € à 4 % sur 5 ans — virement sur le compte courant",
+                    "Réception des fonds d'un emprunt bancaire de 50 000 € à 4 % sur 5 ans - virement sur le compte courant",
                 entry: {
                     rows: [
                         [
@@ -733,7 +733,7 @@ export const scenarioEntries: ScenarioEntry[] = [
         examples: [
             {
                 description:
-                    "Liquidation mensuelle : TVA collectée 400 €, TVA déductible sur achats courants 200 € — solde à décaisser 200 €",
+                    "Liquidation mensuelle : TVA collectée 400 €, TVA déductible sur achats courants 200 € - solde à décaisser 200 €",
                 entry: {
                     rows: [
                         [
@@ -872,7 +872,7 @@ export const scenarioEntries: ScenarioEntry[] = [
             },
             {
                 description:
-                    "Reprise de la provision l'exercice suivant : le litige est clôturé sans condamnation — la provision devient sans objet",
+                    "Reprise de la provision l'exercice suivant : le litige est clôturé sans condamnation - la provision devient sans objet",
                 entry: {
                     rows: [
                         [
@@ -1081,7 +1081,7 @@ export const scenarioEntries: ScenarioEntry[] = [
             "Les achats non stockés (fournitures de bureau, cartouches, petits consommables) sont comptabilisés directement en charges au compte 606, sans passer par un compte de stock. Ce traitement simplifié est approprié pour les articles de faible valeur à rotation rapide. Si l'entreprise choisit de les passer en stock, elle utiliserait le compte 321 avec variation de stock en fin d'exercice.",
         examples: [
             {
-                description: "Facture de fournitures de bureau : 200 € HT, TVA 20 % — règlement fournisseur à 30 jours",
+                description: "Facture de fournitures de bureau : 200 € HT, TVA 20 % - règlement fournisseur à 30 jours",
                 entry: {
                     rows: [
                         [
@@ -1107,7 +1107,7 @@ export const scenarioEntries: ScenarioEntry[] = [
             },
             {
                 description:
-                    "Achat de consommables informatiques 80 € HT, TVA 20 % — payés immédiatement par carte bancaire",
+                    "Achat de consommables informatiques 80 € HT, TVA 20 % - payés immédiatement par carte bancaire",
                 entry: {
                     rows: [
                         [

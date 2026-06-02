@@ -15,9 +15,9 @@ export function BalanceSheetRow(props: {
     return (
         <UpdateOneBalanceSheet
             balanceSheet={props.balanceSheet}
-            className={css({
+            className={{
                 width: "100%",
-            })}
+            }}
         >
             <div
                 className={css({

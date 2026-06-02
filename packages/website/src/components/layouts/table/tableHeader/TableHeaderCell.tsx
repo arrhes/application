@@ -1,4 +1,4 @@
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import type { ComponentProps, ReactElement } from "react"
 
 export function TableHeaderCell(props: {
@@ -9,7 +9,7 @@ export function TableHeaderCell(props: {
 }) {
     return (
         <th
-            className={cx(
+            className={cn(
                 css({
                     width: "fit",
                     padding: "1rem",
@@ -19,7 +19,8 @@ export function TableHeaderCell(props: {
             )}
             colSpan={props.colSpan}
             align={props.align ?? "left"}
-            children={props.children}
-        />
+        >
+            {props.children}
+        </th>
     )
 }

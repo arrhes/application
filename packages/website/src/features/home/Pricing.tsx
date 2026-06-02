@@ -133,9 +133,9 @@ export function Pricing() {
                     <ButtonOutlineContent
                         leftIcon={<IconUserPlus />}
                         text="Créer un compte"
-                        className={css({
+                        className={{
                             width: "100%",
-                        })}
+                        }}
                     />
                 </LinkButton>
             </div>

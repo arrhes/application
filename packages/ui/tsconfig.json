@@ -11,11 +11,7 @@
         "sourceMap": true,
         "target": "ES2022",
         "useDefineForClassFields": true,
-        "lib": [
-            "ES2022",
-            "DOM",
-            "DOM.Iterable"
-        ],
+        "lib": ["ES2022", "DOM", "DOM.Iterable"],
         "module": "ESNext",
         "skipLibCheck": true,
         "moduleResolution": "bundler",
@@ -33,8 +29,5 @@
         "incremental": true,
         "tsBuildInfoFile": "./.tsbuildinfo"
     },
-    "include": [
-        "panda.config.ts",
-        "src"
-    ]
+    "include": ["panda.config.ts", "src"]
 }

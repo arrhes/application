@@ -85,19 +85,35 @@ export function ToolsAiDocPage() {
             }
         }
 
-        for (const [, tools] of grouped) {
-            tools.sort((a, b) => a.labelFr.localeCompare(b.labelFr, "fr"))
+        for (const [key, tools] of grouped) {
+            grouped.set(
+                key,
+                tools.toSorted((a: AgentToolDefinition, b: AgentToolDefinition) =>
+                    a.labelFr.localeCompare(b.labelFr, "fr"),
+                ),
+            )
         }
 
         return [
             ...grouped.entries(),
-        ].sort((a, b) => {
-            const indexA = categoryOrder.indexOf(a[0] as (typeof categoryOrder)[number])
-            const indexB = categoryOrder.indexOf(b[0] as (typeof categoryOrder)[number])
-            const safeA = indexA === -1 ? categoryOrder.length : indexA
-            const safeB = indexB === -1 ? categoryOrder.length : indexB
-            return safeA - safeB
-        })
+        ].toSorted(
+            (
+                a: [
+                    string,
+                    AgentToolDefinition[],
+                ],
+                b: [
+                    string,
+                    AgentToolDefinition[],
+                ],
+            ) => {
+                const indexA = categoryOrder.indexOf(a[0] as (typeof categoryOrder)[number])
+                const indexB = categoryOrder.indexOf(b[0] as (typeof categoryOrder)[number])
+                const safeA = indexA === -1 ? categoryOrder.length : indexA
+                const safeB = indexB === -1 ? categoryOrder.length : indexB
+                return safeA - safeB
+            },
+        )
     }, [
         search,
     ])
@@ -146,6 +162,7 @@ export function ToolsAiDocPage() {
             >
                 <input
                     type="text"
+                    aria-label="Rechercher un outil"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     placeholder="Rechercher un outil..."
@@ -177,91 +194,96 @@ export function ToolsAiDocPage() {
                     gap: "1.5rem",
                 })}
             >
-                {groupedTools.map(([category, tools]) => (
-                    <div
-                        key={category}
-                        className={css({
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "0.5rem",
-                        })}
-                    >
-                        <h3
+                {groupedTools.map(
+                    ([category, tools]: [
+                        string,
+                        AgentToolDefinition[],
+                    ]) => (
+                        <div
+                            key={category}
                             className={css({
-                                fontSize: "sm",
-                                fontWeight: "semibold",
-                                color: "neutral",
-                                margin: 0,
-                                paddingBottom: "0.25rem",
-                                borderBottom: "1px solid",
-                                borderBottomColor: "neutral/10",
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: "0.5rem",
                             })}
                         >
-                            {category} ({tools.length})
-                        </h3>
-
-                        {tools.map((tool) => (
-                            <div
-                                key={tool.name}
+                            <h3
                                 className={css({
-                                    border: "1px solid",
-                                    borderColor: "neutral/10",
-                                    borderRadius: "md",
-                                    padding: "0.75rem",
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    gap: "0.375rem",
+                                    fontSize: "sm",
+                                    fontWeight: "semibold",
+                                    color: "neutral",
+                                    margin: 0,
+                                    paddingBottom: "0.25rem",
+                                    borderBottom: "1px solid",
+                                    borderBottomColor: "neutral/10",
                                 })}
                             >
-                                <div
-                                    className={css({
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "space-between",
-                                        gap: "0.75rem",
-                                    })}
-                                >
-                                    <span
-                                        className={css({
-                                            fontSize: "sm",
-                                            fontWeight: "semibold",
-                                            color: "neutral",
-                                        })}
-                                    >
-                                        {tool.labelFr}
-                                    </span>
-                                    <span
-                                        className={css({
-                                            fontFamily: "mono",
-                                            fontSize: "xs",
-                                            color: "neutral/60",
-                                            backgroundColor: "neutral/5",
-                                            border: "1px solid",
-                                            borderColor: "neutral/10",
-                                            borderRadius: "sm",
-                                            paddingX: "0.375rem",
-                                            paddingY: "0.125rem",
-                                            whiteSpace: "nowrap",
-                                        })}
-                                    >
-                                        {tool.name}
-                                    </span>
-                                </div>
+                                {category} ({tools.length})
+                            </h3>
 
-                                <p
+                            {tools.map((tool: AgentToolDefinition) => (
+                                <div
+                                    key={tool.name}
                                     className={css({
-                                        fontSize: "xs",
-                                        color: "neutral/70",
-                                        lineHeight: "1.5",
-                                        margin: 0,
+                                        border: "1px solid",
+                                        borderColor: "neutral/10",
+                                        borderRadius: "md",
+                                        padding: "0.75rem",
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        gap: "0.375rem",
                                     })}
                                 >
-                                    {tool.descriptionFr}
-                                </p>
-                            </div>
-                        ))}
-                    </div>
-                ))}
+                                    <div
+                                        className={css({
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "space-between",
+                                            gap: "0.75rem",
+                                        })}
+                                    >
+                                        <span
+                                            className={css({
+                                                fontSize: "sm",
+                                                fontWeight: "semibold",
+                                                color: "neutral",
+                                            })}
+                                        >
+                                            {tool.labelFr}
+                                        </span>
+                                        <span
+                                            className={css({
+                                                fontFamily: "mono",
+                                                fontSize: "xs",
+                                                color: "neutral/60",
+                                                backgroundColor: "neutral/5",
+                                                border: "1px solid",
+                                                borderColor: "neutral/10",
+                                                borderRadius: "sm",
+                                                paddingX: "0.375rem",
+                                                paddingY: "0.125rem",
+                                                whiteSpace: "nowrap",
+                                            })}
+                                        >
+                                            {tool.name}
+                                        </span>
+                                    </div>
+
+                                    <p
+                                        className={css({
+                                            fontSize: "xs",
+                                            color: "neutral/70",
+                                            lineHeight: "1.5",
+                                            margin: 0,
+                                        })}
+                                    >
+                                        {tool.descriptionFr}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    ),
+                )}
 
                 {groupedTools.length === 0 && (
                     <p

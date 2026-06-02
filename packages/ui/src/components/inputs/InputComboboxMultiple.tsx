@@ -1,6 +1,7 @@
 import { IconChevronDown, IconX } from "@tabler/icons-react"
-import { useEffect, useState } from "react"
-import { css, cx } from "../../utilities/cn.js"
+import { useEffect, useId, useState } from "react"
+import type { Styles } from "../../../styled-system/css/css"
+import { css } from "../../utilities/cn.js"
 import { debounce } from "../../utilities/debounce.js"
 import { Button } from "../buttons/Button.js"
 import { ButtonGhostContent } from "../buttons/ButtonGhostContent.js"
@@ -28,11 +29,12 @@ export function InputComboboxMultiple<TValue extends string>(props: {
             label: string
         }>,
     ) => void
-    className?: string
+    className?: Styles
     autoFocus?: boolean
     loading?: boolean
     isDisabled?: boolean
 }) {
+    const popoverContentId = useId().replace(/:/g, "")
     const [open, setOpen] = useState(false)
     const [rawQuery, setRawQuery] = useState<string | null | undefined>(undefined)
     const [currentOptions, setCurrentOptions] = useState<
@@ -131,16 +133,18 @@ export function InputComboboxMultiple<TValue extends string>(props: {
                 <Popover.Trigger asChild>
                     <Button
                         role="combobox"
+                        aria-controls={popoverContentId}
+                        aria-expanded={open}
                         data-open={open}
-                        className={cx(
-                            css({
+                        className={css.raw(
+                            {
                                 width: "100%",
-                            }),
+                            },
                             props.isDisabled
-                                ? css({
+                                ? {
                                       cursor: "not-allowed",
-                                  })
-                                : "",
+                                  }
+                                : undefined,
                         )}
                         onClick={() => {
                             if (props.isDisabled) return
@@ -152,33 +156,29 @@ export function InputComboboxMultiple<TValue extends string>(props: {
                         <ButtonOutlineContent
                             text={props.placeholder}
                             rightIcon={<IconChevronDown />}
-                            className={cx(
-                                css({
-                                    width: "100%",
-                                    justifyContent: "space-between",
-                                    _hover: {
-                                        borderColor: "neutral/50",
-                                    },
-                                    _focusWithin: {
-                                        borderColor: "neutral/50",
-                                        boxShadow: "inset",
-                                    },
-                                }),
-                                css({
-                                    "& span": {
-                                        color: "neutral/50",
-                                    },
-                                }),
-                            )}
+                            className={{
+                                width: "100%",
+                                justifyContent: "space-between",
+                                _hover: {
+                                    borderColor: "neutral/50",
+                                },
+                                _focusWithin: {
+                                    borderColor: "neutral/50",
+                                    boxShadow: "inset",
+                                },
+                                "& span": {
+                                    color: "neutral/50",
+                                },
+                            }}
                         />
                     </Button>
                 </Popover.Trigger>
                 {!open ? null : (
                     <Popover.Content
                         align="start"
-                        className={css({
+                        className={{
                             padding: "0.5rem",
-                        })}
+                        }}
                     >
                         <InputText
                             value={rawQuery}
@@ -200,18 +200,18 @@ export function InputComboboxMultiple<TValue extends string>(props: {
                             {currentOptions.length > 0 ? null : (
                                 <FormatNull
                                     text="Pas de résultat"
-                                    className={css({
+                                    className={{
                                         padding: "0.5rem",
-                                    })}
+                                    }}
                                 />
                             )}
                             <Virtualizer data={currentOptions}>
                                 {(option) => (
                                     <Button
                                         key={option.key}
-                                        className={css({
+                                        className={{
                                             width: "100%",
-                                        })}
+                                        }}
                                         onClick={() => {
                                             if (props.isDisabled) return
                                             props.onChange([
@@ -223,10 +223,10 @@ export function InputComboboxMultiple<TValue extends string>(props: {
                                     >
                                         <ButtonGhostContent
                                             text={option.label}
-                                            className={css({
+                                            className={{
                                                 width: "100%",
                                                 justifyContent: "space-between",
-                                            })}
+                                            }}
                                         />
                                     </Button>
                                 )}

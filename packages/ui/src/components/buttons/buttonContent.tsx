@@ -1,6 +1,8 @@
 import type { Icon, IconProps, ReactNode } from "@tabler/icons-react"
 import { cloneElement, type ReactElement } from "react"
-import { css, cx } from "../../utilities/cn.ts"
+import type { Styles } from "../../../styled-system/css/css"
+import type { SystemStyleObject } from "../../../styled-system/types"
+import { css } from "../../utilities/cn.ts"
 import { CircularLoader } from "../layouts/CircularLoader"
 
 export type ButtonColor = "default" | "neutral" | "danger" | "success"
@@ -14,49 +16,36 @@ export type ButtonContentProps = {
     isLoading?: boolean
     isDisabled?: boolean
     isCurrent?: boolean
-    className?: string
+    className?: Styles
     children?: ReactNode
 }
 
 export function renderButtonContent(
     props: ButtonContentProps,
-    classes: Partial<Record<"container" | "leftIcon" | "text" | "rightIcon", string>>,
+    classes: Partial<Record<"container" | "leftIcon" | "text" | "rightIcon", SystemStyleObject>>,
     contextLoading = false,
 ) {
     const isLoading = props.isLoading ?? contextLoading
     const isDisabled = props.isDisabled || isLoading
-
-    const iconOnlyStyles =
-        props.text === undefined
-            ? css({
-                  width: "auto",
-                  justifyContent: "center",
-              })
-            : ""
-
-    // const activeContainerStyles = props.isActive ? css({ backgroundColor: "neutral/5" }) : ""
-    // const activeLeftIconStyles = props.isActive ? css({ color: "primary" }) : ""
-    // const activeTextStyles = props.isActive ? css({ color: "primary" }) : ""
 
     return (
         <div
             title={props.title ?? props.text}
             aria-current={props.isCurrent}
             aria-disabled={isDisabled}
-            className={cx(classes.container, iconOnlyStyles, props.className)}
+            className={css(classes.container, props.className)}
         >
             {isLoading ? (
-                <CircularLoader
-                    size={16}
-                    className={classes.leftIcon}
-                />
+                <div className={css(classes.leftIcon)}>
+                    <CircularLoader size={16} />
+                </div>
             ) : (
                 props.leftIcon &&
                 cloneElement(props.leftIcon, {
                     "aria-disabled": isDisabled,
                     "aria-current": props.isCurrent,
                     size: 14,
-                    className: cx(classes.leftIcon),
+                    className: css(classes.leftIcon),
                     strokeWidth: 1.75,
                 })
             )}
@@ -65,7 +54,7 @@ export function renderButtonContent(
                 <span
                     aria-disabled={isDisabled}
                     aria-current={props.isCurrent}
-                    className={cx(classes.text)}
+                    className={css(classes.text)}
                 >
                     {props.text}
                 </span>
@@ -82,22 +71,18 @@ export function renderButtonContent(
                     })}
                 >
                     {isLoading ? (
-                        <CircularLoader
-                            size={16 - 4}
-                            className={classes.rightIcon}
-                        />
+                        <div className={css(classes.rightIcon)}>
+                            <CircularLoader size={16 - 4} />
+                        </div>
                     ) : (
                         cloneElement(props.rightIcon, {
                             "aria-disabled": isDisabled,
                             size: 16 - 4,
-                            className: cx(
-                                classes.rightIcon,
-                                css({
-                                    _disabled: {
-                                        color: "neutral/50",
-                                    },
-                                }),
-                            ),
+                            className: css(classes.rightIcon, {
+                                _disabled: {
+                                    color: "neutral/50",
+                                },
+                            }),
                             strokeWidth: 1.75,
                         })
                     )}

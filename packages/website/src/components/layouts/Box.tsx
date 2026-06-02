@@ -1,4 +1,4 @@
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import type { ComponentProps, ReactElement } from "react"
 
 export function Box(props: {
@@ -7,7 +7,7 @@ export function Box(props: {
 }) {
     return (
         <div
-            className={cx(
+            className={cn(
                 css({
                     minWidth: "0",
                     width: "100%",

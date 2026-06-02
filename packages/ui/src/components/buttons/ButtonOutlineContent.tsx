@@ -112,7 +112,7 @@ const outlineRecipe = sva({
 })
 
 export function ButtonOutlineContent(props: ButtonContentProps) {
-    const classes = outlineRecipe({
+    const classes = outlineRecipe.raw({
         color: props.color ?? "default",
     })
     const contextLoading = useButtonLoading()

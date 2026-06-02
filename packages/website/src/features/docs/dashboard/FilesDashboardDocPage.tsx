@@ -18,9 +18,9 @@ export function FilesDashboardDocPage() {
             <DocSection title="Pourquoi numériser vos documents ?">
                 <DocParagraph>
                     Chaque <DocLink to="/documentation/comptabilité/écritures">écriture comptable</DocLink> doit être
-                    justifiée par une pièce (facture, relevé bancaire, ticket de caisse...). Arrhes vous permet de
-                    stocker ces documents numériquement, directement associés à vos écritures, pour un archivage
-                    sécurisé et une consultation rapide.
+                    justifiée par une pièce (facture, relevé bancaire, ticket de caisse…). Arrhes vous permet de stocker
+                    ces documents numériquement, directement associés à vos écritures, pour un archivage sécurisé et une
+                    consultation rapide.
                 </DocParagraph>
                 <DocParagraph>
                     La numérisation de vos justificatifs facilite les contrôles, les échanges avec votre

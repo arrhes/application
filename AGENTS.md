@@ -1,4 +1,4 @@
-# AGENTS.md — Agent Context for Arrhes
+# AGENTS.md - Agent Context for Arrhes
 
 ## Developer Commands
 
@@ -13,7 +13,7 @@ just build         # Runs: lint → typecheck → test → build
 
 # Per-package commands (pnpm filters)
 pnpm --filter @arrhes/application-api exec tsc --noEmit         # TypeScript check API
-pnpm --filter @arrhes/application-website exec tsc --noEmit  # TypeScript check website
+pnpm --filter @arrhes/website exec tsc --noEmit  # TypeScript check website
 pnpm --filter @arrhes/application-metadata exec tsc --noEmit    # TypeScript check metadata
 pnpm check        # Biome lint + format check
 pnpm check:fix  # Biome lint + format fix --write
@@ -58,7 +58,7 @@ pnpm build       # Build all packages
 
 ## Important Gotchas
 
-- **Biome import sorting**: Run `pnpm check:fix` before committing — imports must be alphabetical
+- **Biome import sorting**: Run `pnpm check:fix` before committing - imports must be alphabetical
 - **TypeScript**: After modifying metadata package, rebuild with `pnpm --filter @arrhes/application-metadata build` before API/website checks pass
 - **Database**: Migrations live in `packages/tools/src/migrations/`, run via `pnpm --filter @arrhes/application-tools` commands
 - **Agent streaming**: Server uses SSE (`toServerSentEventsResponse`), client uses `@tanstack/ai-react` `useChat` with `onCustomEvent` for session-created events

@@ -1,4 +1,4 @@
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import type { ComponentProps, ReactElement } from "react"
 
 export function CardContent(props: {
@@ -7,7 +7,7 @@ export function CardContent(props: {
 }) {
     return (
         <div
-            className={cx(
+            className={cn(
                 css({
                     width: "100%",
                     height: "fit",

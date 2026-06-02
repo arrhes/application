@@ -91,26 +91,26 @@ export function SidebarNavigation(props: {
                                     key={item.path + (item.hash ?? "")}
                                     to={item.path}
                                     hash={item.hash}
-                                    className={css({
+                                    className={{
                                         width: "100%",
-                                    })}
+                                    }}
                                     onClick={props.onClick}
                                 >
                                     <ButtonGhostContent
                                         text={item.label}
                                         isCurrent={isCurrent}
-                                        className={css({
+                                        className={{
                                             width: "100%",
                                             justifyContent: "start",
-                                        })}
+                                        }}
                                     >
                                         {item.chipText ? (
                                             <Chip
                                                 text={item.chipText}
                                                 color={item.chipColor ?? "neutral"}
-                                                className={css({
+                                                className={{
                                                     marginLeft: "auto",
-                                                })}
+                                                }}
                                             />
                                         ) : null}
                                     </ButtonGhostContent>

@@ -1,5 +1,5 @@
 {
-    "name": "@arrhes/application-website",
+    "name": "@arrhes/website",
     "type": "module",
     "private": false,
     "scripts": {

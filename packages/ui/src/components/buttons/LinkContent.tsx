@@ -1,17 +1,18 @@
-import { css, cx } from "../../utilities/cn.ts"
+import type { Styles } from "../../../styled-system/css/css"
+import { css } from "../../utilities/cn.ts"
 
 export type LinkContentProps = {
     disabled?: boolean
     children?: string
-    className?: string
+    className?: Styles
 }
 
 export function LinkContent(props: LinkContentProps) {
     return (
         <span
             aria-disabled={props.disabled}
-            className={cx(
-                css({
+            className={css(
+                {
                     color: "primary",
                     textDecoration: "underline",
                     cursor: "pointer",
@@ -22,7 +23,7 @@ export function LinkContent(props: LinkContentProps) {
                         opacity: 0.3,
                         cursor: "not-allowed",
                     },
-                }),
+                },
                 props.className,
             )}
         >

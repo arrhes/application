@@ -261,9 +261,9 @@ export function AgentLayout() {
                 >
                     <Button
                         aria-label="Menu"
-                        className={css({
+                        className={{
                             margin: "1rem",
-                        })}
+                        }}
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                     >
                         <ButtonGhostContent leftIcon={<IconMenu />} />

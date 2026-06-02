@@ -50,9 +50,9 @@ export function EntryTabContent(props: { idOrganization: string; idYear: string;
                     return (
                         <FormatError
                             text="Écriture introuvable."
-                            className={css({
+                            className={{
                                 padding: "1rem",
-                            })}
+                            }}
                         />
                     )
                 }
@@ -171,10 +171,10 @@ export function EntryTabContent(props: { idOrganization: string; idYear: string;
                                     </Popover.Trigger>
                                     <Popover.Content
                                         align="end"
-                                        className={css({
+                                        className={{
                                             padding: "0.5rem",
                                             gap: "0.25rem",
-                                        })}
+                                        }}
                                     >
                                         <ReverseOneEntry entry={entry}>
                                             <div
@@ -186,10 +186,10 @@ export function EntryTabContent(props: { idOrganization: string; idYear: string;
                                                 <ButtonGhostContent
                                                     leftIcon={<IconArrowBackUp />}
                                                     text="Extourner"
-                                                    className={css({
+                                                    className={{
                                                         width: "100%",
                                                         justifyContent: "start",
-                                                    })}
+                                                    }}
                                                 />
                                             </div>
                                         </ReverseOneEntry>
@@ -203,10 +203,10 @@ export function EntryTabContent(props: { idOrganization: string; idYear: string;
                                                 <ButtonGhostContent
                                                     leftIcon={<IconCopyCheck />}
                                                     text="Dupliquer"
-                                                    className={css({
+                                                    className={{
                                                         width: "100%",
                                                         justifyContent: "start",
-                                                    })}
+                                                    }}
                                                 />
                                             </div>
                                         </DuplicateOneEntry>

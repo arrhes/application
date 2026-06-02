@@ -45,7 +45,8 @@ export function prerenderPlugin(): Plugin {
                 })
 
                 // Load the render bundle and generate static HTML for each route
-                const { render } = (await import(`file://${resolve(renderBuildDir, "render.js")}`)) as {
+                const renderBundleUrl = `file://${resolve(renderBuildDir, "render.js")}`
+                const { render } = (await import(renderBundleUrl)) as {
                     render: (url: string) => Promise<string>
                 }
 
@@ -96,32 +97,35 @@ export function prerenderPlugin(): Plugin {
                     routes.push(m[1])
                 }
 
-                let count = 0
-                for (const route of routes) {
-                    try {
-                        const appHtml = await render(route)
+                const results = await Promise.all(
+                    routes.map(async (route) => {
+                        try {
+                            const appHtml = await render(route)
 
-                        // Extract the page-specific <title> rendered by React and update <head>
-                        const renderedTitle = /<title>([\s\S]*?)<\/title>/.exec(appHtml)?.[1]
-                        let html = spaShell
-                        if (renderedTitle) {
-                            html = html.replace(/<title>[^<]*<\/title>/, `<title>${renderedTitle}</title>`)
+                            // Extract the page-specific <title> rendered by React and update <head>
+                            const renderedTitle = /<title>([\s\S]*?)<\/title>/.exec(appHtml)?.[1]
+                            let html = spaShell
+                            if (renderedTitle) {
+                                html = html.replace(/<title>[^<]*<\/title>/, `<title>${renderedTitle}</title>`)
+                            }
+                            html = html.replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`)
+
+                            const outFile =
+                                route === "/"
+                                    ? resolve(buildDir, "index.html")
+                                    : resolve(buildDir, route.slice(1), "index.html")
+                            mkdirSync(dirname(outFile), {
+                                recursive: true,
+                            })
+                            writeFileSync(outFile, html, "utf-8")
+                            return 1
+                        } catch (err) {
+                            console.warn(`[prerender] Failed to render ${route}:`, err)
+                            return 0
                         }
-                        html = html.replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`)
-
-                        const outFile =
-                            route === "/"
-                                ? resolve(buildDir, "index.html")
-                                : resolve(buildDir, route.slice(1), "index.html")
-                        mkdirSync(dirname(outFile), {
-                            recursive: true,
-                        })
-                        writeFileSync(outFile, html, "utf-8")
-                        count++
-                    } catch (err) {
-                        console.warn(`[prerender] Failed to render ${route}:`, err)
-                    }
-                }
+                    }),
+                )
+                const count = results.reduce((sum: number, n) => sum + n, 0)
 
                 rmSync(renderBuildDir, {
                     recursive: true,

@@ -86,9 +86,9 @@ export function IncomeStatementsPage({
                 >
                     <InputText
                         placeholder="Recherche"
-                        className={css({
+                        className={{
                             maxWidth: "[320px]",
-                        })}
+                        }}
                     />
                 </InputDebounced>
                 <Box

@@ -1,8 +1,9 @@
 import { ButtonOutlineContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconChevronRight } from "@tabler/icons-react"
+import { IconBook, IconChevronRight, IconCode, IconLayout, IconTerminal } from "@tabler/icons-react"
 import { DocHeader } from "../../../components/document/DocHeader.js"
 import { DocRoot } from "../../../components/document/DocRoot.js"
+import { DocSectionCard } from "../../../components/document/DocSectionCard.js"
 import { LinkButton } from "../../../components/LinkButton.js"
 
 export function RootGeneralDocPage() {
@@ -50,6 +51,107 @@ export function RootGeneralDocPage() {
                         />
                     </LinkButton>
                 </div>
+            </div>
+
+            {/* Section cards */}
+            <div
+                className={css({
+                    display: "grid",
+                    gridTemplateColumns: "repeat(2, 1fr)",
+                    gap: "1rem",
+                    sm: {
+                        gridTemplateColumns: "1fr",
+                    },
+                })}
+            >
+                <DocSectionCard
+                    icon={<IconBook />}
+                    iconColor="primary"
+                    title="Comptabilité"
+                    description="Apprenez les bases de la comptabilité française : la partie double, les écritures, les comptes, les documents comptables et les ressources de référence."
+                    links={[
+                        {
+                            to: "/documentation/comptabilité/introduction/",
+                            label: "Introduction",
+                        },
+                        {
+                            to: "/documentation/comptabilité/documents",
+                            label: "Documents comptables",
+                        },
+                        {
+                            to: "/documentation/comptabilité/ressources/comptes",
+                            label: "Liste des comptes",
+                        },
+                    ]}
+                    ctaTo="/documentation/comptabilité"
+                    ctaLabel="Voir la section"
+                />
+                <DocSectionCard
+                    icon={<IconLayout />}
+                    iconColor="information"
+                    title="Dashboard"
+                    description="Guide d'utilisation du dashboard Arrhes : organisations, exercices, saisie des écritures, stockage, documents comptables, facturation et assistant IA."
+                    links={[
+                        {
+                            to: "/documentation/dashboard/démarrage",
+                            label: "Démarrage",
+                        },
+                        {
+                            to: "/documentation/dashboard/écritures",
+                            label: "Saisie des écritures",
+                        },
+                        {
+                            to: "/documentation/dashboard/assistant",
+                            label: "Assistant IA",
+                        },
+                    ]}
+                    ctaTo="/documentation/dashboard"
+                    ctaLabel="Voir la section"
+                />
+                <DocSectionCard
+                    icon={<IconCode />}
+                    iconColor="success"
+                    title="API"
+                    description="Référence complète de l'API REST d'Arrhes : authentification, gestion des organisations, exercices, écritures, exports et bien plus."
+                    links={[
+                        {
+                            to: "/documentation/api/introduction",
+                            label: "Introduction",
+                        },
+                        {
+                            to: "/documentation/api/authentification",
+                            label: "Authentification",
+                        },
+                        {
+                            to: "/documentation/api/écritures",
+                            label: "Écritures",
+                        },
+                    ]}
+                    ctaTo="/documentation/api"
+                    ctaLabel="Voir la section"
+                />
+                <DocSectionCard
+                    icon={<IconTerminal />}
+                    iconColor="warning"
+                    title="CLI"
+                    description="Installez et utilisez l'interface en ligne de commande d'Arrhes pour gérer vos organisations, exercices, écritures et exports depuis votre terminal."
+                    links={[
+                        {
+                            to: "/documentation/cli/installation",
+                            label: "Installation",
+                        },
+                        {
+                            to: "/documentation/cli/authentification",
+                            label: "Authentification",
+                        },
+                        {
+                            to: "/documentation/cli/commandes/ecritures",
+                            label: "Écritures",
+                        },
+                    ]}
+                    ctaTo="/documentation/cli"
+                    ctaLabel="Voir la section"
+                />
             </div>
         </DocRoot>
     )

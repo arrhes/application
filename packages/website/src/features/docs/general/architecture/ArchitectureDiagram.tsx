@@ -112,7 +112,7 @@ export function ArchitectureDiagram() {
 
                 {/* ── Row 1 : 1/3 Utilisateurs + 2/3 Développeurs ──────── */}
 
-                {/* Utilisateurs — 1/3 (x=15, w=190, cx=110) */}
+                {/* Utilisateurs - 1/3 (x=15, w=190, cx=110) */}
                 <rect
                     x="15"
                     y="12"
@@ -145,7 +145,7 @@ export function ArchitectureDiagram() {
                     Utilisation simple
                 </text>
 
-                {/* Développeurs — 2/3 (x=215, w=390, cx=410) */}
+                {/* Développeurs - 2/3 (x=215, w=390, cx=410) */}
                 <rect
                     x="215"
                     y="12"
@@ -180,7 +180,7 @@ export function ArchitectureDiagram() {
 
                 {/* ── Row 2 : 1/3 Dashboard + gap + 1/3 CLI ────────────── */}
 
-                {/* Dashboard — 1/3 (x=15, w=190, cx=110) */}
+                {/* Dashboard - 1/3 (x=15, w=190, cx=110) */}
                 <rect
                     x="15"
                     y="108"
@@ -203,7 +203,7 @@ export function ArchitectureDiagram() {
                     Dashboard
                 </text>
 
-                {/* CLI — 1/3 (x=415, w=190, cx=510) */}
+                {/* CLI - 1/3 (x=415, w=190, cx=510) */}
                 <rect
                     x="415"
                     y="108"

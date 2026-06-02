@@ -1,21 +1,21 @@
-import type { ComponentProps } from "react"
+import type { Styles } from "../../../styled-system/css/css"
 import { token } from "../../../styled-system/tokens/index"
-import { css, cx } from "../../utilities/cn.ts"
+import { css } from "../../utilities/cn.ts"
 
-export function Logo(props: { className?: ComponentProps<"svg">["className"]; withText?: boolean }) {
+export function Logo(props: { size?: number; className?: Styles; withText?: boolean }) {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width={props.size ?? 24}
+            height={props.size ?? 24}
             viewBox="0 0 24 24"
             fill="none"
             color={token("colors.primary")}
             strokeLinecap="round"
-            className={cx(
-                css({
+            className={css(
+                {
                     padding: "0.125rem",
-                }),
+                },
                 props.className,
             )}
         >

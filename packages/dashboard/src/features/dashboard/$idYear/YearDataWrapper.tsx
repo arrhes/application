@@ -13,7 +13,6 @@ import {
     readAllTagsRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import { CircularLoader, FormatError } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
 import { useQueries } from "@tanstack/react-query"
 import type { ReactElement } from "react"
 import { useMemo } from "react"
@@ -331,9 +330,9 @@ export function YearDataWrapper<const K extends readonly YearDataKey[]>(props: {
         return (
             <CircularLoader
                 text="Chargement des données..."
-                className={css({
+                className={{
                     padding: "1rem",
-                })}
+                }}
             />
         )
     }
@@ -342,9 +341,9 @@ export function YearDataWrapper<const K extends readonly YearDataKey[]>(props: {
         return (
             <FormatError
                 text="Erreur lors de la récupération des données."
-                className={css({
+                className={{
                     padding: "1rem",
-                })}
+                }}
             />
         )
     }

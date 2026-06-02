@@ -1081,16 +1081,16 @@ export function AgentSessionContent({
                                         </Popover.Trigger>
                                         <Popover.Content
                                             align="end"
-                                            className={css({
+                                            className={{
                                                 padding: "0.5rem",
                                                 gap: "0.25rem",
-                                            })}
+                                            }}
                                         >
                                             <Popover.Close asChild>
                                                 <Button
-                                                    className={css({
+                                                    className={{
                                                         width: "100%",
-                                                    })}
+                                                    }}
                                                     onClick={() =>
                                                         openModal(
                                                             deleteModalId,
@@ -1132,10 +1132,10 @@ export function AgentSessionContent({
                                                         leftIcon={<IconTrash />}
                                                         text={isDeleting ? "Suppression..." : "Supprimer la session"}
                                                         color="danger"
-                                                        className={css({
+                                                        className={{
                                                             width: "100%",
                                                             justifyContent: "start",
-                                                        })}
+                                                        }}
                                                     />
                                                 </Button>
                                             </Popover.Close>
@@ -1153,14 +1153,14 @@ export function AgentSessionContent({
                                         <Popover.Content
                                             side="top"
                                             align="end"
-                                            className={css({
+                                            className={{
                                                 width: "320px",
                                                 maxWidth: "calc(100vw - 2rem)",
                                                 display: "flex",
                                                 flexDirection: "column",
                                                 gap: "0.75rem",
                                                 padding: "0.75rem",
-                                            })}
+                                            }}
                                         >
                                             <div
                                                 className={css({

@@ -42,7 +42,7 @@ export function OrganizationListTableRow(props: {
                     >
                         <Button>
                             <LinkContent
-                                className={css({
+                                className={{
                                     fontSize: "base",
                                     fontWeight: "semibold",
                                     color: "primary",
@@ -50,7 +50,7 @@ export function OrganizationListTableRow(props: {
                                     _hover: {
                                         textDecoration: "underline",
                                     },
-                                })}
+                                }}
                             >
                                 {organization.name}
                             </LinkContent>

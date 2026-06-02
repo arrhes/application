@@ -1,5 +1,5 @@
 {
-    "name": "@arrhes/application-dashboard",
+    "name": "@arrhes/dashboard",
     "type": "module",
     "private": false,
     "scripts": {

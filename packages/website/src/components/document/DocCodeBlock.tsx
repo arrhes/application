@@ -1,4 +1,4 @@
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import { IconCheck, IconCopy } from "@tabler/icons-react"
 import { useState } from "react"
 
@@ -41,7 +41,7 @@ export function DocCodeBlock(props: { children: string }) {
                 type="button"
                 onClick={handleCopy}
                 aria-label="Copier le code"
-                className={cx(
+                className={cn(
                     css({
                         position: "absolute",
                         top: "0.375rem",
