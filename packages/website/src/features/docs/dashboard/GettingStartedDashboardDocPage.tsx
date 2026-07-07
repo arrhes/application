@@ -91,9 +91,9 @@ export function GettingStartedDashboardDocPage() {
                 <DocExample title="Menu contextuel d'un onglet (clic droit)">
                     <DocList
                         items={[
-                            "Retour / Suivant — navigue dans l'historique de l'onglet, comme un navigateur web.",
-                            "Ouvrir en vue divisée — déplace l'onglet dans un second panneau côte à côte.",
-                            "Fermer l'onglet — ferme l'onglet actif.",
+                            "Retour / Suivant - navigue dans l'historique de l'onglet, comme un navigateur web.",
+                            "Ouvrir en vue divisée - déplace l'onglet dans un second panneau côte à côte.",
+                            "Fermer l'onglet - ferme l'onglet actif.",
                         ]}
                     />
                 </DocExample>
@@ -101,8 +101,8 @@ export function GettingStartedDashboardDocPage() {
                 <DocExample title="Clic droit sur la barre (zone vide)">
                     <DocList
                         items={[
-                            "Fermer les autres onglets — garde seulement l'onglet actif.",
-                            "Fusionner les panneaux — visible uniquement en vue divisée, réunit les deux panneaux.",
+                            "Fermer les autres onglets - garde seulement l'onglet actif.",
+                            "Fusionner les panneaux - visible uniquement en vue divisée, réunit les deux panneaux.",
                         ]}
                     />
                 </DocExample>

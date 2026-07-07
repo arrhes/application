@@ -1,15 +1,15 @@
 import {
-    createContext,
     type Dispatch,
     type ReactNode,
     type SetStateAction,
+    use,
     useCallback,
-    useContext,
     useEffect,
     useMemo,
     useReducer,
     useRef,
 } from "react"
+import { PopoverStoreContext, type PopoverStoreValue } from "./popoverStoreContext.js"
 
 // ---------------------------------------------------------------------------
 // Types
@@ -97,23 +97,12 @@ function reducer(state: PopoverState, action: PopoverAction): PopoverState {
 // Context
 // ---------------------------------------------------------------------------
 
-export type PopoverStoreValue = {
-    open: (id: string) => void
-    close: (id: string) => void
-    closeAll: () => void
-    isOpen: (id: string) => boolean
-    register: (id: string, setOpen: Dispatch<SetStateAction<boolean>>) => void
-    unregister: (id: string) => void
-}
-
-export const PopoverStoreContext = createContext<PopoverStoreValue | null>(null)
-
 // ---------------------------------------------------------------------------
 // Hook
 // ---------------------------------------------------------------------------
 
 export function usePopoverStore(): PopoverStoreValue {
-    const ctx = useContext(PopoverStoreContext)
+    const ctx = use(PopoverStoreContext)
     if (ctx === null) throw new Error("usePopoverStore must be used within PopoverProvider")
     return ctx
 }
@@ -125,7 +114,7 @@ export function usePopoverStore(): PopoverStoreValue {
 export function PopoverProvider({ children }: { children: ReactNode }) {
     const [state, dispatch] = useReducer(reducer, {})
 
-    // Mutable map of setOpen callbacks from each PopoverRoot — stored in a ref
+    // Mutable map of setOpen callbacks from each PopoverRoot - stored in a ref
     // so changes to these callbacks don't cause a store re-render.
     const setOpenCallbacksRef = useRef<Record<string, Dispatch<SetStateAction<boolean>>>>({})
 

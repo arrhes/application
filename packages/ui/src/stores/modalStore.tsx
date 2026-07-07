@@ -1,4 +1,6 @@
-import { createContext, type ReactNode, useCallback, useContext, useEffect, useMemo, useReducer, useRef } from "react"
+import { type ReactNode, use, useCallback, useEffect, useMemo, useReducer, useRef } from "react"
+import { css } from "../utilities/cn.js"
+import { ModalItemContext, ModalStoreContext, type ModalStoreValue } from "./modalStoreContext.js"
 
 // ---------------------------------------------------------------------------
 // Types
@@ -56,36 +58,22 @@ function reducer(state: ModalState, action: ModalAction): ModalState {
 // Contexts
 // ---------------------------------------------------------------------------
 
-export type ModalStoreValue = {
-    open: (id: string, content: ReactNode) => void
-    close: (id: string) => void
-    isOpen: (id: string) => boolean
-}
-
-export const ModalStoreContext = createContext<ModalStoreValue | null>(null)
-
-/** Provided by ModalProvider around each rendered modal entry so sub-components
- *  (DialogHeader close button) can close the modal without needing to know its id. */
-export const ModalItemContext = createContext<{
-    closeModal: () => void
-} | null>(null)
-
 // ---------------------------------------------------------------------------
 // Hooks
 // ---------------------------------------------------------------------------
 
 export function useModalStore(): ModalStoreValue {
-    const ctx = useContext(ModalStoreContext)
+    const ctx = use(ModalStoreContext)
     if (ctx === null) throw new Error("useModalStore must be used within ModalProvider")
     return ctx
 }
 
 export function useModalItem() {
-    return useContext(ModalItemContext)
+    return use(ModalItemContext)
 }
 
 // ---------------------------------------------------------------------------
-// ModalItem — one native <dialog> per modal entry
+// ModalItem - one native <dialog> per modal entry
 // ---------------------------------------------------------------------------
 
 function ModalItem({ id, entry, close }: { id: string; entry: ModalEntry; close: (id: string) => void }) {
@@ -109,7 +97,7 @@ function ModalItem({ id, entry, close }: { id: string; entry: ModalEntry; close:
         close(id)
     }
 
-    function handleClick(e: React.MouseEvent<HTMLDivElement>) {
+    function handleBackdropClick(e: React.MouseEvent<HTMLDivElement>) {
         // Clicks on the centering wrapper itself = click in the backdrop area
         if (e.target === wrapperRef.current) {
             close(id)
@@ -126,32 +114,39 @@ function ModalItem({ id, entry, close }: { id: string; entry: ModalEntry; close:
             ref={dialogRef}
             aria-modal="true"
             onCancel={handleCancel}
-            style={{
+            className={css({
                 border: "none",
-                padding: 0,
+                padding: "0",
                 background: "transparent",
                 maxWidth: "none",
                 maxHeight: "none",
                 width: "100vw",
                 height: "100dvh",
                 overflow: "hidden",
-            }}
+            })}
         >
             <div
+                role="presentation"
                 ref={wrapperRef}
-                onClick={handleClick}
-                style={{
+                onClick={handleBackdropClick}
+                className={css({
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
                     width: "100%",
                     height: "100%",
-                }}
+                })}
             >
                 <ModalItemContext.Provider
-                    value={{
-                        closeModal: () => close(id),
-                    }}
+                    value={useMemo(
+                        () => ({
+                            closeModal: () => close(id),
+                        }),
+                        [
+                            close,
+                            id,
+                        ],
+                    )}
                 >
                     {entry.content}
                 </ModalItemContext.Provider>
@@ -204,7 +199,7 @@ export function ModalProvider({ children }: { children: ReactNode }) {
 
     return (
         <ModalStoreContext.Provider value={value}>
-            {/* Backdrop CSS — injected once for all modals */}
+            {/* Backdrop CSS - injected once for all modals */}
             <style>{`dialog[aria-modal="true"]::backdrop { background-color: rgba(0,0,0,0.12); }`}</style>
             {children}
             {Object.entries(state).map(([id, entry]) => (

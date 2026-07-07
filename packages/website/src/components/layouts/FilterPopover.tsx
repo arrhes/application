@@ -50,7 +50,7 @@ export function FilterPopover(props: {
             </Popover.Trigger>
             <Popover.Content
                 align="start"
-                className={css({
+                className={{
                     width: "280px",
                     maxHeight: "400px",
                     overflowY: "auto",
@@ -58,23 +58,23 @@ export function FilterPopover(props: {
                     flexDirection: "column",
                     gap: "0.5rem",
                     padding: "0.5rem",
-                })}
+                }}
             >
                 <Button
                     onClick={props.onClearAll}
-                    className={css({
+                    className={{
                         width: "100%",
-                    })}
+                    }}
                     isDisabled={activeFilterCount === 0}
                 >
                     <ButtonGhostContent
                         color="danger"
                         leftIcon={<IconX />}
                         text="Effacer les filtres"
-                        className={css({
+                        className={{
                             width: "100%",
                             justifyContent: "start",
-                        })}
+                        }}
                         isDisabled={activeFilterCount === 0}
                     />
                 </Button>

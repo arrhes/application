@@ -286,7 +286,7 @@ export function SupportGeneralDocPage() {
                 >
                     <LinkButton
                         to="/documentation/comptabilité"
-                        className={css({
+                        className={{
                             width: "100%",
                             gap: "0.75rem",
                             padding: "1rem",
@@ -299,7 +299,7 @@ export function SupportGeneralDocPage() {
                                 borderColor: "neutral/20",
                                 backgroundColor: "neutral/3",
                             },
-                        })}
+                        }}
                     >
                         <div>
                             <p
@@ -324,7 +324,7 @@ export function SupportGeneralDocPage() {
 
                     <LinkButton
                         to="/documentation/dashboard"
-                        className={css({
+                        className={{
                             width: "100%",
                             gap: "0.75rem",
                             padding: "1rem",
@@ -337,7 +337,7 @@ export function SupportGeneralDocPage() {
                                 borderColor: "neutral/20",
                                 backgroundColor: "neutral/3",
                             },
-                        })}
+                        }}
                     >
                         <div>
                             <p
@@ -362,7 +362,7 @@ export function SupportGeneralDocPage() {
 
                     <LinkButton
                         to="/documentation/api"
-                        className={css({
+                        className={{
                             width: "100%",
                             gap: "0.75rem",
                             padding: "1rem",
@@ -375,7 +375,7 @@ export function SupportGeneralDocPage() {
                                 borderColor: "neutral/20",
                                 backgroundColor: "neutral/3",
                             },
-                        })}
+                        }}
                     >
                         <div>
                             <p

@@ -1,30 +1,30 @@
-import type { ComponentProps } from "react"
-import { css, cx } from "../../utilities/cn.js"
+import type { Styles } from "../../../styled-system/css/css"
+import { css } from "../../utilities/cn.js"
 
-export function Separator(props: {
-    orientation?: "horizontal" | "vertical"
-    className?: ComponentProps<"div">["className"]
-}) {
+export function Separator(props: { orientation?: "horizontal" | "vertical"; className?: Styles }) {
     const orientation = props.orientation ?? "horizontal"
 
     return (
-        <div
-            role="separator"
+        <hr
+            aria-hidden="true"
+            tabIndex={-1}
             aria-orientation={orientation}
-            className={cx(
-                css({
+            className={css(
+                {
                     backgroundColor: "neutral/10",
                     flexShrink: 0,
-                }),
+                    border: 0,
+                    margin: 0,
+                },
                 orientation === "horizontal"
-                    ? css({
+                    ? {
                           width: "100%",
                           height: "1px",
-                      })
-                    : css({
+                      }
+                    : {
                           width: "1px",
                           height: "100%",
-                      }),
+                      },
                 props.className,
             )}
         />

@@ -1,10 +1,11 @@
 import type { ReactNode } from "react"
 import { createPortal } from "react-dom"
-import { css, cx } from "../../../utilities/cn.js"
-import { usePopoverContext } from "./popoverRoot.js"
+import type { Styles } from "../../../../styled-system/css/css"
+import { css } from "../../../utilities/cn.js"
+import { usePopoverContext } from "./popoverContext.js"
 
 // ---------------------------------------------------------------------------
-// CSS anchor positioning rules — injected once by PopoverContent renders.
+// CSS anchor positioning rules - injected once by PopoverContent renders.
 // Uses data attributes so we cover all side/align combos with a stylesheet.
 // ---------------------------------------------------------------------------
 
@@ -81,7 +82,7 @@ export function PopoverContent(props: {
     align?: "start" | "center" | "end"
     sideOffset?: number
     alignOffset?: number
-    className?: string
+    className?: Styles
 }) {
     const { isOpen, anchorName } = usePopoverContext()
     const side = props.side ?? "bottom"
@@ -107,8 +108,8 @@ export function PopoverContent(props: {
                         minWidth: "anchor-size(width)",
                     } as React.CSSProperties
                 }
-                className={cx(
-                    css({
+                className={css(
+                    {
                         backgroundColor: "white",
                         borderRadius: "lg",
                         boxShadow: "md",
@@ -119,7 +120,7 @@ export function PopoverContent(props: {
                         gap: "0.5rem",
                         border: "1px solid",
                         borderColor: "neutral/10",
-                    }),
+                    },
                     props.className,
                 )}
             >

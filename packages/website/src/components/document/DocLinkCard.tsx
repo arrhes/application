@@ -5,6 +5,31 @@ import { LinkButton } from "../LinkButton.js"
 
 export type DocLinkCardColor = "information" | "success" | "primary" | "warning"
 
+const colorStylesDocLinkCard: Record<
+    DocLinkCardColor,
+    {
+        bg: string
+        color: string
+    }
+> = {
+    information: {
+        bg: "information/10",
+        color: "information",
+    },
+    success: {
+        bg: "success/10",
+        color: "success",
+    },
+    primary: {
+        bg: "primary/10",
+        color: "primary",
+    },
+    warning: {
+        bg: "warning/10",
+        color: "warning",
+    },
+}
+
 export function DocLinkCard(props: {
     icon: ReactNode
     iconColor?: DocLinkCardColor
@@ -12,36 +37,12 @@ export function DocLinkCard(props: {
     description: string
     to: ValidRoutes
 }) {
-    const colorStyles: Record<
-        DocLinkCardColor,
-        {
-            bg: string
-            color: string
-        }
-    > = {
-        information: {
-            bg: "information/10",
-            color: "information",
-        },
-        success: {
-            bg: "success/10",
-            color: "success",
-        },
-        primary: {
-            bg: "primary/10",
-            color: "primary",
-        },
-        warning: {
-            bg: "warning/10",
-            color: "warning",
-        },
-    }
-    const style = colorStyles[props.iconColor ?? "primary"]
+    const style = colorStylesDocLinkCard[props.iconColor ?? "primary"]
 
     return (
         <LinkButton
             to={props.to}
-            className={css({
+            className={{
                 width: "100%",
                 flexDirection: "column",
                 gap: "0.75rem",
@@ -55,7 +56,7 @@ export function DocLinkCard(props: {
                     borderColor: "neutral/20",
                     boxShadow: "sm",
                 },
-            })}
+            }}
         >
             <div
                 className={css({

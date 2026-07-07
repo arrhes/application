@@ -13,7 +13,6 @@ import {
     toast,
     useModalStore,
 } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconChevronDown, IconTrash } from "@tabler/icons-react"
 import type { Row } from "@tanstack/react-table"
 import { useId } from "react"
@@ -119,16 +118,16 @@ export function FilesTableSelectionActions(props: { selectedRows: Array<Row<Tabl
             </Popover.Trigger>
             <Popover.Content
                 align="start"
-                className={css({
+                className={{
                     padding: "0.5rem",
                     gap: "0.25rem",
-                })}
+                }}
             >
                 <Popover.Close asChild>
                     <Button
-                        className={css({
+                        className={{
                             width: "100%",
-                        })}
+                        }}
                         onClick={() =>
                             openModal(
                                 deleteModalId,
@@ -169,10 +168,10 @@ export function FilesTableSelectionActions(props: { selectedRows: Array<Row<Tabl
                             leftIcon={<IconTrash />}
                             text="Supprimer"
                             color="danger"
-                            className={css({
+                            className={{
                                 width: "100%",
                                 justifyContent: "start",
-                            })}
+                            }}
                         />
                     </Button>
                 </Popover.Close>

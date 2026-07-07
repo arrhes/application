@@ -147,9 +147,9 @@ export function LedgerReportTable(props: {
                         >
                             <FormatPrice
                                 price={accountsTotalDebit}
-                                className={css({
+                                className={{
                                     fontWeight: "bold",
-                                })}
+                                }}
                             />
                         </Table.Body.Cell>
                         <Table.Body.Cell
@@ -160,9 +160,9 @@ export function LedgerReportTable(props: {
                         >
                             <FormatPrice
                                 price={accountsTotalCredit}
-                                className={css({
+                                className={{
                                     fontWeight: "bold",
-                                })}
+                                }}
                             />
                         </Table.Body.Cell>
                     </Table.Body.Row>
@@ -241,17 +241,17 @@ export function LedgerReportTable(props: {
                                                 })}
                                             >
                                                 <FormatText
-                                                    className={css({
+                                                    className={{
                                                         overflow: "visible",
-                                                    })}
+                                                    }}
                                                 >
                                                     {account.number}
                                                 </FormatText>
                                                 <FormatText
                                                     wrap={true}
-                                                    className={css({
+                                                    className={{
                                                         color: "neutral/50",
-                                                    })}
+                                                    }}
                                                 >
                                                     {account.label}
                                                 </FormatText>
@@ -266,9 +266,9 @@ export function LedgerReportTable(props: {
                                         >
                                             <FormatPrice
                                                 price={accountTotalDebit}
-                                                className={css({
+                                                className={{
                                                     fontWeight: "bold",
-                                                })}
+                                                }}
                                             />
                                         </Table.Body.Cell>
                                         <Table.Body.Cell
@@ -279,9 +279,9 @@ export function LedgerReportTable(props: {
                                         >
                                             <FormatPrice
                                                 price={accountTotalCredit}
-                                                className={css({
+                                                className={{
                                                     fontWeight: "bold",
-                                                })}
+                                                }}
                                             />
                                         </Table.Body.Cell>
                                     </Table.Body.Row>

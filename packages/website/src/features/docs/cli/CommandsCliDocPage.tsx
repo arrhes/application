@@ -72,7 +72,7 @@ export function CommandsCliDocPage() {
                         ],
                     ]}
                 />
-                <DocExample title="Exemple — lister et filtrer avec jq">
+                <DocExample title="Exemple - lister et filtrer avec jq">
                     <DocCodeBlock>{"arrhes years list | jq '.[].id'"}</DocCodeBlock>
                 </DocExample>
             </DocSection>
@@ -104,7 +104,7 @@ export function CommandsCliDocPage() {
                         ],
                     ]}
                 />
-                <DocExample title="Exemple — créer une écriture">
+                <DocExample title="Exemple - créer une écriture">
                     <DocCodeBlock>
                         {
                             'arrhes entries create \\\n  --year <idYear> \\\n  --journal <idJournal> \\\n  --label "Facture fournisseur" \\\n  --date 2025-03-15'
@@ -135,8 +135,8 @@ export function CommandsCliDocPage() {
             <DocSection title="Options globales">
                 <DocList
                     items={[
-                        "--help — affiche l'aide de la commande",
-                        "--version — affiche la version du CLI",
+                        "--help - affiche l'aide de la commande",
+                        "--version - affiche la version du CLI",
                     ]}
                 />
             </DocSection>

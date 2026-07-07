@@ -1,11 +1,8 @@
-import { type ComponentProps, createContext, type MouseEvent, type ReactNode, useRef, useState } from "react"
-import { css, cx } from "../../utilities/cn.ts"
+import { type ComponentProps, type MouseEvent, type ReactNode, useRef, useState } from "react"
+import type { Styles } from "../../../styled-system/css/css"
+import { css } from "../../utilities/cn.ts"
 import { sleep } from "../../utilities/sleep.ts"
-
-/**
- * Context for passing loading state from Button to ButtonContent
- */
-export const ButtonLoadingContext = createContext<boolean>(false)
+import { ButtonLoadingContext } from "./buttonLoadingContext.js"
 
 /**
  * Button component - a neutral container for clickable elements
@@ -18,17 +15,18 @@ export const ButtonLoadingContext = createContext<boolean>(false)
  * </Button>
  */
 export function Button(
-    props: Omit<ComponentProps<"button">, "children" | "disabled"> & {
+    props: Omit<ComponentProps<"button">, "children" | "disabled" | "className"> & {
         hasLoader?: boolean
         children: ReactNode
         title?: string
         isDisabled?: boolean
+        className?: Styles
     },
 ) {
     const [isLoading, setIsLoading] = useState(false)
     const isLoadingRef = useRef(false)
 
-    async function handleClick(e: MouseEvent<HTMLButtonElement>) {
+    async function handleButtonClick(e: MouseEvent<HTMLButtonElement>) {
         if (props.onClick === undefined) return
         if (!props.hasLoader) {
             props.onClick(e)
@@ -57,8 +55,8 @@ export function Button(
             <button
                 {...buttonProps}
                 ref={props.ref}
-                className={cx(
-                    css({
+                className={css(
+                    {
                         display: "flex",
                         justifyContent: "flex-start",
                         alignItems: "center",
@@ -73,10 +71,10 @@ export function Button(
                         _disabled: {
                             cursor: "not-allowed",
                         },
-                    }),
+                    },
                     className,
                 )}
-                onClick={handleClick}
+                onClick={handleButtonClick}
                 type={props.type ?? "button"}
                 disabled={props.isDisabled || isLoading}
                 title={title}

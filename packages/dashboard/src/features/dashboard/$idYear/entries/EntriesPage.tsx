@@ -67,16 +67,16 @@ export function EntriesPage({
                                     </Popover.Trigger>
                                     <Popover.Content
                                         align="end"
-                                        className={css({
+                                        className={{
                                             padding: "0.5rem",
                                             gap: "0.25rem",
-                                        })}
+                                        }}
                                     >
                                         <Popover.Close asChild>
                                             <Button
-                                                className={css({
+                                                className={{
                                                     width: "100%",
-                                                })}
+                                                }}
                                                 onClick={() => {
                                                     const r = {
                                                         current: "",
@@ -96,18 +96,18 @@ export function EntriesPage({
                                                 <ButtonGhostContent
                                                     leftIcon={<IconDownload />}
                                                     text="Exporter en CSV"
-                                                    className={css({
+                                                    className={{
                                                         width: "100%",
                                                         justifyContent: "start",
-                                                    })}
+                                                    }}
                                                 />
                                             </Button>
                                         </Popover.Close>
                                         <Popover.Close asChild>
                                             <Button
-                                                className={css({
+                                                className={{
                                                     width: "100%",
-                                                })}
+                                                }}
                                                 onClick={() => {
                                                     const r = {
                                                         current: "",
@@ -127,18 +127,18 @@ export function EntriesPage({
                                                 <ButtonGhostContent
                                                     leftIcon={<IconFileExport />}
                                                     text="Exporter le FEC"
-                                                    className={css({
+                                                    className={{
                                                         width: "100%",
                                                         justifyContent: "start",
-                                                    })}
+                                                    }}
                                                 />
                                             </Button>
                                         </Popover.Close>
                                         <Popover.Close asChild>
                                             <Button
-                                                className={css({
+                                                className={{
                                                     width: "100%",
-                                                })}
+                                                }}
                                                 onClick={() => {
                                                     const r = {
                                                         current: "",
@@ -157,10 +157,10 @@ export function EntriesPage({
                                                 <ButtonGhostContent
                                                     leftIcon={<IconFileImport />}
                                                     text="Importer un FEC"
-                                                    className={css({
+                                                    className={{
                                                         width: "100%",
                                                         justifyContent: "start",
-                                                    })}
+                                                    }}
                                                 />
                                             </Button>
                                         </Popover.Close>

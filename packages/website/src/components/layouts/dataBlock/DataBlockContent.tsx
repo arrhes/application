@@ -1,4 +1,4 @@
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import type { ComponentProps, ReactElement } from "react"
 
 export function DataBlockContent(props: {
@@ -7,7 +7,7 @@ export function DataBlockContent(props: {
 }) {
     return (
         <div
-            className={cx(
+            className={cn(
                 css({
                     flexShrink: "0",
                     width: "100%",
@@ -24,7 +24,8 @@ export function DataBlockContent(props: {
                 }),
                 props.className,
             )}
-            children={props.children}
-        />
+        >
+            {props.children}
+        </div>
     )
 }

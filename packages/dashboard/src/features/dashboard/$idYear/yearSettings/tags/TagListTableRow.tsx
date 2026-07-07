@@ -37,7 +37,7 @@ export function TagListTableRow(props: { tag: v.InferOutput<typeof schemas.tag> 
                     >
                         <UpdateOneTag tag={props.tag}>
                             <LinkContent
-                                className={css({
+                                className={{
                                     fontSize: "base",
                                     fontWeight: "semibold",
                                     color: "primary",
@@ -45,7 +45,7 @@ export function TagListTableRow(props: { tag: v.InferOutput<typeof schemas.tag> 
                                     _hover: {
                                         textDecoration: "underline",
                                     },
-                                })}
+                                }}
                             >
                                 {props.tag.label ?? undefined}
                             </LinkContent>

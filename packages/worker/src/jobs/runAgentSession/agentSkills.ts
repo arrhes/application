@@ -30,7 +30,7 @@ const agentSkills: Record<AgentSkillName, AgentSkill> = {
 Tu peux lister, créer et gérer les exercices fiscaux, ainsi que modifier les paramètres de l'exercice courant (clôture, réouverture, lettrage bilan/résultat).
 
 Règles :
-- La clôture d'exercice est une opération critique — prévenir l'utilisateur avant d'agir.
+- La clôture d'exercice est une opération critique - prévenir l'utilisateur avant d'agir.
 - Toujours appeler read_all_years en début de conversation si aucun exercice n'est pré-sélectionné.`,
         toolCategories: [
             "years",
@@ -156,7 +156,7 @@ Règles :
 Tu peux analyser les données comptables : requêtes, agrégations, tendances et comparaisons.
 
 Règles :
-- Toujours utiliser process_array pour compter, trier, filtrer ou calculer — ne jamais le faire manuellement.
+- Toujours utiliser process_array pour compter, trier, filtrer ou calculer - ne jamais le faire manuellement.
 - Présenter les résultats avec des chiffres précis et des tableaux markdown quand c'est pertinent.
 - Utiliser sort_and_slice au lieu de sort + slice séparés.`,
         toolCategories: [],

@@ -16,7 +16,7 @@ type Section = {
     items: SectionItem[]
 }
 
-/** State-based tab navigation — no TanStack Router required. */
+/** State-based tab navigation - no TanStack Router required. */
 export function SubPageContent(props: {
     sections: Record<string, Section>
     defaultKey?: string

@@ -1,6 +1,6 @@
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { FormatNull, FormatPrice, FormatText } from "@arrhes/ui"
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import type * as v from "valibot"
 import { Table } from "../../../../../components/layouts/table/table.tsx"
 import { toRoman } from "../../../../../utilities/toRoman.ts"
@@ -79,7 +79,7 @@ export function IncomeStatementsReportTable(props: {
                         >
                             <Table.Body.Row>
                                 <Table.Body.Cell>
-                                    <FormatNull className="" />
+                                    <FormatNull />
                                 </Table.Body.Cell>
                             </Table.Body.Row>
                         </Table.Body.Root>
@@ -163,7 +163,7 @@ export function IncomeStatementsReportTable(props: {
                             return (
                                 <Table.Body.Row
                                     key={computation.id}
-                                    className={cx(
+                                    className={cn(
                                         css({}),
                                         index === 0
                                             ? css({
@@ -183,19 +183,19 @@ export function IncomeStatementsReportTable(props: {
                                             })}
                                         >
                                             <FormatText
-                                                className={css({
+                                                className={{
                                                     whiteSpace: "normal",
                                                     textAlign: "right",
-                                                })}
+                                                }}
                                             >
                                                 {computation.label}
                                             </FormatText>
                                             <FormatText
-                                                className={css({
+                                                className={{
                                                     whiteSpace: "normal",
                                                     textAlign: "right",
                                                     color: "neutral/50",
-                                                })}
+                                                }}
                                             >
                                                 {`(${computationIncomeStatementsLabel})`}
                                             </FormatText>

@@ -87,9 +87,9 @@ export function FolderContextMenu(props: {
                                     <Dialog.Title>Déplacer le dossier</Dialog.Title>
                                 </Dialog.Header>
                                 <Dialog.Body
-                                    className={css({
+                                    className={{
                                         alignItems: "stretch",
-                                    })}
+                                    }}
                                 >
                                     <MoveOneFolderForm
                                         folder={props.folder}

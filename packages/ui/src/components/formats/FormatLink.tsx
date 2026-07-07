@@ -1,4 +1,4 @@
-import type { ComponentProps } from "react"
+import type { Styles } from "../../../styled-system/css/css"
 import { css } from "../../utilities/cn.js"
 import { Button } from "../buttons/Button.js"
 import { toast } from "../overlays/toast/useToast.js"
@@ -7,29 +7,29 @@ import { FormatNull } from "./FormatNull.js"
 
 type FormatLinkProps = {
     text: string | null
-    className?: ComponentProps<"span">["className"]
+    className?: Styles
+}
+
+function copyContent(toCopy: string | null) {
+    toast({
+        title: "Contenu copié dans le presse-papier.",
+        variant: "information",
+    })
+    return navigator.clipboard.writeText(!toCopy ? "" : toCopy)
 }
 
 export function FormatLink(props: FormatLinkProps) {
     if (!props.text) return <FormatNull />
 
-    const copyContent = (toCopy: string | null) => {
-        toast({
-            title: "Contenu copié dans le presse-papier.",
-            variant: "information",
-        })
-        return navigator.clipboard.writeText(!toCopy ? "" : toCopy)
-    }
-
     return (
         <FormatBase className={props.className}>
             <Button
                 onClick={() => copyContent(props.text)}
-                className={css({
+                className={{
                     width: "100%",
                     overflow: "auto",
                     borderRadius: "none",
-                })}
+                }}
             >
                 <span
                     className={css({

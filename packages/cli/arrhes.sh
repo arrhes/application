@@ -1,5 +1,5 @@
 #!/bin/sh
-# arrhes — Arrhes API CLI
+# arrhes - Arrhes API CLI
 # Requires: curl
 # Config:   ~/.arrhes/config  (ARRHES_URL, ARRHES_API_KEY)
 set -e
@@ -32,13 +32,13 @@ _jbody_raw() {
     [ -n "$_JBODY" ] && _JBODY="${_JBODY},"
     _JBODY="${_JBODY}\"$1\":$2"
 }
-# _jstr: add "key":"value" — skip if value is empty
+# _jstr: add "key":"value" - skip if value is empty
 _jstr()      { [ -n "$2" ] && _jbody_raw "$1" "\"$(_jesc "$2")\"" || true; }
 # _jstr_null: add "key":"value" or "key":null
 _jstr_null() {
     if [ -n "$2" ]; then _jbody_raw "$1" "\"$(_jesc "$2")\""; else _jbody_raw "$1" "null"; fi
 }
-# _jnum: add "key":number — skip if value is empty
+# _jnum: add "key":number - skip if value is empty
 _jnum()  { [ -n "$2" ] && _jbody_raw "$1" "$2" || true; }
 # _jbool: add "key":true|false
 _jbool() { _jbody_raw "$1" "$2"; }

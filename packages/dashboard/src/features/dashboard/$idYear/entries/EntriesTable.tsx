@@ -166,9 +166,9 @@ export function EntriesTable(props: {
                     return (
                         <FormatNull
                             text="Aucun mouvement"
-                            className={css({
+                            className={{
                                 padding: "1rem",
-                            })}
+                            }}
                         />
                     )
                 }
@@ -253,17 +253,17 @@ export function EntriesTable(props: {
                                                     })}
                                                 >
                                                     <FormatText
-                                                        className={css({
+                                                        className={{
                                                             overflow: "visible",
-                                                        })}
+                                                        }}
                                                     >
                                                         {account.number}
                                                     </FormatText>
                                                     <FormatText
                                                         wrap={true}
-                                                        className={css({
+                                                        className={{
                                                             color: "neutral/50",
-                                                        })}
+                                                        }}
                                                     >
                                                         {account.label}
                                                     </FormatText>

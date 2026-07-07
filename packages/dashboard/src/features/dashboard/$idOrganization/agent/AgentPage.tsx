@@ -314,9 +314,9 @@ export function AgentPage({
                             }}
                             placeholder="Votre message..."
                             disabled={isLoading}
-                            className={css({
+                            className={{
                                 flex: 1,
-                            })}
+                            }}
                         />
                         <input
                             ref={fileInputRef}
@@ -453,14 +453,14 @@ export function AgentPage({
                                 <Popover.Content
                                     side="top"
                                     align="end"
-                                    className={css({
+                                    className={{
                                         width: "320px",
                                         maxWidth: "calc(100vw - 2rem)",
                                         display: "flex",
                                         flexDirection: "column",
                                         gap: "0.75rem",
                                         padding: "0.75rem",
-                                    })}
+                                    }}
                                 >
                                     <div
                                         className={css({

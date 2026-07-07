@@ -6,7 +6,7 @@ import {
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { Button, ButtonGhostContent, FormatDateTime, FormatFileSize, FormatNull, toast } from "@arrhes/ui"
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import { IconArrowLeft, IconFile, IconFileTypePdf, IconFolder } from "@tabler/icons-react"
 import { type DragEvent, type MouseEvent, type ReactElement, useEffect, useRef, useState } from "react"
 import type * as v from "valibot"
@@ -228,7 +228,7 @@ export function FilesTable(props: {
         return {
             ...dropTargetProps,
             ...dragSourceProps,
-            className: cx(
+            className: cn(
                 isDropTarget
                     ? css({
                           backgroundColor: "primary/6",
@@ -409,12 +409,12 @@ export function FilesTable(props: {
                                             props.onFolderOpen(item.data.id)
                                         }}
                                         title={item.data.name}
-                                        className={css({
+                                        className={{
                                             flex: "1",
                                             minWidth: "0",
                                             overflow: "hidden",
                                             cursor: "pointer",
-                                        })}
+                                        }}
                                     >
                                         <ButtonGhostContent
                                             leftIcon={<IconFolder />}
@@ -452,12 +452,12 @@ export function FilesTable(props: {
                                             })
                                         }}
                                         title={item.data.name ?? "/"}
-                                        className={css({
+                                        className={{
                                             flex: "1",
                                             minWidth: "0",
                                             overflow: "hidden",
                                             cursor: "pointer",
-                                        })}
+                                        }}
                                     >
                                         <ButtonGhostContent
                                             leftIcon={leftIcon ?? <IconFile />}

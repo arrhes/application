@@ -1,12 +1,18 @@
 import type { HTMLAttributes } from "react"
-import { css, cx } from "../../../utilities/cn.js"
+import type { Styles } from "../../../../styled-system/css/css"
+import { css } from "../../../utilities/cn.js"
 
-export function DialogContent(props: HTMLAttributes<HTMLDivElement>) {
+export function DialogContent({
+    className,
+    ...props
+}: Omit<HTMLAttributes<HTMLDivElement>, "className"> & {
+    className?: Styles
+}) {
     return (
         <div
             {...props}
-            className={cx(
-                css({
+            className={css(
+                {
                     minWidth: "100%",
                     width: "100%",
                     maxWidth: "md",
@@ -23,8 +29,8 @@ export function DialogContent(props: HTMLAttributes<HTMLDivElement>) {
                     md: {
                         minWidth: "md",
                     },
-                }),
-                props.className,
+                },
+                className,
             )}
         >
             {props.children}

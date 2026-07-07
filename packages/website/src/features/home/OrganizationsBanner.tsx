@@ -37,9 +37,9 @@ export function OrganizationsBanner() {
             </div>
             <LinkButton
                 to="/dashboard/organisations"
-                className={css({
+                className={{
                     width: "fit-content",
-                })}
+                }}
             >
                 <ButtonPlainContent
                     leftIcon={<IconBuilding />}

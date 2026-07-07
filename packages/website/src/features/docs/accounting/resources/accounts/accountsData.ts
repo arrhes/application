@@ -15792,21 +15792,6 @@ export function getAccountBySlug(slug: string): AccountEntry | undefined {
     return accountEntries.find((a) => a.slug === slug)
 }
 
-export function getAccountsByClass(): Map<number, AccountEntry[]> {
-    const grouped = new Map<number, AccountEntry[]>()
-    for (const account of accountEntries) {
-        const existing = grouped.get(account.classNumber)
-        if (existing) {
-            existing.push(account)
-        } else {
-            grouped.set(account.classNumber, [
-                account,
-            ])
-        }
-    }
-    return grouped
-}
-
 export function searchAccounts(query: string): AccountEntry[] {
     if (!query.trim()) return accountEntries
     const normalized = query

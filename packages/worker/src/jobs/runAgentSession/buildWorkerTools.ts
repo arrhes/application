@@ -8,7 +8,7 @@ import type { ToolCategory } from "./toolCategories.js"
 type DB = ReturnType<typeof sqlClient>
 export type ToolResultStore = Map<string, unknown>
 
-// Tool descriptions — same as API
+// Tool descriptions - same as API
 const toolDescriptions: Record<string, string> = {
     "read-all-years": "Lister tous les exercices fiscaux de l'organisation.",
     "create-one-year": "Creer un nouvel exercice fiscal.",

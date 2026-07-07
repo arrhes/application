@@ -72,10 +72,10 @@ export function SignInPage() {
                         <a href={`${import.meta.env.VITE_WEBSITE_BASE_URL}/documentation`}>
                             <ButtonGhostContent
                                 leftIcon={<IconBook2 />}
-                                className={css({
+                                className={{
                                     width: "100%",
                                     justifyContent: "center",
-                                })}
+                                }}
                             />
                         </a>
                     </div>
@@ -112,10 +112,10 @@ export function SignInPage() {
                         submitButtonProps={{
                             leftIcon: <IconLogin2 />,
                             text: "Se connecter",
-                            className: css({
+                            className: {
                                 width: "100%",
                                 justifyContent: "center",
-                            }),
+                            },
                         }}
                         submitOnPressEnterKey={true}
                         onSubmit={async (data) => {
@@ -195,15 +195,15 @@ export function SignInPage() {
 
                     <LinkButton
                         to="/mot-de-passe-oublié"
-                        className={css({
+                        className={{
                             width: "100%",
-                        })}
+                        }}
                     >
                         <ButtonGhostContent
                             text="Mot de passe oublié ?"
-                            className={css({
+                            className={{
                                 justifyContent: "center",
-                            })}
+                            }}
                         />
                     </LinkButton>
 
@@ -221,17 +221,17 @@ export function SignInPage() {
                     >
                         <LinkButton
                             to="/inscription"
-                            className={css({
+                            className={{
                                 width: "100%",
-                            })}
+                            }}
                         >
                             <ButtonOutlineContent
                                 leftIcon={<IconUserPlus />}
                                 text="Créer un compte"
-                                className={css({
+                                className={{
                                     width: "100%",
                                     justifyContent: "center",
-                                })}
+                                }}
                             />
                         </LinkButton>
                     </div>

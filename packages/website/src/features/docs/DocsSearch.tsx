@@ -7,7 +7,7 @@ import { useEffect, useMemo, useRef, useState } from "react"
 
 const MAX_RESULTS = 8
 
-/** Strip accents and lowercase — essential for French text ("écritures" → "ecritures"). */
+/** Strip accents and lowercase - essential for French text ("écritures" → "ecritures"). */
 function normalize(text: string): string {
     return text
         .toLowerCase()
@@ -19,10 +19,10 @@ function normalize(text: string): string {
  * Score how well `entry` matches a pre-tokenized query.
  *
  * Returns a number in [0, 3]:
- *   3   — at least one token is an exact substring of title/description (highest relevance)
- *   2   — every token appears somewhere in the full content
- *   1   — partial token overlap (fraction of tokens that match)
- *   0   — no match
+ *   3   - at least one token is an exact substring of title/description (highest relevance)
+ *   2   - every token appears somewhere in the full content
+ *   1   - partial token overlap (fraction of tokens that match)
+ *   0   - no match
  *
  * All comparisons are accent-normalised.
  */
@@ -145,11 +145,17 @@ export function DocsSearch() {
             .filter((t) => t.length > 0)
 
         const scored = docsSearchIndex
-            .map((entry) => ({
-                entry,
-                score: scoreEntry(entry, toks),
-            }))
-            .filter((r) => r.score > 0)
+            .flatMap((entry) => {
+                const score = scoreEntry(entry, toks)
+                return score > 0
+                    ? [
+                          {
+                              entry,
+                              score,
+                          },
+                      ]
+                    : []
+            })
             .sort((a, b) => b.score - a.score)
             .slice(0, MAX_RESULTS)
             .map((r) => r.entry)
@@ -236,6 +242,7 @@ export function DocsSearch() {
                 />
                 <input
                     type="search"
+                    aria-label="Rechercher dans la documentation"
                     autoComplete="off"
                     placeholder="Rechercher dans la documentation..."
                     value={query}
@@ -288,7 +295,7 @@ export function DocsSearch() {
                                 e.preventDefault()
                                 handleSelect(entry.path)
                             }}
-                            className={css({
+                            className={{
                                 display: "flex",
                                 flexDirection: "column",
                                 justifyContent: "start",
@@ -304,7 +311,7 @@ export function DocsSearch() {
                                 _last: {
                                     borderBottom: "none",
                                 },
-                            })}
+                            }}
                         >
                             <span
                                 className={css({

@@ -1,4 +1,4 @@
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { type ComponentProps, type ReactElement, useRef } from "react"
 
@@ -35,7 +35,7 @@ export function Virtualizer<TData>(props: {
     return (
         <div
             ref={parentRef}
-            className={cx(containerStyle, props.className)}
+            className={cn(containerStyle, props.className)}
         >
             <div
                 style={{

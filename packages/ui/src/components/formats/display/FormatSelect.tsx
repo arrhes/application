@@ -1,4 +1,4 @@
-import type { ComponentProps } from "react"
+import type { Styles } from "../../../../styled-system/css/css"
 import { Chip, type ChipColors } from "../../layouts/Chip.js"
 import { FormatBase } from "../FormatBase.js"
 import { FormatNull } from "../FormatNull.js"
@@ -11,7 +11,7 @@ export function FormatSelect(props: {
         label: string
     }>
     color?: ChipColors
-    className?: ComponentProps<"div">["className"]
+    className?: Styles
 }) {
     const option = formatSelect(props.option, props.options)
     if (!option) return <FormatNull />

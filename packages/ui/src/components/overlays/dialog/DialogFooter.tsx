@@ -1,12 +1,18 @@
 import type { HTMLAttributes } from "react"
-import { css, cx } from "../../../utilities/cn.js"
+import type { Styles } from "../../../../styled-system/css/css"
+import { css } from "../../../utilities/cn.js"
 
-export function DialogFooter(props: HTMLAttributes<HTMLDivElement>) {
+export function DialogFooter({
+    className,
+    ...props
+}: Omit<HTMLAttributes<HTMLDivElement>, "className"> & {
+    className?: Styles
+}) {
     return (
         <div
             {...props}
-            className={cx(
-                css({
+            className={css(
+                {
                     padding: "1rem",
                     borderTop: "1px solid",
                     borderTopColor: "neutral/5",
@@ -15,8 +21,8 @@ export function DialogFooter(props: HTMLAttributes<HTMLDivElement>) {
                     justifyContent: "flex-end",
                     alignItems: "center",
                     gap: "0.5rem",
-                }),
-                props.className,
+                },
+                className,
             )}
         />
     )

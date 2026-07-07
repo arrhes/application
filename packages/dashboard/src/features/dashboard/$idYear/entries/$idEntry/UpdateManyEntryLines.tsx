@@ -27,13 +27,13 @@ export function UpdateManyEntryLines(props: {
 
     return (
         <Button
-            className={css({
+            className={{
                 padding: "0",
                 border: "none",
                 backgroundColor: "transparent",
                 width: "fit-content",
                 height: "fit-content",
-            })}
+            }}
             onClick={() => {
                 const r = {
                     current: "",
@@ -149,9 +149,9 @@ export function UpdateManyEntryLines(props: {
                                                 name="isComputedForJournalReport"
                                                 render={({ field }) => (
                                                     <FormItem
-                                                        className={css({
+                                                        className={{
                                                             width: "fit-content",
-                                                        })}
+                                                        }}
                                                     >
                                                         <FormLabel
                                                             label="Journal"
@@ -182,9 +182,9 @@ export function UpdateManyEntryLines(props: {
                                                 name="isComputedForLedgerReport"
                                                 render={({ field }) => (
                                                     <FormItem
-                                                        className={css({
+                                                        className={{
                                                             width: "fit-content",
-                                                        })}
+                                                        }}
                                                     >
                                                         <FormLabel
                                                             label="Grand-livre"
@@ -215,9 +215,9 @@ export function UpdateManyEntryLines(props: {
                                                 name="isComputedForBalanceReport"
                                                 render={({ field }) => (
                                                     <FormItem
-                                                        className={css({
+                                                        className={{
                                                             width: "fit-content",
-                                                        })}
+                                                        }}
                                                     >
                                                         <FormLabel
                                                             label="Balance"
@@ -248,9 +248,9 @@ export function UpdateManyEntryLines(props: {
                                                 name="isComputedForBalanceSheetReport"
                                                 render={({ field }) => (
                                                     <FormItem
-                                                        className={css({
+                                                        className={{
                                                             width: "fit-content",
-                                                        })}
+                                                        }}
                                                     >
                                                         <FormLabel
                                                             label="Bilan"
@@ -281,9 +281,9 @@ export function UpdateManyEntryLines(props: {
                                                 name="isComputedForIncomeStatementReport"
                                                 render={({ field }) => (
                                                     <FormItem
-                                                        className={css({
+                                                        className={{
                                                             width: "fit-content",
-                                                        })}
+                                                        }}
                                                     >
                                                         <FormLabel
                                                             label="Compte de résultat"

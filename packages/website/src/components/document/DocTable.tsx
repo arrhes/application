@@ -26,9 +26,9 @@ export function DocTable(props: { headers: string[]; rows: (string | ReactNode)[
                             borderBottomColor: "neutral/10",
                         })}
                     >
-                        {props.headers.map((header, index) => (
+                        {props.headers.map((header) => (
                             <th
-                                key={index}
+                                key={String(header)}
                                 className={css({
                                     padding: "0.5rem",
                                     textAlign: "left",
@@ -45,9 +45,9 @@ export function DocTable(props: { headers: string[]; rows: (string | ReactNode)[
                     </tr>
                 </thead>
                 <tbody>
-                    {props.rows.map((row, rowIndex) => (
+                    {props.rows.map((row) => (
                         <tr
-                            key={rowIndex}
+                            key={row.map((cell) => String(cell)).join("|")}
                             className={css({
                                 borderBottom: "1px solid",
                                 borderBottomColor: "neutral/10",

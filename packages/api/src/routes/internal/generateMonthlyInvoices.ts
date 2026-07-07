@@ -209,7 +209,7 @@ export const generateMonthlyInvoicesRoute = apiFactory
         // ── Phase 1: Generate XML invoices for all pending draft invoices ─────────
         // Invoices are created when payments are recorded, then rendered here.
         // Processes drafts from any period so that historical seed data or catch-up invoices
-        // are also rendered — not only the immediately-previous month.
+        // are also rendered - not only the immediately-previous month.
         const draftInvoicesLastMonth = await c.var.clients.sql
             .select({
                 id: models.invoice.id,

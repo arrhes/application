@@ -1,4 +1,4 @@
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import type { ComponentProps, ReactElement } from "react"
 
 export function CardRoot(props: {
@@ -7,7 +7,7 @@ export function CardRoot(props: {
 }) {
     return (
         <div
-            className={cx(
+            className={cn(
                 css({
                     width: "100%",
                     flexShrink: "0",
@@ -23,7 +23,8 @@ export function CardRoot(props: {
                 }),
                 props.className,
             )}
-            children={props.children}
-        />
+        >
+            {props.children}
+        </div>
     )
 }

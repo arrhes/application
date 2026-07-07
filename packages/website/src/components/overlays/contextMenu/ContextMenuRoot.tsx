@@ -1,4 +1,4 @@
-import { createContext, type ReactNode, useContext, useState } from "react"
+import { createContext, type ReactNode, use, useCallback, useMemo, useState } from "react"
 
 type ContextMenuContextValue = {
     open: boolean
@@ -10,10 +10,10 @@ type ContextMenuContextValue = {
     closeMenu: () => void
 }
 
-export const ContextMenuContext = createContext<ContextMenuContextValue | null>(null)
+const ContextMenuContext = createContext<ContextMenuContextValue | null>(null)
 
 export function useContextMenu() {
-    return useContext(ContextMenuContext)
+    return use(ContextMenuContext)
 }
 
 type ContextMenuRootProps = {
@@ -28,30 +28,41 @@ export function ContextMenuRoot({ children, onOpenChange }: ContextMenuRootProps
         y: 0,
     })
 
-    function openMenu(x: number, y: number) {
-        setPosition({
-            x,
-            y,
-        })
-        setOpen(true)
-        onOpenChange?.(true)
-    }
+    const openMenu = useCallback(
+        (x: number, y: number) => {
+            setPosition({
+                x,
+                y,
+            })
+            setOpen(true)
+            onOpenChange?.(true)
+        },
+        [
+            onOpenChange,
+        ],
+    )
 
-    function closeMenu() {
+    const closeMenu = useCallback(() => {
         setOpen(false)
         onOpenChange?.(false)
-    }
+    }, [
+        onOpenChange,
+    ])
 
-    return (
-        <ContextMenuContext
-            value={{
-                open,
-                position,
-                openMenu,
-                closeMenu,
-            }}
-        >
-            {children}
-        </ContextMenuContext>
+    const contextValue = useMemo(
+        () => ({
+            open,
+            position,
+            openMenu,
+            closeMenu,
+        }),
+        [
+            open,
+            position,
+            openMenu,
+            closeMenu,
+        ],
     )
+
+    return <ContextMenuContext value={contextValue}>{children}</ContextMenuContext>
 }

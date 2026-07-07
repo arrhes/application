@@ -1,6 +1,7 @@
 import type { ComponentPropsWithRef } from "react"
 import type { FieldError } from "react-hook-form"
-import { css, cx } from "../../utilities/cn.js"
+import type { Styles } from "../../../styled-system/css/css"
+import { cn, css } from "../../utilities/cn.js"
 
 const sharedStyles = css({
     width: "100%",
@@ -16,23 +17,25 @@ const sharedStyles = css({
     boxSizing: "border-box",
 })
 
+function inputTextArea(value: string | undefined | null) {
+    if (!value) return ""
+    return value
+}
+
+function outputTextArea(value: string) {
+    if (!value) return null
+    return value
+}
+
 export function InputTextArea(
-    props: Omit<ComponentPropsWithRef<"textarea">, "value" | "onChange" | "rows"> & {
+    props: Omit<ComponentPropsWithRef<"textarea">, "value" | "onChange" | "rows" | "className"> & {
         error?: FieldError
         value?: string | null
         onChange: (value?: string | null | undefined) => void
+        className?: Styles
     },
 ) {
-    function input(value: string | undefined | null) {
-        if (!value) return ""
-        return value
-    }
-
-    function output(value: string) {
-        if (!value) return null
-        return value
-    }
-
+    const { className, ...rest } = props
     const borderClass = css(
         props.error
             ? {
@@ -55,7 +58,7 @@ export function InputTextArea(
             {/* Invisible replica that drives the height */}
             <span
                 aria-hidden="true"
-                className={cx(
+                className={cn(
                     sharedStyles,
                     borderClass,
                     css({
@@ -65,12 +68,12 @@ export function InputTextArea(
                     }),
                 )}
             >
-                {input(props.value)}{" "}
+                {inputTextArea(props.value)}{" "}
             </span>
 
             <textarea
-                {...props}
-                className={cx(
+                {...rest}
+                className={cn(
                     sharedStyles,
                     borderClass,
                     css({
@@ -86,12 +89,12 @@ export function InputTextArea(
                         },
                         overflow: "hidden",
                     }),
-                    props.className,
+                    className,
                 )}
-                value={input(props.value)}
+                value={inputTextArea(props.value)}
                 onChange={(e) => {
                     if (!props.onChange) return
-                    props.onChange(output(e.currentTarget.value))
+                    props.onChange(outputTextArea(e.currentTarget.value))
                 }}
             />
         </div>

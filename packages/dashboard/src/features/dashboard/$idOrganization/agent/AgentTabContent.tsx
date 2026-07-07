@@ -124,10 +124,10 @@ export function AgentTabContent({ idOrganization }: { idOrganization: string }) 
                         return (
                             <Button
                                 key={session.id}
-                                className={css({
+                                className={{
                                     width: "100%",
                                     textAlign: "left",
-                                })}
+                                }}
                                 onClick={() => {
                                     setSelectedSessionId(session.id)
                                     setIsMenuOpen(false)
@@ -259,9 +259,9 @@ export function AgentTabContent({ idOrganization }: { idOrganization: string }) 
                 >
                     <Button
                         aria-label="Menu"
-                        className={css({
+                        className={{
                             margin: "1rem",
-                        })}
+                        }}
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                     >
                         <ButtonGhostContent leftIcon={<IconMenu />} />

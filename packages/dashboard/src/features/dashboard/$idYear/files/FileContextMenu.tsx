@@ -99,9 +99,9 @@ export function FileContextMenu(props: {
                                     <Dialog.Title>Déplacer le fichier</Dialog.Title>
                                 </Dialog.Header>
                                 <Dialog.Body
-                                    className={css({
+                                    className={{
                                         alignItems: "stretch",
-                                    })}
+                                    }}
                                 >
                                     <MoveOneFileForm
                                         file={props.file}

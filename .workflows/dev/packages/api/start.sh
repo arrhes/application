@@ -7,7 +7,7 @@
 #    the container stops, and `docker compose up --wait` surfaces the error.
 # 2. Starts the API dev server with hot reload (tsx watch).
 #    tsx is started with --conditions source so that @arrhes/application-metadata
-#    resolves to ./src/index.ts directly — no build step needed in dev.
+#    resolves to ./src/index.ts directly - no build step needed in dev.
 # ==============================================================================
 set -e
 

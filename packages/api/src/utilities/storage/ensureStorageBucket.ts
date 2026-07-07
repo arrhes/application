@@ -64,11 +64,11 @@ export async function ensureStorageBucket(client: S3, bucketName: string) {
         // RustFS (and some other S3-compatible providers) return HTTP 400 for HeadBucket
         // even when the bucket exists. Treat it as "bucket present" and continue silently.
         if (httpStatusCode === 400) {
-            console.info(`Bucket "${bucketName}" assumed accessible (HeadBucket returned HTTP 400 — RustFS quirk).`)
+            console.info(`Bucket "${bucketName}" assumed accessible (HeadBucket returned HTTP 400 - RustFS quirk).`)
             return
         }
 
-        // Unexpected error — log and continue rather than crashing the server.
+        // Unexpected error - log and continue rather than crashing the server.
         console.warn(
             `HeadBucket check failed (HTTP ${httpStatusCode ?? "unknown"}, name: ${name ?? "unknown"}, ` +
                 `code: ${code ?? "unknown"}, message: ${message ?? "unknown"}). ` +

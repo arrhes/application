@@ -3,7 +3,7 @@
 # Start Worker
 # ==============================================================================
 # Starts the worker development process with hot reload via tsx.
-# tsx transpiles TypeScript directly — no tsc build step needed for dev.
+# tsx transpiles TypeScript directly - no tsc build step needed for dev.
 # ==============================================================================
 set -e
 

@@ -1,6 +1,6 @@
 import type { InputHTMLAttributes } from "react"
 import type { FieldError } from "react-hook-form"
-import { css, cx } from "../../utilities/cn.js"
+import { css } from "../../utilities/cn.js"
 
 export function InputDisabled(
     props: Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "onChange"> & {
@@ -11,8 +11,8 @@ export function InputDisabled(
 ) {
     return (
         <div
-            className={cx(
-                css({
+            className={css(
+                {
                     width: "100%",
                     height: "32px",
                     display: "flex",
@@ -24,19 +24,18 @@ export function InputDisabled(
                     backgroundColor: "neutral/5",
                     cursor: "not-allowed",
                     opacity: "0.5",
-                }),
-                css(
-                    props.error
-                        ? {
-                              borderColor: "error",
-                          }
-                        : {
-                              borderColor: "neutral/20",
-                          },
-                ),
+                },
+                props.error
+                    ? {
+                          borderColor: "error",
+                      }
+                    : {
+                          borderColor: "neutral/20",
+                      },
             )}
         >
             <input
+                aria-label="Champ désactivé"
                 className={css({
                     width: "100%",
                     height: "100%",
@@ -49,6 +48,7 @@ export function InputDisabled(
                     color: "neutral/50",
                 })}
                 value={props.value ?? ""}
+                readOnly
                 disabled
             />
         </div>

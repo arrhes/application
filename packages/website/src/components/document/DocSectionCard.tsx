@@ -7,6 +7,31 @@ import { LinkButton } from "../LinkButton.js"
 
 export type DocSectionCardColor = "information" | "success" | "primary" | "warning"
 
+const colorStylesDocSectionCard: Record<
+    DocSectionCardColor,
+    {
+        bg: string
+        color: string
+    }
+> = {
+    information: {
+        bg: "information/10",
+        color: "information",
+    },
+    success: {
+        bg: "success/10",
+        color: "success",
+    },
+    primary: {
+        bg: "primary/10",
+        color: "primary",
+    },
+    warning: {
+        bg: "warning/10",
+        color: "warning",
+    },
+}
+
 export function DocSectionCard(props: {
     icon: ReactNode
     iconColor?: DocSectionCardColor
@@ -19,31 +44,7 @@ export function DocSectionCard(props: {
     ctaTo: ValidRoutes
     ctaLabel: string
 }) {
-    const colorStyles: Record<
-        DocSectionCardColor,
-        {
-            bg: string
-            color: string
-        }
-    > = {
-        information: {
-            bg: "information/10",
-            color: "information",
-        },
-        success: {
-            bg: "success/10",
-            color: "success",
-        },
-        primary: {
-            bg: "primary/10",
-            color: "primary",
-        },
-        warning: {
-            bg: "warning/10",
-            color: "warning",
-        },
-    }
-    const style = colorStyles[props.iconColor ?? "primary"]
+    const style = colorStylesDocSectionCard[props.iconColor ?? "primary"]
 
     return (
         <div
@@ -114,7 +115,7 @@ export function DocSectionCard(props: {
                     <LinkButton
                         key={link.to}
                         to={link.to}
-                        className={css({
+                        className={{
                             width: "100%",
                             gap: "0.5rem",
                             paddingY: "0.5rem",
@@ -127,7 +128,7 @@ export function DocSectionCard(props: {
                                 color: "neutral",
                             },
                             transition: "all 0.15s",
-                        })}
+                        }}
                     >
                         <span
                             className={css({

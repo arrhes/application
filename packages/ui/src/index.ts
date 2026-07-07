@@ -82,11 +82,11 @@ export { TooltipPortal } from "./components/overlays/tooltip/tooltipPortal.js"
 export { TooltipProvider } from "./components/overlays/tooltip/tooltipProvider.js"
 export { TooltipRoot, useTooltipRoot } from "./components/overlays/tooltip/tooltipRoot.js"
 export { TooltipTrigger } from "./components/overlays/tooltip/tooltipTrigger.js"
-export type { ModalStoreValue } from "./stores/modalStore.js"
-// Stores
 export { ModalProvider, useModalItem, useModalStore } from "./stores/modalStore.js"
-export type { PopoverStoreValue } from "./stores/popoverStore.js"
+// Stores
+export type { ModalStoreValue } from "./stores/modalStoreContext.js"
 export { PopoverProvider, usePopoverStore } from "./stores/popoverStore.js"
+export type { PopoverStoreValue } from "./stores/popoverStoreContext.js"
 // Utilities
 export { cn } from "./utilities/cn.js"
 export { debounce } from "./utilities/debounce.js"

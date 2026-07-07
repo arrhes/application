@@ -114,7 +114,7 @@ function routePathToToolName(path: string): string {
  * These wrappers have a `wrapped` property containing the inner schema.
  *
  * Also fixes `pipe` schemas that contain multiple `kind: "schema"` items
- * (e.g. `v.pipe(v.string(), v.custom(...))`) — `v.custom()` has `kind: "schema"`
+ * (e.g. `v.pipe(v.string(), v.custom(...))`) - `v.custom()` has `kind: "schema"`
  * in Valibot, making the pipe incompatible with `toJsonSchema`. We strip extra
  * schema-kind items, keeping only the first schema + validation/transformation actions.
  */
@@ -137,7 +137,7 @@ function unwrapSchema(schema: any): any {
     // when it encounters more than one item with kind === "schema" in the pipe array.
     // v.custom() has kind: "schema" (not "validation"), so we strip it.
     // NOTE: v.pipe() sets the schema's `type` to the first item's type (e.g. "string"),
-    // not "pipe" — so we check for the `pipe` array property directly.
+    // not "pipe" - so we check for the `pipe` array property directly.
     if (Array.isArray(schema.pipe)) {
         let foundFirstSchema = false
         const filteredPipe = schema.pipe.filter((item: any) => {

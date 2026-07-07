@@ -88,7 +88,7 @@ Pour plus de détails, consultez le [guide de developpement](docs/DEVELOPMENT.md
 Le projet est organisé en monorepo avec les packages suivants :
 
 - **@arrhes/application-api** - Backend REST API (Hono, PostgreSQL)
-- **@arrhes/application-website** - Interface web (React, TanStack Router)
+- **@arrhes/website** - Interface web (React, TanStack Router)
 - **@arrhes/application-metadata** - Schémas et modèles partagés (Valibot, Drizzle ORM)
 - **@arrhes/application-tools** - Outils de migration et seed de base de données
 - **@arrhes/ui** - Composants UI partagés

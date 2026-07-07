@@ -15,9 +15,9 @@ export function IncomeStatementRow(props: {
     return (
         <UpdateOneIncomeStatement
             incomeStatement={props.incomeStatement}
-            className={css({
+            className={{
                 width: "100%",
-            })}
+            }}
         >
             <div
                 className={css({

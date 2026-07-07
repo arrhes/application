@@ -1,5 +1,5 @@
 import { Button, ButtonGhostContent, ButtonOutlineContent, CircularLoader, FormatNull, InputCheckbox } from "@arrhes/ui"
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import {
     IconChevronDown,
     IconChevronLeft,
@@ -248,9 +248,9 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
     if (props.isLoading)
         return (
             <CircularLoader
-                className={css({
+                className={{
                     m: "3",
-                })}
+                }}
             />
         )
     const columnCount = table.getFlatHeaders().length + (props.renderSubComponent ? 1 : 0)
@@ -572,9 +572,9 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                 <td>
                                     <FormatNull
                                         text="Aucun résultat"
-                                        className={css({
+                                        className={{
                                             padding: "1rem",
-                                        })}
+                                        }}
                                     />
                                 </td>
                             </tr>
@@ -594,7 +594,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                             if (!props.onRowClick) return
                                             props.onRowClick(row)
                                         }}
-                                        className={cx(
+                                        className={cn(
                                             css({
                                                 width: "100%",
                                                 borderBottom: "1px solid",

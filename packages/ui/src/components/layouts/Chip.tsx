@@ -1,5 +1,5 @@
-import type { ComponentProps } from "react"
-import { css, cx } from "../../utilities/cn.js"
+import type { Styles } from "../../../styled-system/css/css"
+import { cn, css } from "../../utilities/cn.js"
 
 export type ChipColors = keyof typeof chipColors
 
@@ -61,11 +61,7 @@ const chipColors = {
     },
 }
 
-export function Chip(props: {
-    text: string | null | undefined
-    color?: keyof typeof chipColors
-    className?: ComponentProps<"div">["className"]
-}) {
+export function Chip(props: { text: string | null | undefined; color?: keyof typeof chipColors; className?: Styles }) {
     if (props.text === null) {
         return null
     }
@@ -75,7 +71,7 @@ export function Chip(props: {
 
     return (
         <div
-            className={cx(
+            className={cn(
                 css({
                     width: "fit",
                     height: "fit",
@@ -92,7 +88,7 @@ export function Chip(props: {
             )}
         >
             <span
-                className={cx(
+                className={cn(
                     css({
                         fontSize: "10px",
                         lineHeight: "none",

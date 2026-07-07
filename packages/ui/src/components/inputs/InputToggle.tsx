@@ -1,5 +1,5 @@
 import type { ButtonHTMLAttributes, JSX } from "react"
-import { css, cx } from "../../utilities/cn.js"
+import { css } from "../../utilities/cn.js"
 import { Button } from "../buttons/Button.js"
 import { ButtonGhostContent } from "../buttons/ButtonGhostContent.js"
 
@@ -32,11 +32,11 @@ export function InputToggle<TValue extends string | boolean>(
                 outline: "none",
             })}
         >
-            {props.options.map((option, index) => {
+            {props.options.map((option) => {
                 const isSelected = props.value === option.value
                 return (
                     <Button
-                        key={`option_${index}`}
+                        key={`option_${option.value}`}
                         onClick={() => {
                             if (isSelected === true) {
                                 props.onChange(null)
@@ -44,30 +44,28 @@ export function InputToggle<TValue extends string | boolean>(
                             }
                             props.onChange(option.value)
                         }}
-                        className={css({
+                        className={{
                             borderRight: "1px solid",
                             borderRightColor: "neutral/5",
                             _last: {
                                 borderRight: "none",
                             },
-                        })}
+                        }}
                     >
                         <ButtonGhostContent
-                            className={cx(
-                                css({
+                            className={css.raw(
+                                {
                                     transition: "all 50ms ease-in-out",
                                     borderRadius: "none",
                                     border: "none",
-                                }),
-                                css(
-                                    isSelected
-                                        ? {
-                                              backgroundColor: "neutral/10",
-                                              outline: "1px solid",
-                                              outlineColor: "neutral",
-                                          }
-                                        : {},
-                                ),
+                                },
+                                isSelected
+                                    ? {
+                                          backgroundColor: "neutral/10",
+                                          outline: "1px solid",
+                                          outlineColor: "neutral",
+                                      }
+                                    : undefined,
                             )}
                             text={option.label}
                             leftIcon={option.icon}

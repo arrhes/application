@@ -19,7 +19,7 @@ function extractDocPageContent(source: string): string {
     const propRe = /\b(?:title|description)\s*=\s*"([^"]+)"/g
     for (const m of stripped.matchAll(propRe)) parts.push(m[1])
 
-    // 2. String items inside items={["...", ...]} — DocList, DocTable rows, etc.
+    // 2. String items inside items={["...", ...]} - DocList, DocTable rows, etc.
     const itemsBlockRe = /\bitems\s*=\s*\{\s*\[([^\]]*?)\]\s*\}/gs
     for (const m of stripped.matchAll(itemsBlockRe)) {
         for (const s of m[1].matchAll(/"([^"]{4,})"/g)) parts.push(s[1])
@@ -42,8 +42,14 @@ function extractDocPageContent(source: string): string {
     return [
         ...new Set(parts),
     ]
-        .map((p) => p.replace(/\s+/g, " ").trim())
-        .filter(Boolean)
+        .flatMap((p) => {
+            const r = p.replace(/\s+/g, " ").trim()
+            return r
+                ? [
+                      r,
+                  ]
+                : []
+        })
         .join(" ")
 }
 
@@ -81,7 +87,7 @@ function extractAccountEntries(source: string): GeneratedSearchEntry[] {
         const side = chunk.match(/\bside\s*:\s*"([^"]+)"/)?.[1] ?? ""
         entries.push({
             path: `/documentation/comptabilité/ressources/comptes/${number}`,
-            title: `${number} — ${label}`,
+            title: `${number} - ${label}`,
             description,
             section: "Comptabilité",
             navGroup: "Comptes",

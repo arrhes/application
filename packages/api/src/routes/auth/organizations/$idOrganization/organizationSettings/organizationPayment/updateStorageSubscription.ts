@@ -102,7 +102,7 @@ export const updateStorageSubscriptionRoute = apiFactory
                 where: (table) => eq(table.id, idOrganization),
             })
         } else {
-            // Decrease: store as pending — applied on the 1st of next month
+            // Decrease: store as pending - applied on the 1st of next month
             const pendingValue = nextStorageLimit === organization.storageLimit ? null : nextStorageLimit
 
             await updateOne({

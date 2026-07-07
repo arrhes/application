@@ -1,4 +1,4 @@
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import type { ComponentPropsWithRef, ReactElement } from "react"
 import { useContextMenu } from "./ContextMenuRoot.js"
 
@@ -27,7 +27,7 @@ export function ContextMenuItem({
                 onSelect?.()
                 onClick?.(e)
             }}
-            className={cx(
+            className={cn(
                 css({
                     width: "100%",
                     display: "flex",

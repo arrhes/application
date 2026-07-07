@@ -1,6 +1,6 @@
 import type { routeDefinition } from "@arrhes/application-metadata/utilities"
 import { CircularLoader, FormatError } from "@arrhes/ui"
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@arrhes/ui/utilities/cn.js"
 import { type ComponentProps, type ReactElement, Suspense } from "react"
 import type * as v from "valibot"
 import { useDataFromAPI } from "../../utilities/useHTTPData.js"
@@ -26,10 +26,10 @@ export function DataWrapper<TRouteDefinition extends ReturnType<typeof routeDefi
                 <CircularLoader
                     {...props.loaderProps}
                     text={props.loaderProps?.text ?? "Chargement des données..."}
-                    className={cx(
-                        css({
+                    className={css.raw(
+                        {
                             padding: "1rem",
-                        }),
+                        },
                         props.loaderProps?.className,
                     )}
                 />
@@ -39,9 +39,9 @@ export function DataWrapper<TRouteDefinition extends ReturnType<typeof routeDefi
             <FormatError
                 {...props.errorProps}
                 text={props.errorProps?.text ?? "Erreur lors de la récupération des données."}
-                className={css({
+                className={{
                     padding: "1rem",
-                })}
+                }}
             />
         )
     }

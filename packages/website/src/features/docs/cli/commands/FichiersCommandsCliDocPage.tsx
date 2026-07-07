@@ -15,7 +15,7 @@ export function FichiersCommandsCliDocPage() {
                 description="Lister, consulter, enregistrer, modifier, supprimer des fichiers et générer des liens de téléchargement. Les dossiers sont gérés via le sous-groupe arrhes files folders."
             />
 
-            <DocSection title="Vue d'ensemble — fichiers">
+            <DocSection title="Vue d'ensemble - fichiers">
                 <DocTable
                     headers={[
                         "Commande",
@@ -155,7 +155,7 @@ export function FichiersCommandsCliDocPage() {
                 </DocCodeBlock>
             </DocSection>
 
-            <DocSection title="Vue d'ensemble — dossiers">
+            <DocSection title="Vue d'ensemble - dossiers">
                 <DocParagraph>
                     Les dossiers sont gérés via le sous-groupe <DocCode>arrhes files folders</DocCode>.
                 </DocParagraph>

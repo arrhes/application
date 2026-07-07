@@ -24,11 +24,11 @@ function NavCard({ item }: { item: NavItem }) {
     return (
         <TabLink args={item.args}>
             <Button
-                className={css({
+                className={{
                     width: "100%",
                     height: "100%",
                     textAlign: "left",
-                })}
+                }}
             >
                 <div
                     className={css({

@@ -1,14 +1,16 @@
 import type { InputHTMLAttributes } from "react"
-import { css, cx } from "../../utilities/cn.js"
+import type { Styles } from "../../../styled-system/css/css"
+import { css } from "../../utilities/cn.js"
 
 export function InputCheckbox(
-    props: Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "value" | "checked" | "onChange"> & {
+    props: Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "value" | "checked" | "onChange" | "className"> & {
         checked: boolean
         indeterminate?: boolean
         onChange: (checked: boolean) => void
+        className?: Styles
     },
 ) {
-    const { indeterminate, onChange, ...rest } = props
+    const { indeterminate, onChange, className, ...rest } = props
     return (
         <div
             className={css({
@@ -26,8 +28,8 @@ export function InputCheckbox(
                 }}
                 checked={props.checked}
                 onChange={(e) => onChange(e.currentTarget.checked)}
-                className={cx(
-                    css({
+                className={css(
+                    {
                         cursor: "pointer",
                         flexShrink: "0",
                         appearance: "none",
@@ -66,8 +68,8 @@ export function InputCheckbox(
                                 transform: "scale(1)",
                             },
                         },
-                    }),
-                    props.className,
+                    },
+                    className,
                 )}
             />
         </div>

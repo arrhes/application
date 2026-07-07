@@ -12,9 +12,9 @@ export function DocList(props: { items: ReactNode[]; variant?: "bullet" | "check
                 gap: "0.25rem",
             })}
         >
-            {props.items.map((item, index) => (
+            {props.items.map((item) => (
                 <li
-                    key={index}
+                    key={typeof item === "string" ? item : `${variant}-${String(item)}`}
                     className={css({
                         display: "flex",
                         alignItems: "flex-start",

@@ -13,9 +13,9 @@ export function GlossaryListItem(props: {
             params={{
                 term: props.slug,
             }}
-            className={css({
+            className={{
                 width: "100%",
-            })}
+            }}
         >
             <div
                 className={css({

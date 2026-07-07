@@ -17,7 +17,7 @@ async function startServer() {
         // Similar to uncaughtException handling
     })
 
-    // Schema check — runs on every startup.
+    // Schema check - runs on every startup.
     // When SCHEMA_CHECK_ONLY=1, exit immediately after the check so that
     // start.sh can use plain `tsx` (not watch) to get a real exit code
     // before handing off to `tsx watch`.
@@ -26,7 +26,7 @@ async function startServer() {
         const clients = await getClients(env)
         await checkDatabaseSchema(clients.sql)
     } catch (error: unknown) {
-        console.error("Database schema check failed — run migrations and restart:")
+        console.error("Database schema check failed - run migrations and restart:")
         console.error(error instanceof Error ? error.message : error)
         process.exit(1)
     }

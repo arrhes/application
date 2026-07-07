@@ -15,6 +15,7 @@ export function InputNumber(props: { value: number; onChange: (value: number) =>
             })}
         >
             <Button
+                title="Diminuer"
                 onClick={() => props.onChange(Math.max(props.value - 1, min))}
                 isDisabled={props.value <= min}
             >
@@ -26,6 +27,7 @@ export function InputNumber(props: { value: number; onChange: (value: number) =>
             </Button>
             <input
                 type="number"
+                aria-label={props.label ?? "Valeur"}
                 min={min}
                 value={props.value}
                 onChange={(e) => {
@@ -56,6 +58,7 @@ export function InputNumber(props: { value: number; onChange: (value: number) =>
                 })}
             />
             <Button
+                title="Augmenter"
                 onClick={() => props.onChange(props.value + 1)}
                 isDisabled={false}
             >

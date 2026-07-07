@@ -49,7 +49,7 @@ export function YearListTableRow(props: {
                         >
                             <Button>
                                 <LinkContent
-                                    className={css({
+                                    className={{
                                         fontSize: "base",
                                         fontWeight: "semibold",
                                         color: "primary",
@@ -57,7 +57,7 @@ export function YearListTableRow(props: {
                                         _hover: {
                                             textDecoration: "underline",
                                         },
-                                    })}
+                                    }}
                                 >
                                     {props.year.label}
                                 </LinkContent>

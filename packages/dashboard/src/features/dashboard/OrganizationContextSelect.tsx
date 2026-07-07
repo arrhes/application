@@ -1,5 +1,4 @@
 import { Button, ButtonGhostContent, ButtonPlainContent, Separator } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconChevronDown } from "@tabler/icons-react"
 import { useState } from "react"
 import { getAllMyOrganizationsRouteDefinition } from "../../../../metadata/src/routes/dashboard/auth/index.js"
@@ -44,13 +43,13 @@ export function OrganizationContextSelect(props: { value: string | null; onChang
             </Popover.Trigger>
             <Popover.Content
                 align="start"
-                className={css({
+                className={{
                     padding: "0.5rem",
                     minWidth: "180px",
                     maxHeight: "260px",
                     overflowY: "auto",
                     gap: "0.25rem",
-                })}
+                }}
             >
                 {options.map((option) => (
                     <Button
@@ -59,37 +58,37 @@ export function OrganizationContextSelect(props: { value: string | null; onChang
                             props.onChange(option.key === props.value ? null : option.key)
                             setOpen(false)
                         }}
-                        className={css({
+                        className={{
                             width: "100%",
-                        })}
+                        }}
                     >
                         <ButtonGhostContent
                             text={option.label}
                             isCurrent={option.key === props.value}
-                            className={css({
+                            className={{
                                 width: "100%",
                                 justifyContent: "start",
-                            })}
+                            }}
                         />
                     </Button>
                 ))}
                 <Separator
-                    className={css({
+                    className={{
                         marginY: "0.25rem",
-                    })}
+                    }}
                 />
                 <div onClick={() => setOpen(false)}>
                     <AddNewOrganization
-                        className={css({
+                        className={{
                             width: "100%",
-                        })}
+                        }}
                     >
                         <ButtonGhostContent
                             text="Ajouter une organisation"
-                            className={css({
+                            className={{
                                 width: "100%",
                                 justifyContent: "start",
-                            })}
+                            }}
                         />
                     </AddNewOrganization>
                 </div>

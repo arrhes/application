@@ -138,7 +138,7 @@ api/src/
 - Gestion des pieces justificatives (upload/download via S3)
 - Envoi d'emails transactionnels
 
-### @arrhes/application-website
+### @arrhes/website
 
 **Role :** Interface utilisateur web complete incluant le dashboard, le site vitrine et la documentation
 
@@ -584,7 +584,7 @@ Les migrations sont gerees par **Drizzle Kit** :
 ## Diagramme de dependances
 
 ```
-@arrhes/application-website ──depends on──> @arrhes/application-metadata
+@arrhes/website ──depends on──> @arrhes/application-metadata
           │                                          ▲
           └─depends on──> @arrhes/ui                 │
                                                      │

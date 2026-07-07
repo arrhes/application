@@ -33,9 +33,9 @@ function TicketRow(props: { ticket: Ticket }) {
             }}
         >
             <Button
-                className={css({
+                className={{
                     width: "100%",
-                })}
+                }}
             >
                 <div
                     className={css({

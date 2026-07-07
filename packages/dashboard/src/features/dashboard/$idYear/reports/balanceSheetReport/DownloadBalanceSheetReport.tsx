@@ -1,7 +1,6 @@
 import { generateBalanceSheetXmlRouteDefinition } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { Button, ButtonGhostContent, ButtonOutlineContent, toast } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
 import { pdf } from "@react-pdf/renderer"
 import { IconDownload, IconFileTypePdf, IconFileTypeXml } from "@tabler/icons-react"
 import type * as v from "valibot"
@@ -73,44 +72,44 @@ export function DownloadBalanceSheetReport(props: {
             </Popover.Trigger>
             <Popover.Content
                 align="end"
-                className={css({
+                className={{
                     padding: "0.5rem",
                     gap: "0.25rem",
                     display: "flex",
                     flexDirection: "column",
-                })}
+                }}
             >
                 <Popover.Close asChild>
                     <Button
                         onClick={handlePdf}
-                        className={css({
+                        className={{
                             width: "100%",
-                        })}
+                        }}
                     >
                         <ButtonGhostContent
                             leftIcon={<IconFileTypePdf />}
                             text="Télécharger en PDF"
-                            className={css({
+                            className={{
                                 width: "100%",
                                 justifyContent: "start",
-                            })}
+                            }}
                         />
                     </Button>
                 </Popover.Close>
                 <Popover.Close asChild>
                     <Button
                         onClick={handleXml}
-                        className={css({
+                        className={{
                             width: "100%",
-                        })}
+                        }}
                     >
                         <ButtonGhostContent
                             leftIcon={<IconFileTypeXml />}
                             text="Télécharger en XML"
-                            className={css({
+                            className={{
                                 width: "100%",
                                 justifyContent: "start",
-                            })}
+                            }}
                         />
                     </Button>
                 </Popover.Close>

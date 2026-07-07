@@ -387,7 +387,7 @@ arrhes/
 │   │   ├── package.json
 │   │   └── tsconfig.json
 │   │
-│   ├── website/               # Frontend React (@arrhes/application-website)
+│   ├── website/               # Frontend React (@arrhes/website)
 │   │   ├── src/
 │   │   │   ├── root.tsx       # Point d'entree React
 │   │   │   ├── index.html     # HTML principal

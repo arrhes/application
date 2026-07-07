@@ -22,16 +22,16 @@ function ScenarioRow(props: { scenario: ScenarioEntry }) {
             params={{
                 scenario: scenario.id,
             }}
-            className={css({
+            className={{
                 width: "100%",
-            })}
+            }}
         >
             <ButtonGhostContent
                 text={scenario.title}
-                className={css({
+                className={{
                     width: "100%",
                     justifyContent: "start",
-                })}
+                }}
             />
         </LinkButton>
     )
@@ -109,6 +109,7 @@ export function ScenariosResourcesAccountingDocPage() {
                 )}
                 <input
                     type="text"
+                    aria-label="Rechercher un scénario"
                     placeholder="capital, 512, fournisseur, amortissement..."
                     value={query}
                     onChange={(e) => handleSearch(e.target.value)}

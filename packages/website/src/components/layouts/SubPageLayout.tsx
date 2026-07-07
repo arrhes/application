@@ -101,9 +101,9 @@ export function SubPageLayout(props: {
                                     key={item.to}
                                     to={item.to}
                                     params={item.params}
-                                    className={css({
+                                    className={{
                                         width: "100%",
-                                    })}
+                                    }}
                                     onClick={() => {
                                         setIsMenuOpen(false)
                                     }}
@@ -112,10 +112,10 @@ export function SubPageLayout(props: {
                                         leftIcon={item.icon}
                                         text={item.label}
                                         isCurrent={isActive}
-                                        className={css({
+                                        className={{
                                             width: "100%",
                                             justifyContent: "start",
-                                        })}
+                                        }}
                                     />
                                 </LinkButton>
                             )

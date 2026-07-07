@@ -1,13 +1,13 @@
 import type { returnedSchemas } from "@arrhes/application-metadata"
 import { Button, type ButtonContentProps, toast } from "@arrhes/ui"
-import { cloneElement, type ReactElement, useState } from "react"
+import { type ComponentProps, cloneElement, type ReactElement, useState } from "react"
 import type * as v from "valibot"
 import { getInvoiceXmlContent } from "./getInvoiceXmlContent.ts"
 
 export function DownloadInvoiceAsXMLButton(props: {
     invoice: v.InferOutput<typeof returnedSchemas.invoice>
     children: ReactElement<ButtonContentProps>
-    className?: string
+    className?: ComponentProps<typeof Button>["className"]
 }) {
     const [isDownloading, setIsDownloading] = useState(false)
 

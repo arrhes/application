@@ -21,9 +21,7 @@
         "ignoreDeprecations": "6.0",
         "baseUrl": "./",
         "paths": {
-            "#src/*": [
-                "src/*"
-            ]
+            "#src/*": ["src/*"]
         },
         "incremental": true,
         "tsBuildInfoFile": "./.tsbuildinfo"

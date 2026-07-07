@@ -59,7 +59,7 @@ export function ReportFilterPopover(props: {
             </Popover.Trigger>
             <Popover.Content
                 align="end"
-                className={css({
+                className={{
                     width: "320px",
                     maxHeight: "500px",
                     overflowY: "auto",
@@ -67,23 +67,23 @@ export function ReportFilterPopover(props: {
                     flexDirection: "column",
                     gap: "0.5rem",
                     padding: "0.5rem",
-                })}
+                }}
             >
                 <Button
                     onClick={handleClearAll}
-                    className={css({
+                    className={{
                         width: "100%",
-                    })}
+                    }}
                     isDisabled={activeFilterCount === 0}
                 >
                     <ButtonGhostContent
                         color="danger"
                         leftIcon={<IconX />}
                         text="Effacer les filtres"
-                        className={css({
+                        className={{
                             width: "100%",
                             justifyContent: "start",
-                        })}
+                        }}
                         isDisabled={activeFilterCount === 0}
                     />
                 </Button>

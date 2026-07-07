@@ -21,7 +21,7 @@ export function RootCliDocPage() {
                 </DocParagraph>
                 <DocList
                     items={[
-                        "Aucune installation de Node.js requise — le binaire est autonome",
+                        "Aucune installation de Node.js requise - le binaire est autonome",
                         "Compatible macOS et Linux",
                         "Toutes les réponses sont en JSON, composable avec jq et d'autres outils",
                         "Authentification par clé API",

@@ -1,12 +1,8 @@
-import type { ComponentProps } from "react"
+import type { Styles } from "../../../../styled-system/css/css"
 import { Chip } from "../../layouts/Chip.js"
 import { FormatBase } from "../FormatBase.js"
 
-export function FormatBoolean(props: {
-    boolean?: boolean | null
-    text?: string
-    className?: ComponentProps<"div">["className"]
-}) {
+export function FormatBoolean(props: { boolean?: boolean | null; text?: string; className?: Styles }) {
     return (
         <FormatBase className={props.className}>
             <Chip

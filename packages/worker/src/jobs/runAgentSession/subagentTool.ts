@@ -186,7 +186,7 @@ async function runSubagent(
             systemPrompt += `\n\n## Instructions personnalisées de l'utilisateur\n\n${params.customInstructions.trim()}`
         }
 
-        // Build messages — subagent starts fresh with just the delegated task
+        // Build messages - subagent starts fresh with just the delegated task
         const uiMessages = [
             {
                 id: `subagent-${Date.now()}`,

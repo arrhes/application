@@ -103,7 +103,7 @@ export function IncomeStatementAccountingDocPage() {
 
                 <DocDefinition term="Résultat d'exploitation">
                     Différence entre les produits et les charges liés à l'activité courante (ventes, achats, salaires,
-                    loyer...). C'est l'indicateur principal de la performance opérationnelle.
+                    loyer…). C'est l'indicateur principal de la performance opérationnelle.
                 </DocDefinition>
                 <DocDefinition term="Résultat financier">
                     Différence entre les produits financiers (intérêts reçus, gains de change) et les charges

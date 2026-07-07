@@ -72,10 +72,10 @@ export function SignUpPage() {
                         <a href={`${import.meta.env.VITE_WEBSITE_BASE_URL}/documentation`}>
                             <ButtonGhostContent
                                 leftIcon={<IconBook2 />}
-                                className={css({
+                                className={{
                                     width: "100%",
                                     justifyContent: "center",
-                                })}
+                                }}
                             />
                         </a>
                     </div>
@@ -112,10 +112,10 @@ export function SignUpPage() {
                         submitButtonProps={{
                             leftIcon: <IconUserPlus />,
                             text: "Créer un compte",
-                            className: css({
+                            className: {
                                 width: "100%",
                                 justifyContent: "center",
-                            }),
+                            },
                         }}
                         submitOnPressEnterKey={true}
                         onSubmit={async (data) => {
@@ -236,17 +236,17 @@ export function SignUpPage() {
                     >
                         <LinkButton
                             to="/connexion"
-                            className={css({
+                            className={{
                                 width: "100%",
-                            })}
+                            }}
                         >
                             <ButtonOutlineContent
                                 leftIcon={<IconLogin2 />}
                                 text="Se connecter"
-                                className={css({
+                                className={{
                                     width: "100%",
                                     justifyContent: "center",
-                                })}
+                                }}
                             />
                         </LinkButton>
                     </div>

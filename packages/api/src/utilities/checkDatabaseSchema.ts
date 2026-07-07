@@ -6,7 +6,7 @@ type DbClient = ReturnType<typeof sqlClient>
 
 export async function checkDatabaseSchema(db: DbClient) {
     // Collect expected tables and their columns from the Drizzle model definitions.
-    // `models` is a plain { key: pgTable } object — table instances only, no relations.
+    // `models` is a plain { key: pgTable } object - table instances only, no relations.
     const expected = new Map<string, Set<string>>() // table_name -> Set<db_column_name>
 
     for (const table of Object.values(models)) {
@@ -65,7 +65,7 @@ export async function checkDatabaseSchema(db: DbClient) {
     }
 
     if (drift.length > 0) {
-        throw new Error(`Database schema is out of date — run migrations before starting the API:\n${drift.join("\n")}`)
+        throw new Error(`Database schema is out of date - run migrations before starting the API:\n${drift.join("\n")}`)
     }
 
     console.info(`Database schema check passed (${expected.size} tables verified)`)

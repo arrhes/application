@@ -5,7 +5,7 @@ import { productName } from "../utilities/variables.js"
 
 /**
  * Resolves idOrganization from the request context using the following priority:
- * 1. URL path param `:idOrganization` (highest — used by REST routes like /v1/organizations/:idOrganization)
+ * 1. URL path param `:idOrganization` (highest - used by REST routes like /v1/organizations/:idOrganization)
  * 2. X-Organization-Id header
  * 3. arrhes_id_organization cookie
  * 4. body.idOrganization (legacy fallback)
@@ -15,8 +15,10 @@ import { productName } from "../utilities/variables.js"
  */
 export async function resolveOrganizationMiddleware(parameters: { context: Context<any> }): Promise<string> {
     // 1. URL path param (REST routes)
+    // Guard: skip unresolved template literals (e.g. the literal ":idOrganization"
+    // that appears when the client omits URL substitution).
     const paramValue = parameters.context.req.param("idOrganization")
-    if (paramValue) {
+    if (paramValue && !paramValue.startsWith(":")) {
         return paramValue
     }
 

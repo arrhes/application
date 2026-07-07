@@ -1,5 +1,5 @@
 import { type ComponentPropsWithRef, cloneElement, isValidElement, type ReactElement } from "react"
-import { useContextMenu } from "./ContextMenuRoot.js"
+import { useContextMenu } from "./contextMenuContext.js"
 
 type ContextMenuTriggerProps = ComponentPropsWithRef<"div"> & {
     asChild?: boolean

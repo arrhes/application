@@ -1,17 +1,23 @@
 import { IconX } from "@tabler/icons-react"
 import type { HTMLAttributes } from "react"
+import type { Styles } from "../../../../styled-system/css/css"
 import { useModalItem } from "../../../stores/modalStore.js"
-import { css, cx } from "../../../utilities/cn.js"
+import { css } from "../../../utilities/cn.js"
 import { ButtonGhostContent } from "../../buttons/ButtonGhostContent.js"
 
-export function DialogHeader(props: HTMLAttributes<HTMLDivElement>) {
+export function DialogHeader({
+    className,
+    ...props
+}: Omit<HTMLAttributes<HTMLDivElement>, "className"> & {
+    className?: Styles
+}) {
     const modalItem = useModalItem()
 
     return (
         <div
             {...props}
-            className={cx(
-                css({
+            className={css(
+                {
                     width: "100%",
                     display: "flex",
                     justifyContent: "space-between",
@@ -19,8 +25,8 @@ export function DialogHeader(props: HTMLAttributes<HTMLDivElement>) {
                     padding: "1rem",
                     borderBottom: "1px solid",
                     borderBottomColor: "neutral/5",
-                }),
-                props.className,
+                },
+                className,
             )}
         >
             <div

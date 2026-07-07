@@ -37,7 +37,7 @@ export function JournalListTableRow(props: { journal: v.InferOutput<typeof schem
                     >
                         <UpdateOneJournal journal={props.journal}>
                             <LinkContent
-                                className={css({
+                                className={{
                                     fontSize: "base",
                                     fontWeight: "semibold",
                                     color: "primary",
@@ -45,7 +45,7 @@ export function JournalListTableRow(props: { journal: v.InferOutput<typeof schem
                                     _hover: {
                                         textDecoration: "underline",
                                     },
-                                })}
+                                }}
                             >
                                 {props.journal.label ?? undefined}
                             </LinkContent>

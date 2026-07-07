@@ -62,9 +62,9 @@ export function DataBlockItem(props: { label: string; description?: string; chil
                             />
                         </Tooltip.Trigger>
                         <Tooltip.Content
-                            className={css({
+                            className={{
                                 backgroundColor: "neutral",
-                            })}
+                            }}
                         >
                             <p
                                 className={css({

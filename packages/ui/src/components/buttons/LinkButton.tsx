@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router"
 import type { MouseEventHandler, ReactNode } from "react"
-import { css, cx } from "../../utilities/cn.js"
+import type { Styles } from "../../../styled-system/css/css.js"
+import { css } from "../../utilities/cn.js"
 
 /**
  * LinkButton - a neutral container wrapping TanStack Router's Link
@@ -19,7 +20,7 @@ type LinkButtonProps = {
     rel?: string
     title?: string
     disabled?: boolean
-    className?: string
+    className?: Styles
     onClick?: MouseEventHandler<HTMLAnchorElement> | undefined
     children: ReactNode
 }
@@ -32,15 +33,15 @@ export function LinkButton(props: LinkButtonProps) {
             hash={props.hash}
             target={props.target}
             rel={props.rel}
-            className={cx(
-                css({
+            className={css(
+                {
                     width: "fit-content",
                     maxWidth: "100%",
                     _disabled: {
                         cursor: "not-allowed",
                         pointerEvents: "none",
                     },
-                }),
+                },
                 props.className,
             )}
             aria-disabled={props.disabled}
