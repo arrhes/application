@@ -1,5 +1,5 @@
 import { FormatPrice, FormatText } from "@arrhes/ui"
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import { Table } from "../../../../../../components/layouts/table/table.tsx"
 
 export function BalanceSheetLiabilitiesReportRow(props: {
@@ -11,7 +11,7 @@ export function BalanceSheetLiabilitiesReportRow(props: {
 }) {
     return (
         <Table.Body.Row
-            className={cx(
+            className={cn(
                 "",
                 props.number
                     ? css({
@@ -26,15 +26,15 @@ export function BalanceSheetLiabilitiesReportRow(props: {
                 }}
             >
                 <FormatText
-                    className={cx(
-                        css({
+                    className={css.raw(
+                        {
                             whiteSpace: "normal",
-                        }),
+                        },
                         props.number
-                            ? css({
+                            ? {
                                   fontWeight: "bold",
-                              })
-                            : "",
+                              }
+                            : undefined,
                     )}
                 >
                     {props.number} {props.label}

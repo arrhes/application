@@ -1,10 +1,12 @@
 import { type ComponentPropsWithRef, useLayoutEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
-import { css, cx } from "../../../utilities/cn.js"
+import type { Styles } from "../../../../styled-system/css/css"
+import { css } from "../../../utilities/cn.js"
 import { useTooltipRoot } from "./tooltipRoot.js"
 
-type TooltipContentProps = ComponentPropsWithRef<"div"> & {
+type TooltipContentProps = Omit<ComponentPropsWithRef<"div">, "className"> & {
     sideOffset?: number
+    className?: Styles
 }
 
 export function TooltipContent({ sideOffset = 4, children, className, style, ...props }: TooltipContentProps) {
@@ -39,8 +41,7 @@ export function TooltipContent({ sideOffset = 4, children, className, style, ...
     }, [
         ctx?.open,
         sideOffset,
-        ctx?.triggerRef?.current?.getBoundingClientRect,
-        ctx?.triggerRef?.current,
+        ctx?.triggerRef,
     ])
 
     if (!ctx?.open) return null
@@ -56,8 +57,8 @@ export function TooltipContent({ sideOffset = 4, children, className, style, ...
                 visibility: pos.ready ? "visible" : "hidden",
                 ...style,
             }}
-            className={cx(
-                css({
+            className={css(
+                {
                     zIndex: "50",
                     overflowY: "auto",
                     maxWidth: "xs",
@@ -65,7 +66,7 @@ export function TooltipContent({ sideOffset = 4, children, className, style, ...
                     backgroundColor: "neutral",
                     padding: "0.5rem",
                     fontSize: "xs",
-                }),
+                },
                 className,
             )}
         >

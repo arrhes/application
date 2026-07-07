@@ -1,4 +1,4 @@
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import type { Icon, IconProps } from "@tabler/icons-react"
 import { type ComponentProps, cloneElement, type ReactElement, type ReactNode } from "react"
 
@@ -11,7 +11,7 @@ export function EmptyState(props: {
 }) {
     return (
         <div
-            className={cx(
+            className={cn(
                 css({
                     width: "100%",
                     display: "flex",

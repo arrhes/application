@@ -252,11 +252,11 @@ export function DashboardShell() {
                     <ButtonGhostContent
                         leftIcon={<Logo />}
                         text="Arrhes"
-                        className={css({
+                        className={{
                             _hover: {
-                                backgroundColor: "transparent"
-                            }
-                        })}
+                                backgroundColor: "transparent",
+                            },
+                        }}
                     />
                     <IconChevronRight
                         size={16}
@@ -297,17 +297,17 @@ export function DashboardShell() {
                 <Button
                     onClick={() => window.dispatchEvent(new CustomEvent("arrhes:open-palette"))}
                     title="Rechercher (Ctrl+K)"
-                    className={css({
+                    className={{
                         marginRight: "auto",
-                    })}
+                    }}
                 >
                     <ButtonOutlineContent
                         leftIcon={<IconSearch size={16} />}
                         text="Rechercher…"
-                        className={css({
+                        className={{
                             width: "300px",
                             justifyContent: "start",
-                        })}
+                        }}
                     />
                 </Button>
 
@@ -335,10 +335,10 @@ export function DashboardShell() {
                             </Popover.Trigger>
                             <Popover.Content
                                 align="end"
-                                className={css({
+                                className={{
                                     padding: "0.5rem",
                                     gap: "0.25rem",
-                                })}
+                                }}
                             >
                                 <Button
                                     onClick={() =>
@@ -352,17 +352,17 @@ export function DashboardShell() {
                                             },
                                         )
                                     }
-                                    className={css({
+                                    className={{
                                         width: "100%",
-                                    })}
+                                    }}
                                 >
                                     <ButtonGhostContent
                                         leftIcon={<IconTicket />}
                                         text="Tickets"
-                                        className={css({
+                                        className={{
                                             width: "100%",
                                             justifyContent: "start",
-                                        })}
+                                        }}
                                     />
                                 </Button>
                             </Popover.Content>
@@ -376,10 +376,10 @@ export function DashboardShell() {
                         </Popover.Trigger>
                         <Popover.Content
                             align="end"
-                            className={css({
+                            className={{
                                 padding: "0.5rem",
                                 gap: "0.25rem",
-                            })}
+                            }}
                         >
                             <Button
                                 onClick={() =>
@@ -393,17 +393,17 @@ export function DashboardShell() {
                                         },
                                     )
                                 }
-                                className={css({
+                                className={{
                                     width: "100%",
-                                })}
+                                }}
                             >
                                 <ButtonGhostContent
                                     leftIcon={<IconSettings />}
                                     text="Profil"
-                                    className={css({
+                                    className={{
                                         width: "100%",
                                         justifyContent: "start",
-                                    })}
+                                    }}
                                 />
                             </Button>
                             <Button
@@ -418,24 +418,24 @@ export function DashboardShell() {
                                         },
                                     )
                                 }
-                                className={css({
+                                className={{
                                     width: "100%",
-                                })}
+                                }}
                             >
                                 <ButtonGhostContent
                                     leftIcon={<IconLifebuoy />}
                                     text="Support"
-                                    className={css({
+                                    className={{
                                         width: "100%",
                                         justifyContent: "start",
-                                    })}
+                                    }}
                                 />
                             </Button>
                             <Separator />
                             <Button
-                                className={css({
+                                className={{
                                     width: "100%",
-                                })}
+                                }}
                                 onClick={async () => {
                                     try {
                                         await getResponseBodyFromAPI({
@@ -462,10 +462,10 @@ export function DashboardShell() {
                                     leftIcon={<IconLogout />}
                                     text="Se déconnecter"
                                     color="danger"
-                                    className={css({
+                                    className={{
                                         width: "100%",
                                         justifyContent: "start",
-                                    })}
+                                    }}
                                 />
                             </Button>
                         </Popover.Content>
@@ -506,11 +506,11 @@ export function DashboardShell() {
                                 return next.length === 0
                                     ? null
                                     : {
-                                        tabIds: next,
-                                        activeTabId: next.includes(prev.activeTabId)
-                                            ? prev.activeTabId
-                                            : next[next.length - 1],
-                                    }
+                                          tabIds: next,
+                                          activeTabId: next.includes(prev.activeTabId)
+                                              ? prev.activeTabId
+                                              : next[next.length - 1],
+                                      }
                             })
                             reorderTabs(tabId, insertBeforeTabId)
                             activateTab(tabId)
@@ -598,14 +598,14 @@ export function DashboardShell() {
                                             const tabIds =
                                                 idx === -1
                                                     ? [
-                                                        ...without,
-                                                        tabId,
-                                                    ]
+                                                          ...without,
+                                                          tabId,
+                                                      ]
                                                     : [
-                                                        ...without.slice(0, idx),
-                                                        tabId,
-                                                        ...without.slice(idx),
-                                                    ]
+                                                          ...without.slice(0, idx),
+                                                          tabId,
+                                                          ...without.slice(idx),
+                                                      ]
                                             return {
                                                 ...prev,
                                                 tabIds,
@@ -626,14 +626,14 @@ export function DashboardShell() {
                                             const tabIds =
                                                 idx === -1
                                                     ? [
-                                                        ...existing,
-                                                        tabId,
-                                                    ]
+                                                          ...existing,
+                                                          tabId,
+                                                      ]
                                                     : [
-                                                        ...existing.slice(0, idx),
-                                                        tabId,
-                                                        ...existing.slice(idx),
-                                                    ]
+                                                          ...existing.slice(0, idx),
+                                                          tabId,
+                                                          ...existing.slice(idx),
+                                                      ]
                                             return {
                                                 tabIds,
                                                 activeTabId: tabId,

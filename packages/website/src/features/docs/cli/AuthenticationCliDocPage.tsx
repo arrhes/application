@@ -24,7 +24,7 @@ export function AuthenticationCliDocPage() {
                     <strong>Dashboard → Organisation → API → Clés → Nouvelle clé</strong>
                 </DocParagraph>
                 <DocTip variant="warning">
-                    Copiez la clé immédiatement après sa création — elle ne sera plus affichée ensuite.
+                    Copiez la clé immédiatement après sa création - elle ne sera plus affichée ensuite.
                 </DocTip>
             </DocSection>
 
@@ -42,13 +42,13 @@ export function AuthenticationCliDocPage() {
                     <DocCode>~/.arrhes/config.json</DocCode>.
                 </DocParagraph>
                 <DocParagraph>
-                    L'identifiant d'organisation (<DocCode>--org</DocCode>) est requis — il est automatiquement injecté
+                    L'identifiant d'organisation (<DocCode>--org</DocCode>) est requis - il est automatiquement injecté
                     dans toutes les commandes.
                 </DocParagraph>
                 <DocTip variant="info">
                     L'option <DocCode>--url</DocCode> est facultative. Par défaut, le CLI se connecte à{" "}
                     <DocCode>https://api.arrhes.com</DocCode>. Si vous hébergez l'API vous-même, passez l'URL de votre
-                    instance — elle sera sauvegardée dans <DocCode>~/.arrhes/config.json</DocCode> et réutilisée pour
+                    instance - elle sera sauvegardée dans <DocCode>~/.arrhes/config.json</DocCode> et réutilisée pour
                     toutes les commandes suivantes.
                 </DocTip>
             </DocSection>
@@ -69,7 +69,7 @@ export function AuthenticationCliDocPage() {
                 </DocParagraph>
                 <DocTip variant="info">
                     Pour utiliser plusieurs comptes ou environnements, il suffit de relancer{",  "}
-                    <DocCode>arrhes login</DocCode> avec une autre clé — le fichier est écrasé.
+                    <DocCode>arrhes login</DocCode> avec une autre clé - le fichier est écrasé.
                 </DocTip>
                 <DocLink to="/documentation/api/authentification">
                     En savoir plus sur l'authentification par clé API

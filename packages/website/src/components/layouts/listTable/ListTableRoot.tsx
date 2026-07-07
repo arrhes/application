@@ -1,4 +1,4 @@
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import type { ComponentProps, JSX } from "react"
 
 export function ListTableRoot(props: {
@@ -7,7 +7,7 @@ export function ListTableRoot(props: {
 }) {
     return (
         <div
-            className={cx(
+            className={cn(
                 css({
                     width: "100%",
                     display: "flex",

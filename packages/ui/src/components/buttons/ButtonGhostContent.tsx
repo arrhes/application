@@ -132,7 +132,7 @@ const ghostRecipe = sva({
 })
 
 export function ButtonGhostContent(props: ButtonContentProps) {
-    const classes = ghostRecipe({
+    const classes = ghostRecipe.raw({
         color: props.color ?? "default",
     })
     const contextLoading = useButtonLoading()

@@ -27,13 +27,13 @@ export function CreateOneAccount(props: {
 
     return (
         <Button
-            className={css({
+            className={{
                 padding: "0",
                 border: "none",
                 backgroundColor: "transparent",
                 width: "fit-content",
                 height: "fit-content",
-            })}
+            }}
             onClick={() => {
                 const r = {
                     current: "",

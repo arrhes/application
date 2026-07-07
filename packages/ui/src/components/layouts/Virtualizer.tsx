@@ -1,6 +1,7 @@
 import { useVirtualizer } from "@tanstack/react-virtual"
-import { type ComponentProps, type ReactElement, useRef } from "react"
-import { css, cx } from "../../utilities/cn.js"
+import { type ReactElement, useRef } from "react"
+import type { Styles } from "../../../styled-system/css/css"
+import { cn, css } from "../../utilities/cn.js"
 
 const containerStyle = css({
     width: "100%",
@@ -20,7 +21,7 @@ export function Virtualizer<TData>(props: {
     data: Array<TData>
     children: (data: TData, index: number) => ReactElement | Array<ReactElement> | null
     childSize?: number
-    className?: ComponentProps<"div">["className"]
+    className?: Styles
 }) {
     const parentRef = useRef<HTMLDivElement | null>(null)
 
@@ -35,7 +36,7 @@ export function Virtualizer<TData>(props: {
     return (
         <div
             ref={parentRef}
-            className={cx(containerStyle, props.className)}
+            className={cn(containerStyle, props.className)}
         >
             <div
                 style={{

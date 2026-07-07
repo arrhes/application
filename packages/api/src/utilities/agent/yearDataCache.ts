@@ -94,7 +94,7 @@ export async function buildYearDataCache(parameters: {
  *
  * For routes with optional filters (readAllEntryLines with idEntry,
  * readAllComputationIncomeStatements with idComputation/idIncomeStatement),
- * we only use the cache when no filters are provided — the cache holds
+ * we only use the cache when no filters are provided - the cache holds
  * the unfiltered "all" data.
  */
 export function getCachedYearData(parameters: {

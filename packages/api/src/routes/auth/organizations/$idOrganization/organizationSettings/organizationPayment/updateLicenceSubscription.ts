@@ -50,7 +50,7 @@ export const updateLicenceSubscriptionRoute = apiFactory
             where: (table) => eq(table.id, idOrganization),
         })
 
-        // Store as pending — applied on the 1st of next month by the worker
+        // Store as pending - applied on the 1st of next month by the worker
         const pendingValue = body.newAmountInCents === organization.licenceAmount ? null : body.newAmountInCents
 
         await updateOne({

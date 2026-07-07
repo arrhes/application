@@ -37,7 +37,7 @@ export function SortPopover(props: {
             </Popover.Trigger>
             <Popover.Content
                 align="start"
-                className={css({
+                className={{
                     width: "280px",
                     maxHeight: "400px",
                     overflowY: "auto",
@@ -45,23 +45,23 @@ export function SortPopover(props: {
                     flexDirection: "column",
                     gap: "0.5rem",
                     padding: "0.5rem",
-                })}
+                }}
             >
                 <Button
                     onClick={props.onClearAll}
-                    className={css({
+                    className={{
                         width: "100%",
-                    })}
+                    }}
                     isDisabled={props.activeSortCount === 0}
                 >
                     <ButtonGhostContent
                         color="danger"
                         leftIcon={<IconX />}
                         text="Effacer le tri"
-                        className={css({
+                        className={{
                             width: "100%",
                             justifyContent: "start",
-                        })}
+                        }}
                         isDisabled={props.activeSortCount === 0}
                     />
                 </Button>
@@ -88,9 +88,9 @@ export function SortPopover(props: {
                             >
                                 <Button
                                     onClick={() => props.onToggleSort(column.id)}
-                                    className={css({
+                                    className={{
                                         width: "100%",
-                                    })}
+                                    }}
                                 >
                                     <ButtonGhostContent
                                         leftIcon={
@@ -101,10 +101,10 @@ export function SortPopover(props: {
                                             ) : undefined
                                         }
                                         text={column.header}
-                                        className={css({
+                                        className={{
                                             width: "100%",
                                             justifyContent: "start",
-                                        })}
+                                        }}
                                     />
                                 </Button>
                             </div>

@@ -30,7 +30,7 @@ for await (const entry of glob("**/*.ts", {
 
     // Match: apiFactory.createApp().post(someRouteDefinition.path, async (c) => {
     // Replace with: registerRoute(someRouteDefinition, async (c) => {
-    // Also handles .get(), .patch(), .delete() (idempotent — already migrated)
+    // Also handles .get(), .patch(), .delete() (idempotent - already migrated)
     const methodPattern =
         /apiFactory\.createApp\(\)\.(post|get|patch|delete)\((\w+(?:RouteDefinition|route)?)\.path,\s*/g
 
@@ -52,7 +52,7 @@ for await (const entry of glob("**/*.ts", {
 
     // Replace apiFactory import with registerRoute import (add if missing)
     if (!updated.includes("registerRoute")) {
-        // Should not happen since we just added it above — safety check
+        // Should not happen since we just added it above - safety check
         filesSkipped++
         continue
     }
@@ -60,7 +60,7 @@ for await (const entry of glob("**/*.ts", {
     // Update import: replace apiFactory.js import with registerRoute.js
     // Keep apiFactory import only if still used elsewhere in the file
     if (!updated.includes("apiFactory") || updated.match(/apiFactory/g)?.length === 1) {
-        // Only referenced in remaining import — swap it
+        // Only referenced in remaining import - swap it
         updated = updated.replace(
             /import \{ apiFactory \} from ["']([^"']+apiFactory\.js)["']/,
             'import { registerRoute } from "$1".replace("apiFactory", "registerRoute")',
@@ -68,7 +68,7 @@ for await (const entry of glob("**/*.ts", {
     }
 
     // Simpler: just add registerRoute import after the apiFactory import if not present
-    // (The above regex-in-string replacement won't work — do it properly)
+    // (The above regex-in-string replacement won't work - do it properly)
     updated = original.replace(
         /apiFactory\.createApp\(\)\.(post|get|patch|delete)\((\w+(?:RouteDefinition)?)\.path,\s*/g,
         "registerRoute($2, ",
@@ -85,13 +85,13 @@ for await (const entry of glob("**/*.ts", {
         const registerRoutePath = importPath.replace("apiFactory.js", "registerRoute.js")
 
         if (updated.includes("apiFactory")) {
-            // Still used elsewhere — add registerRoute as addtional import
+            // Still used elsewhere - add registerRoute as addtional import
             updated = updated.replace(
                 new RegExp(`import \\{ apiFactory \\} from ${quote}${escapeRegex(importPath)}${quote}`),
                 `import { apiFactory } from ${quote}${importPath}${quote}\nimport { registerRoute } from ${quote}${registerRoutePath}${quote}`,
             )
         } else {
-            // Not used anymore — replace import
+            // Not used anymore - replace import
             updated = updated.replace(
                 new RegExp(`import \\{ apiFactory \\} from ${quote}${escapeRegex(importPath)}${quote}`),
                 `import { registerRoute } from ${quote}${registerRoutePath}${quote}`,

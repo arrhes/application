@@ -1,5 +1,5 @@
 import { sva } from "@arrhes/ui/css"
-import { cx } from "@arrhes/ui/utilities/cn.js"
+import { cn } from "@arrhes/ui/utilities/cn.js"
 import { IconAlertHexagon, IconAlertTriangle, IconCircleCheck, IconInfoSquare } from "@tabler/icons-react"
 import type { ComponentProps, ReactElement } from "react"
 
@@ -159,7 +159,7 @@ export function Banner(props: {
     const title = props.title === undefined ? variantTitles[variant] : props.title
 
     return (
-        <div className={cx(classes.container, props.className)}>
+        <div className={cn(classes.container, props.className)}>
             {(Icon || title) && (
                 <div className={classes.header}>
                     {Icon && (

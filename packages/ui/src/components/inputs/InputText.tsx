@@ -1,28 +1,31 @@
 import type { InputHTMLAttributes } from "react"
 import type { FieldError } from "react-hook-form"
-import { css, cx } from "../../utilities/cn.js"
+import type { Styles } from "../../../styled-system/css/css"
+import { css } from "../../utilities/cn.js"
+
+function inputText(value: string | undefined | null) {
+    if (!value) return ""
+    return value
+}
+
+function outputText(value: string | undefined | null) {
+    if (!value) return null
+    return value
+}
 
 export function InputText(
-    props: Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "onChange"> & {
+    props: Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "onChange" | "className"> & {
         error?: FieldError
         value?: string | null | undefined
         onChange?: (value?: string | null | undefined) => void
+        className?: Styles
     },
 ) {
-    function input(value: string | undefined | null) {
-        if (!value) return ""
-        return value
-    }
-
-    function output(value: string | undefined | null) {
-        if (!value) return null
-        return value
-    }
-
+    const { className, ...rest } = props
     return (
         <div
-            className={cx(
-                css({
+            className={css(
+                {
                     width: "100%",
                     display: "flex",
                     justifyContent: "space-between",
@@ -37,21 +40,19 @@ export function InputText(
                         borderColor: "neutral/50",
                         boxShadow: "inset",
                     },
-                }),
-                css(
-                    !props.error
-                        ? {
-                              borderColor: "neutral/20",
-                          }
-                        : {
-                              borderColor: "error",
-                          },
-                ),
-                props.className,
+                },
+                !props.error
+                    ? {
+                          borderColor: "neutral/20",
+                      }
+                    : {
+                          borderColor: "error",
+                      },
+                className,
             )}
         >
             <input
-                {...props}
+                {...rest}
                 type="text"
                 className={css({
                     width: "100%",
@@ -68,10 +69,10 @@ export function InputText(
                         outline: "none",
                     },
                 })}
-                value={input(props.value)}
+                value={inputText(props.value)}
                 onChange={(e) => {
                     if (!props.onChange) return
-                    props?.onChange(output(e.currentTarget.value))
+                    props?.onChange(outputText(e.currentTarget.value))
                 }}
             />
         </div>

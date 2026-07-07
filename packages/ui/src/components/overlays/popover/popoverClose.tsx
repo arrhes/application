@@ -1,10 +1,10 @@
 import { cloneElement, isValidElement, type ReactElement } from "react"
-import { usePopoverContext } from "./popoverRoot.js"
+import { usePopoverContext } from "./popoverContext.js"
 
 export function PopoverClose(props: { children: ReactElement; asChild?: boolean }) {
     const { setOpen } = usePopoverContext()
 
-    function handleClick() {
+    function closePopover() {
         setOpen(false)
     }
 
@@ -16,7 +16,7 @@ export function PopoverClose(props: { children: ReactElement; asChild?: boolean 
                 if (typeof child.props.onClick === "function") {
                     child.props.onClick(e)
                 }
-                handleClick()
+                closePopover()
             },
         })
     }
@@ -24,7 +24,7 @@ export function PopoverClose(props: { children: ReactElement; asChild?: boolean 
     return (
         <button
             type="button"
-            onClick={handleClick}
+            onClick={closePopover}
         >
             {props.children}
         </button>

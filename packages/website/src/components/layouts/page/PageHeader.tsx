@@ -1,10 +1,10 @@
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import type { ComponentProps, ReactNode } from "react"
 
 export function PageHeader(props: { children?: ReactNode; className?: ComponentProps<"div">["className"] }) {
     return (
         <div
-            className={cx(
+            className={cn(
                 css({
                     width: "100%",
                     maxWidth: "xl",

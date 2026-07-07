@@ -1,16 +1,8 @@
-import { createContext, type MutableRefObject, type ReactNode, useContext, useRef, useState } from "react"
-
-type TooltipRootContextValue = {
-    open: boolean
-    openTooltip: () => void
-    closeTooltip: () => void
-    triggerRef: MutableRefObject<HTMLElement | null>
-}
-
-export const TooltipRootContext = createContext<TooltipRootContextValue | null>(null)
+import { type ReactNode, use, useRef, useState } from "react"
+import { TooltipRootContext } from "./tooltipRootContext.js"
 
 export function useTooltipRoot() {
-    return useContext(TooltipRootContext)
+    return use(TooltipRootContext)
 }
 
 export function TooltipRoot({ children, delayDuration = 700 }: { children: ReactNode; delayDuration?: number }) {

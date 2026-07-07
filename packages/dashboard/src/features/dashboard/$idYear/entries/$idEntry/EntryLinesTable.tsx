@@ -77,17 +77,17 @@ export function EntryLinesTable(props: {
                                 })}
                             >
                                 <FormatText
-                                    className={css({
+                                    className={{
                                         overflow: "visible",
-                                    })}
+                                    }}
                                 >
                                     {account.number}
                                 </FormatText>
                                 <FormatText
                                     wrap={true}
-                                    className={css({
+                                    className={{
                                         color: "neutral/50",
-                                    })}
+                                    }}
                                 >
                                     {account.label}
                                 </FormatText>

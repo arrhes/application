@@ -1,4 +1,4 @@
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import type { ComponentProps, ReactElement } from "react"
 
 export function TableHeaderRoot(props: {
@@ -7,7 +7,7 @@ export function TableHeaderRoot(props: {
 }) {
     return (
         <thead
-            className={cx(
+            className={cn(
                 css({
                     width: "100%",
                     borderBottom: "1px solid",
@@ -15,7 +15,8 @@ export function TableHeaderRoot(props: {
                 }),
                 props.className,
             )}
-            children={props.children}
-        />
+        >
+            {props.children}
+        </thead>
     )
 }

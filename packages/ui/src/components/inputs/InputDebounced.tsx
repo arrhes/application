@@ -1,4 +1,4 @@
-import { cloneElement, type ReactElement, useEffect, useState } from "react"
+import { cloneElement, type ReactElement, useEffect, useRef, useState } from "react"
 
 type InputDebounced<T> = {
     value: T
@@ -8,34 +8,37 @@ type InputDebounced<T> = {
     children: ReactElement<any>
 }
 
-export function InputDebounced<T>(props: InputDebounced<T>) {
-    const [value, setValue] = useState<T>(props.initialValue || props.value)
+export function InputDebounced<T>({ value: propValue, initialValue, onChange, debounce, children }: InputDebounced<T>) {
+    const currentPropValue = initialValue !== undefined ? initialValue : propValue
+    const prevPropValueRef = useRef<T>(currentPropValue)
+    const [value, setValue] = useState<T>(currentPropValue)
+    const onChangeRef = useRef(onChange)
 
+    // Keep the ref up to date
     useEffect(() => {
-        setValue(props.initialValue || props.value)
-    }, [
-        props.initialValue,
-        props.value,
-    ])
+        onChangeRef.current = onChange
+    })
+
+    if (currentPropValue !== prevPropValueRef.current) {
+        prevPropValueRef.current = currentPropValue
+        setValue(currentPropValue)
+    }
 
     useEffect(() => {
         const timeout = setTimeout(
             () => {
-                props.onChange(value)
+                onChangeRef.current(value)
             },
-            !props.debounce ? 300 : props.debounce,
+            !debounce ? 300 : debounce,
         )
 
         return () => clearTimeout(timeout)
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         value,
-        props.debounce,
-        props.onChange,
+        debounce,
     ])
 
-    return cloneElement(props.children, {
+    return cloneElement(children, {
         value: value,
         onChange: (value: T) => setValue(value),
     })

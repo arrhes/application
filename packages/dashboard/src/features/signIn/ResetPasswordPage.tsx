@@ -68,19 +68,19 @@ export function ResetPasswordPage() {
                         <a href={`${import.meta.env.VITE_WEBSITE_BASE_URL}/documentation`}>
                             <ButtonGhostContent
                                 leftIcon={<IconBook2 />}
-                                className={css({
+                                className={{
                                     width: "100%",
                                     justifyContent: "center",
-                                })}
+                                }}
                             />
                         </a>
                     </div>
 
                     <LinkButton
                         to="/connexion"
-                        className={css({
+                        className={{
                             width: "fit-content",
-                        })}
+                        }}
                     >
                         <ButtonGhostContent
                             leftIcon={<IconArrowLeft />}
@@ -120,10 +120,10 @@ export function ResetPasswordPage() {
                         submitButtonProps={{
                             leftIcon: <IconMail />,
                             text: "Recevoir un nouveau mot de passe",
-                            className: css({
+                            className: {
                                 width: "100%",
                                 justifyContent: "center",
-                            }),
+                            },
                         }}
                         submitOnPressEnterKey={true}
                         onSubmit={async (data) => {

@@ -146,7 +146,7 @@ function extractAccountEntries(source: string): {
         const counterpartLabelMatch = block.match(/label:\s*"([^"]*)"/)
 
         const parts = [
-            `Compte ${number} — ${label}`,
+            `Compte ${number} - ${label}`,
         ]
         if (descMatch) parts.push(`Description : ${descMatch[1]}`)
         if (typeMatch && sideMatch) parts.push(`Type : ${typeMatch[1]}, ${sideMatch[1]}`)
@@ -195,7 +195,7 @@ async function getAllDocFiles(basePath: string): Promise<string[]> {
                 await walk(fullPath)
             } else if (
                 (entry.name.endsWith(".tsx") || entry.name.endsWith(".ts")) &&
-                // Skip layout/navigation files — no useful content
+                // Skip layout/navigation files - no useful content
                 !entry.name.includes("Layout") &&
                 !entry.name.includes("layout") &&
                 !entry.name.includes("sidebarNavigation") &&
@@ -309,7 +309,7 @@ export async function searchDocumentation(query: string): Promise<string> {
                     if (matchCount > 0 && (numberMatch || matchCount >= Math.min(2, queryWords.length))) {
                         results.push({
                             section: "Comptabilité > Plan comptable (PCG)",
-                            title: `Compte ${entry.number} — ${entry.label}`,
+                            title: `Compte ${entry.number} - ${entry.label}`,
                             content: entry.text,
                             relevance: numberMatch ? 1 : matchCount / queryWords.length,
                         })
@@ -359,7 +359,7 @@ export async function searchDocumentation(query: string): Promise<string> {
     let includedCount = 0
 
     for (const result of results) {
-        const block = `### ${result.section} — ${result.title}\n${result.content}\n\n---\n\n`
+        const block = `### ${result.section} - ${result.title}\n${result.content}\n\n---\n\n`
 
         if (charCount + block.length > MAX_OUTPUT_CHARS && includedCount > 0) {
             output += `\n... et ${results.length - includedCount} autres résultats non affichés. Affinez votre recherche pour des résultats plus précis.`

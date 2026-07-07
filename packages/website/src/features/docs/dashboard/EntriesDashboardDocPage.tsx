@@ -107,7 +107,7 @@ export function EntriesDashboardDocPage() {
 
             <DocSection title="Joindre un justificatif">
                 <DocParagraph>
-                    Chaque écriture devrait être justifiée par une pièce (facture, relevé bancaire, ticket...). Arrhes
+                    Chaque écriture devrait être justifiée par une pièce (facture, relevé bancaire, ticket…). Arrhes
                     vous permet de joindre des fichiers numériques à vos écritures.
                 </DocParagraph>
                 <DocList

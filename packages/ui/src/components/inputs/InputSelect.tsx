@@ -1,7 +1,8 @@
 import { IconCheck, IconChevronDown } from "@tabler/icons-react"
 import { type InputHTMLAttributes, useState } from "react"
 import type { FieldError } from "react-hook-form"
-import { css, cx } from "../../utilities/cn.js"
+import type { Styles } from "../../../styled-system/css/css"
+import { css } from "../../utilities/cn.js"
 import { Button } from "../buttons/Button.js"
 import { ButtonGhostContent } from "../buttons/ButtonGhostContent.js"
 import { ButtonOutlineContent } from "../buttons/ButtonOutlineContent.js"
@@ -9,8 +10,17 @@ import { FormatNull } from "../formats/FormatNull.js"
 import { CircularLoader } from "../layouts/CircularLoader.js"
 import { Popover } from "../overlays/popover/popover.js"
 
+function inputSelect<TValue>(value: TValue | null | undefined) {
+    return value
+}
+
+function outputSelect<TValue extends string>(value: TValue | undefined | null) {
+    if (!value) return null
+    return value
+}
+
 export function InputSelect<TValue extends string>(
-    props: Omit<InputHTMLAttributes<HTMLSelectElement>, "value" | "onChange"> & {
+    props: Omit<InputHTMLAttributes<HTMLSelectElement>, "value" | "onChange" | "className"> & {
         error?: FieldError
         value?: TValue | null
         defaultValue?: TValue | null
@@ -25,20 +35,12 @@ export function InputSelect<TValue extends string>(
         allowEmpty?: boolean
         isDisabled?: boolean
         isLoading?: boolean
+        className?: Styles
     },
 ) {
     const [open, setOpen] = useState(false)
 
-    function input(value: TValue | null | undefined) {
-        return value
-    }
-
-    function output(value: TValue | undefined | null) {
-        if (!value) return null
-        return value
-    }
-
-    const currentOption = props.options?.find((x) => x.key === input(props.value ?? props.defaultValue))
+    const currentOption = props.options?.find((x) => x.key === inputSelect(props.value ?? props.defaultValue))
     return (
         <Popover.Root
             open={open}
@@ -51,18 +53,15 @@ export function InputSelect<TValue extends string>(
                         if (props.isDisabled === true) return
                         setOpen(!open)
                     }}
-                    className={cx(
-                        css({
+                    className={css.raw(
+                        {
                             width: "100%",
-                        }),
-                        "group",
-                        css(
-                            props.isDisabled
-                                ? {
-                                      cursor: "not-allowed",
-                                  }
-                                : {},
-                        ),
+                        },
+                        props.isDisabled
+                            ? {
+                                  cursor: "not-allowed",
+                              }
+                            : undefined,
                         props.className,
                     )}
                     data-open={open}
@@ -74,8 +73,8 @@ export function InputSelect<TValue extends string>(
                                 : currentOption.label
                         }
                         rightIcon={<IconChevronDown />}
-                        className={cx(
-                            css({
+                        className={css.raw(
+                            {
                                 width: "100%",
                                 justifyContent: "space-between",
                                 _hover: {
@@ -85,28 +84,28 @@ export function InputSelect<TValue extends string>(
                                     borderColor: "neutral/50",
                                     boxShadow: "inset",
                                 },
-                            }),
+                            },
                             props.error !== undefined
-                                ? css({
+                                ? {
                                       borderColor: "error",
-                                  })
-                                : "",
+                                  }
+                                : undefined,
                             currentOption === undefined
-                                ? css({
+                                ? {
                                       "& span": {
                                           color: "neutral/50",
                                       },
-                                  })
-                                : "",
+                                  }
+                                : undefined,
                         )}
                     />
                 </Button>
             </Popover.Trigger>
             <Popover.Content
                 align="start"
-                className={css({
+                className={{
                     padding: "0.5rem",
-                })}
+                }}
             >
                 <div
                     className={css({
@@ -138,26 +137,26 @@ export function InputSelect<TValue extends string>(
                                             setOpen(false)
                                             return
                                         }
-                                        props.onChange(output(option.key))
+                                        props.onChange(outputSelect(option.key))
                                         setOpen(false)
                                     }}
-                                    className={css({
+                                    className={{
                                         width: "100%",
-                                    })}
+                                    }}
                                 >
                                     <ButtonGhostContent
                                         text={option.label}
                                         rightIcon={isSelected ? <IconCheck /> : undefined}
-                                        className={cx(
-                                            css({
+                                        className={css.raw(
+                                            {
                                                 width: "100%",
                                                 justifyContent: "space-between",
-                                            }),
+                                            },
                                             isSelected
-                                                ? css({
+                                                ? {
                                                       backgroundColor: "background",
-                                                  })
-                                                : "",
+                                                  }
+                                                : undefined,
                                         )}
                                         isCurrent={isSelected}
                                     />

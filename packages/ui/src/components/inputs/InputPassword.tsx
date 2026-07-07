@@ -2,35 +2,38 @@ import { IconEye, IconEyeClosed } from "@tabler/icons-react"
 import type { InputHTMLAttributes } from "react"
 import { useState } from "react"
 import type { FieldError } from "react-hook-form"
-import { css, cx } from "../../utilities/cn.js"
+import type { Styles } from "../../../styled-system/css/css"
+import { css } from "../../utilities/cn.js"
 import { Button } from "../buttons/Button.js"
 
+function inputPassword(value: string | null | undefined) {
+    if (!value) return ""
+    return value
+}
+
+function outputPassword(value: string | undefined | null) {
+    if (!value) return null
+    return value
+}
+
 export function InputPassword(
-    props: Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "onChange"> & {
+    props: Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "onChange" | "className"> & {
         error?: FieldError
         value?: string | null
         onChange: (value?: string | null | undefined) => void
         autoFocus?: boolean
         ref?: React.Ref<HTMLInputElement>
+        className?: Styles
     },
 ) {
     const [showPassword, setShowPassword] = useState(false)
     const handleClickShowPassword = () => setShowPassword((show) => !show)
-
-    function input(value: string | undefined | null) {
-        if (!value) return ""
-        return value
-    }
-
-    function output(value: string) {
-        if (!value) return null
-        return value
-    }
+    const { className, ...inputProps } = props
 
     return (
         <div
-            className={cx(
-                css({
+            className={css(
+                {
                     width: "100%",
                     display: "flex",
                     justifyContent: "space-between",
@@ -45,21 +48,19 @@ export function InputPassword(
                         borderColor: "neutral/50",
                         boxShadow: "inset",
                     },
-                }),
-                css(
-                    !props.error
-                        ? {
-                              borderColor: "neutral/20",
-                          }
-                        : {
-                              borderColor: "error",
-                          },
-                ),
-                props.className,
+                },
+                !props.error
+                    ? {
+                          borderColor: "neutral/20",
+                      }
+                    : {
+                          borderColor: "error",
+                      },
+                className,
             )}
         >
             <input
-                {...props}
+                {...inputProps}
                 type={showPassword ? "text" : "password"}
                 className={css({
                     width: "100%",
@@ -77,19 +78,19 @@ export function InputPassword(
                     },
                 })}
                 ref={props.ref}
-                value={input(props.value)}
-                onChange={(e) => props.onChange(output(e.currentTarget.value))}
+                value={inputPassword(props.value)}
+                onChange={(e) => props.onChange(outputPassword(e.currentTarget.value))}
             />
             <Button
                 onClick={handleClickShowPassword}
-                className={css({
+                className={{
                     _hover: {
                         backgroundColor: "neutral/5",
                     },
                     borderRadius: "md",
                     padding: "0.25rem",
                     margin: "0.25rem",
-                })}
+                }}
                 tabIndex={-1}
             >
                 {showPassword ? (

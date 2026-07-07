@@ -105,11 +105,11 @@ export function FormLabel(props: FormLabel) {
                         </TooltipTrigger>
                         <TooltipPortal>
                             <TooltipContent
-                                className={css({
+                                className={{
                                     backgroundColor: "neutral",
                                     padding: "0.5rem",
                                     zIndex: "9999",
-                                })}
+                                }}
                             >
                                 <p
                                     className={css({

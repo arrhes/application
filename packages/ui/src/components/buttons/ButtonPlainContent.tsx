@@ -92,7 +92,7 @@ const plainRecipe = sva({
 })
 
 export function ButtonPlainContent(props: ButtonContentProps) {
-    const classes = plainRecipe({
+    const classes = plainRecipe.raw({
         color: props.color ?? "default",
     })
     const contextLoading = useButtonLoading()

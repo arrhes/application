@@ -134,7 +134,7 @@ function InvoiceTemplate(props: InvoiceData) {
                         </div>
                         <div>{periodLabel}</div>
                         <div style="color: #555; font-size: 12px; margin-top: 4px;">
-                            {periodStartDate.toLocaleDateString("fr-FR")} — {periodEndDate.toLocaleDateString("fr-FR")}
+                            {periodStartDate.toLocaleDateString("fr-FR")} - {periodEndDate.toLocaleDateString("fr-FR")}
                         </div>
                     </div>
                 </div>

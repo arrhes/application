@@ -475,9 +475,32 @@ export function sitemapPlugin(): Plugin {
             const urls = [
                 ...routeMap.entries(),
             ]
-                .sort(([pathA], [pathB]) => pathA.localeCompare(pathB, "fr"))
+                .toSorted(
+                    (
+                        [pathA]: [
+                            string,
+                            {
+                                changefreq: string
+                                priority: string
+                            },
+                        ],
+                        [pathB]: [
+                            string,
+                            {
+                                changefreq: string
+                                priority: string
+                            },
+                        ],
+                    ) => pathA.localeCompare(pathB, "fr"),
+                )
                 .map(
-                    ([path, metadata]) => `    <url>
+                    ([path, metadata]: [
+                        string,
+                        {
+                            changefreq: string
+                            priority: string
+                        },
+                    ]) => `    <url>
         <loc>${encodeURI(`${baseUrl}${path}`)}</loc>
         <lastmod>${today}</lastmod>
         <changefreq>${metadata.changefreq}</changefreq>

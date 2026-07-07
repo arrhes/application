@@ -36,7 +36,7 @@ export function ColumnVisibilityPopover(props: {
             </Popover.Trigger>
             <Popover.Content
                 align="start"
-                className={css({
+                className={{
                     width: "280px",
                     maxHeight: "400px",
                     overflowY: "auto",
@@ -44,23 +44,23 @@ export function ColumnVisibilityPopover(props: {
                     flexDirection: "column",
                     gap: "0.5rem",
                     padding: "0.5rem",
-                })}
+                }}
             >
                 {hiddenCount === 0 ? null : (
                     <Button
                         onClick={props.onShowAll}
-                        className={css({
+                        className={{
                             width: "100%",
-                        })}
+                        }}
                         isDisabled={hiddenCount === 0}
                     >
                         <ButtonGhostContent
                             leftIcon={<IconTable />}
                             text="Afficher toutes les colonnes"
-                            className={css({
+                            className={{
                                 width: "100%",
                                 justifyContent: "start",
-                            })}
+                            }}
                             isDisabled={hiddenCount === 0}
                         />
                     </Button>
@@ -68,19 +68,19 @@ export function ColumnVisibilityPopover(props: {
                 {visibleCount === 0 ? null : (
                     <Button
                         onClick={props.onDisableAll}
-                        className={css({
+                        className={{
                             width: "100%",
-                        })}
+                        }}
                         isDisabled={visibleCount === 0}
                     >
                         <ButtonGhostContent
                             color="danger"
                             leftIcon={<IconTableOff />}
                             text="Masquer toutes les colonnes"
-                            className={css({
+                            className={{
                                 width: "100%",
                                 justifyContent: "start",
-                            })}
+                            }}
                             isDisabled={visibleCount === 0}
                         />
                     </Button>
@@ -106,17 +106,17 @@ export function ColumnVisibilityPopover(props: {
                         >
                             <Button
                                 onClick={() => props.onColumnVisibilityChange(column.id, !column.isVisible)}
-                                className={css({
+                                className={{
                                     width: "100%",
-                                })}
+                                }}
                             >
                                 <ButtonGhostContent
                                     leftIcon={column.isVisible ? <IconCheck /> : undefined}
                                     text={column.header}
-                                    className={css({
+                                    className={{
                                         width: "100%",
                                         justifyContent: "start",
-                                    })}
+                                    }}
                                 />
                             </Button>
                         </div>

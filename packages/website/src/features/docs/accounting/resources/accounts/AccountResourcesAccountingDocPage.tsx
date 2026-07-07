@@ -51,14 +51,14 @@ export function AccountResourcesAccountingDocPage() {
 
                     {parentAccount && <ParentAccountSection parentAccount={parentAccount} />}
 
-                    <ChildrenListSection children={children} />
+                    <ChildrenListSection>{children}</ChildrenListSection>
                 </>
             ) : (
                 <>
                     <AccountScenariosSection entry={entry} />
                     <DebitCreditSection entry={entry} />
                     {parentAccount && <ParentAccountSection parentAccount={parentAccount} />}
-                    <ChildrenListSection children={children} />
+                    <ChildrenListSection>{children}</ChildrenListSection>
                 </>
             )}
 

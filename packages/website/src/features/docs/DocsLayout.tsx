@@ -1,5 +1,5 @@
 import { Button, ButtonGhostContent, ButtonPlainContent, Logo } from "@arrhes/ui"
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import { IconBook2, IconBrandGithub, IconMenu } from "@tabler/icons-react"
 import { Outlet, useRouterState } from "@tanstack/react-router"
 import { useState } from "react"
@@ -107,7 +107,7 @@ export function DocsLayout() {
 
                             <LinkButton
                                 to="/documentation"
-                                className={css({
+                                className={{
                                     display: {
                                         base: "none",
                                         sm: "flex",
@@ -119,7 +119,7 @@ export function DocsLayout() {
                                     _hover: {
                                         color: "neutral",
                                     },
-                                })}
+                                }}
                             >
                                 <ButtonGhostContent
                                     leftIcon={<IconBook2 />}
@@ -151,7 +151,11 @@ export function DocsLayout() {
                                     text="Retour au site"
                                 />
                             </LinkButton> */}
-                            <a href={import.meta.env.VITE_DASHBOARD_BASE_URL}>
+                            <a
+                                href={import.meta.env.VITE_DASHBOARD_BASE_URL}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
                                 <ButtonPlainContent text="Dashboard" />
                             </a>
                         </nav>
@@ -215,7 +219,7 @@ export function DocsLayout() {
                 >
                     {/* Sidebar */}
                     <aside
-                        className={cx(
+                        className={cn(
                             css({
                                 borderRight: "1px solid",
                                 borderRightColor: "neutral/10",

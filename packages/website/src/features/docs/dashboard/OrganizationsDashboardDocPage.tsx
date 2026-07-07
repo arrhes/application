@@ -25,7 +25,7 @@ export function OrganizationsDashboardDocPage() {
                 </DocDefinition>
                 <DocDefinition term="Association">
                     Plan comptable des associations. Inclut les comptes spécifiques comme les cotisations (756), les
-                    subventions (74), les fonds associatifs...
+                    subventions (74), les fonds associatifs…
                 </DocDefinition>
                 <DocParagraph>
                     Le type d'organisation est défini à la création et ne peut pas être modifié ensuite. Si vous avez

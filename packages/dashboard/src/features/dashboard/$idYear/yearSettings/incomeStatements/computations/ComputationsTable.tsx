@@ -49,9 +49,9 @@ export function ComputationsTable(props: {
                                     idOrganization: props.idOrganization,
                                     idYear: props.idYear,
                                 }}
-                                className={css({
+                                className={{
                                     width: "100%",
-                                })}
+                                }}
                             >
                                 <div
                                     className={css({

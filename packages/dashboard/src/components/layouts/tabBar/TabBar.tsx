@@ -255,7 +255,7 @@ export function TabBar({ excludeTabIds, rightSlot, onDropFromRight, onMergePanel
                                 </span>
                                 <Button
                                     aria-label={`Fermer l'onglet ${title}`}
-                                    className={css({})}
+                                    className={{}}
                                     onClick={(e) => {
                                         e.stopPropagation()
                                         onCloseTab(tab.id)

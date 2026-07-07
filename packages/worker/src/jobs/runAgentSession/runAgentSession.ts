@@ -490,7 +490,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
     console.log(`[runAgentSession] uiMessages count: ${uiMessages.length}`)
 
     // Classify intent using all categories (same as router.ts in API does)
-    // For simplicity in worker we use all categories — avoids the router LLM call
+    // For simplicity in worker we use all categories - avoids the router LLM call
     const allCategoryNames = toolCategories.map((c) => c.name)
     const selectedCategories = toolCategories.filter((c) => allCategoryNames.includes(c.name))
 
@@ -562,7 +562,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
     }).server(async (args) => processArray(args as ProcessArrayArgs, toolResultStore))
     tools.push(arrayTool)
 
-    // Add ocr_file tool (premium feature — extracts text from a file and saves it as markdown)
+    // Add ocr_file tool (premium feature - extracts text from a file and saves it as markdown)
     const ocrTool = toolDefinition({
         name: "ocr_file",
         description:
@@ -752,7 +752,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
     })
     tools.push(ocrTool)
 
-    // Add entry template tool — creates an entry with lines from a predefined template
+    // Add entry template tool - creates an entry with lines from a predefined template
     const entryTemplateTool = buildEntryTemplateTool({
         db,
         idOrganization,
@@ -854,7 +854,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                 fileContext += `\n\n> **Note :** Certains fichiers n'ont pas pu être lus : ${failedFiles.join(", ")}.`
             }
         } else if (failedFiles.length > 0) {
-            // All files failed to read — still tell the LLM they were attached
+            // All files failed to read - still tell the LLM they were attached
             fileContext = `Les fichiers suivants ont été importés par l'utilisateur mais leur contenu n'a pas pu être lu : ${failedFiles.join(", ")}. Informe l'utilisateur qu'une erreur s'est produite lors de la lecture de ses fichiers.`
         }
     }
@@ -937,7 +937,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                     : null
             lastCheckpointLength = accumulatedContent.length
             lastCheckpointTime = Date.now()
-            // Fire-and-forget — non-critical, don't block the stream
+            // Fire-and-forget - non-critical, don't block the stream
             db.update(models.agentMessage)
                 .set({
                     output: contentSnapshot || null,

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# dev-up helper — called by `just dev up`
+# dev-up helper - called by `just dev up`
 # Starts all Docker Compose services with random host ports bound to 127.0.0.1.
 # Ports persist across runs in .ports; conflicted ports are replaced on next run.
 # ==============================================================================

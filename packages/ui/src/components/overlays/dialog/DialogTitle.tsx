@@ -1,17 +1,25 @@
 import type { HTMLAttributes } from "react"
-import { css, cx } from "../../../utilities/cn.js"
+import type { Styles } from "../../../../styled-system/css/css"
+import { css } from "../../../utilities/cn.js"
 
-export function DialogTitle(props: HTMLAttributes<HTMLHeadingElement>) {
+export function DialogTitle({
+    className,
+    ...props
+}: Omit<HTMLAttributes<HTMLHeadingElement>, "className"> & {
+    className?: Styles
+}) {
     return (
         <h2
             {...props}
-            className={cx(
-                css({
+            className={css(
+                {
                     fontSize: "lg",
                     fontWeight: "semibold",
-                }),
-                props.className,
+                },
+                className,
             )}
-        />
+        >
+            {props.children}
+        </h2>
     )
 }

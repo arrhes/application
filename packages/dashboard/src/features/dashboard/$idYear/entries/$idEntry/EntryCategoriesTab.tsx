@@ -171,10 +171,10 @@ function EntryCategoriesTabContent(props: {
                     options={availableTags}
                     isLoading={false}
                     isDisabled={isAdding}
-                    className={css({
+                    className={{
                         width: "100%",
                         maxWidth: "400px",
-                    })}
+                    }}
                 />
             </div>
             <DataBlock.Root>

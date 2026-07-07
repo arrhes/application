@@ -1,25 +1,24 @@
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
-import { type ComponentProps, forwardRef, type ReactElement } from "react"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
+import type { ComponentPropsWithRef, ReactElement } from "react"
 
-export const TableBodyRoot = forwardRef<
-    HTMLTableSectionElement,
-    {
-        children?: ReactElement | null | (ReactElement | null)[]
-        className?: ComponentProps<"tbody">["className"]
-        "data-index"?: number
-    }
->(function TableBodyRoot(props, ref) {
+export function TableBodyRoot(props: {
+    children?: ReactElement | null | (ReactElement | null)[]
+    className?: ComponentPropsWithRef<"tbody">["className"]
+    ref?: ComponentPropsWithRef<"tbody">["ref"]
+    "data-index"?: number
+}) {
     return (
         <tbody
-            ref={ref}
+            ref={props.ref}
             data-index={props["data-index"]}
-            className={cx(
+            className={cn(
                 css({
                     width: "100%",
                 }),
                 props.className,
             )}
-            children={props.children}
-        />
+        >
+            {props.children}
+        </tbody>
     )
-})
+}

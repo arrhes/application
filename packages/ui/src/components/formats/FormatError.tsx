@@ -1,8 +1,8 @@
-import type { ComponentProps } from "react"
+import type { Styles } from "../../../styled-system/css/css"
 import { css } from "../../utilities/cn.js"
 import { FormatBase } from "./FormatBase.js"
 
-export function FormatError(props: { text: string; className?: ComponentProps<"div">["className"] }) {
+export function FormatError(props: { text: string; className?: Styles }) {
     return (
         <FormatBase className={props.className}>
             <span

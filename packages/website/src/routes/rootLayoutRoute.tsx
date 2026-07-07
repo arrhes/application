@@ -10,6 +10,14 @@ const DEFAULT_DESCRIPTION =
 const SITE_NAME = "Arrhes"
 const BASE_URL = "https://arrhes.com"
 
+const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: SITE_NAME,
+    url: BASE_URL,
+    description: DEFAULT_DESCRIPTION,
+}
+
 function buildBreadcrumbJsonLd(pathname: string, title: string) {
     const segments = pathname.split("/").filter(Boolean)
     if (segments.length === 0) return null
@@ -78,7 +86,7 @@ export const rootLayoutRoute = createRootRouteWithContext<{
 }>()({
     pendingComponent: () => <CircularLoader text="Chargement de l'application..." />,
     beforeLoad: (_ctx) => {},
-    component: () => {
+    component: function RootLayoutRouteComponent() {
         const matches = useRouterState({
             select: (s) => s.matches,
         })
@@ -108,15 +116,6 @@ export const rootLayoutRoute = createRootRouteWithContext<{
         const canonicalUrl = `${BASE_URL}${pathname}`
         const isHomePage = pathname === "/"
         const isDocPage = pathname.startsWith("/documentation")
-
-        // JSON-LD: Organization (all pages)
-        const organizationJsonLd = {
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            name: SITE_NAME,
-            url: BASE_URL,
-            description: DEFAULT_DESCRIPTION,
-        }
 
         // JSON-LD: WebSite (homepage only)
         const websiteJsonLd = isHomePage

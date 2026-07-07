@@ -1,11 +1,11 @@
-import type { ComponentProps } from "react"
-import { css, cx } from "../../utilities/cn.js"
+import type { Styles } from "../../../styled-system/css/css"
+import { css } from "../../utilities/cn.js"
 
-export function FormatNull(props: { text?: string; className?: ComponentProps<"span">["className"] }) {
+export function FormatNull(props: { text?: string; className?: Styles }) {
     return (
         <span
-            className={cx(
-                css({
+            className={css(
+                {
                     display: "inline-flex",
                     flexDirection: "row",
                     justifyContent: "flex-start",
@@ -16,7 +16,7 @@ export function FormatNull(props: { text?: string; className?: ComponentProps<"s
                     whiteSpace: "nowrap",
                     overflow: "auto",
                     textOverflow: "ellipsis",
-                }),
+                },
                 props.className,
             )}
         >

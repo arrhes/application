@@ -1,8 +1,8 @@
 import { IconCheck, IconChevronDown } from "@tabler/icons-react"
-import { type ComponentProps, useEffect, useState } from "react"
+import { useId, useMemo, useState } from "react"
 import type { FieldError } from "react-hook-form"
-import { css, cx } from "../../utilities/cn.js"
-import { debounce } from "../../utilities/debounce.js"
+import type { Styles } from "../../../styled-system/css/css"
+import { css } from "../../utilities/cn.js"
 import { Button } from "../buttons/Button.js"
 import { ButtonGhostContent } from "../buttons/ButtonGhostContent.js"
 import { ButtonOutlineContent } from "../buttons/ButtonOutlineContent.js"
@@ -25,28 +25,24 @@ export function InputCombobox<TValue extends string>(props: {
     isLoading?: boolean
     isDisabled?: boolean
     autoFocus?: boolean
-    className?: ComponentProps<"div">["className"]
+    className?: Styles
     allowEmpty?: boolean
 }) {
+    const popoverContentId = useId().replace(/:/g, "")
     const [open, setOpen] = useState(false)
     const [rawQuery, setRawQuery] = useState<string | null | undefined>(undefined)
-    const [currentOptions, setCurrentOptions] = useState(props.options)
+    const { options } = props
+    const currentOptions = useMemo(
+        () =>
+            rawQuery === null || rawQuery === undefined || rawQuery === ""
+                ? options
+                : options.filter((x) => x.label.toLowerCase().includes(rawQuery.toLowerCase())),
+        [
+            rawQuery,
+            options,
+        ],
+    )
     const currentOption = props.options?.find((x) => x.key === (props.value ?? props.defaultValue))
-
-    useEffect(() => {
-        debounce({
-            function: () => {
-                setCurrentOptions(
-                    rawQuery === null || rawQuery === undefined || rawQuery === ""
-                        ? props.options
-                        : props.options.filter((x) => x.label.toLowerCase().includes(rawQuery.toLowerCase())),
-                )
-            },
-        })
-    }, [
-        rawQuery,
-        props.options,
-    ])
 
     return (
         <Popover.Root
@@ -56,20 +52,22 @@ export function InputCombobox<TValue extends string>(props: {
             <Popover.Trigger asChild>
                 <Button
                     role="combobox"
+                    aria-controls={popoverContentId}
+                    aria-expanded={open}
                     onClick={() => {
                         if (props.isDisabled) return
                         setOpen(!open)
                     }}
                     data-open={open}
-                    className={cx(
-                        css({
+                    className={css.raw(
+                        {
                             width: "100%",
-                        }),
+                        },
                         props.isDisabled
-                            ? css({
+                            ? {
                                   cursor: "not-allowed",
-                              })
-                            : "",
+                              }
+                            : undefined,
                         props.className,
                     )}
                     autoFocus={props.autoFocus}
@@ -82,8 +80,8 @@ export function InputCombobox<TValue extends string>(props: {
                                 : currentOption.label
                         }
                         rightIcon={<IconChevronDown />}
-                        className={cx(
-                            css({
+                        className={css.raw(
+                            {
                                 width: "100%",
                                 justifyContent: "space-between",
                                 _hover: {
@@ -93,19 +91,19 @@ export function InputCombobox<TValue extends string>(props: {
                                     borderColor: "neutral/50",
                                     boxShadow: "inset",
                                 },
-                            }),
+                            },
                             props.error !== undefined
-                                ? css({
+                                ? {
                                       borderColor: "error",
-                                  })
-                                : "",
+                                  }
+                                : undefined,
                             currentOption === undefined
-                                ? css({
+                                ? {
                                       "& span": {
                                           color: "neutral/50",
                                       },
-                                  })
-                                : "",
+                                  }
+                                : undefined,
                         )}
                     />
                 </Button>
@@ -113,9 +111,9 @@ export function InputCombobox<TValue extends string>(props: {
             {open === false ? null : (
                 <Popover.Content
                     align="start"
-                    className={css({
+                    className={{
                         padding: "0.5rem",
-                    })}
+                    }}
                 >
                     <InputText
                         value={rawQuery}
@@ -137,9 +135,9 @@ export function InputCombobox<TValue extends string>(props: {
                         {currentOptions.length > 0 ? null : (
                             <FormatNull
                                 text="Pas de résultat"
-                                className={css({
+                                className={{
                                     padding: "0.5rem",
-                                })}
+                                }}
                             />
                         )}
                         <Virtualizer data={currentOptions}>
@@ -148,9 +146,9 @@ export function InputCombobox<TValue extends string>(props: {
                                 return (
                                     <Button
                                         key={option.key}
-                                        className={css({
+                                        className={{
                                             width: "100%",
-                                        })}
+                                        }}
                                         onClick={() => {
                                             if (props.isDisabled) return
                                             if (props.allowEmpty === true && option.key === props.value) {
@@ -165,16 +163,16 @@ export function InputCombobox<TValue extends string>(props: {
                                         <ButtonGhostContent
                                             text={option.label}
                                             rightIcon={isSelected ? <IconCheck /> : undefined}
-                                            className={cx(
-                                                css({
+                                            className={css.raw(
+                                                {
                                                     width: "100%",
                                                     justifyContent: "space-between",
-                                                }),
+                                                },
                                                 isSelected
-                                                    ? css({
+                                                    ? {
                                                           backgroundColor: "background",
-                                                      })
-                                                    : "",
+                                                      }
+                                                    : undefined,
                                             )}
                                             isCurrent={isSelected}
                                         />

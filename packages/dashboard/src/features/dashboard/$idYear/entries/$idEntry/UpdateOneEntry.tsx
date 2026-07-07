@@ -28,13 +28,13 @@ export function UpdateOneEntry(props: { entry: v.InferOutput<typeof returnedSche
 
     return (
         <Button
-            className={css({
+            className={{
                 padding: "0",
                 border: "none",
                 backgroundColor: "transparent",
                 width: "fit-content",
                 height: "fit-content",
-            })}
+            }}
             onClick={() => {
                 const id = openPanelTab(
                     "Modifier une écriture",

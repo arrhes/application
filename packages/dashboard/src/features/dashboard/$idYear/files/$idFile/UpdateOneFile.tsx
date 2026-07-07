@@ -11,13 +11,13 @@ export function UpdateOneFile(props: { file: v.InferOutput<typeof returnedSchema
 
     return (
         <Button
-            className={css({
+            className={{
                 padding: "0",
                 border: "none",
                 backgroundColor: "transparent",
                 width: "fit-content",
                 height: "fit-content",
-            })}
+            }}
             onClick={() => {
                 const r = {
                     current: "",

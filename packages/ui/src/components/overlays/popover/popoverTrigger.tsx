@@ -1,5 +1,5 @@
 import { cloneElement, isValidElement, type ReactElement } from "react"
-import { usePopoverContext } from "./popoverRoot.js"
+import { usePopoverContext } from "./popoverContext.js"
 
 export function PopoverTrigger(props: {
     children: ReactElement
@@ -8,7 +8,7 @@ export function PopoverTrigger(props: {
 }) {
     const { anchorName, isOpen, setOpen } = usePopoverContext()
 
-    function handleClick(e: React.MouseEvent) {
+    function togglePopover(e: React.MouseEvent) {
         e.stopPropagation()
         setOpen(!isOpen)
     }
@@ -26,7 +26,7 @@ export function PopoverTrigger(props: {
                 if (typeof child.props.onClick === "function") {
                     child.props.onClick(e)
                 }
-                handleClick(e)
+                togglePopover(e)
             },
         })
     }
@@ -40,7 +40,7 @@ export function PopoverTrigger(props: {
                     anchorName,
                 } as React.CSSProperties
             }
-            onClick={handleClick}
+            onClick={togglePopover}
         >
             {props.children}
         </button>

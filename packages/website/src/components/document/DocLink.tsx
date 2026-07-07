@@ -1,4 +1,3 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
 import type { ValidParams, ValidRoutes } from "../../routes/applicationRouter.js"
 import { LinkButton } from "../LinkButton.js"
 
@@ -8,7 +7,7 @@ export function DocLink(props: { to: ValidRoutes; params?: ValidParams; hash?: s
             to={props.to}
             params={props.params}
             hash={props.hash}
-            className={css({
+            className={{
                 fontSize: "sm",
                 color: "primary",
                 fontWeight: "medium",
@@ -19,7 +18,7 @@ export function DocLink(props: { to: ValidRoutes; params?: ValidParams; hash?: s
                     textDecorationColor: "primary",
                 },
                 transition: "all 0.15s",
-            })}
+            }}
         >
             {props.children}
         </LinkButton>

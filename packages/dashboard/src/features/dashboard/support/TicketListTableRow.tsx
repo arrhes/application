@@ -74,7 +74,7 @@ export function TicketListTableRow(props: { ticket: v.InferOutput<typeof returne
                         >
                             <Button>
                                 <LinkContent
-                                    className={css({
+                                    className={{
                                         fontSize: "base",
                                         fontWeight: "semibold",
                                         color: "primary",
@@ -82,7 +82,7 @@ export function TicketListTableRow(props: { ticket: v.InferOutput<typeof returne
                                         _hover: {
                                             textDecoration: "underline",
                                         },
-                                    })}
+                                    }}
                                 >
                                     {`Ticket - ${categoryLabel}`}
                                 </LinkContent>

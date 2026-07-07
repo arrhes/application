@@ -5,9 +5,9 @@ import {
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { Button, InputText, toast } from "@arrhes/ui"
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconPlus } from "@tabler/icons-react"
-import type { JSX } from "react"
+import type { ComponentProps, JSX } from "react"
 import { Fragment } from "react/jsx-runtime"
 import type * as v from "valibot"
 import { FormControl } from "../../../../../../components/forms/FormControl.tsx"
@@ -24,20 +24,20 @@ import { invalidateData } from "../../../../../../utilities/invalidateData.ts"
 export function UpdateOneIncomeStatement(props: {
     incomeStatement: v.InferOutput<typeof returnedSchemas.incomeStatement>
     children: JSX.Element
-    className?: string
+    className?: ComponentProps<typeof Button>["className"]
 }) {
     const { openPanelTab, closeTab } = useTabs()
 
     return (
         <Button
-            className={cx(
-                css({
+            className={css.raw(
+                {
                     padding: "0",
                     border: "none",
                     backgroundColor: "transparent",
                     width: "fit-content",
                     height: "fit-content",
-                }),
+                },
                 props.className,
             )}
             onClick={() => {

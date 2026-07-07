@@ -17,7 +17,7 @@ export function buildEntryTemplateTool(parameters: {
 
     return toolDefinition({
         name: "apply_entry_template",
-        description: `Appliquer un modèle d'écriture comptable prédéfini. Crée automatiquement une écriture complète (entrée + lignes débit/crédit) en une seule opération. Modèles disponibles : ${entryTemplateDefinitions.map((t) => `"${t.key}" (${t.label})`).join(", ")}. Utilise les numéros de compte (ex: "68112") au lieu des identifiants — la résolution est automatique.`,
+        description: `Appliquer un modèle d'écriture comptable prédéfini. Crée automatiquement une écriture complète (entrée + lignes débit/crédit) en une seule opération. Modèles disponibles : ${entryTemplateDefinitions.map((t) => `"${t.key}" (${t.label})`).join(", ")}. Utilise les numéros de compte (ex: "68112") au lieu des identifiants - la résolution est automatique.`,
         inputSchema: {
             type: "object",
             properties: {

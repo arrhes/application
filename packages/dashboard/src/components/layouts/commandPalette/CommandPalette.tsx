@@ -1,5 +1,5 @@
 import { getAllMyOrganizationsRouteDefinition } from "@arrhes/application-metadata/routes"
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import { IconBuilding, IconCalendar, IconSearch, IconUser } from "@tabler/icons-react"
 import { cloneElement, useEffect, useMemo, useRef, useState } from "react"
 import { createPortal } from "react-dom"
@@ -75,7 +75,8 @@ export function CommandPalette(props: { selectedOrgId: string | null; selectedYe
             setQuery("")
             setSelected(0)
             setGroupFilter(null)
-            setTimeout(() => inputRef.current?.focus(), 50)
+            const id = setTimeout(() => inputRef.current?.focus(), 50)
+            return () => clearTimeout(id)
         }
     }, [
         open,
@@ -362,7 +363,7 @@ export function CommandPalette(props: { selectedOrgId: string | null; selectedYe
                                 key={String(group.key)}
                                 type="button"
                                 onClick={() => setGroupFilter(group.key)}
-                                className={cx(
+                                className={cn(
                                     css({
                                         display: "flex",
                                         alignItems: "center",

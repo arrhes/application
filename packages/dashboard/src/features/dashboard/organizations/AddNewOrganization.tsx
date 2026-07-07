@@ -3,9 +3,9 @@ import {
     getAllMyOrganizationsRouteDefinition,
 } from "@arrhes/application-metadata/routes"
 import { Button, InputText, InputToggle, toast } from "@arrhes/ui"
-import { css, cx } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconPlus } from "@tabler/icons-react"
-import type { JSX } from "react"
+import type { ComponentProps, JSX } from "react"
 import { Fragment } from "react/jsx-runtime"
 import { FormControl } from "../../../components/forms/FormControl.tsx"
 import { FormError } from "../../../components/forms/FormError.tsx"
@@ -17,19 +17,22 @@ import { useTabs } from "../../../contexts/tabs/useTabs.tsx"
 import { getResponseBodyFromAPI } from "../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../utilities/invalidateData.ts"
 
-export function AddNewOrganization(props: { children: JSX.Element; className?: string }) {
+export function AddNewOrganization(props: {
+    children: JSX.Element
+    className?: ComponentProps<typeof Button>["className"]
+}) {
     const { openPanelTab, closeTab } = useTabs()
 
     return (
         <Button
-            className={cx(
-                css({
+            className={css.raw(
+                {
                     padding: "0",
                     border: "none",
                     backgroundColor: "transparent",
                     width: "fit-content",
                     height: "fit-content",
-                }),
+                },
                 props.className,
             )}
             onClick={() => {

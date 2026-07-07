@@ -1,26 +1,23 @@
-import type { ComponentProps, ReactNode } from "react"
-import { css, cx } from "../../utilities/cn.js"
+import type { ReactNode } from "react"
+import type { Styles } from "../../../styled-system/css/css"
+import { css } from "../../utilities/cn.js"
 import { FormatNull } from "./FormatNull.js"
 
-export function FormatText(props: {
-    wrap?: boolean
-    className?: ComponentProps<"span">["className"]
-    children?: ReactNode
-}) {
+export function FormatText(props: { wrap?: boolean; className?: Styles; children?: ReactNode }) {
     if (!props.children) return <FormatNull />
     return (
         <span
-            className={cx(
-                css({
+            className={css(
+                {
                     fontSize: "sm",
                     wordBreak: "break-word",
                     overflowX: "hidden",
                     textOverflow: "ellipsis",
-                }),
+                },
                 !props.wrap
-                    ? css({
+                    ? {
                           whiteSpace: "nowrap",
-                      })
+                      }
                     : undefined,
                 props.className,
             )}

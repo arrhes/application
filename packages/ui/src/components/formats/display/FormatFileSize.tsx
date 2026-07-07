@@ -1,10 +1,10 @@
-import type { ComponentProps } from "react"
+import type { Styles } from "../../../../styled-system/css/css"
 import { css } from "../../../utilities/cn.js"
 import { FormatBase } from "../FormatBase.js"
 import { FormatNull } from "../FormatNull.js"
 import { formatFileSize } from "../formatFileSize.js"
 
-export function FormatFileSize(props: { size?: number | null; className?: ComponentProps<"div">["className"] }) {
+export function FormatFileSize(props: { size?: number | null; className?: Styles }) {
     if (props.size === undefined || props.size === null) return <FormatNull />
     return (
         <FormatBase className={props.className}>
