@@ -4,7 +4,7 @@ import type { getEnv } from "../utilities/getEnv.js"
 
 export function queueClient(env: ReturnType<typeof getEnv>) {
     try {
-        const jobQueue = new Queue("jobs", env.REDIS_URL, {
+        const jobQueue = new Queue("jobs", env.REDIS_URL_WRITE ?? env.REDIS_URL, {
             redis: {
                 keepAlive: 1,
                 retryStrategy: (times: number) => Math.min(times * 50, 2000),

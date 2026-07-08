@@ -4,7 +4,7 @@ import { Exception } from "#src/utilities/exception.js"
 
 export function queueClient() {
     try {
-        const jobQueue = new Queue("jobs", ContextEnv.REDIS_URL, {
+        const jobQueue = new Queue("jobs", ContextEnv.REDIS_URL_WRITE ?? ContextEnv.REDIS_URL, {
             redis: {
                 keepAlive: 1,
                 retryStrategy: (times) => Math.min(times * 50, 2000),

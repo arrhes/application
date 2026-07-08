@@ -4,7 +4,7 @@ import { Exception } from "#src/utilities/exception.js"
 
 export async function redisClient() {
     try {
-        const redisClient = new Redis(ContextEnv.REDIS_URL)
+        const redisClient = new Redis(ContextEnv.REDIS_URL_WRITE ?? ContextEnv.REDIS_URL)
         await redisClient.ping()
 
         return redisClient
