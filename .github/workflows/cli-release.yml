@@ -16,10 +16,6 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Upload release assets
-        run: |
-          gh release upload "${{ github.event.release.tag_name }}" \
-            packages/cli/arrhes.sh \
-            packages/cli/install.sh \
-            packages/cli/install.ps1
+        run: .scripts/release-cli.sh "${{ github.event.release.tag_name }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
