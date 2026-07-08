@@ -6,14 +6,21 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
   react-doctor:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: millionco/react-doctor@main
+
+      - uses: pnpm/action-setup@v4
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          diff: main
+          version: 10.26.1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 25
+          cache: pnpm
+
+      - name: Run React Doctor
+        run: .scripts/react-doctor.sh
