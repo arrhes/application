@@ -2,9 +2,5 @@
 set -eu
 
 release_tag="${1:-}"
-
-if [ -n "$release_tag" ]; then
-    printf '%s\n' "$release_tag"
-else
-    tr -d 'v[:space:]' < VERSION
-fi
+version="${release_tag:-$(tr -d 'v[:space:]' < VERSION)}"
+printf '%s\n' "${version#v}"
