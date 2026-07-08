@@ -4,7 +4,7 @@ import type { getEnv } from "../utilities/getEnv.js"
 
 export function redisClient(env: ReturnType<typeof getEnv>) {
     try {
-        const client = new Redis(env.REDIS_URL, {
+        const client = new Redis(env.REDIS_URL_WRITE ?? env.REDIS_URL, {
             lazyConnect: true,
         })
         return client
