@@ -49,7 +49,6 @@ const envSchema = v.object({
     LLM_API_KEY: v.optional(v.string(), ""),
 
     REDIS_URL: v.string(),
-    REDIS_URL_WRITE: v.optional(v.string()),
 })
 
 export function getEnv() {

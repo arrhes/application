@@ -25,7 +25,6 @@ const envSchema = v.object({
     INTERNAL_API_KEY: v.optional(v.string(), ""),
 
     REDIS_URL: v.string(),
-    REDIS_URL_WRITE: v.optional(v.string()),
 
     LLM_PROVIDER: v.optional(
         v.picklist([
@@ -56,7 +55,6 @@ export class ContextEnv {
     static INTERNAL_API_KEY: string
 
     static REDIS_URL: string
-    static REDIS_URL_WRITE: string | undefined
 
     static LLM_PROVIDER: string
     static LLM_BASE_URL: string
@@ -86,7 +84,6 @@ export class ContextEnv {
         ContextEnv.INTERNAL_API_KEY = parsedEnv.INTERNAL_API_KEY
 
         ContextEnv.REDIS_URL = parsedEnv.REDIS_URL
-        ContextEnv.REDIS_URL_WRITE = parsedEnv.REDIS_URL_WRITE
 
         ContextEnv.LLM_PROVIDER = parsedEnv.LLM_PROVIDER
         ContextEnv.LLM_BASE_URL = parsedEnv.LLM_BASE_URL
