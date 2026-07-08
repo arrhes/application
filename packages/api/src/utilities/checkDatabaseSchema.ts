@@ -65,7 +65,9 @@ export async function checkDatabaseSchema(db: DbClient) {
     }
 
     if (drift.length > 0) {
-        throw new Error(`Database schema is out of date - run migrations before starting the API:\n${drift.join("\n")}`)
+        const message = `Database schema is out of date - run migrations before starting the API:\n${drift.join("\n")}`
+        console.error(message)
+        throw new Error(message)
     }
 
     console.info(`Database schema check passed (${expected.size} tables verified)`)

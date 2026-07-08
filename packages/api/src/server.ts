@@ -27,7 +27,14 @@ async function startServer() {
         await checkDatabaseSchema(clients.sql)
     } catch (error: unknown) {
         console.error("Database schema check failed - run migrations and restart:")
-        console.error(error instanceof Error ? error.message : error)
+        if (error instanceof Error) {
+            console.error(error.message)
+            if (error.stack) {
+                console.error(error.stack)
+            }
+        } else {
+            console.error(error)
+        }
         process.exit(1)
     }
 
