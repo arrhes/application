@@ -21,7 +21,7 @@ RUN printf "VITE_WEBSITE_BASE_URL=%s\nVITE_API_BASE_URL=%s\nVITE_DASHBOARD_BASE_
     "$VITE_WEBSITE_BASE_URL" "$VITE_API_BASE_URL" "$VITE_DASHBOARD_BASE_URL" \
     > packages/website/.env
 
-RUN pnpm --filter @arrhes/application-website... run build
+RUN pnpm --filter @arrhes/website... run build
 
 # Stamp CLI files from VERSION
 RUN VER=$(cat VERSION | tr -d 'v[:space:]') && \
