@@ -29,6 +29,9 @@ async function startServer() {
         console.error("Database schema check failed - run migrations and restart:")
         if (error instanceof Error) {
             console.error(error.message)
+            if (error.cause) {
+                console.error("cause:", error.cause)
+            }
             if (error.stack) {
                 console.error(error.stack)
             }
