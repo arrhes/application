@@ -12,7 +12,9 @@ export const entriesRoutes = [
     readAllEntriesRoute,
     readAllEntryTagsRoute,
 
-    ...$idEntryRoutes,
+    // entryLinesRoutes must come before $idEntryRoutes so that
+    // .../entries/lines matches before .../entries/:idEntry
     ...entryLinesRoutes,
+    ...$idEntryRoutes,
     ...entryTagsRoutes,
 ]
