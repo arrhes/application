@@ -45,3 +45,4 @@ jobs:
           IMAGE_PREFIX: ${{ env.IMAGE_PREFIX }}
           VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL }}
           VITE_WEBSITE_BASE_URL: ${{ vars.VITE_WEBSITE_BASE_URL }}
+          VITE_DASHBOARD_BASE_URL: ${{ vars.VITE_DASHBOARD_BASE_URL }}
