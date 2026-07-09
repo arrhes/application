@@ -9,8 +9,9 @@ import { cookiePrefix } from "./variables.js"
 
 /**
  * Interpolates URL path params (e.g. `:idOrganization`) with values from the
- * `params` map. Any remaining body fields (not consumed as path params) are
- * sent as query string for GET requests, or as the JSON body for POST/PATCH/DELETE.
+ * `params` map, falling back to matching fields from `body`. Any remaining
+ * body fields (not consumed as path params) are sent as query string for GET
+ * requests, or as the JSON body for POST/PATCH/DELETE.
  */
 function buildUrl(
     apiBaseUrl: string,
@@ -25,6 +26,7 @@ function buildUrl(
     let path = rawPath
     const consumed = new Set<string>()
 
+    // Interpolate explicit params first
     if (params) {
         for (const [key, value] of Object.entries(params)) {
             const token = `:${key}`
@@ -32,6 +34,17 @@ function buildUrl(
                 path = path.replace(token, encodeURIComponent(value))
                 consumed.add(key)
             }
+        }
+    }
+
+    // Fall back to body fields for any remaining path tokens
+    // so callers don't need to duplicate fields in both body and params
+    for (const [key, value] of Object.entries(body)) {
+        if (consumed.has(key)) continue
+        const token = `:${key}`
+        if (path.includes(token)) {
+            path = path.replace(token, encodeURIComponent(String(value)))
+            consumed.add(key)
         }
     }
 
