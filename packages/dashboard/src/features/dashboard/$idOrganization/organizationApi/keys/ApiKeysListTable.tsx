@@ -31,6 +31,7 @@ export function ApiKeysListTable(props: { idOrganization: v.InferOutput<typeof r
                         <ApiKeyListTableRow
                             key={apiKey.id}
                             apiKey={apiKey}
+                            idOrganization={props.idOrganization}
                         />
                     ))
                 }}

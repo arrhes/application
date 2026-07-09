@@ -1,4 +1,5 @@
 import type { readAllApiKeysRouteDefinition } from "@arrhes/application-metadata/routes"
+import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { ButtonOutlineContent, Chip } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconTrash } from "@tabler/icons-react"
@@ -8,6 +9,7 @@ import { DeleteOneApiKey } from "./DeleteOneApiKey.tsx"
 
 export function ApiKeyListTableRow(props: {
     apiKey: v.InferOutput<typeof readAllApiKeysRouteDefinition.schemas.return>[number]
+    idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
 }) {
     return (
         <ListTable.Row>
@@ -64,7 +66,10 @@ export function ApiKeyListTableRow(props: {
                         gap: "0.5rem",
                     })}
                 >
-                    <DeleteOneApiKey apiKey={props.apiKey}>
+                    <DeleteOneApiKey
+                        apiKey={props.apiKey}
+                        idOrganization={props.idOrganization}
+                    >
                         <ButtonOutlineContent
                             leftIcon={<IconTrash />}
                             title="Supprimer la clé"

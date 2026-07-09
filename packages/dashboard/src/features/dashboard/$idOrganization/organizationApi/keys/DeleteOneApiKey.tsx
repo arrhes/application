@@ -1,5 +1,6 @@
 import type { readAllApiKeysRouteDefinition as ReadAllApiKeysRouteDefinition } from "@arrhes/application-metadata/routes"
 import { deleteOneApiKeyRouteDefinition, readAllApiKeysRouteDefinition } from "@arrhes/application-metadata/routes"
+import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { Button, ButtonOutlineContent, ButtonPlainContent, Dialog, toast, useModalStore } from "@arrhes/ui"
 import { type ComponentPropsWithRef, type ReactElement, useId } from "react"
 import type * as v from "valibot"
@@ -8,6 +9,7 @@ import { invalidateData } from "../../../../../utilities/invalidateData.ts"
 
 export function DeleteOneApiKey(props: {
     apiKey: v.InferOutput<typeof ReadAllApiKeysRouteDefinition.schemas.return>[number]
+    idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
     children: ReactElement<ComponentPropsWithRef<"div">>
 }) {
     const modalId = useId()
@@ -17,6 +19,10 @@ export function DeleteOneApiKey(props: {
         const deleteResponse = await getResponseBodyFromAPI({
             routeDefinition: deleteOneApiKeyRouteDefinition,
             body: {
+                idApiKey: props.apiKey.id,
+            },
+            params: {
+                idOrganization: props.idOrganization,
                 idApiKey: props.apiKey.id,
             },
         })
