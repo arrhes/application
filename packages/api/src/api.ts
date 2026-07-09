@@ -53,7 +53,10 @@ export async function api(parameters: {
                         "Cache-Control",
                     ],
                     allowMethods: [
+                        "GET",
                         "POST",
+                        "PATCH",
+                        "DELETE",
                     ],
                     credentials: true,
                 })
