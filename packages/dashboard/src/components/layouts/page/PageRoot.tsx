@@ -12,6 +12,8 @@ export function PageRoot(props: {
                     width: "100%",
                     flexShrink: "0",
                     flex: "1",
+                    minHeight: "0",
+                    overflowY: "auto",
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "flex-start",
