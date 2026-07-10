@@ -9,11 +9,12 @@ export const updateUserLlmCredentialsRouteDefinition = routeDefinition({
     name: "update-user-llm-credentials",
     schemas: {
         body: v.object({
-            llmProvider: v.optional(v.nullable(v.string())),
             llmApiKey: v.optional(v.nullable(v.string())),
             llmBaseUrl: v.optional(v.nullable(v.string())),
             llmModel: v.optional(v.nullable(v.string())),
+            ocrEndpoint: v.optional(v.nullable(v.string())),
             ocrApiKey: v.optional(v.nullable(v.string())),
+            ocrModel: v.optional(v.nullable(v.string())),
         }),
         return: v.object({
             success: v.boolean(),

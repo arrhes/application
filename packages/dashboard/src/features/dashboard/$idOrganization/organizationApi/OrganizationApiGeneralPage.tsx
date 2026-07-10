@@ -1,19 +1,19 @@
 import { ButtonOutlineContent } from "@arrhes/ui"
 import { IconBook2 } from "@tabler/icons-react"
 import { LinkButton } from "../../../../components/LinkButton.tsx"
+import { Block } from "../../../../components/layouts/block/block.tsx"
 import { Page } from "../../../../components/layouts/page/page.tsx"
-import { SettingsSection } from "../../../../components/layouts/settingsSection/settingsSection.tsx"
 
 export function OrganizationApiGeneralPage() {
     return (
         <Page.Root>
             <Page.Content>
-                <SettingsSection.Root>
-                    <SettingsSection.Header
+                <Block.Root>
+                    <Block.Header
                         title="API"
                         description="Permet d'intégrer Arrhes à vos outils et automatiser vos opérations comptables."
                     />
-                    <SettingsSection.Row
+                    <Block.Row
                         title="Documentation"
                         description="Consultez la documentation complète pour découvrir comment utiliser l'API."
                     >
@@ -27,8 +27,8 @@ export function OrganizationApiGeneralPage() {
                                 text="Accéder à la documentation"
                             />
                         </LinkButton>
-                    </SettingsSection.Row>
-                </SettingsSection.Root>
+                    </Block.Row>
+                </Block.Root>
             </Page.Content>
         </Page.Root>
     )

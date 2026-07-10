@@ -1,7 +1,7 @@
 import { css } from "@arrhes/ui/utilities/cn.js"
 import type { ReactNode } from "react"
 
-export function SettingsSectionRow(props: {
+export function BlockRow(props: {
     title?: string
     description?: string
     variant?: "default" | "danger"
@@ -17,11 +17,10 @@ export function SettingsSectionRow(props: {
                 justifyContent: "space-between",
                 alignItems: "center",
                 gap: "1rem",
-                paddingBottom: "1rem",
+                padding: "1rem 1.5rem",
                 borderBottom: "1px solid",
                 borderBottomColor: isDanger ? "error/10" : "neutral/10",
                 _last: {
-                    paddingBottom: "0",
                     borderBottom: "none",
                 },
             })}

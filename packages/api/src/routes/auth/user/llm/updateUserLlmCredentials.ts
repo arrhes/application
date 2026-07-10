@@ -17,11 +17,12 @@ export const updateUserLlmCredentialsRoute = registerRoute(updateUserLlmCredenti
     await c.var.clients.sql
         .update(models.user)
         .set({
-            llmProvider: body.llmProvider ?? null,
             llmApiKey: body.llmApiKey ?? null,
             llmBaseUrl: body.llmBaseUrl ?? null,
             llmModel: body.llmModel ?? null,
+            ocrEndpoint: body.ocrEndpoint ?? null,
             ocrApiKey: body.ocrApiKey ?? null,
+            ocrModel: body.ocrModel ?? null,
         })
         .where(eq(models.user.id, user.id))
 

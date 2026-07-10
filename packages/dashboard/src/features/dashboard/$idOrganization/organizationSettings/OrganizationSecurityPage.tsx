@@ -2,9 +2,9 @@ import { readOneOrganizationRouteDefinition } from "@arrhes/application-metadata
 import { ButtonOutlineContent } from "@arrhes/ui"
 import { IconTrash } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
+import { Block } from "../../../../components/layouts/block/block.tsx"
 import { DataWrapper } from "../../../../components/layouts/DataWrapper.tsx"
 import { Page } from "../../../../components/layouts/page/page.tsx"
-import { SettingsSection } from "../../../../components/layouts/settingsSection/settingsSection.tsx"
 import { DeleteOneOrganization } from "./DeleteOneOrganization.tsx"
 
 export function OrganizationSecurityPage({ idOrganization: idOrganizationProp }: { idOrganization?: string } = {}) {
@@ -26,12 +26,12 @@ export function OrganizationSecurityPage({ idOrganization: idOrganizationProp }:
                 >
                     {(organization) => {
                         return (
-                            <SettingsSection.Root variant="danger">
-                                <SettingsSection.Header
+                            <Block.Root variant="danger">
+                                <Block.Header
                                     title="Zone de danger"
                                     variant="danger"
                                 />
-                                <SettingsSection.Row
+                                <Block.Row
                                     title="Supprimer l'organisation"
                                     description="Cette action est irréversible."
                                     variant="danger"
@@ -43,8 +43,8 @@ export function OrganizationSecurityPage({ idOrganization: idOrganizationProp }:
                                             color="danger"
                                         />
                                     </DeleteOneOrganization>
-                                </SettingsSection.Row>
-                            </SettingsSection.Root>
+                                </Block.Row>
+                            </Block.Root>
                         )
                     }}
                 </DataWrapper>

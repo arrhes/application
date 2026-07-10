@@ -1,25 +1,24 @@
 import { css } from "@arrhes/ui/utilities/cn.js"
 
-export function SettingsSectionHeader(props: { title: string; description?: string; variant?: "default" | "danger" }) {
+export function BlockHeader(props: { title: string; description?: string; variant?: "default" | "danger" }) {
     const isDanger = props.variant === "danger"
 
     return (
         <div
             className={css({
-                flex: "1",
-                minWidth: "0",
+                width: "100%",
                 display: "flex",
                 flexDirection: "column",
                 gap: "0.5rem",
-                paddingBottom: "1rem",
+                padding: "1rem 1.5rem",
                 borderBottom: "1px solid",
-                borderBottomColor: isDanger ? "error/5" : "neutral/5",
+                borderBottomColor: isDanger ? "error/10" : "neutral/10",
             })}
         >
             <span
                 className={css({
-                    fontSize: "lg",
-                    fontWeight: "semibold",
+                    fontSize: "md",
+                    fontWeight: "bold",
                     color: isDanger ? "error" : undefined,
                 })}
             >

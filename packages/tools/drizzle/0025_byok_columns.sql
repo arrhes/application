@@ -27,8 +27,13 @@ ALTER TABLE table_organization
 
 -- Add BYOK LLM/OCR columns to table_user
 ALTER TABLE table_user
-    ADD COLUMN llm_provider varchar(32),
     ADD COLUMN llm_api_key text,
     ADD COLUMN llm_base_url text,
     ADD COLUMN llm_model varchar(128),
-    ADD COLUMN ocr_api_key text;
+    ADD COLUMN ocr_endpoint text,
+    ADD COLUMN ocr_api_key text,
+    ADD COLUMN ocr_model varchar(128);
+
+-- Remove legacy llm_provider column (no longer needed — provider is determined by URL)
+ALTER TABLE table_user
+    DROP COLUMN IF EXISTS llm_provider;

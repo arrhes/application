@@ -15,9 +15,9 @@ import { FormField } from "../../../../components/forms/FormField.tsx"
 import { FormItem } from "../../../../components/forms/FormItem.tsx"
 import { FormLabel } from "../../../../components/forms/FormLabel.tsx"
 import { FormRoot } from "../../../../components/forms/FormRoot.tsx"
+import { Block } from "../../../../components/layouts/block/block.tsx"
 import { DataWrapper } from "../../../../components/layouts/DataWrapper.tsx"
 import { Page } from "../../../../components/layouts/page/page.tsx"
-import { SettingsSection } from "../../../../components/layouts/settingsSection/settingsSection.tsx"
 import { useTabs } from "../../../../contexts/tabs/useTabs.tsx"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
@@ -47,13 +47,13 @@ export function OrganizationStorageCredentialsPage({
                     {(organization) => {
                         const org = organization as v.InferOutput<typeof returnedSchemas.organization>
                         return (
-                            <SettingsSection.Root>
-                                <SettingsSection.Header title="Stockage" />
-                                <SettingsSection.Row
+                            <Block.Root>
+                                <Block.Header title="Stockage" />
+                                <Block.Row
                                     title="Espace utilisé"
                                     description={`${formatFileSize(org.storageCurrentUsage)} / ${formatFileSize(org.storageLimit)}`}
                                 />
-                                <SettingsSection.Row
+                                <Block.Row
                                     title="Identifiants de stockage"
                                     description="Configurez les accès au stockage externe (S3 compatible)."
                                 >
@@ -246,8 +246,8 @@ export function OrganizationStorageCredentialsPage({
                                             text="Modifier"
                                         />
                                     </Button>
-                                </SettingsSection.Row>
-                            </SettingsSection.Root>
+                                </Block.Row>
+                            </Block.Root>
                         )
                     }}
                 </DataWrapper>

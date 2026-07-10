@@ -376,10 +376,12 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
     // Load user LLM credentials
     const userRows = await db
         .select({
-            llmProvider: models.user.llmProvider,
             llmApiKey: models.user.llmApiKey,
             llmBaseUrl: models.user.llmBaseUrl,
             llmModel: models.user.llmModel,
+            ocrEndpoint: models.user.ocrEndpoint,
+            ocrApiKey: models.user.ocrApiKey,
+            ocrModel: models.user.ocrModel,
         })
         .from(models.user)
         .where(eq(models.user.id, session.idUser))

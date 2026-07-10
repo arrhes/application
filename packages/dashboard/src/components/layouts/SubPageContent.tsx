@@ -1,7 +1,7 @@
 import { Button, ButtonGhostContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import type { Icon, IconProps } from "@tabler/icons-react"
-import { type ReactElement, type ReactNode, useEffect, useState } from "react"
+import { type ReactElement, type ReactNode, useEffect, useRef, useState } from "react"
 
 type SectionItem = {
     key: string
@@ -25,10 +25,14 @@ export function SubPageContent(props: {
     const allItems = Object.values(props.sections).flatMap((s) => s.items)
     const firstKey = props.defaultKey ?? allItems[0]?.key ?? ""
     const [activeKey, setActiveKey] = useState(firstKey)
+    const prevDefaultKey = useRef(props.defaultKey)
 
     useEffect(() => {
-        if (props.defaultKey && allItems.some((i) => i.key === props.defaultKey)) {
-            setActiveKey(props.defaultKey)
+        if (props.defaultKey && props.defaultKey !== prevDefaultKey.current) {
+            prevDefaultKey.current = props.defaultKey
+            if (allItems.some((i) => i.key === props.defaultKey)) {
+                setActiveKey(props.defaultKey)
+            }
         }
     }, [
         props.defaultKey,
@@ -41,8 +45,8 @@ export function SubPageContent(props: {
         <div
             className={css({
                 width: "100%",
-                flex: "1",
-                flexShrink: "0",
+                flex: 1,
+                minHeight: 0,
                 display: "flex",
                 flexDirection: "column",
             })}
@@ -101,6 +105,9 @@ export function SubPageContent(props: {
             <div
                 className={css({
                     width: "100%",
+                    flex: 1,
+                    minHeight: 0,
+                    overflowY: "auto",
                     padding: {
                         base: "1rem",
                         md: "2rem",

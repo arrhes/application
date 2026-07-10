@@ -328,6 +328,26 @@ export function DashboardShell() {
                     >
                         <ButtonGhostContent leftIcon={<IconBook2 />} />
                     </Button>
+                    {selectedOrgId && (
+                        <Button
+                            onClick={() =>
+                                openTab(
+                                    {
+                                        component: "agent",
+                                        props: {
+                                            idOrganization: selectedOrgId,
+                                        },
+                                    },
+                                    {
+                                        newTab: true,
+                                    },
+                                )
+                            }
+                            title="Assistant IA"
+                        >
+                            <ButtonOutlineContent leftIcon={<IconRobot />} />
+                        </Button>
+                    )}
                     {userSession.data?.user.isSuperAdmin === true && (
                         <Popover.Root>
                             <Popover.Trigger asChild>
@@ -408,35 +428,6 @@ export function DashboardShell() {
                                     }}
                                 />
                             </Button>
-                            {selectedOrgId && (
-                                <Button
-                                    onClick={() =>
-                                        openTab(
-                                            {
-                                                component: "agent",
-                                                props: {
-                                                    idOrganization: selectedOrgId,
-                                                },
-                                            },
-                                            {
-                                                newTab: true,
-                                            },
-                                        )
-                                    }
-                                    className={{
-                                        width: "100%",
-                                    }}
-                                >
-                                    <ButtonGhostContent
-                                        leftIcon={<IconRobot />}
-                                        text="Assistant"
-                                        className={{
-                                            width: "100%",
-                                            justifyContent: "start",
-                                        }}
-                                    />
-                                </Button>
-                            )}
                             <Button
                                 onClick={() =>
                                     openTab(

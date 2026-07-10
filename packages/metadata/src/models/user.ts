@@ -21,15 +21,16 @@ export const userModel = pgTable(
         emailTokenExpiresAt: dateTimeColumn("email_token_expires_at"),
         passwordHash: text("password_hash").notNull(),
         passwordSalt: text("password_salt").notNull(),
-        llmProvider: varchar("llm_provider", {
-            length: 32,
-        }),
         llmApiKey: text("llm_api_key"),
         llmBaseUrl: text("llm_base_url"),
         llmModel: varchar("llm_model", {
             length: 128,
         }),
+        ocrEndpoint: text("ocr_endpoint"),
         ocrApiKey: text("ocr_api_key"),
+        ocrModel: varchar("ocr_model", {
+            length: 128,
+        }),
         createdAt: dateTimeColumn("created_at").notNull(),
         lastUpdatedAt: dateTimeColumn("last_updated_at"),
     },

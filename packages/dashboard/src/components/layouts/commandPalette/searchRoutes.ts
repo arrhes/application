@@ -47,11 +47,6 @@ export type OrgSearchRoute = {
 
 export const orgSearchRoutes: OrgSearchRoute[] = [
     {
-        label: "Assistant IA",
-        description: "Assistant comptable intelligent",
-        tabComponent: "agent",
-    },
-    {
         label: "Exercices",
         description: "Années fiscales",
         tabComponent: "exercices",

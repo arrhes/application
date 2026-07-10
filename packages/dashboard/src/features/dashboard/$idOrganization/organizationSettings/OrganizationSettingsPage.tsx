@@ -2,9 +2,9 @@ import { readOneOrganizationRouteDefinition } from "@arrhes/application-metadata
 import { ButtonOutlineContent } from "@arrhes/ui"
 import { IconPencil } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
+import { Block } from "../../../../components/layouts/block/block.tsx"
 import { DataWrapper } from "../../../../components/layouts/DataWrapper.tsx"
 import { Page } from "../../../../components/layouts/page/page.tsx"
-import { SettingsSection } from "../../../../components/layouts/settingsSection/settingsSection.tsx"
 import { UpdateOneOrganization } from "./UpdateOneOrganization.tsx"
 
 export function OrganizationSettingsPage({ idOrganization: idOrganizationProp }: { idOrganization?: string } = {}) {
@@ -26,9 +26,9 @@ export function OrganizationSettingsPage({ idOrganization: idOrganizationProp }:
                 >
                     {(organization) => {
                         return (
-                            <SettingsSection.Root>
-                                <SettingsSection.Header title="Informations générales" />
-                                <SettingsSection.Row
+                            <Block.Root>
+                                <Block.Header title="Informations générales" />
+                                <Block.Row
                                     title="Modifier les informations de l'organisation"
                                     description="Changez le nom, l'email ou encore le numéro de SIREN."
                                 >
@@ -38,8 +38,8 @@ export function OrganizationSettingsPage({ idOrganization: idOrganizationProp }:
                                             text="Modifier"
                                         />
                                     </UpdateOneOrganization>
-                                </SettingsSection.Row>
-                            </SettingsSection.Root>
+                                </Block.Row>
+                            </Block.Root>
                         )
                     }}
                 </DataWrapper>

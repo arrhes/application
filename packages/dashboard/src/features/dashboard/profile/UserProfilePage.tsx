@@ -1,9 +1,9 @@
 import { readUserSessionRouteDefinition } from "@arrhes/application-metadata/routes"
 import { Button, ButtonOutlineContent } from "@arrhes/ui"
 import { IconKey, IconMail, IconTrash } from "@tabler/icons-react"
+import { Block } from "../../../components/layouts/block/block.tsx"
 import { DataWrapper } from "../../../components/layouts/DataWrapper.tsx"
 import { Page } from "../../../components/layouts/page/page.js"
-import { SettingsSection } from "../../../components/layouts/settingsSection/settingsSection.tsx"
 import { DeleteUser } from "./DeleteUser.tsx"
 import { UpdateUserEmail } from "./UpdateUserEmail.tsx"
 import { UpdateUserPassword } from "./UpdateUserPassword.tsx"
@@ -23,9 +23,9 @@ export function UserProfilePage() {
                 >
                     {(userSession) => (
                         <>
-                            <SettingsSection.Root>
-                                <SettingsSection.Header title="Informations du compte" />
-                                <SettingsSection.Row
+                            <Block.Root>
+                                <Block.Header title="Informations du compte" />
+                                <Block.Row
                                     title="Adresse email"
                                     description={userSession.user.email}
                                 >
@@ -37,11 +37,11 @@ export function UserProfilePage() {
                                             />
                                         </Button>
                                     </UpdateUserEmail>
-                                </SettingsSection.Row>
+                                </Block.Row>
                                 {userSession.user.emailToValidate && (
                                     <ValidateUserEmail emailToValidate={userSession.user.emailToValidate} />
                                 )}
-                                <SettingsSection.Row
+                                <Block.Row
                                     title="Mot de passe"
                                     description="Modifiez le mot de passe de votre compte."
                                 >
@@ -53,14 +53,14 @@ export function UserProfilePage() {
                                             />
                                         </Button>
                                     </UpdateUserPassword>
-                                </SettingsSection.Row>
-                            </SettingsSection.Root>
-                            <SettingsSection.Root variant="danger">
-                                <SettingsSection.Header
+                                </Block.Row>
+                            </Block.Root>
+                            <Block.Root variant="danger">
+                                <Block.Header
                                     title="Zone de danger"
                                     variant="danger"
                                 />
-                                <SettingsSection.Row
+                                <Block.Row
                                     title="Supprimer le compte"
                                     description="Cette action est irréversible. Toutes vos données seront supprimées."
                                     variant="danger"
@@ -74,8 +74,8 @@ export function UserProfilePage() {
                                             />
                                         </Button>
                                     </DeleteUser>
-                                </SettingsSection.Row>
-                            </SettingsSection.Root>
+                                </Block.Row>
+                            </Block.Root>
                         </>
                     )}
                 </DataWrapper>
