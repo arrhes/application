@@ -6,6 +6,7 @@ interface DocPageManifestEntry {
     section: string
     navGroup: string
     navLabel: string
+    mdxSource?: string // relative path to .mdx source file, enables .md raw text serving
 }
 
 // Maps every static doc page route to its source file and nav metadata.
@@ -25,6 +26,7 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
         section: "Général",
         navGroup: "Introduction",
         navLabel: "Fonctionnalités",
+        mdxSource: "features/docs/general/features/FeaturesGeneralDocPage.mdx",
     },
     {
         path: "/documentation/architecture",

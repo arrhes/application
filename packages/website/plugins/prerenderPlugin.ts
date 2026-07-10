@@ -127,6 +127,25 @@ export function prerenderPlugin(): Plugin {
                 )
                 const count = results.reduce((sum: number, n) => sum + n, 0)
 
+                // Generate raw .md files for pages with mdxSource
+                const mdxRoot = resolve(pkgRoot, "src")
+                for (const entry of DOC_PAGE_MANIFEST) {
+                    if (!entry.mdxSource) continue
+                    const mdxFile = resolve(mdxRoot, entry.mdxSource)
+                    let rawContent: string
+                    try {
+                        rawContent = readFileSync(mdxFile, "utf-8")
+                    } catch {
+                        continue
+                    }
+                    const mdOutPath = entry.path.slice(1) + ".md"
+                    const mdOutFile = resolve(buildDir, mdOutPath)
+                    mkdirSync(dirname(mdOutFile), {
+                        recursive: true,
+                    })
+                    writeFileSync(mdOutFile, rawContent, "utf-8")
+                }
+
                 rmSync(renderBuildDir, {
                     recursive: true,
                     force: true,
