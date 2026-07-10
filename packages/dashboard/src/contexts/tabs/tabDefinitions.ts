@@ -39,11 +39,11 @@ export const TAB_REGISTRY = {
         component: createElement(OrganizationsPage),
     }),
 
-    profil: (_props: Record<never, never>): TabDefinition => ({
+    profil: (props: { subTab?: string }): TabDefinition => ({
         id: "profil",
         title: "Profil",
         description: "Votre profil utilisateur",
-        component: createElement(UserSettingsTabContent),
+        component: createElement(UserSettingsTabContent, props as any),
     }),
 
     support: (_props: Record<never, never>): TabDefinition => ({

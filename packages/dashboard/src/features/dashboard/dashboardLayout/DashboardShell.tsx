@@ -6,6 +6,7 @@ import {
     IconChevronRight,
     IconLifebuoy,
     IconLogout,
+    IconRobot,
     IconSearch,
     IconSettings,
     IconShield,
@@ -407,6 +408,35 @@ export function DashboardShell() {
                                     }}
                                 />
                             </Button>
+                            {selectedOrgId && (
+                                <Button
+                                    onClick={() =>
+                                        openTab(
+                                            {
+                                                component: "agent",
+                                                props: {
+                                                    idOrganization: selectedOrgId,
+                                                },
+                                            },
+                                            {
+                                                newTab: true,
+                                            },
+                                        )
+                                    }
+                                    className={{
+                                        width: "100%",
+                                    }}
+                                >
+                                    <ButtonGhostContent
+                                        leftIcon={<IconRobot />}
+                                        text="Assistant"
+                                        className={{
+                                            width: "100%",
+                                            justifyContent: "start",
+                                        }}
+                                    />
+                                </Button>
+                            )}
                             <Button
                                 onClick={() =>
                                     openTab(

@@ -1,10 +1,11 @@
 import { readAllAgentSessionsRouteDefinition } from "@arrhes/application-metadata/routes"
-import { Button, ButtonGhostContent, ButtonOutlineContent, formatDateTime } from "@arrhes/ui"
+import { Button, ButtonGhostContent, ButtonOutlineContent, formatDateTime, Separator } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconMenu, IconMessage, IconPlus } from "@tabler/icons-react"
+import { IconMenu, IconMessage, IconPlus, IconSettings } from "@tabler/icons-react"
 import { lazy, Suspense, useState } from "react"
 import { EmptyState } from "../../../../components/layouts/EmptyState.tsx"
 import { SearchBar } from "../../../../components/layouts/SearchBar.tsx"
+import { useTabs } from "../../../../contexts/tabs/useTabs.tsx"
 import { useDataFromAPI } from "../../../../utilities/useHTTPData.ts"
 import { extractSnippet } from "./extractSnippet.ts"
 
@@ -20,6 +21,7 @@ const AgentSessionContent = lazy(() =>
 )
 
 export function AgentTabContent({ idOrganization }: { idOrganization: string }) {
+    const { openTab } = useTabs()
     const [selectedSessionId, setSelectedSessionId] = useState<string | null>(null)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [search, setSearch] = useState("")
@@ -184,6 +186,41 @@ export function AgentTabContent({ idOrganization }: { idOrganization: string }) 
                         )
                     })}
                 </div>
+            </div>
+            <Separator />
+            <div
+                className={css({
+                    flexShrink: 0,
+                    padding: "0.75rem 1rem",
+                })}
+            >
+                <Button
+                    onClick={() =>
+                        openTab(
+                            {
+                                component: "profil",
+                                props: {
+                                    subTab: "ia",
+                                },
+                            },
+                            {
+                                newTab: true,
+                            },
+                        )
+                    }
+                    className={{
+                        width: "100%",
+                    }}
+                >
+                    <ButtonGhostContent
+                        leftIcon={<IconSettings />}
+                        text="Configuration IA"
+                        className={{
+                            width: "100%",
+                            justifyContent: "start",
+                        }}
+                    />
+                </Button>
             </div>
         </div>
     )

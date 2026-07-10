@@ -1,7 +1,7 @@
 import { Button, ButtonGhostContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import type { Icon, IconProps } from "@tabler/icons-react"
-import { type ReactElement, type ReactNode, useState } from "react"
+import { type ReactElement, type ReactNode, useEffect, useState } from "react"
 
 type SectionItem = {
     key: string
@@ -25,6 +25,16 @@ export function SubPageContent(props: {
     const allItems = Object.values(props.sections).flatMap((s) => s.items)
     const firstKey = props.defaultKey ?? allItems[0]?.key ?? ""
     const [activeKey, setActiveKey] = useState(firstKey)
+
+    useEffect(() => {
+        if (props.defaultKey && allItems.some((i) => i.key === props.defaultKey)) {
+            setActiveKey(props.defaultKey)
+        }
+    }, [
+        props.defaultKey,
+        allItems,
+    ])
+
     const activeContent = allItems.find((i) => i.key === activeKey)?.content ?? null
 
     return (

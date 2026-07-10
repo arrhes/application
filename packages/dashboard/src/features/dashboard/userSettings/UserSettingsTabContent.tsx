@@ -9,10 +9,10 @@ const UserLlmCredentialsPage = lazy(() =>
     })),
 )
 
-export function UserSettingsTabContent() {
+export function UserSettingsTabContent({ subTab }: { subTab?: string } = {}) {
     return (
         <SubPageContent
-            defaultKey="général"
+            defaultKey={subTab ?? "général"}
             sections={{
                 settings: {
                     items: [
