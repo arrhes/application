@@ -46,10 +46,6 @@ export const docSections: Record<string, DocSection> = {
                         label: "Philosophie",
                     },
                     {
-                        path: "/documentation/tarifs",
-                        label: "Tarifs",
-                    },
-                    {
                         path: "/documentation/support",
                         label: "Support",
                     },

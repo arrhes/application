@@ -41,13 +41,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
         navLabel: "Philosophie",
     },
     {
-        path: "/documentation/tarifs",
-        file: "src/features/docs/general/pricing/pricingGeneralDocPage.tsx",
-        section: "Général",
-        navGroup: "Introduction",
-        navLabel: "Tarifs",
-    },
-    {
         path: "/documentation/support",
         file: "src/features/docs/general/supportGeneralDocPage.tsx",
         section: "Général",
@@ -249,13 +242,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
         section: "Dashboard",
         navGroup: "Guide d'utilisation",
         navLabel: "Documents comptables",
-    },
-    {
-        path: "/documentation/dashboard/facturation",
-        file: "src/features/docs/dashboard/BillingDashboardDocPage.tsx",
-        section: "Dashboard",
-        navGroup: "Guide d'utilisation",
-        navLabel: "Facturation",
     },
     {
         path: "/documentation/dashboard/màj",

@@ -1,6 +1,6 @@
-import { Button, ButtonGhostContent, ButtonPlainContent, Logo } from "@arrhes/ui"
+import { Button, ButtonGhostContent, ButtonOutlineContent, ButtonPlainContent, Logo } from "@arrhes/ui"
 import { cn, css } from "@arrhes/ui/utilities/cn.js"
-import { IconBook2, IconBrandGithub, IconMenu } from "@tabler/icons-react"
+import { IconBook2, IconBrandGithub, IconHeart, IconMenu } from "@tabler/icons-react"
 import { Outlet, useRouterState } from "@tanstack/react-router"
 import { useState } from "react"
 import { LinkButton } from "../../components/LinkButton.js"
@@ -108,10 +108,7 @@ export function DocsLayout() {
                             <LinkButton
                                 to="/documentation"
                                 className={{
-                                    display: {
-                                        base: "none",
-                                        sm: "flex",
-                                    },
+                                    display: "flex",
                                     alignItems: "center",
                                     gap: "0.25rem",
                                     fontSize: "sm",
@@ -146,11 +143,17 @@ export function DocsLayout() {
                             >
                                 <ButtonGhostContent leftIcon={<IconBrandGithub />} />
                             </a>
-                            {/* <LinkButton to="/">
-                                <ButtonContent
-                                    text="Retour au site"
+                            <a
+                                href="https://payment-links.mollie.com/payment/QHxRXo6269KKB2fUa3YcR"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title="Faire un don"
+                            >
+                                <ButtonOutlineContent
+                                    leftIcon={<IconHeart />}
+                                    text="Faire un don"
                                 />
-                            </LinkButton> */}
+                            </a>
                             <a
                                 href={import.meta.env.VITE_DASHBOARD_BASE_URL}
                                 target="_blank"

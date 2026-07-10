@@ -191,7 +191,7 @@ async function getAllDocFiles(basePath: string): Promise<string[]> {
             const fullPath = join(dir, entry.name)
             if (entry.isDirectory()) {
                 // Skip component directories (UI components, not content)
-                if (entry.name === "components" || entry.name === "features" || entry.name === "pricing") continue
+                if (entry.name === "components" || entry.name === "features") continue
                 await walk(fullPath)
             } else if (
                 (entry.name.endsWith(".tsx") || entry.name.endsWith(".ts")) &&

@@ -31,7 +31,6 @@ import { commandsCliDocTree } from "./cli/commands/commandsCliDocTree.js"
 import { demarrerCliDocRoute } from "./cli/demarrerCliDocRoute.js"
 import { installationCliDocRoute } from "./cli/installationCliDocRoute.js"
 import { rootCliDocRoute } from "./cli/rootCliDocRoute.js"
-import { billingDashboardDocRoute } from "./dashboard/BillingDashboardDocRoute.js"
 import { dashboardDocLayoutRoute } from "./dashboard/dashboardDocLayoutRoute.js"
 import { entriesDashboardDocRoute } from "./dashboard/entriesDashboardDocRoute.js"
 import { filesDashboardDocRoute } from "./dashboard/filesDashboardDocRoute.js"
@@ -46,7 +45,6 @@ import { architectureGeneralDocRoute } from "./root/architectureGeneralDocRoute.
 import { featuresGeneralDocRoute } from "./root/featuresGeneralDocRoute.js"
 import { generalDocLayoutRoute } from "./root/generalDocLayoutRoute.js"
 import { legalGeneralDocRoute } from "./root/legalGeneralDocRoute.js"
-import { pricingGeneralDocRoute } from "./root/pricingGeneralDocRoute.js"
 import { privacyGeneralDocRoute } from "./root/privacyGeneralDocRoute.js"
 import { rootGeneralDocRoute } from "./root/rootGeneralDocRoute.js"
 import { supportGeneralDocRoute } from "./root/supportGeneralDocRoute.js"
@@ -59,7 +57,6 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
         rootGeneralDocRoute,
         featuresGeneralDocRoute,
         architectureGeneralDocRoute,
-        pricingGeneralDocRoute,
         whitepaperGeneralDocRoute,
         supportGeneralDocRoute,
         legalGeneralDocRoute,
@@ -93,7 +90,6 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
         entriesDashboardDocRoute,
         filesDashboardDocRoute,
         reportsDashboardDocRoute,
-        billingDashboardDocRoute,
         updatesDashboardDocRoute,
         // AI sub-section (assistant IA)
         aiDocLayoutRoute.addChildren([

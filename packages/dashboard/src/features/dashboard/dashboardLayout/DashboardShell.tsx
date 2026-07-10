@@ -4,6 +4,7 @@ import { css } from "@arrhes/ui/utilities/cn.js"
 import {
     IconBook2,
     IconChevronRight,
+    IconHeart,
     IconLifebuoy,
     IconLogout,
     IconRobot,
@@ -323,10 +324,28 @@ export function DashboardShell() {
                     })}
                 >
                     <Button
-                        onClick={() => window.open("/documentation", "_blank", "noopener,noreferrer")}
+                        onClick={() =>
+                            window.open(
+                                `${import.meta.env.VITE_WEBSITE_BASE_URL ?? ""}/documentation`,
+                                "_blank",
+                                "noopener,noreferrer",
+                            )
+                        }
                         title="Documentation"
                     >
                         <ButtonGhostContent leftIcon={<IconBook2 />} />
+                    </Button>
+                    <Button
+                        onClick={() =>
+                            window.open(
+                                "https://payment-links.mollie.com/payment/QHxRXo6269KKB2fUa3YcR",
+                                "_blank",
+                                "noopener,noreferrer",
+                            )
+                        }
+                        title="Faire un don"
+                    >
+                        <ButtonGhostContent leftIcon={<IconHeart />} />
                     </Button>
                     {selectedOrgId && (
                         <Button

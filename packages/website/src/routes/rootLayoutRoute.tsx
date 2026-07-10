@@ -139,12 +139,6 @@ export const rootLayoutRoute = createRootRouteWithContext<{
                   applicationCategory: "BusinessApplication",
                   operatingSystem: "Web",
                   description: DEFAULT_DESCRIPTION,
-                  offers: {
-                      "@type": "Offer",
-                      price: "0",
-                      priceCurrency: "EUR",
-                      description: "Plan basique gratuit",
-                  },
               }
             : null
 

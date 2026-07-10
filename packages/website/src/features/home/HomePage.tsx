@@ -1,9 +1,9 @@
 import { Badge, ButtonGhostContent, ButtonOutlineContent, ButtonPlainContent, Logo } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconBook2, IconBrandGithub, IconBrandLinkedin, IconGavel, IconUser } from "@tabler/icons-react"
+import { IconBook2, IconBrandGithub, IconBrandLinkedin, IconGavel, IconHeart, IconUser } from "@tabler/icons-react"
 import { LinkButton } from "../../components/LinkButton.js"
+import { Features } from "./Features.tsx"
 import { HeroIllustration } from "./HeroIllustration.js"
-import { Pricing } from "./Pricing.js"
 
 export function HomePage() {
     return (
@@ -200,55 +200,7 @@ export function HomePage() {
                 </div>
             </section>
 
-            {/* Pricing Section */}
-            <section
-                className={css({
-                    width: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "start",
-                    alignItems: "center",
-                    paddingX: "1rem",
-                    paddingY: "4rem",
-                    backgroundColor: "white",
-                })}
-            >
-                <div
-                    className={css({
-                        width: "100%",
-                        maxWidth: "xl",
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "start",
-                        alignItems: "start",
-                        gap: "2rem",
-                    })}
-                >
-                    <h2
-                        className={css({
-                            fontSize: "lg",
-                            fontWeight: "bold",
-                            color: "neutral",
-                        })}
-                    >
-                        Pourquoi choisir Arrhes ?
-                    </h2>
-                    <p
-                        className={css({
-                            fontSize: "md",
-                            color: "neutral/60",
-                        })}
-                    >
-                        Un logiciel de comptabilité conçu pour être simple et transparent, tout en respectant les
-                        exigences de la comptabilité française.
-                        <br />
-                        Il s'adresse à tous : indépendants, entreprises, associations, experts-comptables…
-                    </p>
-
-                    {/* Pricing columns */}
-                    <Pricing />
-                </div>
-            </section>
+            <Features />
 
             {/* Documentation CTA */}
             <section
@@ -345,6 +297,16 @@ export function HomePage() {
                             text="Mentions légales"
                         />
                     </LinkButton>
+                    <a
+                        href="https://payment-links.mollie.com/payment/QHxRXo6269KKB2fUa3YcR"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <ButtonGhostContent
+                            leftIcon={<IconHeart />}
+                            text="Faire un don"
+                        />
+                    </a>
                     <div
                         className={css({
                             display: "flex",
