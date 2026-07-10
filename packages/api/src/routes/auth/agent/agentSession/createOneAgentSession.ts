@@ -12,10 +12,12 @@ export const createOneAgentSessionRoute = apiFactory
         const { user } = await checkAuthMiddleware({
             context: c,
         })
+
         const body = await validateBodyMiddleware({
             context: c,
             schema: createOneAgentSessionRouteDefinition.schemas.body,
         })
+
         await checkOrganizationSubscriptionSessionMiddleware({
             context: c,
             idOrganization: body.idOrganization,

@@ -45,11 +45,11 @@ export {
     organizationUserStatusEnum,
 } from "../../metadata/src/models/organizationUser.ts"
 export { tagModel, tagRelations } from "../../metadata/src/models/tag.ts"
-export { ticketModel, ticketRelations, ticketStatusEnum, ticketTypeEnum } from "../../metadata/src/models/ticket.ts"
+export { ticketModel, ticketRelations } from "../../metadata/src/models/ticket.ts"
 export { ticketMessageModel, ticketMessageRelations } from "../../metadata/src/models/ticketMessage.ts"
 export { userModel, userRelations } from "../../metadata/src/models/user.ts"
 export {
     userSessionModel,
     userSessionsRelations,
 } from "../../metadata/src/models/userSession.ts"
-export { yearModel, yearRelations, yearStateEnum } from "../../metadata/src/models/year.ts"
+export { yearModel } from "../../metadata/src/models/year.ts"

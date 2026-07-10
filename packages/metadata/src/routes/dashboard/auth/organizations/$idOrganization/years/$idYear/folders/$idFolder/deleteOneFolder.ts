@@ -7,6 +7,7 @@ export const deleteOneFolderRouteDefinition = routeDefinition({
     protocol: "http",
     method: "DELETE",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/folders/:idFolder`,
+    name: "delete-one-folder",
     schemas: {
         body: v.object({
             idFolder: folderSchema.entries.id,

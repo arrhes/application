@@ -385,7 +385,7 @@ export function AgentSessionContent({
                     throw new Error("VITE_API_BASE_URL is not configured")
                 }
 
-                const response = await fetch(new URL(`${apiBaseUrl}${getStreamForAgentMessageRouteDefinition.path}`), {
+                const response = await fetch(`${apiBaseUrl}${getStreamForAgentMessageRouteDefinition.path}`, {
                     method: "POST",
                     credentials: "include",
                     signal: controller.signal,

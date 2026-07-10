@@ -56,7 +56,7 @@ export async function checkAdminUserSessionMiddleware(parameters: { context: Con
             where: eq(models.user.id, adminUserSession.idUser),
         })
 
-        if (!adminUser || adminUser.isSuperAdmin !== true) {
+        if (adminUser?.isSuperAdmin !== true) {
             return trySuperAdminDashboardFallback({
                 context: parameters.context,
             })

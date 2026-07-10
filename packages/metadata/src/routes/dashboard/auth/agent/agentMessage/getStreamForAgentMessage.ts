@@ -6,8 +6,8 @@ import { routeDefinition } from "../../../../../utilities/routeDefinition.js"
 
 export const getStreamForAgentMessageRouteDefinition = routeDefinition({
     protocol: "http",
-    method: "GET",
-    path: `${routePath.v1}/agent/sessions/:idAgentSession/messages/:idAgentMessage/stream`,
+    method: "POST",
+    path: `${routePath.v1}/agent/sessions/stream`,
     schemas: {
         body: v.object({
             idOrganization: v.nonNullable(idSchema, "Ce champ est requis"),

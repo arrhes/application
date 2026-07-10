@@ -10,6 +10,7 @@ export const deleteOneIncomeStatementRouteDefinition = routeDefinition({
     protocol: "http",
     method: "DELETE",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/income-statements/:idIncomeStatement`,
+    name: "delete-one-income-statement",
     schemas: {
         body: v.object({
             idIncomeStatement: incomeStatementSchema.entries.id,

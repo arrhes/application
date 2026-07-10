@@ -86,18 +86,6 @@ const toolDescriptions: Record<string, string> = {
     "settle-income-statement": "Lettrer le compte de resultat.",
 }
 
-const excludedPathSuffixes = [
-    "generate-file-get-signed-url",
-    "generate-file-put-signed-url",
-    "generate-document-get-signed-url",
-    "delete-one-year",
-]
-
-function routePathToToolName(path: string): string {
-    const suffix = path.split("/").pop() ?? path
-    return suffix.replace(/-/g, "_")
-}
-
 function unwrapSchema(schema: any): any {
     if (!schema || typeof schema !== "object") return schema
     const unsupportedWrappers = new Set([
@@ -191,29 +179,27 @@ export function buildWorkerTools(parameters: {
     for (const category of parameters.categories) {
         if (!category.routeDefinitions) continue
         for (const routeDef of category.routeDefinitions) {
-            const path = routeDef.path as string
-            const pathSuffix = path.split("/").pop() ?? ""
-            if (excludedPathSuffixes.includes(pathSuffix)) continue
+            const name = routeDef.name as string
+            if (!name) continue
 
-            const toolName = routePathToToolName(path)
-            const description = toolDescriptions[pathSuffix] ?? `Executer l'action ${pathSuffix.replace(/-/g, " ")}.`
+            const description = toolDescriptions[name] ?? `Executer l'action ${name.replace(/-/g, " ")}.`
             const inputSchema = bodySchemaToJsonSchema(
                 routeDef.schemas.body as v.ObjectSchema<v.ObjectEntries, undefined>,
-                pathSuffix,
+                name,
             )
 
             const def = toolDefinition({
-                name: toolName,
+                name,
                 description,
                 inputSchema,
             })
             const serverTool = def.server(async (args) => {
                 const body = args as Record<string, unknown>
-                const result = await parameters.executeRoute(pathSuffix, {
+                const result = await parameters.executeRoute(name, {
                     ...body,
                     idOrganization: parameters.idOrganization,
                 })
-                parameters.toolResultStore.set(toolName, result)
+                parameters.toolResultStore.set(name, result)
                 return result
             })
             tools.push(serverTool)

@@ -7,6 +7,7 @@ export const readAllEntryTagsRouteDefinition = routeDefinition({
     protocol: "http",
     method: "GET",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/entry-tags`,
+    name: "read-all-entry-tags",
     schemas: {
         body: v.object({
             idYear: entryTagSchema.entries.idYear,

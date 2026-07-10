@@ -7,6 +7,7 @@ export const deleteOneBalanceSheetRouteDefinition = routeDefinition({
     protocol: "http",
     method: "DELETE",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/balance-sheets/:idBalanceSheet`,
+    name: "delete-one-balance-sheet",
     schemas: {
         body: v.object({
             idBalanceSheet: balanceSheetSchema.entries.id,

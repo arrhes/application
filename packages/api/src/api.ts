@@ -65,16 +65,49 @@ export async function api(parameters: {
 
             // Set error handler
             .onError(async (error, c) => {
-                if (error instanceof Exception) {
-                    apiLog({
-                        var: c.var,
-                        type: "error",
-                        internalMessage: error.internalMessage,
-                        externalMessage: error.externalMessage,
-                        cause: error.cause,
-                        stack: error.stack,
-                    })
-                    if (error.statusCode === 500) {
+                try {
+                    if (error instanceof Exception) {
+                        apiLog({
+                            var: c.var,
+                            type: "error",
+                            internalMessage: error.internalMessage,
+                            externalMessage: error.externalMessage,
+                            cause: error.cause,
+                            stack: error.stack,
+                        })
+                        if (error.statusCode === 500) {
+                            return response({
+                                context: c,
+                                statusCode: 500,
+                                schema: v.object({
+                                    message: v.string(),
+                                }),
+                                data: {
+                                    message: "Internal error",
+                                },
+                            })
+                        }
+                        return response({
+                            context: c,
+                            statusCode: error.statusCode,
+                            schema: v.object({
+                                message: v.string(),
+                                cause: v.optional(v.string()),
+                            }),
+                            data: {
+                                message: error.externalMessage ?? "Internal error",
+                                cause: typeof error.cause === "string" ? error.cause : undefined,
+                            },
+                        })
+                    }
+                    if (error instanceof pg.PostgresError) {
+                        apiLog({
+                            var: c.var,
+                            type: "error",
+                            internalMessage: error.message,
+                            cause: String(error.cause),
+                            stack: error.stack,
+                        })
                         return response({
                             context: c,
                             statusCode: 500,
@@ -86,20 +119,6 @@ export async function api(parameters: {
                             },
                         })
                     }
-                    return response({
-                        context: c,
-                        statusCode: error.statusCode,
-                        schema: v.object({
-                            message: v.string(),
-                            cause: v.optional(v.string()),
-                        }),
-                        data: {
-                            message: error.externalMessage ?? "Internal error",
-                            cause: typeof error.cause === "string" ? error.cause : undefined,
-                        },
-                    })
-                }
-                if (error instanceof pg.PostgresError) {
                     apiLog({
                         var: c.var,
                         type: "error",
@@ -114,28 +133,22 @@ export async function api(parameters: {
                             message: v.string(),
                         }),
                         data: {
+                            errorCode: "SERVER_ERROR",
                             message: "Internal error",
                         },
                     })
+                } catch (innerError) {
+                    console.error("[errorHandler] Failed to produce error response:", innerError, {
+                        originalError: error,
+                    })
+                    return c.json(
+                        {
+                            message: "Internal error",
+                            cause: String(innerError),
+                        },
+                        error instanceof Exception ? error.statusCode : 500,
+                    )
                 }
-                apiLog({
-                    var: c.var,
-                    type: "error",
-                    internalMessage: error.message,
-                    cause: String(error.cause),
-                    stack: error.stack,
-                })
-                return response({
-                    context: c,
-                    statusCode: 500,
-                    schema: v.object({
-                        message: v.string(),
-                    }),
-                    data: {
-                        errorCode: "SERVER_ERROR",
-                        message: "Internal error",
-                    },
-                })
             })
 
             .all("/", (c) => {

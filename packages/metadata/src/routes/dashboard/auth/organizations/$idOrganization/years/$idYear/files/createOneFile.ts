@@ -7,6 +7,7 @@ export const createOneFileRouteDefinition = routeDefinition({
     protocol: "http",
     method: "POST",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/files`,
+    name: "create-one-file",
     schemas: {
         body: v.object({
             idFolder: v.optional(fileSchema.entries.idFolder),

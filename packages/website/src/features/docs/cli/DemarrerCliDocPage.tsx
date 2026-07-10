@@ -17,8 +17,8 @@ export function DemarrerCliDocPage() {
 
             <DocSection title="1. Installer le CLI">
                 <DocParagraph>
-                    Le CLI est un binaire autonome - aucune installation de Node.js ou de dépendance requise. Collez
-                    la commande suivante dans votre terminal :
+                    Le CLI est un binaire autonome - aucune installation de Node.js ou de dépendance requise. Collez la
+                    commande suivante dans votre terminal :
                 </DocParagraph>
                 <DocCodeBlock>curl -fsSL https://arrhes.com/cli/install.sh | sh</DocCodeBlock>
                 <DocTip variant="info">

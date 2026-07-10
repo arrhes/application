@@ -7,6 +7,7 @@ export const updateOneYearRouteDefinition = routeDefinition({
     protocol: "http",
     method: "PATCH",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear`,
+    name: "update-one-year",
     schemas: {
         body: v.object({
             idYear: yearSchema.entries.id,

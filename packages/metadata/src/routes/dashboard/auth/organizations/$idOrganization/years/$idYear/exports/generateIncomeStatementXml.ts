@@ -7,6 +7,7 @@ export const generateIncomeStatementXmlRouteDefinition = routeDefinition({
     protocol: "http",
     method: "POST",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/exports/income-statement`,
+    name: "generate-income-statement-xml",
     schemas: {
         body: v.object({
             idYear: yearSchema.entries.id,

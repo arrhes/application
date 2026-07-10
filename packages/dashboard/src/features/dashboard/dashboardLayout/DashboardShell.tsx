@@ -231,7 +231,7 @@ export function DashboardShell() {
                     width: "100%",
                     display: "flex",
                     alignItems: "center",
-                    justifyContent: "space-between",
+                    justifyContent: "start",
                     gap: "1rem",
                     padding: "1rem",
                     borderBottom: "1px solid",
@@ -298,7 +298,7 @@ export function DashboardShell() {
                     onClick={() => window.dispatchEvent(new CustomEvent("arrhes:open-palette"))}
                     title="Rechercher (Ctrl+K)"
                     className={{
-                        marginRight: "auto",
+                        width: "fit-content",
                     }}
                 >
                     <ButtonOutlineContent
@@ -314,6 +314,7 @@ export function DashboardShell() {
                 {/* Right: nav actions */}
                 <nav
                     className={css({
+                        marginLeft: "auto",
                         display: "flex",
                         alignItems: "center",
                         gap: "0.5rem",

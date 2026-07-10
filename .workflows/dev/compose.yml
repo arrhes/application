@@ -147,7 +147,7 @@ services:
       # LLM environment (AI agent)
       LLM_PROVIDER: mistral-api
       LLM_BASE_URL: https://api.mistral.ai/v1
-      LLM_MODEL: mistral-small-2603
+      LLM_MODEL: mistral-small-latest
       LLM_API_KEY: OwMSblegsAyAWd3AzCZbJkbaMQLCCj7y
       # Redis environment
       REDIS_URL: "redis://localhost:${REDIS_HOST_PORT}"
@@ -252,7 +252,7 @@ services:
       # LLM environment (AI agent)
       LLM_PROVIDER: mistral-api
       LLM_BASE_URL: https://api.mistral.ai/v1
-      LLM_MODEL: mistral-small-2603
+      LLM_MODEL: mistral-small-latest
       LLM_API_KEY: OwMSblegsAyAWd3AzCZbJkbaMQLCCj7y
     depends_on:
       postgres:

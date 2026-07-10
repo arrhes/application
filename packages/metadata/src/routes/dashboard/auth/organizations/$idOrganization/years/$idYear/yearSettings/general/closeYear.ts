@@ -7,6 +7,7 @@ export const closeYearRouteDefinition = routeDefinition({
     protocol: "http",
     method: "POST",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/close`,
+    name: "close-year",
     schemas: {
         body: v.object({
             idYear: yearSchema.entries.id,

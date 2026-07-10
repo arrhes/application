@@ -7,6 +7,7 @@ export const readOneFileRouteDefinition = routeDefinition({
     protocol: "http",
     method: "GET",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/files/:idFile`,
+    name: "read-one-file",
     schemas: {
         body: v.object({
             idFile: fileSchema.entries.id,

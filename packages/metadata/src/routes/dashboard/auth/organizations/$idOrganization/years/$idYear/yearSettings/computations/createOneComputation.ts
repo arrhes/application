@@ -7,6 +7,7 @@ export const createOneComputationRouteDefinition = routeDefinition({
     protocol: "http",
     method: "POST",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/computations`,
+    name: "create-one-computation",
     schemas: {
         body: v.object({
             idYear: computationSchema.entries.idYear,

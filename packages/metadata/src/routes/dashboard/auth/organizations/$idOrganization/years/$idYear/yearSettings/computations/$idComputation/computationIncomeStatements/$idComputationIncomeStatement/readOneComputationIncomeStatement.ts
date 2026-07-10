@@ -10,6 +10,7 @@ export const readOneComputationIncomeStatementRouteDefinition = routeDefinition(
     protocol: "http",
     method: "GET",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/computations/:idComputation/income-statements/:idComputationIncomeStatement`,
+    name: "read-one-computation-income-statement",
     schemas: {
         body: v.object({
             idComputationIncomeStatement: computationIncomeStatementSchema.entries.id,

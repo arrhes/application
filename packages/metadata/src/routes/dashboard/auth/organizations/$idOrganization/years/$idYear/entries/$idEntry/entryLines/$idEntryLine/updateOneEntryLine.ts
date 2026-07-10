@@ -7,6 +7,7 @@ export const updateOneEntryLineRouteDefinition = routeDefinition({
     protocol: "http",
     method: "PATCH",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/entries/:idEntry/lines/:idEntryLine`,
+    name: "update-one-entry-line",
     schemas: {
         body: v.object({
             idEntryLine: entryLineSchema.entries.id,

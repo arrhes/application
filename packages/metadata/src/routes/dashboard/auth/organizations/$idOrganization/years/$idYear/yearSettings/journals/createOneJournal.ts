@@ -7,6 +7,7 @@ export const createOneJournalRouteDefinition = routeDefinition({
     protocol: "http",
     method: "POST",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/journals`,
+    name: "create-one-journal",
     schemas: {
         body: v.object({
             idYear: journalSchema.entries.idYear,

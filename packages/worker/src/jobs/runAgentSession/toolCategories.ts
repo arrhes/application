@@ -92,6 +92,7 @@ export interface ToolCategory {
     description: string
     routeDefinitions?: ReadonlyArray<{
         path: string
+        name?: string
         schemas: {
             body: unknown
             return: unknown

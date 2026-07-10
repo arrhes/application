@@ -21,10 +21,11 @@ export async function validateBodyMiddleware<TSchema extends v.GenericSchema<unk
                 contentLength !== undefined ? Number(contentLength) > 0 : parameters.context.req.raw.body !== null
             try {
                 rawBody = hasBody ? await parameters.context.req.json() : {}
-            } catch {
-                // Body was declared but is empty or could not be parsed
-                // (e.g. DELETE requests with Content-Type: application/json but no body).
-                // Fall back to empty object; schema validation will reject truly missing fields.
+            } catch (parseError) {
+                console.error("[validateBodyMiddleware] Failed to parse request body:", parseError, {
+                    method: parameters.context.req.method,
+                    path: parameters.context.req.path,
+                })
                 rawBody = {}
             }
         }

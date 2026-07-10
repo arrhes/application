@@ -7,6 +7,7 @@ export const readOneEntryRouteDefinition = routeDefinition({
     protocol: "http",
     method: "GET",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/entries/:idEntry`,
+    name: "read-one-entry",
     schemas: {
         body: v.object({
             idEntry: entrySchema.entries.id,

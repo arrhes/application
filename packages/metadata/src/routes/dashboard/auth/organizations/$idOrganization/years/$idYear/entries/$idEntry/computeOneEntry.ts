@@ -7,6 +7,7 @@ export const computeOneEntryRouteDefinition = routeDefinition({
     protocol: "http",
     method: "POST",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/entries/:idEntry/compute`,
+    name: "compute-one-entry",
     schemas: {
         body: v.object({
             idEntry: entrySchema.entries.id,

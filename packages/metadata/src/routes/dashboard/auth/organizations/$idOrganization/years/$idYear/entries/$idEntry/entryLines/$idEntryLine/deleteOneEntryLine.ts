@@ -7,6 +7,7 @@ export const deleteOneEntryLineRouteDefinition = routeDefinition({
     protocol: "http",
     method: "DELETE",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/entries/:idEntry/lines/:idEntryLine`,
+    name: "delete-one-entry-line",
     schemas: {
         body: v.object({
             idEntryLine: entryLineSchema.entries.id,

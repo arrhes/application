@@ -7,6 +7,7 @@ export const updateManyEntryLinesRouteDefinition = routeDefinition({
     protocol: "http",
     method: "PATCH",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/entries/:idEntry/lines`,
+    name: "update-many-entry-lines",
     schemas: {
         body: v.object({
             idEntry: entryLineSchema.entries.idEntry,

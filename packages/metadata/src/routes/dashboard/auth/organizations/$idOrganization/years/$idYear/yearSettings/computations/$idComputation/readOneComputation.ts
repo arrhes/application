@@ -7,6 +7,7 @@ export const readOneComputationRouteDefinition = routeDefinition({
     protocol: "http",
     method: "GET",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/computations/:idComputation`,
+    name: "read-one-computation",
     schemas: {
         body: v.object({
             idComputation: computationSchema.entries.id,

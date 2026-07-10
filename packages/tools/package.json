@@ -15,9 +15,9 @@
         "drop": "pnpm drizzle-kit drop --config=./src/drizzle.config.ts"
     },
     "devDependencies": {
-        "@types/node": "25.6.0",
+        "@types/node": "26.1.1",
         "drizzle-kit": "0.31.10",
-        "tsx": "4.21.0",
+        "tsx": "4.23.0",
         "typescript": "6.0.3"
     },
     "dependencies": {
@@ -25,6 +25,6 @@
         "@ngneat/falso": "8.0.2",
         "drizzle-orm": "0.45.2",
         "postgres": "3.4.9",
-        "valibot": "1.4.0"
+        "valibot": "1.4.2"
     }
 }

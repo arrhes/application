@@ -7,6 +7,7 @@ export const generateBalanceSheetXmlRouteDefinition = routeDefinition({
     protocol: "http",
     method: "POST",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/exports/balance-sheet`,
+    name: "generate-balance-sheet-xml",
     schemas: {
         body: v.object({
             idYear: yearSchema.entries.id,
