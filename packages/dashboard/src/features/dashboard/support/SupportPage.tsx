@@ -1,56 +1,16 @@
-import { readOrganizationBillingRouteDefinition } from "@arrhes/application-metadata/routes"
 import { ButtonOutlineContent, ButtonPlainContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconBrandGithub, IconBrandLinkedin, IconMail, IconPlus } from "@tabler/icons-react"
-import { Banner } from "../../../components/layouts/Banner.tsx"
 import { Box } from "../../../components/layouts/Box.tsx"
 import { Page } from "../../../components/layouts/page/page.tsx"
 import { Section } from "../../../components/layouts/section/section.tsx"
-import { getCookie } from "../../../utilities/cookies/getCookie.ts"
-import { useDataFromAPI } from "../../../utilities/useHTTPData.ts"
-import { cookiePrefix } from "../../../utilities/variables.ts"
 import { CreateOneTicket } from "./CreateOneTicket.tsx"
 import { TicketsListTable } from "./TicketsListTable.tsx"
-
-function SupportBanner() {
-    const hasOrganization = !!getCookie(`${cookiePrefix}_id_organization`)
-
-    const subscription = useDataFromAPI({
-        routeDefinition: readOrganizationBillingRouteDefinition,
-        body: {},
-        enabled: hasOrganization,
-    })
-
-    if (!hasOrganization || subscription.isPending || subscription.isError) {
-        return null
-    }
-
-    if ((subscription.data?.licenceAmount ?? 0) > 0) {
-        return (
-            <Banner
-                variant="success"
-                title="Support prioritaire"
-            >
-                Vos tickets sont traités en priorité grâce à votre licence active.
-            </Banner>
-        )
-    }
-
-    return (
-        <Banner
-            variant="information"
-            title="Support standard"
-        >
-            Activez une licence pour bénéficier d'un traitement prioritaire de vos tickets.
-        </Banner>
-    )
-}
 
 export function SupportPage() {
     return (
         <Page.Root>
             <Page.Content>
-                <SupportBanner />
                 <Section.Root>
                     <Section.Item>
                         <div

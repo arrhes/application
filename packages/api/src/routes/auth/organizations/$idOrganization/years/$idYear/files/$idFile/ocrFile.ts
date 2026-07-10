@@ -1,7 +1,6 @@
 import { generateId, models, ocrFileRouteDefinition } from "@arrhes/application-metadata"
 import { and, eq, sql } from "drizzle-orm"
 import { checkAuthMiddleware } from "../../../../../../../../middlewares/checkAuthMiddleware.js"
-import { checkOrganizationSubscriptionSessionMiddleware } from "../../../../../../../../middlewares/checkOrganizationSubscriptionSessionMiddleware.js"
 import { requireOrganizationMiddleware } from "../../../../../../../../middlewares/requireOrganizationMiddleware.js"
 import { validateBodyMiddleware } from "../../../../../../../../middlewares/validateBody.middleware.js"
 import { Exception } from "../../../../../../../../utilities/exception.js"
@@ -11,6 +10,7 @@ import { insertOne } from "../../../../../../../../utilities/sql/insertOne.js"
 import { selectOne } from "../../../../../../../../utilities/sql/selectOne.js"
 import { updateOne } from "../../../../../../../../utilities/sql/updateOne.js"
 import { getObject } from "../../../../../../../../utilities/storage/getObject.js"
+import { getOrganizationS3Client } from "../../../../../../../../utilities/storage/getOrganizationS3Client.js"
 import { putObject } from "../../../../../../../../utilities/storage/putObject.js"
 
 function fixCommonMojibake(text: string) {
@@ -34,18 +34,6 @@ export const ocrFileRoute = registerRoute(ocrFileRouteDefinition, async (c) => {
         context: c,
         schema: ocrFileRouteDefinition.schemas.body,
     })
-    await checkOrganizationSubscriptionSessionMiddleware({
-        context: c,
-        idOrganization,
-        checkType: "ocrPages",
-    })
-
-    const organization = await selectOne({
-        database: c.var.clients.sql,
-        table: models.organization,
-        where: (table) => eq(table.id, idOrganization),
-    })
-
     const sourceFile = await selectOne({
         database: c.var.clients.sql,
         table: models.file,
@@ -60,8 +48,22 @@ export const ocrFileRoute = registerRoute(ocrFileRouteDefinition, async (c) => {
         })
     }
 
+    const organization = await selectOne({
+        database: c.var.clients.sql,
+        table: models.organization,
+        where: (table) => eq(table.id, idOrganization),
+    })
+
+    const s3Client =
+        organization.storageEndpoint && organization.storageAccessKey && organization.storageSecretKey
+            ? getOrganizationS3Client(organization)
+            : undefined
+    const bucketName = organization.storageBucketName ?? undefined
+
     const storageResponse = await getObject({
         var: c.var,
+        s3Client,
+        bucketName,
         storageKey: sourceFile.storageKey,
     })
 
@@ -144,14 +146,6 @@ export const ocrFileRoute = registerRoute(ocrFileRouteDefinition, async (c) => {
         })
     }
 
-    if (extractedPagesCount > organization.ocrPagesTotalAvailable) {
-        throw new Exception({
-            statusCode: 429,
-            internalMessage: "OCR balance exhausted",
-            externalMessage: "Le solde de pages OCR de votre organisation est insuffisant",
-        })
-    }
-
     const markdownContent = ocrResult.pages?.map((p) => p.markdown).join("\n\n---\n\n")
     if (!markdownContent) {
         throw new Exception({
@@ -189,6 +183,8 @@ export const ocrFileRoute = registerRoute(ocrFileRouteDefinition, async (c) => {
 
     await putObject({
         var: c.var,
+        s3Client,
+        bucketName,
         storageKey: storageKey,
         contentLength: markdownBuffer.length,
         contentType: "text/markdown; charset=utf-8",
@@ -204,8 +200,6 @@ export const ocrFileRoute = registerRoute(ocrFileRouteDefinition, async (c) => {
         table: models.organization,
         data: {
             storageCurrentUsage: sql`${models.organization.storageCurrentUsage} + ${markdownBuffer.length}`,
-            ocrPagesTotalAvailable: organization.ocrPagesTotalAvailable - extractedPagesCount,
-            ocrPagesTotalUsed: organization.ocrPagesTotalUsed + extractedPagesCount,
         },
         where: (table) => eq(table.id, idOrganization),
     })

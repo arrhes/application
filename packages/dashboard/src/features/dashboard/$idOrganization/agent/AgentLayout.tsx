@@ -1,15 +1,10 @@
-import {
-    readAllAgentSessionsRouteDefinition,
-    readOrganizationBillingRouteDefinition,
-} from "@arrhes/application-metadata/routes"
+import { readAllAgentSessionsRouteDefinition } from "@arrhes/application-metadata/routes"
 import { Button, ButtonGhostContent, ButtonOutlineContent, formatDateTime, LinkButton } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconMenu, IconMessage, IconPlus } from "@tabler/icons-react"
 import { Outlet, useNavigate, useParams } from "@tanstack/react-router"
 import { useState } from "react"
-import { Banner } from "../../../../components/layouts/Banner.tsx"
 import { EmptyState } from "../../../../components/layouts/EmptyState.tsx"
-import { Page } from "../../../../components/layouts/page/page.tsx"
 import { SearchBar } from "../../../../components/layouts/SearchBar.tsx"
 
 import { useDataFromAPI } from "../../../../utilities/useHTTPData.ts"
@@ -27,12 +22,6 @@ export function AgentLayout() {
     const navigate = useNavigate()
     const [search, setSearch] = useState("")
 
-    const subscription = useDataFromAPI({
-        routeDefinition: readOrganizationBillingRouteDefinition,
-        body: {},
-    })
-
-    const tokensTotalAvailable = subscription.data?.tokensTotalAvailable ?? 0
     const currentSessionId = activeSessionId ?? params.idAgentSession
     const searchTrimmed = search.trim()
 
@@ -201,27 +190,6 @@ export function AgentLayout() {
         </div>
     )
 
-    if (subscription.isPending) {
-        return (
-            <Page.Root>
-                <Page.Content>
-                    <div
-                        className={css({
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            padding: "4rem",
-                            color: "neutral/30",
-                            fontSize: "sm",
-                        })}
-                    >
-                        Chargement...
-                    </div>
-                </Page.Content>
-            </Page.Root>
-        )
-    }
-
     return (
         <div
             className={css({
@@ -282,21 +250,6 @@ export function AgentLayout() {
                             {sidebarContent}
                         </div>
                     )}
-                </div>
-                <div
-                    className={css({
-                        padding: "1rem",
-                        paddingBottom: "0",
-                    })}
-                >
-                    <Banner
-                        variant={tokensTotalAvailable > 0 ? "information" : "warning"}
-                        title="Assistant IA"
-                    >
-                        {tokensTotalAvailable > 0
-                            ? `Tokens disponibles: ${tokensTotalAvailable.toLocaleString("fr-FR")}`
-                            : "Aucun token disponible. Rechargez votre organisation pour continuer."}
-                    </Banner>
                 </div>
                 <div
                     className={css({

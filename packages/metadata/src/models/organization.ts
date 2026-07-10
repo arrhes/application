@@ -1,11 +1,8 @@
 import { relations } from "drizzle-orm"
-import { type AnyPgColumn, bigint, boolean, integer, pgTable, text, varchar } from "drizzle-orm/pg-core"
+import { type AnyPgColumn, bigint, boolean, pgTable, text, varchar } from "drizzle-orm/pg-core"
 import { organizationScope } from "../components/index.js"
 import { dateTimeColumn } from "../components/models/dateTimeColumn.js"
 import { idColumn } from "../components/models/idColumn.js"
-import { invoiceModel } from "./invoice.js"
-import { organizationBillingModel } from "./organizationBilling.js"
-import { organizationPaymentModel } from "./organizationPayment.js"
 import { organizationUserModel } from "./organizationUser.js"
 import { userModel } from "./user.js"
 
@@ -19,15 +16,6 @@ export const organizationModel = pgTable("table_organization", {
     name: varchar("name", {
         length: 256,
     }).notNull(),
-    siren: text("siren"),
-    email: text("email"),
-    mollieCustomerId: text("mollie_customer_id"),
-    licenceAmount: integer("licence_amount").notNull().default(0),
-    licenceAmountPending: integer("licence_amount_pending"),
-    storageLimitPending: bigint("storage_limit_pending", {
-        mode: "number",
-    }),
-    walletBalanceInCents: integer("wallet_balance_in_cents").notNull().default(0),
     storageLimit: bigint("storage_limit", {
         mode: "number",
     })
@@ -38,10 +26,13 @@ export const organizationModel = pgTable("table_organization", {
     })
         .notNull()
         .default(0),
-    ocrPagesTotalAvailable: integer("ocr_pages_total_available").notNull().default(100),
-    ocrPagesTotalUsed: integer("ocr_pages_total_used").notNull().default(0),
-    tokensTotalAvailable: integer("tokens_total_available").notNull().default(1_000_000),
-    tokensTotalUsed: integer("tokens_total_used").notNull().default(0),
+    storageEndpoint: text("storage_endpoint"),
+    storageAccessKey: text("storage_access_key"),
+    storageSecretKey: text("storage_secret_key"),
+    storageBucketName: text("storage_bucket_name"),
+    storageRegion: varchar("storage_region", {
+        length: 64,
+    }),
     createdAt: dateTimeColumn("created_at").notNull(),
     lastUpdatedAt: dateTimeColumn("last_updated_at"),
     createdBy: idColumn("created_by").references((): AnyPgColumn => userModel.id, {
@@ -57,7 +48,4 @@ export const organizationModel = pgTable("table_organization", {
 // Relations
 export const organizationRelations = relations(organizationModel, ({ many }) => ({
     organizationUsers: many(organizationUserModel),
-    organizationPayments: many(organizationPaymentModel),
-    organizationSubscriptions: many(organizationBillingModel),
-    invoices: many(invoiceModel),
 }))

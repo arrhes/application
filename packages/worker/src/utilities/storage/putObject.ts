@@ -1,9 +1,11 @@
-import { PutObjectCommand } from "@aws-sdk/client-s3"
+import { PutObjectCommand, type S3 } from "@aws-sdk/client-s3"
 import { ContextClients } from "#src/clients/contextClients.js"
 import { ContextEnv } from "#src/utilities/contextEnv.js"
 import { Exception } from "#src/utilities/exception.js"
 
 export async function putObject(parameters: {
+    s3Client?: S3
+    bucketName?: string
     storageKey: string
     contentLength: number | undefined
     contentType: string | undefined
@@ -11,9 +13,12 @@ export async function putObject(parameters: {
     body: PutObjectCommand["input"]["Body"] | undefined
 }) {
     try {
+        const client = parameters.s3Client ?? ContextClients.storage
+        const bucket = parameters.bucketName ?? ContextEnv.STORAGE_NAME
+
         const command = new PutObjectCommand({
             ACL: "private",
-            Bucket: ContextEnv.STORAGE_NAME,
+            Bucket: bucket,
             Key: parameters.storageKey,
             ContentLength: parameters.contentLength,
             ContentType: parameters.contentType,
@@ -21,7 +26,7 @@ export async function putObject(parameters: {
             Body: parameters.body,
         })
 
-        const response = await ContextClients.storage.send(command, {
+        const response = await client.send(command, {
             abortSignal: undefined,
             requestTimeout: undefined,
         })

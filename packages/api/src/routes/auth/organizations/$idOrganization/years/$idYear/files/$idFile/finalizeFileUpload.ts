@@ -6,7 +6,9 @@ import { requireOrganizationMiddleware } from "../../../../../../../../middlewar
 import { validateBodyMiddleware } from "../../../../../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../../../../../utilities/apiFactory.js"
 import { response } from "../../../../../../../../utilities/response.js"
+import { selectOne } from "../../../../../../../../utilities/sql/selectOne.js"
 import { updateOne } from "../../../../../../../../utilities/sql/updateOne.js"
+import { getOrganizationS3Client } from "../../../../../../../../utilities/storage/getOrganizationS3Client.js"
 
 export const finalizeFileUploadRoute = apiFactory
     .createApp()
@@ -22,10 +24,23 @@ export const finalizeFileUploadRoute = apiFactory
             schema: finalizeFileUploadRouteDefinition.schemas.body,
         })
 
+        const organization = await selectOne({
+            database: c.var.clients.sql,
+            table: models.organization,
+            where: (table) => eq(table.id, idOrganization),
+        })
+
+        const s3Client =
+            organization.storageEndpoint && organization.storageAccessKey && organization.storageSecretKey
+                ? getOrganizationS3Client(organization)
+                : undefined
+        const bucketName = organization.storageBucketName ?? c.var.env.STORAGE_BUCKET_NAME
+        const storageClient = s3Client ?? c.var.clients.storage
+
         const storageKey = `organizations/${idOrganization}/storage/${body.idFile}`
-        const storageHead = await c.var.clients.storage.send(
+        const storageHead = await storageClient.send(
             new HeadObjectCommand({
-                Bucket: c.var.env.STORAGE_BUCKET_NAME,
+                Bucket: bucketName,
                 Key: storageKey,
             }),
         )

@@ -1,6 +1,5 @@
 import { createOneAgentSessionRouteDefinition, generateId, models } from "@arrhes/application-metadata"
 import { checkAuthMiddleware } from "../../../../middlewares/checkAuthMiddleware.js"
-import { checkOrganizationSubscriptionSessionMiddleware } from "../../../../middlewares/checkOrganizationSubscriptionSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
 import { response } from "../../../../utilities/response.js"
@@ -16,12 +15,6 @@ export const createOneAgentSessionRoute = apiFactory
         const body = await validateBodyMiddleware({
             context: c,
             schema: createOneAgentSessionRouteDefinition.schemas.body,
-        })
-
-        await checkOrganizationSubscriptionSessionMiddleware({
-            context: c,
-            idOrganization: body.idOrganization,
-            checkType: "tokens",
         })
 
         const newSession = await insertOne({

@@ -8,6 +8,7 @@ import { Exception } from "../../../../../../../../utilities/exception.js"
 import { response } from "../../../../../../../../utilities/response.js"
 import { selectOne } from "../../../../../../../../utilities/sql/selectOne.js"
 import { generateGetSignedUrl } from "../../../../../../../../utilities/storage/generateGetSignedUrl.js"
+import { getOrganizationS3Client } from "../../../../../../../../utilities/storage/getOrganizationS3Client.js"
 
 export const generateFileGetSignedUrlRoute = apiFactory
     .createApp()
@@ -37,8 +38,22 @@ export const generateFileGetSignedUrlRoute = apiFactory
             })
         }
 
+        const organization = await selectOne({
+            database: c.var.clients.sql,
+            table: models.organization,
+            where: (table) => eq(table.id, idOrganization),
+        })
+
+        const s3Client =
+            organization.storageEndpoint && organization.storageAccessKey && organization.storageSecretKey
+                ? getOrganizationS3Client(organization)
+                : undefined
+        const bucketName = organization.storageBucketName ?? undefined
+
         const url = await generateGetSignedUrl({
             var: c.var,
+            s3Client,
+            bucketName,
             storageKey: readOneFile.storageKey,
         })
 

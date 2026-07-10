@@ -2,13 +2,6 @@ import { createElement } from "react"
 import { AgentTabContent } from "../../features/dashboard/$idOrganization/agent/AgentTabContent.js"
 import { OrganizationTabContent } from "../../features/dashboard/$idOrganization/OrganizationTabContent.js"
 import { OrganizationApiTabContent } from "../../features/dashboard/$idOrganization/organizationApi/OrganizationApiTabContent.js"
-import { OrganizationBillingTabContent } from "../../features/dashboard/$idOrganization/organizationBilling/OrganizationBillingTabContent.js"
-import { UpdateLicencePage } from "../../features/dashboard/$idOrganization/organizationBilling/UpdateLicencePage.js"
-import { UpdateOcrPage } from "../../features/dashboard/$idOrganization/organizationBilling/UpdateOcrPage.js"
-import { UpdateStoragePage } from "../../features/dashboard/$idOrganization/organizationBilling/UpdateStoragePage.js"
-import { UpdateTokensPage } from "../../features/dashboard/$idOrganization/organizationBilling/UpdateTokensPage.js"
-import { WalletTopUpPage } from "../../features/dashboard/$idOrganization/organizationBilling/wallet/WalletTopUpPage.js"
-import { WalletWithdrawalPage } from "../../features/dashboard/$idOrganization/organizationBilling/wallet/WalletWithdrawalPage.js"
 import { OrganizationSettingsTabContent } from "../../features/dashboard/$idOrganization/organizationSettings/OrganizationSettingsTabContent.js"
 import { OrganizationUsersPage } from "../../features/dashboard/$idOrganization/organizationUsers/OrganizationUsersPage.js"
 import { YearsPage } from "../../features/dashboard/$idOrganization/years/YearsPage.js"
@@ -21,10 +14,10 @@ import { YearSettingsTabContent } from "../../features/dashboard/$idYear/yearSet
 import { AdminTicketTabContent } from "../../features/dashboard/admin/tickets/$idTicket/AdminTicketTabContent.js"
 import { TicketsPage } from "../../features/dashboard/admin/tickets/TicketsPage.js"
 import { OrganizationsPage } from "../../features/dashboard/organizations/OrganizationsPage.js"
-import { UserProfilePage } from "../../features/dashboard/profile/UserProfilePage.js"
 import { SettingsPage } from "../../features/dashboard/settings/SettingsPage.js"
 import { TicketTabContent } from "../../features/dashboard/support/$idTicket/TicketTabContent.js"
 import { SupportPage } from "../../features/dashboard/support/SupportPage.js"
+import { UserSettingsTabContent } from "../../features/dashboard/userSettings/UserSettingsTabContent.js"
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -50,7 +43,7 @@ export const TAB_REGISTRY = {
         id: "profil",
         title: "Profil",
         description: "Votre profil utilisateur",
-        component: createElement(UserProfilePage),
+        component: createElement(UserSettingsTabContent),
     }),
 
     support: (_props: Record<never, never>): TabDefinition => ({
@@ -119,15 +112,6 @@ export const TAB_REGISTRY = {
         component: createElement(FilesPage),
     }),
 
-    "organisation-facturation": (props: { idOrganization: string }): TabDefinition => ({
-        id: `organisation-facturation-${props.idOrganization}`,
-        title: "Facturation",
-        description: "Abonnements et factures",
-        component: createElement(OrganizationBillingTabContent, {
-            idOrganization: props.idOrganization,
-        }),
-    }),
-
     "organisation-paramètres": (props: { idOrganization: string }): TabDefinition => ({
         id: `organisation-paramètres-${props.idOrganization}`,
         title: "Paramètres de l'organisation",
@@ -182,62 +166,6 @@ export const TAB_REGISTRY = {
         component: createElement(YearSettingsTabContent, {
             idOrganization: props.idOrganization,
             idYear: props.idYear,
-        }),
-    }),
-
-    // ─── Billing form tabs ─────────────────────────────────────────────────
-
-    "facturation-licence": (props: { idOrganization: string }): TabDefinition => ({
-        id: `facturation-licence-${props.idOrganization}`,
-        title: "Modifier la licence",
-        description: "Modifier le montant de la licence mensuelle",
-        component: createElement(UpdateLicencePage, {
-            idOrganization: props.idOrganization,
-        }),
-    }),
-
-    "facturation-stockage": (props: { idOrganization: string }): TabDefinition => ({
-        id: `facturation-stockage-${props.idOrganization}`,
-        title: "Modifier le stockage",
-        description: "Ajuster la capacité de stockage",
-        component: createElement(UpdateStoragePage, {
-            idOrganization: props.idOrganization,
-        }),
-    }),
-
-    "facturation-tokens": (props: { idOrganization: string }): TabDefinition => ({
-        id: `facturation-tokens-${props.idOrganization}`,
-        title: "Modifier les tokens IA",
-        description: "Acheter des tokens pour l'assistant IA",
-        component: createElement(UpdateTokensPage, {
-            idOrganization: props.idOrganization,
-        }),
-    }),
-
-    "facturation-ocr": (props: { idOrganization: string }): TabDefinition => ({
-        id: `facturation-ocr-${props.idOrganization}`,
-        title: "Ajouter des pages OCR",
-        description: "Acheter des pages OCR supplémentaires",
-        component: createElement(UpdateOcrPage, {
-            idOrganization: props.idOrganization,
-        }),
-    }),
-
-    "facturation-recharge": (props: { idOrganization: string }): TabDefinition => ({
-        id: `facturation-recharge-${props.idOrganization}`,
-        title: "Recharger le portefeuille",
-        description: "Ajouter des fonds au portefeuille",
-        component: createElement(WalletTopUpPage, {
-            idOrganization: props.idOrganization,
-        }),
-    }),
-
-    "facturation-retrait": (props: { idOrganization: string }): TabDefinition => ({
-        id: `facturation-retrait-${props.idOrganization}`,
-        title: "Retirer du portefeuille",
-        description: "Retirer des fonds du portefeuille",
-        component: createElement(WalletWithdrawalPage, {
-            idOrganization: props.idOrganization,
         }),
     }),
 

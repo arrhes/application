@@ -141,49 +141,6 @@ export function AddNewOrganization(props: {
                                             </FormItem>
                                         )}
                                     />
-                                    <FormField
-                                        control={form.control}
-                                        name="siren"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel
-                                                    label="SIREN"
-                                                    isRequired={false}
-                                                    description={undefined}
-                                                    tooltip={undefined}
-                                                />
-                                                <FormControl>
-                                                    <InputText
-                                                        value={field.value}
-                                                        onChange={field.onChange}
-                                                    />
-                                                </FormControl>
-                                                <FormError />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <FormField
-                                        control={form.control}
-                                        name="email"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel
-                                                    label="Email"
-                                                    isRequired={false}
-                                                    description={undefined}
-                                                    tooltip={undefined}
-                                                />
-                                                <FormControl>
-                                                    <InputText
-                                                        value={field.value}
-                                                        onChange={field.onChange}
-                                                        type="email"
-                                                    />
-                                                </FormControl>
-                                                <FormError />
-                                            </FormItem>
-                                        )}
-                                    />
                                 </Fragment>
                             )}
                         </FormRoot>

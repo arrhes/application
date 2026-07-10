@@ -1,8 +1,4 @@
-import {
-    ocrFileRouteDefinition,
-    readAllFilesRouteDefinition,
-    readOrganizationBillingRouteDefinition,
-} from "@arrhes/application-metadata/routes"
+import { ocrFileRouteDefinition, readAllFilesRouteDefinition } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import {
     Button,
@@ -22,7 +18,6 @@ import { Popover } from "../../../../components/overlays/popover/popover.js"
 import { useTabs } from "../../../../contexts/tabs/useTabs.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
-import { useDataFromAPI } from "../../../../utilities/useHTTPData.ts"
 import { UpdateOneFileForm } from "./$idFile/UpdateOneFileForm.js"
 import { deleteFileWithSignedUrl } from "./deleteFileWithSignedUrl.js"
 import { MoveOneFileForm } from "./MoveOneFileForm.js"
@@ -32,14 +27,8 @@ export function FileActions(props: { file: v.InferOutput<typeof returnedSchemas.
     const deleteModalId = useId()
     const { open: openModal, close: closeModal } = useModalStore()
     const [ocrLoading, setOcrLoading] = useState(false)
-    const [ocrTooltipOpen, setOcrTooltipOpen] = useState(false)
     const { openPanelTab, closeTab, openTab } = useTabs()
 
-    const subscription = useDataFromAPI({
-        routeDefinition: readOrganizationBillingRouteDefinition,
-        body: {},
-    })
-    const hasOcrAvailable = (subscription.data?.ocrPagesTotalAvailable ?? 0) > 0
     const isOcrSupportedType = props.file.type === "application/pdf" || (props.file.type?.startsWith("image/") ?? false)
 
     async function handleDelete() {
@@ -205,62 +194,24 @@ export function FileActions(props: { file: v.InferOutput<typeof returnedSchemas.
                     </Button>
                 </Popover.Close>
                 {props.file.storageKey && isOcrSupportedType && (
-                    <div
-                        className={css({
-                            position: "relative",
-                        })}
-                        onPointerEnter={() => {
-                            if (!hasOcrAvailable) {
-                                setOcrTooltipOpen(true)
-                            }
-                        }}
-                        onPointerLeave={() => setOcrTooltipOpen(false)}
-                    >
-                        <Popover.Close asChild>
-                            <Button
+                    <Popover.Close asChild>
+                        <Button
+                            className={{
+                                width: "100%",
+                            }}
+                            onClick={!ocrLoading ? handleOcr : undefined}
+                            isDisabled={ocrLoading}
+                        >
+                            <ButtonGhostContent
+                                leftIcon={<IconFileText />}
+                                text={ocrLoading ? "Extraction..." : "Extraire le texte (OCR)"}
                                 className={{
                                     width: "100%",
+                                    justifyContent: "start",
                                 }}
-                                onClick={hasOcrAvailable && !ocrLoading ? handleOcr : undefined}
-                                isDisabled={!hasOcrAvailable || ocrLoading}
-                            >
-                                <ButtonGhostContent
-                                    leftIcon={<IconFileText />}
-                                    text={ocrLoading ? "Extraction..." : "Extraire le texte (OCR)"}
-                                    isDisabled={!hasOcrAvailable}
-                                    className={{
-                                        width: "100%",
-                                        justifyContent: "start",
-                                        ...(!hasOcrAvailable && {
-                                            textDecoration: "line-through",
-                                        }),
-                                    }}
-                                />
-                            </Button>
-                        </Popover.Close>
-                        {!hasOcrAvailable && ocrTooltipOpen && (
-                            <div
-                                className={css({
-                                    position: "absolute",
-                                    bottom: "calc(100% + 0.5rem)",
-                                    left: "50%",
-                                    transform: "translateX(-50%)",
-                                    zIndex: "50",
-                                    backgroundColor: "neutral",
-                                    color: "white",
-                                    borderRadius: "md",
-                                    paddingX: "0.5rem",
-                                    paddingY: "0.375rem",
-                                    fontSize: "xs",
-                                    whiteSpace: "nowrap",
-                                    pointerEvents: "none",
-                                    boxShadow: "md",
-                                })}
-                            >
-                                Aucune page OCR disponible
-                            </div>
-                        )}
-                    </div>
+                            />
+                        </Button>
+                    </Popover.Close>
                 )}
                 <Separator />
                 <Popover.Close asChild>

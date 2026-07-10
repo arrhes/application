@@ -11,11 +11,8 @@ import * as entryTagModel from "./entryTag.js"
 import * as fileModel from "./file.js"
 import * as folderModel from "./folder.js"
 import * as incomeStatementModel from "./incomeStatement.js"
-import * as invoiceModel from "./invoice.js"
 import * as journalModel from "./journal.js"
 import * as organizationModel from "./organization.js"
-import * as organizationBillingModel from "./organizationBilling.js"
-import * as organizationPaymentModel from "./organizationPayment.js"
 import * as organizationUserModel from "./organizationUser.js"
 import * as tagModel from "./tag.js"
 import * as ticketModel from "./ticket.js"
@@ -38,11 +35,8 @@ export const models = {
     entryLine: entryLineModel.entryLineModel,
     entryTag: entryTagModel.entryTagModel,
     incomeStatement: incomeStatementModel.incomeStatementModel,
-    invoice: invoiceModel.invoiceModel,
     journal: journalModel.journalModel,
     organization: organizationModel.organizationModel,
-    organizationPayment: organizationPaymentModel.organizationPaymentModel,
-    organizationBilling: organizationBillingModel.organizationBillingModel,
     organizationUser: organizationUserModel.organizationUserModel,
     tag: tagModel.tagModel,
     ticket: ticketModel.ticketModel,
@@ -66,11 +60,8 @@ export const modelSchemas = {
     ...entryLineModel,
     ...entryTagModel,
     ...incomeStatementModel,
-    ...invoiceModel,
     ...journalModel,
     ...organizationModel,
-    ...organizationPaymentModel,
-    ...organizationBillingModel,
     ...organizationUserModel,
     ...tagModel,
     ...ticketModel,

@@ -1,4 +1,5 @@
 import { generateId, models } from "@arrhes/application-metadata"
+import { S3 } from "@aws-sdk/client-s3"
 import { chat, convertMessagesToModelMessages, maxIterations, toolDefinition } from "@tanstack/ai"
 import { and, asc, eq, sql } from "drizzle-orm"
 import { ContextClients } from "#src/clients/contextClients.js"
@@ -371,9 +372,50 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
     if (!session) throw new Error(`Agent session not found: ${agentMessage.idAgentSession}`)
 
     const { idOrganization, idYear, customInstructions } = session
+
+    // Load user LLM credentials
+    const userRows = await db
+        .select({
+            llmProvider: models.user.llmProvider,
+            llmApiKey: models.user.llmApiKey,
+            llmBaseUrl: models.user.llmBaseUrl,
+            llmModel: models.user.llmModel,
+        })
+        .from(models.user)
+        .where(eq(models.user.id, session.idUser))
+        .limit(1)
+    const userCredentials = userRows.at(0)
+
     console.log("[runAgentSession] Session loaded", {
         idOrganization,
     })
+
+    // Load organization storage credentials (BYOK)
+    const orgRows = await db
+        .select({
+            storageEndpoint: models.organization.storageEndpoint,
+            storageAccessKey: models.organization.storageAccessKey,
+            storageSecretKey: models.organization.storageSecretKey,
+            storageBucketName: models.organization.storageBucketName,
+            storageRegion: models.organization.storageRegion,
+        })
+        .from(models.organization)
+        .where(eq(models.organization.id, idOrganization))
+        .limit(1)
+    const orgCredentials = orgRows.at(0)
+    const orgS3Client =
+        orgCredentials?.storageEndpoint && orgCredentials?.storageAccessKey && orgCredentials?.storageSecretKey
+            ? new S3({
+                  endpoint: orgCredentials.storageEndpoint,
+                  credentials: {
+                      accessKeyId: orgCredentials.storageAccessKey,
+                      secretAccessKey: orgCredentials.storageSecretKey,
+                  },
+                  region: orgCredentials.storageRegion ?? "fr-par",
+                  forcePathStyle: true,
+              })
+            : undefined
+    const orgBucketName = orgCredentials?.storageBucketName ?? undefined
 
     // Load conversation history (all completed messages before this one, ordered ASC)
     const historyRows = await db
@@ -592,8 +634,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
         try {
             const organizationRows = await db
                 .select({
-                    ocrPagesTotalAvailable: models.organization.ocrPagesTotalAvailable,
-                    ocrPagesTotalUsed: models.organization.ocrPagesTotalUsed,
+                    id: models.organization.id,
                 })
                 .from(models.organization)
                 .where(eq(models.organization.id, idOrganization))
@@ -620,6 +661,8 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                 }
 
             const storageResponse = await getObject({
+                s3Client: orgS3Client,
+                bucketName: orgBucketName,
                 storageKey: sourceFile.storageKey,
             })
             const fileBytes = await storageResponse.Body?.transformToByteArray()
@@ -687,12 +730,6 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                 }
             }
 
-            if (extractedPagesCount > organization.ocrPagesTotalAvailable) {
-                return {
-                    error: "Limite mensuelle de pages OCR atteinte pour votre organisation.",
-                }
-            }
-
             const markdownContent = ocrResult.pages?.map((p) => p.markdown).join("\n\n---\n\n")
             if (!markdownContent)
                 return {
@@ -723,6 +760,8 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                 .returning()
 
             await putObject({
+                s3Client: orgS3Client,
+                bucketName: orgBucketName,
                 storageKey: storageKey,
                 contentLength: markdownBuffer.length,
                 contentType: "text/markdown; charset=utf-8",
@@ -736,9 +775,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
             await db.execute(sql`
                 UPDATE table_organization
                 SET
-                    storage_current_usage = storage_current_usage + ${markdownBuffer.length},
-                    ocr_pages_total_available = GREATEST(ocr_pages_total_available - ${extractedPagesCount}, 0),
-                    ocr_pages_total_used = ocr_pages_total_used + ${extractedPagesCount},
+                    storage_current_usage = storage_current_usage + ${markdownBuffer.length}
                 WHERE id = ${idOrganization}
             `)
 
@@ -809,6 +846,8 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
 
             try {
                 const storageResponse = await getObject({
+                    s3Client: orgS3Client,
+                    bucketName: orgBucketName,
                     storageKey: file.storageKey,
                 })
                 const body = await storageResponse.Body?.transformToString("utf-8")
@@ -867,7 +906,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
         fileContext,
     })
 
-    const adapter = getAdapter()
+    const adapter = getAdapter(userCredentials)
     console.log("[runAgentSession] Calling convertMessagesToModelMessages")
     const modelMessages = convertMessagesToModelMessages(uiMessages as any)
     console.log(`[runAgentSession] modelMessages count: ${modelMessages.length}, tools count: ${tools.length}`)
@@ -1055,7 +1094,7 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
 
             // Update session lastUpdatedAt and increment token counters
             if (capturedInputTokens > 0 || capturedOutputTokens > 0) {
-                const capturedTotalTokens = capturedInputTokens + capturedOutputTokens
+                const _capturedTotalTokens = capturedInputTokens + capturedOutputTokens
                 await db
                     .update(models.agentSession)
                     .set({
@@ -1064,26 +1103,6 @@ export async function runAgentSession(args: RunAgentSessionJobArgs): Promise<voi
                         totalOutputTokens: sql`${models.agentSession.totalOutputTokens} + ${capturedOutputTokens}`,
                     })
                     .where(eq(models.agentSession.id, agentMessage.idAgentSession))
-
-                // Increment organization-level monthly token usage
-                const orgRows = await db
-                    .select({
-                        tokensTotalAvailable: models.organization.tokensTotalAvailable,
-                        tokensTotalUsed: models.organization.tokensTotalUsed,
-                    })
-                    .from(models.organization)
-                    .where(eq(models.organization.id, idOrganization))
-                    .limit(1)
-                const org = orgRows.at(0)
-                if (org) {
-                    await db
-                        .update(models.organization)
-                        .set({
-                            tokensTotalAvailable: Math.max(org.tokensTotalAvailable - capturedTotalTokens, 0),
-                            tokensTotalUsed: org.tokensTotalUsed + capturedTotalTokens,
-                        })
-                        .where(eq(models.organization.id, idOrganization))
-                }
             } else {
                 await db
                     .update(models.agentSession)

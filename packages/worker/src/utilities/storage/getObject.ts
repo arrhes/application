@@ -1,9 +1,13 @@
-import { GetObjectCommand } from "@aws-sdk/client-s3"
+import { GetObjectCommand, type S3 } from "@aws-sdk/client-s3"
 import { ContextClients } from "#src/clients/contextClients.js"
 import { ContextEnv } from "#src/utilities/contextEnv.js"
 import { Exception } from "#src/utilities/exception.js"
 
-export async function getObject(parameters: { storageKey: string | null | undefined }) {
+export async function getObject(parameters: {
+    s3Client?: S3
+    bucketName?: string
+    storageKey: string | null | undefined
+}) {
     try {
         if (parameters.storageKey === null || parameters.storageKey === undefined) {
             throw new Exception({
@@ -11,12 +15,15 @@ export async function getObject(parameters: { storageKey: string | null | undefi
             })
         }
 
+        const client = parameters.s3Client ?? ContextClients.storage
+        const bucket = parameters.bucketName ?? ContextEnv.STORAGE_NAME
+
         const command = new GetObjectCommand({
-            Bucket: ContextEnv.STORAGE_NAME,
+            Bucket: bucket,
             Key: parameters.storageKey,
         })
 
-        const response = await ContextClients.storage.send(command, {
+        const response = await client.send(command, {
             abortSignal: undefined,
             requestTimeout: undefined,
         })

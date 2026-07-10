@@ -1,16 +1,19 @@
-import { DeleteObjectCommand } from "@aws-sdk/client-s3"
+import { DeleteObjectCommand, type S3 } from "@aws-sdk/client-s3"
 import { ContextClients } from "#src/clients/contextClients.js"
 import { ContextEnv } from "#src/utilities/contextEnv.js"
 import { Exception } from "#src/utilities/exception.js"
 
-export async function deleteObject(parameters: { storageKey: string }) {
+export async function deleteObject(parameters: { s3Client?: S3; bucketName?: string; storageKey: string }) {
     try {
+        const client = parameters.s3Client ?? ContextClients.storage
+        const bucket = parameters.bucketName ?? ContextEnv.STORAGE_NAME
+
         const command = new DeleteObjectCommand({
-            Bucket: ContextEnv.STORAGE_NAME,
+            Bucket: bucket,
             Key: parameters.storageKey,
         })
 
-        const response = await ContextClients.storage.send(command, {
+        const response = await client.send(command, {
             abortSignal: undefined,
             requestTimeout: undefined,
         })

@@ -1,7 +1,6 @@
 import { models, updateOneAgentSessionRouteDefinition } from "@arrhes/application-metadata"
 import { and, eq, inArray } from "drizzle-orm"
 import { checkAuthMiddleware } from "../../../../middlewares/checkAuthMiddleware.js"
-import { checkOrganizationSubscriptionSessionMiddleware } from "../../../../middlewares/checkOrganizationSubscriptionSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
 import { Exception } from "../../../../utilities/exception.js"
@@ -43,12 +42,6 @@ export const updateOneAgentSessionRoute = apiFactory
             if (body.fileIds === null || body.fileIds.length === 0) {
                 data.attachedFiles = null
             } else {
-                await checkOrganizationSubscriptionSessionMiddleware({
-                    context: c,
-                    idOrganization: session.idOrganization,
-                    checkType: "tokens",
-                })
-
                 const files = await c.var.clients.sql
                     .select()
                     .from(models.file)

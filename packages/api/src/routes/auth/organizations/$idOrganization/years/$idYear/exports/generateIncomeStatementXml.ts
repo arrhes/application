@@ -249,7 +249,7 @@ export const generateIncomeStatementXmlRoute = apiFactory
 
         const xml = buildIncomeStatementXbrl({
             organizationName: organization.name,
-            siren: organization.siren,
+            siren: null,
             startingAt: year.startingAt,
             endingAt: year.endingAt,
             incomeStatements,

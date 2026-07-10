@@ -1,7 +1,6 @@
 import { createOneAgentFileRouteDefinition, generateId, models } from "@arrhes/application-metadata"
 import { and, eq, isNull, sql } from "drizzle-orm"
 import { checkAuthMiddleware } from "../../../../middlewares/checkAuthMiddleware.js"
-import { checkOrganizationSubscriptionSessionMiddleware } from "../../../../middlewares/checkOrganizationSubscriptionSessionMiddleware.js"
 import { requireOrganizationMiddleware } from "../../../../middlewares/requireOrganizationMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
@@ -11,6 +10,7 @@ import { insertOne } from "../../../../utilities/sql/insertOne.js"
 import { selectOne } from "../../../../utilities/sql/selectOne.js"
 import { updateOne } from "../../../../utilities/sql/updateOne.js"
 import { generatePutSignedUrl } from "../../../../utilities/storage/generatePutSignedUrl.js"
+import { getOrganizationS3Client } from "../../../../utilities/storage/getOrganizationS3Client.js"
 
 const MAX_AGENT_FILE_SIZE = 50_000_000
 
@@ -27,12 +27,6 @@ export const createOneAgentFileRoute = apiFactory
             context: c,
             schema: createOneAgentFileRouteDefinition.schemas.body,
         })
-        await checkOrganizationSubscriptionSessionMiddleware({
-            context: c,
-            idOrganization,
-            checkType: "tokens",
-        })
-
         if (body.fileSize > MAX_AGENT_FILE_SIZE) {
             throw new Exception({
                 internalMessage: "File size is too big",
@@ -167,8 +161,16 @@ export const createOneAgentFileRoute = apiFactory
             where: (table) => eq(table.id, idOrganization),
         })
 
+        const s3Client =
+            organization.storageEndpoint && organization.storageAccessKey && organization.storageSecretKey
+                ? getOrganizationS3Client(organization)
+                : undefined
+        const bucketName = organization.storageBucketName ?? undefined
+
         const url = await generatePutSignedUrl({
             var: c.var,
+            s3Client,
+            bucketName,
             storageKey: storageKey,
             contentLength: body.fileSize,
             contentType: body.fileType,

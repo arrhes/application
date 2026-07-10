@@ -1,4 +1,0 @@
-export const organizationPaymentFlow = <const>[
-    "debit",
-    "credit",
-]

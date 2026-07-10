@@ -67,11 +67,6 @@ export const orgSearchRoutes: OrgSearchRoute[] = [
         tabComponent: "organisation-stockage",
     },
     {
-        label: "Facturation",
-        description: "Abonnements et factures",
-        tabComponent: "organisation-facturation",
-    },
-    {
         label: "Paramètres de l'organisation",
         description: "Configuration générale",
         tabComponent: "organisation-paramètres",

@@ -293,7 +293,7 @@ export const generateBalanceSheetXmlRoute = apiFactory
 
         const xml = buildBalanceSheetXbrl({
             organizationName: organization.name,
-            siren: organization.siren,
+            siren: null,
             startingAt: year.startingAt,
             endingAt: year.endingAt,
             accounts,

@@ -1,14 +1,6 @@
 import { Button, ButtonGhostContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import {
-    IconApi,
-    IconCalendar,
-    IconChevronRight,
-    IconCreditCard,
-    IconRobot,
-    IconSettings,
-    IconUsers,
-} from "@tabler/icons-react"
+import { IconApi, IconCalendar, IconChevronRight, IconRobot, IconSettings, IconUsers } from "@tabler/icons-react"
 import type { ReactNode } from "react"
 import { TabLink } from "../../../components/layouts/tabBar/TabLink.js"
 import type { OpenTabArgs } from "../../../contexts/tabs/tabDefinitions.js"
@@ -138,17 +130,6 @@ export function OrganizationTabContent(props: { idOrganization: string }) {
             icon: <IconUsers size={24} />,
             args: {
                 component: "membres",
-                props: {
-                    idOrganization: props.idOrganization,
-                },
-            },
-        },
-        {
-            label: "Facturation",
-            description: "Abonnements, services et paiements",
-            icon: <IconCreditCard size={24} />,
-            args: {
-                component: "organisation-facturation",
                 props: {
                     idOrganization: props.idOrganization,
                 },

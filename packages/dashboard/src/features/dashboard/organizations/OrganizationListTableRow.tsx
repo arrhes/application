@@ -90,16 +90,6 @@ export function OrganizationListTableRow(props: {
                         text={scopeLabel}
                         color="neutral"
                     />
-                    {organization.siren && (
-                        <span
-                            className={css({
-                                fontSize: "xs",
-                                color: "neutral/50",
-                            })}
-                        >
-                            SIREN: {organization.siren}
-                        </span>
-                    )}
                 </div>
             </div>
         </ListTable.Row>

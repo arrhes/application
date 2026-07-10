@@ -1,7 +1,6 @@
 import { createOneAgentMessageRouteDefinition, generateId, models } from "@arrhes/application-metadata"
 import { eq } from "drizzle-orm"
 import { checkAuthMiddleware } from "../../../../middlewares/checkAuthMiddleware.js"
-import { checkOrganizationSubscriptionSessionMiddleware } from "../../../../middlewares/checkOrganizationSubscriptionSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../utilities/apiFactory.js"
 import { Exception } from "../../../../utilities/exception.js"
@@ -39,26 +38,6 @@ export const createOneAgentMessageRoute = apiFactory
                 statusCode: 400,
                 internalMessage: "Organization/session mismatch",
                 externalMessage: "L'organisation demandée ne correspond pas à la session agent",
-            })
-        }
-
-        await checkOrganizationSubscriptionSessionMiddleware({
-            context: c,
-            idOrganization: session.idOrganization,
-            checkType: "tokens",
-        })
-
-        const organization = await selectOne({
-            database: c.var.clients.sql,
-            table: models.organization,
-            where: (table) => eq(table.id, session.idOrganization),
-        })
-
-        if (organization.tokensTotalAvailable <= 0) {
-            throw new Exception({
-                statusCode: 429,
-                internalMessage: "Agent token balance exhausted",
-                externalMessage: "Le solde de tokens de votre organisation est épuisé",
             })
         }
 

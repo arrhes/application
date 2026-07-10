@@ -5,7 +5,6 @@ import { Exception } from "../exception.js"
 import type { getClients } from "../getClients.js"
 import type { getEnv } from "../getEnv.js"
 import { insertOne } from "../sql/insertOne.js"
-import { selectOne } from "../sql/selectOne.js"
 import { updateOne } from "../sql/updateOne.js"
 import { getObject } from "../storage/getObject.js"
 import { putObject } from "../storage/putObject.js"
@@ -67,12 +66,6 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
             externalMessage: "Le format du fichier n'est pas compatible avec l'OCR (image ou PDF uniquement)",
         })
     }
-
-    const organization = await selectOne({
-        database: params.var.clients.sql,
-        table: models.organization,
-        where: (table) => eq(table.id, idOrganization),
-    })
 
     console.log(`[processOcr] Downloading file from S3 (storageKey=${sourceFile.storageKey})`)
     const storageResponse = await getObject({
@@ -150,14 +143,6 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
         })
     }
 
-    if (extractedPagesCount > organization.ocrPagesTotalAvailable) {
-        throw new Exception({
-            statusCode: 429,
-            internalMessage: "OCR balance exhausted",
-            externalMessage: "Le solde de pages OCR de votre organisation est insuffisant",
-        })
-    }
-
     const markdownContent = ocrResult.pages?.map((p) => p.markdown).join("\n\n---\n\n")
     if (!markdownContent) {
         throw new Exception({
@@ -182,16 +167,6 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
         console.log(`[processOcr] OCR file already exists (hash=${ocrHash}), reusing file id=${existingOcrFiles[0].id}`)
 
         // Still update the OCR page usage counter
-        await updateOne({
-            database: params.var.clients.sql,
-            table: models.organization,
-            data: {
-                ocrPagesTotalAvailable: organization.ocrPagesTotalAvailable - extractedPagesCount,
-                ocrPagesTotalUsed: organization.ocrPagesTotalUsed + extractedPagesCount,
-            },
-            where: (table) => eq(table.id, idOrganization),
-        })
-
         return {
             ocrFile: existingOcrFiles[0],
             markdownContent: normalizedMarkdownContent,
@@ -239,8 +214,6 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
         table: models.organization,
         data: {
             storageCurrentUsage: sql`${models.organization.storageCurrentUsage} + ${markdownBuffer.length}`,
-            ocrPagesTotalAvailable: organization.ocrPagesTotalAvailable - extractedPagesCount,
-            ocrPagesTotalUsed: organization.ocrPagesTotalUsed + extractedPagesCount,
         },
         where: (table) => eq(table.id, idOrganization),
     })

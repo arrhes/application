@@ -201,8 +201,7 @@ export const generateFecRoute = apiFactory.createApp().post(generateFecRouteDefi
             ...rows,
         ].join("\n")
 
-    const siren = organization.siren ?? ""
-    const filename = `${siren}FEC${formatFecDate(new Date())}.txt`
+    const filename = `${organization.name}FEC${formatFecDate(new Date())}.txt`
     const fecBuffer = Buffer.from(fecContent, "utf-8")
     const storageKey = `organizations/${idOrganization}/${body.idYear}/exports/fec.txt`
 

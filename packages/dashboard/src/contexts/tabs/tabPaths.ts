@@ -16,8 +16,6 @@ export function entryToPath(definitionKey: string, definitionProps: Record<strin
     const entry = definitionProps.idEntry as string | undefined
     const ticket = definitionProps.idTicket as string | undefined
     const file = definitionProps.idFile as string | undefined
-    const invoice = definitionProps.idInvoice as string | undefined
-
     switch (definitionKey) {
         // ── No-prop tabs ─────────────────────────────────────────────────────
         case "organisations":
@@ -42,8 +40,6 @@ export function entryToPath(definitionKey: string, definitionProps: Record<strin
             return `/organisations/${org}/membres`
         case "organisation-stockage":
             return `/organisations/${org}/stockage`
-        case "organisation-facturation":
-            return `/organisations/${org}/facturation`
         case "organisation-paramètres":
             return `/organisations/${org}/paramètres`
         case "organisation-api":
@@ -58,22 +54,6 @@ export function entryToPath(definitionKey: string, definitionProps: Record<strin
             return `/organisations/${org}/exercices/${year}/stockage`
         case "exercice-paramètres":
             return `/organisations/${org}/exercices/${year}/paramètres`
-
-        // ── Billing form tabs ────────────────────────────────────────────────
-        case "facturation-licence":
-            return `/organisations/${org}/facturation/licence`
-        case "facturation-stockage":
-            return `/organisations/${org}/facturation/stockage`
-        case "facturation-tokens":
-            return `/organisations/${org}/facturation/tokens`
-        case "facturation-ocr":
-            return `/organisations/${org}/facturation/ocr`
-        case "facturation-recharge":
-            return `/organisations/${org}/facturation/recharge`
-        case "facturation-retrait":
-            return `/organisations/${org}/facturation/retrait`
-        case "facturation-facture":
-            return `/organisations/${org}/facturation/facture/${invoice}`
 
         // ── Detail tabs ──────────────────────────────────────────────────────
         case "écriture":
@@ -116,7 +96,7 @@ const PATTERNS: Array<{
             },
         }),
     },
-    // 5 segments - year-level tabs + facturation sub-pages
+    // 5 segments - year-level tabs
     {
         pattern: /^\/organisations\/([^/]+)\/exercices\/([^/]+)\/écritures$/,
         parse: (m) => ({
@@ -154,70 +134,6 @@ const PATTERNS: Array<{
             definitionProps: {
                 idOrganization: m[1],
                 idYear: m[2],
-            },
-        }),
-    },
-    {
-        pattern: /^\/organisations\/([^/]+)\/facturation\/licence$/,
-        parse: (m) => ({
-            definitionKey: "facturation-licence",
-            definitionProps: {
-                idOrganization: m[1],
-            },
-        }),
-    },
-    {
-        pattern: /^\/organisations\/([^/]+)\/facturation\/stockage$/,
-        parse: (m) => ({
-            definitionKey: "facturation-stockage",
-            definitionProps: {
-                idOrganization: m[1],
-            },
-        }),
-    },
-    {
-        pattern: /^\/organisations\/([^/]+)\/facturation\/tokens$/,
-        parse: (m) => ({
-            definitionKey: "facturation-tokens",
-            definitionProps: {
-                idOrganization: m[1],
-            },
-        }),
-    },
-    {
-        pattern: /^\/organisations\/([^/]+)\/facturation\/ocr$/,
-        parse: (m) => ({
-            definitionKey: "facturation-ocr",
-            definitionProps: {
-                idOrganization: m[1],
-            },
-        }),
-    },
-    {
-        pattern: /^\/organisations\/([^/]+)\/facturation\/recharge$/,
-        parse: (m) => ({
-            definitionKey: "facturation-recharge",
-            definitionProps: {
-                idOrganization: m[1],
-            },
-        }),
-    },
-    {
-        pattern: /^\/organisations\/([^/]+)\/facturation\/retrait$/,
-        parse: (m) => ({
-            definitionKey: "facturation-retrait",
-            definitionProps: {
-                idOrganization: m[1],
-            },
-        }),
-    },
-    {
-        pattern: /^\/organisations\/([^/]+)\/facturation\/facture\/([^/]+)$/,
-        parse: (m) => ({
-            definitionKey: "facturation-facture",
-            definitionProps: {
-                idOrganization: m[1],
-                idInvoice: m[2],
             },
         }),
     },
@@ -297,15 +213,6 @@ const PATTERNS: Array<{
         pattern: /^\/organisations\/([^/]+)\/stockage$/,
         parse: (m) => ({
             definitionKey: "organisation-stockage",
-            definitionProps: {
-                idOrganization: m[1],
-            },
-        }),
-    },
-    {
-        pattern: /^\/organisations\/([^/]+)\/facturation$/,
-        parse: (m) => ({
-            definitionKey: "organisation-facturation",
             definitionProps: {
                 idOrganization: m[1],
             },

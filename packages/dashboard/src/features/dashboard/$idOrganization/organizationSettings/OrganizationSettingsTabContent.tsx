@@ -1,4 +1,4 @@
-import { IconHome, IconLock } from "@tabler/icons-react"
+import { IconCloud, IconHome, IconLock } from "@tabler/icons-react"
 import { lazy, Suspense } from "react"
 import { SubPageContent } from "../../../../components/layouts/SubPageContent.tsx"
 
@@ -10,6 +10,11 @@ const OrganizationSettingsPage = lazy(() =>
 const OrganizationSecurityPage = lazy(() =>
     import("./OrganizationSecurityPage.js").then((m) => ({
         default: m.OrganizationSecurityPage,
+    })),
+)
+const OrganizationStorageCredentialsPage = lazy(() =>
+    import("./OrganizationStorageCredentialsPage.js").then((m) => ({
+        default: m.OrganizationStorageCredentialsPage,
     })),
 )
 
@@ -37,6 +42,16 @@ export function OrganizationSettingsTabContent(props: { idOrganization: string }
                             content: (
                                 <Suspense fallback={null}>
                                     <OrganizationSecurityPage idOrganization={props.idOrganization} />
+                                </Suspense>
+                            ),
+                        },
+                        {
+                            key: "stockage",
+                            label: "Stockage",
+                            icon: <IconCloud />,
+                            content: (
+                                <Suspense fallback={null}>
+                                    <OrganizationStorageCredentialsPage idOrganization={props.idOrganization} />
                                 </Suspense>
                             ),
                         },
