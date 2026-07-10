@@ -4,6 +4,7 @@ import remarkGfm from "remark-gfm"
 import { defineConfig } from "vite"
 import { docsSearchIndexPlugin } from "./plugins/docsSearchIndexPlugin"
 import { fontPreloadPlugin } from "./plugins/fontPreloadPlugin"
+import { mdServePlugin } from "./plugins/mdServePlugin"
 import { prerenderPlugin } from "./plugins/prerenderPlugin"
 import { sitemapPlugin } from "./plugins/sitemapPlugin"
 

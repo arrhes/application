@@ -1,6 +1,8 @@
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs"
 import { dirname, resolve } from "node:path"
+import mdx from "@mdx-js/rollup"
 import react from "@vitejs/plugin-react"
+import remarkGfm from "remark-gfm"
 import { type Plugin, build as viteBuild } from "vite"
 import { DOC_PAGE_MANIFEST } from "./DOC_PAGE_MANIFEST"
 import { docsSearchIndexPlugin } from "./docsSearchIndexPlugin"
