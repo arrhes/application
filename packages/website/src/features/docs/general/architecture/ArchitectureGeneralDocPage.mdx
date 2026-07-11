@@ -1,31 +1,31 @@
-<DocRoot>
+# Architecture
 
-## Architecture
+Architecture
 
 Vue d'ensemble de l'architecture technique d'Arrhes et de ses différents services.
 
 Arrhes est organisé en plusieurs services distincts qui travaillent ensemble. Chaque service a un
-                    rôle précis : certains sont destinés aux utilisateurs finaux, d'autres aux développeurs qui
-                    souhaitent intégrer Arrhes dans leurs outils.
+
+Tous les services passent par l'API, qui est le cœur du système. C'est elle qui
 
 Le dashboard est l'interface web d'Arrhes. Il permet de gérer ses organisations, saisir ses
-                    écritures comptables, consulter ses documents de synthèse, stocker ses pièces justificatives et
-                    discuter avec l'assistant IA.
+
+écritures comptables, consulter ses documents de synthèse, stocker ses pièces justificatives et
+
+Pour qui ? Les utilisateurs qui souhaitent gérer leur comptabilité au quotidien
 
 Le CLI est une interface en ligne de commande qui donne accès aux mêmes fonctionnalités que le
-                    dashboard : organisations, exercices, écritures, exports et documents comptables. Il s'utilise
-                    directement depuis un terminal, sur Linux ou macOS.
+
+Pour qui ? Les développeurs et équipes techniques qui souhaitent automatiser des
 
 L'API est le service central d'Arrhes. Elle reçoit toutes les requêtes - qu'elles viennent du
-                    dashboard, du CLI ou d'une intégration tierce - et est responsable de l'authentification, des
-                    données comptables, du stockage des fichiers et de l'assistant IA.
+
+Pour qui ? Les développeurs qui souhaitent accéder directement aux données d'Arrhes
 
 La base de données stocke l'ensemble des données d'Arrhes : utilisateurs, organisations, exercices,
-                    écritures comptables, fichiers et sessions. Elle est le seul endroit où les données sont persistées
-                    et n'est jamais accessible directement depuis l'extérieur - uniquement via l'API.
 
-Le stockage des fichiers (pièces justificatives, documents exportés) est géré séparément, dans un
-                    espace dédié compatible avec le protocole S3. Les emails transactionnels - comme les liens de
-                    connexion - sont envoyés via un service SMTP.
+écritures comptables, fichiers et sessions. Elle est le seul endroit où les données sont persistées
 
-</DocRoot>
+Le stockage des fichiers (pièces justificatives, documents exportés est géré séparément, dans un
+
+Pour qui ? Ce service est entièrement géré par Arrhes. Les utilisateurs et

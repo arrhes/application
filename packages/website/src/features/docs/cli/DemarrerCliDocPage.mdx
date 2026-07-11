@@ -1,12 +1,15 @@
-<DocRoot>
-
-## DemarrerCliDocPage
-
-Le CLI est un binaire autonome - aucune installation de Node.js ou de dépendance requise. Collez la
-                    commande suivante dans votre terminal :
+# Demarrer Cli
 
 Le CLI s'authentifie exclusivement par clé API. Rendez-vous dans le dashboard pour en créer une :
 
+Dashboard → Organisation → API → Clés → Nouvelle clé
+
+Copiez la clé immédiatement après sa création - elle ne sera plus affichée ensuite.
+
+Le CLI vérifie la clé et enregistre la configuration dans ~/.arrhes/config.json.
+
+L'identifiant d'organisation est requis - il est utilisé automatiquement pour toutes les commandes.
+
 Vérifiez que tout fonctionne en listant vos exercices :
 
-</DocRoot>
+Toutes les réponses du CLI sont en JSON. Combinez-les avec jq pour filtrer ou

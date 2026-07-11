@@ -1,15 +1,35 @@
-<DocRoot>
+# Authentication Api
 
-## AuthenticationApiDocPage
+Lors de la connexion via l'interface web, un cookie arrhes_id_user_session
 
-L'API supporte deux méthodes d'authentification pour accéder aux routes protégées. Chaque requête
-                    doit utiliser l'une des deux méthodes suivantes :
+(httpOnly est automatiquement défini. Ce cookie identifie l'utilisateur pour toutes les requêtes
+
+Avec cette méthode, l'organisation cible doit être spécifiée séparément via l'en-tête
+
+X-Organization-Id ou le cookie arrhes_id_organization.
+
+L'en-tête X-Organization-Id a la priorité sur le cookie
 
 Les clés API permettent un accès programmatique à l'API. Elles sont liées à une organisation
-                    spécifique et nécessitent un abonnement premium.
+
+L'en-tête Authorization doit contenir le token au format Bearer :
+
+Avec une clé API, l'organisation est automatiquement déterminée par la clé elle-même. Il n'est pas
+
+La clé brute (rawKey n'est retournée qu'au moment de la création via la route
+
+POST /v1/organizations/:idOrganization/api-keys. Conservez-la précieusement, elle
 
 Résumé des en-têtes nécessaires selon la méthode d'authentification :
 
+"Non utilisé",
+
+"Requis",
+
+* L'en-tête X-Organization-Id peut être remplacé par le cookie
+
 Certaines routes nécessitent des permissions supplémentaires au-delà de l'authentification :
 
-</DocRoot>
+Administrateur : les routes de gestion d'organisation (suppression,
+
+Plan avancé : les routes de gestion des clés API nécessitent un abonnement

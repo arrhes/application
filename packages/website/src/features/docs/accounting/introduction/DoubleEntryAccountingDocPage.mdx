@@ -1,20 +1,75 @@
-<DocRoot>
+# Double Entry Accounting
 
-## DoubleEntryAccountingDocPage
+, sous la forme d'une
 
-La vie d'une organisation est faite d'opérations économiques : achats, ventes, encaissements,
-                    paiements, etc. Une opération est un événement qui modifie la situation financière de
-                    l'organisation. Cette opération peut autant traduire un flux réel d'argent (ex : paiement d'une
-                    facture) qu'un flux virtuel à venir, comme la reconnaissance d'une créance ou d'une dette (ex :
-                    émission d'une facture).
+écriture
+
+. Une écriture comporte au moins deux lignes. Chaque ligne fait correspondre ce qu'on appelle un
+
+, à un montant, soit au
+
+, soit au
+
+. Peu importe le nombre de lignes, la somme des montants débités doit toujours être égale à la somme
 
 Voici deux écritures extraites du journal, correspondant à deux opérations de l'organisation :
 
 Achat en espèces de fournitures de bureau pour la somme de 100,00€.
 
 Vente d'une prestation de service pour 1500,00€ : le client paie 500,00€ par virement, le reste
-                        est dû à 30 jours.
 
 Pour chaque écriture, on a bien le total des débits qui est égal au total des crédits.
 
-</DocRoot>
+Grâce à ce principe, toute erreur d'enregistrement crée un déséquilibre entre débits et crédits, ce
+
+Une écriture comptable est l'enregistrement d'une opération économique dans les comptes de
+
+Le total des débits d'une écriture est toujours égal au total de ses crédits : c'est le principe de
+
+Un compte est un registre qui suit l'évolution d'un élément précis du patrimoine ou de l'activité de
+
+(par l'écriture.
+
+Chaque compte a un numéro et un intitulé qui précisent ce qu'il suit.
+
+Il existe quatre grands types de comptes : les comptes d'actif (ce que l'organisation possède, de
+
+Par exemple, le compte « Banque » (numéro 512 suit l'argent disponible sur le compte bancaire. Le
+
+(numéro 706 suit le montant des ventes réalisées.
+
+Débiter un compte, c'est enregistrer que ce compte est la destination d'un flux. Les ressources vont
+
+Actif (ex : 512 - Banque - un client paie par virement : l'argent arrive sur le compte bancaire, on
+
+Charges (ex : 601 - Achats stockés - l'organisation reçoit des matières premières : la charge
+
+Passif (ex : 164 - Emprunt - l'organisation rembourse une partie de son emprunt : le remboursement
+
+Produits (ex : 706 - Ventes - un client retourne un article : l'annulation est dirigée vers le
+
+Créditer un compte, c'est enregistrer que ce compte est l'origine d'un flux. Les ressources partent
+
+Passif (ex : Emprunt
+
+- l'organisation contracte un emprunt : la dette est la source des fonds reçus, on crédite
+
+Emprunt.
+
+Produits (ex : Ventes
+
+- l'organisation réalise une vente : le revenu est la source de la valeur créée, on crédite
+
+Ventes.
+
+Actif (ex : Caisse
+
+- l'organisation paie en espèces : l'argent part de la caisse, on crédite Caisse.
+
+Charges (ex : Fournitures
+
+- le fournisseur accorde un avoir : la charge est annulée, on crédite Fournitures.
+
+Le solde d'un compte résume en un seul chiffre tout ce qui y est entré et sorti. C'est la différence
+
+Ces concepts sont directement appliqués dans Arrhes. Lorsque vous

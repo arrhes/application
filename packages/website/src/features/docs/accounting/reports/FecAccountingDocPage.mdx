@@ -1,17 +1,33 @@
-<DocRoot>
+# Fec Accounting
 
-## FecAccountingDocPage
+Le FEC est un fichier texte tabulé (séparateur tabulation encodé en UTF-8 avec BOM. La première
+
+écriture.
 
 Le fichier comporte 18 colonnes obligatoires :
 
-Seules les micro-entreprises (régime micro-BIC ou micro-BNC) sont dispensées, car elles ne tiennent
-                    pas de comptabilité en partie double.
+Les montants utilisent la virgule comme séparateur décimal (ex. : 1234,50. Les dates sont au format
 
-Le défaut de présentation du FEC lors d'un contrôle fiscal peut entraîner des sanctions
-                    significatives :
+AAAAMMJJ sans séparateur. Ces conventions sont imposées par le cahier des charges du FEC
+
+Le nom du fichier FEC suit une convention stricte : [SIRENFEC[AAAAMMJJ.txt, où le
+
+SIREN est le numéro d'identification de l'organisation et la date correspond à la date de clôture de
 
 Pour une organisation dont le SIREN est 123456789, avec un exercice clos au 31 décembre 2024 :
 
-123456789FEC20241231.txt
+Si le numéro SIREN n'est pas renseigné dans les paramètres de l'organisation, le nom du fichier ne
 
-</DocRoot>
+L'obligation de présenter un FEC s'applique à toute organisation qui tient sa comptabilité de
+
+. Cela comprend :
+
+Seules les micro-entreprises (régime micro-BIC ou micro-BNC sont dispensées, car elles ne tiennent
+
+Le défaut de présentation du FEC lors d'un contrôle fiscal peut entraîner des sanctions
+
+Il est recommandé de vérifier régulièrement que votre FEC est conforme, sans attendre un contrôle
+
+Arrhes permet d'exporter le FEC directement depuis la page des
+
+écritures de l'exercice. L'export
