@@ -32,6 +32,14 @@ export { entryTagModel, entryTagRelations } from "../../metadata/src/models/entr
 export { fileModel } from "../../metadata/src/models/file.ts"
 export { folderModel } from "../../metadata/src/models/folder.ts"
 export { incomeStatementModel, incomeStatementRelations } from "../../metadata/src/models/incomeStatement.ts"
+export {
+    inventoryItemModel,
+    inventoryItemRelations,
+} from "../../metadata/src/models/inventoryItem.ts"
+export {
+    inventoryMovementModel,
+    inventoryMovementRelations,
+} from "../../metadata/src/models/inventoryMovement.ts"
 export { journalModel, journalRelations } from "../../metadata/src/models/journal.ts"
 export { organizationModel, organizationRelations } from "../../metadata/src/models/organization.ts"
 export {

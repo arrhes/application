@@ -3,6 +3,7 @@ import {
     IconFileReport,
     IconHome,
     IconListNumbers,
+    IconPackage,
     IconReportMoney,
     IconScale,
     IconSettings,
@@ -39,6 +40,11 @@ const BalanceSheetsPage = lazy(() =>
 const IncomeStatementsPage = lazy(() =>
     import("./incomeStatements/IncomeStatementsPage.js").then((m) => ({
         default: m.IncomeStatementsPage,
+    })),
+)
+const InventoryPage = lazy(() =>
+    import("./inventory/InventoryPage.js").then((m) => ({
+        default: m.InventoryPage,
     })),
 )
 
@@ -97,6 +103,19 @@ export function YearSettingsTabContent(props: { idOrganization: string; idYear: 
                             content: (
                                 <Suspense fallback={null}>
                                     <TagsPage
+                                        idOrganization={props.idOrganization}
+                                        idYear={props.idYear}
+                                    />
+                                </Suspense>
+                            ),
+                        },
+                        {
+                            key: "inventaire",
+                            label: "Inventaire",
+                            icon: <IconPackage />,
+                            content: (
+                                <Suspense fallback={null}>
+                                    <InventoryPage
                                         idOrganization={props.idOrganization}
                                         idYear={props.idYear}
                                     />

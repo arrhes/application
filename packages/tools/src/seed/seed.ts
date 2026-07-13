@@ -482,6 +482,138 @@ async function seed() {
             await tx.insert(models.tag).values(newTags)
 
             // ==========================================
+            // INVENTORY
+            // ==========================================
+            console.log("Creating inventory items and movements...")
+
+            const inventoryItemData = [
+                {
+                    sku: "PAP-A4-500",
+                    name: "Ramettes de papier A4 (500 feuilles)",
+                    description: "Papier blanc premium pour imprimante",
+                    category: "Fournitures de bureau",
+                    unit: "ramette",
+                    unitPrice: "6.50",
+                    currentQuantity: "120",
+                    minimumThreshold: "20",
+                    location: "Réserve A - Étagère 3",
+                    movements: [
+                        {
+                            quantityChange: "150",
+                            reference: "BL-2025-001",
+                            reason: "achat",
+                            movementDate: "2025-01-15T10:00:00Z",
+                        },
+                        {
+                            quantityChange: "-30",
+                            reference: "FV-2025-010",
+                            reason: "vente",
+                            movementDate: "2025-01-20T14:00:00Z",
+                        },
+                    ],
+                },
+                {
+                    sku: "CAF-MOU-001",
+                    name: "Moulin à café professionnel",
+                    description: "Moulin électrique pour café en grains",
+                    category: "Petit équipement",
+                    unit: "pièce",
+                    unitPrice: "89.90",
+                    currentQuantity: "5",
+                    minimumThreshold: "2",
+                    location: "Showroom",
+                    movements: [
+                        {
+                            quantityChange: "8",
+                            reference: "BL-2025-003",
+                            reason: "achat",
+                            movementDate: "2025-01-10T09:00:00Z",
+                        },
+                        {
+                            quantityChange: "-3",
+                            reference: "FV-2025-012",
+                            reason: "vente",
+                            movementDate: "2025-01-25T11:00:00Z",
+                        },
+                    ],
+                },
+                {
+                    sku: "CAF-GRA-001",
+                    name: "Café en grains Arabica 1 kg",
+                    description: "Café en grains 100 % Arabica",
+                    category: "Matières premières",
+                    unit: "kg",
+                    unitPrice: "12.00",
+                    currentQuantity: "45",
+                    minimumThreshold: "10",
+                    location: "Réserve B",
+                    movements: [
+                        {
+                            quantityChange: "50",
+                            reference: "BL-2025-005",
+                            reason: "achat",
+                            movementDate: "2025-02-01T08:00:00Z",
+                        },
+                        {
+                            quantityChange: "-5",
+                            reference: "INV-2025-001",
+                            reason: "ajustement",
+                            movementDate: "2025-02-10T16:00:00Z",
+                        },
+                    ],
+                },
+            ]
+
+            const newInventoryItems: (typeof models.inventoryItem.$inferInsert)[] = inventoryItemData.map((item) => ({
+                id: generateId(),
+                idOrganization: populatedOrganization.id,
+                idYear: newYear.id,
+                sku: item.sku,
+                name: item.name,
+                description: item.description,
+                category: item.category,
+                unit: item.unit,
+                unitPrice: item.unitPrice,
+                currentQuantity: item.currentQuantity,
+                minimumThreshold: item.minimumThreshold,
+                location: item.location,
+                createdAt: createdAt,
+            }))
+
+            await tx.insert(models.inventoryItem).values(newInventoryItems)
+
+            const inventoryItemBySku = new Map(
+                newInventoryItems.map((item) => [
+                    item.sku,
+                    item,
+                ]),
+            )
+
+            const newInventoryMovements: (typeof models.inventoryMovement.$inferInsert)[] = []
+            for (const item of inventoryItemData) {
+                const inventoryItem = inventoryItemBySku.get(item.sku)
+                if (!inventoryItem) continue
+
+                for (const movement of item.movements) {
+                    newInventoryMovements.push({
+                        id: generateId(),
+                        idOrganization: populatedOrganization.id,
+                        idYear: newYear.id,
+                        idInventoryItem: inventoryItem.id!,
+                        quantityChange: movement.quantityChange,
+                        reference: movement.reference,
+                        reason: movement.reason,
+                        movementDate: movement.movementDate,
+                        createdAt: createdAt,
+                    })
+                }
+            }
+
+            if (newInventoryMovements.length > 0) {
+                await tx.insert(models.inventoryMovement).values(newInventoryMovements)
+            }
+
+            // ==========================================
             // SAMPLE ENTRIES AND ENTRY LINES
             // ==========================================
             console.log("Creating sample entries and entry lines...")

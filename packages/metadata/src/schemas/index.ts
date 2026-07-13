@@ -14,6 +14,8 @@ import { entryTagSchema, entryTagSchemaReturn } from "./entryTag.js"
 import { fileSchema, fileSchemaReturn } from "./file.js"
 import { folderSchema, folderSchemaReturn } from "./folder.js"
 import { incomeStatementSchema, incomeStatementSchemaReturn } from "./incomeStatement.js"
+import { inventoryItemSchema, inventoryItemSchemaReturn } from "./inventoryItem.js"
+import { inventoryMovementSchema, inventoryMovementSchemaReturn } from "./inventoryMovement.js"
 import { journalSchema, journalSchemaReturn } from "./journal.js"
 import { organizationSchema, organizationSchemaReturn } from "./organization.js"
 import { organizationUserSchema, organizationUserSchemaReturn } from "./organizationUser.js"
@@ -38,6 +40,8 @@ export const schemas = {
     computation: computationSchema,
     computationIncomeStatement: computationIncomeStatementSchema,
     incomeStatement: incomeStatementSchema,
+    inventoryItem: inventoryItemSchema,
+    inventoryMovement: inventoryMovementSchema,
     journal: journalSchema,
     organization: organizationSchema,
     organizationUser: organizationUserSchema,
@@ -63,6 +67,8 @@ export const returnedSchemas = {
     computation: computationSchemaReturn,
     computationIncomeStatement: computationIncomeStatementSchemaReturn,
     incomeStatement: incomeStatementSchemaReturn,
+    inventoryItem: inventoryItemSchemaReturn,
+    inventoryMovement: inventoryMovementSchemaReturn,
     journal: journalSchemaReturn,
     organization: organizationSchemaReturn,
     organizationUser: organizationUserSchemaReturn,

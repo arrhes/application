@@ -11,6 +11,8 @@ import * as entryTagModel from "./entryTag.js"
 import * as fileModel from "./file.js"
 import * as folderModel from "./folder.js"
 import * as incomeStatementModel from "./incomeStatement.js"
+import * as inventoryItemModel from "./inventoryItem.js"
+import * as inventoryMovementModel from "./inventoryMovement.js"
 import * as journalModel from "./journal.js"
 import * as organizationModel from "./organization.js"
 import * as organizationUserModel from "./organizationUser.js"
@@ -35,6 +37,8 @@ export const models = {
     entryLine: entryLineModel.entryLineModel,
     entryTag: entryTagModel.entryTagModel,
     incomeStatement: incomeStatementModel.incomeStatementModel,
+    inventoryItem: inventoryItemModel.inventoryItemModel,
+    inventoryMovement: inventoryMovementModel.inventoryMovementModel,
     journal: journalModel.journalModel,
     organization: organizationModel.organizationModel,
     organizationUser: organizationUserModel.organizationUserModel,
@@ -60,6 +64,8 @@ export const modelSchemas = {
     ...entryLineModel,
     ...entryTagModel,
     ...incomeStatementModel,
+    ...inventoryItemModel,
+    ...inventoryMovementModel,
     ...journalModel,
     ...organizationModel,
     ...organizationUserModel,
