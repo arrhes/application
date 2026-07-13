@@ -35,6 +35,7 @@ import { dashboardDocLayoutRoute } from "./dashboard/dashboardDocLayoutRoute.js"
 import { entriesDashboardDocRoute } from "./dashboard/entriesDashboardDocRoute.js"
 import { filesDashboardDocRoute } from "./dashboard/filesDashboardDocRoute.js"
 import { gettingStartedDashboardDocRoute } from "./dashboard/gettingStartedDashboardDocRoute.js"
+import { inventoryDashboardDocRoute } from "./dashboard/inventoryDashboardDocRoute.js"
 import { organizationsDashboardDocRoute } from "./dashboard/organizationsDashboardDocRoute.js"
 import { reportsDashboardDocRoute } from "./dashboard/reportsDashboardDocRoute.js"
 import { rootDashboardDocRoute } from "./dashboard/rootDashboardDocRoute.js"
@@ -90,6 +91,7 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
         yearsDashboardDocRoute,
         entriesDashboardDocRoute,
         filesDashboardDocRoute,
+        inventoryDashboardDocRoute,
         reportsDashboardDocRoute,
         // AI sub-section (assistant IA)
         aiDocLayoutRoute.addChildren([

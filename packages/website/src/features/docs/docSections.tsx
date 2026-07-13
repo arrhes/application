@@ -230,6 +230,10 @@ export const docSections: Record<string, DocSection> = {
                         path: "/documentation/dashboard/facturation",
                         label: "Facturation",
                     },
+                    {
+                        path: "/documentation/dashboard/inventaire",
+                        label: "Inventaire",
+                    },
                 ],
             },
             assistant: {
