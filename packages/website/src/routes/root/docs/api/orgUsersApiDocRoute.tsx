@@ -1,4 +1,7 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { docMdxComponents } from "../../../../components/document/DocMdxComponents"
+import { DocRoot } from "../../../../components/document/DocRoot"
+import Content from "../../../../features/docs/api/OrgUsersApiDocPage.mdx"
 import { apiDocLayoutRoute } from "./apiDocLayoutRoute.tsx"
 
 export const orgUsersApiDocRoute = createRoute({
@@ -8,8 +11,9 @@ export const orgUsersApiDocRoute = createRoute({
         title: "Membres",
         description: "Endpoints API pour la gestion des membres d'une organisation Arrhes.",
     }),
-    component: lazyRouteComponent(
-        () => import("../../../../features/docs/api/OrgUsersApiDocPage.tsx"),
-        "OrgUsersApiDocPage",
+    component: () => (
+        <DocRoot>
+            <Content components={docMdxComponents} />
+        </DocRoot>
     ),
 })

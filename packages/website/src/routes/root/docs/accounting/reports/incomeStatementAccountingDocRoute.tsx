@@ -1,4 +1,7 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { docMdxComponents } from "../../../../../components/document/DocMdxComponents"
+import { DocRoot } from "../../../../../components/document/DocRoot"
+import Content from "../../../../../features/docs/accounting/reports/IncomeStatementAccountingDocPage.mdx"
 import { reportsAccountingDocLayoutRoute } from "./reportsAccountingDocLayoutRoute.js"
 
 export const incomeStatementAccountingDocRoute = createRoute({
@@ -9,8 +12,9 @@ export const incomeStatementAccountingDocRoute = createRoute({
         description:
             "Le compte de résultat : document de synthèse présentant les produits et charges de l'exercice pour déterminer le résultat net.",
     }),
-    component: lazyRouteComponent(
-        () => import("../../../../../features/docs/accounting/reports/IncomeStatementAccountingDocPage.tsx"),
-        "IncomeStatementAccountingDocPage",
+    component: () => (
+        <DocRoot>
+            <Content components={docMdxComponents} />
+        </DocRoot>
     ),
 })

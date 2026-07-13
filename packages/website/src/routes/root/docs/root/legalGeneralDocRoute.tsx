@@ -1,4 +1,7 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { docMdxComponents } from "../../../../components/document/DocMdxComponents"
+import { DocRoot } from "../../../../components/document/DocRoot"
+import Content from "../../../../features/docs/general/LegalGeneralDocPage.mdx"
 import { generalDocLayoutRoute } from "./generalDocLayoutRoute.tsx"
 
 export const legalGeneralDocRoute = createRoute({
@@ -8,8 +11,9 @@ export const legalGeneralDocRoute = createRoute({
         title: "Mentions légales",
         description: "Mentions légales du logiciel de comptabilité Arrhes. Informations sur l'éditeur et l'hébergeur.",
     }),
-    component: lazyRouteComponent(
-        () => import("../../../../features/docs/general/LegalGeneralDocPage.tsx"),
-        "LegalGeneralDocPage",
+    component: () => (
+        <DocRoot>
+            <Content components={docMdxComponents} />
+        </DocRoot>
     ),
 })

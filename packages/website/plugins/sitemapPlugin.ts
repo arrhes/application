@@ -218,10 +218,12 @@ export function sitemapPlugin(): Plugin {
                     priority: "0.6",
                     changefreq: "monthly",
                 },
+
+                // General docs
                 {
-                    path: "/documentation/dashboard/màj",
+                    path: "/documentation/mises-à-jour",
                     priority: "0.6",
-                    changefreq: "monthly",
+                    changefreq: "weekly",
                 },
 
                 // CLI docs

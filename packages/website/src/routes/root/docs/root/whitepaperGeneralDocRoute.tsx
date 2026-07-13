@@ -1,4 +1,7 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { docMdxComponents } from "../../../../components/document/DocMdxComponents"
+import { DocRoot } from "../../../../components/document/DocRoot"
+import Content from "../../../../features/docs/general/WhitepaperGeneralDocPage.mdx"
 import { generalDocLayoutRoute } from "./generalDocLayoutRoute.tsx"
 
 export const whitepaperGeneralDocRoute = createRoute({
@@ -9,8 +12,9 @@ export const whitepaperGeneralDocRoute = createRoute({
         description:
             "La philosophie d'Arrhes : transparence, open source et accessibilité pour la comptabilité des entreprises et associations.",
     }),
-    component: lazyRouteComponent(
-        () => import("../../../../features/docs/general/WhitepaperGeneralDocPage.tsx"),
-        "WhitepaperGeneralDocPage",
+    component: () => (
+        <DocRoot>
+            <Content components={docMdxComponents} />
+        </DocRoot>
     ),
 })

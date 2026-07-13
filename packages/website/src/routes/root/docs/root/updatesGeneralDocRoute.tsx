@@ -1,16 +1,15 @@
 import { createRoute } from "@tanstack/react-router"
 import { docMdxComponents } from "../../../../components/document/DocMdxComponents"
 import { DocRoot } from "../../../../components/document/DocRoot"
-import Content from "../../../../features/docs/general/RootGeneralDocPage.mdx"
-import { generalDocLayoutRoute } from "./generalDocLayoutRoute.tsx"
+import Content from "../../../../features/docs/general/UpdatesGeneralDocPage.mdx"
+import { generalDocLayoutRoute } from "./generalDocLayoutRoute.js"
 
-export const rootGeneralDocRoute = createRoute({
+export const updatesGeneralDocRoute = createRoute({
     getParentRoute: () => generalDocLayoutRoute,
-    path: "/",
+    path: "/mises-à-jour",
     beforeLoad: () => ({
-        title: "Documentation",
-        description:
-            "Documentation complète d'Arrhes : guide d'utilisation, cours de comptabilité, référence API et informations générales.",
+        title: "Mises à jour",
+        description: "Suivez l'évolution d'Arrhes et consultez l'historique des versions publiées sur GitHub Releases.",
     }),
     component: () => (
         <DocRoot>

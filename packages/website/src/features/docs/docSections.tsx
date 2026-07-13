@@ -69,6 +69,16 @@ export const docSections: Record<string, DocSection> = {
                     },
                 ],
             },
+            updates: {
+                title: "Nouveautés",
+                icon: undefined,
+                items: [
+                    {
+                        path: "/documentation/mises-à-jour",
+                        label: "Mises à jour",
+                    },
+                ],
+            },
         },
     },
     comptabilite: {
@@ -241,16 +251,6 @@ export const docSections: Record<string, DocSection> = {
                     {
                         path: "/documentation/dashboard/assistant/ocr",
                         label: "OCR",
-                    },
-                ],
-            },
-            updates: {
-                title: undefined,
-                icon: undefined,
-                items: [
-                    {
-                        path: "/documentation/dashboard/màj",
-                        label: "Mises à jour",
                     },
                 ],
             },

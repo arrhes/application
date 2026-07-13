@@ -1,4 +1,7 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { docMdxComponents } from "../../../../components/document/DocMdxComponents"
+import { DocRoot } from "../../../../components/document/DocRoot"
+import Content from "../../../../features/docs/cli/DemarrerCliDocPage.mdx"
 import { cliDocLayoutRoute } from "./cliDocLayoutRoute.js"
 
 export const demarrerCliDocRoute = createRoute({
@@ -8,8 +11,9 @@ export const demarrerCliDocRoute = createRoute({
         title: "Démarrer",
         description: "Mettre en place le CLI Arrhes et effectuer votre première opération en moins de 5 minutes.",
     }),
-    component: lazyRouteComponent(
-        () => import("../../../../features/docs/cli/DemarrerCliDocPage.js"),
-        "DemarrerCliDocPage",
+    component: () => (
+        <DocRoot>
+            <Content components={docMdxComponents} />
+        </DocRoot>
     ),
 })

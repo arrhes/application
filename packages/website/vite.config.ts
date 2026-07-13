@@ -11,11 +11,14 @@ import { sitemapPlugin } from "./plugins/sitemapPlugin"
 export default defineConfig(() => {
     return {
         plugins: [
-            mdx({
-                remarkPlugins: [
-                    remarkGfm,
-                ],
-            }),
+            {
+                ...mdx({
+                    remarkPlugins: [
+                        remarkGfm,
+                    ],
+                }),
+                enforce: "pre",
+            },
             react({
                 include: [
                     "**/*.tsx",
@@ -45,6 +48,7 @@ export default defineConfig(() => {
         },
         build: {
             outDir: "../build",
+            emptyOutDir: true,
             rollupOptions: {
                 output: {
                     entryFileNames: "[hash].js",

@@ -1,4 +1,7 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { docMdxComponents } from "../../../../components/document/DocMdxComponents"
+import { DocRoot } from "../../../../components/document/DocRoot"
+import Content from "../../../../features/docs/api/YearApiDocPage.mdx"
 import { apiDocLayoutRoute } from "./apiDocLayoutRoute.tsx"
 
 export const yearApiDocRoute = createRoute({
@@ -9,5 +12,9 @@ export const yearApiDocRoute = createRoute({
         description:
             "Endpoints API pour la gestion des exercices comptables : création, ouverture, clôture et consultation.",
     }),
-    component: lazyRouteComponent(() => import("../../../../features/docs/api/YearApiDocPage.tsx"), "YearApiDocPage"),
+    component: () => (
+        <DocRoot>
+            <Content components={docMdxComponents} />
+        </DocRoot>
+    ),
 })

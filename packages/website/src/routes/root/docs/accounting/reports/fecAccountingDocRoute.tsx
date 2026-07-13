@@ -1,4 +1,7 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { docMdxComponents } from "../../../../../components/document/DocMdxComponents"
+import { DocRoot } from "../../../../../components/document/DocRoot"
+import Content from "../../../../../features/docs/accounting/reports/FecAccountingDocPage.mdx"
 import { reportsAccountingDocLayoutRoute } from "./reportsAccountingDocLayoutRoute.js"
 
 export const fecAccountingDocRoute = createRoute({
@@ -9,8 +12,9 @@ export const fecAccountingDocRoute = createRoute({
         description:
             "Le FEC : fichier normé des écritures comptables requis par l'administration fiscale lors d'un contrôle.",
     }),
-    component: lazyRouteComponent(
-        () => import("../../../../../features/docs/accounting/reports/FecAccountingDocPage.tsx"),
-        "FecAccountingDocPage",
+    component: () => (
+        <DocRoot>
+            <Content components={docMdxComponents} />
+        </DocRoot>
     ),
 })

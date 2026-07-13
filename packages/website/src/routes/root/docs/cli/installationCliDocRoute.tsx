@@ -1,4 +1,7 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { docMdxComponents } from "../../../../components/document/DocMdxComponents"
+import { DocRoot } from "../../../../components/document/DocRoot"
+import Content from "../../../../features/docs/cli/InstallationCliDocPage.mdx"
 import { cliDocLayoutRoute } from "./cliDocLayoutRoute.js"
 
 export const installationCliDocRoute = createRoute({
@@ -8,8 +11,9 @@ export const installationCliDocRoute = createRoute({
         title: "Installation",
         description: "Installez le CLI Arrhes sur macOS et Linux en une commande. Seul curl est requis.",
     }),
-    component: lazyRouteComponent(
-        () => import("../../../../features/docs/cli/InstallationCliDocPage.js"),
-        "InstallationCliDocPage",
+    component: () => (
+        <DocRoot>
+            <Content components={docMdxComponents} />
+        </DocRoot>
     ),
 })

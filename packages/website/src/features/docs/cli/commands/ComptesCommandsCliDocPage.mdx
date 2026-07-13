@@ -1,69 +1,133 @@
-# Comptes Commands Cli
+import { DocCode } from "../../../../components/document/DocCode.js";
+import { DocCodeBlock } from "../../../../components/document/DocCodeBlock.js";
+import { DocHeader } from "../../../../components/document/DocHeader.js";
+import { DocParagraph } from "../../../../components/document/DocParagraph.js";
+import { DocSection } from "../../../../components/document/DocSection.js";
+import { DocTable } from "../../../../components/document/DocTable.js";
 
-"Liste les comptes d'un exercice",
+export default function Content() {
 
-"Détails d'un compte",
+    return (<>
+            <DocHeader title="Comptes" description="Consulter, créer, modifier et supprimer des comptes du plan comptable."/>
 
-"Crée un compte",
+            <DocSection title="Vue d'ensemble">
+                <DocTable headers={[
+            "Commande",
+            "Description",
+        ]} rows={[
+            [
+                <DocCode key="0">{"arrhes accounts list --year <id>"}</DocCode>,
+                "Liste les comptes d'un exercice",
+            ],
+            [
+                <DocCode key="0">{"arrhes accounts get <idAccount> --year <id>"}</DocCode>,
+                "Détails d'un compte",
+            ],
+            [
+                <DocCode key="0">
+                                {"arrhes accounts create --year <id> --number <n> --label <l> --type <t> --parent <id>"}
+                            </DocCode>,
+                "Crée un compte",
+            ],
+            [
+                <DocCode key="0">{"arrhes accounts update <idAccount> --year <id>"}</DocCode>,
+                "Modifie un compte",
+            ],
+            [
+                <DocCode key="0">{"arrhes accounts delete <idAccount> --year <id>"}</DocCode>,
+                "Supprime un compte",
+            ],
+        ]}/>
+            </DocSection>
 
-"Modifie un compte",
+            <DocSection title="arrhes accounts list">
+                <DocParagraph>Retourne l'ensemble des comptes du plan comptable de l'exercice.</DocParagraph>
+                <DocCodeBlock>arrhes accounts list --year year_xyz</DocCodeBlock>
+                <DocCodeBlock>{"arrhes accounts list --year year_xyz | jq '.[].number'"}</DocCodeBlock>
+            </DocSection>
 
-"Supprime un compte",
+            <DocSection title="arrhes accounts get">
+                <DocCodeBlock>arrhes accounts get acc_abc --year year_xyz</DocCodeBlock>
+            </DocSection>
 
-Retourne l'ensemble des comptes du plan comptable de l'exercice.
+            <DocSection title="arrhes accounts create">
+                <DocTable headers={[
+            "Option",
+            "Requis",
+            "Description",
+        ]} rows={[
+            [
+                "--year <id>",
+                "Oui",
+                "Identifiant de l'exercice",
+            ],
+            [
+                "--number <n>",
+                "Oui",
+                "Numéro de compte (ex. 401)",
+            ],
+            [
+                "--label <l>",
+                "Oui",
+                "Libellé du compte",
+            ],
+            [
+                "--type <t>",
+                "Oui",
+                "Type de compte",
+            ],
+            [
+                "--parent <id>",
+                "Oui",
+                "Identifiant du compte parent",
+            ],
+            [
+                "--no-selectable",
+                "Non",
+                "Marque le compte comme non sélectionnable pour les écritures",
+            ],
+        ]}/>
+                <DocCodeBlock>
+                    arrhes accounts create --year year_xyz --number 401 --label "Fournisseurs" --type liability --parent
+                    acc_root
+                </DocCodeBlock>
+            </DocSection>
 
-"Oui",
+            <DocSection title="arrhes accounts update">
+                <DocTable headers={[
+            "Option",
+            "Requis",
+            "Description",
+        ]} rows={[
+            [
+                "--number <n>",
+                "Non",
+                "Nouveau numéro de compte",
+            ],
+            [
+                "--label <l>",
+                "Non",
+                "Nouveau libellé",
+            ],
+            [
+                "--type <t>",
+                "Non",
+                "Nouveau type",
+            ],
+            [
+                "--parent <id>",
+                "Non",
+                "Nouveau compte parent",
+            ],
+        ]}/>
+                <DocCodeBlock>
+                    arrhes accounts update acc_abc --year year_xyz --label "Fournisseurs divers"
+                </DocCodeBlock>
+            </DocSection>
 
-"Identifiant de l'exercice",
+            <DocSection title="arrhes accounts delete">
+                <DocCodeBlock>arrhes accounts delete acc_abc --year year_xyz</DocCodeBlock>
+            </DocSection>
+        </>);
 
-"--number ",
-
-"Oui",
-
-"Numéro de compte (ex. 401",
-
-"--label ",
-
-"Oui",
-
-"Libellé du compte",
-
-"--type ",
-
-"Oui",
-
-"Type de compte",
-
-"--parent ",
-
-"Oui",
-
-"Identifiant du compte parent",
-
-"--no-selectable",
-
-"Non",
-
-"Marque le compte comme non sélectionnable pour les écritures",
-
-"Non",
-
-"Nouveau numéro de compte",
-
-"--label ",
-
-"Non",
-
-"Nouveau libellé",
-
-"--type ",
-
-"Non",
-
-"Nouveau type",
-
-"--parent ",
-
-"Non",
-
-"Nouveau compte parent",
+}

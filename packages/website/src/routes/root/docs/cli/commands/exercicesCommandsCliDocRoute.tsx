@@ -1,4 +1,7 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { docMdxComponents } from "../../../../../components/document/DocMdxComponents"
+import { DocRoot } from "../../../../../components/document/DocRoot"
+import Content from "../../../../../features/docs/cli/commands/ExercicesCommandsCliDocPage.mdx"
 import { commandsCliDocLayoutRoute } from "../commandsCliDocRoute.js"
 
 export const exercicesCommandsCliDocRoute = createRoute({
@@ -8,8 +11,9 @@ export const exercicesCommandsCliDocRoute = createRoute({
         title: "Exercices",
         description: "Commandes de gestion des exercices comptables : arrhes years list, get et create.",
     }),
-    component: lazyRouteComponent(
-        () => import("../../../../../features/docs/cli/commands/ExercicesCommandsCliDocPage.js"),
-        "ExercicesCommandsCliDocPage",
+    component: () => (
+        <DocRoot>
+            <Content components={docMdxComponents} />
+        </DocRoot>
     ),
 })

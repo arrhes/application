@@ -6,7 +6,6 @@ import {
     IconCalculator,
     IconCloudUpload,
     IconFileText,
-    IconLifebuoy,
     IconReload,
     IconSparkles,
     IconUsers,

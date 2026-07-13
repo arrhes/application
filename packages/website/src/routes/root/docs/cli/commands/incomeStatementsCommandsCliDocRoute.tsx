@@ -1,4 +1,7 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { docMdxComponents } from "../../../../../components/document/DocMdxComponents"
+import { DocRoot } from "../../../../../components/document/DocRoot"
+import Content from "../../../../../features/docs/cli/commands/IncomeStatementsCommandsCliDocPage.mdx"
 import { commandsCliDocLayoutRoute } from "../commandsCliDocRoute.js"
 
 export const incomeStatementsCommandsCliDocRoute = createRoute({
@@ -9,8 +12,9 @@ export const incomeStatementsCommandsCliDocRoute = createRoute({
         description:
             "Commandes de gestion de la structure du compte de résultat et des calculs : arrhes income-statements.",
     }),
-    component: lazyRouteComponent(
-        () => import("../../../../../features/docs/cli/commands/IncomeStatementsCommandsCliDocPage.js"),
-        "IncomeStatementsCommandsCliDocPage",
+    component: () => (
+        <DocRoot>
+            <Content components={docMdxComponents} />
+        </DocRoot>
     ),
 })

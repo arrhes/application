@@ -1,4 +1,7 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { docMdxComponents } from "../../../../components/document/DocMdxComponents"
+import { DocRoot } from "../../../../components/document/DocRoot"
+import Content from "../../../../features/docs/dashboard/RootDashboardDocPage.mdx"
 import { dashboardDocLayoutRoute } from "./dashboardDocLayoutRoute.tsx"
 
 export const rootDashboardDocRoute = createRoute({
@@ -9,8 +12,9 @@ export const rootDashboardDocRoute = createRoute({
         description:
             "Guide d'utilisation du dashboard Arrhes : créez vos organisations, gérez vos exercices et saisissez vos écritures comptables.",
     }),
-    component: lazyRouteComponent(
-        () => import("../../../../features/docs/dashboard/RootDashboardDocPage.tsx"),
-        "RootDashboardDocPage",
+    component: () => (
+        <DocRoot>
+            <Content components={docMdxComponents} />
+        </DocRoot>
     ),
 })

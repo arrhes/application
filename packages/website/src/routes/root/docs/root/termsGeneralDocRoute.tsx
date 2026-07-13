@@ -1,4 +1,7 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { docMdxComponents } from "../../../../components/document/DocMdxComponents"
+import { DocRoot } from "../../../../components/document/DocRoot"
+import Content from "../../../../features/docs/general/TermsGeneralDocPage.mdx"
 import { generalDocLayoutRoute } from "./generalDocLayoutRoute.tsx"
 
 export const termsGeneralDocRoute = createRoute({
@@ -9,8 +12,9 @@ export const termsGeneralDocRoute = createRoute({
         description:
             "Conditions Générales d'Utilisation d'Arrhes. Consultez les règles et conditions d'utilisation du logiciel.",
     }),
-    component: lazyRouteComponent(
-        () => import("../../../../features/docs/general/TermsGeneralDocPage.tsx"),
-        "TermsGeneralDocPage",
+    component: () => (
+        <DocRoot>
+            <Content components={docMdxComponents} />
+        </DocRoot>
     ),
 })

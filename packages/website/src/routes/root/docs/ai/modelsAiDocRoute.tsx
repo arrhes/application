@@ -1,4 +1,7 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { docMdxComponents } from "../../../../components/document/DocMdxComponents"
+import { DocRoot } from "../../../../components/document/DocRoot"
+import Content from "../../../../features/docs/ai/ModelsAiDocPage.mdx"
 import { aiDocLayoutRoute } from "./aiDocLayoutRoute.tsx"
 
 export const modelsAiDocRoute = createRoute({
@@ -8,5 +11,9 @@ export const modelsAiDocRoute = createRoute({
         title: "Modèles IA",
         description: "Les modèles de langage utilisés par l'assistant comptable d'Arrhes.",
     }),
-    component: lazyRouteComponent(() => import("../../../../features/docs/ai/ModelsAiDocPage.tsx"), "ModelsAiDocPage"),
+    component: () => (
+        <DocRoot>
+            <Content components={docMdxComponents} />
+        </DocRoot>
+    ),
 })

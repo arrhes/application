@@ -1,4 +1,7 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { docMdxComponents } from "../../../../../components/document/DocMdxComponents"
+import { DocRoot } from "../../../../../components/document/DocRoot"
+import Content from "../../../../../features/docs/cli/commands/LibellesCommandsCliDocPage.mdx"
 import { commandsCliDocLayoutRoute } from "../commandsCliDocRoute.js"
 
 export const libellesCommandsCliDocRoute = createRoute({
@@ -8,8 +11,9 @@ export const libellesCommandsCliDocRoute = createRoute({
         title: "Libellés",
         description: "Commandes de gestion des libellés (tags) : arrhes tags.",
     }),
-    component: lazyRouteComponent(
-        () => import("../../../../../features/docs/cli/commands/LibellesCommandsCliDocPage.js"),
-        "LibellesCommandsCliDocPage",
+    component: () => (
+        <DocRoot>
+            <Content components={docMdxComponents} />
+        </DocRoot>
     ),
 })

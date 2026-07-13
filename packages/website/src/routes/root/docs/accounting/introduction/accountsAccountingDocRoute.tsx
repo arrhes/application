@@ -1,4 +1,7 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { docMdxComponents } from "../../../../../components/document/DocMdxComponents"
+import { DocRoot } from "../../../../../components/document/DocRoot"
+import Content from "../../../../../features/docs/accounting/introduction/AccountsAccountingDocPage.mdx"
 import { introductionAccountingDocLayoutRoute } from "./introductionAccountingDocLayoutRoute.tsx"
 
 export const accountsAccountingDocRoute = createRoute({
@@ -9,8 +12,9 @@ export const accountsAccountingDocRoute = createRoute({
         description:
             "Présentation des comptes comptables : structure, numérotation et fonctionnement du plan comptable général français.",
     }),
-    component: lazyRouteComponent(
-        () => import("../../../../../features/docs/accounting/introduction/AccountsAccountingDocPage.tsx"),
-        "AccountsAccountingDocPage",
+    component: () => (
+        <DocRoot>
+            <Content components={docMdxComponents} />
+        </DocRoot>
     ),
 })

@@ -1,4 +1,36 @@
-# Year Api
+import { closeYearRouteDefinition, createOneYearRouteDefinition, deleteOneYearRouteDefinition, openYearRouteDefinition, readAllYearsRouteDefinition, readOneYearRouteDefinition, settleBalanceSheetRouteDefinition, settleIncomeStatementRouteDefinition, updateOneYearRouteDefinition, } from "@arrhes/application-metadata/routes";
+import { DocHeader } from "../../../components/document/DocHeader.tsx";
+import { DocParagraph } from "../../../components/document/DocParagraph.tsx";
+import { DocRouteRequest } from "../../../components/document/DocRouteRequest.tsx";
+import { DocSection } from "../../../components/document/DocSection.tsx";
+import { DocTip } from "../../../components/document/DocTip.tsx";
 
-Documentation page.
+export default function Content() {
 
+    return (<>
+            <DocHeader title="Exercices" description="Création, lecture, paramétrage et cycle de vie des exercices comptables"/>
+
+            <DocSection title="Exercices">
+                <DocParagraph>Création et listing des exercices comptables d'une organisation.</DocParagraph>
+                <DocRouteRequest routeDefinition={createOneYearRouteDefinition}/>
+                <DocRouteRequest routeDefinition={readAllYearsRouteDefinition}/>
+                <DocRouteRequest routeDefinition={readOneYearRouteDefinition}/>
+            </DocSection>
+
+            <DocSection title="Paramètres d'exercice">
+                <DocParagraph>
+                    Modification, suppression et gestion du cycle de vie d'un exercice comptable.
+                </DocParagraph>
+                <DocRouteRequest routeDefinition={updateOneYearRouteDefinition}/>
+                <DocRouteRequest routeDefinition={deleteOneYearRouteDefinition}/>
+                <DocRouteRequest routeDefinition={openYearRouteDefinition}/>
+                <DocRouteRequest routeDefinition={closeYearRouteDefinition}/>
+                <DocRouteRequest routeDefinition={settleBalanceSheetRouteDefinition}/>
+                <DocRouteRequest routeDefinition={settleIncomeStatementRouteDefinition}/>
+                <DocTip variant="warning">
+                    La clôture d'un exercice empêche toute modification ultérieure des écritures.
+                </DocTip>
+            </DocSection>
+        </>);
+
+}

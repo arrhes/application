@@ -1,4 +1,7 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { docMdxComponents } from "../../../../components/document/DocMdxComponents"
+import { DocRoot } from "../../../../components/document/DocRoot"
+import Content from "../../../../features/docs/dashboard/EntriesDashboardDocPage.mdx"
 import { dashboardDocLayoutRoute } from "./dashboardDocLayoutRoute.js"
 
 export const entriesDashboardDocRoute = createRoute({
@@ -9,8 +12,9 @@ export const entriesDashboardDocRoute = createRoute({
         description:
             "Saisissez et gérez vos écritures comptables dans Arrhes : création, modification, suppression et recherche d'écritures.",
     }),
-    component: lazyRouteComponent(
-        () => import("../../../../features/docs/dashboard/EntriesDashboardDocPage.js"),
-        "EntriesDashboardDocPage",
+    component: () => (
+        <DocRoot>
+            <Content components={docMdxComponents} />
+        </DocRoot>
     ),
 })

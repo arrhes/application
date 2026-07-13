@@ -1,4 +1,29 @@
-# Api Keys Api
+import { createOneApiKeyRouteDefinition, deleteOneApiKeyRouteDefinition, readAllApiKeysRouteDefinition, } from "@arrhes/application-metadata/routes";
+import { DocCode } from "../../../components/document/DocCode.tsx";
+import { DocHeader } from "../../../components/document/DocHeader.tsx";
+import { DocParagraph } from "../../../components/document/DocParagraph.tsx";
+import { DocRouteRequest } from "../../../components/document/DocRouteRequest.tsx";
+import { DocSection } from "../../../components/document/DocSection.tsx";
+import { DocTip } from "../../../components/document/DocTip.tsx";
 
-Documentation page.
+export default function Content() {
 
+    return (<>
+            <DocHeader title="Clés API" description="Gestion des clés d'accès programmatique à l'API"/>
+
+            <DocSection title="Clés API">
+                <DocParagraph>
+                    Les clés API permettent un accès programmatique sans passer par le cookie de session. Chaque clé est
+                    liée à une organisation et nécessite un abonnement premium actif.
+                </DocParagraph>
+                <DocRouteRequest routeDefinition={createOneApiKeyRouteDefinition} description="Créer une nouvelle clé API. Retourne l'objet clé avec le champ rawKey."/>
+                <DocRouteRequest routeDefinition={readAllApiKeysRouteDefinition}/>
+                <DocRouteRequest routeDefinition={deleteOneApiKeyRouteDefinition}/>
+                <DocTip variant="info">
+                    La clé brute (<DocCode>rawKey</DocCode>) n'est retournée qu'au moment de la création. Conservez-la
+                    précieusement car elle ne pourra pas être récupérée ultérieurement.
+                </DocTip>
+            </DocSection>
+        </>);
+
+}

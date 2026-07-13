@@ -38,7 +38,6 @@ import { gettingStartedDashboardDocRoute } from "./dashboard/gettingStartedDashb
 import { organizationsDashboardDocRoute } from "./dashboard/organizationsDashboardDocRoute.js"
 import { reportsDashboardDocRoute } from "./dashboard/reportsDashboardDocRoute.js"
 import { rootDashboardDocRoute } from "./dashboard/rootDashboardDocRoute.js"
-import { updatesDashboardDocRoute } from "./dashboard/updatesDashboardDocRoute.js"
 import { yearsDashboardDocRoute } from "./dashboard/yearsDashboardDocRoute.js"
 import { docsLayoutRoute } from "./docsLayoutRoute.js"
 import { architectureGeneralDocRoute } from "./root/architectureGeneralDocRoute.js"
@@ -49,6 +48,7 @@ import { privacyGeneralDocRoute } from "./root/privacyGeneralDocRoute.js"
 import { rootGeneralDocRoute } from "./root/rootGeneralDocRoute.js"
 import { supportGeneralDocRoute } from "./root/supportGeneralDocRoute.js"
 import { termsGeneralDocRoute } from "./root/termsGeneralDocRoute.js"
+import { updatesGeneralDocRoute } from "./root/updatesGeneralDocRoute.js"
 import { whitepaperGeneralDocRoute } from "./root/whitepaperGeneralDocRoute.js"
 
 export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
@@ -62,6 +62,7 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
         legalGeneralDocRoute,
         termsGeneralDocRoute,
         privacyGeneralDocRoute,
+        updatesGeneralDocRoute,
     ]),
 
     // Comptabilite section (cours de comptabilité)
@@ -90,7 +91,6 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
         entriesDashboardDocRoute,
         filesDashboardDocRoute,
         reportsDashboardDocRoute,
-        updatesDashboardDocRoute,
         // AI sub-section (assistant IA)
         aiDocLayoutRoute.addChildren([
             rootAiDocRoute,

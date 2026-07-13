@@ -1,4 +1,7 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { docMdxComponents } from "../../../../../components/document/DocMdxComponents"
+import { DocRoot } from "../../../../../components/document/DocRoot"
+import Content from "../../../../../features/docs/cli/commands/JournauxCommandsCliDocPage.mdx"
 import { commandsCliDocLayoutRoute } from "../commandsCliDocRoute.js"
 
 export const journauxCommandsCliDocRoute = createRoute({
@@ -8,8 +11,9 @@ export const journauxCommandsCliDocRoute = createRoute({
         title: "Journaux",
         description: "Commandes de gestion des journaux comptables : arrhes journals.",
     }),
-    component: lazyRouteComponent(
-        () => import("../../../../../features/docs/cli/commands/JournauxCommandsCliDocPage.js"),
-        "JournauxCommandsCliDocPage",
+    component: () => (
+        <DocRoot>
+            <Content components={docMdxComponents} />
+        </DocRoot>
     ),
 })

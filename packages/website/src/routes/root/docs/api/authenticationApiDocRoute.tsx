@@ -1,4 +1,7 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { docMdxComponents } from "../../../../components/document/DocMdxComponents"
+import { DocRoot } from "../../../../components/document/DocRoot"
+import Content from "../../../../features/docs/api/AuthenticationApiDocPage.mdx"
 import { apiDocLayoutRoute } from "./apiDocLayoutRoute.tsx"
 
 export const authenticationApiDocRoute = createRoute({
@@ -9,8 +12,9 @@ export const authenticationApiDocRoute = createRoute({
         description:
             "Authentification à l'API Arrhes : gestion des clés API, sessions utilisateurs et sécurité des requêtes.",
     }),
-    component: lazyRouteComponent(
-        () => import("../../../../features/docs/api/AuthenticationApiDocPage.tsx"),
-        "AuthenticationApiDocPage",
+    component: () => (
+        <DocRoot>
+            <Content components={docMdxComponents} />
+        </DocRoot>
     ),
 })

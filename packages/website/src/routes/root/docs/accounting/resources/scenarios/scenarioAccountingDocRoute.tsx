@@ -1,4 +1,7 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { docMdxComponents } from "../../../../../../components/document/DocMdxComponents"
+import { DocRoot } from "../../../../../../components/document/DocRoot"
+import Content from "../../../../../../features/docs/accounting/resources/scenarios/ScenarioResourcesAccountingDocPage.mdx"
 import { getScenarioById } from "../../../../../../features/docs/accounting/resources/scenarios/scenariosData.js"
 import { scenariosAccountingDocLayoutRoute } from "./scenariosAccountingDocLayoutRoute.js"
 
@@ -13,11 +16,9 @@ export const scenarioAccountingDocRoute = createRoute({
             description: entry ? entry.description : "Ce scénario comptable n'a pas été trouvé.",
         }
     },
-    component: lazyRouteComponent(
-        () =>
-            import(
-                "../../../../../../features/docs/accounting/resources/scenarios/ScenarioResourcesAccountingDocPage.js"
-            ),
-        "ScenarioResourcesAccountingDocPage",
+    component: () => (
+        <DocRoot>
+            <Content components={docMdxComponents} />
+        </DocRoot>
     ),
 })

@@ -1,67 +1,88 @@
-# Fonctionnalités
+import { DocHeader } from "../../../../components/document/DocHeader.js";
+import { DocList } from "../../../../components/document/DocList.js";
+import { DocParagraph } from "../../../../components/document/DocParagraph.js";
+import { DocSection } from "../../../../components/document/DocSection.js";
 
-Découvrez toutes les fonctionnalités d'Arrhes pour gérer votre comptabilité de manière simple et efficace.
+export default function Content() {
 
-## Saisie des écritures
+    return (<>
+            <DocHeader title="Fonctionnalités" description="Découvrez toutes les fonctionnalités d'Arrhes pour gérer votre comptabilité de manière simple et efficace."/>
 
-Enregistrez vos écritures comptables avec une interface intuitive.
+            <DocSection title="Saisie des écritures">
+                <DocParagraph>Enregistrez vos écritures comptables avec une interface intuitive.</DocParagraph>
+                <DocList items={[
+            "Journal chronologique",
+            "Lettrage automatique",
+        ]}/>
+            </DocSection>
 
-- Journal chronologique
-- Lettrage automatique
+            <DocSection title="Espace de stockage">
+                <DocParagraph>Organisez vos documents et accédez-y rapidement.</DocParagraph>
+                <DocList items={[
+            "Pièces justificatives (factures, relevés bancaires, etc.)",
+            "Visualisation des documents",
+            "Volume offert de 1 Go par organisation",
+        ]}/>
+            </DocSection>
 
-## Espace de stockage
+            <DocSection title="Documents comptables">
+                <DocParagraph>
+                    Générez tous vos documents comptables de synthèse conformes aux normes françaises.
+                </DocParagraph>
+                <DocList items={[
+            "Grand livre, Balance générale, Bilan comptable, Compte de résultat",
+            "Export du Fichier des Écritures Comptable (FEC)",
+            "Mise à jour automatique à chaque nouvelle écriture",
+            "Export PDF",
+        ]}/>
+            </DocSection>
 
-Organisez vos documents et accédez-y rapidement.
+            <DocSection title="Multiple organisations">
+                <DocParagraph>Gérez plusieurs structures avec un seul compte et collaborez en équipe.</DocParagraph>
+                <DocList items={[
+            "Organisations illimitées",
+            "Gestion des membres",
+            "Exercices illimités",
+        ]}/>
+            </DocSection>
 
-- Pièces justificatives (factures, relevés bancaires, etc.)
-- Visualisation des documents
-- Volume offert de 1 Go par organisation
+            <DocSection title="API REST">
+                <DocParagraph>Intégrez Arrhes à vos outils grâce à notre API complète.</DocParagraph>
+                <DocList items={[
+            "Authentification par clé API",
+            "Accès complet aux écritures et documents",
+            "Documentation intégrée",
+        ]}/>
+            </DocSection>
 
-## Documents comptables
+            <DocSection title="Assistant IA">
+                <DocParagraph>
+                    Posez vos questions comptables en langage naturel et obtenez des réponses contextuelles.
+                </DocParagraph>
+                <DocList items={[
+            "1 million de tokens inclus",
+            "Accès aux écritures et documents de l'organisation",
+            "Questions en langage naturel",
+        ]}/>
+            </DocSection>
 
-Générez tous vos documents comptables de synthèse conformes aux normes françaises.
+            <DocSection title="Reconnaissance optique (OCR)">
+                <DocParagraph>Extrayez le texte de vos documents pour les analyser avec l'assistant IA.</DocParagraph>
+                <DocList items={[
+            "100 pages incluses",
+            "Formats PDF, JPEG, PNG",
+            "Intégration directe avec l'assistant IA",
+        ]}/>
+            </DocSection>
 
-- Grand livre, Balance générale, Bilan comptable, Compte de résultat
-- Export du Fichier des Écritures Comptable (FEC)
-- Mise à jour automatique à chaque nouvelle écriture
-- Export PDF
+            <DocSection title="Sécurité">
+                <DocParagraph>Vos données sont protégées avec les meilleures pratiques de sécurité.</DocParagraph>
+                <DocList items={[
+            "Chiffrement bout-en-bout",
+            "Sauvegardes automatiques",
+            "Hébergement en France",
+        ]}/>
+            </DocSection>
+        </>);
 
-## Multiple organisations
-
-Gérez plusieurs structures avec un seul compte et collaborez en équipe.
-
-- Organisations illimitées
-- Gestion des membres
-- Exercices illimités
-
-## API REST
-
-Intégrez Arrhes à vos outils grâce à notre API complète.
-
-- Authentification par clé API
-- Accès complet aux écritures et documents
-- Documentation intégrée
-
-## Assistant IA
-
-Posez vos questions comptables en langage naturel et obtenez des réponses contextuelles.
-
-- 1 million de tokens inclus
-- Accès aux écritures et documents de l'organisation
-- Questions en langage naturel
-
-## Reconnaissance optique (OCR)
-
-Extrayez le texte de vos documents pour les analyser avec l'assistant IA.
-
-- 100 pages incluses
-- Formats PDF, JPEG, PNG
-- Intégration directe avec l'assistant IA
-
-## Sécurité
-
-Vos données sont protégées avec les meilleures pratiques de sécurité.
-
-- Chiffrement bout-en-bout
-- Sauvegardes automatiques
-- Hébergement en France
+}

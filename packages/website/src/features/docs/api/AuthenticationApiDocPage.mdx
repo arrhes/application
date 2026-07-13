@@ -1,35 +1,128 @@
-# Authentication Api
+import { DocCode } from "../../../components/document/DocCode.tsx";
+import { DocHeader } from "../../../components/document/DocHeader.tsx";
+import { DocList } from "../../../components/document/DocList.tsx";
+import { DocParagraph } from "../../../components/document/DocParagraph.tsx";
+import { DocSection } from "../../../components/document/DocSection.tsx";
+import { DocTable } from "../../../components/document/DocTable.tsx";
+import { DocTip } from "../../../components/document/DocTip.tsx";
 
-Lors de la connexion via l'interface web, un cookie arrhes_id_user_session
+export default function Content() {
 
-(httpOnly est automatiquement défini. Ce cookie identifie l'utilisateur pour toutes les requêtes
+    return (<>
+            <DocHeader title="Authentification" description="Méthodes d'authentification, en-têtes requis et clés API"/>
 
-Avec cette méthode, l'organisation cible doit être spécifiée séparément via l'en-tête
+            <DocSection title="Méthodes d'authentification">
+                <DocParagraph>
+                    L'API supporte deux méthodes d'authentification pour accéder aux routes protégées. Chaque requête
+                    doit utiliser l'une des deux méthodes suivantes :
+                </DocParagraph>
+                <DocTable headers={[
+            "Méthode",
+            "En-tête",
+            "Cas d'usage",
+        ]} rows={[
+            [
+                "Cookie de session",
+                "Cookie: arrhes_id_user_session=...",
+                "Utilisation via l'interface web",
+            ],
+            [
+                "Clé API (Bearer)",
+                "Authorization: Bearer <clé>",
+                "Intégration programmatique",
+            ],
+        ]}/>
+            </DocSection>
 
-X-Organization-Id ou le cookie arrhes_id_organization.
+            <DocSection title="Authentification par cookie de session">
+                <DocParagraph>
+                    Lors de la connexion via l'interface web, un cookie <DocCode>arrhes_id_user_session</DocCode>{" "}
+                    (httpOnly) est automatiquement défini. Ce cookie identifie l'utilisateur pour toutes les requêtes
+                    suivantes.
+                </DocParagraph>
+                <DocParagraph>
+                    Avec cette méthode, l'organisation cible doit être spécifiée séparément via l'en-tête{" "}
+                    <DocCode>X-Organization-Id</DocCode> ou le cookie <DocCode>arrhes_id_organization</DocCode>.
+                </DocParagraph>
+                <DocTip variant="info">
+                    L'en-tête <DocCode>X-Organization-Id</DocCode> a la priorité sur le cookie{",  "}
+                    <DocCode>arrhes_id_organization</DocCode>.
+                </DocTip>
+            </DocSection>
 
-L'en-tête X-Organization-Id a la priorité sur le cookie
+            <DocSection title="Authentification par clé API">
+                <DocParagraph>
+                    Les clés API permettent un accès programmatique à l'API. Elles sont liées à une organisation
+                    spécifique et nécessitent un abonnement premium.
+                </DocParagraph>
+                <DocParagraph>
+                    L'en-tête <DocCode>Authorization</DocCode> doit contenir le token au format Bearer :
+                </DocParagraph>
+                <DocTable headers={[
+            "En-tête",
+            "Valeur",
+        ]} rows={[
+            [
+                "Authorization",
+                "Bearer <votre_clé_api>",
+            ],
+        ]}/>
+                <DocParagraph>
+                    Avec une clé API, l'organisation est automatiquement déterminée par la clé elle-même. Il n'est pas
+                    nécessaire de fournir l'en-tête <DocCode>X-Organization-Id</DocCode>.
+                </DocParagraph>
+                <DocTip variant="warning">
+                    La clé brute (<DocCode>rawKey</DocCode>) n'est retournée qu'au moment de la création via la route
+                    {",  "}
+                    <DocCode>POST /v1/organizations/:idOrganization/api-keys</DocCode>. Conservez-la précieusement, elle
+                    ne pourra pas être récupérée ultérieurement.
+                </DocTip>
+            </DocSection>
 
-Les clés API permettent un accès programmatique à l'API. Elles sont liées à une organisation
+            <DocSection title="En-têtes requis">
+                <DocParagraph>Résumé des en-têtes nécessaires selon la méthode d'authentification :</DocParagraph>
+                <DocTable headers={[
+            "En-tête",
+            "Cookie de session",
+            "Clé API",
+        ]} rows={[
+            [
+                "Content-Type: application/json",
+                "Requis",
+                "Requis",
+            ],
+            [
+                "X-Organization-Id",
+                "Requis *",
+                "Non nécessaire",
+            ],
+            [
+                "Authorization: Bearer <clé>",
+                "Non utilisé",
+                "Requis",
+            ],
+        ]}/>
+                <DocParagraph>
+                    * L'en-tête <DocCode>X-Organization-Id</DocCode> peut être remplacé par le cookie{",  "}
+                    <DocCode>arrhes_id_organization</DocCode>.
+                </DocParagraph>
+            </DocSection>
 
-L'en-tête Authorization doit contenir le token au format Bearer :
+            <DocSection title="Permissions">
+                <DocParagraph>
+                    Certaines routes nécessitent des permissions supplémentaires au-delà de l'authentification :
+                </DocParagraph>
+                <DocList items={[
+            <>
+                            <strong>Administrateur</strong> : les routes de gestion d'organisation (suppression,
+                            paiements, abonnement) nécessitent que l'utilisateur soit administrateur de l'organisation.
+                        </>,
+            <>
+                            <strong>Plan avancé</strong> : les routes de gestion des clés API nécessitent un abonnement
+                            avancé actif sur l'organisation.
+                        </>,
+        ]}/>
+            </DocSection>
+        </>);
 
-Avec une clé API, l'organisation est automatiquement déterminée par la clé elle-même. Il n'est pas
-
-La clé brute (rawKey n'est retournée qu'au moment de la création via la route
-
-POST /v1/organizations/:idOrganization/api-keys. Conservez-la précieusement, elle
-
-Résumé des en-têtes nécessaires selon la méthode d'authentification :
-
-"Non utilisé",
-
-"Requis",
-
-* L'en-tête X-Organization-Id peut être remplacé par le cookie
-
-Certaines routes nécessitent des permissions supplémentaires au-delà de l'authentification :
-
-Administrateur : les routes de gestion d'organisation (suppression,
-
-Plan avancé : les routes de gestion des clés API nécessitent un abonnement
+}

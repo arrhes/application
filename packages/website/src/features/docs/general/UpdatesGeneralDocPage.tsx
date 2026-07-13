@@ -4,7 +4,7 @@ import { DocParagraph } from "../../../components/document/DocParagraph.js"
 import { DocRoot } from "../../../components/document/DocRoot.js"
 import { DocSection } from "../../../components/document/DocSection.js"
 
-export function UpdatesDashboardDocPage() {
+export function UpdatesGeneralDocPage() {
     return (
         <DocRoot>
             <DocHeader

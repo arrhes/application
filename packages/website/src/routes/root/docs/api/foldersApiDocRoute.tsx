@@ -1,4 +1,7 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { docMdxComponents } from "../../../../components/document/DocMdxComponents"
+import { DocRoot } from "../../../../components/document/DocRoot"
+import Content from "../../../../features/docs/api/FoldersApiDocPage.mdx"
 import { apiDocLayoutRoute } from "./apiDocLayoutRoute.tsx"
 
 export const foldersApiDocRoute = createRoute({
@@ -8,8 +11,9 @@ export const foldersApiDocRoute = createRoute({
         title: "Dossiers",
         description: "Endpoints API pour la gestion des dossiers de fichiers d'un exercice Arrhes.",
     }),
-    component: lazyRouteComponent(
-        () => import("../../../../features/docs/api/FoldersApiDocPage.tsx"),
-        "FoldersApiDocPage",
+    component: () => (
+        <DocRoot>
+            <Content components={docMdxComponents} />
+        </DocRoot>
     ),
 })
