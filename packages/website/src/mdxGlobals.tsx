@@ -4,6 +4,7 @@ import { DocDefinition } from "./components/document/DocDefinition.tsx"
 import { DocExample } from "./components/document/DocExample.tsx"
 import { DocGlossaryEntry } from "./components/document/DocGlossaryEntry.tsx"
 import { DocHeader } from "./components/document/DocHeader.tsx"
+import { DocImplementationTabs } from "./components/document/DocImplementationTabs.tsx"
 import { DocIndexLink } from "./components/document/DocIndexLink.tsx"
 import { DocLastUpdate } from "./components/document/DocLastUpdate.tsx"
 import { DocLink } from "./components/document/DocLink.tsx"
@@ -27,6 +28,7 @@ const components = {
     DocExample,
     DocGlossaryEntry,
     DocHeader,
+    DocImplementationTabs,
     DocIndexLink,
     DocLastUpdate,
     DocLink,

@@ -13,6 +13,7 @@ type DocSectionId = keyof typeof docSections
 
 function getCurrentSection(pathname: string): DocSectionId {
     if (pathname.startsWith("/documentation/comptabilité")) return "comptabilite"
+    if (pathname.startsWith("/documentation/guide")) return "guide"
     if (pathname.startsWith("/documentation/dashboard")) return "dashboard"
     if (pathname.startsWith("/documentation/api")) return "api"
     if (pathname.startsWith("/documentation/cli")) return "cli"

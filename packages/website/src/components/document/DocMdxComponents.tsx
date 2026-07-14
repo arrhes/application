@@ -3,6 +3,7 @@ import type { ReactNode } from "react"
 import { DocCode } from "./DocCode.js"
 import { DocCodeBlock } from "./DocCodeBlock.js"
 import { DocHeader } from "./DocHeader.js"
+import { DocImplementationTabs } from "./DocImplementationTabs.js"
 import { DocLink } from "./DocLink.js"
 import { DocList } from "./DocList.js"
 import { DocParagraph } from "./DocParagraph.js"
@@ -35,6 +36,8 @@ function extractText(children: ReactNode): string {
 
 export const docMdxComponents = {
     wrapper: ({ children }: { children?: ReactNode }) => <>{children}</>,
+
+    DocImplementationTabs,
 
     h1: ({ children }: { children?: ReactNode }) => <DocHeader title={extractText(children)} />,
 
