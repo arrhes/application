@@ -1,7 +1,6 @@
 import { createRoute } from "@tanstack/react-router"
-import { docMdxComponents } from "../../../../components/document/DocMdxComponents"
 import { DocRoot } from "../../../../components/document/DocRoot"
-import Content from "../../../../features/docs/guide/JournauxGuideDocPage.mdx"
+import { JournauxGuideDocPage } from "../../../../features/docs/guide/JournauxGuideDocPage.tsx"
 import { guideDocLayoutRoute } from "./guideDocLayoutRoute.js"
 
 export const journauxGuideDocRoute = createRoute({
@@ -13,7 +12,7 @@ export const journauxGuideDocRoute = createRoute({
     }),
     component: () => (
         <DocRoot>
-            <Content components={docMdxComponents} />
+            <JournauxGuideDocPage />
         </DocRoot>
     ),
 })

@@ -4,7 +4,6 @@ import { useState } from "react"
 import { DocHeader } from "../../../../../components/document/DocHeader.js"
 import { DocLink } from "../../../../../components/document/DocLink.js"
 import { DocParagraph } from "../../../../../components/document/DocParagraph.js"
-import { DocRoot } from "../../../../../components/document/DocRoot.js"
 import { DocTip } from "../../../../../components/document/DocTip.js"
 import { GlossaryListItem } from "./GlossaryListItem.js"
 import { getGlossaryTermsByLetter, searchGlossaryTerms } from "./glossaryData.js"
@@ -14,9 +13,8 @@ export function GlossaryResourcesAccountingDocPage() {
     const isSearching = query.trim().length > 0
     const filteredTerms = searchGlossaryTerms(query)
     const termsByLetter = getGlossaryTermsByLetter()
-
     return (
-        <DocRoot>
+        <>
             <DocHeader
                 title="Glossaire comptable"
                 description="Tous les termes essentiels de la comptabilité en un coup d'oeil"
@@ -163,6 +161,6 @@ export function GlossaryResourcesAccountingDocPage() {
                     ))}
                 </div>
             )}
-        </DocRoot>
+        </>
     )
 }

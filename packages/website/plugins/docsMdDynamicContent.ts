@@ -1,5 +1,21 @@
 import { readFileSync } from "node:fs"
 import { resolve } from "node:path"
+import {
+    mdCode,
+    mdCodeBlock,
+    mdDefinition,
+    mdExample,
+    mdHeader,
+    mdLink,
+    mdList,
+    mdParagraph,
+    mdSection,
+    mdSourceRef,
+    mdTable,
+    mdTextSection,
+    mdTip,
+    resolveDocLinkUrl,
+} from "../src/components/document/markdown.js"
 import { DOC_PAGE_MANIFEST } from "./DOC_PAGE_MANIFEST"
 
 interface AccountData {
@@ -437,43 +453,6 @@ export function listScenarioIds(pkgRoot: string): string[] {
     return Array.from(source.matchAll(/\bid\s*:\s*"([^"]+)"/g)).map((m) => m[1])
 }
 
-function extractJsxText(value: string): string {
-    return value
-        .replace(/\{[\s\S]*?\}/g, "")
-        .replace(/<br\s*\/?>/gi, "\n")
-        .replace(/<DocCode[^>]*>([\s\S]*?)<\/DocCode>/g, "`$1`")
-        .replace(/<[^>]+>/g, "")
-        .replace(/[ \t]+/g, " ")
-        .replace(/ ?\n ?/g, "\n")
-        .replace(/\n{2,}/g, "\n")
-        .trim()
-}
-
-function convertInlineLinks(value: string, baseUrl: string): string {
-    return value
-        .replace(/<a\s+[^>]*?href\s*=\s*"([^"]+)"[^>]*>([\s\S]*?)<\/a>/g, (_, href, text) => {
-            const cleanText = extractJsxText(text)
-            return cleanText ? `[${cleanText}](${docUrl(baseUrl, href)})` : docUrl(baseUrl, href)
-        })
-        .replace(/<LinkButton\s+[^>]*?to\s*=\s*"([^"]+)"[^>]*>([\s\S]*?)<\/LinkButton>/g, (_, to, text) => {
-            const cleanText = extractJsxText(text)
-            return cleanText ? `[${cleanText}](${docUrl(baseUrl, to)})` : docUrl(baseUrl, to)
-        })
-        .replace(
-            /<DocLink\s+[^>]*?to\s*=\s*"([^"]+)"(?:[^>]*?params\s*=\s*\{\s*\{([\s\S]*?)\}\s*\})?[^>]*>([\s\S]*?)<\/DocLink>/g,
-            (_, to, paramsRaw, text) => {
-                const cleanText = extractJsxText(text)
-                let url = to
-                if (paramsRaw) {
-                    for (const paramMatch of paramsRaw.matchAll(/(\w+)\s*:\s*"([^"]+)"/g)) {
-                        url = url.replace(`$${paramMatch[1]}`, paramMatch[2])
-                    }
-                }
-                return cleanText ? `[${cleanText}](${docUrl(baseUrl, url)})` : docUrl(baseUrl, url)
-            },
-        )
-}
-
 function splitArrayElements(content: string): string[] {
     const elements: string[] = []
     let depth = 0
@@ -577,6 +556,43 @@ function stripIndent(text: string): string {
     return lines.map((line) => line.slice(minIndent)).join("\n")
 }
 
+function extractJsxText(value: string): string {
+    return value
+        .replace(/\{[\s\S]*?\}/g, "")
+        .replace(/<br\s*\/?>/gi, "\n")
+        .replace(/<DocCode[^>]*>([\s\S]*?)<\/DocCode>/g, (_, text) => mdCode(text.trim()))
+        .replace(/<[^>]+>/g, "")
+        .replace(/[ \t]+/g, " ")
+        .replace(/ ?\n ?/g, "\n")
+        .replace(/\n{2,}/g, "\n")
+        .trim()
+}
+
+function convertInlineLinks(value: string, baseUrl: string): string {
+    return value
+        .replace(/<a\s+[^>]*?href\s*=\s*"([^"]+)"[^>]*>([\s\S]*?)<\/a>/g, (_, href, text) => {
+            const cleanText = extractJsxText(text)
+            return cleanText ? `[${cleanText}](${docUrl(baseUrl, href)})` : docUrl(baseUrl, href)
+        })
+        .replace(/<LinkButton\s+[^>]*?to\s*=\s*"([^"]+)"[^>]*>([\s\S]*?)<\/LinkButton>/g, (_, to, text) => {
+            const cleanText = extractJsxText(text)
+            return cleanText ? `[${cleanText}](${docUrl(baseUrl, to)})` : docUrl(baseUrl, to)
+        })
+        .replace(
+            /<DocLink\s+[^>]*?to\s*=\s*"([^"]+)"(?:[^>]*?params\s*=\s*\{\s*\{([\s\S]*?)\}\s*\})?[^>]*>([\s\S]*?)<\/DocLink>/g,
+            (_, to, paramsRaw, text) => {
+                const cleanText = extractJsxText(text)
+                const params: Record<string, string> = {}
+                if (paramsRaw) {
+                    for (const paramMatch of paramsRaw.matchAll(/(\w+)\s*:\s*"([^"]+)"/g)) {
+                        params[paramMatch[1]] = paramMatch[2]
+                    }
+                }
+                return cleanText ? mdLink(to, cleanText, params) : resolveDocLinkUrl(to, params)
+            },
+        )
+}
+
 function convertBlockComponents(value: string, baseUrl = ""): string {
     return value
         .replace(
@@ -584,34 +600,21 @@ function convertBlockComponents(value: string, baseUrl = ""): string {
             (_, headersRaw, rowsRaw) => {
                 const headers = parseInlineStringArray(headersRaw, baseUrl)
                 const rows = parseInlineStringMatrix(rowsRaw, baseUrl)
-                if (headers.length === 0 && rows.length === 0) return ""
-                const lines: string[] = []
-                lines.push(`| ${headers.join(" | ")} |`)
-                lines.push(`|${headers.map(() => "---").join("|")}|`)
-                for (const row of rows) {
-                    lines.push(`| ${row.map((cell) => cell.replace(/\|/g, "\\|")).join(" | ")} |`)
-                }
-                return `\n${lines.join("\n")}\n`
+                return mdTable(headers, rows)
             },
         )
         .replace(/<DocList[\s\S]*?items\s*=\s*\{\s*\[([\s\S]*?)\]\s*\}[\s\S]*?\/>/g, (_, itemsRaw) => {
             const items = parseInlineStringArray(itemsRaw, baseUrl)
-            if (items.length === 0) return ""
-            return `\n${items.map((item) => `- ${item}`).join("\n")}\n`
+            return mdList(items)
         })
         .replace(/<DocCodeBlock>([\s\S]*?)<\/DocCodeBlock>/g, (_, code) => {
             const literalMatch = code.match(/^\s*\{\s*(?:"([\s\S]*?)"|'([\s\S]*?)')\s*\}\s*$/)
             const raw = literalMatch ? (literalMatch[1] ?? literalMatch[2] ?? "") : code
-            const unescaped = raw
-                .replace(/\\n/g, "\n")
-                .replace(/\\t/g, "\t")
-                .replace(/\\"/g, '"')
-                .replace(/\\'/g, "'")
-                .replace(/\\\\/g, "\\")
+            const unescaped = unescapeStringLiteral(raw)
             const cleaned = stripIndent(unescaped).trim()
-            return cleaned ? `\n\`\`\`\n${cleaned}\n\`\`\`\n` : ""
+            return mdCodeBlock(cleaned)
         })
-        .replace(/<DocSourceRef\s+n\s*=\s*\{(\d+)\}\s*\/>/g, "[^$1]")
+        .replace(/<DocSourceRef\s+n\s*=\s*\{(\d+)\}\s*\/>/g, (_, n) => mdSourceRef(Number(n)))
 }
 
 function processInlineContent(value: string, baseUrl = ""): string {
@@ -638,60 +641,90 @@ function processInlineContent(value: string, baseUrl = ""): string {
 }
 
 function convertDocTip(value: string, baseUrl = ""): string {
-    const variantMap: Record<string, string> = {
-        info: "NOTE",
-        warning: "WARNING",
-        tip: "TIP",
-        success: "TIP",
-        danger: "CAUTION",
-        error: "CAUTION",
-    }
     return value.replace(/<(DocTip|DocDefinition|DocExample)\s+([^>]*)>([\s\S]*?)<\/\1>/g, (_, tag, attrs, content) => {
         const isDefinition = tag === "DocDefinition"
         const isExample = tag === "DocExample"
         const variant = attrs.match(/variant\s*=\s*"([^"]+)"/)?.[1] ?? (isDefinition || isExample ? "neutral" : "info")
-        const title =
-            attrs.match(/title\s*=\s*"([^"]+)"/)?.[1] ??
-            (isDefinition ? "Définition" : isExample ? "Exemple" : undefined)
+        const title = attrs.match(/title\s*=\s*"([^"]+)"/)?.[1]
         const termAttr = attrs.match(/term\s*=\s*"([^"]+)"/)?.[1]
-        const alertType = variantMap[variant] ?? "NOTE"
+        const processedContent = processInlineContent(content, baseUrl).trim()
 
-        const term = termAttr ?? content.match(/<dt[^>]*>([\s\S]*?)<\/dt>/)?.[1]
-        const definition = content.match(/<dd[^>]*>([\s\S]*?)<\/dd>/)?.[1]
-
-        let text: string
-        if (term !== undefined) {
-            const processedDefinition =
-                definition !== undefined
-                    ? processInlineContent(definition, baseUrl).trim()
-                    : processInlineContent(content, baseUrl).trim()
-            const processedTerm = processInlineContent(term, baseUrl).trim()
-            text = processedDefinition
-                ? `**Définition — ${processedTerm}**\n\n${processedDefinition}`
-                : `**Définition — ${processedTerm}**`
-        } else if (isDefinition) {
-            text = processInlineContent(content, baseUrl).trim()
-            text = text ? `**Définition** — ${text}` : "**Définition**"
-        } else {
-            text = processInlineContent(content, baseUrl).trim()
-            if (title && title !== "Définition") {
-                text = `**${title}**${text ? `\n\n${text}` : ""}`
-            } else if (title === "Définition") {
-                text = text ? `**Définition** — ${text}` : "**Définition**"
-            }
+        if (isDefinition) {
+            return mdDefinition(termAttr, processedContent)
         }
-
-        if (!text) return ""
-        const body = text
-            .split("\n")
-            .map((line) => `> ${line}`)
-            .join("\n")
-        return `> [!${alertType}]\n${body}`
+        if (isExample) {
+            return mdExample(title, processedContent)
+        }
+        return mdTip(variant, title, processedContent)
     })
 }
 
-function renderParagraph(value: string, baseUrl = ""): string {
-    return processInlineContent(value, baseUrl)
+function renderMarkdownForSectionBody(sectionBody: string, baseUrl: string): string {
+    let bodyMd = ""
+
+    // Convert standalone DocTip/DocDefinition/DocExample blocks
+    const bodyWithTips = convertDocTip(sectionBody, baseUrl)
+
+    // DocParagraph blocks
+    const paragraphMatches = bodyWithTips.matchAll(/<DocParagraph>([\s\S]*?)<\/DocParagraph>/g)
+    for (const paragraphMatch of paragraphMatches) {
+        const text = processInlineContent(paragraphMatch[1], baseUrl)
+        if (text) {
+            bodyMd += mdParagraph(text)
+        }
+    }
+
+    // DocList blocks (not inside DocParagraph)
+    const listMatches = bodyWithTips.matchAll(/<DocList[\s\S]*?items\s*=\s*\{\s*\[([\s\S]*?)\]\s*\}[\s\S]*?\/>/g)
+    for (const listMatch of listMatches) {
+        const items = parseInlineStringArray(listMatch[1], baseUrl)
+        bodyMd += mdList(items)
+    }
+
+    // Standalone links (e.g. Updates page)
+    const bodyWithoutBlocks = bodyWithTips
+        .replace(/<DocParagraph>[\s\S]*?<\/DocParagraph>/g, "")
+        .replace(/<DocList[\s\S]*?\/>/g, "")
+    for (const linkMatch of bodyWithoutBlocks.matchAll(/<a\s+[^>]*?href\s*=\s*"([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)) {
+        const linkText = processInlineContent(linkMatch[0], baseUrl)
+        if (linkText) {
+            bodyMd += mdParagraph(linkText)
+        }
+    }
+
+    // DocTable blocks
+    for (const tableMatch of bodyWithTips.matchAll(
+        /<DocTable\s+[^>]*headers\s*=\s*\{\s*\[([\s\S]*?)\]\s*\}[^>]*rows\s*=\s*\{\s*\[([\s\S]*?)\]\s*\}[^>]*\/>/g,
+    )) {
+        const headers = parseInlineStringArray(tableMatch[1], baseUrl)
+        const rows = parseInlineStringMatrix(tableMatch[2], baseUrl)
+        bodyMd += mdTable(headers, rows)
+    }
+
+    // DocCodeBlock blocks
+    for (const codeMatch of bodyWithTips.matchAll(/<DocCodeBlock>([\s\S]*?)<\/DocCodeBlock>/g)) {
+        const literalMatch = codeMatch[1].match(/^\s*\{\s*(?:"([\s\S]*?)"|'([\s\S]*?)')\s*\}\s*$/)
+        const raw = literalMatch ? (literalMatch[1] ?? literalMatch[2] ?? "") : codeMatch[1]
+        const unescaped = unescapeStringLiteral(raw)
+        const cleaned = stripIndent(unescaped).trim()
+        bodyMd += mdCodeBlock(cleaned)
+    }
+
+    return bodyMd
+}
+
+function renderMarkdownForTextSectionBody(sectionBody: string, baseUrl: string): string {
+    let bodyMd = ""
+
+    const paragraphMatches = sectionBody.matchAll(/<p>([\s\S]*?)<\/p>/g)
+    for (const paragraphMatch of paragraphMatches) {
+        const text = processInlineContent(paragraphMatch[1], baseUrl)
+        if (text) {
+            bodyMd += mdParagraph(text)
+        }
+    }
+
+    return bodyMd
 }
 
 export function generateStaticDocPageMarkdown(pkgRoot: string, path: string, baseUrl = ""): string | null {
@@ -709,137 +742,39 @@ export function generateStaticDocPageMarkdown(pkgRoot: string, path: string, bas
         }
     }
 
-    const lines: string[] = []
-    const emittedAlerts = new Set<string>()
-
     const title = source.match(/<DocHeader[^>]*\btitle\s*=\s*"([^"]+)"/)?.[1] ?? entry.navLabel
     const description = source.match(/<DocHeader[^>]*\bdescription\s*=\s*"([^"]+)"/)?.[1]
 
-    lines.push(`# ${title}`)
-    lines.push("")
-    if (description) {
-        lines.push(description)
-        lines.push("")
-    }
-
-    // Convert standalone DocTip alerts
-    source = convertDocTip(source, baseUrl)
-
-    function registerAlert(text: string) {
-        emittedAlerts.add(text.replace(/\s+/g, " ").trim())
-    }
-
-    function pushAlert(text: string) {
-        const normalized = text.replace(/\s+/g, " ").trim()
-        if (emittedAlerts.has(normalized)) return
-        emittedAlerts.add(normalized)
-        lines.push(text)
-        lines.push("")
-    }
+    let markdown = mdHeader(title, description)
 
     const sectionMatches = source.matchAll(/<DocSection\s+title\s*=\s*"([^"]+)"[^>]*>([\s\S]*?)<\/DocSection>/g)
     for (const sectionMatch of sectionMatches) {
-        lines.push(`## ${sectionMatch[1]}`)
-        lines.push("")
-
+        const sectionTitle = sectionMatch[1]
         const sectionBody = sectionMatch[2]
-
-        const paragraphMatches = sectionBody.matchAll(/<DocParagraph>([\s\S]*?)<\/DocParagraph>/g)
-        for (const paragraphMatch of paragraphMatches) {
-            const text = renderParagraph(paragraphMatch[1], baseUrl)
-            if (text) {
-                lines.push(text)
-                lines.push("")
-                for (const tipMatch of text.matchAll(/> \[!\w+\]\n(?:>.*\n?)+/g)) {
-                    registerAlert(tipMatch[0])
-                }
-            }
-        }
-
-        const listMatches = sectionBody.matchAll(/<DocList[\s\S]*?items\s*=\s*\{\s*\[([\s\S]*?)\]\s*\}[\s\S]*?\/>/g)
-        for (const listMatch of listMatches) {
-            const items = parseInlineStringArray(listMatch[1], baseUrl)
-            for (const item of items) {
-                lines.push(`- ${item}`)
-            }
-            lines.push("")
-        }
-
-        // Standalone links that are not wrapped in a DocParagraph (e.g. Updates page)
-        const bodyWithoutBlocks = sectionBody
-            .replace(/<DocParagraph>[\s\S]*?<\/DocParagraph>/g, "")
-            .replace(/<DocList[\s\S]*?\/>/g, "")
-        for (const linkMatch of bodyWithoutBlocks.matchAll(/<a\s+[^>]*?href\s*=\s*"([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)) {
-            const linkText = processInlineContent(linkMatch[0], baseUrl)
-            if (linkText) {
-                lines.push(linkText)
-                lines.push("")
-            }
-        }
-
-        // DocTip alerts (including DocDefinition and DocExample) converted earlier may sit directly inside a section
-        for (const tipMatch of sectionBody.matchAll(/> \[!\w+\]\n(?:>.*\n?)+/g)) {
-            pushAlert(tipMatch[0].trimEnd())
-            lines.push("")
-        }
-
-        // Tables and code blocks that are not wrapped in a DocParagraph or DocExample
-        for (const tableMatch of sectionBody.matchAll(
-            /<DocTable\s+[^>]*headers\s*=\s*\{\s*\[([\s\S]*?)\]\s*\}[^>]*rows\s*=\s*\{\s*\[([\s\S]*?)\]\s*\}[^>]*\/>/g,
-        )) {
-            const markdownTable = convertBlockComponents(tableMatch[0], baseUrl).trim()
-            if (markdownTable) {
-                lines.push(markdownTable)
-                lines.push("")
-            }
-        }
-        for (const codeMatch of sectionBody.matchAll(/<DocCodeBlock>([\s\S]*?)<\/DocCodeBlock>/g)) {
-            const markdownCode = convertBlockComponents(codeMatch[0], baseUrl).trim()
-            if (markdownCode) {
-                lines.push(markdownCode)
-                lines.push("")
-            }
-        }
+        const sectionMd = renderMarkdownForSectionBody(sectionBody, baseUrl)
+        markdown += mdSection(sectionTitle, sectionMd)
     }
 
     const textSectionMatches = source.matchAll(
         /<DocTextSection\s+title\s*=\s*"([^"]+)"[^>]*>([\s\S]*?)<\/DocTextSection>/g,
     )
     for (const sectionMatch of textSectionMatches) {
-        lines.push(`## ${sectionMatch[1]}`)
-        lines.push("")
-
+        const sectionTitle = sectionMatch[1]
         const sectionBody = sectionMatch[2]
-
-        const paragraphMatches = sectionBody.matchAll(/<p>([\s\S]*?)<\/p>/g)
-        for (const paragraphMatch of paragraphMatches) {
-            const text = processInlineContent(paragraphMatch[1], baseUrl)
-            if (text) {
-                lines.push(text)
-                lines.push("")
-                for (const tipMatch of text.matchAll(/> \[!\w+\]\n(?:>.*\n?)+/g)) {
-                    registerAlert(tipMatch[0])
-                }
-            }
-        }
-
-        for (const tipMatch of sectionBody.matchAll(/> \[!\w+\]\n(?:>.*\n?)+/g)) {
-            pushAlert(tipMatch[0].trimEnd())
-        }
+        const sectionMd = renderMarkdownForTextSectionBody(sectionBody, baseUrl)
+        markdown += mdTextSection(sectionTitle, sectionMd)
     }
 
-    // Extract any remaining GitHub-alert-style DocTip blocks that were not inside a section
-    for (const tipMatch of source.matchAll(/> \[!\w+\]\n(?:>.*\n?)+/g)) {
-        pushAlert(tipMatch[0].trimEnd())
-    }
-
-    // Fallback: also extract standalone JSX text nodes to catch custom layouts
+    // Fallback: extract standalone JSX text nodes to catch custom layouts
     const stripped = source
         .replace(/\{\/\*[\s\S]*?\*\/\}/g, "")
         .replace(/\/\/[^\n]*/g, "")
         .replace(/<DocCode[^>]*>([\s\S]*?)<\/DocCode>/g, "$1")
     const textNodes = stripped.matchAll(/>([^<>{}]{8,})</g)
-    const existingText = lines.map((line) => line.trim().replace(/\s+/g, " ")).filter(Boolean)
+    const existingText = markdown
+        .split("\n")
+        .map((line) => line.trim().replace(/\s+/g, " "))
+        .filter(Boolean)
     const codeLikePattern = /\b(const|let|var|function|return|use[A-Z][a-zA-Z]*|=>|\[\])\b/
     for (const m of textNodes) {
         const text = m[1].trim().replace(/\s+/g, " ")
@@ -850,49 +785,46 @@ export function generateStaticDocPageMarkdown(pkgRoot: string, path: string, bas
         const alreadyIncluded = existingText.some((line) => line.includes(text) || text.includes(line))
         if (!alreadyIncluded) {
             existingText.push(text)
-            lines.push(text)
-            lines.push("")
+            markdown += mdParagraph(text)
         }
     }
 
     // Append structured link lists for resource index pages
     if (path === "/documentation/comptabilité/ressources/comptes") {
-        lines.push("## Comptes")
-        lines.push("")
+        const items: string[] = []
         const accountsSource = readAccountsData(pkgRoot)
         const chunks = accountsSource.split(/(?=\bdefineAccount\()/)
         for (const chunk of chunks) {
             const numberMatch = chunk.match(/^\s*defineAccount\(\s*"([^"]+)"/)
             const labelMatch = chunk.match(/^\s*defineAccount\(\s*"[^"]+",\s*"([^"]+)"/)
             if (numberMatch && labelMatch) {
-                lines.push(
-                    `- [${numberMatch[1]} ${labelMatch[1]}](${docUrl(baseUrl, `/documentation/comptabilité/ressources/comptes/${numberMatch[1]}`)})`,
+                items.push(
+                    mdLink(
+                        `/documentation/comptabilité/ressources/comptes/${numberMatch[1]}`,
+                        `${numberMatch[1]} ${labelMatch[1]}`,
+                    ),
                 )
             }
         }
-        lines.push("")
+        markdown += mdSection("Comptes", mdList(items))
     }
 
     if (path === "/documentation/comptabilité/ressources/scénarios") {
-        lines.push("## Scénarios")
-        lines.push("")
+        const items: string[] = []
         const scenariosSource = readScenariosData(pkgRoot)
         const chunks = scenariosSource.split(/(?=\bdefineScenario\()/)
         for (const chunk of chunks) {
             const idMatch = chunk.match(/\bid\s*:\s*"([^"]+)"/)
             const titleMatch = chunk.match(/\btitle\s*:\s*"([^"]+)"/)
             if (idMatch && titleMatch) {
-                lines.push(
-                    `- [${titleMatch[1]}](${docUrl(baseUrl, `/documentation/comptabilité/ressources/scénarios/${idMatch[1]}`)})`,
-                )
+                items.push(mdLink(`/documentation/comptabilité/ressources/scénarios/${idMatch[1]}`, titleMatch[1]))
             }
         }
-        lines.push("")
+        markdown += mdSection("Scénarios", mdList(items))
     }
 
     if (path === "/documentation/comptabilité/ressources/glossaire") {
-        lines.push("## Termes")
-        lines.push("")
+        const items: string[] = []
         const glossarySource = readGlossaryData(pkgRoot)
         const chunks = glossarySource.split(/(?=\bdefineTerm\()/)
         for (const chunk of chunks) {
@@ -901,13 +833,11 @@ export function generateStaticDocPageMarkdown(pkgRoot: string, path: string, bas
             if (termMatch) {
                 const slug = toGlossarySlug(termMatch[1])
                 const label = englishMatch ? `${termMatch[1]} (${englishMatch[1]})` : termMatch[1]
-                lines.push(
-                    `- [${label}](${docUrl(baseUrl, `/documentation/comptabilité/ressources/glossaire/${slug}`)})`,
-                )
+                items.push(mdLink(`/documentation/comptabilité/ressources/glossaire/${slug}`, label))
             }
         }
-        lines.push("")
+        markdown += mdSection("Termes", mdList(items))
     }
 
-    return lines.join("\n")
+    return markdown
 }

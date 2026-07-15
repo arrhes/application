@@ -1,7 +1,6 @@
 import { createRoute } from "@tanstack/react-router"
-import { docMdxComponents } from "../../../../../components/document/DocMdxComponents"
 import { DocRoot } from "../../../../../components/document/DocRoot"
-import Content from "../../../../../features/docs/accounting/reports/LedgerAccountingDocPage.mdx"
+import { LedgerAccountingDocPage } from "../../../../../features/docs/accounting/reports/LedgerAccountingDocPage.tsx"
 import { reportsAccountingDocLayoutRoute } from "./reportsAccountingDocLayoutRoute.js"
 
 export const ledgerAccountingDocRoute = createRoute({
@@ -14,7 +13,7 @@ export const ledgerAccountingDocRoute = createRoute({
     }),
     component: () => (
         <DocRoot>
-            <Content components={docMdxComponents} />
+            <LedgerAccountingDocPage />
         </DocRoot>
     ),
 })

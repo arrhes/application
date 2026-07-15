@@ -1,7 +1,6 @@
 import { createRoute } from "@tanstack/react-router"
-import { docMdxComponents } from "../../../../components/document/DocMdxComponents"
 import { DocRoot } from "../../../../components/document/DocRoot"
-import Content from "../../../../features/docs/guide/ReferenceApiGuideDocPage.mdx"
+import { ReferenceApiGuideDocPage } from "../../../../features/docs/guide/ReferenceApiGuideDocPage.tsx"
 import { guideDocLayoutRoute } from "./guideDocLayoutRoute.js"
 
 export const referenceApiGuideDocRoute = createRoute({
@@ -13,7 +12,7 @@ export const referenceApiGuideDocRoute = createRoute({
     }),
     component: () => (
         <DocRoot>
-            <Content components={docMdxComponents} />
+            <ReferenceApiGuideDocPage />
         </DocRoot>
     ),
 })

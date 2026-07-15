@@ -1,7 +1,6 @@
 import { createRoute } from "@tanstack/react-router"
-import { docMdxComponents } from "../../../../components/document/DocMdxComponents"
 import { DocRoot } from "../../../../components/document/DocRoot"
-import Content from "../../../../features/docs/general/PrivacyGeneralDocPage.mdx"
+import { PrivacyGeneralDocPage } from "../../../../features/docs/general/PrivacyGeneralDocPage.tsx"
 import { generalDocLayoutRoute } from "./generalDocLayoutRoute.tsx"
 
 export const privacyGeneralDocRoute = createRoute({
@@ -14,7 +13,7 @@ export const privacyGeneralDocRoute = createRoute({
     }),
     component: () => (
         <DocRoot>
-            <Content components={docMdxComponents} />
+            <PrivacyGeneralDocPage />
         </DocRoot>
     ),
 })

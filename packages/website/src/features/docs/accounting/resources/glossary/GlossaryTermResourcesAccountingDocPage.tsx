@@ -15,11 +15,8 @@ import { getGlossaryTermBySlug, glossaryTerms } from "./glossaryData.js"
 export function GlossaryTermResourcesAccountingDocPage() {
     const { term: slug } = useParams({
         strict: false,
-    }) as {
-        term: string
-    }
+    })
     const entry = getGlossaryTermBySlug(slug)
-
     if (!entry) {
         return (
             <DocRoot>
@@ -36,9 +33,8 @@ export function GlossaryTermResourcesAccountingDocPage() {
             </DocRoot>
         )
     }
-
     return (
-        <DocRoot>
+        <>
             <LinkButton to="/documentation/comptabilité/ressources/glossaire">
                 <ButtonOutlineContent
                     leftIcon={<IconArrowLeft />}
@@ -132,6 +128,6 @@ export function GlossaryTermResourcesAccountingDocPage() {
                     ...entry.sources,
                 ]}
             />
-        </DocRoot>
+        </>
     )
 }

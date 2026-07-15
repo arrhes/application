@@ -1,12 +1,11 @@
 import { LinkContent } from "@arrhes/ui"
 import { DocHeader } from "../../../components/document/DocHeader.js"
 import { DocParagraph } from "../../../components/document/DocParagraph.js"
-import { DocRoot } from "../../../components/document/DocRoot.js"
 import { DocSection } from "../../../components/document/DocSection.js"
 
 export function UpdatesGeneralDocPage() {
     return (
-        <DocRoot>
+        <>
             <DocHeader
                 title="Mises à jour"
                 description="Historique des versions et nouveautés d'Arrhes."
@@ -25,6 +24,6 @@ export function UpdatesGeneralDocPage() {
                     <LinkContent>Voir les releases Arrhes sur GitHub</LinkContent>
                 </a>
             </DocSection>
-        </DocRoot>
+        </>
     )
 }

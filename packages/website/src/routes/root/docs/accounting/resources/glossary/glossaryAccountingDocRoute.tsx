@@ -1,7 +1,6 @@
 import { createRoute } from "@tanstack/react-router"
-import { docMdxComponents } from "../../../../../../components/document/DocMdxComponents"
 import { DocRoot } from "../../../../../../components/document/DocRoot"
-import Content from "../../../../../../features/docs/accounting/resources/glossary/GlossaryResourcesAccountingDocPage.mdx"
+import { GlossaryResourcesAccountingDocPage } from "../../../../../../features/docs/accounting/resources/glossary/GlossaryResourcesAccountingDocPage.tsx"
 import { glossaryAccountingDocLayoutRoute } from "./glossaryAccountingDocLayoutRoute.js"
 
 export const glossaryAccountingDocIndexRoute = createRoute({
@@ -14,7 +13,7 @@ export const glossaryAccountingDocIndexRoute = createRoute({
     }),
     component: () => (
         <DocRoot>
-            <Content components={docMdxComponents} />
+            <GlossaryResourcesAccountingDocPage />
         </DocRoot>
     ),
 })

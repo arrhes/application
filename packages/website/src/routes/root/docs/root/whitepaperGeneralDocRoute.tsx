@@ -1,7 +1,6 @@
 import { createRoute } from "@tanstack/react-router"
-import { docMdxComponents } from "../../../../components/document/DocMdxComponents"
 import { DocRoot } from "../../../../components/document/DocRoot"
-import Content from "../../../../features/docs/general/WhitepaperGeneralDocPage.mdx"
+import { WhitepaperGeneralDocPage } from "../../../../features/docs/general/WhitepaperGeneralDocPage.tsx"
 import { generalDocLayoutRoute } from "./generalDocLayoutRoute.tsx"
 
 export const whitepaperGeneralDocRoute = createRoute({
@@ -14,7 +13,7 @@ export const whitepaperGeneralDocRoute = createRoute({
     }),
     component: () => (
         <DocRoot>
-            <Content components={docMdxComponents} />
+            <WhitepaperGeneralDocPage />
         </DocRoot>
     ),
 })

@@ -1,13 +1,12 @@
 import { LinkContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { DocLastUpdate } from "../../../components/document/DocLastUpdate.js"
-import { DocRoot } from "../../../components/document/DocRoot.js"
 import { DocTextSection } from "../../../components/document/DocTextSection.js"
 import { DocTip } from "../../../components/document/DocTip.js"
 
 export function LegalGeneralDocPage() {
     return (
-        <DocRoot>
+        <>
             {/* Page header */}
             <div
                 className={css({
@@ -130,6 +129,6 @@ export function LegalGeneralDocPage() {
 
                 <DocLastUpdate date="12 Février 2026" />
             </div>
-        </DocRoot>
+        </>
     )
 }

@@ -1,7 +1,6 @@
 import { createRoute } from "@tanstack/react-router"
-import { docMdxComponents } from "../../../../components/document/DocMdxComponents"
 import { DocRoot } from "../../../../components/document/DocRoot"
-import Content from "../../../../features/docs/general/LegalGeneralDocPage.mdx"
+import { LegalGeneralDocPage } from "../../../../features/docs/general/LegalGeneralDocPage.tsx"
 import { generalDocLayoutRoute } from "./generalDocLayoutRoute.tsx"
 
 export const legalGeneralDocRoute = createRoute({
@@ -13,7 +12,7 @@ export const legalGeneralDocRoute = createRoute({
     }),
     component: () => (
         <DocRoot>
-            <Content components={docMdxComponents} />
+            <LegalGeneralDocPage />
         </DocRoot>
     ),
 })

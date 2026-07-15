@@ -1,11 +1,10 @@
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { DocLastUpdate } from "../../../components/document/DocLastUpdate.js"
-import { DocRoot } from "../../../components/document/DocRoot.js"
 import { DocTextSection } from "../../../components/document/DocTextSection.js"
 
 export function WhitepaperGeneralDocPage() {
     return (
-        <DocRoot>
+        <>
             {/* Page header */}
             <div
                 className={css({
@@ -109,6 +108,6 @@ export function WhitepaperGeneralDocPage() {
 
                 <DocLastUpdate date="11 mai 2026" />
             </div>
-        </DocRoot>
+        </>
     )
 }

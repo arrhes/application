@@ -1,14 +1,14 @@
-import { type AgentToolDefinition, agentToolsCatalog } from "@arrhes/application-metadata"
+import type { AgentToolDefinition } from "@arrhes/application-metadata"
+import { agentToolsCatalog } from "@arrhes/application-metadata"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { useMemo, useState } from "react"
 import { DocHeader } from "../../../components/document/DocHeader.tsx"
 import { DocList } from "../../../components/document/DocList.tsx"
 import { DocParagraph } from "../../../components/document/DocParagraph.tsx"
-import { DocRoot } from "../../../components/document/DocRoot.tsx"
 import { DocSection } from "../../../components/document/DocSection.tsx"
 import { DocTip } from "../../../components/document/DocTip.tsx"
 
-const categoryOrder = [
+export const categoryOrder = [
     "Exercices fiscaux",
     "Écritures comptables",
     "Lignes d'écriture",
@@ -26,17 +26,15 @@ const categoryOrder = [
     "Documentation",
     "Traitement de données",
     "Autres",
-] as const
+]
 
-function getToolCategory(toolName: string): string {
+export function getToolCategory(toolName: string) {
     if (toolName === "search_documentation") return "Documentation"
     if (toolName === "process_array") return "Traitement de données"
-
     if (toolName === "read_all_years") return "Exercices fiscaux"
     if (toolName.includes("one_year") || toolName.startsWith("close_year") || toolName.startsWith("open_year")) {
         return "Exercice (général)"
     }
-
     if (toolName.includes("entry_line")) return "Lignes d'écriture"
     if (toolName.includes("entry_tag")) return "Étiquettes d'écriture"
     if (toolName.includes("entry") || toolName.includes("entries")) return "Écritures comptables"
@@ -49,16 +47,13 @@ function getToolCategory(toolName: string): string {
     if (toolName.includes("file")) return "Fichiers"
     if (toolName.includes("folder")) return "Dossiers"
     if (toolName.includes("document") || toolName.includes("report")) return "Rapports"
-
     return "Autres"
 }
 
 export function ToolsAiDocPage() {
     const [search, setSearch] = useState("")
-
     const groupedTools = useMemo(() => {
         const normalizedSearch = search.trim().toLowerCase()
-
         const filteredTools = normalizedSearch.length
             ? agentToolsCatalog.filter((tool) => {
                   const category = getToolCategory(tool.name)
@@ -70,9 +65,7 @@ export function ToolsAiDocPage() {
                   )
               })
             : agentToolsCatalog
-
         const grouped = new Map<string, AgentToolDefinition[]>()
-
         for (const tool of filteredTools) {
             const category = getToolCategory(tool.name)
             const bucket = grouped.get(category)
@@ -84,7 +77,6 @@ export function ToolsAiDocPage() {
                 ])
             }
         }
-
         for (const [key, tools] of grouped) {
             grouped.set(
                 key,
@@ -93,35 +85,21 @@ export function ToolsAiDocPage() {
                 ),
             )
         }
-
         return [
             ...grouped.entries(),
-        ].toSorted(
-            (
-                a: [
-                    string,
-                    AgentToolDefinition[],
-                ],
-                b: [
-                    string,
-                    AgentToolDefinition[],
-                ],
-            ) => {
-                const indexA = categoryOrder.indexOf(a[0] as (typeof categoryOrder)[number])
-                const indexB = categoryOrder.indexOf(b[0] as (typeof categoryOrder)[number])
-                const safeA = indexA === -1 ? categoryOrder.length : indexA
-                const safeB = indexB === -1 ? categoryOrder.length : indexB
-                return safeA - safeB
-            },
-        )
+        ].toSorted((a, b) => {
+            const indexA = categoryOrder.indexOf(a[0])
+            const indexB = categoryOrder.indexOf(b[0])
+            const safeA = indexA === -1 ? categoryOrder.length : indexA
+            const safeB = indexB === -1 ? categoryOrder.length : indexB
+            return safeA - safeB
+        })
     }, [
         search,
     ])
-
     const totalToolCount = agentToolsCatalog.length
-
     return (
-        <DocRoot>
+        <>
             <DocHeader
                 title="Outils"
                 description={`Liste complète des ${totalToolCount} outils disponibles pour l'assistant comptable.`}
@@ -194,96 +172,91 @@ export function ToolsAiDocPage() {
                     gap: "1.5rem",
                 })}
             >
-                {groupedTools.map(
-                    ([category, tools]: [
-                        string,
-                        AgentToolDefinition[],
-                    ]) => (
-                        <div
-                            key={category}
+                {groupedTools.map(([category, tools]) => (
+                    <div
+                        key={category}
+                        className={css({
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "0.5rem",
+                        })}
+                    >
+                        <h3
                             className={css({
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: "0.5rem",
+                                fontSize: "sm",
+                                fontWeight: "semibold",
+                                color: "neutral",
+                                margin: 0,
+                                paddingBottom: "0.25rem",
+                                borderBottom: "1px solid",
+                                borderBottomColor: "neutral/10",
                             })}
                         >
-                            <h3
+                            {category} ({tools.length})
+                        </h3>
+
+                        {tools.map((tool: AgentToolDefinition) => (
+                            <div
+                                key={tool.name}
                                 className={css({
-                                    fontSize: "sm",
-                                    fontWeight: "semibold",
-                                    color: "neutral",
-                                    margin: 0,
-                                    paddingBottom: "0.25rem",
-                                    borderBottom: "1px solid",
-                                    borderBottomColor: "neutral/10",
+                                    border: "1px solid",
+                                    borderColor: "neutral/10",
+                                    borderRadius: "md",
+                                    padding: "0.75rem",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "0.375rem",
                                 })}
                             >
-                                {category} ({tools.length})
-                            </h3>
-
-                            {tools.map((tool: AgentToolDefinition) => (
                                 <div
-                                    key={tool.name}
                                     className={css({
-                                        border: "1px solid",
-                                        borderColor: "neutral/10",
-                                        borderRadius: "md",
-                                        padding: "0.75rem",
                                         display: "flex",
-                                        flexDirection: "column",
-                                        gap: "0.375rem",
+                                        alignItems: "center",
+                                        justifyContent: "space-between",
+                                        gap: "0.75rem",
                                     })}
                                 >
-                                    <div
+                                    <span
                                         className={css({
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "space-between",
-                                            gap: "0.75rem",
+                                            fontSize: "sm",
+                                            fontWeight: "semibold",
+                                            color: "neutral",
                                         })}
                                     >
-                                        <span
-                                            className={css({
-                                                fontSize: "sm",
-                                                fontWeight: "semibold",
-                                                color: "neutral",
-                                            })}
-                                        >
-                                            {tool.labelFr}
-                                        </span>
-                                        <span
-                                            className={css({
-                                                fontFamily: "mono",
-                                                fontSize: "xs",
-                                                color: "neutral/60",
-                                                backgroundColor: "neutral/5",
-                                                border: "1px solid",
-                                                borderColor: "neutral/10",
-                                                borderRadius: "sm",
-                                                paddingX: "0.375rem",
-                                                paddingY: "0.125rem",
-                                                whiteSpace: "nowrap",
-                                            })}
-                                        >
-                                            {tool.name}
-                                        </span>
-                                    </div>
-
-                                    <p
+                                        {tool.labelFr}
+                                    </span>
+                                    <span
                                         className={css({
+                                            fontFamily: "mono",
                                             fontSize: "xs",
-                                            color: "neutral/70",
-                                            lineHeight: "1.5",
-                                            margin: 0,
+                                            color: "neutral/60",
+                                            backgroundColor: "neutral/5",
+                                            border: "1px solid",
+                                            borderColor: "neutral/10",
+                                            borderRadius: "sm",
+                                            paddingX: "0.375rem",
+                                            paddingY: "0.125rem",
+                                            whiteSpace: "nowrap",
                                         })}
                                     >
-                                        {tool.descriptionFr}
-                                    </p>
+                                        {tool.name}
+                                    </span>
                                 </div>
-                            ))}
-                        </div>
-                    ),
-                )}
+
+                                <p
+                                    className={css({
+                                        fontSize: "xs",
+                                        color: "neutral/70",
+                                        lineHeight: "1.5",
+                                        margin: 0,
+                                    })}
+                                >
+                                    {tool.descriptionFr}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                ))}
 
                 {groupedTools.length === 0 && (
                     <p
@@ -297,6 +270,6 @@ export function ToolsAiDocPage() {
                     </p>
                 )}
             </div>
-        </DocRoot>
+        </>
     )
 }

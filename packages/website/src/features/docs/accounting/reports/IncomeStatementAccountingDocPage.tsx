@@ -5,7 +5,6 @@ import { DocHeader } from "../../../../components/document/DocHeader.js"
 import { DocLink } from "../../../../components/document/DocLink.js"
 import { DocList } from "../../../../components/document/DocList.js"
 import { DocParagraph } from "../../../../components/document/DocParagraph.js"
-import { DocRoot } from "../../../../components/document/DocRoot.js"
 import { DocSection } from "../../../../components/document/DocSection.js"
 import { DocSourceRef } from "../../../../components/document/DocSourceRef.js"
 import { DocSources } from "../../../../components/document/DocSources.js"
@@ -13,7 +12,7 @@ import { DocTip } from "../../../../components/document/DocTip.js"
 
 export function IncomeStatementAccountingDocPage() {
     return (
-        <DocRoot>
+        <>
             <DocHeader
                 title="Le compte de résultat"
                 description="Film de l'activité sur une période : produits, charges et résultat"
@@ -426,6 +425,6 @@ export function IncomeStatementAccountingDocPage() {
                     },
                 ]}
             />
-        </DocRoot>
+        </>
     )
 }

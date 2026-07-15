@@ -5,7 +5,6 @@ import { DocHeader } from "../../../../components/document/DocHeader.js"
 import { DocLink } from "../../../../components/document/DocLink.js"
 import { DocList } from "../../../../components/document/DocList.js"
 import { DocParagraph } from "../../../../components/document/DocParagraph.js"
-import { DocRoot } from "../../../../components/document/DocRoot.js"
 import { DocSection } from "../../../../components/document/DocSection.js"
 import { DocSourceRef } from "../../../../components/document/DocSourceRef.js"
 import { DocSources } from "../../../../components/document/DocSources.js"
@@ -14,7 +13,7 @@ import { DocTip } from "../../../../components/document/DocTip.js"
 
 export function LedgerAccountingDocPage() {
     return (
-        <DocRoot>
+        <>
             <DocHeader
                 title="Le grand livre"
                 description="Détail de tous les mouvements compte par compte"
@@ -279,6 +278,6 @@ export function LedgerAccountingDocPage() {
                     },
                 ]}
             />
-        </DocRoot>
+        </>
     )
 }

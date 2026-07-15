@@ -14,11 +14,8 @@ import { getScenarioAccounts, getScenarioById } from "./scenariosData.js"
 export function ScenarioResourcesAccountingDocPage() {
     const { scenario: id } = useParams({
         strict: false,
-    }) as {
-        scenario: string
-    }
+    })
     const scenario = getScenarioById(id)
-
     if (!scenario) {
         return (
             <DocRoot>
@@ -35,11 +32,9 @@ export function ScenarioResourcesAccountingDocPage() {
             </DocRoot>
         )
     }
-
     const accounts = getScenarioAccounts(scenario)
-
     return (
-        <DocRoot>
+        <>
             <LinkButton to="/documentation/comptabilité/ressources/scénarios">
                 <ButtonOutlineContent
                     leftIcon={<IconArrowLeft />}
@@ -98,6 +93,6 @@ export function ScenarioResourcesAccountingDocPage() {
             </DocSection>
 
             <DataError />
-        </DocRoot>
+        </>
     )
 }

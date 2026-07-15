@@ -1,13 +1,12 @@
 import { LinkContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { DocLastUpdate } from "../../../components/document/DocLastUpdate.js"
-import { DocRoot } from "../../../components/document/DocRoot.js"
 import { DocTextSection } from "../../../components/document/DocTextSection.js"
 import { LinkButton } from "../../../components/LinkButton.js"
 
 export function PrivacyGeneralDocPage() {
     return (
-        <DocRoot>
+        <>
             {/* Page header */}
             <div
                 className={css({
@@ -187,6 +186,6 @@ export function PrivacyGeneralDocPage() {
 
                 <DocLastUpdate date="12 Février 2026" />
             </div>
-        </DocRoot>
+        </>
     )
 }

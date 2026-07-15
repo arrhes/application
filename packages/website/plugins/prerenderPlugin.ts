@@ -1,8 +1,6 @@
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs"
 import { dirname, resolve } from "node:path"
-import mdx from "@mdx-js/rollup"
 import react from "@vitejs/plugin-react"
-import remarkGfm from "remark-gfm"
 import { loadEnv, type Plugin, build as viteBuild } from "vite"
 import { DOC_PAGE_MANIFEST } from "./DOC_PAGE_MANIFEST"
 import {
@@ -15,6 +13,7 @@ import {
     listScenarioIds,
 } from "./docsMdDynamicContent"
 import { docsSearchIndexPlugin } from "./docsSearchIndexPlugin"
+import { mdGeneratePlugin } from "./mdGeneratePlugin"
 
 export function prerenderPlugin(): Plugin {
     return {
@@ -38,21 +37,13 @@ export function prerenderPlugin(): Plugin {
                     base: "/",
                     envDir: pkgRoot,
                     plugins: [
-                        {
-                            ...mdx({
-                                remarkPlugins: [
-                                    remarkGfm,
-                                ],
-                            }),
-                            enforce: "pre",
-                        },
                         react({
                             include: [
                                 "**/*.tsx",
-                                "**/*.mdx",
                             ],
                         }),
                         docsSearchIndexPlugin(),
+                        mdGeneratePlugin(),
                     ],
                     build: {
                         ssr: "../plugins/render.tsx",

@@ -1,11 +1,10 @@
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { DocRoot } from "../../../../components/document/DocRoot.js"
 import { DocTextSection } from "../../../../components/document/DocTextSection.js"
 import { ArchitectureDiagram } from "./ArchitectureDiagram.js"
 
 export function ArchitectureGeneralDocPage() {
     return (
-        <DocRoot>
+        <>
             {/* Page header */}
             <div
                 className={css({
@@ -103,6 +102,6 @@ export function ArchitectureGeneralDocPage() {
                     développeurs n'ont pas à interagir avec lui directement.
                 </p>
             </DocTextSection>
-        </DocRoot>
+        </>
     )
 }

@@ -1,12 +1,11 @@
 import { DocHeader } from "../../../../components/document/DocHeader.js"
 import { DocList } from "../../../../components/document/DocList.js"
 import { DocParagraph } from "../../../../components/document/DocParagraph.js"
-import { DocRoot } from "../../../../components/document/DocRoot.js"
 import { DocSection } from "../../../../components/document/DocSection.js"
 
 export function FeaturesGeneralDocPage() {
     return (
-        <DocRoot>
+        <>
             <DocHeader
                 title="Fonctionnalités"
                 description="Découvrez toutes les fonctionnalités d'Arrhes pour gérer votre comptabilité de manière simple et efficace."
@@ -103,6 +102,6 @@ export function FeaturesGeneralDocPage() {
                     ]}
                 />
             </DocSection>
-        </DocRoot>
+        </>
     )
 }

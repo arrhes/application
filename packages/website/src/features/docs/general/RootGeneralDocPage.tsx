@@ -2,13 +2,12 @@ import { ButtonOutlineContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconBook, IconChevronRight, IconCode, IconCompass, IconTerminal } from "@tabler/icons-react"
 import { DocHeader } from "../../../components/document/DocHeader.js"
-import { DocRoot } from "../../../components/document/DocRoot.js"
 import { DocSectionCard } from "../../../components/document/DocSectionCard.js"
 import { LinkButton } from "../../../components/LinkButton.js"
 
 export function RootGeneralDocPage() {
     return (
-        <DocRoot>
+        <>
             <DocHeader
                 title="Documentation"
                 description="Bienvenue dans la documentation d'Arrhes. Vous pouvez ici découvrir le projet, reprendre les bases de la comptabilité ou apprendre à utiliser le logiciel."
@@ -153,6 +152,6 @@ export function RootGeneralDocPage() {
                     ctaLabel="Voir la section"
                 />
             </div>
-        </DocRoot>
+        </>
     )
 }

@@ -5,7 +5,6 @@ import { DocHeader } from "../../../../components/document/DocHeader.tsx"
 import { DocLink } from "../../../../components/document/DocLink.tsx"
 import { DocList } from "../../../../components/document/DocList.tsx"
 import { DocParagraph } from "../../../../components/document/DocParagraph.tsx"
-import { DocRoot } from "../../../../components/document/DocRoot.tsx"
 import { DocSection } from "../../../../components/document/DocSection.tsx"
 import { DocSourceRef } from "../../../../components/document/DocSourceRef.tsx"
 import { DocSources } from "../../../../components/document/DocSources.tsx"
@@ -14,7 +13,7 @@ import { DocTip } from "../../../../components/document/DocTip.tsx"
 
 export function EntriesAccountingDocPage() {
     return (
-        <DocRoot>
+        <>
             <DocHeader
                 title="Les écritures comptables"
                 description="Enregistrer les opérations dans les comptes"
@@ -555,6 +554,6 @@ export function EntriesAccountingDocPage() {
                     },
                 ]}
             />
-        </DocRoot>
+        </>
     )
 }

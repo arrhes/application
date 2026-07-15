@@ -6,7 +6,6 @@ interface DocPageManifestEntry {
     section: string
     navGroup: string
     navLabel: string
-    mdxSource?: string // relative path to .mdx source file, enables .md raw text serving
 }
 
 // Maps every static doc page route to its source file and nav metadata.
@@ -16,7 +15,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation",
         file: "src/features/docs/general/RootGeneralDocPage.tsx",
-        mdxSource: "features/docs/general/RootGeneralDocPage.mdx",
         section: "Général",
         navGroup: "Introduction",
         navLabel: "Accueil",
@@ -27,7 +25,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
         section: "Général",
         navGroup: "Introduction",
         navLabel: "Fonctionnalités",
-        mdxSource: "features/docs/general/features/FeaturesGeneralDocPage.mdx",
     },
     {
         path: "/documentation/architecture",
@@ -35,12 +32,10 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
         section: "Général",
         navGroup: "Introduction",
         navLabel: "Architecture",
-        mdxSource: "features/docs/general/architecture/ArchitectureGeneralDocPage.mdx",
     },
     {
         path: "/documentation/philosophie",
         file: "src/features/docs/general/WhitepaperGeneralDocPage.tsx",
-        mdxSource: "features/docs/general/WhitepaperGeneralDocPage.mdx",
         section: "Général",
         navGroup: "Introduction",
         navLabel: "Philosophie",
@@ -48,7 +43,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/support",
         file: "src/features/docs/general/SupportGeneralDocPage.tsx",
-        mdxSource: "features/docs/general/SupportGeneralDocPage.mdx",
         section: "Général",
         navGroup: "Introduction",
         navLabel: "Support",
@@ -57,7 +51,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/mentions-légales",
         file: "src/features/docs/general/LegalGeneralDocPage.tsx",
-        mdxSource: "features/docs/general/LegalGeneralDocPage.mdx",
         section: "Général",
         navGroup: "Légal",
         navLabel: "Mentions légales",
@@ -65,7 +58,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/cgu",
         file: "src/features/docs/general/TermsGeneralDocPage.tsx",
-        mdxSource: "features/docs/general/TermsGeneralDocPage.mdx",
         section: "Général",
         navGroup: "Légal",
         navLabel: "Conditions Générales d'Utilisation",
@@ -73,7 +65,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/confidentialité",
         file: "src/features/docs/general/PrivacyGeneralDocPage.tsx",
-        mdxSource: "features/docs/general/PrivacyGeneralDocPage.mdx",
         section: "Général",
         navGroup: "Légal",
         navLabel: "Politique de confidentialité",
@@ -82,7 +73,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/mises-à-jour",
         file: "src/features/docs/general/UpdatesGeneralDocPage.tsx",
-        mdxSource: "features/docs/general/UpdatesGeneralDocPage.mdx",
         section: "Général",
         navGroup: "Nouveautés",
         navLabel: "Mises à jour",
@@ -91,7 +81,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/guide",
         file: "src/features/docs/guide/RootGuideDocPage.tsx",
-        mdxSource: "features/docs/guide/RootGuideDocPage.mdx",
         section: "Guide",
         navGroup: "Accueil",
         navLabel: "Accueil",
@@ -99,7 +88,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/guide/démarrer",
         file: "src/features/docs/guide/PremiersPasGuideDocPage.tsx",
-        mdxSource: "features/docs/guide/PremiersPasGuideDocPage.mdx",
         section: "Guide",
         navGroup: "Prise en main",
         navLabel: "Démarrer avec Arrhes",
@@ -107,7 +95,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/guide/installation",
         file: "src/features/docs/guide/InstallationGuideDocPage.tsx",
-        mdxSource: "features/docs/guide/InstallationGuideDocPage.mdx",
         section: "Guide",
         navGroup: "Prise en main",
         navLabel: "Installation",
@@ -115,7 +102,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/guide/authentification",
         file: "src/features/docs/guide/AuthentificationGuideDocPage.tsx",
-        mdxSource: "features/docs/guide/AuthentificationGuideDocPage.mdx",
         section: "Guide",
         navGroup: "Prise en main",
         navLabel: "Authentification",
@@ -124,7 +110,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/guide/organisations",
         file: "src/features/docs/guide/OrganisationGuideDocPage.tsx",
-        mdxSource: "features/docs/guide/OrganisationGuideDocPage.mdx",
         section: "Guide",
         navGroup: "Organisation",
         navLabel: "Organisations",
@@ -132,7 +117,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/guide/membres",
         file: "src/features/docs/guide/MembresGuideDocPage.tsx",
-        mdxSource: "features/docs/guide/MembresGuideDocPage.mdx",
         section: "Guide",
         navGroup: "Organisation",
         navLabel: "Membres",
@@ -140,7 +124,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/guide/référence-api",
         file: "src/features/docs/guide/ReferenceApiGuideDocPage.tsx",
-        mdxSource: "features/docs/guide/ReferenceApiGuideDocPage.mdx",
         section: "Guide",
         navGroup: "Référence",
         navLabel: "Référence API",
@@ -148,7 +131,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/guide/référence-cli",
         file: "src/features/docs/guide/ReferenceCliGuideDocPage.tsx",
-        mdxSource: "features/docs/guide/ReferenceCliGuideDocPage.mdx",
         section: "Guide",
         navGroup: "Référence",
         navLabel: "Référence CLI",
@@ -157,7 +139,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/guide/exercices",
         file: "src/features/docs/guide/ExerciceGuideDocPage.tsx",
-        mdxSource: "features/docs/guide/ExerciceGuideDocPage.mdx",
         section: "Guide",
         navGroup: "Exercice",
         navLabel: "Exercices",
@@ -165,7 +146,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/guide/comptes",
         file: "src/features/docs/guide/ComptesGuideDocPage.tsx",
-        mdxSource: "features/docs/guide/ComptesGuideDocPage.mdx",
         section: "Guide",
         navGroup: "Exercice",
         navLabel: "Comptes",
@@ -173,7 +153,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/guide/journaux",
         file: "src/features/docs/guide/JournauxGuideDocPage.tsx",
-        mdxSource: "features/docs/guide/JournauxGuideDocPage.mdx",
         section: "Guide",
         navGroup: "Exercice",
         navLabel: "Journaux",
@@ -181,7 +160,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/guide/libellés",
         file: "src/features/docs/guide/LibellesGuideDocPage.tsx",
-        mdxSource: "features/docs/guide/LibellesGuideDocPage.mdx",
         section: "Guide",
         navGroup: "Exercice",
         navLabel: "Libellés",
@@ -242,7 +220,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/guide/assistant",
         file: "src/features/docs/ai/RootAiDocPage.tsx",
-        mdxSource: "features/docs/ai/RootAiDocPage.mdx",
         section: "Guide",
         navGroup: "Assistant IA",
         navLabel: "Introduction",
@@ -250,7 +227,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/guide/assistant/modèles",
         file: "src/features/docs/ai/ModelsAiDocPage.tsx",
-        mdxSource: "features/docs/ai/ModelsAiDocPage.mdx",
         section: "Guide",
         navGroup: "Assistant IA",
         navLabel: "Modèles",
@@ -258,7 +234,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/guide/assistant/outils",
         file: "src/features/docs/ai/ToolsAiDocPage.tsx",
-        mdxSource: "features/docs/ai/ToolsAiDocPage.mdx",
         section: "Guide",
         navGroup: "Assistant IA",
         navLabel: "Outils",
@@ -266,7 +241,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/guide/assistant/ocr",
         file: "src/features/docs/ai/OcrAiDocPage.tsx",
-        mdxSource: "features/docs/ai/OcrAiDocPage.mdx",
         section: "Guide",
         navGroup: "Assistant IA",
         navLabel: "OCR",
@@ -275,7 +249,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/comptabilité",
         file: "src/features/docs/accounting/introduction/RootAccountingDocPage.tsx",
-        mdxSource: "features/docs/accounting/introduction/RootAccountingDocPage.mdx",
         section: "Comptabilité",
         navGroup: "Introduction",
         navLabel: "Accueil",
@@ -283,7 +256,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/comptabilité/introduction",
         file: "src/features/docs/accounting/introduction/IntroductionAccountingDocPage.tsx",
-        mdxSource: "features/docs/accounting/introduction/IntroductionAccountingDocPage.mdx",
         section: "Comptabilité",
         navGroup: "Introduction",
         navLabel: "Introduction",
@@ -291,7 +263,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/comptabilité/introduction/partie-double",
         file: "src/features/docs/accounting/introduction/DoubleEntryAccountingDocPage.tsx",
-        mdxSource: "features/docs/accounting/introduction/DoubleEntryAccountingDocPage.mdx",
         section: "Comptabilité",
         navGroup: "Introduction",
         navLabel: "La partie double",
@@ -299,7 +270,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/comptabilité/introduction/écritures",
         file: "src/features/docs/accounting/introduction/EntriesAccountingDocPage.tsx",
-        mdxSource: "features/docs/accounting/introduction/EntriesAccountingDocPage.mdx",
         section: "Comptabilité",
         navGroup: "Introduction",
         navLabel: "Les écritures",
@@ -308,7 +278,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/comptabilité/introduction/comptes",
         file: "src/features/docs/accounting/introduction/AccountsAccountingDocPage.tsx",
-        mdxSource: "features/docs/accounting/introduction/AccountsAccountingDocPage.mdx",
         section: "Comptabilité",
         navGroup: "Comptes",
         navLabel: "Introduction",
@@ -316,7 +285,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/comptabilité/introduction/classes",
         file: "src/features/docs/accounting/introduction/ClassesAccountingDocPage.tsx",
-        mdxSource: "features/docs/accounting/introduction/ClassesAccountingDocPage.mdx",
         section: "Comptabilité",
         navGroup: "Comptes",
         navLabel: "Classes de comptes",
@@ -324,7 +292,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/comptabilité/ressources/comptes",
         file: "src/features/docs/accounting/resources/accounts/AccountsResourcesAccountingDocPage.tsx",
-        mdxSource: "features/docs/accounting/resources/accounts/AccountsResourcesAccountingDocPage.mdx",
         section: "Comptabilité",
         navGroup: "Comptes",
         navLabel: "Liste des comptes",
@@ -333,7 +300,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/comptabilité/documents",
         file: "src/features/docs/accounting/reports/ReportsAccountingDocPage.tsx",
-        mdxSource: "features/docs/accounting/reports/ReportsAccountingDocPage.mdx",
         section: "Comptabilité",
         navGroup: "Documents",
         navLabel: "Introduction",
@@ -341,7 +307,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/comptabilité/documents/journal",
         file: "src/features/docs/accounting/reports/JournalAccountingDocPage.tsx",
-        mdxSource: "features/docs/accounting/reports/JournalAccountingDocPage.mdx",
         section: "Comptabilité",
         navGroup: "Documents",
         navLabel: "Journal",
@@ -349,7 +314,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/comptabilité/documents/grand-livre",
         file: "src/features/docs/accounting/reports/LedgerAccountingDocPage.tsx",
-        mdxSource: "features/docs/accounting/reports/LedgerAccountingDocPage.mdx",
         section: "Comptabilité",
         navGroup: "Documents",
         navLabel: "Grand livre",
@@ -357,7 +321,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/comptabilité/documents/balance",
         file: "src/features/docs/accounting/reports/BalanceAccountingDocPage.tsx",
-        mdxSource: "features/docs/accounting/reports/BalanceAccountingDocPage.mdx",
         section: "Comptabilité",
         navGroup: "Documents",
         navLabel: "Balance",
@@ -365,7 +328,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/comptabilité/documents/bilan",
         file: "src/features/docs/accounting/reports/BalanceSheetAccountingDocPage.tsx",
-        mdxSource: "features/docs/accounting/reports/BalanceSheetAccountingDocPage.mdx",
         section: "Comptabilité",
         navGroup: "Documents",
         navLabel: "Bilan",
@@ -373,7 +335,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/comptabilité/documents/compte-de-résultat",
         file: "src/features/docs/accounting/reports/IncomeStatementAccountingDocPage.tsx",
-        mdxSource: "features/docs/accounting/reports/IncomeStatementAccountingDocPage.mdx",
         section: "Comptabilité",
         navGroup: "Documents",
         navLabel: "Compte de résultat",
@@ -381,7 +342,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/comptabilité/documents/annexe",
         file: "src/features/docs/accounting/reports/NotesAccountingDocPage.tsx",
-        mdxSource: "features/docs/accounting/reports/NotesAccountingDocPage.mdx",
         section: "Comptabilité",
         navGroup: "Documents",
         navLabel: "Annexe",
@@ -389,7 +349,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/comptabilité/documents/fec",
         file: "src/features/docs/accounting/reports/FecAccountingDocPage.tsx",
-        mdxSource: "features/docs/accounting/reports/FecAccountingDocPage.mdx",
         section: "Comptabilité",
         navGroup: "Documents",
         navLabel: "FEC",
@@ -398,7 +357,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/comptabilité/ressources/scénarios",
         file: "src/features/docs/accounting/resources/scenarios/ScenariosResourcesAccountingDocPage.tsx",
-        mdxSource: "features/docs/accounting/resources/scenarios/ScenariosResourcesAccountingDocPage.mdx",
         section: "Comptabilité",
         navGroup: "Scénarios",
         navLabel: "Scénarios",
@@ -407,7 +365,6 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     {
         path: "/documentation/comptabilité/ressources/glossaire",
         file: "src/features/docs/accounting/resources/glossary/GlossaryResourcesAccountingDocPage.tsx",
-        mdxSource: "features/docs/accounting/resources/glossary/GlossaryResourcesAccountingDocPage.mdx",
         section: "Comptabilité",
         navGroup: "Glossaire",
         navLabel: "Glossaire",

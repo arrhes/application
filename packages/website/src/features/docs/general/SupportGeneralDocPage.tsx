@@ -1,13 +1,12 @@
 import { ButtonOutlineContent, LinkContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconBrandGithub, IconBrandLinkedin, IconExternalLink, IconMail } from "@tabler/icons-react"
-import { DocRoot } from "../../../components/document/DocRoot.js"
 import { DocTip } from "../../../components/document/DocTip.js"
 import { LinkButton } from "../../../components/LinkButton.js"
 
 export function SupportGeneralDocPage() {
     return (
-        <DocRoot>
+        <>
             {/* Page header */}
             <div
                 className={css({
@@ -399,6 +398,6 @@ export function SupportGeneralDocPage() {
                     </LinkButton>
                 </div>
             </div>
-        </DocRoot>
+        </>
     )
 }

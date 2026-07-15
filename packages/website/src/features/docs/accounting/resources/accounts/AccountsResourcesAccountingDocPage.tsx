@@ -4,17 +4,23 @@ import { useVirtualizer } from "@tanstack/react-virtual"
 import { useRef, useState, useTransition } from "react"
 import { DocHeader } from "../../../../../components/document/DocHeader.js"
 import { DocParagraph } from "../../../../../components/document/DocParagraph.js"
-import { DocRoot } from "../../../../../components/document/DocRoot.js"
 import { DocSection } from "../../../../../components/document/DocSection.js"
 import { DocSourceRef } from "../../../../../components/document/DocSourceRef.js"
 import { LinkButton } from "../../../../../components/LinkButton.js"
-import { type AccountEntry, accountEntries, searchAccounts } from "./accountsData.js"
+import { accountEntries, searchAccounts } from "./accountsData.js"
 
-// ── Account row ─────────────────────────────────────────────────────────────
+export const ROW_HEIGHT = 36
 
-const ROW_HEIGHT = 36
+interface AccountRowProps {
+    account: {
+        slug: string
+        number: string
+        label: string
+        isOptional: boolean
+    }
+}
 
-function AccountRow(props: { account: AccountEntry }) {
+export function AccountRow(props: AccountRowProps) {
     const { account } = props
     const isFacultatif = account.isOptional
     const depth = account.number.length - 1
@@ -75,22 +81,18 @@ function AccountRow(props: { account: AccountEntry }) {
     )
 }
 
-// ── Main page ──────────────────────────────────────────────────────────────
-
 export function AccountsResourcesAccountingDocPage() {
     const [query, setQuery] = useState("")
-    const [filteredAccounts, setFilteredAccounts] = useState<AccountEntry[]>(accountEntries)
+    const [filteredAccounts, setFilteredAccounts] = useState(accountEntries)
     const [isPending, startTransition] = useTransition()
-    const parentRef = useRef<HTMLDivElement>(null)
+    const parentRef = useRef(null)
     const hasQuery = query.trim().length > 0
-
     const virtualizer = useVirtualizer({
         count: filteredAccounts.length,
         getScrollElement: () => parentRef.current,
         estimateSize: () => ROW_HEIGHT,
         overscan: 20,
     })
-
     function handleSearch(value: string) {
         setQuery(value)
         startTransition(() => {
@@ -101,9 +103,8 @@ export function AccountsResourcesAccountingDocPage() {
             }
         })
     }
-
     return (
-        <DocRoot>
+        <>
             <DocHeader
                 title="Liste des comptes"
                 description="Parcourez et recherchez les comptes du Plan Comptable Général"
@@ -261,6 +262,6 @@ export function AccountsResourcesAccountingDocPage() {
                     </p>
                 )
             )}
-        </DocRoot>
+        </>
     )
 }

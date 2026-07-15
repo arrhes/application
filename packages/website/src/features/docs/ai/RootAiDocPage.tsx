@@ -5,14 +5,13 @@ import { DocHeader } from "../../../components/document/DocHeader.tsx"
 import { DocLink } from "../../../components/document/DocLink.tsx"
 import { DocList } from "../../../components/document/DocList.tsx"
 import { DocParagraph } from "../../../components/document/DocParagraph.tsx"
-import { DocRoot } from "../../../components/document/DocRoot.tsx"
 import { DocSection } from "../../../components/document/DocSection.tsx"
 import { DocTip } from "../../../components/document/DocTip.tsx"
 import { LinkButton } from "../../../components/LinkButton.tsx"
 
 export function RootAiDocPage() {
     return (
-        <DocRoot>
+        <>
             <DocHeader
                 title="Assistant IA"
                 description="Un assistant comptable intelligent pour gérer et analyser vos données comptables."
@@ -110,6 +109,6 @@ export function RootAiDocPage() {
                 outils disponibles, consultez la page{" "}
                 <DocLink to="/documentation/guide/assistant/outils">Outils</DocLink>.
             </DocTip>
-        </DocRoot>
+        </>
     )
 }

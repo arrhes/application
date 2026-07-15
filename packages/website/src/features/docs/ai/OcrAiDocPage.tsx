@@ -3,13 +3,12 @@ import { DocHeader } from "../../../components/document/DocHeader.tsx"
 import { DocLink } from "../../../components/document/DocLink.tsx"
 import { DocList } from "../../../components/document/DocList.tsx"
 import { DocParagraph } from "../../../components/document/DocParagraph.tsx"
-import { DocRoot } from "../../../components/document/DocRoot.tsx"
 import { DocSection } from "../../../components/document/DocSection.tsx"
 import { DocTip } from "../../../components/document/DocTip.tsx"
 
 export function OcrAiDocPage() {
     return (
-        <DocRoot>
+        <>
             <DocHeader
                 title="OCR"
                 description="Reconnaissance optique de caractères pour l'extraction automatique de données comptables."
@@ -51,6 +50,6 @@ export function OcrAiDocPage() {
                 Pour voir la liste complète des capacités de l'assistant, consultez la page{" "}
                 <DocLink to="/documentation/guide/assistant/outils">Outils</DocLink>.
             </DocTip>
-        </DocRoot>
+        </>
     )
 }

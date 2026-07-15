@@ -1,6 +1,6 @@
+import { DOC_MD_CONTENT } from "virtual:doc-md-content"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { createRoute, notFound } from "@tanstack/react-router"
-import { DOC_PAGE_MANIFEST } from "../../../../plugins/DOC_PAGE_MANIFEST.js"
 import { docsLayoutRoute } from "./docsLayoutRoute.js"
 
 export const docMdRoute = createRoute({
@@ -12,24 +12,17 @@ export const docMdRoute = createRoute({
             throw notFound()
         }
         const docPath = path.replace(/\.md$/, "")
-        if (!DOC_PAGE_MANIFEST.find((e: { path: string }) => e.path === docPath)?.mdxSource) {
+        if (!(docPath in DOC_MD_CONTENT)) {
             throw notFound()
         }
     },
-    loader: async ({ location }) => {
+    loader: ({ location }) => {
         const path = location.pathname.replace(/\/$/, "")
         const docPath = path.replace(/\.md$/, "")
-        const entry = DOC_PAGE_MANIFEST.find((e: { path: string }) => e.path === docPath)
-        if (!entry?.mdxSource) return null
-        try {
-            const mod = await import(/* @vite-ignore */ `../../../${entry.mdxSource}?raw`)
-            return (mod.default || mod) as string
-        } catch {
-            return null
-        }
+        return DOC_MD_CONTENT[docPath] ?? null
     },
     component: function DocMdPage() {
-        const content = null as string | null // Will be loaded in a real implementation
+        const content = docMdRoute.useLoaderData()
 
         if (content === null) {
             return (
@@ -40,7 +33,7 @@ export const docMdRoute = createRoute({
                         color: "neutral/50",
                     })}
                 >
-                    Loading...
+                    Contenu introuvable.
                 </div>
             )
         }

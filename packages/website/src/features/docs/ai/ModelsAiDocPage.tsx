@@ -1,14 +1,13 @@
 import { DocHeader } from "../../../components/document/DocHeader.tsx"
 import { DocList } from "../../../components/document/DocList.tsx"
 import { DocParagraph } from "../../../components/document/DocParagraph.tsx"
-import { DocRoot } from "../../../components/document/DocRoot.tsx"
 import { DocSection } from "../../../components/document/DocSection.tsx"
 import { DocTable } from "../../../components/document/DocTable.tsx"
 import { DocTip } from "../../../components/document/DocTip.tsx"
 
 export function ModelsAiDocPage() {
     return (
-        <DocRoot>
+        <>
             <DocHeader
                 title="Modèles"
                 description="Les modèles de langage utilisés par l'assistant comptable d'Arrhes."
@@ -91,6 +90,6 @@ export function ModelsAiDocPage() {
                     appels d'outils par message pour garantir des temps de réponse raisonnables.
                 </DocParagraph>
             </DocSection>
-        </DocRoot>
+        </>
     )
 }

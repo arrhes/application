@@ -5,7 +5,6 @@ import { DocHeader } from "../../../../components/document/DocHeader.js"
 import { DocLink } from "../../../../components/document/DocLink.js"
 import { DocList } from "../../../../components/document/DocList.js"
 import { DocParagraph } from "../../../../components/document/DocParagraph.js"
-import { DocRoot } from "../../../../components/document/DocRoot.js"
 import { DocSection } from "../../../../components/document/DocSection.js"
 import { DocSourceRef } from "../../../../components/document/DocSourceRef.js"
 import { DocSources } from "../../../../components/document/DocSources.js"
@@ -15,7 +14,7 @@ import { accountClasses } from "../resources/accounts/accountsData.js"
 
 export function AccountsAccountingDocPage() {
     return (
-        <DocRoot>
+        <>
             <DocHeader
                 title="Les comptes comptables"
                 description="Comprendre l'organisation du plan comptable"
@@ -432,6 +431,6 @@ export function AccountsAccountingDocPage() {
                     },
                 ]}
             />
-        </DocRoot>
+        </>
     )
 }

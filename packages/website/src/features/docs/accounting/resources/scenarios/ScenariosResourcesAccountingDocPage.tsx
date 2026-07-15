@@ -5,17 +5,23 @@ import { useVirtualizer } from "@tanstack/react-virtual"
 import { useRef, useState, useTransition } from "react"
 import { DocHeader } from "../../../../../components/document/DocHeader.js"
 import { DocParagraph } from "../../../../../components/document/DocParagraph.js"
-import { DocRoot } from "../../../../../components/document/DocRoot.js"
 import { DocSection } from "../../../../../components/document/DocSection.js"
 import { LinkButton } from "../../../../../components/LinkButton.js"
-import { type ScenarioEntry, scenarioEntries, searchScenarios } from "./scenariosData.js"
+import { scenarioEntries, searchScenarios } from "./scenariosData.js"
 
-const ROW_HEIGHT = 32
-const ROW_GAP = 4 // 0.25rem
+export const ROW_HEIGHT = 32
 
-function ScenarioRow(props: { scenario: ScenarioEntry }) {
+export const ROW_GAP = 4
+
+interface ScenarioRowProps {
+    scenario: {
+        id: string
+        title: string
+    }
+}
+
+export function ScenarioRow(props: ScenarioRowProps) {
     const { scenario } = props
-
     return (
         <LinkButton
             to="/documentation/comptabilité/ressources/scénarios/$scenario"
@@ -39,18 +45,16 @@ function ScenarioRow(props: { scenario: ScenarioEntry }) {
 
 export function ScenariosResourcesAccountingDocPage() {
     const [query, setQuery] = useState("")
-    const [filteredScenarios, setFilteredScenarios] = useState<ScenarioEntry[]>(scenarioEntries)
+    const [filteredScenarios, setFilteredScenarios] = useState(scenarioEntries)
     const [isPending, startTransition] = useTransition()
-    const parentRef = useRef<HTMLDivElement>(null)
+    const parentRef = useRef(null)
     const hasQuery = query.trim().length > 0
-
     const virtualizer = useVirtualizer({
         count: filteredScenarios.length,
         getScrollElement: () => parentRef.current,
         estimateSize: () => ROW_HEIGHT + ROW_GAP,
         overscan: 20,
     })
-
     function handleSearch(value: string) {
         setQuery(value)
         startTransition(() => {
@@ -61,9 +65,8 @@ export function ScenariosResourcesAccountingDocPage() {
             }
         })
     }
-
     return (
-        <DocRoot>
+        <>
             <DocHeader
                 title="Scénarios comptables"
                 description="Liste des cas d'usage liés aux comptes du Plan Comptable Général"
@@ -198,6 +201,6 @@ export function ScenariosResourcesAccountingDocPage() {
                     </p>
                 )
             )}
-        </DocRoot>
+        </>
     )
 }
