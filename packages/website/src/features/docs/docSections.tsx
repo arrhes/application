@@ -209,7 +209,11 @@ export const docSections: Record<string, DocSection> = {
                 items: [
                     {
                         path: "/documentation/guide/agent",
-                        label: "Agent externe",
+                        label: "Skills",
+                    },
+                    {
+                        path: "/documentation/guide/agent/outils",
+                        label: "Outils",
                     },
                 ],
             },

@@ -76,8 +76,19 @@ export function HomePage() {
                         >
                             <ButtonGhostContent leftIcon={<IconBrandGithub />} />
                         </a>
-                        <LinkButton to="/documentation">
+                        <a
+                            href="https://payment-links.mollie.com/payment/QHxRXo6269KKB2fUa3YcR"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="Faire un don"
+                        >
                             <ButtonOutlineContent
+                                leftIcon={<IconHeart />}
+                                text="Faire un don"
+                            />
+                        </a>
+                        <LinkButton to="/documentation">
+                            <ButtonPlainContent
                                 leftIcon={<IconBook2 />}
                                 text="Documentation"
                             />
@@ -250,7 +261,7 @@ export function HomePage() {
                     <LinkButton to="/documentation/comptabilité">
                         <ButtonOutlineContent
                             leftIcon={<IconBook2 />}
-                            text="Découvrir le cours"
+                            text="Découvrir le cours de comptabilité"
                         />
                     </LinkButton>
                 </div>

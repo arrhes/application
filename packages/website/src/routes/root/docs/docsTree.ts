@@ -6,7 +6,8 @@ import { resourcesAccountingTree } from "./accounting/resources/resourcesAccount
 import { rootAccountingDocRoute } from "./accounting/rootAccountingDocRoute.js"
 import { docMdRoute } from "./docMdRoute.js"
 import { docsLayoutRoute } from "./docsLayoutRoute.js"
-import { agentSkillGuideDocRoute } from "./guide/agentSkillGuideDocRoute.js"
+import { agentSkillsDocRoute } from "./guide/agentSkillsDocRoute.js"
+import { agentToolsDocRoute } from "./guide/agentToolsDocRoute.js"
 import { authentificationGuideDocRoute } from "./guide/authentificationGuideDocRoute.js"
 import { bilansGuideDocRoute } from "./guide/bilansGuideDocRoute.js"
 import { compteDeResultatGuideDocRoute } from "./guide/compteDeResultatGuideDocRoute.js"
@@ -71,7 +72,8 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
         compteDeResultatGuideDocRoute,
         exportsGuideDocRoute,
         inventoryGuideDocRoute,
-        agentSkillGuideDocRoute,
+        agentSkillsDocRoute,
+        agentToolsDocRoute,
     ]),
 
     // Comptabilite section (cours de comptabilité)
