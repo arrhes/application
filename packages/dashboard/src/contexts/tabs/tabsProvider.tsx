@@ -79,12 +79,17 @@ export function TabsProvider({ children }: Props) {
         const raw = loadPersistedTabs()
         const persisted = raw ? normalisePersisted(raw) : null
         if (persisted && persisted.tabs.length > 0) {
+            const activeTabId = persisted.activeTabId
             return persisted.tabs.flatMap((t) => {
                 if (!t.history || t.history.length === 0) return []
 
+                // Only build the component for the active tab on first paint.
+                // Other tabs are restored lazily in useEffect to speed up initial render.
+                const isActive = t.id === activeTabId
+
                 const history: HistoryEntry[] = t.history.map((e, idx) => {
-                    // Only build the component for the currently-visible entry.
-                    if (idx === (t.historyIndex ?? 0)) {
+                    const isCurrentEntry = idx === (t.historyIndex ?? 0)
+                    if (isActive && isCurrentEntry) {
                         return buildEntry(e.definitionKey, e.definitionProps ?? {}, e.id)
                     }
                     return {
@@ -111,6 +116,48 @@ export function TabsProvider({ children }: Props) {
         }
         return []
     })
+
+    // Deferred restoration of non-active tab components (avoids blocking initial paint).
+    useEffect(() => {
+        const raw = loadPersistedTabs()
+        const persisted = raw ? normalisePersisted(raw) : null
+        if (!persisted) return
+
+        const _activeTabId = persisted.activeTabId
+        let needsUpdate = false
+
+        const updated = tabs.map((tab) => {
+            const persistedTab = persisted.tabs.find((pt) => pt.id === tab.id)
+            if (!persistedTab || tab.type !== "component") return tab
+
+            // If this tab's current entry was deferred (component is null), build it now.
+            const currentEntry = tab.history[tab.historyIndex]
+            if (currentEntry && currentEntry.component === null) {
+                needsUpdate = true
+                const history = [
+                    ...tab.history,
+                ]
+                history[tab.historyIndex] = buildEntry(
+                    currentEntry.definitionKey,
+                    currentEntry.definitionProps,
+                    currentEntry.id,
+                )
+                return {
+                    ...tab,
+                    history,
+                }
+            }
+            return tab
+        })
+
+        if (needsUpdate) {
+            setTabs(updated)
+        }
+        // Only run once on mount
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [
+        tabs.map,
+    ])
 
     const [activeTabId, setActiveTabId] = useState<string | null>(() => {
         const persisted = loadPersistedTabs()

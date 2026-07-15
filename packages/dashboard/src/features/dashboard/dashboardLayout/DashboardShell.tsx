@@ -5,6 +5,7 @@ import {
     IconBook2,
     IconChevronRight,
     IconHeart,
+    IconKey,
     IconLogout,
     IconSearch,
     IconSettings,
@@ -369,6 +370,33 @@ export function DashboardShell() {
                                 <ButtonGhostContent
                                     leftIcon={<IconSettings />}
                                     text="Profil"
+                                    className={{
+                                        width: "100%",
+                                        justifyContent: "start",
+                                    }}
+                                />
+                            </Button>
+                            <Button
+                                onClick={() =>
+                                    openTab(
+                                        {
+                                            component: "profil",
+                                            props: {
+                                                subTab: "api",
+                                            },
+                                        },
+                                        {
+                                            newTab: true,
+                                        },
+                                    )
+                                }
+                                className={{
+                                    width: "100%",
+                                }}
+                            >
+                                <ButtonGhostContent
+                                    leftIcon={<IconKey />}
+                                    text="Clés API"
                                     className={{
                                         width: "100%",
                                         justifyContent: "start",

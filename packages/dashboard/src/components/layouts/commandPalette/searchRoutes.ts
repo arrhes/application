@@ -28,6 +28,14 @@ export const userSearchRoutes: SearchRoute[] = [
         tabComponent: "paramètres",
         tabProps: {},
     },
+    {
+        label: "Clés API",
+        description: "Vos clés personnelles pour l'API REST",
+        tabComponent: "profil",
+        tabProps: {
+            subTab: "api",
+        },
+    },
 ]
 
 // ─── Organisation-level routes (require idOrganization) ──────────────────────

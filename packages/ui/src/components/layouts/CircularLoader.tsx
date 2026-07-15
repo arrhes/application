@@ -8,8 +8,10 @@ export function CircularLoader(props: { text?: string; className?: Styles; size?
             className={css(
                 {
                     display: "flex",
-                    justifyContent: "flex-start",
+                    justifyContent: "center",
                     alignItems: "center",
+                    width: "100%",
+                    height: "100dvh",
                     gap: "0.5rem",
                     stroke: "neutral/50",
                 },

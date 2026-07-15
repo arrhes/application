@@ -1,5 +1,6 @@
 import { CircularLoader } from "@arrhes/ui"
-import { createRoute, lazyRouteComponent, redirect } from "@tanstack/react-router"
+import { createRoute, redirect } from "@tanstack/react-router"
+import { DashboardLayout } from "../features/dashboard/dashboardLayout/DashboardLayout.js"
 import { getIsAuthenticated } from "../utilities/cookies/getIsAuthenticated.js"
 import { rootLayoutRoute } from "./rootLayoutRoute.js"
 
@@ -20,8 +21,5 @@ export const dashboardLayoutRoute = createRoute({
             section: "Dashboard",
         }
     },
-    component: lazyRouteComponent(
-        () => import("../features/dashboard/dashboardLayout/DashboardLayout.js"),
-        "DashboardLayout",
-    ),
+    component: DashboardLayout,
 })
