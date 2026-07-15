@@ -20,6 +20,13 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
         navLabel: "Accueil",
     },
     {
+        path: "/documentation/mises-à-jour",
+        file: "src/features/docs/general/UpdatesGeneralDocPage.tsx",
+        section: "Général",
+        navGroup: "Introduction",
+        navLabel: "Mises à jour",
+    },
+    {
         path: "/documentation/fonctionnalités",
         file: "src/features/docs/general/features/FeaturesGeneralDocPage.tsx",
         section: "Général",
@@ -56,26 +63,11 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
         navLabel: "Mentions légales",
     },
     {
-        path: "/documentation/cgu",
-        file: "src/features/docs/general/TermsGeneralDocPage.tsx",
-        section: "Général",
-        navGroup: "Légal",
-        navLabel: "Conditions Générales d'Utilisation",
-    },
-    {
         path: "/documentation/confidentialité",
         file: "src/features/docs/general/PrivacyGeneralDocPage.tsx",
         section: "Général",
         navGroup: "Légal",
         navLabel: "Politique de confidentialité",
-    },
-    // ── Général / Nouveautés ──────────────────────────────────────────────────
-    {
-        path: "/documentation/mises-à-jour",
-        file: "src/features/docs/general/UpdatesGeneralDocPage.tsx",
-        section: "Général",
-        navGroup: "Nouveautés",
-        navLabel: "Mises à jour",
     },
     // ── Guide / Prise en main ─────────────────────────────────────────────────
     {

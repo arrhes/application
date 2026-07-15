@@ -55,6 +55,5 @@ Deux plans tarifaires :
 ## Optional
 
 - [Mentions legales](https://arrhes.com/documentation/mentions-légales): Informations légales
-- [CGU](https://arrhes.com/documentation/cgu): Conditions générales d'utilisation
 - [Politique de confidentialite](https://arrhes.com/documentation/confidentialité): Politique de confidentialité et traitement des données
 - [Code source](https://github.com/arrhes/application): Dêpot GitHub du projet (licence AGPL-3.0)

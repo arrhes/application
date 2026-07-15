@@ -38,6 +38,10 @@ export const docSections: Record<string, DocSection> = {
                 icon: <IconHome />,
                 items: [
                     {
+                        path: "/documentation/mises-à-jour",
+                        label: "Mises à jour",
+                    },
+                    {
                         path: "/documentation/fonctionnalités",
                         label: "Fonctionnalités",
                     },
@@ -64,127 +68,10 @@ export const docSections: Record<string, DocSection> = {
                         label: "Mentions légales",
                     },
                     {
-                        path: "/documentation/cgu",
-                        label: "Conditions Générales d'Utilisation",
-                    },
-                    {
                         path: "/documentation/confidentialité",
                         label: "Politique de confidentialité",
                     },
                 ],
-            },
-            updates: {
-                title: "Nouveautés",
-                icon: undefined,
-                items: [
-                    {
-                        path: "/documentation/mises-à-jour",
-                        label: "Mises à jour",
-                    },
-                ],
-            },
-        },
-    },
-    comptabilite: {
-        id: "comptabilite",
-        label: "Comptabilité",
-        path: "/documentation/comptabilité",
-        icon: <IconBook />,
-        navigation: {
-            home: {
-                title: undefined,
-                icon: undefined,
-                items: [
-                    {
-                        path: "/documentation/comptabilité",
-                        label: "Accueil",
-                    },
-                ],
-            },
-            introduction: {
-                title: "Les bases",
-                icon: <IconStack />,
-                items: [
-                    {
-                        path: "/documentation/comptabilité/introduction/",
-                        label: "Introduction",
-                    },
-                    {
-                        path: "/documentation/comptabilité/introduction/partie-double",
-                        label: "La partie double",
-                    },
-                    {
-                        path: "/documentation/comptabilité/introduction/écritures",
-                        label: "Les écritures",
-                    },
-                    {
-                        path: "/documentation/comptabilité/introduction/comptes",
-                        label: "Les comptes",
-                    },
-                    {
-                        path: "/documentation/comptabilité/introduction/classes",
-                        label: "Classes de comptes",
-                    },
-                ],
-            },
-            documents: {
-                title: "Documents",
-                icon: <IconReport />,
-                items: [
-                    {
-                        path: "/documentation/comptabilité/documents",
-                        label: "Introduction",
-                    },
-                    {
-                        path: "/documentation/comptabilité/documents/journal",
-                        label: "Journal",
-                    },
-                    {
-                        path: "/documentation/comptabilité/documents/grand-livre",
-                        label: "Grand livre",
-                    },
-                    {
-                        path: "/documentation/comptabilité/documents/balance",
-                        label: "Balance",
-                    },
-                    {
-                        path: "/documentation/comptabilité/documents/bilan",
-                        label: "Bilan",
-                    },
-                    {
-                        path: "/documentation/comptabilité/documents/compte-de-résultat",
-                        label: "Compte de résultat",
-                    },
-                    {
-                        path: "/documentation/comptabilité/documents/annexe",
-                        label: "Annexe",
-                    },
-                    {
-                        path: "/documentation/comptabilité/documents/fec",
-                        label: "FEC",
-                    },
-                ],
-            },
-            scenarios: {
-                title: "Ressources",
-                icon: <IconBooks />,
-                items: [
-                    {
-                        path: "/documentation/comptabilité/ressources/comptes",
-                        label: "Liste des comptes",
-                    },
-                    {
-                        path: "/documentation/comptabilité/ressources/scénarios",
-                        label: "Scénarios",
-                    },
-                    {
-                        path: "/documentation/comptabilité/ressources/glossaire",
-                        label: "Glossaire",
-                    },
-                ],
-            },
-            glossaire: {
-                items: [],
             },
         },
     },
@@ -337,6 +224,109 @@ export const docSections: Record<string, DocSection> = {
                         label: "Référence CLI",
                     },
                 ],
+            },
+        },
+    },
+    comptabilite: {
+        id: "comptabilite",
+        label: "Comptabilité",
+        path: "/documentation/comptabilité",
+        icon: <IconBook />,
+        navigation: {
+            home: {
+                title: undefined,
+                icon: undefined,
+                items: [
+                    {
+                        path: "/documentation/comptabilité",
+                        label: "Accueil",
+                    },
+                ],
+            },
+            introduction: {
+                title: "Les bases",
+                icon: <IconStack />,
+                items: [
+                    {
+                        path: "/documentation/comptabilité/introduction/",
+                        label: "Introduction",
+                    },
+                    {
+                        path: "/documentation/comptabilité/introduction/partie-double",
+                        label: "La partie double",
+                    },
+                    {
+                        path: "/documentation/comptabilité/introduction/écritures",
+                        label: "Les écritures",
+                    },
+                    {
+                        path: "/documentation/comptabilité/introduction/comptes",
+                        label: "Les comptes",
+                    },
+                    {
+                        path: "/documentation/comptabilité/introduction/classes",
+                        label: "Classes de comptes",
+                    },
+                ],
+            },
+            documents: {
+                title: "Documents",
+                icon: <IconReport />,
+                items: [
+                    {
+                        path: "/documentation/comptabilité/documents",
+                        label: "Introduction",
+                    },
+                    {
+                        path: "/documentation/comptabilité/documents/journal",
+                        label: "Journal",
+                    },
+                    {
+                        path: "/documentation/comptabilité/documents/grand-livre",
+                        label: "Grand livre",
+                    },
+                    {
+                        path: "/documentation/comptabilité/documents/balance",
+                        label: "Balance",
+                    },
+                    {
+                        path: "/documentation/comptabilité/documents/bilan",
+                        label: "Bilan",
+                    },
+                    {
+                        path: "/documentation/comptabilité/documents/compte-de-résultat",
+                        label: "Compte de résultat",
+                    },
+                    {
+                        path: "/documentation/comptabilité/documents/annexe",
+                        label: "Annexe",
+                    },
+                    {
+                        path: "/documentation/comptabilité/documents/fec",
+                        label: "FEC",
+                    },
+                ],
+            },
+            scenarios: {
+                title: "Ressources",
+                icon: <IconBooks />,
+                items: [
+                    {
+                        path: "/documentation/comptabilité/ressources/comptes",
+                        label: "Liste des comptes",
+                    },
+                    {
+                        path: "/documentation/comptabilité/ressources/scénarios",
+                        label: "Scénarios",
+                    },
+                    {
+                        path: "/documentation/comptabilité/ressources/glossaire",
+                        label: "Glossaire",
+                    },
+                ],
+            },
+            glossaire: {
+                items: [],
             },
         },
     },

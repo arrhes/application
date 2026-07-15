@@ -37,7 +37,6 @@ import { legalGeneralDocRoute } from "./root/legalGeneralDocRoute.js"
 import { privacyGeneralDocRoute } from "./root/privacyGeneralDocRoute.js"
 import { rootGeneralDocRoute } from "./root/rootGeneralDocRoute.js"
 import { supportGeneralDocRoute } from "./root/supportGeneralDocRoute.js"
-import { termsGeneralDocRoute } from "./root/termsGeneralDocRoute.js"
 import { updatesGeneralDocRoute } from "./root/updatesGeneralDocRoute.js"
 import { whitepaperGeneralDocRoute } from "./root/whitepaperGeneralDocRoute.js"
 
@@ -45,14 +44,13 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
     // General section (root)
     generalDocLayoutRoute.addChildren([
         rootGeneralDocRoute,
+        updatesGeneralDocRoute,
         featuresGeneralDocRoute,
         architectureGeneralDocRoute,
         whitepaperGeneralDocRoute,
         supportGeneralDocRoute,
         legalGeneralDocRoute,
-        termsGeneralDocRoute,
         privacyGeneralDocRoute,
-        updatesGeneralDocRoute,
     ]),
 
     // Guide section (feature-first documentation)

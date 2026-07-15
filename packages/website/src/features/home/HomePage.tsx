@@ -1,6 +1,6 @@
 import { Badge, ButtonGhostContent, ButtonOutlineContent, ButtonPlainContent, Logo } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconBook2, IconBrandGithub, IconBrandLinkedin, IconGavel, IconHeart, IconUser } from "@tabler/icons-react"
+import { IconBook2, IconBrandGithub, IconGavel, IconHeart } from "@tabler/icons-react"
 import { LinkButton } from "../../components/LinkButton.js"
 import { Features } from "./Features.tsx"
 import { HeroIllustration } from "./HeroIllustration.js"
@@ -69,19 +69,22 @@ export function HomePage() {
                             gap: "0.5rem",
                         })}
                     >
+                        <a
+                            href="https://github.com/arrhes"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <ButtonGhostContent leftIcon={<IconBrandGithub />} />
+                        </a>
                         <LinkButton to="/documentation">
                             <ButtonOutlineContent
                                 leftIcon={<IconBook2 />}
                                 text="Documentation"
                             />
                         </LinkButton>
-                        <a
-                            href={import.meta.env.VITE_DASHBOARD_BASE_URL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <ButtonPlainContent text="Dashboard" />
-                        </a>
+                        <LinkButton to="/documentation/guide">
+                            <ButtonPlainContent text="Guide" />
+                        </LinkButton>
                     </nav>
                 </div>
             </header>
@@ -167,17 +170,14 @@ export function HomePage() {
                                 gap: "0.5rem",
                             })}
                         >
-                            <LinkButton to="/inscription">
+                            <LinkButton to="/documentation/guide">
                                 <ButtonPlainContent
-                                    leftIcon={<IconUser />}
-                                    text="Créer un compte"
+                                    leftIcon={<IconBook2 />}
+                                    text="Consulter le guide"
                                 />
                             </LinkButton>
                             <LinkButton to="/documentation">
-                                <ButtonOutlineContent
-                                    leftIcon={<IconBook2 />}
-                                    text="En savoir plus"
-                                />
+                                <ButtonOutlineContent text="En savoir plus" />
                             </LinkButton>
                         </div>
                     </div>
@@ -307,29 +307,6 @@ export function HomePage() {
                             text="Faire un don"
                         />
                     </a>
-                    <div
-                        className={css({
-                            display: "flex",
-                            justifyContent: "end",
-                            alignItems: "center",
-                            gap: "0.25rem",
-                        })}
-                    >
-                        <a
-                            href="https://linkedin.com/company/arrhes"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <ButtonGhostContent leftIcon={<IconBrandLinkedin />} />
-                        </a>
-                        <a
-                            href="https://github.com/arrhes"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <ButtonGhostContent leftIcon={<IconBrandGithub />} />
-                        </a>
-                    </div>
                 </div>
             </footer>
         </div>

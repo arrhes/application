@@ -60,11 +60,6 @@ export function sitemapPlugin(): Plugin {
                     changefreq: "yearly",
                 },
                 {
-                    path: "/documentation/cgu",
-                    priority: "0.3",
-                    changefreq: "yearly",
-                },
-                {
                     path: "/documentation/confidentialité",
                     priority: "0.3",
                     changefreq: "yearly",

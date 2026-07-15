@@ -1,4 +1,4 @@
-import { Button, ButtonGhostContent, ButtonOutlineContent, ButtonPlainContent, Logo } from "@arrhes/ui"
+import { Button, ButtonGhostContent, ButtonOutlineContent, Logo } from "@arrhes/ui"
 import { cn, css } from "@arrhes/ui/utilities/cn.js"
 import { IconBook2, IconBrandGithub, IconHeart, IconMenu } from "@tabler/icons-react"
 import { Outlet, useRouterState } from "@tanstack/react-router"
@@ -154,13 +154,6 @@ export function DocsLayout() {
                                     leftIcon={<IconHeart />}
                                     text="Faire un don"
                                 />
-                            </a>
-                            <a
-                                href={import.meta.env.VITE_DASHBOARD_BASE_URL}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <ButtonPlainContent text="Dashboard" />
                             </a>
                         </nav>
                     </div>
