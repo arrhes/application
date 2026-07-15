@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { AgentSkillsDocPage } from "../../../../features/docs/guide/AgentSkillsDocPage.js"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { guideDocLayoutRoute } from "./guideDocLayoutRoute.js"
 
 export const agentSkillsDocRoute = createRoute({
@@ -9,5 +8,5 @@ export const agentSkillsDocRoute = createRoute({
         title: "Skills agent IA",
         description: "Skills Markdown pour configurer votre agent IA avec Arrhes.",
     }),
-    component: AgentSkillsDocPage,
+    component: lazyRouteComponent(() => import("../../../../features/docs/guide/AgentSkillsDocPage.js")),
 })

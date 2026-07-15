@@ -1,4 +1,3 @@
-import { DOC_MD_CONTENT } from "virtual:doc-md-content"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { createRoute, notFound } from "@tanstack/react-router"
 import { docsLayoutRoute } from "./docsLayoutRoute.js"
@@ -6,37 +5,21 @@ import { docsLayoutRoute } from "./docsLayoutRoute.js"
 export const docMdRoute = createRoute({
     getParentRoute: () => docsLayoutRoute,
     path: "$",
-    beforeLoad: ({ location }) => {
+    loader: async ({ location }) => {
         const path = location.pathname.replace(/\/$/, "")
         if (!path.endsWith(".md")) {
             throw notFound()
         }
         const docPath = path.replace(/\.md$/, "")
-        if (!(docPath in DOC_MD_CONTENT)) {
+        const mod = await import("virtual:doc-md-content")
+        const content = mod.DOC_MD_CONTENT[docPath] ?? null
+        if (content === null) {
             throw notFound()
         }
-    },
-    loader: ({ location }) => {
-        const path = location.pathname.replace(/\/$/, "")
-        const docPath = path.replace(/\.md$/, "")
-        return DOC_MD_CONTENT[docPath] ?? null
+        return content
     },
     component: function DocMdPage() {
         const content = docMdRoute.useLoaderData()
-
-        if (content === null) {
-            return (
-                <div
-                    className={css({
-                        padding: "2rem",
-                        fontSize: "sm",
-                        color: "neutral/50",
-                    })}
-                >
-                    Contenu introuvable.
-                </div>
-            )
-        }
 
         return (
             <pre

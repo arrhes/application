@@ -1,13 +1,12 @@
-import { type DocsSearchEntry, docsSearchIndex } from "virtual:docs-search-index"
+import type { DocsSearchEntry } from "virtual:docs-search-index"
 import { Button } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconSearch } from "@tabler/icons-react"
 import { useNavigate } from "@tanstack/react-router"
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
 const MAX_RESULTS = 8
 
-/** Strip accents and lowercase - essential for French text ("écritures" → "ecritures"). */
 function normalize(text: string): string {
     return text
         .toLowerCase()
@@ -15,41 +14,21 @@ function normalize(text: string): string {
         .replace(/[\u0300-\u036f]/g, "")
 }
 
-/**
- * Score how well `entry` matches a pre-tokenized query.
- *
- * Returns a number in [0, 3]:
- *   3   - at least one token is an exact substring of title/description (highest relevance)
- *   2   - every token appears somewhere in the full content
- *   1   - partial token overlap (fraction of tokens that match)
- *   0   - no match
- *
- * All comparisons are accent-normalised.
- */
 function scoreEntry(entry: DocsSearchEntry, tokens: string[]): number {
     const normContent = normalize(entry.content)
     const normTitle = normalize(entry.title)
     const normDesc = normalize(entry.description)
 
-    // Tier 3: any token is an exact substring match in the title or description
     if (tokens.some((t) => normTitle.includes(t) || normDesc.includes(t))) {
         return 3
     }
 
-    // Tier 2/1: token matching against full content
     const matchCount = tokens.filter((t) => normContent.includes(t)).length
     if (matchCount === 0) return 0
     if (matchCount === tokens.length) return 2
     return matchCount / tokens.length
 }
 
-/**
- * Find the first occurrence of `query` (accent-normalised) within `text` and
- * return a display chunk with ~40 chars of context on each side.
- *
- * Because normalising may shift character positions we search in the normalised
- * string but slice from the original for display.
- */
 function getMatchSnippet(
     text: string,
     query: string,
@@ -72,11 +51,6 @@ function getMatchSnippet(
     }
 }
 
-/**
- * Show the best matching excerpt with the matched word highlighted.
- * - Does NOT skip tokens found in the title (title is shown below, less prominently).
- * - Falls back to the beginning of the description when no token matches in content.
- */
 function ResultChunk(props: { entry: DocsSearchEntry; tokens: string[] }) {
     const { entry, tokens } = props
 
@@ -106,7 +80,6 @@ function ResultChunk(props: { entry: DocsSearchEntry; tokens: string[] }) {
         }
     }
 
-    // Fallback: no token found in text body (match was in navGroup/navLabel/number)
     if (entry.description) {
         return (
             <span
@@ -128,12 +101,24 @@ function ResultChunk(props: { entry: DocsSearchEntry; tokens: string[] }) {
 export function DocsSearch() {
     const [query, setQuery] = useState("")
     const [open, setOpen] = useState(false)
+    const [searchIndex, setSearchIndex] = useState<DocsSearchEntry[] | null>(null)
+    const loadingRef = useRef(false)
     const containerRef = useRef<HTMLDivElement>(null)
     const navigate = useNavigate()
 
+    const loadSearchIndex = useCallback(async () => {
+        if (searchIndex !== null || loadingRef.current) return
+        loadingRef.current = true
+        const mod = await import("virtual:docs-search-index")
+        setSearchIndex(mod.docsSearchIndex)
+        loadingRef.current = false
+    }, [
+        searchIndex,
+    ])
+
     const { results, tokens } = useMemo(() => {
         const trimmed = query.trim()
-        if (!trimmed)
+        if (!trimmed || searchIndex === null)
             return {
                 results: [],
                 tokens: [],
@@ -144,7 +129,7 @@ export function DocsSearch() {
             .map(normalize)
             .filter((t) => t.length > 0)
 
-        const scored = docsSearchIndex
+        const scored = searchIndex
             .flatMap((entry) => {
                 const score = scoreEntry(entry, toks)
                 return score > 0
@@ -166,9 +151,9 @@ export function DocsSearch() {
         }
     }, [
         query,
+        searchIndex,
     ])
 
-    // Close on outside click
     useEffect(() => {
         function handleMouseDown(event: MouseEvent) {
             if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
@@ -181,7 +166,6 @@ export function DocsSearch() {
         }
     }, [])
 
-    // Close on Escape
     useEffect(() => {
         function handleKeyDown(event: KeyboardEvent) {
             if (event.key === "Escape") {
@@ -249,9 +233,11 @@ export function DocsSearch() {
                     onChange={(e) => {
                         setQuery(e.target.value)
                         setOpen(true)
+                        void loadSearchIndex()
                     }}
                     onFocus={() => {
                         if (query) setOpen(true)
+                        void loadSearchIndex()
                     }}
                     className={css({
                         flex: 1,
@@ -333,7 +319,7 @@ export function DocsSearch() {
                 </div>
             )}
 
-            {open && query.trim().length > 0 && results.length === 0 && (
+            {open && query.trim().length > 0 && results.length === 0 && searchIndex !== null && (
                 <div
                     className={css({
                         position: "absolute",

@@ -1,7 +1,10 @@
-import { createRoute } from "@tanstack/react-router"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { DocRoot } from "../../../../../components/document/DocRoot"
-import { BalanceSheetAccountingDocPage } from "../../../../../features/docs/accounting/reports/BalanceSheetAccountingDocPage.tsx"
 import { reportsAccountingDocLayoutRoute } from "./reportsAccountingDocLayoutRoute.js"
+
+const LazyBalanceSheetAccountingDocPage = lazyRouteComponent(
+    () => import("../../../../../features/docs/accounting/reports/BalanceSheetAccountingDocPage.tsx"),
+)
 
 export const balanceSheetAccountingDocRoute = createRoute({
     getParentRoute: () => reportsAccountingDocLayoutRoute,
@@ -13,7 +16,7 @@ export const balanceSheetAccountingDocRoute = createRoute({
     }),
     component: () => (
         <DocRoot>
-            <BalanceSheetAccountingDocPage />
+            <LazyBalanceSheetAccountingDocPage />
         </DocRoot>
     ),
 })

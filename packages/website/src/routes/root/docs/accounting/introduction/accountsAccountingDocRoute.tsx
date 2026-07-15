@@ -1,7 +1,10 @@
-import { createRoute } from "@tanstack/react-router"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { DocRoot } from "../../../../../components/document/DocRoot"
-import { AccountsAccountingDocPage } from "../../../../../features/docs/accounting/introduction/AccountsAccountingDocPage.tsx"
 import { introductionAccountingDocLayoutRoute } from "./introductionAccountingDocLayoutRoute.tsx"
+
+const LazyAccountsAccountingDocPage = lazyRouteComponent(
+    () => import("../../../../../features/docs/accounting/introduction/AccountsAccountingDocPage.tsx"),
+)
 
 export const accountsAccountingDocRoute = createRoute({
     getParentRoute: () => introductionAccountingDocLayoutRoute,
@@ -13,7 +16,7 @@ export const accountsAccountingDocRoute = createRoute({
     }),
     component: () => (
         <DocRoot>
-            <AccountsAccountingDocPage />
+            <LazyAccountsAccountingDocPage />
         </DocRoot>
     ),
 })

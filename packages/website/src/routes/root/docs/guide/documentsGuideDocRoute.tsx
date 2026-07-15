@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { DocumentsGuideDocPage } from "../../../../features/docs/guide/DocumentsGuideDocPage.js"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { guideDocLayoutRoute } from "./guideDocLayoutRoute.js"
 
 export const documentsGuideDocRoute = createRoute({
@@ -9,5 +8,5 @@ export const documentsGuideDocRoute = createRoute({
         title: "Documents comptables",
         description: "Produire vos documents comptables et analyser vos données.",
     }),
-    component: DocumentsGuideDocPage,
+    component: lazyRouteComponent(() => import("../../../../features/docs/guide/DocumentsGuideDocPage.js")),
 })

@@ -1,7 +1,11 @@
-import { createRoute } from "@tanstack/react-router"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { DocRoot } from "../../../../../../components/document/DocRoot"
-import { GlossaryResourcesAccountingDocPage } from "../../../../../../features/docs/accounting/resources/glossary/GlossaryResourcesAccountingDocPage.tsx"
 import { glossaryAccountingDocLayoutRoute } from "./glossaryAccountingDocLayoutRoute.js"
+
+const LazyGlossaryResourcesAccountingDocPage = lazyRouteComponent(
+    () =>
+        import("../../../../../../features/docs/accounting/resources/glossary/GlossaryResourcesAccountingDocPage.tsx"),
+)
 
 export const glossaryAccountingDocIndexRoute = createRoute({
     getParentRoute: () => glossaryAccountingDocLayoutRoute,
@@ -13,7 +17,7 @@ export const glossaryAccountingDocIndexRoute = createRoute({
     }),
     component: () => (
         <DocRoot>
-            <GlossaryResourcesAccountingDocPage />
+            <LazyGlossaryResourcesAccountingDocPage />
         </DocRoot>
     ),
 })

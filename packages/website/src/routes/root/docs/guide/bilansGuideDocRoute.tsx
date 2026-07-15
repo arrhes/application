@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { BilansGuideDocPage } from "../../../../features/docs/guide/BilansGuideDocPage.js"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { guideDocLayoutRoute } from "./guideDocLayoutRoute.js"
 
 export const bilansGuideDocRoute = createRoute({
@@ -9,5 +8,5 @@ export const bilansGuideDocRoute = createRoute({
         title: "Bilans",
         description: "Structure du bilan comptable : création, modification et suppression.",
     }),
-    component: BilansGuideDocPage,
+    component: lazyRouteComponent(() => import("../../../../features/docs/guide/BilansGuideDocPage.js")),
 })

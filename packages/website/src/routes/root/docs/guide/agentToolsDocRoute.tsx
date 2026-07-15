@@ -1,5 +1,4 @@
-import { createRoute } from "@tanstack/react-router"
-import { AgentToolsDocPage } from "../../../../features/docs/guide/AgentToolsDocPage.js"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { guideDocLayoutRoute } from "./guideDocLayoutRoute.js"
 
 export const agentToolsDocRoute = createRoute({
@@ -9,5 +8,5 @@ export const agentToolsDocRoute = createRoute({
         title: "Outils et code",
         description: "Exemples TypeScript et Python pour utiliser l'API Arrhes avec un agent IA.",
     }),
-    component: AgentToolsDocPage,
+    component: lazyRouteComponent(() => import("../../../../features/docs/guide/AgentToolsDocPage.js")),
 })

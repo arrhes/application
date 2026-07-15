@@ -1,7 +1,8 @@
-import { createRoute } from "@tanstack/react-router"
+import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { DocRoot } from "../../../../components/document/DocRoot"
-import { RootGuideDocPage } from "../../../../features/docs/guide/RootGuideDocPage.tsx"
 import { guideDocLayoutRoute } from "./guideDocLayoutRoute.js"
+
+const LazyRootGuideDocPage = lazyRouteComponent(() => import("../../../../features/docs/guide/RootGuideDocPage.tsx"))
 
 export const rootGuideDocRoute = createRoute({
     getParentRoute: () => guideDocLayoutRoute,
@@ -13,7 +14,7 @@ export const rootGuideDocRoute = createRoute({
     }),
     component: () => (
         <DocRoot>
-            <RootGuideDocPage />
+            <LazyRootGuideDocPage />
         </DocRoot>
     ),
 })
