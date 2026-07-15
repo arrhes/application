@@ -47,7 +47,7 @@ export function RootAiDocPage() {
                         gap: "0.5rem",
                     })}
                 >
-                    <LinkButton to="/documentation/dashboard/assistant/outils">
+                    <LinkButton to="/documentation/guide/assistant/outils">
                         <ButtonOutlineContent
                             text="Voir les outils"
                             rightIcon={<IconChevronRight />}
@@ -106,9 +106,9 @@ export function RootAiDocPage() {
 
             <DocTip variant="tip">
                 Pour en savoir plus sur les modèles utilisés, consultez la page{" "}
-                <DocLink to="/documentation/dashboard/assistant/modèles">Modèles</DocLink>. Pour la liste complète des
+                <DocLink to="/documentation/guide/assistant/modèles">Modèles</DocLink>. Pour la liste complète des
                 outils disponibles, consultez la page{" "}
-                <DocLink to="/documentation/dashboard/assistant/outils">Outils</DocLink>.
+                <DocLink to="/documentation/guide/assistant/outils">Outils</DocLink>.
             </DocTip>
         </DocRoot>
     )

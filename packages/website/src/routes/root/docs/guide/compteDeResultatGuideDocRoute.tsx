@@ -1,5 +1,5 @@
 import { createRoute } from "@tanstack/react-router"
-import { IncomeStatementsApiDocPage } from "../../../../features/docs/api/IncomeStatementsApiDocPage.js"
+import { CompteDeResultatGuideDocPage } from "../../../../features/docs/guide/CompteDeResultatGuideDocPage.js"
 import { guideDocLayoutRoute } from "./guideDocLayoutRoute.js"
 
 export const compteDeResultatGuideDocRoute = createRoute({
@@ -9,5 +9,5 @@ export const compteDeResultatGuideDocRoute = createRoute({
         title: "Compte de résultat",
         description: "Structure du compte de résultat : création, modification et suppression.",
     }),
-    component: IncomeStatementsApiDocPage,
+    component: CompteDeResultatGuideDocPage,
 })

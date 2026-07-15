@@ -8,14 +8,12 @@ import {
     IconGavel,
     IconHome,
     IconInfoCircle,
-    IconLayout,
     IconPackage,
     IconPencil,
     IconReport,
     IconRobot,
     IconRocket,
     IconStack,
-    IconTerminal,
 } from "@tabler/icons-react"
 import type { DocSection } from "./SectionTab.tsx"
 
@@ -326,266 +324,17 @@ export const docSections: Record<string, DocSection> = {
                     },
                 ],
             },
-        },
-    },
-
-    dashboard: {
-        id: "dashboard",
-        label: "Dashboard",
-        path: "/documentation/dashboard",
-        icon: <IconLayout />,
-        navigation: {
-            home: {
+            reference: {
+                title: "Référence",
+                icon: <IconCode />,
                 items: [
                     {
-                        path: "/documentation/dashboard",
-                        label: "Accueil",
-                    },
-                ],
-            },
-            guide: {
-                title: "Guide d'utilisation",
-                icon: <IconLayout />,
-                items: [
-                    {
-                        path: "/documentation/dashboard/démarrage",
-                        label: "Démarrage",
+                        path: "/documentation/guide/référence-api",
+                        label: "Référence API",
                     },
                     {
-                        path: "/documentation/dashboard/organisations",
-                        label: "Organisations",
-                    },
-                    {
-                        path: "/documentation/dashboard/exercices",
-                        label: "Exercices",
-                    },
-                    {
-                        path: "/documentation/dashboard/écritures",
-                        label: "Saisie des écritures",
-                    },
-                    {
-                        path: "/documentation/dashboard/stockage",
-                        label: "Stockage",
-                    },
-                    {
-                        path: "/documentation/dashboard/documents",
-                        label: "Documents comptables",
-                    },
-                    {
-                        path: "/documentation/dashboard/facturation",
-                        label: "Facturation",
-                    },
-                    {
-                        path: "/documentation/dashboard/inventaire",
-                        label: "Inventaire",
-                    },
-                ],
-            },
-            assistant: {
-                title: "Assistant IA",
-                icon: <IconRobot />,
-                items: [
-                    {
-                        path: "/documentation/dashboard/assistant",
-                        label: "Introduction",
-                    },
-                    {
-                        path: "/documentation/dashboard/assistant/modèles",
-                        label: "Modèles",
-                    },
-                    {
-                        path: "/documentation/dashboard/assistant/outils",
-                        label: "Outils",
-                    },
-                    {
-                        path: "/documentation/dashboard/assistant/ocr",
-                        label: "OCR",
-                    },
-                ],
-            },
-        },
-    },
-    api: {
-        id: "api",
-        label: "API",
-        path: "/documentation/api",
-        icon: <IconCode />,
-        navigation: {
-            home: {
-                title: undefined,
-                icon: undefined,
-                items: [
-                    {
-                        path: "/documentation/api",
-                        label: "Présentation",
-                    },
-                ],
-            },
-            basicsGroup: {
-                title: "Généralités",
-                icon: <IconInfoCircle />,
-                items: [
-                    {
-                        path: "/documentation/api/introduction",
-                        label: "Introduction",
-                    },
-                    {
-                        path: "/documentation/api/authentification",
-                        label: "Authentification",
-                    },
-                ],
-            },
-            organisationGroup: {
-                title: "Organisation",
-                icon: <IconLayout />,
-                items: [
-                    {
-                        path: "/documentation/api/organisation",
-                        label: "Organisation",
-                    },
-                    {
-                        path: "/documentation/api/membres",
-                        label: "Membres",
-                    },
-                    {
-                        path: "/documentation/api/clés-api",
-                        label: "Clés API",
-                    },
-                    {
-                        path: "/documentation/api/stockage",
-                        label: "Stockage",
-                    },
-                ],
-            },
-            exerciceGroup: {
-                title: "Exercice",
-                icon: <IconBooks />,
-                items: [
-                    {
-                        path: "/documentation/api/exercice",
-                        label: "Exercices",
-                    },
-                    {
-                        path: "/documentation/api/comptes",
-                        label: "Comptes",
-                    },
-                    {
-                        path: "/documentation/api/journaux",
-                        label: "Journaux",
-                    },
-                    {
-                        path: "/documentation/api/bilans",
-                        label: "Bilans",
-                    },
-                    {
-                        path: "/documentation/api/comptes-de-résultat",
-                        label: "Comptes de résultat",
-                    },
-                    {
-                        path: "/documentation/api/libellés",
-                        label: "Libellés",
-                    },
-                    {
-                        path: "/documentation/api/écritures",
-                        label: "Écritures",
-                    },
-                    {
-                        path: "/documentation/api/exports",
-                        label: "Exports",
-                    },
-                ],
-            },
-        },
-    },
-    cli: {
-        id: "cli",
-        label: "CLI",
-        path: "/documentation/cli",
-        icon: <IconTerminal />,
-        navigation: {
-            home: {
-                items: [
-                    {
-                        path: "/documentation/cli",
-                        label: "Présentation",
-                    },
-                ],
-            },
-            guide: {
-                title: "Guide",
-                icon: <IconTerminal />,
-                items: [
-                    {
-                        path: "/documentation/cli/installation",
-                        label: "Installation",
-                    },
-                    {
-                        path: "/documentation/cli/demarrer",
-                        label: "Démarrer",
-                    },
-                    {
-                        path: "/documentation/cli/authentification",
-                        label: "Authentification",
-                    },
-                ],
-            },
-            organisationGroup: {
-                title: "Organisation",
-                icon: <IconLayout />,
-                items: [
-                    {
-                        path: "/documentation/cli/commandes/organisation",
-                        label: "Organisation",
-                    },
-                    {
-                        path: "/documentation/cli/commandes/membres",
-                        label: "Membres",
-                    },
-                    {
-                        path: "/documentation/cli/commandes/cles-api",
-                        label: "Clés API",
-                    },
-                    {
-                        path: "/documentation/cli/commandes/stockage",
-                        label: "Stockage",
-                    },
-                ],
-            },
-            exerciceGroup: {
-                title: "Exercice",
-                icon: <IconBooks />,
-                items: [
-                    {
-                        path: "/documentation/cli/commandes/exercices",
-                        label: "Exercices",
-                    },
-                    {
-                        path: "/documentation/cli/commandes/journaux",
-                        label: "Journaux",
-                    },
-                    {
-                        path: "/documentation/cli/commandes/comptes",
-                        label: "Comptes",
-                    },
-                    {
-                        path: "/documentation/cli/commandes/libelles",
-                        label: "Libellés",
-                    },
-                    {
-                        path: "/documentation/cli/commandes/ecritures",
-                        label: "Écritures",
-                    },
-                    {
-                        path: "/documentation/cli/commandes/exports",
-                        label: "Exports",
-                    },
-                    {
-                        path: "/documentation/cli/commandes/bilans",
-                        label: "Bilans",
-                    },
-                    {
-                        path: "/documentation/cli/commandes/comptes-de-resultat",
-                        label: "Comptes de résultat",
+                        path: "/documentation/guide/référence-cli",
+                        label: "Référence CLI",
                     },
                 ],
             },

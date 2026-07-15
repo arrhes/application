@@ -1,5 +1,5 @@
 import { createRoute } from "@tanstack/react-router"
-import { ReportsDashboardDocPage } from "../../../../features/docs/dashboard/ReportsDashboardDocPage.js"
+import { DocumentsGuideDocPage } from "../../../../features/docs/guide/DocumentsGuideDocPage.js"
 import { guideDocLayoutRoute } from "./guideDocLayoutRoute.js"
 
 export const documentsGuideDocRoute = createRoute({
@@ -9,5 +9,5 @@ export const documentsGuideDocRoute = createRoute({
         title: "Documents comptables",
         description: "Produire vos documents comptables et analyser vos données.",
     }),
-    component: ReportsDashboardDocPage,
+    component: DocumentsGuideDocPage,
 })

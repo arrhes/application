@@ -1,6 +1,6 @@
 import { ButtonOutlineContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconBook, IconChevronRight, IconCode, IconLayout, IconTerminal } from "@tabler/icons-react"
+import { IconBook, IconChevronRight, IconCode, IconCompass, IconTerminal } from "@tabler/icons-react"
 import { DocHeader } from "../../../components/document/DocHeader.js"
 import { DocRoot } from "../../../components/document/DocRoot.js"
 import { DocSectionCard } from "../../../components/document/DocSectionCard.js"
@@ -87,47 +87,25 @@ export function RootGeneralDocPage() {
                     ctaLabel="Voir la section"
                 />
                 <DocSectionCard
-                    icon={<IconLayout />}
+                    icon={<IconCompass />}
                     iconColor="information"
-                    title="Dashboard"
-                    description="Guide d'utilisation du dashboard Arrhes : organisations, exercices, saisie des écritures, stockage, documents comptables, facturation et assistant IA."
+                    title="Guide"
+                    description="Guide d'utilisation d'Arrhes : installation, authentification, organisations, exercices, saisie des écritures, stockage, documents comptables, inventaire et assistant IA."
                     links={[
                         {
-                            to: "/documentation/dashboard/démarrage",
-                            label: "Démarrage",
+                            to: "/documentation/guide/démarrer",
+                            label: "Démarrer",
                         },
                         {
-                            to: "/documentation/dashboard/écritures",
+                            to: "/documentation/guide/écritures",
                             label: "Saisie des écritures",
                         },
                         {
-                            to: "/documentation/dashboard/assistant",
+                            to: "/documentation/guide/assistant",
                             label: "Assistant IA",
                         },
                     ]}
-                    ctaTo="/documentation/dashboard"
-                    ctaLabel="Voir la section"
-                />
-                <DocSectionCard
-                    icon={<IconCode />}
-                    iconColor="success"
-                    title="API"
-                    description="Référence complète de l'API REST d'Arrhes : authentification, gestion des organisations, exercices, écritures, exports et bien plus."
-                    links={[
-                        {
-                            to: "/documentation/api/introduction",
-                            label: "Introduction",
-                        },
-                        {
-                            to: "/documentation/api/authentification",
-                            label: "Authentification",
-                        },
-                        {
-                            to: "/documentation/api/écritures",
-                            label: "Écritures",
-                        },
-                    ]}
-                    ctaTo="/documentation/api"
+                    ctaTo="/documentation/guide"
                     ctaLabel="Voir la section"
                 />
                 <DocSectionCard
@@ -137,19 +115,41 @@ export function RootGeneralDocPage() {
                     description="Installez et utilisez l'interface en ligne de commande d'Arrhes pour gérer vos organisations, exercices, écritures et exports depuis votre terminal."
                     links={[
                         {
-                            to: "/documentation/cli/installation",
+                            to: "/documentation/guide/installation",
                             label: "Installation",
                         },
                         {
-                            to: "/documentation/cli/authentification",
+                            to: "/documentation/guide/authentification",
                             label: "Authentification",
                         },
                         {
-                            to: "/documentation/cli/commandes/ecritures",
+                            to: "/documentation/guide/référence-cli",
+                            label: "Référence CLI",
+                        },
+                    ]}
+                    ctaTo="/documentation/guide"
+                    ctaLabel="Voir la section"
+                />
+                <DocSectionCard
+                    icon={<IconCode />}
+                    iconColor="success"
+                    title="API"
+                    description="Référence complète de l'API REST d'Arrhes : authentification, gestion des organisations, exercices, écritures, exports et bien plus."
+                    links={[
+                        {
+                            to: "/documentation/guide/référence-api",
+                            label: "Référence API",
+                        },
+                        {
+                            to: "/documentation/guide/authentification",
+                            label: "Authentification",
+                        },
+                        {
+                            to: "/documentation/guide/écritures",
                             label: "Écritures",
                         },
                     ]}
-                    ctaTo="/documentation/cli"
+                    ctaTo="/documentation/guide"
                     ctaLabel="Voir la section"
                 />
             </div>

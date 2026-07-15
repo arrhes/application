@@ -319,7 +319,7 @@ export function DoubleEntryAccountingDocPage() {
             <DocSection title="Lien avec Arrhes">
                 <DocParagraph>
                     Ces concepts sont directement appliqués dans Arrhes. Lorsque vous{" "}
-                    <DocLink to="/documentation/dashboard/écritures">saisissez une écriture</DocLink>, le logiciel vous
+                    <DocLink to="/documentation/guide/écritures">saisissez une écriture</DocLink>, le logiciel vous
                     demande de spécifier les comptes à débiter et à créditer, et vérifie automatiquement que l'équilibre
                     est respecté.
                 </DocParagraph>

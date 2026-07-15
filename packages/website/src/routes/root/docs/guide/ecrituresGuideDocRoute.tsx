@@ -1,5 +1,5 @@
 import { createRoute } from "@tanstack/react-router"
-import { EntriesDashboardDocPage } from "../../../../features/docs/dashboard/EntriesDashboardDocPage.js"
+import { EcrituresGuideDocPage } from "../../../../features/docs/guide/EcrituresGuideDocPage.js"
 import { guideDocLayoutRoute } from "./guideDocLayoutRoute.js"
 
 export const ecrituresGuideDocRoute = createRoute({
@@ -9,5 +9,5 @@ export const ecrituresGuideDocRoute = createRoute({
         title: "Saisie des écritures",
         description: "Enregistrer vos opérations comptables dans Arrhes.",
     }),
-    component: EntriesDashboardDocPage,
+    component: EcrituresGuideDocPage,
 })

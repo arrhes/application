@@ -401,8 +401,8 @@ export function AccountsAccountingDocPage() {
             <DocSection title="Lien avec Arrhes">
                 <DocParagraph>
                     Dans Arrhes, vous pouvez{" "}
-                    <DocLink to="/documentation/dashboard/organisations">configurer votre plan comptable</DocLink> selon
-                    les besoins de votre{" "}
+                    <DocLink to="/documentation/guide/organisations">configurer votre plan comptable</DocLink> selon les
+                    besoins de votre{" "}
                     <DocLink
                         to="/documentation/comptabilité/glossaire/$term"
                         params={{

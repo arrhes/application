@@ -75,6 +75,9 @@ export function DocImplementationTabs(props: {
             </div>
             <div
                 className={css({
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "1.5rem",
                     padding: "1rem",
                 })}
             >

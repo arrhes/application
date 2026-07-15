@@ -1,16 +1,15 @@
 import { createRoute } from "@tanstack/react-router"
 import { docMdxComponents } from "../../../../components/document/DocMdxComponents"
 import { DocRoot } from "../../../../components/document/DocRoot"
-import Content from "../../../../features/docs/guide/PremiersPasGuideDocPage.mdx"
+import Content from "../../../../features/docs/guide/ReferenceApiGuideDocPage.mdx"
 import { guideDocLayoutRoute } from "./guideDocLayoutRoute.js"
 
-export const demarrerGuideDocRoute = createRoute({
+export const referenceApiGuideDocRoute = createRoute({
     getParentRoute: () => guideDocLayoutRoute,
-    path: "/démarrer",
+    path: "/référence-api",
     beforeLoad: () => ({
-        title: "Premiers pas",
-        description:
-            "Configurez Arrhes en quelques minutes : créez votre compte, votre organisation et votre premier exercice.",
+        title: "Référence API",
+        description: "Conventions, codes d'erreur et catalogue des endpoints de l'API Arrhes.",
     }),
     component: () => (
         <DocRoot>

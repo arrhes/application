@@ -537,7 +537,7 @@ export function EntriesAccountingDocPage() {
 
             <DocSection title="Lien avec Arrhes">
                 <DocParagraph>
-                    Dans Arrhes, la <DocLink to="/documentation/dashboard/écritures">saisie des écritures</DocLink> est
+                    Dans Arrhes, la <DocLink to="/documentation/guide/écritures">saisie des écritures</DocLink> est
                     simplifiée. Le logiciel vérifie automatiquement l'équilibre débit/crédit et vous guide dans le choix
                     des comptes. Vous pouvez également créer des modèles d'écritures pour les opérations répétitives.
                 </DocParagraph>

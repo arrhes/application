@@ -199,7 +199,7 @@ export function NotesAccountingDocPage() {
             <DocSection title="Lien avec Arrhes">
                 <DocParagraph>
                     Arrhes vous accompagne dans la préparation de vos comptes annuels. Consultez le guide sur les{" "}
-                    <DocLink to="/documentation/dashboard/documents">rapports</DocLink> pour savoir comment exporter les
+                    <DocLink to="/documentation/guide/documents">rapports</DocLink> pour savoir comment exporter les
                     données nécessaires à la rédaction de votre annexe.
                 </DocParagraph>
             </DocSection>

@@ -49,7 +49,7 @@ export function OcrAiDocPage() {
 
             <DocTip variant="tip">
                 Pour voir la liste complète des capacités de l'assistant, consultez la page{" "}
-                <DocLink to="/documentation/dashboard/assistant/outils">Outils</DocLink>.
+                <DocLink to="/documentation/guide/assistant/outils">Outils</DocLink>.
             </DocTip>
         </DocRoot>
     )

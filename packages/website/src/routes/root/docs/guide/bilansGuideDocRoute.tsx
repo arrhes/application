@@ -1,5 +1,5 @@
 import { createRoute } from "@tanstack/react-router"
-import { BalanceSheetsApiDocPage } from "../../../../features/docs/api/BalanceSheetsApiDocPage.js"
+import { BilansGuideDocPage } from "../../../../features/docs/guide/BilansGuideDocPage.js"
 import { guideDocLayoutRoute } from "./guideDocLayoutRoute.js"
 
 export const bilansGuideDocRoute = createRoute({
@@ -9,5 +9,5 @@ export const bilansGuideDocRoute = createRoute({
         title: "Bilans",
         description: "Structure du bilan comptable : création, modification et suppression.",
     }),
-    component: BalanceSheetsApiDocPage,
+    component: BilansGuideDocPage,
 })
