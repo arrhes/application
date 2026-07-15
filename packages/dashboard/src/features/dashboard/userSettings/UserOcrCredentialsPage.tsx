@@ -5,7 +5,7 @@ import {
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { Button, ButtonOutlineContent, InputPassword, InputText, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconDeviceFloppy, IconExternalLink } from "@tabler/icons-react"
+import { IconDeviceFloppy } from "@tabler/icons-react"
 import { useState } from "react"
 import type * as v from "valibot"
 import { Block } from "../../../components/layouts/block/block.js"
@@ -72,8 +72,6 @@ function FieldInput({
         </div>
     )
 }
-
-const ocrSpecsLink = "https://docs.mistral.ai/capabilities/document/"
 
 export function UserOcrCredentialsPage() {
     async function save(values: Record<FieldKey, string>) {
@@ -167,23 +165,6 @@ export function UserOcrCredentialsPage() {
                                     agent via l&apos;API/CLI. Configurez ici vos identifiants OCR pour extraire le texte
                                     de vos documents directement dans Arrhes.
                                 </span>
-                                <a
-                                    href={ocrSpecsLink}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className={css({
-                                        display: "inline-flex",
-                                        alignItems: "center",
-                                        gap: "0.25rem",
-                                        color: "primary",
-                                        textDecoration: "underline",
-                                        marginTop: "0.25rem",
-                                        fontSize: "xs",
-                                    })}
-                                >
-                                    Voir la documentation Mistral OCR
-                                    <IconExternalLink size={12} />
-                                </a>
                             </div>
                         </div>
 
