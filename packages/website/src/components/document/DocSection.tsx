@@ -12,6 +12,7 @@ export function DocSection(props: { title: string; children: React.ReactNode }) 
                 display: "flex",
                 flexDirection: "column",
                 gap: "1rem",
+                mt: "8",
             })}
         >
             <h2
