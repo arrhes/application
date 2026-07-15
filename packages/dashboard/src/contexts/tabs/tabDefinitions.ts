@@ -11,12 +11,8 @@ import { FileTabContent } from "../../features/dashboard/$idYear/files/$idFile/F
 import { FilesPage } from "../../features/dashboard/$idYear/files/FilesPage.js"
 import { ReportsTabContent } from "../../features/dashboard/$idYear/reports/ReportsTabContent.js"
 import { YearSettingsTabContent } from "../../features/dashboard/$idYear/yearSettings/YearSettingsTabContent.js"
-import { AdminTicketTabContent } from "../../features/dashboard/admin/tickets/$idTicket/AdminTicketTabContent.js"
-import { TicketsPage } from "../../features/dashboard/admin/tickets/TicketsPage.js"
 import { OrganizationsPage } from "../../features/dashboard/organizations/OrganizationsPage.js"
 import { SettingsPage } from "../../features/dashboard/settings/SettingsPage.js"
-import { TicketTabContent } from "../../features/dashboard/support/$idTicket/TicketTabContent.js"
-import { SupportPage } from "../../features/dashboard/support/SupportPage.js"
 import { UserSettingsTabContent } from "../../features/dashboard/userSettings/UserSettingsTabContent.js"
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -44,20 +40,6 @@ export const TAB_REGISTRY = {
         title: "Profil",
         description: "Votre profil utilisateur",
         component: createElement(UserSettingsTabContent, props as any),
-    }),
-
-    support: (_props: Record<never, never>): TabDefinition => ({
-        id: "support",
-        title: "Support",
-        description: "Centre d'aide et tickets",
-        component: createElement(SupportPage),
-    }),
-
-    "admin-tickets": (_props: Record<never, never>): TabDefinition => ({
-        id: "admin-tickets",
-        title: "Administration",
-        description: "Tickets d'administration",
-        component: createElement(TicketsPage),
     }),
 
     paramètres: (_props: Record<never, never>): TabDefinition => ({
@@ -179,22 +161,6 @@ export const TAB_REGISTRY = {
             idOrganization: props.idOrganization,
             idYear: props.idYear,
             idEntry: props.idEntry,
-        }),
-    }),
-
-    ticket: (props: { idTicket: string }): TabDefinition => ({
-        id: `ticket-${props.idTicket}`,
-        title: "Ticket",
-        component: createElement(TicketTabContent, {
-            idTicket: props.idTicket,
-        }),
-    }),
-
-    "admin-ticket": (props: { idTicket: string }): TabDefinition => ({
-        id: `admin-ticket-${props.idTicket}`,
-        title: "Ticket",
-        component: createElement(AdminTicketTabContent, {
-            idTicket: props.idTicket,
         }),
     }),
 

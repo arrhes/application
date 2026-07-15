@@ -20,8 +20,6 @@ import { journalSchema, journalSchemaReturn } from "./journal.js"
 import { organizationSchema, organizationSchemaReturn } from "./organization.js"
 import { organizationUserSchema, organizationUserSchemaReturn } from "./organizationUser.js"
 import { tagSchema, tagSchemaReturn } from "./tag.js"
-import { ticketSchema, ticketSchemaReturn } from "./ticket.js"
-import { ticketMessageSchema, ticketMessageSchemaReturn } from "./ticketMessage.js"
 import { userSchema, userSchemaReturn } from "./user.js"
 import { userSessionSchema, userSessionSchemaReturn } from "./userSession.js"
 import { yearSchema, yearSchemaReturn } from "./year.js"
@@ -46,8 +44,6 @@ export const schemas = {
     organization: organizationSchema,
     organizationUser: organizationUserSchema,
     tag: tagSchema,
-    ticket: ticketSchema,
-    ticketMessage: ticketMessageSchema,
     user: userSchema,
     userSession: userSessionSchema,
     year: yearSchema,
@@ -73,8 +69,6 @@ export const returnedSchemas = {
     organization: organizationSchemaReturn,
     organizationUser: organizationUserSchemaReturn,
     tag: tagSchemaReturn,
-    ticket: ticketSchemaReturn,
-    ticketMessage: ticketMessageSchemaReturn,
     user: userSchemaReturn,
     userSession: userSessionSchemaReturn,
     year: yearSchemaReturn,

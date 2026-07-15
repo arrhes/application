@@ -23,12 +23,6 @@ export const userSearchRoutes: SearchRoute[] = [
         tabProps: {},
     },
     {
-        label: "Support",
-        description: "Centre d'aide et tickets",
-        tabComponent: "support",
-        tabProps: {},
-    },
-    {
         label: "Paramètres",
         description: "Paramètres de l'application",
         tabComponent: "paramètres",

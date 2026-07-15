@@ -17,8 +17,6 @@ import * as journalModel from "./journal.js"
 import * as organizationModel from "./organization.js"
 import * as organizationUserModel from "./organizationUser.js"
 import * as tagModel from "./tag.js"
-import * as ticketModel from "./ticket.js"
-import * as ticketMessageModel from "./ticketMessage.js"
 import * as userModel from "./user.js"
 import * as userSessionModel from "./userSession.js"
 import * as yearModel from "./year.js"
@@ -43,8 +41,6 @@ export const models = {
     organization: organizationModel.organizationModel,
     organizationUser: organizationUserModel.organizationUserModel,
     tag: tagModel.tagModel,
-    ticket: ticketModel.ticketModel,
-    ticketMessage: ticketMessageModel.ticketMessageModel,
     user: userModel.userModel,
     userSession: userSessionModel.userSessionModel,
     year: yearModel.yearModel,
@@ -70,8 +66,6 @@ export const modelSchemas = {
     ...organizationModel,
     ...organizationUserModel,
     ...tagModel,
-    ...ticketModel,
-    ...ticketMessageModel,
     ...userModel,
     ...userSessionModel,
     ...yearModel,

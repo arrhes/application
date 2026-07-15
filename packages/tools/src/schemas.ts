@@ -48,8 +48,6 @@ export {
     organizationUserStatusEnum,
 } from "../../metadata/src/models/organizationUser.ts"
 export { tagModel, tagRelations } from "../../metadata/src/models/tag.ts"
-export { ticketModel, ticketRelations } from "../../metadata/src/models/ticket.ts"
-export { ticketMessageModel, ticketMessageRelations } from "../../metadata/src/models/ticketMessage.ts"
 export { userModel, userRelations } from "../../metadata/src/models/user.ts"
 export {
     userSessionModel,

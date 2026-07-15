@@ -14,7 +14,6 @@ export function entryToPath(definitionKey: string, definitionProps: Record<strin
     const org = definitionProps.idOrganization as string | undefined
     const year = definitionProps.idYear as string | undefined
     const entry = definitionProps.idEntry as string | undefined
-    const ticket = definitionProps.idTicket as string | undefined
     const file = definitionProps.idFile as string | undefined
     switch (definitionKey) {
         // ── No-prop tabs ─────────────────────────────────────────────────────
@@ -22,10 +21,6 @@ export function entryToPath(definitionKey: string, definitionProps: Record<strin
             return "/organisations"
         case "profil":
             return "/profil"
-        case "support":
-            return "/support"
-        case "admin-tickets":
-            return "/admin/tickets"
         case "paramètres":
             return "/paramètres"
 
@@ -58,10 +53,6 @@ export function entryToPath(definitionKey: string, definitionProps: Record<strin
         // ── Detail tabs ──────────────────────────────────────────────────────
         case "écriture":
             return `/organisations/${org}/exercices/${year}/écritures/${entry}`
-        case "ticket":
-            return `/support/tickets/${ticket}`
-        case "admin-ticket":
-            return `/admin/tickets/${ticket}`
         case "fichier":
             return `/organisations/${org}/fichiers/${file}`
 
@@ -134,26 +125,6 @@ const PATTERNS: Array<{
             definitionProps: {
                 idOrganization: m[1],
                 idYear: m[2],
-            },
-        }),
-    },
-    // ticket detail  /support/tickets/{id}
-    {
-        pattern: /^\/support\/tickets\/([^/]+)$/,
-        parse: (m) => ({
-            definitionKey: "ticket",
-            definitionProps: {
-                idTicket: m[1],
-            },
-        }),
-    },
-    // admin-ticket detail  /admin/tickets/{id}
-    {
-        pattern: /^\/admin\/tickets\/([^/]+)$/,
-        parse: (m) => ({
-            definitionKey: "admin-ticket",
-            definitionProps: {
-                idTicket: m[1],
             },
         }),
     },
@@ -236,14 +207,6 @@ const PATTERNS: Array<{
             },
         }),
     },
-    // /admin/tickets (no ID - list)
-    {
-        pattern: /^\/admin\/tickets$/,
-        parse: () => ({
-            definitionKey: "admin-tickets",
-            definitionProps: {},
-        }),
-    },
     // 2 segments - /organisations/{org}
     {
         pattern: /^\/organisations\/([^/]+)$/,
@@ -266,13 +229,6 @@ const PATTERNS: Array<{
         pattern: /^\/profil$/,
         parse: () => ({
             definitionKey: "profil",
-            definitionProps: {},
-        }),
-    },
-    {
-        pattern: /^\/support$/,
-        parse: () => ({
-            definitionKey: "support",
             definitionProps: {},
         }),
     },

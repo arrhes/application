@@ -69,7 +69,6 @@ async function seed() {
             const newUser: typeof models.user.$inferInsert = {
                 id: generateId(),
                 isActive: true,
-                isSuperAdmin: true,
                 email: "demo@arrhes.com",
                 alias: randFirstName(),
                 passwordHash: passwordHash,

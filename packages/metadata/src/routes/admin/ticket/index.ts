@@ -1,5 +1,0 @@
-export { adminCreateOneTicketMessageRouteDefinition } from "./createOneTicketMessage.js"
-export { adminReadAllTicketMessagesRouteDefinition } from "./readAllTicketMessages.js"
-export { adminReadAllTicketsRouteDefinition } from "./readAllTickets.js"
-export { adminReadOneTicketRouteDefinition } from "./readOneTicket.js"
-export { adminUpdateOneTicketStatusRouteDefinition } from "./updateOneTicketStatus.js"

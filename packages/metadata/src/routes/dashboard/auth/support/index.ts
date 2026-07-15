@@ -1,7 +1,0 @@
-export { createOneTicketRouteDefinition } from "./createOneTicket.js"
-export { createOneTicketMessageRouteDefinition } from "./createOneTicketMessage.js"
-export { readAllTicketMessagesRouteDefinition } from "./readAllTicketMessages.js"
-export { readAllTicketsRouteDefinition } from "./readAllTickets.js"
-export { readOneTicketRouteDefinition } from "./readOneTicket.js"
-export { updateOneTicketRouteDefinition } from "./updateOneTicket.js"
-export { updateOneTicketStatusRouteDefinition } from "./updateOneTicketStatus.js"

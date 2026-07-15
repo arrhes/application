@@ -1,5 +1,4 @@
 export * from "./agent/index.js"
 export * from "./organizations/index.js"
 export * from "./settings/index.js"
-export * from "./support/index.js"
 export * from "./user/index.js"

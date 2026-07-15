@@ -7,7 +7,6 @@ import type { userModel } from "../models/user.js"
 export const userSchema = v.object({
     id: v.nonNullable(idSchema, "Ce champ est requis"),
     isActive: v.nonNullable(booleanSchema, "Ce champ est requis"),
-    isSuperAdmin: v.nonNullable(booleanSchema, "Ce champ est requis"),
     alias: v.nullable(
         varcharSchema({
             maxLength: 256,
@@ -33,7 +32,6 @@ export const userSchema = v.object({
 export const userSchemaReturn = v.pick(userSchema, [
     "id",
     "isActive",
-    "isSuperAdmin",
     "alias",
     "email",
     "isEmailValidated",

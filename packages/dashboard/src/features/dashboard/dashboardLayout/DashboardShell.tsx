@@ -1,17 +1,14 @@
-import { readUserSessionRouteDefinition, signOutRouteDefinition } from "@arrhes/application-metadata/routes"
+import { signOutRouteDefinition } from "@arrhes/application-metadata/routes"
 import { Button, ButtonGhostContent, ButtonOutlineContent, Logo, Separator, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import {
     IconBook2,
     IconChevronRight,
     IconHeart,
-    IconLifebuoy,
     IconLogout,
     IconRobot,
     IconSearch,
     IconSettings,
-    IconShield,
-    IconTicket,
     IconUser,
 } from "@tabler/icons-react"
 import { Outlet } from "@tanstack/react-router"
@@ -26,7 +23,6 @@ import { useOuterRouter } from "../../../contexts/tabs/useOuterRouter.js"
 import { useTabs } from "../../../contexts/tabs/useTabs.js"
 import { deleteCookies } from "../../../utilities/cookies/deleteCookies.js"
 import { getResponseBodyFromAPI } from "../../../utilities/getResponseBodyFromAPI.js"
-import { useDataFromAPI } from "../../../utilities/useHTTPData.js"
 import { OrganizationContextSelect } from "../OrganizationContextSelect.js"
 import { YearContextSelect } from "../YearContextSelect.js"
 
@@ -209,11 +205,6 @@ export function DashboardShell() {
         setYear(id)
     }
 
-    const userSession = useDataFromAPI({
-        routeDefinition: readUserSessionRouteDefinition,
-        body: {},
-    })
-
     return (
         <div
             className={css({
@@ -367,48 +358,6 @@ export function DashboardShell() {
                             <ButtonOutlineContent leftIcon={<IconRobot />} />
                         </Button>
                     )}
-                    {userSession.data?.user.isSuperAdmin === true && (
-                        <Popover.Root>
-                            <Popover.Trigger asChild>
-                                <Button title="Administration">
-                                    <ButtonOutlineContent leftIcon={<IconShield />} />
-                                </Button>
-                            </Popover.Trigger>
-                            <Popover.Content
-                                align="end"
-                                className={{
-                                    padding: "0.5rem",
-                                    gap: "0.25rem",
-                                }}
-                            >
-                                <Button
-                                    onClick={() =>
-                                        openTab(
-                                            {
-                                                component: "admin-tickets",
-                                                props: {},
-                                            },
-                                            {
-                                                newTab: true,
-                                            },
-                                        )
-                                    }
-                                    className={{
-                                        width: "100%",
-                                    }}
-                                >
-                                    <ButtonGhostContent
-                                        leftIcon={<IconTicket />}
-                                        text="Tickets"
-                                        className={{
-                                            width: "100%",
-                                            justifyContent: "start",
-                                        }}
-                                    />
-                                </Button>
-                            </Popover.Content>
-                        </Popover.Root>
-                    )}
                     <Popover.Root>
                         <Popover.Trigger asChild>
                             <Button title="Utilisateur">
@@ -441,31 +390,6 @@ export function DashboardShell() {
                                 <ButtonGhostContent
                                     leftIcon={<IconSettings />}
                                     text="Profil"
-                                    className={{
-                                        width: "100%",
-                                        justifyContent: "start",
-                                    }}
-                                />
-                            </Button>
-                            <Button
-                                onClick={() =>
-                                    openTab(
-                                        {
-                                            component: "support",
-                                            props: {},
-                                        },
-                                        {
-                                            newTab: true,
-                                        },
-                                    )
-                                }
-                                className={{
-                                    width: "100%",
-                                }}
-                            >
-                                <ButtonGhostContent
-                                    leftIcon={<IconLifebuoy />}
-                                    text="Support"
                                     className={{
                                         width: "100%",
                                         justifyContent: "start",
