@@ -1,5 +1,4 @@
 import { createElement } from "react"
-import { AgentTabContent } from "../../features/dashboard/$idOrganization/agent/AgentTabContent.js"
 import { OrganizationTabContent } from "../../features/dashboard/$idOrganization/OrganizationTabContent.js"
 import { OrganizationApiTabContent } from "../../features/dashboard/$idOrganization/organizationApi/OrganizationApiTabContent.js"
 import { OrganizationSettingsTabContent } from "../../features/dashboard/$idOrganization/organizationSettings/OrganizationSettingsTabContent.js"
@@ -65,15 +64,6 @@ export const TAB_REGISTRY = {
         title: "Exercices",
         description: "Années fiscales",
         component: createElement(YearsPage, {
-            idOrganization: props.idOrganization,
-        }),
-    }),
-
-    agent: (props: { idOrganization: string }): TabDefinition => ({
-        id: `agent-${props.idOrganization}`,
-        title: "Assistant IA",
-        description: "Assistant comptable intelligent",
-        component: createElement(AgentTabContent, {
             idOrganization: props.idOrganization,
         }),
     }),

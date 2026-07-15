@@ -34,18 +34,6 @@ services:
       timeout: 5s
       retries: 5
 
-  redis:
-    container_name: arrhes-prod-redis
-    image: redis:7-alpine
-    restart: unless-stopped
-    ports:
-      - "6379:6379"
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
   rustfs:
     container_name: arrhes-prod-rustfs
     image: rustfs/rustfs:latest
@@ -108,18 +96,8 @@ services:
       EMAIL_PASSWORD: test
       MOLLIE_API_KEY: test_z8gjjnezmRNx7dretKbEr5vcCfADh9
       INTERNAL_API_KEY: development-internal-api-key
-      LLM_PROVIDER: mistral-api
-      LLM_BASE_URL: https://api.mistral.ai/v1
-      LLM_MODEL: mistral-small-2603
-      LLM_API_KEY: OwMSblegsAyAWd3AzCZbJkbaMQLCCj7y
-      REDIS_HOST: redis
-      REDIS_PORT: "6379"
-      REDIS_USERNAME: ""
-      REDIS_PASSWORD: ""
     depends_on:
       postgres:
-        condition: service_healthy
-      redis:
         condition: service_healthy
       rustfs:
         condition: service_healthy
@@ -131,38 +109,6 @@ services:
     image: arrhes-website:${ARRHES_VERSION:-dev}
     ports:
       - "5173:80"
-
-  worker:
-    container_name: arrhes-prod-worker
-    image: arrhes-worker:${ARRHES_VERSION:-dev}
-    logging:
-      driver: json-file
-      options:
-        max-size: "50m"
-        max-file: "5"
-    environment:
-      ENV: development
-      VERBOSE: "true"
-      SQL_DATABASE_URL: postgres://postgres:admin@postgres:5432/default
-      STORAGE_ENDPOINT: http://rustfs:9000
-      STORAGE_NAME: arrhes-files
-      STORAGE_ACCESS_KEY: rustfsadmin
-      STORAGE_SECRET_KEY: rustfsadmin
-      API_BASE_URL: http://api:3000
-      INTERNAL_API_KEY: development-internal-api-key
-      REDIS_HOST: redis
-      REDIS_PORT: "6379"
-      REDIS_USERNAME: ""
-      REDIS_PASSWORD: ""
-      LLM_PROVIDER: mistral-api
-      LLM_BASE_URL: https://api.mistral.ai/v1
-      LLM_MODEL: mistral-small-2603
-      LLM_API_KEY: OwMSblegsAyAWd3AzCZbJkbaMQLCCj7y
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
 
 volumes:
   postgres_data:

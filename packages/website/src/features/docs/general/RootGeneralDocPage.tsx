@@ -89,7 +89,7 @@ export function RootGeneralDocPage() {
                     icon={<IconCompass />}
                     iconColor="information"
                     title="Guide"
-                    description="Guide d'utilisation d'Arrhes : installation, authentification, organisations, exercices, saisie des écritures, stockage, documents comptables, inventaire et assistant IA."
+                    description="Guide d'utilisation d'Arrhes : installation, authentification, organisations, exercices, saisie des écritures, stockage, documents comptables et inventaire."
                     links={[
                         {
                             to: "/documentation/guide/démarrer",
@@ -100,8 +100,8 @@ export function RootGeneralDocPage() {
                             label: "Saisie des écritures",
                         },
                         {
-                            to: "/documentation/guide/assistant",
-                            label: "Assistant IA",
+                            to: "/documentation/guide/agent",
+                            label: "Agent externe",
                         },
                     ]}
                     ctaTo="/documentation/guide"

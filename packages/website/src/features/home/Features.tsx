@@ -3,7 +3,6 @@ import {
     IconAppWindow,
     IconBook2,
     IconBuildings,
-    IconCalculator,
     IconCloudUpload,
     IconFileText,
     IconReload,
@@ -78,9 +77,9 @@ export function Features() {
                 >
                     <FeatureItem
                         icon={<IconAppWindow />}
-                        text="Application web complète"
+                        text="Plusieurs interfaces d'utilisation"
                         description={[
-                            "Accès illimité à toutes les fonctionnalités depuis votre navigateur.",
+                            "Utilisez l'application via le dashboard (web app), l'API ou notre CLI.",
                         ]}
                     />
                     <FeatureItem
@@ -98,24 +97,10 @@ export function Features() {
                         ]}
                     />
                     <FeatureItem
-                        icon={<IconSparkles />}
-                        text="Assistant IA"
-                        description={[
-                            "Posez vos questions en langage naturel, l'assistant vous aide à saisir et retrouver vos écritures.",
-                        ]}
-                    />
-                    <FeatureItem
                         icon={<IconFileText />}
                         text="Import de documents"
                         description={[
-                            "Importez vos factures et relevés, l'OCR extrait automatiquement les données.",
-                        ]}
-                    />
-                    <FeatureItem
-                        icon={<IconCalculator />}
-                        text="Comptabilité analytique"
-                        description={[
-                            "Suivez vos résultats par projet, activité ou toute autre dimension.",
+                            "Importez vos factures et relevés, l'OCR extrait automatiquement les données (BYOK).",
                         ]}
                     />
                     <FeatureItem
@@ -136,7 +121,14 @@ export function Features() {
                         icon={<IconCloudUpload />}
                         text="Export FEC"
                         description={[
-                            "Exportez vos données au format FEC standard pour votre expert-comptable.",
+                            "Exportez vos données au format FEC standard pour l'administration fiscale ou pour tout autre logiciel.",
+                        ]}
+                    />
+                    <FeatureItem
+                        icon={<IconSparkles />}
+                        text="Assistant IA"
+                        description={[
+                            "Branchez facilement l'API ou le CLI à votre LLM préféré. La documentation est également accessible sous format markdown en ajoutant .md à l'url.",
                         ]}
                     />
                 </div>

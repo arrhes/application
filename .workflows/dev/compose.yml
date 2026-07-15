@@ -89,23 +89,6 @@ services:
       timeout: 5s
       retries: 5
 
-  # Redis - Message broker for worker job streaming (pub/sub) and Bull queue
-  redis:
-    container_name: arrhes-redis
-    image: redis:7-alpine
-    restart: unless-stopped
-    ports:
-      - "127.0.0.1:${REDIS_HOST_PORT}:6379"
-    networks:
-      default:
-        aliases:
-          - redis.arrhes.localhost
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
   # ============================================================================
   # Application Services
   # ============================================================================
@@ -144,13 +127,6 @@ services:
       EMAIL_PASSWORD: test
       MOLLIE_API_KEY: test_z8gjjnezmRNx7dretKbEr5vcCfADh9
       INTERNAL_API_KEY: development-internal-api-key
-      # LLM environment (AI agent)
-      LLM_PROVIDER: mistral-api
-      LLM_BASE_URL: https://api.mistral.ai/v1
-      LLM_MODEL: mistral-small-latest
-      LLM_API_KEY: OwMSblegsAyAWd3AzCZbJkbaMQLCCj7y
-      # Redis environment
-      REDIS_URL: "redis://localhost:${REDIS_HOST_PORT}"
       # Tools environment (packages/tools) - used by migrate/seed
       NODE_ENV: development
     depends_on:
@@ -159,8 +135,6 @@ services:
       rustfs:
         condition: service_healthy
       mailpit:
-        condition: service_healthy
-      redis:
         condition: service_healthy
     healthcheck:
       test: ["CMD-SHELL", "node -e \"require('http').get('http://localhost:' + process.env.PORT, r => process.exit(r.statusCode < 500 ? 0 : 1)).on('error', () => process.exit(1))\""]
@@ -219,46 +193,6 @@ services:
       VITE_ENV: development
       VITE_API_BASE_URL: "http://localhost:${API_HOST_PORT}"
       VITE_WEBSITE_BASE_URL: "http://localhost:${WEBSITE_HOST_PORT}"
-
-  # Worker - Background job processor (Bull queue + Redis pub/sub)
-  worker:
-    container_name: arrhes-worker
-    image: arrhes-dev-worker:latest
-    logging:
-      driver: json-file
-      options:
-        max-size: "50m"
-        max-file: "5"
-    build:
-      context: ../..
-      dockerfile: .workflows/dev/packages/worker/Dockerfile
-      args:
-        NODE_VERSION: "25.2.1"
-        PNPM_VERSION: "10.26.1"
-    network_mode: host
-    volumes:
-      - ../..:/workspace:cached
-    environment:
-      ENV: development
-      VERBOSE: "true"
-      SQL_DATABASE_URL: "postgres://postgres:admin@localhost:${POSTGRES_HOST_PORT}/default"
-      STORAGE_ENDPOINT: "http://localhost:${STORAGE_HOST_PORT}"
-      STORAGE_NAME: arrhes-files
-      STORAGE_ACCESS_KEY: rustfsadmin
-      STORAGE_SECRET_KEY: rustfsadmin
-      API_BASE_URL: "http://localhost:${API_HOST_PORT}"
-      INTERNAL_API_KEY: development-internal-api-key
-      REDIS_URL: "redis://localhost:${REDIS_HOST_PORT}"
-      # LLM environment (AI agent)
-      LLM_PROVIDER: mistral-api
-      LLM_BASE_URL: https://api.mistral.ai/v1
-      LLM_MODEL: mistral-small-latest
-      LLM_API_KEY: OwMSblegsAyAWd3AzCZbJkbaMQLCCj7y
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
 
 # ==============================================================================
 # Named Volumes (Persistent infrastructure data)

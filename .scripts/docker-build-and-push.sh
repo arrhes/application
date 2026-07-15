@@ -9,9 +9,9 @@ version="${1:?version argument is required}"
 export ARRHES_VERSION="$version"
 
 docker compose -f .workflows/build/compose.yml build ci
-docker compose -f .workflows/build/compose.yml build api website worker dashboard
+docker compose -f .workflows/build/compose.yml build api website dashboard
 
-for img in api website worker dashboard; do
+for img in api website dashboard; do
     src="arrhes-${img}:${version}"
     dest="${IMAGE_PREFIX}/${img}"
 

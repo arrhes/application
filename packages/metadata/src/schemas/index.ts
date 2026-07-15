@@ -1,6 +1,4 @@
 import { accountSchema, accountSchemaReturn } from "./account.js"
-import { agentMessageSchema, agentMessageSchemaReturn } from "./agentMessage.js"
-import { agentSessionSchema, agentSessionSchemaReturn } from "./agentSession.js"
 import { apiKeySchema, apiKeySchemaReturn } from "./apiKey.js"
 import { balanceSheetSchema, balanceSheetSchemaReturn } from "./balanceSheet.js"
 import { computationSchema, computationSchemaReturn } from "./computation.js"
@@ -27,8 +25,6 @@ import { yearSchema, yearSchemaReturn } from "./year.js"
 export const schemas = {
     apiKey: apiKeySchema,
     account: accountSchema,
-    agentMessage: agentMessageSchema,
-    agentSession: agentSessionSchema,
     entry: entrySchema,
     entryLine: entryLineSchema,
     entryTag: entryTagSchema,
@@ -52,8 +48,6 @@ export const schemas = {
 export const returnedSchemas = {
     apiKey: apiKeySchemaReturn,
     account: accountSchemaReturn,
-    agentMessage: agentMessageSchemaReturn,
-    agentSession: agentSessionSchemaReturn,
     entry: entrySchemaReturn,
     entryLine: entryLineSchemaReturn,
     entryTag: entryTagSchemaReturn,

@@ -10,12 +10,10 @@ export const apiKeyModel = pgTable(
     "table_api_key",
     {
         id: idColumn("id").primaryKey(),
-        idOrganization: idColumn("id_organization")
-            .references(() => organizationModel.id, {
-                onDelete: "cascade",
-                onUpdate: "cascade",
-            })
-            .notNull(),
+        idOrganization: idColumn("id_organization").references(() => organizationModel.id, {
+            onDelete: "cascade",
+            onUpdate: "cascade",
+        }),
         idUser: idColumn("id_user")
             .references(() => userModel.id, {
                 onDelete: "cascade",

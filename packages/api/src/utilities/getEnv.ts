@@ -36,19 +36,6 @@ const envSchema = v.object({
 
     MOLLIE_API_KEY: v.string(),
     INTERNAL_API_KEY: v.optional(v.string(), ""),
-
-    LLM_PROVIDER: v.optional(
-        v.picklist([
-            "mistral-api",
-            "ollama",
-        ]),
-        "ollama",
-    ),
-    LLM_BASE_URL: v.optional(v.string(), "http://localhost:11434"),
-    LLM_MODEL: v.optional(v.string(), "mistral-small3.1"),
-    LLM_API_KEY: v.optional(v.string(), ""),
-
-    REDIS_URL: v.string(),
 })
 
 export function getEnv() {

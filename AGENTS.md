@@ -26,6 +26,7 @@ pnpm build       # Build all packages
 |---------|------|-----------------|
 | `packages/api` | Backend REST API | Hono, Drizzle ORM, PostgreSQL |
 | `packages/website` | Frontend webapp | React, TanStack Router, Panda CSS |
+| `packages/dashboard` | Authenticated dashboard SPA | React, TanStack Router, TanStack Query |
 | `packages/metadata` | Shared schemas/types | Valibot, Drizzle ORM models |
 | `packages/ui` | Shared UI components | React, Panda CSS |
 | `packages/tools` | DB migrations/seeds | Drizzle, CLI |
@@ -33,18 +34,19 @@ pnpm build       # Build all packages
 **Entrypoints:**
 - API: `packages/api/src/server.ts`
 - Website: `packages/website/src/main.tsx`
+- Dashboard: `packages/dashboard/src/main.tsx`
 
 ## Architecture Patterns
 
 ### Route definition → API → Frontend flow
 1. Define schema + route in `packages/metadata/src/routes/`
 2. Implement handler in `packages/api/src/routes/auth/` or `packages/api/src/routes/public/`
-3. Consume via `useDataFromAPI` hook or `getResponseBodyFromAPI` in website
+3. Consume via `useDataFromAPI` hook or `getResponseBodyFromAPI` in website or dashboard
 
-### Agent (AI chat)
-- Two-pass: Pass 1 (router) classifies intent → Pass 2 (executor) runs LLM with tools
-- Uses `@tanstack/ai` with AG-UI protocol over SSE
-- Sessions stored in `table_agent_session`, messages in `table_agent_message`
+### Agentic usage (external)
+- Arrhes does not ship a built-in AI agent
+- Users bring their own agent and interact with Arrhes via the REST API or CLI
+- API authentication is cookie-based (dashboard) or via user-level API keys
 
 ## Code Conventions
 
@@ -61,7 +63,6 @@ pnpm build       # Build all packages
 - **Biome import sorting**: Run `pnpm check:fix` before committing - imports must be alphabetical
 - **TypeScript**: After modifying metadata package, rebuild with `pnpm --filter @arrhes/application-metadata build` before API/website checks pass
 - **Database**: Migrations live in `packages/tools/src/migrations/`, run via `pnpm --filter @arrhes/application-tools` commands
-- **Agent streaming**: Server uses SSE (`toServerSentEventsResponse`), client uses `@tanstack/ai-react` `useChat` with `onCustomEvent` for session-created events
 
 ## References
 

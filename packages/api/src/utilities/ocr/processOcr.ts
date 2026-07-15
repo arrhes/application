@@ -23,7 +23,6 @@ interface ProcessOcrParams {
         clients: Awaited<ReturnType<typeof getClients>>
     }
     idOrganization: string
-    idYear: string
     idUser: string
     sourceFile: {
         id: string
@@ -33,6 +32,11 @@ interface ProcessOcrParams {
         storageKey: string | null
         type: string | null
     }
+    credentials: {
+        ocrEndpoint: string | null
+        ocrApiKey: string | null
+        ocrModel: string | null
+    }
 }
 
 interface ProcessOcrResult {
@@ -41,7 +45,7 @@ interface ProcessOcrResult {
 }
 
 export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrResult> {
-    const { idOrganization, idUser, sourceFile } = params
+    const { idOrganization, idUser, sourceFile, credentials } = params
 
     console.log(
         `[processOcr] Starting OCR for file "${sourceFile.name}" (id=${sourceFile.id}, type=${sourceFile.type}, storageKey=${sourceFile.storageKey})`,
@@ -54,6 +58,18 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
             externalMessage: "Le fichier source n'a pas de contenu associé",
         })
     }
+
+    const ocrApiKey = credentials.ocrApiKey
+    if (!ocrApiKey) {
+        throw new Exception({
+            internalMessage: "User OCR API key is not configured",
+            statusCode: 400,
+            externalMessage: "Votre clé API OCR n'est pas configurée dans votre profil",
+        })
+    }
+
+    const ocrEndpoint = credentials.ocrEndpoint ?? "https://api.mistral.ai/v1/ocr"
+    const ocrModel = credentials.ocrModel ?? "mistral-ocr-latest"
 
     const mimeType = sourceFile.type ?? "application/octet-stream"
     const isImage = mimeType.startsWith("image/")
@@ -86,15 +102,6 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
     const base64Content = Buffer.from(fileBytes).toString("base64")
     const dataUri = `data:${mimeType};base64,${base64Content}`
 
-    const mistralApiKey = params.var.env.LLM_API_KEY
-    if (!mistralApiKey) {
-        throw new Exception({
-            internalMessage: "LLM_API_KEY is not configured",
-            statusCode: 500,
-            externalMessage: "La clé API Mistral n'est pas configurée",
-        })
-    }
-
     const document = isImage
         ? {
               type: "image_url" as const,
@@ -105,15 +112,15 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
               document_url: dataUri,
           }
 
-    console.log(`[processOcr] Sending to Mistral OCR API (document type: ${document.type})`)
-    const ocrResponse = await fetch("https://api.mistral.ai/v1/ocr", {
+    console.log(`[processOcr] Sending to OCR API (document type: ${document.type}, endpoint: ${ocrEndpoint})`)
+    const ocrResponse = await fetch(ocrEndpoint, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${mistralApiKey}`,
+            Authorization: `Bearer ${ocrApiKey}`,
         },
         body: JSON.stringify({
-            model: "mistral-ocr-latest",
+            model: ocrModel,
             document,
         }),
     })
@@ -121,7 +128,7 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
     if (!ocrResponse.ok) {
         const errorText = await ocrResponse.text().catch(() => "")
         throw new Exception({
-            internalMessage: `Mistral OCR error: ${ocrResponse.status} ${errorText}`,
+            internalMessage: `OCR error: ${ocrResponse.status} ${errorText}`,
             statusCode: 500,
             externalMessage: "Erreur lors de l'extraction de texte",
         })
@@ -134,10 +141,10 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
     }
 
     const extractedPagesCount = ocrResult.pages?.length ?? 0
-    console.log(`[processOcr] Mistral OCR returned ${extractedPagesCount} pages`)
+    console.log(`[processOcr] OCR returned ${extractedPagesCount} pages`)
     if (extractedPagesCount <= 0) {
         throw new Exception({
-            internalMessage: "Mistral OCR returned no pages",
+            internalMessage: "OCR returned no pages",
             statusCode: 500,
             externalMessage: "L'extraction OCR n'a retourné aucune page",
         })
@@ -146,7 +153,7 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
     const markdownContent = ocrResult.pages?.map((p) => p.markdown).join("\n\n---\n\n")
     if (!markdownContent) {
         throw new Exception({
-            internalMessage: "Mistral OCR returned no content",
+            internalMessage: "OCR returned no content",
             statusCode: 500,
             externalMessage: "L'extraction de texte n'a retourné aucun résultat",
         })
@@ -166,7 +173,6 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
     if (existingOcrFiles.length > 0 && existingOcrFiles[0]) {
         console.log(`[processOcr] OCR file already exists (hash=${ocrHash}), reusing file id=${existingOcrFiles[0].id}`)
 
-        // Still update the OCR page usage counter
         return {
             ocrFile: existingOcrFiles[0],
             markdownContent: normalizedMarkdownContent,

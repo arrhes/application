@@ -5,6 +5,7 @@ import { checkAuthMiddleware } from "../../../../../../../../middlewares/checkAu
 import { requireOrganizationMiddleware } from "../../../../../../../../middlewares/requireOrganizationMiddleware.js"
 import { validateBodyMiddleware } from "../../../../../../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../../../../../../utilities/apiFactory.js"
+import { processOcr } from "../../../../../../../../utilities/ocr/processOcr.js"
 import { response } from "../../../../../../../../utilities/response.js"
 import { selectOne } from "../../../../../../../../utilities/sql/selectOne.js"
 import { updateOne } from "../../../../../../../../utilities/sql/updateOne.js"
@@ -67,10 +68,36 @@ export const finalizeFileUploadRoute = apiFactory
             where: (table) => eq(table.id, idOrganization),
         })
 
+        let ocrFile: typeof models.file.$inferSelect | undefined
+        if (body.ocr) {
+            const ocrResult = await processOcr({
+                var: c.var,
+                idOrganization: idOrganization,
+                idUser: auth.user.id,
+                sourceFile: {
+                    id: updateOneFile.id,
+                    idFolder: updateOneFile.idFolder,
+                    reference: updateOneFile.reference,
+                    name: updateOneFile.name,
+                    storageKey: updateOneFile.storageKey,
+                    type: updateOneFile.type,
+                },
+                credentials: {
+                    ocrEndpoint: auth.user.ocrEndpoint,
+                    ocrApiKey: auth.user.ocrApiKey,
+                    ocrModel: auth.user.ocrModel,
+                },
+            })
+            ocrFile = ocrResult.ocrFile
+        }
+
         return response({
             context: c,
             statusCode: 200,
             schema: finalizeFileUploadRouteDefinition.schemas.return,
-            data: updateOneFile,
+            data: {
+                file: updateOneFile,
+                ocrFile,
+            },
         })
     })

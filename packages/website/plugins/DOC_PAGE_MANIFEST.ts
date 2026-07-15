@@ -208,34 +208,13 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
         navGroup: "Gestion",
         navLabel: "Inventaire",
     },
-    // ── Guide / Assistant IA ──────────────────────────────────────────────────
+    // ── Guide / Agent ─────────────────────────────────────────────────────────
     {
-        path: "/documentation/guide/assistant",
-        file: "src/features/docs/ai/RootAiDocPage.tsx",
+        path: "/documentation/guide/agent",
+        file: "src/features/docs/guide/AgentSkillGuideDocPage.tsx",
         section: "Guide",
-        navGroup: "Assistant IA",
-        navLabel: "Introduction",
-    },
-    {
-        path: "/documentation/guide/assistant/modèles",
-        file: "src/features/docs/ai/ModelsAiDocPage.tsx",
-        section: "Guide",
-        navGroup: "Assistant IA",
-        navLabel: "Modèles",
-    },
-    {
-        path: "/documentation/guide/assistant/outils",
-        file: "src/features/docs/ai/ToolsAiDocPage.tsx",
-        section: "Guide",
-        navGroup: "Assistant IA",
-        navLabel: "Outils",
-    },
-    {
-        path: "/documentation/guide/assistant/ocr",
-        file: "src/features/docs/ai/OcrAiDocPage.tsx",
-        section: "Guide",
-        navGroup: "Assistant IA",
-        navLabel: "OCR",
+        navGroup: "Agent",
+        navLabel: "Agent externe",
     },
     // ── Comptabilité / Introduction ───────────────────────────────────────────
     {

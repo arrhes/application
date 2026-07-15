@@ -38,10 +38,6 @@ export const docSections: Record<string, DocSection> = {
                 icon: <IconHome />,
                 items: [
                     {
-                        path: "/documentation/mises-à-jour",
-                        label: "Mises à jour",
-                    },
-                    {
                         path: "/documentation/fonctionnalités",
                         label: "Fonctionnalités",
                     },
@@ -52,6 +48,10 @@ export const docSections: Record<string, DocSection> = {
                     {
                         path: "/documentation/philosophie",
                         label: "Philosophie",
+                    },
+                    {
+                        path: "/documentation/mises-à-jour",
+                        label: "Mises à jour",
                     },
                     {
                         path: "/documentation/support",
@@ -189,28 +189,6 @@ export const docSections: Record<string, DocSection> = {
                     },
                 ],
             },
-            assistant: {
-                title: "Assistant IA",
-                icon: <IconRobot />,
-                items: [
-                    {
-                        path: "/documentation/guide/assistant",
-                        label: "Introduction",
-                    },
-                    {
-                        path: "/documentation/guide/assistant/modèles",
-                        label: "Modèles",
-                    },
-                    {
-                        path: "/documentation/guide/assistant/outils",
-                        label: "Outils",
-                    },
-                    {
-                        path: "/documentation/guide/assistant/ocr",
-                        label: "OCR",
-                    },
-                ],
-            },
             reference: {
                 title: "Référence",
                 icon: <IconCode />,
@@ -222,6 +200,16 @@ export const docSections: Record<string, DocSection> = {
                     {
                         path: "/documentation/guide/référence-cli",
                         label: "Référence CLI",
+                    },
+                ],
+            },
+            agent: {
+                title: "Agent",
+                icon: <IconRobot />,
+                items: [
+                    {
+                        path: "/documentation/guide/agent",
+                        label: "Agent externe",
                     },
                 ],
             },

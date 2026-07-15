@@ -136,10 +136,10 @@ async function tryAuthWithBearer(context: Context<any>) {
 
     context.set("user", user)
 
-    // For Bearer auth, idOrganization comes from the API key record
+    // For Bearer auth, idOrganization comes from the API key record (may be null for user-level keys)
     return {
         userSession: null,
         user: user,
-        idOrganization: apiKey.idOrganization,
+        idOrganization: apiKey.idOrganization ?? undefined,
     }
 }

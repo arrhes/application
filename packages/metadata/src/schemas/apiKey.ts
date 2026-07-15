@@ -5,7 +5,7 @@ import type { apiKeyModel } from "../models/apiKey.js"
 
 export const apiKeySchema = v.object({
     id: v.nonNullable(idSchema, "Ce champ est requis"),
-    idOrganization: v.nonNullable(idSchema, "Ce champ est requis"),
+    idOrganization: v.nullable(idSchema),
     idUser: v.nonNullable(idSchema, "Ce champ est requis"),
     keyHash: v.nonNullable(stringSchema, "Ce champ est requis"),
     name: v.nonNullable(stringSchema, "Ce champ est requis"),

@@ -23,12 +23,8 @@
         "@aws-sdk/client-s3": "3.1081.0",
         "@aws-sdk/s3-request-presigner": "3.1081.0",
         "@mollie/api-client": "4.6.0",
-        "@tanstack/ai": "0.14.0",
-        "@valibot/to-json-schema": "1.7.1",
-        "bull": "4.16.5",
         "drizzle-orm": "0.45.2",
         "hono": "4.12.28",
-        "ioredis": "5.11.1",
         "nodemailer": "9.0.3",
         "postgres": "3.4.9",
         "valibot": "1.4.2"

@@ -1,11 +1,17 @@
-import { IconHome, IconRobot } from "@tabler/icons-react"
+import { IconHome, IconKey, IconScan } from "@tabler/icons-react"
 import { lazy, Suspense } from "react"
 import { SubPageContent } from "../../../components/layouts/SubPageContent.tsx"
 import { UserProfilePage } from "../profile/UserProfilePage.js"
 
-const UserLlmCredentialsPage = lazy(() =>
-    import("./UserLlmCredentialsPage.js").then((m) => ({
-        default: m.UserLlmCredentialsPage,
+const UserOcrCredentialsPage = lazy(() =>
+    import("./UserOcrCredentialsPage.js").then((m) => ({
+        default: m.UserOcrCredentialsPage,
+    })),
+)
+
+const UserApiKeysPage = lazy(() =>
+    import("./UserApiKeysPage.js").then((m) => ({
+        default: m.UserApiKeysPage,
     })),
 )
 
@@ -27,12 +33,22 @@ export function UserSettingsTabContent({ subTab }: { subTab?: string } = {}) {
                             ),
                         },
                         {
-                            key: "ia",
-                            label: "IA",
-                            icon: <IconRobot />,
+                            key: "api",
+                            label: "API",
+                            icon: <IconKey />,
                             content: (
                                 <Suspense fallback={null}>
-                                    <UserLlmCredentialsPage />
+                                    <UserApiKeysPage />
+                                </Suspense>
+                            ),
+                        },
+                        {
+                            key: "ocr",
+                            label: "OCR",
+                            icon: <IconScan />,
+                            content: (
+                                <Suspense fallback={null}>
+                                    <UserOcrCredentialsPage />
                                 </Suspense>
                             ),
                         },

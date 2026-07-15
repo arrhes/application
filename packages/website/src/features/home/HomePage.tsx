@@ -1,6 +1,6 @@
 import { Badge, ButtonGhostContent, ButtonOutlineContent, ButtonPlainContent, Logo } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconBook2, IconBrandGithub, IconGavel, IconHeart } from "@tabler/icons-react"
+import { IconBook2, IconBrandGithub, IconGavel, IconHeart, IconRocket } from "@tabler/icons-react"
 import { LinkButton } from "../../components/LinkButton.js"
 import { Features } from "./Features.tsx"
 import { HeroIllustration } from "./HeroIllustration.js"
@@ -81,9 +81,6 @@ export function HomePage() {
                                 leftIcon={<IconBook2 />}
                                 text="Documentation"
                             />
-                        </LinkButton>
-                        <LinkButton to="/documentation/guide">
-                            <ButtonPlainContent text="Guide" />
                         </LinkButton>
                     </nav>
                 </div>
@@ -170,14 +167,17 @@ export function HomePage() {
                                 gap: "0.5rem",
                             })}
                         >
-                            <LinkButton to="/documentation/guide">
-                                <ButtonPlainContent
+                            <LinkButton to="/documentation">
+                                <ButtonOutlineContent
                                     leftIcon={<IconBook2 />}
-                                    text="Consulter le guide"
+                                    text="En savoir plus"
                                 />
                             </LinkButton>
-                            <LinkButton to="/documentation">
-                                <ButtonOutlineContent text="En savoir plus" />
+                            <LinkButton to="/documentation/guide">
+                                <ButtonPlainContent
+                                    leftIcon={<IconRocket />}
+                                    text="Démarrer"
+                                />
                             </LinkButton>
                         </div>
                     </div>

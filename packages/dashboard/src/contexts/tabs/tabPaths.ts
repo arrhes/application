@@ -29,8 +29,6 @@ export function entryToPath(definitionKey: string, definitionProps: Record<strin
             return `/organisations/${org}`
         case "exercices":
             return `/organisations/${org}/exercices`
-        case "agent":
-            return `/organisations/${org}/assistant`
         case "membres":
             return `/organisations/${org}/membres`
         case "organisation-stockage":
@@ -157,15 +155,6 @@ const PATTERNS: Array<{
         pattern: /^\/organisations\/([^/]+)\/exercices$/,
         parse: (m) => ({
             definitionKey: "exercices",
-            definitionProps: {
-                idOrganization: m[1],
-            },
-        }),
-    },
-    {
-        pattern: /^\/organisations\/([^/]+)\/assistant$/,
-        parse: (m) => ({
-            definitionKey: "agent",
             definitionProps: {
                 idOrganization: m[1],
             },

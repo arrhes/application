@@ -60,12 +60,11 @@ Docker-based development environment for the Arrhes application.
 - Storage S3 API (`http://localhost:<STORAGE_HOST_PORT>`)
 - RustFS UI (`http://localhost:<RUSTFS_UI_HOST_PORT>`)
 - Mailpit UI (`http://localhost:<MAILPIT_UI_HOST_PORT>`), SMTP `localhost:<MAILPIT_SMTP_HOST_PORT>`
-- Redis (`redis://localhost:<REDIS_HOST_PORT>`)
 
 **Applications:**
 - API (`http://localhost:<API_HOST_PORT>`)
 - Website (`http://localhost:<WEBSITE_HOST_PORT>`)
-- Worker (no exposed port - internal background processor)
+- Dashboard (`http://localhost:<DASHBOARD_HOST_PORT>`)
 
 ## Prerequisites
 
@@ -132,12 +131,11 @@ just dev reset
 - Storage API (`http://storage.arrhes.localhost:<GATEWAY_HOST_PORT>`) - Browser/container S3 access via edge gateway
 - RustFS UI (`http://rustfs.arrhes.localhost:<GATEWAY_HOST_PORT>`) - S3-compatible storage admin UI via edge gateway
 - Mailpit (`http://mailpit.arrhes.localhost:<GATEWAY_HOST_PORT>`, SMTP `smtp.arrhes.localhost:<MAILPIT_SMTP_HOST_PORT>`) - SMTP server with web UI
-- Redis (`redis://redis.arrhes.localhost:<REDIS_HOST_PORT>`) - Message broker
 
 **Applications:**
 - API (`http://api.arrhes.localhost:<GATEWAY_HOST_PORT>`) - Hono backend via edge gateway
 - Website (`http://website.arrhes.localhost:<GATEWAY_HOST_PORT>`) - React website interface via edge gateway
-- Worker (`worker.arrhes.localhost`) - Background job processor (internal service)
+- Dashboard (`http://dashboard.arrhes.localhost:<GATEWAY_HOST_PORT>`) - React dashboard interface via edge gateway
 
 All host endpoints use explicit random 5-digit ports persisted in
 `.workflows/dev/.ports`.
@@ -145,10 +143,9 @@ All host endpoints use explicit random 5-digit ports persisted in
 Required host mappings for no-port access:
 
 ```text
-127.20.0.10 api.arrhes.localhost website.arrhes.localhost storage.arrhes.localhost rustfs.arrhes.localhost mailpit.arrhes.localhost
+127.20.0.10 api.arrhes.localhost website.arrhes.localhost dashboard.arrhes.localhost storage.arrhes.localhost rustfs.arrhes.localhost mailpit.arrhes.localhost
 127.20.0.2 postgres.arrhes.localhost
-127.20.0.3 redis.arrhes.localhost
-127.20.0.4 smtp.arrhes.localhost
+127.20.0.3 smtp.arrhes.localhost
 ```
 
 If these names resolve elsewhere (for example `127.0.0.1`), add equivalent

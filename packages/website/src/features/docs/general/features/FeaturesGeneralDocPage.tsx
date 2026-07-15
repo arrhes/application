@@ -68,26 +68,16 @@ export function FeaturesGeneralDocPage() {
                 />
             </DocSection>
 
-            <DocSection title="Assistant IA">
-                <DocParagraph>
-                    Posez vos questions comptables en langage naturel et obtenez des réponses contextuelles.
-                </DocParagraph>
-                <DocList
-                    items={[
-                        "1 million de tokens inclus",
-                        "Accès aux écritures et documents de l'organisation",
-                        "Questions en langage naturel",
-                    ]}
-                />
-            </DocSection>
-
             <DocSection title="Reconnaissance optique (OCR)">
-                <DocParagraph>Extrayez le texte de vos documents pour les analyser avec l'assistant IA.</DocParagraph>
+                <DocParagraph>
+                    Extrayez le texte de vos documents pour les analyser avec votre propre agent ou directement dans
+                    Arrhes.
+                </DocParagraph>
                 <DocList
                     items={[
                         "100 pages incluses",
                         "Formats PDF, JPEG, PNG",
-                        "Intégration directe avec l'assistant IA",
+                        "Configuration BYOK (bring your own key)",
                     ]}
                 />
             </DocSection>

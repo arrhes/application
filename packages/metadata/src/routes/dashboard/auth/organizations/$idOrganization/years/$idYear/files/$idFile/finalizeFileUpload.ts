@@ -10,7 +10,11 @@ export const finalizeFileUploadRouteDefinition = routeDefinition({
     schemas: {
         body: v.object({
             idFile: fileSchema.entries.id,
+            ocr: v.optional(v.boolean()),
         }),
-        return: fileSchemaReturn,
+        return: v.object({
+            file: fileSchemaReturn,
+            ocrFile: v.optional(fileSchemaReturn),
+        }),
     },
 })

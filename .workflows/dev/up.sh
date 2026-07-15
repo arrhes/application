@@ -30,7 +30,7 @@ _is_valid_five_digit_port() {
 
 # Clean up stale dev containers that may have been created under another
 # compose project name while still using the same explicit container_name.
-for container_name in arrhes-postgres arrhes-rustfs arrhes-gateway arrhes-mailpit arrhes-redis arrhes-api arrhes-website arrhes-worker; do
+for container_name in arrhes-postgres arrhes-rustfs arrhes-gateway arrhes-mailpit arrhes-api arrhes-website arrhes-dashboard; do
     docker rm -f "$container_name" >/dev/null 2>&1 || true
 done
 
@@ -71,7 +71,6 @@ rustfs_ui_host_port=$(_allocate_port_for_key RUSTFS_UI_HOST_PORT)
 mailpit_ui_host_port=$(_allocate_port_for_key MAILPIT_UI_HOST_PORT)
 mailpit_smtp_host_port=$(_allocate_port_for_key MAILPIT_SMTP_HOST_PORT)
 postgres_host_port=$(_allocate_port_for_key POSTGRES_HOST_PORT)
-redis_host_port=$(_allocate_port_for_key REDIS_HOST_PORT)
 dashboard_host_port=$(_allocate_port_for_key DASHBOARD_HOST_PORT)
 
 cat > "$PORTS_FILE" <<EOF
@@ -82,7 +81,6 @@ RUSTFS_UI_HOST_PORT=$rustfs_ui_host_port
 MAILPIT_UI_HOST_PORT=$mailpit_ui_host_port
 MAILPIT_SMTP_HOST_PORT=$mailpit_smtp_host_port
 POSTGRES_HOST_PORT=$postgres_host_port
-REDIS_HOST_PORT=$redis_host_port
 DASHBOARD_HOST_PORT=$dashboard_host_port
 EOF
 
@@ -93,7 +91,6 @@ if ! WEBSITE_HOST_PORT="$website_host_port" \
    MAILPIT_UI_HOST_PORT="$mailpit_ui_host_port" \
    MAILPIT_SMTP_HOST_PORT="$mailpit_smtp_host_port" \
    POSTGRES_HOST_PORT="$postgres_host_port" \
-   REDIS_HOST_PORT="$redis_host_port" \
    DASHBOARD_HOST_PORT="$dashboard_host_port" \
        "${DC[@]}" up --detach --build --force-recreate --wait; then
     echo ""
@@ -126,7 +123,6 @@ echo "    Mailpit UI: http://localhost:$mailpit_ui_host_port"
 echo "    SMTP:       localhost:$mailpit_smtp_host_port"
 echo "    Storage:    http://localhost:$storage_host_port"
 echo "    RustFS UI:  http://localhost:$rustfs_ui_host_port"
-echo "    Redis:      redis://localhost:$redis_host_port"
 echo ""
 echo "  Demo Credentials:"
 echo "    Email:      demo@arrhes.com"

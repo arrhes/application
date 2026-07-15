@@ -6,7 +6,6 @@ import {
     IconChevronRight,
     IconHeart,
     IconLogout,
-    IconRobot,
     IconSearch,
     IconSettings,
     IconUser,
@@ -338,26 +337,6 @@ export function DashboardShell() {
                     >
                         <ButtonGhostContent leftIcon={<IconHeart />} />
                     </Button>
-                    {selectedOrgId && (
-                        <Button
-                            onClick={() =>
-                                openTab(
-                                    {
-                                        component: "agent",
-                                        props: {
-                                            idOrganization: selectedOrgId,
-                                        },
-                                    },
-                                    {
-                                        newTab: true,
-                                    },
-                                )
-                            }
-                            title="Assistant IA"
-                        >
-                            <ButtonOutlineContent leftIcon={<IconRobot />} />
-                        </Button>
-                    )}
                     <Popover.Root>
                         <Popover.Trigger asChild>
                             <Button title="Utilisateur">

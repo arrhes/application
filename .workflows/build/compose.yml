@@ -9,11 +9,10 @@
 #   api       - Production API image
 #   website   - Production Website image (nginx + static)
 #   dashboard - Production Dashboard image (nginx + SPA)
-#   worker    - Production Worker image (background job processor)
 #
 # Usage:
 #   docker compose -f .workflows/build/compose.yml build ci
-#   docker compose -f .workflows/build/compose.yml build api website worker
+#   docker compose -f .workflows/build/compose.yml build api website dashboard
 # ==============================================================================
 
 services:
@@ -46,10 +45,3 @@ services:
       args:
         - VITE_API_BASE_URL=${VITE_API_BASE_URL:-}
         - VITE_WEBSITE_BASE_URL=${VITE_WEBSITE_BASE_URL:-}
-
-
-  worker:
-    image: arrhes-worker:${ARRHES_VERSION:-dev}
-    build:
-      context: ../..
-      dockerfile: .workflows/build/packages/worker/Dockerfile

@@ -1,6 +1,6 @@
 import { Button, ButtonGhostContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconApi, IconCalendar, IconChevronRight, IconRobot, IconSettings, IconUsers } from "@tabler/icons-react"
+import { IconApi, IconCalendar, IconChevronRight, IconSettings, IconUsers } from "@tabler/icons-react"
 import type { ReactNode } from "react"
 import { TabLink } from "../../../components/layouts/tabBar/TabLink.js"
 import type { OpenTabArgs } from "../../../contexts/tabs/tabDefinitions.js"
@@ -108,17 +108,6 @@ export function OrganizationTabContent(props: { idOrganization: string }) {
             icon: <IconCalendar size={24} />,
             args: {
                 component: "exercices",
-                props: {
-                    idOrganization: props.idOrganization,
-                },
-            },
-        },
-        {
-            label: "Assistant",
-            description: "Assistant IA comptable",
-            icon: <IconRobot size={24} />,
-            args: {
-                component: "agent",
                 props: {
                     idOrganization: props.idOrganization,
                 },

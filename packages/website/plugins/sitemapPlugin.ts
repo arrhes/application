@@ -193,26 +193,6 @@ export function sitemapPlugin(): Plugin {
                     priority: "0.6",
                     changefreq: "monthly",
                 },
-                {
-                    path: "/documentation/dashboard/assistant",
-                    priority: "0.6",
-                    changefreq: "monthly",
-                },
-                {
-                    path: "/documentation/dashboard/assistant/modèles",
-                    priority: "0.6",
-                    changefreq: "monthly",
-                },
-                {
-                    path: "/documentation/dashboard/assistant/outils",
-                    priority: "0.6",
-                    changefreq: "monthly",
-                },
-                {
-                    path: "/documentation/dashboard/assistant/ocr",
-                    priority: "0.6",
-                    changefreq: "monthly",
-                },
 
                 // General docs
                 {
