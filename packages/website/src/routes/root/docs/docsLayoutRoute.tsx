@@ -1,8 +1,9 @@
-import { createRoute, Outlet } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
 import { rootLayoutRoute } from "../../rootLayoutRoute.js"
+import { DocsLayout } from "../../../features/docs/DocsLayout.js"
 
 export const docsLayoutRoute = createRoute({
     getParentRoute: () => rootLayoutRoute,
     path: "/documentation",
-    component: () => <div style={{ padding: "2rem" }}><h1>DOCS WORKS</h1><Outlet /></div>,
+    component: () => <DocsLayout />,
 })

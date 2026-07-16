@@ -3,7 +3,7 @@ import { rootLayoutRoute } from "../../rootLayoutRoute.tsx"
 
 export const homeLayoutRoute = createRoute({
     getParentRoute: () => rootLayoutRoute,
-    path: "/",
+    id: "homeLayout",
     beforeLoad: () => {},
     component: () => <Outlet />,
 })
