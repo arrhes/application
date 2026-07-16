@@ -1,6 +1,6 @@
 import { createRoute } from "@tanstack/react-router"
-import { HomePage } from "../../../features/home/HomePage.tsx"
 import { rootLayoutRoute } from "../../rootLayoutRoute.tsx"
+import { DocsLayout } from "../../../features/docs/DocsLayout.js"
 
 export const homeRootRoute = createRoute({
     getParentRoute: () => rootLayoutRoute,
@@ -10,5 +10,5 @@ export const homeRootRoute = createRoute({
         description:
             "Arrhes est un logiciel de comptabilité open source, moderne et intuitif, conçu pour les entreprises et associations françaises.",
     }),
-    component: () => <HomePage />,
+    component: () => <DocsLayout />,
 })
