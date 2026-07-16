@@ -1,4 +1,3 @@
-import { apiKeyRoutes } from "./organizationSettings/apiKey/apiKeyRoutes.js"
 import { organizationSettingsRoutes } from "./organizationSettings/organizationSettingsRoutes.js"
 import { organizationUsersRoutes } from "./organizationSettings/organizationUser/organizationUsersRoutes.js"
 import { readOneOrganizationRoute } from "./readOneOrganization.js"
@@ -10,5 +9,4 @@ export const $idOrganizationRoutes = [
     ...yearsRoutes,
     ...organizationUsersRoutes,
     ...organizationSettingsRoutes,
-    ...apiKeyRoutes,
 ]

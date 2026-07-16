@@ -1,5 +1,4 @@
 import * as accountModel from "./account.js"
-import * as apiKeyModel from "./apiKey.js"
 import * as balanceSheetModel from "./balanceSheet.js"
 import * as computationModel from "./computation.js"
 import * as computationIncomeStatementModel from "./computationIncomeStatement.js"
@@ -20,7 +19,6 @@ import * as userSessionModel from "./userSession.js"
 import * as yearModel from "./year.js"
 
 export const models = {
-    apiKey: apiKeyModel.apiKeyModel,
     account: accountModel.accountModel,
     file: fileModel.fileModel,
     folder: folderModel.folderModel,
@@ -43,7 +41,6 @@ export const models = {
 }
 
 export const modelSchemas = {
-    ...apiKeyModel,
     ...accountModel,
     ...fileModel,
     ...folderModel,

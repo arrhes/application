@@ -44,7 +44,7 @@ export function UpdateUserEmail(props: { children: JSX.Element }) {
                             schema={updateUserEmailRouteDefinition.schemas.body}
                             defaultValues={{
                                 currentPassword: undefined,
-                                emailToValidate: undefined,
+                                email: undefined,
                             }}
                             submitButtonProps={{
                                 leftIcon: <IconDeviceFloppy />,
@@ -63,7 +63,7 @@ export function UpdateUserEmail(props: { children: JSX.Element }) {
                                     return false
                                 }
                                 toast({
-                                    title: "Un email de vérification a été envoyé à la nouvelle adresse",
+                                    title: "Adresse email mise à jour",
                                     variant: "success",
                                 })
                                 return true
@@ -82,7 +82,7 @@ export function UpdateUserEmail(props: { children: JSX.Element }) {
                                 <Fragment>
                                     <FormField
                                         control={form.control}
-                                        name="emailToValidate"
+                                        name="email"
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormLabel

@@ -1,6 +1,5 @@
-import { createHash } from "node:crypto"
 import { models } from "@arrhes/application-metadata"
-import { and, eq } from "drizzle-orm"
+import { eq } from "drizzle-orm"
 import type { Context } from "hono"
 import { parseCookies } from "../utilities/cookies/parseCookies.js"
 import { unsignString } from "../utilities/cookies/unsignString.js"
@@ -11,16 +10,9 @@ import { resolveOrganizationMiddleware } from "./resolveOrganizationMiddleware.j
 
 export async function checkAuthMiddleware(parameters: { context: Context<any> }) {
     try {
-        // 1. Try cookie auth first
         const cookieAuth = await tryAuthWithCookie(parameters.context)
         if (cookieAuth !== null) {
             return cookieAuth
-        }
-
-        // 2. Try Bearer token auth (API key)
-        const bearerAuth = await tryAuthWithBearer(parameters.context)
-        if (bearerAuth !== null) {
-            return bearerAuth
         }
 
         throw new Exception({
@@ -98,48 +90,5 @@ async function tryAuthWithCookie(context: Context<any>) {
         }
     } catch {
         return null
-    }
-}
-
-async function tryAuthWithBearer(context: Context<any>) {
-    const authHeader = context.req.header("Authorization")
-    if (!authHeader?.startsWith("Bearer ")) {
-        return null
-    }
-
-    const rawKey = authHeader.slice(7)
-    if (!rawKey) {
-        return null
-    }
-
-    const keyHash = createHash("sha256").update(rawKey).digest("hex")
-
-    const apiKey = await selectOne({
-        database: context.var.clients.sql,
-        table: models.apiKey,
-        where: (table) => and(eq(table.keyHash, keyHash), eq(table.isActive, true)),
-    })
-
-    if (!apiKey) {
-        return null
-    }
-
-    const user = await selectOne({
-        database: context.var.clients.sql,
-        table: models.user,
-        where: (table) => eq(table.id, apiKey.idUser),
-    })
-
-    if (!user) {
-        return null
-    }
-
-    context.set("user", user)
-
-    // For Bearer auth, idOrganization comes from the API key record (may be null for user-level keys)
-    return {
-        userSession: null,
-        user: user,
-        idOrganization: apiKey.idOrganization ?? undefined,
     }
 }

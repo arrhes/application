@@ -55,19 +55,6 @@ services:
       timeout: 5s
       retries: 5
 
-  mailpit:
-    container_name: arrhes-prod-mailpit
-    image: axllent/mailpit:latest
-    restart: unless-stopped
-    ports:
-      - "1025:1025"
-      - "8025:8025"
-    healthcheck:
-      test: ["CMD-SHELL", "wget --quiet --tries=1 --spider http://localhost:8025 || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
   # ============================================================================
   # Production images (pre-built via `just build images`)
   # ============================================================================
@@ -91,17 +78,11 @@ services:
       STORAGE_BUCKET_NAME: arrhes-files
       STORAGE_ACCESS_KEY: rustfsadmin
       STORAGE_SECRET_KEY: rustfsadmin
-      EMAIL_ENDPOINT: mailpit:1025
-      EMAIL_USER: test
-      EMAIL_PASSWORD: test
       MOLLIE_API_KEY: test_z8gjjnezmRNx7dretKbEr5vcCfADh9
-      INTERNAL_API_KEY: development-internal-api-key
     depends_on:
       postgres:
         condition: service_healthy
       rustfs:
-        condition: service_healthy
-      mailpit:
         condition: service_healthy
 
   website:

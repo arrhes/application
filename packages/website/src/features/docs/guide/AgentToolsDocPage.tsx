@@ -6,7 +6,6 @@ import { DocList } from "../../../components/document/DocList.js"
 import { DocParagraph } from "../../../components/document/DocParagraph.js"
 import { DocSection } from "../../../components/document/DocSection.js"
 
-const apiKeyDocLink = "/documentation/guide/référence-api"
 const paperasseRepo = "https://github.com/romainsimon/paperasse"
 
 export function AgentToolsDocPage() {
@@ -24,6 +23,10 @@ export function AgentToolsDocPage() {
                     et en Python.
                 </DocParagraph>
                 <DocParagraph>
+                    L'authentification se fait via un cookie de session. Connectez-vous d'abord avec vos identifiants,
+                    puis réutilisez le cookie pour les appels API.
+                </DocParagraph>
+                <DocParagraph>
                     Les skills Paperasse (<DocLink to={paperasseRepo}>github.com/romainsimon/paperasse</DocLink>)
                     peuvent être combinés avec ces exemples pour donner à votre agent une compréhension approfondie de
                     la comptabilité française tout en interagissant directement avec vos données Arrhes.
@@ -34,10 +37,11 @@ export function AgentToolsDocPage() {
                 <DocBlock
                     code={`// Contexte : votre agent utilise des outils (tool calling)
 // pour interagir avec l'API Arrhes.
+// Authentification : cookie de session obtenu après connexion.
 
 // Outil : lister les écritures d'un exercice
 async function listEntries(
-  apiKey: string,
+  sessionCookie: string,
   idOrganization: string,
   idYear: string
 ): Promise<Entry[]> {
@@ -45,7 +49,7 @@ async function listEntries(
     \`https://api.arrhes.com/v1/organizations/\${idOrganization}/years/\${idYear}/entries\`,
     {
       headers: {
-        Authorization: \`Bearer \${apiKey}\`,
+        Cookie: sessionCookie,
         "Content-Type": "application/json",
       },
     }
@@ -56,7 +60,7 @@ async function listEntries(
 
 // Outil : créer une écriture comptable
 async function createEntry(
-  apiKey: string,
+  sessionCookie: string,
   idOrganization: string,
   idYear: string,
   entry: {
@@ -75,7 +79,7 @@ async function createEntry(
     {
       method: "POST",
       headers: {
-        Authorization: \`Bearer \${apiKey}\`,
+        Cookie: sessionCookie,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(entry),
@@ -86,7 +90,7 @@ async function createEntry(
 
 // Outil : OCR d'un fichier
 async function ocrFile(
-  apiKey: string,
+  sessionCookie: string,
   idOrganization: string,
   idYear: string,
   idFile: string
@@ -96,7 +100,7 @@ async function ocrFile(
     {
       method: "POST",
       headers: {
-        Authorization: \`Bearer \${apiKey}\`,
+        Cookie: sessionCookie,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ idFile }),
@@ -111,6 +115,7 @@ async function ocrFile(
                 <DocBlock
                     code={`# Contexte : votre agent utilise des appels API REST
 # pour interagir avec les donnees Arrhes.
+# Authentification : cookie de session obtenu apres connexion.
 
 import httpx
 from typing import Any
@@ -118,9 +123,9 @@ from typing import Any
 API_BASE = "https://api.arrhes.com"
 
 class ArrhesClient:
-    def __init__(self, api_key: str, org_id: str):
+    def __init__(self, session_cookie: str, org_id: str):
         self.headers = {
-            "Authorization": f"Bearer {api_key}",
+            "Cookie": session_cookie,
             "Content-Type": "application/json",
         }
         self.org_id = org_id
@@ -247,8 +252,7 @@ class ArrhesClient:
 
             <DocSection title="Référence API">
                 <DocParagraph>
-                    Consultez la <DocLink to={apiKeyDocLink}>référence API complète</DocLink> pour la liste exhaustive
-                    des endpoints disponibles et leurs paramètres.
+                    Consultez la documentation API pour la liste exhaustive des endpoints disponibles et leurs paramètres.
                 </DocParagraph>
             </DocSection>
         </>

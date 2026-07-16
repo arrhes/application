@@ -3,9 +3,9 @@
     "type": "module",
     "private": false,
     "scripts": {
-        "dev": "tsx watch --conditions source --env-file=.env ./src/server.ts",
+        "dev": "tsx watch --conditions source ./src/server.ts",
         "build": "tsc --build",
-        "start": "node --env-file=.env ./build/server.js",
+        "start": "node ./build/server.js",
         "test": "vitest run",
         "test:watch": "vitest",
         "test:unit": "vitest run ../../tests/api/unit",
@@ -13,7 +13,6 @@
     },
     "devDependencies": {
         "@types/node": "26.1.1",
-        "@types/nodemailer": "8.0.1",
         "tsx": "4.23.0",
         "typescript": "6.0.3",
         "vitest": "4.1.10"
@@ -25,7 +24,6 @@
         "@mollie/api-client": "4.6.0",
         "drizzle-orm": "0.45.2",
         "hono": "4.12.28",
-        "nodemailer": "9.0.3",
         "postgres": "3.4.9",
         "valibot": "1.4.2"
     }

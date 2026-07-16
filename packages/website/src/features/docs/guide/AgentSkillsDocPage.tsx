@@ -6,7 +6,6 @@ import { DocParagraph } from "../../../components/document/DocParagraph.js"
 import { DocSection } from "../../../components/document/DocSection.js"
 
 const paperasseRepo = "https://github.com/romainsimon/paperasse"
-const apiKeyDocLink = "/documentation/guide/référence-api"
 
 export function AgentSkillsDocPage() {
     return (
@@ -27,9 +26,9 @@ export function AgentSkillsDocPage() {
 
             <DocSection title="Authentification">
                 <DocParagraph>
-                    Pour qu'un agent externe puisse interagir avec Arrhes, vous devez lui fournir une clé API.
-                    Rendez-vous dans votre profil → API pour créer une clé personnelle. L'agent utilisera cette clé dans
-                    l'en-tête <DocCode>{"Authorization: Bearer <clé>"}</DocCode> de chaque requête.
+                    Pour qu'un agent externe puisse interagir avec Arrhes, il doit s'authentifier via un cookie de session.
+                    L'agent utilisera ce cookie dans l'en-tête <DocCode>{"Cookie: arrhes_id_user_session=<session>"}</DocCode>{" "}
+                    de chaque requête.
                 </DocParagraph>
             </DocSection>
 
@@ -72,8 +71,8 @@ Tu aides les utilisateurs à gérer leur comptabilité en partie double.
 - Ne modifie jamais les données sans confirmation explicite.
 
 ## Authentification
-- Clé API : Authorization: Bearer <ta_clé>
-- Organisation : header X-Arrhes-Organization-ID ou cookie
+- Cookie : Cookie: arrhes_id_user_session=<session>
+- Organisation : header X-Organization-ID ou cookie
 
 ## Opérations disponibles
 ### Consultation
@@ -108,8 +107,7 @@ Tu aides les utilisateurs à gérer leur comptabilité en partie double.
 
             <DocSection title="Référence">
                 <DocParagraph>
-                    Consultez la <DocLink to={apiKeyDocLink}>référence API complète</DocLink> pour la liste exhaustive
-                    des endpoints disponibles et leurs paramètres.
+                    Consultez la documentation API pour la liste exhaustive des endpoints disponibles et leurs paramètres.
                 </DocParagraph>
             </DocSection>
         </>

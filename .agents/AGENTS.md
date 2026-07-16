@@ -1,28 +1,71 @@
-# Agent Guidelines
+# AGENTS.md - Agent Context for Arrhes
 
-## Commands
-- Build all: `pnpm build` - Dev all: `pnpm dev` - Docker: `just dev up` / `just dev down` / `just dev reset`
-- CI build (local): `just build` - runs Biome check + build in Docker (no Node.js required on host)
-- Lint all: `pnpm check` (runs Biome check) - Fix: `pnpm check:fix`
-- Format all: `pnpm format` - Fix: `pnpm format:fix`
-- Lint only: `pnpm lint` - Fix: `pnpm lint:fix`
-- Typecheck website: `packages/website/node_modules/.bin/tsc --noEmit --project packages/website/tsconfig.json`
-- No test framework exists in this repository.
+## Developer Commands
 
-## Monorepo Layout
-`packages/{api, website, metadata, tools, ui}` - all ESM (`"type": "module"`), TypeScript strict mode.
-- **api** (`@arrhes/application-api`): Hono backend, Drizzle ORM, PostgreSQL, Nodemailer, Puppeteer, S3
-- **website** (`@arrhes/application-website`): React 19, TanStack Router/Query/Table, React Hook Form, Radix UI primitives, Panda CSS
-- **metadata** (`@arrhes/application-metadata`): Shared models, schemas (valibot), route definitions. Consumed via subpath exports (`@arrhes/application-metadata/models`, `/schemas`, `/routes`, `/components`)
-- **ui** (`@arrhes/ui`): Shared components/styles/fonts using Panda CSS. Consumed via `@arrhes/ui`, `@arrhes/ui/utilities/cn.js`, `@arrhes/ui/styled-system/css`
-- **tools** (`@arrhes/application-tools`): DB migrations/seeds via drizzle-kit and tsx scripts
+```bash
+# Dev environment (requires Docker, just)
+just dev up          # Start all services: website (5173), API (3000), DB, mailpit, RustFS
+just dev down       # Stop services
+just dev reset     # Reset database
 
-## Code Style
-- **Imports**: all use relative paths with `.ts`/`.tsx` extensions (website) or `.js` extensions (api, metadata). Cross-package via `@arrhes/*`. No path aliases are used in practice. Order: workspace packages → external deps → relative internal.
-- **Files**: all `camelCase.ts[x]` (including components). Barrel files are `_index.ts`.
-- **Exports**: components `PascalCase` functions, models/schemas/utilities `camelCase`. Models use `Model` suffix (`accountModel`), schemas have no suffix.
-- **Components**: one exported React component per file. Private helper functions are fine in the same file, but not other components.
-- **Validation**: `import * as v from "valibot"` - use `v.object()`, `v.string()`, `v.InferOutput<>`.
-- **Styling**: Panda CSS via `css()` and `cx()` from `@arrhes/ui/utilities/cn.js`.
-- **IDs**: nanoid with custom alphabet, 16 chars.
-- **Error handling**: try/catch with structured logging in API; toast notifications in website; structured error responses via Hono.
+# CI build (used in PR checks)
+just build         # Runs: lint → typecheck → test → build
+
+# Per-package commands (pnpm filters)
+pnpm --filter @arrhes/application-api exec tsc --noEmit         # TypeScript check API
+pnpm --filter @arrhes/website exec tsc --noEmit  # TypeScript check website
+pnpm --filter @arrhes/application-metadata exec tsc --noEmit    # TypeScript check metadata
+pnpm check        # Biome lint + format check
+pnpm check:fix  # Biome lint + format fix --write
+pnpm build       # Build all packages
+```
+
+## Monorepo Structure
+
+| Package | Role | Key Technologies |
+|---------|------|-----------------|
+| `packages/api` | Backend REST API | Hono, Drizzle ORM, PostgreSQL |
+| `packages/website` | Frontend webapp | React, TanStack Router, Panda CSS |
+| `packages/dashboard` | Authenticated dashboard SPA | React, TanStack Router, TanStack Query |
+| `packages/metadata` | Shared schemas/types | Valibot, Drizzle ORM models |
+| `packages/ui` | Shared UI components | React, Panda CSS |
+| `packages/tools` | DB migrations/seeds | Drizzle, CLI |
+
+**Entrypoints:**
+- API: `packages/api/src/server.ts`
+- Website: `packages/website/src/main.tsx`
+- Dashboard: `packages/dashboard/src/main.tsx`
+
+## Architecture Patterns
+
+### Route definition → API → Frontend flow
+1. Define schema + route in `packages/metadata/src/routes/`
+2. Implement handler in `packages/api/src/routes/auth/` or `packages/api/src/routes/public/`
+3. Consume via `useDataFromAPI` hook or `getResponseBodyFromAPI` in website or dashboard
+
+### Agentic usage (external)
+- Arrhes does not ship a built-in AI agent
+- Users bring their own agent and interact with Arrhes via the REST API or CLI
+- API authentication is cookie-based (dashboard) or via user-level API keys
+
+## Code Conventions
+
+- **Indentation**: 4 spaces
+- **Quotes**: double quotes
+- **Trailing commas**: all
+- **Import ordering**: alphabetical (Biome enforces this)
+- **CSS**: Use `css()` from `@arrhes/ui/utilities/cn.js` with Panda CSS tokens
+- **Validation**: Valibot schemas in `packages/metadata/src/schemas/`
+- **Database**: Drizzle ORM in `packages/metadata/src/models/`
+
+## Important Gotchas
+
+- **Biome import sorting**: Run `pnpm check:fix` before committing - imports must be alphabetical
+- **TypeScript**: After modifying metadata package, rebuild with `pnpm --filter @arrhes/application-metadata build` before API/website checks pass
+- **Database**: Migrations live in `packages/tools/src/migrations/`, run via `pnpm --filter @arrhes/application-tools` commands
+
+## References
+
+- [Development guide](docs/DEVELOPMENT.md)
+- [Architecture overview](docs/ARCHITECTURE.md)
+- [Configuration](docs/CONFIGURATION.md)

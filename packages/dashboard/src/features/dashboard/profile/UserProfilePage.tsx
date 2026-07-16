@@ -7,7 +7,6 @@ import { Page } from "../../../components/layouts/page/page.js"
 import { DeleteUser } from "./DeleteUser.tsx"
 import { UpdateUserEmail } from "./UpdateUserEmail.tsx"
 import { UpdateUserPassword } from "./UpdateUserPassword.tsx"
-import { ValidateUserEmail } from "./ValidateUserEmail.tsx"
 
 export function UserProfilePage() {
     return (
@@ -38,9 +37,6 @@ export function UserProfilePage() {
                                         </Button>
                                     </UpdateUserEmail>
                                 </Block.Row>
-                                {userSession.user.emailToValidate && (
-                                    <ValidateUserEmail emailToValidate={userSession.user.emailToValidate} />
-                                )}
                                 <Block.Row
                                     title="Mot de passe"
                                     description="Modifiez le mot de passe de votre compte."

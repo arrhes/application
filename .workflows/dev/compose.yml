@@ -70,25 +70,6 @@ services:
       timeout: 5s
       retries: 5
 
-  # Mailpit - Development SMTP server with web interface
-  mailpit:
-    container_name: arrhes-mailpit
-    image: axllent/mailpit:latest
-    restart: unless-stopped
-    ports:
-      - "127.0.0.1:${MAILPIT_SMTP_HOST_PORT}:1025"
-      - "127.0.0.1:${MAILPIT_UI_HOST_PORT}:8025"
-    networks:
-      default:
-        aliases:
-          - mailpit.arrhes.localhost
-          - smtp.arrhes.localhost
-    healthcheck:
-      test: ["CMD-SHELL", "wget --quiet --tries=1 --spider http://localhost:8025 || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
   # ============================================================================
   # Application Services
   # ============================================================================
@@ -122,19 +103,13 @@ services:
       STORAGE_BUCKET_NAME: arrhes-files
       STORAGE_ACCESS_KEY: rustfsadmin
       STORAGE_SECRET_KEY: rustfsadmin
-      EMAIL_ENDPOINT: "localhost:${MAILPIT_SMTP_HOST_PORT}"
-      EMAIL_USER: test
-      EMAIL_PASSWORD: test
       MOLLIE_API_KEY: test_z8gjjnezmRNx7dretKbEr5vcCfADh9
-      INTERNAL_API_KEY: development-internal-api-key
       # Tools environment (packages/tools) - used by migrate/seed
       NODE_ENV: development
     depends_on:
       postgres:
         condition: service_healthy
       rustfs:
-        condition: service_healthy
-      mailpit:
         condition: service_healthy
     healthcheck:
       test: ["CMD-SHELL", "node -e \"require('http').get('http://localhost:' + process.env.PORT, r => process.exit(r.statusCode < 500 ? 0 : 1)).on('error', () => process.exit(1))\""]

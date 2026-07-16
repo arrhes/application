@@ -42,7 +42,7 @@ export function ReferenceCliGuideDocPage() {
                     ]}
                     rows={[
                         [
-                            <DocCode key="0">{"arrhes login --api-key <clé> --url <url> --org <id>"}</DocCode>,
+                            <DocCode key="0">arrhes login</DocCode>,
                             "Enregistre les identifiants",
                         ],
                         [

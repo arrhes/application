@@ -128,7 +128,7 @@ export function PremiersPasGuideDocPage() {
                                 La création d'organisation n'est pas disponible directement en CLI. Créez l'organisation
                                 via le dashboard, puis configurez le CLI avec son identifiant.
                             </DocParagraph>
-                            <DocCodeBlock>{"arrhes login --api-key <clé> --org <idOrganisation>"}</DocCodeBlock>
+                            <DocCodeBlock>arrhes login</DocCodeBlock>
                         </>
                     }
                 />

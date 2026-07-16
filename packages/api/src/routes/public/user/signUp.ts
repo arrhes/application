@@ -5,7 +5,6 @@ import { getCookieDomainFromHost } from "../../../utilities/cookies/getCookieDom
 import { serializeCookie } from "../../../utilities/cookies/serializeCookie.js"
 import { signString } from "../../../utilities/cookies/signString.js"
 import { Exception } from "../../../utilities/exception.js"
-import { generateVerificationToken } from "../../../utilities/generateVerificationToken.js"
 import { getRemoteAddress } from "../../../utilities/getRemoteAddress.js"
 import { registerRoute } from "../../../utilities/registerRoute.js"
 import { response } from "../../../utilities/response.js"
@@ -38,9 +37,6 @@ export const signUpRoute = registerRoute(signUpRouteDefinition, async (c) => {
                 isActive: true,
                 alias: null,
                 email: body.email,
-                isEmailValidated: false,
-                emailToken: generateVerificationToken(),
-                emailTokenExpiresAt: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
                 passwordHash: passwordHash,
                 passwordSalt: passwordSalt,
                 createdAt: new Date().toISOString(),

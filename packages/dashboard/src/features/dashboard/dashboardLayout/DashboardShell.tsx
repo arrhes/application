@@ -1,14 +1,14 @@
 import { signOutRouteDefinition } from "@arrhes/application-metadata/routes"
-import { Button, ButtonGhostContent, ButtonOutlineContent, Logo, Separator, toast } from "@arrhes/ui"
+import { Button, ButtonGhostContent, ButtonOutlineContent, Separator, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import {
     IconBook2,
-    IconChevronRight,
     IconHeart,
     IconKey,
     IconLogout,
     IconSearch,
     IconSettings,
+    IconSlash,
     IconUser,
 } from "@tabler/icons-react"
 import { Outlet } from "@tanstack/react-router"
@@ -243,7 +243,7 @@ export function DashboardShell() {
                     })}
                 >
                     <ButtonGhostContent
-                        leftIcon={<Logo />}
+                        // leftIcon={<Logo />}
                         text="Arrhes"
                         className={{
                             _hover: {
@@ -251,7 +251,7 @@ export function DashboardShell() {
                             },
                         }}
                     />
-                    <IconChevronRight
+                    <IconSlash
                         size={16}
                         className={css({
                             stroke: "neutral/20",
@@ -267,7 +267,7 @@ export function DashboardShell() {
                     />
                     {selectedOrgId !== null && (
                         <>
-                            <IconChevronRight
+                            <IconSlash
                                 size={16}
                                 className={css({
                                     stroke: "neutral/20",

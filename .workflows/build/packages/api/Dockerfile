@@ -17,4 +17,4 @@ RUN pnpm --filter @arrhes/application-api deploy --legacy --prod /deploy
 FROM node:25.2.1-alpine AS deploy
 WORKDIR /root
 COPY --from=build /deploy .
-CMD ["node", "--env-file=.env", "./build/server.js"]
+CMD ["node", "./build/server.js"]

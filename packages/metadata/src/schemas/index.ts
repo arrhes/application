@@ -1,5 +1,4 @@
 import { accountSchema, accountSchemaReturn } from "./account.js"
-import { apiKeySchema, apiKeySchemaReturn } from "./apiKey.js"
 import { balanceSheetSchema, balanceSheetSchemaReturn } from "./balanceSheet.js"
 import { computationSchema, computationSchemaReturn } from "./computation.js"
 import {
@@ -23,7 +22,6 @@ import { userSessionSchema, userSessionSchemaReturn } from "./userSession.js"
 import { yearSchema, yearSchemaReturn } from "./year.js"
 
 export const schemas = {
-    apiKey: apiKeySchema,
     account: accountSchema,
     entry: entrySchema,
     entryLine: entryLineSchema,
@@ -46,7 +44,6 @@ export const schemas = {
 }
 
 export const returnedSchemas = {
-    apiKey: apiKeySchemaReturn,
     account: accountSchemaReturn,
     entry: entrySchemaReturn,
     entryLine: entryLineSchemaReturn,

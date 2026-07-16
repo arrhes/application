@@ -3,10 +3,7 @@ import { api } from "./api.js"
 import { checkDatabaseSchema } from "./utilities/checkDatabaseSchema.js"
 import { getClients } from "./utilities/getClients.js"
 import { getEnv } from "./utilities/getEnv.js"
-import { cleanupOrphanedStorageFiles } from "./utilities/storage/cleanupOrphanedStorageFiles.js"
 import { ensureStorageBucket } from "./utilities/storage/ensureStorageBucket.js"
-
-const CLEANUP_INTERVAL_MS = 10 * 60 * 1000 // 10 minutes
 
 async function startServer() {
     process.on("uncaughtException", (error) => {
@@ -110,22 +107,6 @@ async function startServer() {
             server.listen(Number(env.PORT), () => {
                 console.info(`Server running on http://localhost:${env.PORT}`)
             })
-
-            // Run periodic cleanup of orphaned storage files
-            void cleanupOrphanedStorageFiles({
-                var: {
-                    env,
-                    clients,
-                },
-            })
-            setInterval(() => {
-                void cleanupOrphanedStorageFiles({
-                    var: {
-                        env,
-                        clients,
-                    },
-                })
-            }, CLEANUP_INTERVAL_MS)
 
             // Wait indefinitely (prevents loop from restarting immediately)
             await new Promise(() => {})

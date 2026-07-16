@@ -795,31 +795,6 @@ _members_remove() {
     printf 'Member %s removed.\n' "$id"
 }
 
-# ── api-keys ──────────────────────────────────────────────────────────────────
-
-_cmd_api_keys() {
-    subcmd="${1:-}"; [ $# -gt 0 ] && shift
-    case "$subcmd" in
-        list)   _require_cfg; _api GET "$(_org_path)/api-keys" ;;
-        create) _api_keys_create "$@" ;;
-        delete) _api_keys_delete "$@" ;;
-        *) _die "arrhes api-keys: unknown subcommand '$subcmd'" ;;
-    esac
-}
-
-_api_keys_create() {
-    name=''
-    while [ $# -gt 0 ]; do case "$1" in --name) name="$2"; shift ;; *) _die "Unknown: $1" ;; esac; shift; done
-    _require_cfg; _jbody_reset; _jstr name "$name"
-    _api POST "$(_org_path)/api-keys" "$(_jbody)"
-}
-
-_api_keys_delete() {
-    id="${1:?Usage: arrhes api-keys delete <idApiKey>}"
-    _require_cfg; _api DELETE "$(_org_path)/api-keys/$id" > /dev/null
-    printf 'API key %s deleted.\n' "$id"
-}
-
 # ── exports ───────────────────────────────────────────────────────────────────
 
 _cmd_exports() {
@@ -1026,7 +1001,6 @@ Commands:
   files           list | get | create | update | delete | download-url
     files folders   list | get | create | update | delete
   members         list | get | invite | update | remove
-  api-keys        list | create | delete
   exports         fec | xbrl-balance-sheet | xbrl-income-statement
   balance-sheets  list | get | create | update | delete
   income-statements list | get | create | update | delete
@@ -1063,7 +1037,6 @@ main() {
         entries)           _cmd_entries "$@" ;;
         files)             _cmd_files "$@" ;;
         members)           _cmd_members "$@" ;;
-        api-keys)          _cmd_api_keys "$@" ;;
         exports)           _cmd_exports "$@" ;;
         balance-sheets)    _cmd_balance_sheets "$@" ;;
         income-statements) _cmd_income_statements "$@" ;;

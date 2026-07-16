@@ -330,15 +330,6 @@ export function DocRouteRequest(props: { routeDefinition: ReturnType<typeof rout
                     >
                         Content-Type: application/json
                     </span>
-                    <span
-                        className={css({
-                            fontSize: "xs",
-                            color: "neutral/50",
-                            fontFamily: "mono",
-                        })}
-                    >
-                        Authorization: Bearer {"<clé>"}
-                    </span>
                 </div>
             </div>
 

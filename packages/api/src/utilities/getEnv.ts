@@ -30,12 +30,7 @@ const envSchema = v.object({
     STORAGE_SECRET_KEY: v.string(),
     STORAGE_REGION: v.optional(v.string(), "fr-par"),
 
-    EMAIL_ENDPOINT: v.string(),
-    EMAIL_USER: v.string(),
-    EMAIL_PASSWORD: v.string(),
-
     MOLLIE_API_KEY: v.string(),
-    INTERNAL_API_KEY: v.optional(v.string(), ""),
 })
 
 export function getEnv() {

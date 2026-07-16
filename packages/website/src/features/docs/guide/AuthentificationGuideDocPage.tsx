@@ -1,8 +1,3 @@
-import {
-    createOneApiKeyRouteDefinition,
-    deleteOneApiKeyRouteDefinition,
-    readAllApiKeysRouteDefinition,
-} from "@arrhes/application-metadata/routes"
 import { DocCode } from "../../../components/document/DocCode.js"
 import { DocCodeBlock } from "../../../components/document/DocCodeBlock.js"
 import { DocExample } from "../../../components/document/DocExample.js"
@@ -11,7 +6,6 @@ import { DocImplementationTabs } from "../../../components/document/DocImplement
 import { DocList } from "../../../components/document/DocList.js"
 import { DocParagraph } from "../../../components/document/DocParagraph.js"
 import { DocRoot } from "../../../components/document/DocRoot.js"
-import { DocRouteRequest } from "../../../components/document/DocRouteRequest.js"
 import { DocSection } from "../../../components/document/DocSection.js"
 import { DocTable } from "../../../components/document/DocTable.js"
 import { DocTip } from "../../../components/document/DocTip.js"
@@ -26,9 +20,8 @@ export function AuthentificationGuideDocPage() {
 
             <DocSection title="Méthodes d'authentification">
                 <DocParagraph>
-                    Arrhes propose plusieurs méthodes d'authentification selon l'interface utilisée. Le dashboard repose
-                    sur un cookie de session, tandis que l'API et le CLI utilisent des clés API pour les intégrations
-                    programmatiques.
+                    Arrhes utilise un système d'authentification unique par cookie de session pour toutes les interfaces
+                    (Dashboard, API et CLI).
                 </DocParagraph>
                 <DocTable
                     headers={[
@@ -44,12 +37,12 @@ export function AuthentificationGuideDocPage() {
                         ],
                         [
                             "API",
-                            "Cookie de session ou clé API (Bearer)",
+                            "Cookie de session",
                             "Intégration programmatique",
                         ],
                         [
                             "CLI",
-                            "Clé API",
+                            "Cookie de session",
                             "Scripts et automatisation",
                         ],
                     ]}
@@ -83,62 +76,47 @@ export function AuthentificationGuideDocPage() {
                     api={
                         <>
                             <DocParagraph>
-                                L'API supporte deux méthodes d'authentification : le cookie de session (pour un usage
-                                depuis l'interface web) et la clé API Bearer (pour les intégrations).
+                                L'API s'authentifie via un cookie de session. Pour utiliser l'API programmatiquement,
+                                connectez-vous d'abord avec vos identifiants, puis réutilisez le cookie de session.
                             </DocParagraph>
                             <DocTable
                                 headers={[
-                                    "Méthode",
                                     "En-tête",
-                                    "Organisation",
+                                    "Description",
                                 ]}
                                 rows={[
                                     [
-                                        "Cookie de session",
                                         "Cookie: arrhes_id_user_session=...",
-                                        "Via X-Organization-Id ou cookie arrhes_id_organization",
+                                        "Cookie de session obtenu après connexion",
                                     ],
                                     [
-                                        "Clé API",
-                                        "Authorization: Bearer <clé>",
-                                        "Déterminée automatiquement par la clé",
+                                        "X-Organization-Id: <id>",
+                                        "ID de l'organisation (optionnel, peut aussi être dans le cookie)",
                                     ],
                                 ]}
                             />
-                            <DocParagraph>
-                                Les clés API sont liées à une organisation. Elles permettent un accès programmatique
-                                sans passer par le cookie de session.
-                            </DocParagraph>
-                            <DocRouteRequest
-                                routeDefinition={createOneApiKeyRouteDefinition}
-                                description="Créer une nouvelle clé API. Retourne l'objet clé avec le champ rawKey."
-                            />
-                            <DocRouteRequest routeDefinition={readAllApiKeysRouteDefinition} />
-                            <DocRouteRequest routeDefinition={deleteOneApiKeyRouteDefinition} />
-                            <DocTip variant="warning">
-                                La clé brute (<DocCode>rawKey</DocCode>) n'est retournée qu'au moment de la création.
-                                Conservez-la précieusement, elle ne pourra pas être récupérée ultérieurement.
+                            <DocExample title="Se connecter à l'API">
+                                <DocList
+                                    items={[
+                                        "Appelez POST /v1/auth/sign-in avec email et mot de passe",
+                                        "Récupérez le cookie Set-Cookie dans la réponse",
+                                        "Utilisez ce cookie pour les requêtes suivantes",
+                                    ]}
+                                />
+                            </DocExample>
+                            <DocTip variant="info">
+                                Toutes les bibliothèques HTTP (fetch, axios, curl) gèrent automatiquement les cookies.
                             </DocTip>
                         </>
                     }
                     cli={
                         <>
                             <DocParagraph>
-                                Le CLI s'authentifie exclusivement par clé API. Vous devez d'abord créer une clé depuis
-                                le dashboard, puis l'utiliser avec la commande <DocCode>arrhes login</DocCode>.
+                                Le CLI s'authentifie via un cookie de session. Connectez-vous avec vos identifiants
+                                pour commencer à utiliser le CLI.
                             </DocParagraph>
-                            <DocExample title="Créer une clé API">
-                                <DocList
-                                    items={[
-                                        "Ouvrez le dashboard de votre organisation.",
-                                        "Allez dans Organisation → API → Clés.",
-                                        "Cliquez sur « Nouvelle clé ».",
-                                        "Donnez un nom à la clé et copiez la valeur affichée.",
-                                    ]}
-                                />
-                            </DocExample>
                             <DocParagraph>Connectez le CLI :</DocParagraph>
-                            <DocCodeBlock>{"arrhes login --api-key <votre-clé> --org <idOrganisation>"}</DocCodeBlock>
+                            <DocCodeBlock>arrhes login</DocCodeBlock>
                             <DocParagraph>
                                 La configuration est enregistrée dans <DocCode>~/.arrhes/config.json</DocCode>. Vérifiez
                                 la connexion avec :

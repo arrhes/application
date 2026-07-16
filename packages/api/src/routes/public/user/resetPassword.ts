@@ -2,8 +2,6 @@ import { pbkdf2Sync, randomBytes } from "node:crypto"
 import { models, resetPasswordRouteDefinition } from "@arrhes/application-metadata"
 import { eq } from "drizzle-orm"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"
-import { sendEmail } from "../../../utilities/email/sendEmail.js"
-import { resetPasswordTemplate } from "../../../utilities/email/templates/resetPassword.js"
 import { registerRoute } from "../../../utilities/registerRoute.js"
 import { response } from "../../../utilities/response.js"
 import { selectOne } from "../../../utilities/sql/selectOne.js"
@@ -51,19 +49,12 @@ export const resetPasswordRoute = registerRoute(resetPasswordRouteDefinition, as
         where: (table) => eq(table.id, user.id),
     })
 
-    await sendEmail({
-        var: c.var,
-        to: user.email,
-        subject: "Réinitialisation de votre mot de passe",
-        html: resetPasswordTemplate({
-            newPassword: temporaryPassword,
-        }),
-    })
-
     return response({
         context: c,
         statusCode: 200,
         schema: resetPasswordRouteDefinition.schemas.return,
-        data: {},
+        data: {
+            password: temporaryPassword,
+        },
     })
 })

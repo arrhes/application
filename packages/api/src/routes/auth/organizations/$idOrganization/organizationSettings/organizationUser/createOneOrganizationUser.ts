@@ -60,22 +60,13 @@ export const createOneOrganizationUserRoute = apiFactory
                 idUser: toAddUser.id,
                 isOwner: false,
                 isAdmin: body.isAdmin,
-                status: "invited",
+                status: "active",
                 createdAt: new Date().toISOString(),
                 lastUpdatedAt: null,
                 createdBy: auth.user.id,
                 lastUpdatedBy: null,
             },
         })
-
-        //  await sendEmail({
-        //                 to: updateUser.email,
-        //                 subject: "Invitation à collaborer sur Coulba",
-        //                 html: invitationTemplate({
-        //                     urlInvitation: `${urlApp}/services/invitation?id=${updateUser.id}&token=${updateUser.invitationToken}`,
-        //                     urlWebsite: urlWebsite
-        //                 })
-        //             })
 
         return response({
             context: c,

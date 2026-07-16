@@ -110,7 +110,7 @@ export function ResetPasswordPage() {
                                 fontSize: "sm",
                             })}
                         >
-                            Saisissez votre email pour recevoir un nouveau mot de passe temporaire.
+                            Saisissez votre email pour générer un nouveau mot de passe temporaire.
                         </p>
                     </div>
 
@@ -140,11 +140,13 @@ export function ResetPasswordPage() {
                                 return false
                             }
 
-                            toast({
-                                title: "Un nouveau mot de passe vous a été envoyé par email",
-                                description: "Pensez à le modifier dès votre prochaine connexion.",
-                                variant: "success",
-                            })
+                            if (response.data?.password) {
+                                toast({
+                                    title: "Nouveau mot de passe généré",
+                                    description: `Mot de passe temporaire : ${response.data.password}`,
+                                    variant: "success",
+                                })
+                            }
                             return true
                         }}
                         onCancel={undefined}
