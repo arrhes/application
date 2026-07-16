@@ -1,6 +1,7 @@
 import { CircularLoader } from "@arrhes/ui"
 import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { rootLayoutRoute } from "../../rootLayoutRoute.js"
+import { DocsLayout } from "../../../features/docs/DocsLayout.js"
 
 export const docsLayoutRoute = createRoute({
     getParentRoute: () => rootLayoutRoute,
@@ -12,5 +13,5 @@ export const docsLayoutRoute = createRoute({
         description:
             "Documentation complète d'Arrhes : guide d'utilisation, cours de comptabilité, référence API et informations générales.",
     }),
-    component: lazyRouteComponent(() => import("../../../features/docs/DocsLayout.js"), "DocsLayout"),
+    component: () => <DocsLayout />,
 })
