@@ -11,7 +11,7 @@ export const applicationRouter = createRouter({
         description: undefined,
         robots: undefined,
         isAuthenticated: getIsAuthenticated(),
-        userSession: undefined,
+        userSession: Promise.resolve(undefined),
     },
 })
 

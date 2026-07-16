@@ -369,7 +369,7 @@ export function DashboardShell() {
                             >
                                 <ButtonGhostContent
                                     leftIcon={<IconSettings />}
-                                    text="Profil"
+                                    text="Paramètres"
                                     className={{
                                         width: "100%",
                                         justifyContent: "start",

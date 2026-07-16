@@ -112,6 +112,10 @@ export function SubPageContent(props: {
                         base: "1rem",
                         md: "2rem",
                     },
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "start",
+                    gap: "1rem",
                 })}
             >
                 {activeContent}
