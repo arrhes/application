@@ -89,18 +89,20 @@ export function ExportEntryLines(props: {
                         return false
                     }
 
-                    const accountsResponse = await getResponseBodyFromAPI({
-                        routeDefinition: readAllAccountsRouteDefinition,
-                        body: {
-                            idYear: props.idYear,
-                        },
-                    })
-                    const journalsResponse = await getResponseBodyFromAPI({
-                        routeDefinition: readAllJournalsRouteDefinition,
-                        body: {
-                            idYear: props.idYear,
-                        },
-                    })
+                    const [accountsResponse, journalsResponse] = await Promise.all([
+                        getResponseBodyFromAPI({
+                            routeDefinition: readAllAccountsRouteDefinition,
+                            body: {
+                                idYear: props.idYear,
+                            },
+                        }),
+                        getResponseBodyFromAPI({
+                            routeDefinition: readAllJournalsRouteDefinition,
+                            body: {
+                                idYear: props.idYear,
+                            },
+                        }),
+                    ])
 
                     if (!accountsResponse.ok || !journalsResponse.ok) {
                         toast({

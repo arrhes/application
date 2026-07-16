@@ -294,9 +294,9 @@ export function AmortizationTemplateForm(props: EntryTemplateFormProps) {
                                 debit?: string
                                 credit?: string
                             }>
-                        ).map((row, index) => (
+                        ).map((row) => (
                             <div
-                                key={`row_${index}`}
+                                key={`${row.label ?? ""}_${row.debit ?? ""}_${row.credit ?? ""}`}
                                 className={css({
                                     display: "flex",
                                     justifyContent: "space-between",
