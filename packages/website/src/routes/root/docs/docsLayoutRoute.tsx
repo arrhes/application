@@ -1,5 +1,5 @@
 import { CircularLoader } from "@arrhes/ui"
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
 import { rootLayoutRoute } from "../../rootLayoutRoute.js"
 import { DocsLayout } from "../../../features/docs/DocsLayout.js"
 

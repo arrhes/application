@@ -5,13 +5,13 @@
     "scripts": {
         "build:metadata": "pnpm --filter @arrhes/application-metadata build",
         "generate": "pnpm drizzle-kit generate --config=./src/drizzle.config.ts",
-        "push": "pnpm run build:metadata && tsx --env-file=.env ./src/push.ts",
+        "push": "pnpm run build:metadata && tsx ./src/push.ts",
         "pull": "pnpm drizzle-kit introspect --config=./src/drizzle.config.ts",
         "migrate": "pnpm drizzle-kit migrate --config=./src/drizzle.config.ts",
-        "seed": "pnpm run build:metadata && tsx --env-file=.env ./src/seed/seed.ts",
-        "migration": "pnpm run build:metadata && tsx --env-file=.env ./src/seed/migration.ts",
-        "clear": "pnpm run build:metadata && tsx --env-file=.env ./src/clearDB.ts",
-        "reset": "pnpm run build:metadata && tsx --env-file=.env ./src/clearDB.ts && pnpm run push && tsx --env-file=.env ./src/seed/seed.ts",
+        "seed": "pnpm run build:metadata && tsx ./src/seed/seed.ts",
+        "migration": "pnpm run build:metadata && tsx ./src/seed/migration.ts",
+        "clear": "pnpm run build:metadata && tsx ./src/clearDB.ts",
+        "reset": "pnpm run build:metadata && tsx ./src/clearDB.ts && pnpm run push && tsx ./src/seed/seed.ts",
         "drop": "pnpm drizzle-kit drop --config=./src/drizzle.config.ts"
     },
     "devDependencies": {
