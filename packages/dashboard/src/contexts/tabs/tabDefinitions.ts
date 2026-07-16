@@ -1,6 +1,5 @@
 import { createElement } from "react"
 import { OrganizationTabContent } from "../../features/dashboard/$idOrganization/OrganizationTabContent.js"
-import { OrganizationApiTabContent } from "../../features/dashboard/$idOrganization/organizationApi/OrganizationApiTabContent.js"
 import { OrganizationSettingsTabContent } from "../../features/dashboard/$idOrganization/organizationSettings/OrganizationSettingsTabContent.js"
 import { OrganizationUsersPage } from "../../features/dashboard/$idOrganization/organizationUsers/OrganizationUsersPage.js"
 import { YearsPage } from "../../features/dashboard/$idOrganization/years/YearsPage.js"
@@ -89,15 +88,6 @@ export const TAB_REGISTRY = {
         title: "Paramètres de l'organisation",
         description: "Configuration générale",
         component: createElement(OrganizationSettingsTabContent, {
-            idOrganization: props.idOrganization,
-        }),
-    }),
-
-    "organisation-api": (props: { idOrganization: string }): TabDefinition => ({
-        id: `organisation-api-${props.idOrganization}`,
-        title: "API",
-        description: "Accès API de l'organisation",
-        component: createElement(OrganizationApiTabContent, {
             idOrganization: props.idOrganization,
         }),
     }),

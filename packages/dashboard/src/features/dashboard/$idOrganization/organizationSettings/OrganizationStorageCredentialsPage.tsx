@@ -1,3 +1,4 @@
+import { useCallback } from "react"
 import {
     readOneOrganizationRouteDefinition,
     updateOrganizationStorageCredentialsRouteDefinition,
@@ -5,20 +6,13 @@ import {
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { Button, ButtonOutlineContent, formatFileSize, InputPassword, InputText, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconCloud, IconDeviceFloppy } from "@tabler/icons-react"
+import { IconDeviceFloppy } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
-import { Fragment } from "react/jsx-runtime"
+import { useState } from "react"
 import type * as v from "valibot"
-import { FormControl } from "../../../../components/forms/FormControl.tsx"
-import { FormError } from "../../../../components/forms/FormError.tsx"
-import { FormField } from "../../../../components/forms/FormField.tsx"
-import { FormItem } from "../../../../components/forms/FormItem.tsx"
-import { FormLabel } from "../../../../components/forms/FormLabel.tsx"
-import { FormRoot } from "../../../../components/forms/FormRoot.tsx"
 import { Block } from "../../../../components/layouts/block/block.tsx"
 import { DataWrapper } from "../../../../components/layouts/DataWrapper.tsx"
 import { Page } from "../../../../components/layouts/page/page.tsx"
-import { useTabs } from "../../../../contexts/tabs/useTabs.tsx"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
 
@@ -33,7 +27,6 @@ export function OrganizationStorageCredentialsPage({
         idOrganization?: string
     }
     const idOrganization = idOrganizationProp ?? params.idOrganization ?? ""
-    const { openPanelTab, closeTab } = useTabs()
 
     return (
         <Page.Root>
@@ -47,211 +40,138 @@ export function OrganizationStorageCredentialsPage({
                     {(organization) => {
                         const org = organization as v.InferOutput<typeof returnedSchemas.organization>
                         return (
-                            <Block.Root>
-                                <Block.Header title="Stockage" />
-                                <Block.Row
-                                    title="Espace utilisé"
-                                    description={`${formatFileSize(org.storageCurrentUsage)} / ${formatFileSize(org.storageLimit)}`}
+                            <>
+                                <Block.Root>
+                                    <Block.Header title="Stockage" />
+                                    <Block.Row
+                                        title="Espace utilisé"
+                                        description={formatFileSize(org.storageCurrentUsage)}
+                                    />
+                                </Block.Root>
+                                <StorageCredentialsBlock
+                                    idOrganization={idOrganization}
+                                    org={org}
                                 />
-                                <Block.Row
-                                    title="Identifiants de stockage"
-                                    description="Configurez les accès au stockage externe (S3 compatible)."
-                                >
-                                    <Button
-                                        className={{
-                                            padding: "0",
-                                            border: "none",
-                                            backgroundColor: "transparent",
-                                            width: "fit-content",
-                                            height: "fit-content",
-                                        }}
-                                        onClick={() => {
-                                            const r = {
-                                                current: "",
-                                            }
-                                            r.current = openPanelTab(
-                                                "Identifiants de stockage",
-                                                <div
-                                                    className={css({
-                                                        padding: "2rem",
-                                                        display: "flex",
-                                                        flexDirection: "column",
-                                                        gap: "1rem",
-                                                    })}
-                                                >
-                                                    <FormRoot
-                                                        schema={
-                                                            updateOrganizationStorageCredentialsRouteDefinition.schemas
-                                                                .body
-                                                        }
-                                                        defaultValues={{
-                                                            storageEndpoint: org.storageEndpoint,
-                                                            storageAccessKey: org.storageAccessKey,
-                                                            storageSecretKey: org.storageSecretKey,
-                                                            storageBucketName: org.storageBucketName,
-                                                            storageRegion: org.storageRegion,
-                                                        }}
-                                                        submitButtonProps={{
-                                                            leftIcon: <IconDeviceFloppy />,
-                                                            text: "Enregistrer",
-                                                        }}
-                                                        onSubmit={async (data) => {
-                                                            const response = await getResponseBodyFromAPI({
-                                                                routeDefinition:
-                                                                    updateOrganizationStorageCredentialsRouteDefinition,
-                                                                body: data,
-                                                            })
-                                                            if (response.ok === false) {
-                                                                toast({
-                                                                    title:
-                                                                        response.error?.cause ??
-                                                                        "Impossible de mettre à jour les identifiants de stockage",
-                                                                    variant: "error",
-                                                                })
-                                                                return false
-                                                            }
-                                                            toast({
-                                                                title: "Identifiants de stockage mis à jour avec succès",
-                                                                variant: "success",
-                                                            })
-                                                            return true
-                                                        }}
-                                                        onCancel={undefined}
-                                                        onSuccess={async () => {
-                                                            await invalidateData({
-                                                                routeDefinition: readOneOrganizationRouteDefinition,
-                                                                body: {
-                                                                    idOrganization,
-                                                                },
-                                                            })
-                                                            closeTab(r.current)
-                                                        }}
-                                                    >
-                                                        {(form) => (
-                                                            <Fragment>
-                                                                <FormField
-                                                                    control={form.control}
-                                                                    name="storageEndpoint"
-                                                                    render={({ field }) => (
-                                                                        <FormItem>
-                                                                            <FormLabel
-                                                                                label="Endpoint de stockage"
-                                                                                isRequired={false}
-                                                                                description={undefined}
-                                                                                tooltip={undefined}
-                                                                            />
-                                                                            <FormControl>
-                                                                                <InputText
-                                                                                    value={field.value ?? ""}
-                                                                                    onChange={field.onChange}
-                                                                                />
-                                                                            </FormControl>
-                                                                            <FormError />
-                                                                        </FormItem>
-                                                                    )}
-                                                                />
-                                                                <FormField
-                                                                    control={form.control}
-                                                                    name="storageAccessKey"
-                                                                    render={({ field }) => (
-                                                                        <FormItem>
-                                                                            <FormLabel
-                                                                                label="Clé d'accès"
-                                                                                isRequired={false}
-                                                                                description={undefined}
-                                                                                tooltip={undefined}
-                                                                            />
-                                                                            <FormControl>
-                                                                                <InputText
-                                                                                    value={field.value ?? ""}
-                                                                                    onChange={field.onChange}
-                                                                                />
-                                                                            </FormControl>
-                                                                            <FormError />
-                                                                        </FormItem>
-                                                                    )}
-                                                                />
-                                                                <FormField
-                                                                    control={form.control}
-                                                                    name="storageSecretKey"
-                                                                    render={({ field }) => (
-                                                                        <FormItem>
-                                                                            <FormLabel
-                                                                                label="Clé secrète"
-                                                                                isRequired={false}
-                                                                                description={undefined}
-                                                                                tooltip={undefined}
-                                                                            />
-                                                                            <FormControl>
-                                                                                <InputPassword
-                                                                                    value={field.value ?? ""}
-                                                                                    onChange={field.onChange}
-                                                                                />
-                                                                            </FormControl>
-                                                                            <FormError />
-                                                                        </FormItem>
-                                                                    )}
-                                                                />
-                                                                <FormField
-                                                                    control={form.control}
-                                                                    name="storageBucketName"
-                                                                    render={({ field }) => (
-                                                                        <FormItem>
-                                                                            <FormLabel
-                                                                                label="Nom du bucket"
-                                                                                isRequired={false}
-                                                                                description={undefined}
-                                                                                tooltip={undefined}
-                                                                            />
-                                                                            <FormControl>
-                                                                                <InputText
-                                                                                    value={field.value ?? ""}
-                                                                                    onChange={field.onChange}
-                                                                                />
-                                                                            </FormControl>
-                                                                            <FormError />
-                                                                        </FormItem>
-                                                                    )}
-                                                                />
-                                                                <FormField
-                                                                    control={form.control}
-                                                                    name="storageRegion"
-                                                                    render={({ field }) => (
-                                                                        <FormItem>
-                                                                            <FormLabel
-                                                                                label="Région"
-                                                                                isRequired={false}
-                                                                                description={undefined}
-                                                                                tooltip={undefined}
-                                                                            />
-                                                                            <FormControl>
-                                                                                <InputText
-                                                                                    value={field.value ?? ""}
-                                                                                    onChange={field.onChange}
-                                                                                />
-                                                                            </FormControl>
-                                                                            <FormError />
-                                                                        </FormItem>
-                                                                    )}
-                                                                />
-                                                            </Fragment>
-                                                        )}
-                                                    </FormRoot>
-                                                </div>,
-                                            )
-                                        }}
-                                    >
-                                        <ButtonOutlineContent
-                                            leftIcon={<IconCloud />}
-                                            text="Modifier"
-                                        />
-                                    </Button>
-                                </Block.Row>
-                            </Block.Root>
+                            </>
                         )
                     }}
                 </DataWrapper>
             </Page.Content>
         </Page.Root>
+    )
+}
+
+function StorageCredentialsBlock({
+    idOrganization,
+    org,
+}: {
+    idOrganization: string
+    org: Record<string, string | null | undefined>
+}) {
+    interface FieldDef {
+        key: string
+        label: string
+        isPassword?: boolean
+    }
+    const fields: FieldDef[] = [
+        { key: "storageEndpoint", label: "Endpoint" },
+        { key: "storageAccessKey", label: "Clé d'accès" },
+        { key: "storageSecretKey", label: "Clé secrète", isPassword: true },
+        { key: "storageBucketName", label: "Bucket" },
+        { key: "storageRegion", label: "Région" },
+    ]
+    const initialSnap = fields.map((f) => `${f.key}:${org[f.key] ?? ""}`).join("|")
+    const [values, setValues] = useState<Record<string, string>>(() => {
+        const init: Record<string, string> = {}
+        for (const f of fields) init[f.key] = org[f.key] ?? ""
+        return init
+    })
+    const [isSaving, setIsSaving] = useState(false)
+    const snap = fields.map((f) => `${f.key}:${values[f.key] ?? ""}`).join("|")
+    const hasChanges = snap !== initialSnap
+
+    const handleSave = useCallback(async () => {
+        setIsSaving(true)
+        const body: Record<string, string | null | undefined> = { ...values }
+        for (const f of fields) if (body[f.key] === "") body[f.key] = undefined
+        const response = await getResponseBodyFromAPI({
+            routeDefinition: updateOrganizationStorageCredentialsRouteDefinition,
+            body,
+        })
+        if (response.ok === false) {
+            toast({
+                title: response.error?.cause ?? "Impossible d'enregistrer",
+                variant: "error",
+            })
+        } else {
+            await invalidateData({
+                routeDefinition: readOneOrganizationRouteDefinition,
+                body: { idOrganization },
+            })
+            toast({
+                title: "Identifiants de stockage mis à jour",
+                variant: "success",
+            })
+        }
+        setIsSaving(false)
+    }, [values, idOrganization])
+
+    return (
+        <Block.Root>
+            <Block.Header title="Identifiants de stockage (S3)" />
+            <div
+                className={css({
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "1rem",
+                    padding: "1.5rem",
+                })}
+            >
+                {fields.map((f) => (
+                    <div
+                        key={f.key}
+                        className={css({
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "0.25rem",
+                        })}
+                    >
+                        <span
+                            className={css({ fontSize: "sm", fontWeight: "medium", color: "fg.muted" })}
+                        >
+                            {f.label}
+                        </span>
+                        {f.isPassword ? (
+                            <InputPassword
+                                value={values[f.key] ?? ""}
+                                onChange={(v) => setValues((p) => ({ ...p, [f.key]: v ?? "" }))}
+                            />
+                        ) : (
+                            <InputText
+                                value={values[f.key] ?? ""}
+                                onChange={(v) => setValues((p) => ({ ...p, [f.key]: v ?? "" }))}
+                            />
+                        )}
+                    </div>
+                ))}
+                <div
+                    className={css({
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        paddingTop: "0.5rem",
+                    })}
+                >
+                    <Button
+                        onClick={handleSave}
+                        isDisabled={!hasChanges || isSaving}
+                    >
+                        <ButtonOutlineContent
+                            leftIcon={isSaving ? undefined : <IconDeviceFloppy />}
+                            text={isSaving ? "Enregistrement..." : "Enregistrer"}
+                        />
+                    </Button>
+                </div>
+            </div>
+        </Block.Root>
     )
 }
