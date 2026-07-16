@@ -17,8 +17,8 @@ export const userSearchRoutes: SearchRoute[] = [
         tabProps: {},
     },
     {
-        label: "Profil",
-        description: "Votre profil utilisateur",
+        label: "Paramètres",
+        description: "Vos paramètres utilisateur",
         tabComponent: "profil",
         tabProps: {},
     },

@@ -7,7 +7,6 @@ export function PageContent(props: { className?: ComponentProps<"div">["classNam
             className={cn(
                 css({
                     width: "100%",
-                    maxWidth: "xl",
                     height: "fit",
                     display: "flex",
                     flexDirection: "column",

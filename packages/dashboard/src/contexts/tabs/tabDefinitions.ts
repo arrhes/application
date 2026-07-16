@@ -34,8 +34,8 @@ export const TAB_REGISTRY = {
 
     profil: (props: { subTab?: string }): TabDefinition => ({
         id: "profil",
-        title: "Profil",
-        description: "Votre profil utilisateur",
+        title: "Paramètres",
+        description: "Vos paramètres utilisateur",
         component: createElement(UserProfilePage, props as any),
     }),
 

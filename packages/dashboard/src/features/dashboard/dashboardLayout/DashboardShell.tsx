@@ -1,5 +1,5 @@
 import { signOutRouteDefinition } from "@arrhes/application-metadata/routes"
-import { Button, ButtonGhostContent, ButtonOutlineContent, Separator, toast } from "@arrhes/ui"
+import { Button, ButtonGhostContent, ButtonOutlineContent, Logo, Separator, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import {
     IconBook2,
@@ -243,8 +243,8 @@ export function DashboardShell() {
                     })}
                 >
                     <ButtonGhostContent
-                        // leftIcon={<Logo />}
-                        text="Arrhes"
+                        leftIcon={<Logo />}
+                        // text="Arrhes"
                         className={{
                             _hover: {
                                 backgroundColor: "transparent",

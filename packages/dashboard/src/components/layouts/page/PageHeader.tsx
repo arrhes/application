@@ -7,7 +7,6 @@ export function PageHeader(props: { children?: ReactNode; className?: ComponentP
             className={cn(
                 css({
                     width: "100%",
-                    maxWidth: "xl",
                     height: "fit",
                     display: "flex",
                     flexDirection: "column",
