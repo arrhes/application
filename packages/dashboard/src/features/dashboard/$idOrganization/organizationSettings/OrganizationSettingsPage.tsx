@@ -4,7 +4,6 @@ import { IconPencil } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { Block } from "../../../../components/layouts/block/block.tsx"
 import { DataWrapper } from "../../../../components/layouts/DataWrapper.tsx"
-import { Page } from "../../../../components/layouts/page/page.tsx"
 import { UpdateOneOrganization } from "./UpdateOneOrganization.tsx"
 
 export function OrganizationSettingsPage({ idOrganization: idOrganizationProp }: { idOrganization?: string } = {}) {
@@ -16,34 +15,30 @@ export function OrganizationSettingsPage({ idOrganization: idOrganizationProp }:
     const idOrganization = idOrganizationProp ?? params.idOrganization ?? ""
 
     return (
-        <Page.Root>
-            <Page.Content>
-                <DataWrapper
-                    routeDefinition={readOneOrganizationRouteDefinition}
-                    body={{
-                        idOrganization,
-                    }}
-                >
-                    {(organization) => {
-                        return (
-                            <Block.Root>
-                                <Block.Header title="Informations générales" />
-                                <Block.Row
-                                    title="Modifier les informations de l'organisation"
-                                    description="Changez le nom, l'email ou encore le numéro de SIREN."
-                                >
-                                    <UpdateOneOrganization organization={organization}>
-                                        <ButtonOutlineContent
-                                            leftIcon={<IconPencil />}
-                                            text="Modifier"
-                                        />
-                                    </UpdateOneOrganization>
-                                </Block.Row>
-                            </Block.Root>
-                        )
-                    }}
-                </DataWrapper>
-            </Page.Content>
-        </Page.Root>
+        <DataWrapper
+            routeDefinition={readOneOrganizationRouteDefinition}
+            body={{
+                idOrganization,
+            }}
+        >
+            {(organization) => {
+                return (
+                    <Block.Root>
+                        <Block.Header title="Informations générales" />
+                        <Block.Row
+                            title="Modifier les informations de l'organisation"
+                            description="Changez le nom, l'email ou encore le numéro de SIREN."
+                        >
+                            <UpdateOneOrganization organization={organization}>
+                                <ButtonOutlineContent
+                                    leftIcon={<IconPencil />}
+                                    text="Modifier"
+                                />
+                            </UpdateOneOrganization>
+                        </Block.Row>
+                    </Block.Root>
+                )
+            }}
+        </DataWrapper>
     )
 }
