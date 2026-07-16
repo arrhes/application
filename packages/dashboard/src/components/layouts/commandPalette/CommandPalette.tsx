@@ -235,15 +235,10 @@ export function CommandPalette(props: { selectedOrgId: string | null; selectedYe
         }
     }
 
-    // Keep selected index in bounds when filtered list changes
-    // biome-ignore lint/correctness/useExhaustiveDependencies: intentional trigger deps — reset selected when filters change
+    // Reset selected index when filtered list changes
     useEffect(() => {
         setSelected(0)
-    }, [
-        query,
-        selectedOrgId,
-        selectedYearId,
-    ])
+    }, [query, selectedOrgId, selectedYearId])
 
     if (!open) return null
 
