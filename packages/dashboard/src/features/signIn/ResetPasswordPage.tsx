@@ -2,7 +2,7 @@ import { useState } from "react"
 import { resetPasswordRouteDefinition } from "@arrhes/application-metadata/routes"
 import { ButtonGhostContent, InputText, Logo, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconArrowLeft, IconBook2, IconMail } from "@tabler/icons-react"
+import { IconArrowLeft, IconBook2, IconKey } from "@tabler/icons-react"
 import { FormControl } from "../../components/forms/FormControl.js"
 import { FormError } from "../../components/forms/FormError.js"
 import { FormField } from "../../components/forms/FormField.js"
@@ -122,8 +122,8 @@ export function ResetPasswordPage() {
                             schema={resetPasswordRouteDefinition.schemas.body}
                             defaultValues={{}}
                             submitButtonProps={{
-                                leftIcon: <IconMail />,
-                                text: "Recevoir un nouveau mot de passe",
+                                leftIcon: <IconKey />,
+                                text: "Générer un nouveau mot de passe",
                                 className: {
                                     width: "100%",
                                     justifyContent: "center",
