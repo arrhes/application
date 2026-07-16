@@ -12,7 +12,7 @@ export function PageContent(props: { className?: ComponentProps<"div">["classNam
                     flexDirection: "column",
                     justifyContent: "flex-start",
                     alignItems: "flex-start",
-                    gap: "2rem",
+                    gap: "1rem",
                 }),
                 props.className,
             )}

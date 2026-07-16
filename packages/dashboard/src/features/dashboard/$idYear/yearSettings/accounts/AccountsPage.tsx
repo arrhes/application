@@ -4,7 +4,6 @@ import { IconPlus } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { useCallback, useState, useTransition } from "react"
 import { Box } from "../../../../../components/layouts/Box.tsx"
-import { Page } from "../../../../../components/layouts/page/page.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
 import { AccountsTable } from "./AccountsTable.tsx"
 import { CreateOneAccount } from "./CreateOneAccount.tsx"
@@ -35,8 +34,6 @@ export function AccountsPage({
     }, [])
 
     return (
-        <Page.Root>
-            <Page.Content>
                 <Section.Root>
                     <Section.Item>
                         <div
@@ -82,7 +79,5 @@ export function AccountsPage({
                         </Box>
                     </Section.Item>
                 </Section.Root>
-            </Page.Content>
-        </Page.Root>
     )
 }

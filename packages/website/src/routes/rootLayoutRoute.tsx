@@ -84,6 +84,12 @@ export const rootLayoutRoute = createRootRouteWithContext<{
     isAuthenticated: boolean | undefined
     userSession: Promise<v.InferOutput<typeof readUserSessionRouteDefinition.schemas.return> | undefined> | undefined
 }>()({
+    errorComponent: ({ error }) => (
+        <div style={{ padding: "2rem", fontFamily: "monospace" }}>
+            <h2>Erreur</h2>
+            <pre>{error?.message ?? String(error)}</pre>
+        </div>
+    ),
     pendingComponent: () => <CircularLoader text="Chargement de l'application..." />,
     beforeLoad: (_ctx) => {},
     component: function RootLayoutRouteComponent() {

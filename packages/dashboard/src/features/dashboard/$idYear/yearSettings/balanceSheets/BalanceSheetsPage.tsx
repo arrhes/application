@@ -4,7 +4,6 @@ import { IconPlus, IconScale } from "@tabler/icons-react"
 import { useParams, useRouterState } from "@tanstack/react-router"
 import { useCallback, useState, useTransition } from "react"
 import { Box } from "../../../../../components/layouts/Box.tsx"
-import { Page } from "../../../../../components/layouts/page/page.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
 import { Tab } from "../../../../../components/layouts/tab/tab.tsx"
 import { BalanceSheetTable } from "./BalanceSheetTable.tsx"
@@ -39,8 +38,6 @@ export function BalanceSheetsPage({
     }, [])
 
     return (
-        <Page.Root>
-            <Page.Content>
                 <Section.Root>
                     <Section.Item>
                         <Tab.Root
@@ -115,7 +112,5 @@ export function BalanceSheetsPage({
                         </Box>
                     </Section.Item>
                 </Section.Root>
-            </Page.Content>
-        </Page.Root>
     )
 }

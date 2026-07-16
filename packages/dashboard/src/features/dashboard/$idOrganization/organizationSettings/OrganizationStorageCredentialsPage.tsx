@@ -12,7 +12,6 @@ import { useState } from "react"
 import type * as v from "valibot"
 import { Block } from "../../../../components/layouts/block/block.tsx"
 import { DataWrapper } from "../../../../components/layouts/DataWrapper.tsx"
-import { Page } from "../../../../components/layouts/page/page.tsx"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
 
@@ -29,35 +28,31 @@ export function OrganizationStorageCredentialsPage({
     const idOrganization = idOrganizationProp ?? params.idOrganization ?? ""
 
     return (
-        <Page.Root>
-            <Page.Content>
-                <DataWrapper
-                    routeDefinition={readOneOrganizationRouteDefinition}
-                    body={{
-                        idOrganization,
-                    }}
-                >
-                    {(organization) => {
-                        const org = organization as v.InferOutput<typeof returnedSchemas.organization>
-                        return (
-                            <>
-                                <Block.Root>
-                                    <Block.Header title="Stockage" />
-                                    <Block.Row
-                                        title="Espace utilisé"
-                                        description={formatFileSize(org.storageCurrentUsage)}
-                                    />
-                                </Block.Root>
-                                <StorageCredentialsBlock
-                                    idOrganization={idOrganization}
-                                    org={org}
-                                />
-                            </>
-                        )
-                    }}
-                </DataWrapper>
-            </Page.Content>
-        </Page.Root>
+        <DataWrapper
+            routeDefinition={readOneOrganizationRouteDefinition}
+            body={{
+                idOrganization,
+            }}
+        >
+            {(organization) => {
+                const org = organization as v.InferOutput<typeof returnedSchemas.organization>
+                return (
+                    <>
+                        <Block.Root>
+                            <Block.Header title="Stockage" />
+                            <Block.Row
+                                title="Espace utilisé"
+                                description={formatFileSize(org.storageCurrentUsage)}
+                            />
+                        </Block.Root>
+                        <StorageCredentialsBlock
+                            idOrganization={idOrganization}
+                            org={org}
+                        />
+                    </>
+                )
+            }}
+        </DataWrapper>
     )
 }
 

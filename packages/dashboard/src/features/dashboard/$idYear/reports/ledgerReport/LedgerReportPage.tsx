@@ -2,7 +2,6 @@ import { css } from "@arrhes/ui/utilities/cn.js"
 import { useParams } from "@tanstack/react-router"
 import { useState } from "react"
 import { Box } from "../../../../../components/layouts/Box.tsx"
-import { Page } from "../../../../../components/layouts/page/page.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
 import type { YearDataKey } from "../../YearDataWrapper.tsx"
 import { YearDataWrapper } from "../../YearDataWrapper.tsx"
@@ -68,8 +67,6 @@ export function LedgerReportPage({ idYear: idYearProp }: { idYear?: string } = {
                 }
 
                 return (
-                    <Page.Root>
-                        <Page.Content>
                             <Section.Root>
                                 <Section.Item>
                                     <div
@@ -98,8 +95,6 @@ export function LedgerReportPage({ idYear: idYearProp }: { idYear?: string } = {
                                     </Box>
                                 </Section.Item>
                             </Section.Root>
-                        </Page.Content>
-                    </Page.Root>
                 )
             }}
         </YearDataWrapper>

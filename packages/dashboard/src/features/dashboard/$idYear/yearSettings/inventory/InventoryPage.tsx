@@ -2,7 +2,6 @@ import { ButtonPlainContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconPackage } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
-import { Page } from "../../../../../components/layouts/page/page.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
 import { CreateOneInventoryItem } from "./CreateOneInventoryItem.tsx"
 import { InventoryItemsListTable } from "./InventoryItemsListTable.tsx"
@@ -24,8 +23,6 @@ export function InventoryPage({
     const idYear = idYearProp ?? params.idYear ?? ""
 
     return (
-        <Page.Root>
-            <Page.Content>
                 <Section.Root>
                     <Section.Item>
                         <div
@@ -65,7 +62,5 @@ export function InventoryPage({
                         />
                     </Section.Item>
                 </Section.Root>
-            </Page.Content>
-        </Page.Root>
     )
 }

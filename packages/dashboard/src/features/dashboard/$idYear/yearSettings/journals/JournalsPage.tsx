@@ -2,7 +2,6 @@ import { ButtonPlainContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconPlus } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
-import { Page } from "../../../../../components/layouts/page/page.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
 import { CreateOneJournal } from "./CreateOneJournal.tsx"
 import { JournalsListTable } from "./JournalsListTable.tsx"
@@ -24,8 +23,6 @@ export function JournalsPage({
     const idYear = idYearProp ?? params.idYear ?? ""
 
     return (
-        <Page.Root>
-            <Page.Content>
                 <Section.Root>
                     <Section.Item>
                         <div
@@ -53,7 +50,5 @@ export function JournalsPage({
                         />
                     </Section.Item>
                 </Section.Root>
-            </Page.Content>
-        </Page.Root>
     )
 }

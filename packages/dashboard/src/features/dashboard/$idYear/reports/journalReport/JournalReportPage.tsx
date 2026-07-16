@@ -4,7 +4,6 @@ import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { useState } from "react"
 import { Box } from "../../../../../components/layouts/Box.tsx"
-import { Page } from "../../../../../components/layouts/page/page.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
 import type { YearDataKey } from "../../YearDataWrapper.tsx"
 import { YearDataWrapper } from "../../YearDataWrapper.tsx"
@@ -97,8 +96,6 @@ export function JournalReportPage({ idYear: idYearProp }: { idYear?: string } = 
                 const canNextPage = clampedPageIndex < pageCount - 1
 
                 return (
-                    <Page.Root>
-                        <Page.Content>
                             <Section.Root>
                                 <Section.Item>
                                     <div
@@ -193,8 +190,6 @@ export function JournalReportPage({ idYear: idYearProp }: { idYear?: string } = 
                                     ) : null}
                                 </Section.Item>
                             </Section.Root>
-                        </Page.Content>
-                    </Page.Root>
                 )
             }}
         </YearDataWrapper>
