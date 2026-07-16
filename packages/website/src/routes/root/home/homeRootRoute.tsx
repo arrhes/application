@@ -1,9 +1,9 @@
 import { createRoute } from "@tanstack/react-router"
 import { HomePage } from "../../../features/home/HomePage.tsx"
-import { homeLayoutRoute } from "./homeLayoutRoute.tsx"
+import { rootLayoutRoute } from "../../rootLayoutRoute.tsx"
 
 export const homeRootRoute = createRoute({
-    getParentRoute: () => homeLayoutRoute,
+    getParentRoute: () => rootLayoutRoute,
     path: "/",
     beforeLoad: () => ({
         title: "Arrhes",
