@@ -11,8 +11,6 @@ export const resetPasswordRouteDefinition = routeDefinition({
         body: v.object({
             email: v.nonNullable(userSchema.entries.email),
         }),
-        return: v.object({
-            password: v.string(),
-        }),
+        return: v.object({}),
     },
 })

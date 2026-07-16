@@ -49,12 +49,12 @@ export const resetPasswordRoute = registerRoute(resetPasswordRouteDefinition, as
         where: (table) => eq(table.id, user.id),
     })
 
+    console.info(`[Password Reset] New temporary password for ${user.email}: ${temporaryPassword}`)
+
     return response({
         context: c,
         statusCode: 200,
         schema: resetPasswordRouteDefinition.schemas.return,
-        data: {
-            password: temporaryPassword,
-        },
+        data: {},
     })
 })

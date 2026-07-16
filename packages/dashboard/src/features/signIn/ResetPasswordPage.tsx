@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { resetPasswordRouteDefinition } from "@arrhes/application-metadata/routes"
-import { ButtonGhostContent, InputText, Logo, toast } from "@arrhes/ui"
+import { ButtonGhostContent, InputText, Logo } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconArrowLeft, IconBook2, IconKey } from "@tabler/icons-react"
+import { IconArrowLeft, IconBook2 } from "@tabler/icons-react"
 import { FormControl } from "../../components/forms/FormControl.js"
 import { FormError } from "../../components/forms/FormError.js"
 import { FormField } from "../../components/forms/FormField.js"
@@ -13,7 +13,7 @@ import { LinkButton } from "../../components/LinkButton.js"
 import { getResponseBodyFromAPI } from "../../utilities/getResponseBodyFromAPI.js"
 
 export function ResetPasswordPage() {
-    const [temporaryPassword, setTemporaryPassword] = useState<string | null>(null)
+    const [sent, setSent] = useState(false)
 
     return (
         <div
@@ -117,13 +117,22 @@ export function ResetPasswordPage() {
                         </p>
                     </div>
 
-                    {temporaryPassword === null ? (
+                    {sent ? (
+                        <p
+                            className={css({
+                                color: "success",
+                                fontSize: "sm",
+                                textAlign: "center",
+                            })}
+                        >
+                            Un nouveau mot de passe a été généré. Consultez les logs du serveur pour le récupérer.
+                        </p>
+                    ) : (
                         <FormRoot
                             schema={resetPasswordRouteDefinition.schemas.body}
                             defaultValues={{}}
                             submitButtonProps={{
-                                leftIcon: <IconKey />,
-                                text: "Générer un nouveau mot de passe",
+                                text: "Réinitialiser le mot de passe",
                                 className: {
                                     width: "100%",
                                     justifyContent: "center",
@@ -137,16 +146,10 @@ export function ResetPasswordPage() {
                                 })
 
                                 if (response.ok === false) {
-                                    toast({
-                                        title: response.error?.cause ?? "Réinitialisation impossible",
-                                        variant: "error",
-                                    })
                                     return false
                                 }
 
-                                if (response.data?.password) {
-                                    setTemporaryPassword(response.data.password)
-                                }
+                                setSent(true)
                                 return true
                             }}
                             onCancel={undefined}
@@ -177,63 +180,6 @@ export function ResetPasswordPage() {
                                 />
                             )}
                         </FormRoot>
-                    ) : (
-                        <div
-                            className={css({
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: "1rem",
-                            })}
-                        >
-                            <div
-                                className={css({
-                                    padding: "1rem",
-                                    borderRadius: "lg",
-                                    backgroundColor: "success/10",
-                                    border: "1px solid",
-                                    borderColor: "success",
-                                })}
-                            >
-                                <p
-                                    className={css({
-                                        fontSize: "sm",
-                                        fontWeight: "bold",
-                                        color: "success",
-                                        marginBottom: "0.5rem",
-                                    })}
-                                >
-                                    Nouveau mot de passe généré
-                                </p>
-                                <p
-                                    className={css({
-                                        fontSize: "lg",
-                                        fontWeight: "bold",
-                                        fontFamily: "mono",
-                                        color: "neutral",
-                                        textAlign: "center",
-                                        padding: "0.75rem",
-                                        backgroundColor: "white",
-                                        borderRadius: "md",
-                                    })}
-                                >
-                                    {temporaryPassword}
-                                </p>
-                            </div>
-                            <LinkButton
-                                to="/connexion"
-                                className={{
-                                    width: "100%",
-                                }}
-                            >
-                                <ButtonGhostContent
-                                    text="Se connecter avec ce mot de passe"
-                                    className={{
-                                        width: "100%",
-                                        justifyContent: "center",
-                                    }}
-                                />
-                            </LinkButton>
-                        </div>
                     )}
                 </div>
             </section>
