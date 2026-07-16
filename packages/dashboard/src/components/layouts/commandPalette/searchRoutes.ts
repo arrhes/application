@@ -22,12 +22,6 @@ export const userSearchRoutes: SearchRoute[] = [
         tabComponent: "profil",
         tabProps: {},
     },
-    {
-        label: "Paramètres",
-        description: "Paramètres de l'application",
-        tabComponent: "paramètres",
-        tabProps: {},
-    },
 ]
 
 // ─── Organisation-level routes (require idOrganization) ──────────────────────

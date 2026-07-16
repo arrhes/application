@@ -2,7 +2,6 @@ import * as v from "valibot"
 import { routePath } from "../../../../../../../components/index.js"
 import { organizationUserSchema, organizationUserSchemaReturn } from "../../../../../../../schemas/organizationUser.js"
 import { userSchema } from "../../../../../../../schemas/user.js"
-import { stringSchema } from "../../../../../../../components/schemas/stringSchema.js"
 import { routeDefinition } from "../../../../../../../utilities/routeDefinition.js"
 
 export const createOneOrganizationUserRouteDefinition = routeDefinition({
@@ -16,11 +15,9 @@ export const createOneOrganizationUserRouteDefinition = routeDefinition({
                 email: userSchema.entries.email,
             }),
         }),
-        return: v.merge([
-            organizationUserSchemaReturn,
-            v.object({
-                temporaryPassword: v.nullable(v.nonNullable(stringSchema, "")),
-            }),
-        ]),
+        return: v.object({
+            ...organizationUserSchemaReturn.entries,
+            temporaryPassword: v.nullable(v.string()),
+        }),
     },
 })

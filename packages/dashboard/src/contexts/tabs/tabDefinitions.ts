@@ -11,8 +11,7 @@ import { ReportsTabContent } from "../../features/dashboard/$idYear/reports/Repo
 import { YearSettingsTabContent } from "../../features/dashboard/$idYear/yearSettings/YearSettingsTabContent.js"
 import { OrganizationsPage } from "../../features/dashboard/organizations/OrganizationsPage.js"
 import { SettingsPage } from "../../features/dashboard/settings/SettingsPage.js"
-import { UserSettingsTabContent } from "../../features/dashboard/userSettings/UserSettingsTabContent.js"
-
+import { UserProfilePage } from "../../features/dashboard/profile/UserProfilePage.js"
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 export type TabDefinition = {
@@ -37,7 +36,7 @@ export const TAB_REGISTRY = {
         id: "profil",
         title: "Profil",
         description: "Votre profil utilisateur",
-        component: createElement(UserSettingsTabContent, props as any),
+        component: createElement(UserProfilePage, props as any),
     }),
 
     paramètres: (_props: Record<never, never>): TabDefinition => ({
