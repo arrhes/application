@@ -27,8 +27,6 @@ export function YearSettingsPage({
     void idOrganization
 
     return (
-        <PageRoot>
-            <Page.Content>
                 <DataWrapper
                     routeDefinition={readOneYearRouteDefinition}
                     body={{
@@ -75,7 +73,5 @@ export function YearSettingsPage({
                         )
                     }}
                 </DataWrapper>
-            </Page.Content>
-        </PageRoot>
     )
 }
