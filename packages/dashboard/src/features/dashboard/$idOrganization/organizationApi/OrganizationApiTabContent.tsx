@@ -1,4 +1,3 @@
-import { IconHome, IconKey } from "@tabler/icons-react"
 import { lazy, Suspense } from "react"
 import { SubPageContent } from "../../../../components/layouts/SubPageContent.tsx"
 
@@ -7,13 +6,8 @@ const OrganizationApiGeneralPage = lazy(() =>
         default: m.OrganizationApiGeneralPage,
     })),
 )
-const OrganizationApiKeysPage = lazy(() =>
-    import("./keys/OrganizationApiKeysPage.js").then((m) => ({
-        default: m.OrganizationApiKeysPage,
-    })),
-)
 
-export function OrganizationApiTabContent(props: { idOrganization: string }) {
+export function OrganizationApiTabContent(_props: { idOrganization: string }) {
     return (
         <SubPageContent
             defaultKey="général"
@@ -23,20 +17,10 @@ export function OrganizationApiTabContent(props: { idOrganization: string }) {
                         {
                             key: "général",
                             label: "Général",
-                            icon: <IconHome />,
+                            icon: undefined,
                             content: (
                                 <Suspense fallback={null}>
                                     <OrganizationApiGeneralPage />
-                                </Suspense>
-                            ),
-                        },
-                        {
-                            key: "clés",
-                            label: "Clés",
-                            icon: <IconKey />,
-                            content: (
-                                <Suspense fallback={null}>
-                                    <OrganizationApiKeysPage idOrganization={props.idOrganization} />
                                 </Suspense>
                             ),
                         },
