@@ -4,6 +4,7 @@ import { introductionAccountingTree } from "./accounting/introduction/introducti
 import { reportsAccountingTree } from "./accounting/reports/reportsAccountingTree.js"
 import { resourcesAccountingTree } from "./accounting/resources/resourcesAccountingTree.js"
 import { rootAccountingDocRoute } from "./accounting/rootAccountingDocRoute.js"
+import { docMdRoute } from "./docMdRoute.js"
 import { docsLayoutRoute } from "./docsLayoutRoute.js"
 import { agentSkillsDocRoute } from "./guide/agentSkillsDocRoute.js"
 import { agentToolsDocRoute } from "./guide/agentToolsDocRoute.js"
@@ -37,16 +38,6 @@ import { updatesGeneralDocRoute } from "./root/updatesGeneralDocRoute.js"
 import { whitepaperGeneralDocRoute } from "./root/whitepaperGeneralDocRoute.js"
 
 export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
-    // General section (root)
-    updatesGeneralDocRoute,
-    featuresGeneralDocRoute,
-    architectureGeneralDocRoute,
-    whitepaperGeneralDocRoute,
-    supportGeneralDocRoute,
-    legalGeneralDocRoute,
-    privacyGeneralDocRoute,
-    rootGeneralDocRoute,
-
     // Guide section (feature-first documentation)
     guideDocLayoutRoute.addChildren([
         demarrerGuideDocRoute,
@@ -80,6 +71,15 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
         rootAccountingDocRoute,
     ]),
 
-    // Raw Markdown fallback route for any doc path ending in .md — disabled temporarily for debugging
-    // docMdRoute,
+    // General section (root) — LAST so path: "/" doesn't block siblings
+    updatesGeneralDocRoute,
+    featuresGeneralDocRoute,
+    architectureGeneralDocRoute,
+    whitepaperGeneralDocRoute,
+    supportGeneralDocRoute,
+    legalGeneralDocRoute,
+    privacyGeneralDocRoute,
+    rootGeneralDocRoute,
+
+    docMdRoute,
 ])
