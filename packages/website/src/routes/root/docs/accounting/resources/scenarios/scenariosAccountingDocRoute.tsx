@@ -3,13 +3,6 @@ import { DocRoot } from "../../../../../../components/document/DocRoot"
 import { scenariosAccountingDocLayoutRoute } from "./scenariosAccountingDocLayoutRoute.js"
 import { ScenariosResourcesAccountingDocPage } from "../../../../../../features/docs/accounting/resources/scenarios/ScenariosResourcesAccountingDocPage.js"
 
-=>
-        import(
-            "../../../../../../features/docs/accounting/resources/scenarios/ScenariosResourcesAccountingDocPage.tsx"
-        ),
-    "ScenariosResourcesAccountingDocPage",
-)
-
 export const scenariosAccountingDocIndexRoute = createRoute({
     getParentRoute: () => scenariosAccountingDocLayoutRoute,
     path: "/",
