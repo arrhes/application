@@ -1,6 +1,6 @@
 import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { DocRoot } from "../../../../components/document/DocRoot"
-import { docsLayoutRoute } from "./docsLayoutRoute.tsx"
+import { docsLayoutRoute } from "../docsLayoutRoute.js"
 
 const LazyLegalGeneralDocPage = lazyRouteComponent(
     () => import("../../../../features/docs/general/LegalGeneralDocPage.tsx"),
