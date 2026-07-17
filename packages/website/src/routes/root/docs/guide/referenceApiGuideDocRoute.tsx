@@ -1,10 +1,8 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
 import { DocRoot } from "../../../../components/document/DocRoot"
 import { guideDocLayoutRoute } from "./guideDocLayoutRoute.js"
+import { ReferenceApiGuideDocPage } from "../../../../features/docs/guide/ReferenceApiGuideDocPage.js"
 
-const LazyReferenceApiGuideDocPage = lazyRouteComponent(
-    () => import("../../../../features/docs/guide/ReferenceApiGuideDocPage.tsx"),
-)
 
 export const referenceApiGuideDocRoute = createRoute({
     getParentRoute: () => guideDocLayoutRoute,
@@ -15,7 +13,7 @@ export const referenceApiGuideDocRoute = createRoute({
     }),
     component: () => (
         <DocRoot>
-            <LazyReferenceApiGuideDocPage />
+            <ReferenceApiGuideDocPage />
         </DocRoot>
     ),
 })

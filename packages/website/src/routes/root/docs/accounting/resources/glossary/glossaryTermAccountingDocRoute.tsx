@@ -1,10 +1,10 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
 import { DocRoot } from "../../../../../../components/document/DocRoot"
 import { getGlossaryTermBySlug } from "../../../../../../features/docs/accounting/resources/glossary/glossaryData.js"
 import { glossaryAccountingDocLayoutRoute } from "./glossaryAccountingDocLayoutRoute.js"
+import { GlossaryTermResourcesAccountingDocPage } from "../../../../../../features/docs/accounting/resources/glossary/GlossaryTermResourcesAccountingDocPage.js"
 
-const LazyGlossaryTermResourcesAccountingDocPage = lazyRouteComponent(
-    () =>
+=>
         import(
             "../../../../../../features/docs/accounting/resources/glossary/GlossaryTermResourcesAccountingDocPage.tsx"
         ),
@@ -24,7 +24,7 @@ export const glossaryTermAccountingDocRoute = createRoute({
     },
     component: () => (
         <DocRoot>
-            <LazyGlossaryTermResourcesAccountingDocPage />
+            <GlossaryTermResourcesAccountingDocPage />
         </DocRoot>
     ),
 })

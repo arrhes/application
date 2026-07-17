@@ -1,5 +1,6 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
 import { guideDocLayoutRoute } from "./guideDocLayoutRoute.js"
+import { EcrituresGuideDocPage } from "../../../../features/docs/guide/EcrituresGuideDocPage.js"
 
 export const ecrituresGuideDocRoute = createRoute({
     getParentRoute: () => guideDocLayoutRoute,
@@ -8,5 +9,5 @@ export const ecrituresGuideDocRoute = createRoute({
         title: "Saisie des écritures",
         description: "Enregistrer vos opérations comptables dans Arrhes.",
     }),
-    component: lazyRouteComponent(() => import("../../../../features/docs/guide/EcrituresGuideDocPage.js")),
+    component: () => <EcrituresGuideDocPage />,
 })

@@ -1,10 +1,8 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
 import { DocRoot } from "../../../../components/document/DocRoot"
 import { docsLayoutRoute } from "../docsLayoutRoute.js"
+import { FeaturesGeneralDocPage } from "../../../../features/docs/general/features/FeaturesGeneralDocPage.js"
 
-const LazyFeaturesGeneralDocPage = lazyRouteComponent(
-    () => import("../../../../features/docs/general/features/FeaturesGeneralDocPage.tsx"),
-)
 
 export const featuresGeneralDocRoute = createRoute({
     getParentRoute: () => docsLayoutRoute,
@@ -16,7 +14,7 @@ export const featuresGeneralDocRoute = createRoute({
     }),
     component: () => (
         <DocRoot>
-            <LazyFeaturesGeneralDocPage />
+            <FeaturesGeneralDocPage />
         </DocRoot>
     ),
 })

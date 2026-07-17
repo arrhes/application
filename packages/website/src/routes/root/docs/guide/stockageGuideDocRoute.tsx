@@ -1,5 +1,6 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
 import { guideDocLayoutRoute } from "./guideDocLayoutRoute.js"
+import { StockageGuideDocPage } from "../../../../features/docs/guide/StockageGuideDocPage.js"
 
 export const stockageGuideDocRoute = createRoute({
     getParentRoute: () => guideDocLayoutRoute,
@@ -8,5 +9,5 @@ export const stockageGuideDocRoute = createRoute({
         title: "Stockage & Fichiers",
         description: "Gérer vos pièces justificatives et documents numériques dans Arrhes.",
     }),
-    component: lazyRouteComponent(() => import("../../../../features/docs/guide/StockageGuideDocPage.js")),
+    component: () => <StockageGuideDocPage />,
 })

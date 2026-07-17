@@ -1,5 +1,6 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
 import { guideDocLayoutRoute } from "./guideDocLayoutRoute.js"
+import { ExportsGuideDocPage } from "../../../../features/docs/guide/ExportsGuideDocPage.js"
 
 export const exportsGuideDocRoute = createRoute({
     getParentRoute: () => guideDocLayoutRoute,
@@ -8,5 +9,5 @@ export const exportsGuideDocRoute = createRoute({
         title: "Exports",
         description: "Export FEC et génération XBRL pour vos documents comptables.",
     }),
-    component: lazyRouteComponent(() => import("../../../../features/docs/guide/ExportsGuideDocPage.js")),
+    component: () => <ExportsGuideDocPage />,
 })

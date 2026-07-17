@@ -1,5 +1,6 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
 import { rootLayoutRoute } from "../rootLayoutRoute.js"
+import { ErrorPage } from "../../features/error/ErrorPage.js"
 
 export const errorRoute = createRoute({
     getParentRoute: () => rootLayoutRoute,
@@ -8,5 +9,5 @@ export const errorRoute = createRoute({
         title: "Error",
         robots: "noindex",
     }),
-    component: lazyRouteComponent(() => import("../../features/error/ErrorPage.js"), "ErrorPage"),
+    component: () => <ErrorPage />,
 })

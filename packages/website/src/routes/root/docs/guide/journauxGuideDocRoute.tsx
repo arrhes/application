@@ -1,10 +1,8 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
 import { DocRoot } from "../../../../components/document/DocRoot"
 import { guideDocLayoutRoute } from "./guideDocLayoutRoute.js"
+import { JournauxGuideDocPage } from "../../../../features/docs/guide/JournauxGuideDocPage.js"
 
-const LazyJournauxGuideDocPage = lazyRouteComponent(
-    () => import("../../../../features/docs/guide/JournauxGuideDocPage.tsx"),
-)
 
 export const journauxGuideDocRoute = createRoute({
     getParentRoute: () => guideDocLayoutRoute,
@@ -15,7 +13,7 @@ export const journauxGuideDocRoute = createRoute({
     }),
     component: () => (
         <DocRoot>
-            <LazyJournauxGuideDocPage />
+            <JournauxGuideDocPage />
         </DocRoot>
     ),
 })

@@ -1,5 +1,6 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
 import { guideDocLayoutRoute } from "./guideDocLayoutRoute.js"
+import { CompteDeResultatGuideDocPage } from "../../../../features/docs/guide/CompteDeResultatGuideDocPage.js"
 
 export const compteDeResultatGuideDocRoute = createRoute({
     getParentRoute: () => guideDocLayoutRoute,
@@ -8,5 +9,5 @@ export const compteDeResultatGuideDocRoute = createRoute({
         title: "Compte de résultat",
         description: "Structure du compte de résultat : création, modification et suppression.",
     }),
-    component: lazyRouteComponent(() => import("../../../../features/docs/guide/CompteDeResultatGuideDocPage.js")),
+    component: () => <CompteDeResultatGuideDocPage />,
 })

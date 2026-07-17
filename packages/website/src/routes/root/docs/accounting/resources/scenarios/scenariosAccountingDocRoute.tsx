@@ -1,9 +1,9 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
 import { DocRoot } from "../../../../../../components/document/DocRoot"
 import { scenariosAccountingDocLayoutRoute } from "./scenariosAccountingDocLayoutRoute.js"
+import { ScenariosResourcesAccountingDocPage } from "../../../../../../features/docs/accounting/resources/scenarios/ScenariosResourcesAccountingDocPage.js"
 
-const LazyScenariosResourcesAccountingDocPage = lazyRouteComponent(
-    () =>
+=>
         import(
             "../../../../../../features/docs/accounting/resources/scenarios/ScenariosResourcesAccountingDocPage.tsx"
         ),
@@ -19,7 +19,7 @@ export const scenariosAccountingDocIndexRoute = createRoute({
     }),
     component: () => (
         <DocRoot>
-            <LazyScenariosResourcesAccountingDocPage />
+            <ScenariosResourcesAccountingDocPage />
         </DocRoot>
     ),
 })
