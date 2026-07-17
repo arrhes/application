@@ -30,7 +30,6 @@ import { rootGuideDocRoute } from "./guide/rootGuideDocRoute.js"
 import { stockageGuideDocRoute } from "./guide/stockageGuideDocRoute.js"
 import { architectureGeneralDocRoute } from "./root/architectureGeneralDocRoute.js"
 import { featuresGeneralDocRoute } from "./root/featuresGeneralDocRoute.js"
-import { generalDocLayoutRoute } from "./root/generalDocLayoutRoute.js"
 import { legalGeneralDocRoute } from "./root/legalGeneralDocRoute.js"
 import { privacyGeneralDocRoute } from "./root/privacyGeneralDocRoute.js"
 import { rootGeneralDocRoute } from "./root/rootGeneralDocRoute.js"
@@ -40,20 +39,17 @@ import { whitepaperGeneralDocRoute } from "./root/whitepaperGeneralDocRoute.js"
 
 export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
     // General section (root)
-    generalDocLayoutRoute.addChildren([
-        rootGeneralDocRoute,
-        updatesGeneralDocRoute,
-        featuresGeneralDocRoute,
-        architectureGeneralDocRoute,
-        whitepaperGeneralDocRoute,
-        supportGeneralDocRoute,
-        legalGeneralDocRoute,
-        privacyGeneralDocRoute,
-    ]),
+    updatesGeneralDocRoute,
+    featuresGeneralDocRoute,
+    architectureGeneralDocRoute,
+    whitepaperGeneralDocRoute,
+    supportGeneralDocRoute,
+    legalGeneralDocRoute,
+    privacyGeneralDocRoute,
+    rootGeneralDocRoute,
 
     // Guide section (feature-first documentation)
     guideDocLayoutRoute.addChildren([
-        rootGuideDocRoute,
         demarrerGuideDocRoute,
         installationGuideDocRoute,
         authentificationGuideDocRoute,
@@ -74,14 +70,15 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
         inventoryGuideDocRoute,
         agentSkillsDocRoute,
         agentToolsDocRoute,
+        rootGuideDocRoute,
     ]),
 
     // Comptabilite section (cours de comptabilité)
     accountingDocLayoutRoute.addChildren([
-        rootAccountingDocRoute,
         introductionAccountingTree,
         reportsAccountingTree,
         resourcesAccountingTree,
+        rootAccountingDocRoute,
     ]),
 
     // Raw Markdown fallback route for any doc path ending in .md

@@ -10,7 +10,6 @@ import { reportsAccountingDocLayoutRoute } from "./reportsAccountingDocLayoutRou
 import { reportsAccountingDocRoute } from "./reportsAccountingDocRoute.tsx"
 
 export const reportsAccountingTree: AnyRoute = reportsAccountingDocLayoutRoute.addChildren([
-    reportsAccountingDocRoute,
     balanceSheetAccountingDocRoute,
     incomeStatementAccountingDocRoute,
     balanceAccountingDocRoute,
@@ -18,4 +17,5 @@ export const reportsAccountingTree: AnyRoute = reportsAccountingDocLayoutRoute.a
     ledgerAccountingDocRoute,
     fecAccountingDocRoute,
     notesAccountingDocRoute,
+    reportsAccountingDocRoute,
 ])

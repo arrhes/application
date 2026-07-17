@@ -1,13 +1,13 @@
 import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { DocRoot } from "../../../../components/document/DocRoot"
-import { generalDocLayoutRoute } from "./generalDocLayoutRoute.tsx"
+import { docsLayoutRoute } from "./docsLayoutRoute.tsx"
 
 const LazyLegalGeneralDocPage = lazyRouteComponent(
     () => import("../../../../features/docs/general/LegalGeneralDocPage.tsx"),
 )
 
 export const legalGeneralDocRoute = createRoute({
-    getParentRoute: () => generalDocLayoutRoute,
+    getParentRoute: () => docsLayoutRoute,
     path: "/mentions-légales",
     beforeLoad: () => ({
         title: "Mentions légales",

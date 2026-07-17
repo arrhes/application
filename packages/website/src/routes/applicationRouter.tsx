@@ -1,5 +1,4 @@
 import { createRouter, type LinkProps } from "@tanstack/react-router"
-import { getIsAuthenticated } from "../utilities/cookies/getIsAuthenticated.js"
 import { applicationTree } from "./applicationTree.js"
 
 export const applicationRouter = createRouter({
@@ -10,8 +9,6 @@ export const applicationRouter = createRouter({
         section: undefined,
         description: undefined,
         robots: undefined,
-        isAuthenticated: getIsAuthenticated(),
-        userSession: Promise.resolve(undefined),
     },
 })
 

@@ -1,13 +1,13 @@
 import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
 import { DocRoot } from "../../../../components/document/DocRoot"
-import { generalDocLayoutRoute } from "./generalDocLayoutRoute.tsx"
+import { docsLayoutRoute } from "./docsLayoutRoute.tsx"
 
 const LazyArchitectureGeneralDocPage = lazyRouteComponent(
     () => import("../../../../features/docs/general/architecture/ArchitectureGeneralDocPage.tsx"),
 )
 
 export const architectureGeneralDocRoute = createRoute({
-    getParentRoute: () => generalDocLayoutRoute,
+    getParentRoute: () => docsLayoutRoute,
     path: "/architecture",
     beforeLoad: () => ({
         title: "Architecture",
