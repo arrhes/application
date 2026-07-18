@@ -4,11 +4,10 @@ import { css } from "@arrhes/ui/utilities/cn.js"
 import {
     IconBook2,
     IconHeart,
-    IconKey,
+    IconLayoutSidebar,
     IconLogout,
     IconSearch,
     IconSettings,
-    IconSlash,
     IconUser,
 } from "@tabler/icons-react"
 import { Outlet } from "@tanstack/react-router"
@@ -17,21 +16,22 @@ import { CommandPalette } from "../../../components/layouts/commandPalette/Comma
 import { TabBar } from "../../../components/layouts/tabBar/TabBar.js"
 import { Popover } from "../../../components/overlays/popover/popover.js"
 import { useDashboardContext } from "../../../contexts/dashboard/dashboardContext.js"
+import { useSidebarContext } from "../../../contexts/sidebar/SidebarContext.js"
 import { TabContentArea } from "../../../contexts/tabs/TabContentArea.js"
 import { type ComponentTab, currentEntry } from "../../../contexts/tabs/tabsContext.js"
 import { useOuterRouter } from "../../../contexts/tabs/useOuterRouter.js"
 import { useTabs } from "../../../contexts/tabs/useTabs.js"
 import { deleteCookies } from "../../../utilities/cookies/deleteCookies.js"
 import { getResponseBodyFromAPI } from "../../../utilities/getResponseBodyFromAPI.js"
-import { OrganizationContextSelect } from "../OrganizationContextSelect.js"
-import { YearContextSelect } from "../YearContextSelect.js"
+import { SidebarNavigation } from "./SidebarNavigation.js"
 
 // ─── Inner shell — rendered inside TabsProvider ──────────────────────────────
 
 export function DashboardShell() {
     const { tabs, activeTabId, activateTab, openTab, reorderTabs, closeTab } = useTabs()
     const applicationRouter = useOuterRouter()
-    const { selectedOrgId, selectedYearId, setOrg, setYear } = useDashboardContext()
+    const { selectedOrgId, selectedYearId } = useDashboardContext()
+    const sidebar = useSidebarContext()
     const [splitPosition, setSplitPosition] = useState(50)
     const containerRef = useRef<HTMLDivElement>(null)
     const isDragging = useRef(false)
@@ -197,14 +197,6 @@ export function DashboardShell() {
         activeTabId,
     ])
 
-    function handleOrgChange(id: string | null) {
-        setOrg(id)
-    }
-
-    function handleYearChange(id: string | null) {
-        setYear(id)
-    }
-
     return (
         <div
             className={css({
@@ -233,7 +225,7 @@ export function DashboardShell() {
                     flexShrink: 0,
                 })}
             >
-                {/* Breadcrumb: Logo / Org / Year */}
+                {/* Logo + sidebar toggle */}
                 <div
                     className={css({
                         display: "flex",
@@ -242,48 +234,34 @@ export function DashboardShell() {
                         flexShrink: 0,
                     })}
                 >
+                    <Button
+                        onClick={sidebar.toggle}
+                        title={sidebar.open ? "Réduire la barre latérale" : "Afficher la barre latérale"}
+                        className={{
+                            padding: "0",
+                            border: "none",
+                            backgroundColor: "transparent",
+                            width: "fit-content",
+                            height: "fit-content",
+                        }}
+                    >
+                        <IconLayoutSidebar
+                            size={20}
+                            className={css({
+                                stroke: "neutral/50",
+                                cursor: "pointer",
+                                _hover: { stroke: "neutral" },
+                            })}
+                        />
+                    </Button>
                     <ButtonGhostContent
                         leftIcon={<Logo />}
-                        // text="Arrhes"
                         className={{
                             _hover: {
                                 backgroundColor: "transparent",
                             },
                         }}
                     />
-                    <IconSlash
-                        size={16}
-                        className={css({
-                            stroke: "neutral/20",
-                            display: {
-                                base: "none",
-                                sm: "block",
-                            },
-                        })}
-                    />
-                    <OrganizationContextSelect
-                        value={selectedOrgId}
-                        onChange={handleOrgChange}
-                    />
-                    {selectedOrgId !== null && (
-                        <>
-                            <IconSlash
-                                size={16}
-                                className={css({
-                                    stroke: "neutral/20",
-                                    display: {
-                                        base: "none",
-                                        sm: "block",
-                                    },
-                                })}
-                            />
-                            <YearContextSelect
-                                value={selectedYearId}
-                                onChange={handleYearChange}
-                                idOrganizationSelected={selectedOrgId}
-                            />
-                        </>
-                    )}
                 </div>
 
                 {/* Search */}
@@ -418,7 +396,7 @@ export function DashboardShell() {
                 </nav>
             </header>
 
-            {/* Tab bar + content area — panels side by side when split */}
+            {/* Content row: sidebar + tabs */}
             <div
                 ref={containerRef}
                 className={css({
@@ -428,13 +406,60 @@ export function DashboardShell() {
                     flexDirection: "row",
                     minHeight: 0,
                     overflow: "hidden",
-                    backgroundColor: "white",
                 })}
             >
+                {/* Sidebar */}
+                {sidebar.open && (
+                    <>
+                        <div
+                            style={{
+                                width: sidebar.width,
+                                flexShrink: 0,
+                                display: "flex",
+                                flexDirection: "column",
+                                minHeight: 0,
+                                overflow: "hidden",
+                                borderRight: "1px solid var(--colors-neutral-10)",
+                                backgroundColor: "white",
+                            }}
+                        >
+                            <SidebarNavigation />
+                        </div>
+                        {/* Sidebar resize handle */}
+                        <div
+                            className={css({
+                                flexShrink: 0,
+                                width: "4px",
+                                cursor: "col-resize",
+                                background: "transparent",
+                                transition: "background 0.15s",
+                                _hover: {
+                                    background: "neutral/30",
+                                },
+                            })}
+                            onMouseDown={(e) => {
+                                const startX = e.clientX
+                                const startW = sidebar.width
+                                const onMove = (ev: MouseEvent) => {
+                                    sidebar.setWidth(startW + (ev.clientX - startX))
+                                }
+                                const onUp = () => {
+                                    window.removeEventListener("mousemove", onMove)
+                                    window.removeEventListener("mouseup", onUp)
+                                    document.body.style.cursor = ""
+                                }
+                                document.body.style.cursor = "col-resize"
+                                window.addEventListener("mousemove", onMove)
+                                window.addEventListener("mouseup", onUp)
+                            }}
+                        />
+                    </>
+                )}
+
                 {/* Main / left panel — has its own tab bar */}
                 <div
                     style={{
-                        flex: rightPanel ? `0 0 ${splitPosition}%` : "1 1 0%",
+                        flex: "1 1 0%",
                         display: "flex",
                         flexDirection: "column",
                         minHeight: 0,
