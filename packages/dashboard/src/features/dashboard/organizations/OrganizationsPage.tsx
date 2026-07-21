@@ -18,7 +18,7 @@ export function OrganizationsPage() {
                     className={css({
                         width: "100%",
                         display: "flex",
-                        justifyContent: "end",
+                        justifyContent: "start",
                         alignItems: "center",
                     })}
                 >

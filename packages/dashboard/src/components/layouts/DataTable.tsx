@@ -25,7 +25,7 @@ import {
     useReactTable,
     type VisibilityState,
 } from "@tanstack/react-table"
-import { type ComponentProps, Fragment, type ReactElement, useMemo, useRef, useState } from "react"
+import { memo, type ComponentProps, Fragment, type ReactElement, type ReactNode, useMemo, useRef, useState } from "react"
 import { ColumnVisibilityPopover, type VisibilityColumn } from "./ColumnVisibilityPopover.js"
 import { EmptyState } from "./EmptyState.js"
 import { type FilterColumn, FilterPopover } from "./FilterPopover.js"
@@ -38,7 +38,7 @@ declare module "@tanstack/react-table" {
     }
 }
 
-export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
+function DataTableRaw<TData extends Record<keyof TData, unknown>>(props: {
     data: Array<TData>
     isLoading?: boolean
     columns: Array<ColumnDef<TData>>
@@ -48,6 +48,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
     renderSubComponent?: (context: { row: Row<TData> }) => ReactElement | null
     getRowProps?: (row: Row<TData>) => ComponentProps<"tr">
     hideSearchBar?: boolean
+    children?: ReactNode
     enableRowSelection?: boolean | ((row: Row<TData>) => boolean)
     getRowId?: (row: TData, index: number) => string
     selectionActions?: (selectedRows: Array<Row<TData>>) => ReactElement | null
@@ -430,6 +431,9 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                             />
                         )
                     })()}
+                    <div className={css({ marginLeft: "auto", display: "flex", gap: "0.5rem" })}>
+                        {props.children}
+                    </div>
                 </div>
             )}
             <div
@@ -784,3 +788,5 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
         </div>
     )
 }
+
+export const DataTable = memo(DataTableRaw) as typeof DataTableRaw

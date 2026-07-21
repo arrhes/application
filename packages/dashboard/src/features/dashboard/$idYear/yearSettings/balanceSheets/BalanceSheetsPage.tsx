@@ -1,11 +1,10 @@
-import { ButtonPlainContent, InputDebounced, InputText } from "@arrhes/ui"
+import { ButtonPlainContent, InputDebounced, InputSelect, InputText } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconPlus, IconScale } from "@tabler/icons-react"
-import { useParams, useRouterState } from "@tanstack/react-router"
+import { useParams } from "@tanstack/react-router"
 import { useCallback, useState, useTransition } from "react"
 import { Box } from "../../../../../components/layouts/Box.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
-import { Tab } from "../../../../../components/layouts/tab/tab.tsx"
 import { BalanceSheetTable } from "./BalanceSheetTable.tsx"
 import { CreateOneBalanceSheet } from "./CreateOneBalanceSheet.tsx"
 
@@ -26,10 +25,7 @@ export function BalanceSheetsPage({
     const idYear = idYearProp ?? params.idYear ?? ""
     const [globalFilter, setGlobalFilter] = useState("")
     const [, startTransition] = useTransition()
-    const pathname = useRouterState({
-        select: (state) => state.location.pathname,
-    })
-    const side = pathname.endsWith("/passif") ? "liability" : "asset"
+    const [side, setSide] = useState<"asset" | "liability">("asset")
 
     const handleFilterChange = useCallback((value: string | undefined) => {
         startTransition(() => {
@@ -38,52 +34,39 @@ export function BalanceSheetsPage({
     }, [])
 
     return (
-                <Section.Root>
-                    <Section.Item>
-                        <Tab.Root
-                            tabs={[
+        <Section.Root>
+            <Section.Item>
+                <div
+                    className={css({
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        gap: "0.5rem",
+                        flexWrap: "wrap",
+                    })}
+                >
+                    <div
+                        className={css({
+                            display: "flex",
+                            flexDirection: "row",
+                            gap: "0.25rem",
+                            // flexWrap: "wrap",
+                        })}
+                    >
+                        <InputSelect
+                            value={side}
+                            onChange={(v) => setSide((v ?? "asset") as "asset" | "liability")}
+                            options={[
                                 {
+                                    key: "asset",
                                     label: "Actif",
-                                    icon: <IconScale />,
-                                    to: "/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/bilan/actif",
-                                    params: {
-                                        idOrganization: idOrganization,
-                                        idYear: idYear,
-                                    },
                                 },
                                 {
+                                    key: "liability",
                                     label: "Passif",
-                                    icon: <IconScale />,
-                                    to: "/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/bilan/passif",
-                                    params: {
-                                        idOrganization: idOrganization,
-                                        idYear: idYear,
-                                    },
                                 },
                             ]}
                         />
-                    </Section.Item>
-                    <Section.Item>
-                        <div
-                            className={css({
-                                minWidth: "100%",
-                                display: "flex",
-                                justifyContent: "flex-end",
-                                alignItems: "center",
-                                gap: "0.5rem",
-                                flexWrap: "wrap",
-                            })}
-                        >
-                            <CreateOneBalanceSheet
-                                idOrganization={idOrganization}
-                                idYear={idYear}
-                            >
-                                <ButtonPlainContent
-                                    leftIcon={<IconPlus />}
-                                    text="Ajouter une ligne de bilan"
-                                />
-                            </CreateOneBalanceSheet>
-                        </div>
                         <InputDebounced
                             value={globalFilter ?? ""}
                             onChange={handleFilterChange}
@@ -95,22 +78,38 @@ export function BalanceSheetsPage({
                                 }}
                             />
                         </InputDebounced>
-                        <Box
-                            className={css({
-                                padding: "4",
-                                gap: "4",
-                                maxH: "[640px]",
-                                overflowY: "auto",
-                            })}
+                    </div>
+                    <div
+                        className={css({
+                            display: "flex",
+                            gap: "0.25rem",
+                        })}
+                    >
+                        <CreateOneBalanceSheet
+                            idOrganization={idOrganization}
+                            idYear={idYear}
                         >
-                            <BalanceSheetTable
-                                idOrganization={idOrganization}
-                                idYear={idYear}
-                                side={side}
-                                globalFilter={globalFilter}
+                            <ButtonPlainContent
+                                leftIcon={<IconPlus />}
+                                text="Ajouter une ligne de bilan"
                             />
-                        </Box>
-                    </Section.Item>
-                </Section.Root>
+                        </CreateOneBalanceSheet>
+                    </div>
+                </div>
+                <Box
+                    className={css({
+                        maxH: "[640px]",
+                        overflowY: "auto",
+                    })}
+                >
+                    <BalanceSheetTable
+                        idOrganization={idOrganization}
+                        idYear={idYear}
+                        side={side}
+                        globalFilter={globalFilter}
+                    />
+                </Box>
+            </Section.Item>
+        </Section.Root>
     )
 }

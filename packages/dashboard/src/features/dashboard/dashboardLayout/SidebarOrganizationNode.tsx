@@ -1,6 +1,7 @@
 import { readAllYearsRouteDefinition } from "@arrhes/application-metadata/routes"
-import { IconCalendar, IconSettings, IconCloud, IconPencil, IconReport, IconBuilding } from "@tabler/icons-react"
-import { useState, useMemo } from "react"
+import { IconBuilding, IconCalendar, IconCloud, IconHome, IconLock, IconSettings, IconUsers } from "@tabler/icons-react"
+import { useRouter, useRouterState } from "@tanstack/react-router"
+import { useEffect, useMemo, useState } from "react"
 import { TreeNode, TreeNodeLink } from "../../../components/layouts/tree/TreeNode.js"
 import { useDataFromAPI } from "../../../utilities/useHTTPData.js"
 import { SidebarYearNode } from "./SidebarYearNode.js"
@@ -10,37 +11,50 @@ type Org = {
     name?: string
 }
 
-export function SidebarOrganizationNode({
-    org,
-    openTab,
-}: {
-    org: Org
-    openTab: (args: any, options?: any) => string
-}) {
-    const [expanded, setExpanded] = useState(false)
+function usePathname() {
+    return useRouterState({ select: (s) => s.location.pathname })
+}
+
+export function SidebarOrganizationNode({ org }: { org: Org }) {
+    const router = useRouter()
+    const pathname = usePathname()
+    const orgPrefix = `/organisation/${org.id}`
+    const [expanded, setExpanded] = useState(() => pathname.startsWith(orgPrefix + "/"))
+    const [settingsExpanded, setSettingsExpanded] = useState(() => pathname.startsWith(orgPrefix + "/paramètres"))
+    const p = (path: string) => path.replace("$idOrganization", org.id)
+    const isActive = (path: string) => pathname === p(path)
+    const anyOrgChildActive = expanded || pathname.startsWith(orgPrefix + "/")
+
+    useEffect(() => {
+        if (pathname.startsWith(orgPrefix + "/")) setExpanded(true)
+        if (pathname.startsWith(orgPrefix + "/paramètres")) setSettingsExpanded(true)
+    }, [
+        pathname,
+        orgPrefix,
+    ])
+
     const yearsResponse = useDataFromAPI({
         routeDefinition: readAllYearsRouteDefinition,
-        body: { idOrganization: org.id },
-        enabled: expanded,
+        body: {
+            idOrganization: org.id,
+        },
+        enabled: anyOrgChildActive,
     })
 
     const years = useMemo(() => {
         if (!yearsResponse.data) return []
         return yearsResponse.data
-    }, [yearsResponse.data])
+    }, [
+        yearsResponse.data,
+    ])
 
     return (
         <TreeNode
-            icon={<IconBuilding size={16} />}
+            icon={<IconBuilding />}
             label={org.name ?? org.id}
             expanded={expanded}
             onToggle={() => setExpanded(!expanded)}
-            onClick={() =>
-                openTab({
-                    component: "exercices",
-                    props: { idOrganization: org.id },
-                })
-            }
+            onClick={() => {}}
         >
             {expanded && yearsResponse.isLoading && (
                 <div
@@ -54,47 +68,82 @@ export function SidebarOrganizationNode({
                     Chargement...
                 </div>
             )}
+            <TreeNode
+                icon={<IconSettings />}
+                label="Paramètres"
+                depth={1}
+                expanded={settingsExpanded}
+                onToggle={() => setSettingsExpanded(!settingsExpanded)}
+                onClick={() => {}}
+            >
+                <TreeNodeLink
+                    icon={<IconHome />}
+                    label="Général"
+                    depth={2}
+                    active={isActive("/organisation/$idOrganization/paramètres")}
+                    onClick={() =>
+                        router.navigate({
+                            to: "/organisation/$idOrganization/paramètres",
+                            params: { idOrganization: org.id },
+                        })
+                    }
+                />
+                <TreeNodeLink
+                    icon={<IconLock />}
+                    label="Sécurité"
+                    depth={2}
+                    active={isActive("/organisation/$idOrganization/paramètres/sécurité")}
+                    onClick={() =>
+                        router.navigate({
+                            to: "/organisation/$idOrganization/paramètres/sécurité",
+                            params: { idOrganization: org.id },
+                        })
+                    }
+                />
+                <TreeNodeLink
+                    icon={<IconCalendar />}
+                    label="Exercices"
+                    depth={2}
+                    active={isActive("/organisation/$idOrganization/exercices")}
+                    onClick={() =>
+                        router.navigate({
+                            to: "/organisation/$idOrganization/exercices",
+                            params: { idOrganization: org.id },
+                        })
+                    }
+                />
+                <TreeNodeLink
+                    icon={<IconUsers />}
+                    label="Membres"
+                    depth={2}
+                    active={isActive("/organisation/$idOrganization/paramètres/membres")}
+                    onClick={() =>
+                        router.navigate({
+                            to: "/organisation/$idOrganization/paramètres/membres",
+                            params: { idOrganization: org.id },
+                        })
+                    }
+                />
+            </TreeNode>
+            <TreeNodeLink
+                icon={<IconCloud />}
+                label="Stockage"
+                depth={1}
+                active={isActive("/organisation/$idOrganization/stockage")}
+                onClick={() =>
+                    router.navigate({
+                        to: "/organisation/$idOrganization/stockage",
+                        params: { idOrganization: org.id },
+                    })
+                }
+            />
             {years.map((year: any) => (
                 <SidebarYearNode
                     key={year.id}
                     orgId={org.id}
                     year={year}
-                    openTab={openTab}
                 />
             ))}
-            <TreeNodeLink
-                icon={<IconUsers size={14} />}
-                label="Membres"
-                depth={1}
-                onClick={() =>
-                    openTab({
-                        component: "membres",
-                        props: { idOrganization: org.id },
-                    })
-                }
-            />
-            <TreeNodeLink
-                icon={<IconCloud size={14} />}
-                label="Stockage"
-                depth={1}
-                onClick={() =>
-                    openTab({
-                        component: "organisation-stockage",
-                        props: { idOrganization: org.id },
-                    })
-                }
-            />
-            <TreeNodeLink
-                icon={<IconSettings size={14} />}
-                label="Paramètres"
-                depth={1}
-                onClick={() =>
-                    openTab({
-                        component: "organisation-paramètres",
-                        props: { idOrganization: org.id },
-                    })
-                }
-            />
         </TreeNode>
     )
 }

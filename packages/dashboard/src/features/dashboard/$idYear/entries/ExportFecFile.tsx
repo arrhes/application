@@ -7,7 +7,9 @@ import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { Button, ButtonPlainContent, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconFileExport } from "@tabler/icons-react"
+import { Fragment } from "react/jsx-runtime"
 import type * as v from "valibot"
+import { useRightPanel } from "../../../../contexts/rightPanel/RightPanelContext.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 
 export function ExportFecFile(props: {
@@ -15,8 +17,8 @@ export function ExportFecFile(props: {
     idYear: v.InferOutput<typeof returnedSchemas.year>["id"]
     entries: v.InferOutput<typeof readAllEntriesRouteDefinition.schemas.return>
     entryLines: v.InferOutput<typeof readAllEntryLinesRouteDefinition.schemas.return>
-    onClose: () => void
 }) {
+    const { closePanel } = useRightPanel()
     async function handleExport() {
         if (props.entryLines.length === 0) {
             toast({
@@ -49,18 +51,11 @@ export function ExportFecFile(props: {
             title: `${props.entryLines.length} mouvement${props.entryLines.length > 1 ? "s" : ""} exporté${props.entryLines.length > 1 ? "s" : ""} au format FEC`,
             variant: "success",
         })
-        props.onClose()
+        closePanel()
     }
 
     return (
-        <div
-            className={css({
-                padding: "2rem",
-                display: "flex",
-                flexDirection: "column",
-                gap: "1rem",
-            })}
-        >
+        <Fragment>
             <p
                 className={css({
                     fontSize: "sm",
@@ -118,6 +113,6 @@ export function ExportFecFile(props: {
                     text="Exporter le FEC"
                 />
             </Button>
-        </div>
+        </Fragment>
     )
 }

@@ -91,7 +91,7 @@ export function OrganizationUserListTableRow(props: {
                 <div
                     className={css({
                         display: "flex",
-                        justifyContent: "end",
+                        justifyContent: "start",
                         alignItems: "center",
                         gap: "0.5rem",
                     })}

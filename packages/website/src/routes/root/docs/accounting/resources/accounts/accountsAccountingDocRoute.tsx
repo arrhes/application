@@ -3,11 +3,6 @@ import { DocRoot } from "../../../../../../components/document/DocRoot"
 import { accountsAccountingDocLayoutRoute } from "./accountsAccountingDocLayoutRoute.js"
 import { AccountsResourcesAccountingDocPage } from "../../../../../../features/docs/accounting/resources/accounts/AccountsResourcesAccountingDocPage.js"
 
-=>
-        import("../../../../../../features/docs/accounting/resources/accounts/AccountsResourcesAccountingDocPage.tsx"),
-    "AccountsResourcesAccountingDocPage",
-)
-
 export const accountsAccountingDocRoute = createRoute({
     getParentRoute: () => accountsAccountingDocLayoutRoute,
     path: "/",

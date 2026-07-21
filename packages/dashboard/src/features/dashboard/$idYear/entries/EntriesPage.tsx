@@ -3,9 +3,9 @@ import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconDotsVertical, IconDownload, IconFileExport, IconFileImport, IconPlus } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { Fragment } from "react"
+import { useRightPanel } from "../../../../contexts/rightPanel/RightPanelContext.js"
 import { Page } from "../../../../components/layouts/page/page.js"
 import { Popover } from "../../../../components/overlays/popover/popover.js"
-import { useTabs } from "../../../../contexts/tabs/useTabs.js"
 import { YearDataWrapper } from "../YearDataWrapper.tsx"
 import { CreateOneEntry } from "./CreateOneEntry.js"
 import { EntriesTable } from "./EntriesTable.js"
@@ -20,6 +20,7 @@ export function EntriesPage({
     idOrganization?: string
     idYear?: string
 }) {
+    const { openPanel } = useRightPanel()
     const params = useParams({
         strict: false,
     }) as {
@@ -28,7 +29,6 @@ export function EntriesPage({
     }
     const idOrganization = idOrganizationProp ?? params.idOrganization ?? ""
     const idYear = idYearProp ?? params.idYear ?? ""
-    const { openPanelTab, closeTab } = useTabs()
 
     return (
         <Page.Root>
@@ -51,7 +51,7 @@ export function EntriesPage({
                                 className={css({
                                     width: "100%",
                                     display: "flex",
-                                    justifyContent: "end",
+                                    justifyContent: "start",
                                     alignItems: "center",
                                     gap: "0.5rem",
                                 })}
@@ -78,18 +78,14 @@ export function EntriesPage({
                                                     width: "100%",
                                                 }}
                                                 onClick={() => {
-                                                    const r = {
-                                                        current: "",
-                                                    }
-                                                    r.current = openPanelTab(
-                                                        "Exporter les mouvements",
+                                                    openPanel(
                                                         <ExportEntryLines
                                                             idOrganization={idOrganization}
                                                             idYear={idYear}
                                                             entries={data.entries}
                                                             entryLines={data.entryLines}
-                                                            onClose={() => closeTab(r.current)}
                                                         />,
+                                                        "Exporter en CSV",
                                                     )
                                                 }}
                                             >
@@ -109,18 +105,14 @@ export function EntriesPage({
                                                     width: "100%",
                                                 }}
                                                 onClick={() => {
-                                                    const r = {
-                                                        current: "",
-                                                    }
-                                                    r.current = openPanelTab(
-                                                        "Exporter au format FEC",
+                                                    openPanel(
                                                         <ExportFecFile
                                                             idOrganization={idOrganization}
                                                             idYear={idYear}
                                                             entries={data.entries}
                                                             entryLines={data.entryLines}
-                                                            onClose={() => closeTab(r.current)}
                                                         />,
+                                                        "Exporter le FEC",
                                                     )
                                                 }}
                                             >
@@ -140,17 +132,13 @@ export function EntriesPage({
                                                     width: "100%",
                                                 }}
                                                 onClick={() => {
-                                                    const r = {
-                                                        current: "",
-                                                    }
-                                                    r.current = openPanelTab(
-                                                        "Importer un FEC",
+                                                    openPanel(
                                                         <ImportFecFile
                                                             idYear={idYear}
                                                             journals={data.journals}
                                                             accounts={data.accounts}
-                                                            onClose={() => closeTab(r.current)}
                                                         />,
+                                                        "Importer un FEC",
                                                     )
                                                 }}
                                             >

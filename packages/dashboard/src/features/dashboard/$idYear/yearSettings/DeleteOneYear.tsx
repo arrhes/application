@@ -3,7 +3,7 @@ import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { Button, ButtonOutlineContent, ButtonPlainContent, Dialog, toast, useModalStore } from "@arrhes/ui"
 import { type ComponentPropsWithRef, type ReactElement, useId } from "react"
 import type * as v from "valibot"
-import { useTabs } from "../../../../contexts/tabs/useTabs.tsx"
+import { useRouter } from "@tanstack/react-router"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
 
@@ -11,7 +11,7 @@ export function DeleteOneYear(props: {
     year: v.InferOutput<typeof returnedSchemas.year>
     children: ReactElement<ComponentPropsWithRef<"div">>
 }) {
-    const { openTab } = useTabs()
+    const router = useRouter()
     const modalId = useId()
     const { open: openModal, close: closeModal } = useModalStore()
 
@@ -44,17 +44,12 @@ export function DeleteOneYear(props: {
             variant: "success",
         })
 
-        openTab(
-            {
-                component: "exercices",
-                props: {
-                    idOrganization: props.year.idOrganization,
-                },
+        router.navigate({
+            to: "/organisation/$idOrganization/exercices",
+            params: {
+                idOrganization: props.year.idOrganization,
             },
-            {
-                newTab: true,
-            },
-        )
+        })
     }
 
     return (

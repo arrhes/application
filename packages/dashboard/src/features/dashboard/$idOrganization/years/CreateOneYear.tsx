@@ -4,6 +4,7 @@ import { Button, InputDate, InputText, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconPlus } from "@tabler/icons-react"
 import type { ComponentProps, JSX } from "react"
+import { useState } from "react"
 import { Fragment } from "react/jsx-runtime"
 import type * as v from "valibot"
 import { FormControl } from "../../../../components/forms/FormControl.tsx"
@@ -12,7 +13,6 @@ import { FormField } from "../../../../components/forms/FormField.tsx"
 import { FormItem } from "../../../../components/forms/FormItem.tsx"
 import { FormLabel } from "../../../../components/forms/FormLabel.tsx"
 import { FormRoot } from "../../../../components/forms/FormRoot.tsx"
-import { useTabs } from "../../../../contexts/tabs/useTabs.tsx"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
 import { YearSelect } from "./YearSelect.tsx"
@@ -22,10 +22,11 @@ export function CreateOneYear(props: {
     children: JSX.Element
     className?: ComponentProps<typeof Button>["className"]
 }) {
-    const { openPanelTab, closeTab } = useTabs()
+    const [open, setOpen] = useState(false)
     const currentDate = new Date()
 
     return (
+        <>
         <Button
             className={css.raw(
                 {
@@ -37,12 +38,11 @@ export function CreateOneYear(props: {
                 },
                 props.className,
             )}
-            onClick={() => {
-                const r = {
-                    current: "",
-                }
-                r.current = openPanelTab(
-                    "Ajouter un nouvel exercice",
+            onClick={() => setOpen(true)}
+        >
+            {props.children}
+        </Button>
+            {open &&
                     <div
                         className={css({
                             padding: "2rem",
@@ -91,7 +91,7 @@ export function CreateOneYear(props: {
                                     },
                                 })
 
-                                closeTab(r.current)
+                                setOpen(false)
                             }}
                         >
                             {(form) => (
@@ -184,11 +184,8 @@ export function CreateOneYear(props: {
                                 </Fragment>
                             )}
                         </FormRoot>
-                    </div>,
-                )
-            }}
-        >
-            {props.children}
-        </Button>
+                    </div>
+            }
+        </>
     )
 }

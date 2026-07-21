@@ -26,7 +26,7 @@ export function YearsPage({ idOrganization: idOrganizationProp }: { idOrganizati
                     className={css({
                         width: "100%",
                         display: "flex",
-                        justifyContent: "end",
+                        justifyContent: "start",
                         alignItems: "center",
                     })}
                 >

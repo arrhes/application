@@ -1,201 +1,26 @@
 import { signOutRouteDefinition } from "@arrhes/application-metadata/routes"
-import { Button, ButtonGhostContent, ButtonOutlineContent, Logo, Separator, toast } from "@arrhes/ui"
+import { Button, ButtonGhostContent, ButtonOutlineContent, CircularLoader, LinkButton, Logo, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import {
     IconBook2,
+    IconExternalLink,
     IconHeart,
-    IconLayoutSidebar,
     IconLogout,
-    IconSearch,
     IconSettings,
     IconUser,
 } from "@tabler/icons-react"
-import { Outlet } from "@tanstack/react-router"
-import { useCallback, useEffect, useRef, useState } from "react"
-import { CommandPalette } from "../../../components/layouts/commandPalette/CommandPalette.js"
-import { TabBar } from "../../../components/layouts/tabBar/TabBar.js"
+import { Outlet, useRouter } from "@tanstack/react-router"
+import { Suspense, useRef } from "react"
 import { Popover } from "../../../components/overlays/popover/popover.js"
-import { useDashboardContext } from "../../../contexts/dashboard/dashboardContext.js"
 import { useSidebarContext } from "../../../contexts/sidebar/SidebarContext.js"
-import { TabContentArea } from "../../../contexts/tabs/TabContentArea.js"
-import { type ComponentTab, currentEntry } from "../../../contexts/tabs/tabsContext.js"
-import { useOuterRouter } from "../../../contexts/tabs/useOuterRouter.js"
-import { useTabs } from "../../../contexts/tabs/useTabs.js"
 import { deleteCookies } from "../../../utilities/cookies/deleteCookies.js"
 import { getResponseBodyFromAPI } from "../../../utilities/getResponseBodyFromAPI.js"
 import { SidebarNavigation } from "./SidebarNavigation.js"
 
-// ─── Inner shell — rendered inside TabsProvider ──────────────────────────────
-
 export function DashboardShell() {
-    const { tabs, activeTabId, activateTab, openTab, reorderTabs, closeTab } = useTabs()
-    const applicationRouter = useOuterRouter()
-    const { selectedOrgId, selectedYearId } = useDashboardContext()
     const sidebar = useSidebarContext()
-    const [splitPosition, setSplitPosition] = useState(50)
-    const containerRef = useRef<HTMLDivElement>(null)
-    const isDragging = useRef(false)
-    const dragStartX = useRef(0)
-    const dragStartPosition = useRef(50)
-
-    const handleMouseMove = useCallback((e: MouseEvent) => {
-        if (!isDragging.current || !containerRef.current) return
-        const rect = containerRef.current.getBoundingClientRect()
-        const deltaX = e.clientX - dragStartX.current
-        const deltaPct = (deltaX / rect.width) * 100
-        const newPct = Math.min(80, Math.max(20, dragStartPosition.current + deltaPct))
-        setSplitPosition(newPct)
-    }, [])
-
-    const handleMouseUp = useCallback(() => {
-        isDragging.current = false
-        window.removeEventListener("mousemove", handleMouseMove)
-        window.removeEventListener("mouseup", handleMouseUp)
-        document.body.style.cursor = ""
-        document.body.style.userSelect = ""
-    }, [
-        handleMouseMove,
-    ])
-
-    const handleDragStart = useCallback(
-        (e: React.MouseEvent) => {
-            isDragging.current = true
-            dragStartX.current = e.clientX
-            dragStartPosition.current = splitPosition
-            document.body.style.cursor = "col-resize"
-            document.body.style.userSelect = "none"
-            window.addEventListener("mousemove", handleMouseMove)
-            window.addEventListener("mouseup", handleMouseUp)
-        },
-        [
-            splitPosition,
-            handleMouseMove,
-            handleMouseUp,
-        ],
-    )
-
-    useEffect(
-        () => () => {
-            window.removeEventListener("mousemove", handleMouseMove)
-            window.removeEventListener("mouseup", handleMouseUp)
-        },
-        [
-            handleMouseMove,
-            handleMouseUp,
-        ],
-    )
-
-    const [rightPanel, setRightPanel] = useState<{
-        tabIds: string[]
-        activeTabId: string
-    } | null>(null)
-
-    // Listen for split-tab events dispatched from the tab bar context menu.
-    const handleSplitTab = useCallback(
-        (e: Event) => {
-            const tabId = (
-                e as CustomEvent<{
-                    tabId: string
-                }>
-            ).detail.tabId
-            setRightPanel((prev) => {
-                if (!prev)
-                    return {
-                        tabIds: [
-                            tabId,
-                        ],
-                        activeTabId: tabId,
-                    }
-                if (prev.tabIds.includes(tabId))
-                    return {
-                        ...prev,
-                        activeTabId: tabId,
-                    }
-                return {
-                    tabIds: [
-                        ...prev.tabIds,
-                        tabId,
-                    ],
-                    activeTabId: tabId,
-                }
-            })
-            // If the tab was active in the left panel, switch to another left-panel tab.
-            if (tabId === activeTabId) {
-                const rightIds = new Set(rightPanel?.tabIds ?? [])
-                rightIds.add(tabId)
-                const remaining = tabs.filter((t) => !rightIds.has(t.id))
-                if (remaining.length > 0) activateTab(remaining[remaining.length - 1].id)
-            }
-        },
-        [
-            activeTabId,
-            tabs,
-            rightPanel,
-            activateTab,
-        ],
-    )
-
-    useEffect(() => {
-        window.addEventListener("arrhes:split-tab", handleSplitTab)
-        return () => window.removeEventListener("arrhes:split-tab", handleSplitTab)
-    }, [
-        handleSplitTab,
-    ])
-
-    // Remove closed tabs from right panel.
-    useEffect(() => {
-        if (!rightPanel) return
-        const existingIds = new Set(tabs.map((t) => t.id))
-        const filtered = rightPanel.tabIds.filter((id) => existingIds.has(id))
-        if (filtered.length === rightPanel.tabIds.length) return
-        if (filtered.length === 0) {
-            setRightPanel(null)
-        } else {
-            const newActive = filtered.includes(rightPanel.activeTabId)
-                ? rightPanel.activeTabId
-                : filtered[filtered.length - 1]
-            setRightPanel({
-                tabIds: filtered,
-                activeTabId: newActive,
-            })
-        }
-    }, [
-        tabs,
-        rightPanel,
-    ])
-
-    // Auto-close split view when the left panel would have no tabs.
-    useEffect(() => {
-        if (!rightPanel) return
-        const rightSet = new Set(rightPanel.tabIds)
-        if (tabs.filter((t) => !rightSet.has(t.id)).length === 0) {
-            setRightPanel(null)
-        }
-    }, [
-        tabs,
-        rightPanel,
-    ])
-
-    // Update browser title when active tab changes.
-    useEffect(() => {
-        const activeTab = tabs.find((t) => t.id === activeTabId)
-        if (activeTab) {
-            const title =
-                activeTab.type === "component" ? currentEntry(activeTab as ComponentTab).title : activeTab.title
-            document.title = `${title} — Arrhes`
-            // Update meta description.
-            const meta = document.querySelector<HTMLMetaElement>("meta[name='description']")
-            if (meta && activeTab.type === "component") {
-                const entry = currentEntry(activeTab as ComponentTab)
-                if (entry.description) meta.content = entry.description
-            }
-        } else {
-            document.title = "Arrhes"
-        }
-    }, [
-        tabs,
-        activeTabId,
-    ])
+    const router = useRouter()
+    const sidebarRef = useRef<HTMLDivElement>(null)
 
     return (
         <div
@@ -203,91 +28,72 @@ export function DashboardShell() {
                 width: "100%",
                 height: "100vh",
                 display: "flex",
-                flexDirection: "column",
+                flexDirection: "row",
                 justifyContent: "start",
                 alignItems: "stretch",
                 backgroundColor: "background",
                 overflow: "hidden",
             })}
         >
-            {/* Header */}
-            <header
+            {/* Sidebar */}
+            <div
+                ref={sidebarRef}
+                style={{
+                    width: sidebar.width,
+                }}
                 className={css({
-                    width: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "start",
-                    gap: "1rem",
-                    padding: "1rem",
-                    borderBottom: "1px solid",
-                    borderBottomColor: "neutral/10",
-                    backgroundColor: "white",
                     flexShrink: 0,
+                    display: "flex",
+                    flexDirection: "column",
+                    minHeight: 0,
+                    overflow: "hidden",
+                    borderRight: "1px solid",
+                    borderRightColor: "neutral/10",
+                    backgroundColor: "background",
                 })}
             >
-                {/* Logo + sidebar toggle */}
+                {/* Sidebar top: logo */}
                 <div
                     className={css({
                         display: "flex",
                         alignItems: "center",
-                        gap: "0.5rem",
+                        padding: "1rem",
+                        borderBottom: "1px solid",
+                        borderBottomColor: "neutral/10",
                         flexShrink: 0,
                     })}
                 >
-                    <Button
-                        onClick={sidebar.toggle}
-                        title={sidebar.open ? "Réduire la barre latérale" : "Afficher la barre latérale"}
-                        className={{
-                            padding: "0",
-                            border: "none",
-                            backgroundColor: "transparent",
-                            width: "fit-content",
-                            height: "fit-content",
-                        }}
+                    <LinkButton
+                    to="/organisations"
                     >
-                        <IconLayoutSidebar
-                            size={20}
-                            className={css({
-                                stroke: "neutral/50",
-                                cursor: "pointer",
-                                _hover: { stroke: "neutral" },
-                            })}
+                        <ButtonGhostContent
+                            leftIcon={<Logo />}
+                            text="Arrhes"
+                            className={{                            }}
                         />
-                    </Button>
-                    <ButtonGhostContent
-                        leftIcon={<Logo />}
-                        className={{
-                            _hover: {
-                                backgroundColor: "transparent",
-                            },
-                        }}
-                    />
+                    </LinkButton>
                 </div>
 
-                {/* Search */}
-                <Button
-                    onClick={() => window.dispatchEvent(new CustomEvent("arrhes:open-palette"))}
-                    title="Rechercher (Ctrl+K)"
-                    className={{
-                        width: "fit-content",
-                    }}
-                >
-                    <ButtonOutlineContent
-                        leftIcon={<IconSearch size={16} />}
-                        text="Rechercher…"
-                        className={{
-                            width: "300px",
-                            justifyContent: "start",
-                        }}
-                    />
-                </Button>
-
-                {/* Right: nav actions */}
-                <nav
+                {/* Navigation tree */}
+                <div
                     className={css({
-                        marginLeft: "auto",
+                        flex: 1,
+                        overflowY: "auto",
+                        overflowX: "hidden",
+                                 padding: "1rem",
+   })}
+                >
+                    <SidebarNavigation />
+                </div>
+
+                {/* Sidebar bottom: docs, donate, user menu */}
+                <div
+                    className={css({
+                        borderTop: "1px solid",
+                        borderTopColor: "neutral/10",
+                        padding: "1rem",
                         display: "flex",
-                        alignItems: "center",
+                        flexDirection: "column",
                         gap: "0.5rem",
                         flexShrink: 0,
                     })}
@@ -301,8 +107,14 @@ export function DashboardShell() {
                             )
                         }
                         title="Documentation"
+                        className={{ width: "100%" }}
                     >
-                        <ButtonGhostContent leftIcon={<IconBook2 />} />
+                        <ButtonGhostContent
+                            leftIcon={<IconBook2 />}
+                            text="Documentation"
+                                                  rightIcon={<IconExternalLink/>}
+      className={{ width: "100%", justifyContent: "start" }}
+                        />
                     </Button>
                     <Button
                         onClick={() =>
@@ -313,52 +125,46 @@ export function DashboardShell() {
                             )
                         }
                         title="Faire un don"
+                        className={{ width: "100%" }}
                     >
-                        <ButtonGhostContent leftIcon={<IconHeart />} />
+                        <ButtonGhostContent
+                            leftIcon={<IconHeart />}
+                            text="Faire un don"
+                            rightIcon={<IconExternalLink/>}
+                            className={{ width: "100%", justifyContent: "start" }}
+                        />
                     </Button>
                     <Popover.Root>
                         <Popover.Trigger asChild>
-                            <Button title="Utilisateur">
-                                <ButtonOutlineContent leftIcon={<IconUser />} />
+                            <Button title="Utilisateur" className={{ width: "100%" }}>
+                                <ButtonOutlineContent
+                                    leftIcon={<IconUser />}
+                                    text="Utilisateur"
+                                    className={{ width: "100%", justifyContent: "start" }}
+                                />
                             </Button>
                         </Popover.Trigger>
                         <Popover.Content
                             align="end"
+                            side="top"
                             className={{
                                 padding: "0.5rem",
                                 gap: "0.25rem",
                             }}
                         >
                             <Button
-                                onClick={() =>
-                                    openTab(
-                                        {
-                                            component: "profil",
-                                            props: {},
-                                        },
-                                        {
-                                            newTab: true,
-                                        },
-                                    )
-                                }
-                                className={{
-                                    width: "100%",
-                                }}
+                                onClick={() => router.navigate({ to: "/paramètres" })}
+                                className={{ width: "100%" }}
                             >
                                 <ButtonGhostContent
                                     leftIcon={<IconSettings />}
                                     text="Paramètres"
-                                    className={{
-                                        width: "100%",
-                                        justifyContent: "start",
-                                    }}
+                                    className={{ width: "100%", justifyContent: "start" }}
                                 />
                             </Button>
-                            <Separator />
+                            {/* <Separator /> */}
                             <Button
-                                className={{
-                                    width: "100%",
-                                }}
+                                className={{ width: "100%" }}
                                 onClick={async () => {
                                     try {
                                         await getResponseBodyFromAPI({
@@ -368,263 +174,74 @@ export function DashboardShell() {
                                     } catch {
                                         // If the API is unreachable, still log out client-side.
                                     }
-
                                     deleteCookies()
-                                    toast({
-                                        title: "Déconnexion réussie",
-                                        variant: "success",
-                                    })
-
-                                    applicationRouter.navigate({
-                                        to: "/connexion",
-                                        reloadDocument: true,
-                                    })
+                                    toast({ title: "Déconnexion réussie", variant: "success" })
+                                    router.navigate({ to: "/connexion", reloadDocument: true })
                                 }}
                             >
                                 <ButtonGhostContent
                                     leftIcon={<IconLogout />}
                                     text="Se déconnecter"
                                     color="danger"
-                                    className={{
-                                        width: "100%",
-                                        justifyContent: "start",
-                                    }}
+                                    className={{ width: "100%", justifyContent: "start" }}
                                 />
                             </Button>
                         </Popover.Content>
                     </Popover.Root>
-                </nav>
-            </header>
-
-            {/* Content row: sidebar + tabs */}
-            <div
-                ref={containerRef}
-                className={css({
-                    width: "100%",
-                    flex: "1",
-                    display: "flex",
-                    flexDirection: "row",
-                    minHeight: 0,
-                    overflow: "hidden",
-                })}
-            >
-                {/* Sidebar */}
-                {sidebar.open && (
-                    <>
-                        <div
-                            style={{
-                                width: sidebar.width,
-                                flexShrink: 0,
-                                display: "flex",
-                                flexDirection: "column",
-                                minHeight: 0,
-                                overflow: "hidden",
-                                borderRight: "1px solid var(--colors-neutral-10)",
-                                backgroundColor: "white",
-                            }}
-                        >
-                            <SidebarNavigation />
-                        </div>
-                        {/* Sidebar resize handle */}
-                        <div
-                            className={css({
-                                flexShrink: 0,
-                                width: "4px",
-                                cursor: "col-resize",
-                                background: "transparent",
-                                transition: "background 0.15s",
-                                _hover: {
-                                    background: "neutral/30",
-                                },
-                            })}
-                            onMouseDown={(e) => {
-                                const startX = e.clientX
-                                const startW = sidebar.width
-                                const onMove = (ev: MouseEvent) => {
-                                    sidebar.setWidth(startW + (ev.clientX - startX))
-                                }
-                                const onUp = () => {
-                                    window.removeEventListener("mousemove", onMove)
-                                    window.removeEventListener("mouseup", onUp)
-                                    document.body.style.cursor = ""
-                                }
-                                document.body.style.cursor = "col-resize"
-                                window.addEventListener("mousemove", onMove)
-                                window.addEventListener("mouseup", onUp)
-                            }}
-                        />
-                    </>
-                )}
-
-                {/* Main / left panel — has its own tab bar */}
-                <div
-                    style={{
-                        flex: "1 1 0%",
-                        display: "flex",
-                        flexDirection: "column",
-                        minHeight: 0,
-                        overflow: "hidden",
-                    }}
-                >
-                    <TabBar
-                        excludeTabIds={rightPanel?.tabIds ?? []}
-                        onMergePanels={rightPanel ? () => setRightPanel(null) : undefined}
-                        onDropFromRight={(tabId, insertBeforeTabId) => {
-                            setRightPanel((prev) => {
-                                if (!prev) return null
-                                const next = prev.tabIds.filter((id) => id !== tabId)
-                                return next.length === 0
-                                    ? null
-                                    : {
-                                          tabIds: next,
-                                          activeTabId: next.includes(prev.activeTabId)
-                                              ? prev.activeTabId
-                                              : next[next.length - 1],
-                                      }
-                            })
-                            reorderTabs(tabId, insertBeforeTabId)
-                            activateTab(tabId)
-                        }}
-                    />
-                    <Outlet />
-                    <TabContentArea
-                        activeTabId={activeTabId}
-                        tabs={tabs.filter((t) => !rightPanel?.tabIds.includes(t.id))}
-                    />
                 </div>
-
-                {/* Split / right panel */}
-                {rightPanel && (
-                    <>
-                        {/* Drag handle */}
-                        <div
-                            className={css({
-                                flexShrink: 0,
-                                width: "4px",
-                                cursor: "col-resize",
-                                background: "neutral/10",
-                                transition: "background 0.15s",
-                                _hover: {
-                                    background: "neutral/30",
-                                },
-                                _active: {
-                                    background: "neutral/50",
-                                },
-                            })}
-                            onMouseDown={handleDragStart}
-                        />
-                        {/* Right panel */}
-                        <div
-                            style={{
-                                flex: "1 1 0%",
-                                display: "flex",
-                                flexDirection: "column",
-                                minHeight: 0,
-                                overflow: "hidden",
-                            }}
-                        >
-                            <TabBar
-                                onMergePanels={() => setRightPanel(null)}
-                                panel={{
-                                    tabIds: rightPanel.tabIds,
-                                    activeTabId: rightPanel.activeTabId,
-                                    onActivate: (tabId) =>
-                                        setRightPanel(
-                                            (prev) =>
-                                                prev && {
-                                                    ...prev,
-                                                    activeTabId: tabId,
-                                                },
-                                        ),
-                                    onRemove: (tabId) => {
-                                        setRightPanel((prev) => {
-                                            if (!prev) return null
-                                            const next = prev.tabIds.filter((id) => id !== tabId)
-                                            if (next.length === 0) {
-                                                closeTab(tabId)
-                                                return null
-                                            }
-                                            const newActive =
-                                                prev.activeTabId === tabId ? next[next.length - 1] : prev.activeTabId
-                                            return {
-                                                tabIds: next,
-                                                activeTabId: newActive,
-                                            }
-                                        })
-                                    },
-                                    onReorder: (tabId, insertBeforeTabId) =>
-                                        setRightPanel((prev) => {
-                                            if (!prev) return null
-                                            const without = prev.tabIds.filter((id) => id !== tabId)
-                                            if (insertBeforeTabId === null)
-                                                return {
-                                                    ...prev,
-                                                    tabIds: [
-                                                        ...without,
-                                                        tabId,
-                                                    ],
-                                                }
-                                            const idx = without.indexOf(insertBeforeTabId)
-                                            const tabIds =
-                                                idx === -1
-                                                    ? [
-                                                          ...without,
-                                                          tabId,
-                                                      ]
-                                                    : [
-                                                          ...without.slice(0, idx),
-                                                          tabId,
-                                                          ...without.slice(idx),
-                                                      ]
-                                            return {
-                                                ...prev,
-                                                tabIds,
-                                            }
-                                        }),
-                                    onDropFromLeft: (tabId, insertBeforeTabId) =>
-                                        setRightPanel((prev) => {
-                                            const existing = prev?.tabIds.filter((id) => id !== tabId) ?? []
-                                            if (insertBeforeTabId === null)
-                                                return {
-                                                    tabIds: [
-                                                        ...existing,
-                                                        tabId,
-                                                    ],
-                                                    activeTabId: tabId,
-                                                }
-                                            const idx = existing.indexOf(insertBeforeTabId)
-                                            const tabIds =
-                                                idx === -1
-                                                    ? [
-                                                          ...existing,
-                                                          tabId,
-                                                      ]
-                                                    : [
-                                                          ...existing.slice(0, idx),
-                                                          tabId,
-                                                          ...existing.slice(idx),
-                                                      ]
-                                            return {
-                                                tabIds,
-                                                activeTabId: tabId,
-                                            }
-                                        }),
-                                }}
-                            />
-                            <TabContentArea
-                                activeTabId={rightPanel.activeTabId}
-                                tabs={tabs.filter((t) => rightPanel.tabIds.includes(t.id))}
-                            />
-                        </div>
-                    </>
-                )}
             </div>
 
-            {/* Command palette / search */}
-            <CommandPalette
-                selectedOrgId={selectedOrgId}
-                selectedYearId={selectedYearId}
+            {/* Sidebar resize handle */}
+            <div
+                className={css({
+                    flexShrink: 0,
+                    width: "4px",
+                    cursor: "col-resize",
+                    background: "transparent",
+                    transition: "background 0.15s",
+                    _hover: { background: "neutral/5", },
+                })}
+                onMouseDown={(e) => {
+                    const startX = e.clientX
+                    const startW = sidebar.width
+                    const onMove = (ev: MouseEvent) => {
+                        const newWidth = Math.max(200, startW + (ev.clientX - startX))
+                        if (sidebarRef.current) {
+                            sidebarRef.current.style.width = `${newWidth}px`
+                        }
+                    }
+                    const onUp = () => {
+                        if (sidebarRef.current) {
+                            const finalWidth = Number.parseInt(sidebarRef.current.style.width, 10)
+                            sidebar.setWidth(finalWidth)
+                        }
+                        window.removeEventListener("mousemove", onMove)
+                        window.removeEventListener("mouseup", onUp)
+                        document.body.style.cursor = ""
+                    }
+                    document.body.style.cursor = "col-resize"
+                    window.addEventListener("mousemove", onMove)
+                    window.addEventListener("mouseup", onUp)
+                }}
             />
+
+            {/* Main content */}
+            <div
+                className={css({
+                    flex: "1",
+                    display: "flex",
+                    flexDirection: "column",
+                    minHeight: 0,
+                    overflow: "hidden",
+                    backgroundColor: "white",
+                })}
+            >
+                <Suspense fallback={<CircularLoader />}>
+                    <Outlet />
+                </Suspense>
+            </div>
+
+            
         </div>
     )
 }

@@ -102,7 +102,7 @@ export function EntryLayout() {
                                 <div
                                     className={css({
                                         display: "flex",
-                                        justifyContent: "flex-end",
+                                        justifyContent: "flex-start",
                                         alignItems: "center",
                                         gap: "0.5rem",
                                     })}

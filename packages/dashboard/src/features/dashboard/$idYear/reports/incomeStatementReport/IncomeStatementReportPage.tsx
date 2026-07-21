@@ -1,5 +1,7 @@
+import { Button, ButtonGhostContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { useParams } from "@tanstack/react-router"
+import { IconSettings } from "@tabler/icons-react"
+import { useParams, useRouter } from "@tanstack/react-router"
 import { useState } from "react"
 import { Box } from "../../../../../components/layouts/Box.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
@@ -28,6 +30,7 @@ export function IncomeStatementReportPage({
     idOrganization?: string
     idYear?: string
 } = {}) {
+    const router = useRouter()
     const params = useParams({
         strict: false,
     }) as {
@@ -91,52 +94,79 @@ export function IncomeStatementReportPage({
                 }
 
                 return (
-                            <Section.Root>
-                                <Section.Item>
-                                    <div
-                                        className={css({
-                                            width: "100%",
-                                            display: "flex",
-                                            justifyContent: "end",
-                                            alignItems: "start",
-                                            gap: "0.5rem",
-                                        })}
+                    <Section.Root>
+                        <Section.Item>
+                            <div
+                                className={css({
+                                    width: "100%",
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    gap: "0.5rem",
+                                    flexWrap: "wrap",
+                                })}
+                            >
+                                <div
+                                    className={css({
+                                        display: "flex",
+                                        gap: "0.25rem",
+                                    })}
+                                >
+                                    <ReportFilterPopover
+                                        selectedJournalId={selectedJournalId}
+                                        onJournalChange={setSelectedJournalId}
+                                        journalOptions={journalOptions}
+                                        selectedTags={selectedTags}
+                                        onTagsChange={setSelectedTags}
+                                        tagOptions={tagOptions}
+                                    />
+                                </div>
+                                <div
+                                    className={css({
+                                        display: "flex",
+                                        gap: "0.25rem",
+                                    })}
+                                >
+                                    <DownloadIncomeStatementReport
+                                        idOrganization={idOrganization}
+                                        idYear={idYear}
+                                        incomeStatements={incomeStatements}
+                                        computations={computations}
+                                        computationIncomeStatements={computationIncomeStatements}
+                                        entryLines={filteredEntryLines}
+                                        accounts={filteredAccounts}
+                                    />
+                                    <Button
+                                        onClick={() =>
+                                            router.navigate({
+                                                to: "/organisation/$idOrganization/exercice/$idYear/compte-de-résultat",
+                                                params: {
+                                                    idOrganization,
+                                                    idYear,
+                                                },
+                                            })
+                                        }
                                     >
-                                        <ReportFilterPopover
-                                            selectedJournalId={selectedJournalId}
-                                            onJournalChange={setSelectedJournalId}
-                                            journalOptions={journalOptions}
-                                            selectedTags={selectedTags}
-                                            onTagsChange={setSelectedTags}
-                                            tagOptions={tagOptions}
-                                        />
-                                        <DownloadIncomeStatementReport
-                                            idOrganization={idOrganization}
-                                            idYear={idYear}
-                                            incomeStatements={incomeStatements}
-                                            computations={computations}
-                                            computationIncomeStatements={computationIncomeStatements}
-                                            entryLines={filteredEntryLines}
-                                            accounts={filteredAccounts}
-                                        />
-                                    </div>
-                                    <div
-                                        className={css({
-                                            width: "100%",
-                                        })}
-                                    >
-                                        <Box>
-                                            <IncomeStatementsReportTable
-                                                incomeStatements={incomeStatements}
-                                                computations={computations}
-                                                computationIncomeStatements={computationIncomeStatements}
-                                                entryLines={filteredEntryLines}
-                                                accounts={filteredAccounts}
-                                            />
-                                        </Box>
-                                    </div>
-                                </Section.Item>
-                            </Section.Root>
+                                        <ButtonGhostContent leftIcon={<IconSettings />} />
+                                    </Button>
+                                </div>
+                            </div>
+                            <div
+                                className={css({
+                                    width: "100%",
+                                })}
+                            >
+                                <Box>
+                                    <IncomeStatementsReportTable
+                                        incomeStatements={incomeStatements}
+                                        computations={computations}
+                                        computationIncomeStatements={computationIncomeStatements}
+                                        entryLines={filteredEntryLines}
+                                        accounts={filteredAccounts}
+                                    />
+                                </Box>
+                            </div>
+                        </Section.Item>
+                    </Section.Root>
                 )
             }}
         </YearDataWrapper>

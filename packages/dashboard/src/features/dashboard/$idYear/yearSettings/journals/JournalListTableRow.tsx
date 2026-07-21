@@ -54,7 +54,7 @@ export function JournalListTableRow(props: { journal: v.InferOutput<typeof schem
                     <div
                         className={css({
                             display: "flex",
-                            justifyContent: "end",
+                            justifyContent: "start",
                             alignItems: "start",
                             gap: "0.5rem",
                         })}

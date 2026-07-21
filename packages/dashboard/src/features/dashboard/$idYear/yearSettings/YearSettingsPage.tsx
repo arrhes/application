@@ -27,12 +27,13 @@ export function YearSettingsPage({
     void idOrganization
 
     return (
-                <DataWrapper
-                    routeDefinition={readOneYearRouteDefinition}
-                    body={{
-                        idYear: idYear,
-                    }}
-                >
+        <DataWrapper
+            routeDefinition={readOneYearRouteDefinition}
+            body={{
+                idYear: idYear,
+            }}
+            params={{ idOrganization }}
+        >
                     {(year) => {
                         return (
                             <>

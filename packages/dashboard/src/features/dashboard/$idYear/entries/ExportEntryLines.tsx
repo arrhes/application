@@ -6,7 +6,6 @@ import {
 } from "@arrhes/application-metadata/routes"
 import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { formatDate, formatPrice, InputDate, toast } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconDownload } from "@tabler/icons-react"
 import { useMemo } from "react"
 import * as v from "valibot"
@@ -18,6 +17,7 @@ import { FormItem } from "../../../../components/forms/FormItem.js"
 import { FormLabel } from "../../../../components/forms/FormLabel.js"
 import { FormRoot } from "../../../../components/forms/FormRoot.js"
 import { InputDataCombobox } from "../../../../components/InputDataCombobox.js"
+import { useRightPanel } from "../../../../contexts/rightPanel/RightPanelContext.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 
 export function ExportEntryLines(props: {
@@ -25,8 +25,8 @@ export function ExportEntryLines(props: {
     idYear: v.InferOutput<typeof returnedSchemas.year>["id"]
     entries: v.InferOutput<typeof readAllEntriesRouteDefinition.schemas.return>
     entryLines: v.InferOutput<typeof readAllEntryLinesRouteDefinition.schemas.return>
-    onClose: () => void
 }) {
+    const { closePanel } = useRightPanel()
     const entriesMap = useMemo(() => {
         return new Map(
             props.entries.map((r) => [
@@ -46,12 +46,7 @@ export function ExportEntryLines(props: {
     }
 
     return (
-        <div
-            className={css({
-                padding: "2rem",
-            })}
-        >
-            <FormRoot
+        <FormRoot
                 schema={v.object({
                     idJournal: v.nullable(v.pipe(v.string())),
                     idAccount: v.nullable(v.pipe(v.string())),
@@ -198,7 +193,7 @@ export function ExportEntryLines(props: {
                 }}
                 onCancel={undefined}
                 onSuccess={async () => {
-                    props.onClose()
+                    closePanel()
                 }}
             >
                 {(form) => (
@@ -308,6 +303,5 @@ export function ExportEntryLines(props: {
                     </FormGroup>
                 )}
             </FormRoot>
-        </div>
     )
 }

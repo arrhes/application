@@ -4,10 +4,6 @@ import { getScenarioById } from "../../../../../../features/docs/accounting/reso
 import { scenariosAccountingDocLayoutRoute } from "./scenariosAccountingDocLayoutRoute.js"
 import { ScenarioResourcesAccountingDocPage } from "../../../../../../features/docs/accounting/resources/scenarios/ScenarioResourcesAccountingDocPage.js"
 
-=>
-        import("../../../../../../features/docs/accounting/resources/scenarios/ScenarioResourcesAccountingDocPage.tsx"),
-)
-
 export const scenarioAccountingDocRoute = createRoute({
     getParentRoute: () => scenariosAccountingDocLayoutRoute,
     path: "/$scenario",

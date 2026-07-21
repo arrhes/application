@@ -61,7 +61,7 @@ function StorageCredentialsBlock({
     org,
 }: {
     idOrganization: string
-    org: Record<string, string | null | undefined>
+    org: Record<string, unknown>
 }) {
     interface FieldDef {
         key: string
@@ -75,10 +75,10 @@ function StorageCredentialsBlock({
         { key: "storageBucketName", label: "Bucket" },
         { key: "storageRegion", label: "Région" },
     ]
-    const initialSnap = fields.map((f) => `${f.key}:${org[f.key] ?? ""}`).join("|")
+    const initialSnap = fields.map((f) => `${f.key}:${(org[f.key] as string | null | undefined) ?? ""}`).join("|")
     const [values, setValues] = useState<Record<string, string>>(() => {
         const init: Record<string, string> = {}
-        for (const f of fields) init[f.key] = org[f.key] ?? ""
+            for (const f of fields) init[f.key] = (org[f.key] as string | null | undefined) ?? ""
         return init
     })
     const [isSaving, setIsSaving] = useState(false)
@@ -152,7 +152,7 @@ function StorageCredentialsBlock({
                 <div
                     className={css({
                         display: "flex",
-                        justifyContent: "flex-end",
+                        justifyContent: "flex-start",
                         paddingTop: "0.5rem",
                     })}
                 >

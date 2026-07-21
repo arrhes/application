@@ -48,7 +48,7 @@ export function ComputationsPage() {
                     className={css({
                         width: "100%",
                         display: "flex",
-                        justifyContent: "flex-end",
+                        justifyContent: "flex-start",
                         alignItems: "flex-start",
                         gap: "0.5rem",
                     })}

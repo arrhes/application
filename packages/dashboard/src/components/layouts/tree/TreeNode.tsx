@@ -1,7 +1,7 @@
 import { Button, ButtonGhostContent } from "@arrhes/ui"
-import { cn, css } from "@arrhes/ui/utilities/cn.js"
-import { IconChevronRight } from "@tabler/icons-react"
+import { css } from "@arrhes/ui/utilities/cn.js"
 import type { Icon, IconProps } from "@tabler/icons-react"
+import { IconChevronDown, IconChevronRight } from "@tabler/icons-react"
 import type { ReactElement, ReactNode } from "react"
 
 type TreeNodeProps = {
@@ -28,152 +28,80 @@ export function TreeNode({
     const hasChildren = children !== undefined
     const canToggle = hasChildren && onToggle !== undefined
 
+    function handleClick() {
+        if (canToggle) onToggle()
+        if (onClick) onClick()
+    }
+
     return (
-        <div>
-            <div
-                className={cn(
-                    css({
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "0.25rem",
-                        padding: "0.375rem 0.5rem",
-                        paddingLeft: `${0.75 + depth * 1.25}rem`,
-                        borderRadius: "md",
-                        cursor: "pointer",
-                        fontSize: "sm",
-                        color: active ? "primary" : "neutral/70",
-                        backgroundColor: active ? "primary/8" : "transparent",
-                        transition: "background 0.1s, color 0.1s",
-                        _hover: {
-                            backgroundColor: active ? "primary/12" : "neutral/5",
-                        },
-                        userSelect: "none",
-                        whiteSpace: "nowrap",
-                    }),
-                )}
-                onClick={() => {
-                    if (canToggle) onToggle()
-                    if (onClick) onClick()
+        <>
+            <Button
+                onClick={handleClick}
+                style={{
+                    paddingLeft: `${depth * 1}rem`,
                 }}
-                role="treeitem"
-                aria-expanded={hasChildren ? expanded : undefined}
+                className={{
+                    width: "100%",
+                    gap: "0.25rem",
+                }}
             >
-                {hasChildren && (
-                    <span
-                        className={css({
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            width: "1rem",
-                            height: "1rem",
-                            flexShrink: 0,
-                            transform: expanded ? "rotate(90deg)" : "rotate(0deg)",
-                            transition: "transform 0.15s",
-                            color: "neutral/40",
-                        })}
-                    >
-                        <IconChevronRight size={14} />
-                    </span>
-                )}
-                {!hasChildren && (
-                    <span
-                        className={css({
-                            width: "1rem",
-                            flexShrink: 0,
-                        })}
-                    />
-                )}
-                {icon && (
-                    <span
-                        className={css({
-                            display: "flex",
-                            alignItems: "center",
-                            flexShrink: 0,
-                            color: active ? "primary" : "neutral/50",
-                        })}
-                    >
-                        {icon}
-                    </span>
-                )}
-                <span
-                    className={css({
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        minWidth: 0,
-                    })}
-                >
-                    {label}
-                </span>
-            </div>
+                <ButtonGhostContent
+                    leftIcon={icon}
+                    text={label}
+                    rightIcon={expanded ? <IconChevronDown /> : <IconChevronRight />}
+                    isCurrent={active}
+                    className={{
+                        width: "100%",
+                        justifyContent: "start",
+                    }}
+                />
+            </Button>
             {hasChildren && expanded && (
                 <div
                     className={css({
                         display: "flex",
                         flexDirection: "column",
+                        gap: "0.25rem",
+                        borderLeft: "1px solid",
+                        borderLeftColor: "neutral/10",
                     })}
+                    style={{
+                        marginLeft: `${(depth + 1) * 1}rem`,
+                    }}
                 >
                     {children}
                 </div>
             )}
-        </div>
+        </>
     )
 }
 
-type TreeNodeLinkProps = {
+export function TreeNodeLink({ icon, label, active = false, depth = 0, onClick }: {
     icon?: ReactElement<IconProps & React.RefAttributes<Icon>>
     label: string
     active?: boolean
     depth?: number
     onClick: () => void
-}
-
-export function TreeNodeLink({ icon, label, active = false, depth = 0, onClick }: TreeNodeLinkProps) {
+}) {
     return (
-        <div
-            className={cn(
-                css({
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.375rem",
-                    padding: "0.375rem 0.5rem",
-                    paddingLeft: `${1.75 + depth * 1.25}rem`,
-                    borderRadius: "md",
-                    cursor: "pointer",
-                    fontSize: "sm",
-                    color: active ? "primary" : "neutral/60",
-                    backgroundColor: active ? "primary/8" : "transparent",
-                    transition: "background 0.1s, color 0.1s",
-                    _hover: {
-                        backgroundColor: active ? "primary/12" : "neutral/5",
-                    },
-                    userSelect: "none",
-                    whiteSpace: "nowrap",
-                }),
-            )}
+        <Button
             onClick={onClick}
-            role="treeitem"
+            style={{
+                paddingLeft: `${depth * 1}rem`,
+            }}
+            className={{
+                width: "100%",
+            }}
         >
-            {icon && (
-                <span
-                    className={css({
-                        display: "flex",
-                        alignItems: "center",
-                        flexShrink: 0,
-                        color: active ? "primary" : "neutral/40",
-                    })}
-                >
-                    {icon}
-                </span>
-            )}
-            <span
-                className={css({
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    minWidth: 0,
-                })}
-            >
-                {label}
-            </span>
-        </div>
+            <ButtonGhostContent
+                leftIcon={icon}
+                text={label}
+                isCurrent={active}
+                className={{
+                    width: "100%",
+                    justifyContent: "start",
+                }}
+            />
+        </Button>
     )
 }

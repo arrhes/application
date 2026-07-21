@@ -40,7 +40,7 @@ export function AccountsPage({
                             className={css({
                                 width: "100%",
                                 display: "flex",
-                                justifyContent: "flex-end",
+                                justifyContent: "flex-start",
                                 alignItems: "center",
                                 gap: "0.5rem",
                             })}

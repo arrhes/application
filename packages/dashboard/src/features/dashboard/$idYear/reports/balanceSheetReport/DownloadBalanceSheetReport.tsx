@@ -66,7 +66,7 @@ export function DownloadBalanceSheetReport(props: {
                 <Button>
                     <ButtonOutlineContent
                         leftIcon={<IconDownload />}
-                        text="Télécharger"
+                        // text="Télécharger"
                     />
                 </Button>
             </Popover.Trigger>

@@ -22,6 +22,7 @@ export default defineConfig(() => {
         },
         build: {
             outDir: "../build",
+            emptyOutDir: true,
             rollupOptions: {
                 output: {
                     entryFileNames: "[hash].js",
@@ -30,6 +31,24 @@ export default defineConfig(() => {
                     manualChunks(id: string) {
                         if (id.includes("react-dom")) {
                             return "react-dom"
+                        }
+                        if (id.includes("@react-pdf")) {
+                            return "pdf"
+                        }
+                        if (id.includes("features/dashboard/$idOrganization/organizationStorage")) {
+                            return "storage"
+                        }
+                        if (id.includes("features/dashboard/$idYear/yearSettings")) {
+                            return "year-settings"
+                        }
+                        if (id.includes("features/dashboard/$idYear/reports")) {
+                            return "reports"
+                        }
+                        if (id.includes("features/dashboard/$idYear/entries")) {
+                            return "entries"
+                        }
+                        if (id.includes("features/dashboard/$idYear/inventory")) {
+                            return "inventory"
                         }
                     },
                 },

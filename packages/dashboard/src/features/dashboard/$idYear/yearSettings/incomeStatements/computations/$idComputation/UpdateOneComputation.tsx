@@ -8,6 +8,7 @@ import { Button, InputText, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconPlus } from "@tabler/icons-react"
 import type { JSX } from "react"
+import { useState } from "react"
 import { Fragment } from "react/jsx-runtime"
 import type * as v from "valibot"
 import { FormControl } from "../../../../../../../components/forms/FormControl.tsx"
@@ -16,7 +17,6 @@ import { FormField } from "../../../../../../../components/forms/FormField.tsx"
 import { FormItem } from "../../../../../../../components/forms/FormItem.tsx"
 import { FormLabel } from "../../../../../../../components/forms/FormLabel.tsx"
 import { FormRoot } from "../../../../../../../components/forms/FormRoot.tsx"
-import { useTabs } from "../../../../../../../contexts/tabs/useTabs.tsx"
 import { getResponseBodyFromAPI } from "../../../../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../../../../utilities/invalidateData.ts"
 
@@ -24,9 +24,10 @@ export function UpdateOneComputation(props: {
     computation: v.InferOutput<typeof returnedSchemas.computation>
     children: JSX.Element
 }) {
-    const { openPanelTab, closeTab } = useTabs()
+    const [open, setOpen] = useState(false)
 
     return (
+        <>
         <Button
             className={{
                 padding: "0",
@@ -35,12 +36,11 @@ export function UpdateOneComputation(props: {
                 width: "fit-content",
                 height: "fit-content",
             }}
-            onClick={() => {
-                const r = {
-                    current: "",
-                }
-                r.current = openPanelTab(
-                    "Modifier la ligne de calcul",
+            onClick={() => setOpen(true)}
+        >
+            {props.children}
+        </Button>
+            {open &&
                     <div
                         className={css({
                             padding: "2rem",
@@ -96,7 +96,7 @@ export function UpdateOneComputation(props: {
                                     }),
                                 ])
 
-                                closeTab(r.current)
+                                setOpen(false)
                             }}
                         >
                             {(form) => (
@@ -145,11 +145,8 @@ export function UpdateOneComputation(props: {
                                 </Fragment>
                             )}
                         </FormRoot>
-                    </div>,
-                )
-            }}
-        >
-            {props.children}
-        </Button>
+                    </div>
+            }
+        </>
     )
 }

@@ -61,7 +61,7 @@ export function SubPageContent(props: {
                     alignItems: "center",
                     gap: "1rem",
                     flexWrap: "wrap",
-                    padding: "0.5rem",
+                    padding: "1rem",
                     borderBottom: "1px solid",
                     borderBottomColor: "neutral/10",
                 })}
@@ -91,7 +91,7 @@ export function SubPageContent(props: {
                 <div
                     className={css({
                         display: "flex",
-                        justifyContent: "flex-end",
+                        justifyContent: "flex-start",
                         alignItems: "center",
                         gap: "0.5rem",
                         flexWrap: "wrap",
@@ -108,10 +108,7 @@ export function SubPageContent(props: {
                     flex: 1,
                     minHeight: 0,
                     overflowY: "auto",
-                    padding: {
-                        base: "1rem",
-                        md: "2rem",
-                    },
+                    padding: "1rem",
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "start",

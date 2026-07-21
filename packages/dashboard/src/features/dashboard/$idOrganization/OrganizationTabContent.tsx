@@ -1,27 +1,27 @@
 import { Button, ButtonGhostContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconApi, IconCalendar, IconChevronRight, IconSettings, IconUsers } from "@tabler/icons-react"
+import { IconCalendar, IconChevronRight, IconSettings, IconUsers } from "@tabler/icons-react"
+import { useRouter } from "@tanstack/react-router"
 import type { ReactNode } from "react"
-import { TabLink } from "../../../components/layouts/tabBar/TabLink.js"
-import type { OpenTabArgs } from "../../../contexts/tabs/tabDefinitions.js"
 
 type NavItem = {
     label: string
     description: string
     icon: ReactNode
-    args: OpenTabArgs
+    route: { to: string; params: Record<string, string>; search?: Record<string, string> }
 }
 
 function NavCard({ item }: { item: NavItem }) {
+    const router = useRouter()
     return (
-        <TabLink args={item.args}>
-            <Button
-                className={{
-                    width: "100%",
-                    height: "100%",
-                    textAlign: "left",
-                }}
-            >
+        <Button
+            onClick={() => router.navigate({ to: item.route.to, params: item.route.params, search: item.route.search })}
+            className={{
+                width: "100%",
+                height: "100%",
+                textAlign: "left",
+            }}
+        >
                 <div
                     className={css({
                         width: "100%",
@@ -96,7 +96,6 @@ function NavCard({ item }: { item: NavItem }) {
                     />
                 </div>
             </Button>
-        </TabLink>
     )
 }
 
@@ -105,45 +104,28 @@ export function OrganizationTabContent(props: { idOrganization: string }) {
         {
             label: "Exercices",
             description: "Ann\u00e9es fiscales et \u00e9critures comptables",
-            icon: <IconCalendar size={24} />,
-            args: {
-                component: "exercices",
-                props: {
-                    idOrganization: props.idOrganization,
-                },
+            icon: <IconCalendar />,
+            route: {
+                to: "/organisation/$idOrganization/exercices",
+                params: { idOrganization: props.idOrganization },
             },
         },
         {
             label: "Membres",
             description: "Utilisateurs et droits d\u2019acc\u00e8s",
-            icon: <IconUsers size={24} />,
-            args: {
-                component: "membres",
-                props: {
-                    idOrganization: props.idOrganization,
-                },
+            icon: <IconUsers />,
+            route: {
+                to: "/organisation/$idOrganization/paramètres/membres",
+                params: { idOrganization: props.idOrganization },
             },
         },
         {
             label: "Param\u00e8tres",
             description: "Configuration g\u00e9n\u00e9rale et s\u00e9curit\u00e9",
-            icon: <IconSettings size={24} />,
-            args: {
-                component: "organisation-param\u00e8tres",
-                props: {
-                    idOrganization: props.idOrganization,
-                },
-            },
-        },
-        {
-            label: "API",
-            description: "Cl\u00e9s d\u2019acc\u00e8s et documentation",
-            icon: <IconApi size={24} />,
-            args: {
-                component: "organisation-api",
-                props: {
-                    idOrganization: props.idOrganization,
-                },
+            icon: <IconSettings />,
+            route: {
+                to: "/organisation/$idOrganization/paramètres",
+                params: { idOrganization: props.idOrganization },
             },
         },
     ]

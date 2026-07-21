@@ -158,7 +158,7 @@ function EntryCategoriesTabContent(props: {
                 className={css({
                     width: "100%",
                     display: "flex",
-                    justifyContent: "end",
+                    justifyContent: "start",
                     alignItems: "center",
                     gap: "0.5rem",
                 })}

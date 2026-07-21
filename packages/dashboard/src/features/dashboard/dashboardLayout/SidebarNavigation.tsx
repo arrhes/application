@@ -1,44 +1,38 @@
 import { getAllMyOrganizationsRouteDefinition } from "@arrhes/application-metadata/routes"
-import { useMemo } from "react"
+import { Button, ButtonGhostContent } from "@arrhes/ui"
+import { css } from "@arrhes/ui/utilities/cn.js"
+import { IconPlus } from "@tabler/icons-react"
+import { useRouter } from "@tanstack/react-router"
 import { TreeSection } from "../../../components/layouts/tree/TreeSection.js"
-import { useTabs } from "../../../contexts/tabs/useTabs.js"
 import { useDataFromAPI } from "../../../utilities/useHTTPData.js"
 import { SidebarOrganizationNode } from "./SidebarOrganizationNode.js"
 
 export function SidebarNavigation() {
-    const { openTab } = useTabs()
-    const orgsResponse = useDataFromAPI({
+    const response = useDataFromAPI({
         routeDefinition: getAllMyOrganizationsRouteDefinition,
         body: {},
     })
-
-    const orgs = useMemo(() => {
-        if (!orgsResponse.data) return []
-        return orgsResponse.data.filter((item: any) => item.organization)
-    }, [orgsResponse.data])
+    const orgs = Array.isArray(response.data) ? response.data : []
+    const router = useRouter()
 
     return (
         <nav
-            role="tree"
-            style={{
+            className={css({
                 display: "flex",
                 flexDirection: "column",
                 gap: "0.5rem",
-                height: "100%",
-                overflowY: "auto",
-                padding: "0.75rem 0.5rem",
-            }}
+            })}
         >
-            <TreeSection title="Organisations">
+            <TreeSection>
                 {orgs.length === 0 && (
                     <div
-                        style={{
-                            padding: "1rem 0.75rem",
-                            fontSize: "0.75rem",
-                            color: "var(--colors-neutral-40)",
-                        }}
+                        className={css({
+                            padding: "0.5rem",
+                            fontSize: "0.875rem",
+                            color: "neutral/500",
+                        })}
                     >
-                        {orgsResponse.isLoading ? "Chargement..." : "Aucune organisation"}
+                        {response.isLoading ? "Chargement..." : "Aucune organisation"}
                     </div>
                 )}
                 {orgs.map((item: any) => {
@@ -47,7 +41,6 @@ export function SidebarNavigation() {
                         <SidebarOrganizationNode
                             key={org.id}
                             org={org}
-                            openTab={openTab}
                         />
                     )
                 })}

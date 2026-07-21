@@ -68,6 +68,7 @@ const ghostRecipe = sva({
             },
         },
         rightIcon: {
+            marginLeft: "auto",
             minWidth: "14px",
             width: "14px",
             minHeight: "14px",

@@ -4,12 +4,6 @@ import { getGlossaryTermBySlug } from "../../../../../../features/docs/accountin
 import { glossaryAccountingDocLayoutRoute } from "./glossaryAccountingDocLayoutRoute.js"
 import { GlossaryTermResourcesAccountingDocPage } from "../../../../../../features/docs/accounting/resources/glossary/GlossaryTermResourcesAccountingDocPage.js"
 
-=>
-        import(
-            "../../../../../../features/docs/accounting/resources/glossary/GlossaryTermResourcesAccountingDocPage.tsx"
-        ),
-)
-
 export const glossaryTermAccountingDocRoute = createRoute({
     getParentRoute: () => glossaryAccountingDocLayoutRoute,
     path: "/$term",

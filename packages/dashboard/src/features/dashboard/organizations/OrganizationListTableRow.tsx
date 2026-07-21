@@ -3,11 +3,12 @@ import { Button, Chip, LinkContent } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import type * as v from "valibot"
 import { ListTable } from "../../../components/layouts/listTable/listTable.tsx"
-import { TabLink } from "../../../components/layouts/tabBar/TabLink.js"
+import { useRouter } from "@tanstack/react-router"
 
 export function OrganizationListTableRow(props: {
     organizationUser: v.InferOutput<typeof getAllMyOrganizationsRouteDefinition.schemas.return>[number]
 }) {
+    const router = useRouter()
     const organization = props.organizationUser.organization
 
     const scopeLabel = organization.scope === "company" ? "Entreprise" : "Association"
@@ -32,34 +33,32 @@ export function OrganizationListTableRow(props: {
                         gap: "1rem",
                     })}
                 >
-                    <TabLink
-                        args={{
-                            component: "organisation",
-                            props: {
-                                idOrganization: organization.id,
-                            },
-                        }}
+                    <Button
+                        onClick={() =>
+                            router.navigate({
+                                to: "/organisation/$idOrganization",
+                                params: { idOrganization: organization.id },
+                            })
+                        }
                     >
-                        <Button>
-                            <LinkContent
-                                className={{
-                                    fontSize: "base",
-                                    fontWeight: "semibold",
-                                    color: "primary",
-                                    textDecoration: "none",
-                                    _hover: {
-                                        textDecoration: "underline",
-                                    },
-                                }}
-                            >
-                                {organization.name}
-                            </LinkContent>
-                        </Button>
-                    </TabLink>
+                        <LinkContent
+                            className={{
+                                fontSize: "base",
+                                fontWeight: "semibold",
+                                color: "primary",
+                                textDecoration: "none",
+                                _hover: {
+                                    textDecoration: "underline",
+                                },
+                            }}
+                        >
+                            {organization.name}
+                        </LinkContent>
+                    </Button>
                     <div
                         className={css({
                             display: "flex",
-                            justifyContent: "end",
+                            justifyContent: "start",
                             alignItems: "start",
                             gap: "0.5rem",
                         })}

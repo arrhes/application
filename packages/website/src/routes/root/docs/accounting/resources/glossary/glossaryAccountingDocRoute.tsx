@@ -3,10 +3,6 @@ import { DocRoot } from "../../../../../../components/document/DocRoot"
 import { glossaryAccountingDocLayoutRoute } from "./glossaryAccountingDocLayoutRoute.js"
 import { GlossaryResourcesAccountingDocPage } from "../../../../../../features/docs/accounting/resources/glossary/GlossaryResourcesAccountingDocPage.js"
 
-=>
-        import("../../../../../../features/docs/accounting/resources/glossary/GlossaryResourcesAccountingDocPage.tsx"),
-)
-
 export const glossaryAccountingDocIndexRoute = createRoute({
     getParentRoute: () => glossaryAccountingDocLayoutRoute,
     path: "/",

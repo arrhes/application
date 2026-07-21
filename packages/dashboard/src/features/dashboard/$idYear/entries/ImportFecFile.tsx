@@ -11,8 +11,10 @@ import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
 import { Button, ButtonPlainContent, InputFile, toast } from "@arrhes/ui"
 import { css } from "@arrhes/ui/utilities/cn.js"
 import { IconFileImport } from "@tabler/icons-react"
+import { Fragment } from "react/jsx-runtime"
 import { useMemo, useState } from "react"
 import type * as v from "valibot"
+import { useRightPanel } from "../../../../contexts/rightPanel/RightPanelContext.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
 
@@ -235,8 +237,8 @@ export function ImportFecFile(props: {
     idYear: v.InferOutput<typeof returnedSchemas.year>["id"]
     journals: v.InferOutput<typeof readAllJournalsRouteDefinition.schemas.return>
     accounts: v.InferOutput<typeof readAllAccountsRouteDefinition.schemas.return>
-    onClose: () => void
 }) {
+    const { closePanel } = useRightPanel()
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
     const selectedFileLabel = useMemo(() => {
@@ -427,18 +429,11 @@ export function ImportFecFile(props: {
         })
 
         setSelectedFile(null)
-        props.onClose()
+        closePanel()
     }
 
     return (
-        <div
-            className={css({
-                padding: "2rem",
-                display: "flex",
-                flexDirection: "column",
-                gap: "1rem",
-            })}
-        >
+        <Fragment>
             <p
                 className={css({
                     fontSize: "sm",
@@ -522,6 +517,6 @@ export function ImportFecFile(props: {
                 Le contrôle de compatibilité vérifie les colonnes requises et l'équilibre débit/crédit de chaque
                 écriture.
             </p>
-        </div>
+        </Fragment>
     )
 }
