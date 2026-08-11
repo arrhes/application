@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { DocDefinition } from "../../../../components/document/DocDefinition.js"
 import { DocExample } from "../../../../components/document/DocExample.js"
 import { DocHeader } from "../../../../components/document/DocHeader.js"
@@ -9,10 +9,11 @@ import { DocSection } from "../../../../components/document/DocSection.js"
 import { DocSourceRef } from "../../../../components/document/DocSourceRef.js"
 import { DocSources } from "../../../../components/document/DocSources.js"
 import { DocTip } from "../../../../components/document/DocTip.js"
+import { DocRoot } from "../../../../components/document/DocRoot.js"
 
 export function NotesAccountingDocPage() {
     return (
-        <>
+        <DocRoot>
             <DocHeader
                 title="L'annexe comptable"
                 description="Complément indispensable aux comptes annuels"
@@ -54,7 +55,7 @@ export function NotesAccountingDocPage() {
                     L'annexe doit inclure toute information significative qui n'apparaît pas directement dans le bilan
                     ou le compte de résultat. Son contenu varie selon la taille et la nature de l'
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "organisation",
                         }}
@@ -198,7 +199,7 @@ export function NotesAccountingDocPage() {
             <DocSection title="Lien avec Arrhes">
                 <DocParagraph>
                     Arrhes vous accompagne dans la préparation de vos comptes annuels. Consultez le guide sur les{" "}
-                    <DocLink to="/documentation/dashboard/documents">rapports</DocLink> pour savoir comment exporter les
+                    <DocLink to="/documentation/guide/documents">rapports</DocLink> pour savoir comment exporter les
                     données nécessaires à la rédaction de votre annexe.
                 </DocParagraph>
             </DocSection>
@@ -219,6 +220,6 @@ export function NotesAccountingDocPage() {
                     },
                 ]}
             />
-        </>
+        </DocRoot>
     )
 }

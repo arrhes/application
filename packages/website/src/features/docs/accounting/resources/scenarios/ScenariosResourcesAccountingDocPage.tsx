@@ -1,11 +1,12 @@
-import { ButtonGhostContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { ButtonGhostContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconLoader2, IconSearch } from "@tabler/icons-react"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { useRef, useState, useTransition } from "react"
 import { DocHeader } from "../../../../../components/document/DocHeader.js"
 import { DocParagraph } from "../../../../../components/document/DocParagraph.js"
 import { DocSection } from "../../../../../components/document/DocSection.js"
+import { DocRoot } from "../../../../../components/document/DocRoot.js"
 import { LinkButton } from "../../../../../components/LinkButton.js"
 import { scenarioEntries, searchScenarios } from "./scenariosData.js"
 
@@ -66,7 +67,7 @@ export function ScenariosResourcesAccountingDocPage() {
         })
     }
     return (
-        <>
+        <DocRoot>
             <DocHeader
                 title="Scénarios comptables"
                 description="Liste des cas d'usage liés aux comptes du Plan Comptable Général"
@@ -189,18 +190,16 @@ export function ScenariosResourcesAccountingDocPage() {
                 </div>
             ) : (
                 !isPending && (
-                    <p
+                    <div
                         className={css({
-                            fontSize: "sm",
-                            color: "neutral/50",
                             padding: "2rem 0",
                             textAlign: "center",
                         })}
                     >
-                        Aucun scénario ne correspond à votre recherche.
-                    </p>
+                        <DocParagraph>Aucun scénario ne correspond à votre recherche.</DocParagraph>
+                    </div>
                 )
             )}
-        </>
+        </DocRoot>
     )
 }

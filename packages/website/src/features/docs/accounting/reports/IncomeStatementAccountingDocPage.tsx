@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { DocDefinition } from "../../../../components/document/DocDefinition.js"
 import { DocExample } from "../../../../components/document/DocExample.js"
 import { DocHeader } from "../../../../components/document/DocHeader.js"
@@ -9,10 +9,11 @@ import { DocSection } from "../../../../components/document/DocSection.js"
 import { DocSourceRef } from "../../../../components/document/DocSourceRef.js"
 import { DocSources } from "../../../../components/document/DocSources.js"
 import { DocTip } from "../../../../components/document/DocTip.js"
+import { DocRoot } from "../../../../components/document/DocRoot.js"
 
 export function IncomeStatementAccountingDocPage() {
     return (
-        <>
+        <DocRoot>
             <DocHeader
                 title="Le compte de résultat"
                 description="Film de l'activité sur une période : produits, charges et résultat"
@@ -29,7 +30,7 @@ export function IncomeStatementAccountingDocPage() {
                     photographie à un instant donné, le compte de résultat est un <strong>film</strong> : il couvre
                     toute la durée de l'{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "exercice-comptable",
                         }}
@@ -46,7 +47,7 @@ export function IncomeStatementAccountingDocPage() {
                     Le compte de résultat est construit à partir des{" "}
                     <strong>
                         <DocLink
-                            to="/documentation/comptabilité/glossaire/$term"
+                            to="/documentation/comptabilité/ressources/glossaire/$term"
                             params={{
                                 term: "comptes-d-operations",
                             }}
@@ -56,7 +57,7 @@ export function IncomeStatementAccountingDocPage() {
                     </strong>{" "}
                     (classes 6 et 7 du{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "plan-comptable-general-pcg",
                         }}
@@ -66,7 +67,7 @@ export function IncomeStatementAccountingDocPage() {
                     )
                     <DocSourceRef n={2} />. Les comptes de classe 6 enregistrent les{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "charges-classe-6",
                         }}
@@ -75,7 +76,7 @@ export function IncomeStatementAccountingDocPage() {
                     </DocLink>{" "}
                     (ce que l'on dépense), les comptes de classe 7 enregistrent les{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "produits-classe-7",
                         }}
@@ -289,7 +290,7 @@ export function IncomeStatementAccountingDocPage() {
                 <DocParagraph>
                     Les{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "capitaux-propres",
                         }}
@@ -348,7 +349,7 @@ export function IncomeStatementAccountingDocPage() {
                 <DocParagraph>
                     Le résultat du compte de résultat vient s'ajouter aux{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "capitaux-propres",
                         }}
@@ -425,6 +426,6 @@ export function IncomeStatementAccountingDocPage() {
                     },
                 ]}
             />
-        </>
+        </DocRoot>
     )
 }

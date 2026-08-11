@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { DocDefinition } from "../../../../components/document/DocDefinition.tsx"
 import { DocExample } from "../../../../components/document/DocExample.tsx"
 import { DocHeader } from "../../../../components/document/DocHeader.tsx"
@@ -9,10 +9,11 @@ import { DocSourceRef } from "../../../../components/document/DocSourceRef.tsx"
 import { DocSources } from "../../../../components/document/DocSources.tsx"
 import { DocTable } from "../../../../components/document/DocTable.tsx"
 import { DocTip } from "../../../../components/document/DocTip.tsx"
+import { DocRoot } from "../../../../components/document/DocRoot.tsx"
 
 export function DoubleEntryAccountingDocPage() {
     return (
-        <>
+        <DocRoot>
             <DocHeader
                 title="La partie double"
                 description="Le principe fondamental de la comptabilité moderne"
@@ -39,7 +40,7 @@ export function DoubleEntryAccountingDocPage() {
                 <DocParagraph>
                     Concrètement, chaque opération de l'organisation est notée dans ce qu'on appelle un{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "journal",
                         }}
@@ -48,7 +49,7 @@ export function DoubleEntryAccountingDocPage() {
                     </DocLink>
                     , sous la forme d'une{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "ecriture-comptable",
                         }}
@@ -57,7 +58,7 @@ export function DoubleEntryAccountingDocPage() {
                     </DocLink>
                     . Une écriture comporte au moins deux lignes. Chaque ligne fait correspondre ce qu'on appelle un{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "compte",
                         }}
@@ -66,7 +67,7 @@ export function DoubleEntryAccountingDocPage() {
                     </DocLink>
                     , à un montant, soit au{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "debit",
                         }}
@@ -75,7 +76,7 @@ export function DoubleEntryAccountingDocPage() {
                     </DocLink>
                     , soit au{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "credit",
                         }}
@@ -340,6 +341,6 @@ export function DoubleEntryAccountingDocPage() {
                     },
                 ]}
             />
-        </>
+        </DocRoot>
     )
 }

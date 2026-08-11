@@ -6,10 +6,11 @@ import { DocSection } from "../../../../components/document/DocSection.tsx"
 import { DocSourceRef } from "../../../../components/document/DocSourceRef.tsx"
 import { DocSources } from "../../../../components/document/DocSources.tsx"
 import { DocTip } from "../../../../components/document/DocTip.tsx"
+import { DocRoot } from "../../../../components/document/DocRoot.tsx"
 
 export function IntroductionAccountingDocPage() {
     return (
-        <>
+        <DocRoot>
             <DocHeader
                 title="Introduction à la comptabilité"
                 description="Comprendre les fondamentaux de la comptabilité"
@@ -20,7 +21,7 @@ export function IntroductionAccountingDocPage() {
                     La comptabilité est un système d'organisation de l'information financière. Elle permet
                     d'enregistrer, classer et analyser toutes les opérations économiques d'une{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "organisation",
                         }}
@@ -52,7 +53,7 @@ export function IntroductionAccountingDocPage() {
                     <strong>Luca Pacioli</strong> publie la <em>Summa de arithmetica</em>
                     <DocSourceRef n={3} />, dans laquelle il codifie le système de la{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "partie-double",
                         }}
@@ -68,7 +69,7 @@ export function IntroductionAccountingDocPage() {
                     comptables aux commerçants.
                     <DocSourceRef n={4} /> Puis, en 1947, la France adopte son premier{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "plan-comptable-general-pcg",
                         }}
@@ -140,6 +141,6 @@ export function IntroductionAccountingDocPage() {
                     },
                 ]}
             />
-        </>
+        </DocRoot>
     )
 }

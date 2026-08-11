@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { DocDefinition } from "../../../../components/document/DocDefinition.js"
 import { DocExample } from "../../../../components/document/DocExample.js"
 import { DocHeader } from "../../../../components/document/DocHeader.js"
@@ -10,10 +10,11 @@ import { DocSourceRef } from "../../../../components/document/DocSourceRef.js"
 import { DocSources } from "../../../../components/document/DocSources.js"
 import { DocTable } from "../../../../components/document/DocTable.js"
 import { DocTip } from "../../../../components/document/DocTip.js"
+import { DocRoot } from "../../../../components/document/DocRoot.js"
 
 export function BalanceSheetAccountingDocPage() {
     return (
-        <>
+        <DocRoot>
             <DocHeader
                 title="Le bilan"
                 description="Photographie du patrimoine de l'organisation à une date donnée"
@@ -30,7 +31,7 @@ export function BalanceSheetAccountingDocPage() {
                     <DocSourceRef n={1} /> est toujours établi à une <strong>date précise</strong>, généralement la date
                     de clôture de l'{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "exercice-comptable",
                         }}
@@ -50,7 +51,7 @@ export function BalanceSheetAccountingDocPage() {
                     <strong>
                         soldes des{" "}
                         <DocLink
-                            to="/documentation/comptabilité/glossaire/$term"
+                            to="/documentation/comptabilité/ressources/glossaire/$term"
                             params={{
                                 term: "comptes-d-agents",
                             }}
@@ -60,7 +61,7 @@ export function BalanceSheetAccountingDocPage() {
                     </strong>{" "}
                     (classes 1 à 5 du{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "plan-comptable-general-pcg",
                         }}
@@ -82,7 +83,7 @@ export function BalanceSheetAccountingDocPage() {
                 <DocParagraph>
                     Le bilan se présente sous forme d'un tableau à deux colonnes. À gauche, l'{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "actif",
                         }}
@@ -91,7 +92,7 @@ export function BalanceSheetAccountingDocPage() {
                     </DocLink>{" "}
                     (ce que l'organisation possède). À droite, le{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "passif",
                         }}
@@ -144,7 +145,7 @@ export function BalanceSheetAccountingDocPage() {
                     L'équation fondamentale du bilan est :{" "}
                     <strong>
                         <DocLink
-                            to="/documentation/comptabilité/glossaire/$term"
+                            to="/documentation/comptabilité/ressources/glossaire/$term"
                             params={{
                                 term: "actif",
                             }}
@@ -153,7 +154,7 @@ export function BalanceSheetAccountingDocPage() {
                         </DocLink>{" "}
                         ={" "}
                         <DocLink
-                            to="/documentation/comptabilité/glossaire/$term"
+                            to="/documentation/comptabilité/ressources/glossaire/$term"
                             params={{
                                 term: "passif",
                             }}
@@ -162,7 +163,7 @@ export function BalanceSheetAccountingDocPage() {
                         </DocLink>{" "}
                         +{" "}
                         <DocLink
-                            to="/documentation/comptabilité/glossaire/$term"
+                            to="/documentation/comptabilité/ressources/glossaire/$term"
                             params={{
                                 term: "resultat",
                             }}
@@ -176,7 +177,7 @@ export function BalanceSheetAccountingDocPage() {
                 <DocParagraph>
                     Le résultat vient équilibrer le bilan : un{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "benefice",
                         }}
@@ -185,7 +186,7 @@ export function BalanceSheetAccountingDocPage() {
                     </DocLink>{" "}
                     augmente le passif (les{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "capitaux-propres",
                         }}
@@ -194,7 +195,7 @@ export function BalanceSheetAccountingDocPage() {
                     </DocLink>
                     ), une{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "perte",
                         }}
@@ -456,6 +457,6 @@ export function BalanceSheetAccountingDocPage() {
                     },
                 ]}
             />
-        </>
+        </DocRoot>
     )
 }

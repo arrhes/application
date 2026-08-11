@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { DocDefinition } from "../../../../components/document/DocDefinition.tsx"
 import { DocExample } from "../../../../components/document/DocExample.tsx"
 import { DocHeader } from "../../../../components/document/DocHeader.tsx"
@@ -10,10 +10,11 @@ import { DocSourceRef } from "../../../../components/document/DocSourceRef.tsx"
 import { DocSources } from "../../../../components/document/DocSources.tsx"
 import { DocTable } from "../../../../components/document/DocTable.tsx"
 import { DocTip } from "../../../../components/document/DocTip.tsx"
+import { DocRoot } from "../../../../components/document/DocRoot.tsx"
 
 export function EntriesAccountingDocPage() {
     return (
-        <>
+        <DocRoot>
             <DocHeader
                 title="Les écritures comptables"
                 description="Enregistrer les opérations dans les comptes"
@@ -23,7 +24,7 @@ export function EntriesAccountingDocPage() {
                 <DocParagraph>
                     Une{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "ecriture-comptable",
                         }}
@@ -37,10 +38,10 @@ export function EntriesAccountingDocPage() {
                 </DocParagraph>
                 <DocParagraph>
                     Comme vu dans la page sur la{" "}
-                    <DocLink to="/documentation/comptabilité/partie-double">partie double</DocLink>, chaque écriture
+                    <DocLink to="/documentation/comptabilité/introduction/partie-double">partie double</DocLink>, chaque écriture
                     respecte le principe de la{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "partie-double",
                         }}
@@ -49,7 +50,7 @@ export function EntriesAccountingDocPage() {
                     </DocLink>{" "}
                     : elle est composée d'au moins deux lignes, chacune associée à un{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "compte",
                         }}
@@ -90,7 +91,7 @@ export function EntriesAccountingDocPage() {
                     Seuls les comptes à 3 chiffres ou plus peuvent être utilisés dans les écritures comptables. Les
                     comptes à 1 ou 2 chiffres (par exemple{" "}
                     <DocLink
-                        to="/documentation/comptabilité/comptes/liste/$account"
+                        to="/documentation/comptabilité/ressources/comptes/$account"
                         params={{
                             account: "1",
                         }}
@@ -99,7 +100,7 @@ export function EntriesAccountingDocPage() {
                     </DocLink>
                     ,{" "}
                     <DocLink
-                        to="/documentation/comptabilité/comptes/liste/$account"
+                        to="/documentation/comptabilité/ressources/comptes/$account"
                         params={{
                             account: "10",
                         }}
@@ -108,7 +109,7 @@ export function EntriesAccountingDocPage() {
                     </DocLink>
                     ,{" "}
                     <DocLink
-                        to="/documentation/comptabilité/comptes/liste/$account"
+                        to="/documentation/comptabilité/ressources/comptes/$account"
                         params={{
                             account: "60",
                         }}
@@ -419,7 +420,7 @@ export function EntriesAccountingDocPage() {
                 <DocParagraph>
                     Si votre{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "organisation",
                         }}
@@ -511,7 +512,7 @@ export function EntriesAccountingDocPage() {
                     La{" "}
                     <strong>
                         <DocLink
-                            to="/documentation/comptabilité/glossaire/$term"
+                            to="/documentation/comptabilité/ressources/glossaire/$term"
                             params={{
                                 term: "balance",
                             }}
@@ -554,6 +555,6 @@ export function EntriesAccountingDocPage() {
                     },
                 ]}
             />
-        </>
+        </DocRoot>
     )
 }

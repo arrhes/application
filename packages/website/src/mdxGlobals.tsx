@@ -15,6 +15,8 @@ import { DocRoot } from "./components/document/DocRoot.tsx"
 import { DocRouteRequest } from "./components/document/DocRouteRequest.tsx"
 import { DocSection } from "./components/document/DocSection.tsx"
 import { DocSectionCard } from "./components/document/DocSectionCard.tsx"
+import { DocSectionRoot } from "./components/document/DocSectionRoot.tsx"
+import { DocSectionTitle } from "./components/document/DocSectionTitle.tsx"
 import { DocSourceRef } from "./components/document/DocSourceRef.tsx"
 import { DocSources } from "./components/document/DocSources.tsx"
 import { DocTable } from "./components/document/DocTable.tsx"
@@ -39,6 +41,8 @@ const components = {
     DocRouteRequest,
     DocSection,
     DocSectionCard,
+    DocSectionRoot,
+    DocSectionTitle,
     DocSourceRef,
     DocSources,
     DocTable,

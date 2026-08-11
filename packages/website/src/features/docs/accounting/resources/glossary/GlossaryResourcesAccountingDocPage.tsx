@@ -1,12 +1,14 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconSearch } from "@tabler/icons-react"
 import { useState } from "react"
 import { DocHeader } from "../../../../../components/document/DocHeader.js"
 import { DocLink } from "../../../../../components/document/DocLink.js"
 import { DocParagraph } from "../../../../../components/document/DocParagraph.js"
+import { DocSection } from "../../../../../components/document/DocSection.js"
 import { DocTip } from "../../../../../components/document/DocTip.js"
 import { GlossaryListItem } from "./GlossaryListItem.js"
 import { getGlossaryTermsByLetter, searchGlossaryTerms } from "./glossaryData.js"
+import { DocRoot } from "../../../../../components/document/DocRoot.js"
 
 export function GlossaryResourcesAccountingDocPage() {
     const [query, setQuery] = useState("")
@@ -14,7 +16,7 @@ export function GlossaryResourcesAccountingDocPage() {
     const filteredTerms = searchGlossaryTerms(query)
     const termsByLetter = getGlossaryTermsByLetter()
     return (
-        <>
+        <DocRoot>
             <DocHeader
                 title="Glossaire comptable"
                 description="Tous les termes essentiels de la comptabilité en un coup d'oeil"
@@ -28,8 +30,8 @@ export function GlossaryResourcesAccountingDocPage() {
             <DocTip variant="tip">
                 Ce glossaire est un aide-mémoire. Pour comprendre ces concepts en profondeur, consultez les pages du
                 cours : <DocLink to="/documentation/comptabilité/introduction">Introduction</DocLink>,{" "}
-                <DocLink to="/documentation/comptabilité/comptes">Les comptes</DocLink>,{" "}
-                <DocLink to="/documentation/comptabilité/écritures">Les écritures</DocLink> et{" "}
+                <DocLink to="/documentation/comptabilité/introduction/comptes">Les comptes</DocLink>,{" "}
+                <DocLink to="/documentation/comptabilité/introduction/écritures">Les écritures</DocLink> et{" "}
                 <DocLink to="/documentation/comptabilité/documents">Les documents</DocLink>.
             </DocTip>
 
@@ -106,16 +108,14 @@ export function GlossaryResourcesAccountingDocPage() {
                         />
                     ))}
                     {filteredTerms.length === 0 && (
-                        <p
+                        <div
                             className={css({
-                                fontSize: "sm",
-                                color: "neutral/50",
                                 padding: "2rem 0",
                                 textAlign: "center",
                             })}
                         >
-                            Aucun terme ne correspond à votre recherche.
-                        </p>
+                            <DocParagraph>Aucun terme ne correspond à votre recherche.</DocParagraph>
+                        </div>
                     )}
                 </div>
             ) : (
@@ -128,26 +128,7 @@ export function GlossaryResourcesAccountingDocPage() {
                     })}
                 >
                     {Array.from(termsByLetter.entries()).map(([letter, terms]) => (
-                        <div
-                            key={letter}
-                            className={css({
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: "0.5rem",
-                            })}
-                        >
-                            <h2
-                                className={css({
-                                    fontSize: "lg",
-                                    fontWeight: "semibold",
-                                    color: "neutral",
-                                    paddingBottom: "0.25rem",
-                                    borderBottom: "1px solid",
-                                    borderBottomColor: "neutral/10",
-                                })}
-                            >
-                                {letter}
-                            </h2>
+                        <DocSection key={letter} title={letter}>
                             {terms.map((term) => (
                                 <GlossaryListItem
                                     key={term.slug}
@@ -157,10 +138,10 @@ export function GlossaryResourcesAccountingDocPage() {
                                     definition={term.definition}
                                 />
                             ))}
-                        </div>
+                        </DocSection>
                     ))}
                 </div>
             )}
-        </>
+        </DocRoot>
     )
 }

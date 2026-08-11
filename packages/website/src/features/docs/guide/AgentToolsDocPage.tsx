@@ -5,12 +5,13 @@ import { DocLink } from "../../../components/document/DocLink.js"
 import { DocList } from "../../../components/document/DocList.js"
 import { DocParagraph } from "../../../components/document/DocParagraph.js"
 import { DocSection } from "../../../components/document/DocSection.js"
+import { DocRoot } from "../../../components/document/DocRoot.js"
 
 const paperasseRepo = "https://github.com/romainsimon/paperasse"
 
 export function AgentToolsDocPage() {
     return (
-        <>
+        <DocRoot>
             <DocHeader
                 title="Outils et exemples de code"
                 description="Exemples concrets en TypeScript et Python pour interagir avec l'API Arrhes depuis votre agent."
@@ -255,7 +256,7 @@ class ArrhesClient:
                     Consultez la documentation API pour la liste exhaustive des endpoints disponibles et leurs paramètres.
                 </DocParagraph>
             </DocSection>
-        </>
+        </DocRoot>
     )
 }
 

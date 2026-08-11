@@ -7,10 +7,11 @@ import { DocSection } from "../../../../components/document/DocSection.js"
 import { DocSourceRef } from "../../../../components/document/DocSourceRef.js"
 import { DocSources } from "../../../../components/document/DocSources.js"
 import { DocTip } from "../../../../components/document/DocTip.js"
+import { DocRoot } from "../../../../components/document/DocRoot.js"
 
 export function ReportsAccountingDocPage() {
     return (
-        <>
+        <DocRoot>
             <DocHeader
                 title="Les documents comptables"
                 description="Les états de synthèse et leur signification"
@@ -20,7 +21,7 @@ export function ReportsAccountingDocPage() {
                 <DocParagraph>
                     À la fin de chaque{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "exercice-comptable",
                         }}
@@ -30,7 +31,7 @@ export function ReportsAccountingDocPage() {
                     , les écritures sont agrégées pour produire des documents de synthèse. Ces documents offrent une
                     vision globale de la situation financière et des performances de l'
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "organisation",
                         }}
@@ -43,7 +44,7 @@ export function ReportsAccountingDocPage() {
                     Les deux documents principaux sont le{" "}
                     <strong>
                         <DocLink
-                            to="/documentation/comptabilité/glossaire/$term"
+                            to="/documentation/comptabilité/ressources/glossaire/$term"
                             params={{
                                 term: "bilan",
                             }}
@@ -54,7 +55,7 @@ export function ReportsAccountingDocPage() {
                     et le{" "}
                     <strong>
                         <DocLink
-                            to="/documentation/comptabilité/glossaire/$term"
+                            to="/documentation/comptabilité/ressources/glossaire/$term"
                             params={{
                                 term: "compte-de-résultat",
                             }}
@@ -128,7 +129,7 @@ export function ReportsAccountingDocPage() {
                 <DocParagraph>
                     Le{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "benefice",
                         }}
@@ -137,7 +138,7 @@ export function ReportsAccountingDocPage() {
                     </DocLink>{" "}
                     (ou la{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "perte",
                         }}
@@ -166,7 +167,7 @@ export function ReportsAccountingDocPage() {
                 <DocTip variant="tip">
                     Cette double vérification est au cœur de la comptabilité en{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "partie-double",
                         }}
@@ -190,6 +191,6 @@ export function ReportsAccountingDocPage() {
                     },
                 ]}
             />
-        </>
+        </DocRoot>
     )
 }

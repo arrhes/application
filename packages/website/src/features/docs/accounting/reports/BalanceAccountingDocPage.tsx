@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { DocDefinition } from "../../../../components/document/DocDefinition.js"
 import { DocExample } from "../../../../components/document/DocExample.js"
 import { DocHeader } from "../../../../components/document/DocHeader.js"
@@ -10,10 +10,11 @@ import { DocSourceRef } from "../../../../components/document/DocSourceRef.js"
 import { DocSources } from "../../../../components/document/DocSources.js"
 import { DocTable } from "../../../../components/document/DocTable.js"
 import { DocTip } from "../../../../components/document/DocTip.js"
+import { DocRoot } from "../../../../components/document/DocRoot.js"
 
 export function BalanceAccountingDocPage() {
     return (
-        <>
+        <DocRoot>
             <DocHeader
                 title="La balance"
                 description="Document de contrôle essentiel de la comptabilité"
@@ -31,7 +32,7 @@ export function BalanceAccountingDocPage() {
                     <DocLink to="/documentation/comptabilité/documents/grand-livre">grand livre</DocLink> : elle reprend
                     chaque{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "compte",
                         }}
@@ -54,7 +55,7 @@ export function BalanceAccountingDocPage() {
                 <DocParagraph>
                     La balance permet de vérifier plusieurs équilibres qui découlent du principe de la{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "partie-double",
                         }}
@@ -229,7 +230,7 @@ export function BalanceAccountingDocPage() {
             <DocSection title="Lien avec Arrhes">
                 <DocParagraph>
                     Arrhes calcule automatiquement la balance à partir de vos{" "}
-                    <DocLink to="/documentation/comptabilité/écritures">écritures</DocLink>. Vous pouvez la consulter à
+                    <DocLink to="/documentation/comptabilité/introduction/écritures">écritures</DocLink>. Vous pouvez la consulter à
                     tout moment pour vérifier l'état de votre comptabilité. Consultez le guide sur les{" "}
                     <DocLink to="/documentation/guide/documents">rapports</DocLink> pour en savoir plus.
                 </DocParagraph>
@@ -247,6 +248,6 @@ export function BalanceAccountingDocPage() {
                     },
                 ]}
             />
-        </>
+        </DocRoot>
     )
 }

@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { DocDefinition } from "../../../../components/document/DocDefinition.js"
 import { DocExample } from "../../../../components/document/DocExample.js"
 import { DocHeader } from "../../../../components/document/DocHeader.js"
@@ -11,10 +11,11 @@ import { DocSources } from "../../../../components/document/DocSources.js"
 import { DocTable } from "../../../../components/document/DocTable.js"
 import { DocTip } from "../../../../components/document/DocTip.js"
 import { accountClasses } from "../resources/accounts/accountsData.js"
+import { DocRoot } from "../../../../components/document/DocRoot.js"
 
 export function AccountsAccountingDocPage() {
     return (
-        <>
+        <DocRoot>
             <DocHeader
                 title="Les comptes comptables"
                 description="Comprendre l'organisation du plan comptable"
@@ -24,7 +25,7 @@ export function AccountsAccountingDocPage() {
                 <DocParagraph>
                     Un{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "compte",
                         }}
@@ -38,7 +39,7 @@ export function AccountsAccountingDocPage() {
                 <DocParagraph>
                     En France, les comptes sont organisés selon le{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "plan-comptable-general-pcg",
                         }}
@@ -66,7 +67,7 @@ export function AccountsAccountingDocPage() {
                     : les{" "}
                     <strong>
                         <DocLink
-                            to="/documentation/comptabilité/glossaire/$term"
+                            to="/documentation/comptabilité/ressources/glossaire/$term"
                             params={{
                                 term: "comptes-d-operations",
                             }}
@@ -77,7 +78,7 @@ export function AccountsAccountingDocPage() {
                     et les{" "}
                     <strong>
                         <DocLink
-                            to="/documentation/comptabilité/glossaire/$term"
+                            to="/documentation/comptabilité/ressources/glossaire/$term"
                             params={{
                                 term: "comptes-d-agents",
                             }}
@@ -143,7 +144,7 @@ export function AccountsAccountingDocPage() {
                 <DocParagraph>
                     Cette distinction explique pourquoi les comptes d'{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "actif",
                         }}
@@ -152,7 +153,7 @@ export function AccountsAccountingDocPage() {
                     </DocLink>{" "}
                     (Banque, Caisse, Clients) augmentent au{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "debit",
                         }}
@@ -161,7 +162,7 @@ export function AccountsAccountingDocPage() {
                     </DocLink>
                     , tandis que les comptes de{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "passif",
                         }}
@@ -170,7 +171,7 @@ export function AccountsAccountingDocPage() {
                     </DocLink>{" "}
                     (Fournisseurs, Capital) augmentent au{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "credit",
                         }}
@@ -204,7 +205,7 @@ export function AccountsAccountingDocPage() {
                     Les classes 1 à 5 concernent le{" "}
                     <strong>
                         <DocLink
-                            to="/documentation/comptabilité/glossaire/$term"
+                            to="/documentation/comptabilité/ressources/glossaire/$term"
                             params={{
                                 term: "bilan",
                             }}
@@ -215,7 +216,7 @@ export function AccountsAccountingDocPage() {
                     (ce que vous possédez et ce que vous devez). Les classes 6 et 7 concernent le{" "}
                     <strong>
                         <DocLink
-                            to="/documentation/comptabilité/glossaire/$term"
+                            to="/documentation/comptabilité/ressources/glossaire/$term"
                             params={{
                                 term: "compte-de-résultat",
                             }}
@@ -403,7 +404,7 @@ export function AccountsAccountingDocPage() {
                     <DocLink to="/documentation/guide/organisations">configurer votre plan comptable</DocLink> selon les
                     besoins de votre{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "organisation",
                         }}
@@ -431,6 +432,6 @@ export function AccountsAccountingDocPage() {
                     },
                 ]}
             />
-        </>
+        </DocRoot>
     )
 }

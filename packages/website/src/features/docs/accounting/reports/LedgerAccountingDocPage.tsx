@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { DocDefinition } from "../../../../components/document/DocDefinition.js"
 import { DocExample } from "../../../../components/document/DocExample.js"
 import { DocHeader } from "../../../../components/document/DocHeader.js"
@@ -10,10 +10,11 @@ import { DocSourceRef } from "../../../../components/document/DocSourceRef.js"
 import { DocSources } from "../../../../components/document/DocSources.js"
 import { DocTable } from "../../../../components/document/DocTable.js"
 import { DocTip } from "../../../../components/document/DocTip.js"
+import { DocRoot } from "../../../../components/document/DocRoot.js"
 
 export function LedgerAccountingDocPage() {
     return (
-        <>
+        <DocRoot>
             <DocHeader
                 title="Le grand livre"
                 description="Détail de tous les mouvements compte par compte"
@@ -33,7 +34,7 @@ export function LedgerAccountingDocPage() {
                     les mêmes informations, mais présentées différemment. Le journal classe les écritures par date ; le
                     grand livre les classe par{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "compte",
                         }}
@@ -59,7 +60,7 @@ export function LedgerAccountingDocPage() {
                     Pour chaque compte, le grand livre affiche l'ensemble des mouvements avec leur date, leur libellé,
                     les montants au{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "debit",
                         }}
@@ -68,7 +69,7 @@ export function LedgerAccountingDocPage() {
                     </DocLink>{" "}
                     et au{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "credit",
                         }}
@@ -262,7 +263,7 @@ export function LedgerAccountingDocPage() {
                 <DocParagraph>
                     Arrhes génère automatiquement le grand livre à partir de vos écritures. Vous pouvez le consulter
                     compte par compte ou le télécharger dans sa totalité. Consultez le guide sur les{" "}
-                    <DocLink to="/documentation/dashboard/documents">rapports</DocLink> pour en savoir plus.
+                    <DocLink to="/documentation/guide/documents">rapports</DocLink> pour en savoir plus.
                 </DocParagraph>
             </DocSection>
 
@@ -278,6 +279,6 @@ export function LedgerAccountingDocPage() {
                     },
                 ]}
             />
-        </>
+        </DocRoot>
     )
 }

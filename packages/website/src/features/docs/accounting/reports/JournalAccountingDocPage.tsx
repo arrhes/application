@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { DocDefinition } from "../../../../components/document/DocDefinition.js"
 import { DocExample } from "../../../../components/document/DocExample.js"
 import { DocHeader } from "../../../../components/document/DocHeader.js"
@@ -10,10 +10,11 @@ import { DocSourceRef } from "../../../../components/document/DocSourceRef.js"
 import { DocSources } from "../../../../components/document/DocSources.js"
 import { DocTable } from "../../../../components/document/DocTable.js"
 import { DocTip } from "../../../../components/document/DocTip.js"
+import { DocRoot } from "../../../../components/document/DocRoot.js"
 
 export function JournalAccountingDocPage() {
     return (
-        <>
+        <DocRoot>
             <DocHeader
                 title="Le journal"
                 description="Registre chronologique de toutes les écritures comptables"
@@ -30,9 +31,9 @@ export function JournalAccountingDocPage() {
                     Le journal est le point d'entrée de la comptabilité
                     <DocSourceRef n={1} /> : c'est ici que chaque opération est enregistrée pour la première fois. Il
                     constitue la trace originale et chronologique de l'ensemble des{" "}
-                    <DocLink to="/documentation/comptabilité/écritures">écritures</DocLink> passées au cours d'un{" "}
+                    <DocLink to="/documentation/comptabilité/introduction/écritures">écritures</DocLink> passées au cours d'un{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "exercice-comptable",
                         }}
@@ -47,7 +48,7 @@ export function JournalAccountingDocPage() {
                 <DocParagraph>
                     Chaque ligne du journal représente un mouvement comptable. Une{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "ecriture-comptable",
                         }}
@@ -56,7 +57,7 @@ export function JournalAccountingDocPage() {
                     </DocLink>{" "}
                     comprend toujours au moins deux lignes (un{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "debit",
                         }}
@@ -65,7 +66,7 @@ export function JournalAccountingDocPage() {
                     </DocLink>{" "}
                     et un{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "credit",
                         }}
@@ -74,7 +75,7 @@ export function JournalAccountingDocPage() {
                     </DocLink>
                     ), conformément au principe de la{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "partie-double",
                         }}
@@ -235,7 +236,7 @@ export function JournalAccountingDocPage() {
                 <DocParagraph>
                     En début d'exercice, les soldes des comptes de{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "bilan",
                         }}
@@ -255,7 +256,7 @@ export function JournalAccountingDocPage() {
                 <DocParagraph>
                     Les comptes de{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "charges-classe-6",
                         }}
@@ -264,7 +265,7 @@ export function JournalAccountingDocPage() {
                     </DocLink>{" "}
                     et de{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "produits-classe-7",
                         }}
@@ -274,7 +275,7 @@ export function JournalAccountingDocPage() {
                     (classes 6 et 7) ne sont pas reportés : ils sont remis à zéro car ils ne concernent qu'un seul
                     exercice. Le{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "resultat",
                         }}
@@ -283,7 +284,7 @@ export function JournalAccountingDocPage() {
                     </DocLink>{" "}
                     de l'exercice précédent est affecté aux{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "report-a-nouveau",
                         }}
@@ -292,7 +293,7 @@ export function JournalAccountingDocPage() {
                     </DocLink>{" "}
                     ou aux{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "reserves",
                         }}
@@ -339,9 +340,9 @@ export function JournalAccountingDocPage() {
             <DocSection title="Lien avec Arrhes">
                 <DocParagraph>
                     Arrhes génère automatiquement le journal à partir de vos{" "}
-                    <DocLink to="/documentation/comptabilité/écritures">écritures</DocLink>. Chaque saisie est datée,
+                    <DocLink to="/documentation/comptabilité/introduction/écritures">écritures</DocLink>. Chaque saisie est datée,
                     numérotée et classée dans le journal approprié. Consultez le guide sur les{" "}
-                    <DocLink to="/documentation/dashboard/documents">rapports</DocLink> pour apprendre à exporter et
+                    <DocLink to="/documentation/guide/documents">rapports</DocLink> pour apprendre à exporter et
                     consulter votre journal.
                 </DocParagraph>
             </DocSection>
@@ -362,6 +363,6 @@ export function JournalAccountingDocPage() {
                     },
                 ]}
             />
-        </>
+        </DocRoot>
     )
 }

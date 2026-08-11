@@ -20,7 +20,7 @@ export function DocumentsGuideDocPage() {
 
             <DocSection title="Présentation">
                 <DocParagraph>
-                    Arrhes génère les principaux documents comptables nécessaires à la gestion et aux obligations
+                    Comptasse génère les principaux documents comptables nécessaires à la gestion et aux obligations
                     légales.
                 </DocParagraph>
                 <DocList
@@ -100,7 +100,7 @@ export function DocumentsGuideDocPage() {
                                 <DocLink to="/documentation/guide/exports">Exports</DocLink>). Les bilans et comptes de
                                 résultat personnalisés sont décrits dans les pages{" "}
                                 <DocLink to="/documentation/guide/bilans">Bilans</DocLink> et{" "}
-                                <DocLink to="/documentation/guide/compte-de-resultat">Compte de résultat</DocLink>.
+                                <DocLink to="/documentation/guide/compte-de-résultat">Compte de résultat</DocLink>.
                             </DocParagraph>
                             <DocTip variant="info">
                                 Le journal et le grand livre sont générés côté client à partir des endpoints d'écritures
@@ -111,7 +111,7 @@ export function DocumentsGuideDocPage() {
                     cli={
                         <>
                             <DocParagraph>
-                                La CLI regroupe les commandes d'export sous <DocCode>arrhes exports</DocCode>. Pour
+                                La CLI regroupe les commandes d'export sous <DocCode>comptasse exports</DocCode>. Pour
                                 structurer le bilan et le compte de résultat, consultez les pages dédiées.
                             </DocParagraph>
                             <DocTable
@@ -121,15 +121,15 @@ export function DocumentsGuideDocPage() {
                                 ]}
                                 rows={[
                                     [
-                                        <DocCode key="0">{"arrhes exports fec --year <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse exports fec --year <id>"}</DocCode>,
                                         "Génère un export FEC",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes exports xbrl-balance-sheet --year <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse exports xbrl-balance-sheet --year <id>"}</DocCode>,
                                         "Génère un export XBRL du bilan",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes exports xbrl-income-statement --year <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse exports xbrl-income-statement --year <id>"}</DocCode>,
                                         "Génère un export XBRL du compte de résultat",
                                     ],
                                 ]}

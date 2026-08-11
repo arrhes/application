@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconLoader2, IconSearch } from "@tabler/icons-react"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { useRef, useState, useTransition } from "react"
@@ -6,6 +6,7 @@ import { DocHeader } from "../../../../../components/document/DocHeader.js"
 import { DocParagraph } from "../../../../../components/document/DocParagraph.js"
 import { DocSection } from "../../../../../components/document/DocSection.js"
 import { DocSourceRef } from "../../../../../components/document/DocSourceRef.js"
+import { DocRoot } from "../../../../../components/document/DocRoot.js"
 import { LinkButton } from "../../../../../components/LinkButton.js"
 import { accountEntries, searchAccounts } from "./accountsData.js"
 
@@ -104,7 +105,7 @@ export function AccountsResourcesAccountingDocPage() {
         })
     }
     return (
-        <>
+        <DocRoot>
             <DocHeader
                 title="Liste des comptes"
                 description="Parcourez et recherchez les comptes du Plan Comptable Général"
@@ -117,7 +118,7 @@ export function AccountsResourcesAccountingDocPage() {
                     description. Les comptes en <em>italique</em> sont facultatifs. Pour une présentation détaillée de
                     chaque classe, consultez la page{" "}
                     <LinkButton
-                        to="/documentation/comptabilité/comptes/classes"
+                        to="/documentation/comptabilité/introduction/classes"
                         className={{
                             fontSize: "sm",
                             color: "primary",
@@ -262,6 +263,6 @@ export function AccountsResourcesAccountingDocPage() {
                     </p>
                 )
             )}
-        </>
+        </DocRoot>
     )
 }

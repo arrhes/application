@@ -1,5 +1,5 @@
-import { ButtonOutlineContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { ButtonOutlineContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconArrowLeft, IconLink } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { DocHeader } from "../../../../../components/document/DocHeader.js"
@@ -34,7 +34,7 @@ export function ScenarioResourcesAccountingDocPage() {
     }
     const accounts = getScenarioAccounts(scenario)
     return (
-        <>
+        <DocRoot>
             <LinkButton to="/documentation/comptabilité/ressources/scénarios">
                 <ButtonOutlineContent
                     leftIcon={<IconArrowLeft />}
@@ -93,6 +93,6 @@ export function ScenarioResourcesAccountingDocPage() {
             </DocSection>
 
             <DataError />
-        </>
+        </DocRoot>
     )
 }

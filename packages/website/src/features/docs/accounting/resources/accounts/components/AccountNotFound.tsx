@@ -1,4 +1,4 @@
-import { ButtonOutlineContent } from "@arrhes/ui"
+import { ButtonOutlineContent } from "@comptasse/ui"
 import { IconArrowLeft } from "@tabler/icons-react"
 import { DocHeader } from "../../../../../../components/document/DocHeader.js"
 import { DocRoot } from "../../../../../../components/document/DocRoot.js"
@@ -11,7 +11,7 @@ export function AccountNotFound() {
                 title="Compte introuvable"
                 description="Ce compte n'existe pas dans le plan comptable."
             />
-            <LinkButton to="/documentation/comptabilité/comptes/liste">
+            <LinkButton to="/documentation/comptabilité/ressources/comptes">
                 <ButtonOutlineContent
                     leftIcon={<IconArrowLeft />}
                     text="Retour au plan comptable"
