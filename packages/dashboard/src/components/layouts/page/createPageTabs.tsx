@@ -1,4 +1,4 @@
-import { cn, css } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@comptasse/ui/utilities/cn.js"
 import type { ComponentProps, ReactNode } from "react"
 import { useCallback, useMemo, useState } from "react"
 import { makePageTabsNavComponent } from "./makePageTabsNavComponent.js"
@@ -41,6 +41,14 @@ export type SectionTabs<T extends string> = {
  *     </MyTabs.Content>
  * </MyTabs.Root>
  */
+function safeDecodeURIComponent(value: string): string {
+    try {
+        return decodeURIComponent(value)
+    } catch {
+        return value
+    }
+}
+
 export function createSectionTabs<T extends string>(tabs: readonly T[]): SectionTabs<T> {
     const Nav = makePageTabsNavComponent<T>()
     const Content = makePageTabsContentComponent<T>()
@@ -48,7 +56,7 @@ export function createSectionTabs<T extends string>(tabs: readonly T[]): Section
     function Root(props: { children?: ReactNode; className?: ComponentProps<"div">["className"] }) {
         const [basePath] = useState(() => {
             // Decode percent-encoded characters (Chrome returns encoded pathname).
-            const pathname = decodeURIComponent(window.location.pathname)
+            const pathname = safeDecodeURIComponent(window.location.pathname)
             const lastSegment = pathname.split("/").at(-1) ?? ""
             return (tabs as readonly string[]).includes(lastSegment)
                 ? pathname.slice(0, -(lastSegment.length + 1))
@@ -56,7 +64,7 @@ export function createSectionTabs<T extends string>(tabs: readonly T[]): Section
         })
 
         const [activeKey, setActiveKey] = useState<string>(() => {
-            const pathname = decodeURIComponent(window.location.pathname)
+            const pathname = safeDecodeURIComponent(window.location.pathname)
             const lastSegment = pathname.split("/").at(-1) ?? ""
             const base = (tabs as readonly string[]).includes(lastSegment)
                 ? pathname.slice(0, -(lastSegment.length + 1))

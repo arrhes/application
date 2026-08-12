@@ -1,9 +1,9 @@
-import { readAllAccountsRouteDefinition } from "@arrhes/application-metadata/routes"
-import { CircularLoader, FormatError } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { readAllAccountsRouteDefinition } from "@comptasse/application-metadata/routes"
+import { CircularLoader, FormatError } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconListNumbers } from "@tabler/icons-react"
 import { useNavigate } from "@tanstack/react-router"
-import { type MouseEvent, useCallback, useMemo } from "react"
+import { useCallback, useMemo } from "react"
 import { EmptyState } from "../../../../../components/layouts/EmptyState.tsx"
 import { Virtualizer } from "../../../../../components/layouts/Virtualizer.tsx"
 import { useDataFromAPI } from "../../../../../utilities/useHTTPData.ts"
@@ -46,46 +46,29 @@ export function AccountsTable(props: { idOrganization: string; idYear: string; g
 
     const hrefBase = `/dashboard/organisations/${props.idOrganization}/exercices/${props.idYear}/param%C3%A8tres/comptes/`
 
-    const handleContainerClick = useCallback(
-        (e: MouseEvent<HTMLDivElement>) => {
-            if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
-
-            const link = (e.target as HTMLElement).closest("a[data-account-link]") as HTMLAnchorElement | null
-            if (!link) return
-
-            e.preventDefault()
-            const href = link.getAttribute("href")
-            if (!href) return
-
-            const idAccount = href.split("/").pop()
-            if (!idAccount) return
-
-            navigate({
-                to: "/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/comptes/$idAccount",
-                params: {
-                    idOrganization: props.idOrganization,
-                    idYear: props.idYear,
-                    idAccount,
-                },
-            })
-        },
-        [
-            navigate,
-            props.idOrganization,
-            props.idYear,
-        ],
-    )
-
     const renderAccount = useCallback(
         (sortedAccount: (typeof structuredAccounts)[number]) => (
             <AccountItem
                 account={sortedAccount.account}
                 level={sortedAccount.level}
                 href={`${hrefBase}${sortedAccount.account.id}`}
+                onClick={() =>
+                    navigate({
+                        to: "/dashboard/organisations/$idOrganization/exercices/$idYear/paramètres/comptes/$idAccount",
+                        params: {
+                            idOrganization: props.idOrganization,
+                            idYear: props.idYear,
+                            idAccount: sortedAccount.account.id,
+                        },
+                    })
+                }
             />
         ),
         [
             hrefBase,
+            navigate,
+            props.idOrganization,
+            props.idYear,
         ],
     )
 
@@ -126,7 +109,6 @@ export function AccountsTable(props: { idOrganization: string; idYear: string; g
                 />
             ) : (
                 <div
-                    onClick={handleContainerClick}
                     className={css({
                         width: "100%",
                         height: "100%",

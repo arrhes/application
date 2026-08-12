@@ -1,5 +1,5 @@
 import type { ReactNode } from "react"
-import { useCallback, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 import { RightPanel } from "../../components/layouts/RightPanel.js"
 import { RightPanelContext } from "./RightPanelContext.js"
 
@@ -14,8 +14,13 @@ export function RightPanelContextProvider({ children }: { children: ReactNode })
         setPanelContent(null)
     }, [])
 
+    const value = useMemo(
+        () => ({ openPanel, closePanel }),
+        [openPanel, closePanel],
+    )
+
     return (
-        <RightPanelContext.Provider value={{ openPanel, closePanel }}>
+        <RightPanelContext.Provider value={value}>
             {children}
             <RightPanel open={panelContent !== null} onClose={closePanel} title={panelContent?.title ?? ""}>
                 {panelContent?.children}

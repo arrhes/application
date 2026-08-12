@@ -1,4 +1,4 @@
-import { type ReactNode, use, useCallback, useEffect, useMemo, useReducer, useRef } from "react"
+import { type ReactNode, use, useCallback, useEffect, useId, useMemo, useReducer, useRef } from "react"
 import { css } from "../utilities/cn.js"
 import { ModalItemContext, ModalStoreContext, type ModalStoreValue } from "./modalStoreContext.js"
 
@@ -79,6 +79,7 @@ export function useModalItem() {
 function ModalItem({ id, entry, close }: { id: string; entry: ModalEntry; close: (id: string) => void }) {
     const dialogRef = useRef<HTMLDialogElement>(null)
     const wrapperRef = useRef<HTMLDivElement>(null)
+    const titleId = useId()
 
     useEffect(() => {
         const dialog = dialogRef.current
@@ -113,6 +114,8 @@ function ModalItem({ id, entry, close }: { id: string; entry: ModalEntry; close:
         <dialog
             ref={dialogRef}
             aria-modal="true"
+            aria-label="Dialogue"
+            aria-labelledby={titleId}
             onCancel={handleCancel}
             className={css({
                 border: "none",
@@ -141,10 +144,12 @@ function ModalItem({ id, entry, close }: { id: string; entry: ModalEntry; close:
                     value={useMemo(
                         () => ({
                             closeModal: () => close(id),
+                            titleId,
                         }),
                         [
                             close,
                             id,
+                            titleId,
                         ],
                     )}
                 >

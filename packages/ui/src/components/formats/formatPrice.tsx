@@ -1,7 +1,6 @@
 const priceFormatter = new Intl.NumberFormat("fr", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
-    roundingMode: "halfExpand",
 })
 
 export function formatPrice(parameters: { price?: number | null | string }) {

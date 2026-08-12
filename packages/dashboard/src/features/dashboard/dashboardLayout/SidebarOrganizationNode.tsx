@@ -1,7 +1,7 @@
-import { readAllYearsRouteDefinition } from "@arrhes/application-metadata/routes"
+import { readAllYearsRouteDefinition } from "@comptasse/application-metadata/routes"
 import { IconBuilding, IconCalendar, IconCloud, IconHome, IconLock, IconSettings, IconUsers } from "@tabler/icons-react"
 import { useRouter, useRouterState } from "@tanstack/react-router"
-import { useEffect, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import { TreeNode, TreeNodeLink } from "../../../components/layouts/tree/TreeNode.js"
 import { useDataFromAPI } from "../../../utilities/useHTTPData.js"
 import { SidebarYearNode } from "./SidebarYearNode.js"
@@ -19,19 +19,13 @@ export function SidebarOrganizationNode({ org }: { org: Org }) {
     const router = useRouter()
     const pathname = usePathname()
     const orgPrefix = `/organisation/${org.id}`
-    const [expanded, setExpanded] = useState(() => pathname.startsWith(orgPrefix + "/"))
-    const [settingsExpanded, setSettingsExpanded] = useState(() => pathname.startsWith(orgPrefix + "/paramètres"))
+    const [expanded, setExpanded] = useState(false)
+    const [settingsExpanded, setSettingsExpanded] = useState(false)
+    const isExpanded = expanded || pathname.startsWith(orgPrefix + "/")
+    const isSettingsExpanded = settingsExpanded || pathname.startsWith(orgPrefix + "/paramètres")
     const p = (path: string) => path.replace("$idOrganization", org.id)
     const isActive = (path: string) => pathname === p(path)
-    const anyOrgChildActive = expanded || pathname.startsWith(orgPrefix + "/")
-
-    useEffect(() => {
-        if (pathname.startsWith(orgPrefix + "/")) setExpanded(true)
-        if (pathname.startsWith(orgPrefix + "/paramètres")) setSettingsExpanded(true)
-    }, [
-        pathname,
-        orgPrefix,
-    ])
+    const anyOrgChildActive = isExpanded || pathname.startsWith(orgPrefix + "/")
 
     const yearsResponse = useDataFromAPI({
         routeDefinition: readAllYearsRouteDefinition,
@@ -52,7 +46,7 @@ export function SidebarOrganizationNode({ org }: { org: Org }) {
         <TreeNode
             icon={<IconBuilding />}
             label={org.name ?? org.id}
-            expanded={expanded}
+            expanded={isExpanded}
             onToggle={() => setExpanded(!expanded)}
             onClick={() => {}}
         >
@@ -68,11 +62,30 @@ export function SidebarOrganizationNode({ org }: { org: Org }) {
                     Chargement...
                 </div>
             )}
+            <TreeNodeLink
+                icon={<IconCloud />}
+                label="Stockage"
+                depth={1}
+                active={isActive("/organisation/$idOrganization/stockage")}
+                onClick={() =>
+                    router.navigate({
+                        to: "/organisation/$idOrganization/stockage",
+                        params: { idOrganization: org.id },
+                    })
+                }
+            />
+            {years.map((year: any) => (
+                <SidebarYearNode
+                    key={year.id}
+                    orgId={org.id}
+                    year={year}
+                />
+            ))}
             <TreeNode
                 icon={<IconSettings />}
                 label="Paramètres"
                 depth={1}
-                expanded={settingsExpanded}
+                expanded={isSettingsExpanded}
                 onToggle={() => setSettingsExpanded(!settingsExpanded)}
                 onClick={() => {}}
             >
@@ -125,25 +138,6 @@ export function SidebarOrganizationNode({ org }: { org: Org }) {
                     }
                 />
             </TreeNode>
-            <TreeNodeLink
-                icon={<IconCloud />}
-                label="Stockage"
-                depth={1}
-                active={isActive("/organisation/$idOrganization/stockage")}
-                onClick={() =>
-                    router.navigate({
-                        to: "/organisation/$idOrganization/stockage",
-                        params: { idOrganization: org.id },
-                    })
-                }
-            />
-            {years.map((year: any) => (
-                <SidebarYearNode
-                    key={year.id}
-                    orgId={org.id}
-                    year={year}
-                />
-            ))}
         </TreeNode>
     )
 }

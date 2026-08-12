@@ -1,7 +1,7 @@
-import { createOneYearRouteDefinition, readAllYearsRouteDefinition } from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button, InputDate, InputText, toast } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { createOneYearRouteDefinition, readAllYearsRouteDefinition } from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { Button, InputDate, InputText, toast } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconPlus } from "@tabler/icons-react"
 import type { ComponentProps, JSX } from "react"
 import { useState } from "react"
@@ -21,6 +21,7 @@ export function CreateOneYear(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
     children: JSX.Element
     className?: ComponentProps<typeof Button>["className"]
+    onClick?: () => void
 }) {
     const [open, setOpen] = useState(false)
     const currentDate = new Date()
@@ -38,7 +39,10 @@ export function CreateOneYear(props: {
                 },
                 props.className,
             )}
-            onClick={() => setOpen(true)}
+            onClick={() => {
+                props.onClick?.()
+                setOpen(true)
+            }}
         >
             {props.children}
         </Button>

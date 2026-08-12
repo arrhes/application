@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconX } from "@tabler/icons-react"
 import type { ReactNode } from "react"
 
@@ -20,11 +20,17 @@ export function RightPanel(props: {
                 zIndex: 50,
             })}
         >
-            <div
+            <button
+                type="button"
+                aria-label="Fermer le panneau"
+                tabIndex={-1}
                 className={css({
                     position: "absolute",
                     inset: 0,
                     backgroundColor: "rgba(0,0,0,0.3)",
+                    border: 0,
+                    padding: 0,
+                    cursor: "pointer",
                 })}
                 onClick={props.onClose}
             />
@@ -54,6 +60,8 @@ export function RightPanel(props: {
                 >
                     <h2 className={css({ fontSize: "lg", fontWeight: "semibold" })}>{props.title}</h2>
                     <button
+                        type="button"
+                        aria-label="Fermer"
                         onClick={props.onClose}
                         className={css({
                             padding: "0.25rem",

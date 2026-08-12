@@ -1,5 +1,5 @@
-import { readAllYearsRouteDefinition } from "@arrhes/application-metadata"
-import { Button, ButtonGhostContent, ButtonPlainContent, Separator } from "@arrhes/ui"
+import { readAllYearsRouteDefinition } from "@comptasse/application-metadata"
+import { Button, ButtonGhostContent, ButtonPlainContent, Separator } from "@comptasse/ui"
 import { IconChevronDown } from "@tabler/icons-react"
 import { useState } from "react"
 import { Popover } from "../../components/overlays/popover/popover.js"
@@ -92,22 +92,21 @@ export function YearContextSelect(props: {
                     }}
                 />
                 {props.idOrganizationSelected !== null && (
-                    <div onClick={() => setOpen(false)}>
-                        <CreateOneYear
-                            idOrganization={props.idOrganizationSelected}
+                    <CreateOneYear
+                        idOrganization={props.idOrganizationSelected}
+                        className={{
+                            width: "100%",
+                        }}
+                        onClick={() => setOpen(false)}
+                    >
+                        <ButtonGhostContent
+                            text="Ajouter un exercice"
                             className={{
                                 width: "100%",
+                                justifyContent: "start",
                             }}
-                        >
-                            <ButtonGhostContent
-                                text="Ajouter un exercice"
-                                className={{
-                                    width: "100%",
-                                    justifyContent: "start",
-                                }}
-                            />
-                        </CreateOneYear>
-                    </div>
+                        />
+                    </CreateOneYear>
                 )}
             </Popover.Content>
         </Popover.Root>

@@ -1,16 +1,25 @@
-import { signOutRouteDefinition } from "@arrhes/application-metadata/routes"
-import { Button, ButtonGhostContent, ButtonOutlineContent, CircularLoader, LinkButton, Logo, toast } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { signOutRouteDefinition } from "@comptasse/application-metadata/routes"
+import {
+    Badge,
+    Button,
+    ButtonGhostContent,
+    ButtonOutlineContent,
+    CircularLoader,
+    LinkButton,
+    Logo,
+    toast,
+} from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import {
     IconBook2,
     IconExternalLink,
-    IconHeart,
     IconLogout,
     IconSettings,
     IconUser,
 } from "@tabler/icons-react"
 import { Outlet, useRouter } from "@tanstack/react-router"
 import { Suspense, useRef } from "react"
+import version from "../../../../../../VERSION?raw"
 import { Popover } from "../../../components/overlays/popover/popover.js"
 import { useSidebarContext } from "../../../contexts/sidebar/SidebarContext.js"
 import { deleteCookies } from "../../../utilities/cookies/deleteCookies.js"
@@ -57,21 +66,21 @@ export function DashboardShell() {
                     className={css({
                         display: "flex",
                         alignItems: "center",
+                        justifyContent: "space-between",
                         padding: "1rem",
                         borderBottom: "1px solid",
                         borderBottomColor: "neutral/10",
                         flexShrink: 0,
                     })}
                 >
-                    <LinkButton
-                    to="/organisations"
-                    >
+                    <LinkButton to="/organisations">
                         <ButtonGhostContent
                             leftIcon={<Logo />}
-                            text="Arrhes"
-                            className={{                            }}
+                            text="Comptasse"
+                            className={{}}
                         />
                     </LinkButton>
+                    <Badge>{version.trim()}</Badge>
                 </div>
 
                 {/* Navigation tree */}
@@ -80,8 +89,8 @@ export function DashboardShell() {
                         flex: 1,
                         overflowY: "auto",
                         overflowX: "hidden",
-                                 padding: "1rem",
-   })}
+                        padding: "1rem",
+                    })}
                 >
                     <SidebarNavigation />
                 </div>
@@ -107,40 +116,35 @@ export function DashboardShell() {
                             )
                         }
                         title="Documentation"
-                        className={{ width: "100%" }}
+                        className={{
+                            width: "100%",
+                        }}
                     >
                         <ButtonGhostContent
                             leftIcon={<IconBook2 />}
                             text="Documentation"
-                                                  rightIcon={<IconExternalLink/>}
-      className={{ width: "100%", justifyContent: "start" }}
-                        />
-                    </Button>
-                    <Button
-                        onClick={() =>
-                            window.open(
-                                "https://payment-links.mollie.com/payment/QHxRXo6269KKB2fUa3YcR",
-                                "_blank",
-                                "noopener,noreferrer",
-                            )
-                        }
-                        title="Faire un don"
-                        className={{ width: "100%" }}
-                    >
-                        <ButtonGhostContent
-                            leftIcon={<IconHeart />}
-                            text="Faire un don"
-                            rightIcon={<IconExternalLink/>}
-                            className={{ width: "100%", justifyContent: "start" }}
+                            rightIcon={<IconExternalLink />}
+                            className={{
+                                width: "100%",
+                                justifyContent: "start",
+                            }}
                         />
                     </Button>
                     <Popover.Root>
                         <Popover.Trigger asChild>
-                            <Button title="Utilisateur" className={{ width: "100%" }}>
+                            <Button
+                                title="Utilisateur"
+                                className={{
+                                    width: "100%",
+                                }}
+                            >
                                 <ButtonOutlineContent
                                     leftIcon={<IconUser />}
                                     text="Utilisateur"
-                                    className={{ width: "100%", justifyContent: "start" }}
+                                    className={{
+                                        width: "100%",
+                                        justifyContent: "start",
+                                    }}
                                 />
                             </Button>
                         </Popover.Trigger>
@@ -153,18 +157,29 @@ export function DashboardShell() {
                             }}
                         >
                             <Button
-                                onClick={() => router.navigate({ to: "/paramètres" })}
-                                className={{ width: "100%" }}
+                                onClick={() =>
+                                    router.navigate({
+                                        to: "/paramètres",
+                                    })
+                                }
+                                className={{
+                                    width: "100%",
+                                }}
                             >
                                 <ButtonGhostContent
                                     leftIcon={<IconSettings />}
                                     text="Paramètres"
-                                    className={{ width: "100%", justifyContent: "start" }}
+                                    className={{
+                                        width: "100%",
+                                        justifyContent: "start",
+                                    }}
                                 />
                             </Button>
                             {/* <Separator /> */}
                             <Button
-                                className={{ width: "100%" }}
+                                className={{
+                                    width: "100%",
+                                }}
                                 onClick={async () => {
                                     try {
                                         await getResponseBodyFromAPI({
@@ -175,15 +190,24 @@ export function DashboardShell() {
                                         // If the API is unreachable, still log out client-side.
                                     }
                                     deleteCookies()
-                                    toast({ title: "Déconnexion réussie", variant: "success" })
-                                    router.navigate({ to: "/connexion", reloadDocument: true })
+                                    toast({
+                                        title: "Déconnexion réussie",
+                                        variant: "success",
+                                    })
+                                    router.navigate({
+                                        to: "/connexion",
+                                        reloadDocument: true,
+                                    })
                                 }}
                             >
                                 <ButtonGhostContent
                                     leftIcon={<IconLogout />}
                                     text="Se déconnecter"
                                     color="danger"
-                                    className={{ width: "100%", justifyContent: "start" }}
+                                    className={{
+                                        width: "100%",
+                                        justifyContent: "start",
+                                    }}
                                 />
                             </Button>
                         </Popover.Content>
@@ -193,13 +217,23 @@ export function DashboardShell() {
 
             {/* Sidebar resize handle */}
             <div
+                role="separator"
+                aria-orientation="vertical"
+                aria-label="Redimensionner le panneau latéral"
+                tabIndex={0}
                 className={css({
                     flexShrink: 0,
                     width: "4px",
                     cursor: "col-resize",
                     background: "transparent",
                     transition: "background 0.15s",
-                    _hover: { background: "neutral/5", },
+                    _hover: {
+                        background: "neutral/5",
+                    },
+                    _focusVisible: {
+                        outline: "2px solid",
+                        outlineColor: "primary",
+                    },
                 })}
                 onMouseDown={(e) => {
                     const startX = e.clientX
@@ -223,6 +257,15 @@ export function DashboardShell() {
                     window.addEventListener("mousemove", onMove)
                     window.addEventListener("mouseup", onUp)
                 }}
+                onKeyDown={(e) => {
+                    const step = e.shiftKey ? 50 : 20
+                    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+                        e.preventDefault()
+                        const delta = e.key === "ArrowRight" ? step : -step
+                        const newWidth = Math.max(200, sidebar.width + delta)
+                        sidebar.setWidth(newWidth)
+                    }
+                }}
             />
 
             {/* Main content */}
@@ -240,8 +283,6 @@ export function DashboardShell() {
                     <Outlet />
                 </Suspense>
             </div>
-
-            
         </div>
     )
 }

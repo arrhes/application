@@ -1,4 +1,5 @@
-import { css, cx } from "../../styled-system/css"
+import { css } from "../../styled-system/css/css"
+import { cx } from "../../styled-system/css/cx"
 import type { SystemStyleObject } from "../../styled-system/types"
 
 export function cn(...inputs: (string | undefined | null | false | SystemStyleObject)[]) {

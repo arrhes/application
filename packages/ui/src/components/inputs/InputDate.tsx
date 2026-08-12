@@ -1,4 +1,4 @@
-import { type InputHTMLAttributes, useRef, useState } from "react"
+import { type InputHTMLAttributes, useState } from "react"
 import type { FieldError } from "react-hook-form"
 import { IMask, IMaskInput } from "react-imask"
 import type { Styles } from "../../../styled-system/css/css"
@@ -43,13 +43,15 @@ export function InputDate(
     },
 ) {
     const { className } = props
-    const lastEmittedIso = useRef<string | undefined>(undefined)
     const [displayValue, setDisplayValue] = useState(() => isoToDisplay(props.value))
+    const [prevValue, setPrevValue] = useState(props.value)
 
-    const externalDisplay = isoToDisplay(props.value)
-    if (externalDisplay !== isoToDisplay(lastEmittedIso.current) && externalDisplay !== displayValue) {
-        setDisplayValue(externalDisplay)
-        lastEmittedIso.current = undefined
+    if (props.value !== prevValue) {
+        setPrevValue(props.value)
+        const externalDisplay = isoToDisplay(props.value)
+        if (externalDisplay !== displayValue) {
+            setDisplayValue(externalDisplay)
+        }
     }
 
     return (
@@ -115,9 +117,7 @@ export function InputDate(
                 onAccept={(value: unknown) => {
                     const display = String(value)
                     setDisplayValue(display)
-                    const iso = displayToIso(display)
-                    lastEmittedIso.current = iso
-                    props.onChange(iso)
+                    props.onChange(displayToIso(display))
                 }}
                 value={displayValue}
                 className={css({

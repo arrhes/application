@@ -1,5 +1,5 @@
-import { InputDebounced, InputText } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { InputDebounced, InputText } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { type ReactElement, useMemo, useState } from "react"
 import { type FilterColumn, FilterPopover } from "../FilterPopover.js"
 import { type SortDirection, SortPopover } from "../SortPopover.js"
@@ -24,6 +24,8 @@ export function ListTableFilterable<TItem>(props: {
         }>
     >([])
 
+    const columnById = useMemo(() => new Map(props.columns.map((col) => [col.id, col])), [props.columns])
+
     const filteredAndSorted = useMemo(() => {
         let result = props.items
 
@@ -39,7 +41,7 @@ export function ListTableFilterable<TItem>(props: {
 
         for (const [columnId, filterValue] of Object.entries(columnFilters)) {
             if (!filterValue) continue
-            const column = props.columns.find((col) => col.id === columnId)
+            const column = columnById.get(columnId)
             if (!column) continue
             const lower = filterValue.toLowerCase()
             result = result.filter((item) => {
@@ -63,7 +65,7 @@ export function ListTableFilterable<TItem>(props: {
                 ...result,
             ].sort((a, b) => {
                 for (const sort of sorting) {
-                    const column = props.columns.find((col) => col.id === sort.id)
+                    const column = columnById.get(sort.id)
                     if (!column) continue
                     const aVal = column.accessor(a)
                     const bVal = column.accessor(b)
@@ -82,6 +84,7 @@ export function ListTableFilterable<TItem>(props: {
     }, [
         props.items,
         props.columns,
+        columnById,
         globalFilter,
         columnFilters,
         sorting,

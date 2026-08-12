@@ -1,9 +1,9 @@
 import {
     addNewOrganizationRouteDefinition,
     getAllMyOrganizationsRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import { Button, InputText, InputToggle, toast } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+} from "@comptasse/application-metadata/routes"
+import { Button, InputText, InputToggle, toast } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconPlus } from "@tabler/icons-react"
 import type { ComponentProps, JSX } from "react"
 import { Fragment } from "react/jsx-runtime"
@@ -20,6 +20,7 @@ import { invalidateData } from "../../../utilities/invalidateData.ts"
 export function AddNewOrganization(props: {
     children: JSX.Element
     className?: ComponentProps<typeof Button>["className"]
+    onClick?: () => void
 }) {
     const { openPanel, closePanel } = useRightPanel()
 
@@ -133,7 +134,10 @@ export function AddNewOrganization(props: {
                 },
                 props.className,
             )}
-            onClick={() => openPanel(form, "Ajouter une organisation")}
+            onClick={() => {
+                props.onClick?.()
+                openPanel(form, "Ajouter une organisation")
+            }}
         >
             {props.children}
         </Button>

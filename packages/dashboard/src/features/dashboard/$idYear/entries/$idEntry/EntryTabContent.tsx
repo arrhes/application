@@ -1,5 +1,5 @@
-import { Button, ButtonGhostContent, ButtonOutlineContent, FormatError, formatPrice } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { Button, ButtonGhostContent, ButtonOutlineContent, FormatError, formatPrice } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import {
     IconArrowBackUp,
     IconCopyCheck,
@@ -176,12 +176,11 @@ export function EntryTabContent(props: { idOrganization: string; idYear: string;
                                             gap: "0.25rem",
                                         }}
                                     >
-                                        <ReverseOneEntry entry={entry}>
+                                        <ReverseOneEntry entry={entry} onClick={() => setMenuOpen(false)}>
                                             <div
                                                 className={css({
                                                     width: "100%",
                                                 })}
-                                                onClick={() => setMenuOpen(false)}
                                             >
                                                 <ButtonGhostContent
                                                     leftIcon={<IconArrowBackUp />}
@@ -193,12 +192,11 @@ export function EntryTabContent(props: { idOrganization: string; idYear: string;
                                                 />
                                             </div>
                                         </ReverseOneEntry>
-                                        <DuplicateOneEntry entry={entry}>
+                                        <DuplicateOneEntry entry={entry} onClick={() => setMenuOpen(false)}>
                                             <div
                                                 className={css({
                                                     width: "100%",
                                                 })}
-                                                onClick={() => setMenuOpen(false)}
                                             >
                                                 <ButtonGhostContent
                                                     leftIcon={<IconCopyCheck />}

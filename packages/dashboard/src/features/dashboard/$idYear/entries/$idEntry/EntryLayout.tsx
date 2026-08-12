@@ -1,5 +1,5 @@
-import { Button, ButtonGhostContent, ButtonOutlineContent, FormatError, formatPrice } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { Button, ButtonGhostContent, ButtonOutlineContent, FormatError, formatPrice } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import {
     IconArrowBackUp,
     IconChevronLeft,
@@ -123,40 +123,38 @@ export function EntryLayout() {
                                                 gap: "0.25rem",
                                             }}
                                         >
-                                            <ReverseOneEntry entry={entry}>
-                                                <div
-                                                    className={css({
+                                        <ReverseOneEntry entry={entry} onClick={() => setMenuOpen(false)}>
+                                            <div
+                                                className={css({
+                                                    width: "100%",
+                                                })}
+                                            >
+                                                <ButtonGhostContent
+                                                    leftIcon={<IconArrowBackUp />}
+                                                    text="Extourner"
+                                                    className={{
                                                         width: "100%",
-                                                    })}
-                                                    onClick={() => setMenuOpen(false)}
-                                                >
-                                                    <ButtonGhostContent
-                                                        leftIcon={<IconArrowBackUp />}
-                                                        text="Extourner"
-                                                        className={{
-                                                            width: "100%",
-                                                            justifyContent: "start",
-                                                        }}
-                                                    />
-                                                </div>
-                                            </ReverseOneEntry>
-                                            <DuplicateOneEntry entry={entry}>
-                                                <div
-                                                    className={css({
+                                                        justifyContent: "start",
+                                                    }}
+                                                />
+                                            </div>
+                                        </ReverseOneEntry>
+                                        <DuplicateOneEntry entry={entry} onClick={() => setMenuOpen(false)}>
+                                            <div
+                                                className={css({
+                                                    width: "100%",
+                                                })}
+                                            >
+                                                <ButtonGhostContent
+                                                    leftIcon={<IconCopyCheck />}
+                                                    text="Dupliquer"
+                                                    className={{
                                                         width: "100%",
-                                                    })}
-                                                    onClick={() => setMenuOpen(false)}
-                                                >
-                                                    <ButtonGhostContent
-                                                        leftIcon={<IconCopyCheck />}
-                                                        text="Dupliquer"
-                                                        className={{
-                                                            width: "100%",
-                                                            justifyContent: "start",
-                                                        }}
-                                                    />
-                                                </div>
-                                            </DuplicateOneEntry>
+                                                        justifyContent: "start",
+                                                    }}
+                                                />
+                                            </div>
+                                        </DuplicateOneEntry>
                                         </Popover.Content>
                                     </Popover.Root>
                                     <DeleteOneEntry entry={entry}>

@@ -1,5 +1,5 @@
-import { Button, ButtonGhostContent, ButtonOutlineContent, CircularLoader, FormatNull, InputCheckbox } from "@arrhes/ui"
-import { cn, css } from "@arrhes/ui/utilities/cn.js"
+import { Button, ButtonGhostContent, ButtonOutlineContent, CircularLoader, FormatNull, InputCheckbox } from "@comptasse/ui"
+import { cn, css } from "@comptasse/ui/utilities/cn.js"
 import {
     IconChevronDown,
     IconChevronLeft,
@@ -25,7 +25,7 @@ import {
     useReactTable,
     type VisibilityState,
 } from "@tanstack/react-table"
-import { memo, type ComponentProps, Fragment, type ReactElement, type ReactNode, useMemo, useRef, useState } from "react"
+import { memo, type ComponentProps, Fragment, type ReactElement, type ReactNode, useEffect, useMemo, useRef, useState } from "react"
 import { ColumnVisibilityPopover, type VisibilityColumn } from "./ColumnVisibilityPopover.js"
 import { EmptyState } from "./EmptyState.js"
 import { type FilterColumn, FilterPopover } from "./FilterPopover.js"
@@ -69,11 +69,9 @@ function DataTableRaw<TData extends Record<keyof TData, unknown>>(props: {
     const [columnSizingOverrides, setColumnSizingOverrides] = useState<ColumnSizingState>({})
 
     // Reset selection when the trigger changes (e.g. folder navigation)
-    const prevResetTriggerRef = useRef(props.resetSelectionTrigger)
-    if (props.resetSelectionTrigger !== undefined && prevResetTriggerRef.current !== props.resetSelectionTrigger) {
-        prevResetTriggerRef.current = props.resetSelectionTrigger
-        if (Object.keys(rowSelection).length > 0) setRowSelection({})
-    }
+    useEffect(() => {
+        setRowSelection((prev) => (Object.keys(prev).length > 0 ? {} : prev))
+    }, [props.resetSelectionTrigger])
 
     const selectColumnDef = useMemo<ColumnDef<TData>>(
         () => ({
@@ -532,6 +530,10 @@ function DataTableRaw<TData extends Record<keyof TData, unknown>>(props: {
                                         </div>
                                         {!isFit && (
                                             <div
+                                                role="separator"
+                                                aria-orientation="vertical"
+                                                aria-label="Redimensionner la colonne"
+                                                tabIndex={0}
                                                 onDoubleClick={() => {
                                                     setColumnSizingOverrides((state) => {
                                                         const nextState = {
@@ -555,6 +557,9 @@ function DataTableRaw<TData extends Record<keyof TData, unknown>>(props: {
                                                     backgroundColor: "transparent",
                                                     transition: "background-color 120ms ease",
                                                     _hover: {
+                                                        backgroundColor: "neutral/10",
+                                                    },
+                                                    _focusVisible: {
                                                         backgroundColor: "neutral/10",
                                                     },
                                                 })}

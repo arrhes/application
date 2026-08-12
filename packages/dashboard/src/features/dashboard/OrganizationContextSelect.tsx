@@ -1,7 +1,7 @@
-import { Button, ButtonGhostContent, ButtonPlainContent, Separator } from "@arrhes/ui"
+import { Button, ButtonGhostContent, ButtonPlainContent, Separator } from "@comptasse/ui"
 import { IconChevronDown } from "@tabler/icons-react"
 import { useState } from "react"
-import { getAllMyOrganizationsRouteDefinition } from "../../../../metadata/src/routes/dashboard/auth/index.js"
+import { getAllMyOrganizationsRouteDefinition } from "../../../../metadata/src/routes/dashboard/auth/organizations/getAllMyOrganizations.js"
 import { Popover } from "../../components/overlays/popover/popover.js"
 import { useDataFromAPI } from "../../utilities/useHTTPData.js"
 import { AddNewOrganization } from "./organizations/AddNewOrganization.js"
@@ -77,21 +77,20 @@ export function OrganizationContextSelect(props: { value: string | null; onChang
                         marginY: "0.25rem",
                     }}
                 />
-                <div onClick={() => setOpen(false)}>
-                    <AddNewOrganization
+                <AddNewOrganization
+                    className={{
+                        width: "100%",
+                    }}
+                    onClick={() => setOpen(false)}
+                >
+                    <ButtonGhostContent
+                        text="Ajouter une organisation"
                         className={{
                             width: "100%",
+                            justifyContent: "start",
                         }}
-                    >
-                        <ButtonGhostContent
-                            text="Ajouter une organisation"
-                            className={{
-                                width: "100%",
-                                justifyContent: "start",
-                            }}
-                        />
-                    </AddNewOrganization>
-                </div>
+                    />
+                </AddNewOrganization>
             </Popover.Content>
         </Popover.Root>
     )

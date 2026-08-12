@@ -1,6 +1,6 @@
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { FormatNull, FormatPrice, FormatText } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { FormatNull, FormatPrice, FormatText } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { Fragment, useMemo, useRef } from "react"
 import type * as v from "valibot"
@@ -13,7 +13,7 @@ export function BalanceReportTable(props: {
     const scrollContainerRef = useRef<HTMLDivElement>(null)
 
     const sortedAccounts = useMemo(
-        () => props.accounts.sort((a, b) => a.number.localeCompare(b.number)),
+        () => [...props.accounts].sort((a, b) => a.number.localeCompare(b.number)),
         [
             props.accounts,
         ],

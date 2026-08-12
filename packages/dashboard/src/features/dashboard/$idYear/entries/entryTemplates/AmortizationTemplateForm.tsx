@@ -1,7 +1,7 @@
-import { amortizationTemplate, amortizationTemplateSchema } from "@arrhes/application-metadata/entryTemplates"
-import { readAllAccountsRouteDefinition } from "@arrhes/application-metadata/routes"
-import { Button, ButtonOutlineContent, InputPrice, InputText } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { amortizationTemplate, amortizationTemplateSchema } from "@comptasse/application-metadata/entryTemplates"
+import { readAllAccountsRouteDefinition } from "@comptasse/application-metadata/routes"
+import { Button, ButtonOutlineContent, InputPrice, InputText } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { valibotResolver } from "@hookform/resolvers/valibot"
 import { IconCalculator } from "@tabler/icons-react"
 import { useEffect, useRef } from "react"
@@ -47,11 +47,10 @@ export function AmortizationTemplateForm(props: EntryTemplateFormProps) {
         },
     })
 
-    const accounts = accountsResponse.data ?? []
-
     const defaultsAppliedRef = useRef(false)
 
     useEffect(() => {
+        const accounts = accountsResponse.data ?? []
         if (defaultsAppliedRef.current || accounts.length === 0) return
         defaultsAppliedRef.current = true
 
@@ -61,7 +60,7 @@ export function AmortizationTemplateForm(props: EntryTemplateFormProps) {
         if (dotationAccount) templateForm.setValue("idDotationAccount", dotationAccount.id)
         if (amortizationAccount) templateForm.setValue("idAmortizationAccount", amortizationAccount.id)
     }, [
-        accounts,
+        accountsResponse.data,
         templateForm.setValue,
     ])
 

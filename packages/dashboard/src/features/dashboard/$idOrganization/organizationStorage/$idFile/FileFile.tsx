@@ -1,7 +1,7 @@
-import { generateFileGetSignedUrlRouteDefinition } from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { CircularLoader, FormatError } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { generateFileGetSignedUrlRouteDefinition } from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { CircularLoader, FormatError } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { useEffect, useState } from "react"
 import type * as v from "valibot"
 import { useDataFromAPI } from "../../../../../utilities/useHTTPData.ts"
@@ -46,9 +46,7 @@ export function FileFile(props: { file: v.InferOutput<typeof returnedSchemas.fil
                     setMarkdownError("Impossible d'afficher le contenu markdown.")
                 }
             } finally {
-                if (!canceled) {
-                    setMarkdownLoading(false)
-                }
+                setMarkdownLoading(false)
             }
         }
 

@@ -1,5 +1,5 @@
-import type { routeDefinition } from "@arrhes/application-metadata/utilities"
-import { toast } from "@arrhes/ui"
+import type { routeDefinition } from "@comptasse/application-metadata/utilities"
+import { toast } from "@comptasse/ui"
 import type * as v from "valibot"
 import { ClientError } from "./clientError.js"
 import { getCookie } from "./cookies/getCookie.js"
@@ -107,11 +107,26 @@ export async function getResponseBodyFromAPI<
             headers["X-Organization-Id"] = idOrganization
         }
 
+        // For routes mounted under /organizations/:idOrganization, fall back to the
+        // active organization cookie when the caller did not pass it explicitly.
+        // This keeps nested Hono apps on the API side happy without requiring every
+        // DataWrapper/Provider to forward the organization id.
+        const params = parameters.params ? { ...parameters.params } : {}
+        const body = parameters.body as Record<string, unknown>
+        if (
+            parameters.routeDefinition.path.includes(":idOrganization") &&
+            params.idOrganization === undefined &&
+            body.idOrganization === undefined &&
+            idOrganization
+        ) {
+            params.idOrganization = idOrganization
+        }
+
         const { url, remainingBody } = buildUrl(
             apiBaseUrl,
             parameters.routeDefinition.path,
-            parameters.params,
-            parameters.body as Record<string, unknown>,
+            params,
+            body,
             method,
         )
 
@@ -122,30 +137,31 @@ export async function getResponseBodyFromAPI<
             body: method === "GET" ? undefined : JSON.stringify(remainingBody),
             signal,
         })
-        const jsonResponse = JSON.parse((await response.text()) || "{}")
-        if (response.ok === false) {
+        if (response.ok) {
+            const jsonResponse = JSON.parse((await response.text()) || "{}")
+            const parsedData = validate({
+                schema: parameters.routeDefinition.schemas.return,
+                data: jsonResponse,
+            })
+
+            if (parsedData.success === false) {
+                throw new ClientError({
+                    message: "Error with the POST request body data validation",
+                    rawError: parsedData.error,
+                })
+            }
+
+            return <const>{
+                ok: true,
+                data: parsedData.data,
+                error: undefined,
+            }
+        } else {
+            const jsonResponse = JSON.parse((await response.text()) || "{}")
             throw new ClientError({
                 message: `Error with the ${method} request response`,
                 cause: jsonResponse.cause ?? jsonResponse.message,
             })
-        }
-
-        const parsedData = validate({
-            schema: parameters.routeDefinition.schemas.return,
-            data: jsonResponse,
-        })
-
-        if (parsedData.success === false) {
-            throw new ClientError({
-                message: "Error with the POST request body data validation",
-                rawError: parsedData.error,
-            })
-        }
-
-        return <const>{
-            ok: true,
-            data: parsedData.data,
-            error: undefined,
         }
     } catch (error: unknown) {
         abortController?.abort()

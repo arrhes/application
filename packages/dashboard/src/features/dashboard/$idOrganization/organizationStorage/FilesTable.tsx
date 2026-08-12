@@ -3,10 +3,10 @@ import {
     readAllFoldersRouteDefinition,
     updateOneFileRouteDefinition,
     updateOneFolderRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button, ButtonGhostContent, FormatDateTime, FormatFileSize, FormatNull, toast } from "@arrhes/ui"
-import { cn, css } from "@arrhes/ui/utilities/cn.js"
+} from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { Button, ButtonGhostContent, FormatDateTime, FormatFileSize, FormatNull, toast } from "@comptasse/ui"
+import { cn, css } from "@comptasse/ui/utilities/cn.js"
 import { IconArrowLeft, IconFile, IconFileTypePdf, IconFolder } from "@tabler/icons-react"
 import { memo, type DragEvent, type MouseEvent, type ReactElement, useEffect, useRef, useState } from "react"
 import type * as v from "valibot"
@@ -30,6 +30,32 @@ type DragPayload =
           id: string
           sourceParentFolderId: string | null
       }
+
+const FILE_ICONS: Record<string, ReactElement> = {
+    "application/pdf": <IconFileTypePdf />,
+}
+
+function getDragPayload(event: DragEvent): DragPayload | null {
+    try {
+        const rawPayload = event.dataTransfer.getData("text/plain")
+        if (!rawPayload) return null
+        const payload = JSON.parse(rawPayload) as DragPayload
+        if (payload.kind !== "file" && payload.kind !== "folder") return null
+        if (!payload.id) return null
+        return payload
+    } catch {
+        return null
+    }
+}
+
+function canDropOnTarget(parameters: { payload: DragPayload; targetFolderId: string | null }) {
+    if (parameters.payload.kind === "file") {
+        return parameters.payload.sourceFolderId !== parameters.targetFolderId
+    }
+
+    if (parameters.targetFolderId === parameters.payload.id) return false
+    return parameters.payload.sourceParentFolderId !== parameters.targetFolderId
+}
 
 function FilesTableRaw(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
@@ -146,28 +172,6 @@ function FilesTableRaw(props: {
         window.addEventListener("dragend", onWindowDragEnd)
         return () => window.removeEventListener("dragend", onWindowDragEnd)
     }, [])
-
-    function getDragPayload(event: DragEvent): DragPayload | null {
-        try {
-            const rawPayload = event.dataTransfer.getData("text/plain")
-            if (!rawPayload) return null
-            const payload = JSON.parse(rawPayload) as DragPayload
-            if (payload.kind !== "file" && payload.kind !== "folder") return null
-            if (!payload.id) return null
-            return payload
-        } catch {
-            return null
-        }
-    }
-
-    function canDropOnTarget(parameters: { payload: DragPayload; targetFolderId: string | null }) {
-        if (parameters.payload.kind === "file") {
-            return parameters.payload.sourceFolderId !== parameters.targetFolderId
-        }
-
-        if (parameters.targetFolderId === parameters.payload.id) return false
-        return parameters.payload.sourceParentFolderId !== parameters.targetFolderId
-    }
 
     function getRowInteractionProps(item: TableRow) {
         const dropTargetProps = (() => {
@@ -346,10 +350,6 @@ function FilesTableRaw(props: {
         })),
     ]
 
-    const icons: Record<string, ReactElement> = {
-        "application/pdf": <IconFileTypePdf />,
-    }
-
     return (
         <DataTable
             data={rows}
@@ -374,19 +374,24 @@ function FilesTableRaw(props: {
                         const item = row.original
                         if (item.kind === "back") {
                             return (
-                                <div
+                                <button
+                                    type="button"
+                                    aria-label="Remonter au dossier parent"
                                     onClick={() => props.onFolderOpen(props.parentFolderId)}
                                     className={css({
                                         width: "fit-content",
                                         maxWidth: "100%",
                                         cursor: "pointer",
+                                        border: 0,
+                                        backgroundColor: "transparent",
+                                        padding: 0,
                                     })}
                                 >
                                     <ButtonGhostContent
                                         leftIcon={<IconArrowLeft />}
                                         text=".."
                                     />
-                                </div>
+                                </button>
                             )
                         }
                         if (item.kind === "folder") {
@@ -425,7 +430,7 @@ function FilesTableRaw(props: {
                             )
                         }
                         if (item.kind === "file") {
-                            const leftIcon = item.data.type !== null ? icons[item.data.type] : undefined
+                            const leftIcon = item.data.type !== null ? FILE_ICONS[item.data.type] : undefined
 
                             return (
                                 <div

@@ -3,10 +3,10 @@ import {
     readAllFoldersRouteDefinition,
     updateOneFileRouteDefinition,
     updateOneFolderRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { FormatDate, FormatFileSize, toast } from "@arrhes/ui"
-import { cn, css } from "@arrhes/ui/utilities/cn.js"
+} from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { FormatDate, FormatFileSize, toast } from "@comptasse/ui"
+import { cn, css } from "@comptasse/ui/utilities/cn.js"
 import { IconArrowUp, IconFile, IconFileTypePdf, IconFolder, IconPhoto } from "@tabler/icons-react"
 import { memo, type DragEvent, useRef, useState } from "react"
 import type * as v from "valibot"
@@ -120,6 +120,28 @@ type DragPayload =
           sourceParentFolderId: string | null
       }
 
+function getDragPayload(event: DragEvent): DragPayload | null {
+    try {
+        const rawPayload = event.dataTransfer.getData("text/plain")
+        if (!rawPayload) return null
+        const payload = JSON.parse(rawPayload) as DragPayload
+        if (payload.kind !== "file" && payload.kind !== "folder") return null
+        if (!payload.id) return null
+        return payload
+    } catch {
+        return null
+    }
+}
+
+function canDropOnTarget(parameters: { payload: DragPayload; targetFolderId: string | null }) {
+    if (parameters.payload.kind === "file") {
+        return parameters.payload.sourceFolderId !== parameters.targetFolderId
+    }
+
+    if (parameters.targetFolderId === parameters.payload.id) return false
+    return parameters.payload.sourceParentFolderId !== parameters.targetFolderId
+}
+
 function FilesGridRaw(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
     files: Array<v.InferOutput<typeof returnedSchemas.file>>
@@ -151,28 +173,6 @@ function FilesGridRaw(props: {
         setTimeout(() => {
             suppressClickRef.current = false
         }, 0)
-    }
-
-    function getDragPayload(event: DragEvent): DragPayload | null {
-        try {
-            const rawPayload = event.dataTransfer.getData("text/plain")
-            if (!rawPayload) return null
-            const payload = JSON.parse(rawPayload) as DragPayload
-            if (payload.kind !== "file" && payload.kind !== "folder") return null
-            if (!payload.id) return null
-            return payload
-        } catch {
-            return null
-        }
-    }
-
-    function canDropOnTarget(parameters: { payload: DragPayload; targetFolderId: string | null }) {
-        if (parameters.payload.kind === "file") {
-            return parameters.payload.sourceFolderId !== parameters.targetFolderId
-        }
-
-        if (parameters.targetFolderId === parameters.payload.id) return false
-        return parameters.payload.sourceParentFolderId !== parameters.targetFolderId
     }
 
     function handleDragOver(
@@ -309,7 +309,16 @@ function FilesGridRaw(props: {
                 {/* Back folder ("..") when inside a folder */}
                 {props.currentFolderId !== null && (
                     <div
+                        role="button"
+                        aria-label="Dossier parent"
+                        tabIndex={0}
                         onClick={() => props.onFolderOpen(props.parentFolderId)}
+                        onKeyDown={(event) => {
+                            if (event.key === "Enter" || event.key === " ") {
+                                event.preventDefault()
+                                props.onFolderOpen(props.parentFolderId)
+                            }
+                        }}
                         onDragOver={(event) =>
                             handleDragOver(event, {
                                 targetId: "__parent__",
@@ -381,6 +390,8 @@ function FilesGridRaw(props: {
                         idOrganization={props.idOrganization}
                     >
                         <div
+                            role="button"
+                            tabIndex={0}
                             draggable
                             onDragStart={(event) =>
                                 handleDragStart(event, {
@@ -397,6 +408,12 @@ function FilesGridRaw(props: {
                                     return
                                 }
                                 props.onFolderOpen(folder.id)
+                            }}
+                            onKeyDown={(event) => {
+                                if (event.key === "Enter" || event.key === " ") {
+                                    event.preventDefault()
+                                    props.onFolderOpen(folder.id)
+                                }
                             }}
                             onDragOver={(event) =>
                                 handleDragOver(event, {
@@ -503,6 +520,8 @@ function FilesGridRaw(props: {
                             idOrganization={props.idOrganization}
                         >
                             <div
+                                role="button"
+                                tabIndex={0}
                                 draggable
                                 onDragStart={(event) =>
                                     handleDragStart(event, {
@@ -525,6 +544,18 @@ function FilesGridRaw(props: {
                                             idFile: file.id,
                                         },
                                     })
+                                }}
+                                onKeyDown={(event) => {
+                                    if (event.key === "Enter" || event.key === " ") {
+                                        event.preventDefault()
+                                        applicationRouter.navigate({
+                                            to: "/dashboard/organisations/$idOrganization/stockage/$idFile",
+                                            params: {
+                                                idOrganization: props.idOrganization,
+                                                idFile: file.id,
+                                            },
+                                        })
+                                    }
                                 }}
                                 className={cardStyle}
                             >

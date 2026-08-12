@@ -1,8 +1,8 @@
 import type { ReactNode } from "react"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { SidebarContext } from "./SidebarContext.js"
 
-const SIDEBAR_WIDTH_KEY = "arrhes:sidebar-width"
+const SIDEBAR_WIDTH_KEY = "comptasse:sidebar-width"
 const DEFAULT_WIDTH = 280
 const MIN_WIDTH = 200
 
@@ -35,12 +35,17 @@ export function SidebarContextProvider({ children }: { children: ReactNode }) {
         setWidthValue(Math.max(MIN_WIDTH, newWidth))
     }, [])
 
+    const value = useMemo(
+        () => ({
+            width,
+            setWidth,
+        }),
+        [width, setWidth],
+    )
+
     return (
         <SidebarContext.Provider
-            value={{
-                width,
-                setWidth,
-            }}
+            value={value}
         >
             {children}
         </SidebarContext.Provider>

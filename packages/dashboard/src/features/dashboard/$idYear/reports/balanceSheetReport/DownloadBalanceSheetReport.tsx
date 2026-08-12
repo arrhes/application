@@ -1,7 +1,7 @@
-import { generateBalanceSheetXmlRouteDefinition } from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button, ButtonGhostContent, ButtonOutlineContent, toast } from "@arrhes/ui"
-import { pdf } from "@react-pdf/renderer"
+import { generateBalanceSheetXmlRouteDefinition } from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { Button, ButtonGhostContent, ButtonOutlineContent, toast } from "@comptasse/ui"
+
 import { IconDownload, IconFileTypePdf, IconFileTypeXml } from "@tabler/icons-react"
 import type * as v from "valibot"
 import { Popover } from "../../../../../components/overlays/popover/popover.tsx"
@@ -16,6 +16,7 @@ export function DownloadBalanceSheetReport(props: {
     accounts: Array<v.InferOutput<typeof returnedSchemas.account>>
 }) {
     async function handlePdf() {
+        const { pdf } = await import("@react-pdf/renderer")
         const blob = await pdf(
             <BalanceSheetReportPdf
                 balanceSheets={props.balanceSheets}
@@ -49,6 +50,13 @@ export function DownloadBalanceSheetReport(props: {
         }
 
         const response = await fetch(generateResponse.data.url)
+        if (!response.ok) {
+            toast({
+                title: "Impossible de télécharger le fichier XML",
+                variant: "error",
+            })
+            return
+        }
         const blob = await response.blob()
         const objectUrl = URL.createObjectURL(blob)
         const link = document.createElement("a")

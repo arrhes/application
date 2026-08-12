@@ -3,9 +3,9 @@ import {
     type readAllEntriesRouteDefinition,
     type readAllEntryLinesRouteDefinition,
     readAllJournalsRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { formatDate, formatPrice, InputDate, toast } from "@arrhes/ui"
+} from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { formatDate, formatPrice, InputDate, toast } from "@comptasse/ui"
 import { IconDownload } from "@tabler/icons-react"
 import { useMemo } from "react"
 import * as v from "valibot"
@@ -19,6 +19,13 @@ import { FormRoot } from "../../../../components/forms/FormRoot.js"
 import { InputDataCombobox } from "../../../../components/InputDataCombobox.js"
 import { useRightPanel } from "../../../../contexts/rightPanel/RightPanelContext.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
+
+function escapeCsvValue(value: string): string {
+    if (value.includes(";") || value.includes('"') || value.includes("\n")) {
+        return `"${value.replace(/"/g, '""')}"`
+    }
+    return value
+}
 
 export function ExportEntryLines(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
@@ -37,13 +44,6 @@ export function ExportEntryLines(props: {
     }, [
         props.entries,
     ])
-
-    function escapeCsvValue(value: string): string {
-        if (value.includes(";") || value.includes('"') || value.includes("\n")) {
-            return `"${value.replace(/"/g, '""')}"`
-        }
-        return value
-    }
 
     return (
         <FormRoot

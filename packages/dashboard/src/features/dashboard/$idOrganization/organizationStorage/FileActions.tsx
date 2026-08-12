@@ -1,5 +1,5 @@
-import { ocrFileRouteDefinition, readAllFilesRouteDefinition } from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { ocrFileRouteDefinition, readAllFilesRouteDefinition } from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
 import {
     Button,
     ButtonGhostContent,
@@ -8,7 +8,7 @@ import {
     Separator,
     toast,
     useModalStore,
-} from "@arrhes/ui"
+} from "@comptasse/ui"
 import { IconArrowsMove, IconDotsVertical, IconEye, IconFileText, IconPencil, IconTrash } from "@tabler/icons-react"
 import { useId, useState } from "react"
 import type * as v from "valibot"
@@ -57,28 +57,31 @@ export function FileActions(props: { file: v.InferOutput<typeof returnedSchemas.
 
     async function handleOcr() {
         setOcrLoading(true)
-        const ocrResponse = await getResponseBodyFromAPI({
-            routeDefinition: ocrFileRouteDefinition,
-            body: {
-                idFile: props.file.id,
-            },
-            hasToastMessage: true,
-        })
-        setOcrLoading(false)
+        try {
+            const ocrResponse = await getResponseBodyFromAPI({
+                routeDefinition: ocrFileRouteDefinition,
+                body: {
+                    idFile: props.file.id,
+                },
+                hasToastMessage: true,
+            })
 
-        if (ocrResponse.ok === false) {
-            return
+            if (ocrResponse.ok === false) {
+                return
+            }
+
+            await invalidateData({
+                routeDefinition: readAllFilesRouteDefinition,
+                body: {},
+            })
+
+            toast({
+                title: "Fichier converti en Markdown",
+                variant: "success",
+            })
+        } finally {
+            setOcrLoading(false)
         }
-
-        await invalidateData({
-            routeDefinition: readAllFilesRouteDefinition,
-            body: {},
-        })
-
-        toast({
-            title: "Fichier converti en Markdown",
-            variant: "success",
-        })
     }
 
     return (

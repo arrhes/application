@@ -1,6 +1,6 @@
-import { readAllInventoryItemsRouteDefinition } from "@arrhes/application-metadata/routes"
-import { Button, ButtonPlainContent, InputText, toast } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { readAllInventoryItemsRouteDefinition } from "@comptasse/application-metadata/routes"
+import { Button, ButtonPlainContent, InputText, toast } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconPlus } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import type { ColumnDef } from "@tanstack/react-table"
@@ -126,7 +126,7 @@ export function InventoryCategoriesPage() {
                 >
                     {(items) => {
                         const categories = [
-                            ...new Set(items.map((i: any) => i.category).filter(Boolean) as string[]),
+                            ...new Set(items.flatMap((i: any) => (i.category ? [i.category] : [])) as string[]),
                         ]
                             .sort()
                             .map((cat) => ({
