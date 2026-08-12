@@ -1,4 +1,4 @@
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
 import { type ComponentProps, Fragment } from "react"
 import type * as v from "valibot"
 import { toRoman } from "../../../../../utilities/toRoman.ts"
@@ -22,29 +22,26 @@ export function IncomeStatementReportItem(props: {
     const isAmountDisplayed = props.incomeStatement.isComputed === true || props.incomeStatementChildren.length === 0
 
     let netAmount = 0
-    props.accounts
-        .filter((account) => {
-            const hasAccount = props.incomeStatement.id === account.idIncomeStatement
-            const hasChildrenAccount = props.incomeStatementChildren.some(
-                (incomeStatement) => incomeStatement.id === account.idIncomeStatement,
-            )
-            return hasAccount || hasChildrenAccount
-        })
-        .forEach((account) => {
-            let accountTotalDebit = 0
-            let accountTotalCredit = 0
+    for (const account of props.accounts) {
+        const hasAccount = props.incomeStatement.id === account.idIncomeStatement
+        const hasChildrenAccount = props.incomeStatementChildren.some(
+            (incomeStatement) => incomeStatement.id === account.idIncomeStatement,
+        )
+        if (!hasAccount && !hasChildrenAccount) continue
 
-            props.entryLines
-                .filter((entryLine) => entryLine.idAccount === account.id)
-                .forEach((entryLine) => {
-                    accountTotalDebit += Number(entryLine.debit)
-                    accountTotalCredit += Number(entryLine.credit)
-                })
+        let accountTotalDebit = 0
+        let accountTotalCredit = 0
 
-            const accountBalance = accountTotalDebit - accountTotalCredit
+        for (const entryLine of props.entryLines) {
+            if (entryLine.idAccount !== account.id) continue
+            accountTotalDebit += Number(entryLine.debit)
+            accountTotalCredit += Number(entryLine.credit)
+        }
 
-            netAmount += Math.abs(accountBalance)
-        })
+        const accountBalance = accountTotalDebit - accountTotalCredit
+
+        netAmount += Math.abs(accountBalance)
+    }
 
     return (
         <Fragment>
@@ -56,15 +53,16 @@ export function IncomeStatementReportItem(props: {
                 amount={netAmount}
                 isAmountDisplayed={isAmountDisplayed}
             />
-            {props.incomeStatementChildren
-                .filter((incomeStatement) => incomeStatement.idIncomeStatementParent === props.incomeStatement.id)
-                .map((incomeStatement) => {
+            {(() => {
+                const children: Array<React.JSX.Element> = []
+                for (const incomeStatement of props.incomeStatementChildren) {
+                    if (incomeStatement.idIncomeStatementParent !== props.incomeStatement.id) continue
                     const incomeStatementChildren = getIncomeStatementChildren({
                         incomeStatement: incomeStatement,
                         incomeStatements: props.incomeStatementChildren,
                     })
 
-                    return (
+                    children.push(
                         <IncomeStatementReportItem
                             key={incomeStatement.id}
                             idOrganization={props.idOrganization}
@@ -74,9 +72,11 @@ export function IncomeStatementReportItem(props: {
                             incomeStatement={incomeStatement}
                             incomeStatementChildren={incomeStatementChildren}
                             level={props.level + 1}
-                        />
+                        />,
                     )
-                })}
+                }
+                return children
+            })()}
         </Fragment>
     )
 }

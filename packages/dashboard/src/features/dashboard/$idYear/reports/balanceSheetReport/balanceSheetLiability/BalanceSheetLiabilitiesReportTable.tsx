@@ -1,6 +1,6 @@
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { FormatNull } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { FormatNull } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { Fragment } from "react/jsx-runtime"
 import type * as v from "valibot"
 import { Table } from "../../../../../../components/layouts/table/table.tsx"
@@ -18,12 +18,11 @@ export function BalanceSheetLiabilitiesReportTable(props: {
         let accountTotalDebit = 0
         let accountTotalCredit = 0
 
-        props.entryLines
-            .filter((entryLine) => entryLine.idAccount === account.id)
-            .forEach((entryLine) => {
-                accountTotalDebit += Number(entryLine.debit)
-                accountTotalCredit += Number(entryLine.credit)
-            })
+        for (const entryLine of props.entryLines) {
+            if (entryLine.idAccount !== account.id) continue
+            accountTotalDebit += Number(entryLine.debit)
+            accountTotalCredit += Number(entryLine.credit)
+        }
 
         const accountBalance = accountTotalDebit - accountTotalCredit
 

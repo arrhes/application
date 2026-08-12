@@ -1,9 +1,9 @@
-import type { returnedSchemas } from "@arrhes/application-metadata"
+import type { returnedSchemas } from "@comptasse/application-metadata"
 import {
     deleteOneFolderRouteDefinition,
     readAllFilesRouteDefinition,
     readAllFoldersRouteDefinition,
-} from "@arrhes/application-metadata/routes"
+} from "@comptasse/application-metadata/routes"
 import {
     Button,
     ButtonGhostContent,
@@ -12,7 +12,7 @@ import {
     Dialog,
     toast,
     useModalStore,
-} from "@arrhes/ui"
+} from "@comptasse/ui"
 import { IconChevronDown, IconTrash } from "@tabler/icons-react"
 import type { Row } from "@tanstack/react-table"
 import { useId } from "react"
@@ -38,32 +38,15 @@ export type TableRow =
 export function FilesTableSelectionActions(props: { selectedRows: Array<Row<TableRow>> }) {
     const deleteModalId = useId()
     const { open: openModal, close: closeModal } = useModalStore()
-    const selectedFiles = props.selectedRows
-        .filter((r) => r.original.kind === "file")
-        .map(
-            (r) =>
-                (
-                    r.original as Extract<
-                        TableRow,
-                        {
-                            kind: "file"
-                        }
-                    >
-                ).data,
-        )
-    const selectedFolders = props.selectedRows
-        .filter((r) => r.original.kind === "folder")
-        .map(
-            (r) =>
-                (
-                    r.original as Extract<
-                        TableRow,
-                        {
-                            kind: "folder"
-                        }
-                    >
-                ).data,
-        )
+    const selectedFiles: Array<v.InferOutput<typeof returnedSchemas.file>> = []
+    const selectedFolders: Array<v.InferOutput<typeof returnedSchemas.folder>> = []
+    for (const row of props.selectedRows) {
+        if (row.original.kind === "file") {
+            selectedFiles.push(row.original.data)
+        } else if (row.original.kind === "folder") {
+            selectedFolders.push(row.original.data)
+        }
+    }
 
     async function handleDelete() {
         const results = await Promise.all([

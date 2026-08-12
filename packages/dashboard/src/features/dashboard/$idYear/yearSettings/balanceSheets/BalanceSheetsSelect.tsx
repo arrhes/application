@@ -1,6 +1,6 @@
-import { readAllBalanceSheetsRouteDefinition } from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { InputCombobox } from "@arrhes/ui"
+import { readAllBalanceSheetsRouteDefinition } from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { InputCombobox } from "@comptasse/ui"
 import type * as v from "valibot"
 import { useDataFromAPI } from "../../../../../utilities/useHTTPData.ts"
 
@@ -25,16 +25,19 @@ export function BalanceSheetsSelect(props: {
             isLoading={balanceSheetsResponse.isPending}
             allowEmpty={true}
             placeholder="Sélectionner une ligne de bilan"
-            options={
-                balanceSheetsResponse.data === undefined
-                    ? []
-                    : balanceSheetsResponse.data
-                          .filter((balanceSheet) => props.side === undefined || balanceSheet.side === props.side)
-                          .map((balanceSheet) => ({
-                              key: balanceSheet.id,
-                              label: `${balanceSheet.number} ${balanceSheet.label}`,
-                          }))
-            }
+            options={(() => {
+                const options: Array<{ key: string; label: string }> = []
+                if (balanceSheetsResponse.data !== undefined) {
+                    for (const balanceSheet of balanceSheetsResponse.data) {
+                        if (props.side !== undefined && balanceSheet.side !== props.side) continue
+                        options.push({
+                            key: balanceSheet.id,
+                            label: `${balanceSheet.number} ${balanceSheet.label}`,
+                        })
+                    }
+                }
+                return options
+            })()}
         />
     )
 }

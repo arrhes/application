@@ -1,6 +1,6 @@
-import { readAllFoldersRouteDefinition, updateOneFolderRouteDefinition } from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { InputSelect, toast } from "@arrhes/ui"
+import { readAllFoldersRouteDefinition, updateOneFolderRouteDefinition } from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { InputSelect, toast } from "@comptasse/ui"
 import { IconArrowsMove } from "@tabler/icons-react"
 import { useMemo } from "react"
 import type * as v from "valibot"
@@ -71,18 +71,21 @@ export function MoveOneFolderForm(props: {
         })
         blockedFolderIds.add(props.folder.id)
 
-        return [
+        const options: Array<{ key: string; label: string }> = [
             {
                 key: rootOptionKey,
                 label: "/",
             },
-            ...allFolders
-                .filter((folder) => !blockedFolderIds.has(folder.id))
-                .map((folder) => ({
+        ]
+        for (const folder of allFolders) {
+            if (!blockedFolderIds.has(folder.id)) {
+                options.push({
                     key: folder.id,
                     label: folder.name,
-                })),
-        ]
+                })
+            }
+        }
+        return options
     }, [
         foldersResponse.data,
         props.folder.id,

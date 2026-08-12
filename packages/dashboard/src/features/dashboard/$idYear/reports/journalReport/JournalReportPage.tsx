@@ -1,5 +1,5 @@
-import { Button, ButtonOutlineContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { Button, ButtonOutlineContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { useState } from "react"
@@ -74,9 +74,12 @@ export function JournalReportPage({ idYear: idYearProp }: { idYear?: string } = 
 
                 if (selectedTags.length > 0) {
                     const selectedTagIds = new Set(selectedTags.map((t) => t.key))
-                    const matchingEntryIds = new Set(
-                        entryTags.filter((et) => selectedTagIds.has(et.idTag)).map((et) => et.idEntry),
-                    )
+                    const matchingEntryIds = new Set<string>()
+                    for (const et of entryTags) {
+                        if (selectedTagIds.has(et.idTag)) {
+                            matchingEntryIds.add(et.idEntry)
+                        }
+                    }
                     filteredEntries = filteredEntries.filter((entry) => matchingEntryIds.has(entry.id))
                 }
 

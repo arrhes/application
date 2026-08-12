@@ -1,6 +1,6 @@
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { FormatNull, FormatPrice, FormatText } from "@arrhes/ui"
-import { cn, css } from "@arrhes/ui/utilities/cn.js"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { FormatNull, FormatPrice, FormatText } from "@comptasse/ui"
+import { cn, css } from "@comptasse/ui/utilities/cn.js"
 import type * as v from "valibot"
 import { Table } from "../../../../../components/layouts/table/table.tsx"
 import { toRoman } from "../../../../../utilities/toRoman.ts"
@@ -14,6 +14,8 @@ export function IncomeStatementsReportTable(props: {
     entryLines: Array<v.InferOutput<typeof returnedSchemas.entryLine>>
     accounts: Array<v.InferOutput<typeof returnedSchemas.account>>
 }) {
+    const incomeStatementById = new Map(props.incomeStatements.map((is) => [is.id, is]))
+
     return (
         <div
             className={css({
@@ -86,79 +88,67 @@ export function IncomeStatementsReportTable(props: {
                     ) : (
                         props.computations.map((computation, index) => {
                             let computationAmount = 0
-                            const _computationStatements = props.computationIncomeStatements
-                                .filter(
-                                    (computationIncomeStatement) =>
-                                        computationIncomeStatement.idComputation === computation.id,
+                            for (const computationIncomeStatement of props.computationIncomeStatements) {
+                                if (computationIncomeStatement.idComputation !== computation.id) continue
+                                let incomeStatementAmount = 0
+                                const foundIncomeStatement = incomeStatementById.get(
+                                    computationIncomeStatement.idIncomeStatement,
                                 )
-                                .forEach((computationIncomeStatement) => {
-                                    let incomeStatementAmount = 0
-                                    props.accounts
-                                        .filter((account) => {
-                                            const foundIncomeStatement = props.incomeStatements.find(
-                                                (incomeStatement) =>
-                                                    incomeStatement.id === computationIncomeStatement.idIncomeStatement,
-                                            )
-                                            if (foundIncomeStatement === undefined) {
-                                                return false
-                                            }
-                                            const incomeStatementChildren = getIncomeStatementChildren({
-                                                incomeStatement: foundIncomeStatement,
-                                                incomeStatements: props.incomeStatements,
-                                            })
-
-                                            const hasAccount =
-                                                account.idIncomeStatement ===
-                                                computationIncomeStatement.idIncomeStatement
-                                            const hasChildrenAccount = incomeStatementChildren.some(
-                                                (incomeStatement) => incomeStatement.id === account.idIncomeStatement,
-                                            )
-                                            return hasAccount || hasChildrenAccount
-                                        })
-                                        .forEach((account) => {
-                                            props.entryLines
-                                                .filter((entryLine) => entryLine.idAccount === account.id)
-                                                .forEach((entryLine) => {
-                                                    incomeStatementAmount +=
-                                                        Number(entryLine.debit) - Number(entryLine.credit)
-                                                })
-                                        })
-
-                                    if (computationIncomeStatement.operation === "plus") {
-                                        computationAmount += Math.abs(incomeStatementAmount)
-                                    }
-                                    if (computationIncomeStatement.operation === "minus") {
-                                        computationAmount += -Math.abs(incomeStatementAmount)
-                                    }
+                                if (foundIncomeStatement === undefined) continue
+                                const incomeStatementChildren = getIncomeStatementChildren({
+                                    incomeStatement: foundIncomeStatement,
+                                    incomeStatements: props.incomeStatements,
                                 })
+                                for (const account of props.accounts) {
+                                    const hasAccount =
+                                        account.idIncomeStatement === computationIncomeStatement.idIncomeStatement
+                                    const hasChildrenAccount = incomeStatementChildren.some(
+                                        (incomeStatement) => incomeStatement.id === account.idIncomeStatement,
+                                    )
+                                    if (!hasAccount && !hasChildrenAccount) continue
+                                    for (const entryLine of props.entryLines) {
+                                        if (entryLine.idAccount !== account.id) continue
+                                        incomeStatementAmount += Number(entryLine.debit) - Number(entryLine.credit)
+                                    }
+                                }
+
+                                if (computationIncomeStatement.operation === "plus") {
+                                    computationAmount += Math.abs(incomeStatementAmount)
+                                }
+                                if (computationIncomeStatement.operation === "minus") {
+                                    computationAmount += -Math.abs(incomeStatementAmount)
+                                }
+                            }
 
                             // .sort((a, b) => {
                             //     if (!a.incomeStatement || !b.incomeStatement) return 0
                             //     return (a.incomeStatement.number - b.incomeStatement.number)
                             // })
 
-                            const computationIncomeStatementsLabel = props.computationIncomeStatements
-                                .filter(
-                                    (computationIncomeStatement) =>
-                                        computationIncomeStatement.idComputation === computation.id,
+                            const computationIncomeStatementsLabelParts: string[] = []
+                            let computationIncomeStatementIndex = 0
+                            for (const computationIncomeStatement of props.computationIncomeStatements) {
+                                if (computationIncomeStatement.idComputation !== computation.id) continue
+                                const incomeStatement = incomeStatementById.get(
+                                    computationIncomeStatement.idIncomeStatement,
                                 )
-                                .map((computationIncomeStatement, computationIncomeStatementIndex) => {
-                                    const incomeStatement = props.incomeStatements.find(
-                                        (incomeStatement) =>
-                                            incomeStatement.id === computationIncomeStatement.idIncomeStatement,
+                                if (incomeStatement === undefined) {
+                                    computationIncomeStatementIndex++
+                                    continue
+                                }
+                                const romanNumber = toRoman(Number(incomeStatement.number))
+                                if (computationIncomeStatement.operation === "plus") {
+                                    computationIncomeStatementsLabelParts.push(
+                                        computationIncomeStatementIndex === 0 ? `${romanNumber}` : `+${romanNumber}`,
                                     )
-                                    if (incomeStatement === undefined) {
-                                        return ""
-                                    }
-                                    const romanNumber = toRoman(Number(incomeStatement.number))
-                                    if (computationIncomeStatement.operation === "plus") {
-                                        if (computationIncomeStatementIndex === 0) return `${romanNumber}`
-                                        return `+${romanNumber}`
-                                    }
-                                    if (computationIncomeStatement.operation === "minus") return `-${romanNumber}`
-                                    return ""
-                                })
-                                .join("")
+                                } else if (computationIncomeStatement.operation === "minus") {
+                                    computationIncomeStatementsLabelParts.push(`-${romanNumber}`)
+                                } else {
+                                    computationIncomeStatementsLabelParts.push("")
+                                }
+                                computationIncomeStatementIndex++
+                            }
+                            const computationIncomeStatementsLabel = computationIncomeStatementsLabelParts.join("")
 
                             return (
                                 <Table.Body.Row

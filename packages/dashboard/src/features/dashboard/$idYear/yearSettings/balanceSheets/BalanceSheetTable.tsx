@@ -1,6 +1,6 @@
-import { readAllBalanceSheetsRouteDefinition } from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { readAllBalanceSheetsRouteDefinition } from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconScale } from "@tabler/icons-react"
 import type * as v from "valibot"
 import { DataWrapper } from "../../../../../components/layouts/DataWrapper.tsx"
@@ -27,11 +27,9 @@ export function BalanceSheetTable(props: {
                 const sidedBalanceSheets = balanceSheets.filter((balanceSheet) => balanceSheet.side === props.side)
 
                 const filteredBalanceSheets = sidedBalanceSheets
-                    .filter((balanceSheet) => balanceSheet.idBalanceSheetParent === null)
                     .filter((balanceSheet) => {
-                        if (normalizedGlobalFilter.length === 0) {
-                            return true
-                        }
+                        if (balanceSheet.idBalanceSheetParent !== null) return false
+                        if (normalizedGlobalFilter.length === 0) return true
 
                         return `${balanceSheet.number} ${balanceSheet.label}`
                             .toLowerCase()

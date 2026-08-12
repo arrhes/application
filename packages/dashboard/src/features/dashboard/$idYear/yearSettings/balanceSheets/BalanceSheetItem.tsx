@@ -1,4 +1,4 @@
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
 import { type ComponentProps, Fragment } from "react"
 import type * as v from "valibot"
 import { BalanceSheetRow } from "./BalanceSheetRow.tsx"
@@ -20,15 +20,16 @@ export function BalanceSheetItem(props: {
                 balanceSheet={props.balanceSheet}
                 level={props.level}
             />
-            {props.balanceSheetChildren
-                .filter((balanceSheet) => balanceSheet.idBalanceSheetParent === props.balanceSheet.id)
-                .map((balanceSheet) => {
+            {(() => {
+                const children: Array<React.JSX.Element> = []
+                for (const balanceSheet of props.balanceSheetChildren) {
+                    if (balanceSheet.idBalanceSheetParent !== props.balanceSheet.id) continue
                     const balanceSheetChildren = getBalanceSheetChildren({
                         balanceSheet: balanceSheet,
                         balanceSheets: props.balanceSheetChildren,
                     })
 
-                    return (
+                    children.push(
                         <BalanceSheetItem
                             key={balanceSheet.id}
                             idOrganization={props.idOrganization}
@@ -36,9 +37,11 @@ export function BalanceSheetItem(props: {
                             balanceSheet={balanceSheet}
                             balanceSheetChildren={balanceSheetChildren}
                             level={props.level + 1}
-                        />
+                        />,
                     )
-                })}
+                }
+                return children
+            })()}
         </Fragment>
     )
 }

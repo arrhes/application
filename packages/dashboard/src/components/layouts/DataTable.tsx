@@ -308,13 +308,15 @@ function DataTableRaw<TData extends Record<keyof TData, unknown>>(props: {
                         onChange={(value) => setGlobalFilter(value)}
                     />
                     {(() => {
-                        const filterableColumns: Array<FilterColumn> = table
-                            .getAllColumns()
-                            .filter((col) => col.getCanFilter() && col.columnDef.header && col.columnDef.header !== " ")
-                            .map((col) => ({
-                                id: col.id,
-                                header: col.columnDef.header?.toString() ?? "",
-                            }))
+                        const filterableColumns: Array<FilterColumn> = []
+                        for (const col of table.getAllColumns()) {
+                            if (col.getCanFilter() && col.columnDef.header && col.columnDef.header !== " ") {
+                                filterableColumns.push({
+                                    id: col.id,
+                                    header: col.columnDef.header?.toString() ?? "",
+                                })
+                            }
+                        }
 
                         if (filterableColumns.length === 0) return null
 
@@ -340,13 +342,15 @@ function DataTableRaw<TData extends Record<keyof TData, unknown>>(props: {
                         )
                     })()}
                     {(() => {
-                        const sortableColumns = table
-                            .getAllColumns()
-                            .filter((col) => col.getCanSort() && col.columnDef.header && col.columnDef.header !== " ")
-                            .map((col) => ({
-                                id: col.id,
-                                header: col.columnDef.header?.toString() ?? "",
-                            }))
+                        const sortableColumns: Array<{ id: string; header: string }> = []
+                        for (const col of table.getAllColumns()) {
+                            if (col.getCanSort() && col.columnDef.header && col.columnDef.header !== " ") {
+                                sortableColumns.push({
+                                    id: col.id,
+                                    header: col.columnDef.header?.toString() ?? "",
+                                })
+                            }
+                        }
 
                         if (sortableColumns.length === 0) return null
 
@@ -395,15 +399,17 @@ function DataTableRaw<TData extends Record<keyof TData, unknown>>(props: {
                         )
                     })()}
                     {(() => {
-                        const visibilityColumns: Array<VisibilityColumn> = table
-                            .getAllLeafColumns()
-                            .filter((col) => col.columnDef.header && col.columnDef.header !== " ")
-                            .map((col) => ({
-                                id: col.id,
-                                header: col.columnDef.header?.toString() ?? "",
-                                isVisible: col.getIsVisible(),
-                                canHide: col.getCanHide(),
-                            }))
+                        const visibilityColumns: Array<VisibilityColumn> = []
+                        for (const col of table.getAllLeafColumns()) {
+                            if (col.columnDef.header && col.columnDef.header !== " ") {
+                                visibilityColumns.push({
+                                    id: col.id,
+                                    header: col.columnDef.header?.toString() ?? "",
+                                    isVisible: col.getIsVisible(),
+                                    canHide: col.getCanHide(),
+                                })
+                            }
+                        }
 
                         const hasHideableColumns = visibilityColumns.some((column) => column.canHide)
                         if (!hasHideableColumns) return null

@@ -1,4 +1,4 @@
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
 import { type ComponentProps, Fragment } from "react"
 import type * as v from "valibot"
 import { toRoman } from "../../../../../../utilities/toRoman.ts"
@@ -22,44 +22,41 @@ export function BalanceSheetLiabilitiesReportItem(props: {
     const isAmountDisplayed = props.balanceSheet.isComputed === true || props.balanceSheetChildren.length === 0
 
     let netTotalAmount = 0
-    props.accounts
-        .filter((account) => {
-            const hasAccount = account.idBalanceSheetLiability === props.balanceSheet.id
-            const hasChildrenAccount = props.balanceSheetChildren.some(
-                (balanceSheet) => balanceSheet.id === account.idBalanceSheetLiability,
-            )
-            return hasAccount || hasChildrenAccount
-        })
-        .forEach((account) => {
-            let accountTotalDebit = 0
-            let accountTotalCredit = 0
+    for (const account of props.accounts) {
+        const hasAccount = account.idBalanceSheetLiability === props.balanceSheet.id
+        const hasChildrenAccount = props.balanceSheetChildren.some(
+            (balanceSheet) => balanceSheet.id === account.idBalanceSheetLiability,
+        )
+        if (!hasAccount && !hasChildrenAccount) continue
 
-            props.entryLines
-                .filter((entryLine) => entryLine.idAccount === account.id)
-                .forEach((entryLine) => {
-                    accountTotalDebit += Number(entryLine.debit)
-                    accountTotalCredit += Number(entryLine.credit)
-                })
+        let accountTotalDebit = 0
+        let accountTotalCredit = 0
 
-            const accountBalance = accountTotalCredit - accountTotalDebit
+        for (const entryLine of props.entryLines) {
+            if (entryLine.idAccount !== account.id) continue
+            accountTotalDebit += Number(entryLine.debit)
+            accountTotalCredit += Number(entryLine.credit)
+        }
 
-            if (accountBalance > 0 && account.balanceSheetLiabilityFlow === "debit") {
-                return
+        const accountBalance = accountTotalCredit - accountTotalDebit
+
+        if (accountBalance > 0 && account.balanceSheetLiabilityFlow === "debit") {
+            continue
+        }
+
+        if (accountBalance < 0 && account.balanceSheetLiabilityFlow === "credit") {
+            continue
+        }
+
+        if (account.balanceSheetLiabilityColumn === "net") {
+            if (account.balanceSheetLiabilityFlow === "debit") {
+                netTotalAmount += accountBalance
             }
-
-            if (accountBalance < 0 && account.balanceSheetLiabilityFlow === "credit") {
-                return
+            if (account.balanceSheetLiabilityFlow === "credit") {
+                netTotalAmount += accountBalance
             }
-
-            if (account.balanceSheetLiabilityColumn === "net") {
-                if (account.balanceSheetLiabilityFlow === "debit") {
-                    netTotalAmount += accountBalance
-                }
-                if (account.balanceSheetLiabilityFlow === "credit") {
-                    netTotalAmount += accountBalance
-                }
-            }
-        })
+        }
+    }
 
     return (
         <Fragment>
@@ -71,15 +68,16 @@ export function BalanceSheetLiabilitiesReportItem(props: {
                 netAmount={netTotalAmount}
                 isAmountDisplayed={isAmountDisplayed}
             />
-            {props.balanceSheetChildren
-                .filter((balanceSheet) => balanceSheet.idBalanceSheetParent === props.balanceSheet.id)
-                .map((balanceSheet) => {
+            {(() => {
+                const children: Array<React.JSX.Element> = []
+                for (const balanceSheet of props.balanceSheetChildren) {
+                    if (balanceSheet.idBalanceSheetParent !== props.balanceSheet.id) continue
                     const balanceSheetChildren = getBalanceSheetChildren({
                         balanceSheet: balanceSheet,
                         balanceSheets: props.balanceSheetChildren,
                     })
 
-                    return (
+                    children.push(
                         <BalanceSheetLiabilitiesReportItem
                             key={balanceSheet.id}
                             idOrganization={props.idOrganization}
@@ -89,9 +87,11 @@ export function BalanceSheetLiabilitiesReportItem(props: {
                             balanceSheet={balanceSheet}
                             balanceSheetChildren={balanceSheetChildren}
                             level={props.level + 1}
-                        />
+                        />,
                     )
-                })}
+                }
+                return children
+            })()}
         </Fragment>
     )
 }

@@ -550,7 +550,12 @@ function parseInlineStringMatrix(raw: string, _baseUrl = ""): string[][] {
 
 function stripIndent(text: string): string {
     const lines = text.split("\n")
-    const indents = lines.filter((line) => line.trim().length > 0).map((line) => line.match(/^\s*/)?.[0].length ?? 0)
+    const indents: number[] = []
+    for (const line of lines) {
+        if (line.trim().length > 0) {
+            indents.push(line.match(/^\s*/)?.[0].length ?? 0)
+        }
+    }
     const minIndent = indents.length > 0 ? Math.min(...indents) : 0
     if (minIndent === 0) return text
     return lines.map((line) => line.slice(minIndent)).join("\n")

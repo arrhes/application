@@ -1,5 +1,5 @@
-import { Button, ButtonGhostContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { Button, ButtonGhostContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconSettings } from "@tabler/icons-react"
 import { useParams, useRouter } from "@tanstack/react-router"
 import { useState } from "react"
@@ -79,17 +79,23 @@ export function IncomeStatementReportPage({
                 }))
 
                 if (selectedJournalId) {
-                    const matchingEntryIds = new Set(
-                        entries.filter((entry) => entry.idJournal === selectedJournalId).map((entry) => entry.id),
-                    )
+                    const matchingEntryIds = new Set<string>()
+                    for (const entry of entries) {
+                        if (entry.idJournal === selectedJournalId) {
+                            matchingEntryIds.add(entry.id)
+                        }
+                    }
                     filteredEntryLines = filteredEntryLines.filter((el) => matchingEntryIds.has(el.idEntry))
                 }
 
                 if (selectedTags.length > 0) {
                     const selectedTagIds = new Set(selectedTags.map((t) => t.key))
-                    const matchingEntryIds = new Set(
-                        entryTags.filter((et) => selectedTagIds.has(et.idTag)).map((et) => et.idEntry),
-                    )
+                    const matchingEntryIds = new Set<string>()
+                    for (const et of entryTags) {
+                        if (selectedTagIds.has(et.idTag)) {
+                            matchingEntryIds.add(et.idEntry)
+                        }
+                    }
                     filteredEntryLines = filteredEntryLines.filter((el) => matchingEntryIds.has(el.idEntry))
                 }
 

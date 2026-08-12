@@ -23,12 +23,14 @@ export function YearContextSelect(props: {
         enabled: props.idOrganizationSelected !== null,
     })
 
-    const options = (yearsData.data ?? [])
-        .filter((y) => y.idOrganization === props.idOrganizationSelected)
-        .map((y) => ({
+    const options: Array<{ key: string; label: string }> = []
+    for (const y of yearsData.data ?? []) {
+        if (y.idOrganization !== props.idOrganizationSelected) continue
+        options.push({
             key: y.id,
             label: y.label,
-        }))
+        })
+    }
 
     const selectedLabel = options.find((option) => option.key === props.value)?.label
 

@@ -1,4 +1,4 @@
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
 import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer"
 import type * as v from "valibot"
 import { toRoman } from "../../../../../utilities/toRoman.ts"
@@ -83,34 +83,31 @@ function computeAssetAmounts(
     let grossTotalAmount = 0
     let amortizationTotalAmount = 0
 
-    accounts
-        .filter((account) => {
-            const hasAccount = account.idBalanceSheetAsset === balanceSheet.id
-            const hasChildrenAccount = children.some((bs) => bs.id === account.idBalanceSheetAsset)
-            return hasAccount || hasChildrenAccount
-        })
-        .forEach((account) => {
-            let debit = 0
-            let credit = 0
-            entryLines
-                .filter((el) => el.idAccount === account.id)
-                .forEach((el) => {
-                    debit += Number(el.debit)
-                    credit += Number(el.credit)
-                })
-            const balance = debit - credit
+    for (const account of accounts) {
+        const hasAccount = account.idBalanceSheetAsset === balanceSheet.id
+        const hasChildrenAccount = children.some((bs) => bs.id === account.idBalanceSheetAsset)
+        if (!hasAccount && !hasChildrenAccount) continue
 
-            if (balance < 0 && account.balanceSheetAssetFlow === "debit") return
-            if (balance > 0 && account.balanceSheetAssetFlow === "credit") return
+        let debit = 0
+        let credit = 0
+        for (const el of entryLines) {
+            if (el.idAccount !== account.id) continue
+            debit += Number(el.debit)
+            credit += Number(el.credit)
+        }
+        const balance = debit - credit
 
-            if (account.balanceSheetAssetColumn === "gross") {
-                grossTotalAmount += account.balanceSheetAssetFlow === "debit" ? Math.abs(balance) : -Math.abs(balance)
-            }
-            if (account.balanceSheetAssetColumn === "amortization") {
-                amortizationTotalAmount +=
-                    account.balanceSheetAssetFlow === "debit" ? Math.abs(balance) : -Math.abs(balance)
-            }
-        })
+        if (balance < 0 && account.balanceSheetAssetFlow === "debit") continue
+        if (balance > 0 && account.balanceSheetAssetFlow === "credit") continue
+
+        if (account.balanceSheetAssetColumn === "gross") {
+            grossTotalAmount += account.balanceSheetAssetFlow === "debit" ? Math.abs(balance) : -Math.abs(balance)
+        }
+        if (account.balanceSheetAssetColumn === "amortization") {
+            amortizationTotalAmount +=
+                account.balanceSheetAssetFlow === "debit" ? Math.abs(balance) : -Math.abs(balance)
+        }
+    }
 
     return {
         gross: grossTotalAmount,
@@ -130,30 +127,27 @@ function computeLiabilityAmount(
     })
     let netTotalAmount = 0
 
-    accounts
-        .filter((account) => {
-            const hasAccount = account.idBalanceSheetLiability === balanceSheet.id
-            const hasChildrenAccount = children.some((bs) => bs.id === account.idBalanceSheetLiability)
-            return hasAccount || hasChildrenAccount
-        })
-        .forEach((account) => {
-            let debit = 0
-            let credit = 0
-            entryLines
-                .filter((el) => el.idAccount === account.id)
-                .forEach((el) => {
-                    debit += Number(el.debit)
-                    credit += Number(el.credit)
-                })
-            const balance = credit - debit
+    for (const account of accounts) {
+        const hasAccount = account.idBalanceSheetLiability === balanceSheet.id
+        const hasChildrenAccount = children.some((bs) => bs.id === account.idBalanceSheetLiability)
+        if (!hasAccount && !hasChildrenAccount) continue
 
-            if (balance > 0 && account.balanceSheetLiabilityFlow === "debit") return
-            if (balance < 0 && account.balanceSheetLiabilityFlow === "credit") return
+        let debit = 0
+        let credit = 0
+        for (const el of entryLines) {
+            if (el.idAccount !== account.id) continue
+            debit += Number(el.debit)
+            credit += Number(el.credit)
+        }
+        const balance = credit - debit
 
-            if (account.balanceSheetLiabilityColumn === "net") {
-                netTotalAmount += balance
-            }
-        })
+        if (balance > 0 && account.balanceSheetLiabilityFlow === "debit") continue
+        if (balance < 0 && account.balanceSheetLiabilityFlow === "credit") continue
+
+        if (account.balanceSheetLiabilityColumn === "net") {
+            netTotalAmount += balance
+        }
+    }
 
     return netTotalAmount
 }

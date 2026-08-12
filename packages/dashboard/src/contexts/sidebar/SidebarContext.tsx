@@ -1,15 +1,13 @@
 import { createContext, useContext } from "react"
 
-type SidebarContextValue = {
-    width: number
-    setWidth: (width: number) => void
-}
-
-export const SidebarContext = createContext<SidebarContextValue>({
-    width: 280,
-    setWidth: () => {},
-})
+export const SidebarWidthContext = createContext<number>(280)
+export const SidebarSetWidthContext = createContext<(width: number) => void>(() => {})
 
 export function useSidebarContext() {
-    return useContext(SidebarContext)
+    const width = useContext(SidebarWidthContext)
+    const setWidth = useContext(SidebarSetWidthContext)
+    return {
+        width,
+        setWidth,
+    }
 }
