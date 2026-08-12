@@ -1,4 +1,5 @@
 import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+// react-doctor-disable-next-line react-doctor/prefer-dynamic-import
 import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer"
 import type * as v from "valibot"
 import { toRoman } from "../../../../../utilities/toRoman.ts"
