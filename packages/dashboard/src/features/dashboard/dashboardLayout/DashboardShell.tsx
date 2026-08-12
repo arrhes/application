@@ -17,18 +17,31 @@ import {
     IconSettings,
     IconUser,
 } from "@tabler/icons-react"
-import { Outlet, useRouter } from "@tanstack/react-router"
-import { Suspense, useRef } from "react"
+import { Outlet, useParams, useRouter } from "@tanstack/react-router"
+import { Suspense, useEffect, useRef } from "react"
 import { Popover } from "../../../components/overlays/popover/popover.js"
 import { useSidebarContext } from "../../../contexts/sidebar/SidebarContext.js"
 import { deleteCookies } from "../../../utilities/cookies/deleteCookies.js"
 import { getResponseBodyFromAPI } from "../../../utilities/getResponseBodyFromAPI.js"
+import { prefetchYearData } from "../../../utilities/prefetchYearData.js"
 import { SidebarNavigation } from "./SidebarNavigation.js"
 
 export function DashboardShell() {
     const sidebar = useSidebarContext()
     const router = useRouter()
     const sidebarRef = useRef<HTMLDivElement>(null)
+    const params = useParams({ strict: false }) as { idOrganization?: string; idYear?: string }
+
+    useEffect(() => {
+        if (params.idOrganization === undefined || params.idYear === undefined) return
+        prefetchYearData({
+            idOrganization: params.idOrganization,
+            idYear: params.idYear,
+        })
+    }, [
+        params.idOrganization,
+        params.idYear,
+    ])
 
     return (
         <div

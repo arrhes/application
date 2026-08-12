@@ -2,6 +2,7 @@ import { type UseQueryResult, useQuery } from "@tanstack/react-query"
 import { useMemo, type ReactNode } from "react"
 import { ClientError } from "../../../utilities/clientError.ts"
 import { getResponseBodyFromAPI } from "../../../utilities/getResponseBodyFromAPI.ts"
+import { buildQueryKey } from "../../../utilities/queryKey.ts"
 import {
     type YearData,
     type YearDataContextValue,
@@ -20,10 +21,10 @@ function useYearQuery<K extends YearDataKey>(
     const routeDefinition = yearQueries[key] as YearScopedRouteDefinition
 
     return useQuery({
-        queryKey: [
-            routeDefinition.path,
-            body,
-        ],
+        queryKey: buildQueryKey(
+            routeDefinition,
+            body as Record<string, unknown>,
+        ),
         queryFn: async (context) => {
             const response = await getResponseBodyFromAPI({
                 routeDefinition,

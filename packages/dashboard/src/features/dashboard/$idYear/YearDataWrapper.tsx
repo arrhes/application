@@ -20,6 +20,7 @@ import { useMemo } from "react"
 import type * as v from "valibot"
 import { ClientError } from "../../../utilities/clientError.ts"
 import { getResponseBodyFromAPI } from "../../../utilities/getResponseBodyFromAPI.ts"
+import { buildQueryKey } from "../../../utilities/queryKey.ts"
 
 const yearQueries = {
     accounts: readAllAccountsRouteDefinition,
@@ -110,11 +111,11 @@ export function YearDataWrapper<const K extends readonly YearDataKey[]>(props: {
 
     const results = useQueries({
         queries: yearQueryEntries.map(([_key, routeDef]) => ({
-            queryKey: [
-                routeDef.path,
-                body,
+            queryKey: buildQueryKey(
+                routeDef,
+                body as Record<string, unknown>,
                 params,
-            ],
+            ),
             queryFn: async (context: { signal: AbortSignal }) => {
                 const response = await getResponseBodyFromAPI({
                     routeDefinition: routeDef,

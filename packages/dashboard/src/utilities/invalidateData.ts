@@ -1,6 +1,7 @@
 import type { routeDefinition } from "@comptasse/application-metadata/utilities"
 import type * as v from "valibot"
 import { dataClient } from "../contexts/data/queryClient.js"
+import { buildQueryKey } from "./queryKey.js"
 
 export async function invalidateData<
     TSchemaBody extends v.ObjectSchema<v.ObjectEntries, undefined>,
@@ -14,11 +15,11 @@ export async function invalidateData<
     exact?: boolean
 }) {
     await dataClient.invalidateQueries({
-        queryKey: [
-            parameters.routeDefinition.path,
+        queryKey: buildQueryKey(
+            parameters.routeDefinition,
+            parameters.body as Record<string, unknown>,
             parameters.params,
-            parameters.body,
-        ],
+        ),
         exact: parameters.exact ?? true,
     })
 }

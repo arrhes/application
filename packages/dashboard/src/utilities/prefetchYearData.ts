@@ -15,6 +15,7 @@ import {
 import type * as v from "valibot"
 import { dataClient } from "../contexts/data/queryClient.js"
 import { getResponseBodyFromAPI } from "./getResponseBodyFromAPI.js"
+import { buildQueryKey } from "./queryKey.js"
 
 type YearScopedBody = {
     idYear: string
@@ -55,9 +56,15 @@ const yearScopedRouteDefinitions: YearScopedRouteDefinition[] = [
  *
  * This is fire-and-forget - it does not block navigation.
  */
-export function prefetchYearData(params: YearScopedBody) {
+export function prefetchYearData(params: {
+    idYear: string
+    idOrganization: string
+}) {
     const body: YearScopedBody = {
         idYear: params.idYear,
+    }
+    const routeParams = {
+        idOrganization: params.idOrganization,
     }
 
     for (const routeDefinition of yearScopedRouteDefinitions) {
@@ -71,14 +78,16 @@ export function prefetchYearData(params: YearScopedBody) {
         )
 
         dataClient.prefetchQuery({
-            queryKey: [
-                routeDefinition.path,
-                body,
-            ],
+            queryKey: buildQueryKey(
+                routeDefinition,
+                body as Record<string, unknown>,
+                routeParams,
+            ),
             queryFn: async ({ signal }) => {
                 const response = await getResponseBodyFromAPI({
                     routeDefinition,
                     body,
+                    params: routeParams,
                     signal,
                 })
                 if (response.ok === false) {
