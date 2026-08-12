@@ -1,5 +1,5 @@
-import { Button, ButtonGhostContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { Button, ButtonGhostContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import type { Icon, IconProps } from "@tabler/icons-react"
 import { type ReactElement, type ReactNode, useEffect, useRef, useState } from "react"
 

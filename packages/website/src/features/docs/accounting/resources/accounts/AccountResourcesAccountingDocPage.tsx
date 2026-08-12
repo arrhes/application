@@ -1,4 +1,4 @@
-import { ButtonOutlineContent, LinkButton } from "@arrhes/ui"
+import { ButtonOutlineContent, LinkButton } from "@comptasse/ui"
 import { IconArrowLeft } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { DocHeader } from "../../../../../components/document/DocHeader.js"
@@ -11,6 +11,7 @@ import { ChildrenListSection } from "./components/ChildrenListSection.js"
 import { DebitCreditSection } from "./components/DebitCreditSection.js"
 import { ParentAccountSection } from "./components/ParentAccountSection.js"
 import { SummaryAccountBanner } from "./components/SummaryAccountBanner.js"
+import { DocRoot } from "../../../../../components/document/DocRoot.js"
 
 export function AccountResourcesAccountingDocPage() {
     const { account: slug } = useParams({
@@ -24,7 +25,7 @@ export function AccountResourcesAccountingDocPage() {
     const children = getDirectChildren(entry.number)
     const isSummary = entry.number.length <= 2
     return (
-        <>
+        <DocRoot>
             <LinkButton to="/documentation/comptabilité/ressources/comptes">
                 <ButtonOutlineContent
                     leftIcon={<IconArrowLeft />}
@@ -57,6 +58,6 @@ export function AccountResourcesAccountingDocPage() {
             )}
 
             <DataError />
-        </>
+        </DocRoot>
     )
 }

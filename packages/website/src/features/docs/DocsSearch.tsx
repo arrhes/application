@@ -1,6 +1,6 @@
 import type { DocsSearchEntry } from "virtual:docs-search-index"
-import { Button } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { Button } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconSearch } from "@tabler/icons-react"
 import { useNavigate } from "@tanstack/react-router"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
@@ -191,10 +191,9 @@ export function DocsSearch() {
         <div
             ref={containerRef}
             className={css({
-                position: "relative",
-                flex: 1,
                 minWidth: 0,
-                maxWidth: "300px",
+                width: "100%",
+                maxWidth: "100%",
             })}
         >
             <div

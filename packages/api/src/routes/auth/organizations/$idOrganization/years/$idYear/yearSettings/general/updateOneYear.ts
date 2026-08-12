@@ -1,4 +1,4 @@
-import { models, updateOneYearRouteDefinition } from "@arrhes/application-metadata"
+import { models, updateOneYearRouteDefinition } from "@comptasse/application-metadata"
 import { and, eq } from "drizzle-orm"
 import { checkAuthMiddleware } from "../../../../../../../../middlewares/checkAuthMiddleware.js"
 import { requireOrganizationMiddleware } from "../../../../../../../../middlewares/requireOrganizationMiddleware.js"

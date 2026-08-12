@@ -2,10 +2,10 @@ import {
     createOneComputationIncomeStatementRouteDefinition,
     readAllComputationIncomeStatementsRouteDefinition,
     readAllIncomeStatementsRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button, InputToggle, toast } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+} from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { Button, InputToggle, toast } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconPlus } from "@tabler/icons-react"
 import { useState, type JSX } from "react"
 import { Fragment } from "react/jsx-runtime"

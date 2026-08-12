@@ -9,7 +9,7 @@ import {
     readOneInventoryMovementRouteDefinition,
     updateOneInventoryItemRouteDefinition,
     updateOneInventoryMovementRouteDefinition,
-} from "@arrhes/application-metadata/routes"
+} from "@comptasse/application-metadata/routes"
 import { DocExample } from "../../../components/document/DocExample.js"
 import { DocHeader } from "../../../components/document/DocHeader.js"
 import { DocImplementationTabs } from "../../../components/document/DocImplementationTabs.js"
@@ -71,7 +71,7 @@ export function InventaireGuideDocPage() {
                                     ]}
                                 />
                             </DocExample>
-                            <DocTip>
+                            <DocTip variant="warning">
                                 La suppression ou la modification d'un mouvement met à jour la quantité actuelle de
                                 l'article concerné.
                             </DocTip>
@@ -79,7 +79,10 @@ export function InventaireGuideDocPage() {
                     }
                     api={
                         <>
-                            <DocSection title="Articles">
+                            <DocSection
+                                title="Articles"
+                                depth={1}
+                            >
                                 <DocParagraph>
                                     Les articles d'inventaire sont stockés avec une quantité actuelle dénormalisée. Les
                                     mouvements recalculent cette quantité dans une transaction.
@@ -90,7 +93,10 @@ export function InventaireGuideDocPage() {
                                 <DocRouteRequest routeDefinition={updateOneInventoryItemRouteDefinition} />
                                 <DocRouteRequest routeDefinition={deleteOneInventoryItemRouteDefinition} />
                             </DocSection>
-                            <DocSection title="Mouvements">
+                            <DocSection
+                                title="Mouvements"
+                                depth={1}
+                            >
                                 <DocParagraph>
                                     Chaque mouvement indique une date, un type (entrée ou sortie) et une quantité. La
                                     mise à jour d'un mouvement recalcule la quantité actuelle de l'article.

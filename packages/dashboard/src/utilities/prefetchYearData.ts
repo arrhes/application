@@ -11,7 +11,7 @@ import {
     readAllIncomeStatementsRouteDefinition,
     readAllJournalsRouteDefinition,
     readAllTagsRouteDefinition,
-} from "@arrhes/application-metadata/routes"
+} from "@comptasse/application-metadata/routes"
 import type * as v from "valibot"
 import { dataClient } from "../contexts/data/queryClient.js"
 import { getResponseBodyFromAPI } from "./getResponseBodyFromAPI.js"

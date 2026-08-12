@@ -4,7 +4,7 @@ import {
     readAllBalanceSheetsRouteDefinition,
     readOneBalanceSheetRouteDefinition,
     updateOneBalanceSheetRouteDefinition,
-} from "@arrhes/application-metadata/routes"
+} from "@comptasse/application-metadata/routes"
 import { DocCode } from "../../../components/document/DocCode.js"
 import { DocCodeBlock } from "../../../components/document/DocCodeBlock.js"
 import { DocExample } from "../../../components/document/DocExample.js"
@@ -78,35 +78,35 @@ export function BilansGuideDocPage() {
                                 ]}
                                 rows={[
                                     [
-                                        <DocCode key="0">{"arrhes balance-sheets list <idYear>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse balance-sheets list <idYear>"}</DocCode>,
                                         "Liste les nœuds",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes balance-sheets get <idYear> <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse balance-sheets get <idYear> <id>"}</DocCode>,
                                         "Détails d'un nœud",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes balance-sheets create <idYear>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse balance-sheets create <idYear>"}</DocCode>,
                                         "Crée un nœud",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes balance-sheets update <idYear> <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse balance-sheets update <idYear> <id>"}</DocCode>,
                                         "Modifie un nœud",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes balance-sheets delete <idYear> <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse balance-sheets delete <idYear> <id>"}</DocCode>,
                                         "Supprime un nœud",
                                     ],
                                 ]}
                             />
                             <DocExample title="Créer un nœud racine">
                                 <DocCodeBlock>
-                                    arrhes balance-sheets create year_xyz --label "Actif immobilisé"
+                                    comptasse balance-sheets create year_xyz --label "Actif immobilisé"
                                 </DocCodeBlock>
                             </DocExample>
                             <DocExample title="Créer un sous-nœud">
                                 <DocCodeBlock>
-                                    arrhes balance-sheets create year_xyz --parent bs_root --label "Immobilisations
+                                    comptasse balance-sheets create year_xyz --parent bs_root --label "Immobilisations
                                     corporelles"
                                 </DocCodeBlock>
                             </DocExample>

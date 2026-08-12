@@ -13,16 +13,21 @@ export function LinkContent(props: LinkContentProps) {
             aria-disabled={props.disabled}
             className={css(
                 {
-                    color: "primary",
-                    textDecoration: "underline",
                     cursor: "pointer",
+                    fontSize: "sm",
+                    color: "primary",
+                    fontWeight: "medium",
+                    textDecoration: "underline",
+                    textDecorationColor: "primary/25",
+                    textUnderlineOffset: "2px",
                     _hover: {
-                        textDecoration: "none",
+                        textDecorationColor: "primary",
                     },
                     _disabled: {
                         opacity: 0.3,
                         cursor: "not-allowed",
                     },
+                    transition: "all 0.15s",
                 },
                 props.className,
             )}

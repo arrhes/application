@@ -1,1 +1,1 @@
-export { FormItem } from "@arrhes/ui"
+export { FormItem } from "@comptasse/ui"

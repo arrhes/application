@@ -8,7 +8,7 @@ beforeAll(async () => {
 
 describe("POST /v1/auth/sign-up", () => {
     it("creates a new user with valid data", async () => {
-        const uniqueEmail = `test-signup-${Date.now()}@arrhes.com`
+        const uniqueEmail = `test-signup-${Date.now()}@comptasse.com`
         const response = await apiRequest({
             method: "POST",
             path: "/v1/auth/sign-up",
@@ -23,12 +23,12 @@ describe("POST /v1/auth/sign-up", () => {
 
         // Should set session cookies (auto-login after sign up)
         const cookieString = response.cookies.join("; ")
-        expect(cookieString).toContain("arrhes_id_user_session")
-        expect(cookieString).toContain("arrhes_is_auth")
+        expect(cookieString).toContain("comptasse_id_user_session")
+        expect(cookieString).toContain("comptasse_is_auth")
     })
 
     it("rejects mismatched passwords", async () => {
-        const uniqueEmail = `test-mismatch-${Date.now()}@arrhes.com`
+        const uniqueEmail = `test-mismatch-${Date.now()}@comptasse.com`
         const response = await apiRequest({
             method: "POST",
             path: "/v1/auth/sign-up",
@@ -67,7 +67,7 @@ describe("POST /v1/auth/sign-up", () => {
             method: "POST",
             path: "/v1/auth/sign-up",
             body: {
-                email: "demo@arrhes.com",
+                email: "demo@comptasse.com",
                 password: "SomePassword123!",
                 passwordCheck: "SomePassword123!",
             },

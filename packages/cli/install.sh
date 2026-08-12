@@ -1,17 +1,17 @@
 #!/bin/sh
-# Arrhes CLI installer for macOS and Linux
-# Usage: curl -fsSL https://arrhes.com/cli/install.sh | sh
+# Comptasse CLI installer for macOS and Linux
+# Usage: curl -fsSL https://comptasse.com/cli/install.sh | sh
 set -e
 
-REPO="arrhes/application"
-INSTALL_DIR="${ARRHES_INSTALL_DIR:-$HOME/.local/bin}"
-DEST="${INSTALL_DIR}/arrhes"
+REPO="comptasse/application"
+INSTALL_DIR="${COMPATSSE_INSTALL_DIR:-$HOME/.local/bin}"
+DEST="${INSTALL_DIR}/comptasse"
 
 command -v curl >/dev/null 2>&1 || { echo "Error: curl is required."; exit 1; }
 
-URL="https://github.com/${REPO}/releases/latest/download/arrhes.sh"
+URL="https://github.com/${REPO}/releases/latest/download/comptasse.sh"
 
-echo "Downloading arrhes CLI..."
+echo "Downloading comptasse CLI..."
 mkdir -p "$INSTALL_DIR"
 curl -fsSL --progress-bar "$URL" -o "$DEST"
 chmod +x "$DEST"
@@ -22,7 +22,7 @@ echo "Version:   $($DEST --version)"
 # ── PATH hint ─────────────────────────────────────────────────────────────────
 case ":$PATH:" in
     *":${INSTALL_DIR}:"*)
-        echo "Run: arrhes --help"
+        echo "Run: comptasse --help"
         ;;
     *)
         printf '\nAdd to PATH: export PATH="$HOME/.local/bin:$PATH"\n'

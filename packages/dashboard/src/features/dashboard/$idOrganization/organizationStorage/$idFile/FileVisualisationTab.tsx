@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { useParams } from "@tanstack/react-router"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
 import { FileData } from "./FileData.tsx"

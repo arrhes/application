@@ -10,7 +10,7 @@ export const installationGuideDocRoute = createRoute({
     beforeLoad: () => ({
         title: "Installation",
         description:
-            "Mettez en place Arrhes : installation du CLI, conventions de l'API et premiers pas sur le dashboard.",
+            "Mettez en place Comptasse : installation du CLI, conventions de l'API et premiers pas sur le dashboard.",
     }),
     component: () => (
         <DocRoot>

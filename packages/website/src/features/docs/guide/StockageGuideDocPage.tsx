@@ -8,7 +8,7 @@ import {
     readOneFileRouteDefinition,
     readOneFolderRouteDefinition,
     updateOneFolderRouteDefinition,
-} from "@arrhes/application-metadata/routes"
+} from "@comptasse/application-metadata/routes"
 import { DocCode } from "../../../components/document/DocCode.js"
 import { DocCodeBlock } from "../../../components/document/DocCodeBlock.js"
 import { DocExample } from "../../../components/document/DocExample.js"
@@ -32,7 +32,7 @@ export function StockageGuideDocPage() {
 
             <DocSection title="Présentation">
                 <DocParagraph>
-                    Arrhes permet de stocker des fichiers liés à une organisation ou à des écritures comptables. Les
+                    Comptasse permet de stocker des fichiers liés à une organisation ou à des écritures comptables. Les
                     fichiers sont rangés dans des dossiers hiérarchiques.
                 </DocParagraph>
                 <DocList
@@ -73,13 +73,19 @@ export function StockageGuideDocPage() {
                                 Les fichiers et dossiers sont stockés au niveau de l'organisation. Les fichiers peuvent
                                 être rattachés à une écriture ou laissés libres.
                             </DocParagraph>
-                            <DocSection title="Fichiers">
+                            <DocSection
+                                title="Fichiers"
+                                depth={1}
+                            >
                                 <DocRouteRequest routeDefinition={createOneFileRouteDefinition} />
                                 <DocRouteRequest routeDefinition={readAllFilesRouteDefinition} />
                                 <DocRouteRequest routeDefinition={readOneFileRouteDefinition} />
                                 <DocRouteRequest routeDefinition={deleteOneFileRouteDefinition} />
                             </DocSection>
-                            <DocSection title="Dossiers">
+                            <DocSection
+                                title="Dossiers"
+                                depth={1}
+                            >
                                 <DocRouteRequest routeDefinition={createOneFolderRouteDefinition} />
                                 <DocRouteRequest routeDefinition={readAllFoldersRouteDefinition} />
                                 <DocRouteRequest routeDefinition={readOneFolderRouteDefinition} />
@@ -97,40 +103,43 @@ export function StockageGuideDocPage() {
                                 ]}
                                 rows={[
                                     [
-                                        <DocCode key="0">{"arrhes files list --organization <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse files list --organization <id>"}</DocCode>,
                                         "Liste les fichiers",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes files upload <chemin> --organization <id>"}</DocCode>,
+                                        <DocCode key="0">
+                                            {"comptasse files upload <chemin> --organization <id>"}
+                                        </DocCode>,
                                         "Téléverse un fichier",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes files attach <id> --entry <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse files attach <id> --entry <id>"}</DocCode>,
                                         "Attache un fichier à une écriture",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes files delete <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse files delete <id>"}</DocCode>,
                                         "Supprime un fichier",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes files folders list --organization <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse files folders list --organization <id>"}</DocCode>,
                                         "Liste les dossiers",
                                     ],
                                     [
                                         <DocCode key="0">
-                                            {"arrhes files folders create --organization <id> --name <nom>"}
+                                            {"comptasse files folders create --organization <id> --name <nom>"}
                                         </DocCode>,
                                         "Crée un dossier",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes files folders delete <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse files folders delete <id>"}</DocCode>,
                                         "Supprime un dossier",
                                     ],
                                 ]}
                             />
                             <DocExample title="Téléverser une pièce justificative">
                                 <DocCodeBlock>
-                                    arrhes files upload ./facture-2025-03.pdf --organization org_abc --folder folder_xyz
+                                    comptasse files upload ./facture-2025-03.pdf --organization org_abc --folder
+                                    folder_xyz
                                 </DocCodeBlock>
                             </DocExample>
                         </>

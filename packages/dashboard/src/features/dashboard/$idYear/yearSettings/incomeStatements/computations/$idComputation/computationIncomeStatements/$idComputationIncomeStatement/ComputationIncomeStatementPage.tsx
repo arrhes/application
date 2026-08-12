@@ -1,9 +1,9 @@
 import {
     readOneComputationIncomeStatementRouteDefinition,
     readOneComputationRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import { Chip, FormatText } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+} from "@comptasse/application-metadata/routes"
+import { Chip, FormatText } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { useParams } from "@tanstack/react-router"
 import { DataWrapper } from "../../../../../../../../../components/layouts/DataWrapper.tsx"
 import { DataBlock } from "../../../../../../../../../components/layouts/dataBlock/dataBlock.tsx"

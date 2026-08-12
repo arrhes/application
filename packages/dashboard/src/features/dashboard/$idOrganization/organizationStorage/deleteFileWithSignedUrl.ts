@@ -1,7 +1,7 @@
 import {
     deleteOneFileRouteDefinition,
     generateFileDeleteSignedUrlRouteDefinition,
-} from "@arrhes/application-metadata/routes"
+} from "@comptasse/application-metadata/routes"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 
 export async function deleteFileWithSignedUrl(parameters: { idFile: string }) {

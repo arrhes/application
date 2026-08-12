@@ -1,5 +1,5 @@
-import type { routeDefinition } from "@arrhes/application-metadata/utilities"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import type { routeDefinition } from "@comptasse/application-metadata/utilities"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { useState } from "react"
 
 const methodBadgeClassName: Record<"GET" | "POST" | "PATCH" | "DELETE", string> = {

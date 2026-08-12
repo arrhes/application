@@ -6,10 +6,10 @@ import {
     readAllEntriesRouteDefinition,
     readAllEntryLinesRouteDefinition,
     readAllJournalsRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button, ButtonPlainContent, InputFile, toast } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+} from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { Button, ButtonPlainContent, InputFile, toast } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconFileImport } from "@tabler/icons-react"
 import { Fragment } from "react/jsx-runtime"
 import { useMemo, useState } from "react"
@@ -454,7 +454,7 @@ export function ImportFecFile(props: {
                 Nous avons créé également un outil de validation de conformité du FEC, disponible gratuitement en ligne
                 sur{" "}
                 <a
-                    href="https://fec.arrhes.com"
+                    href="https://fec.comptasse.com"
                     target="_blank"
                     rel="noopener noreferrer"
                     className={css({
@@ -469,7 +469,7 @@ export function ImportFecFile(props: {
                         transition: "all 0.15s",
                     })}
                 >
-                    fec.arrhes.com
+                    fec.comptasse.com
                 </a>
                 .
             </p>

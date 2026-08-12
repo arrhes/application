@@ -8,10 +8,10 @@ FROM base AS build
 WORKDIR /root
 COPY . .
 RUN pnpm install
-RUN pnpm --filter @arrhes/application-api... run build
+RUN pnpm --filter @comptasse/application-api... run build
 
 # Create a self-contained deploy output with production dependencies only
-RUN pnpm --filter @arrhes/application-api deploy --legacy --prod /deploy
+RUN pnpm --filter @comptasse/application-api deploy --legacy --prod /deploy
 
 # Start api with only Node.js runtime
 FROM node:25.2.1-alpine AS deploy

@@ -1,5 +1,5 @@
-import { deleteOneFolderRouteDefinition, readAllFoldersRouteDefinition } from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { deleteOneFolderRouteDefinition, readAllFoldersRouteDefinition } from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
 import {
     Button,
     ButtonGhostContent,
@@ -8,7 +8,7 @@ import {
     Separator,
     toast,
     useModalStore,
-} from "@arrhes/ui"
+} from "@comptasse/ui"
 import { IconArrowsMove, IconDotsVertical, IconEye, IconPencil, IconTrash } from "@tabler/icons-react"
 import { useId, useState } from "react"
 import type * as v from "valibot"

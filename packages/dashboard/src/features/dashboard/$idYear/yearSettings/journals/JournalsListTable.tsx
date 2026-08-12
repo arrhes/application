@@ -1,5 +1,5 @@
-import { readAllJournalsRouteDefinition } from "@arrhes/application-metadata/routes"
-import type { schemas } from "@arrhes/application-metadata/schemas"
+import { readAllJournalsRouteDefinition } from "@comptasse/application-metadata/routes"
+import type { schemas } from "@comptasse/application-metadata/schemas"
 import { IconBook } from "@tabler/icons-react"
 import type * as v from "valibot"
 import { DataWrapper } from "../../../../../components/layouts/DataWrapper.tsx"

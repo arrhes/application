@@ -17,7 +17,7 @@ import {
     updateManyEntryLinesRouteDefinition,
     updateOneEntryLineRouteDefinition,
     updateOneEntryRouteDefinition,
-} from "@arrhes/application-metadata/routes"
+} from "@comptasse/application-metadata/routes"
 import { DocCode } from "../../../components/document/DocCode.js"
 import { DocCodeBlock } from "../../../components/document/DocCodeBlock.js"
 import { DocExample } from "../../../components/document/DocExample.js"
@@ -87,7 +87,10 @@ export function EcrituresGuideDocPage() {
                                 Les écritures comptables sont les opérations enregistrées dans les journaux. Chaque
                                 écriture contient une ou plusieurs lignes (débit/crédit).
                             </DocParagraph>
-                            <DocSection title="Écritures">
+                            <DocSection
+                                title="Écritures"
+                                depth={1}
+                            >
                                 <DocRouteRequest routeDefinition={createOneEntryRouteDefinition} />
                                 <DocRouteRequest
                                     routeDefinition={createOneEntryFromTemplateRouteDefinition}
@@ -105,7 +108,10 @@ export function EcrituresGuideDocPage() {
                                     description="Créer une écriture de contre-passation."
                                 />
                             </DocSection>
-                            <DocSection title="Lignes d'écriture">
+                            <DocSection
+                                title="Lignes d'écriture"
+                                depth={1}
+                            >
                                 <DocRouteRequest routeDefinition={createOneEntryLineRouteDefinition} />
                                 <DocRouteRequest routeDefinition={readAllEntryLinesRouteDefinition} />
                                 <DocRouteRequest routeDefinition={readOneEntryLineRouteDefinition} />
@@ -116,7 +122,10 @@ export function EcrituresGuideDocPage() {
                                 />
                                 <DocRouteRequest routeDefinition={deleteOneEntryLineRouteDefinition} />
                             </DocSection>
-                            <DocSection title="Tags d'écriture">
+                            <DocSection
+                                title="Tags d'écriture"
+                                depth={1}
+                            >
                                 <DocRouteRequest routeDefinition={addOneEntryTagRouteDefinition} />
                                 <DocRouteRequest routeDefinition={removeOneEntryTagRouteDefinition} />
                             </DocSection>
@@ -131,38 +140,40 @@ export function EcrituresGuideDocPage() {
                                 ]}
                                 rows={[
                                     [
-                                        <DocCode key="0">{"arrhes entries list --year <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse entries list --year <id>"}</DocCode>,
                                         "Liste les écritures",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes entries create --year <id> --journal <id>"}</DocCode>,
+                                        <DocCode key="0">
+                                            {"comptasse entries create --year <id> --journal <id>"}
+                                        </DocCode>,
                                         "Crée une écriture",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes entries update <id> --year <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse entries update <id> --year <id>"}</DocCode>,
                                         "Modifie une écriture",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes entries duplicate <id> --year <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse entries duplicate <id> --year <id>"}</DocCode>,
                                         "Duplique une écriture",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes entries reverse <id> --year <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse entries reverse <id> --year <id>"}</DocCode>,
                                         "Extourne une écriture",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes entries delete <id> --year <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse entries delete <id> --year <id>"}</DocCode>,
                                         "Supprime une écriture",
                                     ],
                                     [
                                         <DocCode key="0">
-                                            {"arrhes entries lines create <id> --year <id> --account <id>"}
+                                            {"comptasse entries lines create <id> --year <id> --account <id>"}
                                         </DocCode>,
                                         "Ajoute une ligne",
                                     ],
                                     [
                                         <DocCode key="0">
-                                            {"arrhes entries tags add <id> --year <id> --tag <id>"}
+                                            {"comptasse entries tags add <id> --year <id> --tag <id>"}
                                         </DocCode>,
                                         "Ajoute un libellé",
                                     ],
@@ -170,7 +181,7 @@ export function EcrituresGuideDocPage() {
                             />
                             <DocExample title="Créer une écriture avec libellé">
                                 <DocCodeBlock>
-                                    arrhes entries create --year year_xyz --journal jrn_abc --label "Facture
+                                    comptasse entries create --year year_xyz --journal jrn_abc --label "Facture
                                     fournisseur" --date 2025-03-15
                                 </DocCodeBlock>
                             </DocExample>

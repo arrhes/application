@@ -1,4 +1,4 @@
-import { openYearRouteDefinition } from "@arrhes/application-metadata"
+import { openYearRouteDefinition } from "@comptasse/application-metadata"
 import { checkAuthMiddleware } from "../../../../../../../../middlewares/checkAuthMiddleware.js"
 import { validateBodyMiddleware } from "../../../../../../../../middlewares/validateBody.middleware.js"
 import { registerRoute } from "../../../../../../../../utilities/registerRoute.js"

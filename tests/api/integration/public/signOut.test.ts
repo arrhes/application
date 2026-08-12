@@ -13,7 +13,7 @@ describe("POST /v1/auth/sign-out", () => {
             method: "POST",
             path: "/v1/auth/sign-in",
             body: {
-                email: "demo@arrhes.com",
+                email: "demo@comptasse.com",
                 password: "demo",
             },
         })
@@ -32,7 +32,7 @@ describe("POST /v1/auth/sign-out", () => {
 
         // Should reset cookies
         const setCookies = signOutResponse.cookies.join("; ")
-        expect(setCookies).toContain("arrhes_is_auth")
+        expect(setCookies).toContain("comptasse_is_auth")
     })
 
     it("succeeds even without session cookies (no-op sign-out)", async () => {
@@ -51,7 +51,7 @@ describe("POST /v1/auth/sign-out", () => {
             method: "POST",
             path: "/v1/auth/sign-in",
             body: {
-                email: "demo@arrhes.com",
+                email: "demo@comptasse.com",
                 password: "demo",
             },
         })

@@ -2,7 +2,7 @@ import {
     deleteOneOrganizationRouteDefinition,
     readOneOrganizationRouteDefinition,
     updateOneOrganizationRouteDefinition,
-} from "@arrhes/application-metadata/routes"
+} from "@comptasse/application-metadata/routes"
 import { DocCode } from "../../../components/document/DocCode.js"
 import { DocCodeBlock } from "../../../components/document/DocCodeBlock.js"
 import { DocDefinition } from "../../../components/document/DocDefinition.js"
@@ -73,7 +73,10 @@ export function OrganisationGuideDocPage() {
                                     ]}
                                 />
                             </DocExample>
-                            <DocSection title="Gestion des membres">
+                            <DocSection
+                                title="Gestion des membres"
+                                depth={1}
+                            >
                                 <DocParagraph>
                                     Vous pouvez inviter d'autres personnes à accéder à votre organisation. Chaque membre
                                     peut avoir des droits différents.
@@ -132,7 +135,7 @@ export function OrganisationGuideDocPage() {
                     cli={
                         <>
                             <DocParagraph>
-                                Le CLI expose la commande <DocCode>arrhes org</DocCode> pour consulter et modifier
+                                Le CLI expose la commande <DocCode>comptasse org</DocCode> pour consulter et modifier
                                 l'organisation configurée.
                             </DocParagraph>
                             <DocTable
@@ -142,25 +145,25 @@ export function OrganisationGuideDocPage() {
                                 ]}
                                 rows={[
                                     [
-                                        <DocCode key="0">arrhes org get</DocCode>,
+                                        <DocCode key="0">comptasse org get</DocCode>,
                                         "Affiche les détails de l'organisation",
                                     ],
                                     [
-                                        <DocCode key="0">arrhes org update</DocCode>,
+                                        <DocCode key="0">comptasse org update</DocCode>,
                                         "Modifie les informations de l'organisation",
                                     ],
                                     [
-                                        <DocCode key="0">arrhes org delete</DocCode>,
+                                        <DocCode key="0">comptasse org delete</DocCode>,
                                         "Supprime l'organisation et toutes ses données",
                                     ],
                                 ]}
                             />
                             <DocExample title="Modifier le nom">
-                                <DocCodeBlock>arrhes org update --name "Ma Société"</DocCodeBlock>
+                                <DocCodeBlock>comptasse org update --name "Ma Société"</DocCodeBlock>
                             </DocExample>
                             <DocExample title="Modifier plusieurs champs">
                                 <DocCodeBlock>
-                                    arrhes org update --email contact@example.com --siren 123456789
+                                    comptasse org update --email contact@example.com --siren 123456789
                                 </DocCodeBlock>
                             </DocExample>
                             <DocTip variant="warning">

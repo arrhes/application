@@ -1,1 +1,1 @@
-export { PopoverRoot } from "@arrhes/ui/components/overlays/popover/popoverRoot.js"
+export { PopoverRoot } from "@comptasse/ui/components/overlays/popover/popoverRoot.js"

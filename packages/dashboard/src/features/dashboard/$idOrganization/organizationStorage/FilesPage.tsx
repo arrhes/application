@@ -2,9 +2,9 @@ import {
     readAllFilesRouteDefinition,
     readAllFoldersRouteDefinition,
     updateOneFileRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import { Button, ButtonOutlineContent, ButtonPlainContent, toast } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+} from "@comptasse/application-metadata/routes"
+import { Button, ButtonOutlineContent, ButtonPlainContent, toast } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconPlus, IconSettings } from "@tabler/icons-react"
 import { useNavigate, useParams, useSearch } from "@tanstack/react-router"
 import { type DragEvent, useState } from "react"

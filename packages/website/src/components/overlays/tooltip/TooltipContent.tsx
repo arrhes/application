@@ -1,1 +1,1 @@
-export { TooltipContent } from "@arrhes/ui"
+export { TooltipContent } from "@comptasse/ui"

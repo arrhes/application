@@ -7,7 +7,7 @@ export const agentSkillsDocRoute = createRoute({
     path: "/agent",
     beforeLoad: () => ({
         title: "Skills agent IA",
-        description: "Skills Markdown pour configurer votre agent IA avec Arrhes.",
+        description: "Skills Markdown pour configurer votre agent IA avec Comptasse.",
     }),
     component: () => <AgentSkillsDocPage />,
 })

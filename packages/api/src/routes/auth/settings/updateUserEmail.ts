@@ -1,5 +1,5 @@
 import { pbkdf2Sync } from "node:crypto"
-import { models, updateUserEmailRouteDefinition } from "@arrhes/application-metadata"
+import { models, updateUserEmailRouteDefinition } from "@comptasse/application-metadata"
 import { eq } from "drizzle-orm"
 import { requireCookieSessionMiddleware } from "../../../middlewares/requireCookieSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"
@@ -30,7 +30,7 @@ export const updateUserEmailRoute = registerRoute(updateUserEmailRouteDefinition
         database: c.var.clients.sql,
         table: models.user,
         data: {
-            email: body.emailToValidate,
+            email: body.email,
             lastUpdatedAt: new Date().toISOString(),
         },
         where: (table) => eq(table.id, user.id),

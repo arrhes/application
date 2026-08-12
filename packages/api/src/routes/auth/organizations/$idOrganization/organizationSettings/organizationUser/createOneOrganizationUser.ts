@@ -1,5 +1,5 @@
 import { pbkdf2Sync, randomBytes } from "node:crypto"
-import { createOneOrganizationUserRouteDefinition, generateId, models } from "@arrhes/application-metadata"
+import { createOneOrganizationUserRouteDefinition, generateId, models } from "@comptasse/application-metadata"
 import { and, eq } from "drizzle-orm"
 import { checkAuthMiddleware } from "../../../../../../middlewares/checkAuthMiddleware.js"
 import { requireOrganizationMiddleware } from "../../../../../../middlewares/requireOrganizationMiddleware.js"
@@ -43,7 +43,7 @@ export const createOneOrganizationUserRoute = apiFactory
             where: (table) => eq(table.email, body.user.email),
         })
 
-        let temporaryPassword: string | undefined
+        let temporaryPassword: string | null = null
         if (toAddUser === undefined) {
             temporaryPassword = randomBytes(12).toString("base64url")
             const passwordSalt = randomBytes(32).toString("hex")

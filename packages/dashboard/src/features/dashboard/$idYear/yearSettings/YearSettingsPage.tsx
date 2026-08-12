@@ -1,5 +1,5 @@
-import { readOneYearRouteDefinition } from "@arrhes/application-metadata/routes"
-import { ButtonOutlineContent } from "@arrhes/ui"
+import { readOneYearRouteDefinition } from "@comptasse/application-metadata/routes"
+import { ButtonOutlineContent } from "@comptasse/ui"
 import { IconPencil, IconTrash } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { Block } from "../../../../components/layouts/block/block.tsx"

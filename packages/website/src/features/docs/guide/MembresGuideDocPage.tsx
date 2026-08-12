@@ -5,7 +5,7 @@ import {
     readAllOrganizationUsersRouteDefinition,
     readOneOrganizationUserRouteDefinition,
     updateOneOrganizationUserRouteDefinition,
-} from "@arrhes/application-metadata/routes"
+} from "@comptasse/application-metadata/routes"
 import { DocCode } from "../../../components/document/DocCode.js"
 import { DocCodeBlock } from "../../../components/document/DocCodeBlock.js"
 import { DocDefinition } from "../../../components/document/DocDefinition.js"
@@ -96,31 +96,31 @@ export function MembresGuideDocPage() {
                                 ]}
                                 rows={[
                                     [
-                                        <DocCode key="0">arrhes members list</DocCode>,
+                                        <DocCode key="0">comptasse members list</DocCode>,
                                         "Liste les membres",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes members get <idMember>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse members get <idMember>"}</DocCode>,
                                         "Détails d'un membre",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes members invite --email <email> [--admin]"}</DocCode>,
+                                        <DocCode key="0">{"comptasse members invite --email <email> [--admin]"}</DocCode>,
                                         "Invite un utilisateur",
                                     ],
                                     [
                                         <DocCode key="0">
-                                            {"arrhes members update <idMember> --admin/--no-admin"}
+                                            {"comptasse members update <idMember> --admin/--no-admin"}
                                         </DocCode>,
                                         "Modifie les droits",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes members remove <idMember>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse members remove <idMember>"}</DocCode>,
                                         "Retire un membre",
                                     ],
                                 ]}
                             />
                             <DocExample title="Inviter un administrateur">
-                                <DocCodeBlock>arrhes members invite --email admin@example.com --admin</DocCodeBlock>
+                                <DocCodeBlock>comptasse members invite --email admin@example.com --admin</DocCodeBlock>
                             </DocExample>
                             <DocTip variant="warning">
                                 La suppression d'un membre est irréversible. L'utilisateur devra être réinvité pour

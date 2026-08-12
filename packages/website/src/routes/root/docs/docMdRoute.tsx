@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { createRoute, notFound } from "@tanstack/react-router"
 import { docsLayoutRoute } from "./docsLayoutRoute.js"
 
@@ -11,8 +11,8 @@ export const docMdRoute = createRoute({
             throw notFound()
         }
         const docPath = path.replace(/\.md$/, "")
-        const mod = await import("virtual:doc-md-content")
-        const content = mod.DOC_MD_CONTENT[docPath] ?? null
+        const { getDocMdContent } = await import("virtual:doc-md-content")
+        const content = await getDocMdContent(docPath)
         if (content === null) {
             throw notFound()
         }

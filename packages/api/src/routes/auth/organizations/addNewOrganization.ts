@@ -1,4 +1,4 @@
-import { addNewOrganizationRouteDefinition, generateId, models } from "@arrhes/application-metadata"
+import { addNewOrganizationRouteDefinition, generateId, models } from "@comptasse/application-metadata"
 import { checkAuthMiddleware } from "../../../middlewares/checkAuthMiddleware.js"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../utilities/apiFactory.js"

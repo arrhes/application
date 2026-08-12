@@ -1,4 +1,4 @@
-import { cn, css } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@comptasse/ui/utilities/cn.js"
 import type { ComponentProps, ReactNode } from "react"
 
 export function PageContent(props: { className?: ComponentProps<"div">["className"]; children: ReactNode }) {

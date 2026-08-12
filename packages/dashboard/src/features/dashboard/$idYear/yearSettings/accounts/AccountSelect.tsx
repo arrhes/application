@@ -1,6 +1,6 @@
-import { readAllAccountsRouteDefinition } from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { InputCombobox } from "@arrhes/ui"
+import { readAllAccountsRouteDefinition } from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { InputCombobox } from "@comptasse/ui"
 import type * as v from "valibot"
 import { useDataFromAPI } from "../../../../../utilities/useHTTPData.ts"
 

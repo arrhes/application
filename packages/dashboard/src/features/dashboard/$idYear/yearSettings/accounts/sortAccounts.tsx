@@ -1,4 +1,4 @@
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
 import type * as v from "valibot"
 
 export function sortAccounts(parameters: { accounts: Array<v.InferOutput<typeof returnedSchemas.account>> }) {

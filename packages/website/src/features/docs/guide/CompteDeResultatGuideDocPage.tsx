@@ -14,7 +14,7 @@ import {
     updateOneComputationIncomeStatementRouteDefinition,
     updateOneComputationRouteDefinition,
     updateOneIncomeStatementRouteDefinition,
-} from "@arrhes/application-metadata/routes"
+} from "@comptasse/application-metadata/routes"
 import { DocCode } from "../../../components/document/DocCode.js"
 import { DocCodeBlock } from "../../../components/document/DocCodeBlock.js"
 import { DocExample } from "../../../components/document/DocExample.js"
@@ -83,7 +83,10 @@ export function CompteDeResultatGuideDocPage() {
                     }
                     api={
                         <>
-                            <DocSection title="Compte de résultat">
+                            <DocSection
+                                title="Compte de résultat"
+                                depth={1}
+                            >
                                 <DocParagraph>
                                     La structure fonctionne comme celle des bilans : les nœuds sont liés aux comptes
                                     pour le calcul automatique des soldes.
@@ -94,7 +97,10 @@ export function CompteDeResultatGuideDocPage() {
                                 <DocRouteRequest routeDefinition={updateOneIncomeStatementRouteDefinition} />
                                 <DocRouteRequest routeDefinition={deleteOneIncomeStatementRouteDefinition} />
                             </DocSection>
-                            <DocSection title="Calculs">
+                            <DocSection
+                                title="Calculs"
+                                depth={1}
+                            >
                                 <DocParagraph>
                                     Les calculs combinent des lignes de compte de résultat pour produire des valeurs
                                     dérivées (résultat d'exploitation, EBE, etc.).
@@ -105,7 +111,10 @@ export function CompteDeResultatGuideDocPage() {
                                 <DocRouteRequest routeDefinition={updateOneComputationRouteDefinition} />
                                 <DocRouteRequest routeDefinition={deleteOneComputationRouteDefinition} />
                             </DocSection>
-                            <DocSection title="Lignes de calcul">
+                            <DocSection
+                                title="Lignes de calcul"
+                                depth={1}
+                            >
                                 <DocParagraph>
                                     Chaque lien définit si une ligne de compte de résultat est ajoutée ou soustraite
                                     dans un calcul.
@@ -127,40 +136,40 @@ export function CompteDeResultatGuideDocPage() {
                                 ]}
                                 rows={[
                                     [
-                                        <DocCode key="0">{"arrhes income-statements list <idYear>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse income-statements list <idYear>"}</DocCode>,
                                         "Liste les nœuds",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes income-statements get <idYear> <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse income-statements get <idYear> <id>"}</DocCode>,
                                         "Détails d'un nœud",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes income-statements create <idYear>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse income-statements create <idYear>"}</DocCode>,
                                         "Crée un nœud",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes income-statements update <idYear> <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse income-statements update <idYear> <id>"}</DocCode>,
                                         "Modifie un nœud",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes income-statements delete <idYear> <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse income-statements delete <idYear> <id>"}</DocCode>,
                                         "Supprime un nœud",
                                     ],
                                     [
                                         <DocCode key="0">
-                                            {"arrhes income-statements computations list <idYear>"}
+                                            {"comptasse income-statements computations list <idYear>"}
                                         </DocCode>,
                                         "Liste les calculs",
                                     ],
                                     [
                                         <DocCode key="0">
-                                            {"arrhes income-statements computations create <idYear>"}
+                                            {"comptasse income-statements computations create <idYear>"}
                                         </DocCode>,
                                         "Crée un calcul",
                                     ],
                                     [
                                         <DocCode key="0">
-                                            {"arrhes income-statements computations delete <idYear> <id>"}
+                                            {"comptasse income-statements computations delete <idYear> <id>"}
                                         </DocCode>,
                                         "Supprime un calcul",
                                     ],
@@ -168,12 +177,12 @@ export function CompteDeResultatGuideDocPage() {
                             />
                             <DocExample title="Créer un nœud">
                                 <DocCodeBlock>
-                                    arrhes income-statements create year_xyz --label "Produits d'exploitation"
+                                    comptasse income-statements create year_xyz --label "Produits d'exploitation"
                                 </DocCodeBlock>
                             </DocExample>
                             <DocExample title="Créer un calcul">
                                 <DocCodeBlock>
-                                    arrhes income-statements computations create year_xyz --label "Résultat
+                                    comptasse income-statements computations create year_xyz --label "Résultat
                                     d'exploitation"
                                 </DocCodeBlock>
                             </DocExample>

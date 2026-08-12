@@ -4,8 +4,8 @@ import { setCookie } from "../../utilities/cookies/setCookie.js"
 import { cookiePrefix } from "../../utilities/variables.js"
 import { DashboardContext } from "./dashboardContext.js"
 
-const SELECTED_ORG_KEY = "arrhes:context-org"
-const SELECTED_YEAR_KEY = "arrhes:context-year"
+const SELECTED_ORG_KEY = "comptasse:context-org"
+const SELECTED_YEAR_KEY = "comptasse:context-year"
 
 function readStorage(key: string): string | null {
     try {

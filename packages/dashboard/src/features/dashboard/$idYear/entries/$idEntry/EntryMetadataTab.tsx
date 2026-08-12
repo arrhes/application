@@ -1,5 +1,5 @@
-import { FormatDateTime, FormatText } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { FormatDateTime, FormatText } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { useParams } from "@tanstack/react-router"
 import { DataBlock } from "../../../../../components/layouts/dataBlock/dataBlock.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"

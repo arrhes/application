@@ -12,7 +12,7 @@ describe("POST /v1/auth/magic-link", () => {
             method: "POST",
             path: "/v1/auth/magic-link",
             body: {
-                email: "demo@arrhes.com",
+                email: "demo@comptasse.com",
             },
         })
         expect(response.status).toBe(200)
@@ -33,7 +33,7 @@ describe("POST /v1/auth/magic-link", () => {
             method: "POST",
             path: "/v1/auth/magic-link",
             body: {
-                email: "nonexistent@arrhes.com",
+                email: "nonexistent@comptasse.com",
             },
         })
         // selectOne throws when no row found

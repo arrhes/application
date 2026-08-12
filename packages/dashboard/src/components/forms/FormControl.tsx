@@ -1,1 +1,1 @@
-export { FormControl } from "@arrhes/ui"
+export { FormControl } from "@comptasse/ui"

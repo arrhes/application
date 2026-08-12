@@ -1,1 +1,1 @@
-export { TooltipRoot, useTooltipRoot } from "@arrhes/ui"
+export { TooltipRoot, useTooltipRoot } from "@comptasse/ui"

@@ -1,12 +1,12 @@
 /*
-import type { returnedSchemas } from "@arrhes/application-metadata"
+import type { returnedSchemas } from "@comptasse/application-metadata"
 import {
     defaultAssociationBalanceSheets,
     defaultCompanyBalanceSheets,
     generateBalanceSheetsRouteDefinition,
     generateId,
     models,
-} from "@arrhes/application-metadata"
+} from "@comptasse/application-metadata"
 import { and, eq } from "drizzle-orm"
 import type * as v from "valibot"
 import { checkUserSessionMiddleware } from "../../../../../../../../../../middlewares/checkUserSessionMiddleware.js"

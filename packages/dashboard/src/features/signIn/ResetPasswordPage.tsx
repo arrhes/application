@@ -1,7 +1,7 @@
 import { useState } from "react"
-import { resetPasswordRouteDefinition } from "@arrhes/application-metadata/routes"
-import { ButtonGhostContent, InputText, Logo } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { resetPasswordRouteDefinition } from "@comptasse/application-metadata/routes"
+import { ButtonGhostContent, InputText, Logo } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconArrowLeft, IconBook2 } from "@tabler/icons-react"
 import { FormControl } from "../../components/forms/FormControl.js"
 import { FormError } from "../../components/forms/FormError.js"
@@ -65,7 +65,7 @@ export function ResetPasswordPage() {
                         <a href={import.meta.env.VITE_WEBSITE_BASE_URL}>
                             <ButtonGhostContent
                                 leftIcon={<Logo />}
-                                text="Arrhes"
+                                text="Comptasse"
                             />
                         </a>
                         <a href={`${import.meta.env.VITE_WEBSITE_BASE_URL}/documentation`}>

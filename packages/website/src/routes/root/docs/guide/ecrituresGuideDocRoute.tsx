@@ -7,7 +7,7 @@ export const ecrituresGuideDocRoute = createRoute({
     path: "/écritures",
     beforeLoad: () => ({
         title: "Saisie des écritures",
-        description: "Enregistrer vos opérations comptables dans Arrhes.",
+        description: "Enregistrer vos opérations comptables dans Comptasse.",
     }),
     component: () => <EcrituresGuideDocPage />,
 })

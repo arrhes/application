@@ -1,5 +1,5 @@
-import { ButtonPlainContent, InputDebounced, InputSelect, InputText } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { ButtonPlainContent, InputDebounced, InputSelect, InputText } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconPlus, IconScale } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { useCallback, useState, useTransition } from "react"

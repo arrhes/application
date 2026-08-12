@@ -8,7 +8,7 @@
 // It runs with tsx, which properly handles .js → .ts extension resolution.
 // =============================================================================
 
-import { modelSchemas } from "@arrhes/application-metadata"
+import { modelSchemas } from "@comptasse/application-metadata"
 import { pushSchema } from "drizzle-kit/api"
 import type { PgDatabase } from "drizzle-orm/pg-core"
 import { drizzle } from "drizzle-orm/postgres-js"

@@ -1,9 +1,9 @@
 import {
     deleteOneComputationIncomeStatementRouteDefinition,
     readAllComputationIncomeStatementsRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button, ButtonOutlineContent, ButtonPlainContent, Dialog, toast, useModalStore } from "@arrhes/ui"
+} from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { Button, ButtonOutlineContent, ButtonPlainContent, Dialog, toast, useModalStore } from "@comptasse/ui"
 import { type ComponentPropsWithRef, type ReactElement, useId } from "react"
 import type * as v from "valibot"
 import { applicationRouter } from "../../../../../../../../../routes/applicationRouter.tsx"

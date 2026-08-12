@@ -8,7 +8,7 @@ export const inventoryGuideDocRoute = createRoute({
     beforeLoad: () => ({
         title: "Inventaire",
         description:
-            "Gérez votre stock dans Arrhes : création d'articles, suivi des mouvements et alertes de seuil minimal.",
+            "Gérez votre stock dans Comptasse : création d'articles, suivi des mouvements et alertes de seuil minimal.",
     }),
     component: () => <InventaireGuideDocPage />,
 })

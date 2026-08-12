@@ -1,4 +1,4 @@
-# Arrhes
+# Comptasse
 
 [![Licence AGPL-3.0](https://img.shields.io/badge/licence-AGPL--3.0-blue.svg)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue.svg)](https://www.typescriptlang.org/)
@@ -6,7 +6,7 @@
 
 Application open source de comptabilité en partie double pour les associations et entreprises francaises.
 
-Pour en savoir plus, consultez le site officiel : [arrhes.com](https://arrhes.com)
+Pour en savoir plus, consultez le site officiel : [comptasse.com](https://comptasse.com)
 
 ## Table des matières
 
@@ -18,7 +18,7 @@ Pour en savoir plus, consultez le site officiel : [arrhes.com](https://arrhes.co
 
 ## A propos
 
-Arrhes est une application open source de gestion de comptabilite en partie double. Ce répertoire contient le code source du projet. Il inclut le backend API, l'application web, les schémas partagés et les outils de migration.
+Comptasse est une application open source de gestion de comptabilite en partie double. Ce répertoire contient le code source du projet. Il inclut le backend API, l'application web, les schémas partagés et les outils de migration.
 
 ## Demarrage rapide
 
@@ -27,7 +27,7 @@ Arrhes est une application open source de gestion de comptabilite en partie doub
 Prérequis : [just](https://github.com/casey/just), Docker
 
 ```bash
-git clone https://github.com/arrhes/application.git
+git clone https://github.com/comptasse/application.git
 cd application
 
 # Demarrer l'environnement de developpement
@@ -48,7 +48,7 @@ just dev logs
 Prérequis : Docker
 
 ```bash
-git clone https://github.com/arrhes/application.git
+git clone https://github.com/comptasse/application.git
 cd application
 
 # Demarrer les services
@@ -69,10 +69,9 @@ Une fois l'environnement demarré :
 |------------|-------------------------|
 | Website  | http://localhost:5173   |
 | API        | http://localhost:3000   |
-| Mailpit    | http://localhost:8025   |
 | RustFS     | http://localhost:9001   |
 
-**Identifiants de demonstration :** `demo@arrhes.com` / `demo`
+**Identifiants de demonstration :** `demo@comptasse.com` / `demo`
 
 Pour plus de détails, consultez le [guide de developpement](docs/DEVELOPMENT.md).
 
@@ -87,11 +86,11 @@ Pour plus de détails, consultez le [guide de developpement](docs/DEVELOPMENT.md
 
 Le projet est organisé en monorepo avec les packages suivants :
 
-- **@arrhes/application-api** - Backend REST API (Hono, PostgreSQL)
-- **@arrhes/website** - Interface web (React, TanStack Router)
-- **@arrhes/application-metadata** - Schémas et modèles partagés (Valibot, Drizzle ORM)
-- **@arrhes/application-tools** - Outils de migration et seed de base de données
-- **@arrhes/ui** - Composants UI partagés
+- **@comptasse/application-api** - Backend REST API (Hono, PostgreSQL)
+- **@comptasse/website** - Interface web (React, TanStack Router)
+- **@comptasse/application-metadata** - Schémas et modèles partagés (Valibot, Drizzle ORM)
+- **@comptasse/application-tools** - Outils de migration et seed de base de données
+- **@comptasse/ui** - Composants UI partagés
 
 Pour plus de details, consultez la [documentation d'architecture](docs/ARCHITECTURE.md).
 
@@ -101,9 +100,9 @@ Ce projet est sous licence AGPL-3.0. Voir le fichier [LICENSE](LICENSE) pour plu
 
 ## Support
 
-- [Signaler un bug](https://github.com/arrhes/application/issues)
-- [Proposer une fonctionnalité](https://github.com/arrhes/application/issues)
-- Contact : contact@arrhes.com
+- [Signaler un bug](https://github.com/comptasse/application/issues)
+- [Proposer une fonctionnalité](https://github.com/comptasse/application/issues)
+- Contact : contact@comptasse.com
 
 ---
 

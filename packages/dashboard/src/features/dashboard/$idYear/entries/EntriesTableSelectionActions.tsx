@@ -1,4 +1,4 @@
-import { deleteOneEntryRouteDefinition, readAllEntriesRouteDefinition } from "@arrhes/application-metadata/routes"
+import { deleteOneEntryRouteDefinition, readAllEntriesRouteDefinition } from "@comptasse/application-metadata/routes"
 import {
     Button,
     ButtonGhostContent,
@@ -7,7 +7,7 @@ import {
     Dialog,
     toast,
     useModalStore,
-} from "@arrhes/ui"
+} from "@comptasse/ui"
 import { IconChevronDown, IconTrash } from "@tabler/icons-react"
 import type { Row } from "@tanstack/react-table"
 import { useId } from "react"

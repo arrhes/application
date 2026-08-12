@@ -1,4 +1,4 @@
-import { cn, css } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@comptasse/ui/utilities/cn.js"
 import type { ComponentProps } from "react"
 
 export function DataBlockHeader(props: { title: string; className?: ComponentProps<"div">["className"] }) {

@@ -1,10 +1,10 @@
 import {
     deleteOneInventoryItemRouteDefinition,
     readAllInventoryItemsRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button, ButtonGhostContent, ButtonPlainContent, toast } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+} from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { Button, ButtonGhostContent, ButtonPlainContent, toast } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconAlertCircle, IconEye, IconPlus, IconTrash } from "@tabler/icons-react"
 import { useNavigate, useParams } from "@tanstack/react-router"
 import type { ColumnDef } from "@tanstack/react-table"

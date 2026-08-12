@@ -1,5 +1,5 @@
-import { ButtonPlainContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { ButtonPlainContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconCalculator, IconPlus, IconReportMoney } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { Box } from "../../../../../../components/layouts/Box.tsx"

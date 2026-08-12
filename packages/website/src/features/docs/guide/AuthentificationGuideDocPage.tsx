@@ -15,13 +15,14 @@ export function AuthentificationGuideDocPage() {
         <DocRoot>
             <DocHeader
                 title="Authentification"
-                description="Sécuriser l'accès à votre comptabilité selon votre interface"
+                description="Créer un compte et se connecter selon votre interface"
             />
 
             <DocSection title="Méthodes d'authentification">
                 <DocParagraph>
-                    Arrhes utilise un système d'authentification unique par cookie de session pour toutes les interfaces
-                    (Dashboard, API et CLI).
+                    Comptasse utilise un système d'authentification unique par email et mot
+                    de passe pour toutes les interfaces (Dashboard, API et CLI). Une session
+                    est créée sous forme de cookie sécurisé après connexion.
                 </DocParagraph>
                 <DocTable
                     headers={[
@@ -54,9 +55,22 @@ export function AuthentificationGuideDocPage() {
                     dashboard={
                         <>
                             <DocParagraph>
-                                La connexion au dashboard se fait par email et mot de passe. Une fois connecté, un
-                                cookie de session sécurisé est déposé dans votre navigateur.
+                                La connexion au dashboard se fait par email et mot de passe.
+                                Vous pouvez créer un compte directement depuis l'interface.
                             </DocParagraph>
+
+                            <DocExample title="Créer un compte">
+                                <DocList
+                                    items={[
+                                        "Rendez-vous sur la page d'inscription.",
+                                        "Saisissez votre adresse email.",
+                                        "Choisissez un mot de passe et confirmez-le.",
+                                        "Cliquez sur « Créer un compte ».",
+                                        "Vous êtes connecté automatiquement.",
+                                    ]}
+                                />
+                            </DocExample>
+
                             <DocExample title="Se connecter">
                                 <DocList
                                     items={[
@@ -67,6 +81,7 @@ export function AuthentificationGuideDocPage() {
                                     ]}
                                 />
                             </DocExample>
+
                             <DocTip variant="info">
                                 Si vous gérez plusieurs organisations, le menu déroulant en haut à gauche permet de
                                 changer de contexte sans vous déconnecter.
@@ -76,9 +91,38 @@ export function AuthentificationGuideDocPage() {
                     api={
                         <>
                             <DocParagraph>
-                                L'API s'authentifie via un cookie de session. Pour utiliser l'API programmatiquement,
-                                connectez-vous d'abord avec vos identifiants, puis réutilisez le cookie de session.
+                                L'API expose deux endpoints publics pour l'authentification :
+                                <DocCode>POST /v1/auth/sign-up</DocCode> pour créer un compte et
+                                <DocCode>POST /v1/auth/sign-in</DocCode> pour se connecter.
+                                Les deux endpoints retournent un cookie de session dans l'en-tête
+                                <DocCode>Set-Cookie</DocCode>.
                             </DocParagraph>
+
+                            <DocExample title="Créer un compte">
+                                <DocCodeBlock>{`curl -X POST http://localhost:3000/v1/auth/sign-up \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "email": "utilisateur@exemple.com",
+    "password": "votre-mot-de-passe",
+    "passwordCheck": "votre-mot-de-passe"
+  }'`}</DocCodeBlock>
+                            </DocExample>
+
+                            <DocExample title="Se connecter">
+                                <DocCodeBlock>{`curl -X POST http://localhost:3000/v1/auth/sign-in \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "email": "utilisateur@exemple.com",
+    "password": "votre-mot-de-passe"
+  }' \\
+  -c cookies.txt`}</DocCodeBlock>
+                            </DocExample>
+
+                            <DocExample title="Utiliser la session pour les requêtes suivantes">
+                                <DocCodeBlock>{`curl http://localhost:3000/v1/organizations/me \\
+  -b cookies.txt`}</DocCodeBlock>
+                            </DocExample>
+
                             <DocTable
                                 headers={[
                                     "En-tête",
@@ -86,7 +130,7 @@ export function AuthentificationGuideDocPage() {
                                 ]}
                                 rows={[
                                     [
-                                        "Cookie: arrhes_id_user_session=...",
+                                        "Cookie: comptasse_id_user_session=...",
                                         "Cookie de session obtenu après connexion",
                                     ],
                                     [
@@ -95,15 +139,7 @@ export function AuthentificationGuideDocPage() {
                                     ],
                                 ]}
                             />
-                            <DocExample title="Se connecter à l'API">
-                                <DocList
-                                    items={[
-                                        "Appelez POST /v1/auth/sign-in avec email et mot de passe",
-                                        "Récupérez le cookie Set-Cookie dans la réponse",
-                                        "Utilisez ce cookie pour les requêtes suivantes",
-                                    ]}
-                                />
-                            </DocExample>
+
                             <DocTip variant="info">
                                 Toutes les bibliothèques HTTP (fetch, axios, curl) gèrent automatiquement les cookies.
                             </DocTip>
@@ -112,25 +148,45 @@ export function AuthentificationGuideDocPage() {
                     cli={
                         <>
                             <DocParagraph>
-                                Le CLI s'authentifie via un cookie de session. Connectez-vous avec vos identifiants
-                                pour commencer à utiliser le CLI.
+                                Le CLI stocke la session dans{" "}
+                                <DocCode>~/.comptasse/config.json</DocCode>. La commande{" "}
+                                <DocCode>login</DocCode> crée un compte si l'email n'existe pas
+                                encore, ou se connecte s'il existe.
                             </DocParagraph>
-                            <DocParagraph>Connectez le CLI :</DocParagraph>
-                            <DocCodeBlock>arrhes login</DocCodeBlock>
-                            <DocParagraph>
-                                La configuration est enregistrée dans <DocCode>~/.arrhes/config.json</DocCode>. Vérifiez
-                                la connexion avec :
-                            </DocParagraph>
-                            <DocCodeBlock>arrhes whoami</DocCodeBlock>
+
+                            <DocExample title="Créer un compte ou se connecter">
+                                <DocCodeBlock>{`comptasse login --url http://localhost:3000
+# Saisissez votre email
+# Saisissez votre mot de passe
+# Confirmez votre mot de passe si c'est une création de compte`}</DocCodeBlock>
+                            </DocExample>
+
+                            <DocExample title="Vérifier la connexion">
+                                <DocCodeBlock>comptasse whoami</DocCodeBlock>
+                            </DocExample>
+
+                            <DocExample title="Se déconnecter">
+                                <DocCodeBlock>comptasse logout</DocCodeBlock>
+                            </DocExample>
+
                             <DocTip variant="info">
                                 L'option <DocCode>--url</DocCode> est facultative. Par défaut, le CLI se connecte à{" "}
-                                <DocCode>https://api.arrhes.com</DocCode>. Pour un auto-hébergement, passez l'URL de
+                                <DocCode>https://api.comptasse.com</DocCode>. Pour un auto-hébergement, passez l'URL de
                                 votre instance.
                             </DocTip>
-                            <DocParagraph>Pour effacer les identifiants stockés localement :</DocParagraph>
-                            <DocCodeBlock>arrhes logout</DocCodeBlock>
                         </>
                     }
+                />
+            </DocSection>
+
+            <DocSection title="Gestion des sessions">
+                <DocList
+                    items={[
+                        "Une seule session active par navigateur ou par CLI.",
+                        "Le cookie de session est signé et stocké de manière sécurisée.",
+                        "La déconnexion invalide la session côté serveur.",
+                        "En cas de perte de mot de passe, utilisez la fonction de réinitialisation depuis le dashboard.",
+                    ]}
                 />
             </DocSection>
         </DocRoot>

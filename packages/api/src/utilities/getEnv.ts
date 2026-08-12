@@ -16,7 +16,7 @@ const envSchema = v.object({
 
     CORS_ORIGIN: v.string(),
     COOKIES_DOMAIN: v.string(),
-    COOKIES_KEY: v.string(),
+    COOKIES_KEY: v.optional(v.string(), ""),
 
     API_BASE_URL: v.string(),
     WEBSITE_BASE_URL: v.string(),
@@ -29,8 +29,6 @@ const envSchema = v.object({
     STORAGE_ACCESS_KEY: v.string(),
     STORAGE_SECRET_KEY: v.string(),
     STORAGE_REGION: v.optional(v.string(), "fr-par"),
-
-    MOLLIE_API_KEY: v.string(),
 })
 
 export function getEnv() {

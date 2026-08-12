@@ -1,5 +1,5 @@
-import { ButtonOutlineContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { ButtonOutlineContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconUserPlus } from "@tabler/icons-react"
 import { CreateOneOrganizationUser } from "./CreateOneOrganizationUser.tsx"
 import { OrganizationUsersListTable } from "./OrganizationUsersListTable.tsx"

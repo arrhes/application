@@ -1,12 +1,12 @@
 # ==============================================================================
-# Arrhes Application - Development Environment
+# Comptasse Application - Development Environment
 # ==============================================================================
 # Docker Compose configuration for local development
 #
 # Architecture:
 # - Full workspace: bind-mounted from host (including node_modules)
 # - Dependencies must be installed on the host (`pnpm install`)
-# - Infrastructure: PostgreSQL, RustFS (S3), Mailpit (SMTP)
+# - Infrastructure: PostgreSQL, RustFS (S3)
 # - Services: API, Website
 #
 # Usage:
@@ -22,7 +22,7 @@ services:
 
   # PostgreSQL - Relational database for application data
   postgres:
-    container_name: arrhes-postgres
+    container_name: comptasse-postgres
     image: postgres:18.1
     restart: unless-stopped
     environment:
@@ -34,7 +34,7 @@ services:
     networks:
       default:
         aliases:
-          - postgres.arrhes.localhost
+          - postgres.comptasse.localhost
     volumes:
       - postgres_data:/var/lib/postgresql
     healthcheck:
@@ -45,7 +45,7 @@ services:
 
   # RustFS - S3-compatible object storage for files
   rustfs:
-    container_name: arrhes-rustfs
+    container_name: comptasse-rustfs
     image: rustfs/rustfs:latest
     restart: unless-stopped
     environment:
@@ -59,8 +59,8 @@ services:
     networks:
       default:
         aliases:
-          - rustfs.arrhes.localhost
-          - storage.arrhes.localhost
+          - rustfs.comptasse.localhost
+          - storage.comptasse.localhost
     volumes:
       - rustfs_data:/data
     init: true
@@ -76,8 +76,8 @@ services:
 
   # API - Backend service (Hono framework on Node.js)
   api:
-    container_name: arrhes-api
-    image: arrhes-dev-api:latest
+    container_name: comptasse-api
+    image: comptasse-dev-api:latest
     build:
       context: ../..
       dockerfile: .workflows/dev/packages/api/Dockerfile
@@ -100,7 +100,7 @@ services:
       DASHBOARD_BASE_URL: "http://localhost:${DASHBOARD_HOST_PORT}"
       SQL_DATABASE_URL: "postgres://postgres:admin@localhost:${POSTGRES_HOST_PORT}/default"
       STORAGE_ENDPOINT: "http://localhost:${STORAGE_HOST_PORT}"
-      STORAGE_BUCKET_NAME: arrhes-files
+      STORAGE_BUCKET_NAME: comptasse-files
       STORAGE_ACCESS_KEY: rustfsadmin
       STORAGE_SECRET_KEY: rustfsadmin
       MOLLIE_API_KEY: test_z8gjjnezmRNx7dretKbEr5vcCfADh9
@@ -120,8 +120,8 @@ services:
 
   # Website - Frontend interface (React + Vite)
   website:
-    container_name: arrhes-website
-    image: arrhes-dev-website:latest
+    container_name: comptasse-website
+    image: comptasse-dev-website:latest
     build:
       context: ../..
       dockerfile: .workflows/dev/packages/website/Dockerfile
@@ -131,14 +131,13 @@ services:
     networks:
       default:
         aliases:
-          - website.arrhes.localhost
+          - website.comptasse.localhost
     volumes:
       - ../..:/workspace:cached
     ports:
       - "127.0.0.1:${WEBSITE_HOST_PORT}:5173"
     environment:
-      # Vite reads VITE_* from .env files, not process.env.
-      # The entrypoint writes these to packages/website/.env at startup.
+      # Vite reads VITE_* from process.env (injected directly by Compose).
       VITE_ENV: development
       VITE_API_BASE_URL: "http://localhost:${API_HOST_PORT}"
       VITE_WEBSITE_BASE_URL: "http://localhost:${WEBSITE_HOST_PORT}"
@@ -146,8 +145,8 @@ services:
 
   # Dashboard - SPA dashboard interface (React + Vite)
   dashboard:
-    container_name: arrhes-dashboard
-    image: arrhes-dev-dashboard:latest
+    container_name: comptasse-dashboard
+    image: comptasse-dev-dashboard:latest
     build:
       context: ../..
       dockerfile: .workflows/dev/packages/dashboard/Dockerfile
@@ -157,14 +156,13 @@ services:
     networks:
       default:
         aliases:
-          - dashboard.arrhes.localhost
+          - dashboard.comptasse.localhost
     volumes:
       - ../..:/workspace:cached
     ports:
       - "127.0.0.1:${DASHBOARD_HOST_PORT}:5174"
     environment:
-      # Vite reads VITE_* from .env files, not process.env.
-      # The entrypoint writes these to packages/dashboard/.env at startup.
+      # Vite reads VITE_* from process.env (injected directly by Compose).
       VITE_ENV: development
       VITE_API_BASE_URL: "http://localhost:${API_HOST_PORT}"
       VITE_WEBSITE_BASE_URL: "http://localhost:${WEBSITE_HOST_PORT}"

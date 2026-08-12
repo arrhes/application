@@ -1,5 +1,5 @@
-import { readAllFilesRouteDefinition, type readAllFoldersRouteDefinition } from "@arrhes/application-metadata/routes"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { readAllFilesRouteDefinition, type readAllFoldersRouteDefinition } from "@comptasse/application-metadata/routes"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { type DragEvent, useMemo, useState } from "react"
 import type * as v from "valibot"
 import { DataWrapper } from "../../../../components/layouts/DataWrapper.js"

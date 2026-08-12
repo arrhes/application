@@ -8,7 +8,7 @@ export const authentificationGuideDocRoute = createRoute({
     path: "/authentification",
     beforeLoad: () => ({
         title: "Authentification",
-        description: "Authentifiez-vous sur Arrhes : connexion au dashboard, clés API et connexion du CLI.",
+        description: "Authentifiez-vous sur Comptasse : connexion au dashboard, clés API et connexion du CLI.",
     }),
     component: () => (
         <DocRoot>

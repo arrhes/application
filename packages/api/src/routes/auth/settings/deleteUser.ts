@@ -1,5 +1,5 @@
 import { pbkdf2Sync } from "node:crypto"
-import { deleteUserRouteDefinition, models } from "@arrhes/application-metadata"
+import { deleteUserRouteDefinition, models } from "@comptasse/application-metadata"
 import { and, eq } from "drizzle-orm"
 import { requireCookieSessionMiddleware } from "../../../middlewares/requireCookieSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"

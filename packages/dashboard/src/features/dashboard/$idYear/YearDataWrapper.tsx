@@ -11,9 +11,10 @@ import {
     readAllIncomeStatementsRouteDefinition,
     readAllJournalsRouteDefinition,
     readAllTagsRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import { CircularLoader, FormatError } from "@arrhes/ui"
+} from "@comptasse/application-metadata/routes"
+import { CircularLoader, FormatError } from "@comptasse/ui"
 import { useQueries } from "@tanstack/react-query"
+import { useParams } from "@tanstack/react-router"
 import type { ReactElement } from "react"
 import { useMemo } from "react"
 import type * as v from "valibot"
@@ -89,6 +90,7 @@ export function YearDataWrapper<const K extends readonly YearDataKey[]>(props: {
     requiredKeys: K
     children: (data: Pick<YearData, K[number]> & YearDataMaps) => ReactElement | null
 }) {
+    const urlParams = useParams({ strict: false })
     const body = useMemo(
         () => ({
             idYear: props.idYear,
@@ -98,16 +100,26 @@ export function YearDataWrapper<const K extends readonly YearDataKey[]>(props: {
         ],
     )
 
+    const params = useMemo(() => {
+        const result: Record<string, string> = {}
+        if (typeof urlParams.idOrganization === "string") {
+            result.idOrganization = urlParams.idOrganization
+        }
+        return result
+    }, [urlParams.idOrganization])
+
     const results = useQueries({
         queries: yearQueryEntries.map(([_key, routeDef]) => ({
             queryKey: [
                 routeDef.path,
                 body,
+                params,
             ],
             queryFn: async (context: { signal: AbortSignal }) => {
                 const response = await getResponseBodyFromAPI({
                     routeDefinition: routeDef,
                     body,
+                    params,
                     signal: context.signal,
                 })
                 if (response.ok === false) {

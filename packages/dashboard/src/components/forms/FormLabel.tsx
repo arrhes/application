@@ -1,1 +1,1 @@
-export { FormLabel } from "@arrhes/ui"
+export { FormLabel } from "@comptasse/ui"

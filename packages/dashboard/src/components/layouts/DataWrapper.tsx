@@ -1,6 +1,7 @@
-import type { routeDefinition } from "@arrhes/application-metadata/utilities"
-import { CircularLoader, FormatError } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import type { routeDefinition } from "@comptasse/application-metadata/utilities"
+import { CircularLoader, FormatError } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
+import { useParams } from "@tanstack/react-router"
 import { type ComponentProps, type ReactElement, Suspense } from "react"
 import type * as v from "valibot"
 import { useDataFromAPI } from "../../utilities/useHTTPData.js"
@@ -14,10 +15,20 @@ export function DataWrapper<TRouteDefinition extends ReturnType<typeof routeDefi
     loaderProps?: ComponentProps<typeof CircularLoader>
     errorProps?: ComponentProps<typeof FormatError>
 }) {
+    const urlParams = useParams({ strict: false })
+    const params = { ...props.params }
+    if (
+        props.routeDefinition.path.includes(":idOrganization") &&
+        params.idOrganization === undefined &&
+        typeof urlParams.idOrganization === "string"
+    ) {
+        params.idOrganization = urlParams.idOrganization
+    }
+
     const response = useDataFromAPI({
         routeDefinition: props.routeDefinition,
         body: props.body,
-        params: props.params,
+        params,
     })
 
     if (response.data === undefined) {

@@ -1,1 +1,1 @@
-export { PopoverTrigger } from "@arrhes/ui/components/overlays/popover/popoverTrigger.js"
+export { PopoverTrigger } from "@comptasse/ui/components/overlays/popover/popoverTrigger.js"

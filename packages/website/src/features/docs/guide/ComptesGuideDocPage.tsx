@@ -4,7 +4,7 @@ import {
     readAllAccountsRouteDefinition,
     readOneAccountRouteDefinition,
     updateOneAccountRouteDefinition,
-} from "@arrhes/application-metadata/routes"
+} from "@comptasse/application-metadata/routes"
 import { DocCode } from "../../../components/document/DocCode.js"
 import { DocCodeBlock } from "../../../components/document/DocCodeBlock.js"
 import { DocExample } from "../../../components/document/DocExample.js"
@@ -29,7 +29,7 @@ export function ComptesGuideDocPage() {
 
             <DocSection title="Présentation">
                 <DocParagraph>
-                    Le plan comptable est la liste des comptes disponibles pour saisir vos écritures. Arrhes crée
+                    Le plan comptable est la liste des comptes disponibles pour saisir vos écritures. Comptasse crée
                     automatiquement un plan standard adapté au type d'organisation, mais vous pouvez le personnaliser.
                 </DocParagraph>
                 <DocList
@@ -41,7 +41,7 @@ export function ComptesGuideDocPage() {
                 />
                 <DocTip variant="info">
                     Pour comprendre la numérotation des comptes, consultez la page sur les{" "}
-                    <DocLink to="/documentation/comptabilité/comptes">comptes comptables</DocLink>.
+                    <DocLink to="/documentation/comptabilité/introduction/comptes">comptes comptables</DocLink>.
                 </DocTip>
             </DocSection>
 
@@ -82,34 +82,34 @@ export function ComptesGuideDocPage() {
                                 ]}
                                 rows={[
                                     [
-                                        <DocCode key="0">{"arrhes accounts list --year <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse accounts list --year <id>"}</DocCode>,
                                         "Liste les comptes",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes accounts get <id> --year <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse accounts get <id> --year <id>"}</DocCode>,
                                         "Détails d'un compte",
                                     ],
                                     [
                                         <DocCode key="0">
                                             {
-                                                "arrhes accounts create --year <id> --number <n> --label <l> --type <t> --parent <id>"
+                                                "comptasse accounts create --year <id> --number <n> --label <l> --type <t> --parent <id>"
                                             }
                                         </DocCode>,
                                         "Crée un compte",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes accounts update <id> --year <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse accounts update <id> --year <id>"}</DocCode>,
                                         "Modifie un compte",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes accounts delete <id> --year <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse accounts delete <id> --year <id>"}</DocCode>,
                                         "Supprime un compte",
                                     ],
                                 ]}
                             />
                             <DocExample title="Créer un compte fournisseur">
                                 <DocCodeBlock>
-                                    arrhes accounts create --year year_xyz --number 401 --label "Fournisseurs" --type
+                                    comptasse accounts create --year year_xyz --number 401 --label "Fournisseurs" --type
                                     liability --parent acc_root
                                 </DocCodeBlock>
                             </DocExample>

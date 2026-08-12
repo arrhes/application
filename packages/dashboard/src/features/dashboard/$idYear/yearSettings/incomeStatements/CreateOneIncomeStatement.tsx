@@ -1,9 +1,9 @@
 import {
     createOneIncomeStatementRouteDefinition,
     readAllIncomeStatementsRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button, InputText, toast } from "@arrhes/ui"
+} from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { Button, InputText, toast } from "@comptasse/ui"
 import { IconPlus } from "@tabler/icons-react"
 import type { JSX } from "react"
 import { Fragment } from "react/jsx-runtime"

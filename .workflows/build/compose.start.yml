@@ -1,5 +1,5 @@
 # ==============================================================================
-# Arrhes Production Smoke Test
+# Comptasse Production Smoke Test
 # ==============================================================================
 # Runs the production Docker images against local infrastructure to verify
 # startup correctness. Use this after `just build images`.
@@ -7,8 +7,8 @@
 # Usage:
 #   just build start
 #   # or manually:
-#   ARRHES_VERSION=$(cat VERSION) docker compose -f .workflows/build/compose.start.yml \
-#     --project-name arrhes-prod up
+#   COMPATSSE_VERSION=$(cat VERSION) docker compose -f .workflows/build/compose.start.yml \
+#     --project-name comptasse-prod up
 # ==============================================================================
 
 services:
@@ -17,7 +17,7 @@ services:
   # ============================================================================
 
   postgres:
-    container_name: arrhes-prod-postgres
+    container_name: comptasse-prod-postgres
     image: postgres:18.1
     restart: unless-stopped
     environment:
@@ -35,7 +35,7 @@ services:
       retries: 5
 
   rustfs:
-    container_name: arrhes-prod-rustfs
+    container_name: comptasse-prod-rustfs
     image: rustfs/rustfs:latest
     restart: unless-stopped
     environment:
@@ -60,8 +60,8 @@ services:
   # ============================================================================
 
   api:
-    container_name: arrhes-prod-api
-    image: arrhes-api:${ARRHES_VERSION:-dev}
+    container_name: comptasse-prod-api
+    image: comptasse-api:${COMPATSSE_VERSION:-dev}
     ports:
       - "3000:3000"
     environment:
@@ -75,7 +75,7 @@ services:
       SQL_DATABASE_URL: postgres://postgres:admin@postgres:5432/default
       STORAGE_ENDPOINT: http://rustfs:9000
 
-      STORAGE_BUCKET_NAME: arrhes-files
+      STORAGE_BUCKET_NAME: comptasse-files
       STORAGE_ACCESS_KEY: rustfsadmin
       STORAGE_SECRET_KEY: rustfsadmin
       MOLLIE_API_KEY: test_z8gjjnezmRNx7dretKbEr5vcCfADh9
@@ -86,8 +86,8 @@ services:
         condition: service_healthy
 
   website:
-    container_name: arrhes-prod-website
-    image: arrhes-website:${ARRHES_VERSION:-dev}
+    container_name: comptasse-prod-website
+    image: comptasse-website:${COMPATSSE_VERSION:-dev}
     ports:
       - "5173:80"
 

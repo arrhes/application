@@ -4,12 +4,13 @@ import { DocHeader } from "../../../components/document/DocHeader.js"
 import { DocLink } from "../../../components/document/DocLink.js"
 import { DocParagraph } from "../../../components/document/DocParagraph.js"
 import { DocSection } from "../../../components/document/DocSection.js"
+import { DocRoot } from "../../../components/document/DocRoot.js"
 
 const paperasseRepo = "https://github.com/romainsimon/paperasse"
 
 export function AgentSkillsDocPage() {
     return (
-        <>
+        <DocRoot>
             <DocHeader
                 title="Skills pour agent IA"
                 description="Configurez votre agent IA avec des skills spécialisés pour interagir avec Arrhes."
@@ -110,6 +111,6 @@ Tu aides les utilisateurs à gérer leur comptabilité en partie double.
                     Consultez la documentation API pour la liste exhaustive des endpoints disponibles et leurs paramètres.
                 </DocParagraph>
             </DocSection>
-        </>
+        </DocRoot>
     )
 }

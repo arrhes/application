@@ -1,5 +1,5 @@
-import { deleteUserRouteDefinition } from "@arrhes/application-metadata/routes"
-import { Button, InputPassword, toast } from "@arrhes/ui"
+import { deleteUserRouteDefinition } from "@comptasse/application-metadata/routes"
+import { Button, InputPassword, toast } from "@comptasse/ui"
 import { IconTrash } from "@tabler/icons-react"
 import type { JSX } from "react"
 import { FormControl } from "../../../components/forms/FormControl.tsx"

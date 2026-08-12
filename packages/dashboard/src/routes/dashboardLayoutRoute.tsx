@@ -1,4 +1,4 @@
-import { CircularLoader } from "@arrhes/ui"
+import { CircularLoader } from "@comptasse/ui"
 import { createRoute, redirect } from "@tanstack/react-router"
 import { DashboardLayout } from "../features/dashboard/dashboardLayout/DashboardLayout.js"
 import { getIsAuthenticated } from "../utilities/cookies/getIsAuthenticated.js"

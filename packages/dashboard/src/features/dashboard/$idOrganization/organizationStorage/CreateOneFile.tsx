@@ -1,12 +1,12 @@
-import { computeSHA256 } from "@arrhes/application-metadata"
+import { computeSHA256 } from "@comptasse/application-metadata"
 import {
     createOneFileRouteDefinition,
     finalizeFileUploadRouteDefinition,
     generateFilePutSignedUrlRouteDefinition,
     readAllFilesRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button, toast } from "@arrhes/ui"
+} from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { Button, toast } from "@comptasse/ui"
 import type { JSX } from "react"
 import { useRef } from "react"
 import type * as v from "valibot"

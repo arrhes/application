@@ -1,8 +1,7 @@
 import { createRoute } from "@tanstack/react-router"
 import { DocRoot } from "../../../../components/document/DocRoot"
+import { WhitepaperGeneralDocPage } from "../../../../features/docs/project/WhitepaperGeneralDocPage.js"
 import { docsLayoutRoute } from "../docsLayoutRoute.js"
-import { WhitepaperGeneralDocPage } from "../../../../features/docs/general/WhitepaperGeneralDocPage.js"
-
 
 export const whitepaperGeneralDocRoute = createRoute({
     getParentRoute: () => docsLayoutRoute,
@@ -10,7 +9,7 @@ export const whitepaperGeneralDocRoute = createRoute({
     beforeLoad: () => ({
         title: "Philosophie",
         description:
-            "La philosophie d'Arrhes : transparence, open source et accessibilité pour la comptabilité des entreprises et associations.",
+            "La philosophie de Comptasse : transparence, open source et accessibilité pour la comptabilité des entreprises et associations.",
     }),
     component: () => (
         <DocRoot>

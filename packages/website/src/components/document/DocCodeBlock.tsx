@@ -1,4 +1,4 @@
-import { cn, css } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@comptasse/ui/utilities/cn.js"
 import { IconCheck, IconCopy } from "@tabler/icons-react"
 import { useState } from "react"
 

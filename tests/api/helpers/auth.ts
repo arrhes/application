@@ -1,6 +1,6 @@
 import { apiRequest, buildCookieString } from "./testClient.js"
 
-const DEMO_EMAIL = "demo@arrhes.com"
+const DEMO_EMAIL = "demo@comptasse.com"
 const DEMO_PASSWORD = "demo"
 
 export type AuthSession = {
@@ -9,7 +9,7 @@ export type AuthSession = {
 
 /**
  * Signs in as the demo user and returns the session cookies.
- * Uses the seeded demo account (demo@arrhes.com / demo).
+ * Uses the seeded demo account (demo@comptasse.com / demo).
  */
 export async function signInAsDemo(): Promise<AuthSession> {
     const response = await apiRequest({

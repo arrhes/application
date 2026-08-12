@@ -2,9 +2,9 @@ import {
     readAllFilesRouteDefinition,
     readAllFoldersRouteDefinition,
     updateOneFileRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { InputSelect, toast } from "@arrhes/ui"
+} from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { InputSelect, toast } from "@comptasse/ui"
 import { IconArrowsMove } from "@tabler/icons-react"
 import { useMemo } from "react"
 import type * as v from "valibot"

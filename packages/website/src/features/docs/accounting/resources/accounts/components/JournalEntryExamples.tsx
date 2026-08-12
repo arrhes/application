@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconMasksTheater } from "@tabler/icons-react"
 import { DocSection } from "../../../../../../components/document/DocSection.js"
 import { DocTable } from "../../../../../../components/document/DocTable.js"

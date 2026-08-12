@@ -1,5 +1,5 @@
-import { ButtonPlainContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { ButtonPlainContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconExternalLink } from "@tabler/icons-react"
 import { Box } from "../../components/layouts/Box.js"
 
@@ -35,7 +35,7 @@ export function DocumentationBanner() {
                 </p>
             </div>
             <a
-                href="https://documentation.arrhes.com"
+                href="https://documentation.comptasse.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={css({

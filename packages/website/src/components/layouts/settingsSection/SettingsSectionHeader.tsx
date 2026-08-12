@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 
 export function SettingsSectionHeader(props: { title: string; description?: string; variant?: "default" | "danger" }) {
     const isDanger = props.variant === "danger"

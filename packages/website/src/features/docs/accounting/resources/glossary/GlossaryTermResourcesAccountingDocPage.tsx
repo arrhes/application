@@ -1,5 +1,5 @@
-import { ButtonOutlineContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { ButtonOutlineContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconArrowLeft, IconLanguage, IconLink } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { DocDefinition } from "../../../../../components/document/DocDefinition.js"

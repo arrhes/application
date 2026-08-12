@@ -1,4 +1,4 @@
-import { models } from "@arrhes/application-metadata"
+import { models } from "@comptasse/application-metadata"
 import { getTableColumns, getTableName, sql } from "drizzle-orm"
 import type { sqlClient } from "../clients/sqlClient.js"
 

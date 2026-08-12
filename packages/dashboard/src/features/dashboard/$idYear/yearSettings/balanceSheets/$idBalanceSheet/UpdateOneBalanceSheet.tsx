@@ -2,10 +2,10 @@ import {
     readAllBalanceSheetsRouteDefinition,
     readOneBalanceSheetRouteDefinition,
     updateOneBalanceSheetRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button, InputText, InputToggle, toast } from "@arrhes/ui"
-import { css } from "@arrhes/ui/css"
+} from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { Button, InputText, InputToggle, toast } from "@comptasse/ui"
+import { css } from "@comptasse/ui/css"
 import { IconPencil, IconPlus } from "@tabler/icons-react"
 import type { ComponentProps, JSX } from "react"
 import { Fragment } from "react/jsx-runtime"

@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest"
 
 describe("variables", () => {
     it("exports the correct cookie prefix", () => {
-        expect(cookiePrefix).toBe("arrhes")
+        expect(cookiePrefix).toBe("comptasse")
     })
 
     it("cookie prefix is a string", () => {

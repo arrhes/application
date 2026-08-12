@@ -1,0 +1,70 @@
+# ==============================================================================
+# Comptasse Full Stack (Example)
+# ==============================================================================
+# Complete stack with bundled PostgreSQL and RustFS (S3-compatible storage).
+# For users who want a ready-to-use setup without external infrastructure.
+#
+# Usage:
+#   docker compose -f .workflows/build/compose.example.yml up -d
+#
+# This example uses default credentials for development/testing.
+# For production, change all passwords and keys.
+# ==============================================================================
+
+services:
+  comptasse:
+    image: comptasse/comptasse:${COMPATSSE_VERSION:-dev}
+    ports:
+      - "${API_PORT:-3000}:3000"
+      - "${DASHBOARD_PORT:-5173}:5173"
+    volumes:
+      - comptasse-data:/data
+    environment:
+      SQL_DATABASE_URL: postgres://postgres:password@postgres:5432/comptasse
+      STORAGE_ENDPOINT: http://rustfs:9000
+      STORAGE_BUCKET_NAME: comptasse-files
+      STORAGE_ACCESS_KEY: admin
+      STORAGE_SECRET_KEY: admin
+      STORAGE_REGION: fr-par
+      COOKIES_DOMAIN: localhost
+      CORS_ORIGIN: "*"
+      API_BASE_URL: http://localhost:3000
+      WEBSITE_BASE_URL: http://localhost:5173
+      DASHBOARD_BASE_URL: http://localhost:5173
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rustfs:
+        condition: service_started
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:18.1
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: comptasse
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d comptasse"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  rustfs:
+    image: rustfs/rustfs:latest
+    volumes:
+      - rustfs-data:/data
+    environment:
+      RUSTFS_CONSOLE_ENABLE: "false"
+      RUSTFS_ACCESS_KEY: admin
+      RUSTFS_SECRET_KEY: admin
+      RUSTFS_VOLUMES: /data
+    restart: unless-stopped
+
+volumes:
+  comptasse-data:
+  postgres-data:
+  rustfs-data:

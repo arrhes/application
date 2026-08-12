@@ -1,4 +1,4 @@
-import { deleteOneOrganizationRouteDefinition, models } from "@arrhes/application-metadata"
+import { deleteOneOrganizationRouteDefinition, models } from "@comptasse/application-metadata"
 import { and, eq } from "drizzle-orm"
 import { checkAuthMiddleware } from "../../../../../middlewares/checkAuthMiddleware.js"
 import { requireOrganizationMiddleware } from "../../../../../middlewares/requireOrganizationMiddleware.js"

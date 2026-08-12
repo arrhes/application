@@ -14,7 +14,7 @@ export function ReferenceCliGuideDocPage() {
         <DocRoot>
             <DocHeader
                 title="Référence CLI"
-                description="Tableau récapitulatif des commandes du CLI Arrhes"
+                description="Tableau récapitulatif des commandes du CLI Comptasse"
             />
 
             <DocSection title="Aide et options globales">
@@ -22,7 +22,7 @@ export function ReferenceCliGuideDocPage() {
                     Le CLI est un binaire autonome. Aucune installation de Node.js n'est requise. Chaque commande
                     accepte <DocCode>--help</DocCode> pour afficher ses options.
                 </DocParagraph>
-                <DocCodeBlock>{"arrhes --help\narrhes entries create --help"}</DocCodeBlock>
+                <DocCodeBlock>{"comptasse --help\ncomptasse entries create --help"}</DocCodeBlock>
                 <DocList
                     items={[
                         "--help : affiche l'aide de la commande",
@@ -42,15 +42,15 @@ export function ReferenceCliGuideDocPage() {
                     ]}
                     rows={[
                         [
-                            <DocCode key="0">arrhes login</DocCode>,
+                            <DocCode key="0">comptasse login</DocCode>,
                             "Enregistre les identifiants",
                         ],
                         [
-                            <DocCode key="0">arrhes whoami</DocCode>,
+                            <DocCode key="0">comptasse whoami</DocCode>,
                             "Affiche l'utilisateur connecté",
                         ],
                         [
-                            <DocCode key="0">arrhes logout</DocCode>,
+                            <DocCode key="0">comptasse logout</DocCode>,
                             "Supprime les identifiants locaux",
                         ],
                     ]}
@@ -65,23 +65,23 @@ export function ReferenceCliGuideDocPage() {
                     ]}
                     rows={[
                         [
-                            <DocCode key="0">arrhes org get</DocCode>,
+                            <DocCode key="0">comptasse org get</DocCode>,
                             "Détails de l'organisation",
                         ],
                         [
-                            <DocCode key="0">arrhes org update</DocCode>,
+                            <DocCode key="0">comptasse org update</DocCode>,
                             "Modifie l'organisation",
                         ],
                         [
-                            <DocCode key="0">arrhes org delete</DocCode>,
+                            <DocCode key="0">comptasse org delete</DocCode>,
                             "Supprime l'organisation",
                         ],
                         [
-                            <DocCode key="0">arrhes members list</DocCode>,
+                            <DocCode key="0">comptasse members list</DocCode>,
                             "Liste les membres",
                         ],
                         [
-                            <DocCode key="0">{"arrhes members invite --email <email> [--admin]"}</DocCode>,
+                            <DocCode key="0">{"comptasse members invite --email <email> [--admin]"}</DocCode>,
                             "Invite un membre",
                         ],
                     ]}
@@ -96,33 +96,45 @@ export function ReferenceCliGuideDocPage() {
                     ]}
                     rows={[
                         [
-                            <DocCode key="0">arrhes years list</DocCode>,
+                            <DocCode key="0">comptasse years list</DocCode>,
                             "Liste les exercices",
                         ],
                         [
-                            <DocCode key="0">{"arrhes years get <idYear>"}</DocCode>,
+                            <DocCode key="0">{"comptasse years get <idYear>"}</DocCode>,
                             "Détails d'un exercice",
                         ],
                         [
-                            <DocCode key="0">{"arrhes years create --start <date> --end <date>"}</DocCode>,
+                            <DocCode key="0">{"comptasse years create --start <date> --end <date>"}</DocCode>,
                             "Crée un exercice",
                         ],
                         [
-                            <DocCode key="0">{"arrhes years update <idYear>"}</DocCode>,
+                            <DocCode key="0">{"comptasse years update <idYear>"}</DocCode>,
                             "Modifie un exercice",
                         ],
                         [
-                            <DocCode key="0">{"arrhes years delete <idYear>"}</DocCode>,
+                            <DocCode key="0">{"comptasse years delete <idYear>"}</DocCode>,
                             "Supprime un exercice",
                         ],
                         [
-                            <DocCode key="0">{"arrhes years close <idYear>"}</DocCode>,
+                            <DocCode key="0">{"comptasse years close <idYear>"}</DocCode>,
                             "Clôture un exercice",
+                        ],
+                        [
+                            <DocCode key="0">{"comptasse years open <idYear> --journal-opening <id>"}</DocCode>,
+                            "Ouvre un exercice avec un journal d'ouverture",
+                        ],
+                        [
+                            <DocCode key="0">{"comptasse years settle-balance-sheet <idYear> --journal-closing <id>"}</DocCode>,
+                            "Solde le bilan d'un exercice",
+                        ],
+                        [
+                            <DocCode key="0">{"comptasse years settle-income-statement <idYear> --journal-closing <id>"}</DocCode>,
+                            "Solde le compte de résultat d'un exercice",
                         ],
                     ]}
                 />
                 <DocExample title="Lister les identifiants d'exercices">
-                    <DocCodeBlock>{"arrhes years list | jq '.[].id'"}</DocCodeBlock>
+                    <DocCodeBlock>{"comptasse years list | jq '.[].id'"}</DocCodeBlock>
                 </DocExample>
             </DocSection>
 
@@ -134,24 +146,24 @@ export function ReferenceCliGuideDocPage() {
                     ]}
                     rows={[
                         [
-                            <DocCode key="0">arrhes accounts list --year &lt;id&gt;</DocCode>,
+                            <DocCode key="0">comptasse accounts list --year &lt;id&gt;</DocCode>,
                             "Liste les comptes",
                         ],
                         [
-                            <DocCode key="0">{"arrhes accounts create --year <id> --number <n> --label <l>"}</DocCode>,
+                            <DocCode key="0">{"comptasse accounts create --year <id> --number <n> --label <l>"}</DocCode>,
                             "Crée un compte",
                         ],
                         [
-                            <DocCode key="0">arrhes journals list --year &lt;id&gt;</DocCode>,
+                            <DocCode key="0">comptasse journals list --year &lt;id&gt;</DocCode>,
                             "Liste les journaux",
                         ],
                         [
-                            <DocCode key="0">{"arrhes journals create --year <id> --code <code> --label <l>"}</DocCode>,
+                            <DocCode key="0">{"comptasse journals create --year <id> --code <code> --label <l>"}</DocCode>,
                             "Crée un journal",
                         ],
                         [
-                            <DocCode key="0">arrhes tags list --year &lt;id&gt;</DocCode>,
-                            "Liste les libellés",
+                            <DocCode key="0">comptasse tags list --year &lt;id&gt;</DocCode>,
+                            "Liste les tags (libellés)",
                         ],
                     ]}
                 />
@@ -165,31 +177,31 @@ export function ReferenceCliGuideDocPage() {
                     ]}
                     rows={[
                         [
-                            <DocCode key="0">{"arrhes entries list --year <id>"}</DocCode>,
+                            <DocCode key="0">{"comptasse entries list --year <id>"}</DocCode>,
                             "Liste les écritures",
                         ],
                         [
-                            <DocCode key="0">{"arrhes entries get <idEntry> --year <id>"}</DocCode>,
+                            <DocCode key="0">{"comptasse entries get <idEntry> --year <id>"}</DocCode>,
                             "Détails d'une écriture",
                         ],
                         [
                             <DocCode key="0">
-                                {"arrhes entries create --year <id> --journal <id> [--label <libellé>] [--date <date>]"}
+                                {"comptasse entries create --year <id> --journal <id> [--label <libellé>] [--date <date>]"}
                             </DocCode>,
                             "Crée une écriture",
                         ],
                         [
-                            <DocCode key="0">{"arrhes entries delete <idEntry> --year <id>"}</DocCode>,
+                            <DocCode key="0">{"comptasse entries delete <idEntry> --year <id>"}</DocCode>,
                             "Supprime une écriture",
                         ],
                         [
                             <DocCode key="0">
-                                {"arrhes entries lines create <idEntry> --year <id> --account <id>"}
+                                {"comptasse entries lines create <idEntry> --year <id> --account <id>"}
                             </DocCode>,
                             "Ajoute une ligne",
                         ],
                         [
-                            <DocCode key="0">{"arrhes entries tags add <idEntry> --year <id> --tag <id>"}</DocCode>,
+                            <DocCode key="0">{"comptasse entries tags add <idEntry> --year <id> --tag <id>"}</DocCode>,
                             "Ajoute un tag",
                         ],
                     ]}
@@ -204,19 +216,19 @@ export function ReferenceCliGuideDocPage() {
                     ]}
                     rows={[
                         [
-                            <DocCode key="0">{"arrhes files list --year <id>"}</DocCode>,
+                            <DocCode key="0">{"comptasse files list --year <id>"}</DocCode>,
                             "Liste les fichiers",
                         ],
                         [
-                            <DocCode key="0">{"arrhes files create --year <id> --name <nom> [--folder <id>]"}</DocCode>,
+                            <DocCode key="0">{"comptasse files create --year <id> --name <nom> [--folder <id>]"}</DocCode>,
                             "Enregistre un fichier",
                         ],
                         [
-                            <DocCode key="0">{"arrhes exports fec --year <id>"}</DocCode>,
+                            <DocCode key="0">{"comptasse exports fec --year <id>"}</DocCode>,
                             "Génère le FEC",
                         ],
                         [
-                            <DocCode key="0">{"arrhes exports xbrl-balance-sheet --year <id>"}</DocCode>,
+                            <DocCode key="0">{"comptasse exports xbrl-balance-sheet --year <id>"}</DocCode>,
                             "Génère le bilan XBRL",
                         ],
                     ]}

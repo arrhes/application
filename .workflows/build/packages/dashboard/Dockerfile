@@ -20,7 +20,7 @@ RUN printf "VITE_API_BASE_URL=%s\nVITE_WEBSITE_BASE_URL=%s\n" \
     "$VITE_API_BASE_URL" "$VITE_WEBSITE_BASE_URL" \
     > packages/dashboard/.env
 
-RUN pnpm --filter @arrhes/dashboard... run build
+RUN pnpm --filter @comptasse/dashboard... run build
 
 # Start application
 FROM nginx:alpine AS deploy

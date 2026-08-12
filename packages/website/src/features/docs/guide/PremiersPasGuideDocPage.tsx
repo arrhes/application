@@ -2,202 +2,131 @@ import { DocCode } from "../../../components/document/DocCode.js"
 import { DocCodeBlock } from "../../../components/document/DocCodeBlock.js"
 import { DocExample } from "../../../components/document/DocExample.js"
 import { DocHeader } from "../../../components/document/DocHeader.js"
-import { DocImplementationTabs } from "../../../components/document/DocImplementationTabs.js"
 import { DocLink } from "../../../components/document/DocLink.js"
 import { DocList } from "../../../components/document/DocList.js"
 import { DocParagraph } from "../../../components/document/DocParagraph.js"
 import { DocRoot } from "../../../components/document/DocRoot.js"
 import { DocSection } from "../../../components/document/DocSection.js"
 import { DocTip } from "../../../components/document/DocTip.js"
+import { LinkButton } from "../../../components/LinkButton.js"
 
 export function PremiersPasGuideDocPage() {
     return (
         <DocRoot>
             <DocHeader
-                title="Premiers pas"
-                description="Configurez Arrhes en quelques minutes, quel que soit l'interface utilisée"
+                title="Démarrer"
+                description="Trois étapes pour installer Comptasse, vous authentifier et commencer à l'utiliser"
             />
 
-            <DocSection title="Avant de commencer">
+            <DocSection title="1. Installer Comptasse">
                 <DocParagraph>
-                    Arrhes peut être utilisé via trois interfaces : le dashboard web, l'API REST et le CLI. Chaque étape
-                    ci-dessous présente la marche à suivre selon l'interface choisie.
+                    Comptasse s'installe en un seul conteneur Docker. Vous pouvez choisir l'une des trois méthodes
+                    d'installation selon votre environnement.
                 </DocParagraph>
+
+                <DocExample title="Rapide (Docker)">
+                    <DocCodeBlock>{`docker run -d \\
+  --name comptasse \\
+  -p 3000:3000 \\
+  -p 5173:5173 \\
+  -v comptasse-data:/data \\
+  -e SQL_DATABASE_URL=postgres://user:pass@host:5432/comptasse \\
+  -e STORAGE_ENDPOINT=https://s3.amazonaws.com \\
+  -e STORAGE_BUCKET_NAME=my-bucket \\
+  -e STORAGE_ACCESS_KEY=xxx \\
+  -e STORAGE_SECRET_KEY=xxx \\
+  comptasse/comptasse`}</DocCodeBlock>
+                </DocExample>
+
+                <DocParagraph>
+                    Pour les options avancées (script d'installation, Docker Compose avec services intégrés,
+                    variables d'environnement) :{" "}
+                    <LinkButton to="/documentation/guide/installation">
+                        Voir la page Installation
+                    </LinkButton>
+                </DocParagraph>
+            </DocSection>
+
+            <DocSection title="2. S'authentifier">
+                <DocParagraph>
+                    Une fois Comptasse démarré, ouvrez le dashboard à l'adresse{" "}
+                    <DocCode>http://localhost:5173</DocCode> et créez votre compte.
+                    Vous pouvez aussi utiliser l'API ou le CLI.
+                </DocParagraph>
+
+                <DocList
+                    items={[
+                        "Dashboard : créez un compte depuis la page d'inscription",
+                        "API : utilisez POST /v1/auth/sign-up puis POST /v1/auth/sign-in",
+                        "CLI : exécutez comptasse login pour créer un compte ou vous connecter",
+                    ]}
+                />
+
+                <DocParagraph>
+                    Pour les détails de chaque méthode d'authentification :{" "}
+                    <LinkButton to="/documentation/guide/authentification">
+                        Voir la page Authentification
+                    </LinkButton>
+                </DocParagraph>
+
                 <DocTip variant="info">
-                    Si vous débutez en comptabilité, nous vous recommandons de lire le{" "}
-                    <DocLink to="/documentation/comptabilité">cours de comptabilité</DocLink> avant de commencer.
+                    Le CLI est un client HTTP autonome. Installez-le avec{" "}
+                    <DocCode>curl -fsSL https://comptasse.com/cli/install.sh | sh</DocCode> ou
+                    utilisez-le directement dans le conteneur avec{" "}
+                    <DocCode>docker exec comptasse comptasse --help</DocCode>.
                 </DocTip>
             </DocSection>
 
-            <DocSection title="1. Créer un compte">
-                <DocImplementationTabs
-                    dashboard={
-                        <>
-                            <DocParagraph>
-                                Rendez-vous sur le site d'Arrhes et renseignez votre adresse email ainsi qu'un mot de
-                                passe.
-                            </DocParagraph>
-                            <DocExample title="Créer un compte">
-                                <DocList
-                                    items={[
-                                        "Allez sur la page d'inscription",
-                                        "Renseignez votre adresse email",
-                                        "Choisissez un mot de passe sécurisé",
-                                        "Validez le formulaire",
-                                    ]}
-                                />
-                            </DocExample>
-                            <DocParagraph>
-                                Un email de confirmation vous sera envoyé. Cliquez sur le lien pour activer votre
-                                compte.
-                            </DocParagraph>
-                        </>
-                    }
-                    api={
-                        <>
-                            <DocParagraph>
-                                La création de compte se fait via l'interface web. Une fois le compte actif, vous pouvez
-                                utiliser l'API avec un cookie de session ou une clé API.
-                            </DocParagraph>
-                            <DocTip variant="info">
-                                Consultez la page{" "}
-                                <DocLink to="/documentation/guide/authentification">Authentification</DocLink> pour les
-                                détails des méthodes d'authentification.
-                            </DocTip>
-                        </>
-                    }
-                    cli={
-                        <>
-                            <DocParagraph>
-                                Le CLI nécessite une clé API. Créez d'abord un compte via le dashboard, puis générez une
-                                clé API pour connecter le CLI.
-                            </DocParagraph>
-                            <DocTip variant="info">
-                                Suivez les étapes de la page{" "}
-                                <DocLink to="/documentation/guide/authentification">Authentification</DocLink> pour
-                                connecter le CLI.
-                            </DocTip>
-                        </>
-                    }
-                />
-            </DocSection>
-
-            <DocSection title="2. Créer une organisation">
-                <DocImplementationTabs
-                    dashboard={
-                        <>
-                            <DocParagraph>
-                                Une fois connecté, vous arrivez sur le tableau de bord. Si c'est votre première
-                                connexion, vous serez invité à créer une organisation.
-                            </DocParagraph>
-                            <DocExample title="Ajouter une organisation">
-                                <DocList
-                                    items={[
-                                        "Cliquez sur « Ajouter une organisation »",
-                                        "Choisissez le type : Entreprise ou Association",
-                                        "Renseignez le nom de votre organisation",
-                                        "Indiquez le numéro SIREN si vous en avez un (optionnel)",
-                                        "Validez",
-                                    ]}
-                                />
-                            </DocExample>
-                            <DocTip variant="info">
-                                Vous pouvez gérer plusieurs organisations depuis le même compte.
-                            </DocTip>
-                        </>
-                    }
-                    api={
-                        <>
-                            <DocParagraph>
-                                Utilisez l'endpoint de création d'organisation. Le type d'organisation détermine le plan
-                                comptable par défaut.
-                            </DocParagraph>
-                            <DocCodeBlock>
-                                {
-                                    'POST /v1/organizations\nContent-Type: application/json\n\n{\n  "name": "Ma Société",\n  "type": "company",\n  "siren": "123456789"\n}'
-                                }
-                            </DocCodeBlock>
-                            <DocTip variant="warning">
-                                Le type d'organisation est défini à la création et ne peut pas être modifié ensuite.
-                            </DocTip>
-                        </>
-                    }
-                    cli={
-                        <>
-                            <DocParagraph>
-                                La création d'organisation n'est pas disponible directement en CLI. Créez l'organisation
-                                via le dashboard, puis configurez le CLI avec son identifiant.
-                            </DocParagraph>
-                            <DocCodeBlock>arrhes login</DocCodeBlock>
-                        </>
-                    }
-                />
-            </DocSection>
-
-            <DocSection title="3. Créer un exercice comptable">
-                <DocImplementationTabs
-                    dashboard={
-                        <>
-                            <DocParagraph>
-                                Après avoir créé votre organisation, vous devez définir un exercice comptable.
-                            </DocParagraph>
-                            <DocExample title="Créer un exercice">
-                                <DocList
-                                    items={[
-                                        "Accédez à votre organisation",
-                                        "Cliquez sur « Ajouter un exercice »",
-                                        "Donnez un nom à l'exercice (ex : Exercice 2025)",
-                                        "Définissez les dates de début et de fin",
-                                        "Validez",
-                                    ]}
-                                />
-                            </DocExample>
-                            <DocParagraph>
-                                Arrhes crée automatiquement un plan comptable adapté au type d'organisation.
-                            </DocParagraph>
-                        </>
-                    }
-                    api={
-                        <>
-                            <DocParagraph>Créez un exercice en précisant les dates de début et de fin.</DocParagraph>
-                            <DocCodeBlock>
-                                {
-                                    'POST /v1/organizations/:idOrganization/years\nContent-Type: application/json\n\n{\n  "label": "Exercice 2025",\n  "startDate": "2025-01-01",\n  "endDate": "2025-12-31"\n}'
-                                }
-                            </DocCodeBlock>
-                        </>
-                    }
-                    cli={
-                        <>
-                            <DocParagraph>
-                                Utilisez la commande <DocCode>arrhes years create</DocCode>.
-                            </DocParagraph>
-                            <DocCodeBlock>
-                                arrhes years create --start 2025-01-01 --end 2025-12-31 --label "Exercice 2025"
-                            </DocCodeBlock>
-                        </>
-                    }
-                />
-            </DocSection>
-
-            <DocSection title="4. Découvrir l'interface">
+            <DocSection title="3. Commencer à utiliser">
                 <DocParagraph>
-                    Le dashboard fonctionne comme un éditeur de code : chaque vue s'ouvre dans un{" "}
-                    <strong>onglet</strong>. Vous pouvez garder plusieurs contextes ouverts simultanément.
+                    Après votre première connexion, suivez ces étapes pour configurer votre environnement et saisir
+                    vos premières écritures.
                 </DocParagraph>
-                <DocExample title="Navigation rapide">
+
+                <DocExample title="Parcours recommandé">
                     <DocList
                         items={[
-                            "Ouvrez la palette de commandes avec Ctrl+K (ou ⌘+K sur Mac).",
-                            "Cliquez sur un onglet pour l'activer, sur la croix pour le fermer.",
-                            "Faites glisser un onglet pour le réorganiser.",
-                            "Clic droit sur un onglet pour l'ouvrir en vue divisée.",
+                            "Créez votre première organisation",
+                            "Créez un exercice comptable",
+                            "Vérifiez le plan comptable généré automatiquement",
+                            "Créez un journal de banque et un journal d'achats",
+                            "Saisissez votre première écriture",
                         ]}
                     />
                 </DocExample>
-                <DocTip variant="tip">
-                    Utilisez la vue divisée pour consulter le journal pendant la saisie d'une écriture.
-                </DocTip>
+
+                <DocParagraph>
+                    Explorer les sections suivantes :
+                </DocParagraph>
+
+                <DocList
+                    items={[
+                        <LinkButton key="organisations" to="/documentation/guide/organisations">
+                            Organisations
+                        </LinkButton>,
+                        <LinkButton key="exercices" to="/documentation/guide/exercices">
+                            Exercices
+                        </LinkButton>,
+                        <LinkButton key="comptes" to="/documentation/guide/comptes">
+                            Comptes
+                        </LinkButton>,
+                        <LinkButton key="journaux" to="/documentation/guide/journaux">
+                            Journaux
+                        </LinkButton>,
+                        <LinkButton key="ecritures" to="/documentation/guide/écritures">
+                            Écritures
+                        </LinkButton>,
+                    ]}
+                />
+            </DocSection>
+
+            <DocSection title="Besoin d'aide ?">
+                <DocParagraph>
+                    Si vous débutez en comptabilité, commencez par le{" "}
+                    <LinkButton to="/documentation/comptabilité">cours de comptabilité</LinkButton>.
+                    Vous pouvez aussi consulter la page{" "}
+                    <DocLink to="/documentation/support">Support</DocLink> pour poser une question.
+                </DocParagraph>
             </DocSection>
         </DocRoot>
     )

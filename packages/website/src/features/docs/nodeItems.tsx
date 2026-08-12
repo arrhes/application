@@ -1,116 +1,97 @@
 import {
     IconBook,
     IconBooks,
+    IconBrain,
     IconBuilding,
+    IconBuildingArch,
     IconCalendar,
+    IconChecklist,
     IconCode,
     IconCompass,
     IconGavel,
+    IconGitPullRequest,
     IconHome,
-    IconInfoCircle,
+    IconLifebuoy,
+    IconListCheck,
     IconPackage,
     IconPencil,
+    IconProgressCheck,
     IconReport,
     IconRobot,
-    IconRocket,
     IconStack,
 } from "@tabler/icons-react"
-import type { DocSection } from "./SectionTab.tsx"
+import type { NodeItem } from "./NodeItem.js"
 
 // Documentation sections configuration
-export const docSections: Record<string, DocSection> = {
-    general: {
-        id: "general",
-        label: "Général",
-        path: "/documentation",
-        icon: <IconInfoCircle />,
-        navigation: {
-            root: {
-                items: [
-                    {
-                        path: "/documentation",
-                        label: "Accueil",
-                    },
-                ],
-            },
-            introduction: {
-                title: "Introduction",
-                icon: <IconHome />,
-                items: [
-                    {
-                        path: "/documentation/fonctionnalités",
-                        label: "Fonctionnalités",
-                    },
-                    {
-                        path: "/documentation/architecture",
-                        label: "Architecture",
-                    },
-                    {
-                        path: "/documentation/philosophie",
-                        label: "Philosophie",
-                    },
-                    {
-                        path: "/documentation/mises-à-jour",
-                        label: "Mises à jour",
-                    },
-                    {
-                        path: "/documentation/support",
-                        label: "Support",
-                    },
-                ],
-            },
-            legal: {
-                title: "Légal",
-                icon: <IconGavel />,
-                items: [
-                    {
-                        path: "/documentation/mentions-légales",
-                        label: "Mentions légales",
-                    },
-                    {
-                        path: "/documentation/confidentialité",
-                        label: "Politique de confidentialité",
-                    },
-                ],
-            },
-        },
+export const nodeItems: NodeItem = [
+    {
+        label: "Accueil",
+        path: "/",
+        icon: <IconHome />,
     },
-    guide: {
-        id: "guide",
+    {
+        label: "Projet",
+        path: null,
+        icon: <IconChecklist />,
+        children: [
+            {
+                icon: <IconListCheck />,
+                path: "/documentation/fonctionnalités",
+                label: "Fonctionnalités",
+            },
+            {
+                icon: <IconBuildingArch />,
+                path: "/documentation/architecture",
+                label: "Architecture",
+            },
+            {
+                icon: <IconBrain />,
+                path: "/documentation/philosophie",
+                label: "Philosophie",
+            },
+            {
+                icon: <IconProgressCheck />,
+                path: "/documentation/mises-à-jour",
+                label: "Mises à jour",
+            },
+            {
+                icon: <IconGitPullRequest />,
+                path: "/documentation/contribuer",
+                label: "Contribuer",
+            },
+            {
+                icon: <IconLifebuoy />,
+                path: "/documentation/support",
+                label: "Support",
+            },
+            {
+                icon: <IconGavel />,
+                path: "/documentation/mentions-légales",
+                label: "Mentions légales",
+            },
+        ],
+    },
+    {
         label: "Guide",
-        path: "/documentation/guide",
+        path: null,
         icon: <IconCompass />,
-        navigation: {
-            home: {
-                items: [
-                    {
-                        path: "/documentation/guide",
-                        label: "Accueil",
-                    },
-                ],
+        children: [
+            {
+                path: "/documentation/guide/démarrer",
+                label: "Démarrer",
             },
-            demarrage: {
-                title: "Prise en main",
-                icon: <IconRocket />,
-                items: [
-                    {
-                        path: "/documentation/guide/démarrer",
-                        label: "Démarrer avec Arrhes",
-                    },
-                    {
-                        path: "/documentation/guide/installation",
-                        label: "Installation",
-                    },
-                    {
-                        path: "/documentation/guide/authentification",
-                        label: "Authentification",
-                    },
-                ],
+            {
+                path: "/documentation/guide/installation",
+                label: "Installation",
             },
-            organisation: {
-                title: "Organisation",
+            {
+                path: "/documentation/guide/authentification",
+                label: "Authentification",
+            },
+            {
+                label: "Organisation",
                 icon: <IconBuilding />,
-                items: [
+                children: [
                     {
                         path: "/documentation/guide/organisations",
                         label: "Organisations",
@@ -121,10 +102,10 @@ export const docSections: Record<string, DocSection> = {
                     },
                 ],
             },
-            exercice: {
-                title: "Exercice",
+            {
+                label: "Exercice",
                 icon: <IconCalendar />,
-                items: [
+                children: [
                     {
                         path: "/documentation/guide/exercices",
                         label: "Exercices",
@@ -143,20 +124,20 @@ export const docSections: Record<string, DocSection> = {
                     },
                 ],
             },
-            ecritures: {
-                title: "Écritures",
+            {
+                label: "Écritures",
                 icon: <IconPencil />,
-                items: [
+                children: [
                     {
                         path: "/documentation/guide/écritures",
                         label: "Saisie des écritures",
                     },
                 ],
             },
-            documents: {
-                title: "Documents",
+            {
+                label: "Documents",
                 icon: <IconReport />,
-                items: [
+                children: [
                     {
                         path: "/documentation/guide/stockage",
                         label: "Stockage & Fichiers",
@@ -179,20 +160,20 @@ export const docSections: Record<string, DocSection> = {
                     },
                 ],
             },
-            gestion: {
-                title: "Gestion",
+            {
+                label: "Gestion",
                 icon: <IconPackage />,
-                items: [
+                children: [
                     {
                         path: "/documentation/guide/inventaire",
                         label: "Inventaire",
                     },
                 ],
             },
-            reference: {
-                title: "Référence",
+            {
+                label: "Référence",
                 icon: <IconCode />,
-                items: [
+                children: [
                     {
                         path: "/documentation/guide/référence-api",
                         label: "Référence API",
@@ -203,10 +184,20 @@ export const docSections: Record<string, DocSection> = {
                     },
                 ],
             },
-            agent: {
-                title: "Agent",
+            {
+                label: "Base de données",
+                icon: <IconStack />,
+                children: [
+                    {
+                        path: "/documentation/guide/migrations",
+                        label: "Migrations",
+                    },
+                ],
+            },
+            {
+                label: "Agent",
                 icon: <IconRobot />,
-                items: [
+                children: [
                     {
                         path: "/documentation/guide/agent",
                         label: "Skills",
@@ -217,28 +208,21 @@ export const docSections: Record<string, DocSection> = {
                     },
                 ],
             },
-        },
+        ],
     },
-    comptabilite: {
-        id: "comptabilite",
-        label: "Comptabilité",
-        path: "/documentation/comptabilité",
+    {
+        label: "Cours de comptabilité",
+        path: null,
         icon: <IconBook />,
-        navigation: {
-            home: {
-                title: undefined,
-                icon: undefined,
-                items: [
-                    {
-                        path: "/documentation/comptabilité",
-                        label: "Accueil",
-                    },
-                ],
+        children: [
+            {
+                path: "/documentation/comptabilité",
+                label: "Introduction",
             },
-            introduction: {
-                title: "Les bases",
+            {
+                label: "Les bases",
                 icon: <IconStack />,
-                items: [
+                children: [
                     {
                         path: "/documentation/comptabilité/introduction/",
                         label: "Introduction",
@@ -261,10 +245,10 @@ export const docSections: Record<string, DocSection> = {
                     },
                 ],
             },
-            documents: {
-                title: "Documents",
+            {
+                label: "Documents",
                 icon: <IconReport />,
-                items: [
+                children: [
                     {
                         path: "/documentation/comptabilité/documents",
                         label: "Introduction",
@@ -299,10 +283,10 @@ export const docSections: Record<string, DocSection> = {
                     },
                 ],
             },
-            scenarios: {
-                title: "Ressources",
+            {
+                label: "Ressources",
                 icon: <IconBooks />,
-                items: [
+                children: [
                     {
                         path: "/documentation/comptabilité/ressources/comptes",
                         label: "Liste des comptes",
@@ -317,9 +301,6 @@ export const docSections: Record<string, DocSection> = {
                     },
                 ],
             },
-            glossaire: {
-                items: [],
-            },
-        },
+        ],
     },
-}
+]

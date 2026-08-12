@@ -30,7 +30,7 @@ _is_valid_five_digit_port() {
 
 # Clean up stale dev containers that may have been created under another
 # compose project name while still using the same explicit container_name.
-for container_name in arrhes-postgres arrhes-rustfs arrhes-gateway arrhes-mailpit arrhes-api arrhes-website arrhes-dashboard; do
+for container_name in comptasse-postgres comptasse-rustfs comptasse-api comptasse-website comptasse-dashboard arrhes-postgres arrhes-rustfs arrhes-api arrhes-website arrhes-dashboard; do
     docker rm -f "$container_name" >/dev/null 2>&1 || true
 done
 
@@ -68,8 +68,6 @@ website_host_port=$(_allocate_port_for_key WEBSITE_HOST_PORT)
 api_host_port=$(_allocate_port_for_key API_HOST_PORT)
 storage_host_port=$(_allocate_port_for_key STORAGE_HOST_PORT)
 rustfs_ui_host_port=$(_allocate_port_for_key RUSTFS_UI_HOST_PORT)
-mailpit_ui_host_port=$(_allocate_port_for_key MAILPIT_UI_HOST_PORT)
-mailpit_smtp_host_port=$(_allocate_port_for_key MAILPIT_SMTP_HOST_PORT)
 postgres_host_port=$(_allocate_port_for_key POSTGRES_HOST_PORT)
 dashboard_host_port=$(_allocate_port_for_key DASHBOARD_HOST_PORT)
 
@@ -78,8 +76,6 @@ WEBSITE_HOST_PORT=$website_host_port
 API_HOST_PORT=$api_host_port
 STORAGE_HOST_PORT=$storage_host_port
 RUSTFS_UI_HOST_PORT=$rustfs_ui_host_port
-MAILPIT_UI_HOST_PORT=$mailpit_ui_host_port
-MAILPIT_SMTP_HOST_PORT=$mailpit_smtp_host_port
 POSTGRES_HOST_PORT=$postgres_host_port
 DASHBOARD_HOST_PORT=$dashboard_host_port
 EOF
@@ -88,8 +84,6 @@ if ! WEBSITE_HOST_PORT="$website_host_port" \
    API_HOST_PORT="$api_host_port" \
    STORAGE_HOST_PORT="$storage_host_port" \
    RUSTFS_UI_HOST_PORT="$rustfs_ui_host_port" \
-   MAILPIT_UI_HOST_PORT="$mailpit_ui_host_port" \
-   MAILPIT_SMTP_HOST_PORT="$mailpit_smtp_host_port" \
    POSTGRES_HOST_PORT="$postgres_host_port" \
    DASHBOARD_HOST_PORT="$dashboard_host_port" \
        "${DC[@]}" up --detach --build --force-recreate --wait; then
@@ -109,7 +103,7 @@ fi
 
 echo ""
 echo "=============================================="
-echo "  Arrhes Development Environment"
+echo "  Comptasse Development Environment"
 echo "=============================================="
 echo ""
 echo "  Services:"
@@ -119,18 +113,12 @@ echo "    API:        http://localhost:$api_host_port"
 echo ""
 echo "  Infrastructure:"
 echo "    PostgreSQL: postgres://postgres:admin@localhost:$postgres_host_port/default"
-echo "    Mailpit UI: http://localhost:$mailpit_ui_host_port"
-echo "    SMTP:       localhost:$mailpit_smtp_host_port"
 echo "    Storage:    http://localhost:$storage_host_port"
 echo "    RustFS UI:  http://localhost:$rustfs_ui_host_port"
 echo ""
 echo "  Demo Credentials:"
-echo "    Email:      demo@arrhes.com"
+echo "    Email:      demo@comptasse.com"
 echo "    Password:   demo"
-echo ""
-echo "  Admin Credentials:"
-echo "    Email:      admin@arrhes.com"
-echo "    Password:   admin"
 echo ""
 echo "  Logs: docker compose -f $COMPOSE_FILE logs -f"
 echo "=============================================="

@@ -9,7 +9,7 @@ export const organisationGuideDocRoute = createRoute({
     path: "/organisations",
     beforeLoad: () => ({
         title: "Organisations",
-        description: "Gérez vos organisations Arrhes : création, paramètres, membres et suppression.",
+        description: "Gérez vos organisations Comptasse : création, paramètres, membres et suppression.",
     }),
     component: () => (
         <DocRoot>

@@ -7,7 +7,7 @@ export const agentToolsDocRoute = createRoute({
     path: "/agent/outils",
     beforeLoad: () => ({
         title: "Outils et code",
-        description: "Exemples TypeScript et Python pour utiliser l'API Arrhes avec un agent IA.",
+        description: "Exemples TypeScript et Python pour utiliser l'API Comptasse avec un agent IA.",
     }),
     component: () => <AgentToolsDocPage />,
 })

@@ -10,7 +10,7 @@ export const demarrerGuideDocRoute = createRoute({
     beforeLoad: () => ({
         title: "Premiers pas",
         description:
-            "Configurez Arrhes en quelques minutes : créez votre compte, votre organisation et votre premier exercice.",
+            "Configurez Comptasse en quelques minutes : créez votre compte, votre organisation et votre premier exercice.",
     }),
     component: () => (
         <DocRoot>

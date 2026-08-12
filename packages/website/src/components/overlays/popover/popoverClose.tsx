@@ -1,1 +1,1 @@
-export { PopoverClose } from "@arrhes/ui/components/overlays/popover/popoverClose.js"
+export { PopoverClose } from "@comptasse/ui/components/overlays/popover/popoverClose.js"

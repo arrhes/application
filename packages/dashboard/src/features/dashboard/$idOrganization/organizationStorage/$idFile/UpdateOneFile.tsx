@@ -1,5 +1,5 @@
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button } from "@arrhes/ui"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { Button } from "@comptasse/ui"
 import { type JSX } from "react"
 import type * as v from "valibot"
 import { useRightPanel } from "../../../../../contexts/rightPanel/RightPanelContext.js"

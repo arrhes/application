@@ -6,7 +6,7 @@ export function sitemapPlugin(): Plugin {
     return {
         name: "sitemap-generator",
         closeBundle() {
-            const baseUrl = "https://arrhes.com"
+            const baseUrl = "https://comptasse.com"
             const today = new Date().toISOString().split("T")[0]
 
             // Static public routes

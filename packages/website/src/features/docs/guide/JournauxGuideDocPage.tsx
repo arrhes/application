@@ -4,7 +4,7 @@ import {
     readAllJournalsRouteDefinition,
     readOneJournalRouteDefinition,
     updateOneJournalRouteDefinition,
-} from "@arrhes/application-metadata/routes"
+} from "@comptasse/application-metadata/routes"
 import { DocCode } from "../../../components/document/DocCode.js"
 import { DocCodeBlock } from "../../../components/document/DocCodeBlock.js"
 import { DocExample } from "../../../components/document/DocExample.js"
@@ -81,32 +81,32 @@ export function JournauxGuideDocPage() {
                                 ]}
                                 rows={[
                                     [
-                                        <DocCode key="0">{"arrhes journals list --year <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse journals list --year <id>"}</DocCode>,
                                         "Liste les journaux",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes journals get <id> --year <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse journals get <id> --year <id>"}</DocCode>,
                                         "Détails d'un journal",
                                     ],
                                     [
                                         <DocCode key="0">
-                                            {"arrhes journals create --year <id> --code <code> --label <libellé>"}
+                                            {"comptasse journals create --year <id> --code <code> --label <libellé>"}
                                         </DocCode>,
                                         "Crée un journal",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes journals update <id> --year <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse journals update <id> --year <id>"}</DocCode>,
                                         "Modifie un journal",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes journals delete <id> --year <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse journals delete <id> --year <id>"}</DocCode>,
                                         "Supprime un journal",
                                     ],
                                 ]}
                             />
                             <DocExample title="Créer un journal d'achats">
                                 <DocCodeBlock>
-                                    arrhes journals create --year year_xyz --code ACH --label "Achats"
+                                    comptasse journals create --year year_xyz --code ACH --label "Achats"
                                 </DocCodeBlock>
                             </DocExample>
                             <DocTip variant="warning">

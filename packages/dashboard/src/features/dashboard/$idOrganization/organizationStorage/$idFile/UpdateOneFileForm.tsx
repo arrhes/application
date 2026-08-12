@@ -1,13 +1,13 @@
-import { fileSchema } from "@arrhes/application-metadata/components"
+import { fileSchema } from "@comptasse/application-metadata/components"
 import {
     finalizeFileUploadRouteDefinition,
     generateFilePutSignedUrlRouteDefinition,
     readAllFilesRouteDefinition,
     readOneFileRouteDefinition,
     updateOneFileRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { InputDate, InputFile, InputText, toast } from "@arrhes/ui"
+} from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { InputDate, InputFile, InputText, toast } from "@comptasse/ui"
 import { IconPencil } from "@tabler/icons-react"
 import { Fragment } from "react/jsx-runtime"
 import * as v from "valibot"

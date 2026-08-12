@@ -1,8 +1,7 @@
 import { createRoute } from "@tanstack/react-router"
 import { DocRoot } from "../../../../components/document/DocRoot"
+import { SupportGeneralDocPage } from "../../../../features/docs/project/SupportGeneralDocPage.js"
 import { docsLayoutRoute } from "../docsLayoutRoute.js"
-import { SupportGeneralDocPage } from "../../../../features/docs/general/SupportGeneralDocPage.js"
-
 
 export const supportGeneralDocRoute = createRoute({
     getParentRoute: () => docsLayoutRoute,
@@ -10,7 +9,7 @@ export const supportGeneralDocRoute = createRoute({
     beforeLoad: () => ({
         title: "Support",
         description:
-            "Besoin d'aide avec Arrhes ? Contactez notre support ou consultez la documentation pour résoudre vos problèmes.",
+            "Besoin d'aide avec Comptasse ? Contactez notre support ou consultez la documentation pour résoudre vos problèmes.",
     }),
     component: () => (
         <DocRoot>

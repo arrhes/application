@@ -1,8 +1,7 @@
-import { Badge, ButtonGhostContent, ButtonOutlineContent, ButtonPlainContent, Logo } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconBook2, IconBrandGithub, IconGavel, IconHeart, IconRocket } from "@tabler/icons-react"
+import { Badge, ButtonPlainContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
+import { IconRocket } from "@tabler/icons-react"
 import { LinkButton } from "../../components/LinkButton.js"
-import { Features } from "./Features.tsx"
 import { HeroIllustration } from "./HeroIllustration.js"
 
 export function HomePage() {
@@ -10,316 +9,108 @@ export function HomePage() {
         <div
             className={css({
                 width: "100%",
-                minHeight: "fit-content",
-                height: "100%",
+                minHeight: "100%",
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "start",
-                alignItems: "stretch",
+                justifyContent: "center",
+                alignItems: "center",
+                padding: "4rem 1rem",
                 backgroundColor: "background",
             })}
         >
-            {/* Header */}
-            <header
+            <div
                 className={css({
                     width: "100%",
+                    maxWidth: "xl",
                     display: "flex",
                     flexDirection: "column",
-                    justifyContent: "start",
+                    justifyContent: "center",
                     alignItems: "center",
-                    padding: "1rem",
-                    borderBottom: "1px solid",
-                    borderBottomColor: "neutral/10",
-                    backgroundColor: "white",
-                    position: "sticky",
-                    top: "0",
-                    zIndex: "10",
+                    gap: "3rem",
                 })}
             >
+                {/* Illustration first */}
                 <div
                     className={css({
-                        width: "100%",
-                        maxWidth: "xl",
                         display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "start",
-                        flexWrap: "wrap",
-                        gap: "1rem",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    })}
+                >
+                    <HeroIllustration />
+                </div>
+
+                {/* Content */}
+                <div
+                    className={css({
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "start",
+                        alignItems: "center",
+                        gap: "1.5rem",
+                        textAlign: "center",
                     })}
                 >
                     <div
                         className={css({
                             display: "flex",
-                            justifyContent: "start",
+                            flexDirection: "row",
+                            justifyContent: "center",
                             alignItems: "center",
                             gap: "0.25rem",
                         })}
                     >
-                        <LinkButton to="/">
-                            <ButtonGhostContent
-                                leftIcon={<Logo />}
-                                text="Arrhes"
-                            />
-                        </LinkButton>
-                    </div>
-                    <nav
-                        className={css({
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "0.5rem",
-                        })}
-                    >
-                        <a
-                            href="https://github.com/arrhes"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <ButtonGhostContent leftIcon={<IconBrandGithub />} />
-                        </a>
-                        <a
-                            href="https://payment-links.mollie.com/payment/QHxRXo6269KKB2fUa3YcR"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="Faire un don"
-                        >
-                            <ButtonOutlineContent
-                                leftIcon={<IconHeart />}
-                                text="Faire un don"
-                            />
-                        </a>
-                        <LinkButton to="/documentation">
-                            <ButtonPlainContent
-                                leftIcon={<IconBook2 />}
-                                text="Documentation"
-                            />
-                        </LinkButton>
-                    </nav>
-                </div>
-            </header>
-
-            {/* Hero Section */}
-            <section
-                className={css({
-                    width: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "start",
-                    alignItems: "center",
-                    paddingX: "1rem",
-                    paddingY: "4rem",
-                    borderBottom: "1px solid",
-                    borderBottomColor: "neutral/10",
-                })}
-            >
-                <div
-                    className={css({
-                        width: "100%",
-                        maxWidth: "xl",
-                        display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        gap: "3rem",
-                    })}
-                >
-                    {/* Content */}
-                    <div
-                        className={css({
-                            flex: "1",
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "start",
-                            alignItems: {
-                                base: "center",
-                                md: "start",
-                            },
-                            gap: "1rem",
-                        })}
-                    >
+                        <Badge>Gratuit</Badge>
                         <Badge>Open source</Badge>
-
-                        <h1
-                            className={css({
-                                fontSize: "lg",
-                                fontWeight: "300",
-                                color: "neutral",
-                                lineHeight: "normal",
-                                letterSpacing: "normal",
-                                textAlign: {
-                                    base: "center",
-                                    md: "left",
-                                },
-                            })}
-                        >
-                            Le logiciel de comptabilité moderne et intuitif,
-                            <br />
-                            pour{" "}
-                            <span
-                                className={css({
-                                    fontSize: "inherit",
-                                    color: "primary",
-                                    fontWeight: "semibold",
-                                })}
-                            >
-                                ceux qui veulent reprendre la main sur leur comptabilité
-                            </span>{" "}
-                            .
-                        </h1>
-
-                        <div
-                            className={css({
-                                marginTop: "1rem",
-                                display: "flex",
-                                flexDirection: {
-                                    base: "column",
-                                    sm: "row",
-                                },
-                                alignItems: "center",
-                                gap: "0.5rem",
-                            })}
-                        >
-                            <LinkButton to="/documentation">
-                                <ButtonOutlineContent
-                                    leftIcon={<IconBook2 />}
-                                    text="En savoir plus"
-                                />
-                            </LinkButton>
-                            <LinkButton to="/documentation/guide">
-                                <ButtonPlainContent
-                                    leftIcon={<IconRocket />}
-                                    text="Démarrer"
-                                />
-                            </LinkButton>
-                        </div>
+                        <Badge>Self-host</Badge>
                     </div>
 
-                    {/* Illustration */}
+                    <h1
+                        className={css({
+                            fontSize: "lg",
+                            fontWeight: "300",
+                            color: "neutral",
+                            lineHeight: "normal",
+                            letterSpacing: "normal",
+                            textAlign: "center",
+                            maxWidth: "2xl",
+                        })}
+                    >
+                        Le logiciel de comptabilité moderne et intuitif,
+                        <br />
+                        pour{" "}
+                        <span
+                            className={css({
+                                fontSize: "inherit",
+                                color: "primary",
+                                fontWeight: "semibold",
+                            })}
+                        >
+                            ceux qui veulent reprendre la main sur leur comptabilité
+                        </span>{" "}
+                        .
+                    </h1>
+
                     <div
                         className={css({
-                            display: {
-                                base: "none",
-                                md: "flex",
+                            display: "flex",
+                            flexDirection: {
+                                base: "column",
+                                sm: "row",
                             },
-                            justifyContent: "center",
                             alignItems: "center",
-                            // flex: "1",
-                            // maxWidth: "20rem",
+                            gap: "0.75rem",
                         })}
                     >
-                        <HeroIllustration />
+                        <LinkButton to="/documentation/guide/démarrer">
+                            <ButtonPlainContent
+                                leftIcon={<IconRocket />}
+                                text="Commencer à l'utiliser"
+                            />
+                        </LinkButton>
                     </div>
                 </div>
-            </section>
-
-            <Features />
-
-            {/* Documentation CTA */}
-            <section
-                className={css({
-                    width: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "start",
-                    alignItems: "center",
-                    paddingX: "1rem",
-                    paddingY: "4rem",
-                    // backgroundColor: "white",
-                    borderTop: "1px solid",
-                    borderTopColor: "neutral/10",
-                })}
-            >
-                <div
-                    className={css({
-                        width: "100%",
-                        maxWidth: "xl",
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "start",
-                        alignItems: "start",
-                        gap: "2rem",
-                    })}
-                >
-                    <h2
-                        className={css({
-                            fontSize: "xl",
-                            fontWeight: "bold",
-                            color: "neutral",
-                        })}
-                    >
-                        Nouveau en comptabilité ?
-                    </h2>
-                    <p
-                        className={css({
-                            color: "neutral/60",
-                            lineHeight: "relaxed",
-                        })}
-                    >
-                        Notre documentation inclut un cours sur les bases de la comptabilité française.
-                        <br />
-                        Apprenez les concepts essentiels : partie double, plan comptable, écritures, journaux…
-                    </p>
-                    <LinkButton to="/documentation/comptabilité">
-                        <ButtonOutlineContent
-                            leftIcon={<IconBook2 />}
-                            text="Découvrir le cours de comptabilité"
-                        />
-                    </LinkButton>
-                </div>
-            </section>
-
-            {/* Footer */}
-            <footer
-                className={css({
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "start",
-                    padding: "1rem",
-                    borderTop: "1px solid",
-                    borderTopColor: "neutral/10",
-                    backgroundColor: "white",
-                    marginTop: "auto",
-                })}
-            >
-                <div
-                    className={css({
-                        width: "100%",
-                        maxWidth: "xl",
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        gap: "1rem",
-                    })}
-                >
-                    {/* <span>
-                        Arrhes
-                        {/* [2024-{(new Date()).getFullYear()}] 
-                    </span>*/}
-                    {/* <Button
-                        onClick={() => {
-                            window.scrollTo({ top: 0, behavior: 'smooth' }); 
-                        }}
-                    >
-                        <Logo withText />
-                    </Button> */}
-                    <LinkButton to="/documentation/mentions-légales">
-                        <ButtonGhostContent
-                            leftIcon={<IconGavel />}
-                            text="Mentions légales"
-                        />
-                    </LinkButton>
-                    <a
-                        href="https://payment-links.mollie.com/payment/QHxRXo6269KKB2fUa3YcR"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <ButtonGhostContent
-                            leftIcon={<IconHeart />}
-                            text="Faire un don"
-                        />
-                    </a>
-                </div>
-            </footer>
+            </div>
         </div>
     )
 }

@@ -1,5 +1,5 @@
-import { ButtonOutlineContent, ButtonPlainContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { ButtonOutlineContent, ButtonPlainContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconDatabase, IconEye, IconInfoCircle, IconPencil, IconTrash } from "@tabler/icons-react"
 import { Suspense } from "react"
 import { Page } from "../../../../../components/layouts/page/page.tsx"

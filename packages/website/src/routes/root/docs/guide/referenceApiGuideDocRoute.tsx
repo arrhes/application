@@ -9,7 +9,7 @@ export const referenceApiGuideDocRoute = createRoute({
     path: "/référence-api",
     beforeLoad: () => ({
         title: "Référence API",
-        description: "Conventions, codes d'erreur et catalogue des endpoints de l'API Arrhes.",
+        description: "Conventions, codes d'erreur et catalogue des endpoints de l'API Comptasse.",
     }),
     component: () => (
         <DocRoot>

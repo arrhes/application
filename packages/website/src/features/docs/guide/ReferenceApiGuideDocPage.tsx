@@ -13,11 +13,11 @@ export function ReferenceApiGuideDocPage() {
         <DocRoot>
             <DocHeader
                 title="Référence API"
-                description="Conventions, codes d'erreur et catalogue des endpoints de l'API Arrhes"
+                description="Conventions, codes d'erreur et catalogue des endpoints de l'API Comptasse"
             />
 
             <DocSection title="Conventions">
-                <DocParagraph>L'API d'Arrhes suit les conventions REST standard :</DocParagraph>
+                <DocParagraph>L'API de Comptasse suit les conventions REST standard :</DocParagraph>
                 <DocList
                     items={[
                         "GET pour la lecture, POST pour la création, PATCH pour la modification, DELETE pour la suppression",
@@ -102,7 +102,7 @@ export function ReferenceApiGuideDocPage() {
 
             <DocSection title="Catégories de routes">
                 <DocParagraph>
-                    L'API expose 110 routes protégées réparties en 19 catégories. Le tableau ci-dessous résume chaque
+                    L'API expose 120 routes protégées réparties en 21 catégories. Le tableau ci-dessous résume chaque
                     catégorie :
                 </DocParagraph>
                 <DocTable
@@ -225,6 +225,18 @@ export function ReferenceApiGuideDocPage() {
                             "19",
                             "Rapports XBRL",
                             "2",
+                            "Exercice",
+                        ],
+                        [
+                            "20",
+                            "Articles d'inventaire",
+                            "5",
+                            "Exercice",
+                        ],
+                        [
+                            "21",
+                            "Mouvements d'inventaire",
+                            "5",
                             "Exercice",
                         ],
                     ]}

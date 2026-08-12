@@ -1,4 +1,4 @@
-import { models, updateUserOcrCredentialsRouteDefinition } from "@arrhes/application-metadata"
+import { models, updateUserOcrCredentialsRouteDefinition } from "@comptasse/application-metadata"
 import { eq } from "drizzle-orm"
 import { checkAuthMiddleware } from "../../../../middlewares/checkAuthMiddleware.js"
 import { validateBodyMiddleware } from "../../../../middlewares/validateBody.middleware.js"

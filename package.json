@@ -1,5 +1,5 @@
 {
-    "name": "arrhes",
+    "name": "comptasse",
     "private": true,
     "license": "AGPL-3.0-only",
     "scripts": {
@@ -16,10 +16,10 @@
         "doctor": "npx react-doctor@latest"
     },
     "devDependencies": {
-        "@biomejs/biome": "2.5.3",
-        "@playwright/test": "1.61.1",
-        "playwright": "1.61.1",
-        "react-doctor": "^0.7.2"
+        "@biomejs/biome": "2.5.6",
+        "@playwright/test": "1.62.1",
+        "playwright": "1.62.1",
+        "react-doctor": "^0.9.3"
     },
     "workspaces": [
         "./packages/*"

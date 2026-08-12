@@ -2,7 +2,7 @@ import {
     generateBalanceSheetXmlRouteDefinition,
     generateFecRouteDefinition,
     generateIncomeStatementXmlRouteDefinition,
-} from "@arrhes/application-metadata/routes"
+} from "@comptasse/application-metadata/routes"
 import { DocCode } from "../../../components/document/DocCode.js"
 import { DocCodeBlock } from "../../../components/document/DocCodeBlock.js"
 import { DocExample } from "../../../components/document/DocExample.js"
@@ -66,7 +66,10 @@ export function ExportsGuideDocPage() {
                     }
                     api={
                         <>
-                            <DocSection title="Export FEC">
+                            <DocSection
+                                title="Export FEC"
+                                depth={1}
+                            >
                                 <DocParagraph>
                                     Le FEC est généré côté serveur. L'API retourne une URL signée pour télécharger le
                                     fichier.
@@ -76,7 +79,10 @@ export function ExportsGuideDocPage() {
                                     description="Générer le FEC de l'exercice et retourner une URL signée."
                                 />
                             </DocSection>
-                            <DocSection title="Exports XBRL">
+                            <DocSection
+                                title="Exports XBRL"
+                                depth={1}
+                            >
                                 <DocParagraph>
                                     Les rapports XBRL sont générés côté serveur et retournent une URL signée.
                                 </DocParagraph>
@@ -104,33 +110,35 @@ export function ExportsGuideDocPage() {
                                 ]}
                                 rows={[
                                     [
-                                        <DocCode key="0">{"arrhes exports fec --year <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse exports fec --year <id>"}</DocCode>,
                                         "Génère un export FEC",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes exports xbrl-balance-sheet --year <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse exports xbrl-balance-sheet --year <id>"}</DocCode>,
                                         "Génère un export XBRL du bilan",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes exports xbrl-income-statement --year <id>"}</DocCode>,
+                                        <DocCode key="0">
+                                            {"comptasse exports xbrl-income-statement --year <id>"}
+                                        </DocCode>,
                                         "Génère un export XBRL du compte de résultat",
                                     ],
                                 ]}
                             />
                             <DocExample title="Télécharger le FEC">
                                 <DocCodeBlock>
-                                    {'URL=$(arrhes exports fec --year year_xyz)\ncurl -o fec.txt "$URL"'}
+                                    {'URL=$(comptasse exports fec --year year_xyz)\ncurl -o fec.txt "$URL"'}
                                 </DocCodeBlock>
                             </DocExample>
                             <DocExample title="Télécharger le bilan XBRL">
                                 <DocCodeBlock>
                                     {
-                                        'URL=$(arrhes exports xbrl-balance-sheet --year year_xyz)\ncurl -o bilan.xml "$URL"'
+                                        'URL=$(comptasse exports xbrl-balance-sheet --year year_xyz)\ncurl -o bilan.xml "$URL"'
                                     }
                                 </DocCodeBlock>
                             </DocExample>
                             <DocTip variant="info">
-                                Utilisez <DocCode>arrhes years close</DocCode> avant de générer le FEC final.
+                                Utilisez <DocCode>comptasse years close</DocCode> avant de générer le FEC final.
                             </DocTip>
                         </>
                     }

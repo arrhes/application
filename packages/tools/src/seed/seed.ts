@@ -6,9 +6,9 @@ import {
     defaultCompanyIncomeStatements,
     defaultComputations,
     defaultJournals,
-} from "@arrhes/application-metadata/components"
-import { models } from "@arrhes/application-metadata/models"
-import { generateId } from "@arrhes/application-metadata/utilities"
+} from "@comptasse/application-metadata/components"
+import { models } from "@comptasse/application-metadata/models"
+import { generateId } from "@comptasse/application-metadata/utilities"
 import { randFirstName } from "@ngneat/falso"
 import { dbClient, dbConnection } from "../dbClient.js"
 
@@ -69,7 +69,7 @@ async function seed() {
             const newUser: typeof models.user.$inferInsert = {
                 id: generateId(),
                 isActive: true,
-                email: "demo@arrhes.com",
+                email: "demo@comptasse.com",
                 alias: randFirstName(),
                 passwordHash: passwordHash,
                 passwordSalt: passwordSalt,
@@ -88,7 +88,7 @@ async function seed() {
                 scope: "company",
                 siren: "111111111",
                 name: "Organisation vide",
-                email: "empty@arrhes.com",
+                email: "empty@comptasse.com",
                 createdAt: createdAt,
             }
             await tx.insert(models.organization).values(emptyOrganization)

@@ -1,6 +1,6 @@
 import { createRoute, useParams } from "@tanstack/react-router"
-import { ButtonPlainContent, InputDebounced, InputText } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { ButtonPlainContent, InputDebounced, InputText } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconPlus } from "@tabler/icons-react"
 import { useCallback, useState, useTransition } from "react"
 import { Box } from "../components/layouts/Box.tsx"

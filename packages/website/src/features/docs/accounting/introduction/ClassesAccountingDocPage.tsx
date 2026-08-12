@@ -5,6 +5,7 @@ import { DocSourceRef } from "../../../../components/document/DocSourceRef.js"
 import { DocSources } from "../../../../components/document/DocSources.js"
 import { DocTip } from "../../../../components/document/DocTip.js"
 import { accountClasses } from "../resources/accounts/accountsData.js"
+import { DocRoot } from "../../../../components/document/DocRoot.js"
 
 interface ClassInfo {
     description: string
@@ -147,7 +148,7 @@ const classInfos: Record<number, ClassInfo> = {
 
 export function ClassesAccountingDocPage() {
     return (
-        <>
+        <DocRoot>
             <DocHeader
                 title="Les classes de comptes"
                 description="Les 8 classes du Plan Comptable Général"
@@ -192,6 +193,6 @@ export function ClassesAccountingDocPage() {
                     },
                 ]}
             />
-        </>
+        </DocRoot>
     )
 }

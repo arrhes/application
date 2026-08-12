@@ -16,7 +16,7 @@ test.describe("Sign In", () => {
     })
 
     test("signs in with valid demo credentials", async ({ page }) => {
-        await page.getByLabel("Email").fill("demo@arrhes.com")
+        await page.getByLabel("Email").fill("demo@comptasse.com")
         await page.getByLabel("Mot de passe").fill("demo")
         await page
             .getByRole("button", {
@@ -32,7 +32,7 @@ test.describe("Sign In", () => {
     })
 
     test("shows error for invalid credentials", async ({ page }) => {
-        await page.getByLabel("Email").fill("demo@arrhes.com")
+        await page.getByLabel("Email").fill("demo@comptasse.com")
         await page.getByLabel("Mot de passe").fill("wrongpassword")
         await page
             .getByRole("button", {
@@ -75,7 +75,7 @@ test.describe("Sign Up", () => {
     })
 
     test("creates a new account and redirects to dashboard", async ({ page }) => {
-        const uniqueEmail = `e2e-test-${Date.now()}@arrhes.com`
+        const uniqueEmail = `e2e-test-${Date.now()}@comptasse.com`
         await page.getByLabel("Email").fill(uniqueEmail)
         await page
             .getByLabel("Mot de passe", {
@@ -109,7 +109,7 @@ test.describe("Sign Out", () => {
     test("signs out from the dashboard", async ({ page }) => {
         // First sign in
         await page.goto("/connexion")
-        await page.getByLabel("Email").fill("demo@arrhes.com")
+        await page.getByLabel("Email").fill("demo@comptasse.com")
         await page.getByLabel("Mot de passe").fill("demo")
         await page
             .getByRole("button", {
@@ -156,7 +156,7 @@ test.describe("Auth Guards", () => {
     test("redirects authenticated users from sign-in to dashboard", async ({ page }) => {
         // First sign in
         await page.goto("/connexion")
-        await page.getByLabel("Email").fill("demo@arrhes.com")
+        await page.getByLabel("Email").fill("demo@comptasse.com")
         await page.getByLabel("Mot de passe").fill("demo")
         await page
             .getByRole("button", {

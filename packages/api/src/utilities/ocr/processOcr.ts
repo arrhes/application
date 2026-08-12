@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto"
-import { generateId, models } from "@arrhes/application-metadata"
+import { generateId, models } from "@comptasse/application-metadata"
 import { and, eq, sql } from "drizzle-orm"
 import { Exception } from "../exception.js"
 import type { getClients } from "../getClients.js"

@@ -8,7 +8,7 @@ import {
     settleBalanceSheetRouteDefinition,
     settleIncomeStatementRouteDefinition,
     updateOneYearRouteDefinition,
-} from "@arrhes/application-metadata/routes"
+} from "@comptasse/application-metadata/routes"
 import { DocCode } from "../../../components/document/DocCode.js"
 import { DocCodeBlock } from "../../../components/document/DocCodeBlock.js"
 import { DocExample } from "../../../components/document/DocExample.js"
@@ -80,12 +80,18 @@ export function ExerciceGuideDocPage() {
                                 L'API expose les routes de création, lecture, modification et suppression des exercices,
                                 ainsi que les opérations de clôture, réouverture et solde.
                             </DocParagraph>
-                            <DocSection title="Exercices">
+                            <DocSection
+                                title="Exercices"
+                                depth={1}
+                            >
                                 <DocRouteRequest routeDefinition={createOneYearRouteDefinition} />
                                 <DocRouteRequest routeDefinition={readAllYearsRouteDefinition} />
                                 <DocRouteRequest routeDefinition={readOneYearRouteDefinition} />
                             </DocSection>
-                            <DocSection title="Cycle de vie">
+                            <DocSection
+                                title="Cycle de vie"
+                                depth={1}
+                            >
                                 <DocRouteRequest routeDefinition={updateOneYearRouteDefinition} />
                                 <DocRouteRequest routeDefinition={deleteOneYearRouteDefinition} />
                                 <DocRouteRequest routeDefinition={openYearRouteDefinition} />
@@ -101,7 +107,7 @@ export function ExerciceGuideDocPage() {
                     cli={
                         <>
                             <DocParagraph>
-                                La commande <DocCode>arrhes years</DocCode> permet de lister, consulter, créer,
+                                La commande <DocCode>comptasse years</DocCode> permet de lister, consulter, créer,
                                 modifier, supprimer, clôturer et réouvrir des exercices.
                             </DocParagraph>
                             <DocTable
@@ -111,44 +117,46 @@ export function ExerciceGuideDocPage() {
                                 ]}
                                 rows={[
                                     [
-                                        <DocCode key="0">arrhes years list</DocCode>,
+                                        <DocCode key="0">comptasse years list</DocCode>,
                                         "Liste les exercices de l'organisation",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes years get <idYear>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse years get <idYear>"}</DocCode>,
                                         "Détails d'un exercice",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes years create --start <date> --end <date>"}</DocCode>,
+                                        <DocCode key="0">
+                                            {"comptasse years create --start <date> --end <date>"}
+                                        </DocCode>,
                                         "Crée un exercice",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes years update <idYear>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse years update <idYear>"}</DocCode>,
                                         "Modifie un exercice",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes years delete <idYear>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse years delete <idYear>"}</DocCode>,
                                         "Supprime un exercice",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes years close <idYear>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse years close <idYear>"}</DocCode>,
                                         "Clôture un exercice",
                                     ],
                                     [
                                         <DocCode key="0">
-                                            {"arrhes years open <idYear> --journal-opening <id>"}
+                                            {"comptasse years open <idYear> --journal-opening <id>"}
                                         </DocCode>,
                                         "Réouvre un exercice",
                                     ],
                                     [
                                         <DocCode key="0">
-                                            {"arrhes years settle-balance-sheet <idYear> --journal-closing <id>"}
+                                            {"comptasse years settle-balance-sheet <idYear> --journal-closing <id>"}
                                         </DocCode>,
                                         "Solde le bilan",
                                     ],
                                     [
                                         <DocCode key="0">
-                                            {"arrhes years settle-income-statement <idYear> --journal-closing <id>"}
+                                            {"comptasse years settle-income-statement <idYear> --journal-closing <id>"}
                                         </DocCode>,
                                         "Solde le compte de résultat",
                                     ],
@@ -156,12 +164,12 @@ export function ExerciceGuideDocPage() {
                             />
                             <DocExample title="Créer un exercice">
                                 <DocCodeBlock>
-                                    arrhes years create --start 2025-01-01 --end 2025-12-31 --label "Exercice 2025"
+                                    comptasse years create --start 2025-01-01 --end 2025-12-31 --label "Exercice 2025"
                                 </DocCodeBlock>
                             </DocExample>
                             <DocExample title="Lister les exercices">
-                                <DocCodeBlock>arrhes years list</DocCodeBlock>
-                                <DocCodeBlock>{"arrhes years list | jq '.[].id'"}</DocCodeBlock>
+                                <DocCodeBlock>comptasse years list</DocCodeBlock>
+                                <DocCodeBlock>{"comptasse years list | jq '.[].id'"}</DocCodeBlock>
                             </DocExample>
                             <DocTip variant="info">
                                 Toutes les réponses du CLI sont en JSON. Combinez-les avec <DocCode>jq</DocCode> pour

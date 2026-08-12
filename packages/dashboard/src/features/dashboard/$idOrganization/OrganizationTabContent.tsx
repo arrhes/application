@@ -1,5 +1,5 @@
-import { Button, ButtonGhostContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { Button, ButtonGhostContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconCalendar, IconChevronRight, IconSettings, IconUsers } from "@tabler/icons-react"
 import { useRouter } from "@tanstack/react-router"
 import type { ReactNode } from "react"

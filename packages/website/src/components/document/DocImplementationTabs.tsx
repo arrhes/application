@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconBrowser, IconCode, IconTerminal2 } from "@tabler/icons-react"
 import { useState } from "react"
 

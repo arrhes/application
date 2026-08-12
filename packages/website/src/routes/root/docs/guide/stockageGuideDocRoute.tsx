@@ -7,7 +7,7 @@ export const stockageGuideDocRoute = createRoute({
     path: "/stockage",
     beforeLoad: () => ({
         title: "Stockage & Fichiers",
-        description: "Gérer vos pièces justificatives et documents numériques dans Arrhes.",
+        description: "Gérer vos pièces justificatives et documents numériques dans Comptasse.",
     }),
     component: () => <StockageGuideDocPage />,
 })

@@ -1,5 +1,5 @@
-import { ButtonGhostContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { ButtonGhostContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconChevronRight } from "@tabler/icons-react"
 import { Page } from "../../../components/layouts/page/page.js"
 

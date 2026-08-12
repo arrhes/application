@@ -1,1 +1,1 @@
-export { Dialog } from "@arrhes/ui"
+export { Dialog } from "@comptasse/ui"

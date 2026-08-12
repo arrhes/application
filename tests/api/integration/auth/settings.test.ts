@@ -27,7 +27,7 @@ describe("GET /v1/users/me", () => {
         expect(data).toHaveProperty("user")
         expect(data.user).toHaveProperty("id")
         expect(data.user).toHaveProperty("email")
-        expect(data.user.email).toBe("demo@arrhes.com")
+        expect(data.user.email).toBe("demo@comptasse.com")
     })
 
     it("rejects unauthenticated requests", async () => {

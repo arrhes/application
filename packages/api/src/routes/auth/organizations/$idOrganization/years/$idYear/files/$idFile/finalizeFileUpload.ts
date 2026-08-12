@@ -1,4 +1,4 @@
-import { finalizeFileUploadRouteDefinition, models } from "@arrhes/application-metadata"
+import { finalizeFileUploadRouteDefinition, models } from "@comptasse/application-metadata"
 import { HeadObjectCommand } from "@aws-sdk/client-s3"
 import { and, eq, sql } from "drizzle-orm"
 import { checkAuthMiddleware } from "../../../../../../../../middlewares/checkAuthMiddleware.js"

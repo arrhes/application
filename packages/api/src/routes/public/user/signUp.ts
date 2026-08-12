@@ -1,5 +1,5 @@
 import { pbkdf2Sync } from "node:crypto"
-import { generateId, models, signUpRouteDefinition } from "@arrhes/application-metadata"
+import { generateId, models, signUpRouteDefinition } from "@comptasse/application-metadata"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"
 import { getCookieDomainFromHost } from "../../../utilities/cookies/getCookieDomainFromHost.js"
 import { serializeCookie } from "../../../utilities/cookies/serializeCookie.js"
@@ -101,14 +101,6 @@ export const signUpRoute = registerRoute(signUpRouteDefinition, async (c) => {
             },
         }),
     )
-
-    // await sendEmail({
-    //     to: userResponse.email,
-    //     subject: "Valider votre email",
-    //     html: emailValidationTemplate({
-    //         url: `${urlApp}/services/email?id=${userResponse.id}&token=${userResponse.emailToken}`,
-    //     })
-    // })
 
     return response({
         context: c,

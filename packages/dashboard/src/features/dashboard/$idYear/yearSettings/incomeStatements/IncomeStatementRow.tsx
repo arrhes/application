@@ -1,5 +1,5 @@
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import type { ComponentProps } from "react"
 import type * as v from "valibot"
 import { ACCOUNT_ITEM_HEIGHT, INDENT_PER_LEVEL } from "../accounts/accountItem.tsx"

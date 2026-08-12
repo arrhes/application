@@ -1,5 +1,5 @@
 import { pbkdf2Sync, randomBytes } from "node:crypto"
-import { models, resetPasswordRouteDefinition } from "@arrhes/application-metadata"
+import { models, resetPasswordRouteDefinition } from "@comptasse/application-metadata"
 import { eq } from "drizzle-orm"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"
 import { registerRoute } from "../../../utilities/registerRoute.js"

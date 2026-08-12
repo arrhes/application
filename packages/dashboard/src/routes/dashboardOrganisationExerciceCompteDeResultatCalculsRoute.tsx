@@ -1,6 +1,6 @@
 import { createRoute, useParams } from "@tanstack/react-router"
-import { ButtonPlainContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { ButtonPlainContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconPlus } from "@tabler/icons-react"
 import { Box } from "../components/layouts/Box.tsx"
 import { Page } from "../components/layouts/page/page.js"

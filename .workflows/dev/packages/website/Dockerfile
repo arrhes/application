@@ -5,8 +5,8 @@
 # The full workspace (including node_modules) is bind-mounted at runtime.
 # Dependencies must be installed on the host before starting.
 #
-# Environment variables are set in compose.yml and written to .env at startup
-# so Vite can read them (Vite reads VITE_* from .env files, not process.env).
+# Environment variables are set in compose.yml and injected directly via
+# process.env (Vite reads VITE_* from process.env).
 # ==============================================================================
 
 ARG NODE_VERSION="25.2.1"
@@ -21,5 +21,5 @@ RUN npm install -g "pnpm@${PNPM_VERSION}"
 
 WORKDIR /workspace/packages/website
 
-# Generate .env from compose environment variables (Vite reads VITE_* from process.env), run Panda codegen, then start Vite
+# Run Panda codegen, then start Vite (env vars come from process.env via Compose)
 CMD ["sh", "-c", "cd /workspace/packages/ui && pnpm panda codegen && cd /workspace/packages/website && pnpm panda codegen && pnpm dev -- --host 0.0.0.0"]

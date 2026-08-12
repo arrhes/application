@@ -23,15 +23,16 @@ import { inventoryGuideDocRoute } from "./guide/inventoryGuideDocRoute.js"
 import { journauxGuideDocRoute } from "./guide/journauxGuideDocRoute.js"
 import { libellesGuideDocRoute } from "./guide/libellesGuideDocRoute.js"
 import { membresGuideDocRoute } from "./guide/membresGuideDocRoute.js"
+import { migrationsGuideDocRoute } from "./guide/migrationsGuideDocRoute.js"
 import { organisationGuideDocRoute } from "./guide/organisationGuideDocRoute.js"
 import { referenceApiGuideDocRoute } from "./guide/referenceApiGuideDocRoute.js"
 import { referenceCliGuideDocRoute } from "./guide/referenceCliGuideDocRoute.js"
 import { rootGuideDocRoute } from "./guide/rootGuideDocRoute.js"
 import { stockageGuideDocRoute } from "./guide/stockageGuideDocRoute.js"
 import { architectureGeneralDocRoute } from "./root/architectureGeneralDocRoute.js"
+import { contribuerGeneralDocRoute } from "./root/contribuerGeneralDocRoute.js"
 import { featuresGeneralDocRoute } from "./root/featuresGeneralDocRoute.js"
 import { legalGeneralDocRoute } from "./root/legalGeneralDocRoute.js"
-import { privacyGeneralDocRoute } from "./root/privacyGeneralDocRoute.js"
 import { rootGeneralDocRoute } from "./root/rootGeneralDocRoute.js"
 import { supportGeneralDocRoute } from "./root/supportGeneralDocRoute.js"
 import { updatesGeneralDocRoute } from "./root/updatesGeneralDocRoute.js"
@@ -60,6 +61,7 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
         inventoryGuideDocRoute,
         agentSkillsDocRoute,
         agentToolsDocRoute,
+        migrationsGuideDocRoute,
         rootGuideDocRoute,
     ]),
 
@@ -75,10 +77,10 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
     updatesGeneralDocRoute,
     featuresGeneralDocRoute,
     architectureGeneralDocRoute,
+    contribuerGeneralDocRoute,
     whitepaperGeneralDocRoute,
     supportGeneralDocRoute,
     legalGeneralDocRoute,
-    privacyGeneralDocRoute,
     rootGeneralDocRoute,
 
     docMdRoute,

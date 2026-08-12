@@ -4,7 +4,7 @@ import {
     readAllTagsRouteDefinition,
     readOneTagRouteDefinition,
     updateOneTagRouteDefinition,
-} from "@arrhes/application-metadata/routes"
+} from "@comptasse/application-metadata/routes"
 import { DocCode } from "../../../components/document/DocCode.js"
 import { DocCodeBlock } from "../../../components/document/DocCodeBlock.js"
 import { DocExample } from "../../../components/document/DocExample.js"
@@ -74,29 +74,29 @@ export function LibellesGuideDocPage() {
                                 ]}
                                 rows={[
                                     [
-                                        <DocCode key="0">{"arrhes tags list --year <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse tags list --year <id>"}</DocCode>,
                                         "Liste les libellés",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes tags get <id> --year <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse tags get <id> --year <id>"}</DocCode>,
                                         "Détails d'un libellé",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes tags create --year <id> --label <libellé>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse tags create --year <id> --label <libellé>"}</DocCode>,
                                         "Crée un libellé",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes tags update <id> --year <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse tags update <id> --year <id>"}</DocCode>,
                                         "Modifie un libellé",
                                     ],
                                     [
-                                        <DocCode key="0">{"arrhes tags delete <id> --year <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse tags delete <id> --year <id>"}</DocCode>,
                                         "Supprime un libellé",
                                     ],
                                 ]}
                             />
                             <DocExample title="Créer un libellé">
-                                <DocCodeBlock>arrhes tags create --year year_xyz --label "Investissement"</DocCodeBlock>
+                                <DocCodeBlock>comptasse tags create --year year_xyz --label "Investissement"</DocCodeBlock>
                             </DocExample>
                         </>
                     }

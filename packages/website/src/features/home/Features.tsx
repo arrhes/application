@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import {
     IconAppWindow,
     IconBook2,
@@ -79,7 +79,7 @@ export function Features() {
                         icon={<IconAppWindow />}
                         text="Plusieurs interfaces d'utilisation"
                         description={[
-                            "Utilisez l'application via le dashboard (web app), l'API ou notre CLI.",
+                            "Utilisez l'application via le dashboard (web app), l'API ou le CLI.",
                         ]}
                     />
                     <FeatureItem
@@ -128,7 +128,7 @@ export function Features() {
                         icon={<IconSparkles />}
                         text="Assistant IA"
                         description={[
-                            "Branchez facilement l'API ou le CLI à votre LLM préféré. La documentation est également accessible sous format markdown en ajoutant .md à l'url.",
+                            "Branchez facilement l'API ou le CLI à votre agent IA préféré. La documentation est également accessible sous format markdown en ajoutant .md à l'url.",
                         ]}
                     />
                 </div>

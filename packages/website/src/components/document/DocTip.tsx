@@ -1,4 +1,4 @@
-import { sva } from "@arrhes/ui/css"
+import { sva } from "@comptasse/ui/css"
 import { IconAlertTriangle, IconBulb, IconCircleCheck, IconInfoCircle } from "@tabler/icons-react"
 import type { ComponentType, ReactNode } from "react"
 

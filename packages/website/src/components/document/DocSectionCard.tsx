@@ -1,5 +1,5 @@
-import { ButtonOutlineContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { ButtonOutlineContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconChevronRight } from "@tabler/icons-react"
 import type { ReactNode } from "react"
 import type { ValidRoutes } from "../../routes/applicationRouter.js"

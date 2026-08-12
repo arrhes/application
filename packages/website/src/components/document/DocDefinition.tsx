@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconBookmark } from "@tabler/icons-react"
 import type { ReactNode } from "react"
 import { DocTip } from "./DocTip.js"

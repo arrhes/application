@@ -1,4 +1,4 @@
-import { cn, css } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@comptasse/ui/utilities/cn.js"
 import type { ComponentPropsWithRef } from "react"
 
 export function ContextMenuSeparator({ className, ...props }: ComponentPropsWithRef<"div">) {

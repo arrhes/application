@@ -1,5 +1,5 @@
-import { Button, ButtonGhostContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { Button, ButtonGhostContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import type { Icon, IconProps } from "@tabler/icons-react"
 import { IconChevronDown, IconChevronRight } from "@tabler/icons-react"
 import type { ReactElement, ReactNode } from "react"
@@ -59,17 +59,31 @@ export function TreeNode({
             {hasChildren && expanded && (
                 <div
                     className={css({
+                        position: "relative",
                         display: "flex",
                         flexDirection: "column",
                         gap: "0.25rem",
-                        borderLeft: "1px solid",
-                        borderLeftColor: "neutral/10",
                     })}
-                    style={{
-                        marginLeft: `${(depth + 1) * 1}rem`,
-                    }}
                 >
-                    {children}
+                    <div
+                        className={css({
+                            position: "absolute",
+                            top: 0,
+                            bottom: 0,
+                            left: "1rem",
+                            borderLeft: "1px solid",
+                            borderLeftColor: "neutral/10",
+                        })}
+                    />
+                    <div
+                        className={css({
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "0.25rem",
+                        })}
+                    >
+                        {children}
+                    </div>
                 </div>
             )}
         </>

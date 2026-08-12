@@ -1,4 +1,4 @@
-import { cn, css } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@comptasse/ui/utilities/cn.js"
 import type { ComponentProps, ReactNode } from "react"
 
 export function PageBanners(props: { children: ReactNode; className?: ComponentProps<"div">["className"] }) {

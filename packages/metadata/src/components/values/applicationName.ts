@@ -1,1 +1,1 @@
-export const applicationName = "arrhes"
+export const applicationName = "comptasse"

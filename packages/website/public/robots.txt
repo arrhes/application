@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: https://arrhes.com/sitemap.xml
+Sitemap: https://comptasse.com/sitemap.xml

@@ -1,5 +1,5 @@
-import { createOneYearRouteDefinition, readAllYearsRouteDefinition } from "@arrhes/application-metadata/routes"
-import { InputDate, InputText, toast } from "@arrhes/ui"
+import { createOneYearRouteDefinition, readAllYearsRouteDefinition } from "@comptasse/application-metadata/routes"
+import { InputDate, InputText, toast } from "@comptasse/ui"
 import { IconPlus } from "@tabler/icons-react"
 import { Fragment } from "react/jsx-runtime"
 import { FormControl } from "../forms/FormControl.js"

@@ -1,1 +1,1 @@
-export { FormGroup } from "@arrhes/ui"
+export { FormGroup } from "@comptasse/ui"

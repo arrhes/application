@@ -1,5 +1,5 @@
-import { updateUserPasswordRouteDefinition } from "@arrhes/application-metadata/routes"
-import { Button, InputPassword, toast } from "@arrhes/ui"
+import { updateUserPasswordRouteDefinition } from "@comptasse/application-metadata/routes"
+import { Button, InputPassword, toast } from "@comptasse/ui"
 import { IconDeviceFloppy } from "@tabler/icons-react"
 import type { JSX } from "react"
 import { Fragment } from "react/jsx-runtime"

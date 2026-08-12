@@ -9,7 +9,7 @@ export const referenceCliGuideDocRoute = createRoute({
     path: "/référence-cli",
     beforeLoad: () => ({
         title: "Référence CLI",
-        description: "Tableau récapitulatif des commandes du CLI Arrhes.",
+        description: "Tableau récapitulatif des commandes du CLI Comptasse.",
     }),
     component: () => (
         <DocRoot>

@@ -9,7 +9,7 @@ export const exerciceGuideDocRoute = createRoute({
     path: "/exercices",
     beforeLoad: () => ({
         title: "Exercices",
-        description: "Créez et gérez le cycle de vie de vos exercices comptables dans Arrhes.",
+        description: "Créez et gérez le cycle de vie de vos exercices comptables dans Comptasse.",
     }),
     component: () => (
         <DocRoot>
