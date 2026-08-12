@@ -5,7 +5,7 @@ import { css } from "@comptasse/ui/utilities/cn.js"
 import { valibotResolver } from "@hookform/resolvers/valibot"
 import { IconCalculator } from "@tabler/icons-react"
 import { useEffect, useRef } from "react"
-import { FormProvider, useForm } from "react-hook-form"
+import { FormProvider, type UseFormReturn, useForm } from "react-hook-form"
 import type * as v from "valibot"
 import { FormControl } from "../../../../../components/forms/FormControl.tsx"
 import { FormError } from "../../../../../components/forms/FormError.tsx"
@@ -19,6 +19,69 @@ import type { EntryTemplateFormProps } from "./entryTemplates.tsx"
 const DEFAULT_TOTAL_YEARS = "3"
 
 type AmortizationTemplateFormValues = v.InferOutput<typeof amortizationTemplateSchema>
+
+function GeneratedAmortizationRows({ parentForm }: { parentForm: UseFormReturn<any> }) {
+    const rows = parentForm.watch("entryLines") as Array<{
+        label?: string
+        debit?: string
+        credit?: string
+    }>
+
+    if (rows?.length === 0) return null
+
+    return (
+        <div
+            className={css({
+                width: "100%",
+                padding: "2",
+                backgroundColor: "white",
+                borderRadius: "sm",
+                border: "1px solid",
+                borderColor: "neutral/10",
+                display: "flex",
+                flexDirection: "column",
+                gap: "1",
+            })}
+        >
+            <span
+                className={css({
+                    fontSize: "xs",
+                    fontWeight: "semibold",
+                    color: "neutral/50",
+                })}
+            >
+                Mouvements générés
+            </span>
+            {rows.map((row) => (
+                <div
+                    key={`${row.label ?? ""}_${row.debit ?? ""}_${row.credit ?? ""}`}
+                    className={css({
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        fontSize: "sm",
+                    })}
+                >
+                    <span
+                        className={css({
+                            color: "neutral",
+                        })}
+                    >
+                        {row.label}
+                    </span>
+                    <span
+                        className={css({
+                            color: "neutral",
+                            fontWeight: "medium",
+                        })}
+                    >
+                        {Number(row.debit) > 0 ? `${row.debit} (débit)` : `${row.credit} (crédit)`}
+                    </span>
+                </div>
+            ))}
+        </div>
+    )
+}
 
 export function AmortizationTemplateForm(props: EntryTemplateFormProps) {
     const { form: parentForm, onTemplateReadyChange } = props
@@ -264,64 +327,7 @@ export function AmortizationTemplateForm(props: EntryTemplateFormProps) {
                         text="Calculer les mouvements"
                     />
                 </Button>
-                {parentForm.watch("entryLines")?.length > 0 ? (
-                    <div
-                        className={css({
-                            width: "100%",
-                            padding: "2",
-                            backgroundColor: "white",
-                            borderRadius: "sm",
-                            border: "1px solid",
-                            borderColor: "neutral/10",
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "1",
-                        })}
-                    >
-                        <span
-                            className={css({
-                                fontSize: "xs",
-                                fontWeight: "semibold",
-                                color: "neutral/50",
-                            })}
-                        >
-                            Mouvements générés
-                        </span>
-                        {(
-                            parentForm.watch("entryLines") as Array<{
-                                label?: string
-                                debit?: string
-                                credit?: string
-                            }>
-                        ).map((row) => (
-                            <div
-                                key={`${row.label ?? ""}_${row.debit ?? ""}_${row.credit ?? ""}`}
-                                className={css({
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    fontSize: "sm",
-                                })}
-                            >
-                                <span
-                                    className={css({
-                                        color: "neutral",
-                                    })}
-                                >
-                                    {row.label}
-                                </span>
-                                <span
-                                    className={css({
-                                        color: "neutral",
-                                        fontWeight: "medium",
-                                    })}
-                                >
-                                    {Number(row.debit) > 0 ? `${row.debit} (débit)` : `${row.credit} (crédit)`}
-                                </span>
-                            </div>
-                        ))}
-                    </div>
-                ) : null}
+                <GeneratedAmortizationRows parentForm={parentForm} />
             </div>
         </FormProvider>
     )

@@ -8,7 +8,8 @@ import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
 import { Button, ButtonGhostContent, FormatDateTime, FormatFileSize, FormatNull, toast } from "@comptasse/ui"
 import { cn, css } from "@comptasse/ui/utilities/cn.js"
 import { IconArrowLeft, IconFile, IconFileTypePdf, IconFolder } from "@tabler/icons-react"
-import { memo, type DragEvent, type MouseEvent, type ReactElement, useEffect, useRef, useState } from "react"
+import type { ColumnDef } from "@tanstack/react-table"
+import { memo, type DragEvent, type MouseEvent, type MutableRefObject, type ReactElement, useEffect, useMemo, useRef, useState } from "react"
 import type * as v from "valibot"
 import { DataTable } from "../../../../components/layouts/DataTable.js"
 import { applicationRouter } from "../../../../routes/applicationRouter.js"
@@ -55,6 +56,282 @@ function canDropOnTarget(parameters: { payload: DragPayload; targetFolderId: str
 
     if (parameters.targetFolderId === parameters.payload.id) return false
     return parameters.payload.sourceParentFolderId !== parameters.targetFolderId
+}
+
+function buildFileTableColumns(parameters: {
+    idOrganization: string
+    parentFolderId: string | null
+    onFolderOpen: (folderId: string | null) => void
+    suppressClickRef: MutableRefObject<boolean>
+}): Array<ColumnDef<TableRow>> {
+    return [
+        {
+            id: "name",
+            accessorFn: (row) => (row.kind === "back" ? ".." : (row.data.name ?? "")),
+            header: "Nom",
+            cell: ({ row }) => {
+                const item = row.original
+                if (item.kind === "back") {
+                    return (
+                        <button
+                            type="button"
+                            aria-label="Remonter au dossier parent"
+                            onClick={() => parameters.onFolderOpen(parameters.parentFolderId)}
+                            className={css({
+                                width: "fit-content",
+                                maxWidth: "100%",
+                                cursor: "pointer",
+                                border: 0,
+                                backgroundColor: "transparent",
+                                padding: 0,
+                            })}
+                        >
+                            <ButtonGhostContent
+                                leftIcon={<IconArrowLeft />}
+                                text=".."
+                            />
+                        </button>
+                    )
+                }
+                if (item.kind === "folder") {
+                    return (
+                        <div
+                            className={css({
+                                display: "flex",
+                                alignItems: "center",
+                                overflow: "hidden",
+                                minWidth: "0",
+                            })}
+                        >
+                            <Button
+                                onClick={(event) => {
+                                    if (parameters.suppressClickRef.current) {
+                                        event.preventDefault()
+                                        event.stopPropagation()
+                                        return
+                                    }
+                                    parameters.onFolderOpen(item.data.id)
+                                }}
+                                title={item.data.name}
+                                className={{
+                                    flex: "1",
+                                    minWidth: "0",
+                                    overflow: "hidden",
+                                    cursor: "pointer",
+                                }}
+                            >
+                                <ButtonGhostContent
+                                    leftIcon={<IconFolder />}
+                                    text={item.data.name}
+                                />
+                            </Button>
+                        </div>
+                    )
+                }
+                if (item.kind === "file") {
+                    const leftIcon = item.data.type !== null ? FILE_ICONS[item.data.type] : undefined
+
+                    return (
+                        <div
+                            className={css({
+                                display: "flex",
+                                alignItems: "center",
+                                overflow: "hidden",
+                                minWidth: "0",
+                            })}
+                        >
+                            <Button
+                                onClick={(event) => {
+                                    if (parameters.suppressClickRef.current) {
+                                        event.preventDefault()
+                                        event.stopPropagation()
+                                        return
+                                    }
+                                    applicationRouter.navigate({
+                                        to: "/dashboard/organisations/$idOrganization/stockage/$idFile",
+                                        params: {
+                                            idOrganization: parameters.idOrganization,
+                                            idFile: item.data.id,
+                                        },
+                                    })
+                                }}
+                                title={item.data.name ?? "/"}
+                                className={{
+                                    flex: "1",
+                                    minWidth: "0",
+                                    overflow: "hidden",
+                                    cursor: "pointer",
+                                }}
+                            >
+                                <ButtonGhostContent
+                                    leftIcon={leftIcon ?? <IconFile />}
+                                    text={item.data.name ?? "/"}
+                                />
+                            </Button>
+                        </div>
+                    )
+                }
+            },
+            filterFn: "includesString",
+        },
+        {
+            id: "size",
+            accessorFn: (row) => (row.kind === "file" ? (row.data.size ?? "") : ""),
+            header: "Size",
+            cell: ({ row }) => {
+                const item = row.original
+                if (item.kind === "back" || item.kind === "folder") return <FormatNull />
+                if (item.kind === "file") return <FormatFileSize size={item.data.size} />
+            },
+            filterFn: "includesString",
+        },
+        {
+            id: "createdAt",
+            accessorFn: (row) => (row.kind === "back" ? "" : row.data.createdAt),
+            header: "Date",
+            cell: ({ row }) => {
+                const item = row.original
+                if (item.kind === "back")
+                    return (
+                        <span
+                            className={css({
+                                color: "neutral/40",
+                            })}
+                        >
+                            --
+                        </span>
+                    )
+                if (item.kind === "folder") return <FormatDateTime date={item.data.createdAt} />
+                return <FormatDateTime date={item.data.createdAt} />
+            },
+            filterFn: "includesString",
+        },
+        {
+            id: "actions",
+            header: " ",
+            cell: ({ row }) => {
+                const item = row.original
+                if (item.kind === "back") return null
+                if (item.kind === "folder") {
+                    return (
+                        <FolderActions
+                            folder={item.data}
+                            idOrganization={parameters.idOrganization}
+                            onFolderOpen={parameters.onFolderOpen}
+                        />
+                    )
+                }
+                return (
+                    <FileActions
+                        file={item.data}
+                        idOrganization={parameters.idOrganization}
+                    />
+                )
+            },
+            enableSorting: false,
+            enableGlobalFilter: false,
+        },
+    ]
+}
+
+type RowInteractionContext = {
+    parentFolderId: string | null
+    dragOverTargetId: string | null
+    draggingPayload: DragPayload | null
+    longPressReadyId: string | null
+    setDragOverTargetId: (id: string | null) => void
+    handleDrop: (event: DragEvent, targetFolderId: string | null) => void
+    startLongPress: (event: MouseEvent<HTMLTableRowElement>, payload: DragPayload, id: string) => void
+    cancelLongPress: () => void
+    handleRowDragStart: (event: DragEvent<HTMLTableRowElement>) => void
+    handleDragEnd: () => void
+}
+
+function buildRowInteractionProps(item: TableRow, context: RowInteractionContext) {
+    const dropTargetProps = (() => {
+        if (item.kind === "file") return {}
+        const targetId = item.kind === "back" ? "back" : item.data.id
+        const targetFolderId = item.kind === "back" ? context.parentFolderId : item.data.id
+        return {
+            onDragOver: (event: DragEvent<HTMLTableRowElement>) => {
+                event.preventDefault()
+                event.dataTransfer.dropEffect = "move"
+                context.setDragOverTargetId(targetId)
+            },
+            onDragLeave: (event: DragEvent<HTMLTableRowElement>) => {
+                if ((event.currentTarget as HTMLElement).contains(event.relatedTarget as Node)) return
+                context.setDragOverTargetId(null)
+            },
+            onDrop: (event: DragEvent<HTMLTableRowElement>) => context.handleDrop(event, targetFolderId),
+        }
+    })()
+
+    const dragSourceProps = (() => {
+        if (item.kind === "back") return {}
+        const id = item.kind === "folder" ? item.data.id : item.data.id
+        const payload: DragPayload =
+            item.kind === "folder"
+                ? {
+                      kind: "folder",
+                      id: item.data.id,
+                      sourceParentFolderId: item.data.idFolderParent ?? null,
+                  }
+                : {
+                      kind: "file",
+                      id: item.data.id,
+                      sourceFolderId: item.data.idFolder ?? null,
+                  }
+        return {
+            onMouseDown: (event: MouseEvent<HTMLTableRowElement>) => context.startLongPress(event, payload, id),
+            onMouseUp: context.cancelLongPress,
+            onMouseLeave: context.cancelLongPress,
+            onDragStart: (event: DragEvent<HTMLTableRowElement>) => context.handleRowDragStart(event),
+            onDragEnd: () => context.handleDragEnd(),
+        }
+    })()
+
+    const itemId = item.kind !== "back" ? item.data.id : "back"
+    const isDropTarget =
+        context.dragOverTargetId !== null &&
+        ((item.kind === "back" && context.dragOverTargetId === "back") ||
+            (item.kind === "folder" && context.dragOverTargetId === item.data.id))
+
+    const isDraggingThis =
+        context.draggingPayload !== null &&
+        ((item.kind === "folder" &&
+            context.draggingPayload.kind === "folder" &&
+            context.draggingPayload.id === item.data.id) ||
+            (item.kind === "file" &&
+                context.draggingPayload.kind === "file" &&
+                context.draggingPayload.id === item.data.id))
+
+    const isLongPressReady = context.longPressReadyId === itemId
+
+    return {
+        ...dropTargetProps,
+        ...dragSourceProps,
+        className: cn(
+            isDropTarget
+                ? css({
+                      backgroundColor: "primary/6",
+                  })
+                : undefined,
+            isDraggingThis
+                ? css({
+                      opacity: "0.4",
+                  })
+                : undefined,
+            isLongPressReady
+                ? css({
+                      outline: "2px solid",
+                      outlineColor: "primary/40",
+                      outlineOffset: "-2px",
+                      borderRadius: "sm",
+                      backgroundColor: "primary/4",
+                  })
+                : undefined,
+        ),
+    }
 }
 
 function FilesTableRaw(props: {
@@ -174,86 +451,18 @@ function FilesTableRaw(props: {
     }, [])
 
     function getRowInteractionProps(item: TableRow) {
-        const dropTargetProps = (() => {
-            if (item.kind === "file") return {}
-            const targetId = item.kind === "back" ? "back" : item.data.id
-            const targetFolderId = item.kind === "back" ? props.parentFolderId : item.data.id
-            return {
-                onDragOver: (event: DragEvent<HTMLTableRowElement>) => {
-                    event.preventDefault()
-                    event.dataTransfer.dropEffect = "move"
-                    setDragOverTargetId(targetId)
-                },
-                onDragLeave: (event: DragEvent<HTMLTableRowElement>) => {
-                    if ((event.currentTarget as HTMLElement).contains(event.relatedTarget as Node)) return
-                    setDragOverTargetId(null)
-                },
-                onDrop: (event: DragEvent<HTMLTableRowElement>) => handleDrop(event, targetFolderId),
-            }
-        })()
-
-        const dragSourceProps = (() => {
-            if (item.kind === "back") return {}
-            const id = item.kind === "folder" ? item.data.id : item.data.id
-            const payload: DragPayload =
-                item.kind === "folder"
-                    ? {
-                          kind: "folder",
-                          id: item.data.id,
-                          sourceParentFolderId: item.data.idFolderParent ?? null,
-                      }
-                    : {
-                          kind: "file",
-                          id: item.data.id,
-                          sourceFolderId: item.data.idFolder ?? null,
-                      }
-            return {
-                onMouseDown: (event: MouseEvent<HTMLTableRowElement>) => startLongPress(event, payload, id),
-                onMouseUp: cancelLongPress,
-                onMouseLeave: cancelLongPress,
-                onDragStart: (event: DragEvent<HTMLTableRowElement>) => handleRowDragStart(event),
-                onDragEnd: () => handleDragEnd(),
-            }
-        })()
-
-        const itemId = item.kind !== "back" ? item.data.id : "back"
-        const isDropTarget =
-            dragOverTargetId !== null &&
-            ((item.kind === "back" && dragOverTargetId === "back") ||
-                (item.kind === "folder" && dragOverTargetId === item.data.id))
-
-        const isDraggingThis =
-            draggingPayload !== null &&
-            ((item.kind === "folder" && draggingPayload.kind === "folder" && draggingPayload.id === item.data.id) ||
-                (item.kind === "file" && draggingPayload.kind === "file" && draggingPayload.id === item.data.id))
-
-        const isLongPressReady = longPressReadyId === itemId
-
-        return {
-            ...dropTargetProps,
-            ...dragSourceProps,
-            className: cn(
-                isDropTarget
-                    ? css({
-                          backgroundColor: "primary/6",
-                      })
-                    : undefined,
-                isDraggingThis
-                    ? css({
-                          opacity: "0.4",
-                      })
-                    : undefined,
-                isLongPressReady
-                    ? css({
-                          outline: "2px solid",
-                          outlineColor: "primary/40",
-                          outlineOffset: "-2px",
-                          borderRadius: "sm",
-                          backgroundColor: "primary/4",
-                      })
-                    : undefined,
-            ),
-        }
+        return buildRowInteractionProps(item, {
+            parentFolderId: props.parentFolderId,
+            dragOverTargetId,
+            draggingPayload,
+            longPressReadyId,
+            setDragOverTargetId,
+            handleDrop,
+            startLongPress,
+            cancelLongPress,
+            handleRowDragStart,
+            handleDragEnd,
+        })
     }
 
     async function handleDrop(event: DragEvent, targetFolderId: string | null) {
@@ -350,6 +559,22 @@ function FilesTableRaw(props: {
         })),
     ]
 
+    const columns = useMemo(
+        () =>
+            buildFileTableColumns({
+                idOrganization: props.idOrganization,
+                parentFolderId: props.parentFolderId,
+                onFolderOpen: props.onFolderOpen,
+                suppressClickRef,
+            }),
+        [
+            props.idOrganization,
+            props.parentFolderId,
+            props.onFolderOpen,
+            suppressClickRef,
+        ],
+    )
+
     return (
         <DataTable
             data={rows}
@@ -365,174 +590,7 @@ function FilesTableRaw(props: {
                 title: "Aucun fichier",
                 subtitle: "Les fichiers de votre exercice apparaîtront ici.",
             }}
-            columns={[
-                {
-                    id: "name",
-                    accessorFn: (row) => (row.kind === "back" ? ".." : (row.data.name ?? "")),
-                    header: "Nom",
-                    cell: ({ row }) => {
-                        const item = row.original
-                        if (item.kind === "back") {
-                            return (
-                                <button
-                                    type="button"
-                                    aria-label="Remonter au dossier parent"
-                                    onClick={() => props.onFolderOpen(props.parentFolderId)}
-                                    className={css({
-                                        width: "fit-content",
-                                        maxWidth: "100%",
-                                        cursor: "pointer",
-                                        border: 0,
-                                        backgroundColor: "transparent",
-                                        padding: 0,
-                                    })}
-                                >
-                                    <ButtonGhostContent
-                                        leftIcon={<IconArrowLeft />}
-                                        text=".."
-                                    />
-                                </button>
-                            )
-                        }
-                        if (item.kind === "folder") {
-                            return (
-                                <div
-                                    className={css({
-                                        display: "flex",
-                                        alignItems: "center",
-                                        overflow: "hidden",
-                                        minWidth: "0",
-                                    })}
-                                >
-                                    <Button
-                                        onClick={(event) => {
-                                            if (suppressClickRef.current) {
-                                                event.preventDefault()
-                                                event.stopPropagation()
-                                                return
-                                            }
-                                            props.onFolderOpen(item.data.id)
-                                        }}
-                                        title={item.data.name}
-                                        className={{
-                                            flex: "1",
-                                            minWidth: "0",
-                                            overflow: "hidden",
-                                            cursor: "pointer",
-                                        }}
-                                    >
-                                        <ButtonGhostContent
-                                            leftIcon={<IconFolder />}
-                                            text={item.data.name}
-                                        />
-                                    </Button>
-                                </div>
-                            )
-                        }
-                        if (item.kind === "file") {
-                            const leftIcon = item.data.type !== null ? FILE_ICONS[item.data.type] : undefined
-
-                            return (
-                                <div
-                                    className={css({
-                                        display: "flex",
-                                        alignItems: "center",
-                                        overflow: "hidden",
-                                        minWidth: "0",
-                                    })}
-                                >
-                                    <Button
-                                        onClick={(event) => {
-                                            if (suppressClickRef.current) {
-                                                event.preventDefault()
-                                                event.stopPropagation()
-                                                return
-                                            }
-                                            applicationRouter.navigate({
-                                                to: "/dashboard/organisations/$idOrganization/stockage/$idFile",
-                                                params: {
-                                                    idOrganization: props.idOrganization,
-                                                    idFile: item.data.id,
-                                                },
-                                            })
-                                        }}
-                                        title={item.data.name ?? "/"}
-                                        className={{
-                                            flex: "1",
-                                            minWidth: "0",
-                                            overflow: "hidden",
-                                            cursor: "pointer",
-                                        }}
-                                    >
-                                        <ButtonGhostContent
-                                            leftIcon={leftIcon ?? <IconFile />}
-                                            text={item.data.name ?? "/"}
-                                        />
-                                    </Button>
-                                </div>
-                            )
-                        }
-                    },
-                    filterFn: "includesString",
-                },
-                {
-                    id: "size",
-                    accessorFn: (row) => (row.kind === "file" ? (row.data.size ?? "") : ""),
-                    header: "Size",
-                    cell: ({ row }) => {
-                        const item = row.original
-                        if (item.kind === "back" || item.kind === "folder") return <FormatNull />
-                        if (item.kind === "file") return <FormatFileSize size={item.data.size} />
-                    },
-                    filterFn: "includesString",
-                },
-                {
-                    id: "createdAt",
-                    accessorFn: (row) => (row.kind === "back" ? "" : row.data.createdAt),
-                    header: "Date",
-                    cell: ({ row }) => {
-                        const item = row.original
-                        if (item.kind === "back")
-                            return (
-                                <span
-                                    className={css({
-                                        color: "neutral/40",
-                                    })}
-                                >
-                                    --
-                                </span>
-                            )
-                        if (item.kind === "folder") return <FormatDateTime date={item.data.createdAt} />
-                        return <FormatDateTime date={item.data.createdAt} />
-                    },
-                    filterFn: "includesString",
-                },
-                {
-                    id: "actions",
-                    header: " ",
-                    cell: ({ row }) => {
-                        const item = row.original
-                        if (item.kind === "back") return null
-                        if (item.kind === "folder") {
-                            return (
-                                <FolderActions
-                                    folder={item.data}
-                                    idOrganization={props.idOrganization}
-                                    onFolderOpen={props.onFolderOpen}
-                                />
-                            )
-                        }
-                        return (
-                            <FileActions
-                                file={item.data}
-                                idOrganization={props.idOrganization}
-                            />
-                        )
-                    },
-                    enableSorting: false,
-                    enableGlobalFilter: false,
-                },
-            ]}
+            columns={columns}
         />
     )
 }
