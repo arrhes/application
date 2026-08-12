@@ -2,7 +2,7 @@ import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
 import { FormatDate, FormatNull, FormatPrice, FormatText } from "@comptasse/ui"
 import { cn, css } from "@comptasse/ui/utilities/cn.js"
 import { useVirtualizer } from "@tanstack/react-virtual"
-import { Fragment, useRef } from "react"
+import { Fragment, useMemo, useRef } from "react"
 import type * as v from "valibot"
 import { Table } from "../../../../../components/layouts/table/table.tsx"
 import { compareAmounts } from "../../../../../utilities/compareAmounts.ts"
@@ -24,9 +24,7 @@ function JournalEntrySection({
     virtualItem: ReturnType<ReturnType<typeof useVirtualizer>["getVirtualItems"]>[number]
     measureElement: (element: Element | null) => void
 }) {
-    const sortedEntryLines = entryLines
-        .filter((entryLine) => entryLine.idEntry === entry.id)
-        .sort((a, b) => (a.lastUpdatedAt ?? "").localeCompare(b.lastUpdatedAt ?? ""))
+    const sortedEntryLines = [...entryLines].sort((a, b) => (a.lastUpdatedAt ?? "").localeCompare(b.lastUpdatedAt ?? ""))
 
     const entryTotalDebit = sortedEntryLines.reduce((acc, entryLine) => acc + Number(entryLine.debit), 0)
     const entryTotalCredit = sortedEntryLines.reduce((acc, entryLine) => acc + Number(entryLine.credit), 0)
@@ -182,6 +180,16 @@ export function JournalReportTable(props: {
 }) {
     const entryLines = props.entryLines
     const scrollContainerRef = useRef<HTMLDivElement>(null)
+
+    const entryLinesByEntryId = useMemo(() => {
+        const map = new Map<string, Array<EntryLine>>()
+        for (const entryLine of entryLines) {
+            const arr = map.get(entryLine.idEntry)
+            if (arr) arr.push(entryLine)
+            else map.set(entryLine.idEntry, [entryLine])
+        }
+        return map
+    }, [entryLines])
 
     const totalDebit = entryLines.reduce((acc, entryLine) => acc + Number(entryLine.debit), 0)
     const totalCredit = entryLines.reduce((acc, entryLine) => acc + Number(entryLine.credit), 0)
@@ -361,7 +369,7 @@ export function JournalReportTable(props: {
                                 <JournalEntrySection
                                     key={entry.id}
                                     entry={entry}
-                                    entryLines={entryLines}
+                                    entryLines={entryLinesByEntryId.get(entry.id) ?? []}
                                     accounts={props.accounts}
                                     virtualItem={virtualItem}
                                     measureElement={(element) => virtualizer.measureElement(element)}

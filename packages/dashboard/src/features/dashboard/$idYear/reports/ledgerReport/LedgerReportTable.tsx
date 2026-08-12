@@ -20,10 +20,8 @@ function LedgerAccountSection({
     virtualItem: ReturnType<ReturnType<typeof useVirtualizer>["getVirtualItems"]>[number]
     measureElement: (element: Element | null) => void
 }) {
-    const filteredEntryLines = entryLines.filter((entryLine) => entryLine.idAccount === account.id)
-
-    const accountTotalDebit = filteredEntryLines.reduce((acc, entryLine) => acc + Number(entryLine.debit), 0)
-    const accountTotalCredit = filteredEntryLines.reduce((acc, entryLine) => acc + Number(entryLine.credit), 0)
+    const accountTotalDebit = entryLines.reduce((acc, entryLine) => acc + Number(entryLine.debit), 0)
+    const accountTotalCredit = entryLines.reduce((acc, entryLine) => acc + Number(entryLine.credit), 0)
 
     return (
         <Table.Body.Root
@@ -98,7 +96,7 @@ function LedgerAccountSection({
             </Table.Body.Row>
             {/* biome-ignore lint/complexity/noUselessFragments: Fragment needed for TypeScript type compatibility with Table.Body.Root children */}
             <Fragment>
-                {filteredEntryLines.map((entryLine) => {
+                {entryLines.map((entryLine) => {
                     return (
                         <Table.Body.Row
                             key={entryLine.id}
@@ -141,26 +139,26 @@ export function LedgerReportTable(props: {
     const accountsTotalDebit = props.entryLines.reduce((acc, entryLine) => acc + Number(entryLine.debit), 0)
     const accountsTotalCredit = props.entryLines.reduce((acc, entryLine) => acc + Number(entryLine.credit), 0)
 
-    const sortedAccounts = useMemo(() => {
-        const entryLinesByAccount = new Map<string, Array<v.InferOutput<typeof returnedSchemas.entryLine>>>()
+    const entryLinesByAccountId = useMemo(() => {
+        const map = new Map<string, Array<v.InferOutput<typeof returnedSchemas.entryLine>>>()
         for (const entryLine of props.entryLines) {
-            let rows = entryLinesByAccount.get(entryLine.idAccount)
+            let rows = map.get(entryLine.idAccount)
             if (!rows) {
                 rows = []
-                entryLinesByAccount.set(entryLine.idAccount, rows)
+                map.set(entryLine.idAccount, rows)
             }
             rows.push(entryLine)
         }
+        return map
+    }, [props.entryLines])
 
-        return [
-            ...props.accounts,
-        ]
-            .sort((a, b) => a.number.localeCompare(b.number))
-            .filter((account) => entryLinesByAccount.has(account.id))
-    }, [
-        props.accounts,
-        props.entryLines,
-    ])
+    const sortedAccounts = useMemo(
+        () =>
+            [...props.accounts]
+                .sort((a, b) => a.number.localeCompare(b.number))
+                .filter((account) => entryLinesByAccountId.has(account.id)),
+        [props.accounts, entryLinesByAccountId],
+    )
 
     const scrollContainerRef = useRef<HTMLDivElement>(null)
 
@@ -333,7 +331,7 @@ export function LedgerReportTable(props: {
                                 <LedgerAccountSection
                                     key={account.id}
                                     account={account}
-                                    entryLines={props.entryLines}
+                                    entryLines={entryLinesByAccountId.get(account.id) ?? []}
                                     virtualItem={virtualItem}
                                     measureElement={(element) => virtualizer.measureElement(element)}
                                 />

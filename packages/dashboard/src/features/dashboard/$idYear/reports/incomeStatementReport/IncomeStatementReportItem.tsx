@@ -3,13 +3,14 @@ import { type ComponentProps, Fragment } from "react"
 import type * as v from "valibot"
 import { toRoman } from "../../../../../utilities/toRoman.ts"
 import { getIncomeStatementChildren } from "../../yearSettings/incomeStatements/getIncomeStatementChildren.tsx"
+import type { AccountTotals } from "../getAccountTotals.ts"
 import { IncomeStatementReportRow } from "./IncomeStatementReportRow.tsx"
 
 export function IncomeStatementReportItem(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
     idYear: v.InferOutput<typeof returnedSchemas.year>["id"]
     accounts: Array<v.InferOutput<typeof returnedSchemas.account>>
-    entryLines: Array<v.InferOutput<typeof returnedSchemas.entryLine>>
+    accountTotals: Map<string, AccountTotals>
     incomeStatement: v.InferOutput<typeof returnedSchemas.incomeStatement>
     incomeStatementChildren: Array<v.InferOutput<typeof returnedSchemas.incomeStatement>>
     level: number
@@ -29,16 +30,10 @@ export function IncomeStatementReportItem(props: {
         )
         if (!hasAccount && !hasChildrenAccount) continue
 
-        let accountTotalDebit = 0
-        let accountTotalCredit = 0
+        const totals = props.accountTotals.get(account.id)
+        if (totals === undefined) continue
 
-        for (const entryLine of props.entryLines) {
-            if (entryLine.idAccount !== account.id) continue
-            accountTotalDebit += Number(entryLine.debit)
-            accountTotalCredit += Number(entryLine.credit)
-        }
-
-        const accountBalance = accountTotalDebit - accountTotalCredit
+        const accountBalance = totals.totalDebit - totals.totalCredit
 
         netAmount += Math.abs(accountBalance)
     }
@@ -68,7 +63,7 @@ export function IncomeStatementReportItem(props: {
                             idOrganization={props.idOrganization}
                             idYear={props.idYear}
                             accounts={props.accounts}
-                            entryLines={props.entryLines}
+                            accountTotals={props.accountTotals}
                             incomeStatement={incomeStatement}
                             incomeStatementChildren={incomeStatementChildren}
                             level={props.level + 1}

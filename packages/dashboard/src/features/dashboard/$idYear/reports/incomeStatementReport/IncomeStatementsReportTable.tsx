@@ -1,10 +1,12 @@
 import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
 import { FormatNull, FormatPrice, FormatText } from "@comptasse/ui"
 import { cn, css } from "@comptasse/ui/utilities/cn.js"
+import { useMemo } from "react"
 import type * as v from "valibot"
 import { Table } from "../../../../../components/layouts/table/table.tsx"
 import { toRoman } from "../../../../../utilities/toRoman.ts"
 import { getIncomeStatementChildren } from "../../yearSettings/incomeStatements/getIncomeStatementChildren.tsx"
+import { getAccountTotals } from "../getAccountTotals.ts"
 import { IncomeStatementReportItem } from "./IncomeStatementReportItem.tsx"
 
 export function IncomeStatementsReportTable(props: {
@@ -14,7 +16,12 @@ export function IncomeStatementsReportTable(props: {
     entryLines: Array<v.InferOutput<typeof returnedSchemas.entryLine>>
     accounts: Array<v.InferOutput<typeof returnedSchemas.account>>
 }) {
-    const incomeStatementById = new Map(props.incomeStatements.map((is) => [is.id, is]))
+    const incomeStatementById = useMemo(
+        () => new Map(props.incomeStatements.map((is) => [is.id, is])),
+        [props.incomeStatements],
+    )
+
+    const accountTotals = useMemo(() => getAccountTotals(props.entryLines), [props.entryLines])
 
     return (
         <div
@@ -61,7 +68,7 @@ export function IncomeStatementsReportTable(props: {
                                     idOrganization={incomeStatement.idOrganization}
                                     idYear={incomeStatement.idYear}
                                     accounts={props.accounts}
-                                    entryLines={props.entryLines}
+                                    accountTotals={accountTotals}
                                     incomeStatement={incomeStatement}
                                     incomeStatementChildren={incomeStatementChildren}
                                     level={0}
@@ -106,10 +113,9 @@ export function IncomeStatementsReportTable(props: {
                                         (incomeStatement) => incomeStatement.id === account.idIncomeStatement,
                                     )
                                     if (!hasAccount && !hasChildrenAccount) continue
-                                    for (const entryLine of props.entryLines) {
-                                        if (entryLine.idAccount !== account.id) continue
-                                        incomeStatementAmount += Number(entryLine.debit) - Number(entryLine.credit)
-                                    }
+                                    const totals = accountTotals.get(account.id)
+                                    if (totals === undefined) continue
+                                    incomeStatementAmount += totals.totalDebit - totals.totalCredit
                                 }
 
                                 if (computationIncomeStatement.operation === "plus") {

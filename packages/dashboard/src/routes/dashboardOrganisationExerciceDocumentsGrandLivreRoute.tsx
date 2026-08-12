@@ -1,6 +1,6 @@
 import { createRoute } from "@tanstack/react-router"
 import { Page } from "../components/layouts/page/page.js"
-import { lazy, Suspense } from "react"
+import { lazy } from "react"
 const LedgerReportPage = lazy(() => import("../features/dashboard/$idYear/reports/ledgerReport/LedgerReportPage.js").then((m) => ({ default: m.LedgerReportPage })))
 import { dashboardLayoutRoute } from "./dashboardLayoutRoute.js"
 

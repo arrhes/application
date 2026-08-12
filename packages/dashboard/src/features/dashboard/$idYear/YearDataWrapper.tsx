@@ -109,8 +109,13 @@ export function YearDataWrapper<const K extends readonly YearDataKey[]>(props: {
         return result
     }, [urlParams.idOrganization])
 
+    const requiredKeySet = useMemo(
+        () => new Set<YearDataKey>(props.requiredKeys),
+        [props.requiredKeys],
+    )
+
     const results = useQueries({
-        queries: yearQueryEntries.map(([_key, routeDef]) => ({
+        queries: yearQueryEntries.map(([key, routeDef]) => ({
             queryKey: buildQueryKey(
                 routeDef,
                 body as Record<string, unknown>,
@@ -132,6 +137,8 @@ export function YearDataWrapper<const K extends readonly YearDataKey[]>(props: {
                 return response.data
             },
             retry: 1,
+            staleTime: Number.POSITIVE_INFINITY,
+            enabled: requiredKeySet.has(key),
         })),
     })
 
