@@ -1,9 +1,8 @@
-import { Button, ButtonGhostContent, Logo } from "@comptasse/ui"
+import { Button, ButtonGhostContent, Logo, Version } from "@comptasse/ui"
 import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconBrandGithub, IconBrandX, IconMenu } from "@tabler/icons-react"
 import { useRouterState } from "@tanstack/react-router"
 import { useRef, useState } from "react"
-import version from "../../../../../VERSION?raw"
 import { LinkButton } from "../../components/LinkButton.tsx"
 import { useSidebarContext } from "../../contexts/sidebar/SidebarContext.tsx"
 import { DocsSearch } from "./DocsSearch.tsx"
@@ -74,16 +73,7 @@ export function AppSidebar() {
                                     text="Comptasse"
                                 />
                             </LinkButton>
-                            <span
-                                className={css({
-                                    color: "primary",
-                                    fontWeight: "lighter",
-                                    fontSize: "xs",
-                                    lineHeight: 1,
-                                })}
-                            >
-                                {version}
-                            </span>
+                            <Version />
                         </div>
 
                         <div

@@ -1,6 +1,5 @@
 import { signOutRouteDefinition } from "@comptasse/application-metadata/routes"
 import {
-    Badge,
     Button,
     ButtonGhostContent,
     ButtonOutlineContent,
@@ -8,6 +7,7 @@ import {
     LinkButton,
     Logo,
     toast,
+    Version,
 } from "@comptasse/ui"
 import { css } from "@comptasse/ui/utilities/cn.js"
 import {
@@ -19,7 +19,6 @@ import {
 } from "@tabler/icons-react"
 import { Outlet, useRouter } from "@tanstack/react-router"
 import { Suspense, useRef } from "react"
-import version from "../../../../../../VERSION?raw"
 import { Popover } from "../../../components/overlays/popover/popover.js"
 import { useSidebarContext } from "../../../contexts/sidebar/SidebarContext.js"
 import { deleteCookies } from "../../../utilities/cookies/deleteCookies.js"
@@ -80,7 +79,7 @@ export function DashboardShell() {
                             className={{}}
                         />
                     </LinkButton>
-                    <Badge>{version.trim()}</Badge>
+                    <Version />
                 </div>
 
                 {/* Navigation tree */}

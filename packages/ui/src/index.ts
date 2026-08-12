@@ -68,6 +68,7 @@ export { Kbd } from "./components/layouts/Kbd.js"
 export { Logo } from "./components/layouts/Logo.js"
 export { PageNavigation } from "./components/layouts/PageNavigation.js"
 export { Separator } from "./components/layouts/Separator.js"
+export { Version } from "./components/layouts/Version.js"
 export { Virtualizer } from "./components/layouts/Virtualizer.js"
 // Components - Overlays
 export { Dialog } from "./components/overlays/dialog/dialog.js"
