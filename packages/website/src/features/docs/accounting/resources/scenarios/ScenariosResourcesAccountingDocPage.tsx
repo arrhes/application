@@ -21,7 +21,7 @@ interface ScenarioRowProps {
     }
 }
 
-export function ScenarioRow(props: ScenarioRowProps) {
+function ScenarioRow(props: ScenarioRowProps) {
     const { scenario } = props
     return (
         <LinkButton

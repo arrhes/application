@@ -21,7 +21,7 @@ interface AccountRowProps {
     }
 }
 
-export function AccountRow(props: AccountRowProps) {
+function AccountRow(props: AccountRowProps) {
     const { account } = props
     const isFacultatif = account.isOptional
     const depth = account.number.length - 1

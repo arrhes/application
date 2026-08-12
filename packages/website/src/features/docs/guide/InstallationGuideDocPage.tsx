@@ -2,13 +2,11 @@ import { DocCode } from "../../../components/document/DocCode.js"
 import { DocCodeBlock } from "../../../components/document/DocCodeBlock.js"
 import { DocExample } from "../../../components/document/DocExample.js"
 import { DocHeader } from "../../../components/document/DocHeader.js"
-import { DocImplementationTabs } from "../../../components/document/DocImplementationTabs.js"
 import { DocLink } from "../../../components/document/DocLink.js"
 import { DocList } from "../../../components/document/DocList.js"
 import { DocParagraph } from "../../../components/document/DocParagraph.js"
 import { DocRoot } from "../../../components/document/DocRoot.js"
 import { DocSection } from "../../../components/document/DocSection.js"
-import { DocTable } from "../../../components/document/DocTable.js"
 import { DocTip } from "../../../components/document/DocTip.js"
 
 export function InstallationGuideDocPage() {
@@ -16,109 +14,212 @@ export function InstallationGuideDocPage() {
         <DocRoot>
             <DocHeader
                 title="Installation"
-                description="Mettre en place Arrhes selon l'interface que vous utilisez"
+                description="Installer et démarrer Comptasse en quelques minutes"
             />
 
-            <DocSection title="Avant de commencer">
-                <DocParagraph>
-                    Arrhes propose trois interfaces pour interagir avec votre comptabilité. Selon votre profil, vous
-                    pouvez utiliser l'application web (dashboard), appeler l'API directement ou installer le CLI.
-                </DocParagraph>
+            <DocSection title="Prérequis">
                 <DocList
                     items={[
-                        "Le dashboard ne nécessite aucune installation : créez un compte et commencez immédiatement.",
-                        "L'API est accessible via HTTPS avec une authentification par cookie de session ou clé API.",
-                        "Le CLI est un binaire autonome disponible sur macOS et Linux.",
+                        "Docker et Docker Compose v2 installés",
+                        "Un accès à une base de données PostgreSQL (version 15 ou supérieure)",
+                        "Un stockage compatible S3 (AWS S3, MinIO, RustFS, etc.)",
                     ]}
                 />
+                <DocTip variant="info">
+                    Vous n'avez pas de PostgreSQL ou de S3 ? Utilisez la méthode{" "}
+                    <DocLink to="/documentation/guide/installation#compose-avec-services-intégrés">
+                        Compose avec services intégrés
+                    </DocLink>{" "}
+                    qui inclut tout dans un seul fichier.
+                </DocTip>
             </DocSection>
 
-            <DocSection title="Implémentation">
-                <DocImplementationTabs
-                    dashboard={
-                        <>
-                            <DocParagraph>
-                                L'interface web est la méthode la plus simple pour découvrir Arrhes. Aucun logiciel à
-                                installer : il suffit d'un navigateur moderne.
-                            </DocParagraph>
-                            <DocExample title="Premiers pas">
-                                <DocList
-                                    items={[
-                                        "Rendez-vous sur le site d'Arrhes et créez un compte.",
-                                        "Confirmez votre adresse email via le lien reçu.",
-                                        "Créez votre première organisation (Entreprise ou Association).",
-                                        "Ouvrez votre organisation et ajoutez un exercice comptable.",
-                                    ]}
-                                />
-                            </DocExample>
-                            <DocTip variant="info">
-                                Pour un guide détaillé de l'interface, consultez la page{" "}
-                                <DocLink to="/documentation/guide/démarrer">Démarrer avec Arrhes</DocLink>.
-                            </DocTip>
-                        </>
-                    }
-                    api={
-                        <>
-                            <DocParagraph>
-                                L'API d'Arrhes suit les conventions REST. Tous les exemples de cette documentation
-                                utilisent le préfixe de version <DocCode>/v1</DocCode>.
-                            </DocParagraph>
-                            <DocList
-                                items={[
-                                    "GET pour la lecture, POST pour la création, PATCH pour la modification, DELETE pour la suppression.",
-                                    "Le corps des requêtes et des réponses est en JSON.",
-                                    "Les dates suivent le format ISO 8601.",
-                                    'Les montants (débit, crédit) sont des chaînes numériques (ex : "100.00").',
-                                ]}
-                            />
-                            <DocTable
-                                headers={[
-                                    "Environnement",
-                                    "URL de base",
-                                ]}
-                                rows={[
-                                    [
-                                        "Cloud",
-                                        "https://api.arrhes.com/v1",
-                                    ],
-                                    [
-                                        "Auto-hébergé",
-                                        "https://votre-domaine.com/v1",
-                                    ],
-                                ]}
-                            />
-                            <DocTip variant="warning">
-                                Les chemins affichés dans les pages de référence n'incluent pas le préfixe{" "}
-                                <DocCode>/v1</DocCode>. Pensez à l'ajouter dans vos appels directs.
-                            </DocTip>
-                        </>
-                    }
-                    cli={
-                        <>
-                            <DocParagraph>
-                                Le CLI est un binaire autonome - aucune installation de Node.js ou de dépendance
-                                requise. Collez la commande suivante dans votre terminal :
-                            </DocParagraph>
-                            <DocExample title="Installation automatique">
-                                <DocCodeBlock>curl -fsSL https://arrhes.com/cli/install.sh | sh</DocCodeBlock>
-                            </DocExample>
-                            <DocParagraph>
-                                Le script installe le binaire dans <DocCode>~/.local/bin</DocCode>. Vérifiez
-                                l'installation :
-                            </DocParagraph>
-                            <DocCodeBlock>arrhes --version</DocCodeBlock>
-                            <DocTip variant="info">
-                                Si <DocCode>~/.local/bin</DocCode> n'est pas dans votre <DocCode>PATH</DocCode>, le
-                                script vous indique la ligne à ajouter dans votre <DocCode>~/.bashrc</DocCode> ou{" "}
-                                <DocCode>~/.zshrc</DocCode>.
-                            </DocTip>
-                            <DocParagraph>
-                                Pour les options avancées (installation manuelle, autres architectures), consultez la{" "}
-                                <DocLink to="/documentation/guide/installation">section Installation</DocLink>.
-                            </DocParagraph>
-                        </>
-                    }
+            <DocSection title="Méthode 1 : Script d'installation (recommandé)">
+                <DocParagraph>
+                    Le script d'installation guide pas à pas et configure automatiquement
+                    l'environnement. Il fonctionne sur macOS et Linux.
+                </DocParagraph>
+
+                <DocExample title="Installation automatique">
+                    <DocCodeBlock>curl -fsSL https://comptasse.com/install.sh | sh</DocCodeBlock>
+                </DocExample>
+
+                <DocExample title="Ce que fait le script">
+                    <DocList
+                        items={[
+                            "Vérifie que Docker est installé et en cours d'exécution",
+                            "Demande si vous avez déjà un PostgreSQL et un S3, ou si vous souhaitez des services intégrés",
+                            "Si services intégrés : configure PostgreSQL et RustFS automatiquement",
+                            "Si services externes : demande les identifiants de connexion",
+                            "Génère une clé de signature des sessions (COOKIES_KEY) si non fournie",
+                            "Crée le répertoire de données dans ~/.comptasse",
+                            "Télécharge et démarre l'image Docker Comptasse",
+                        ]}
+                    />
+                </DocExample>
+
+                <DocExample title="Après l'installation">
+                    <DocList
+                        items={[
+                            "Dashboard : http://localhost:5173",
+                            "API : http://localhost:3000",
+                            "CLI : docker exec comptasse comptasse --help",
+                        ]}
+                    />
+                </DocExample>
+            </DocSection>
+
+            <DocSection title="Méthode 2 : Installation manuelle avec Docker">
+                <DocParagraph>
+                    Pour un contrôle total sur la configuration, utilisez directement{" "}
+                    <DocCode>docker run</DocCode>.
+                </DocParagraph>
+
+                <DocExample title="Avec vos propres services">
+                    <DocCodeBlock>{`docker run -d \\
+  --name comptasse \\
+  -p 3000:3000 \\
+  -p 5173:5173 \\
+  -v comptasse-data:/data \\
+  -e SQL_DATABASE_URL=postgres://user:password@host:5432/comptasse \\
+  -e STORAGE_ENDPOINT=https://s3.amazonaws.com \\
+  -e STORAGE_BUCKET_NAME=my-bucket \\
+  -e STORAGE_ACCESS_KEY=VOTRE_CLE_ACCES_S3 \\
+  -e STORAGE_SECRET_KEY=VOTRE_CLE_SECRETE_S3 \\
+  comptasse/comptasse`}</DocCodeBlock>
+                </DocExample>
+
+                <DocExample title="Variables d'environnement">
+                    <DocList
+                        items={[
+                            "SQL_DATABASE_URL (requis) : chaîne de connexion PostgreSQL",
+                            "STORAGE_ENDPOINT (requis) : URL du service S3",
+                            "STORAGE_BUCKET_NAME (requis) : nom du bucket",
+                            "STORAGE_ACCESS_KEY (requis) : clé d'accès S3",
+                            "STORAGE_SECRET_KEY (requis) : clé secrète S3",
+                            "STORAGE_REGION (optionnel) : région S3, défaut fr-par",
+                            "COOKIES_KEY (optionnel) : clé de signature, générée automatiquement si absente",
+                        ]}
+                    />
+                </DocExample>
+            </DocSection>
+
+            <DocSection title="Méthode 3 : Compose avec services intégrés">
+                <DocParagraph>
+                    Si vous n'avez pas de PostgreSQL ou de S3, ce fichier{" "}
+                    <DocCode>compose.yml</DocCode> inclut tout : Comptasse, PostgreSQL et
+                    RustFS (stockage S3).
+                </DocParagraph>
+
+                <DocExample title="Fichier compose.yml">
+                    <DocCodeBlock>{`services:
+  comptasse:
+    image: comptasse/comptasse
+    ports:
+      - "3000:3000"
+      - "5173:5173"
+    volumes:
+      - comptasse-data:/data
+    environment:
+      SQL_DATABASE_URL: postgres://postgres:password@postgres:5432/comptasse
+      STORAGE_ENDPOINT: http://rustfs:9000
+      STORAGE_BUCKET_NAME: comptasse-files
+      STORAGE_ACCESS_KEY: admin
+      STORAGE_SECRET_KEY: admin
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rustfs:
+        condition: service_started
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:18.1
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: comptasse
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d comptasse"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  rustfs:
+    image: rustfs/rustfs:latest
+    volumes:
+      - rustfs-data:/data
+    environment:
+      RUSTFS_CONSOLE_ENABLE: "false"
+      RUSTFS_ACCESS_KEY: admin
+      RUSTFS_SECRET_KEY: admin
+      RUSTFS_VOLUMES: /data
+    restart: unless-stopped
+
+volumes:
+  comptasse-data:
+  postgres-data:
+  rustfs-data:`}</DocCodeBlock>
+                </DocExample>
+
+                <DocExample title="Démarrage">
+                    <DocCodeBlock>{`# Sauvegardez le fichier ci-dessus dans compose.yml
+docker compose up -d
+
+# Vérifiez que les services sont démarrés
+docker compose ps`}</DocCodeBlock>
+                </DocExample>
+
+                <DocTip variant="warning">
+                    Ce mode est destiné au développement et aux tests. Pour la production,
+                    utilisez vos propres services PostgreSQL et S3 avec des identifiants
+                    sécurisés.
+                </DocTip>
+            </DocSection>
+
+            <DocSection title="Premiers pas après installation">
+                <DocList
+                    items={[
+                        "Ouvrez http://localhost:5173 dans votre navigateur",
+                        "Créez un compte utilisateur",
+                        "Créez votre première organisation",
+                        "Ajoutez un exercice comptable",
+                        "Commencez à saisir des écritures",
+                    ]}
                 />
+                <DocTip variant="info">
+                    Pour un guide détaillé de l'interface, consultez la page{" "}
+                    <DocLink to="/documentation/guide/démarrer">Démarrer avec Comptasse</DocLink>.
+                </DocTip>
+            </DocSection>
+
+            <DocSection title="Installation du CLI">
+                <DocParagraph>
+                    Le CLI est un client HTTP autonome qui communique avec l'API. Il peut
+                    être installé sur votre machine hôte ou utilisé directement dans le
+                    conteneur.
+                </DocParagraph>
+
+                <DocExample title="Sur votre machine hôte">
+                    <DocCodeBlock>{`curl -fsSL https://comptasse.com/cli/install.sh | sh
+
+# Vérifiez l'installation
+comptasse --version
+
+# Connectez-vous à votre instance
+comptasse login --api-key VOTRE_CLE_API --url http://localhost:3000`}</DocCodeBlock>
+                </DocExample>
+
+                <DocExample title="Dans le conteneur Docker">
+                    <DocCodeBlock>{`# Accédez au CLI dans le conteneur
+docker exec -it comptasse comptasse --help
+
+# Ou exécutez des commandes directement
+docker exec comptasse comptasse whoami`}</DocCodeBlock>
+                </DocExample>
             </DocSection>
         </DocRoot>
     )
