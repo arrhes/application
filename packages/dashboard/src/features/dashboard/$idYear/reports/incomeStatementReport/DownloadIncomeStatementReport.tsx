@@ -6,7 +6,6 @@ import { IconDownload, IconFileTypePdf, IconFileTypeXml } from "@tabler/icons-re
 import type * as v from "valibot"
 import { Popover } from "../../../../../components/overlays/popover/popover.tsx"
 import { getResponseBodyFromAPI } from "../../../../../utilities/getResponseBodyFromAPI.ts"
-import { IncomeStatementReportPdf } from "./IncomeStatementReportPdf.tsx"
 
 export function DownloadIncomeStatementReport(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
@@ -18,7 +17,10 @@ export function DownloadIncomeStatementReport(props: {
     accounts: Array<v.InferOutput<typeof returnedSchemas.account>>
 }) {
     async function handlePdf() {
-        const { pdf } = await import("@react-pdf/renderer")
+        const [{ pdf }, { IncomeStatementReportPdf }] = await Promise.all([
+            import("@react-pdf/renderer"),
+            import("./IncomeStatementReportPdf.tsx"),
+        ])
         const blob = await pdf(
             <IncomeStatementReportPdf
                 incomeStatements={props.incomeStatements}
