@@ -56,7 +56,7 @@ export const DOC_PAGE_MANIFEST: DocPageManifestEntry[] = [
     },
     {
         path: "/documentation/contribuer",
-        file: "src/features/docs/project/ContribuerGeneralDocPage.tsx",
+        file: "src/features/docs/project/ContributeGeneralDocPage.tsx",
         section: "Général",
         navGroup: "Introduction",
         navLabel: "Contribuer",

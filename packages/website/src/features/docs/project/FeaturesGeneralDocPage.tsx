@@ -17,8 +17,9 @@ export function FeaturesGeneralDocPage() {
 
             <DocSection title="Saisie des écritures comptables">
                 <DocParagraph>
-                    Saisissez vos écritures comptables dans une interface pensée pour la rapidité et la fiabilité. Chaque
-                    écriture est structurée en lignes de débit et de crédit, conformément aux règles de la partie double.
+                    Saisissez vos écritures comptables dans une interface pensée pour la rapidité et la fiabilité.
+                    Chaque écriture est structurée en lignes de débit et de crédit, conformément aux règles de la partie
+                    double.
                 </DocParagraph>
                 <DocList
                     items={[
@@ -41,6 +42,7 @@ export function FeaturesGeneralDocPage() {
                     items={[
                         "Plan comptable général complet et consultable",
                         "Navigation par classes, comptes et sous-comptes",
+                        "Personnalisation de votre plan comptable",
                         "Création de journaux personnalisés",
                         "Gestion des libellés et tags pour classer vos écritures",
                     ]}
@@ -55,8 +57,8 @@ export function FeaturesGeneralDocPage() {
                 <DocList
                     items={[
                         "Grand livre, balance générale, bilan et compte de résultat",
-                        "Export du Fichier des Écritures Comptables (FEC) au format attendu",
-                        "Export des documents en PDF",
+                        "Export du Fichier des Écritures Comptables (FEC) au format réglementaire",
+                        "Export des documents en format XML ou PDF",
                         "Mise à jour automatique après chaque écriture",
                     ]}
                 />
@@ -64,12 +66,12 @@ export function FeaturesGeneralDocPage() {
 
             <DocSection title="Gestion des exercices et clôture">
                 <DocParagraph>
-                    Créez autant d'exercices comptables que nécessaire pour chaque organisation. Ouvrez, gérez et clôturez
-                    vos exercices en quelques clics, tout en conservant l'historique complet.
+                    Créez autant d'exercices comptables que nécessaire pour chaque organisation. Ouvrez, gérez et
+                    clôturez vos exercices en quelques clics, tout en conservant l'historique complet.
                 </DocParagraph>
                 <DocList
                     items={[
-                        "Création d'exercices illimités par organisation",
+                        "Création illimitée d'exercices par organisation",
                         "Suivi de l'état d'ouverture et de clôture",
                         "Arrêté des documents comptables avant clôture",
                         "Consultation des exercices passés",
@@ -79,15 +81,14 @@ export function FeaturesGeneralDocPage() {
 
             <DocSection title="Espace de stockage sécurisé">
                 <DocParagraph>
-                    Rassemblez l'ensemble de vos pièces justificatives et documents comptables dans un espace de stockage
-                    dédié. Chaque fichier peut être rattaché à une écriture, un exercice ou une organisation.
+                    Rassemblez l'ensemble de vos pièces justificatives et documents comptables dans un espace de
+                    stockage dédié. Chaque fichier peut être rattaché à une écriture, un exercice ou une organisation.
                 </DocParagraph>
                 <DocList
                     items={[
                         "Stockage des factures, relevés bancaires et autres justificatifs",
                         "Visualisation et organisation par dossiers",
-                        "Volume de stockage inclus de 1 Go par organisation",
-                        "Stockage compatible avec le protocole S3",
+                        "Stockage compatible avec le protocole S3 (vous pouvez apporter vous-même votre espace de stockage)",
                     ]}
                 />
             </DocSection>
@@ -100,7 +101,6 @@ export function FeaturesGeneralDocPage() {
                 </DocParagraph>
                 <DocList
                     items={[
-                        "100 pages OCR incluses",
                         "Formats PDF, JPEG et PNG",
                         <>
                             Configuration <DocCode>BYOK</DocCode> (bring your own key)
@@ -111,21 +111,6 @@ export function FeaturesGeneralDocPage() {
                     Avec la configuration BYOK (bring your own key), vous gardez le contrôle de vos clés API et de la
                     facturation liée au traitement OCR.
                 </DocTip>
-            </DocSection>
-
-            <DocSection title="Assistant IA">
-                <DocParagraph>
-                    L'assistant IA vous accompagne dans la compréhension de vos écritures, la classification de vos
-                    documents et l'interprétation de vos données comptables. Il peut être utilisé directement dans le
-                    dashboard ou via des outils externes grâce aux skills fournis.
-                </DocParagraph>
-                <DocList
-                    items={[
-                        "Questions-réponses sur vos écritures et documents",
-                        "Aide à la saisie et à la classification",
-                        "Skills exposés pour les agents compatibles",
-                    ]}
-                />
             </DocSection>
 
             <DocSection title="Multi-organisations et collaboration">
@@ -157,37 +142,32 @@ export function FeaturesGeneralDocPage() {
                     ]}
                 />
                 <DocParagraph>
-                    <DocLink to="/documentation/guide/référence-api">Consulter la documentation API</DocLink>
-                    {" "}-{" "}
+                    <DocLink to="/documentation/guide/référence-api">Consulter la documentation API</DocLink> -{" "}
                     <DocLink to="/documentation/guide/installation">Découvrir la CLI</DocLink>
                 </DocParagraph>
             </DocSection>
 
-            <DocSection title="Exports et intégrations">
+            <DocSection title="Intégration">
                 <DocParagraph>
-                    Exportez vos données comptables dans les formats attendus par vos outils, vos cabinets comptables ou
-                    l'administration fiscale.
+                    Intégrez facilement l'outil à différentes interfaces et agents IA pour automatiser votre
+                    comptabilité.
                 </DocParagraph>
                 <DocList
                     items={[
-                        "Export FEC pour les contrôles de conformité",
-                        "Export PDF des documents comptables",
-                        "Exports XML pour les liasses fiscales",
-                        "Intégration possible via l'API REST",
+                        "Documentation accessible pour les agents (ajouter .md)",
+                        "Skills exposés pour les agents compatibles",
                     ]}
                 />
             </DocSection>
 
             <DocSection title="Sécurité et conformité">
                 <DocParagraph>
-                    Vos données comptables sont protégées par des pratiques de sécurité robustes et un hébergement situé
-                    en France.
+                    Vos données comptables sont protégées par des pratiques de sécurité robustes et le modèle open
+                    source.
                 </DocParagraph>
                 <DocList
                     items={[
                         "Chiffrement des données en transit et au repos",
-                        "Sauvegardes automatiques",
-                        "Hébergement en France",
                         "Contrôle d'accès par organisation et par rôle",
                     ]}
                 />

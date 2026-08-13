@@ -32,11 +32,6 @@ interface ProcessOcrParams {
         storageKey: string | null
         type: string | null
     }
-    credentials: {
-        ocrEndpoint: string | null
-        ocrApiKey: string | null
-        ocrModel: string | null
-    }
 }
 
 interface ProcessOcrResult {
@@ -45,7 +40,7 @@ interface ProcessOcrResult {
 }
 
 export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrResult> {
-    const { idOrganization, idUser, sourceFile, credentials } = params
+    const { idOrganization, idUser, sourceFile } = params
 
     console.log(
         `[processOcr] Starting OCR for file "${sourceFile.name}" (id=${sourceFile.id}, type=${sourceFile.type}, storageKey=${sourceFile.storageKey})`,
@@ -59,17 +54,17 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
         })
     }
 
-    const ocrApiKey = credentials.ocrApiKey
+    const ocrApiKey = params.var.env.OCR_API_KEY
     if (!ocrApiKey) {
         throw new Exception({
-            internalMessage: "User OCR API key is not configured",
+            internalMessage: "OCR API key is not configured",
             statusCode: 400,
-            externalMessage: "Votre clé API OCR n'est pas configurée dans votre profil",
+            externalMessage: "L'OCR n'est pas configurée (clé API manquante)",
         })
     }
 
-    const ocrEndpoint = credentials.ocrEndpoint ?? "https://api.mistral.ai/v1/ocr"
-    const ocrModel = credentials.ocrModel ?? "mistral-ocr-latest"
+    const ocrEndpoint = params.var.env.OCR_ENDPOINT
+    const ocrModel = params.var.env.OCR_MODEL
 
     const mimeType = sourceFile.type ?? "application/octet-stream"
     const isImage = mimeType.startsWith("image/")

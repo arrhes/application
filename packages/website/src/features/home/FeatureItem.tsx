@@ -1,5 +1,6 @@
 import { css } from "@comptasse/ui/utilities/cn.js"
 import type { ReactNode } from "react"
+import { DocList } from "../../components/document/DocList.tsx"
 
 export function FeatureItem(props: {
     icon: ReactNode
@@ -71,27 +72,11 @@ export function FeatureItem(props: {
                     )}
                 </div>
                 {props.description && props.description.length > 0 && (
-                    <ul
-                        className={css({
-                            listStyleType: "none",
-                            margin: "0",
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "0.125rem",
-                        })}
-                    >
-                        {props.description.map((item) => (
-                            <li
-                                key={item}
-                                className={css({
-                                    fontSize: "xs",
-                                    color: "neutral/70",
-                                })}
-                            >
-                                {item}
-                            </li>
-                        ))}
-                    </ul>
+                    <DocList
+                        variant="none"
+                        size="xs"
+                        items={props.description}
+                    />
                 )}
             </div>
         </div>

@@ -6,6 +6,7 @@ import { DOC_PAGE_MANIFEST } from "./DOC_PAGE_MANIFEST"
 import {
     generateAccountMarkdown,
     generateGlossaryMarkdown,
+    generateNavigationMarkdown,
     generateScenarioMarkdown,
     generateStaticDocPageMarkdown,
     listAccountSlugs,
@@ -186,6 +187,14 @@ export function prerenderPlugin(): Plugin {
                     })
                     writeFileSync(mdOutFile, content, "utf-8")
                 }
+
+                // Generate the navigation (sommaire) .md file
+                const navigationMarkdown = generateNavigationMarkdown(baseUrl)
+                const navigationOutFile = resolve(buildDir, "documentation/sommaire.md")
+                mkdirSync(dirname(navigationOutFile), {
+                    recursive: true,
+                })
+                writeFileSync(navigationOutFile, navigationMarkdown, "utf-8")
 
                 rmSync(renderBuildDir, {
                     recursive: true,

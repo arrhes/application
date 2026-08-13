@@ -166,19 +166,19 @@ function WritingStructureSection() {
                     ]}
                     rows={[
                         [
-                            "606100",
+                            "6061",
                             "Fournitures de bureau",
                             "100,00",
                             "",
                         ],
                         [
-                            "445660",
+                            "44566",
                             "TVA déductible",
                             "20,00",
                             "",
                         ],
                         [
-                            "512000",
+                            "512",
                             "Banque",
                             "",
                             "120,00",
@@ -225,19 +225,19 @@ function CreditVsCashOperationsSection() {
                     ]}
                     rows={[
                         [
-                            "607000",
+                            "607",
                             "Achats de marchandises",
                             "1 000,00",
                             "",
                         ],
                         [
-                            "445660",
+                            "44566",
                             "TVA déductible",
                             "200,00",
                             "",
                         ],
                         [
-                            "401000",
+                            "401",
                             "Fournisseurs",
                             "",
                             "1 200,00",
@@ -262,13 +262,13 @@ function CreditVsCashOperationsSection() {
                     ]}
                     rows={[
                         [
-                            "401000",
+                            "401",
                             "Fournisseurs",
                             "1 200,00",
                             "",
                         ],
                         [
-                            "512000",
+                            "512",
                             "Banque",
                             "",
                             "1 200,00",
@@ -304,19 +304,19 @@ function CreditVsCashOperationsSection() {
                     ]}
                     rows={[
                         [
-                            "607000",
+                            "607",
                             "Achats de marchandises",
                             "1 000,00",
                             "",
                         ],
                         [
-                            "445660",
+                            "44566",
                             "TVA déductible",
                             "200,00",
                             "",
                         ],
                         [
-                            "512000",
+                            "512",
                             "Banque",
                             "",
                             "1 200,00",
@@ -358,13 +358,13 @@ function CommonOperationsSection() {
                     ]}
                     rows={[
                         [
-                            "411000",
+                            "411",
                             "Clients",
                             "600,00",
                             "",
                         ],
                         [
-                            "706000",
+                            "706",
                             "Prestations de services",
                             "",
                             "500,00",
@@ -395,13 +395,13 @@ function CommonOperationsSection() {
                     ]}
                     rows={[
                         [
-                            "512000",
+                            "512",
                             "Banque",
                             "600,00",
                             "",
                         ],
                         [
-                            "411000",
+                            "411",
                             "Clients",
                             "",
                             "600,00",
@@ -427,7 +427,7 @@ function CommonOperationsSection() {
                     ]}
                     rows={[
                         [
-                            "530000",
+                            "530",
                             "Caisse",
                             "50,00",
                             "",
@@ -488,16 +488,13 @@ function VatInWritingsSection() {
                 >
                     À la fin du mois, vous avez :
                 </p>
-                <ul
-                    className={css({
-                        ml: "4",
-                        fontSize: "sm",
-                        color: "neutral/70",
-                    })}
-                >
-                    <li>TVA collectée (4457) : 500 euros (créditeur)</li>
-                    <li>TVA déductible (4456) : 300 euros (débiteur)</li>
-                </ul>
+                <DocList
+                    variant="bullet"
+                    items={[
+                        "TVA collectée (4457) : 500 euros (créditeur)",
+                        "TVA déductible (4456) : 300 euros (débiteur)",
+                    ]}
+                />
                 <p
                     className={css({
                         marginTop: "3",
@@ -522,7 +519,7 @@ function VatInWritingsSection() {
                             "",
                         ],
                         [
-                            "445660",
+                            "44566",
                             "TVA déductible",
                             "",
                             "300,00",

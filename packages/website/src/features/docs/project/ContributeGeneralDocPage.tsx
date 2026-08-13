@@ -1,7 +1,5 @@
-import { css } from "@comptasse/ui/utilities/cn.js"
-import { IconBrandGithub, IconExternalLink, IconUsers } from "@tabler/icons-react"
+import { IconBrandGithub, IconExternalLink } from "@tabler/icons-react"
 import { DocCode } from "../../../components/document/DocCode.js"
-import { DocCodeBlock } from "../../../components/document/DocCodeBlock.js"
 import { DocHeader } from "../../../components/document/DocHeader.js"
 import { DocLink } from "../../../components/document/DocLink.js"
 import { DocList } from "../../../components/document/DocList.js"
@@ -12,13 +10,7 @@ import { DocTip } from "../../../components/document/DocTip.js"
 
 const githubUrl = "https://github.com/comptasse/application"
 
-const gridClass = css({
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(16rem, 1fr))",
-    gap: "1rem",
-})
-
-export function ContribuerGeneralDocPage() {
+export function ContributeGeneralDocPage() {
     return (
         <DocRoot>
             <DocHeader
@@ -28,9 +20,9 @@ export function ContribuerGeneralDocPage() {
 
             <DocSection title="Pourquoi contribuer ?">
                 <DocParagraph>
-                    Comptasse est un projet communautaire. Que vous soyez développeur, designer, rédacteur ou simple
-                    utilisateur, votre contribution aide à faire avancer le projet et à le rendre meilleur pour tout
-                    le monde.
+                    Comptasse est un projet communautaire. Que vous soyez développeur, designer, comptable, rédacteur ou
+                    utilisateur, votre contribution aide à faire avancer le projet et à le rendre meilleur pour tout le
+                    monde.
                 </DocParagraph>
             </DocSection>
 
@@ -38,9 +30,7 @@ export function ContribuerGeneralDocPage() {
                 <DocParagraph>Vous pouvez contribuer de plusieurs manières :</DocParagraph>
                 <DocList
                     items={[
-                        <>
-                            <IconUsers size={16} /> Participer aux discussions et partager vos retours
-                        </>,
+                        "Participer aux discussions et partager vos retours",
                         "Signaler un bug rencontré",
                         "Proposer une nouvelle fonctionnalité",
                         "Améliorer la documentation",
@@ -54,10 +44,20 @@ export function ContribuerGeneralDocPage() {
                     Vous avez trouvé un bug ? Signalez-le en créant une issue sur GitHub. Pour nous aider à le corriger
                     rapidement, décrivez précisément le problème et les étapes pour le reproduire.
                 </DocParagraph>
+                <DocLink
+                    href={`${githubUrl}/issues`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    buttonProps={{
+                        leftIcon: <IconBrandGithub />,
+                        text: "Voir les issues",
+                        rightIcon: <IconExternalLink />,
+                    }}
+                />
                 <DocParagraph>
-                    Un bon rapport de bug inclut généralement : un titre clair, une description du comportement
-                    attendu, les étapes de reproduction, votre environnement (OS, navigateur, version de Comptasse)
-                    et des captures d'écran si possible.
+                    Un bon rapport de bug inclut généralement : un titre clair, une description du comportement attendu,
+                    les étapes de reproduction, votre environnement (OS, navigateur, version de Comptasse) et des
+                    captures d'écran si possible.
                 </DocParagraph>
             </DocSection>
 
@@ -66,6 +66,16 @@ export function ContribuerGeneralDocPage() {
                     Une idée pour améliorer Comptasse ? Ouvrez une issue ou une discussion sur GitHub pour la partager
                     avec la communauté avant de vous lancer dans le développement.
                 </DocParagraph>
+                <DocLink
+                    href={`${githubUrl}/discussions`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    buttonProps={{
+                        leftIcon: <IconBrandGithub />,
+                        text: "Voir les discussions",
+                        rightIcon: <IconExternalLink />,
+                    }}
+                />
             </DocSection>
 
             <DocSection title="Contribuer au code">
@@ -73,10 +83,6 @@ export function ContribuerGeneralDocPage() {
                     Les contributions de code sont les bienvenues. Commencez par forker le dépôt, cloner votre fork et
                     installer les dépendances.
                 </DocParagraph>
-                <DocCodeBlock>{`git clone https://github.com/comptasse/application.git
-cd application
-pnpm install
-pnpm dev`}</DocCodeBlock>
                 <DocParagraph>
                     Créez une branche dédiée à votre contribution, apportez vos modifications, puis ouvrez une pull
                     request vers la branche <DocCode>main</DocCode> du dépôt principal.
@@ -85,19 +91,22 @@ pnpm dev`}</DocCodeBlock>
                     Chaque contribution compte, même la plus petite : correction d'un bug, amélioration de la
                     documentation, ajout de tests, ou refactoring de code.
                 </DocParagraph>
-                <DocParagraph>
-                    <IconBrandGithub size={16} />{" "}
-                    <DocLink href={githubUrl} target="_blank" rel="noopener noreferrer">
-                        Voir le dépôt GitHub
-                    </DocLink>{" "}
-                    <IconExternalLink size={16} />
-                </DocParagraph>
+                <DocLink
+                    href={`${githubUrl}/blob/main/docs/CONTRIBUTING.md`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    buttonProps={{
+                        leftIcon: <IconBrandGithub />,
+                        text: "Voir le CONTRIBUTING.md",
+                        rightIcon: <IconExternalLink />,
+                    }}
+                />
             </DocSection>
 
             <DocSection title="Contribuer à la documentation">
                 <DocParagraph>
-                    La documentation est essentielle pour un projet open source. Aidez-nous à l'améliorer : corrigez
-                    les fautes, clarifiez les passages ambigus, ou rédigez de nouvelles pages.
+                    La documentation est essentielle pour un projet open source. Aidez-nous à l'améliorer : corrigez les
+                    fautes, clarifiez les passages ambigus, ou rédigez de nouvelles pages.
                 </DocParagraph>
                 <DocParagraph>
                     La documentation se trouve principalement dans le dossier{" "}

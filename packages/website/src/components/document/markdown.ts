@@ -62,6 +62,11 @@ export function mdList(items: string[]): string {
     return `${items.map((item) => `- ${item}`).join("\n")}\n\n`
 }
 
+export function mdOrderedList(items: string[]): string {
+    if (items.length === 0) return ""
+    return `${items.map((item, index) => `${index + 1}. ${item}`).join("\n")}\n\n`
+}
+
 export function mdParagraph(text: string): string {
     return `${text.trim()}\n\n`
 }

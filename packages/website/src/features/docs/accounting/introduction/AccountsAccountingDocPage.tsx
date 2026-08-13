@@ -133,22 +133,18 @@ function AccountFamiliesSection() {
 
             <DocExample title="Point de vue des comptes d'agents">
                 <p>Le compte Clients est tenu du point de vue des clients :</p>
-                <ul
-                    className={css({
-                        marginTop: "2",
-                        ml: "4",
-                        fontSize: "sm",
-                        spaceY: "1",
-                    })}
-                >
-                    <li>
-                        Quand un client vous doit de l'argent - le compte est <strong>débité</strong> (sa dette
-                        augmente)
-                    </li>
-                    <li>
-                        Quand il vous paye - le compte est <strong>crédité</strong> (sa dette diminue)
-                    </li>
-                </ul>
+                <DocList
+                    variant="bullet"
+                    items={[
+                        <>
+                            Quand un client vous doit de l'argent - le compte est <strong>débité</strong> (sa dette
+                            augmente)
+                        </>,
+                        <>
+                            Quand il vous paye - le compte est <strong>crédité</strong> (sa dette diminue)
+                        </>,
+                    ]}
+                />
                 <p
                     className={css({
                         marginTop: "3",
@@ -156,22 +152,18 @@ function AccountFamiliesSection() {
                 >
                     Le compte Fournisseurs est tenu du point de vue des fournisseurs :
                 </p>
-                <ul
-                    className={css({
-                        marginTop: "2",
-                        ml: "4",
-                        fontSize: "sm",
-                        spaceY: "1",
-                    })}
-                >
-                    <li>
-                        Quand vous leur devez de l'argent - le compte est <strong>crédité</strong> (leur créance
-                        augmente)
-                    </li>
-                    <li>
-                        Quand vous les payez - le compte est <strong>débité</strong> (leur créance diminue)
-                    </li>
-                </ul>
+                <DocList
+                    variant="bullet"
+                    items={[
+                        <>
+                            Quand vous leur devez de l'argent - le compte est <strong>crédité</strong> (leur créance
+                            augmente)
+                        </>,
+                        <>
+                            Quand vous les payez - le compte est <strong>débité</strong> (leur créance diminue)
+                        </>,
+                    ]}
+                />
             </DocExample>
 
             <DocParagraph>
@@ -360,17 +352,13 @@ function StateAndVATSection() {
 
             <DocExample title="Mécanisme de la TVA">
                 <p>À la fin de la période :</p>
-                <ul
-                    className={css({
-                        marginTop: "2",
-                        ml: "4",
-                        fontSize: "sm",
-                        spaceY: "1",
-                    })}
-                >
-                    <li>Si TVA collectée &gt; TVA déductible - vous devez la différence à l'État</li>
-                    <li>Si TVA collectée &lt; TVA déductible - l'État vous doit la différence (crédit de TVA)</li>
-                </ul>
+                <DocList
+                    variant="bullet"
+                    items={[
+                        "Si TVA collectée > TVA déductible - vous devez la différence à l'État",
+                        "Si TVA collectée < TVA déductible - l'État vous doit la différence (crédit de TVA)",
+                    ]}
+                />
             </DocExample>
         </DocSection>
     )
@@ -403,30 +391,26 @@ function AccountNumberingSection() {
                 >
                     Le compte <strong>60611</strong> se décompose ainsi :
                 </p>
-                <ul
-                    className={css({
-                        marginTop: "2",
-                        ml: "4",
-                        fontSize: "sm",
-                        color: "neutral/70",
-                    })}
-                >
-                    <li>
-                        <strong>6</strong> = Classe 6 (Charges)
-                    </li>
-                    <li>
-                        <strong>60</strong> = Achats
-                    </li>
-                    <li>
-                        <strong>606</strong> = Achats non stockés de matières et fournitures
-                    </li>
-                    <li>
-                        <strong>6061</strong> = Fournitures non stockables
-                    </li>
-                    <li>
-                        <strong>60611</strong> = Eau, énergie
-                    </li>
-                </ul>
+                <DocList
+                    variant="bullet"
+                    items={[
+                        <>
+                            <strong>6</strong> = Classe 6 (Charges)
+                        </>,
+                        <>
+                            <strong>60</strong> = Achats
+                        </>,
+                        <>
+                            <strong>606</strong> = Achats non stockés de matières et fournitures
+                        </>,
+                        <>
+                            <strong>6061</strong> = Fournitures non stockables
+                        </>,
+                        <>
+                            <strong>60611</strong> = Eau, énergie
+                        </>,
+                    ]}
+                />
             </DocExample>
         </DocSection>
     )

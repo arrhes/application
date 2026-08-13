@@ -1,10 +1,8 @@
-import { css } from "@comptasse/ui/utilities/cn.js"
-import { DocLastUpdate } from "../../../components/document/DocLastUpdate.js"
 import { DocLink } from "../../../components/document/DocLink.js"
 import { DocParagraph } from "../../../components/document/DocParagraph.js"
+import { DocRoot } from "../../../components/document/DocRoot.js"
 import { DocTextSection } from "../../../components/document/DocTextSection.js"
 import { DocTip } from "../../../components/document/DocTip.js"
-import { DocRoot } from "../../../components/document/DocRoot.js"
 
 export function LegalGeneralDocPage() {
     return (
@@ -12,15 +10,14 @@ export function LegalGeneralDocPage() {
             <DocTextSection title="Éditeur du site">
                 <DocParagraph>
                     Le site comptasse.com est édité par Barbote SAS, société par actions simplifiée au capital de
-                    1000.00 euros, immatriculée au Registre du Commerce et des Sociétés de Paris sous le numéro 908
-                    719 503.
+                    1000.00 euros, immatriculée au Registre du Commerce et des Sociétés de Paris sous le numéro 908 719
+                    503.
                 </DocParagraph>
                 <DocParagraph>Siège social : 93 rue Sedaine, 75011 Paris</DocParagraph>
                 <DocParagraph>Numéro de TVA intracommunautaire : FR02 908 719 503</DocParagraph>
                 <DocParagraph>Directeur de la publication : Emile Sabatier</DocParagraph>
                 <DocParagraph>
-                    Contact :{" "}
-                    <DocLink href="mailto:contact@comptasse.com">contact@comptasse.com</DocLink>
+                    Contact : <DocLink href="mailto:contact@comptasse.com">contact@comptasse.com</DocLink>
                 </DocParagraph>
             </DocTextSection>
 
@@ -30,8 +27,7 @@ export function LegalGeneralDocPage() {
                     OVH
                     <br />
                     RCS Lille Métropole, 424 761 419 00045
-                    <br />
-                    2 rue Kellermann - 59100 Roubaix - France
+                    <br />2 rue Kellermann - 59100 Roubaix - France
                 </DocParagraph>
             </DocTextSection>
 
@@ -79,17 +75,9 @@ export function LegalGeneralDocPage() {
             </DocTextSection>
 
             <DocTip>
-                Pour toute question juridique, vous pouvez nous contacter à{" "}
+                Pour toute question, vous pouvez nous contacter à{" "}
                 <DocLink href="mailto:contact@comptasse.com">contact@comptasse.com</DocLink>.
             </DocTip>
-
-            <div
-                className={css({
-                    marginTop: "2rem",
-                })}
-            >
-                <DocLastUpdate date="11 août 2026" />
-            </div>
         </DocRoot>
     )
 }

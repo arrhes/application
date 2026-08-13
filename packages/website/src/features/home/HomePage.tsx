@@ -1,6 +1,6 @@
-import { Badge, ButtonPlainContent } from "@comptasse/ui"
+import { Badge, ButtonOutlineContent, ButtonPlainContent } from "@comptasse/ui"
 import { css } from "@comptasse/ui/utilities/cn.js"
-import { IconRocket } from "@tabler/icons-react"
+import { IconBook, IconRocket } from "@tabler/icons-react"
 import { LinkButton } from "../../components/LinkButton.js"
 import { HeroIllustration } from "./HeroIllustration.js"
 
@@ -106,6 +106,12 @@ export function HomePage() {
                             <ButtonPlainContent
                                 leftIcon={<IconRocket />}
                                 text="Commencer à l'utiliser"
+                            />
+                        </LinkButton>
+                        <LinkButton to="/documentation/fonctionnalités">
+                            <ButtonOutlineContent
+                                leftIcon={<IconBook />}
+                                text="Découvrir le projet"
                             />
                         </LinkButton>
                     </div>

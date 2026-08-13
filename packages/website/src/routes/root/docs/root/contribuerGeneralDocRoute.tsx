@@ -1,6 +1,6 @@
 import { createRoute } from "@tanstack/react-router"
 import { DocRoot } from "../../../../components/document/DocRoot"
-import { ContribuerGeneralDocPage } from "../../../../features/docs/project/ContribuerGeneralDocPage.js"
+import { ContributeGeneralDocPage } from "../../../../features/docs/project/ContributeGeneralDocPage.js"
 import { docsLayoutRoute } from "../docsLayoutRoute.js"
 
 export const contribuerGeneralDocRoute = createRoute({
@@ -13,7 +13,7 @@ export const contribuerGeneralDocRoute = createRoute({
     }),
     component: () => (
         <DocRoot>
-            <ContribuerGeneralDocPage />
+            <ContributeGeneralDocPage />
         </DocRoot>
     ),
 })

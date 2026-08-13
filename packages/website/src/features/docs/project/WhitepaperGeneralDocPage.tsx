@@ -13,11 +13,11 @@ export function WhitepaperGeneralDocPage() {
             <DocSection title="Notre vision">
                 <DocParagraph>
                     Nous voulons que la comptabilité devienne accessible, compréhensible et même agréable. Nous
-                    construisons Comptasse pour tout le monde : autant ceux qui veulent faire leur comptabilité
+                    construisons Comptasse pour tout le monde : autant ceux qui veulent découvrir la comptabilité
                     simplement que les experts du domaine.
                 </DocParagraph>
                 <DocParagraph>
-                    À terme, nous voulons qu'Comptasse devienne la référence open source de la comptabilité en France -
+                    À terme, nous voulons que Comptasse devienne la référence open source de la comptabilité en France -
                     un outil moderne, transparent et communautaire, soutenu par un modèle économique sain. Un outil dont
                     la communauté est fière, parce qu'elle contribue à le rendre meilleur chaque jour.
                 </DocParagraph>
@@ -44,7 +44,7 @@ export function WhitepaperGeneralDocPage() {
                 <DocParagraph>
                     Nous pensons aussi qu'à l'ère de l'intelligence artificielle, l'open source a plus de sens que
                     jamais. Les modèles IA sont entraînés sur du code et savent le restituer. Nous pensons que la valeur
-                    ajoutée ne réside plus dans le code, mais plutôt dans l'architecture pensée par et pour les
+                    ajoutée ne réside plus dans ce code, mais plutôt dans l'architecture pensée par et pour les
                     utilisateurs.
                 </DocParagraph>
             </DocSection>
@@ -52,25 +52,15 @@ export function WhitepaperGeneralDocPage() {
                 title="Notre modèle économique"
                 depth={1}
             >
+                <DocParagraph>Notre approche est simple : reposer sur ce qui peuvent.</DocParagraph>
                 <DocParagraph>
-                    Notre approche est simple : le cœur du logiciel est gratuit, et nous faisons payer uniquement ce qui
-                    nous coûte cher à fournir.
+                    Tout est accessible gratuitement, il vous suffit d'amener votre propre infrastructure (hébergement,
+                    postgresql, s3). Nous ne croyons pas aux limitations artificielles qui frustrent les utilisateurs
+                    pour les pousser à payer.
                 </DocParagraph>
                 <DocParagraph>
-                    Toute la comptabilité - saisie des écritures, plan comptable, bilan, compte de résultat, gestion des
-                    pièces jointes - est accessible gratuitement. Nous ne croyons pas aux limitations artificielles qui
-                    frustrent les utilisateurs pour les pousser à payer.
-                </DocParagraph>
-                <DocParagraph>
-                    Ce qui est payant, ce sont les fonctionnalités qui ont un coût réel pour nous : le stockage,
-                    l'assistant IA (qui consomme des ressources de calcul), l'hébergement cloud géré (serveurs,
-                    sauvegardes, maintenance), et les intégrations avancées. En résumé, vous payez pour
-                    l'infrastructure, pas pour le logiciel lui-même.
-                </DocParagraph>
-                <DocParagraph>
-                    Ce modèle nous semble juste. Les revenus générés financent l'ensemble du projet : le développement
-                    des fonctionnalités, la maintenance, la documentation et le support communautaire. Chaque licence
-                    soutient l'outil pour tout le monde.
+                    Ce modèle nous semble juste. Les revenus générés par les dons financent l'ensemble du projet : le
+                    développement des fonctionnalités, la maintenance, la documentation et le support communautaire.
                 </DocParagraph>
             </DocSection>
         </DocRoot>

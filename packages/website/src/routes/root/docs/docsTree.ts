@@ -4,7 +4,6 @@ import { introductionAccountingTree } from "./accounting/introduction/introducti
 import { reportsAccountingTree } from "./accounting/reports/reportsAccountingTree.js"
 import { resourcesAccountingTree } from "./accounting/resources/resourcesAccountingTree.js"
 import { rootAccountingDocRoute } from "./accounting/rootAccountingDocRoute.js"
-import { docMdRoute } from "./docMdRoute.js"
 import { docsLayoutRoute } from "./docsLayoutRoute.js"
 import { agentSkillsDocRoute } from "./guide/agentSkillsDocRoute.js"
 import { agentToolsDocRoute } from "./guide/agentToolsDocRoute.js"
@@ -82,6 +81,4 @@ export const docsTree: AnyRoute = docsLayoutRoute.addChildren([
     supportGeneralDocRoute,
     legalGeneralDocRoute,
     rootGeneralDocRoute,
-
-    docMdRoute,
 ])

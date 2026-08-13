@@ -429,24 +429,16 @@ function BalanceSheetExampleSection() {
                         >
                             ACTIF
                         </p>
-                        <ul
-                            className={css({
-                                fontSize: "xs",
-                                color: "neutral/70",
-                            })}
-                        >
-                            <li>Matériel informatique : 2 000</li>
-                            <li>Créances adhérents : 500</li>
-                            <li>Banque : 4 500</li>
-                            <li
-                                className={css({
-                                    fontWeight: "semibold",
-                                    marginTop: "1",
-                                })}
-                            >
-                                Total : 7 000
-                            </li>
-                        </ul>
+                        <DocList
+                            variant="bullet"
+                            size="xs"
+                            items={[
+                                "Matériel informatique : 2 000",
+                                "Créances adhérents : 500",
+                                "Banque : 4 500",
+                                <strong key="total">Total : 7 000</strong>,
+                            ]}
+                        />
                     </div>
                     <div>
                         <p
@@ -457,24 +449,16 @@ function BalanceSheetExampleSection() {
                         >
                             PASSIF
                         </p>
-                        <ul
-                            className={css({
-                                fontSize: "xs",
-                                color: "neutral/70",
-                            })}
-                        >
-                            <li>Fonds associatifs : 4 000</li>
-                            <li>Résultat de l'exercice : 2 000</li>
-                            <li>Dettes fournisseurs : 1 000</li>
-                            <li
-                                className={css({
-                                    fontWeight: "semibold",
-                                    marginTop: "1",
-                                })}
-                            >
-                                Total : 7 000
-                            </li>
-                        </ul>
+                        <DocList
+                            variant="bullet"
+                            size="xs"
+                            items={[
+                                "Fonds associatifs : 4 000",
+                                "Résultat de l'exercice : 2 000",
+                                "Dettes fournisseurs : 1 000",
+                                <strong key="total">Total : 7 000</strong>,
+                            ]}
+                        />
                     </div>
                 </div>
                 <p

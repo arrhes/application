@@ -15,9 +15,6 @@ export const userSchema = v.object({
     email: v.nonNullable(emailSchema, "Ce champ est requis"),
     passwordHash: v.nonNullable(stringSchema, "Ce champ est requis"),
     passwordSalt: v.nonNullable(stringSchema, "Ce champ est requis"),
-    ocrEndpoint: v.nullable(v.string()),
-    ocrApiKey: v.nullable(v.string()),
-    ocrModel: v.nullable(v.string()),
     createdAt: v.nonNullable(dateTimeSchema, "Ce champ est requis"),
     lastUpdatedAt: v.nullable(dateTimeSchema),
 }) satisfies v.GenericSchema<typeof userModel.$inferSelect>
@@ -27,9 +24,6 @@ export const userSchemaReturn = v.pick(userSchema, [
     "isActive",
     "alias",
     "email",
-    "ocrEndpoint",
-    "ocrApiKey",
-    "ocrModel",
     "createdAt",
     "lastUpdatedAt",
 ])

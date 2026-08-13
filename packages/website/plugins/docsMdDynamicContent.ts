@@ -8,6 +8,7 @@ import {
     mdHeader,
     mdLink,
     mdList,
+    mdOrderedList,
     mdParagraph,
     mdSection,
     mdSourceRef,
@@ -68,6 +69,58 @@ interface GlossaryTermData {
 function docUrl(baseUrl: string, path: string): string {
     if (/^[a-z][a-z0-9+.-]*:/i.test(path)) return path
     return `${baseUrl}${path}`
+}
+
+export const DOC_NAVIGATION_PATH = "/documentation/sommaire"
+
+/**
+ * Builds a full navigation tree over the documentation as Markdown links,
+ * grouped by `section → navGroup → pages`. Every page link points to the raw
+ * `.md` URL so LLM agents can crawl the documentation from a single entry point.
+ */
+export function generateNavigationMarkdown(baseUrl = ""): string {
+    const sections = new Map<string, Map<string, Array<{ label: string; path: string }>>>()
+
+    for (const entry of DOC_PAGE_MANIFEST) {
+        let groups = sections.get(entry.section)
+        if (!groups) {
+            groups = new Map()
+            sections.set(entry.section, groups)
+        }
+        let pages = groups.get(entry.navGroup)
+        if (!pages) {
+            pages = []
+            groups.set(entry.navGroup, pages)
+        }
+        pages.push({
+            label: entry.navLabel,
+            path: `${entry.path}.md`,
+        })
+    }
+
+    const lines: string[] = []
+    lines.push("# Navigation")
+    lines.push("")
+
+    for (const [section, groups] of sections) {
+        lines.push(`## ${section}`)
+        lines.push("")
+        for (const [group, pages] of groups) {
+            lines.push(`### ${group}`)
+            lines.push("")
+            for (const page of pages) {
+                lines.push(`- [${page.label}](${docUrl(baseUrl, page.path)})`)
+            }
+            lines.push("")
+        }
+    }
+
+    return `${lines.join("\n").trimEnd()}\n`
+}
+
+function withNavigationLink(markdown: string, baseUrl: string): string {
+    const link = `[Navigation de la documentation](${docUrl(baseUrl, `${DOC_NAVIGATION_PATH}.md`)})`
+    return `${link}\n\n---\n\n${markdown}`
 }
 
 function readAccountsData(pkgRoot: string): string {
@@ -333,7 +386,7 @@ export function generateAccountMarkdown(pkgRoot: string, slug: string, baseUrl =
     lines.push(`- **Crédit** : ${account.creditMeaning}`)
     lines.push("")
 
-    return lines.join("\n")
+    return withNavigationLink(lines.join("\n"), baseUrl)
 }
 
 export function generateScenarioMarkdown(pkgRoot: string, id: string, baseUrl = ""): string | null {
@@ -377,7 +430,7 @@ export function generateScenarioMarkdown(pkgRoot: string, id: string, baseUrl = 
         lines.push("")
     }
 
-    return lines.join("\n")
+    return withNavigationLink(lines.join("\n"), baseUrl)
 }
 
 export function generateGlossaryMarkdown(pkgRoot: string, slug: string, baseUrl = ""): string | null {
@@ -425,7 +478,7 @@ export function generateGlossaryMarkdown(pkgRoot: string, slug: string, baseUrl 
         lines.push("")
     }
 
-    return lines.join("\n")
+    return withNavigationLink(lines.join("\n"), baseUrl)
 }
 
 export function listGlossarySlugs(pkgRoot: string): string[] {
@@ -608,9 +661,9 @@ function convertBlockComponents(value: string, baseUrl = ""): string {
                 return mdTable(headers, rows)
             },
         )
-        .replace(/<DocList[\s\S]*?items\s*=\s*\{\s*\[([\s\S]*?)\]\s*\}[\s\S]*?\/>/g, (_, itemsRaw) => {
+        .replace(/<DocList([\s\S]*?)items\s*=\s*\{\s*\[([\s\S]*?)\]\s*\}[\s\S]*?\/>/g, (_, attrs, itemsRaw) => {
             const items = parseInlineStringArray(itemsRaw, baseUrl)
-            return mdList(items)
+            return /variant\s*=\s*"ordered"/.test(attrs) ? mdOrderedList(items) : mdList(items)
         })
         .replace(/<DocCodeBlock>([\s\S]*?)<\/DocCodeBlock>/g, (_, code) => {
             const literalMatch = code.match(/^\s*\{\s*(?:"([\s\S]*?)"|'([\s\S]*?)')\s*\}\s*$/)
@@ -670,6 +723,19 @@ function renderMarkdownForSectionBody(sectionBody: string, baseUrl: string): str
     // Convert standalone DocTip/DocDefinition/DocExample blocks
     const bodyWithTips = convertDocTip(sectionBody, baseUrl)
 
+    // Keep the converted tip/definition/example blockquotes (everything that is
+    // not one of the raw block tags handled below).
+    const tipsMarkdown = bodyWithTips
+        .replace(/<DocParagraph>[\s\S]*?<\/DocParagraph>/g, "")
+        .replace(/<DocList[\s\S]*?\/>/g, "")
+        .replace(/<DocTable[\s\S]*?\/>/g, "")
+        .replace(/<DocCodeBlock>[\s\S]*?<\/DocCodeBlock>/g, "")
+        .replace(/<a\s+[^>]*>[\s\S]*?<\/a>/g, "")
+        .trim()
+    if (tipsMarkdown) {
+        bodyMd += `${tipsMarkdown}\n\n`
+    }
+
     // DocParagraph blocks
     const paragraphMatches = bodyWithTips.matchAll(/<DocParagraph>([\s\S]*?)<\/DocParagraph>/g)
     for (const paragraphMatch of paragraphMatches) {
@@ -680,10 +746,10 @@ function renderMarkdownForSectionBody(sectionBody: string, baseUrl: string): str
     }
 
     // DocList blocks (not inside DocParagraph)
-    const listMatches = bodyWithTips.matchAll(/<DocList[\s\S]*?items\s*=\s*\{\s*\[([\s\S]*?)\]\s*\}[\s\S]*?\/>/g)
+    const listMatches = bodyWithTips.matchAll(/<DocList([\s\S]*?)items\s*=\s*\{\s*\[([\s\S]*?)\]\s*\}[\s\S]*?\/>/g)
     for (const listMatch of listMatches) {
-        const items = parseInlineStringArray(listMatch[1], baseUrl)
-        bodyMd += mdList(items)
+        const items = parseInlineStringArray(listMatch[2], baseUrl)
+        bodyMd += /variant\s*=\s*"ordered"/.test(listMatch[1]) ? mdOrderedList(items) : mdList(items)
     }
 
     // Standalone links (e.g. Updates page)
@@ -770,6 +836,18 @@ export function generateStaticDocPageMarkdown(pkgRoot: string, path: string, bas
         markdown += mdTextSection(sectionTitle, sectionMd)
     }
 
+    // Sources section (rendered by <DocSources>) — a numbered list of references.
+    const docSourcesMatch = source.match(/<DocSources[\s\S]*?sources\s*=\s*\{\s*\[([\s\S]*?)\]\s*\}/)
+    if (docSourcesMatch) {
+        const items: string[] = []
+        for (const m of docSourcesMatch[1].matchAll(/\{\s*label\s*:\s*"([^"]+)"\s*,\s*url\s*:\s*"([^"]+)"\s*,?\s*\}/g)) {
+            items.push(mdLink(m[2], m[1]))
+        }
+        if (items.length > 0) {
+            markdown += mdSection("Sources", mdOrderedList(items))
+        }
+    }
+
     // Fallback: extract standalone JSX text nodes to catch custom layouts
     const stripped = source
         .replace(/\{\/\*[\s\S]*?\*\/\}/g, "")
@@ -844,5 +922,5 @@ export function generateStaticDocPageMarkdown(pkgRoot: string, path: string, bas
         markdown += mdSection("Termes", mdList(items))
     }
 
-    return markdown
+    return withNavigationLink(markdown, baseUrl)
 }

@@ -197,27 +197,19 @@ function IncomeStatementExampleSection() {
                         >
                             CHARGES
                         </p>
-                        <ul
-                            className={css({
-                                fontSize: "xs",
-                                color: "neutral/70",
-                            })}
-                        >
-                            <li>Achats de marchandises : 3 000</li>
-                            <li>Loyer : 6 000</li>
-                            <li>Salaires : 20 000</li>
-                            <li>Charges sociales : 8 000</li>
-                            <li>Amortissements : 1 000</li>
-                            <li>Intérêts d'emprunt : 500</li>
-                            <li
-                                className={css({
-                                    fontWeight: "semibold",
-                                    marginTop: "1",
-                                })}
-                            >
-                                Total : 38 500
-                            </li>
-                        </ul>
+                        <DocList
+                            variant="bullet"
+                            size="xs"
+                            items={[
+                                "Achats de marchandises : 3 000",
+                                "Loyer : 6 000",
+                                "Salaires : 20 000",
+                                "Charges sociales : 8 000",
+                                "Amortissements : 1 000",
+                                "Intérêts d'emprunt : 500",
+                                <strong key="total">Total : 38 500</strong>,
+                            ]}
+                        />
                     </div>
                     <div>
                         <p
@@ -228,25 +220,17 @@ function IncomeStatementExampleSection() {
                         >
                             PRODUITS
                         </p>
-                        <ul
-                            className={css({
-                                fontSize: "xs",
-                                color: "neutral/70",
-                            })}
-                        >
-                            <li>Ventes de marchandises : 25 000</li>
-                            <li>Prestations de services : 12 000</li>
-                            <li>Subventions : 4 000</li>
-                            <li>Intérêts reçus : 100</li>
-                            <li
-                                className={css({
-                                    fontWeight: "semibold",
-                                    marginTop: "1",
-                                })}
-                            >
-                                Total : 41 100
-                            </li>
-                        </ul>
+                        <DocList
+                            variant="bullet"
+                            size="xs"
+                            items={[
+                                "Ventes de marchandises : 25 000",
+                                "Prestations de services : 12 000",
+                                "Subventions : 4 000",
+                                "Intérêts reçus : 100",
+                                <strong key="total">Total : 41 100</strong>,
+                            ]}
+                        />
                     </div>
                 </div>
                 <p
@@ -380,17 +364,13 @@ function EquitySection() {
                 >
                     Une entreprise réalise un bénéfice de 10 000 euros. Les associés décident :
                 </p>
-                <ul
-                    className={css({
-                        marginTop: "2",
-                        ml: "4",
-                        fontSize: "sm",
-                        color: "neutral/70",
-                    })}
-                >
-                    <li>Distribution de dividendes : 4 000 euros (versés aux associés)</li>
-                    <li>Mise en réserve : 6 000 euros (conservés dans l'entreprise)</li>
-                </ul>
+                <DocList
+                    variant="bullet"
+                    items={[
+                        "Distribution de dividendes : 4 000 euros (versés aux associés)",
+                        "Mise en réserve : 6 000 euros (conservés dans l'entreprise)",
+                    ]}
+                />
                 <p
                     className={css({
                         marginTop: "2",

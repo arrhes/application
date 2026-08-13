@@ -37,11 +37,6 @@ export const ocrFileRoute = registerRoute(ocrFileRouteDefinition, async (c) => {
             storageKey: sourceFile.storageKey,
             type: sourceFile.type,
         },
-        credentials: {
-            ocrEndpoint: auth.user.ocrEndpoint,
-            ocrApiKey: auth.user.ocrApiKey,
-            ocrModel: auth.user.ocrModel,
-        },
     })
 
     return response({

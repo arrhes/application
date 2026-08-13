@@ -35,6 +35,11 @@ export const nodeItems: NodeItem = [
         icon: <IconChecklist />,
         children: [
             {
+                icon: <IconBrain />,
+                path: "/documentation/philosophie",
+                label: "Philosophie",
+            },
+            {
                 icon: <IconListCheck />,
                 path: "/documentation/fonctionnalités",
                 label: "Fonctionnalités",
@@ -43,11 +48,6 @@ export const nodeItems: NodeItem = [
                 icon: <IconBuildingArch />,
                 path: "/documentation/architecture",
                 label: "Architecture",
-            },
-            {
-                icon: <IconBrain />,
-                path: "/documentation/philosophie",
-                label: "Philosophie",
             },
             {
                 icon: <IconProgressCheck />,

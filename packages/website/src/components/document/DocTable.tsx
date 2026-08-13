@@ -5,6 +5,7 @@ export function DocTable(props: { headers: string[]; rows: (string | ReactNode)[
     return (
         <div
             className={css({
+                width: "100%",
                 overflowX: "auto",
                 // borderRadius: "lg",
                 border: "1px solid",

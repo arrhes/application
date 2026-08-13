@@ -70,6 +70,14 @@ Definies dans le service `api` du fichier `.workflows/dev/compose.yml`.
 | `STORAGE_ACCESS_KEY` | `string` | Cle d'acces S3 | `rustfsadmin` |
 | `STORAGE_SECRET_KEY` | `string` | Cle secrete S3 | `rustfsadmin` |
 
+### OCR
+
+| Variable | Type | Description | Exemple |
+|----------|------|-------------|---------|
+| `OCR_API_KEY` | `string` | Cle API du fournisseur OCR (BYOK). Optionnelle ; une erreur est renvoyee si l'OCR est utilise sans cle. | `your-ocr-api-key` |
+| `OCR_ENDPOINT` | `string` | Endpoint de l'API OCR | `https://api.mistral.ai/v1/ocr` |
+| `OCR_MODEL` | `string` | Modele OCR | `mistral-ocr-latest` |
+
 ## Variables d'environnement - Tools
 
 Definies dans le service `api` du fichier `.workflows/dev/compose.yml` (les scripts `tools` heritent de l'environnement du container).

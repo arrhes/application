@@ -82,11 +82,6 @@ export const finalizeFileUploadRoute = apiFactory
                     storageKey: updateOneFile.storageKey,
                     type: updateOneFile.type,
                 },
-                credentials: {
-                    ocrEndpoint: auth.user.ocrEndpoint,
-                    ocrApiKey: auth.user.ocrApiKey,
-                    ocrModel: auth.user.ocrModel,
-                },
             })
             ocrFile = ocrResult.ocrFile
         }

@@ -103,6 +103,9 @@ services:
       STORAGE_BUCKET_NAME: comptasse-files
       STORAGE_ACCESS_KEY: rustfsadmin
       STORAGE_SECRET_KEY: rustfsadmin
+      OCR_API_KEY: ""
+      OCR_ENDPOINT: "https://api.mistral.ai/v1/ocr"
+      OCR_MODEL: "mistral-ocr-latest"
       MOLLIE_API_KEY: test_z8gjjnezmRNx7dretKbEr5vcCfADh9
       # Tools environment (packages/tools) - used by migrate/seed
       NODE_ENV: development

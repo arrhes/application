@@ -122,18 +122,14 @@ export function NotesAccountingDocPage() {
                         En France, une entreprise peut bénéficier de l'annexe simplifiée si elle ne dépasse pas deux des
                         trois seuils suivants :
                     </p>
-                    <ul
-                        className={css({
-                            marginTop: "2",
-                            ml: "4",
-                            fontSize: "sm",
-                            color: "neutral/70",
-                        })}
-                    >
-                        <li>Chiffre d'affaires : 12 millions d'euros</li>
-                        <li>Total du bilan : 6 millions d'euros</li>
-                        <li>Nombre de salariés : 50</li>
-                    </ul>
+                    <DocList
+                        variant="bullet"
+                        items={[
+                            "Chiffre d'affaires : 12 millions d'euros",
+                            "Total du bilan : 6 millions d'euros",
+                            "Nombre de salariés : 50",
+                        ]}
+                    />
                     <p
                         className={css({
                             marginTop: "2",

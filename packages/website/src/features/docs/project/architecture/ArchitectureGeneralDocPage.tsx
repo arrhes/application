@@ -14,25 +14,24 @@ export function ArchitectureGeneralDocPage() {
             <ArchitectureDiagram />
             <DocSection title="Vue d'ensemble">
                 <DocParagraph>
-                    Comptasse est organisé en plusieurs services distincts qui travaillent ensemble. Chaque service
-                    a un rôle précis : certains sont destinés aux utilisateurs finaux, d'autres aux développeurs qui
+                    Comptasse est organisé en plusieurs services distincts qui travaillent ensemble. Chaque service a un
+                    rôle précis : certains sont destinés aux utilisateurs finaux, d'autres aux développeurs qui
                     souhaitent intégrer Comptasse dans leurs outils.
                 </DocParagraph>
                 <DocParagraph>
                     Tous les services passent par l'API, qui est le cœur du système. C'est elle qui gère les données,
-                    les autorisations et la logique métier. Le reste - dashboard, CLI, agent IA - n'est que la façon
-                    dont chacun choisit d'y accéder.
+                    les autorisations et la logique métier. Le reste - dashboard, CLI - n'est que la façon dont chacun
+                    choisit d'y accéder.
                 </DocParagraph>
             </DocSection>
             <DocSection title="Dashboard">
                 <DocParagraph>
                     Le dashboard est l'interface web de Comptasse. Il permet de gérer ses organisations, saisir ses
-                    écritures comptables, consulter ses documents de synthèse, stocker ses pièces justificatives et
-                    discuter avec l'assistant IA.
+                    écritures comptables, consulter ses documents de synthèse, stocker ses pièces justificatives.
                 </DocParagraph>
                 <DocParagraph>
                     Pour qui ? Les utilisateurs qui souhaitent gérer leur comptabilité au quotidien depuis un
-                    navigateur, sans installation ni configuration.
+                    navigateur.
                 </DocParagraph>
             </DocSection>
             <DocSection title="CLI">
@@ -43,7 +42,7 @@ export function ArchitectureGeneralDocPage() {
                 </DocParagraph>
                 <DocParagraph>
                     Pour qui ? Les développeurs et équipes techniques qui souhaitent automatiser des tâches, intégrer
-                    Comptasse dans des scripts ou des pipelines CI/CD.
+                    Comptasse à différentes interfaces dont les agents IA.
                 </DocParagraph>
             </DocSection>
             <DocSection title="API">
@@ -53,24 +52,20 @@ export function ArchitectureGeneralDocPage() {
                     données comptables, du stockage des fichiers et de l'assistant IA.
                 </DocParagraph>
                 <DocParagraph>
-                    Pour qui ? Les développeurs qui souhaitent accéder directement aux données de Comptasse depuis
-                    leur propre application, via des clés API.
+                    Pour qui ? Les développeurs qui souhaitent accéder directement aux données de Comptasse depuis leur
+                    propre application, via des clés API.
                 </DocParagraph>
             </DocSection>
             <DocSection title="Database">
                 <DocParagraph>
                     La base de données stocke l'ensemble des données de Comptasse : utilisateurs, organisations,
-                    exercices, écritures comptables, fichiers et sessions. Elle est le seul endroit où les données
-                    sont persistées et n'est jamais accessible directement depuis l'extérieur - uniquement via l'API.
+                    exercices, écritures comptables, fichiers et sessions. Elle est le seul endroit où les données sont
+                    persistées et n'est jamais accessible directement depuis l'extérieur - uniquement via l'API.
                 </DocParagraph>
+                <DocParagraph>Pour ces données structurées, c'est Postgres qui a été mis en place.</DocParagraph>
                 <DocParagraph>
-                    Le stockage des fichiers (pièces justificatives, documents exportés) est géré séparément, dans un
-                    espace dédié compatible avec le protocole S3. Les emails transactionnels - comme les liens de
-                    connexion - sont envoyés via un service SMTP.
-                </DocParagraph>
-                <DocParagraph>
-                    Pour qui ? Ce service est entièrement géré par Comptasse. Les utilisateurs et développeurs n'ont
-                    pas à interagir avec lui directement.
+                    Le stockage des fichiers (pièces justificatives, documents exportés) est géré dans un espace dédié,
+                    compatible avec le protocole S3.
                 </DocParagraph>
             </DocSection>
         </DocRoot>

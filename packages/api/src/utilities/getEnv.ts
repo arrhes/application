@@ -29,6 +29,10 @@ const envSchema = v.object({
     STORAGE_ACCESS_KEY: v.string(),
     STORAGE_SECRET_KEY: v.string(),
     STORAGE_REGION: v.optional(v.string(), "fr-par"),
+
+    OCR_API_KEY: v.optional(v.string(), ""),
+    OCR_ENDPOINT: v.optional(v.string(), "https://api.mistral.ai/v1/ocr"),
+    OCR_MODEL: v.optional(v.string(), "mistral-ocr-latest"),
 })
 
 export function getEnv() {

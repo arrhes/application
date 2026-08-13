@@ -46,6 +46,7 @@ const docTipRecipe = sva({
             color: "neutral/70",
             lineHeight: "1.6",
             display: "inline-block",
+            gap: "0.5rem",
         },
     },
     variants: {

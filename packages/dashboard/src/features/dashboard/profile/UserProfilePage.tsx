@@ -1,17 +1,9 @@
-import {
-    readUserSessionRouteDefinition,
-    updateUserOcrCredentialsRouteDefinition,
-} from "@comptasse/application-metadata/routes"
-import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
-import { Button, ButtonOutlineContent, InputPassword, InputText, toast } from "@comptasse/ui"
+import { readUserSessionRouteDefinition } from "@comptasse/application-metadata/routes"
+import { Button, ButtonOutlineContent } from "@comptasse/ui"
 import { css } from "@comptasse/ui/utilities/cn.js"
-import { IconDeviceFloppy, IconKey, IconMail, IconScan, IconTrash } from "@tabler/icons-react"
-import { useState } from "react"
-import type * as v from "valibot"
+import { IconKey, IconMail, IconTrash } from "@tabler/icons-react"
 import { Block } from "../../../components/layouts/block/block.tsx"
 import { DataWrapper } from "../../../components/layouts/DataWrapper.tsx"
-import { getResponseBodyFromAPI } from "../../../utilities/getResponseBodyFromAPI.ts"
-import { invalidateData } from "../../../utilities/invalidateData.ts"
 import { DeleteUser } from "./DeleteUser.tsx"
 import { UpdateUserEmail } from "./UpdateUserEmail.tsx"
 import { UpdateUserPassword } from "./UpdateUserPassword.tsx"
@@ -70,8 +62,6 @@ export function UserProfilePage() {
                                 </Block.Row>
                             </Block.Root>
 
-                            <OcrBlock user={userSession.user as unknown as Record<string, string | null | undefined>} />
-
                             <Block.Root variant="danger">
                                 <Block.Header title="Zone de danger" variant="danger" />
                                 <Block.Row
@@ -94,91 +84,5 @@ export function UserProfilePage() {
                     )}
                 </DataWrapper>
         </div>
-    )
-}
-
-const OCR_FIELDS: Array<"ocrEndpoint" | "ocrApiKey" | "ocrModel"> = [
-    "ocrEndpoint",
-    "ocrApiKey",
-    "ocrModel",
-]
-
-const OCR_FIELD_LABELS: Record<string, string> = {
-    ocrEndpoint: "Endpoint OCR",
-    ocrApiKey: "Clé API OCR",
-    ocrModel: "Modèle OCR",
-}
-
-const OCR_FIELD_PLACEHOLDERS: Partial<Record<string, string>> = {
-    ocrEndpoint: "https://api.mistral.ai/v1/ocr",
-    ocrModel: "mistral-ocr-latest",
-}
-
-function OcrBlock({ user }: { user: Record<string, string | null | undefined> }) {
-    const initialSnap = OCR_FIELDS.map((k) => `${k}:${user[k] ?? ""}`).join("|")
-    const [values, setValues] = useState<Record<string, string>>(() => {
-        const init: Record<string, string> = {
-            ocrEndpoint: "",
-            ocrApiKey: "",
-            ocrModel: "",
-        }
-        for (const key of OCR_FIELDS) init[key] = user[key] ?? ""
-        return init
-    })
-    const [isSaving, setIsSaving] = useState(false)
-    const snap = OCR_FIELDS.map((k) => `${k}:${values[k] ?? ""}`).join("|")
-    const hasChanges = snap !== initialSnap
-
-    async function handleSave() {
-        setIsSaving(true)
-        try {
-            const body: Record<string, string | null | undefined> = { ...values }
-            if (body.ocrApiKey === "") body.ocrApiKey = undefined
-            if (body.ocrEndpoint === "") body.ocrEndpoint = undefined
-            if (body.ocrModel === "") body.ocrModel = undefined
-            const response = await getResponseBodyFromAPI({
-                routeDefinition: updateUserOcrCredentialsRouteDefinition,
-                body,
-            })
-            if (response.ok === false) {
-                toast({
-                    title: response.error?.cause ?? "Impossible d'enregistrer les modifications",
-                    variant: "error",
-                })
-            } else {
-                await invalidateData({ routeDefinition: readUserSessionRouteDefinition, body: {} })
-                toast({ title: "Modifications enregistrées", variant: "success" })
-            }
-        } finally {
-            setIsSaving(false)
-        }
-    }
-
-    return (
-        <Block.Root>
-            <Block.Header
-                title="OCR"
-                description="Configurez vos identifiants OCR pour extraire le texte de vos documents."
-            />
-            <div className={css({ display: "flex", flexDirection: "column", gap: "1rem", padding: "1.5rem" })}>
-                {OCR_FIELDS.map((key) => (
-                    <div key={key} className={css({ display: "flex", flexDirection: "column", gap: "0.25rem", width: "100%" })}>
-                        <span className={css({ fontSize: "sm", fontWeight: "medium", color: "fg.muted" })}>
-                            {OCR_FIELD_LABELS[key]}
-                        </span>
-                        {key === "ocrApiKey" ? (
-                            <InputPassword value={values[key] ?? ""} onChange={(v) => setValues((p) => ({ ...p, [key]: v ?? "" }))} />
-                        ) : (
-                            <InputText value={values[key] ?? ""} onChange={(v) => setValues((p) => ({ ...p, [key]: v ?? "" }))} placeholder={OCR_FIELD_PLACEHOLDERS[key]} />
-                        )}
-                    </div>
-                ))}
-                <div className={css({ display: "flex", justifyContent: "flex-start", paddingTop: "0.5rem" })}>
-                    <Button onClick={handleSave} isDisabled={!hasChanges || isSaving}>
-                        <ButtonOutlineContent leftIcon={isSaving ? undefined : <IconDeviceFloppy />} text={isSaving ? "Enregistrement..." : "Enregistrer"} />
-                    </Button>
-                </div>
-            </div>
-        </Block.Root>
     )
 }
