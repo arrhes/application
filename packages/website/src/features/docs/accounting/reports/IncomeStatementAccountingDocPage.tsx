@@ -5,11 +5,12 @@ import { DocHeader } from "../../../../components/document/DocHeader.js"
 import { DocLink } from "../../../../components/document/DocLink.js"
 import { DocList } from "../../../../components/document/DocList.js"
 import { DocParagraph } from "../../../../components/document/DocParagraph.js"
+import { DocRoot } from "../../../../components/document/DocRoot.js"
 import { DocSection } from "../../../../components/document/DocSection.js"
 import { DocSourceRef } from "../../../../components/document/DocSourceRef.js"
 import { DocSources } from "../../../../components/document/DocSources.js"
+import { DocTable } from "../../../../components/document/DocTable.js"
 import { DocTip } from "../../../../components/document/DocTip.js"
-import { DocRoot } from "../../../../components/document/DocRoot.js"
 
 export function IncomeStatementAccountingDocPage() {
     return (
@@ -55,14 +56,16 @@ function IncomeStatementDefinitionSection() {
     return (
         <DocSection title="Définition">
             <DocDefinition term="Compte de résultat">
-                Document qui récapitule l'ensemble des produits et des charges d'un exercice. La différence entre
-                les deux donne le résultat : bénéfice ou perte.
+                <DocParagraph>
+                    Document qui récapitule l'ensemble des produits et des charges d'un exercice. La différence entre
+                    les deux donne le résultat : bénéfice ou perte.
+                </DocParagraph>
             </DocDefinition>
 
             <DocParagraph>
                 Alors que le <DocLink to="/documentation/comptabilité/documents/bilan">bilan</DocLink> est une
-                photographie à un instant donné, le compte de résultat est un <strong>film</strong> : il couvre
-                toute la durée de l'{" "}
+                photographie à un instant donné, le compte de résultat est un <strong>film</strong> : il couvre toute la
+                durée de l'{" "}
                 <DocLink
                     to="/documentation/comptabilité/ressources/glossaire/$term"
                     params={{
@@ -83,16 +86,14 @@ function IncomeStatementConstructionSection() {
         <DocSection title="Comment est-il construit ?">
             <DocParagraph>
                 Le compte de résultat est construit à partir des{" "}
-                <strong>
-                    <DocLink
-                        to="/documentation/comptabilité/ressources/glossaire/$term"
-                        params={{
-                            term: "comptes-d-operations",
-                        }}
-                    >
-                        comptes d'opérations
-                    </DocLink>
-                </strong>{" "}
+                <DocLink
+                    to="/documentation/comptabilité/ressources/glossaire/$term"
+                    params={{
+                        term: "comptes-d-operations",
+                    }}
+                >
+                    comptes d'opérations
+                </DocLink>{" "}
                 (classes 6 et 7 du{" "}
                 <DocLink
                     to="/documentation/comptabilité/ressources/glossaire/$term"
@@ -144,24 +145,29 @@ function ResultLevelsSection() {
             </DocParagraph>
 
             <DocDefinition term="Résultat d'exploitation">
-                Différence entre les produits et les charges liés à l'activité courante (ventes, achats, salaires,
-                loyer…). C'est l'indicateur principal de la performance opérationnelle.
+                <DocParagraph>
+                    Différence entre les produits et les charges liés à l'activité courante (ventes, achats, salaires,
+                    loyer…). C'est l'indicateur principal de la performance opérationnelle.
+                </DocParagraph>
             </DocDefinition>
             <DocDefinition term="Résultat financier">
-                Différence entre les produits financiers (intérêts reçus, gains de change) et les charges
-                financières (intérêts d'emprunts, pertes de change).
+                <DocParagraph>
+                    Différence entre les produits financiers (intérêts reçus, gains de change) et les charges
+                    financières (intérêts d'emprunts, pertes de change).
+                </DocParagraph>
             </DocDefinition>
             <DocDefinition term="Résultat exceptionnel">
-                Différence entre les produits et charges qui ne relèvent ni de l'exploitation ni du financier :
-                cessions d'immobilisations, pénalités, subventions exceptionnelles.
+                <DocParagraph>
+                    Différence entre les produits et charges qui ne relèvent ni de l'exploitation ni du financier :
+                    cessions d'immobilisations, pénalités, subventions exceptionnelles.
+                </DocParagraph>
             </DocDefinition>
 
             <DocParagraph>
-                Le <strong>résultat net</strong> est la somme de ces trois résultats, après déduction de l'impôt sur
-                les bénéfices le cas échéant. On parle aussi de{" "}
-                <strong>Résultat Courant Avant Impôts (RCAI)</strong>, qui correspond à la somme du résultat
-                d'exploitation et du résultat financier, avant prise en compte des éléments exceptionnels et de
-                l'impôt. Le RCAI reflète la performance récurrente de l'entreprise.
+                Le <strong>résultat net</strong> est la somme de ces trois résultats, après déduction de l'impôt sur les
+                bénéfices le cas échéant. On parle aussi de <strong>Résultat Courant Avant Impôts (RCAI)</strong>, qui
+                correspond à la somme du résultat d'exploitation et du résultat financier, avant prise en compte des
+                éléments exceptionnels et de l'impôt. Le RCAI reflète la performance récurrente de l'entreprise.
             </DocParagraph>
 
             <DocTip variant="info">
@@ -178,61 +184,64 @@ function IncomeStatementExampleSection() {
     return (
         <DocSection title="Exemple">
             <DocExample title="Compte de résultat simplifié">
-                <div
-                    className={css({
-                        display: "grid",
-                        gridTemplateColumns: {
-                            base: "1fr",
-                            sm: "1fr 1fr",
-                        },
-                        gap: "4",
-                    })}
-                >
-                    <div>
-                        <p
-                            className={css({
-                                fontWeight: "medium",
-                                mb: "1",
-                            })}
-                        >
-                            CHARGES
-                        </p>
-                        <DocList
-                            variant="bullet"
-                            size="xs"
-                            items={[
-                                "Achats de marchandises : 3 000",
-                                "Loyer : 6 000",
-                                "Salaires : 20 000",
-                                "Charges sociales : 8 000",
-                                "Amortissements : 1 000",
-                                "Intérêts d'emprunt : 500",
-                                <strong key="total">Total : 38 500</strong>,
-                            ]}
-                        />
-                    </div>
-                    <div>
-                        <p
-                            className={css({
-                                fontWeight: "medium",
-                                mb: "1",
-                            })}
-                        >
-                            PRODUITS
-                        </p>
-                        <DocList
-                            variant="bullet"
-                            size="xs"
-                            items={[
-                                "Ventes de marchandises : 25 000",
-                                "Prestations de services : 12 000",
-                                "Subventions : 4 000",
-                                "Intérêts reçus : 100",
-                                <strong key="total">Total : 41 100</strong>,
-                            ]}
-                        />
-                    </div>
-                </div>
+                <DocTable
+                    headers={[
+                        "CHARGES",
+                        "Montant",
+                        "PRODUITS",
+                        "Montant",
+                    ]}
+                    rows={[
+                        [
+                            "Achats de marchandises",
+                            "3 000,00",
+                            "Ventes de marchandises",
+                            "25 000,00",
+                        ],
+                        [
+                            "Autres achats et charges externes",
+                            "7 200,00",
+                            "Production vendue (prestations de services)",
+                            "12 000,00",
+                        ],
+                        [
+                            "Charges de personnel",
+                            "28 000,00",
+                            "Subventions d'exploitation",
+                            "5 000,00",
+                        ],
+                        [
+                            "Dotations aux amortissements",
+                            "1 000,00",
+                            "Reprises sur amortissements",
+                            "300,00",
+                        ],
+                        [
+                            "Charges financières",
+                            "600,00",
+                            "Produits financiers",
+                            "100,00",
+                        ],
+                        [
+                            "Autres charges",
+                            "2 500,00",
+                            "Production stockée",
+                            "500,00",
+                        ],
+                        [
+                            "",
+                            "",
+                            "Autres produits",
+                            "3 400,00",
+                        ],
+                        [
+                            "TOTAUX",
+                            "42 300,00",
+                            "TOTAUX",
+                            "46 300,00",
+                        ],
+                    ]}
+                />
                 <p
                     className={css({
                         marginTop: "3",
@@ -240,7 +249,7 @@ function IncomeStatementExampleSection() {
                         color: "success",
                     })}
                 >
-                    Résultat = 41 100 - 38 500 = 2 600 euros (bénéfice)
+                    Résultat = 46 300,00 - 42 300,00 = 4 000,00 euros (bénéfice)
                 </p>
             </DocExample>
         </DocSection>
@@ -251,28 +260,34 @@ function SigSection() {
     return (
         <DocSection title="Les Soldes Intermédiaires de Gestion (SIG)">
             <DocParagraph>
-                Pour analyser plus finement la performance d'une entreprise, on calcule des indicateurs
-                intermédiaires appelés <strong>Soldes Intermédiaires de Gestion (SIG)</strong>
+                Pour analyser plus finement la performance d'une entreprise, on calcule des indicateurs intermédiaires
+                appelés <strong>Soldes Intermédiaires de Gestion (SIG)</strong>
                 <DocSourceRef n={4} />. Chaque solde s'obtient en cascade à partir du précédent, permettant de
                 comprendre étape par étape comment se forme le résultat :
             </DocParagraph>
 
             <DocDefinition term="Marge commerciale">
-                Ventes de marchandises - Coût d'achat des marchandises vendues. Indicateur clé pour les activités de
-                négoce.
+                <DocParagraph>
+                    Ventes de marchandises - Coût d'achat des marchandises vendues. Indicateur clé pour les activités de
+                    négoce.
+                </DocParagraph>
             </DocDefinition>
             <DocDefinition term="Valeur ajoutée">
-                Marge commerciale + Production - Consommations intermédiaires. Mesure la richesse créée par
-                l'entreprise grâce à son activité.
+                <DocParagraph>
+                    Marge commerciale + Production - Consommations intermédiaires. Mesure la richesse créée par
+                    l'entreprise grâce à son activité.
+                </DocParagraph>
             </DocDefinition>
             <DocDefinition term="Excédent Brut d'Exploitation (EBE)">
-                Valeur ajoutée + Subventions d'exploitation - Impôts et taxes - Charges de personnel. Indicateur de
-                la rentabilité opérationnelle avant amortissements et provisions.
+                <DocParagraph>
+                    Valeur ajoutée + Subventions d'exploitation - Impôts et taxes - Charges de personnel. Indicateur de
+                    la rentabilité opérationnelle avant amortissements et provisions.
+                </DocParagraph>
             </DocDefinition>
 
             <DocParagraph>
-                L'EBE est un indicateur particulièrement surveillé car il reflète la capacité de l'entreprise à
-                générer de la richesse par son activité courante, indépendamment de sa politique de financement et
+                L'EBE est un indicateur particulièrement surveillé car il reflète la capacité de l'entreprise à générer
+                de la richesse par son activité courante, indépendamment de sa politique de financement et
                 d'investissement.
             </DocParagraph>
         </DocSection>
@@ -284,8 +299,8 @@ function ResultVsCashFlowSection() {
         <DocSection title="Résultat et trésorerie : ne pas confondre">
             <DocParagraph>
                 Une erreur fréquente consiste à assimiler le résultat du compte de résultat à de l'argent gagné ou
-                perdu. En réalité, le compte de résultat ne mesure pas des <strong>flux de trésorerie</strong> mais
-                des <strong>flux d'enrichissement ou d'appauvrissement du patrimoine</strong>.
+                perdu. En réalité, le compte de résultat ne mesure pas des <strong>flux de trésorerie</strong> mais des{" "}
+                <strong>flux d'enrichissement ou d'appauvrissement du patrimoine</strong>.
             </DocParagraph>
 
             <DocExample title="Résultat positif, trésorerie négative">
@@ -294,8 +309,8 @@ function ResultVsCashFlowSection() {
                         fontSize: "sm",
                     })}
                 >
-                    Une entreprise facture 50 000 euros de prestations (produits) et engage 30 000 euros de charges.
-                    Son résultat est un bénéfice de 20 000 euros.
+                    Une entreprise facture 50 000 euros de prestations (produits) et engage 30 000 euros de charges. Son
+                    résultat est un bénéfice de 20 000 euros.
                 </p>
                 <p
                     className={css({
@@ -303,8 +318,8 @@ function ResultVsCashFlowSection() {
                         fontSize: "sm",
                     })}
                 >
-                    Mais si ses clients n'ont pas encore payé leurs factures, sa trésorerie peut être négative :
-                    elle a un bénéfice comptable mais pas d'argent en banque.
+                    Mais si ses clients n'ont pas encore payé leurs factures, sa trésorerie peut être négative : elle a
+                    un bénéfice comptable mais pas d'argent en banque.
                 </p>
                 <p
                     className={css({
@@ -313,8 +328,8 @@ function ResultVsCashFlowSection() {
                         color: "neutral/60",
                     })}
                 >
-                    C'est pourquoi on complète souvent le compte de résultat par un tableau des flux de trésorerie,
-                    qui mesure les mouvements réels d'argent.
+                    C'est pourquoi on complète souvent le compte de résultat par un tableau des flux de trésorerie, qui
+                    mesure les mouvements réels d'argent.
                 </p>
             </DocExample>
 
@@ -343,17 +358,25 @@ function EquitySection() {
             </DocParagraph>
 
             <DocDefinition term="Capital">
-                Apports initiaux des associés ou fondateurs. Il reste généralement stable sauf augmentation ou
-                réduction de capital.
+                <DocParagraph>
+                    Apports initiaux des associés ou fondateurs. Il reste généralement stable sauf augmentation ou
+                    réduction de capital.
+                </DocParagraph>
             </DocDefinition>
             <DocDefinition term="Réserves">
-                Bénéfices des années passées qui ont été conservés dans l'entreprise (non distribués aux associés).
+                <DocParagraph>
+                    Bénéfices des années passées qui ont été conservés dans l'entreprise (non distribués aux associés).
+                </DocParagraph>
             </DocDefinition>
             <DocDefinition term="Report à nouveau">
-                Résultat de l'exercice précédent en attente d'affectation (mise en réserve ou distribution).
+                <DocParagraph>
+                    Résultat de l'exercice précédent en attente d'affectation (mise en réserve ou distribution).
+                </DocParagraph>
             </DocDefinition>
             <DocDefinition term="Résultat de l'exercice">
-                Bénéfice ou perte de l'année en cours, tel que calculé par le compte de résultat.
+                <DocParagraph>
+                    Bénéfice ou perte de l'année en cours, tel que calculé par le compte de résultat.
+                </DocParagraph>
             </DocDefinition>
 
             <DocExample title="Affectation du résultat">
@@ -441,8 +464,8 @@ function AssociationsIncomeStatementSection() {
     return (
         <DocSection title="Compte de résultat des associations">
             <DocParagraph>
-                Les associations utilisent une présentation adaptée. On parle d'<strong>excédent</strong> plutôt que
-                de bénéfice et de <strong>déficit</strong> plutôt que de perte. Certaines lignes sont spécifiques :
+                Les associations utilisent une présentation adaptée. On parle d'<strong>excédent</strong> plutôt que de
+                bénéfice et de <strong>déficit</strong> plutôt que de perte. Certaines lignes sont spécifiques :
                 contributions volontaires en nature, valorisation du bénévolat, emplois des contributions.
             </DocParagraph>
 

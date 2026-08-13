@@ -1,16 +1,15 @@
-import { css } from "@comptasse/ui/utilities/cn.js"
 import { DocDefinition } from "../../../../components/document/DocDefinition.js"
 import { DocExample } from "../../../../components/document/DocExample.js"
 import { DocHeader } from "../../../../components/document/DocHeader.js"
 import { DocLink } from "../../../../components/document/DocLink.js"
 import { DocList } from "../../../../components/document/DocList.js"
 import { DocParagraph } from "../../../../components/document/DocParagraph.js"
+import { DocRoot } from "../../../../components/document/DocRoot.js"
 import { DocSection } from "../../../../components/document/DocSection.js"
 import { DocSourceRef } from "../../../../components/document/DocSourceRef.js"
 import { DocSources } from "../../../../components/document/DocSources.js"
 import { DocTable } from "../../../../components/document/DocTable.js"
 import { DocTip } from "../../../../components/document/DocTip.js"
-import { DocRoot } from "../../../../components/document/DocRoot.js"
 
 export function BalanceAccountingDocPage() {
     return (
@@ -22,8 +21,11 @@ export function BalanceAccountingDocPage() {
 
             <DocSection title="Définition">
                 <DocDefinition term="Balance">
-                    Tableau récapitulatif de tous les comptes utilisés pendant l'exercice, avec pour chacun le total des
-                    débits, le total des crédits et le solde. C'est l'outil de contrôle fondamental de la comptabilité.
+                    <DocParagraph>
+                        Tableau récapitulatif de tous les comptes utilisés pendant l'exercice, avec pour chacun le total
+                        des débits, le total des crédits et le solde. C'est l'outil de contrôle fondamental de la
+                        comptabilité.
+                    </DocParagraph>
                 </DocDefinition>
 
                 <DocParagraph>
@@ -83,15 +85,22 @@ export function BalanceAccountingDocPage() {
 
             <DocSection title="Les différents types de balances">
                 <DocDefinition term="Balance générale">
-                    Reprend tous les comptes utilisés pendant l'exercice. C'est le document de contrôle principal.
+                    <DocParagraph>
+                        Reprend tous les comptes utilisés pendant l'exercice. C'est le document de contrôle principal.
+                    </DocParagraph>
                 </DocDefinition>
                 <DocDefinition term="Balance auxiliaire">
-                    Détaille un compte collectif (clients ou fournisseurs) en montrant le solde de chaque tiers
-                    individuellement. Par exemple, la balance auxiliaire clients liste le solde dû par chaque client.
+                    <DocParagraph>
+                        Détaille un compte collectif (clients ou fournisseurs) en montrant le solde de chaque tiers
+                        individuellement. Par exemple, la balance auxiliaire clients liste le solde dû par chaque
+                        client.
+                    </DocParagraph>
                 </DocDefinition>
                 <DocDefinition term="Balance âgée">
-                    Ventile les soldes par ancienneté (moins de 30 jours, 30 à 60 jours, etc.). Elle est
-                    particulièrement utile pour suivre les retards de paiement des clients ou des fournisseurs.
+                    <DocParagraph>
+                        Ventile les soldes par ancienneté (moins de 30 jours, 30 à 60 jours, etc.). Elle est
+                        particulièrement utile pour suivre les retards de paiement des clients ou des fournisseurs.
+                    </DocParagraph>
                 </DocDefinition>
             </DocSection>
 
@@ -103,80 +112,92 @@ export function BalanceAccountingDocPage() {
                             "Intitulé",
                             "Débit",
                             "Crédit",
-                            "Solde",
+                            "Solde débiteur",
+                            "Solde créditeur",
                         ]}
                         rows={[
                             [
                                 "101",
                                 "Capital",
                                 "",
-                                "10 000",
-                                "10 000 Cr",
+                                "10 000,00",
+                                "",
+                                "10 000,00",
                             ],
                             [
                                 "164",
                                 "Emprunts",
                                 "",
-                                "5 000",
-                                "5 000 Cr",
+                                "5 000,00",
+                                "",
+                                "5 000,00",
                             ],
                             [
                                 "215",
                                 "Matériel industriel",
-                                "3 000",
+                                "3 000,00",
                                 "",
-                                "3 000 Db",
+                                "3 000,00",
+                                "",
                             ],
                             [
                                 "411",
                                 "Clients",
-                                "8 000",
-                                "3 000",
-                                "5 000 Db",
+                                "8 000,00",
+                                "3 000,00",
+                                "5 000,00",
+                                "",
                             ],
                             [
                                 "401",
                                 "Fournisseurs",
-                                "2 000",
-                                "4 000",
-                                "2 000 Cr",
+                                "2 000,00",
+                                "4 000,00",
+                                "",
+                                "2 000,00",
                             ],
                             [
                                 "512",
                                 "Banque",
-                                "16 000",
-                                "8 000",
-                                "8 000 Db",
+                                "16 000,00",
+                                "8 000,00",
+                                "8 000,00",
+                                "",
                             ],
                             [
                                 "606",
                                 "Achats de fournitures",
-                                "1 000",
+                                "1 000,00",
                                 "",
-                                "1 000 Db",
+                                "1 000,00",
+                                "",
                             ],
                             [
                                 "613",
                                 "Loyer",
-                                "6 000",
+                                "6 000,00",
                                 "",
-                                "6 000 Db",
+                                "6 000,00",
+                                "",
                             ],
                             [
                                 "641",
                                 "Salaires",
-                                "12 000",
+                                "12 000,00",
                                 "",
-                                "12 000 Db",
+                                "12 000,00",
+                                "",
                             ],
                             [
                                 "706",
                                 "Prestations de services",
                                 "",
-                                "18 000",
-                                "18 000 Cr",
+                                "18 000,00",
+                                "",
+                                "18 000,00",
                             ],
                             [
+                                "",
                                 "",
                                 "",
                                 "",
@@ -186,22 +207,17 @@ export function BalanceAccountingDocPage() {
                             [
                                 "",
                                 "TOTAUX",
-                                "48 000",
-                                "48 000",
-                                "",
+                                "48 000,00",
+                                "48 000,00",
+                                "35 000,00",
+                                "35 000,00",
                             ],
                         ]}
                     />
-                    <p
-                        className={css({
-                            marginTop: "2",
-                            fontSize: "xs",
-                            color: "neutral/60",
-                        })}
-                    >
-                        Total des débits (48 000) = Total des crédits (48 000). Total des soldes débiteurs (35 000) =
-                        Total des soldes créditeurs (35 000). La balance est équilibrée.
-                    </p>
+                    <DocParagraph>
+                        Total des débits (48 000,00) = Total des crédits (48 000,00). Total des soldes débiteurs (35
+                        000,00) = Total des soldes créditeurs (35 000,00). La balance est équilibrée.
+                    </DocParagraph>
                 </DocExample>
             </DocSection>
 
@@ -224,15 +240,6 @@ export function BalanceAccountingDocPage() {
                     <DocLink to="/documentation/comptabilité/documents/compte-de-résultat">compte de résultat</DocLink>{" "}
                     fiables. C'est pourquoi la vérification de la balance est une étape incontournable de la clôture
                     comptable.
-                </DocParagraph>
-            </DocSection>
-
-            <DocSection title="Lien avec Arrhes">
-                <DocParagraph>
-                    Arrhes calcule automatiquement la balance à partir de vos{" "}
-                    <DocLink to="/documentation/comptabilité/introduction/écritures">écritures</DocLink>. Vous pouvez la consulter à
-                    tout moment pour vérifier l'état de votre comptabilité. Consultez le guide sur les{" "}
-                    <DocLink to="/documentation/guide/documents">rapports</DocLink> pour en savoir plus.
                 </DocParagraph>
             </DocSection>
 

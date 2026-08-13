@@ -5,12 +5,12 @@ import { DocHeader } from "../../../../components/document/DocHeader.js"
 import { DocLink } from "../../../../components/document/DocLink.js"
 import { DocList } from "../../../../components/document/DocList.js"
 import { DocParagraph } from "../../../../components/document/DocParagraph.js"
+import { DocRoot } from "../../../../components/document/DocRoot.js"
 import { DocSection } from "../../../../components/document/DocSection.js"
 import { DocSourceRef } from "../../../../components/document/DocSourceRef.js"
 import { DocSources } from "../../../../components/document/DocSources.js"
 import { DocTable } from "../../../../components/document/DocTable.js"
 import { DocTip } from "../../../../components/document/DocTip.js"
-import { DocRoot } from "../../../../components/document/DocRoot.js"
 
 export function BalanceSheetAccountingDocPage() {
     return (
@@ -57,14 +57,16 @@ function BalanceSheetDefinitionSection() {
     return (
         <DocSection title="Définition">
             <DocDefinition term="Bilan">
-                Photographie du patrimoine de l'organisation à une date donnée. Il montre ce que l'organisation
-                possède (actif) et comment elle l'a financé (passif).
+                <DocParagraph>
+                    Photographie du patrimoine de l'organisation à une date donnée. Il montre ce que l'organisation
+                    possède (actif) et comment elle l'a financé (passif).
+                </DocParagraph>
             </DocDefinition>
 
             <DocParagraph>
                 Le bilan
-                <DocSourceRef n={1} /> est toujours établi à une <strong>date précise</strong>, généralement la date
-                de clôture de l'{" "}
+                <DocSourceRef n={1} /> est toujours établi à une <strong>date précise</strong>, généralement la date de
+                clôture de l'{" "}
                 <DocLink
                     to="/documentation/comptabilité/ressources/glossaire/$term"
                     params={{
@@ -74,9 +76,8 @@ function BalanceSheetDefinitionSection() {
                     exercice comptable
                 </DocLink>
                 . Contrairement au{" "}
-                <DocLink to="/documentation/comptabilité/documents/compte-de-résultat">compte de résultat</DocLink>{" "}
-                qui couvre une période, le bilan est un instantané : il décrit la situation patrimoniale à un moment
-                donné.
+                <DocLink to="/documentation/comptabilité/documents/compte-de-résultat">compte de résultat</DocLink> qui
+                couvre une période, le bilan est un instantané : il décrit la situation patrimoniale à un moment donné.
             </DocParagraph>
         </DocSection>
     )
@@ -167,19 +168,27 @@ function BalanceSheetStructureSection() {
             />
 
             <DocDefinition term="Actif immobilisé">
-                Biens destinés à rester durablement dans l'organisation : terrains, bâtiments, matériel, brevets.
-                Ils sont enregistrés dans les comptes de classe 2.
+                <DocParagraph>
+                    Biens destinés à rester durablement dans l'organisation : terrains, bâtiments, matériel, brevets.
+                    Ils sont enregistrés dans les comptes de classe 2.
+                </DocParagraph>
             </DocDefinition>
             <DocDefinition term="Actif circulant">
-                Éléments qui se renouvellent au cours du cycle d'exploitation : stocks de marchandises (classe 3),
-                créances clients (classe 4), trésorerie (classe 5).
+                <DocParagraph>
+                    Éléments qui se renouvellent au cours du cycle d'exploitation : stocks de marchandises (classe 3),
+                    créances clients (classe 4), trésorerie (classe 5).
+                </DocParagraph>
             </DocDefinition>
             <DocDefinition term="Capitaux propres">
-                Ressources appartenant aux propriétaires : capital social, réserves, résultat de l'exercice. Ils
-                représentent ce que l'organisation doit à ses propriétaires.
+                <DocParagraph>
+                    Ressources appartenant aux propriétaires : capital social, réserves, résultat de l'exercice. Ils
+                    représentent ce que l'organisation doit à ses propriétaires.
+                </DocParagraph>
             </DocDefinition>
             <DocDefinition term="Dettes">
-                Sommes dues à des tiers : emprunts bancaires, dettes fournisseurs, dettes fiscales et sociales.
+                <DocParagraph>
+                    Sommes dues à des tiers : emprunts bancaires, dettes fournisseurs, dettes fiscales et sociales.
+                </DocParagraph>
             </DocDefinition>
         </DocSection>
     )
@@ -254,8 +263,8 @@ function FundamentalEquationSection() {
 
             <DocTip variant="tip">
                 Si l'actif et le passif ne sont pas égaux, c'est qu'il y a une erreur dans les écritures. La{" "}
-                <DocLink to="/documentation/comptabilité/documents/balance">balance</DocLink> permet de détecter ce
-                type de déséquilibre avant d'établir le bilan.
+                <DocLink to="/documentation/comptabilité/documents/balance">balance</DocLink> permet de détecter ce type
+                de déséquilibre avant d'établir le bilan.
             </DocTip>
         </DocSection>
     )
@@ -266,18 +275,22 @@ function HighAndLowOfBalanceSheetSection() {
         <DocSection title="Haut de bilan et bas de bilan">
             <DocParagraph>
                 En analyse financière, on distingue le <strong>haut de bilan</strong> et le{" "}
-                <strong>bas de bilan</strong>, une distinction essentielle pour comprendre la structure financière
-                de l'organisation :
+                <strong>bas de bilan</strong>, une distinction essentielle pour comprendre la structure financière de
+                l'organisation :
             </DocParagraph>
 
             <DocDefinition term="Haut de bilan">
-                Éléments permanents : à l'actif, les immobilisations (biens durables) ; au passif, les capitaux
-                propres et les dettes à long terme (emprunts). Ces éléments constituent le socle stable du
-                financement.
+                <DocParagraph>
+                    Éléments permanents : à l'actif, les immobilisations (biens durables) ; au passif, les capitaux
+                    propres et les dettes à long terme (emprunts). Ces éléments constituent le socle stable du
+                    financement.
+                </DocParagraph>
             </DocDefinition>
             <DocDefinition term="Bas de bilan">
-                Éléments circulants : à l'actif, les stocks, créances et trésorerie ; au passif, les dettes à court
-                terme (fournisseurs, dettes fiscales). Ces éléments se renouvellent au fil de l'activité.
+                <DocParagraph>
+                    Éléments circulants : à l'actif, les stocks, créances et trésorerie ; au passif, les dettes à court
+                    terme (fournisseurs, dettes fiscales). Ces éléments se renouvellent au fil de l'activité.
+                </DocParagraph>
             </DocDefinition>
 
             <DocParagraph>
@@ -293,51 +306,33 @@ function WorkingCapitalRequirementSection() {
     return (
         <DocSection title="Le Besoin en Fonds de Roulement (BFR)">
             <DocDefinition term="Besoin en Fonds de Roulement (BFR)">
-                Différence entre l'actif circulant (hors trésorerie) et les dettes à court terme. Il mesure le
-                besoin de financement lié au cycle d'exploitation de l'entreprise.
+                <DocParagraph>
+                    Différence entre l'actif circulant (hors trésorerie) et les dettes à court terme. Il mesure le
+                    besoin de financement lié au cycle d'exploitation de l'entreprise.
+                </DocParagraph>
             </DocDefinition>
 
             <DocParagraph>
                 Le BFR
-                <DocSourceRef n={3} /> apparaît lorsque l'entreprise doit financer ses stocks et ses créances
-                clients avant de recevoir les paiements correspondants. Un BFR positif signifie que l'entreprise a
-                besoin de trésorerie pour fonctionner ; un BFR négatif (rare) signifie que le cycle d'exploitation
-                génère de la trésorerie.
+                <DocSourceRef n={3} /> apparaît lorsque l'entreprise doit financer ses stocks et ses créances clients
+                avant de recevoir les paiements correspondants. Un BFR positif signifie que l'entreprise a besoin de
+                trésorerie pour fonctionner ; un BFR négatif (rare) signifie que le cycle d'exploitation génère de la
+                trésorerie.
             </DocParagraph>
 
             <DocExample title="Calcul du BFR">
-                <p
-                    className={css({
-                        fontSize: "sm",
-                    })}
-                >
-                    Stocks : 5 000 + Créances clients : 8 000 = Actif circulant d'exploitation : 13 000
-                </p>
-                <p
-                    className={css({
-                        fontSize: "sm",
-                    })}
-                >
-                    Dettes fournisseurs : 4 000 + Dettes fiscales : 2 000 = Dettes d'exploitation : 6 000
-                </p>
-                <p
-                    className={css({
-                        marginTop: "2",
-                        fontWeight: "medium",
-                        fontSize: "sm",
-                    })}
-                >
-                    BFR = 13 000 - 6 000 = 7 000 euros
-                </p>
-                <p
-                    className={css({
-                        marginTop: "1",
-                        fontSize: "xs",
-                        color: "neutral/60",
-                    })}
-                >
+                <DocParagraph>
+                    Stocks + Créances clients = Actif circulant d'exploitation
+                    <br />5 000 + 8 000 = 13 000
+                </DocParagraph>
+                <DocParagraph>
+                    Dettes fournisseurs + Dettes fiscales = Dettes d'exploitation
+                    <br />4 000 + 2 000 = 6 000
+                </DocParagraph>
+                <DocParagraph>BFR = 13 000 - 6 000 = 7 000 euros</DocParagraph>
+                <DocParagraph>
                     L'entreprise doit trouver 7 000 euros de financement pour couvrir son cycle d'exploitation.
-                </p>
+                </DocParagraph>
             </DocExample>
         </DocSection>
     )
@@ -349,16 +344,22 @@ function BalanceSheetTypesSection() {
             <DocParagraph>Il existe en pratique plusieurs présentations du bilan selon l'usage :</DocParagraph>
 
             <DocDefinition term="Bilan comptable (officiel)">
-                Le bilan au sens strict, établi selon les règles du PCG et déposé au greffe du tribunal de commerce.
-                C'est le document obligatoire qui fait partie des comptes annuels.
+                <DocParagraph>
+                    Le bilan au sens strict, établi selon les règles du PCG et déposé au greffe du tribunal de commerce.
+                    C'est le document obligatoire qui fait partie des comptes annuels.
+                </DocParagraph>
             </DocDefinition>
             <DocDefinition term="Bilan fonctionnel">
-                Présentation analytique qui reclasse les postes par fonction (exploitation, investissement,
-                financement). Il sert à l'analyse financière interne et au calcul du BFR.
+                <DocParagraph>
+                    Présentation analytique qui reclasse les postes par fonction (exploitation, investissement,
+                    financement). Il sert à l'analyse financière interne et au calcul du BFR.
+                </DocParagraph>
             </DocDefinition>
             <DocDefinition term="Bilan fiscal">
-                Bilan établi pour les besoins de la déclaration fiscale (liasse fiscale). Il reprend les mêmes
-                données que le bilan comptable avec des retraitements spécifiques.
+                <DocParagraph>
+                    Bilan établi pour les besoins de la déclaration fiscale (liasse fiscale). Il reprend les mêmes
+                    données que le bilan comptable avec des retraitements spécifiques.
+                </DocParagraph>
             </DocDefinition>
         </DocSection>
     )
@@ -384,15 +385,15 @@ function OffBalanceSheetItemsSection() {
 
             <DocParagraph>
                 Ces engagements doivent être mentionnés dans l'{" "}
-                <DocLink to="/documentation/comptabilité/documents/annexe">annexe</DocLink> pour que les lecteurs
-                des comptes aient une image complète de la situation de l'organisation.
+                <DocLink to="/documentation/comptabilité/documents/annexe">annexe</DocLink> pour que les lecteurs des
+                comptes aient une image complète de la situation de l'organisation.
             </DocParagraph>
 
             <DocTip variant="info">
                 En normes IFRS (normes internationales)
-                <DocSourceRef n={4} />, le bilan s'appelle « état de la situation financière » et sa présentation
-                est différente : les postes sont classés en éléments courants et non courants plutôt qu'en actif
-                immobilisé et circulant. Les crédits-baux sont également intégrés au bilan (norme IFRS 16).
+                <DocSourceRef n={4} />, le bilan s'appelle « état de la situation financière » et sa présentation est
+                différente : les postes sont classés en éléments courants et non courants plutôt qu'en actif immobilisé
+                et circulant. Les crédits-baux sont également intégrés au bilan (norme IFRS 16).
             </DocTip>
         </DocSection>
     )
@@ -411,55 +412,61 @@ function BalanceSheetExampleSection() {
                 </p>
                 <div
                     className={css({
-                        display: "grid",
-                        gridTemplateColumns: {
-                            base: "1fr",
-                            sm: "1fr 1fr",
-                        },
-                        gap: "4",
                         marginTop: "3",
                     })}
                 >
-                    <div>
-                        <p
-                            className={css({
-                                fontWeight: "medium",
-                                mb: "1",
-                            })}
-                        >
-                            ACTIF
-                        </p>
-                        <DocList
-                            variant="bullet"
-                            size="xs"
-                            items={[
-                                "Matériel informatique : 2 000",
-                                "Créances adhérents : 500",
-                                "Banque : 4 500",
-                                <strong key="total">Total : 7 000</strong>,
-                            ]}
-                        />
-                    </div>
-                    <div>
-                        <p
-                            className={css({
-                                fontWeight: "medium",
-                                mb: "1",
-                            })}
-                        >
-                            PASSIF
-                        </p>
-                        <DocList
-                            variant="bullet"
-                            size="xs"
-                            items={[
-                                "Fonds associatifs : 4 000",
-                                "Résultat de l'exercice : 2 000",
-                                "Dettes fournisseurs : 1 000",
-                                <strong key="total">Total : 7 000</strong>,
-                            ]}
-                        />
-                    </div>
+                    <DocTable
+                        headers={[
+                            "ACTIF (ce que l'on a)",
+                            "Brut",
+                            "Amort. & dépr.",
+                            "Net",
+                            "PASSIF (comment c'est financé)",
+                            "Montant",
+                        ]}
+                        rows={[
+                            [
+                                "Immobilisations corporelles",
+                                "5 000,00",
+                                "3 000,00",
+                                "2 000,00",
+                                "Capitaux propres (capital et réserves)",
+                                "10 000,00",
+                            ],
+                            [
+                                "Immobilisations incorporelles",
+                                "2 000,00",
+                                "500,00",
+                                "1 500,00",
+                                "Résultat de l'exercice",
+                                "4 000,00",
+                            ],
+                            [
+                                "Stocks et créances",
+                                "9 200,00",
+                                "",
+                                "9 200,00",
+                                "Dettes financières (emprunts)",
+                                "1 500,00",
+                            ],
+                            [
+                                "Trésorerie (banque)",
+                                "4 300,00",
+                                "",
+                                "4 300,00",
+                                "Dettes fournisseurs",
+                                "1 500,00",
+                            ],
+                            [
+                                "TOTAUX",
+                                "20 500,00",
+                                "3 500,00",
+                                "17 000,00",
+                                "TOTAUX",
+                                "17 000,00",
+                            ],
+                        ]}
+                    />
                 </div>
                 <p
                     className={css({
@@ -468,8 +475,10 @@ function BalanceSheetExampleSection() {
                         color: "neutral/60",
                     })}
                 >
-                    L'association possède 7 000 euros de biens, financés par ses fonds propres (6 000 euros, dont le
-                    résultat de l'année) et une dette fournisseur (1 000 euros). Actif = Passif.
+                    L'association possède 17 000,00 euros de biens (valeur nette après amortissements), financés par ses
+                    fonds propres (14 000,00 euros) et ses dettes (3 000,00 euros). Actif = Passif. Le{" "}
+                    <DocLink to="/documentation/comptabilité/documents/compte-de-résultat">compte de résultat</DocLink>{" "}
+                    fait apparaître un résultat de 4 000,00 euros, identique à celui inscrit au bilan.
                 </p>
             </DocExample>
         </DocSection>
@@ -480,15 +489,15 @@ function OpeningAndClosingBalanceSheetSection() {
     return (
         <DocSection title="Bilan d'ouverture et bilan de clôture">
             <DocParagraph>
-                Le bilan de clôture d'un exercice devient le <strong>bilan d'ouverture</strong> de l'exercice
-                suivant. Les soldes de tous les comptes de bilan (classes 1 à 5) sont reportés. Seuls les comptes de
-                charges et de produits (classes 6 et 7) sont remis à zéro, car ils alimentent le compte de résultat
-                d'une seule période.
+                Le bilan de clôture d'un exercice devient le <strong>bilan d'ouverture</strong> de l'exercice suivant.
+                Les soldes de tous les comptes de bilan (classes 1 à 5) sont reportés. Seuls les comptes de charges et
+                de produits (classes 6 et 7) sont remis à zéro, car ils alimentent le compte de résultat d'une seule
+                période.
             </DocParagraph>
 
             <DocParagraph>
-                Cette continuité est un principe fondamental : le patrimoine de l'organisation se transmet d'un
-                exercice à l'autre sans interruption.
+                Cette continuité est un principe fondamental : le patrimoine de l'organisation se transmet d'un exercice
+                à l'autre sans interruption.
             </DocParagraph>
         </DocSection>
     )

@@ -1,7 +1,12 @@
 import { css } from "@comptasse/ui/utilities/cn.js"
 import { Outlet } from "@tanstack/react-router"
+import { useRef } from "react"
+import { useDocScrollRestoration } from "./useDocScrollRestoration.js"
 
 export function DocsLayout() {
+    const scrollContainerRef = useRef<HTMLDivElement>(null)
+    useDocScrollRestoration(scrollContainerRef)
+
     return (
         <div
             className={css({
@@ -14,6 +19,7 @@ export function DocsLayout() {
             })}
         >
             <div
+                ref={scrollContainerRef}
                 className={css({
                     flex: 1,
                     overflowY: "auto",
