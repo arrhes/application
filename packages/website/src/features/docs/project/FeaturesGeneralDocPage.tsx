@@ -1,3 +1,4 @@
+import { Fragment } from "react"
 import { DocCode } from "../../../components/document/DocCode.js"
 import { DocHeader } from "../../../components/document/DocHeader.js"
 import { DocLink } from "../../../components/document/DocLink.js"
@@ -102,9 +103,9 @@ export function FeaturesGeneralDocPage() {
                 <DocList
                     items={[
                         "Formats PDF, JPEG et PNG",
-                        <>
+                        <Fragment key="byok">
                             Configuration <DocCode>BYOK</DocCode> (bring your own key)
-                        </>,
+                        </Fragment>,
                     ]}
                 />
                 <DocTip>

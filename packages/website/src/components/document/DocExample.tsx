@@ -39,7 +39,7 @@ export function DocExample(props: { title?: string; children: React.ReactNode })
                         color: "neutral/50",
                     })}
                 >
-                    Exemple
+                    Exemple{props.title !== undefined && ` - ${props.title}`}
                 </span>
             </div>
             <div
@@ -48,7 +48,7 @@ export function DocExample(props: { title?: string; children: React.ReactNode })
                     flexDirection: "column",
                     justifyContent: "start",
                     alignItems: "start",
-                    gap: "0.5rem",
+                    gap: "1rem",
                 })}
             >
                 {props.children}

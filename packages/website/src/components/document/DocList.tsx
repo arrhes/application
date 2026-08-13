@@ -1,8 +1,14 @@
 import { css } from "@comptasse/ui/utilities/cn.js"
-import type { ReactNode } from "react"
+import { isValidElement, type ReactNode } from "react"
 
 export type DocListVariant = "check" | "bullet" | "ordered" | "hyphen" | "none"
 export type DocListSize = "sm" | "xs"
+
+function getItemKey(item: ReactNode): string | undefined {
+    if (typeof item === "string") return item
+    if (isValidElement(item) && item.key != null) return String(item.key)
+    return undefined
+}
 
 export function DocList(props: { items: ReactNode[]; variant?: DocListVariant; size?: DocListSize; ids?: string[] }) {
     const variant = props.variant ?? "check"
@@ -18,7 +24,7 @@ export function DocList(props: { items: ReactNode[]; variant?: DocListVariant; s
         >
             {props.items.map((item, index) => (
                 <li
-                    key={typeof item === "string" ? item : `${variant}-${index}`}
+                    key={getItemKey(item)}
                     id={props.ids?.[index]}
                     className={css({
                         display: "flex",

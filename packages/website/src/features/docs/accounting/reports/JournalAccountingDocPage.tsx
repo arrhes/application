@@ -1,16 +1,16 @@
-import { css } from "@comptasse/ui/utilities/cn.js"
+import { Fragment } from "react"
 import { DocDefinition } from "../../../../components/document/DocDefinition.js"
 import { DocExample } from "../../../../components/document/DocExample.js"
 import { DocHeader } from "../../../../components/document/DocHeader.js"
 import { DocLink } from "../../../../components/document/DocLink.js"
 import { DocList } from "../../../../components/document/DocList.js"
 import { DocParagraph } from "../../../../components/document/DocParagraph.js"
+import { DocRoot } from "../../../../components/document/DocRoot.js"
 import { DocSection } from "../../../../components/document/DocSection.js"
 import { DocSourceRef } from "../../../../components/document/DocSourceRef.js"
 import { DocSources } from "../../../../components/document/DocSources.js"
 import { DocTable } from "../../../../components/document/DocTable.js"
 import { DocTip } from "../../../../components/document/DocTip.js"
-import { DocRoot } from "../../../../components/document/DocRoot.js"
 
 export function JournalAccountingDocPage() {
     return (
@@ -25,7 +25,6 @@ export function JournalAccountingDocPage() {
             <CentralJournalSection />
             <OpeningEntriesJournalSection />
             <LegalObligationsSection />
-            <JournalArrhesLinkSection />
             <DocSources
                 sources={[
                     {
@@ -50,16 +49,19 @@ function JournalDefinitionSection() {
     return (
         <DocSection title="Définition">
             <DocDefinition term="Journal comptable">
-                Registre dans lequel sont inscrites, par ordre chronologique, toutes les écritures comptables de
-                l'organisation. Chaque écriture y est enregistrée avec sa date, ses comptes mouvementés, ses
-                montants et un libellé explicatif.
+                <DocParagraph>
+                    Registre dans lequel sont inscrites, par ordre chronologique, toutes les écritures comptables de
+                    l'organisation. Chaque écriture y est enregistrée avec sa date, ses comptes mouvementés, ses
+                    montants et un libellé explicatif.
+                </DocParagraph>
             </DocDefinition>
 
             <DocParagraph>
                 Le journal est le point d'entrée de la comptabilité
                 <DocSourceRef n={1} /> : c'est ici que chaque opération est enregistrée pour la première fois. Il
                 constitue la trace originale et chronologique de l'ensemble des{" "}
-                <DocLink to="/documentation/comptabilité/introduction/écritures">écritures</DocLink> passées au cours d'un{" "}
+                <DocLink to="/documentation/comptabilité/introduction/écritures">écritures</DocLink> passées au cours
+                d'un{" "}
                 <DocLink
                     to="/documentation/comptabilité/ressources/glossaire/$term"
                     params={{
@@ -131,83 +133,63 @@ function JournalStructureSection() {
                             "03/01",
                             "411 - Clients",
                             "Facture n°001 - Client Dupont",
-                            "1 200",
+                            "1 200,00",
                             "",
                         ],
                         [
                             "",
                             "706 - Prestations de services",
-                            "Facture n°001 - Client Dupont",
                             "",
-                            "1 000",
+                            "",
+                            "1 000,00",
                         ],
                         [
                             "",
                             "4457 - TVA collectée",
-                            "Facture n°001 - Client Dupont",
-                            "",
-                            "200",
-                        ],
-                        [
                             "",
                             "",
-                            "",
-                            "",
-                            "",
+                            "200,00",
                         ],
                         [
                             "10/01",
                             "512 - Banque",
                             "Règlement facture n°001",
-                            "1 200",
+                            "1 200,00",
                             "",
                         ],
                         [
                             "",
                             "411 - Clients",
-                            "Règlement facture n°001",
-                            "",
-                            "1 200",
-                        ],
-                        [
                             "",
                             "",
-                            "",
-                            "",
-                            "",
+                            "1 200,00",
                         ],
                         [
                             "15/01",
                             "606 - Achats de fournitures",
                             "Achat papeterie",
-                            "150",
+                            "150,00",
                             "",
                         ],
                         [
                             "",
                             "4456 - TVA déductible",
-                            "Achat papeterie",
                             "",
-                            "30",
+                            "",
+                            "30,00",
                         ],
                         [
                             "",
                             "401 - Fournisseurs",
-                            "Achat papeterie",
                             "",
-                            "180",
+                            "",
+                            "180,00",
                         ],
                     ]}
                 />
-                <p
-                    className={css({
-                        marginTop: "2",
-                        fontSize: "xs",
-                        color: "neutral/60",
-                    })}
-                >
+                <DocParagraph>
                     Chaque écriture est équilibrée : le total des débits est égal au total des crédits.
-                </p>
+                </DocParagraph>
             </DocExample>
         </DocSection>
     )
@@ -217,34 +199,42 @@ function AuxiliaryJournalsSection() {
     return (
         <DocSection title="Les journaux auxiliaires">
             <DocParagraph>
-                En pratique, pour des raisons d'organisation, les écritures ne sont pas toutes enregistrées dans un
-                seul journal. On utilise des <strong>journaux auxiliaires</strong> spécialisés, chacun dédié à un
-                type d'opération. Cela permet de répartir le travail et de vérifier plus facilement les opérations.
+                En pratique, pour des raisons d'organisation, les écritures ne sont pas toutes enregistrées dans un seul
+                journal. On utilise des <strong>journaux auxiliaires</strong> spécialisés, chacun dédié à un type
+                d'opération. Cela permet de répartir le travail et de vérifier plus facilement les opérations.
             </DocParagraph>
 
             <DocDefinition term="Journal des achats (HA)">
-                Enregistre toutes les factures fournisseurs reçues. On y trouve les achats à crédit avant leur
-                règlement.
+                <DocParagraph>
+                    Enregistre toutes les factures fournisseurs reçues. On y trouve les achats à crédit avant leur
+                    règlement.
+                </DocParagraph>
             </DocDefinition>
             <DocDefinition term="Journal des ventes (VE)">
-                Enregistre toutes les factures clients émises. On y trouve les ventes à crédit avant leur
-                encaissement.
+                <DocParagraph>
+                    Enregistre toutes les factures clients émises. On y trouve les ventes à crédit avant leur
+                    encaissement.
+                </DocParagraph>
             </DocDefinition>
             <DocDefinition term="Journal de banque (BQ)">
-                Enregistre tous les mouvements du compte bancaire : encaissements, décaissements, virements.
+                <DocParagraph>
+                    Enregistre tous les mouvements du compte bancaire : encaissements, décaissements, virements.
+                </DocParagraph>
             </DocDefinition>
             <DocDefinition term="Journal de caisse (CA)">
-                Enregistre tous les mouvements d'espèces : recettes et dépenses en liquide.
+                <DocParagraph>Enregistre tous les mouvements d'espèces : recettes et dépenses en liquide.</DocParagraph>
             </DocDefinition>
             <DocDefinition term="Journal des opérations diverses (OD)">
-                Enregistre les opérations qui ne rentrent pas dans les autres journaux : salaires, amortissements,
-                régularisations, écritures de clôture.
+                <DocParagraph>
+                    Enregistre les opérations qui ne rentrent pas dans les autres journaux : salaires, amortissements,
+                    régularisations, écritures de clôture.
+                </DocParagraph>
             </DocDefinition>
 
             <DocParagraph>
-                L'ensemble de ces journaux auxiliaires forme le <strong>journal général</strong>, qui centralise
-                toutes les écritures de l'exercice. Cette organisation permet de répartir le travail de saisie et
-                facilite les contrôles.
+                L'ensemble de ces journaux auxiliaires forme le <strong>journal général</strong>, qui centralise toutes
+                les écritures de l'exercice. Cette organisation permet de répartir le travail de saisie et facilite les
+                contrôles.
             </DocParagraph>
         </DocSection>
     )
@@ -256,8 +246,8 @@ function CentralJournalSection() {
             <DocParagraph>
                 Lorsqu'une organisation utilise des journaux auxiliaires, elle doit tenir un{" "}
                 <strong>journal centralisateur</strong> (ou livre-journal). Ce document récapitule chaque mois les
-                totaux de chaque journal auxiliaire, créant ainsi un enregistrement unique et synthétique de toutes
-                les opérations.
+                totaux de chaque journal auxiliaire, créant ainsi un enregistrement unique et synthétique de toutes les
+                opérations.
             </DocParagraph>
 
             <DocParagraph>
@@ -266,9 +256,9 @@ function CentralJournalSection() {
             </DocParagraph>
 
             <DocTip variant="info">
-                Lorsqu'une opération concerne plusieurs journaux auxiliaires (par exemple, un virement de la caisse
-                vers la banque), on utilise un <strong>compte de virements internes</strong> (classe 58) pour
-                assurer la liaison entre les deux journaux sans créer de double enregistrement.
+                Lorsqu'une opération concerne plusieurs journaux auxiliaires (par exemple, un virement de la caisse vers
+                la banque), on utilise un <strong>compte de virements internes</strong> (classe 58) pour assurer la
+                liaison entre les deux journaux sans créer de double enregistrement.
             </DocTip>
         </DocSection>
     )
@@ -287,14 +277,15 @@ function OpeningEntriesJournalSection() {
                 >
                     bilan
                 </DocLink>{" "}
-                (classes 1 à 5) doivent être repris de l'exercice précédent. Cette reprise s'effectue par des
-                écritures d'ouverture enregistrées dans un journal particulier : le{" "}
-                <strong>journal des À-Nouveaux (AN)</strong>.
+                (classes 1 à 5) doivent être repris de l'exercice précédent. Cette reprise s'effectue par des écritures
+                d'ouverture enregistrées dans un journal particulier : le <strong>journal des À-Nouveaux (AN)</strong>.
             </DocParagraph>
 
             <DocDefinition term="Journal des À-Nouveaux">
-                Journal spécial qui enregistre les écritures de report des soldes de l'exercice précédent vers le
-                nouvel exercice. Il porte les soldes de tous les comptes de bilan non soldés.
+                <DocParagraph>
+                    Journal spécial qui enregistre les écritures de report des soldes de l'exercice précédent vers le
+                    nouvel exercice. Il porte les soldes de tous les comptes de bilan non soldés.
+                </DocParagraph>
             </DocDefinition>
 
             <DocParagraph>
@@ -316,8 +307,8 @@ function OpeningEntriesJournalSection() {
                 >
                     produits
                 </DocLink>{" "}
-                (classes 6 et 7) ne sont pas reportés : ils sont remis à zéro car ils ne concernent qu'un seul
-                exercice. Le{" "}
+                (classes 6 et 7) ne sont pas reportés : ils sont remis à zéro car ils ne concernent qu'un seul exercice.
+                Le{" "}
                 <DocLink
                     to="/documentation/comptabilité/ressources/glossaire/$term"
                     params={{
@@ -353,50 +344,34 @@ function OpeningEntriesJournalSection() {
 function LegalObligationsSection() {
     return (
         <DocSection title="Obligations légales">
-            <DocParagraph>
-                Le journal est un document obligatoire. Plusieurs textes encadrent sa tenue :
-            </DocParagraph>
+            <DocParagraph>Le journal est un document obligatoire. Plusieurs textes encadrent sa tenue :</DocParagraph>
 
             <DocList
                 items={[
-                    <>
+                    <Fragment key="commerce">
                         Le Code de commerce impose la tenue d'un livre-journal à toute personne ayant la qualité de
                         commerçant
                         <DocSourceRef n={2} />
-                    </>,
+                    </Fragment>,
                     "Le Code Général des Impôts (CGI) reprend cette obligation pour les besoins fiscaux",
-                    <>
+                    <Fragment key="pcg">
                         Le Plan Comptable Général (PCG) définit les règles de forme du journal
                         <DocSourceRef n={3} />
-                    </>,
+                    </Fragment>,
                     "L'article R.123-173 du Code de commerce autorise la tenue du journal sur support informatique, à condition de garantir l'authenticité et l'intégrité des écritures",
                 ]}
             />
 
             <DocParagraph>
-                Le journal doit être conservé pendant <strong>10 ans</strong> (obligation comptable) et peut être
-                exigé en cas de contrôle fiscal, de litige commercial ou de procédure judiciaire.
+                Le journal doit être conservé pendant <strong>10 ans</strong> (obligation comptable) et peut être exigé
+                en cas de contrôle fiscal, de litige commercial ou de procédure judiciaire.
             </DocParagraph>
 
             <DocTip variant="tip">
-                Le journal doit être tenu sans blanc ni rature. En comptabilité informatisée, les écritures validées
-                ne peuvent pas être supprimées : toute correction se fait par une écriture de contrepassation. Cette
-                règle d'irréversibilité garantit la fiabilité de la piste d'audit.
+                Le journal doit être tenu sans blanc ni rature. En comptabilité informatisée, les écritures validées ne
+                peuvent pas être supprimées : toute correction se fait par une écriture de contrepassation. Cette règle
+                d'irréversibilité garantit la fiabilité de la piste d'audit.
             </DocTip>
-        </DocSection>
-    )
-}
-
-function JournalArrhesLinkSection() {
-    return (
-        <DocSection title="Lien avec Arrhes">
-            <DocParagraph>
-                Arrhes génère automatiquement le journal à partir de vos{" "}
-                <DocLink to="/documentation/comptabilité/introduction/écritures">écritures</DocLink>. Chaque saisie est datée,
-                numérotée et classée dans le journal approprié. Consultez le guide sur les{" "}
-                <DocLink to="/documentation/guide/documents">rapports</DocLink> pour apprendre à exporter et
-                consulter votre journal.
-            </DocParagraph>
         </DocSection>
     )
 }

@@ -1,17 +1,17 @@
-import { css } from "@comptasse/ui/utilities/cn.js"
+import { Fragment } from "react"
 import { DocDefinition } from "../../../../components/document/DocDefinition.js"
 import { DocExample } from "../../../../components/document/DocExample.js"
 import { DocHeader } from "../../../../components/document/DocHeader.js"
 import { DocLink } from "../../../../components/document/DocLink.js"
 import { DocList } from "../../../../components/document/DocList.js"
 import { DocParagraph } from "../../../../components/document/DocParagraph.js"
+import { DocRoot } from "../../../../components/document/DocRoot.js"
 import { DocSection } from "../../../../components/document/DocSection.js"
 import { DocSourceRef } from "../../../../components/document/DocSourceRef.js"
 import { DocSources } from "../../../../components/document/DocSources.js"
 import { DocTable } from "../../../../components/document/DocTable.js"
 import { DocTip } from "../../../../components/document/DocTip.js"
 import { accountClasses } from "../resources/accounts/accountsData.js"
-import { DocRoot } from "../../../../components/document/DocRoot.js"
 
 export function AccountsAccountingDocPage() {
     return (
@@ -24,10 +24,8 @@ export function AccountsAccountingDocPage() {
             <AccountFamiliesSection />
             <AccountClassesSection />
             <HowAccountsWorkSection />
-            <StateAndVATSection />
             <AccountNumberingSection />
             <MinimalAndOptionalAccountsSection />
-            <ArrhesLinkSection />
             <DocSources
                 sources={[
                     {
@@ -62,7 +60,7 @@ function WhatIsAnAccountSection() {
                     compte
                 </DocLink>{" "}
                 est une catégorie qui regroupe des opérations de même nature. Chaque compte possède un numéro et un
-                intitulé qui permettent de l'identifier. Par exemple, le compte 512 - Banque regroupe toutes les
+                intitulé qui permettent de l'identifier. Par exemple, le compte 512 - Banques regroupe toutes les
                 opérations transitant par votre compte bancaire.
             </DocParagraph>
             <DocParagraph>
@@ -81,9 +79,9 @@ function WhatIsAnAccountSection() {
             </DocParagraph>
 
             <DocTip variant="info">
-                Le premier Plan Comptable Général a été adopté en France en 1943, puis maintenu après la Seconde
-                Guerre mondiale pour servir d'outil de planification économique lors de la reconstruction. Il a été
-                révisé en 1947, 1957, puis profondément refondu en 1982.
+                Le premier Plan Comptable Général a été adopté en France en 1943, puis maintenu après la Seconde Guerre
+                mondiale pour servir d'outil de planification économique lors de la reconstruction. Il a été révisé en
+                1947, 1957, puis profondément refondu en 1982.
                 <DocSourceRef n={2} /> L'ANC, créée par ordonnance en 2009, est aujourd'hui l'organisme chargé de le
                 faire évoluer.
                 <DocSourceRef n={3} />
@@ -96,8 +94,8 @@ function AccountFamiliesSection() {
     return (
         <DocSection title="Deux grandes familles de comptes">
             <DocParagraph>
-                Pour bien comprendre le fonctionnement des comptes, il est utile de distinguer deux grandes familles
-                : les{" "}
+                Pour bien comprendre le fonctionnement des comptes, il est utile de distinguer deux grandes familles :
+                les{" "}
                 <strong>
                     <DocLink
                         to="/documentation/comptabilité/ressources/glossaire/$term"
@@ -123,45 +121,43 @@ function AccountFamiliesSection() {
             </DocParagraph>
 
             <DocDefinition term="Comptes d'opérations">
-                Ces comptes enregistrent les opérations économiques du point de vue de l'entreprise : achats,
-                ventes, charges, produits. Ils décrivent ce que fait l'entreprise.
+                <DocParagraph>
+                    Ces comptes enregistrent les opérations économiques du point de vue de l'entreprise : achats,
+                    ventes, charges, produits. Ils décrivent ce que fait l'entreprise.
+                </DocParagraph>
             </DocDefinition>
             <DocDefinition term="Comptes d'agents">
-                Ces comptes enregistrent les relations avec les tiers du point de vue de ces tiers : clients,
-                fournisseurs, banque, caisse, État. Ils décrivent qui doit quoi à qui.
+                <DocParagraph>
+                    Ces comptes enregistrent les relations avec les tiers du point de vue de ces tiers : clients,
+                    fournisseurs, banque, caisse, État. Ils décrivent qui doit quoi à qui.
+                </DocParagraph>
             </DocDefinition>
 
             <DocExample title="Point de vue des comptes d'agents">
-                <p>Le compte Clients est tenu du point de vue des clients :</p>
+                <DocParagraph>Le compte Clients est tenu du point de vue des clients :</DocParagraph>
                 <DocList
                     variant="bullet"
                     items={[
-                        <>
+                        <Fragment key="debit">
                             Quand un client vous doit de l'argent - le compte est <strong>débité</strong> (sa dette
                             augmente)
-                        </>,
-                        <>
+                        </Fragment>,
+                        <Fragment key="credit">
                             Quand il vous paye - le compte est <strong>crédité</strong> (sa dette diminue)
-                        </>,
+                        </Fragment>,
                     ]}
                 />
-                <p
-                    className={css({
-                        marginTop: "3",
-                    })}
-                >
-                    Le compte Fournisseurs est tenu du point de vue des fournisseurs :
-                </p>
+                <DocParagraph>Le compte Fournisseurs est tenu du point de vue des fournisseurs :</DocParagraph>
                 <DocList
                     variant="bullet"
                     items={[
-                        <>
+                        <Fragment key="credit">
                             Quand vous leur devez de l'argent - le compte est <strong>crédité</strong> (leur créance
                             augmente)
-                        </>,
-                        <>
+                        </Fragment>,
+                        <Fragment key="debit">
                             Quand vous les payez - le compte est <strong>débité</strong> (leur créance diminue)
-                        </>,
+                        </Fragment>,
                     ]}
                 />
             </DocExample>
@@ -257,9 +253,8 @@ function AccountClassesSection() {
             </DocParagraph>
 
             <DocTip variant="info">
-                La classe 9, autrefois réservée à la comptabilité analytique, a été supprimée du PCG. La
-                comptabilité analytique est désormais tenue librement par les entreprises en dehors du plan de
-                comptes officiel.
+                La classe 9, autrefois réservée à la comptabilité analytique, a été supprimée du PCG. La comptabilité
+                analytique est désormais tenue librement par les entreprises en dehors du plan de comptes officiel.
             </DocTip>
         </DocSection>
     )
@@ -303,62 +298,14 @@ function HowAccountsWorkSection() {
             />
 
             <DocExample title="Fonctionnement concret">
-                <p>Quand vous recevez de l'argent sur votre compte bancaire :</p>
-                <p
-                    className={css({
-                        marginTop: "2",
-                    })}
-                >
-                    - Le compte 512 (Banque) est un compte d'actif
-                </p>
-                <p>
-                    - Une augmentation se traduit par un <strong>débit</strong>
-                </p>
-                <p
-                    className={css({
-                        marginTop: "3",
-                    })}
-                >
-                    Quand vous payez une facture depuis ce compte :
-                </p>
-                <p
-                    className={css({
-                        marginTop: "2",
-                    })}
-                >
-                    - Une diminution se traduit par un <strong>crédit</strong>
-                </p>
-            </DocExample>
-        </DocSection>
-    )
-}
-
-function StateAndVATSection() {
-    return (
-        <DocSection title="Le compte État et la TVA">
-            <DocParagraph>
-                L'État est traité comme un agent particulier avec plusieurs comptes dans la classe 4. Pour la TVA,
-                on distingue deux comptes principaux :
-            </DocParagraph>
-
-            <DocDefinition term="4456 - TVA déductible">
-                TVA payée sur les achats. L'État vous doit cette somme (ou vous pouvez la déduire de la TVA
-                collectée). Le compte est débité quand la TVA déductible augmente.
-            </DocDefinition>
-            <DocDefinition term="4457 - TVA collectée">
-                TVA facturée sur les ventes. Vous devez cette somme à l'État. Le compte est crédité quand la TVA
-                collectée augmente.
-            </DocDefinition>
-
-            <DocExample title="Mécanisme de la TVA">
-                <p>À la fin de la période :</p>
-                <DocList
-                    variant="bullet"
-                    items={[
-                        "Si TVA collectée > TVA déductible - vous devez la différence à l'État",
-                        "Si TVA collectée < TVA déductible - l'État vous doit la différence (crédit de TVA)",
-                    ]}
-                />
+                <DocParagraph>
+                    Quand vous recevez de l'argent sur votre compte bancaire : le compte 512 - Banques est un compte
+                    d'actif, une augmentation se traduit donc par un <strong>débit</strong>
+                </DocParagraph>
+                <DocParagraph>
+                    Quand vous payez une facture depuis ce compte : une diminution se traduit par un{" "}
+                    <strong>crédit</strong>
+                </DocParagraph>
             </DocExample>
         </DocSection>
     )
@@ -378,37 +325,32 @@ function AccountNumberingSection() {
                     "Le premier chiffre indique la classe (1 à 8)",
                     "Le deuxième chiffre indique la catégorie au sein de la classe",
                     "Chaque chiffre supplémentaire affine la nature du compte",
-                    "Un numéro se terminant par 0 désigne un compte de regroupement (ex : 41 = Clients, 410 = regroupement)",
-                    "Pour les classes de bilan (2 à 5), un numéro se terminant par 9 indique un compte de dépréciation ou de sens contraire (ex : 491 = Dépréciation des comptes clients)",
+                    "Pour les classes de bilan (1 à 5), un numéro se terminant par 9 indique un compte de dépréciation ou de sens contraire (ex : 491 = Dépréciation des comptes clients)",
                 ]}
             />
 
             <DocExample title="Lecture d'un numéro de compte">
-                <p
-                    className={css({
-                        fontSize: "sm",
-                    })}
-                >
+                <DocParagraph>
                     Le compte <strong>60611</strong> se décompose ainsi :
-                </p>
+                </DocParagraph>
                 <DocList
                     variant="bullet"
                     items={[
-                        <>
+                        <Fragment key="c6">
                             <strong>6</strong> = Classe 6 (Charges)
-                        </>,
-                        <>
+                        </Fragment>,
+                        <Fragment key="c60">
                             <strong>60</strong> = Achats
-                        </>,
-                        <>
+                        </Fragment>,
+                        <Fragment key="c606">
                             <strong>606</strong> = Achats non stockés de matières et fournitures
-                        </>,
-                        <>
+                        </Fragment>,
+                        <Fragment key="c6061">
                             <strong>6061</strong> = Fournitures non stockables
-                        </>,
-                        <>
+                        </Fragment>,
+                        <Fragment key="c60611">
                             <strong>60611</strong> = Eau, énergie
-                        </>,
+                        </Fragment>,
                     ]}
                 />
             </DocExample>
@@ -419,42 +361,22 @@ function AccountNumberingSection() {
 function MinimalAndOptionalAccountsSection() {
     return (
         <DocSection title="Comptes du système minimal et comptes facultatifs">
-            <DocParagraph>
-                Le PCG distingue deux catégories de comptes selon leur caractère obligatoire :
-            </DocParagraph>
+            <DocParagraph>Le PCG distingue deux catégories de comptes selon leur caractère obligatoire :</DocParagraph>
 
             <DocDefinition term="Comptes du système minimal">
-                Ces comptes constituent le socle obligatoire du plan comptable. Ils doivent être utilisés par toutes
-                les entités, quelle que soit leur taille. Ils couvrent les opérations courantes et permettent
-                d'établir les documents de synthèse essentiels.
+                <DocParagraph>
+                    Ces comptes constituent le socle obligatoire du plan comptable. Ils doivent être utilisés par toutes
+                    les entités, quelle que soit leur taille. Ils couvrent les opérations courantes et permettent
+                    d'établir les documents de synthèse essentiels.
+                </DocParagraph>
             </DocDefinition>
             <DocDefinition term="Comptes facultatifs">
-                Ces comptes offrent un niveau de détail supplémentaire. Leur utilisation est optionnelle et dépend
-                des besoins de l'entité et de la complexité de son activité. Ils permettent un suivi plus fin de
-                certaines opérations.
+                <DocParagraph>
+                    Ces comptes offrent un niveau de détail supplémentaire. Leur utilisation est optionnelle et dépend
+                    des besoins de l'entité et de la complexité de son activité. Ils permettent un suivi plus fin de
+                    certaines opérations.
+                </DocParagraph>
             </DocDefinition>
-        </DocSection>
-    )
-}
-
-function ArrhesLinkSection() {
-    return (
-        <DocSection title="Lien avec Arrhes">
-            <DocParagraph>
-                Dans Arrhes, vous pouvez{" "}
-                <DocLink to="/documentation/guide/organisations">configurer votre plan comptable</DocLink> selon les
-                besoins de votre{" "}
-                <DocLink
-                    to="/documentation/comptabilité/ressources/glossaire/$term"
-                    params={{
-                        term: "organisation",
-                    }}
-                >
-                    organisation
-                </DocLink>
-                . Le logiciel propose un plan comptable par défaut adapté aux entreprises et aux associations
-                françaises, que vous pouvez personnaliser.
-            </DocParagraph>
         </DocSection>
     )
 }
