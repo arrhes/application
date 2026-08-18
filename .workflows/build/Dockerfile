@@ -49,6 +49,7 @@ RUN VER=$(cat VERSION | tr -d 'v[:space:]') && \
 # Stage 2: Runtime image with all services
 # ---------------------------------------------------------------------------
 FROM node:25.2.1-alpine AS deploy
+ENV NODE_ENV=production
 
 # Install runtime dependencies:
 # - nginx: serve dashboard static files + proxy API
@@ -63,26 +64,35 @@ RUN npm install -g pnpm@10.26.1
 
 WORKDIR /app
 
-# Copy built API
-COPY --from=build /root/packages/api /app/api
+# Copy entire workspace root so pnpm symlinks in node_modules and
+# per-package node_modules/@comptasse/* resolve correctly
+COPY --from=build /root/ .
 
-# Copy built Dashboard (static SPA)
-COPY --from=build /root/packages/dashboard/build /app/dashboard
-
-# Copy CLI
-COPY --from=build /root/packages/cli /app/cli
-
-# Copy tools (for schema management)
-COPY --from=build /root/packages/tools /app/tools
-
-# Copy metadata (dependency of tools and API)
-COPY --from=build /root/packages/metadata /app/metadata
+# Remove non-essential files to reduce image size; keep src for packages
+# whose scripts run via tsx in the entrypoint (tools, metadata)
+RUN rm -rf packages/*/test packages/*/*.test.* packages/*/*.spec.* \
+       packages/*/lib.test.ts packages/ui/node_modules && \
+    # Create convenience symlinks for /app/<package> paths used by configs
+    ln -s packages/api /app/api && \
+    ln -s packages/tools /app/tools && \
+    ln -s packages/dashboard /app/dashboard && \
+    ln -s packages/cli /app/cli && \
+    ln -s packages/metadata /app/metadata
 
 # Copy runtime configs
 COPY .workflows/build/supervisord.conf /etc/supervisord.conf
 COPY .workflows/build/nginx.conf /etc/nginx/nginx.conf
 COPY .workflows/build/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
+
+# Build-time smoke tests: catch packaging issues before the image is finalized
+RUN cd /app/tools && npx tsx --version && \
+    test -f /app/api/build/server.js && \
+    test -f /app/dashboard/build/index.html && \
+    test -x /app/cli/comptasse.sh && \
+    nginx -t -c /etc/nginx/nginx.conf && \
+    bash -n /entrypoint.sh && \
+    echo "All smoke tests passed"
 
 # Create data directory for volumes
 RUN mkdir -p /data

@@ -58,7 +58,8 @@ if [ "$TABLE_COUNT" = "0" ] || [ -z "$TABLE_COUNT" ]; then
 else
     echo "[entrypoint] Found $TABLE_COUNT tables. Verifying schema..."
     cd /app/tools
-    SCHEMA_CHECK_ONLY=1 node /app/api/build/server.js
+    ENV="production" VERBOSE="false" PORT="3000" SCHEMA_CHECK_ONLY=1 \
+        node /app/api/build/server.js
     CHECK_EXIT=$?
 
     if [ $CHECK_EXIT -ne 0 ]; then
