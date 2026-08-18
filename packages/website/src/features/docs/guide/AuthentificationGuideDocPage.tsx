@@ -92,14 +92,14 @@ export function AuthentificationGuideDocPage() {
                         <>
                             <DocParagraph>
                                 L'API expose deux endpoints publics pour l'authentification :
-                                <DocCode>POST /v1/auth/sign-up</DocCode> pour créer un compte et
-                                <DocCode>POST /v1/auth/sign-in</DocCode> pour se connecter.
+                                <DocCode>POST /auth/sign-up</DocCode> pour créer un compte et
+                                <DocCode>POST /auth/sign-in</DocCode> pour se connecter.
                                 Les deux endpoints retournent un cookie de session dans l'en-tête
                                 <DocCode>Set-Cookie</DocCode>.
                             </DocParagraph>
 
                             <DocExample title="Créer un compte">
-                                <DocCodeBlock>{`curl -X POST http://localhost:3000/v1/auth/sign-up \\
+                                <DocCodeBlock>{`curl -X POST http://localhost:3000/auth/sign-up \\
   -H "Content-Type: application/json" \\
   -d '{
     "email": "utilisateur@exemple.com",
@@ -109,7 +109,7 @@ export function AuthentificationGuideDocPage() {
                             </DocExample>
 
                             <DocExample title="Se connecter">
-                                <DocCodeBlock>{`curl -X POST http://localhost:3000/v1/auth/sign-in \\
+                                <DocCodeBlock>{`curl -X POST http://localhost:3000/auth/sign-in \\
   -H "Content-Type: application/json" \\
   -d '{
     "email": "utilisateur@exemple.com",
@@ -119,7 +119,7 @@ export function AuthentificationGuideDocPage() {
                             </DocExample>
 
                             <DocExample title="Utiliser la session pour les requêtes suivantes">
-                                <DocCodeBlock>{`curl http://localhost:3000/v1/organizations/me \\
+                                <DocCodeBlock>{`curl http://localhost:3000/organizations/me \\
   -b cookies.txt`}</DocCodeBlock>
                             </DocExample>
 

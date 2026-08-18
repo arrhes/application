@@ -16,17 +16,17 @@ beforeAll(async () => {
     const response = await authenticatedRequest({
         session,
         method: "GET",
-        path: `/v1/organizations/${idOrganization}/users`,
+        path: `/organizations/${idOrganization}/users`,
     })
     const users = response.data as any[]
     idDemoOrganizationUser = users[0].id
 })
 
-describe("GET /v1/organizations/:idOrganization/users", () => {
+describe("GET /organizations/:idOrganization/users", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "GET",
-            path: `/v1/organizations/${idOrganization}/users`,
+            path: `/organizations/${idOrganization}/users`,
         })
         expect(response.status).toBe(401)
     })
@@ -35,7 +35,7 @@ describe("GET /v1/organizations/:idOrganization/users", () => {
         const response = await authenticatedRequest({
             session,
             method: "GET",
-            path: `/v1/organizations/${idOrganization}/users`,
+            path: `/organizations/${idOrganization}/users`,
         })
         expect(response.status).toBe(200)
 
@@ -47,11 +47,11 @@ describe("GET /v1/organizations/:idOrganization/users", () => {
     })
 })
 
-describe("GET /v1/organizations/:idOrganization/users/:idOrganizationUser", () => {
+describe("GET /organizations/:idOrganization/users/:idOrganizationUser", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "GET",
-            path: `/v1/organizations/${idOrganization}/users/fake-id`,
+            path: `/organizations/${idOrganization}/users/fake-id`,
         })
         expect(response.status).toBe(401)
     })
@@ -60,7 +60,7 @@ describe("GET /v1/organizations/:idOrganization/users/:idOrganizationUser", () =
         const response = await authenticatedRequest({
             session,
             method: "GET",
-            path: `/v1/organizations/${idOrganization}/users/${idDemoOrganizationUser}`,
+            path: `/organizations/${idOrganization}/users/${idDemoOrganizationUser}`,
         })
         expect(response.status).toBe(200)
 
@@ -72,11 +72,11 @@ describe("GET /v1/organizations/:idOrganization/users/:idOrganizationUser", () =
     })
 })
 
-describe("PATCH /v1/organizations/:idOrganization", () => {
+describe("PATCH /organizations/:idOrganization", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}`,
+            path: `/organizations/${idOrganization}`,
             body: {
                 name: "hacked",
             },
@@ -88,7 +88,7 @@ describe("PATCH /v1/organizations/:idOrganization", () => {
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}`,
+            path: `/organizations/${idOrganization}`,
             body: {
                 name: "Demo company",
             },
@@ -101,11 +101,11 @@ describe("PATCH /v1/organizations/:idOrganization", () => {
     })
 })
 
-describe("POST /v1/organizations/:idOrganization/users", () => {
+describe("POST /organizations/:idOrganization/users", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "POST",
-            path: `/v1/organizations/${idOrganization}/users`,
+            path: `/organizations/${idOrganization}/users`,
             body: {
                 isAdmin: false,
                 user: {
@@ -120,7 +120,7 @@ describe("POST /v1/organizations/:idOrganization/users", () => {
         const response = await authenticatedRequest({
             session,
             method: "POST",
-            path: `/v1/organizations/${idOrganization}/users`,
+            path: `/organizations/${idOrganization}/users`,
             body: {},
         })
         expect(response.status).toBe(400)
@@ -130,7 +130,7 @@ describe("POST /v1/organizations/:idOrganization/users", () => {
         const response = await authenticatedRequest({
             session,
             method: "POST",
-            path: `/v1/organizations/${idOrganization}/users`,
+            path: `/organizations/${idOrganization}/users`,
             body: {
                 isAdmin: false,
                 user: {
@@ -143,11 +143,11 @@ describe("POST /v1/organizations/:idOrganization/users", () => {
     })
 })
 
-describe("PATCH /v1/organizations/:idOrganization/users/:idOrganizationUser", () => {
+describe("PATCH /organizations/:idOrganization/users/:idOrganizationUser", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/users/fake-id`,
+            path: `/organizations/${idOrganization}/users/fake-id`,
             body: {
                 isAdmin: true,
             },
@@ -159,18 +159,18 @@ describe("PATCH /v1/organizations/:idOrganization/users/:idOrganizationUser", ()
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/users/${idDemoOrganizationUser}`,
+            path: `/organizations/${idOrganization}/users/${idDemoOrganizationUser}`,
             body: {},
         })
         expect(response.status).toBe(200)
     })
 })
 
-describe("DELETE /v1/organizations/:idOrganization/users/:idOrganizationUser", () => {
+describe("DELETE /organizations/:idOrganization/users/:idOrganizationUser", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "DELETE",
-            path: `/v1/organizations/${idOrganization}/users/fake-id`,
+            path: `/organizations/${idOrganization}/users/fake-id`,
         })
         expect(response.status).toBe(401)
     })
@@ -179,7 +179,7 @@ describe("DELETE /v1/organizations/:idOrganization/users/:idOrganizationUser", (
         const response = await authenticatedRequest({
             session,
             method: "DELETE",
-            path: `/v1/organizations/${idOrganization}/users/fake-id`,
+            path: `/organizations/${idOrganization}/users/fake-id`,
         })
         expect(response.status).toBeGreaterThanOrEqual(400)
     })

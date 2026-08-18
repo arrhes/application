@@ -7,7 +7,7 @@
 # Usage:
 #   just build start
 #   # or manually:
-#   COMPATSSE_VERSION=$(cat VERSION) docker compose -f .workflows/build/compose.start.yml \
+#   COMPTASSE_VERSION=$(cat VERSION) docker compose -f .workflows/build/compose.start.yml \
 #     --project-name comptasse-prod up
 # ==============================================================================
 
@@ -61,7 +61,7 @@ services:
 
   api:
     container_name: comptasse-prod-api
-    image: comptasse-api:${COMPATSSE_VERSION:-dev}
+    image: comptasse-api:${COMPTASSE_VERSION:-dev}
     ports:
       - "3000:3000"
     environment:
@@ -87,7 +87,7 @@ services:
 
   website:
     container_name: comptasse-prod-website
-    image: comptasse-website:${COMPATSSE_VERSION:-dev}
+    image: comptasse-website:${COMPTASSE_VERSION:-dev}
     ports:
       - "5173:80"
 

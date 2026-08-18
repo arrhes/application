@@ -1,8 +1,7 @@
 import { createRoute } from "@tanstack/react-router"
 import { DocRoot } from "../../../../components/document/DocRoot"
+import { OrganizationsGuideDocPage } from "../../../../features/docs/guide/organizations/OrganizationsGuideDocPage.js"
 import { guideDocLayoutRoute } from "./guideDocLayoutRoute.js"
-import { OrganisationGuideDocPage } from "../../../../features/docs/guide/OrganisationGuideDocPage.js"
-
 
 export const organisationGuideDocRoute = createRoute({
     getParentRoute: () => guideDocLayoutRoute,
@@ -13,7 +12,7 @@ export const organisationGuideDocRoute = createRoute({
     }),
     component: () => (
         <DocRoot>
-            <OrganisationGuideDocPage />
+            <OrganizationsGuideDocPage />
         </DocRoot>
     ),
 })

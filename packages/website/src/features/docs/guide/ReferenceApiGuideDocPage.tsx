@@ -32,11 +32,6 @@ export function ReferenceApiGuideDocPage() {
                     via le token d'authentification ou l'en-tête <DocCode>X-Organization-Id</DocCode>, et non dans le
                     corps de la requête.
                 </DocTip>
-                <DocTip variant="warning">
-                    Les chemins affichés dans les pages de référence n'incluent pas le préfixe de version{" "}
-                    <DocCode>/v1</DocCode>. Si vous appelez l'API directement, préfixez chaque chemin avec{" "}
-                    <DocCode>/v1</DocCode>.
-                </DocTip>
             </DocSection>
 
             <DocSection title="Authentification">

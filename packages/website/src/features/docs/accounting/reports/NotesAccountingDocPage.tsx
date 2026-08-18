@@ -5,11 +5,11 @@ import { DocHeader } from "../../../../components/document/DocHeader.js"
 import { DocLink } from "../../../../components/document/DocLink.js"
 import { DocList } from "../../../../components/document/DocList.js"
 import { DocParagraph } from "../../../../components/document/DocParagraph.js"
+import { DocRoot } from "../../../../components/document/DocRoot.js"
 import { DocSection } from "../../../../components/document/DocSection.js"
 import { DocSourceRef } from "../../../../components/document/DocSourceRef.js"
 import { DocSources } from "../../../../components/document/DocSources.js"
 import { DocTip } from "../../../../components/document/DocTip.js"
-import { DocRoot } from "../../../../components/document/DocRoot.js"
 
 export function NotesAccountingDocPage() {
     return (
@@ -21,9 +21,11 @@ export function NotesAccountingDocPage() {
 
             <DocSection title="Définition">
                 <DocDefinition term="Annexe">
-                    Document obligatoire qui complète le bilan et le compte de résultat. L'annexe fournit les
-                    informations nécessaires à la compréhension des comptes : méthodes comptables utilisées, détail de
-                    certains postes, engagements hors bilan.
+                    <DocParagraph>
+                        Document obligatoire qui complète le bilan et le compte de résultat. L'annexe fournit les
+                        informations nécessaires à la compréhension des comptes : méthodes comptables utilisées, détail
+                        de certains postes, engagements hors bilan.
+                    </DocParagraph>
                 </DocDefinition>
 
                 <DocParagraph>
@@ -66,21 +68,29 @@ export function NotesAccountingDocPage() {
                 </DocParagraph>
 
                 <DocDefinition term="Règles et méthodes comptables">
-                    Les conventions appliquées pour évaluer les éléments du bilan et du compte de résultat : méthodes
-                    d'amortissement, règles de comptabilisation des stocks, traitement des opérations en devises
-                    étrangères, etc.
+                    <DocParagraph>
+                        Les conventions appliquées pour évaluer les éléments du bilan et du compte de résultat :
+                        méthodes d'amortissement, règles de comptabilisation des stocks, traitement des opérations en
+                        devises étrangères, etc.
+                    </DocParagraph>
                 </DocDefinition>
                 <DocDefinition term="Compléments d'information sur le bilan">
-                    Détail des immobilisations et de leurs amortissements, état des provisions, échéancier des créances
-                    et des dettes, variation des capitaux propres.
+                    <DocParagraph>
+                        Détail des immobilisations et de leurs amortissements, état des provisions, échéancier des
+                        créances et des dettes, variation des capitaux propres.
+                    </DocParagraph>
                 </DocDefinition>
                 <DocDefinition term="Compléments d'information sur le compte de résultat">
-                    Détail des produits et charges exceptionnels, ventilation du chiffre d'affaires, information sur les
-                    impôts.
+                    <DocParagraph>
+                        Détail des produits et charges exceptionnels, ventilation du chiffre d'affaires, information sur
+                        les impôts.
+                    </DocParagraph>
                 </DocDefinition>
                 <DocDefinition term="Engagements hors bilan">
-                    Obligations qui n'apparaissent pas au bilan mais qui représentent un risque ou un avantage potentiel
-                    : cautions données, crédits-baux, engagements de retraite.
+                    <DocParagraph>
+                        Obligations qui n'apparaissent pas au bilan mais qui représentent un risque ou un avantage
+                        potentiel : cautions données, crédits-baux, engagements de retraite.
+                    </DocParagraph>
                 </DocDefinition>
 
                 <DocParagraph>Parmi les informations fréquemment requises, on trouve notamment :</DocParagraph>
@@ -189,14 +199,6 @@ export function NotesAccountingDocPage() {
                     Les entreprises cotées en bourse dans l'Union européenne sont tenues d'appliquer les normes IFRS
                     pour leurs comptes consolidés. L'annexe y est généralement beaucoup plus volumineuse que dans les
                     comptes établis selon le PCG français.
-                </DocParagraph>
-            </DocSection>
-
-            <DocSection title="Lien avec Arrhes">
-                <DocParagraph>
-                    Arrhes vous accompagne dans la préparation de vos comptes annuels. Consultez le guide sur les{" "}
-                    <DocLink to="/documentation/guide/documents">rapports</DocLink> pour savoir comment exporter les
-                    données nécessaires à la rédaction de votre annexe.
                 </DocParagraph>
             </DocSection>
 

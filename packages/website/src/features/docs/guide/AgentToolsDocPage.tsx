@@ -47,7 +47,7 @@ async function listEntries(
   idYear: string
 ): Promise<Entry[]> {
   const response = await fetch(
-    \`https://api.arrhes.com/v1/organizations/\${idOrganization}/years/\${idYear}/entries\`,
+    \`https://api.arrhes.com/organizations/\${idOrganization}/years/\${idYear}/entries\`,
     {
       headers: {
         Cookie: sessionCookie,
@@ -76,7 +76,7 @@ async function createEntry(
   }
 ): Promise<Entry> {
   const response = await fetch(
-    \`https://api.arrhes.com/v1/organizations/\${idOrganization}/years/\${idYear}/entries\`,
+    \`https://api.arrhes.com/organizations/\${idOrganization}/years/\${idYear}/entries\`,
     {
       method: "POST",
       headers: {
@@ -97,7 +97,7 @@ async function ocrFile(
   idFile: string
 ): Promise<{ file: File }> {
   const response = await fetch(
-    \`https://api.arrhes.com/v1/organizations/\${idOrganization}/years/\${idYear}/files/\${idFile}/ocr\`,
+    \`https://api.arrhes.com/organizations/\${idOrganization}/years/\${idYear}/files/\${idFile}/ocr\`,
     {
       method: "POST",
       headers: {
@@ -133,7 +133,7 @@ class ArrhesClient:
 
     def list_entries(self, year_id: str) -> list[dict[str, Any]]:
         """Lister les ecritures d'un exercice."""
-        url = f"{API_BASE}/v1/organizations/{self.org_id}/years/{year_id}/entries"
+        url = f"{API_BASE}/organizations/{self.org_id}/years/{year_id}/entries"
         response = httpx.get(url, headers=self.headers)
         response.raise_for_status()
         return response.json()
@@ -147,7 +147,7 @@ class ArrhesClient:
         lines: list[dict[str, Any]],
     ) -> dict[str, Any]:
         """Creer une ecriture comptable en partie double."""
-        url = f"{API_BASE}/v1/organizations/{self.org_id}/years/{year_id}/entries"
+        url = f"{API_BASE}/organizations/{self.org_id}/years/{year_id}/entries"
         payload = {
             "date": date,
             "idJournal": journal_id,
@@ -160,7 +160,7 @@ class ArrhesClient:
 
     def get_balance(self, year_id: str) -> list[dict[str, Any]]:
         """Obtenir la balance des comptes."""
-        url = f"{API_BASE}/v1/organizations/{self.org_id}/years/{year_id}/balance-sheets"
+        url = f"{API_BASE}/organizations/{self.org_id}/years/{year_id}/balance-sheets"
         response = httpx.get(url, headers=self.headers)
         response.raise_for_status()
         return response.json()
@@ -171,7 +171,7 @@ class ArrhesClient:
         from hashlib import sha256
         file_hash = sha256(content).hexdigest()
         create_resp = httpx.post(
-            f"{API_BASE}/v1/organizations/{self.org_id}/years/{year_id}/files",
+            f"{API_BASE}/organizations/{self.org_id}/years/{year_id}/files",
             headers=self.headers,
             json={"name": name, "reference": name, "hash": file_hash},
         )
@@ -179,7 +179,7 @@ class ArrhesClient:
 
         # 2. Obtenir l'URL de telechargement
         upload_resp = httpx.post(
-            f"{API_BASE}/v1/organizations/{self.org_id}/years/{year_id}/files/{file_data['id']}/upload-url",
+            f"{API_BASE}/organizations/{self.org_id}/years/{year_id}/files/{file_data['id']}/upload-url",
             headers=self.headers,
             json={"idFile": file_data["id"], "type": "application/pdf", "size": len(content)},
         )
@@ -190,7 +190,7 @@ class ArrhesClient:
 
         # 4. Finaliser avec OCR si demande
         finalize_resp = httpx.post(
-            f"{API_BASE}/v1/organizations/{self.org_id}/years/{year_id}/files/{file_data['id']}/finalize",
+            f"{API_BASE}/organizations/{self.org_id}/years/{year_id}/files/{file_data['id']}/finalize",
             headers=self.headers,
             json={"idFile": file_data["id"], "ocr": ocr},
         )

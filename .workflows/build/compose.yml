@@ -17,7 +17,7 @@
 
 services:
   comptasse:
-    image: comptasse/comptasse:${COMPATSSE_VERSION:-dev}
+    image: comptasse/comptasse:${COMPTASSE_VERSION:-dev}
     build:
       context: ../..
       dockerfile: .workflows/build/Dockerfile

@@ -8,8 +8,10 @@ import { DocParagraph } from "../../../components/document/DocParagraph.js"
 import { DocRoot } from "../../../components/document/DocRoot.js"
 import { DocSection } from "../../../components/document/DocSection.js"
 import { DocTip } from "../../../components/document/DocTip.js"
+import { useSiteOrigin } from "../../../utilities/useSiteOrigin.js"
 
 export function InstallationGuideDocPage() {
+    const origin = useSiteOrigin()
     return (
         <DocRoot>
             <DocHeader
@@ -20,7 +22,7 @@ export function InstallationGuideDocPage() {
             <DocSection title="Prérequis">
                 <DocList
                     items={[
-                        "Docker et Docker Compose v2 installés",
+                        "Docker et Docker Compose installés",
                         "Un accès à une base de données PostgreSQL (version 15 ou supérieure)",
                         "Un stockage compatible S3 (AWS S3, MinIO, RustFS, etc.)",
                     ]}
@@ -36,12 +38,12 @@ export function InstallationGuideDocPage() {
 
             <DocSection title="Méthode 1 : Script d'installation (recommandé)">
                 <DocParagraph>
-                    Le script d'installation guide pas à pas et configure automatiquement
-                    l'environnement. Il fonctionne sur macOS et Linux.
+                    Le script d'installation guide pas à pas et configure automatiquement l'environnement. Il fonctionne
+                    sur macOS et Linux.
                 </DocParagraph>
 
                 <DocExample title="Installation automatique">
-                    <DocCodeBlock>curl -fsSL https://comptasse.com/install.sh | sh</DocCodeBlock>
+                    <DocCodeBlock>{`curl -fsSL ${origin}/install.sh | sh`}</DocCodeBlock>
                 </DocExample>
 
                 <DocExample title="Ce que fait le script">
@@ -58,6 +60,14 @@ export function InstallationGuideDocPage() {
                     />
                 </DocExample>
 
+                <DocTip variant="info">
+                    Le script choisit la source de l'image en fonction de l'origine du téléchargement : depuis
+                    <DocCode>https://comptasse.com</DocCode> (production), il télécharge l'image publiée (dashboard +
+                    API + CLI) sur GHCR ; depuis tout autre origine, par exemple{" "}
+                    <DocCode>http://localhost</DocCode> en développement, il construit l'image à partir des sources
+                    sans passer par un registre — ce qui requiert une copie du dépôt Comptasse sur la machine.
+                </DocTip>
+
                 <DocExample title="Après l'installation">
                     <DocList
                         items={[
@@ -71,8 +81,7 @@ export function InstallationGuideDocPage() {
 
             <DocSection title="Méthode 2 : Installation manuelle avec Docker">
                 <DocParagraph>
-                    Pour un contrôle total sur la configuration, utilisez directement{" "}
-                    <DocCode>docker run</DocCode>.
+                    Pour un contrôle total sur la configuration, utilisez directement <DocCode>docker run</DocCode>.
                 </DocParagraph>
 
                 <DocExample title="Avec vos propres services">
@@ -106,9 +115,8 @@ export function InstallationGuideDocPage() {
 
             <DocSection title="Méthode 3 : Compose avec services intégrés">
                 <DocParagraph>
-                    Si vous n'avez pas de PostgreSQL ou de S3, ce fichier{" "}
-                    <DocCode>compose.yml</DocCode> inclut tout : Comptasse, PostgreSQL et
-                    RustFS (stockage S3).
+                    Si vous n'avez pas de PostgreSQL ou de S3, ce fichier <DocCode>compose.yml</DocCode> inclut tout :
+                    Comptasse, PostgreSQL et RustFS (stockage S3).
                 </DocParagraph>
 
                 <DocExample title="Fichier compose.yml">
@@ -174,9 +182,8 @@ docker compose ps`}</DocCodeBlock>
                 </DocExample>
 
                 <DocTip variant="warning">
-                    Ce mode est destiné au développement et aux tests. Pour la production,
-                    utilisez vos propres services PostgreSQL et S3 avec des identifiants
-                    sécurisés.
+                    Ce mode est destiné au développement et aux tests. Pour la production, utilisez vos propres services
+                    PostgreSQL et S3 avec des identifiants sécurisés.
                 </DocTip>
             </DocSection>
 
@@ -198,13 +205,12 @@ docker compose ps`}</DocCodeBlock>
 
             <DocSection title="Installation du CLI">
                 <DocParagraph>
-                    Le CLI est un client HTTP autonome qui communique avec l'API. Il peut
-                    être installé sur votre machine hôte ou utilisé directement dans le
-                    conteneur.
+                    Le CLI est un client HTTP autonome qui communique avec l'API. Il peut être installé sur votre
+                    machine hôte ou utilisé directement dans le conteneur.
                 </DocParagraph>
 
                 <DocExample title="Sur votre machine hôte">
-                    <DocCodeBlock>{`curl -fsSL https://comptasse.com/cli/install.sh | sh
+                    <DocCodeBlock>{`curl -fsSL ${origin}/cli/install.sh | sh
 
 # Vérifiez l'installation
 comptasse --version

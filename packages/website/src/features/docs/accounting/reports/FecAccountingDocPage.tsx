@@ -5,12 +5,12 @@ import { DocHeader } from "../../../../components/document/DocHeader.js"
 import { DocLink } from "../../../../components/document/DocLink.js"
 import { DocList } from "../../../../components/document/DocList.js"
 import { DocParagraph } from "../../../../components/document/DocParagraph.js"
+import { DocRoot } from "../../../../components/document/DocRoot.js"
 import { DocSection } from "../../../../components/document/DocSection.js"
 import { DocSourceRef } from "../../../../components/document/DocSourceRef.js"
 import { DocSources } from "../../../../components/document/DocSources.js"
 import { DocTable } from "../../../../components/document/DocTable.js"
 import { DocTip } from "../../../../components/document/DocTip.js"
-import { DocRoot } from "../../../../components/document/DocRoot.js"
 
 export function FecAccountingDocPage() {
     return (
@@ -22,9 +22,11 @@ export function FecAccountingDocPage() {
 
             <DocSection title="Définition">
                 <DocDefinition term="Fichier des Écritures Comptables (FEC)">
-                    Fichier dématérialisé contenant l'ensemble des écritures comptables d'un exercice, dans un format
-                    normé imposé par l'administration fiscale française. Il doit être remis en cas de contrôle fiscal
-                    informatisé.
+                    <DocParagraph>
+                        Fichier dématérialisé contenant l'ensemble des écritures comptables d'un exercice, dans un
+                        format normé imposé par l'administration fiscale française. Il doit être remis en cas de
+                        contrôle fiscal informatisé.
+                    </DocParagraph>
                 </DocDefinition>
 
                 <DocParagraph>
@@ -36,7 +38,7 @@ export function FecAccountingDocPage() {
                 <DocParagraph>
                     Pour en savoir plus sur le FEC et ses spécificités, consultez{" "}
                     <DocLink
-                        href="https://fec.arrhes.com"
+                        href="https://fec.comptasse.com"
                         target="_blank"
                         rel="noopener noreferrer"
                         className={{
@@ -52,7 +54,7 @@ export function FecAccountingDocPage() {
                             transition: "all 0.15s",
                         }}
                     >
-                        fec.arrhes.com
+                        fec.comptasse.com
                     </DocLink>
                     .
                 </DocParagraph>
@@ -231,15 +233,6 @@ export function FecAccountingDocPage() {
                     Il est recommandé de vérifier régulièrement que votre FEC est conforme, sans attendre un contrôle
                     fiscal. Arrhes génère le FEC à partir de vos écritures validées.
                 </DocTip>
-            </DocSection>
-
-            <DocSection title="Lien avec Arrhes">
-                <DocParagraph>
-                    Arrhes permet d'exporter le FEC directement depuis la page des{" "}
-                    <DocLink to="/documentation/comptabilité/introduction/écritures">écritures</DocLink> de l'exercice. L'export
-                    respecte le format normé (tabulation, encodage UTF-8 avec BOM, colonnes obligatoires) et nomme
-                    automatiquement le fichier à partir du SIREN de l'organisation.
-                </DocParagraph>
             </DocSection>
 
             <DocSources

@@ -53,7 +53,7 @@ export async function apiRequest<T = unknown>(parameters: {
  * Mollie POSTs the payment id as a form field, not JSON.
  */
 export async function mollieWebhookRequest<T = unknown>(paymentId: string): Promise<TestResponse<T>> {
-    const response = await fetch(`${API_BASE_URL}/v1/webhooks/mollie`, {
+    const response = await fetch(`${API_BASE_URL}/webhooks/mollie`, {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",

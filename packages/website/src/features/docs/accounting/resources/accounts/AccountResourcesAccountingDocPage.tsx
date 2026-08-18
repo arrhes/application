@@ -2,6 +2,7 @@ import { ButtonOutlineContent, LinkButton } from "@comptasse/ui"
 import { IconArrowLeft } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { DocHeader } from "../../../../../components/document/DocHeader.js"
+import { DocRoot } from "../../../../../components/document/DocRoot.js"
 import { DataError } from "../../../components/DataError.js"
 import { getAccount, getAccountBySlug, getDirectChildren } from "./accountsData.js"
 import { AccountInfoCard } from "./components/AccountInfoCard.js"
@@ -11,7 +12,6 @@ import { ChildrenListSection } from "./components/ChildrenListSection.js"
 import { DebitCreditSection } from "./components/DebitCreditSection.js"
 import { ParentAccountSection } from "./components/ParentAccountSection.js"
 import { SummaryAccountBanner } from "./components/SummaryAccountBanner.js"
-import { DocRoot } from "../../../../../components/document/DocRoot.js"
 
 export function AccountResourcesAccountingDocPage() {
     const { account: slug } = useParams({

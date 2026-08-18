@@ -6,12 +6,12 @@ beforeAll(async () => {
     await verifyApiIsRunning()
 })
 
-describe("POST /v1/auth/sign-up", () => {
+describe("POST /auth/sign-up", () => {
     it("creates a new user with valid data", async () => {
         const uniqueEmail = `test-signup-${Date.now()}@comptasse.com`
         const response = await apiRequest({
             method: "POST",
-            path: "/v1/auth/sign-up",
+            path: "/auth/sign-up",
             body: {
                 email: uniqueEmail,
                 password: "TestPassword123!",
@@ -31,7 +31,7 @@ describe("POST /v1/auth/sign-up", () => {
         const uniqueEmail = `test-mismatch-${Date.now()}@comptasse.com`
         const response = await apiRequest({
             method: "POST",
-            path: "/v1/auth/sign-up",
+            path: "/auth/sign-up",
             body: {
                 email: uniqueEmail,
                 password: "TestPassword123!",
@@ -44,7 +44,7 @@ describe("POST /v1/auth/sign-up", () => {
     it("rejects empty body", async () => {
         const response = await apiRequest({
             method: "POST",
-            path: "/v1/auth/sign-up",
+            path: "/auth/sign-up",
             body: {},
         })
         expect(response.status).toBe(400)
@@ -53,7 +53,7 @@ describe("POST /v1/auth/sign-up", () => {
     it("rejects missing email", async () => {
         const response = await apiRequest({
             method: "POST",
-            path: "/v1/auth/sign-up",
+            path: "/auth/sign-up",
             body: {
                 password: "TestPassword123!",
                 passwordCheck: "TestPassword123!",
@@ -65,7 +65,7 @@ describe("POST /v1/auth/sign-up", () => {
     it("rejects duplicate email (existing demo user)", async () => {
         const response = await apiRequest({
             method: "POST",
-            path: "/v1/auth/sign-up",
+            path: "/auth/sign-up",
             body: {
                 email: "demo@comptasse.com",
                 password: "SomePassword123!",

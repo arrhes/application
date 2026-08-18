@@ -15,12 +15,12 @@ beforeAll(async () => {
 })
 
 describe("Accounts", () => {
-    describe("GET /v1/organizations/:idOrganization/years/:idYear/accounts", () => {
+    describe("GET /organizations/:idOrganization/years/:idYear/accounts", () => {
         it("returns all accounts for the year", async () => {
             const response = await authenticatedRequest({
                 session,
                 method: "GET",
-                path: `/v1/organizations/${idOrganization}/years/${idYear}/accounts`,
+                path: `/organizations/${idOrganization}/years/${idYear}/accounts`,
             })
             expect(response.status).toBe(200)
 
@@ -36,13 +36,13 @@ describe("Accounts", () => {
         })
     })
 
-    describe("POST /v1/organizations/:idOrganization/years/:idYear/accounts", () => {
+    describe("POST /organizations/:idOrganization/years/:idYear/accounts", () => {
         it("creates a new account", async () => {
             // Get existing accounts to find a parent class account
             const accountsResponse = await authenticatedRequest({
                 session,
                 method: "GET",
-                path: `/v1/organizations/${idOrganization}/years/${idYear}/accounts`,
+                path: `/organizations/${idOrganization}/years/${idYear}/accounts`,
             })
             const accounts = accountsResponse.data as any[]
             const classAccount = accounts.find((a: any) => a.number.length <= 2)
@@ -51,7 +51,7 @@ describe("Accounts", () => {
             const response = await authenticatedRequest({
                 session,
                 method: "POST",
-                path: `/v1/organizations/${idOrganization}/years/${idYear}/accounts`,
+                path: `/organizations/${idOrganization}/years/${idYear}/accounts`,
                 body: {
                     idAccountParent: classAccount?.id ?? null,
                     isSelectable: true,
@@ -71,12 +71,12 @@ describe("Accounts", () => {
 })
 
 describe("Journals", () => {
-    describe("GET /v1/organizations/:idOrganization/years/:idYear/journals", () => {
+    describe("GET /organizations/:idOrganization/years/:idYear/journals", () => {
         it("returns all journals for the year", async () => {
             const response = await authenticatedRequest({
                 session,
                 method: "GET",
-                path: `/v1/organizations/${idOrganization}/years/${idYear}/journals`,
+                path: `/organizations/${idOrganization}/years/${idYear}/journals`,
             })
             expect(response.status).toBe(200)
 
@@ -91,13 +91,13 @@ describe("Journals", () => {
         })
     })
 
-    describe("POST /v1/organizations/:idOrganization/years/:idYear/journals", () => {
+    describe("POST /organizations/:idOrganization/years/:idYear/journals", () => {
         it("creates a new journal", async () => {
             const code = `T${Date.now().toString(36).slice(-3).toUpperCase()}`
             const response = await authenticatedRequest({
                 session,
                 method: "POST",
-                path: `/v1/organizations/${idOrganization}/years/${idYear}/journals`,
+                path: `/organizations/${idOrganization}/years/${idYear}/journals`,
                 body: {
                     code,
                     label: `Test Journal ${Date.now()}`,
@@ -114,12 +114,12 @@ describe("Journals", () => {
 })
 
 describe("Tags", () => {
-    describe("GET /v1/organizations/:idOrganization/years/:idYear/tags", () => {
+    describe("GET /organizations/:idOrganization/years/:idYear/tags", () => {
         it("returns all tags for the year", async () => {
             const response = await authenticatedRequest({
                 session,
                 method: "GET",
-                path: `/v1/organizations/${idOrganization}/years/${idYear}/tags`,
+                path: `/organizations/${idOrganization}/years/${idYear}/tags`,
             })
             expect(response.status).toBe(200)
 
@@ -128,13 +128,13 @@ describe("Tags", () => {
         })
     })
 
-    describe("POST /v1/organizations/:idOrganization/years/:idYear/tags", () => {
+    describe("POST /organizations/:idOrganization/years/:idYear/tags", () => {
         it("creates a new tag", async () => {
             const label = `Test Tag ${Date.now()}`
             const response = await authenticatedRequest({
                 session,
                 method: "POST",
-                path: `/v1/organizations/${idOrganization}/years/${idYear}/tags`,
+                path: `/organizations/${idOrganization}/years/${idYear}/tags`,
                 body: {
                     label,
                 },

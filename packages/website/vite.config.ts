@@ -2,6 +2,7 @@ import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
 import { docsSearchIndexPlugin } from "./plugins/docsSearchIndexPlugin"
 import { fontPreloadPlugin } from "./plugins/fontPreloadPlugin"
+import { installScriptPlugin } from "./plugins/installScriptPlugin"
 import { mdGeneratePlugin } from "./plugins/mdGeneratePlugin"
 import { prerenderPlugin } from "./plugins/prerenderPlugin"
 import { sitemapPlugin } from "./plugins/sitemapPlugin"
@@ -18,6 +19,7 @@ export default defineConfig(() => {
             sitemapPlugin(),
             docsSearchIndexPlugin(),
             mdGeneratePlugin(),
+            installScriptPlugin(),
             prerenderPlugin(),
         ],
         root: "./src",

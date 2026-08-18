@@ -2,6 +2,7 @@ import { ButtonOutlineContent } from "@comptasse/ui"
 import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconArrowLeft, IconLink } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
+import { DocExample } from "../../../../../components/document/DocExample.js"
 import { DocHeader } from "../../../../../components/document/DocHeader.js"
 import { DocParagraph } from "../../../../../components/document/DocParagraph.js"
 import { DocRoot } from "../../../../../components/document/DocRoot.js"
@@ -49,11 +50,8 @@ export function ScenarioResourcesAccountingDocPage() {
 
             <DocParagraph>{scenario.description}</DocParagraph>
 
-            {scenario.examples.map((example, index) => (
-                <DocSection
-                    key={example.description}
-                    title={scenario.examples.length > 1 ? `Exemple ${index + 1}` : "Exemple d'écriture"}
-                >
+            {scenario.examples.map((example) => (
+                <DocExample key={example.description}>
                     <DocParagraph>{example.description}</DocParagraph>
                     <DocTable
                         headers={[
@@ -64,7 +62,7 @@ export function ScenarioResourcesAccountingDocPage() {
                         ]}
                         rows={example.entry.rows}
                     />
-                </DocSection>
+                </DocExample>
             ))}
 
             <DocSection title="Comptes concernés">

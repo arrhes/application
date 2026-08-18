@@ -14,7 +14,7 @@ export type AuthSession = {
 export async function signInAsDemo(): Promise<AuthSession> {
     const response = await apiRequest({
         method: "POST",
-        path: "/v1/auth/sign-in",
+        path: "/auth/sign-in",
         body: {
             email: DEMO_EMAIL,
             password: DEMO_PASSWORD,
@@ -62,7 +62,7 @@ export async function getDemoOrganizationId(session: AuthSession): Promise<strin
     const response = await authenticatedRequest({
         session,
         method: "GET",
-        path: "/v1/organizations",
+        path: "/organizations",
     })
     const orgs = response.data as any[]
     const demoOrg = orgs.find((o: any) => o.organization.name === DEMO_ORG_NAME)
@@ -85,7 +85,7 @@ export async function getDemoYearId(session: AuthSession): Promise<{
     const response = await authenticatedRequest({
         session,
         method: "GET",
-        path: `/v1/organizations/${idOrganization}/years`,
+        path: `/organizations/${idOrganization}/years`,
     })
     const years = response.data as any[]
     if (years.length === 0) {

@@ -84,7 +84,7 @@ build-all-in-one:
     @echo "  Comptasse All-in-One Image Build"
     @echo "=============================================="
     @echo ""
-    COMPATSSE_VERSION=$(cat VERSION) {{COMPOSE_BUILD}} build --progress=plain --no-cache comptasse
+    COMPTASSE_VERSION=$(cat VERSION) {{COMPOSE_BUILD}} build --progress=plain --no-cache comptasse
     @echo ""
     @echo "=============================================="
     @echo "  Image built: comptasse/comptasse ($(cat VERSION))"
@@ -110,7 +110,7 @@ build-images:
     @echo "=============================================="
     @echo ""
     {{COMPOSE_BUILD}} build --progress=plain --no-cache ci
-    COMPATSSE_VERSION=$(cat VERSION) \
+    COMPTASSE_VERSION=$(cat VERSION) \
     VITE_API_BASE_URL=http://localhost:3000 \
     VITE_WEBSITE_BASE_URL=http://localhost:5173 \
     {{COMPOSE_BUILD}} build --progress=plain api website worker
@@ -129,8 +129,8 @@ build-start:
     @echo "=============================================="
     @echo ""
     -{{DC}} down --remove-orphans 2>/dev/null || true
-    -COMPATSSE_VERSION=$(cat VERSION) {{COMPOSE_START}} down --remove-orphans 2>/dev/null || true
-    COMPATSSE_VERSION=$(cat VERSION) {{COMPOSE_START}} up --force-recreate --remove-orphans
+    -COMPTASSE_VERSION=$(cat VERSION) {{COMPOSE_START}} down --remove-orphans 2>/dev/null || true
+    COMPTASSE_VERSION=$(cat VERSION) {{COMPOSE_START}} up --force-recreate --remove-orphans
 
 # ==============================================================================
 # Tests (requires dev environment running)

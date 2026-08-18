@@ -1,8 +1,7 @@
 import { createRoute } from "@tanstack/react-router"
 import { DocRoot } from "../../../../components/document/DocRoot"
+import { StartGuideDocPage } from "../../../../features/docs/guide/StartGuideDocPage.js"
 import { guideDocLayoutRoute } from "./guideDocLayoutRoute.js"
-import { PremiersPasGuideDocPage } from "../../../../features/docs/guide/PremiersPasGuideDocPage.js"
-
 
 export const demarrerGuideDocRoute = createRoute({
     getParentRoute: () => guideDocLayoutRoute,
@@ -14,7 +13,7 @@ export const demarrerGuideDocRoute = createRoute({
     }),
     component: () => (
         <DocRoot>
-            <PremiersPasGuideDocPage />
+            <StartGuideDocPage />
         </DocRoot>
     ),
 })

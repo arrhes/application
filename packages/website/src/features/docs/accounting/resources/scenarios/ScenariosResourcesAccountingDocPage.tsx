@@ -1,13 +1,13 @@
 import { ButtonGhostContent } from "@comptasse/ui"
 import { css } from "@comptasse/ui/utilities/cn.js"
-import { IconLoader2, IconSearch } from "@tabler/icons-react"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { useRef, useState, useTransition } from "react"
 import { DocHeader } from "../../../../../components/document/DocHeader.js"
 import { DocParagraph } from "../../../../../components/document/DocParagraph.js"
-import { DocSection } from "../../../../../components/document/DocSection.js"
 import { DocRoot } from "../../../../../components/document/DocRoot.js"
+import { DocSection } from "../../../../../components/document/DocSection.js"
 import { LinkButton } from "../../../../../components/LinkButton.js"
+import { SearchBar } from "../../../../../components/layouts/SearchBar.js"
 import { scenarioEntries, searchScenarios } from "./scenariosData.js"
 
 export const ROW_HEIGHT = 32
@@ -80,76 +80,19 @@ export function ScenariosResourcesAccountingDocPage() {
                 </DocParagraph>
             </DocSection>
 
-            <div
-                className={css({
-                    position: "relative",
-                })}
-            >
-                {isPending ? (
-                    <IconLoader2
-                        size={16}
-                        className={css({
-                            position: "absolute",
-                            left: "0.75rem",
-                            top: "50%",
-                            transform: "translateY(-50%)",
-                            stroke: "primary",
-                            pointerEvents: "none",
-                            animation: "spin 1s linear infinite",
-                        })}
-                    />
-                ) : (
-                    <IconSearch
-                        size={16}
-                        className={css({
-                            position: "absolute",
-                            left: "0.75rem",
-                            top: "50%",
-                            transform: "translateY(-50%)",
-                            stroke: "neutral/40",
-                            pointerEvents: "none",
-                        })}
-                    />
-                )}
-                <input
-                    type="text"
-                    aria-label="Rechercher un scénario"
-                    placeholder="capital, 512, fournisseur, amortissement..."
-                    value={query}
-                    onChange={(e) => handleSearch(e.target.value)}
-                    className={css({
-                        width: "100%",
-                        padding: "0.75rem 0.75rem 0.75rem 2.5rem",
-                        fontSize: "sm",
-                        borderRadius: "lg",
-                        border: "1px solid",
-                        borderColor: "neutral/15",
-                        backgroundColor: "white",
-                        color: "neutral",
-                        outline: "none",
-                        _focus: {
-                            borderColor: "primary/50",
-                            boxShadow: "0 0 0 3px token(colors.primary/10)",
-                        },
-                        _placeholder: {
-                            color: "neutral/40",
-                        },
-                        transition: "all 0.15s",
-                    })}
-                />
-            </div>
+            <SearchBar
+                value={query}
+                onChange={handleSearch}
+                isLoading={isPending}
+                ariaLabel="Rechercher un scénario"
+                placeholder="capital, 512, fournisseur, amortissement..."
+            />
 
-            <span
-                className={css({
-                    fontSize: "xs",
-                    color: "neutral/40",
-                    fontWeight: "medium",
-                })}
-            >
+            <DocParagraph>
                 {filteredScenarios.length} scénario{filteredScenarios.length !== 1 ? "s" : ""}
                 {hasQuery ? " trouvé" : ""}
                 {hasQuery && filteredScenarios.length !== 1 ? "s" : ""}
-            </span>
+            </DocParagraph>
 
             {filteredScenarios.length > 0 ? (
                 <div

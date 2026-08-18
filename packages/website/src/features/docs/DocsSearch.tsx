@@ -1,9 +1,9 @@
 import type { DocsSearchEntry } from "virtual:docs-search-index"
 import { Button } from "@comptasse/ui"
 import { css } from "@comptasse/ui/utilities/cn.js"
-import { IconSearch } from "@tabler/icons-react"
 import { useNavigate } from "@tanstack/react-router"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { SearchBar } from "../../components/layouts/SearchBar.js"
 
 const MAX_RESULTS = 8
 
@@ -196,62 +196,21 @@ export function DocsSearch() {
                 maxWidth: "100%",
             })}
         >
-            <div
-                className={css({
-                    width: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.25rem",
-                    border: "1px solid",
-                    borderRadius: "md",
-                    borderColor: "neutral/20",
-                    _focusWithin: {
-                        borderColor: "neutral/50",
-                        boxShadow: "inset",
-                    },
-                    padding: "0.5rem",
-                    boxSizing: "border-box",
-                })}
-            >
-                <IconSearch
-                    className={css({
-                        minWidth: "1rem",
-                        width: "1rem",
-                        minHeight: "1rem",
-                        height: "1rem",
-                        stroke: "neutral/50",
-                        flexShrink: 0,
-                    })}
-                />
-                <input
-                    type="search"
-                    aria-label="Rechercher dans la documentation"
-                    autoComplete="off"
-                    placeholder="Rechercher dans la documentation..."
-                    value={query}
-                    onChange={(e) => {
-                        setQuery(e.target.value)
-                        setOpen(true)
-                        void loadSearchIndex()
-                    }}
-                    onFocus={() => {
-                        if (query) setOpen(true)
-                        void loadSearchIndex()
-                    }}
-                    className={css({
-                        flex: 1,
-                        fontSize: "0.875rem",
-                        lineHeight: "1rem",
-                        fontWeight: "400",
-                        backgroundColor: "transparent",
-                        _placeholder: {
-                            color: "neutral/25",
-                        },
-                        outline: "none",
-                        minWidth: 0,
-                    })}
-                />
-            </div>
+            <SearchBar
+                value={query}
+                onChange={(value) => {
+                    setQuery(value)
+                    setOpen(true)
+                    void loadSearchIndex()
+                }}
+                onFocus={() => {
+                    if (query) setOpen(true)
+                    void loadSearchIndex()
+                }}
+                ariaLabel="Rechercher dans la documentation"
+                autoComplete="off"
+                placeholder="Rechercher dans la documentation..."
+            />
 
             {open && results.length > 0 && (
                 <div

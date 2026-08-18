@@ -6,21 +6,21 @@ import {
     readOneOrganizationUserRouteDefinition,
     updateOneOrganizationUserRouteDefinition,
 } from "@comptasse/application-metadata/routes"
-import { DocCode } from "../../../components/document/DocCode.js"
-import { DocCodeBlock } from "../../../components/document/DocCodeBlock.js"
-import { DocDefinition } from "../../../components/document/DocDefinition.js"
-import { DocExample } from "../../../components/document/DocExample.js"
-import { DocHeader } from "../../../components/document/DocHeader.js"
-import { DocImplementationTabs } from "../../../components/document/DocImplementationTabs.js"
-import { DocList } from "../../../components/document/DocList.js"
-import { DocParagraph } from "../../../components/document/DocParagraph.js"
-import { DocRoot } from "../../../components/document/DocRoot.js"
-import { DocRouteRequest } from "../../../components/document/DocRouteRequest.js"
-import { DocSection } from "../../../components/document/DocSection.js"
-import { DocTable } from "../../../components/document/DocTable.js"
-import { DocTip } from "../../../components/document/DocTip.js"
+import { DocCode } from "../../../../components/document/DocCode.js"
+import { DocCodeBlock } from "../../../../components/document/DocCodeBlock.js"
+import { DocDefinition } from "../../../../components/document/DocDefinition.js"
+import { DocExample } from "../../../../components/document/DocExample.js"
+import { DocHeader } from "../../../../components/document/DocHeader.js"
+import { DocImplementationTabs } from "../../../../components/document/DocImplementationTabs.js"
+import { DocList } from "../../../../components/document/DocList.js"
+import { DocParagraph } from "../../../../components/document/DocParagraph.js"
+import { DocRoot } from "../../../../components/document/DocRoot.js"
+import { DocRouteRequest } from "../../../../components/document/DocRouteRequest.js"
+import { DocSection } from "../../../../components/document/DocSection.js"
+import { DocTable } from "../../../../components/document/DocTable.js"
+import { DocTip } from "../../../../components/document/DocTip.js"
 
-export function MembresGuideDocPage() {
+export function OrganizationMembersGuideDocPage() {
     return (
         <DocRoot>
             <DocHeader
@@ -104,7 +104,9 @@ export function MembresGuideDocPage() {
                                         "Détails d'un membre",
                                     ],
                                     [
-                                        <DocCode key="0">{"comptasse members invite --email <email> [--admin]"}</DocCode>,
+                                        <DocCode key="0">
+                                            {"comptasse members invite --email <email> [--admin]"}
+                                        </DocCode>,
                                         "Invite un utilisateur",
                                     ],
                                     [

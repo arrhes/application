@@ -311,7 +311,7 @@ export function DocRouteRequest(props: { routeDefinition: ReturnType<typeof rout
                             fontWeight: "semibold",
                         })}
                     >
-                        {props.routeDefinition.path.replace(/^\/v1/, "")}
+                        {props.routeDefinition.path}
                     </code>
                 </div>
                 <div

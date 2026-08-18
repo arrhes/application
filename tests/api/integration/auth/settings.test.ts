@@ -10,12 +10,12 @@ beforeAll(async () => {
     session = await signInAsDemo()
 })
 
-describe("GET /v1/users/me", () => {
+describe("GET /users/me", () => {
     it("returns the current user session and user data", async () => {
         const response = await authenticatedRequest({
             session,
             method: "GET",
-            path: "/v1/users/me",
+            path: "/users/me",
         })
         expect(response.status).toBe(200)
 
@@ -33,19 +33,19 @@ describe("GET /v1/users/me", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "GET",
-            path: "/v1/users/me",
+            path: "/users/me",
         })
         expect(response.status).toBe(401)
     })
 })
 
-describe("PATCH /v1/users/me", () => {
+describe("PATCH /users/me", () => {
     it("updates the user alias", async () => {
         const newAlias = `TestAlias-${Date.now()}`
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: "/v1/users/me",
+            path: "/users/me",
             body: {
                 alias: newAlias,
             },
@@ -61,7 +61,7 @@ describe("PATCH /v1/users/me", () => {
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: "/v1/users/me",
+            path: "/users/me",
             body: {
                 alias: null,
             },
@@ -75,7 +75,7 @@ describe("PATCH /v1/users/me", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "PATCH",
-            path: "/v1/users/me",
+            path: "/users/me",
             body: {
                 alias: "test",
             },
@@ -84,12 +84,12 @@ describe("PATCH /v1/users/me", () => {
     })
 })
 
-describe("PATCH /v1/users/me/password", () => {
+describe("PATCH /users/me/password", () => {
     it("succeeds when new passwords match and current password is correct", async () => {
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: "/v1/users/me/password",
+            path: "/users/me/password",
             body: {
                 currentPassword: "demo",
                 newPassword: "NewPassword123!",
@@ -102,7 +102,7 @@ describe("PATCH /v1/users/me/password", () => {
         const restoreResponse = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: "/v1/users/me/password",
+            path: "/users/me/password",
             body: {
                 currentPassword: "NewPassword123!",
                 newPassword: "demo",
@@ -116,7 +116,7 @@ describe("PATCH /v1/users/me/password", () => {
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: "/v1/users/me/password",
+            path: "/users/me/password",
             body: {
                 currentPassword: "wrong_password",
                 newPassword: "NewPassword123!",
@@ -130,7 +130,7 @@ describe("PATCH /v1/users/me/password", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "PATCH",
-            path: "/v1/users/me/password",
+            path: "/users/me/password",
             body: {
                 currentPassword: "demo",
                 newPassword: "NewPassword123!",
@@ -141,11 +141,11 @@ describe("PATCH /v1/users/me/password", () => {
     })
 })
 
-describe("PATCH /v1/users/me/email", () => {
+describe("PATCH /users/me/email", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "PATCH",
-            path: "/v1/users/me/email",
+            path: "/users/me/email",
             body: {
                 currentPassword: "demo",
                 emailToValidate: "new@example.com",
@@ -158,7 +158,7 @@ describe("PATCH /v1/users/me/email", () => {
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: "/v1/users/me/email",
+            path: "/users/me/email",
             body: {},
         })
         expect(response.status).toBe(400)
@@ -168,7 +168,7 @@ describe("PATCH /v1/users/me/email", () => {
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: "/v1/users/me/email",
+            path: "/users/me/email",
             body: {
                 currentPassword: "wrong_password",
                 emailToValidate: "new@example.com",
@@ -178,11 +178,11 @@ describe("PATCH /v1/users/me/email", () => {
     })
 })
 
-describe("POST /v1/users/me/email/resend-validation", () => {
+describe("POST /users/me/email/resend-validation", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "POST",
-            path: "/v1/users/me/email/resend-validation",
+            path: "/users/me/email/resend-validation",
         })
         expect(response.status).toBe(401)
     })
@@ -192,7 +192,7 @@ describe("POST /v1/users/me/email/resend-validation", () => {
         const response = await authenticatedRequest({
             session,
             method: "POST",
-            path: "/v1/users/me/email/resend-validation",
+            path: "/users/me/email/resend-validation",
         })
         expect(response.status).toBe(400)
     })

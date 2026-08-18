@@ -10,12 +10,12 @@ beforeAll(async () => {
     session = await signInAsDemo()
 })
 
-describe("GET /v1/organizations", () => {
+describe("GET /organizations", () => {
     it("returns an array of organizations for the demo user", async () => {
         const response = await authenticatedRequest({
             session,
             method: "GET",
-            path: "/v1/organizations",
+            path: "/organizations",
         })
         expect(response.status).toBe(200)
 
@@ -36,19 +36,19 @@ describe("GET /v1/organizations", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "GET",
-            path: "/v1/organizations",
+            path: "/organizations",
         })
         expect(response.status).toBe(401)
     })
 })
 
-describe("POST /v1/organizations", () => {
+describe("POST /organizations", () => {
     it("creates a new organization", async () => {
         const orgName = `Test Org ${Date.now()}`
         const response = await authenticatedRequest({
             session,
             method: "POST",
-            path: "/v1/organizations",
+            path: "/organizations",
             body: {
                 scope: "company",
                 name: orgName,
@@ -67,7 +67,7 @@ describe("POST /v1/organizations", () => {
         const response = await authenticatedRequest({
             session,
             method: "POST",
-            path: "/v1/organizations",
+            path: "/organizations",
             body: {
                 scope: "association",
                 name: orgName,
@@ -87,7 +87,7 @@ describe("POST /v1/organizations", () => {
         const response = await authenticatedRequest({
             session,
             method: "POST",
-            path: "/v1/organizations",
+            path: "/organizations",
             body: {},
         })
         expect(response.status).toBe(400)
@@ -96,7 +96,7 @@ describe("POST /v1/organizations", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "POST",
-            path: "/v1/organizations",
+            path: "/organizations",
             body: {
                 scope: "company",
                 name: "Test",
@@ -106,13 +106,13 @@ describe("POST /v1/organizations", () => {
     })
 })
 
-describe("GET /v1/organizations/:idOrganization", () => {
+describe("GET /organizations/:idOrganization", () => {
     it("reads a specific organization by id", async () => {
         // First get all orgs to find an id
         const allOrgs = await authenticatedRequest({
             session,
             method: "GET",
-            path: "/v1/organizations",
+            path: "/organizations",
         })
         const orgs = allOrgs.data as any[]
         expect(orgs.length).toBeGreaterThanOrEqual(1)
@@ -121,7 +121,7 @@ describe("GET /v1/organizations/:idOrganization", () => {
         const response = await authenticatedRequest({
             session,
             method: "GET",
-            path: `/v1/organizations/${idOrganization}`,
+            path: `/organizations/${idOrganization}`,
         })
         expect(response.status).toBe(200)
 
@@ -134,7 +134,7 @@ describe("GET /v1/organizations/:idOrganization", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "GET",
-            path: "/v1/organizations/fake-id",
+            path: "/organizations/fake-id",
         })
         expect(response.status).toBe(401)
     })

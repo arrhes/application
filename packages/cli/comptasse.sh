@@ -1,12 +1,12 @@
 #!/bin/sh
 # comptasse - Comptasse API CLI
 # Requires: curl
-# Config:   ~/.comptasse/config  (COMPATSSE_URL, COMPATSSE_API_KEY)
+# Config:   ~/.comptasse/config  (COMPTASSE_URL, COMPTASSE_API_KEY)
 set -e
 
 VERSION="1.3.5"
 DEFAULT_URL="https://api.comptasse.com"
-CONFIG_FILE="${COMPATSSE_CONFIG:-${HOME}/.comptasse/config}"
+CONFIG_FILE="${COMPTASSE_CONFIG:-${HOME}/.comptasse/config}"
 
 # ── Utilities ─────────────────────────────────────────────────────────────────
 
@@ -48,21 +48,21 @@ _jbody() { printf '{%s}' "$_JBODY"; }
 # ── Config ────────────────────────────────────────────────────────────────────
 
 _cfg_read() {
-    COMPATSSE_URL="$DEFAULT_URL"
-    COMPATSSE_API_KEY=''
+    COMPTASSE_URL="$DEFAULT_URL"
+    COMPTASSE_API_KEY=''
     [ -f "$CONFIG_FILE" ] && . "$CONFIG_FILE"
 }
 
 _cfg_write() {
     # $1=url  $2=api_key
     mkdir -p "$(dirname "$CONFIG_FILE")"
-    printf 'COMPATSSE_URL=%s\nCOMPATSSE_API_KEY=%s\n' "$1" "$2" > "$CONFIG_FILE"
+    printf 'COMPTASSE_URL=%s\nCOMPTASSE_API_KEY=%s\n' "$1" "$2" > "$CONFIG_FILE"
     chmod 600 "$CONFIG_FILE"
 }
 
 _require_cfg() {
     _cfg_read
-    [ -n "$COMPATSSE_API_KEY" ] || _die "Not logged in. Run: comptasse login --api-key <key>"
+    [ -n "$COMPTASSE_API_KEY" ] || _die "Not logged in. Run: comptasse login --api-key <key>"
 }
 
 # ── HTTP ──────────────────────────────────────────────────────────────────────
@@ -73,17 +73,17 @@ trap 'rm -f "$_RESP"' EXIT INT TERM
 _api() {
     # _api METHOD /path [json_body]
     method="$1"; path="$2"; body="${3:-}"
-    url="${COMPATSSE_URL}${path}"
+    url="${COMPTASSE_URL}${path}"
     if [ -n "$body" ]; then
         HTTP_CODE=$(curl -sS -o "$_RESP" -w "%{http_code}" \
             -X "$method" \
-            -H "Authorization: Bearer ${COMPATSSE_API_KEY}" \
+            -H "Authorization: Bearer ${COMPTASSE_API_KEY}" \
             -H "Content-Type: application/json" \
             -d "$body" "$url")
     else
         HTTP_CODE=$(curl -sS -o "$_RESP" -w "%{http_code}" \
             -X "$method" \
-            -H "Authorization: Bearer ${COMPATSSE_API_KEY}" \
+            -H "Authorization: Bearer ${COMPTASSE_API_KEY}" \
             "$url")
     fi
     case "$HTTP_CODE" in
@@ -94,8 +94,8 @@ _api() {
 
 # The API key is scoped to an org; the server uses its own org ID from the key.
 # 'me' is just a valid URL placeholder for :idOrganization.
-_org_path()  { printf '/v1/organizations/me'; }
-_year_path() { printf '/v1/organizations/me/years/%s' "$1"; }
+_org_path()  { printf '/organizations/me'; }
+_year_path() { printf '/organizations/me/years/%s' "$1"; }
 
 # ── login / whoami / logout ───────────────────────────────────────────────────
 
@@ -110,19 +110,19 @@ _cmd_login() {
     done
     [ -n "$api_key" ] || _die "--api-key is required"
     base_url="${base_url:-$DEFAULT_URL}"; base_url="${base_url%/}"
-    COMPATSSE_URL="$base_url" COMPATSSE_API_KEY="$api_key" _api GET "/v1/users/me" > /dev/null
+    COMPTASSE_URL="$base_url" COMPTASSE_API_KEY="$api_key" _api GET "/users/me" > /dev/null
     _cfg_write "$base_url" "$api_key"
     printf 'Logged in. Config saved to %s\n' "$CONFIG_FILE"
 }
 
 _cmd_whoami() {
     _require_cfg
-    _api GET "/v1/users/me"
+    _api GET "/users/me"
 }
 
 _cmd_logout() {
     _cfg_read
-    _cfg_write "${COMPATSSE_URL:-$DEFAULT_URL}" ""
+    _cfg_write "${COMPTASSE_URL:-$DEFAULT_URL}" ""
     printf 'Logged out.\n'
 }
 

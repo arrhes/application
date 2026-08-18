@@ -10,6 +10,12 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 COMPOSE_FILE="$SCRIPT_DIR/compose.yml"
 PORTS_FILE="$SCRIPT_DIR/.ports"
 
+# Host path of the repository checkout, so the install.sh installer (served by
+# the website dev container) can build the all-in-one image from source even
+# when run via `curl ... | sh` from an unrelated directory.
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+export COMPTASSE_REPO_ROOT="$REPO_ROOT"
+
 DC=(docker compose --project-directory="$SCRIPT_DIR" --file="$COMPOSE_FILE" --project-name=application)
 
 _random_port() {

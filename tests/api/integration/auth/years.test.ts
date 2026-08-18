@@ -12,12 +12,12 @@ beforeAll(async () => {
     idOrganization = await getDemoOrganizationId(session)
 })
 
-describe("GET /v1/organizations/:idOrganization/years", () => {
+describe("GET /organizations/:idOrganization/years", () => {
     it("returns all years for the organization", async () => {
         const response = await authenticatedRequest({
             session,
             method: "GET",
-            path: `/v1/organizations/${idOrganization}/years`,
+            path: `/organizations/${idOrganization}/years`,
         })
         expect(response.status).toBe(200)
 
@@ -35,18 +35,18 @@ describe("GET /v1/organizations/:idOrganization/years", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "GET",
-            path: `/v1/organizations/${idOrganization}/years`,
+            path: `/organizations/${idOrganization}/years`,
         })
         expect(response.status).toBe(401)
     })
 })
 
-describe("POST /v1/organizations/:idOrganization/years", () => {
+describe("POST /organizations/:idOrganization/years", () => {
     it("creates a new year for the organization", async () => {
         const response = await authenticatedRequest({
             session,
             method: "POST",
-            path: `/v1/organizations/${idOrganization}/years`,
+            path: `/organizations/${idOrganization}/years`,
             body: {
                 startingAt: "2099-01-01T00:00:00.000Z",
                 endingAt: "2099-12-31T23:59:59.999Z",
@@ -65,20 +65,20 @@ describe("POST /v1/organizations/:idOrganization/years", () => {
         const response = await authenticatedRequest({
             session,
             method: "POST",
-            path: `/v1/organizations/${idOrganization}/years`,
+            path: `/organizations/${idOrganization}/years`,
             body: {},
         })
         expect(response.status).toBe(400)
     })
 })
 
-describe("GET /v1/organizations/:idOrganization/years/:idYear", () => {
+describe("GET /organizations/:idOrganization/years/:idYear", () => {
     it("reads a specific year by id", async () => {
         // Get all years first
         const yearsResponse = await authenticatedRequest({
             session,
             method: "GET",
-            path: `/v1/organizations/${idOrganization}/years`,
+            path: `/organizations/${idOrganization}/years`,
         })
         const years = yearsResponse.data as any[]
         const idYear = years[0].id
@@ -86,7 +86,7 @@ describe("GET /v1/organizations/:idOrganization/years/:idYear", () => {
         const response = await authenticatedRequest({
             session,
             method: "GET",
-            path: `/v1/organizations/${idOrganization}/years/${idYear}`,
+            path: `/organizations/${idOrganization}/years/${idYear}`,
         })
         expect(response.status).toBe(200)
 

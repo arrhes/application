@@ -1,14 +1,14 @@
 import { css } from "@comptasse/ui/utilities/cn.js"
-import { IconSearch } from "@tabler/icons-react"
 import { useState } from "react"
 import { DocHeader } from "../../../../../components/document/DocHeader.js"
 import { DocLink } from "../../../../../components/document/DocLink.js"
 import { DocParagraph } from "../../../../../components/document/DocParagraph.js"
+import { DocRoot } from "../../../../../components/document/DocRoot.js"
 import { DocSection } from "../../../../../components/document/DocSection.js"
 import { DocTip } from "../../../../../components/document/DocTip.js"
+import { SearchBar } from "../../../../../components/layouts/SearchBar.js"
 import { GlossaryListItem } from "./GlossaryListItem.js"
 import { getGlossaryTermsByLetter, searchGlossaryTerms } from "./glossaryData.js"
-import { DocRoot } from "../../../../../components/document/DocRoot.js"
 
 export function GlossaryResourcesAccountingDocPage() {
     const [query, setQuery] = useState("")
@@ -35,50 +35,12 @@ export function GlossaryResourcesAccountingDocPage() {
                 <DocLink to="/documentation/comptabilité/documents">Les documents</DocLink>.
             </DocTip>
 
-            {/* Search bar */}
-            <div
-                className={css({
-                    position: "relative",
-                })}
-            >
-                <IconSearch
-                    size={16}
-                    className={css({
-                        position: "absolute",
-                        left: "0.75rem",
-                        top: "50%",
-                        transform: "translateY(-50%)",
-                        stroke: "neutral/40",
-                        pointerEvents: "none",
-                    })}
-                />
-                <input
-                    type="text"
-                    aria-label="Rechercher un terme"
-                    placeholder="Rechercher un terme..."
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    className={css({
-                        width: "100%",
-                        padding: "0.625rem 0.75rem 0.625rem 2.25rem",
-                        fontSize: "sm",
-                        borderRadius: "lg",
-                        border: "1px solid",
-                        borderColor: "neutral/15",
-                        backgroundColor: "white",
-                        color: "neutral",
-                        outline: "none",
-                        _focus: {
-                            borderColor: "primary/50",
-                            boxShadow: "0 0 0 3px token(colors.primary/10)",
-                        },
-                        _placeholder: {
-                            color: "neutral/40",
-                        },
-                        transition: "all 0.15s",
-                    })}
-                />
-            </div>
+            <SearchBar
+                value={query}
+                onChange={setQuery}
+                ariaLabel="Rechercher un terme"
+                placeholder="Rechercher un terme..."
+            />
 
             {/* Search results */}
             {isSearching ? (
@@ -128,7 +90,10 @@ export function GlossaryResourcesAccountingDocPage() {
                     })}
                 >
                     {Array.from(termsByLetter.entries()).map(([letter, terms]) => (
-                        <DocSection key={letter} title={letter}>
+                        <DocSection
+                            key={letter}
+                            title={letter}
+                        >
                             {terms.map((term) => (
                                 <GlossaryListItem
                                     key={term.slug}

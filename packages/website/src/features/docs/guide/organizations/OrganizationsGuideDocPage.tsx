@@ -3,22 +3,22 @@ import {
     readOneOrganizationRouteDefinition,
     updateOneOrganizationRouteDefinition,
 } from "@comptasse/application-metadata/routes"
-import { DocCode } from "../../../components/document/DocCode.js"
-import { DocCodeBlock } from "../../../components/document/DocCodeBlock.js"
-import { DocDefinition } from "../../../components/document/DocDefinition.js"
-import { DocExample } from "../../../components/document/DocExample.js"
-import { DocHeader } from "../../../components/document/DocHeader.js"
-import { DocImplementationTabs } from "../../../components/document/DocImplementationTabs.js"
-import { DocLink } from "../../../components/document/DocLink.js"
-import { DocList } from "../../../components/document/DocList.js"
-import { DocParagraph } from "../../../components/document/DocParagraph.js"
-import { DocRoot } from "../../../components/document/DocRoot.js"
-import { DocRouteRequest } from "../../../components/document/DocRouteRequest.js"
-import { DocSection } from "../../../components/document/DocSection.js"
-import { DocTable } from "../../../components/document/DocTable.js"
-import { DocTip } from "../../../components/document/DocTip.js"
+import { DocCode } from "../../../../components/document/DocCode.js"
+import { DocCodeBlock } from "../../../../components/document/DocCodeBlock.js"
+import { DocDefinition } from "../../../../components/document/DocDefinition.js"
+import { DocExample } from "../../../../components/document/DocExample.js"
+import { DocHeader } from "../../../../components/document/DocHeader.js"
+import { DocImplementationTabs } from "../../../../components/document/DocImplementationTabs.js"
+import { DocLink } from "../../../../components/document/DocLink.js"
+import { DocList } from "../../../../components/document/DocList.js"
+import { DocParagraph } from "../../../../components/document/DocParagraph.js"
+import { DocRoot } from "../../../../components/document/DocRoot.js"
+import { DocRouteRequest } from "../../../../components/document/DocRouteRequest.js"
+import { DocSection } from "../../../../components/document/DocSection.js"
+import { DocTable } from "../../../../components/document/DocTable.js"
+import { DocTip } from "../../../../components/document/DocTip.js"
 
-export function OrganisationGuideDocPage() {
+export function OrganizationsGuideDocPage() {
     return (
         <DocRoot>
             <DocHeader
@@ -43,12 +43,16 @@ export function OrganisationGuideDocPage() {
 
             <DocSection title="Types d'organisations">
                 <DocDefinition term="Entreprise">
-                    Plan comptable général (PCG) adapté aux sociétés commerciales. Inclut les comptes de TVA, de capital
-                    social, etc.
+                    <DocParagraph>
+                        Plan comptable général (PCG) adapté aux sociétés commerciales. Inclut les comptes de TVA, de
+                        capital social, etc.
+                    </DocParagraph>
                 </DocDefinition>
                 <DocDefinition term="Association">
-                    Plan comptable des associations. Inclut les comptes spécifiques comme les cotisations (756), les
-                    subventions (74), les fonds associatifs…
+                    <DocParagraph>
+                        Plan comptable des associations. Inclut les comptes spécifiques comme les cotisations (756), les
+                        subventions (74), les fonds associatifs…
+                    </DocParagraph>
                 </DocDefinition>
                 <DocTip variant="info">
                     Le type d'organisation est défini à la création et ne peut pas être modifié ensuite.
