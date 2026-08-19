@@ -86,7 +86,7 @@ COPY .workflows/build/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 # Build-time smoke tests: catch packaging issues before the image is finalized
-RUN cd /app/tools && npx tsx --version && \
+RUN cd /app/tools && pnpm exec tsx --version && \
     test -f /app/api/build/server.js && \
     test -f /app/dashboard/build/index.html && \
     test -x /app/cli/comptasse.sh && \
