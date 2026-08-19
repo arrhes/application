@@ -65,7 +65,7 @@ db-reset:
 #   just build images  - CI gate + build api/website/worker images (same as publish GH Action)
 #   just build start   - Start built images against local infra to check for startup errors
 
-COMPOSE_BUILD := "docker compose -f .workflows/build/compose.yml"
+COMPOSE_BUILD := "docker compose --progress=plain -f .workflows/build/compose.yml"
 COMPOSE_START := "docker compose -f .workflows/build/compose.start.yml --project-name comptasse-prod"
 
 build cmd:
@@ -84,7 +84,7 @@ build-all-in-one:
     @echo "  Comptasse All-in-One Image Build"
     @echo "=============================================="
     @echo ""
-    COMPTASSE_VERSION=$(cat VERSION) {{COMPOSE_BUILD}} build --progress=plain --no-cache comptasse
+    COMPTASSE_VERSION=$(cat VERSION) {{COMPOSE_BUILD}} build --no-cache comptasse
     @echo ""
     @echo "=============================================="
     @echo "  Image built: comptasse/comptasse ($(cat VERSION))"
@@ -96,7 +96,7 @@ build-ci:
     @echo "  Comptasse Build (lint + test + build)"
     @echo "=============================================="
     @echo ""
-    COMPTASSE_VERSION=$(cat VERSION) {{COMPOSE_BUILD}} build --progress=plain --no-cache comptasse
+    COMPTASSE_VERSION=$(cat VERSION) {{COMPOSE_BUILD}} build --no-cache comptasse
     @echo ""
     @echo "=============================================="
     @echo "  Build succeeded"
@@ -109,7 +109,7 @@ build-images:
     @echo "  Comptasse Image Build (ci + comptasse)"
     @echo "=============================================="
     @echo ""
-    COMPTASSE_VERSION=$(cat VERSION) {{COMPOSE_BUILD}} build --progress=plain --no-cache comptasse
+    COMPTASSE_VERSION=$(cat VERSION) {{COMPOSE_BUILD}} build --no-cache comptasse
     @echo ""
     @echo "=============================================="
     @echo "  Image built: comptasse/comptasse ($(cat VERSION))"
