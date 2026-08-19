@@ -1,44 +1,75 @@
 # ==============================================================================
 # Comptasse Build Compose
 # ==============================================================================
-# Builds the all-in-one Docker image containing API + Dashboard + CLI.
+# Builds the three production Docker images: api, dashboard, website.
 #
 # Usage:
 #   docker compose -f .workflows/build/compose.yml build
 #   docker compose -f .workflows/build/compose.yml up -d
 #
-# Required environment variables:
+# Required environment variables (runtime):
 #   SQL_DATABASE_URL      - PostgreSQL connection string
 #   STORAGE_ENDPOINT      - S3-compatible storage endpoint
 #   STORAGE_BUCKET_NAME   - Storage bucket name
 #   STORAGE_ACCESS_KEY    - Storage access key
 #   STORAGE_SECRET_KEY    - Storage secret key
+#
+# Build arguments (dashboard/website):
+#   VITE_API_BASE_URL       default /api
+#   VITE_WEBSITE_BASE_URL   default empty
+#   VITE_DASHBOARD_BASE_URL default empty
 # ==============================================================================
 
 services:
-  comptasse:
-    image: comptasse/comptasse:${COMPTASSE_VERSION:-dev}
+  api:
+    image: comptasse-api:${COMPTASSE_VERSION:-dev}
     build:
       context: ../..
-      dockerfile: .workflows/build/Dockerfile
+      dockerfile: .workflows/build/packages/api/Dockerfile
     ports:
       - "${API_PORT:-3000}:3000"
-      - "${DASHBOARD_PORT:-5173}:5173"
-    volumes:
-      - comptasse-data:/data
     environment:
+      ENV: ${ENV:-production}
+      VERBOSE: ${VERBOSE:-false}
+      PORT: "${API_PORT:-3000}"
+      CORS_ORIGIN: ${CORS_ORIGIN:-localhost}
+      COOKIES_DOMAIN: ${COOKIES_DOMAIN:-localhost}
+      COOKIES_KEY: ${COOKIES_KEY:-}
+      API_BASE_URL: ${API_BASE_URL:-http://localhost:3000}
+      WEBSITE_BASE_URL: ${WEBSITE_BASE_URL:-http://localhost:5173}
+      DASHBOARD_BASE_URL: ${DASHBOARD_BASE_URL:-http://localhost:5173}
       SQL_DATABASE_URL: ${SQL_DATABASE_URL:-postgres://postgres:password@postgres:5432/comptasse}
       STORAGE_ENDPOINT: ${STORAGE_ENDPOINT:-http://rustfs:9000}
       STORAGE_BUCKET_NAME: ${STORAGE_BUCKET_NAME:-comptasse-files}
       STORAGE_ACCESS_KEY: ${STORAGE_ACCESS_KEY:-placeholder}
       STORAGE_SECRET_KEY: ${STORAGE_SECRET_KEY:-placeholder}
       STORAGE_REGION: ${STORAGE_REGION:-fr-par}
-      COOKIES_KEY: ${COOKIES_KEY:-}
-      COOKIES_DOMAIN: ${COOKIES_DOMAIN:-localhost}
-      CORS_ORIGIN: ${CORS_ORIGIN:-*}
-      API_BASE_URL: ${API_BASE_URL:-http://localhost:3000}
-      WEBSITE_BASE_URL: ${WEBSITE_BASE_URL:-http://localhost:5173}
-      DASHBOARD_BASE_URL: ${DASHBOARD_BASE_URL:-http://localhost:5173}
+    restart: unless-stopped
 
-volumes:
-  comptasse-data:
+  dashboard:
+    image: comptasse-dashboard:${COMPTASSE_VERSION:-dev}
+    build:
+      context: ../..
+      dockerfile: .workflows/build/packages/dashboard/Dockerfile
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-/api}
+        VITE_WEBSITE_BASE_URL: ${VITE_WEBSITE_BASE_URL:-}
+        VITE_DASHBOARD_BASE_URL: ${VITE_DASHBOARD_BASE_URL:-}
+    ports:
+      - "${DASHBOARD_PORT:-5173}:80"
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  website:
+    image: comptasse-website:${COMPTASSE_VERSION:-dev}
+    build:
+      context: ../..
+      dockerfile: .workflows/build/packages/website/Dockerfile
+      args:
+        VITE_WEBSITE_BASE_URL: ${VITE_WEBSITE_BASE_URL:-}
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-}
+        VITE_DASHBOARD_BASE_URL: ${VITE_DASHBOARD_BASE_URL:-}
+    ports:
+      - "${WEBSITE_PORT:-8080}:80"
+    restart: unless-stopped

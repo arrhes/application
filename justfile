@@ -78,16 +78,16 @@ build-cli:
     printf '%s\n' "$VER" > packages/cli/version && \
     echo "CLI stamped: $VER"
 
-# Build all-in-one Docker image (api + dashboard + cli)
-build-all-in-one:
+# Build all three production Docker images (api, dashboard, website)
+build-images:
     @echo "=============================================="
-    @echo "  Comptasse All-in-One Image Build"
+    @echo "  Comptasse Image Build ($(cat VERSION))"
     @echo "=============================================="
     @echo ""
-    COMPTASSE_VERSION=$(cat VERSION) {{COMPOSE_BUILD}} build --no-cache comptasse
+    COMPTASSE_VERSION=$(cat VERSION) {{COMPOSE_BUILD}} build --no-cache api dashboard website
     @echo ""
     @echo "=============================================="
-    @echo "  Image built: comptasse/comptasse ($(cat VERSION))"
+    @echo "  Images built: comptasse-{api,dashboard,website} ($(cat VERSION))"
     @echo "=============================================="
 
 # Run CI gate: lint + typecheck + unit tests + build
@@ -96,23 +96,10 @@ build-ci:
     @echo "  Comptasse Build (lint + test + build)"
     @echo "=============================================="
     @echo ""
-    COMPTASSE_VERSION=$(cat VERSION) {{COMPOSE_BUILD}} build --no-cache comptasse
+    COMPTASSE_VERSION=$(cat VERSION) {{COMPOSE_BUILD}} build --no-cache api dashboard website
     @echo ""
     @echo "=============================================="
     @echo "  Build succeeded"
-    @echo "=============================================="
-
-# Build production images - all-in-one only
-# Runs the CI gate first, then builds the comptasse image tagged with VERSION
-build-images:
-    @echo "=============================================="
-    @echo "  Comptasse Image Build (ci + comptasse)"
-    @echo "=============================================="
-    @echo ""
-    COMPTASSE_VERSION=$(cat VERSION) {{COMPOSE_BUILD}} build --no-cache comptasse
-    @echo ""
-    @echo "=============================================="
-    @echo "  Image built: comptasse/comptasse ($(cat VERSION))"
     @echo "=============================================="
 
 # Start production images against local infrastructure to check for startup errors

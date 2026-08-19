@@ -25,7 +25,7 @@ services:
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: default
     ports:
-      - "5432:5432"
+      - "${PROD_POSTGRES_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql
     healthcheck:
@@ -44,8 +44,8 @@ services:
       RUSTFS_SECRET_KEY: rustfsadmin
       RUSTFS_VOLUMES: /data
     ports:
-      - "9000:9000"
-      - "9001:9001"
+      - "${PROD_STORAGE_PORT:-9000}:9000"
+      - "${PROD_STORAGE_UI_PORT:-9001}:9001"
     volumes:
       - rustfs_data:/data
     init: true
@@ -65,25 +65,35 @@ services:
     ports:
       - "3000:3000"
     environment:
-      ENV: development
+      ENV: production
+      VERBOSE: "false"
       PORT: "3000"
       CORS_ORIGIN: http://localhost:5173
       COOKIES_DOMAIN: localhost
       COOKIES_KEY: development-secret-key-change-in-production-min-32-chars
       API_BASE_URL: http://localhost:3000
       WEBSITE_BASE_URL: http://localhost:5173
+      DASHBOARD_BASE_URL: http://localhost:5174
       SQL_DATABASE_URL: postgres://postgres:admin@postgres:5432/default
       STORAGE_ENDPOINT: http://rustfs:9000
-
       STORAGE_BUCKET_NAME: comptasse-files
       STORAGE_ACCESS_KEY: rustfsadmin
       STORAGE_SECRET_KEY: rustfsadmin
+      STORAGE_REGION: fr-par
       MOLLIE_API_KEY: test_z8gjjnezmRNx7dretKbEr5vcCfADh9
     depends_on:
       postgres:
         condition: service_healthy
       rustfs:
         condition: service_healthy
+
+  dashboard:
+    container_name: comptasse-prod-dashboard
+    image: comptasse-dashboard:${COMPTASSE_VERSION:-dev}
+    ports:
+      - "5174:80"
+    depends_on:
+      - api
 
   website:
     container_name: comptasse-prod-website

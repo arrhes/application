@@ -58,8 +58,8 @@ export function StartGuideDocPage() {
 
                 <DocTip variant="info">
                     Le CLI est un client HTTP autonome. Installez-le avec{" "}
-                    <DocCode>{`curl -fsSL ${origin}/cli/install.sh | sh`}</DocCode> ou utilisez-le directement dans le
-                    conteneur avec <DocCode>docker exec comptasse comptasse --help</DocCode>.
+                    <DocCode>{`curl -fsSL ${origin}/cli/install.sh | sh`}</DocCode> puis lancez{" "}
+                    <DocCode>comptasse --help</DocCode>.
                 </DocTip>
             </DocSection>
 

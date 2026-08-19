@@ -1,8 +1,9 @@
 # ==============================================================================
-# Comptasse Full Stack (Example)
+# Comptasse Self-Hosted Stack (Example)
 # ==============================================================================
-# Complete stack with bundled PostgreSQL and RustFS (S3-compatible storage).
-# For users who want a ready-to-use setup without external infrastructure.
+# API + Dashboard with bundled PostgreSQL and RustFS (S3-compatible storage).
+# The website is hosted by the maintainers and is not part of self-hosted
+# installs; the CLI is downloaded from GitHub Releases.
 #
 # Usage:
 #   docker compose -f .workflows/build/compose.example.yml up -d
@@ -12,25 +13,27 @@
 # ==============================================================================
 
 services:
-  comptasse:
-    image: comptasse/comptasse:${COMPTASSE_VERSION:-dev}
+  api:
+    image: comptasse-api:${COMPTASSE_VERSION:-dev}
+    container_name: comptasse-api
     ports:
       - "${API_PORT:-3000}:3000"
-      - "${DASHBOARD_PORT:-5173}:5173"
-    volumes:
-      - comptasse-data:/data
     environment:
+      ENV: production
+      VERBOSE: "false"
+      PORT: "3000"
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:5173}
+      COOKIES_DOMAIN: localhost
+      COOKIES_KEY: ${COOKIES_KEY:?COOKIES_KEY is required}
+      API_BASE_URL: ${API_BASE_URL:-http://localhost:3000}
+      WEBSITE_BASE_URL: ${WEBSITE_BASE_URL:-https://comptasse.com}
+      DASHBOARD_BASE_URL: ${DASHBOARD_BASE_URL:-http://localhost:5173}
       SQL_DATABASE_URL: postgres://postgres:password@postgres:5432/comptasse
       STORAGE_ENDPOINT: http://rustfs:9000
       STORAGE_BUCKET_NAME: comptasse-files
       STORAGE_ACCESS_KEY: admin
       STORAGE_SECRET_KEY: admin
       STORAGE_REGION: fr-par
-      COOKIES_DOMAIN: localhost
-      CORS_ORIGIN: "*"
-      API_BASE_URL: http://localhost:3000
-      WEBSITE_BASE_URL: http://localhost:5173
-      DASHBOARD_BASE_URL: http://localhost:5173
     depends_on:
       postgres:
         condition: service_healthy
@@ -38,10 +41,20 @@ services:
         condition: service_started
     restart: unless-stopped
 
+  dashboard:
+    image: comptasse-dashboard:${COMPTASSE_VERSION:-dev}
+    container_name: comptasse-dashboard
+    ports:
+      - "${DASHBOARD_PORT:-5173}:80"
+    depends_on:
+      - api
+    restart: unless-stopped
+
   postgres:
     image: postgres:18.1
+    container_name: comptasse-postgres
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
@@ -55,6 +68,7 @@ services:
 
   rustfs:
     image: rustfs/rustfs:latest
+    container_name: comptasse-rustfs
     volumes:
       - rustfs-data:/data
     environment:
@@ -65,6 +79,5 @@ services:
     restart: unless-stopped
 
 volumes:
-  comptasse-data:
   postgres-data:
   rustfs-data:
