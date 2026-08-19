@@ -96,27 +96,23 @@ build-ci:
     @echo "  Comptasse Build (lint + test + build)"
     @echo "=============================================="
     @echo ""
-    {{COMPOSE_BUILD}} build --progress=plain --no-cache ci
+    COMPTASSE_VERSION=$(cat VERSION) {{COMPOSE_BUILD}} build --progress=plain --no-cache comptasse
     @echo ""
     @echo "=============================================="
     @echo "  Build succeeded"
     @echo "=============================================="
 
-# Build production images (api, website, worker) - mirrors the publish GitHub Action
-# Runs the CI gate first, then builds all three images tagged with VERSION
+# Build production images - all-in-one only
+# Runs the CI gate first, then builds the comptasse image tagged with VERSION
 build-images:
     @echo "=============================================="
-    @echo "  Comptasse Image Build (ci + api + website + worker)"
+    @echo "  Comptasse Image Build (ci + comptasse)"
     @echo "=============================================="
     @echo ""
-    {{COMPOSE_BUILD}} build --progress=plain --no-cache ci
-    COMPTASSE_VERSION=$(cat VERSION) \
-    VITE_API_BASE_URL=http://localhost:3000 \
-    VITE_WEBSITE_BASE_URL=http://localhost:5173 \
-    {{COMPOSE_BUILD}} build --progress=plain api website worker
+    COMPTASSE_VERSION=$(cat VERSION) {{COMPOSE_BUILD}} build --progress=plain --no-cache comptasse
     @echo ""
     @echo "=============================================="
-    @echo "  Images built: comptasse-api, comptasse-website, comptasse-worker ($(cat VERSION))"
+    @echo "  Image built: comptasse/comptasse ($(cat VERSION))"
     @echo "=============================================="
 
 # Start production images against local infrastructure to check for startup errors

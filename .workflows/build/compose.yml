@@ -27,11 +27,11 @@ services:
     volumes:
       - comptasse-data:/data
     environment:
-      SQL_DATABASE_URL: ${SQL_DATABASE_URL:?SQL_DATABASE_URL is required}
-      STORAGE_ENDPOINT: ${STORAGE_ENDPOINT:?STORAGE_ENDPOINT is required}
-      STORAGE_BUCKET_NAME: ${STORAGE_BUCKET_NAME:?STORAGE_BUCKET_NAME is required}
-      STORAGE_ACCESS_KEY: ${STORAGE_ACCESS_KEY:?STORAGE_ACCESS_KEY is required}
-      STORAGE_SECRET_KEY: ${STORAGE_SECRET_KEY:?STORAGE_SECRET_KEY is required}
+      SQL_DATABASE_URL: ${SQL_DATABASE_URL:-postgres://postgres:password@postgres:5432/comptasse}
+      STORAGE_ENDPOINT: ${STORAGE_ENDPOINT:-http://rustfs:9000}
+      STORAGE_BUCKET_NAME: ${STORAGE_BUCKET_NAME:-comptasse-files}
+      STORAGE_ACCESS_KEY: ${STORAGE_ACCESS_KEY:-placeholder}
+      STORAGE_SECRET_KEY: ${STORAGE_SECRET_KEY:-placeholder}
       STORAGE_REGION: ${STORAGE_REGION:-fr-par}
       COOKIES_KEY: ${COOKIES_KEY:-}
       COOKIES_DOMAIN: ${COOKIES_DOMAIN:-localhost}
