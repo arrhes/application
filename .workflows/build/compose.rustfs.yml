@@ -1,0 +1,34 @@
+# ==============================================================================
+# RustFS standalone (S3-compatible object storage) - arrhes
+# ==============================================================================
+# Usage:
+#   docker compose -f .workflows/build/compose.rustfs.yml up -d
+#
+# After first start, create the bucket `arrhes-object-storage` in the console:
+#   http://localhost:9001  (credentials: rustfsadmin / rustfsadmin)
+# ==============================================================================
+
+services:
+  rustfs:
+    image: rustfs/rustfs:latest
+    container_name: arrhes-rustfs
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      RUSTFS_CONSOLE_ENABLE: "true"
+      RUSTFS_ACCESS_KEY: rustfsadmin
+      RUSTFS_SECRET_KEY: rustfsadmin
+      RUSTFS_VOLUMES: /data
+    volumes:
+      - rustfs_data:/data
+    init: true
+    healthcheck:
+      test: ["CMD-SHELL", "wget --quiet --tries=1 --spider http://localhost:9000 2>&1 | grep -q '403 Forbidden' && exit 0 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  rustfs_data:
