@@ -1,12 +1,12 @@
-import type { readAllEntriesRouteDefinition } from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button, FormatDate, FormatDateTime, FormatNull, FormatPrice, FormatText, LinkContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import type { readAllEntriesRouteDefinition } from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { Button, FormatDate, FormatDateTime, FormatNull, FormatPrice, FormatText, LinkContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconPencil } from "@tabler/icons-react"
 import { useMemo } from "react"
 import type * as v from "valibot"
 import { DataTable } from "../../../../components/layouts/DataTable.js"
-import { TabLink } from "../../../../components/layouts/tabBar/TabLink.js"
+import { useRouter } from "@tanstack/react-router"
 import type { YearDataMaps } from "../YearDataWrapper.tsx"
 import { EntriesTableSelectionActions } from "./EntriesTableSelectionActions.js"
 
@@ -21,6 +21,7 @@ export function EntriesTable(props: {
     tagById: YearDataMaps["tagById"]
     fileById: YearDataMaps["fileById"]
 }) {
+    const router = useRouter()
     const entriesData = useMemo(
         () =>
             [
@@ -71,21 +72,20 @@ export function EntriesTable(props: {
                     accessorKey: "label",
                     header: "Libellé",
                     cell: ({ row }) => (
-                        <TabLink
-                            args={{
-                                component: "\u00e9criture",
-                                props: {
-                                    idOrganization: row.original.idOrganization,
-                                    idYear: row.original.idYear,
-                                    idEntry: row.original.id,
-                                    label: row.original.label,
-                                },
-                            }}
+                        <Button
+                            onClick={() =>
+                                router.navigate({
+                                    to: "/organisation/$idOrganization/exercice/$idYear/ecriture/$idEntry",
+                                    params: {
+                                        idOrganization: row.original.idOrganization,
+                                        idYear: row.original.idYear,
+                                        idEntry: row.original.id,
+                                    },
+                                })
+                            }
                         >
-                            <Button>
-                                <LinkContent>{row.original.label}</LinkContent>
-                            </Button>
-                        </TabLink>
+                            <LinkContent>{row.original.label}</LinkContent>
+                        </Button>
                     ),
                     filterFn: "includesString",
                 },
@@ -130,19 +130,19 @@ export function EntriesTable(props: {
                         const file = filesMap.get(row.original.idFile)
                         if (!file) return <FormatNull />
                         return (
-                            <TabLink
-                                args={{
-                                    component: "fichier",
-                                    props: {
-                                        idOrganization: props.idOrganization,
-                                        idFile: file.id,
-                                    },
-                                }}
+                            <Button
+                                onClick={() =>
+                                    router.navigate({
+                                        to: "/organisation/$idOrganization/fichier/$idFile",
+                                        params: {
+                                            idOrganization: props.idOrganization,
+                                            idFile: file.id,
+                                        },
+                                    })
+                                }
                             >
-                                <Button>
-                                    <LinkContent>{file.name}</LinkContent>
-                                </Button>
-                            </TabLink>
+                                <LinkContent>{file.name}</LinkContent>
+                            </Button>
                         )
                     },
                     filterFn: "includesString",

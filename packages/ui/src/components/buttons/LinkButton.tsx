@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router"
-import type { MouseEventHandler, ReactNode } from "react"
+import type { CSSProperties, MouseEventHandler, ReactNode } from "react"
 import type { Styles } from "../../../styled-system/css/css.js"
 import { css } from "../../utilities/cn.js"
 
@@ -23,6 +23,7 @@ type LinkButtonProps = {
     className?: Styles
     onClick?: MouseEventHandler<HTMLAnchorElement> | undefined
     children: ReactNode
+    style?: CSSProperties
 }
 
 export function LinkButton(props: LinkButtonProps) {
@@ -47,6 +48,7 @@ export function LinkButton(props: LinkButtonProps) {
             aria-disabled={props.disabled}
             title={props.title}
             onClick={props.onClick}
+            style={props.style}
         >
             {props.children}
         </Link>

@@ -1,8 +1,8 @@
-# Arrhes
+# Comptasse
 
-> Arrhes est un logiciel de comptabilite en partie double, open source, conçu pour les entreprises et associations francaises.
+> Comptasse est un logiciel de comptabilité en partie double, open source, conçu pour les entreprises et associations françaises.
 
-Arrhes est accessible a l'adresse https://arrhes.com. L'espace utilisateur est disponible a l'adresse https://arrhes.com/dashboard.
+Comptasse est accessible à l'adresse https://comptasse.com. L'espace utilisateur est disponible à l'adresse https://comptasse.com/dashboard.
 
 Principales fonctionnalités :
 
@@ -10,51 +10,50 @@ Principales fonctionnalités :
 - Saisie des écritures comptables en partie double avec journaux et catégories
 - Génération des documents de synthèse : livre-journal, grand livre, balance, bilan et compte de résultat
 - Export FEC pour les obligations fiscales
-- Stockage de documents comme les pièces justificatives (jusqu'a 1 Go en plan basique, 1 To en plan avancé)
+- Stockage de documents comme les pièces justificatives (jusqu'à 1 Go en plan basique, 1 To en plan avancé)
 - Gestion multi-organisations (entreprises et associations)
-- Collaboration en équipe avec rôles (proprietaire, administrateur, membre)
+- Collaboration en équipe avec rôles (propriétaire, administrateur, membre)
 - API complète avec authentification par clé API
 
 Deux plans tarifaires :
 
-- Plan basique (gratuit) : application complete, organisations illimitees, membres illimites, 1 Go de stockage, generation de la liasse fiscale, export FEC, acces API complet
-- Plan avance (30 EUR HT/mois) : tout le plan basique + 1 To de stockage, assistant IA, support prioritaire
+- Plan basique (gratuit) : application complète, organisations illimitées, membres illimités, 1 Go de stockage, génération de la liasse fiscale, export FEC, accès API complet
+- Plan avancé (30 EUR HT/mois) : tout le plan basique + 1 To de stockage, assistant IA, support prioritaire
 
 ## Documentation
 
-- [Fonctionnalités](https://arrhes.com/documentation/fonctionnalités): Présentation des fonctionnalités du logiciel
-- [Tarifs](https://arrhes.com/documentation/tarifs): Détail des plans tarifaires
-- [Philosophie](https://arrhes.com/documentation/philosophie): Vision et philosophie du projet
-- [Support](https://arrhes.com/documentation/support): Comment obtenir de l'aide
+- [Fonctionnalités](https://comptasse.com/documentation/fonctionnalités): Présentation des fonctionnalités du logiciel
+- [Architecture](https://comptasse.com/documentation/architecture): Architecture technique du projet
+- [Philosophie](https://comptasse.com/documentation/philosophie): Vision et philosophie du projet
+- [Mises à jour](https://comptasse.com/documentation/mises-à-jour): Historique des versions
+- [Support](https://comptasse.com/documentation/support): Comment obtenir de l'aide
 
 ## Guide d'utilisation
 
-- [Démarrage](https://arrhes.com/documentation/dashboard/démarrage): Premiers pas avec Arrhes
-- [Organisations](https://arrhes.com/documentation/dashboard/organisations): Gestion des organisations
-- [Exercices](https://arrhes.com/documentation/dashboard/exercices): Gestion des exercices fiscaux
-- [Écritures](https://arrhes.com/documentation/dashboard/écritures): Saisie et gestion des écritures comptables
-- [Stockage](https://arrhes.com/documentation/dashboard/stockage): Stockage des documents
-- [Documents de synthèse](https://arrhes.com/documentation/dashboard/documents): Génération des rapports comptables
+- [Démarrer](https://comptasse.com/documentation/guide/démarrer): Premiers pas avec Comptasse
+- [Installation](https://comptasse.com/documentation/guide/installation): Installation de Comptasse
+- [Organisations](https://comptasse.com/documentation/guide/organisations): Gestion des organisations
+- [Exercices](https://comptasse.com/documentation/guide/exercices): Gestion des exercices fiscaux
+- [Comptes](https://comptasse.com/documentation/guide/comptes): Gestion du plan comptable
+- [Écritures](https://comptasse.com/documentation/guide/écritures): Saisie et gestion des écritures comptables
+- [Stockage](https://comptasse.com/documentation/guide/stockage): Stockage des documents
+- [Documents](https://comptasse.com/documentation/guide/documents): Génération des rapports comptables
+- [Référence API](https://comptasse.com/documentation/guide/référence-api): Documentation de l'API REST
+- [Référence CLI](https://comptasse.com/documentation/guide/référence-cli): Documentation de l'interface en ligne de commande
 
 ## Cours de comptabilité
 
-- [Introduction](https://arrhes.com/documentation/comptabilité/introduction): Introduction a la comptabilité en partie double
-- [Comptes](https://arrhes.com/documentation/comptabilité/comptes): Fonctionnement des comptes comptables
-- [Ecritures](https://arrhes.com/documentation/comptabilité/écritures): Les écritures comptables
-- [Documents](https://arrhes.com/documentation/comptabilité/documents): Les documents comptables obligatoires
-- [Glossaire](https://arrhes.com/documentation/comptabilité/glossaire): Glossaire des termes comptables
+- [Introduction](https://comptasse.com/documentation/comptabilité/introduction): Introduction à la comptabilité en partie double
+- [La partie double](https://comptasse.com/documentation/comptabilité/introduction/partie-double): Principe de la partie double
+- [Les écritures](https://comptasse.com/documentation/comptabilité/introduction/écritures): Les écritures comptables
+- [Les comptes](https://comptasse.com/documentation/comptabilité/introduction/comptes): Fonctionnement des comptes comptables
+- [Classes de comptes](https://comptasse.com/documentation/comptabilité/introduction/classes): Les 8 classes du PCG
+- [Documents](https://comptasse.com/documentation/comptabilité/documents): Les documents comptables obligatoires
+- [Glossaire](https://comptasse.com/documentation/comptabilité/ressources/glossaire): Glossaire des termes comptables
+- [Scénarios](https://comptasse.com/documentation/comptabilité/ressources/scénarios): Scénarios comptables
 
-## API
+## Légal
 
-- [Introduction](https://arrhes.com/documentation/api/introduction): Présentation de l'API
-- [Authentification](https://arrhes.com/documentation/api/authentification): Authentification et gestion des utilisateurs
-- [Organisation](https://arrhes.com/documentation/api/organisation): Endpoints relatifs aux organisations
-- [Exercice](https://arrhes.com/documentation/api/exercice): Endpoints relatifs aux exercices fiscaux
-- [Stockage](https://arrhes.com/documentation/api/stockage): Endpoints relatifs aux fichiers et documents
-
-## Optional
-
-- [Mentions legales](https://arrhes.com/documentation/mentions-légales): Informations légales
-- [CGU](https://arrhes.com/documentation/cgu): Conditions générales d'utilisation
-- [Politique de confidentialite](https://arrhes.com/documentation/confidentialité): Politique de confidentialité et traitement des données
-- [Code source](https://github.com/arrhes/application): Dêpot GitHub du projet (licence AGPL-3.0)
+- [Mentions légales](https://comptasse.com/documentation/mentions-légales): Informations légales
+- [Politique de confidentialité](https://comptasse.com/documentation/confidentialité): Politique de confidentialité et traitement des données
+- [Code source](https://github.com/comptasse/application): Dépôt GitHub du projet (licence AGPL-3.0)

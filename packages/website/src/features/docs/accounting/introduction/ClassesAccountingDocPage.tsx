@@ -7,14 +7,12 @@ import { DocSources } from "../../../../components/document/DocSources.js"
 import { DocTip } from "../../../../components/document/DocTip.js"
 import { accountClasses } from "../resources/accounts/accountsData.js"
 
-// ── Class descriptions & tips ──────────────────────────────────────────────
-
 interface ClassInfo {
     description: string
-    tips: Array<{
-        variant: "tip" | "info"
+    tips: {
+        variant: "info" | "tip" | "warning" | "success" | "neutral"
         children: string
-    }>
+    }[]
 }
 
 const classInfos: Record<number, ClassInfo> = {
@@ -148,8 +146,6 @@ const classInfos: Record<number, ClassInfo> = {
     },
 }
 
-// ── Main page ──────────────────────────────────────────────────────────────
-
 export function ClassesAccountingDocPage() {
     return (
         <DocRoot>
@@ -165,7 +161,7 @@ export function ClassesAccountingDocPage() {
             </DocParagraph>
 
             {accountClasses.map((cls) => {
-                const info = classInfos[cls.number]
+                const info = classInfos[cls.number as keyof typeof classInfos]
                 if (!info) return null
                 return (
                     <DocSection

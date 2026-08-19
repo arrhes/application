@@ -12,12 +12,12 @@ beforeAll(async () => {
     idOrganization = await getDemoOrganizationId(session)
 })
 
-describe("GET /v1/organizations/:idOrganization/billing", () => {
+describe("GET /organizations/:idOrganization/billing", () => {
     it("returns the subscription status for the demo organization", async () => {
         const response = await authenticatedRequest({
             session,
             method: "GET",
-            path: `/v1/organizations/${idOrganization}/billing`,
+            path: `/organizations/${idOrganization}/billing`,
         })
         expect(response.status).toBe(200)
 
@@ -30,18 +30,18 @@ describe("GET /v1/organizations/:idOrganization/billing", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "GET",
-            path: `/v1/organizations/${idOrganization}/billing`,
+            path: `/organizations/${idOrganization}/billing`,
         })
         expect(response.status).toBe(401)
     })
 })
 
-describe("GET /v1/organizations/:idOrganization/payments", () => {
+describe("GET /organizations/:idOrganization/payments", () => {
     it("returns an array of payments for the demo organization", async () => {
         const response = await authenticatedRequest({
             session,
             method: "GET",
-            path: `/v1/organizations/${idOrganization}/payments`,
+            path: `/organizations/${idOrganization}/payments`,
         })
         expect(response.status).toBe(200)
 
@@ -52,28 +52,28 @@ describe("GET /v1/organizations/:idOrganization/payments", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "GET",
-            path: `/v1/organizations/${idOrganization}/payments`,
+            path: `/organizations/${idOrganization}/payments`,
         })
         expect(response.status).toBe(401)
     })
 })
 
-describe("POST /v1/organizations/:idOrganization/billing/first-payment", () => {
+describe("POST /organizations/:idOrganization/billing/first-payment", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "POST",
-            path: `/v1/organizations/${idOrganization}/billing/first-payment`,
+            path: `/organizations/${idOrganization}/billing/first-payment`,
             body: {},
         })
         expect(response.status).toBe(401)
     })
 })
 
-describe("POST /v1/organizations/:idOrganization/billing/cancel-subscription", () => {
+describe("POST /organizations/:idOrganization/billing/cancel-subscription", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "POST",
-            path: `/v1/organizations/${idOrganization}/billing/cancel-subscription`,
+            path: `/organizations/${idOrganization}/billing/cancel-subscription`,
             body: {},
         })
         expect(response.status).toBe(401)
@@ -83,7 +83,7 @@ describe("POST /v1/organizations/:idOrganization/billing/cancel-subscription", (
         const response = await authenticatedRequest({
             session,
             method: "POST",
-            path: `/v1/organizations/${idOrganization}/billing/cancel-subscription`,
+            path: `/organizations/${idOrganization}/billing/cancel-subscription`,
             body: {},
         })
         // Demo org has no subscription, so this should fail with 400
@@ -91,11 +91,11 @@ describe("POST /v1/organizations/:idOrganization/billing/cancel-subscription", (
     })
 })
 
-describe("GET /v1/organizations/:idOrganization/billings", () => {
+describe("GET /organizations/:idOrganization/billings", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "GET",
-            path: `/v1/organizations/${idOrganization}/billings`,
+            path: `/organizations/${idOrganization}/billings`,
         })
         expect(response.status).toBe(401)
     })
@@ -104,18 +104,18 @@ describe("GET /v1/organizations/:idOrganization/billings", () => {
         const response = await authenticatedRequest({
             session,
             method: "GET",
-            path: `/v1/organizations/${idOrganization}/billings`,
+            path: `/organizations/${idOrganization}/billings`,
         })
         expect(response.status).toBe(200)
         expect(Array.isArray(response.data)).toBe(true)
     })
 })
 
-describe("GET /v1/organizations/:idOrganization/invoices", () => {
+describe("GET /organizations/:idOrganization/invoices", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "GET",
-            path: `/v1/organizations/${idOrganization}/invoices`,
+            path: `/organizations/${idOrganization}/invoices`,
         })
         expect(response.status).toBe(401)
     })
@@ -124,18 +124,18 @@ describe("GET /v1/organizations/:idOrganization/invoices", () => {
         const response = await authenticatedRequest({
             session,
             method: "GET",
-            path: `/v1/organizations/${idOrganization}/invoices`,
+            path: `/organizations/${idOrganization}/invoices`,
         })
         expect(response.status).toBe(200)
         expect(Array.isArray(response.data)).toBe(true)
     })
 })
 
-describe("PATCH /v1/organizations/:idOrganization/billing/storage-subscription", () => {
+describe("PATCH /organizations/:idOrganization/billing/storage-subscription", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/billing/storage-subscription`,
+            path: `/organizations/${idOrganization}/billing/storage-subscription`,
             body: {
                 newQuantity: 1,
             },
@@ -147,7 +147,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/storage-subscription",
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/billing/storage-subscription`,
+            path: `/organizations/${idOrganization}/billing/storage-subscription`,
             body: {},
         })
         expect(response.status).toBe(400)
@@ -157,7 +157,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/storage-subscription",
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/billing/storage-subscription`,
+            path: `/organizations/${idOrganization}/billing/storage-subscription`,
             body: {
                 newQuantity: -1,
             },
@@ -170,7 +170,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/storage-subscription",
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/billing/storage-subscription`,
+            path: `/organizations/${idOrganization}/billing/storage-subscription`,
             body: {
                 newQuantity: 0,
             },
@@ -182,7 +182,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/storage-subscription",
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/billing/storage-subscription`,
+            path: `/organizations/${idOrganization}/billing/storage-subscription`,
             body: {
                 newQuantity: 2,
             },
@@ -191,11 +191,11 @@ describe("PATCH /v1/organizations/:idOrganization/billing/storage-subscription",
     })
 })
 
-describe("POST /v1/organizations/:idOrganization/billing/wallet-withdrawal", () => {
+describe("POST /organizations/:idOrganization/billing/wallet-withdrawal", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "POST",
-            path: `/v1/organizations/${idOrganization}/billing/wallet-withdrawal`,
+            path: `/organizations/${idOrganization}/billing/wallet-withdrawal`,
             body: {
                 amountInCents: 100,
             },
@@ -207,18 +207,18 @@ describe("POST /v1/organizations/:idOrganization/billing/wallet-withdrawal", () 
         const response = await authenticatedRequest({
             session,
             method: "POST",
-            path: `/v1/organizations/${idOrganization}/billing/wallet-withdrawal`,
+            path: `/organizations/${idOrganization}/billing/wallet-withdrawal`,
             body: {},
         })
         expect(response.status).toBe(400)
     })
 })
 
-describe("PATCH /v1/organizations/:idOrganization/billing/licence-subscription", () => {
+describe("PATCH /organizations/:idOrganization/billing/licence-subscription", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/billing/licence-subscription`,
+            path: `/organizations/${idOrganization}/billing/licence-subscription`,
             body: {
                 newAmountInCents: 1000,
             },
@@ -230,7 +230,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/licence-subscription",
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/billing/licence-subscription`,
+            path: `/organizations/${idOrganization}/billing/licence-subscription`,
             body: {},
         })
         expect(response.status).toBe(400)
@@ -240,7 +240,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/licence-subscription",
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/billing/licence-subscription`,
+            path: `/organizations/${idOrganization}/billing/licence-subscription`,
             body: {
                 newAmountInCents: -100,
             },
@@ -252,7 +252,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/licence-subscription",
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/billing/licence-subscription`,
+            path: `/organizations/${idOrganization}/billing/licence-subscription`,
             body: {
                 newAmountInCents: 5000,
             },
@@ -265,7 +265,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/licence-subscription",
         const orgResponse = await authenticatedRequest({
             session,
             method: "GET",
-            path: `/v1/organizations/${idOrganization}`,
+            path: `/organizations/${idOrganization}`,
         })
         expect(orgResponse.status).toBe(200)
         const currentAmount = (orgResponse.data as any).licenceAmount
@@ -273,7 +273,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/licence-subscription",
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/billing/licence-subscription`,
+            path: `/organizations/${idOrganization}/billing/licence-subscription`,
             body: {
                 newAmountInCents: currentAmount,
             },
@@ -282,11 +282,11 @@ describe("PATCH /v1/organizations/:idOrganization/billing/licence-subscription",
     })
 })
 
-describe("PATCH /v1/organizations/:idOrganization/billing/ocr-subscription", () => {
+describe("PATCH /organizations/:idOrganization/billing/ocr-subscription", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/billing/ocr-subscription`,
+            path: `/organizations/${idOrganization}/billing/ocr-subscription`,
             body: {
                 newQuantity: 1,
             },
@@ -298,7 +298,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/ocr-subscription", () 
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/billing/ocr-subscription`,
+            path: `/organizations/${idOrganization}/billing/ocr-subscription`,
             body: {},
         })
         expect(response.status).toBe(400)
@@ -308,7 +308,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/ocr-subscription", () 
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/billing/ocr-subscription`,
+            path: `/organizations/${idOrganization}/billing/ocr-subscription`,
             body: {
                 newQuantity: -1,
             },
@@ -320,7 +320,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/ocr-subscription", () 
         const orgResponse = await authenticatedRequest({
             session,
             method: "GET",
-            path: `/v1/organizations/${idOrganization}`,
+            path: `/organizations/${idOrganization}`,
         })
         expect(orgResponse.status).toBe(200)
         const org = orgResponse.data as any
@@ -329,7 +329,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/ocr-subscription", () 
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/billing/ocr-subscription`,
+            path: `/organizations/${idOrganization}/billing/ocr-subscription`,
             body: {
                 newQuantity: currentAddonPages,
             },
@@ -342,7 +342,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/ocr-subscription", () 
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/billing/ocr-subscription`,
+            path: `/organizations/${idOrganization}/billing/ocr-subscription`,
             body: {
                 newQuantity: 50,
             },
@@ -355,7 +355,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/ocr-subscription", () 
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/billing/ocr-subscription`,
+            path: `/organizations/${idOrganization}/billing/ocr-subscription`,
             body: {
                 newQuantity: 9_999_999,
             },
@@ -368,7 +368,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/ocr-subscription", () 
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/billing/ocr-subscription`,
+            path: `/organizations/${idOrganization}/billing/ocr-subscription`,
             body: {
                 newQuantity: 210,
             },
@@ -377,11 +377,11 @@ describe("PATCH /v1/organizations/:idOrganization/billing/ocr-subscription", () 
     })
 })
 
-describe("PATCH /v1/organizations/:idOrganization/billing/tokens-subscription", () => {
+describe("PATCH /organizations/:idOrganization/billing/tokens-subscription", () => {
     it("rejects unauthenticated requests", async () => {
         const response = await apiRequest({
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/billing/tokens-subscription`,
+            path: `/organizations/${idOrganization}/billing/tokens-subscription`,
             body: {
                 newQuantity: 1,
             },
@@ -393,7 +393,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/tokens-subscription", 
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/billing/tokens-subscription`,
+            path: `/organizations/${idOrganization}/billing/tokens-subscription`,
             body: {},
         })
         expect(response.status).toBe(400)
@@ -403,7 +403,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/tokens-subscription", 
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/billing/tokens-subscription`,
+            path: `/organizations/${idOrganization}/billing/tokens-subscription`,
             body: {
                 newQuantity: -1,
             },
@@ -415,7 +415,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/tokens-subscription", 
         const orgResponse = await authenticatedRequest({
             session,
             method: "GET",
-            path: `/v1/organizations/${idOrganization}`,
+            path: `/organizations/${idOrganization}`,
         })
         expect(orgResponse.status).toBe(200)
         const org = orgResponse.data as any
@@ -427,7 +427,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/tokens-subscription", 
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/billing/tokens-subscription`,
+            path: `/organizations/${idOrganization}/billing/tokens-subscription`,
             body: {
                 newQuantity: currentAddonPacks,
             },
@@ -440,7 +440,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/tokens-subscription", 
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/billing/tokens-subscription`,
+            path: `/organizations/${idOrganization}/billing/tokens-subscription`,
             body: {
                 newQuantity: 0,
             },
@@ -453,7 +453,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/tokens-subscription", 
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/billing/tokens-subscription`,
+            path: `/organizations/${idOrganization}/billing/tokens-subscription`,
             body: {
                 newQuantity: 10_000,
             },
@@ -466,7 +466,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/tokens-subscription", 
         const response = await authenticatedRequest({
             session,
             method: "PATCH",
-            path: `/v1/organizations/${idOrganization}/billing/tokens-subscription`,
+            path: `/organizations/${idOrganization}/billing/tokens-subscription`,
             body: {
                 newQuantity: 3,
             },
@@ -475,7 +475,7 @@ describe("PATCH /v1/organizations/:idOrganization/billing/tokens-subscription", 
     })
 })
 
-describe("POST /v1/webhooks/mollie", () => {
+describe("POST /webhooks/mollie", () => {
     it("returns 200 even for an unknown payment id", async () => {
         // Mollie sends webhooks as application/x-www-form-urlencoded
         const response = await mollieWebhookRequest("tr_unknown_test")
@@ -485,7 +485,7 @@ describe("POST /v1/webhooks/mollie", () => {
     it("returns 200 for empty form body", async () => {
         const response = await apiRequest({
             method: "POST",
-            path: "/v1/webhooks/mollie",
+            path: "/webhooks/mollie",
             body: {},
         })
         expect(response.status).toBe(200)

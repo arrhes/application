@@ -1,16 +1,19 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
-import { generalDocLayoutRoute } from "./generalDocLayoutRoute.tsx"
+import { createRoute } from "@tanstack/react-router"
+import { DocRoot } from "../../../../components/document/DocRoot"
+import { FeaturesGeneralDocPage } from "../../../../features/docs/project/FeaturesGeneralDocPage.js"
+import { docsLayoutRoute } from "../docsLayoutRoute.js"
 
 export const featuresGeneralDocRoute = createRoute({
-    getParentRoute: () => generalDocLayoutRoute,
+    getParentRoute: () => docsLayoutRoute,
     path: "/fonctionnalités",
     beforeLoad: () => ({
         title: "Fonctionnalités",
         description:
-            "Découvrez les fonctionnalités d'Arrhes : saisie d'écritures, plan comptable, documents de synthèse, gestion multi-organisations et plus.",
+            "Découvrez les fonctionnalités de Comptasse : saisie d'écritures, plan comptable, documents de synthèse, gestion multi-organisations et plus.",
     }),
-    component: lazyRouteComponent(
-        () => import("../../../../features/docs/general/features/FeaturesGeneralDocPage.tsx"),
-        "FeaturesGeneralDocPage",
+    component: () => (
+        <DocRoot>
+            <FeaturesGeneralDocPage />
+        </DocRoot>
     ),
 })

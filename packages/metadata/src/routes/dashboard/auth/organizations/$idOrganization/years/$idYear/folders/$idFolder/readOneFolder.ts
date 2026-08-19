@@ -7,6 +7,7 @@ export const readOneFolderRouteDefinition = routeDefinition({
     protocol: "http",
     method: "GET",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/folders/:idFolder`,
+    name: "read-one-folder",
     schemas: {
         body: v.object({
             idFolder: folderSchema.entries.id,

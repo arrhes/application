@@ -7,6 +7,7 @@ export const readAllBalanceSheetsRouteDefinition = routeDefinition({
     protocol: "http",
     method: "GET",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/balance-sheets`,
+    name: "read-all-balance-sheets",
     schemas: {
         body: v.object({
             idYear: balanceSheetSchema.entries.idYear,

@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { DocDefinition } from "../../../../components/document/DocDefinition.js"
 import { DocExample } from "../../../../components/document/DocExample.js"
 import { DocHeader } from "../../../../components/document/DocHeader.js"
@@ -21,9 +21,11 @@ export function NotesAccountingDocPage() {
 
             <DocSection title="Définition">
                 <DocDefinition term="Annexe">
-                    Document obligatoire qui complète le bilan et le compte de résultat. L'annexe fournit les
-                    informations nécessaires à la compréhension des comptes : méthodes comptables utilisées, détail de
-                    certains postes, engagements hors bilan.
+                    <DocParagraph>
+                        Document obligatoire qui complète le bilan et le compte de résultat. L'annexe fournit les
+                        informations nécessaires à la compréhension des comptes : méthodes comptables utilisées, détail
+                        de certains postes, engagements hors bilan.
+                    </DocParagraph>
                 </DocDefinition>
 
                 <DocParagraph>
@@ -55,7 +57,7 @@ export function NotesAccountingDocPage() {
                     L'annexe doit inclure toute information significative qui n'apparaît pas directement dans le bilan
                     ou le compte de résultat. Son contenu varie selon la taille et la nature de l'
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "organisation",
                         }}
@@ -66,21 +68,29 @@ export function NotesAccountingDocPage() {
                 </DocParagraph>
 
                 <DocDefinition term="Règles et méthodes comptables">
-                    Les conventions appliquées pour évaluer les éléments du bilan et du compte de résultat : méthodes
-                    d'amortissement, règles de comptabilisation des stocks, traitement des opérations en devises
-                    étrangères, etc.
+                    <DocParagraph>
+                        Les conventions appliquées pour évaluer les éléments du bilan et du compte de résultat :
+                        méthodes d'amortissement, règles de comptabilisation des stocks, traitement des opérations en
+                        devises étrangères, etc.
+                    </DocParagraph>
                 </DocDefinition>
                 <DocDefinition term="Compléments d'information sur le bilan">
-                    Détail des immobilisations et de leurs amortissements, état des provisions, échéancier des créances
-                    et des dettes, variation des capitaux propres.
+                    <DocParagraph>
+                        Détail des immobilisations et de leurs amortissements, état des provisions, échéancier des
+                        créances et des dettes, variation des capitaux propres.
+                    </DocParagraph>
                 </DocDefinition>
                 <DocDefinition term="Compléments d'information sur le compte de résultat">
-                    Détail des produits et charges exceptionnels, ventilation du chiffre d'affaires, information sur les
-                    impôts.
+                    <DocParagraph>
+                        Détail des produits et charges exceptionnels, ventilation du chiffre d'affaires, information sur
+                        les impôts.
+                    </DocParagraph>
                 </DocDefinition>
                 <DocDefinition term="Engagements hors bilan">
-                    Obligations qui n'apparaissent pas au bilan mais qui représentent un risque ou un avantage potentiel
-                    : cautions données, crédits-baux, engagements de retraite.
+                    <DocParagraph>
+                        Obligations qui n'apparaissent pas au bilan mais qui représentent un risque ou un avantage
+                        potentiel : cautions données, crédits-baux, engagements de retraite.
+                    </DocParagraph>
                 </DocDefinition>
 
                 <DocParagraph>Parmi les informations fréquemment requises, on trouve notamment :</DocParagraph>
@@ -122,18 +132,14 @@ export function NotesAccountingDocPage() {
                         En France, une entreprise peut bénéficier de l'annexe simplifiée si elle ne dépasse pas deux des
                         trois seuils suivants :
                     </p>
-                    <ul
-                        className={css({
-                            marginTop: "2",
-                            ml: "4",
-                            fontSize: "sm",
-                            color: "neutral/70",
-                        })}
-                    >
-                        <li>Chiffre d'affaires : 12 millions d'euros</li>
-                        <li>Total du bilan : 6 millions d'euros</li>
-                        <li>Nombre de salariés : 50</li>
-                    </ul>
+                    <DocList
+                        variant="bullet"
+                        items={[
+                            "Chiffre d'affaires : 12 millions d'euros",
+                            "Total du bilan : 6 millions d'euros",
+                            "Nombre de salariés : 50",
+                        ]}
+                    />
                     <p
                         className={css({
                             marginTop: "2",
@@ -193,14 +199,6 @@ export function NotesAccountingDocPage() {
                     Les entreprises cotées en bourse dans l'Union européenne sont tenues d'appliquer les normes IFRS
                     pour leurs comptes consolidés. L'annexe y est généralement beaucoup plus volumineuse que dans les
                     comptes établis selon le PCG français.
-                </DocParagraph>
-            </DocSection>
-
-            <DocSection title="Lien avec Arrhes">
-                <DocParagraph>
-                    Arrhes vous accompagne dans la préparation de vos comptes annuels. Consultez le guide sur les{" "}
-                    <DocLink to="/documentation/dashboard/documents">rapports</DocLink> pour savoir comment exporter les
-                    données nécessaires à la rédaction de votre annexe.
                 </DocParagraph>
             </DocSection>
 

@@ -18,6 +18,7 @@
         "jsxImportSource": "hono/jsx",
         "rootDir": "./src",
         "outDir": "./build",
+        "types": ["node"],
         "paths": {
             "#/*": ["./src/*"]
         },

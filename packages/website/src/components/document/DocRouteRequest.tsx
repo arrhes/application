@@ -1,5 +1,5 @@
-import type { routeDefinition } from "@arrhes/application-metadata/utilities"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import type { routeDefinition } from "@comptasse/application-metadata/utilities"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { useState } from "react"
 
 const methodBadgeClassName: Record<"GET" | "POST" | "PATCH" | "DELETE", string> = {
@@ -311,7 +311,7 @@ export function DocRouteRequest(props: { routeDefinition: ReturnType<typeof rout
                             fontWeight: "semibold",
                         })}
                     >
-                        {props.routeDefinition.path.replace(/^\/v1/, "")}
+                        {props.routeDefinition.path}
                     </code>
                 </div>
                 <div
@@ -329,15 +329,6 @@ export function DocRouteRequest(props: { routeDefinition: ReturnType<typeof rout
                         })}
                     >
                         Content-Type: application/json
-                    </span>
-                    <span
-                        className={css({
-                            fontSize: "xs",
-                            color: "neutral/50",
-                            fontFamily: "mono",
-                        })}
-                    >
-                        Authorization: Bearer {"<clé>"}
                     </span>
                 </div>
             </div>

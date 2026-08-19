@@ -10,6 +10,7 @@ export const updateOneIncomeStatementRouteDefinition = routeDefinition({
     protocol: "http",
     method: "PATCH",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/income-statements/:idIncomeStatement`,
+    name: "update-one-income-statement",
     schemas: {
         body: v.object({
             idIncomeStatement: incomeStatementSchema.entries.id,

@@ -7,6 +7,7 @@ export const updateOneJournalRouteDefinition = routeDefinition({
     protocol: "http",
     method: "PATCH",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/journals/:idJournal`,
+    name: "update-one-journal",
     schemas: {
         body: v.object({
             idJournal: journalSchema.entries.id,

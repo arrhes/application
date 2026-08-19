@@ -1,29 +1,14 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
+import { DocSectionRoot } from "./DocSectionRoot.js"
+import { DocSectionTitle } from "./DocSectionTitle.js"
 
-export function DocSection(props: { title: string; children: React.ReactNode }) {
-    const id = props.title
-        .toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, "")
-        .replace(/\s+/g, "-")
-
+export function DocSection(props: { title: string; depth?: number; children: React.ReactNode }) {
     return (
-        <section
-            className={css({
-                display: "flex",
-                flexDirection: "column",
-                gap: "1rem",
-            })}
-        >
-            <h2
-                id={id}
-                className={css({
-                    fontSize: "xl",
-                    fontWeight: "semibold",
-                    color: "neutral",
-                })}
-            >
-                {props.title}
-            </h2>
+        <DocSectionRoot depth={props.depth}>
+            <DocSectionTitle
+                title={props.title}
+                depth={props.depth}
+            />
             <div
                 className={css({
                     display: "flex",
@@ -33,6 +18,6 @@ export function DocSection(props: { title: string; children: React.ReactNode }) 
             >
                 {props.children}
             </div>
-        </section>
+        </DocSectionRoot>
     )
 }

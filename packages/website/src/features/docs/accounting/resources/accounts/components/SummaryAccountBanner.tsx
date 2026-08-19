@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconInfoCircle } from "@tabler/icons-react"
 import { DocLink } from "../../../../../../components/document/DocLink.js"
 import type { AccountEntry } from "../accountsData.js"
@@ -51,7 +51,7 @@ export function SummaryAccountBanner(props: { entry: AccountEntry }) {
                 >
                     Ce compte à {entry.number.length} chiffre{entry.number.length > 1 ? "s" : ""} est un compte de
                     classification. Il ne peut pas être utilisé directement dans une{" "}
-                    <DocLink to="/documentation/comptabilité/écritures">écriture comptable</DocLink>. Les écritures
+                    <DocLink to="/documentation/comptabilité/introduction/écritures">écriture comptable</DocLink>. Les écritures
                     doivent être passées dans les sous-comptes à 3 chiffres ou plus.
                 </span>
             </div>

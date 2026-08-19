@@ -9,9 +9,7 @@ export const updateOneOrganizationRouteDefinition = routeDefinition({
     path: `${routePath.v1}/organizations/:idOrganization`,
     schemas: {
         body: v.object({
-            siren: v.optional(organizationSchema.entries.siren),
             name: v.optional(organizationSchema.entries.name),
-            email: v.optional(organizationSchema.entries.email),
         }),
         return: organizationSchemaReturn,
     },

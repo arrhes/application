@@ -1,5 +1,5 @@
-import { sva } from "@arrhes/ui/css"
-import { cn } from "@arrhes/ui/utilities/cn.js"
+import { sva } from "@comptasse/ui/css"
+import { cn } from "@comptasse/ui/utilities/cn.js"
 import { IconAlertHexagon, IconAlertTriangle, IconCircleCheck, IconInfoSquare } from "@tabler/icons-react"
 import type { ComponentProps, ReactElement } from "react"
 

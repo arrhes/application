@@ -1,6 +1,6 @@
 # Business Model Strategy
 
-This document outlines the business model strategy for Arrhes, an open-source double-entry accounting application for French associations and SMEs.
+This document outlines the business model strategy for Comptasse, an open-source double-entry accounting application for French associations and SMEs.
 
 ## Goals
 
@@ -84,7 +84,7 @@ This document outlines the business model strategy for Arrhes, an open-source do
 
 ## Competitive Positioning
 
-| Competitor | Their Position | Arrhes Advantage |
+| Competitor | Their Position | Comptasse Advantage |
 |------------|----------------|------------------|
 | Dolibarr | ERP, complex, old UI | Modern UX, accounting-focused |
 | OpenConcerto | Desktop-first | Cloud-native, modern stack |

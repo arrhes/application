@@ -6,12 +6,12 @@ beforeAll(async () => {
     await verifyApiIsRunning()
 })
 
-describe("POST /v1/auth/sign-up", () => {
+describe("POST /auth/sign-up", () => {
     it("creates a new user with valid data", async () => {
-        const uniqueEmail = `test-signup-${Date.now()}@arrhes.com`
+        const uniqueEmail = `test-signup-${Date.now()}@comptasse.com`
         const response = await apiRequest({
             method: "POST",
-            path: "/v1/auth/sign-up",
+            path: "/auth/sign-up",
             body: {
                 email: uniqueEmail,
                 password: "TestPassword123!",
@@ -23,15 +23,15 @@ describe("POST /v1/auth/sign-up", () => {
 
         // Should set session cookies (auto-login after sign up)
         const cookieString = response.cookies.join("; ")
-        expect(cookieString).toContain("arrhes_id_user_session")
-        expect(cookieString).toContain("arrhes_is_auth")
+        expect(cookieString).toContain("comptasse_id_user_session")
+        expect(cookieString).toContain("comptasse_is_auth")
     })
 
     it("rejects mismatched passwords", async () => {
-        const uniqueEmail = `test-mismatch-${Date.now()}@arrhes.com`
+        const uniqueEmail = `test-mismatch-${Date.now()}@comptasse.com`
         const response = await apiRequest({
             method: "POST",
-            path: "/v1/auth/sign-up",
+            path: "/auth/sign-up",
             body: {
                 email: uniqueEmail,
                 password: "TestPassword123!",
@@ -44,7 +44,7 @@ describe("POST /v1/auth/sign-up", () => {
     it("rejects empty body", async () => {
         const response = await apiRequest({
             method: "POST",
-            path: "/v1/auth/sign-up",
+            path: "/auth/sign-up",
             body: {},
         })
         expect(response.status).toBe(400)
@@ -53,7 +53,7 @@ describe("POST /v1/auth/sign-up", () => {
     it("rejects missing email", async () => {
         const response = await apiRequest({
             method: "POST",
-            path: "/v1/auth/sign-up",
+            path: "/auth/sign-up",
             body: {
                 password: "TestPassword123!",
                 passwordCheck: "TestPassword123!",
@@ -65,9 +65,9 @@ describe("POST /v1/auth/sign-up", () => {
     it("rejects duplicate email (existing demo user)", async () => {
         const response = await apiRequest({
             method: "POST",
-            path: "/v1/auth/sign-up",
+            path: "/auth/sign-up",
             body: {
-                email: "demo@arrhes.com",
+                email: "demo@comptasse.com",
                 password: "SomePassword123!",
                 passwordCheck: "SomePassword123!",
             },

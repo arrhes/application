@@ -1,13 +1,16 @@
 import { DashboardContextProvider } from "../../../contexts/dashboard/DashboardContextProvider.js"
-import { TabsProvider } from "../../../contexts/tabs/tabsProvider.tsx"
+import { RightPanelContextProvider } from "../../../contexts/rightPanel/RightPanelContextProvider.js"
+import { SidebarContextProvider } from "../../../contexts/sidebar/SidebarContextProvider.js"
 import { DashboardShell } from "./DashboardShell.tsx"
 
 export function DashboardLayout() {
     return (
         <DashboardContextProvider>
-            <TabsProvider>
-                <DashboardShell />
-            </TabsProvider>
+            <SidebarContextProvider>
+                <RightPanelContextProvider>
+                    <DashboardShell />
+                </RightPanelContextProvider>
+            </SidebarContextProvider>
         </DashboardContextProvider>
     )
 }

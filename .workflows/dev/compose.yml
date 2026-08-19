@@ -1,12 +1,12 @@
 # ==============================================================================
-# Arrhes Application - Development Environment
+# Comptasse Application - Development Environment
 # ==============================================================================
 # Docker Compose configuration for local development
 #
 # Architecture:
 # - Full workspace: bind-mounted from host (including node_modules)
 # - Dependencies must be installed on the host (`pnpm install`)
-# - Infrastructure: PostgreSQL, RustFS (S3), Mailpit (SMTP)
+# - Infrastructure: PostgreSQL, RustFS (S3)
 # - Services: API, Website
 #
 # Usage:
@@ -22,7 +22,7 @@ services:
 
   # PostgreSQL - Relational database for application data
   postgres:
-    container_name: arrhes-postgres
+    container_name: comptasse-postgres
     image: postgres:18.1
     restart: unless-stopped
     environment:
@@ -34,7 +34,7 @@ services:
     networks:
       default:
         aliases:
-          - postgres.arrhes.localhost
+          - postgres.comptasse.localhost
     volumes:
       - postgres_data:/var/lib/postgresql
     healthcheck:
@@ -45,7 +45,7 @@ services:
 
   # RustFS - S3-compatible object storage for files
   rustfs:
-    container_name: arrhes-rustfs
+    container_name: comptasse-rustfs
     image: rustfs/rustfs:latest
     restart: unless-stopped
     environment:
@@ -59,49 +59,13 @@ services:
     networks:
       default:
         aliases:
-          - rustfs.arrhes.localhost
-          - storage.arrhes.localhost
+          - rustfs.comptasse.localhost
+          - storage.comptasse.localhost
     volumes:
       - rustfs_data:/data
     init: true
     healthcheck:
       test: ["CMD-SHELL", "wget --quiet --tries=1 --spider http://localhost:9000 2>&1 | grep -q '403 Forbidden' && exit 0 || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  # Mailpit - Development SMTP server with web interface
-  mailpit:
-    container_name: arrhes-mailpit
-    image: axllent/mailpit:latest
-    restart: unless-stopped
-    ports:
-      - "127.0.0.1:${MAILPIT_SMTP_HOST_PORT}:1025"
-      - "127.0.0.1:${MAILPIT_UI_HOST_PORT}:8025"
-    networks:
-      default:
-        aliases:
-          - mailpit.arrhes.localhost
-          - smtp.arrhes.localhost
-    healthcheck:
-      test: ["CMD-SHELL", "wget --quiet --tries=1 --spider http://localhost:8025 || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  # Redis - Message broker for worker job streaming (pub/sub) and Bull queue
-  redis:
-    container_name: arrhes-redis
-    image: redis:7-alpine
-    restart: unless-stopped
-    ports:
-      - "127.0.0.1:${REDIS_HOST_PORT}:6379"
-    networks:
-      default:
-        aliases:
-          - redis.arrhes.localhost
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -112,8 +76,8 @@ services:
 
   # API - Backend service (Hono framework on Node.js)
   api:
-    container_name: arrhes-api
-    image: arrhes-dev-api:latest
+    container_name: comptasse-api
+    image: comptasse-dev-api:latest
     build:
       context: ../..
       dockerfile: .workflows/dev/packages/api/Dockerfile
@@ -136,31 +100,19 @@ services:
       DASHBOARD_BASE_URL: "http://localhost:${DASHBOARD_HOST_PORT}"
       SQL_DATABASE_URL: "postgres://postgres:admin@localhost:${POSTGRES_HOST_PORT}/default"
       STORAGE_ENDPOINT: "http://localhost:${STORAGE_HOST_PORT}"
-      STORAGE_BUCKET_NAME: arrhes-files
+      STORAGE_BUCKET_NAME: comptasse-files
       STORAGE_ACCESS_KEY: rustfsadmin
       STORAGE_SECRET_KEY: rustfsadmin
-      EMAIL_ENDPOINT: "localhost:${MAILPIT_SMTP_HOST_PORT}"
-      EMAIL_USER: test
-      EMAIL_PASSWORD: test
+      OCR_API_KEY: ""
+      OCR_ENDPOINT: "https://api.mistral.ai/v1/ocr"
+      OCR_MODEL: "mistral-ocr-latest"
       MOLLIE_API_KEY: test_z8gjjnezmRNx7dretKbEr5vcCfADh9
-      INTERNAL_API_KEY: development-internal-api-key
-      # LLM environment (AI agent)
-      LLM_PROVIDER: mistral-api
-      LLM_BASE_URL: https://api.mistral.ai/v1
-      LLM_MODEL: mistral-small-2603
-      LLM_API_KEY: OwMSblegsAyAWd3AzCZbJkbaMQLCCj7y
-      # Redis environment
-      REDIS_URL: "redis://localhost:${REDIS_HOST_PORT}"
       # Tools environment (packages/tools) - used by migrate/seed
       NODE_ENV: development
     depends_on:
       postgres:
         condition: service_healthy
       rustfs:
-        condition: service_healthy
-      mailpit:
-        condition: service_healthy
-      redis:
         condition: service_healthy
     healthcheck:
       test: ["CMD-SHELL", "node -e \"require('http').get('http://localhost:' + process.env.PORT, r => process.exit(r.statusCode < 500 ? 0 : 1)).on('error', () => process.exit(1))\""]
@@ -171,8 +123,8 @@ services:
 
   # Website - Frontend interface (React + Vite)
   website:
-    container_name: arrhes-website
-    image: arrhes-dev-website:latest
+    container_name: comptasse-website
+    image: comptasse-dev-website:latest
     build:
       context: ../..
       dockerfile: .workflows/dev/packages/website/Dockerfile
@@ -182,23 +134,24 @@ services:
     networks:
       default:
         aliases:
-          - website.arrhes.localhost
+          - website.comptasse.localhost
     volumes:
       - ../..:/workspace:cached
     ports:
       - "127.0.0.1:${WEBSITE_HOST_PORT}:5173"
     environment:
-      # Vite reads VITE_* from .env files, not process.env.
-      # The entrypoint writes these to packages/website/.env at startup.
-      VITE_ENV: development
-      VITE_API_BASE_URL: "http://localhost:${API_HOST_PORT}"
-      VITE_WEBSITE_BASE_URL: "http://localhost:${WEBSITE_HOST_PORT}"
-      VITE_DASHBOARD_BASE_URL: "http://localhost:${DASHBOARD_HOST_PORT}"
+       # Vite reads VITE_* from process.env (injected directly by Compose).
+       VITE_ENV: development
+       VITE_API_BASE_URL: "http://localhost:${API_HOST_PORT}"
+       VITE_WEBSITE_BASE_URL: "http://localhost:${WEBSITE_HOST_PORT}"
+       VITE_DASHBOARD_BASE_URL: "http://localhost:${DASHBOARD_HOST_PORT}"
+       # Host path of the repository checkout (used by the served install.sh).
+       COMPTASSE_REPO_ROOT: "${COMPTASSE_REPO_ROOT:-}"
 
   # Dashboard - SPA dashboard interface (React + Vite)
   dashboard:
-    container_name: arrhes-dashboard
-    image: arrhes-dev-dashboard:latest
+    container_name: comptasse-dashboard
+    image: comptasse-dev-dashboard:latest
     build:
       context: ../..
       dockerfile: .workflows/dev/packages/dashboard/Dockerfile
@@ -208,57 +161,16 @@ services:
     networks:
       default:
         aliases:
-          - dashboard.arrhes.localhost
+          - dashboard.comptasse.localhost
     volumes:
       - ../..:/workspace:cached
     ports:
       - "127.0.0.1:${DASHBOARD_HOST_PORT}:5174"
     environment:
-      # Vite reads VITE_* from .env files, not process.env.
-      # The entrypoint writes these to packages/dashboard/.env at startup.
+      # Vite reads VITE_* from process.env (injected directly by Compose).
       VITE_ENV: development
       VITE_API_BASE_URL: "http://localhost:${API_HOST_PORT}"
       VITE_WEBSITE_BASE_URL: "http://localhost:${WEBSITE_HOST_PORT}"
-
-  # Worker - Background job processor (Bull queue + Redis pub/sub)
-  worker:
-    container_name: arrhes-worker
-    image: arrhes-dev-worker:latest
-    logging:
-      driver: json-file
-      options:
-        max-size: "50m"
-        max-file: "5"
-    build:
-      context: ../..
-      dockerfile: .workflows/dev/packages/worker/Dockerfile
-      args:
-        NODE_VERSION: "25.2.1"
-        PNPM_VERSION: "10.26.1"
-    network_mode: host
-    volumes:
-      - ../..:/workspace:cached
-    environment:
-      ENV: development
-      VERBOSE: "true"
-      SQL_DATABASE_URL: "postgres://postgres:admin@localhost:${POSTGRES_HOST_PORT}/default"
-      STORAGE_ENDPOINT: "http://localhost:${STORAGE_HOST_PORT}"
-      STORAGE_NAME: arrhes-files
-      STORAGE_ACCESS_KEY: rustfsadmin
-      STORAGE_SECRET_KEY: rustfsadmin
-      API_BASE_URL: "http://localhost:${API_HOST_PORT}"
-      INTERNAL_API_KEY: development-internal-api-key
-      REDIS_URL: "redis://localhost:${REDIS_HOST_PORT}"
-      # LLM environment (AI agent)
-      LLM_PROVIDER: mistral-api
-      LLM_BASE_URL: https://api.mistral.ai/v1
-      LLM_MODEL: mistral-small-2603
-      LLM_API_KEY: OwMSblegsAyAWd3AzCZbJkbaMQLCCj7y
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
 
 # ==============================================================================
 # Named Volumes (Persistent infrastructure data)

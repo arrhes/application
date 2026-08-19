@@ -15,12 +15,12 @@ beforeAll(async () => {
 })
 
 describe("Balance Sheets", () => {
-    describe("GET /v1/organizations/:idOrganization/years/:idYear/balance-sheets", () => {
+    describe("GET /organizations/:idOrganization/years/:idYear/balance-sheets", () => {
         it("returns all balance sheets for the year", async () => {
             const response = await authenticatedRequest({
                 session,
                 method: "GET",
-                path: `/v1/organizations/${idOrganization}/years/${idYear}/balance-sheets`,
+                path: `/organizations/${idOrganization}/years/${idYear}/balance-sheets`,
             })
             expect(response.status).toBe(200)
 
@@ -36,12 +36,12 @@ describe("Balance Sheets", () => {
 })
 
 describe("Income Statements", () => {
-    describe("GET /v1/organizations/:idOrganization/years/:idYear/income-statements", () => {
+    describe("GET /organizations/:idOrganization/years/:idYear/income-statements", () => {
         it("returns all income statements for the year", async () => {
             const response = await authenticatedRequest({
                 session,
                 method: "GET",
-                path: `/v1/organizations/${idOrganization}/years/${idYear}/income-statements`,
+                path: `/organizations/${idOrganization}/years/${idYear}/income-statements`,
             })
             expect(response.status).toBe(200)
 
@@ -57,12 +57,12 @@ describe("Income Statements", () => {
 })
 
 describe("Computations", () => {
-    describe("GET /v1/organizations/:idOrganization/years/:idYear/computations", () => {
+    describe("GET /organizations/:idOrganization/years/:idYear/computations", () => {
         it("returns all computations for the year", async () => {
             const response = await authenticatedRequest({
                 session,
                 method: "GET",
-                path: `/v1/organizations/${idOrganization}/years/${idYear}/computations`,
+                path: `/organizations/${idOrganization}/years/${idYear}/computations`,
             })
             expect(response.status).toBe(200)
 

@@ -1,5 +1,6 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconExternalLink } from "@tabler/icons-react"
+import { DocList } from "./DocList.js"
 
 interface Source {
     label: string
@@ -30,61 +31,48 @@ export function DocSources(props: { sources: Source[] }) {
             >
                 Sources
             </h3>
-            <ol
-                className={css({
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "0.375rem",
-                    listStyleType: "decimal",
-                    paddingLeft: "1.25rem",
-                })}
-            >
-                {props.sources.map((source, index) => (
-                    <li
+            <DocList
+                variant="ordered"
+                size="xs"
+                ids={props.sources.map((_, index) => `source-${index + 1}`)}
+                items={props.sources.map((source) => (
+                    <a
                         key={source.url}
-                        id={`source-${index + 1}`}
+                        href={source.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className={css({
-                            fontSize: "xs",
-                            color: "neutral/50",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "0.25rem",
                         })}
                     >
-                        <a
-                            href={source.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                        <span
                             className={css({
-                                display: "inline-flex",
-                                alignItems: "center",
-                                gap: "0.25rem",
+                                color: "neutral/50",
+                                textDecoration: "underline",
+                                textDecorationColor: "neutral/20",
+                                textUnderlineOffset: "2px",
+                                transition: "all 0.15s",
+                                _hover: {
+                                    color: "primary",
+                                    textDecorationColor: "primary/30",
+                                },
                             })}
                         >
-                            <span
-                                className={css({
-                                    color: "neutral/50",
-                                    textDecoration: "underline",
-                                    textDecorationColor: "neutral/20",
-                                    textUnderlineOffset: "2px",
-                                    transition: "all 0.15s",
-                                    _hover: {
-                                        color: "primary",
-                                        textDecorationColor: "primary/30",
-                                    },
-                                })}
-                            >
-                                {source.label}
-                            </span>
-                            <IconExternalLink
-                                className={css({
-                                    width: "0.75rem",
-                                    height: "0.75rem",
-                                    flexShrink: 0,
-                                    stroke: "neutral/50",
-                                })}
-                            />
-                        </a>
-                    </li>
+                            {source.label}
+                        </span>
+                        <IconExternalLink
+                            className={css({
+                                width: "0.75rem",
+                                height: "0.75rem",
+                                flexShrink: 0,
+                                stroke: "neutral/50",
+                            })}
+                        />
+                    </a>
                 ))}
-            </ol>
+            />
         </section>
     )
 }

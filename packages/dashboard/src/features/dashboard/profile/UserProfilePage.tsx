@@ -1,31 +1,36 @@
-import { readUserSessionRouteDefinition } from "@arrhes/application-metadata/routes"
-import { Button, ButtonOutlineContent } from "@arrhes/ui"
+import { readUserSessionRouteDefinition } from "@comptasse/application-metadata/routes"
+import { Button, ButtonOutlineContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconKey, IconMail, IconTrash } from "@tabler/icons-react"
+import { Block } from "../../../components/layouts/block/block.tsx"
 import { DataWrapper } from "../../../components/layouts/DataWrapper.tsx"
-import { Page } from "../../../components/layouts/page/page.js"
-import { SettingsSection } from "../../../components/layouts/settingsSection/settingsSection.tsx"
 import { DeleteUser } from "./DeleteUser.tsx"
 import { UpdateUserEmail } from "./UpdateUserEmail.tsx"
 import { UpdateUserPassword } from "./UpdateUserPassword.tsx"
-import { ValidateUserEmail } from "./ValidateUserEmail.tsx"
 
 export function UserProfilePage() {
     return (
-        <Page.Root>
-            <Page.Header>
-                <Page.Title>Mon compte</Page.Title>
-                <Page.Description>Modifiez votre adresse email ou votre mot de passe.</Page.Description>
-            </Page.Header>
-            <Page.Content>
+        <div
+            className={css({
+                width: "100%",
+                flex: "1",
+                minHeight: "0",
+                overflowY: "auto",
+                display: "flex",
+                flexDirection: "column",
+                gap: "1rem",
+                padding: "1.5rem",
+            })}
+        >
                 <DataWrapper
                     routeDefinition={readUserSessionRouteDefinition}
                     body={{}}
                 >
                     {(userSession) => (
-                        <>
-                            <SettingsSection.Root>
-                                <SettingsSection.Header title="Informations du compte" />
-                                <SettingsSection.Row
+                        <div className={css({ display: "flex", flexDirection: "column", gap: "1.5rem" })}>
+                            <Block.Root>
+                                <Block.Header title="Informations du compte" />
+                                <Block.Row
                                     title="Adresse email"
                                     description={userSession.user.email}
                                 >
@@ -37,13 +42,14 @@ export function UserProfilePage() {
                                             />
                                         </Button>
                                     </UpdateUserEmail>
-                                </SettingsSection.Row>
-                                {userSession.user.emailToValidate && (
-                                    <ValidateUserEmail emailToValidate={userSession.user.emailToValidate} />
-                                )}
-                                <SettingsSection.Row
-                                    title="Mot de passe"
-                                    description="Modifiez le mot de passe de votre compte."
+                                </Block.Row>
+                            </Block.Root>
+
+                            <Block.Root>
+                                <Block.Header title="Mot de passe" />
+                                <Block.Row
+                                    title="Modifier le mot de passe"
+                                    description="Mettez à jour le mot de passe de votre compte."
                                 >
                                     <UpdateUserPassword>
                                         <Button>
@@ -53,14 +59,12 @@ export function UserProfilePage() {
                                             />
                                         </Button>
                                     </UpdateUserPassword>
-                                </SettingsSection.Row>
-                            </SettingsSection.Root>
-                            <SettingsSection.Root variant="danger">
-                                <SettingsSection.Header
-                                    title="Zone de danger"
-                                    variant="danger"
-                                />
-                                <SettingsSection.Row
+                                </Block.Row>
+                            </Block.Root>
+
+                            <Block.Root variant="danger">
+                                <Block.Header title="Zone de danger" variant="danger" />
+                                <Block.Row
                                     title="Supprimer le compte"
                                     description="Cette action est irréversible. Toutes vos données seront supprimées."
                                     variant="danger"
@@ -74,12 +78,11 @@ export function UserProfilePage() {
                                             />
                                         </Button>
                                     </DeleteUser>
-                                </SettingsSection.Row>
-                            </SettingsSection.Root>
-                        </>
+                                </Block.Row>
+                            </Block.Root>
+                        </div>
                     )}
                 </DataWrapper>
-            </Page.Content>
-        </Page.Root>
+        </div>
     )
 }

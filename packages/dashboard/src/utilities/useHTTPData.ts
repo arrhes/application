@@ -1,8 +1,9 @@
-import type { routeDefinition } from "@arrhes/application-metadata/utilities"
+import type { routeDefinition } from "@comptasse/application-metadata/utilities"
 import { useQuery } from "@tanstack/react-query"
 import type * as v from "valibot"
 import { ClientError } from "./clientError.js"
 import { getResponseBodyFromAPI } from "./getResponseBodyFromAPI.js"
+import { buildQueryKey } from "./queryKey.js"
 
 export function useDataFromAPI<
     TSchemaBody extends v.ObjectSchema<v.ObjectEntries, undefined>,
@@ -19,11 +20,11 @@ export function useDataFromAPI<
     select?: (data: v.InferOutput<TSchemaReturn>) => TSelected
 }) {
     return useQuery({
-        queryKey: [
-            parameters.routeDefinition.path,
+        queryKey: buildQueryKey(
+            parameters.routeDefinition,
+            parameters.body as Record<string, unknown>,
             parameters.params,
-            parameters.body,
-        ],
+        ),
         queryFn: async (context) => {
             const response = await getResponseBodyFromAPI({
                 routeDefinition: parameters.routeDefinition,

@@ -1,55 +1,44 @@
 # ==============================================================================
-# Build Compose
+# Comptasse Build Compose
 # ==============================================================================
-# Single source of truth for building all images.
-# Used by both local builds (`just build`) and CI (GitHub Actions).
-#
-# Services:
-#   ci        - Lint + unit tests + build (gate before packaging)
-#   api       - Production API image
-#   website   - Production Website image (nginx + static)
-#   dashboard - Production Dashboard image (nginx + SPA)
-#   worker    - Production Worker image (background job processor)
+# Builds the all-in-one Docker image containing API + Dashboard + CLI.
 #
 # Usage:
-#   docker compose -f .workflows/build/compose.yml build ci
-#   docker compose -f .workflows/build/compose.yml build api website worker
+#   docker compose -f .workflows/build/compose.yml build
+#   docker compose -f .workflows/build/compose.yml up -d
+#
+# Required environment variables:
+#   SQL_DATABASE_URL      - PostgreSQL connection string
+#   STORAGE_ENDPOINT      - S3-compatible storage endpoint
+#   STORAGE_BUCKET_NAME   - Storage bucket name
+#   STORAGE_ACCESS_KEY    - Storage access key
+#   STORAGE_SECRET_KEY    - Storage secret key
 # ==============================================================================
 
 services:
-  ci:
+  comptasse:
+    image: comptasse/comptasse:${COMPTASSE_VERSION:-dev}
     build:
       context: ../..
-      dockerfile: .workflows/build/packages/ci/Dockerfile
+      dockerfile: .workflows/build/Dockerfile
+    ports:
+      - "${API_PORT:-3000}:3000"
+      - "${DASHBOARD_PORT:-5173}:5173"
+    volumes:
+      - comptasse-data:/data
+    environment:
+      SQL_DATABASE_URL: ${SQL_DATABASE_URL:-postgres://postgres:password@postgres:5432/comptasse}
+      STORAGE_ENDPOINT: ${STORAGE_ENDPOINT:-http://rustfs:9000}
+      STORAGE_BUCKET_NAME: ${STORAGE_BUCKET_NAME:-comptasse-files}
+      STORAGE_ACCESS_KEY: ${STORAGE_ACCESS_KEY:-placeholder}
+      STORAGE_SECRET_KEY: ${STORAGE_SECRET_KEY:-placeholder}
+      STORAGE_REGION: ${STORAGE_REGION:-fr-par}
+      COOKIES_KEY: ${COOKIES_KEY:-}
+      COOKIES_DOMAIN: ${COOKIES_DOMAIN:-localhost}
+      CORS_ORIGIN: ${CORS_ORIGIN:-*}
+      API_BASE_URL: ${API_BASE_URL:-http://localhost:3000}
+      WEBSITE_BASE_URL: ${WEBSITE_BASE_URL:-http://localhost:5173}
+      DASHBOARD_BASE_URL: ${DASHBOARD_BASE_URL:-http://localhost:5173}
 
-  api:
-    image: arrhes-api:${ARRHES_VERSION:-dev}
-    build:
-      context: ../..
-      dockerfile: .workflows/build/packages/api/Dockerfile
-
-  website:
-    image: arrhes-website:${ARRHES_VERSION:-dev}
-    build:
-      context: ../..
-      dockerfile: .workflows/build/packages/website/Dockerfile
-      args:
-        - VITE_WEBSITE_BASE_URL=${VITE_WEBSITE_BASE_URL:-}
-        - VITE_API_BASE_URL=${VITE_API_BASE_URL:-}
-        - VITE_DASHBOARD_BASE_URL=${VITE_DASHBOARD_BASE_URL:-}
-
-  dashboard:
-    image: arrhes-dashboard:${ARRHES_VERSION:-dev}
-    build:
-      context: ../..
-      dockerfile: .workflows/build/packages/dashboard/Dockerfile
-      args:
-        - VITE_API_BASE_URL=${VITE_API_BASE_URL:-}
-        - VITE_WEBSITE_BASE_URL=${VITE_WEBSITE_BASE_URL:-}
-
-
-  worker:
-    image: arrhes-worker:${ARRHES_VERSION:-dev}
-    build:
-      context: ../..
-      dockerfile: .workflows/build/packages/worker/Dockerfile
+volumes:
+  comptasse-data:

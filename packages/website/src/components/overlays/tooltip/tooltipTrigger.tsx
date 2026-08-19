@@ -1,1 +1,1 @@
-export { TooltipTrigger } from "@arrhes/ui"
+export { TooltipTrigger } from "@comptasse/ui"

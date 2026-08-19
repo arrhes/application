@@ -1,10 +1,12 @@
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { FormatNull } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { FormatNull } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { Fragment } from "react/jsx-runtime"
+import { useMemo } from "react"
 import type * as v from "valibot"
 import { Table } from "../../../../../../components/layouts/table/table.tsx"
 import { getBalanceSheetChildren } from "../../../yearSettings/balanceSheets/getBalanceSheetChildren.tsx"
+import { getAccountTotals } from "../../getAccountTotals.ts"
 import { BalanceSheetAssetsReportItem } from "./BalanceSheetAssetsReportItem.tsx"
 import { BalanceSheetAssetsReportRow } from "./BalanceSheetAssetsReportRow.tsx"
 
@@ -13,18 +15,14 @@ export function BalanceSheetAssetsReportTable(props: {
     entryLines: Array<v.InferOutput<typeof returnedSchemas.entryLine>>
     accounts: Array<v.InferOutput<typeof returnedSchemas.account>>
 }) {
+    const accountTotals = useMemo(() => getAccountTotals(props.entryLines), [props.entryLines])
+
     let grossTotalAmount = 0
     let amortizationTotalAmount = 0
     props.accounts.forEach((account) => {
-        let accountTotalDebit = 0
-        let accountTotalCredit = 0
-
-        props.entryLines
-            .filter((entryLine) => entryLine.idAccount === account.id)
-            .forEach((entryLine) => {
-                accountTotalDebit += Number(entryLine.debit)
-                accountTotalCredit += Number(entryLine.credit)
-            })
+        const totals = accountTotals.get(account.id)
+        const accountTotalDebit = totals?.totalDebit ?? 0
+        const accountTotalCredit = totals?.totalCredit ?? 0
 
         const accountBalance = accountTotalDebit - accountTotalCredit
 
@@ -148,7 +146,7 @@ export function BalanceSheetAssetsReportTable(props: {
                                             idOrganization={balanceSheet.idOrganization}
                                             idYear={balanceSheet.idYear}
                                             accounts={props.accounts}
-                                            entryLines={props.entryLines}
+                                            accountTotals={accountTotals}
                                             balanceSheet={balanceSheet}
                                             balanceSheetChildren={balanceSheetChildren}
                                             level={0}

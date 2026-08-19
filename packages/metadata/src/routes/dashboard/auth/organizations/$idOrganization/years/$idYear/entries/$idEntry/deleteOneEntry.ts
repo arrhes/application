@@ -7,6 +7,7 @@ export const deleteOneEntryRouteDefinition = routeDefinition({
     protocol: "http",
     method: "DELETE",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/entries/:idEntry`,
+    name: "delete-one-entry",
     schemas: {
         body: v.object({
             idEntry: entrySchema.entries.id,

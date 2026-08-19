@@ -3,10 +3,9 @@ import {
     type readAllEntriesRouteDefinition,
     type readAllEntryLinesRouteDefinition,
     readAllJournalsRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { formatDate, formatPrice, InputDate, toast } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+} from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { formatDate, formatPrice, InputDate, toast } from "@comptasse/ui"
 import { IconDownload } from "@tabler/icons-react"
 import { useMemo } from "react"
 import * as v from "valibot"
@@ -18,15 +17,23 @@ import { FormItem } from "../../../../components/forms/FormItem.js"
 import { FormLabel } from "../../../../components/forms/FormLabel.js"
 import { FormRoot } from "../../../../components/forms/FormRoot.js"
 import { InputDataCombobox } from "../../../../components/InputDataCombobox.js"
+import { useRightPanel } from "../../../../contexts/rightPanel/RightPanelContext.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
+
+function escapeCsvValue(value: string): string {
+    if (value.includes(";") || value.includes('"') || value.includes("\n")) {
+        return `"${value.replace(/"/g, '""')}"`
+    }
+    return value
+}
 
 export function ExportEntryLines(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
     idYear: v.InferOutput<typeof returnedSchemas.year>["id"]
     entries: v.InferOutput<typeof readAllEntriesRouteDefinition.schemas.return>
     entryLines: v.InferOutput<typeof readAllEntryLinesRouteDefinition.schemas.return>
-    onClose: () => void
 }) {
+    const { closePanel } = useRightPanel()
     const entriesMap = useMemo(() => {
         return new Map(
             props.entries.map((r) => [
@@ -38,20 +45,8 @@ export function ExportEntryLines(props: {
         props.entries,
     ])
 
-    function escapeCsvValue(value: string): string {
-        if (value.includes(";") || value.includes('"') || value.includes("\n")) {
-            return `"${value.replace(/"/g, '""')}"`
-        }
-        return value
-    }
-
     return (
-        <div
-            className={css({
-                padding: "2rem",
-            })}
-        >
-            <FormRoot
+        <FormRoot
                 schema={v.object({
                     idJournal: v.nullable(v.pipe(v.string())),
                     idAccount: v.nullable(v.pipe(v.string())),
@@ -89,18 +84,20 @@ export function ExportEntryLines(props: {
                         return false
                     }
 
-                    const accountsResponse = await getResponseBodyFromAPI({
-                        routeDefinition: readAllAccountsRouteDefinition,
-                        body: {
-                            idYear: props.idYear,
-                        },
-                    })
-                    const journalsResponse = await getResponseBodyFromAPI({
-                        routeDefinition: readAllJournalsRouteDefinition,
-                        body: {
-                            idYear: props.idYear,
-                        },
-                    })
+                    const [accountsResponse, journalsResponse] = await Promise.all([
+                        getResponseBodyFromAPI({
+                            routeDefinition: readAllAccountsRouteDefinition,
+                            body: {
+                                idYear: props.idYear,
+                            },
+                        }),
+                        getResponseBodyFromAPI({
+                            routeDefinition: readAllJournalsRouteDefinition,
+                            body: {
+                                idYear: props.idYear,
+                            },
+                        }),
+                    ])
 
                     if (!accountsResponse.ok || !journalsResponse.ok) {
                         toast({
@@ -196,7 +193,7 @@ export function ExportEntryLines(props: {
                 }}
                 onCancel={undefined}
                 onSuccess={async () => {
-                    props.onClose()
+                    closePanel()
                 }}
             >
                 {(form) => (
@@ -306,6 +303,5 @@ export function ExportEntryLines(props: {
                     </FormGroup>
                 )}
             </FormRoot>
-        </div>
     )
 }

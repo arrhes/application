@@ -11,7 +11,7 @@ export const updateUserEmailRouteDefinition = routeDefinition({
     schemas: {
         body: v.object({
             currentPassword: v.nonNullable(stringSchema, "Le mot de passe doit être renseigné"),
-            emailToValidate: v.nonNullable(userSchema.entries.emailToValidate, "L'email doit être renseigné"),
+            email: v.nonNullable(userSchema.entries.email, "L'email doit être renseigné"),
         }),
         return: userSchemaReturn,
     },

@@ -1,14 +1,22 @@
-import type { readUserSessionRouteDefinition } from "@arrhes/application-metadata/routes"
-import { CircularLoader } from "@arrhes/ui"
+import type { readUserSessionRouteDefinition } from "@comptasse/application-metadata/routes"
+import { CircularLoader } from "@comptasse/ui"
 import { createRootRouteWithContext, useRouterState } from "@tanstack/react-router"
 import { Fragment } from "react/jsx-runtime"
 import type * as v from "valibot"
 import { RootLayout } from "../features/RootLayout.js"
+import { SidebarContextProvider } from "../contexts/sidebar/SidebarContextProvider.tsx"
 
 const DEFAULT_DESCRIPTION =
     "Logiciel de comptabilité open source pour les entreprises et associations françaises. Gérez vos écritures, comptes et documents comptables simplement."
-const SITE_NAME = "Arrhes"
-const BASE_URL = "https://arrhes.com"
+const SITE_NAME = "Comptasse"
+const BASE_URL = "https://comptasse.com"
+
+function escapeJsonLd(value: unknown): string {
+    return JSON.stringify(value)
+        .replace(/</g, "\\u003c")
+        .replace(/>/g, "\\u003e")
+        .replace(/&/g, "\\u0026")
+}
 
 const organizationJsonLd = {
     "@context": "https://schema.org",
@@ -81,10 +89,19 @@ export const rootLayoutRoute = createRootRouteWithContext<{
     section: string | undefined
     description: string | undefined
     robots: string | undefined
-    isAuthenticated: boolean | undefined
-    userSession: Promise<v.InferOutput<typeof readUserSessionRouteDefinition.schemas.return> | undefined> | undefined
 }>()({
-    pendingComponent: () => <CircularLoader text="Chargement de l'application..." />,
+    errorComponent: ({ error }) => (
+        <div
+            style={{
+                padding: "2rem",
+                fontFamily: "monospace",
+            }}
+        >
+            <h2>Erreur</h2>
+            <pre>{error?.message ?? String(error)}</pre>
+        </div>
+    ),
+    pendingComponent: () => <CircularLoader />,
     beforeLoad: (_ctx) => {},
     component: function RootLayoutRouteComponent() {
         const matches = useRouterState({
@@ -139,12 +156,6 @@ export const rootLayoutRoute = createRootRouteWithContext<{
                   applicationCategory: "BusinessApplication",
                   operatingSystem: "Web",
                   description: DEFAULT_DESCRIPTION,
-                  offers: {
-                      "@type": "Offer",
-                      price: "0",
-                      priceCurrency: "EUR",
-                      description: "Plan basique gratuit",
-                  },
               }
             : null
 
@@ -201,6 +212,10 @@ export const rootLayoutRoute = createRootRouteWithContext<{
                     content="summary"
                 />
                 <meta
+                    name="twitter:site"
+                    content="@comptasse"
+                />
+                <meta
                     name="twitter:title"
                     content={title}
                 />
@@ -213,14 +228,14 @@ export const rootLayoutRoute = createRootRouteWithContext<{
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{
-                        __html: JSON.stringify(organizationJsonLd),
+                        __html: escapeJsonLd(organizationJsonLd),
                     }}
                 />
                 {websiteJsonLd && (
                     <script
                         type="application/ld+json"
                         dangerouslySetInnerHTML={{
-                            __html: JSON.stringify(websiteJsonLd),
+                            __html: escapeJsonLd(websiteJsonLd),
                         }}
                     />
                 )}
@@ -228,7 +243,7 @@ export const rootLayoutRoute = createRootRouteWithContext<{
                     <script
                         type="application/ld+json"
                         dangerouslySetInnerHTML={{
-                            __html: JSON.stringify(softwareJsonLd),
+                            __html: escapeJsonLd(softwareJsonLd),
                         }}
                     />
                 )}
@@ -236,12 +251,14 @@ export const rootLayoutRoute = createRootRouteWithContext<{
                     <script
                         type="application/ld+json"
                         dangerouslySetInnerHTML={{
-                            __html: JSON.stringify(breadcrumbJsonLd),
+                            __html: escapeJsonLd(breadcrumbJsonLd),
                         }}
                     />
                 )}
 
-                <RootLayout />
+                <SidebarContextProvider>
+                    <RootLayout />
+                </SidebarContextProvider>
             </Fragment>
         )
     },

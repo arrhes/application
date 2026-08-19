@@ -1,11 +1,10 @@
 import { createHash } from "node:crypto"
-import { generateId, models } from "@arrhes/application-metadata"
+import { generateId, models } from "@comptasse/application-metadata"
 import { and, eq, sql } from "drizzle-orm"
 import { Exception } from "../exception.js"
 import type { getClients } from "../getClients.js"
 import type { getEnv } from "../getEnv.js"
 import { insertOne } from "../sql/insertOne.js"
-import { selectOne } from "../sql/selectOne.js"
 import { updateOne } from "../sql/updateOne.js"
 import { getObject } from "../storage/getObject.js"
 import { putObject } from "../storage/putObject.js"
@@ -24,7 +23,6 @@ interface ProcessOcrParams {
         clients: Awaited<ReturnType<typeof getClients>>
     }
     idOrganization: string
-    idYear: string
     idUser: string
     sourceFile: {
         id: string
@@ -56,6 +54,18 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
         })
     }
 
+    const ocrApiKey = params.var.env.OCR_API_KEY
+    if (!ocrApiKey) {
+        throw new Exception({
+            internalMessage: "OCR API key is not configured",
+            statusCode: 400,
+            externalMessage: "L'OCR n'est pas configurée (clé API manquante)",
+        })
+    }
+
+    const ocrEndpoint = params.var.env.OCR_ENDPOINT
+    const ocrModel = params.var.env.OCR_MODEL
+
     const mimeType = sourceFile.type ?? "application/octet-stream"
     const isImage = mimeType.startsWith("image/")
     const isPdf = mimeType === "application/pdf"
@@ -67,12 +77,6 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
             externalMessage: "Le format du fichier n'est pas compatible avec l'OCR (image ou PDF uniquement)",
         })
     }
-
-    const organization = await selectOne({
-        database: params.var.clients.sql,
-        table: models.organization,
-        where: (table) => eq(table.id, idOrganization),
-    })
 
     console.log(`[processOcr] Downloading file from S3 (storageKey=${sourceFile.storageKey})`)
     const storageResponse = await getObject({
@@ -93,15 +97,6 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
     const base64Content = Buffer.from(fileBytes).toString("base64")
     const dataUri = `data:${mimeType};base64,${base64Content}`
 
-    const mistralApiKey = params.var.env.LLM_API_KEY
-    if (!mistralApiKey) {
-        throw new Exception({
-            internalMessage: "LLM_API_KEY is not configured",
-            statusCode: 500,
-            externalMessage: "La clé API Mistral n'est pas configurée",
-        })
-    }
-
     const document = isImage
         ? {
               type: "image_url" as const,
@@ -112,15 +107,15 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
               document_url: dataUri,
           }
 
-    console.log(`[processOcr] Sending to Mistral OCR API (document type: ${document.type})`)
-    const ocrResponse = await fetch("https://api.mistral.ai/v1/ocr", {
+    console.log(`[processOcr] Sending to OCR API (document type: ${document.type}, endpoint: ${ocrEndpoint})`)
+    const ocrResponse = await fetch(ocrEndpoint, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${mistralApiKey}`,
+            Authorization: `Bearer ${ocrApiKey}`,
         },
         body: JSON.stringify({
-            model: "mistral-ocr-latest",
+            model: ocrModel,
             document,
         }),
     })
@@ -128,7 +123,7 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
     if (!ocrResponse.ok) {
         const errorText = await ocrResponse.text().catch(() => "")
         throw new Exception({
-            internalMessage: `Mistral OCR error: ${ocrResponse.status} ${errorText}`,
+            internalMessage: `OCR error: ${ocrResponse.status} ${errorText}`,
             statusCode: 500,
             externalMessage: "Erreur lors de l'extraction de texte",
         })
@@ -141,27 +136,19 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
     }
 
     const extractedPagesCount = ocrResult.pages?.length ?? 0
-    console.log(`[processOcr] Mistral OCR returned ${extractedPagesCount} pages`)
+    console.log(`[processOcr] OCR returned ${extractedPagesCount} pages`)
     if (extractedPagesCount <= 0) {
         throw new Exception({
-            internalMessage: "Mistral OCR returned no pages",
+            internalMessage: "OCR returned no pages",
             statusCode: 500,
             externalMessage: "L'extraction OCR n'a retourné aucune page",
-        })
-    }
-
-    if (extractedPagesCount > organization.ocrPagesTotalAvailable) {
-        throw new Exception({
-            statusCode: 429,
-            internalMessage: "OCR balance exhausted",
-            externalMessage: "Le solde de pages OCR de votre organisation est insuffisant",
         })
     }
 
     const markdownContent = ocrResult.pages?.map((p) => p.markdown).join("\n\n---\n\n")
     if (!markdownContent) {
         throw new Exception({
-            internalMessage: "Mistral OCR returned no content",
+            internalMessage: "OCR returned no content",
             statusCode: 500,
             externalMessage: "L'extraction de texte n'a retourné aucun résultat",
         })
@@ -180,17 +167,6 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
 
     if (existingOcrFiles.length > 0 && existingOcrFiles[0]) {
         console.log(`[processOcr] OCR file already exists (hash=${ocrHash}), reusing file id=${existingOcrFiles[0].id}`)
-
-        // Still update the OCR page usage counter
-        await updateOne({
-            database: params.var.clients.sql,
-            table: models.organization,
-            data: {
-                ocrPagesTotalAvailable: organization.ocrPagesTotalAvailable - extractedPagesCount,
-                ocrPagesTotalUsed: organization.ocrPagesTotalUsed + extractedPagesCount,
-            },
-            where: (table) => eq(table.id, idOrganization),
-        })
 
         return {
             ocrFile: existingOcrFiles[0],
@@ -239,8 +215,6 @@ export async function processOcr(params: ProcessOcrParams): Promise<ProcessOcrRe
         table: models.organization,
         data: {
             storageCurrentUsage: sql`${models.organization.storageCurrentUsage} + ${markdownBuffer.length}`,
-            ocrPagesTotalAvailable: organization.ocrPagesTotalAvailable - extractedPagesCount,
-            ocrPagesTotalUsed: organization.ocrPagesTotalUsed + extractedPagesCount,
         },
         where: (table) => eq(table.id, idOrganization),
     })

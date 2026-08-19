@@ -1,4 +1,4 @@
-import { readUserSessionRouteDefinition } from "@arrhes/application-metadata"
+import { readUserSessionRouteDefinition } from "@comptasse/application-metadata"
 import { requireCookieSessionMiddleware } from "../../../middlewares/requireCookieSessionMiddleware.js"
 import { registerRoute } from "../../../utilities/registerRoute.js"
 import { response } from "../../../utilities/response.js"

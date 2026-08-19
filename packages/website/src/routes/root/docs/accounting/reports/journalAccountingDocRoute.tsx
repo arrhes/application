@@ -1,5 +1,8 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { DocRoot } from "../../../../../components/document/DocRoot"
 import { reportsAccountingDocLayoutRoute } from "./reportsAccountingDocLayoutRoute.js"
+import { JournalAccountingDocPage } from "../../../../../features/docs/accounting/reports/JournalAccountingDocPage.js"
+
 
 export const journalAccountingDocRoute = createRoute({
     getParentRoute: () => reportsAccountingDocLayoutRoute,
@@ -9,8 +12,9 @@ export const journalAccountingDocRoute = createRoute({
         description:
             "Le journal comptable : document chronologique enregistrant toutes les opérations comptables de l'entreprise.",
     }),
-    component: lazyRouteComponent(
-        () => import("../../../../../features/docs/accounting/reports/JournalAccountingDocPage.tsx"),
-        "JournalAccountingDocPage",
+    component: () => (
+        <DocRoot>
+            <JournalAccountingDocPage />
+        </DocRoot>
     ),
 })

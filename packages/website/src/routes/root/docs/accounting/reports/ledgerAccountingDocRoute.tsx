@@ -1,5 +1,8 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { DocRoot } from "../../../../../components/document/DocRoot"
 import { reportsAccountingDocLayoutRoute } from "./reportsAccountingDocLayoutRoute.js"
+import { LedgerAccountingDocPage } from "../../../../../features/docs/accounting/reports/LedgerAccountingDocPage.js"
+
 
 export const ledgerAccountingDocRoute = createRoute({
     getParentRoute: () => reportsAccountingDocLayoutRoute,
@@ -9,8 +12,9 @@ export const ledgerAccountingDocRoute = createRoute({
         description:
             "Le grand livre comptable : regroupement de toutes les écritures par compte, outil essentiel de suivi comptable.",
     }),
-    component: lazyRouteComponent(
-        () => import("../../../../../features/docs/accounting/reports/LedgerAccountingDocPage.tsx"),
-        "LedgerAccountingDocPage",
+    component: () => (
+        <DocRoot>
+            <LedgerAccountingDocPage />
+        </DocRoot>
     ),
 })

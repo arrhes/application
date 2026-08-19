@@ -1,4 +1,4 @@
-import { models, updateOneOrganizationRouteDefinition } from "@arrhes/application-metadata"
+import { models, updateOneOrganizationRouteDefinition } from "@comptasse/application-metadata"
 import { and, eq } from "drizzle-orm"
 import { checkAuthMiddleware } from "../../../../../middlewares/checkAuthMiddleware.js"
 import { requireOrganizationMiddleware } from "../../../../../middlewares/requireOrganizationMiddleware.js"
@@ -40,9 +40,7 @@ export const updateOneOrganizationRoute = apiFactory
             database: c.var.clients.sql,
             table: models.organization,
             data: {
-                siren: body.siren,
                 name: body.name,
-                email: body.email,
                 lastUpdatedAt: new Date().toISOString(),
                 lastUpdatedBy: auth.user.id,
             },

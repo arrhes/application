@@ -63,18 +63,6 @@ export function renderButtonContent(
             {props.children}
 
             {props.rightIcon && (
-                <div
-                    className={css({
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                    })}
-                >
-                    {isLoading ? (
-                        <div className={css(classes.rightIcon)}>
-                            <CircularLoader size={16 - 4} />
-                        </div>
-                    ) : (
                         cloneElement(props.rightIcon, {
                             "aria-disabled": isDisabled,
                             size: 16 - 4,
@@ -86,8 +74,6 @@ export function renderButtonContent(
                             strokeWidth: 1.75,
                         })
                     )}
-                </div>
-            )}
         </div>
     )
 }

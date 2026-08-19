@@ -1,6 +1,6 @@
 # Guide de developpement
 
-Ce document vous guidera pour installer, configurer et developper Arrhes sur votre machine locale.
+Ce document vous guidera pour installer, configurer et developper Comptasse sur votre machine locale.
 
 ## Table des matieres
 
@@ -18,7 +18,7 @@ Ce document vous guidera pour installer, configurer et developper Arrhes sur vot
 
 ## Choix de l'environnement
 
-Vous avez deux options pour developper Arrhes :
+Vous avez deux options pour developper Comptasse :
 
 ### Option 1 : Developpement avec Docker Compose (Recommande)
 
@@ -46,7 +46,7 @@ Vous avez deux options pour developper Arrhes :
 - Node.js 25+
 - pnpm
 - PostgreSQL installe localement
-- Optionnellement Docker pour RustFS et Mailpit
+- Optionnellement Docker pour RustFS
 
 **Ideal pour :** Developpeurs experimentes, personnalisation avancee
 
@@ -81,7 +81,7 @@ Vous avez deux options pour developper Arrhes :
   docker compose version
   ```
 
-C'est tout ! PostgreSQL, RustFS et Mailpit seront lances automatiquement dans des containers.
+C'est tout ! PostgreSQL, RustFS seront lances automatiquement dans des containers.
 
 ### Option 2 : Developpement natif
 
@@ -108,15 +108,15 @@ C'est tout ! PostgreSQL, RustFS et Mailpit seront lances automatiquement dans de
   **Windows :**
   Telecharger depuis https://www.postgresql.org/download/windows/
 
-- **Docker** (optionnel, pour RustFS et Mailpit) : https://www.docker.com/get-started
-- Ou configurez des services S3 et SMTP alternatifs
+- **Docker** (optionnel, pour RustFS) : https://www.docker.com/get-started
+- Ou configurez des services S3 alternatifs
 
 ## Installation
 
 ### Etape 1 : Cloner le repository
 
 ```bash
-git clone https://github.com/arrhes/application.git
+git clone https://github.com/comptasse/application.git
 cd application
 ```
 
@@ -156,56 +156,20 @@ Les services seront disponibles sur :
 - **PostgreSQL** : `localhost:5432` (user: `postgres`, password: `admin`, database: `default`)
 - **RustFS API** : `localhost:9000`
 - **RustFS Console** : http://localhost:9001 (credentials: `rustfsadmin` / `rustfsadmin`)
-- **Mailpit SMTP** : `localhost:1025`
-- **Mailpit Web** : http://localhost:8025
 
 #### 2. Creer le bucket RustFS
 
 Accedez a la console RustFS : http://localhost:9001
 - Credentials : `rustfsadmin` / `rustfsadmin`
-- Creez un bucket nomme `arrhes-files`
+- Creez un bucket nomme `comptasse-files`
 
-#### 3. Creer les fichiers de configuration
+#### 3. Variables d'environnement
 
-**`packages/api/.env` :**
+Aucun fichier `.env` n'est necessaire : toutes les variables d'environnement sont injectees directement par le fichier `docker-compose`. Les valeurs par defaut developpement sont definies dans `.workflows/dev/compose.yml`.
 
-```env
-# Environnement
-ENV=development
-VERBOSE=true
-PORT=3000
+**`packages/tools` :**
 
-# CORS et Cookies
-CORS_ORIGIN=http://localhost:5173
-COOKIES_DOMAIN=localhost
-COOKIES_KEY=development-secret-key-change-in-production-min-32-chars
-
-# URLs
-API_BASE_URL=http://localhost:3000
-WEBSITE_BASE_URL=http://localhost:5173
-
-# Base de donnees (Docker Compose)
-SQL_DATABASE_URL=postgres://postgres:admin@localhost:5432/default
-
-# Stockage RustFS (Docker Compose)
-STORAGE_ENDPOINT=http://localhost:9000
-STORAGE_BUCKET_NAME=arrhes-files
-STORAGE_ACCESS_KEY=rustfsadmin
-STORAGE_SECRET_KEY=rustfsadmin
-
-# Email Mailpit (Docker Compose)
-EMAIL_ENDPOINT=localhost:1025
-EMAIL_USER=test
-EMAIL_PASSWORD=test
-```
-
-**`packages/tools/.env` :**
-
-```env
-DATABASE_URL=postgres://postgres:admin@localhost:5432/default
-```
-
----
+La connexion a la base de donnees est fournie via `SQL_DATABASE_URL` (injectee par Compose).
 
 ### Option 2 : Configuration native
 
@@ -216,9 +180,9 @@ DATABASE_URL=postgres://postgres:admin@localhost:5432/default
 sudo -u postgres psql
 
 # Dans le shell PostgreSQL :
-CREATE USER arrhes_user WITH PASSWORD 'arrhes_password';
-CREATE DATABASE arrhes OWNER arrhes_user;
-GRANT ALL PRIVILEGES ON DATABASE arrhes TO arrhes_user;
+CREATE USER comptasse_user WITH PASSWORD 'comptasse_password';
+CREATE DATABASE comptasse OWNER comptasse_user;
+GRANT ALL PRIVILEGES ON DATABASE comptasse TO comptasse_user;
 \q
 ```
 
@@ -240,21 +204,12 @@ docker run -d \
   rustfs/rustfs:latest
 
 # Acceder a la web UI : http://localhost:9001
-# Creer un bucket nomme "arrhes-files"
+# Creer un bucket nomme "comptasse-files"
 ```
 
-**Mailpit (Test d'emails) :**
+#### 3. Variables d'environnement
 
-```bash
-# Lancer Mailpit avec Docker
-docker run -d -p 1025:1025 -p 8025:8025 axllent/mailpit
-
-# Interface web : http://localhost:8025
-```
-
-#### 3. Creer les fichiers de configuration
-
-Utilisez les memes fichiers `.env` que dans l'Option 1, en ajustant les credentials PostgreSQL selon votre configuration.
+Aucun fichier `.env` n'est necessaire : les variables d'environnement sont injectees directement par `docker-compose` (voir `.workflows/dev/compose.yml`).
 
 ---
 
@@ -270,7 +225,7 @@ Utilisez les memes fichiers `.env` que dans l'Option 1, en ajustant les credenti
 pnpm --filter tools run push
 ```
 
-Cette commande cree toutes les tables necessaires dans PostgreSQL a partir des schemas definis dans `@arrhes/application-metadata`.
+Cette commande cree toutes les tables necessaires dans PostgreSQL a partir des schemas definis dans `@comptasse/application-metadata`.
 
 **Etape 2 : Seed avec des donnees de demonstration**
 
@@ -279,8 +234,8 @@ pnpm --filter tools run seed
 ```
 
 Cette commande insere :
-- Un utilisateur de demonstration : `demo@arrhes.com` / `demo`
-- Une organisation exemple : "Arrhes"
+- Un utilisateur de demonstration : `demo@comptasse.com` / `demo`
+- Une organisation exemple : "Comptasse"
 - Des comptes comptables de base
 - Des journaux
 - Des ecritures comptables d'exemple pour 2022 et 2023
@@ -347,12 +302,11 @@ pnpm --filter metadata run dev
 - **Frontend (Dashboard)** : http://localhost:5173
 - **API** : http://localhost:3000
 - **RustFS Console** : http://localhost:9001 (rustfsadmin / rustfsadmin)
-- **Mailpit Web UI** : http://localhost:8025
 
 ### Identifiants de demonstration
 
 ```
-Email    : demo@arrhes.com
+Email    : demo@comptasse.com
 Password : demo
 ```
 
@@ -364,14 +318,14 @@ Password : demo
 
 **Natif :**
 - Assurez-vous que PostgreSQL est demarre
-- Si vous utilisez RustFS/Mailpit avec Docker, verifiez qu'ils tournent : `docker ps`
+- Si vous utilisez RustFS avec Docker, verifiez qu'il tourne : `docker ps`
 
 ## Structure du projet
 
 ```
-arrhes/
+comptasse/
 ├── packages/
-│   ├── api/                    # Backend API (@arrhes/application-api)
+│   ├── api/                    # Backend API (@comptasse/application-api)
 │   │   ├── src/
 │   │   │   ├── api.ts         # Configuration Hono
 │   │   │   ├── server.ts      # Point d'entree
@@ -383,11 +337,10 @@ arrhes/
 │   │   │   │   └── public/    # Routes publiques
 │   │   │   ├── validators/    # Validation des donnees
 │   │   │   └── utilities/     # Utilitaires
-│   │   ├── .env               # Variables d'environnement
 │   │   ├── package.json
 │   │   └── tsconfig.json
 │   │
-│   ├── website/               # Frontend React (@arrhes/website)
+│   ├── website/               # Frontend React (@comptasse/website)
 │   │   ├── src/
 │   │   │   ├── root.tsx       # Point d'entree React
 │   │   │   ├── index.html     # HTML principal
@@ -406,7 +359,7 @@ arrhes/
 │   │   ├── tsconfig.json
 │   │   └── vite.config.ts
 │   │
-│   ├── metadata/               # Schemas et types partages (@arrhes/application-metadata)
+│   ├── metadata/               # Schemas et types partages (@comptasse/application-metadata)
 │   │   ├── src/
 │   │   │   ├── models/        # Modeles Drizzle ORM
 │   │   │   ├── schemas/       # Schemas Valibot
@@ -416,7 +369,7 @@ arrhes/
 │   │   ├── package.json
 │   │   └── tsconfig.json
 │   │
-│   ├── ui/                     # Composants UI partages (@arrhes/ui)
+│   ├── ui/                     # Composants UI partages (@comptasse/ui)
 │   │   ├── src/
 │   │   │   ├── components/    # Boutons, layouts, etc.
 │   │   │   ├── fonts/         # Polices
@@ -425,7 +378,7 @@ arrhes/
 │   │   ├── package.json
 │   │   └── panda.config.ts
 │   │
-│   └── tools/                  # Outils base de donnees (@arrhes/application-tools)
+│   └── tools/                  # Outils base de donnees (@comptasse/application-tools)
 │       ├── src/
 │       │   ├── clearDB.ts     # Vider la DB
 │       │   ├── migrate.ts     # Migrations
@@ -433,16 +386,15 @@ arrhes/
 │       │   ├── dbClient.ts    # Client DB
 │       │   ├── drizzle.config.ts  # Config Drizzle Kit
 │       │   └── seed/          # Scripts de seed
-│       ├── .env               # Variables d'environnement
 │       └── package.json
 │
 ├── .workflows/                  # Docker configurations
 │   ├── .dev/                   # Environnement Docker de developpement
 │   │   ├── compose.yml
 │   │   └── packages/
-│   │       ├── api/            # Dockerfile + .env de dev
-│   │       ├── dashboard/      # Dockerfile + .env du frontend
-│   │       └── tools/          # .env des outils
+│   │       ├── api/            # Dockerfile de dev
+│   │       ├── dashboard/      # Dockerfile de dev
+│   │       └── website/        # Dockerfile de dev
 │   └── .build/                 # Configuration Docker de production et CI
 │       ├── compose.yml
 │       └── packages/
@@ -598,9 +550,6 @@ pnpm --filter tools run drop
    
    # RustFS (si utilise avec Docker)
    docker start rustfs
-   
-   # Mailpit (si utilise avec Docker)
-   docker start mailpit
    ```
 
 2. **Lancer l'application**
@@ -657,7 +606,7 @@ pnpm --filter tools run drop
 2. **Creer l'implementation** dans `packages/api/src/routes/auth/`
    ```typescript
    // packages/api/src/routes/auth/myFeature.ts
-   import { myFeatureRoute } from '@arrhes/application-metadata/routes'
+   import { myFeatureRoute } from '@comptasse/application-metadata/routes'
    import { authFactory } from '#/factories/authFactory.js'
    
    export const myFeature = authFactory.createApp().post(
@@ -698,7 +647,7 @@ Modifier `packages/api/package.json` :
 ```json
 {
   "scripts": {
-    "dev:debug": "tsx watch --inspect --env-file=.env ./src/server.ts"
+    "dev:debug": "tsx watch --inspect ./src/server.ts"
   }
 }
 ```
@@ -740,7 +689,7 @@ Deja integre dans l'application, visible en bas de l'ecran en mode dev.
 psql postgres://postgres:admin@localhost:5432/default
 
 # Avec installation native
-psql postgres://arrhes_user:arrhes_password@localhost:5432/arrhes
+psql postgres://comptasse_user:comptasse_password@localhost:5432/comptasse
 ```
 
 **Commandes SQL utiles :**
@@ -777,14 +726,13 @@ pnpm dlx drizzle-kit studio --config=packages/tools/src/drizzle.config.ts
 - **Avec Docker :** Verifiez que les containers sont lances : `docker compose -f .workflows/dev/compose.yml ps`
 - **Natif :** Verifiez que PostgreSQL est demarre : `sudo systemctl status postgresql`
 - Testez la connexion : `psql postgres://postgres:admin@localhost:5432/default`
-- Verifiez les credentials dans `.env`
 
-**"Module not found @arrhes/application-metadata" :**
+**"Module not found @comptasse/application-metadata" :**
 - Rebuild metadata : `pnpm --filter metadata run build`
 - Ou lancez en mode watch : `pnpm --filter metadata run dev`
 
 **"CORS error" :**
-- Verifiez `CORS_ORIGIN` dans `packages/api/.env`
+- Verifiez `CORS_ORIGIN` dans `.workflows/dev/compose.yml`
 - Assurez-vous que l'URL correspond exactement
 
 **"Cookie not set" :**
@@ -806,7 +754,6 @@ pnpm dlx drizzle-kit studio --config=packages/tools/src/drizzle.config.ts
   ```bash
   docker compose -f .workflows/dev/compose.yml logs postgres
   docker compose -f .workflows/dev/compose.yml logs rustfs
-  docker compose -f .workflows/dev/compose.yml logs mailpit
   ```
 - **Reinitialiser completement :**
   ```bash

@@ -1,4 +1,4 @@
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
 import { type ComponentProps, Fragment } from "react"
 import type * as v from "valibot"
 import { getIncomeStatementChildren } from "./getIncomeStatementChildren.tsx"
@@ -20,25 +20,28 @@ export function IncomeStatementItem(props: {
                 incomeStatement={props.incomeStatement}
                 level={props.level}
             />
-            {props.incomeStatementChildren
-                .filter((incomeStatement) => incomeStatement.idIncomeStatementParent === props.incomeStatement.id)
-                .map((incomeStatement) => {
-                    const children = getIncomeStatementChildren({
+            {(() => {
+                const children: Array<React.JSX.Element> = []
+                for (const incomeStatement of props.incomeStatementChildren) {
+                    if (incomeStatement.idIncomeStatementParent !== props.incomeStatement.id) continue
+                    const incomeStatementChildren = getIncomeStatementChildren({
                         incomeStatement: incomeStatement,
                         incomeStatements: props.incomeStatementChildren,
                     })
 
-                    return (
+                    children.push(
                         <IncomeStatementItem
                             key={incomeStatement.id}
                             idOrganization={props.idOrganization}
                             idYear={props.idYear}
                             incomeStatement={incomeStatement}
-                            incomeStatementChildren={children}
+                            incomeStatementChildren={incomeStatementChildren}
                             level={props.level + 1}
-                        />
+                        />,
                     )
-                })}
+                }
+                return children
+            })()}
         </Fragment>
     )
 }

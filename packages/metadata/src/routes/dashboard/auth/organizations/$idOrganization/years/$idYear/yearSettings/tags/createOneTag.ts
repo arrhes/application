@@ -7,6 +7,7 @@ export const createOneTagRouteDefinition = routeDefinition({
     protocol: "http",
     method: "POST",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/tags`,
+    name: "create-one-tag",
     schemas: {
         body: v.object({
             idYear: tagSchema.entries.idYear,

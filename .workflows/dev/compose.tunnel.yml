@@ -18,14 +18,14 @@
 
 services:
   tunnel:
-    container_name: arrhes-tunnel
+    container_name: comptasse-tunnel
     image: cloudflare/cloudflared:latest
     restart: unless-stopped
     command: tunnel --url http://api:3000 --no-autoupdate
 
   # When API_BASE_URL is set on the host (by the justfile after reading the
-  # tunnel URL), it is injected into the container and overrides the .env value.
-  # When it is NOT set on the host, this directive has no effect.
+  # tunnel URL), it is injected into the container and overrides the value set
+  # in this override. When it is NOT set on the host, this directive has no effect.
   api:
     environment:
       - API_BASE_URL

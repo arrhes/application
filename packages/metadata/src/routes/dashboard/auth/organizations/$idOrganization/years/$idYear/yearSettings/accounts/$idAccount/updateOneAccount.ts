@@ -7,6 +7,7 @@ export const updateOneAccountRouteDefinition = routeDefinition({
     protocol: "http",
     method: "PATCH",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/accounts/:idAccount`,
+    name: "update-one-account",
     schemas: {
         body: v.object({
             idAccount: accountSchema.entries.id,

@@ -1,5 +1,5 @@
-import type { routeDefinition } from "@arrhes/application-metadata/utilities"
-import { toast } from "@arrhes/ui"
+import type { routeDefinition } from "@comptasse/application-metadata/utilities"
+import { toast } from "@comptasse/ui"
 import type * as v from "valibot"
 import { ClientError } from "./clientError.js"
 import { getCookie } from "./cookies/getCookie.js"
@@ -9,8 +9,9 @@ import { cookiePrefix } from "./variables.js"
 
 /**
  * Interpolates URL path params (e.g. `:idOrganization`) with values from the
- * `params` map. Any remaining body fields (not consumed as path params) are
- * sent as query string for GET requests, or as the JSON body for POST/PATCH/DELETE.
+ * `params` map, falling back to matching fields from `body`. Any remaining
+ * body fields (not consumed as path params) are sent as query string for GET
+ * requests, or as the JSON body for POST/PATCH/DELETE.
  */
 function buildUrl(
     apiBaseUrl: string,
@@ -25,6 +26,7 @@ function buildUrl(
     let path = rawPath
     const consumed = new Set<string>()
 
+    // Interpolate explicit params first
     if (params) {
         for (const [key, value] of Object.entries(params)) {
             const token = `:${key}`
@@ -32,6 +34,17 @@ function buildUrl(
                 path = path.replace(token, encodeURIComponent(value))
                 consumed.add(key)
             }
+        }
+    }
+
+    // Fall back to body fields for any remaining path tokens
+    // so callers don't need to duplicate fields in both body and params
+    for (const [key, value] of Object.entries(body)) {
+        if (consumed.has(key)) continue
+        const token = `:${key}`
+        if (path.includes(token)) {
+            path = path.replace(token, encodeURIComponent(String(value)))
+            consumed.add(key)
         }
     }
 
@@ -94,11 +107,26 @@ export async function getResponseBodyFromAPI<
             headers["X-Organization-Id"] = idOrganization
         }
 
+        // For routes mounted under /organizations/:idOrganization, fall back to the
+        // active organization cookie when the caller did not pass it explicitly.
+        // This keeps nested Hono apps on the API side happy without requiring every
+        // DataWrapper/Provider to forward the organization id.
+        const params = parameters.params ? { ...parameters.params } : {}
+        const body = parameters.body as Record<string, unknown>
+        if (
+            parameters.routeDefinition.path.includes(":idOrganization") &&
+            params.idOrganization === undefined &&
+            body.idOrganization === undefined &&
+            idOrganization
+        ) {
+            params.idOrganization = idOrganization
+        }
+
         const { url, remainingBody } = buildUrl(
             apiBaseUrl,
             parameters.routeDefinition.path,
-            parameters.params,
-            parameters.body as Record<string, unknown>,
+            params,
+            body,
             method,
         )
 
@@ -109,30 +137,31 @@ export async function getResponseBodyFromAPI<
             body: method === "GET" ? undefined : JSON.stringify(remainingBody),
             signal,
         })
-        const jsonResponse = JSON.parse((await response.text()) || "{}")
-        if (response.ok === false) {
+        if (response.ok) {
+            const jsonResponse = JSON.parse((await response.text()) || "{}")
+            const parsedData = validate({
+                schema: parameters.routeDefinition.schemas.return,
+                data: jsonResponse,
+            })
+
+            if (parsedData.success === false) {
+                throw new ClientError({
+                    message: "Error with the POST request body data validation",
+                    rawError: parsedData.error,
+                })
+            }
+
+            return <const>{
+                ok: true,
+                data: parsedData.data,
+                error: undefined,
+            }
+        } else {
+            const jsonResponse = JSON.parse((await response.text()) || "{}")
             throw new ClientError({
                 message: `Error with the ${method} request response`,
                 cause: jsonResponse.cause ?? jsonResponse.message,
             })
-        }
-
-        const parsedData = validate({
-            schema: parameters.routeDefinition.schemas.return,
-            data: jsonResponse,
-        })
-
-        if (parsedData.success === false) {
-            throw new ClientError({
-                message: "Error with the POST request body data validation",
-                rawError: parsedData.error,
-            })
-        }
-
-        return <const>{
-            ok: true,
-            data: parsedData.data,
-            error: undefined,
         }
     } catch (error: unknown) {
         abortController?.abort()

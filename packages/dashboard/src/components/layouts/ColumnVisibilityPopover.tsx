@@ -1,5 +1,5 @@
-import { Button, ButtonGhostContent, ButtonOutlineContent, Separator } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { Button, ButtonGhostContent, ButtonOutlineContent, Separator } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconCheck, IconTable, IconTableColumn, IconTableOff } from "@tabler/icons-react"
 import { Popover } from "../overlays/popover/popover.js"
 

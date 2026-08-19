@@ -1,9 +1,10 @@
-import { createOneYearRouteDefinition, readAllYearsRouteDefinition } from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button, InputDate, InputText, toast } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { createOneYearRouteDefinition, readAllYearsRouteDefinition } from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { Button, InputDate, InputText, toast } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconPlus } from "@tabler/icons-react"
 import type { ComponentProps, JSX } from "react"
+import { useState } from "react"
 import { Fragment } from "react/jsx-runtime"
 import type * as v from "valibot"
 import { FormControl } from "../../../../components/forms/FormControl.tsx"
@@ -12,7 +13,6 @@ import { FormField } from "../../../../components/forms/FormField.tsx"
 import { FormItem } from "../../../../components/forms/FormItem.tsx"
 import { FormLabel } from "../../../../components/forms/FormLabel.tsx"
 import { FormRoot } from "../../../../components/forms/FormRoot.tsx"
-import { useTabs } from "../../../../contexts/tabs/useTabs.tsx"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
 import { YearSelect } from "./YearSelect.tsx"
@@ -21,11 +21,13 @@ export function CreateOneYear(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
     children: JSX.Element
     className?: ComponentProps<typeof Button>["className"]
+    onClick?: () => void
 }) {
-    const { openPanelTab, closeTab } = useTabs()
+    const [open, setOpen] = useState(false)
     const currentDate = new Date()
 
     return (
+        <>
         <Button
             className={css.raw(
                 {
@@ -38,11 +40,13 @@ export function CreateOneYear(props: {
                 props.className,
             )}
             onClick={() => {
-                const r = {
-                    current: "",
-                }
-                r.current = openPanelTab(
-                    "Ajouter un nouvel exercice",
+                props.onClick?.()
+                setOpen(true)
+            }}
+        >
+            {props.children}
+        </Button>
+            {open &&
                     <div
                         className={css({
                             padding: "2rem",
@@ -91,7 +95,7 @@ export function CreateOneYear(props: {
                                     },
                                 })
 
-                                closeTab(r.current)
+                                setOpen(false)
                             }}
                         >
                             {(form) => (
@@ -184,11 +188,8 @@ export function CreateOneYear(props: {
                                 </Fragment>
                             )}
                         </FormRoot>
-                    </div>,
-                )
-            }}
-        >
-            {props.children}
-        </Button>
+                    </div>
+            }
+        </>
     )
 }

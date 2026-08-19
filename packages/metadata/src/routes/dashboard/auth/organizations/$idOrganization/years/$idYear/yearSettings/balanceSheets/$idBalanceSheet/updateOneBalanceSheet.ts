@@ -7,6 +7,7 @@ export const updateOneBalanceSheetRouteDefinition = routeDefinition({
     protocol: "http",
     method: "PATCH",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/balance-sheets/:idBalanceSheet`,
+    name: "update-one-balance-sheet",
     schemas: {
         body: v.object({
             idBalanceSheet: balanceSheetSchema.entries.id,

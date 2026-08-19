@@ -4,5 +4,5 @@ set -eu
 tag="${1:?release tag argument is required}"
 
 gh release upload "$tag" \
-    packages/cli/arrhes.sh \
+    packages/cli/comptasse.sh \
     packages/cli/install.sh

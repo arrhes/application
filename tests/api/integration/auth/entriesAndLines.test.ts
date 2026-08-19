@@ -15,12 +15,12 @@ beforeAll(async () => {
 })
 
 describe("Entries", () => {
-    describe("GET /v1/organizations/:idOrganization/years/:idYear/entries", () => {
+    describe("GET /organizations/:idOrganization/years/:idYear/entries", () => {
         it("returns all entries for the year", async () => {
             const response = await authenticatedRequest({
                 session,
                 method: "GET",
-                path: `/v1/organizations/${idOrganization}/years/${idYear}/entries`,
+                path: `/organizations/${idOrganization}/years/${idYear}/entries`,
             })
             expect(response.status).toBe(200)
 
@@ -35,12 +35,12 @@ describe("Entries", () => {
         })
     })
 
-    describe("POST /v1/organizations/:idOrganization/years/:idYear/entries", () => {
+    describe("POST /organizations/:idOrganization/years/:idYear/entries", () => {
         it("creates a new entry", async () => {
             const response = await authenticatedRequest({
                 session,
                 method: "POST",
-                path: `/v1/organizations/${idOrganization}/years/${idYear}/entries`,
+                path: `/organizations/${idOrganization}/years/${idYear}/entries`,
                 body: {
                     label: "Test Entry",
                     date: "2023-06-15T00:00:00.000Z",
@@ -57,7 +57,7 @@ describe("Entries", () => {
             const response = await authenticatedRequest({
                 session,
                 method: "POST",
-                path: `/v1/organizations/${idOrganization}/years/${idYear}/entries`,
+                path: `/organizations/${idOrganization}/years/${idYear}/entries`,
                 body: {},
             })
             expect(response.status).toBe(400)
@@ -66,12 +66,12 @@ describe("Entries", () => {
 })
 
 describe("Entry Lines", () => {
-    describe("GET /v1/organizations/:idOrganization/years/:idYear/entries/:idEntry/lines", () => {
+    describe("GET /organizations/:idOrganization/years/:idYear/entries/:idEntry/lines", () => {
         it("returns all entry lines for a specific entry", async () => {
             const entriesResponse = await authenticatedRequest({
                 session,
                 method: "GET",
-                path: `/v1/organizations/${idOrganization}/years/${idYear}/entries`,
+                path: `/organizations/${idOrganization}/years/${idYear}/entries`,
             })
             const entries = entriesResponse.data as any[]
             expect(entries.length).toBeGreaterThan(0)
@@ -80,7 +80,7 @@ describe("Entry Lines", () => {
             const response = await authenticatedRequest({
                 session,
                 method: "GET",
-                path: `/v1/organizations/${idOrganization}/years/${idYear}/entries/${idEntry}/lines`,
+                path: `/organizations/${idOrganization}/years/${idYear}/entries/${idEntry}/lines`,
             })
             expect(response.status).toBe(200)
 
@@ -96,13 +96,13 @@ describe("Entry Lines", () => {
         })
     })
 
-    describe("POST /v1/organizations/:idOrganization/years/:idYear/entries/:idEntry/lines", () => {
+    describe("POST /organizations/:idOrganization/years/:idYear/entries/:idEntry/lines", () => {
         it("creates a new entry line on an existing entry", async () => {
             // Get an entry and an account
             const entriesResponse = await authenticatedRequest({
                 session,
                 method: "GET",
-                path: `/v1/organizations/${idOrganization}/years/${idYear}/entries`,
+                path: `/organizations/${idOrganization}/years/${idYear}/entries`,
             })
             const entries = entriesResponse.data as any[]
             const idEntry = entries[0].id
@@ -110,7 +110,7 @@ describe("Entry Lines", () => {
             const accountsResponse = await authenticatedRequest({
                 session,
                 method: "GET",
-                path: `/v1/organizations/${idOrganization}/years/${idYear}/accounts`,
+                path: `/organizations/${idOrganization}/years/${idYear}/accounts`,
             })
             const accounts = accountsResponse.data as any[]
             const selectableAccount = accounts.find((a: any) => a.isSelectable === true)
@@ -118,7 +118,7 @@ describe("Entry Lines", () => {
             const response = await authenticatedRequest({
                 session,
                 method: "POST",
-                path: `/v1/organizations/${idOrganization}/years/${idYear}/entries/${idEntry}/lines`,
+                path: `/organizations/${idOrganization}/years/${idYear}/entries/${idEntry}/lines`,
                 body: {
                     idAccount: selectableAccount.id,
                     isComputedForJournalReport: true,

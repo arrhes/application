@@ -6,6 +6,7 @@ import { applicationTree } from "./applicationTree.js"
 export const applicationRouter = createRouter({
     routeTree: applicationTree,
     scrollRestoration: true,
+    defaultPreload: "intent",
     context: {
         title: undefined,
         section: undefined,

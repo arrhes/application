@@ -1,6 +1,6 @@
 # Architecture
 
-Ce document decrit l'architecture globale du projet Arrhes, un systeme de comptabilite en partie double pour associations et entreprises francaises.
+Ce document decrit l'architecture globale du projet Comptasse, un systeme de comptabilite en partie double pour associations et entreprises francaises.
 
 ## Table des matieres
 
@@ -14,7 +14,7 @@ Ce document decrit l'architecture globale du projet Arrhes, un systeme de compta
 
 ## Vue d'ensemble
 
-Arrhes est construit sur une architecture monorepo moderne utilisant **pnpm workspaces**. Le projet est divise en plusieurs packages independants mais interconnectes, chacun ayant une responsabilite specifique.
+Comptasse est construit sur une architecture monorepo moderne utilisant **pnpm workspaces**. Le projet est divise en plusieurs packages independants mais interconnectes, chacun ayant une responsabilite specifique.
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -22,7 +22,7 @@ Arrhes est construit sur une architecture monorepo moderne utilisant **pnpm work
 └────────────────────────────┬────────────────────────────┘
                              │
                   ┌──────────▼──────────┐
-                  │ @arrhes/application  │  (Frontend React)
+                  │ @comptasse/application  │  (Frontend React)
                   │    -website          │
                   │   Port: 5173        │
                   └──────────┬──────────┘
@@ -30,24 +30,24 @@ Arrhes est construit sur une architecture monorepo moderne utilisant **pnpm work
                              │ HTTP/REST
                              │
                   ┌──────────▼──────────┐
-                  │    @arrhes/         │  (Backend Hono)
+                  │    @comptasse/         │  (Backend Hono)
                   │   application-api   │
                   │   Port: 3000        │
                   └──────────┬──────────┘
                              │
                  ┌───────────┼───────────┐
                  │           │           │
-            ┌────▼────┐  ┌───▼────┐  ┌───▼────┐
-            │   DB    │  │   S3   │  │  SMTP  │
-            │ (SQL)   │  │ (File) │  │ (Mail) │
-            └─────────┘  └────────┘  └────────┘
+            ┌────▼────┐  ┌───▼────┐
+            │   DB    │  │   S3   │
+            │ (SQL)   │  │ (File) │
+            └─────────┘  └────────┘
 ```
 
 ## Architecture monorepo
 
 Le projet utilise **pnpm workspaces** pour gerer plusieurs packages dans un seul repository. Cette approche offre plusieurs avantages :
 
-- **Partage de code** : Les packages peuvent facilement partager du code via `@arrhes/application-metadata` et `@arrhes/ui`
+- **Partage de code** : Les packages peuvent facilement partager du code via `@comptasse/application-metadata` et `@comptasse/ui`
 - **Dependances optimisees** : pnpm deduplique les dependances communes
 - **Developpement simplifie** : Build et developpement coordonnes entre packages
 - **Versioning coherent** : Toutes les parties du projet evoluent ensemble
@@ -55,7 +55,7 @@ Le projet utilise **pnpm workspaces** pour gerer plusieurs packages dans un seul
 ### Structure du workspace
 
 ```
-arrhes/
+comptasse/
 ├── packages/
 │   ├── api/          # Backend API
 │   ├── metadata/     # Schemas et types partages
@@ -68,7 +68,7 @@ arrhes/
 
 ## Packages
 
-### @arrhes/application-api
+### @comptasse/application-api
 
 **Role :** Backend REST API pour toutes les operations metier
 
@@ -77,7 +77,6 @@ arrhes/
 - **TypeScript** : Typage statique
 - **Drizzle ORM** : ORM pour PostgreSQL
 - **Valibot** : Validation des donnees
-- **Nodemailer** : Envoi d'emails
 - **AWS SDK** : Stockage de fichiers (S3-compatible)
 - **@react-pdf/renderer + PDF client-side** : Generation des PDF dans le navigateur
 
@@ -88,7 +87,6 @@ api/src/
 ├── server.ts           # Point d'entree du serveur
 ├── clients/            # Clients pour services externes
 │   ├── sqlClient.ts
-│   ├── emailClient.ts
 │   └── storageClient.ts
 ├── factories/          # Factories Hono avec types
 │   ├── apiFactory.ts
@@ -109,12 +107,10 @@ api/src/
 │       ├── publicRoute.ts
 │       ├── signIn.ts
 │       ├── signUp.ts
-│       ├── signOut.ts
-│       └── sendMagicLink.ts
+│       └── signOut.ts
 ├── validators/         # Validation des donnees entrantes
 │   └── bodyValidator.ts
 └── utilities/          # Utilitaires
-    ├── email/          # Templates et envoi emails
     ├── sql/            # Helpers SQL (selectOne, selectMany, insertOne, insertMany, deleteOne, deleteMany, updateOne)
     ├── storage/        # Helpers S3 (signed URLs, get/put/delete)
     ├── cookies/        # Gestion cookies securises
@@ -131,14 +127,13 @@ api/src/
 - `api.ts` : Configure l'application Hono avec middlewares et routes
 
 **Responsabilites :**
-- Gestion de l'authentification (magic links, sessions)
+- Gestion de l'authentification (mot de passe + sessions)
 - CRUD pour toutes les entites (organisations, comptes, ecritures, etc.)
 - Validation des ecritures comptables
 - Generation des etats financiers
 - Gestion des pieces justificatives (upload/download via S3)
-- Envoi d'emails transactionnels
 
-### @arrhes/website
+### @comptasse/website
 
 **Role :** Interface utilisateur web complete incluant le dashboard, le site vitrine et la documentation
 
@@ -210,7 +205,7 @@ website/src/
 - Gestion des documents et pieces justificatives
 - Notifications et retours utilisateur
 
-### @arrhes/application-metadata
+### @comptasse/application-metadata
 
 **Role :** Package partage contenant tous les schemas, modeles et types utilises par l'API et le frontend
 
@@ -246,7 +241,7 @@ metadata/src/
 │   └── [memes fichiers que models/]
 ├── routes/             # Definitions de routes typees
 │   ├── auth/           # Routes authentifiees (organisations, settings, support)
-│   └── public/         # Routes publiques (user: signIn, signUp, signOut, sendMagicLink)
+│   └── public/         # Routes publiques (user: signIn, signUp, signOut, resetPassword)
 ├── components/         # Composants metier partages
 │   ├── models/
 │   ├── schemas/
@@ -260,11 +255,11 @@ metadata/src/
 **Exports (subpath) :**
 ```typescript
 // Utilisable par l'API et le frontend
-import { models } from '@arrhes/application-metadata/models'
-import { schemas } from '@arrhes/application-metadata/schemas'
-import { routes } from '@arrhes/application-metadata/routes'
-import { generateId } from '@arrhes/application-metadata/utilities'
-import { components } from '@arrhes/application-metadata/components'
+import { models } from '@comptasse/application-metadata/models'
+import { schemas } from '@comptasse/application-metadata/schemas'
+import { routes } from '@comptasse/application-metadata/routes'
+import { generateId } from '@comptasse/application-metadata/utilities'
+import { components } from '@comptasse/application-metadata/components'
 ```
 
 **Responsabilites :**
@@ -274,7 +269,7 @@ import { components } from '@arrhes/application-metadata/components'
 - Generation d'IDs uniques (nanoid)
 - Definitions de routes type-safe
 
-### @arrhes/ui
+### @comptasse/ui
 
 **Role :** Composants UI partages et systeme de style
 
@@ -299,9 +294,9 @@ ui/src/
 
 **Exports (subpath) :**
 ```typescript
-import { Button } from '@arrhes/ui'
-import { cn } from '@arrhes/ui/utilities/cn.js'
-import { css } from '@arrhes/ui/styled-system/css'
+import { Button } from '@comptasse/ui'
+import { cn } from '@comptasse/ui/utilities/cn.js'
+import { css } from '@comptasse/ui/styled-system/css'
 ```
 
 **Responsabilites :**
@@ -309,7 +304,7 @@ import { css } from '@arrhes/ui/styled-system/css'
 - Systeme de theming et styles partages (Panda CSS)
 - Polices et assets partages
 
-### @arrhes/application-tools
+### @comptasse/application-tools
 
 **Role :** Outils de gestion de la base de donnees (migrations, seed, maintenance)
 
@@ -382,7 +377,6 @@ tools/src/
 | Validation | Valibot 1.2 | Validation de schemas |
 | Database | PostgreSQL | Base de donnees relationnelle |
 | Storage | AWS S3 SDK | Stockage de fichiers |
-| Email | Nodemailer 7.0 | Envoi d'emails |
 | PDF | @react-pdf/renderer + generatePdfFromUblXml | Generation de PDF cote client |
 
 ### Frontend (Website / Dashboard)
@@ -413,23 +407,19 @@ tools/src/
 
 ## Flux de donnees
 
-### Authentification par Magic Link
+### Authentification
 
 ```
-1. Utilisateur entre son email
-   └─> POST /api/public/sendMagicLink
-       └─> Generation token + envoi email
-       
-2. Utilisateur clique sur le lien
-   └─> GET /api/public/signIn?token=xxx
-       └─> Validation token
+1. Utilisateur envoie email + mot de passe
+   └─> POST /api/public/signIn
+       └─> Verification du hash (PBKDF2)
        └─> Creation session
-       └─> Cookie securise (httpOnly, signed)
+       └─> Cookie securise (httpOnly, signe)
        └─> Redirection vers dashboard
        
-3. Requetes authentifiees
+2. Requetes authentifiees
    └─> Cookie envoye automatiquement
-       └─> authMiddleware verifie session
+       └─> checkAuthMiddleware verifie la session
        └─> Acces aux routes protegees
 ```
 
@@ -487,30 +477,29 @@ Website                        API                      Database
 
 ### Strategie
 
-Arrhes utilise une **authentification par magic link** (lien temporaire envoye par email) combinee a des **sessions persistantes** cote serveur.
+Comptasse utilise une **authentification par mot de passe** (PBKDF2) combinee a des **sessions persistantes** cote serveur stockees dans des cookies httpOnly.
 
 ### Flow complet
 
 1. **Inscription** (`/api/public/signUp`)
-   - Validation email + alias
-   - Hash du mot de passe (PBKDF2, 128000 iterations)
-   - Creation user
-   - Envoi email de verification
+   - Validation email + mot de passe
+   - Hash du mot de passe (PBKDF2, 128000 iterations) avec salt unique
+   - Creation user et session
+   - Cookie signe et httpOnly
 
-2. **Connexion** (`/api/public/sendMagicLink`)
-   - Generation token de verification unique
-   - Stockage temporaire en DB
-   - Envoi email avec lien
-
-3. **Validation** (`/api/public/signIn`)
-   - Verification du token
+2. **Connexion** (`/api/public/signIn`)
+   - Verification du hash du mot de passe
    - Creation d'une session
    - Cookie signe et httpOnly
-   - Redirection vers l'application
+
+3. **Reset de mot de passe** (`/api/public/resetPassword`)
+   - Generation d'un mot de passe temporaire
+   - Remplacement du hash en base
+   - Retour du mot de passe temporaire dans la reponse
 
 4. **Requetes authentifiees**
    - Cookie envoye automatiquement
-   - `authMiddleware` verifie la session
+   - `checkAuthMiddleware` verifie la session
    - Charge l'utilisateur en contexte
    - Verifie l'appartenance a l'organisation si necessaire
 
@@ -524,8 +513,8 @@ Arrhes utilise une **authentification par magic link** (lien temporaire envoye p
 - **httpOnly** : Protection contre XSS
 - **sameSite** : Protection contre CSRF
 - **CORS configure** : Origine autorisee uniquement
-- **Tokens temporaires** : Expiration des magic links
 - **Hashing securise** : PBKDF2 avec salt unique par utilisateur
+- **Anti-énumeration** : Le reset de mot de passe repond toujours 200, meme si l'email n'existe pas
 
 ## Base de donnees
 
@@ -577,26 +566,26 @@ organization 1──n organizationUser n──1 user
 ### Migrations
 
 Les migrations sont gerees par **Drizzle Kit** :
-- Le schema source est defini dans `@arrhes/application-metadata`
+- Le schema source est defini dans `@comptasse/application-metadata`
 - Drizzle Kit genere automatiquement les migrations SQL
 - Application via `drizzle-kit migrate` ou `push` (dev)
 
 ## Diagramme de dependances
 
 ```
-@arrhes/website ──depends on──> @arrhes/application-metadata
+@comptasse/website ──depends on──> @comptasse/application-metadata
           │                                          ▲
-          └─depends on──> @arrhes/ui                 │
+          └─depends on──> @comptasse/ui                 │
                                                      │
-@arrhes/application-api  ──depends on───────────────┘
+@comptasse/application-api  ──depends on───────────────┘
                                                      ▲
                                                      │
-@arrhes/application-tools ──depends on──────────────┘
+@comptasse/application-tools ──depends on──────────────┘
 
-@arrhes/ui  (independant de metadata)
+@comptasse/ui  (independant de metadata)
 ```
 
-Les packages API, website et tools dependent tous de `@arrhes/application-metadata` pour partager les schemas, modeles et types. Le package website depend aussi de `@arrhes/ui` pour les composants UI partages. Cette architecture assure une coherence totale entre le frontend et le backend.
+Les packages API, website et tools dependent tous de `@comptasse/application-metadata` pour partager les schemas, modeles et types. Le package website depend aussi de `@comptasse/ui` pour les composants UI partages. Cette architecture assure une coherence totale entre le frontend et le backend.
 
 ---
 

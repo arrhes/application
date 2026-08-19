@@ -1,7 +1,7 @@
-import type { readAllAccountsRouteDefinition } from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { ButtonOutlineContent, ButtonPlainContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import type { readAllAccountsRouteDefinition } from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { ButtonOutlineContent, ButtonPlainContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconEdit, IconPlus } from "@tabler/icons-react"
 import type * as v from "valibot"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
@@ -61,7 +61,7 @@ function EntryLinesTabContent(props: {
                 className={css({
                     width: "100%",
                     display: "flex",
-                    justifyContent: "flex-end",
+                    justifyContent: "flex-start",
                     alignItems: "center",
                     gap: "0.5rem",
                 })}

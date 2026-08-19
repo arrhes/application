@@ -19,7 +19,7 @@ export default defineConfig({
     globalCss: uiConfig.globalCss,
 
     // Import map for the UI package
-    importMap: "@arrhes/ui",
+    importMap: "@comptasse/ui",
 
     // The output directory for your css system
     outdir: "styled-system",

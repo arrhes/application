@@ -1,5 +1,8 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { DocRoot } from "../../../../../components/document/DocRoot"
 import { introductionAccountingDocLayoutRoute } from "./introductionAccountingDocLayoutRoute.js"
+import { DoubleEntryAccountingDocPage } from "../../../../../features/docs/accounting/introduction/DoubleEntryAccountingDocPage.js"
+
 
 export const doubleEntryAccountingDocRoute = createRoute({
     getParentRoute: () => introductionAccountingDocLayoutRoute,
@@ -9,8 +12,9 @@ export const doubleEntryAccountingDocRoute = createRoute({
         description:
             "Comprendre le principe de la partie double en comptabilité : chaque opération génère au moins un débit et un crédit.",
     }),
-    component: lazyRouteComponent(
-        () => import("../../../../../features/docs/accounting/introduction/DoubleEntryAccountingDocPage.js"),
-        "DoubleEntryAccountingDocPage",
+    component: () => (
+        <DocRoot>
+            <DoubleEntryAccountingDocPage />
+        </DocRoot>
     ),
 })

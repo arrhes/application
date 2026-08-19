@@ -1,5 +1,5 @@
 import { pbkdf2Sync } from "node:crypto"
-import { models, updateUserPasswordRouteDefinition } from "@arrhes/application-metadata"
+import { models, updateUserPasswordRouteDefinition } from "@comptasse/application-metadata"
 import { eq } from "drizzle-orm"
 import { requireCookieSessionMiddleware } from "../../../middlewares/requireCookieSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"

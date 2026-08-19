@@ -1,11 +1,11 @@
-import { reverseOneEntryRouteDefinition } from "@arrhes/application-metadata"
+import { reverseOneEntryRouteDefinition } from "@comptasse/application-metadata"
 import {
     readAllEntriesRouteDefinition,
     readAllEntryLinesRouteDefinition,
     readAllEntryTagsRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button, ButtonOutlineContent, ButtonPlainContent, Dialog, toast, useModalStore } from "@arrhes/ui"
+} from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { Button, ButtonOutlineContent, ButtonPlainContent, Dialog, toast, useModalStore } from "@comptasse/ui"
 import { type ComponentPropsWithRef, type ReactElement, useId } from "react"
 import type * as v from "valibot"
 import { applicationRouter } from "../../../../routes/applicationRouter.tsx"
@@ -15,6 +15,7 @@ import { invalidateData } from "../../../../utilities/invalidateData.ts"
 export function ReverseOneEntry(props: {
     entry: v.InferOutput<typeof returnedSchemas.entry>
     children: ReactElement<ComponentPropsWithRef<"div">>
+    onClick?: () => void
 }) {
     const modalId = useId()
     const { open: openModal, close: closeModal } = useModalStore()
@@ -74,7 +75,8 @@ export function ReverseOneEntry(props: {
 
     return (
         <Button
-            onClick={() =>
+            onClick={() => {
+                props.onClick?.()
                 openModal(
                     modalId,
                     <Dialog.Content>
@@ -103,7 +105,7 @@ export function ReverseOneEntry(props: {
                         </Dialog.Footer>
                     </Dialog.Content>,
                 )
-            }
+            }}
         >
             {props.children}
         </Button>

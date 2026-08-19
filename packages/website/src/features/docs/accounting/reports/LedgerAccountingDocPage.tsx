@@ -1,4 +1,3 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
 import { DocDefinition } from "../../../../components/document/DocDefinition.js"
 import { DocExample } from "../../../../components/document/DocExample.js"
 import { DocHeader } from "../../../../components/document/DocHeader.js"
@@ -22,9 +21,11 @@ export function LedgerAccountingDocPage() {
 
             <DocSection title="Définition">
                 <DocDefinition term="Grand livre">
-                    Document qui reprend l'ensemble des comptes de l'organisation avec le détail de tous leurs
-                    mouvements. C'est la vue par compte de la comptabilité, là où le journal offre une vue
-                    chronologique.
+                    <DocParagraph>
+                        Document qui reprend l'ensemble des comptes de l'organisation avec le détail de tous leurs
+                        mouvements. C'est la vue par compte de la comptabilité, là où le journal offre une vue
+                        chronologique.
+                    </DocParagraph>
                 </DocDefinition>
 
                 <DocParagraph>
@@ -34,7 +35,7 @@ export function LedgerAccountingDocPage() {
                     les mêmes informations, mais présentées différemment. Le journal classe les écritures par date ; le
                     grand livre les classe par{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "compte",
                         }}
@@ -60,7 +61,7 @@ export function LedgerAccountingDocPage() {
                     Pour chaque compte, le grand livre affiche l'ensemble des mouvements avec leur date, leur libellé,
                     les montants au{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "debit",
                         }}
@@ -69,7 +70,7 @@ export function LedgerAccountingDocPage() {
                     </DocLink>{" "}
                     et au{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "credit",
                         }}
@@ -86,55 +87,59 @@ export function LedgerAccountingDocPage() {
                             "Libellé",
                             "Débit",
                             "Crédit",
-                            "Solde",
                         ]}
                         rows={[
                             [
                                 "",
-                                "Solde à l'ouverture",
+                                "Report à nouveau",
+                                "3 000,00",
                                 "",
-                                "",
-                                "3 000 Db",
                             ],
                             [
                                 "03/01",
                                 "Encaissement facture n°001",
-                                "1 200",
+                                "1 200,00",
                                 "",
-                                "4 200 Db",
                             ],
                             [
                                 "20/01",
                                 "Paiement loyer janvier",
                                 "",
-                                "800",
-                                "3 400 Db",
+                                "800,00",
                             ],
                             [
                                 "25/01",
                                 "Paiement fournisseur Martin",
                                 "",
-                                "180",
-                                "3 220 Db",
+                                "180,00",
                             ],
                             [
                                 "31/01",
                                 "Encaissement facture n°002",
-                                "2 500",
+                                "2 500,00",
                                 "",
-                                "5 720 Db",
+                            ],
+                            [
+                                "",
+                                "TOTAUX",
+                                "6 700,00",
+                                "980,00",
                             ],
                         ]}
                     />
-                    <p
-                        className={css({
-                            marginTop: "2",
-                            fontSize: "xs",
-                            color: "neutral/60",
-                        })}
-                    >
-                        Le solde progressif permet de suivre l'évolution du compte au fil des opérations.
-                    </p>
+                    <DocParagraph>
+                        Le compte s'ouvre par le{" "}
+                        <DocLink
+                            to="/documentation/comptabilité/ressources/glossaire/$term"
+                            params={{
+                                term: "report-a-nouveau",
+                            }}
+                        >
+                            report à nouveau
+                        </DocLink>{" "}
+                        de l'exercice précédent, puis enregistre les mouvements de la période. Le solde du compte se
+                        calcule à partir des totaux : 6 700,00 - 980,00 = 5 720,00 euros au débit.
+                    </DocParagraph>
                 </DocExample>
 
                 <DocExample title="Extrait du grand livre - Compte 401 Fournisseurs">
@@ -144,48 +149,44 @@ export function LedgerAccountingDocPage() {
                             "Libellé",
                             "Débit",
                             "Crédit",
-                            "Solde",
                         ]}
                         rows={[
                             [
                                 "",
-                                "Solde à l'ouverture",
+                                "Report à nouveau",
                                 "",
-                                "",
-                                "500 Cr",
+                                "500,00",
                             ],
                             [
                                 "15/01",
                                 "Facture papeterie",
                                 "",
-                                "180",
-                                "680 Cr",
+                                "180,00",
                             ],
                             [
                                 "25/01",
                                 "Règlement fournisseur Martin",
-                                "180",
+                                "180,00",
                                 "",
-                                "500 Cr",
                             ],
                             [
                                 "28/01",
                                 "Facture hébergement web",
                                 "",
-                                "120",
-                                "620 Cr",
+                                "120,00",
+                            ],
+                            [
+                                "",
+                                "TOTAUX",
+                                "180,00",
+                                "800,00",
                             ],
                         ]}
                     />
-                    <p
-                        className={css({
-                            marginTop: "2",
-                            fontSize: "xs",
-                            color: "neutral/60",
-                        })}
-                    >
-                        Le solde créditeur indique que l'organisation doit encore 620 euros à ses fournisseurs.
-                    </p>
+                    <DocParagraph>
+                        Le solde créditeur de 620,00 euros (800,00 de crédits - 180,00 de débits) indique que
+                        l'organisation doit encore 620,00 euros à ses fournisseurs.
+                    </DocParagraph>
                 </DocExample>
             </DocSection>
 
@@ -227,9 +228,11 @@ export function LedgerAccountingDocPage() {
                 </DocParagraph>
 
                 <DocDefinition term="Grand livre auxiliaire">
-                    Déclinaison du grand livre qui détaille un compte collectif (clients, fournisseurs) en sous-comptes
-                    individuels. Il permet de connaître le solde dû par chaque tiers sans consulter les écritures une
-                    par une.
+                    <DocParagraph>
+                        Déclinaison du grand livre qui détaille un compte collectif (clients, fournisseurs) en
+                        sous-comptes individuels. Il permet de connaître le solde dû par chaque tiers sans consulter les
+                        écritures une par une.
+                    </DocParagraph>
                 </DocDefinition>
 
                 <DocTip variant="tip">
@@ -257,14 +260,6 @@ export function LedgerAccountingDocPage() {
                     de contrôle interne essentiel qui permet de détecter les erreurs de saisie, les opérations oubliées
                     ou les mouvements non autorisés.
                 </DocTip>
-            </DocSection>
-
-            <DocSection title="Lien avec Arrhes">
-                <DocParagraph>
-                    Arrhes génère automatiquement le grand livre à partir de vos écritures. Vous pouvez le consulter
-                    compte par compte ou le télécharger dans sa totalité. Consultez le guide sur les{" "}
-                    <DocLink to="/documentation/dashboard/documents">rapports</DocLink> pour en savoir plus.
-                </DocParagraph>
             </DocSection>
 
             <DocSources

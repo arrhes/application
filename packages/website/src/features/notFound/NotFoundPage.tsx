@@ -1,5 +1,5 @@
-import { ButtonOutlineContent } from "@arrhes/ui/components/buttons/ButtonOutlineContent.js"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { ButtonOutlineContent } from "@comptasse/ui/components/buttons/ButtonOutlineContent.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconBook2, IconHome } from "@tabler/icons-react"
 import { LinkButton } from "../../components/LinkButton.js"
 

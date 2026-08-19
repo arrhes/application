@@ -1,4 +1,4 @@
-import { sva } from "@arrhes/ui/css"
+import { sva } from "@comptasse/ui/css"
 import { type ButtonContentProps, renderButtonContent } from "./buttonContent"
 import { useButtonLoading } from "./useButtonLoading"
 
@@ -68,6 +68,7 @@ const ghostRecipe = sva({
             },
         },
         rightIcon: {
+            marginLeft: "auto",
             minWidth: "14px",
             width: "14px",
             minHeight: "14px",

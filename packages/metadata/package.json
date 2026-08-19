@@ -1,5 +1,5 @@
 {
-    "name": "@arrhes/application-metadata",
+    "name": "@comptasse/application-metadata",
     "type": "module",
     "private": true,
     "scripts": {
@@ -7,13 +7,13 @@
         "typecheck": "tsc --noEmit"
     },
     "devDependencies": {
-        "@types/node": "25.6.0",
-        "typescript": "6.0.3"
+        "@types/node": "26.1.2",
+        "typescript": "7.0.2"
     },
     "dependencies": {
         "drizzle-orm": "0.45.2",
-        "nanoid": "5.1.11",
-        "valibot": "1.4.0"
+        "nanoid": "6.0.1",
+        "valibot": "1.4.2"
     },
     "exports": {
         ".": {

@@ -1,4 +1,5 @@
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+// react-doctor-disable-next-line react-doctor/prefer-dynamic-import
 import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer"
 import type * as v from "valibot"
 import { toRoman } from "../../../../../utilities/toRoman.ts"
@@ -86,23 +87,20 @@ function computeIncomeStatementAmount(
         incomeStatements: allIncomeStatements,
     })
     let netAmount = 0
-    accounts
-        .filter((account) => {
-            const hasAccount = account.idIncomeStatement === incomeStatement.id
-            const hasChildrenAccount = children.some((is) => is.id === account.idIncomeStatement)
-            return hasAccount || hasChildrenAccount
-        })
-        .forEach((account) => {
-            let debit = 0
-            let credit = 0
-            entryLines
-                .filter((el) => el.idAccount === account.id)
-                .forEach((el) => {
-                    debit += Number(el.debit)
-                    credit += Number(el.credit)
-                })
-            netAmount += Math.abs(debit - credit)
-        })
+    for (const account of accounts) {
+        const hasAccount = account.idIncomeStatement === incomeStatement.id
+        const hasChildrenAccount = children.some((is) => is.id === account.idIncomeStatement)
+        if (!hasAccount && !hasChildrenAccount) continue
+
+        let debit = 0
+        let credit = 0
+        for (const el of entryLines) {
+            if (el.idAccount !== account.id) continue
+            debit += Number(el.debit)
+            credit += Number(el.credit)
+        }
+        netAmount += Math.abs(debit - credit)
+    }
     return netAmount
 }
 
@@ -177,6 +175,7 @@ export function IncomeStatementReportPdf(props: {
     const rootIncomeStatements = props.incomeStatements
         .filter((is) => is.idIncomeStatementParent === null)
         .sort((a, b) => Number(a.number) - Number(b.number))
+    const incomeStatementById = new Map(props.incomeStatements.map((is) => [is.id, is]))
 
     return (
         <Document>
@@ -213,46 +212,50 @@ export function IncomeStatementReportPdf(props: {
                         </View>
                         {props.computations.map((computation) => {
                             let computationAmount = 0
-                            props.computationIncomeStatements
-                                .filter((cis) => cis.idComputation === computation.id)
-                                .forEach((cis) => {
-                                    let incomeStatementAmount = 0
-                                    const foundIS = props.incomeStatements.find((is) => is.id === cis.idIncomeStatement)
-                                    if (!foundIS) return
-                                    const children = getIncomeStatementChildren({
-                                        incomeStatement: foundIS,
-                                        incomeStatements: props.incomeStatements,
-                                    })
-                                    props.accounts
-                                        .filter((account) => {
-                                            const hasAccount = account.idIncomeStatement === cis.idIncomeStatement
-                                            const hasChildrenAccount = children.some(
-                                                (is) => is.id === account.idIncomeStatement,
-                                            )
-                                            return hasAccount || hasChildrenAccount
-                                        })
-                                        .forEach((account) => {
-                                            props.entryLines
-                                                .filter((el) => el.idAccount === account.id)
-                                                .forEach((el) => {
-                                                    incomeStatementAmount += Number(el.debit) - Number(el.credit)
-                                                })
-                                        })
-                                    if (cis.operation === "plus") computationAmount += Math.abs(incomeStatementAmount)
-                                    if (cis.operation === "minus") computationAmount += -Math.abs(incomeStatementAmount)
+                            for (const cis of props.computationIncomeStatements) {
+                                if (cis.idComputation !== computation.id) continue
+                                let incomeStatementAmount = 0
+                                const foundIS = incomeStatementById.get(cis.idIncomeStatement)
+                                if (!foundIS) continue
+                                const children = getIncomeStatementChildren({
+                                    incomeStatement: foundIS,
+                                    incomeStatements: props.incomeStatements,
                                 })
+                                for (const account of props.accounts) {
+                                    const hasAccount = account.idIncomeStatement === cis.idIncomeStatement
+                                    const hasChildrenAccount = children.some(
+                                        (is) => is.id === account.idIncomeStatement,
+                                    )
+                                    if (!hasAccount && !hasChildrenAccount) continue
+                                    for (const el of props.entryLines) {
+                                        if (el.idAccount !== account.id) continue
+                                        incomeStatementAmount += Number(el.debit) - Number(el.credit)
+                                    }
+                                }
+                                if (cis.operation === "plus") computationAmount += Math.abs(incomeStatementAmount)
+                                if (cis.operation === "minus") computationAmount += -Math.abs(incomeStatementAmount)
+                            }
 
-                            const formulaLabel = props.computationIncomeStatements
-                                .filter((cis) => cis.idComputation === computation.id)
-                                .map((cis, i) => {
-                                    const is = props.incomeStatements.find((is) => is.id === cis.idIncomeStatement)
-                                    if (!is) return ""
-                                    const roman = toRoman(Number(is.number))
-                                    if (cis.operation === "plus") return i === 0 ? roman : `+${roman}`
-                                    if (cis.operation === "minus") return `-${roman}`
-                                    return ""
-                                })
-                                .join("")
+                            const formulaLabelParts: string[] = []
+                            let formulaIndex = 0
+                            for (const cis of props.computationIncomeStatements) {
+                                if (cis.idComputation !== computation.id) continue
+                                const is = incomeStatementById.get(cis.idIncomeStatement)
+                                if (!is) {
+                                    formulaIndex++
+                                    continue
+                                }
+                                const roman = toRoman(Number(is.number))
+                                if (cis.operation === "plus") {
+                                    formulaLabelParts.push(formulaIndex === 0 ? roman : `+${roman}`)
+                                } else if (cis.operation === "minus") {
+                                    formulaLabelParts.push(`-${roman}`)
+                                } else {
+                                    formulaLabelParts.push("")
+                                }
+                                formulaIndex++
+                            }
+                            const formulaLabel = formulaLabelParts.join("")
 
                             return (
                                 <View

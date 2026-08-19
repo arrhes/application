@@ -1,6 +1,5 @@
-import { ButtonGhostContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconLoader2, IconSearch } from "@tabler/icons-react"
+import { ButtonGhostContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { useRef, useState, useTransition } from "react"
 import { DocHeader } from "../../../../../components/document/DocHeader.js"
@@ -8,14 +7,22 @@ import { DocParagraph } from "../../../../../components/document/DocParagraph.js
 import { DocRoot } from "../../../../../components/document/DocRoot.js"
 import { DocSection } from "../../../../../components/document/DocSection.js"
 import { LinkButton } from "../../../../../components/LinkButton.js"
-import { type ScenarioEntry, scenarioEntries, searchScenarios } from "./scenariosData.js"
+import { SearchBar } from "../../../../../components/layouts/SearchBar.js"
+import { scenarioEntries, searchScenarios } from "./scenariosData.js"
 
-const ROW_HEIGHT = 32
-const ROW_GAP = 4 // 0.25rem
+export const ROW_HEIGHT = 32
 
-function ScenarioRow(props: { scenario: ScenarioEntry }) {
+export const ROW_GAP = 4
+
+interface ScenarioRowProps {
+    scenario: {
+        id: string
+        title: string
+    }
+}
+
+function ScenarioRow(props: ScenarioRowProps) {
     const { scenario } = props
-
     return (
         <LinkButton
             to="/documentation/comptabilité/ressources/scénarios/$scenario"
@@ -39,18 +46,16 @@ function ScenarioRow(props: { scenario: ScenarioEntry }) {
 
 export function ScenariosResourcesAccountingDocPage() {
     const [query, setQuery] = useState("")
-    const [filteredScenarios, setFilteredScenarios] = useState<ScenarioEntry[]>(scenarioEntries)
+    const [filteredScenarios, setFilteredScenarios] = useState(scenarioEntries)
     const [isPending, startTransition] = useTransition()
-    const parentRef = useRef<HTMLDivElement>(null)
+    const parentRef = useRef(null)
     const hasQuery = query.trim().length > 0
-
     const virtualizer = useVirtualizer({
         count: filteredScenarios.length,
         getScrollElement: () => parentRef.current,
         estimateSize: () => ROW_HEIGHT + ROW_GAP,
         overscan: 20,
     })
-
     function handleSearch(value: string) {
         setQuery(value)
         startTransition(() => {
@@ -61,7 +66,6 @@ export function ScenariosResourcesAccountingDocPage() {
             }
         })
     }
-
     return (
         <DocRoot>
             <DocHeader
@@ -76,76 +80,19 @@ export function ScenariosResourcesAccountingDocPage() {
                 </DocParagraph>
             </DocSection>
 
-            <div
-                className={css({
-                    position: "relative",
-                })}
-            >
-                {isPending ? (
-                    <IconLoader2
-                        size={16}
-                        className={css({
-                            position: "absolute",
-                            left: "0.75rem",
-                            top: "50%",
-                            transform: "translateY(-50%)",
-                            stroke: "primary",
-                            pointerEvents: "none",
-                            animation: "spin 1s linear infinite",
-                        })}
-                    />
-                ) : (
-                    <IconSearch
-                        size={16}
-                        className={css({
-                            position: "absolute",
-                            left: "0.75rem",
-                            top: "50%",
-                            transform: "translateY(-50%)",
-                            stroke: "neutral/40",
-                            pointerEvents: "none",
-                        })}
-                    />
-                )}
-                <input
-                    type="text"
-                    aria-label="Rechercher un scénario"
-                    placeholder="capital, 512, fournisseur, amortissement..."
-                    value={query}
-                    onChange={(e) => handleSearch(e.target.value)}
-                    className={css({
-                        width: "100%",
-                        padding: "0.75rem 0.75rem 0.75rem 2.5rem",
-                        fontSize: "sm",
-                        borderRadius: "lg",
-                        border: "1px solid",
-                        borderColor: "neutral/15",
-                        backgroundColor: "white",
-                        color: "neutral",
-                        outline: "none",
-                        _focus: {
-                            borderColor: "primary/50",
-                            boxShadow: "0 0 0 3px token(colors.primary/10)",
-                        },
-                        _placeholder: {
-                            color: "neutral/40",
-                        },
-                        transition: "all 0.15s",
-                    })}
-                />
-            </div>
+            <SearchBar
+                value={query}
+                onChange={handleSearch}
+                isLoading={isPending}
+                ariaLabel="Rechercher un scénario"
+                placeholder="capital, 512, fournisseur, amortissement..."
+            />
 
-            <span
-                className={css({
-                    fontSize: "xs",
-                    color: "neutral/40",
-                    fontWeight: "medium",
-                })}
-            >
+            <DocParagraph>
                 {filteredScenarios.length} scénario{filteredScenarios.length !== 1 ? "s" : ""}
                 {hasQuery ? " trouvé" : ""}
                 {hasQuery && filteredScenarios.length !== 1 ? "s" : ""}
-            </span>
+            </DocParagraph>
 
             {filteredScenarios.length > 0 ? (
                 <div
@@ -186,16 +133,14 @@ export function ScenariosResourcesAccountingDocPage() {
                 </div>
             ) : (
                 !isPending && (
-                    <p
+                    <div
                         className={css({
-                            fontSize: "sm",
-                            color: "neutral/50",
                             padding: "2rem 0",
                             textAlign: "center",
                         })}
                     >
-                        Aucun scénario ne correspond à votre recherche.
-                    </p>
+                        <DocParagraph>Aucun scénario ne correspond à votre recherche.</DocParagraph>
+                    </div>
                 )
             )}
         </DocRoot>

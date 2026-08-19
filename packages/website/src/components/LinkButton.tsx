@@ -1,1 +1,1 @@
-export { LinkButton } from "@arrhes/ui"
+export { LinkButton } from "@comptasse/ui"

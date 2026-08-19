@@ -1,4 +1,4 @@
-import { generateFilePutSignedUrlRouteDefinition, models } from "@arrhes/application-metadata"
+import { generateFilePutSignedUrlRouteDefinition, models } from "@comptasse/application-metadata"
 import { and, eq } from "drizzle-orm"
 import { checkAuthMiddleware } from "../../../../../../../../middlewares/checkAuthMiddleware.js"
 import { requireOrganizationMiddleware } from "../../../../../../../../middlewares/requireOrganizationMiddleware.js"
@@ -8,6 +8,7 @@ import { Exception } from "../../../../../../../../utilities/exception.js"
 import { response } from "../../../../../../../../utilities/response.js"
 import { selectOne } from "../../../../../../../../utilities/sql/selectOne.js"
 import { generatePutSignedUrl } from "../../../../../../../../utilities/storage/generatePutSignedUrl.js"
+import { getOrganizationS3Client } from "../../../../../../../../utilities/storage/getOrganizationS3Client.js"
 
 export const generateFilePutSignedUrlRoute = apiFactory
     .createApp()
@@ -51,10 +52,18 @@ export const generateFilePutSignedUrlRoute = apiFactory
             })
         }
 
+        const s3Client =
+            organization.storageEndpoint && organization.storageAccessKey && organization.storageSecretKey
+                ? getOrganizationS3Client(organization)
+                : undefined
+        const bucketName = organization.storageBucketName ?? undefined
+
         const storageKey = `organizations/${idOrganization}/storage/${body.idFile}`
 
         const url = await generatePutSignedUrl({
             var: c.var,
+            s3Client,
+            bucketName,
             storageKey: storageKey,
             contentLength: body.size,
             contentType: body.type,

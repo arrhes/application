@@ -2,8 +2,8 @@ export function getCookieDomainFromHost(parameters: { hostHeader: string | undef
     const host = (parameters.hostHeader ?? "").trim().toLowerCase()
     const hostname = host.split(":")[0]
 
-    if (hostname.endsWith(".arrhes.localhost") || hostname === "arrhes.localhost") {
-        return "arrhes.localhost"
+    if (hostname.endsWith(".comptasse.localhost") || hostname === "comptasse.localhost") {
+        return "comptasse.localhost"
     }
 
     if (hostname.endsWith(".localhost") || hostname === "localhost") {

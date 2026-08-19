@@ -1,5 +1,5 @@
-import { ButtonGhostContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { ButtonGhostContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconChevronRight } from "@tabler/icons-react"
 import { Page } from "../../../components/layouts/page/page.js"
 
@@ -36,24 +36,6 @@ const settingsSections = [
             },
         ],
     },
-    {
-        title: "Facturation",
-        description: "Suivez vos abonnements, factures et moyens de paiement.",
-        items: [
-            {
-                label: "Facturation",
-                helper: "Plan, statut",
-            },
-            {
-                label: "Factures",
-                helper: "Historique des paiements",
-            },
-            {
-                label: "Moyens de paiement",
-                helper: "Cartes, IBAN",
-            },
-        ],
-    },
 ]
 
 export function SettingsPage() {
@@ -61,7 +43,7 @@ export function SettingsPage() {
         <Page.Root>
             <Page.Header>
                 <Page.Title>Paramètres</Page.Title>
-                <Page.Description>Tout ce qui concerne votre compte, la sécurité et la facturation.</Page.Description>
+                <Page.Description>Tout ce qui concerne votre compte et la sécurité.</Page.Description>
             </Page.Header>
             <Page.Content>
                 <div

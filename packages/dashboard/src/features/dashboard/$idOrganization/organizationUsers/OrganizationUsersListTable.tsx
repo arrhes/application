@@ -1,5 +1,5 @@
-import { readAllOrganizationUsersRouteDefinition } from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import { readAllOrganizationUsersRouteDefinition } from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
 import { IconUsers } from "@tabler/icons-react"
 import type * as v from "valibot"
 import { DataWrapper } from "../../../../components/layouts/DataWrapper.tsx"

@@ -1,6 +1,9 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { DocRoot } from "../../../../../../components/document/DocRoot"
 import { getAccountBySlug } from "../../../../../../features/docs/accounting/resources/accounts/accountsData.ts"
 import { accountsAccountingDocLayoutRoute } from "./accountsAccountingDocLayoutRoute.tsx"
+import { AccountResourcesAccountingDocPage } from "../../../../../../features/docs/accounting/resources/accounts/AccountResourcesAccountingDocPage.js"
+
 
 export const accountAccountingDocRoute = createRoute({
     getParentRoute: () => accountsAccountingDocLayoutRoute,
@@ -14,11 +17,9 @@ export const accountAccountingDocRoute = createRoute({
                 : "Ce compte comptable n'a pas été trouvé dans le plan comptable général.",
         }
     },
-    component: lazyRouteComponent(
-        () =>
-            import(
-                "../../../../../../features/docs/accounting/resources/accounts/AccountResourcesAccountingDocPage.js"
-            ),
-        "AccountResourcesAccountingDocPage",
+    component: () => (
+        <DocRoot>
+            <AccountResourcesAccountingDocPage />
+        </DocRoot>
     ),
 })

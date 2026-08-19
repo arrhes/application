@@ -6,7 +6,7 @@ export function sitemapPlugin(): Plugin {
     return {
         name: "sitemap-generator",
         closeBundle() {
-            const baseUrl = "https://arrhes.com"
+            const baseUrl = "https://comptasse.com"
             const today = new Date().toISOString().split("T")[0]
 
             // Static public routes
@@ -56,11 +56,6 @@ export function sitemapPlugin(): Plugin {
                 },
                 {
                     path: "/documentation/mentions-légales",
-                    priority: "0.3",
-                    changefreq: "yearly",
-                },
-                {
-                    path: "/documentation/cgu",
                     priority: "0.3",
                     changefreq: "yearly",
                 },
@@ -198,30 +193,12 @@ export function sitemapPlugin(): Plugin {
                     priority: "0.6",
                     changefreq: "monthly",
                 },
+
+                // General docs
                 {
-                    path: "/documentation/dashboard/assistant",
+                    path: "/documentation/mises-à-jour",
                     priority: "0.6",
-                    changefreq: "monthly",
-                },
-                {
-                    path: "/documentation/dashboard/assistant/modèles",
-                    priority: "0.6",
-                    changefreq: "monthly",
-                },
-                {
-                    path: "/documentation/dashboard/assistant/outils",
-                    priority: "0.6",
-                    changefreq: "monthly",
-                },
-                {
-                    path: "/documentation/dashboard/assistant/ocr",
-                    priority: "0.6",
-                    changefreq: "monthly",
-                },
-                {
-                    path: "/documentation/dashboard/màj",
-                    priority: "0.6",
-                    changefreq: "monthly",
+                    changefreq: "weekly",
                 },
 
                 // CLI docs

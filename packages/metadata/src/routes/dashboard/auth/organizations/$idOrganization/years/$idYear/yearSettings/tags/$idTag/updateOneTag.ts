@@ -7,6 +7,7 @@ export const updateOneTagRouteDefinition = routeDefinition({
     protocol: "http",
     method: "PATCH",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/tags/:idTag`,
+    name: "update-one-tag",
     schemas: {
         body: v.object({
             idTag: tagSchema.entries.id,

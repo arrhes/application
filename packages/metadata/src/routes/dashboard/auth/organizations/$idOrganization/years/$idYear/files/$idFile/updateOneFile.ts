@@ -7,6 +7,7 @@ export const updateOneFileRouteDefinition = routeDefinition({
     protocol: "http",
     method: "PATCH",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/files/:idFile`,
+    name: "update-one-file",
     schemas: {
         body: v.object({
             idFile: fileSchema.entries.id,

@@ -1,16 +1,19 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
-import { generalDocLayoutRoute } from "./generalDocLayoutRoute.tsx"
+import { createRoute } from "@tanstack/react-router"
+import { DocRoot } from "../../../../components/document/DocRoot"
+import { SupportGeneralDocPage } from "../../../../features/docs/project/SupportGeneralDocPage.js"
+import { docsLayoutRoute } from "../docsLayoutRoute.js"
 
 export const supportGeneralDocRoute = createRoute({
-    getParentRoute: () => generalDocLayoutRoute,
+    getParentRoute: () => docsLayoutRoute,
     path: "/support",
     beforeLoad: () => ({
         title: "Support",
         description:
-            "Besoin d'aide avec Arrhes ? Contactez notre support ou consultez la documentation pour résoudre vos problèmes.",
+            "Besoin d'aide avec Comptasse ? Contactez notre support ou consultez la documentation pour résoudre vos problèmes.",
     }),
-    component: lazyRouteComponent(
-        () => import("../../../../features/docs/general/SupportGeneralDocPage.tsx"),
-        "SupportGeneralDocPage",
+    component: () => (
+        <DocRoot>
+            <SupportGeneralDocPage />
+        </DocRoot>
     ),
 })

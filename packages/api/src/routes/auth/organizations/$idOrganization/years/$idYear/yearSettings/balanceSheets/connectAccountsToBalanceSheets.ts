@@ -4,7 +4,7 @@ import {
     defaultAssociationBalanceSheets,
     defaultCompanyBalanceSheets,
     models,
-} from "@arrhes/application-metadata"
+} from "@comptasse/application-metadata"
 import { and, eq } from "drizzle-orm"
 import { checkUserSessionMiddleware } from "../../../../../../../../../../middlewares/checkUserSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../../../../../../middlewares/validateBody.middleware.js"

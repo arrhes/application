@@ -1,62 +1,16 @@
-import {
-    readAllAccountsRouteDefinition,
-    readAllBalanceSheetsRouteDefinition,
-    readAllComputationIncomeStatementsRouteDefinition,
-    readAllComputationsRouteDefinition,
-    readAllEntriesRouteDefinition,
-    readAllEntryLinesRouteDefinition,
-    readAllEntryTagsRouteDefinition,
-    readAllFilesRouteDefinition,
-    readAllFoldersRouteDefinition,
-    readAllIncomeStatementsRouteDefinition,
-    readAllJournalsRouteDefinition,
-    readAllTagsRouteDefinition,
-} from "@arrhes/application-metadata/routes"
 import { type UseQueryResult, useQuery } from "@tanstack/react-query"
-import { createContext, type ReactNode, useMemo } from "react"
-import type * as v from "valibot"
+import { useMemo, type ReactNode } from "react"
 import { ClientError } from "../../../utilities/clientError.ts"
 import { getResponseBodyFromAPI } from "../../../utilities/getResponseBodyFromAPI.ts"
-
-const yearQueries = {
-    accounts: readAllAccountsRouteDefinition,
-    entries: readAllEntriesRouteDefinition,
-    entryLines: readAllEntryLinesRouteDefinition,
-    entryTags: readAllEntryTagsRouteDefinition,
-    journals: readAllJournalsRouteDefinition,
-    tags: readAllTagsRouteDefinition,
-    files: readAllFilesRouteDefinition,
-    folders: readAllFoldersRouteDefinition,
-    balanceSheets: readAllBalanceSheetsRouteDefinition,
-    incomeStatements: readAllIncomeStatementsRouteDefinition,
-    computations: readAllComputationsRouteDefinition,
-    computationIncomeStatements: readAllComputationIncomeStatementsRouteDefinition,
-} as const
-
-type YearQueries = typeof yearQueries
-
-export type YearData = {
-    [K in keyof YearQueries]: v.InferOutput<YearQueries[K]["schemas"]["return"]>
-}
-
-export type YearDataKey = keyof YearData
-
-type YearScopedRouteDefinition = {
-    method: "GET" | "POST" | "PATCH" | "DELETE"
-    path: string
-    schemas: {
-        body: v.ObjectSchema<v.ObjectEntries, undefined>
-        return:
-            | v.ObjectSchema<v.ObjectEntries, undefined>
-            | v.ArraySchema<v.ObjectSchema<v.ObjectEntries, undefined>, undefined>
-    }
-}
-
-export type YearDataContextValue = {
-    [K in YearDataKey]: UseQueryResult<YearData[K]>
-}
-
-export const YearDataContext = createContext<YearDataContextValue | null>(null)
+import { buildQueryKey } from "../../../utilities/queryKey.ts"
+import {
+    type YearData,
+    type YearDataContextValue,
+    type YearDataKey,
+    YearDataContext,
+    yearQueries,
+    type YearScopedRouteDefinition,
+} from "./YearDataContext.js"
 
 function useYearQuery<K extends YearDataKey>(
     key: K,
@@ -67,10 +21,10 @@ function useYearQuery<K extends YearDataKey>(
     const routeDefinition = yearQueries[key] as YearScopedRouteDefinition
 
     return useQuery({
-        queryKey: [
-            routeDefinition.path,
-            body,
-        ],
+        queryKey: buildQueryKey(
+            routeDefinition,
+            body as Record<string, unknown>,
+        ),
         queryFn: async (context) => {
             const response = await getResponseBodyFromAPI({
                 routeDefinition,

@@ -1,5 +1,5 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconLoader2, IconSearch } from "@tabler/icons-react"
+import { ButtonGhostContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { useVirtualizer } from "@tanstack/react-virtual"
 import { useRef, useState, useTransition } from "react"
 import { DocHeader } from "../../../../../components/document/DocHeader.js"
@@ -8,13 +8,23 @@ import { DocRoot } from "../../../../../components/document/DocRoot.js"
 import { DocSection } from "../../../../../components/document/DocSection.js"
 import { DocSourceRef } from "../../../../../components/document/DocSourceRef.js"
 import { LinkButton } from "../../../../../components/LinkButton.js"
-import { type AccountEntry, accountEntries, searchAccounts } from "./accountsData.js"
+import { SearchBar } from "../../../../../components/layouts/SearchBar.js"
+import { accountEntries, searchAccounts } from "./accountsData.js"
 
-// ── Account row ─────────────────────────────────────────────────────────────
+export const ROW_HEIGHT = 32
 
-const ROW_HEIGHT = 36
+export const ROW_GAP = 4
 
-function AccountRow(props: { account: AccountEntry }) {
+interface AccountRowProps {
+    account: {
+        slug: string
+        number: string
+        label: string
+        isOptional: boolean
+    }
+}
+
+function AccountRow(props: AccountRowProps) {
     const { account } = props
     const isFacultatif = account.isOptional
     const depth = account.number.length - 1
@@ -30,67 +40,57 @@ function AccountRow(props: { account: AccountEntry }) {
                     account: account.slug,
                 }}
                 className={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                    padding: "0 0.5rem",
-                    height: `${ROW_HEIGHT}px`,
-                    fontSize: "sm",
-                    color: "neutral",
-                    borderRadius: "md",
-                    _hover: {
-                        backgroundColor: "primary/5",
-                        color: "primary",
-                    },
-                    transition: "all 0.1s",
-                    cursor: "pointer",
                     width: "100%",
                 }}
             >
-                <span
-                    className={css({
-                        fontWeight: "bold",
-                        fontFamily: "mono",
-                        fontStyle: isFacultatif ? "italic" : "normal",
-                        color: isFacultatif ? "primary/50" : "primary",
-                    })}
+                <ButtonGhostContent
+                    className={{
+                        width: "100%",
+                        justifyContent: "start",
+                        fontSize: "sm",
+                    }}
                 >
-                    {account.number}
-                </span>
-                <span
-                    className={css({
-                        flex: 1,
-                        minWidth: 0,
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                        fontStyle: isFacultatif ? "italic" : "normal",
-                        color: isFacultatif ? "neutral/50" : "neutral",
-                    })}
-                >
-                    {account.label}
-                </span>
+                    <span
+                        className={css({
+                            fontWeight: "bold",
+                            fontFamily: "mono",
+                            fontStyle: isFacultatif ? "italic" : "normal",
+                            color: isFacultatif ? "primary/50" : "primary",
+                        })}
+                    >
+                        {account.number}
+                    </span>
+                    <span
+                        className={css({
+                            flex: 1,
+                            minWidth: 0,
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                            fontStyle: isFacultatif ? "italic" : "normal",
+                            color: isFacultatif ? "neutral/50" : "neutral",
+                        })}
+                    >
+                        {account.label}
+                    </span>
+                </ButtonGhostContent>
             </LinkButton>
         </div>
     )
 }
 
-// ── Main page ──────────────────────────────────────────────────────────────
-
 export function AccountsResourcesAccountingDocPage() {
     const [query, setQuery] = useState("")
-    const [filteredAccounts, setFilteredAccounts] = useState<AccountEntry[]>(accountEntries)
+    const [filteredAccounts, setFilteredAccounts] = useState(accountEntries)
     const [isPending, startTransition] = useTransition()
-    const parentRef = useRef<HTMLDivElement>(null)
+    const parentRef = useRef(null)
     const hasQuery = query.trim().length > 0
-
     const virtualizer = useVirtualizer({
         count: filteredAccounts.length,
         getScrollElement: () => parentRef.current,
-        estimateSize: () => ROW_HEIGHT,
+        estimateSize: () => ROW_HEIGHT + ROW_GAP,
         overscan: 20,
     })
-
     function handleSearch(value: string) {
         setQuery(value)
         startTransition(() => {
@@ -101,7 +101,6 @@ export function AccountsResourcesAccountingDocPage() {
             }
         })
     }
-
     return (
         <DocRoot>
             <DocHeader
@@ -116,7 +115,7 @@ export function AccountsResourcesAccountingDocPage() {
                     description. Les comptes en <em>italique</em> sont facultatifs. Pour une présentation détaillée de
                     chaque classe, consultez la page{" "}
                     <LinkButton
-                        to="/documentation/comptabilité/comptes/classes"
+                        to="/documentation/comptabilité/introduction/classes"
                         className={{
                             fontSize: "sm",
                             color: "primary",
@@ -136,78 +135,20 @@ export function AccountsResourcesAccountingDocPage() {
                 </DocParagraph>
             </DocSection>
 
-            {/* Search bar */}
-            <div
-                className={css({
-                    position: "relative",
-                })}
-            >
-                {isPending ? (
-                    <IconLoader2
-                        size={16}
-                        className={css({
-                            position: "absolute",
-                            left: "0.75rem",
-                            top: "50%",
-                            transform: "translateY(-50%)",
-                            stroke: "primary",
-                            pointerEvents: "none",
-                            animation: "spin 1s linear infinite",
-                        })}
-                    />
-                ) : (
-                    <IconSearch
-                        size={16}
-                        className={css({
-                            position: "absolute",
-                            left: "0.75rem",
-                            top: "50%",
-                            transform: "translateY(-50%)",
-                            stroke: "neutral/40",
-                            pointerEvents: "none",
-                        })}
-                    />
-                )}
-                <input
-                    type="text"
-                    aria-label="Rechercher un compte"
-                    placeholder="512, banque, fournisseurs, capital..."
-                    value={query}
-                    onChange={(e) => handleSearch(e.target.value)}
-                    className={css({
-                        width: "100%",
-                        padding: "0.75rem 0.75rem 0.75rem 2.5rem",
-                        fontSize: "sm",
-                        borderRadius: "lg",
-                        border: "1px solid",
-                        borderColor: "neutral/15",
-                        backgroundColor: "white",
-                        color: "neutral",
-                        outline: "none",
-                        _focus: {
-                            borderColor: "primary/50",
-                            boxShadow: "0 0 0 3px token(colors.primary/10)",
-                        },
-                        _placeholder: {
-                            color: "neutral/40",
-                        },
-                        transition: "all 0.15s",
-                    })}
-                />
-            </div>
+            <SearchBar
+                value={query}
+                onChange={handleSearch}
+                isLoading={isPending}
+                ariaLabel="Rechercher un compte"
+                placeholder="512, banque, fournisseurs, capital..."
+            />
 
             {/* Result count */}
-            <span
-                className={css({
-                    fontSize: "xs",
-                    color: "neutral/40",
-                    fontWeight: "medium",
-                })}
-            >
+            <DocParagraph>
                 {filteredAccounts.length} compte{filteredAccounts.length !== 1 ? "s" : ""}
                 {hasQuery ? " trouvé" : ""}
                 {hasQuery && filteredAccounts.length !== 1 ? "s" : ""}
-            </span>
+            </DocParagraph>
 
             {/* Virtualized list */}
             {filteredAccounts.length > 0 ? (
@@ -238,7 +179,7 @@ export function AccountsResourcesAccountingDocPage() {
                                     top: 0,
                                     left: 0,
                                     width: "100%",
-                                    height: `${virtualItem.size}px`,
+                                    height: `${virtualItem.size - ROW_GAP}px`,
                                     transform: `translateY(${virtualItem.start}px)`,
                                 }}
                             >

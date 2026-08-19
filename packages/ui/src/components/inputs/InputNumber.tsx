@@ -31,7 +31,12 @@ export function InputNumber(props: { value: number; onChange: (value: number) =>
                 min={min}
                 value={props.value}
                 onChange={(e) => {
-                    const val = parseInt(e.target.value, 10)
+                    const raw = e.target.value
+                    if (raw === "") {
+                        props.onChange(min)
+                        return
+                    }
+                    const val = parseInt(raw, 10)
                     props.onChange(Number.isNaN(val) || val < min ? min : val)
                 }}
                 className={css({

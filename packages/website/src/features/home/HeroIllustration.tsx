@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 
 const dim = css({
     color: "neutral/30",
@@ -26,7 +26,7 @@ const contentWidth = 38
 const innerPaddedWidth = contentWidth - 2
 const padJournal = (value: string) => value.padEnd(contentWidth, " ")
 const padWithSides = (value: string) => ` ${value.padEnd(innerPaddedWidth, " ")} `
-const topLeft = " ◆ Arrhes"
+const topLeft = " ◆ Comptasse"
 const topRight = "Exercice 2026 "
 const topGap = " ".repeat(Math.max(1, contentWidth - topLeft.length - topRight.length))
 const formatKPIGap = (label: string, amount: string) =>

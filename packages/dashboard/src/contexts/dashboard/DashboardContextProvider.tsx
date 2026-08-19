@@ -1,11 +1,11 @@
 import type { ReactNode } from "react"
-import { useCallback, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 import { setCookie } from "../../utilities/cookies/setCookie.js"
 import { cookiePrefix } from "../../utilities/variables.js"
 import { DashboardContext } from "./dashboardContext.js"
 
-const SELECTED_ORG_KEY = "arrhes:context-org"
-const SELECTED_YEAR_KEY = "arrhes:context-year"
+const SELECTED_ORG_KEY = "comptasse:context-org"
+const SELECTED_YEAR_KEY = "comptasse:context-year"
 
 function readStorage(key: string): string | null {
     try {
@@ -44,15 +44,18 @@ export function DashboardContextProvider(props: { children: ReactNode }) {
         writeStorage(SELECTED_YEAR_KEY, id)
     }, [])
 
+    const contextValue = useMemo(
+        () => ({
+            selectedOrgId,
+            selectedYearId,
+            setOrg,
+            setYear,
+        }),
+        [selectedOrgId, selectedYearId, setOrg, setYear],
+    )
+
     return (
-        <DashboardContext.Provider
-            value={{
-                selectedOrgId,
-                selectedYearId,
-                setOrg,
-                setYear,
-            }}
-        >
+        <DashboardContext.Provider value={contextValue}>
             {props.children}
         </DashboardContext.Provider>
     )

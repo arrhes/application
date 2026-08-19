@@ -1,4 +1,5 @@
-import { createOneOrganizationUserRouteDefinition, generateId, models } from "@arrhes/application-metadata"
+import { pbkdf2Sync, randomBytes } from "node:crypto"
+import { createOneOrganizationUserRouteDefinition, generateId, models } from "@comptasse/application-metadata"
 import { and, eq } from "drizzle-orm"
 import { checkAuthMiddleware } from "../../../../../../middlewares/checkAuthMiddleware.js"
 import { requireOrganizationMiddleware } from "../../../../../../middlewares/requireOrganizationMiddleware.js"
@@ -23,7 +24,6 @@ export const createOneOrganizationUserRoute = apiFactory
             schema: createOneOrganizationUserRouteDefinition.schemas.body,
         })
 
-        // must be admin of the administration
         const organizationUser = await selectOne({
             database: c.var.clients.sql,
             table: models.organizationUser,
@@ -37,17 +37,30 @@ export const createOneOrganizationUserRoute = apiFactory
             })
         }
 
-        // the auth.user must exist
-        const toAddUser = await selectOne({
+        let toAddUser = await selectOne({
             database: c.var.clients.sql,
             table: models.user,
             where: (table) => eq(table.email, body.user.email),
         })
+
+        let temporaryPassword: string | null = null
         if (toAddUser === undefined) {
-            throw new Exception({
-                statusCode: 404,
-                internalMessage: "User not found",
-                externalMessage: "Utilisateur non trouvé",
+            temporaryPassword = randomBytes(12).toString("base64url")
+            const passwordSalt = randomBytes(32).toString("hex")
+            const passwordHash = pbkdf2Sync(temporaryPassword, passwordSalt, 128000, 64, "sha512").toString("hex")
+            toAddUser = await insertOne({
+                database: c.var.clients.sql,
+                table: models.user,
+                data: {
+                    id: generateId(),
+                    isActive: true,
+                    alias: null,
+                    email: body.user.email,
+                    passwordHash,
+                    passwordSalt,
+                    createdAt: new Date().toISOString(),
+                    lastUpdatedAt: null,
+                },
             })
         }
 
@@ -60,7 +73,7 @@ export const createOneOrganizationUserRoute = apiFactory
                 idUser: toAddUser.id,
                 isOwner: false,
                 isAdmin: body.isAdmin,
-                status: "invited",
+                status: "active",
                 createdAt: new Date().toISOString(),
                 lastUpdatedAt: null,
                 createdBy: auth.user.id,
@@ -68,19 +81,13 @@ export const createOneOrganizationUserRoute = apiFactory
             },
         })
 
-        //  await sendEmail({
-        //                 to: updateUser.email,
-        //                 subject: "Invitation à collaborer sur Coulba",
-        //                 html: invitationTemplate({
-        //                     urlInvitation: `${urlApp}/services/invitation?id=${updateUser.id}&token=${updateUser.invitationToken}`,
-        //                     urlWebsite: urlWebsite
-        //                 })
-        //             })
-
         return response({
             context: c,
             statusCode: 200,
             schema: createOneOrganizationUserRouteDefinition.schemas.return,
-            data: createOneOrganizationUser,
+            data: {
+                ...createOneOrganizationUser,
+                temporaryPassword,
+            },
         })
     })

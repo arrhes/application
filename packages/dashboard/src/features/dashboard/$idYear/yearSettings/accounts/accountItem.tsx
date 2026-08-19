@@ -1,6 +1,6 @@
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { css } from "@arrhes/ui/utilities/cn.js"
-import { memo } from "react"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { css } from "@comptasse/ui/utilities/cn.js"
+import { memo, useCallback, type MouseEvent } from "react"
 import type * as v from "valibot"
 
 export const INDENT_PER_LEVEL = 16
@@ -47,7 +47,17 @@ export const AccountItem = memo(function AccountItem(props: {
     account: v.InferOutput<typeof returnedSchemas.account>
     level: number
     href: string
+    onClick?: () => void
 }) {
+    const handleClick = useCallback(
+        (e: MouseEvent<HTMLAnchorElement>) => {
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
+            e.preventDefault()
+            props.onClick?.()
+        },
+        [props.onClick],
+    )
+
     return (
         <a
             href={props.href}
@@ -56,6 +66,7 @@ export const AccountItem = memo(function AccountItem(props: {
                 width: "100%",
                 cursor: "pointer",
             })}
+            onClick={handleClick}
         >
             <div
                 className={css({

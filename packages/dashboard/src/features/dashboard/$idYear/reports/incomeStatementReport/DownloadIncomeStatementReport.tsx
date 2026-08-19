@@ -1,12 +1,11 @@
-import { generateIncomeStatementXmlRouteDefinition } from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button, ButtonGhostContent, ButtonOutlineContent, toast } from "@arrhes/ui"
-import { pdf } from "@react-pdf/renderer"
+import { generateIncomeStatementXmlRouteDefinition } from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { Button, ButtonGhostContent, ButtonOutlineContent, toast } from "@comptasse/ui"
+
 import { IconDownload, IconFileTypePdf, IconFileTypeXml } from "@tabler/icons-react"
 import type * as v from "valibot"
 import { Popover } from "../../../../../components/overlays/popover/popover.tsx"
 import { getResponseBodyFromAPI } from "../../../../../utilities/getResponseBodyFromAPI.ts"
-import { IncomeStatementReportPdf } from "./IncomeStatementReportPdf.tsx"
 
 export function DownloadIncomeStatementReport(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
@@ -18,6 +17,10 @@ export function DownloadIncomeStatementReport(props: {
     accounts: Array<v.InferOutput<typeof returnedSchemas.account>>
 }) {
     async function handlePdf() {
+        const [{ pdf }, { IncomeStatementReportPdf }] = await Promise.all([
+            import("@react-pdf/renderer"),
+            import("./IncomeStatementReportPdf.tsx"),
+        ])
         const blob = await pdf(
             <IncomeStatementReportPdf
                 incomeStatements={props.incomeStatements}
@@ -53,6 +56,13 @@ export function DownloadIncomeStatementReport(props: {
         }
 
         const response = await fetch(generateResponse.data.url)
+        if (!response.ok) {
+            toast({
+                title: "Impossible de télécharger le fichier XBRL",
+                variant: "error",
+            })
+            return
+        }
         const blob = await response.blob()
         const objectUrl = URL.createObjectURL(blob)
         const link = document.createElement("a")
@@ -70,7 +80,7 @@ export function DownloadIncomeStatementReport(props: {
                 <Button>
                     <ButtonOutlineContent
                         leftIcon={<IconDownload />}
-                        text="Télécharger"
+                        // text="Télécharger"
                     />
                 </Button>
             </Popover.Trigger>

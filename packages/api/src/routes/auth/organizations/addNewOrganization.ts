@@ -1,4 +1,4 @@
-import { addNewOrganizationRouteDefinition, generateId, models } from "@arrhes/application-metadata"
+import { addNewOrganizationRouteDefinition, generateId, models } from "@comptasse/application-metadata"
 import { checkAuthMiddleware } from "../../../middlewares/checkAuthMiddleware.js"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"
 import { apiFactory } from "../../../utilities/apiFactory.js"
@@ -24,16 +24,9 @@ export const addNewOrganizationRoute = apiFactory
                     id: generateId(),
                     isArchived: false,
                     scope: body.scope,
-                    siren: body.siren,
                     name: body.name,
-                    email: body.email,
-                    licenceAmount: 0,
                     storageLimit: 1_073_741_824,
                     storageCurrentUsage: 0,
-                    ocrPagesTotalAvailable: 100,
-                    ocrPagesTotalUsed: 0,
-                    tokensTotalAvailable: 1_000_000,
-                    tokensTotalUsed: 0,
                     createdAt: new Date().toISOString(),
                     lastUpdatedAt: null,
                     createdBy: user.id,

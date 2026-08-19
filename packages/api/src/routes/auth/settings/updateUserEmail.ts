@@ -1,12 +1,9 @@
 import { pbkdf2Sync } from "node:crypto"
-import { models, updateUserEmailRouteDefinition } from "@arrhes/application-metadata"
+import { models, updateUserEmailRouteDefinition } from "@comptasse/application-metadata"
 import { eq } from "drizzle-orm"
 import { requireCookieSessionMiddleware } from "../../../middlewares/requireCookieSessionMiddleware.js"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"
-import { sendEmail } from "../../../utilities/email/sendEmail.js"
-import { emailValidationTemplate } from "../../../utilities/email/templates/emailValidation.js"
 import { Exception } from "../../../utilities/exception.js"
-import { generateVerificationToken } from "../../../utilities/generateVerificationToken.js"
 import { registerRoute } from "../../../utilities/registerRoute.js"
 import { response } from "../../../utilities/response.js"
 import { updateOne } from "../../../utilities/sql/updateOne.js"
@@ -33,21 +30,10 @@ export const updateUserEmailRoute = registerRoute(updateUserEmailRouteDefinition
         database: c.var.clients.sql,
         table: models.user,
         data: {
-            emailToValidate: body.emailToValidate,
-            emailToken: generateVerificationToken(),
-            emailTokenExpiresAt: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
+            email: body.email,
             lastUpdatedAt: new Date().toISOString(),
         },
         where: (table) => eq(table.id, user.id),
-    })
-
-    await sendEmail({
-        var: c.var,
-        to: body.emailToValidate,
-        subject: "Valider votre email",
-        html: emailValidationTemplate({
-            token: updatedEmail.emailToken!,
-        }),
     })
 
     return response({

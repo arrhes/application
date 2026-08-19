@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconInfoSquareRounded } from "@tabler/icons-react"
 import type { ReactElement } from "react"
 import { Tooltip } from "../../overlays/tooltip/tooltip.js"

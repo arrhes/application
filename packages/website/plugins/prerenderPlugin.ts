@@ -1,9 +1,20 @@
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs"
 import { dirname, resolve } from "node:path"
 import react from "@vitejs/plugin-react"
-import { type Plugin, build as viteBuild } from "vite"
+import { loadEnv, type Plugin, build as viteBuild } from "vite"
 import { DOC_PAGE_MANIFEST } from "./DOC_PAGE_MANIFEST"
+import {
+    generateAccountMarkdown,
+    generateGlossaryMarkdown,
+    generateNavigationMarkdown,
+    generateScenarioMarkdown,
+    generateStaticDocPageMarkdown,
+    listAccountSlugs,
+    listGlossarySlugs,
+    listScenarioIds,
+} from "./docsMdDynamicContent"
 import { docsSearchIndexPlugin } from "./docsSearchIndexPlugin"
+import { mdGeneratePlugin } from "./mdGeneratePlugin"
 
 export function prerenderPlugin(): Plugin {
     return {
@@ -16,6 +27,8 @@ export function prerenderPlugin(): Plugin {
                 const pkgRoot = resolve(__dirname, "..")
                 const buildDir = resolve(pkgRoot, "build")
                 const renderBuildDir = resolve(pkgRoot, "build-render")
+                const env = loadEnv("production", pkgRoot, "VITE_")
+                const baseUrl = env.VITE_WEBSITE_BASE_URL ?? ""
 
                 const spaShell = readFileSync(resolve(buildDir, "index.html"), "utf-8")
 
@@ -26,9 +39,12 @@ export function prerenderPlugin(): Plugin {
                     envDir: pkgRoot,
                     plugins: [
                         react({
-                            include: "**/*.tsx",
+                            include: [
+                                "**/*.tsx",
+                            ],
                         }),
                         docsSearchIndexPlugin(),
+                        mdGeneratePlugin(),
                     ],
                     build: {
                         ssr: "../plugins/render.tsx",
@@ -126,6 +142,59 @@ export function prerenderPlugin(): Plugin {
                     }),
                 )
                 const count = results.reduce((sum: number, n) => sum + n, 0)
+
+                // Generate .md files for static doc pages
+                for (const entry of DOC_PAGE_MANIFEST) {
+                    const content = generateStaticDocPageMarkdown(pkgRoot, entry.path, baseUrl)
+                    if (!content) continue
+                    const mdOutPath = `${entry.path.slice(1)}.md`
+                    const mdOutFile = resolve(buildDir, mdOutPath)
+                    mkdirSync(dirname(mdOutFile), {
+                        recursive: true,
+                    })
+                    writeFileSync(mdOutFile, content, "utf-8")
+                }
+
+                // Generate .md files for dynamic account pages
+                for (const slug of listAccountSlugs(pkgRoot)) {
+                    const content = generateAccountMarkdown(pkgRoot, slug, baseUrl)
+                    if (!content) continue
+                    const mdOutFile = resolve(buildDir, `documentation/comptabilité/ressources/comptes/${slug}.md`)
+                    mkdirSync(dirname(mdOutFile), {
+                        recursive: true,
+                    })
+                    writeFileSync(mdOutFile, content, "utf-8")
+                }
+
+                // Generate .md files for dynamic scenario pages
+                for (const id of listScenarioIds(pkgRoot)) {
+                    const content = generateScenarioMarkdown(pkgRoot, id, baseUrl)
+                    if (!content) continue
+                    const mdOutFile = resolve(buildDir, `documentation/comptabilité/ressources/scénarios/${id}.md`)
+                    mkdirSync(dirname(mdOutFile), {
+                        recursive: true,
+                    })
+                    writeFileSync(mdOutFile, content, "utf-8")
+                }
+
+                // Generate .md files for dynamic glossary pages
+                for (const slug of listGlossarySlugs(pkgRoot)) {
+                    const content = generateGlossaryMarkdown(pkgRoot, slug, baseUrl)
+                    if (!content) continue
+                    const mdOutFile = resolve(buildDir, `documentation/comptabilité/ressources/glossaire/${slug}.md`)
+                    mkdirSync(dirname(mdOutFile), {
+                        recursive: true,
+                    })
+                    writeFileSync(mdOutFile, content, "utf-8")
+                }
+
+                // Generate the navigation (sommaire) .md file
+                const navigationMarkdown = generateNavigationMarkdown(baseUrl)
+                const navigationOutFile = resolve(buildDir, "documentation/sommaire.md")
+                mkdirSync(dirname(navigationOutFile), {
+                    recursive: true,
+                })
+                writeFileSync(navigationOutFile, navigationMarkdown, "utf-8")
 
                 rmSync(renderBuildDir, {
                     recursive: true,

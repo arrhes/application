@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import type { ReactNode } from "react"
 
 export function DocCode(props: { children: ReactNode }) {

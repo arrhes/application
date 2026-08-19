@@ -1,5 +1,5 @@
-import { Button, ButtonGhostContent, ButtonOutlineContent, CircularLoader, FormatNull, InputCheckbox } from "@arrhes/ui"
-import { cn, css } from "@arrhes/ui/utilities/cn.js"
+import { Button, ButtonGhostContent, ButtonOutlineContent, CircularLoader, FormatNull, InputCheckbox } from "@comptasse/ui"
+import { cn, css } from "@comptasse/ui/utilities/cn.js"
 import {
     IconChevronDown,
     IconChevronLeft,
@@ -22,10 +22,11 @@ import {
     type RowData,
     type RowSelectionState,
     type SortingState,
+    type Table,
     useReactTable,
     type VisibilityState,
 } from "@tanstack/react-table"
-import { type ComponentProps, Fragment, type ReactElement, useMemo, useRef, useState } from "react"
+import { memo, type ComponentProps, Fragment, type ReactElement, type ReactNode, useEffect, useMemo, useRef, useState } from "react"
 import { ColumnVisibilityPopover, type VisibilityColumn } from "./ColumnVisibilityPopover.js"
 import { EmptyState } from "./EmptyState.js"
 import { type FilterColumn, FilterPopover } from "./FilterPopover.js"
@@ -38,7 +39,546 @@ declare module "@tanstack/react-table" {
     }
 }
 
-export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
+function computeAutoColumnSizing<TData extends Record<keyof TData, unknown>>(
+    columns: Array<ColumnDef<TData>>,
+    data: Array<TData>,
+): ColumnSizingState {
+    const maxWidth = 200
+    const minWidth = 80
+    const basePadding = 24
+    const pixelsPerCharacter = 8
+    const sampledRows = data.slice(0, 200)
+    const computedSizing: ColumnSizingState = {}
+
+    for (const column of columns) {
+        const columnWithAccessor = column as typeof column & {
+            accessorKey?: keyof TData | string
+            accessorFn?: (row: TData, rowIndex: number) => unknown
+        }
+        const columnId =
+            column.id ??
+            (typeof columnWithAccessor.accessorKey === "string" ? columnWithAccessor.accessorKey : undefined)
+
+        if (!columnId || column.meta?.fit === true) {
+            continue
+        }
+
+        let longestValueLength = typeof column.header === "string" ? column.header.length : 0
+
+        for (const [rowIndex, row] of sampledRows.entries()) {
+            let value: unknown = ""
+
+            if (typeof columnWithAccessor.accessorFn === "function") {
+                value = columnWithAccessor.accessorFn(row, rowIndex)
+            } else if (typeof columnWithAccessor.accessorKey === "string") {
+                value = row[columnWithAccessor.accessorKey as keyof TData]
+            }
+
+            const valueLength = String(value ?? "").length
+            if (valueLength > longestValueLength) {
+                longestValueLength = valueLength
+            }
+        }
+
+        computedSizing[columnId] = Math.max(
+            minWidth,
+            Math.min(maxWidth, Math.ceil(longestValueLength * pixelsPerCharacter + basePadding)),
+        )
+    }
+
+    return computedSizing
+}
+
+function DataTableToolbar<TData extends Record<keyof TData, unknown>>({
+    table,
+    globalFilter,
+    onGlobalFilterChange,
+    children,
+}: {
+    table: Table<TData>
+    globalFilter: string
+    onGlobalFilterChange: (value: string) => void
+    children?: ReactNode
+}) {
+    return (
+        <div
+            className={css({
+                width: "100%",
+                display: "flex",
+                justifyContent: "start",
+                alignItems: "center",
+                gap: "0.25rem",
+                fontSize: "sm",
+                color: "neutral/60",
+            })}
+        >
+            <SearchBar
+                value={globalFilter ?? ""}
+                onChange={onGlobalFilterChange}
+            />
+            {(() => {
+                const filterableColumns: Array<FilterColumn> = []
+                for (const col of table.getAllColumns()) {
+                    if (col.getCanFilter() && col.columnDef.header && col.columnDef.header !== " ") {
+                        filterableColumns.push({
+                            id: col.id,
+                            header: col.columnDef.header?.toString() ?? "",
+                        })
+                    }
+                }
+
+                if (filterableColumns.length === 0) return null
+
+                const filterRecord: Record<string, string> = {}
+                for (const col of table.getAllColumns()) {
+                    const val = col.getFilterValue()
+                    if (val !== undefined) filterRecord[col.id] = String(val)
+                }
+
+                return (
+                    <FilterPopover
+                        columns={filterableColumns}
+                        columnFilters={filterRecord}
+                        onFilterChange={(columnId, value) => {
+                            table.getColumn(columnId)?.setFilterValue(value)
+                        }}
+                        onClearAll={() => {
+                            for (const col of table.getAllColumns()) {
+                                col.setFilterValue(undefined)
+                            }
+                        }}
+                    />
+                )
+            })()}
+            {(() => {
+                const sortableColumns: Array<{ id: string; header: string }> = []
+                for (const col of table.getAllColumns()) {
+                    if (col.getCanSort() && col.columnDef.header && col.columnDef.header !== " ") {
+                        sortableColumns.push({
+                            id: col.id,
+                            header: col.columnDef.header?.toString() ?? "",
+                        })
+                    }
+                }
+
+                if (sortableColumns.length === 0) return null
+
+                const currentSorting = table.getState().sorting
+
+                function getSortDirection(columnId: string): SortDirection {
+                    const existing = currentSorting.find((s) => s.id === columnId)
+                    if (!existing) return false
+                    return existing.desc ? "desc" : "asc"
+                }
+
+                function toggleSort(columnId: string) {
+                    const existing = currentSorting.find((s) => s.id === columnId)
+                    if (!existing) {
+                        table.setSorting([
+                            ...currentSorting,
+                            {
+                                id: columnId,
+                                desc: false,
+                            },
+                        ])
+                    } else if (!existing.desc) {
+                        table.setSorting(
+                            currentSorting.map((s) =>
+                                s.id === columnId
+                                    ? {
+                                          ...s,
+                                          desc: true,
+                                      }
+                                    : s,
+                            ),
+                        )
+                    } else {
+                        table.setSorting(currentSorting.filter((s) => s.id !== columnId))
+                    }
+                }
+
+                return (
+                    <SortPopover
+                        columns={sortableColumns}
+                        getSortDirection={getSortDirection}
+                        onToggleSort={toggleSort}
+                        onClearAll={() => table.setSorting([])}
+                        activeSortCount={currentSorting.length}
+                    />
+                )
+            })()}
+            {(() => {
+                const visibilityColumns: Array<VisibilityColumn> = []
+                for (const col of table.getAllLeafColumns()) {
+                    if (col.columnDef.header && col.columnDef.header !== " ") {
+                        visibilityColumns.push({
+                            id: col.id,
+                            header: col.columnDef.header?.toString() ?? "",
+                            isVisible: col.getIsVisible(),
+                            canHide: col.getCanHide(),
+                        })
+                    }
+                }
+
+                const hasHideableColumns = visibilityColumns.some((column) => column.canHide)
+                if (!hasHideableColumns) return null
+
+                return (
+                    <ColumnVisibilityPopover
+                        columns={visibilityColumns}
+                        onColumnVisibilityChange={(columnId, isVisible) => {
+                            table.getColumn(columnId)?.toggleVisibility(isVisible)
+                        }}
+                        onShowAll={() => {
+                            for (const col of table.getAllLeafColumns()) {
+                                if (!col.getCanHide()) continue
+                                col.toggleVisibility(true)
+                            }
+                        }}
+                        onDisableAll={() => {
+                            for (const col of table.getAllLeafColumns()) {
+                                if (!col.getCanHide()) continue
+                                col.toggleVisibility(false)
+                            }
+                        }}
+                    />
+                )
+            })()}
+            <div className={css({ marginLeft: "auto", display: "flex", gap: "0.5rem" })}>{children}</div>
+        </div>
+    )
+}
+
+function DataTableHeader<TData extends Record<keyof TData, unknown>>({
+    table,
+    renderSubComponent,
+    columnCount,
+    onResetColumnSize,
+}: {
+    table: Table<TData>
+    renderSubComponent?: (context: { row: Row<TData> }) => ReactElement | null
+    columnCount: number
+    onResetColumnSize: (columnId: string) => void
+}) {
+    return (
+        <thead
+            className={css({
+                width: "100%",
+                position: "sticky",
+                top: "0",
+                zIndex: "1",
+                backgroundColor: "white",
+            })}
+        >
+            <tr
+                className={css({
+                    width: "100%",
+                })}
+            >
+                {renderSubComponent && (
+                    <th
+                        className={css({
+                            width: "1%",
+                            borderBottom: "1px solid",
+                            borderBottomColor: "neutral/10",
+                        })}
+                    />
+                )}
+                {table.getFlatHeaders().map((header) => {
+                    const isFit = header.column.columnDef.meta?.fit === true
+                    const boundedHeaderSize = Math.min(header.getSize(), 200)
+                    return (
+                        <th
+                            key={header.id}
+                            colSpan={header.colSpan}
+                            style={
+                                isFit
+                                    ? undefined
+                                    : {
+                                          minWidth: `calc(100% / ${columnCount})`,
+                                      }
+                            }
+                            className={css({
+                                position: "relative",
+                                width: isFit ? "1%" : `${boundedHeaderSize}px`,
+                                minWidth: isFit ? "0" : undefined,
+                                whiteSpace: isFit ? "nowrap" : undefined,
+                                borderBottom: "1px solid",
+                                borderBottomColor: "neutral/10",
+                            })}
+                        >
+                            <div
+                                className={css({
+                                    display: "flex",
+                                    justifyContent: "flex-start",
+                                    alignItems: "center",
+                                    gap: "0.5rem",
+                                    padding: "1rem",
+                                })}
+                            >
+                                {header.column.columnDef.header === undefined ? null : typeof header.column.columnDef
+                                      .header === "function" ? (
+                                    flexRender(header.column.columnDef.header, header.getContext())
+                                ) : (
+                                    <Button onClick={header.column.getToggleSortingHandler()}>
+                                        <ButtonGhostContent
+                                            leftIcon={
+                                                {
+                                                    asc: <IconSortAscending />,
+                                                    desc: <IconSortDescending />,
+                                                }[String(header.column.getIsSorted())] ?? undefined
+                                            }
+                                            text={header.column.columnDef.header.toString()}
+                                        />
+                                    </Button>
+                                )}
+                            </div>
+                            {!isFit && (
+                                <div
+                                    role="separator"
+                                    aria-orientation="vertical"
+                                    aria-label="Redimensionner la colonne"
+                                    tabIndex={0}
+                                    onDoubleClick={() => onResetColumnSize(header.column.id)}
+                                    onMouseDown={header.getResizeHandler()}
+                                    onTouchStart={header.getResizeHandler()}
+                                    className={css({
+                                        position: "absolute",
+                                        top: 0,
+                                        right: 0,
+                                        width: "0.5rem",
+                                        height: "100%",
+                                        cursor: "col-resize",
+                                        userSelect: "none",
+                                        touchAction: "none",
+                                        backgroundColor: "transparent",
+                                        transition: "background-color 120ms ease",
+                                        _hover: {
+                                            backgroundColor: "neutral/10",
+                                        },
+                                        _focusVisible: {
+                                            backgroundColor: "neutral/10",
+                                        },
+                                    })}
+                                />
+                            )}
+                        </th>
+                    )
+                })}
+            </tr>
+        </thead>
+    )
+}
+
+function DataTableRow<TData extends Record<keyof TData, unknown>>({
+    row,
+    columnCount,
+    onRowClick,
+    renderSubComponent,
+    getRowProps,
+}: {
+    row: Row<TData>
+    columnCount: number
+    onRowClick?: (context: Row<TData>) => void
+    renderSubComponent?: (context: { row: Row<TData> }) => ReactElement | null
+    getRowProps?: (row: Row<TData>) => ComponentProps<"tr">
+}) {
+    const {
+        className: rowExtraClassName,
+        onClick: _rowOnClick,
+        ...rowExtraProps
+    } = getRowProps?.(row) ?? {}
+
+    return (
+        <Fragment>
+            <tr
+                {...rowExtraProps}
+                onClick={(event) => {
+                    event.stopPropagation()
+                    if (!onRowClick) return
+                    onRowClick(row)
+                }}
+                className={cn(
+                    css({
+                        width: "100%",
+                        borderBottom: "1px solid",
+                        borderBottomColor: "neutral/5",
+                        _last: {
+                            borderBottom: "0",
+                        },
+                    }),
+                    !onRowClick
+                        ? undefined
+                        : css({
+                              cursor: "pointer",
+                              _hover: {
+                                  backgroundColor: "neutral/5",
+                              },
+                          }),
+                    row.getIsExpanded()
+                        ? css({
+                              borderBottomColor: "neutral/10",
+                          })
+                        : undefined,
+                    rowExtraClassName,
+                )}
+            >
+                {renderSubComponent && (
+                    <td
+                        className={css({
+                            width: "1%",
+                        })}
+                    >
+                        <div
+                            className={css({
+                                display: "flex",
+                                justifyContent: "flex-start",
+                                alignItems: "center",
+                                padding: "0.5rem",
+                            })}
+                        >
+                            <Button
+                                onClick={(event) => {
+                                    event.stopPropagation()
+                                    row.toggleExpanded()
+                                }}
+                            >
+                                <ButtonGhostContent
+                                    leftIcon={
+                                        row.getIsExpanded() ? <IconChevronDown /> : <IconChevronRight />
+                                    }
+                                    text={undefined}
+                                />
+                            </Button>
+                        </div>
+                    </td>
+                )}
+                {row.getVisibleCells().map((cell) => {
+                    const isFit = cell.column.columnDef.meta?.fit === true
+                    const boundedCellSize = Math.min(cell.column.getSize(), 200)
+                    return (
+                        <td
+                            key={cell.id}
+                            style={
+                                isFit
+                                    ? undefined
+                                    : {
+                                          minWidth: `calc(100% / ${columnCount})`,
+                                      }
+                            }
+                            className={css({
+                                width: isFit ? "1%" : `${boundedCellSize}px`,
+                                minWidth: isFit ? "0" : undefined,
+                                whiteSpace: isFit ? "nowrap" : undefined,
+                                _last: {
+                                    width: "1%",
+                                },
+                            })}
+                        >
+                            <div
+                                className={css({
+                                    display: "flex",
+                                    justifyContent: "flex-start",
+                                    alignItems: "center",
+                                    padding: "1rem",
+                                    overflow: "hidden",
+                                    textOverflow: "ellipsis",
+                                    whiteSpace: "nowrap",
+                                })}
+                            >
+                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                            </div>
+                        </td>
+                    )
+                })}
+            </tr>
+            {row.getIsExpanded() && renderSubComponent && (
+                <tr
+                    className={css({
+                        width: "100%",
+                        borderBottom: "1px solid",
+                        borderBottomColor: "neutral/5",
+                        backgroundColor: "neutral/2",
+                        _last: {
+                            borderBottom: "0",
+                        },
+                    })}
+                >
+                    <td
+                        colSpan={row.getVisibleCells().length + 1}
+                        className={css({
+                            padding: "0",
+                        })}
+                    >
+                        {renderSubComponent({
+                            row,
+                        })}
+                    </td>
+                </tr>
+            )}
+        </Fragment>
+    )
+}
+
+function DataTablePagination<TData extends Record<keyof TData, unknown>>({ table }: { table: Table<TData> }) {
+    if (table.getPageCount() <= 1) return null
+
+    return (
+        <div
+            className={css({
+                flexShrink: "0",
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                gap: "4",
+            })}
+        >
+            <span
+                className={css({
+                    fontSize: "sm",
+                    color: "neutral/50",
+                })}
+            >
+                {table.getFilteredRowModel().rows.length} résultat
+                {table.getFilteredRowModel().rows.length > 1 ? "s" : ""}
+            </span>
+            <div
+                className={css({
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                })}
+            >
+                <Button onClick={() => table.previousPage()} isDisabled={!table.getCanPreviousPage()}>
+                    <ButtonOutlineContent
+                        leftIcon={<IconChevronLeft />}
+                        text={undefined}
+                        isDisabled={!table.getCanPreviousPage()}
+                    />
+                </Button>
+                <span
+                    className={css({
+                        fontSize: "sm",
+                        color: "neutral/50",
+                    })}
+                >
+                    Page {table.getState().pagination.pageIndex + 1} sur {table.getPageCount()}
+                </span>
+                <Button onClick={() => table.nextPage()} isDisabled={!table.getCanNextPage()}>
+                    <ButtonOutlineContent
+                        leftIcon={<IconChevronRight />}
+                        text={undefined}
+                        isDisabled={!table.getCanNextPage()}
+                    />
+                </Button>
+            </div>
+        </div>
+    )
+}
+
+function DataTableRaw<TData extends Record<keyof TData, unknown>>(props: {
     data: Array<TData>
     isLoading?: boolean
     columns: Array<ColumnDef<TData>>
@@ -48,6 +588,7 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
     renderSubComponent?: (context: { row: Row<TData> }) => ReactElement | null
     getRowProps?: (row: Row<TData>) => ComponentProps<"tr">
     hideSearchBar?: boolean
+    children?: ReactNode
     enableRowSelection?: boolean | ((row: Row<TData>) => boolean)
     getRowId?: (row: TData, index: number) => string
     selectionActions?: (selectedRows: Array<Row<TData>>) => ReactElement | null
@@ -68,11 +609,9 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
     const [columnSizingOverrides, setColumnSizingOverrides] = useState<ColumnSizingState>({})
 
     // Reset selection when the trigger changes (e.g. folder navigation)
-    const prevResetTriggerRef = useRef(props.resetSelectionTrigger)
-    if (props.resetSelectionTrigger !== undefined && prevResetTriggerRef.current !== props.resetSelectionTrigger) {
-        prevResetTriggerRef.current = props.resetSelectionTrigger
-        if (Object.keys(rowSelection).length > 0) setRowSelection({})
-    }
+    useEffect(() => {
+        setRowSelection((prev) => (Object.keys(prev).length > 0 ? {} : prev))
+    }, [props.resetSelectionTrigger])
 
     const selectColumnDef = useMemo<ColumnDef<TData>>(
         () => ({
@@ -144,55 +683,13 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
         ],
     )
 
-    const autoColumnSizing = useMemo<ColumnSizingState>(() => {
-        const maxWidth = 200
-        const minWidth = 80
-        const basePadding = 24
-        const pixelsPerCharacter = 8
-        const sampledRows = memoizedData.slice(0, 200)
-        const computedSizing: ColumnSizingState = {}
-
-        for (const column of allColumns) {
-            const columnWithAccessor = column as typeof column & {
-                accessorKey?: keyof TData | string
-                accessorFn?: (row: TData, rowIndex: number) => unknown
-            }
-            const columnId =
-                column.id ??
-                (typeof columnWithAccessor.accessorKey === "string" ? columnWithAccessor.accessorKey : undefined)
-
-            if (!columnId || column.meta?.fit === true) {
-                continue
-            }
-
-            let longestValueLength = typeof column.header === "string" ? column.header.length : 0
-
-            for (const [rowIndex, row] of sampledRows.entries()) {
-                let value: unknown = ""
-
-                if (typeof columnWithAccessor.accessorFn === "function") {
-                    value = columnWithAccessor.accessorFn(row, rowIndex)
-                } else if (typeof columnWithAccessor.accessorKey === "string") {
-                    value = row[columnWithAccessor.accessorKey as keyof TData]
-                }
-
-                const valueLength = String(value ?? "").length
-                if (valueLength > longestValueLength) {
-                    longestValueLength = valueLength
-                }
-            }
-
-            computedSizing[columnId] = Math.max(
-                minWidth,
-                Math.min(maxWidth, Math.ceil(longestValueLength * pixelsPerCharacter + basePadding)),
-            )
-        }
-
-        return computedSizing
-    }, [
-        allColumns,
-        memoizedData,
-    ])
+    const autoColumnSizing = useMemo(
+        () => computeAutoColumnSizing(allColumns, memoizedData),
+        [
+            allColumns,
+            memoizedData,
+        ],
+    )
 
     const columnSizing = useMemo<ColumnSizingState>(
         () => ({
@@ -293,144 +790,13 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
             })}
         >
             {!props.hideSearchBar && (
-                <div
-                    className={css({
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "start",
-                        alignItems: "center",
-                        gap: "0.25rem",
-                        fontSize: "sm",
-                        color: "neutral/60",
-                    })}
+                <DataTableToolbar
+                    table={table}
+                    globalFilter={globalFilter}
+                    onGlobalFilterChange={setGlobalFilter}
                 >
-                    <SearchBar
-                        value={globalFilter ?? ""}
-                        onChange={(value) => setGlobalFilter(value)}
-                    />
-                    {(() => {
-                        const filterableColumns: Array<FilterColumn> = table
-                            .getAllColumns()
-                            .filter((col) => col.getCanFilter() && col.columnDef.header && col.columnDef.header !== " ")
-                            .map((col) => ({
-                                id: col.id,
-                                header: col.columnDef.header?.toString() ?? "",
-                            }))
-
-                        if (filterableColumns.length === 0) return null
-
-                        const filterRecord: Record<string, string> = {}
-                        for (const col of table.getAllColumns()) {
-                            const val = col.getFilterValue()
-                            if (val !== undefined) filterRecord[col.id] = String(val)
-                        }
-
-                        return (
-                            <FilterPopover
-                                columns={filterableColumns}
-                                columnFilters={filterRecord}
-                                onFilterChange={(columnId, value) => {
-                                    table.getColumn(columnId)?.setFilterValue(value)
-                                }}
-                                onClearAll={() => {
-                                    for (const col of table.getAllColumns()) {
-                                        col.setFilterValue(undefined)
-                                    }
-                                }}
-                            />
-                        )
-                    })()}
-                    {(() => {
-                        const sortableColumns = table
-                            .getAllColumns()
-                            .filter((col) => col.getCanSort() && col.columnDef.header && col.columnDef.header !== " ")
-                            .map((col) => ({
-                                id: col.id,
-                                header: col.columnDef.header?.toString() ?? "",
-                            }))
-
-                        if (sortableColumns.length === 0) return null
-
-                        const currentSorting = table.getState().sorting
-
-                        function getSortDirection(columnId: string): SortDirection {
-                            const existing = currentSorting.find((s) => s.id === columnId)
-                            if (!existing) return false
-                            return existing.desc ? "desc" : "asc"
-                        }
-
-                        function toggleSort(columnId: string) {
-                            const existing = currentSorting.find((s) => s.id === columnId)
-                            if (!existing) {
-                                table.setSorting([
-                                    ...currentSorting,
-                                    {
-                                        id: columnId,
-                                        desc: false,
-                                    },
-                                ])
-                            } else if (!existing.desc) {
-                                table.setSorting(
-                                    currentSorting.map((s) =>
-                                        s.id === columnId
-                                            ? {
-                                                  ...s,
-                                                  desc: true,
-                                              }
-                                            : s,
-                                    ),
-                                )
-                            } else {
-                                table.setSorting(currentSorting.filter((s) => s.id !== columnId))
-                            }
-                        }
-
-                        return (
-                            <SortPopover
-                                columns={sortableColumns}
-                                getSortDirection={getSortDirection}
-                                onToggleSort={toggleSort}
-                                onClearAll={() => table.setSorting([])}
-                                activeSortCount={currentSorting.length}
-                            />
-                        )
-                    })()}
-                    {(() => {
-                        const visibilityColumns: Array<VisibilityColumn> = table
-                            .getAllLeafColumns()
-                            .filter((col) => col.columnDef.header && col.columnDef.header !== " ")
-                            .map((col) => ({
-                                id: col.id,
-                                header: col.columnDef.header?.toString() ?? "",
-                                isVisible: col.getIsVisible(),
-                                canHide: col.getCanHide(),
-                            }))
-
-                        const hasHideableColumns = visibilityColumns.some((column) => column.canHide)
-                        if (!hasHideableColumns) return null
-
-                        return (
-                            <ColumnVisibilityPopover
-                                columns={visibilityColumns}
-                                onColumnVisibilityChange={(columnId, isVisible) => {
-                                    table.getColumn(columnId)?.toggleVisibility(isVisible)
-                                }}
-                                onShowAll={() => {
-                                    for (const col of table.getAllLeafColumns()) {
-                                        if (!col.getCanHide()) continue
-                                        col.toggleVisibility(true)
-                                    }
-                                }}
-                                onDisableAll={() => {
-                                    for (const col of table.getAllLeafColumns()) {
-                                        if (!col.getCanHide()) continue
-                                        col.toggleVisibility(false)
-                                    }
-                                }}
-                            />
-                        )
-                    })()}
-                </div>
+                    {props.children}
+                </DataTableToolbar>
             )}
             <div
                 className={css({
@@ -454,113 +820,20 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                         borderCollapse: "collapse",
                     })}
                 >
-                    <thead
-                        className={css({
-                            width: "100%",
-                            position: "sticky",
-                            top: "0",
-                            zIndex: "1",
-                            backgroundColor: "white",
-                        })}
-                    >
-                        <tr
-                            className={css({
-                                width: "100%",
-                            })}
-                        >
-                            {props.renderSubComponent && (
-                                <th
-                                    className={css({
-                                        width: "1%",
-                                        borderBottom: "1px solid",
-                                        borderBottomColor: "neutral/10",
-                                    })}
-                                />
-                            )}
-                            {table.getFlatHeaders().map((header) => {
-                                const isFit = header.column.columnDef.meta?.fit === true
-                                const boundedHeaderSize = Math.min(header.getSize(), 200)
-                                return (
-                                    <th
-                                        key={header.id}
-                                        colSpan={header.colSpan}
-                                        style={
-                                            isFit
-                                                ? undefined
-                                                : {
-                                                      minWidth: `calc(100% / ${columnCount})`,
-                                                  }
-                                        }
-                                        className={css({
-                                            position: "relative",
-                                            width: isFit ? "1%" : `${boundedHeaderSize}px`,
-                                            minWidth: isFit ? "0" : undefined,
-                                            whiteSpace: isFit ? "nowrap" : undefined,
-                                            borderBottom: "1px solid",
-                                            borderBottomColor: "neutral/10",
-                                        })}
-                                    >
-                                        <div
-                                            className={css({
-                                                display: "flex",
-                                                justifyContent: "flex-start",
-                                                alignItems: "center",
-                                                gap: "0.5rem",
-                                                padding: "1rem",
-                                            })}
-                                        >
-                                            {header.column.columnDef.header === undefined ? null : typeof header.column
-                                                  .columnDef.header === "function" ? (
-                                                flexRender(header.column.columnDef.header, header.getContext())
-                                            ) : (
-                                                <Button onClick={header.column.getToggleSortingHandler()}>
-                                                    <ButtonGhostContent
-                                                        leftIcon={
-                                                            {
-                                                                asc: <IconSortAscending />,
-                                                                desc: <IconSortDescending />,
-                                                            }[String(header.column.getIsSorted())] ?? undefined
-                                                        }
-                                                        text={header.column.columnDef.header.toString()}
-                                                    />
-                                                </Button>
-                                            )}
-                                        </div>
-                                        {!isFit && (
-                                            <div
-                                                onDoubleClick={() => {
-                                                    setColumnSizingOverrides((state) => {
-                                                        const nextState = {
-                                                            ...state,
-                                                        }
-                                                        delete nextState[header.column.id]
-                                                        return nextState
-                                                    })
-                                                }}
-                                                onMouseDown={header.getResizeHandler()}
-                                                onTouchStart={header.getResizeHandler()}
-                                                className={css({
-                                                    position: "absolute",
-                                                    top: 0,
-                                                    right: 0,
-                                                    width: "0.5rem",
-                                                    height: "100%",
-                                                    cursor: "col-resize",
-                                                    userSelect: "none",
-                                                    touchAction: "none",
-                                                    backgroundColor: "transparent",
-                                                    transition: "background-color 120ms ease",
-                                                    _hover: {
-                                                        backgroundColor: "neutral/10",
-                                                    },
-                                                })}
-                                            />
-                                        )}
-                                    </th>
-                                )
-                            })}
-                        </tr>
-                    </thead>
+                    <DataTableHeader
+                        table={table}
+                        renderSubComponent={props.renderSubComponent}
+                        columnCount={columnCount}
+                        onResetColumnSize={(columnId) => {
+                            setColumnSizingOverrides((state) => {
+                                const nextState = {
+                                    ...state,
+                                }
+                                delete nextState[columnId]
+                                return nextState
+                            })
+                        }}
+                    />
                     <tbody
                         className={css({
                             width: "100%",
@@ -579,208 +852,22 @@ export function DataTable<TData extends Record<keyof TData, unknown>>(props: {
                                 </td>
                             </tr>
                         )}
-                        {table.getRowModel().rows.map((row) => {
-                            const {
-                                className: rowExtraClassName,
-                                onClick: _rowOnClick,
-                                ...rowExtraProps
-                            } = props.getRowProps?.(row) ?? {}
-                            return (
-                                <Fragment key={row.id}>
-                                    <tr
-                                        {...rowExtraProps}
-                                        onClick={(event) => {
-                                            event.stopPropagation()
-                                            if (!props.onRowClick) return
-                                            props.onRowClick(row)
-                                        }}
-                                        className={cn(
-                                            css({
-                                                width: "100%",
-                                                borderBottom: "1px solid",
-                                                borderBottomColor: "neutral/5",
-                                                _last: {
-                                                    borderBottom: "0",
-                                                },
-                                            }),
-                                            !props.onRowClick
-                                                ? undefined
-                                                : css({
-                                                      cursor: "pointer",
-                                                      _hover: {
-                                                          backgroundColor: "neutral/5",
-                                                      },
-                                                  }),
-                                            row.getIsExpanded()
-                                                ? css({
-                                                      borderBottomColor: "neutral/10",
-                                                  })
-                                                : undefined,
-                                            rowExtraClassName,
-                                        )}
-                                    >
-                                        {props.renderSubComponent && (
-                                            <td
-                                                className={css({
-                                                    width: "1%",
-                                                })}
-                                            >
-                                                <div
-                                                    className={css({
-                                                        display: "flex",
-                                                        justifyContent: "flex-start",
-                                                        alignItems: "center",
-                                                        padding: "0.5rem",
-                                                    })}
-                                                >
-                                                    <Button
-                                                        onClick={(event) => {
-                                                            event.stopPropagation()
-                                                            row.toggleExpanded()
-                                                        }}
-                                                    >
-                                                        <ButtonGhostContent
-                                                            leftIcon={
-                                                                row.getIsExpanded() ? (
-                                                                    <IconChevronDown />
-                                                                ) : (
-                                                                    <IconChevronRight />
-                                                                )
-                                                            }
-                                                            text={undefined}
-                                                        />
-                                                    </Button>
-                                                </div>
-                                            </td>
-                                        )}
-                                        {row.getVisibleCells().map((cell) => {
-                                            const isFit = cell.column.columnDef.meta?.fit === true
-                                            const boundedCellSize = Math.min(cell.column.getSize(), 200)
-                                            return (
-                                                <td
-                                                    key={cell.id}
-                                                    style={
-                                                        isFit
-                                                            ? undefined
-                                                            : {
-                                                                  minWidth: `calc(100% / ${columnCount})`,
-                                                              }
-                                                    }
-                                                    className={css({
-                                                        width: isFit ? "1%" : `${boundedCellSize}px`,
-                                                        minWidth: isFit ? "0" : undefined,
-                                                        whiteSpace: isFit ? "nowrap" : undefined,
-                                                        _last: {
-                                                            width: "1%",
-                                                        },
-                                                    })}
-                                                >
-                                                    <div
-                                                        className={css({
-                                                            display: "flex",
-                                                            justifyContent: "flex-start",
-                                                            alignItems: "center",
-                                                            padding: "1rem",
-                                                            overflow: "hidden",
-                                                            textOverflow: "ellipsis",
-                                                            whiteSpace: "nowrap",
-                                                        })}
-                                                    >
-                                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                                    </div>
-                                                </td>
-                                            )
-                                        })}
-                                    </tr>
-                                    {row.getIsExpanded() && props.renderSubComponent && (
-                                        <tr
-                                            className={css({
-                                                width: "100%",
-                                                borderBottom: "1px solid",
-                                                borderBottomColor: "neutral/5",
-                                                backgroundColor: "neutral/2",
-                                                _last: {
-                                                    borderBottom: "0",
-                                                },
-                                            })}
-                                        >
-                                            <td
-                                                colSpan={row.getVisibleCells().length + 1}
-                                                className={css({
-                                                    padding: "0",
-                                                })}
-                                            >
-                                                {props.renderSubComponent({
-                                                    row,
-                                                })}
-                                            </td>
-                                        </tr>
-                                    )}
-                                </Fragment>
-                            )
-                        })}
+                        {table.getRowModel().rows.map((row) => (
+                            <DataTableRow
+                                key={row.id}
+                                row={row}
+                                columnCount={columnCount}
+                                onRowClick={props.onRowClick}
+                                renderSubComponent={props.renderSubComponent}
+                                getRowProps={props.getRowProps}
+                            />
+                        ))}
                     </tbody>
                 </table>
             </div>
-            {table.getPageCount() > 1 && (
-                <div
-                    className={css({
-                        flexShrink: "0",
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        gap: "4",
-                    })}
-                >
-                    <span
-                        className={css({
-                            fontSize: "sm",
-                            color: "neutral/50",
-                        })}
-                    >
-                        {table.getFilteredRowModel().rows.length} résultat
-                        {table.getFilteredRowModel().rows.length > 1 ? "s" : ""}
-                    </span>
-                    <div
-                        className={css({
-                            display: "flex",
-                            justifyContent: "flex-end",
-                            alignItems: "center",
-                            gap: "0.5rem",
-                        })}
-                    >
-                        <Button
-                            onClick={() => table.previousPage()}
-                            isDisabled={!table.getCanPreviousPage()}
-                        >
-                            <ButtonOutlineContent
-                                leftIcon={<IconChevronLeft />}
-                                text={undefined}
-                                isDisabled={!table.getCanPreviousPage()}
-                            />
-                        </Button>
-                        <span
-                            className={css({
-                                fontSize: "sm",
-                                color: "neutral/50",
-                            })}
-                        >
-                            Page {table.getState().pagination.pageIndex + 1} sur {table.getPageCount()}
-                        </span>
-                        <Button
-                            onClick={() => table.nextPage()}
-                            isDisabled={!table.getCanNextPage()}
-                        >
-                            <ButtonOutlineContent
-                                leftIcon={<IconChevronRight />}
-                                text={undefined}
-                                isDisabled={!table.getCanNextPage()}
-                            />
-                        </Button>
-                    </div>
-                </div>
-            )}
+            <DataTablePagination table={table} />
         </div>
     )
 }
+
+export const DataTable = memo(DataTableRaw) as typeof DataTableRaw

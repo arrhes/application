@@ -7,6 +7,7 @@ export const deleteOneComputationRouteDefinition = routeDefinition({
     protocol: "http",
     method: "DELETE",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/computations/:idComputation`,
+    name: "delete-one-computation",
     schemas: {
         body: v.object({
             idComputation: computationSchema.entries.id,

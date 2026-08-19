@@ -1,4 +1,4 @@
-import { models, readOneFolderRouteDefinition } from "@arrhes/application-metadata"
+import { models, readOneFolderRouteDefinition } from "@comptasse/application-metadata"
 import { and, eq } from "drizzle-orm"
 import { checkAuthMiddleware } from "../../../../../../../../middlewares/checkAuthMiddleware.js"
 import { requireOrganizationMiddleware } from "../../../../../../../../middlewares/requireOrganizationMiddleware.js"

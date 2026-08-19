@@ -1,4 +1,4 @@
-import { modelSchemas } from "@arrhes/application-metadata"
+import { modelSchemas } from "@comptasse/application-metadata"
 import { drizzle } from "drizzle-orm/postgres-js"
 import postgres from "postgres"
 import { Exception } from "../utilities/exception.js"

@@ -1,4 +1,4 @@
-import { PutObjectCommand } from "@aws-sdk/client-s3"
+import { PutObjectCommand, type S3 } from "@aws-sdk/client-s3"
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
 import { Exception } from "../exception.js"
 import type { getClients } from "../getClients.js"
@@ -9,6 +9,8 @@ export async function generatePutSignedUrl(parameters: {
         env: ReturnType<typeof getEnv>
         clients: Awaited<ReturnType<typeof getClients>>
     }
+    s3Client?: S3
+    bucketName?: string
     storageKey: string
     contentLength: number
     contentType: string
@@ -16,10 +18,13 @@ export async function generatePutSignedUrl(parameters: {
     expiresIn?: number
 }) {
     try {
+        const client = parameters.s3Client ?? parameters.var.clients.storage
+        const bucket = parameters.bucketName ?? parameters.var.env.STORAGE_BUCKET_NAME
+
         const signedUrl = await getSignedUrl(
-            parameters.var.clients.storage,
+            client,
             new PutObjectCommand({
-                Bucket: parameters.var.env.STORAGE_BUCKET_NAME,
+                Bucket: bucket,
                 Key: parameters.storageKey,
                 ContentLength: parameters.contentLength,
                 ContentType: parameters.contentType,

@@ -6,7 +6,7 @@ export const cliRoute = createRoute({
     path: "/cli",
     beforeLoad: () => {
         throw redirect({
-            href: "https://github.com/arrhes/application/releases/latest",
+            href: "https://github.com/comptasse/application/releases/latest",
         })
     },
 })

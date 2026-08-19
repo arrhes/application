@@ -21,8 +21,8 @@ describe("variables", () => {
             expect(storageFileExpiresIn).toBe(3600)
         })
 
-        it("productName is 'arrhes'", () => {
-            expect(productName).toBe("arrhes")
+        it("productName is 'comptasse'", () => {
+            expect(productName).toBe("comptasse")
         })
     })
 

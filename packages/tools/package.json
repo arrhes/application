@@ -1,30 +1,30 @@
 {
-    "name": "@arrhes/application-tools",
+    "name": "@comptasse/application-tools",
     "type": "module",
     "private": true,
     "scripts": {
-        "build:metadata": "pnpm --filter @arrhes/application-metadata build",
+        "build:metadata": "pnpm --filter @comptasse/application-metadata build",
         "generate": "pnpm drizzle-kit generate --config=./src/drizzle.config.ts",
-        "push": "pnpm run build:metadata && tsx --env-file=.env ./src/push.ts",
+        "push": "pnpm run build:metadata && tsx ./src/push.ts",
         "pull": "pnpm drizzle-kit introspect --config=./src/drizzle.config.ts",
         "migrate": "pnpm drizzle-kit migrate --config=./src/drizzle.config.ts",
-        "seed": "pnpm run build:metadata && tsx --env-file=.env ./src/seed/seed.ts",
-        "migration": "pnpm run build:metadata && tsx --env-file=.env ./src/seed/migration.ts",
-        "clear": "pnpm run build:metadata && tsx --env-file=.env ./src/clearDB.ts",
-        "reset": "pnpm run build:metadata && tsx --env-file=.env ./src/clearDB.ts && pnpm run push && tsx --env-file=.env ./src/seed/seed.ts",
+        "seed": "pnpm run build:metadata && tsx ./src/seed/seed.ts",
+        "migration": "pnpm run build:metadata && tsx ./src/seed/migration.ts",
+        "clear": "pnpm run build:metadata && tsx ./src/clearDB.ts",
+        "reset": "pnpm run build:metadata && tsx ./src/clearDB.ts && pnpm run push && tsx ./src/seed/seed.ts",
         "drop": "pnpm drizzle-kit drop --config=./src/drizzle.config.ts"
     },
     "devDependencies": {
-        "@types/node": "25.6.0",
+        "@types/node": "26.1.2",
         "drizzle-kit": "0.31.10",
-        "tsx": "4.21.0",
-        "typescript": "6.0.3"
+        "tsx": "4.23.5",
+        "typescript": "7.0.2"
     },
     "dependencies": {
-        "@arrhes/application-metadata": "workspace:*",
+        "@comptasse/application-metadata": "workspace:*",
         "@ngneat/falso": "8.0.2",
         "drizzle-orm": "0.45.2",
         "postgres": "3.4.9",
-        "valibot": "1.4.0"
+        "valibot": "1.4.2"
     }
 }

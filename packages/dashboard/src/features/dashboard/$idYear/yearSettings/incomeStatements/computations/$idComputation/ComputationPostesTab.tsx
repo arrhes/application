@@ -1,6 +1,6 @@
-import { readOneComputationRouteDefinition } from "@arrhes/application-metadata/routes"
-import { ButtonPlainContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { readOneComputationRouteDefinition } from "@comptasse/application-metadata/routes"
+import { ButtonPlainContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconPlus } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { DataWrapper } from "../../../../../../../components/layouts/DataWrapper.tsx"
@@ -32,7 +32,7 @@ export function ComputationPostesTab() {
                             className={css({
                                 width: "100%",
                                 display: "flex",
-                                justifyContent: "flex-end",
+                                justifyContent: "flex-start",
                                 alignItems: "center",
                                 gap: "0.5rem",
                             })}

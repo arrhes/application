@@ -2,6 +2,8 @@ import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
 import { docsSearchIndexPlugin } from "./plugins/docsSearchIndexPlugin"
 import { fontPreloadPlugin } from "./plugins/fontPreloadPlugin"
+import { installScriptPlugin } from "./plugins/installScriptPlugin"
+import { mdGeneratePlugin } from "./plugins/mdGeneratePlugin"
 import { prerenderPlugin } from "./plugins/prerenderPlugin"
 import { sitemapPlugin } from "./plugins/sitemapPlugin"
 
@@ -9,15 +11,16 @@ export default defineConfig(() => {
     return {
         plugins: [
             react({
-                include: "**/*.tsx",
+                include: [
+                    "**/*.tsx",
+                ],
             }),
             fontPreloadPlugin(),
             sitemapPlugin(),
             docsSearchIndexPlugin(),
+            mdGeneratePlugin(),
+            installScriptPlugin(),
             prerenderPlugin(),
-        ],
-        assetsInclude: [
-            "**/*.md",
         ],
         root: "./src",
         publicDir: "../public",
@@ -33,6 +36,7 @@ export default defineConfig(() => {
         },
         build: {
             outDir: "../build",
+            emptyOutDir: true,
             rollupOptions: {
                 output: {
                     entryFileNames: "[hash].js",

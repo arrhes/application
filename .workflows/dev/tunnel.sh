@@ -19,7 +19,7 @@ echo "Waiting for tunnel URL..."
 TUNNEL_URL=""
 for i in $(seq 1 30); do
     TUNNEL_URL=$(
-        docker logs arrhes-tunnel 2>&1 \
+        docker logs comptasse-tunnel 2>&1 \
         | grep -oP 'https://[a-z0-9-]+\.trycloudflare\.com' \
         | head -1 \
         || true
@@ -30,7 +30,7 @@ done
 
 if [ -z "$TUNNEL_URL" ]; then
     echo "ERROR: Could not detect tunnel URL after 60 s."
-    echo "Check logs:  docker logs arrhes-tunnel"
+    echo "Check logs:  docker logs comptasse-tunnel"
     exit 1
 fi
 
@@ -42,24 +42,21 @@ $DC_TUNNEL up -d --build
 
 echo ""
 echo "=============================================="
-echo "  Arrhes Development Environment Started"
+echo "  Comptasse Development Environment Started"
 echo "=============================================="
 echo ""
 echo "  Services:"
-echo "    Website:    http://website.arrhes.localhost"
-echo "    API:        http://api.arrhes.localhost"
+echo "    Website:    http://website.comptasse.localhost"
+echo "    API:        http://api.comptasse.localhost"
 echo "    Tunnel:     $TUNNEL_URL"
 echo ""
 echo "  Infrastructure:"
-echo "    PostgreSQL: postgres://postgres:admin@postgres.arrhes.localhost/default"
-echo "    Mailpit UI:  http://mailpit.arrhes.localhost"
-echo "    Mailpit SMTP: smtp.arrhes.localhost"
-echo "    Storage API: http://storage.arrhes.localhost"
-echo "    RustFS UI:   http://rustfs.arrhes.localhost"
-echo "    Redis:      redis://redis.arrhes.localhost"
+echo "    PostgreSQL: postgres://postgres:admin@postgres.comptasse.localhost/default"
+echo "    Storage API: http://storage.comptasse.localhost"
+echo "    RustFS UI:   http://rustfs.comptasse.localhost"
 echo ""
 echo "  Demo Credentials:"
-echo "    Email:      demo@arrhes.com"
+echo "    Email:      demo@comptasse.com"
 echo "    Password:   demo"
 echo ""
 echo "  Mollie webhook URL:"

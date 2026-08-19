@@ -15,6 +15,9 @@ export const createOneOrganizationUserRouteDefinition = routeDefinition({
                 email: userSchema.entries.email,
             }),
         }),
-        return: organizationUserSchemaReturn,
+        return: v.object({
+            ...organizationUserSchemaReturn.entries,
+            temporaryPassword: v.nullable(v.string()),
+        }),
     },
 })

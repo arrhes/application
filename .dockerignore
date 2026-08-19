@@ -10,6 +10,7 @@
 
 # Dependencies (installed inside containers)
 node_modules
+node_modules_old
 **/node_modules
 
 # Build outputs (generated inside containers)

@@ -19,9 +19,9 @@ export function ReportsAccountingDocPage() {
 
             <DocSection title="Les documents de synthèse">
                 <DocParagraph>
-                    À la fin de chaque{" "}
+                    Pendant ou à la fin de chaque{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "exercice-comptable",
                         }}
@@ -31,7 +31,7 @@ export function ReportsAccountingDocPage() {
                     , les écritures sont agrégées pour produire des documents de synthèse. Ces documents offrent une
                     vision globale de la situation financière et des performances de l'
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "organisation",
                         }}
@@ -42,27 +42,23 @@ export function ReportsAccountingDocPage() {
                 </DocParagraph>
                 <DocParagraph>
                     Les deux documents principaux sont le{" "}
-                    <strong>
-                        <DocLink
-                            to="/documentation/comptabilité/glossaire/$term"
-                            params={{
-                                term: "bilan",
-                            }}
-                        >
-                            bilan
-                        </DocLink>
-                    </strong>{" "}
+                    <DocLink
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
+                        params={{
+                            term: "bilan",
+                        }}
+                    >
+                        bilan
+                    </DocLink>{" "}
                     et le{" "}
-                    <strong>
-                        <DocLink
-                            to="/documentation/comptabilité/glossaire/$term"
-                            params={{
-                                term: "compte-de-résultat",
-                            }}
-                        >
-                            compte de résultat
-                        </DocLink>
-                    </strong>
+                    <DocLink
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
+                        params={{
+                            term: "compte-de-résultat",
+                        }}
+                    >
+                        compte de résultat
+                    </DocLink>
                     . Ils sont complémentaires et se lisent ensemble.
                 </DocParagraph>
             </DocSection>
@@ -112,16 +108,22 @@ export function ReportsAccountingDocPage() {
                 </DocParagraph>
 
                 <DocDefinition term="Journal">
-                    Registre chronologique de toutes les écritures passées. C'est le document de base de la
-                    comptabilité.
+                    <DocParagraph>
+                        Registre chronologique de toutes les écritures passées. C'est le document de base de la
+                        comptabilité.
+                    </DocParagraph>
                 </DocDefinition>
                 <DocDefinition term="Grand livre">
-                    Reprise des mêmes écritures que le journal, mais classées par compte. Il permet d'analyser chaque
-                    compte individuellement.
+                    <DocParagraph>
+                        Reprise des mêmes écritures que le journal, mais classées par compte. Il permet d'analyser
+                        chaque compte individuellement.
+                    </DocParagraph>
                 </DocDefinition>
                 <DocDefinition term="Balance">
-                    Liste de tous les comptes avec leurs totaux et soldes. C'est l'outil de contrôle qui vérifie que la
-                    comptabilité est équilibrée.
+                    <DocParagraph>
+                        Liste de tous les comptes avec leurs totaux et soldes. C'est l'outil de contrôle qui vérifie que
+                        la comptabilité est équilibrée.
+                    </DocParagraph>
                 </DocDefinition>
             </DocSection>
 
@@ -129,7 +131,7 @@ export function ReportsAccountingDocPage() {
                 <DocParagraph>
                     Le{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "benefice",
                         }}
@@ -138,7 +140,7 @@ export function ReportsAccountingDocPage() {
                     </DocLink>{" "}
                     (ou la{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "perte",
                         }}
@@ -150,11 +152,16 @@ export function ReportsAccountingDocPage() {
                 </DocParagraph>
 
                 <DocDefinition term="Par le patrimoine">
-                    Bénéfice = Patrimoine à la fin - Patrimoine au début. Si l'entreprise possède plus à la fin qu'au
-                    début, elle s'est enrichie.
+                    <DocParagraph>
+                        Bénéfice = Patrimoine à la fin - Patrimoine au début. Si l'entreprise possède plus à la fin
+                        qu'au début, elle s'est enrichie.
+                    </DocParagraph>
                 </DocDefinition>
                 <DocDefinition term="Par les opérations">
-                    Bénéfice = Produits - Charges. La somme de ce qu'on a gagné moins la somme de ce qu'on a dépensé.
+                    <DocParagraph>
+                        Bénéfice = Produits - Charges. La somme de ce qu'on a gagné moins la somme de ce qu'on a
+                        dépensé.
+                    </DocParagraph>
                 </DocDefinition>
 
                 <DocParagraph>
@@ -167,7 +174,7 @@ export function ReportsAccountingDocPage() {
                 <DocTip variant="tip">
                     Cette double vérification est au cœur de la comptabilité en{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "partie-double",
                         }}

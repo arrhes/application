@@ -2,10 +2,10 @@ import {
     duplicateOneEntryRouteDefinition,
     readAllEntriesRouteDefinition,
     readAllEntryTagsRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button, ButtonGhostContent, ButtonPlainContent, Dialog, toast, useModalStore } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+} from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { Button, ButtonGhostContent, ButtonPlainContent, Dialog, toast, useModalStore } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconCopyCheck } from "@tabler/icons-react"
 import { type ComponentPropsWithRef, type ReactElement, useId } from "react"
 import type * as v from "valibot"
@@ -16,6 +16,7 @@ import { invalidateData } from "../../../../../utilities/invalidateData.ts"
 export function DuplicateOneEntry(props: {
     entry: v.InferOutput<typeof returnedSchemas.entry>
     children: ReactElement<ComponentPropsWithRef<"div">>
+    onClick?: () => void
 }) {
     const modalId = useId()
     const { open: openModal, close: closeModal } = useModalStore()
@@ -71,7 +72,8 @@ export function DuplicateOneEntry(props: {
 
     return (
         <Button
-            onClick={() =>
+            onClick={() => {
+                props.onClick?.()
                 openModal(
                     modalId,
                     <Dialog.Content>
@@ -108,7 +110,7 @@ export function DuplicateOneEntry(props: {
                         </Dialog.Footer>
                     </Dialog.Content>,
                 )
-            }
+            }}
         >
             {props.children}
         </Button>

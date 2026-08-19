@@ -1,6 +1,6 @@
-import { readAllIncomeStatementsRouteDefinition } from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { readAllIncomeStatementsRouteDefinition } from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconReportMoney } from "@tabler/icons-react"
 import type * as v from "valibot"
 import { DataWrapper } from "../../../../../components/layouts/DataWrapper.tsx"
@@ -24,11 +24,9 @@ export function IncomeStatementsTable(props: {
         >
             {(incomeStatements) => {
                 const filteredIncomeStatements = incomeStatements
-                    .filter((incomeStatement) => incomeStatement.idIncomeStatementParent === null)
                     .filter((incomeStatement) => {
-                        if (normalizedGlobalFilter.length === 0) {
-                            return true
-                        }
+                        if (incomeStatement.idIncomeStatementParent !== null) return false
+                        if (normalizedGlobalFilter.length === 0) return true
 
                         return `${incomeStatement.number} ${incomeStatement.label}`
                             .toLowerCase()

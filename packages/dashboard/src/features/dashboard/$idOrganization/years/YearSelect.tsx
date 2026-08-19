@@ -1,6 +1,6 @@
-import { readAllYearsRouteDefinition } from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { InputSelect } from "@arrhes/ui"
+import { readAllYearsRouteDefinition } from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { InputSelect } from "@comptasse/ui"
 import type * as v from "valibot"
 import { useDataFromAPI } from "../../../../utilities/useHTTPData.ts"
 

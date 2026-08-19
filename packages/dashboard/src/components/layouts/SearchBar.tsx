@@ -1,4 +1,4 @@
-import { InputDebounced, InputText } from "@arrhes/ui"
+import { InputDebounced, InputText } from "@comptasse/ui"
 
 export function SearchBar(props: { value: string; onChange: (value: string) => void; placeholder?: string }) {
     return (

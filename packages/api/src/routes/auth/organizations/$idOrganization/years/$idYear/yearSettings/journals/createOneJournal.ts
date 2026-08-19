@@ -1,4 +1,4 @@
-import { createOneJournalRouteDefinition, generateId, models } from "@arrhes/application-metadata"
+import { createOneJournalRouteDefinition, generateId, models } from "@comptasse/application-metadata"
 import { checkAuthMiddleware } from "../../../../../../../../middlewares/checkAuthMiddleware.js"
 import { requireOrganizationMiddleware } from "../../../../../../../../middlewares/requireOrganizationMiddleware.js"
 import { validateBodyMiddleware } from "../../../../../../../../middlewares/validateBody.middleware.js"

@@ -7,6 +7,7 @@ export const readOneJournalRouteDefinition = routeDefinition({
     protocol: "http",
     method: "GET",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/journals/:idJournal`,
+    name: "read-one-journal",
     schemas: {
         body: v.object({
             idJournal: journalSchema.entries.id,

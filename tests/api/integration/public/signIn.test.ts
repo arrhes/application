@@ -6,13 +6,13 @@ beforeAll(async () => {
     await verifyApiIsRunning()
 })
 
-describe("POST /v1/auth/sign-in", () => {
+describe("POST /auth/sign-in", () => {
     it("signs in with valid demo credentials", async () => {
         const response = await apiRequest({
             method: "POST",
-            path: "/v1/auth/sign-in",
+            path: "/auth/sign-in",
             body: {
-                email: "demo@arrhes.com",
+                email: "demo@comptasse.com",
                 password: "demo",
             },
         })
@@ -22,16 +22,16 @@ describe("POST /v1/auth/sign-in", () => {
 
         // Should set session cookie and is_auth cookie
         const cookieString = response.cookies.join("; ")
-        expect(cookieString).toContain("arrhes_id_user_session")
-        expect(cookieString).toContain("arrhes_is_auth")
+        expect(cookieString).toContain("comptasse_id_user_session")
+        expect(cookieString).toContain("comptasse_is_auth")
     })
 
     it("rejects invalid password", async () => {
         const response = await apiRequest({
             method: "POST",
-            path: "/v1/auth/sign-in",
+            path: "/auth/sign-in",
             body: {
-                email: "demo@arrhes.com",
+                email: "demo@comptasse.com",
                 password: "wrong_password",
             },
         })
@@ -41,9 +41,9 @@ describe("POST /v1/auth/sign-in", () => {
     it("rejects non-existent user", async () => {
         const response = await apiRequest({
             method: "POST",
-            path: "/v1/auth/sign-in",
+            path: "/auth/sign-in",
             body: {
-                email: "nonexistent@arrhes.com",
+                email: "nonexistent@comptasse.com",
                 password: "demo",
             },
         })
@@ -53,7 +53,7 @@ describe("POST /v1/auth/sign-in", () => {
     it("rejects empty body", async () => {
         const response = await apiRequest({
             method: "POST",
-            path: "/v1/auth/sign-in",
+            path: "/auth/sign-in",
             body: {},
         })
         expect(response.status).toBe(400)
@@ -62,9 +62,9 @@ describe("POST /v1/auth/sign-in", () => {
     it("rejects missing password", async () => {
         const response = await apiRequest({
             method: "POST",
-            path: "/v1/auth/sign-in",
+            path: "/auth/sign-in",
             body: {
-                email: "demo@arrhes.com",
+                email: "demo@comptasse.com",
             },
         })
         expect(response.status).toBe(400)

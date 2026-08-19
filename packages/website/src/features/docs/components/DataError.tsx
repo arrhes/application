@@ -1,4 +1,4 @@
-import { LinkContent } from "@arrhes/ui"
+import { LinkContent } from "@comptasse/ui"
 import { DocTip } from "../../../components/document/DocTip.js"
 
 export function DataError() {
@@ -6,7 +6,7 @@ export function DataError() {
         <DocTip variant="info">
             Si vous constatez une erreur ou une inexactitude, n'hésitez pas à{" "}
             <a
-                href="https://github.com/arrhes/application/issues"
+                href="https://github.com/comptasse/application/issues"
                 target="_blank"
                 rel="noopener noreferrer"
             >

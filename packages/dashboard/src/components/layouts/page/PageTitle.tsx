@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import type { ComponentProps } from "react"
 
 export function PageTitle(props: { children?: string; className?: ComponentProps<"div">["className"] }) {

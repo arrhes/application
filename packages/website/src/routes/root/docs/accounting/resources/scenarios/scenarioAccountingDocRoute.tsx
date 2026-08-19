@@ -1,6 +1,8 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { DocRoot } from "../../../../../../components/document/DocRoot"
 import { getScenarioById } from "../../../../../../features/docs/accounting/resources/scenarios/scenariosData.js"
 import { scenariosAccountingDocLayoutRoute } from "./scenariosAccountingDocLayoutRoute.js"
+import { ScenarioResourcesAccountingDocPage } from "../../../../../../features/docs/accounting/resources/scenarios/ScenarioResourcesAccountingDocPage.js"
 
 export const scenarioAccountingDocRoute = createRoute({
     getParentRoute: () => scenariosAccountingDocLayoutRoute,
@@ -13,11 +15,9 @@ export const scenarioAccountingDocRoute = createRoute({
             description: entry ? entry.description : "Ce scénario comptable n'a pas été trouvé.",
         }
     },
-    component: lazyRouteComponent(
-        () =>
-            import(
-                "../../../../../../features/docs/accounting/resources/scenarios/ScenarioResourcesAccountingDocPage.js"
-            ),
-        "ScenarioResourcesAccountingDocPage",
+    component: () => (
+        <DocRoot>
+            <ScenarioResourcesAccountingDocPage />
+        </DocRoot>
     ),
 })

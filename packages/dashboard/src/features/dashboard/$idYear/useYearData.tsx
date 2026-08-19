@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { YearDataContext, type YearDataContextValue } from "./YearDataProvider.js"
+import { YearDataContext, type YearDataContextValue } from "./YearDataContext.js"
 
 export function useYearData(): YearDataContextValue {
     const context = useContext(YearDataContext)

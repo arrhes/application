@@ -7,6 +7,7 @@ export const deleteOneAccountRouteDefinition = routeDefinition({
     protocol: "http",
     method: "DELETE",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/accounts/:idAccount`,
+    name: "delete-one-account",
     schemas: {
         body: v.object({
             idAccount: accountSchema.entries.id,

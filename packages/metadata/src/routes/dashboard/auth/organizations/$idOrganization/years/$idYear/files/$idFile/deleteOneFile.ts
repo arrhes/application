@@ -7,6 +7,7 @@ export const deleteOneFileRouteDefinition = routeDefinition({
     protocol: "http",
     method: "DELETE",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/files/:idFile`,
+    name: "delete-one-file",
     schemas: {
         body: v.object({
             idFile: fileSchema.entries.id,

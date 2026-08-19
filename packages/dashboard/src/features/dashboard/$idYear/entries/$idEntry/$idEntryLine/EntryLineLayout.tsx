@@ -1,6 +1,6 @@
-import { readOneEntryLineRouteDefinition } from "@arrhes/application-metadata/routes"
-import { ButtonOutlineContent, ButtonPlainContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { readOneEntryLineRouteDefinition } from "@comptasse/application-metadata/routes"
+import { ButtonOutlineContent, ButtonPlainContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconChevronLeft, IconDatabase, IconInfoCircle, IconPencil, IconTrash } from "@tabler/icons-react"
 import { Outlet, useParams } from "@tanstack/react-router"
 import { LinkButton } from "../../../../../../components/LinkButton.tsx"
@@ -61,7 +61,7 @@ export function EntryLineLayout() {
                                         <div
                                             className={css({
                                                 display: "flex",
-                                                justifyContent: "flex-end",
+                                                justifyContent: "flex-start",
                                                 alignItems: "center",
                                                 gap: "0.5rem",
                                             })}

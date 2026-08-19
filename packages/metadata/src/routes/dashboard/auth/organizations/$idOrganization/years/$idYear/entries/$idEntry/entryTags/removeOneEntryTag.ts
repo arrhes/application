@@ -7,6 +7,7 @@ export const removeOneEntryTagRouteDefinition = routeDefinition({
     protocol: "http",
     method: "DELETE",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/entries/:idEntry/tags/:idTag`,
+    name: "remove-one-entry-tag",
     schemas: {
         body: v.object({
             idYear: entryTagSchema.entries.idYear,

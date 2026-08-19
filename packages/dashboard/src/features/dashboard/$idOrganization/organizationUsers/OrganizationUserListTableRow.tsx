@@ -1,6 +1,6 @@
-import type { readAllOrganizationUsersRouteDefinition } from "@arrhes/application-metadata/routes"
-import { ButtonOutlineContent, Chip } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import type { readAllOrganizationUsersRouteDefinition } from "@comptasse/application-metadata/routes"
+import { ButtonOutlineContent, Chip } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconUserEdit, IconUserX } from "@tabler/icons-react"
 import type * as v from "valibot"
 import { ListTable } from "../../../../components/layouts/listTable/listTable.tsx"
@@ -91,7 +91,7 @@ export function OrganizationUserListTableRow(props: {
                 <div
                     className={css({
                         display: "flex",
-                        justifyContent: "end",
+                        justifyContent: "start",
                         alignItems: "center",
                         gap: "0.5rem",
                     })}

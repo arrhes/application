@@ -106,12 +106,12 @@ describe("serializeCookie", () => {
                 secure: true,
                 sameSite: "None",
                 path: "/",
-                domain: ".arrhes.com",
+                domain: ".comptasse.com",
             },
         })
         expect(result).toContain("session=abc")
         expect(result).toContain("; Max-Age=86400")
-        expect(result).toContain("; Domain=.arrhes.com")
+        expect(result).toContain("; Domain=.comptasse.com")
         expect(result).toContain("; Path=/")
         expect(result).toContain("; HttpOnly")
         expect(result).toContain("; Secure")

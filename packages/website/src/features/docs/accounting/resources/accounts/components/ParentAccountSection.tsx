@@ -1,5 +1,5 @@
-import { ButtonOutlineContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { ButtonOutlineContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconCornerUpLeft } from "@tabler/icons-react"
 import { DocSection } from "../../../../../../components/document/DocSection.js"
 import { LinkButton } from "../../../../../../components/LinkButton.js"

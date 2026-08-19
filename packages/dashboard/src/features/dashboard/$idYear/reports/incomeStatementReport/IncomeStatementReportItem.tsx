@@ -1,15 +1,16 @@
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
 import { type ComponentProps, Fragment } from "react"
 import type * as v from "valibot"
 import { toRoman } from "../../../../../utilities/toRoman.ts"
 import { getIncomeStatementChildren } from "../../yearSettings/incomeStatements/getIncomeStatementChildren.tsx"
+import type { AccountTotals } from "../getAccountTotals.ts"
 import { IncomeStatementReportRow } from "./IncomeStatementReportRow.tsx"
 
 export function IncomeStatementReportItem(props: {
     idOrganization: v.InferOutput<typeof returnedSchemas.organization>["id"]
     idYear: v.InferOutput<typeof returnedSchemas.year>["id"]
     accounts: Array<v.InferOutput<typeof returnedSchemas.account>>
-    entryLines: Array<v.InferOutput<typeof returnedSchemas.entryLine>>
+    accountTotals: Map<string, AccountTotals>
     incomeStatement: v.InferOutput<typeof returnedSchemas.incomeStatement>
     incomeStatementChildren: Array<v.InferOutput<typeof returnedSchemas.incomeStatement>>
     level: number
@@ -22,29 +23,20 @@ export function IncomeStatementReportItem(props: {
     const isAmountDisplayed = props.incomeStatement.isComputed === true || props.incomeStatementChildren.length === 0
 
     let netAmount = 0
-    props.accounts
-        .filter((account) => {
-            const hasAccount = props.incomeStatement.id === account.idIncomeStatement
-            const hasChildrenAccount = props.incomeStatementChildren.some(
-                (incomeStatement) => incomeStatement.id === account.idIncomeStatement,
-            )
-            return hasAccount || hasChildrenAccount
-        })
-        .forEach((account) => {
-            let accountTotalDebit = 0
-            let accountTotalCredit = 0
+    for (const account of props.accounts) {
+        const hasAccount = props.incomeStatement.id === account.idIncomeStatement
+        const hasChildrenAccount = props.incomeStatementChildren.some(
+            (incomeStatement) => incomeStatement.id === account.idIncomeStatement,
+        )
+        if (!hasAccount && !hasChildrenAccount) continue
 
-            props.entryLines
-                .filter((entryLine) => entryLine.idAccount === account.id)
-                .forEach((entryLine) => {
-                    accountTotalDebit += Number(entryLine.debit)
-                    accountTotalCredit += Number(entryLine.credit)
-                })
+        const totals = props.accountTotals.get(account.id)
+        if (totals === undefined) continue
 
-            const accountBalance = accountTotalDebit - accountTotalCredit
+        const accountBalance = totals.totalDebit - totals.totalCredit
 
-            netAmount += Math.abs(accountBalance)
-        })
+        netAmount += Math.abs(accountBalance)
+    }
 
     return (
         <Fragment>
@@ -56,27 +48,30 @@ export function IncomeStatementReportItem(props: {
                 amount={netAmount}
                 isAmountDisplayed={isAmountDisplayed}
             />
-            {props.incomeStatementChildren
-                .filter((incomeStatement) => incomeStatement.idIncomeStatementParent === props.incomeStatement.id)
-                .map((incomeStatement) => {
+            {(() => {
+                const children: Array<React.JSX.Element> = []
+                for (const incomeStatement of props.incomeStatementChildren) {
+                    if (incomeStatement.idIncomeStatementParent !== props.incomeStatement.id) continue
                     const incomeStatementChildren = getIncomeStatementChildren({
                         incomeStatement: incomeStatement,
                         incomeStatements: props.incomeStatementChildren,
                     })
 
-                    return (
+                    children.push(
                         <IncomeStatementReportItem
                             key={incomeStatement.id}
                             idOrganization={props.idOrganization}
                             idYear={props.idYear}
                             accounts={props.accounts}
-                            entryLines={props.entryLines}
+                            accountTotals={props.accountTotals}
                             incomeStatement={incomeStatement}
                             incomeStatementChildren={incomeStatementChildren}
                             level={props.level + 1}
-                        />
+                        />,
                     )
-                })}
+                }
+                return children
+            })()}
         </Fragment>
     )
 }

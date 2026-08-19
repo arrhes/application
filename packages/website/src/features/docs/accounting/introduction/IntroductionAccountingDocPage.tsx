@@ -1,3 +1,4 @@
+import { IconBrandGithub, IconExternalLink } from "@tabler/icons-react"
 import { DocHeader } from "../../../../components/document/DocHeader.tsx"
 import { DocLink } from "../../../../components/document/DocLink.tsx"
 import { DocList } from "../../../../components/document/DocList.tsx"
@@ -21,7 +22,7 @@ export function IntroductionAccountingDocPage() {
                     La comptabilité est un système d'organisation de l'information financière. Elle permet
                     d'enregistrer, classer et analyser toutes les opérations économiques d'une{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "organisation",
                         }}
@@ -53,7 +54,7 @@ export function IntroductionAccountingDocPage() {
                     <strong>Luca Pacioli</strong> publie la <em>Summa de arithmetica</em>
                     <DocSourceRef n={3} />, dans laquelle il codifie le système de la{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "partie-double",
                         }}
@@ -69,7 +70,7 @@ export function IntroductionAccountingDocPage() {
                     comptables aux commerçants.
                     <DocSourceRef n={4} /> Puis, en 1947, la France adopte son premier{" "}
                     <DocLink
-                        to="/documentation/comptabilité/glossaire/$term"
+                        to="/documentation/comptabilité/ressources/glossaire/$term"
                         params={{
                             term: "plan-comptable-general-pcg",
                         }}
@@ -81,6 +82,18 @@ export function IntroductionAccountingDocPage() {
                     Comptables (ANC).
                     <DocSourceRef n={5} />
                 </DocParagraph>
+                <DocParagraph>
+                    Le règlement actualisé est publié chaque année. Nous mettons à jour le Plan Comptable Général chaque
+                    année.
+                </DocParagraph>
+                <DocLink
+                    href="https://github.com/comptasse/PCG"
+                    buttonProps={{
+                        leftIcon: <IconBrandGithub />,
+                        text: "Voir le répertoire",
+                        rightIcon: <IconExternalLink />,
+                    }}
+                />
             </DocSection>
 
             <DocSection title="Pourquoi tenir une comptabilité ?">
@@ -107,7 +120,7 @@ export function IntroductionAccountingDocPage() {
                         "Connaître la situation financière de votre organisation à tout moment",
                         "Prendre des décisions éclairées basées sur des chiffres réels",
                         "Justifier vos opérations auprès de l'administration fiscale",
-                        "Calculer le bénéfice ou la perte de l'exercice",
+                        "Calculer le bénéfice ou la perte de parties ou de l'exercice entier",
                         "Communiquer avec vos partenaires (banques, fournisseurs, membres)",
                     ]}
                 />

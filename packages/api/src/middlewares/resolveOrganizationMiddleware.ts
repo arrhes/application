@@ -5,9 +5,9 @@ import { productName } from "../utilities/variables.js"
 
 /**
  * Resolves idOrganization from the request context using the following priority:
- * 1. URL path param `:idOrganization` (highest - used by REST routes like /v1/organizations/:idOrganization)
+ * 1. URL path param `:idOrganization` (highest - used by REST routes like /organizations/:idOrganization)
  * 2. X-Organization-Id header
- * 3. arrhes_id_organization cookie
+ * 3. comptasse_id_organization cookie
  * 4. body.idOrganization (legacy fallback)
  *
  * For Bearer token auth, the caller should use apiKey.idOrganization directly
@@ -28,7 +28,7 @@ export async function resolveOrganizationMiddleware(parameters: { context: Conte
         return headerValue
     }
 
-    // 3. arrhes_id_organization cookie
+    // 3. comptasse_id_organization cookie
     const cookieMap = parseCookies({
         value: parameters.context.req.header("Cookie"),
     })

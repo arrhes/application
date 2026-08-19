@@ -1,5 +1,5 @@
-import { Button, ButtonGhostContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { Button, ButtonGhostContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import type { ReactNode } from "react"
 import { type PageTabNavItem, usePageTabsContext } from "./PageTabsContext.js"
 
@@ -67,5 +67,5 @@ export function PageTabsNav(props: {
     start?: ReactNode
     children?: ReactNode
 }) {
-    return PageTabsNavImpl(props)
+    return <PageTabsNavImpl {...props} />
 }

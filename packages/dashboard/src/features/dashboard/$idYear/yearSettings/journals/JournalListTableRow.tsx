@@ -1,6 +1,6 @@
-import type { schemas } from "@arrhes/application-metadata/schemas"
-import { Chip, formatDate, LinkContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import type { schemas } from "@comptasse/application-metadata/schemas"
+import { Chip, formatDate, LinkContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import type * as v from "valibot"
 import { ListTable } from "../../../../../components/layouts/listTable/listTable.tsx"
 import { UpdateOneJournal } from "./$idJournal/UpdateOneJournal.tsx"
@@ -54,7 +54,7 @@ export function JournalListTableRow(props: { journal: v.InferOutput<typeof schem
                     <div
                         className={css({
                             display: "flex",
-                            justifyContent: "end",
+                            justifyContent: "start",
                             alignItems: "start",
                             gap: "0.5rem",
                         })}

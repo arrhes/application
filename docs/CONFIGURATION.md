@@ -1,6 +1,6 @@
 # Configuration
 
-Ce document decrit toutes les variables d'environnement et les configurations necessaires pour faire fonctionner Arrhes en developpement local.
+Ce document decrit toutes les variables d'environnement et les configurations necessaires pour faire fonctionner Comptasse en developpement local.
 
 ## Table des matieres
 
@@ -9,24 +9,18 @@ Ce document decrit toutes les variables d'environnement et les configurations ne
 - [Variables d'environnement - Tools](#variables-denvironnement---tools)
 - [Configuration PostgreSQL](#configuration-postgresql)
 - [Configuration S3 (Stockage)](#configuration-s3-stockage)
-- [Configuration SMTP (Email)](#configuration-smtp-email)
 - [Exemples de configuration](#exemples-de-configuration)
 - [Securite](#sécurité)
 
 ## Vue d'ensemble
 
-Arrhes necessite deux fichiers de configuration `.env` :
-
-1. **`packages/api/.env`** : Configuration du backend API
-2. **`packages/tools/.env`** : Configuration des outils de base de donnees
-
-Ces fichiers ne sont **pas versionnes** (`.gitignore`) pour des raisons de securite.
+Toutes les variables d'environnement (API, outils) sont injectees directement par `docker-compose`. Aucun fichier `.env` n'est necessaire.
 
 ### Approches de configuration
 
 **Option 1 : Avec Docker Compose (Recommande)**
 
-Le fichier `.workflows/dev/compose.yml` lance automatiquement PostgreSQL, RustFS et Mailpit avec des valeurs par defaut pretes a l'emploi. Cette option simplifie la configuration.
+Le fichier `.workflows/dev/compose.yml` lance automatiquement PostgreSQL et RustFS avec des valeurs par defaut pretes a l'emploi. Cette option simplifie la configuration.
 
 **Option 2 : Installation native**
 
@@ -36,7 +30,7 @@ Ce document couvre les deux approches.
 
 ## Variables d'environnement - API
 
-Fichier : `packages/api/.env`
+Definies dans le service `api` du fichier `.workflows/dev/compose.yml`.
 
 ### Environnement general
 
@@ -72,21 +66,21 @@ Fichier : `packages/api/.env`
 | Variable | Type | Description | Exemple |
 |----------|------|-------------|---------|
 | `STORAGE_ENDPOINT` | `string` | Endpoint S3 (ou compatible) | `http://localhost:9000` (RustFS) |
-| `STORAGE_BUCKET_NAME` | `string` | Nom du bucket S3 | `arrhes-files` |
+| `STORAGE_BUCKET_NAME` | `string` | Nom du bucket S3 | `comptasse-files` |
 | `STORAGE_ACCESS_KEY` | `string` | Cle d'acces S3 | `rustfsadmin` |
 | `STORAGE_SECRET_KEY` | `string` | Cle secrete S3 | `rustfsadmin` |
 
-### Email SMTP
+### OCR
 
 | Variable | Type | Description | Exemple |
 |----------|------|-------------|---------|
-| `EMAIL_ENDPOINT` | `string` | Serveur SMTP | `smtp.gmail.com` |
-| `EMAIL_USER` | `string` | Utilisateur SMTP | `your-email@gmail.com` |
-| `EMAIL_PASSWORD` | `string` | Mot de passe ou app password SMTP | `your-app-password` |
+| `OCR_API_KEY` | `string` | Cle API du fournisseur OCR (BYOK). Optionnelle ; une erreur est renvoyee si l'OCR est utilise sans cle. | `your-ocr-api-key` |
+| `OCR_ENDPOINT` | `string` | Endpoint de l'API OCR | `https://api.mistral.ai/v1/ocr` |
+| `OCR_MODEL` | `string` | Modele OCR | `mistral-ocr-latest` |
 
 ## Variables d'environnement - Tools
 
-Fichier : `packages/tools/.env`
+Definies dans le service `api` du fichier `.workflows/dev/compose.yml` (les scripts `tools` heritent de l'environnement du container).
 
 | Variable | Type | Description | Exemple |
 |----------|------|-------------|---------|
@@ -154,13 +148,13 @@ Telecharger l'installeur depuis [postgresql.org](https://www.postgresql.org/down
 sudo -u postgres psql
 
 # Creer un utilisateur
-CREATE USER arrhes_user WITH PASSWORD 'your-secure-password';
+CREATE USER comptasse_user WITH PASSWORD 'your-secure-password';
 
 # Creer la base de donnees
-CREATE DATABASE arrhes OWNER arrhes_user;
+CREATE DATABASE comptasse OWNER comptasse_user;
 
 # Donner tous les privileges
-GRANT ALL PRIVILEGES ON DATABASE arrhes TO arrhes_user;
+GRANT ALL PRIVILEGES ON DATABASE comptasse TO comptasse_user;
 
 # Quitter
 \q
@@ -170,11 +164,11 @@ GRANT ALL PRIVILEGES ON DATABASE arrhes TO arrhes_user;
 
 Format : `postgres://[user]:[password]@[host]:[port]/[database]`
 
-Exemple : `postgres://arrhes_user:your-secure-password@localhost:5432/arrhes`
+Exemple : `postgres://comptasse_user:your-secure-password@localhost:5432/comptasse`
 
 **Verification de la connexion :**
 ```bash
-psql postgres://arrhes_user:your-secure-password@localhost:5432/arrhes
+psql postgres://comptasse_user:your-secure-password@localhost:5432/comptasse
 ```
 
 ## Configuration S3 (Stockage)
@@ -195,12 +189,12 @@ docker compose -f .workflows/dev/compose.yml up -d rustfs
 - **Web Console** : http://localhost:9001
 - **Access Key** : `rustfsadmin`
 - **Secret Key** : `rustfsadmin`
-- **Bucket** : `arrhes-files` (a creer)
+- **Bucket** : `comptasse-files` (a creer)
 
 **Variables d'environnement :**
 ```env
 STORAGE_ENDPOINT=http://localhost:9000
-STORAGE_BUCKET_NAME=arrhes-files
+STORAGE_BUCKET_NAME=comptasse-files
 STORAGE_ACCESS_KEY=rustfsadmin
 STORAGE_SECRET_KEY=rustfsadmin
 ```
@@ -211,7 +205,7 @@ Via l'interface web :
 1. Acceder a http://localhost:9001
 2. Se connecter avec `rustfsadmin` / `rustfsadmin`
 3. Cliquer sur "Buckets" > "Create Bucket"
-4. Nommer le bucket `arrhes-files`
+4. Nommer le bucket `comptasse-files`
 
 **Commandes utiles :**
 ```bash
@@ -259,95 +253,6 @@ STORAGE_SECRET_KEY=YOUR_AWS_SECRET_KEY
 
 Cloudflare R2, DigitalOcean Spaces, Scaleway Object Storage, etc. sont egalement compatibles.
 
-## Configuration SMTP (Email)
-
-L'application envoie des emails pour :
-- Magic links d'authentification
-- Notifications importantes
-- Invitations d'utilisateurs
-
-### Option 1 : Avec Docker Compose (Recommande pour le developpement)
-
-Le fichier `.workflows/dev/compose.yml` lance automatiquement Mailpit, un serveur SMTP de test.
-
-**Lancer Mailpit :**
-```bash
-docker compose -f .workflows/dev/compose.yml up -d mailpit
-```
-
-**Configuration par defaut :**
-- **SMTP** : `localhost:1025`
-- **Interface web** : http://localhost:8025
-
-**Variables d'environnement :**
-```env
-EMAIL_ENDPOINT=localhost:1025
-EMAIL_USER=test
-EMAIL_PASSWORD=test
-```
-
-**Interface web :**
-Accedez a http://localhost:8025 pour voir tous les emails envoyes par l'application.
-
-**Avantages :**
-- Aucun email reel n'est envoye
-- Visualisation de tous les emails
-- Ideal pour le developpement et les tests
-
-**Commandes utiles :**
-```bash
-# Voir les logs
-docker compose -f .workflows/dev/compose.yml logs mailpit
-
-# Redemarrer
-docker compose -f .workflows/dev/compose.yml restart mailpit
-```
-
-### Option 2 : Mailpit standalone (sans Docker Compose)
-
-```bash
-docker run -d -p 1025:1025 -p 8025:8025 axllent/mailpit
-```
-
-Utilisez la meme configuration que ci-dessus.
-
-### Option 3 : Gmail (Test avec vrais emails)
-
-**Configuration :**
-```env
-EMAIL_ENDPOINT=smtp.gmail.com
-EMAIL_USER=your-email@gmail.com
-EMAIL_PASSWORD=your-app-specific-password
-```
-
-**Etapes :**
-1. Activer l'authentification a deux facteurs sur votre compte Google
-2. Generer un "mot de passe d'application" : https://myaccount.google.com/apppasswords
-3. Utiliser ce mot de passe dans `EMAIL_PASSWORD`
-
-### Option 4 : Services SMTP dedies (Production)
-
-**Brevo (ex-Sendinblue) :**
-```env
-EMAIL_ENDPOINT=smtp-relay.brevo.com
-EMAIL_USER=your-email@example.com
-EMAIL_PASSWORD=your-smtp-key
-```
-
-**SendGrid :**
-```env
-EMAIL_ENDPOINT=smtp.sendgrid.net
-EMAIL_USER=apikey
-EMAIL_PASSWORD=your-sendgrid-api-key
-```
-
-**Mailgun :**
-```env
-EMAIL_ENDPOINT=smtp.mailgun.org
-EMAIL_USER=postmaster@your-domain.mailgun.org
-EMAIL_PASSWORD=your-smtp-password
-```
-
 ## Exemples de configuration
 
 ### Configuration avec Docker Compose (Recommande)
@@ -359,82 +264,60 @@ Cette configuration utilise tous les services lances par `.workflows/dev/compose
 docker compose -f .workflows/dev/compose.yml up -d
 ```
 
-**Etape 2 : `packages/api/.env`**
-```env
-# Environnement
-ENV=development
-VERBOSE=true
-PORT=3000
+**Etape 2 : Variables d'environnement**
 
-# CORS et Cookies
-CORS_ORIGIN=http://localhost:5173
-COOKIES_DOMAIN=localhost
-COOKIES_KEY=development-secret-key-change-in-production-min-32-chars
+Aucun fichier `.env` n'est necessaire. Les variables du service `api` sont definies directement dans `.workflows/dev/compose.yml` :
 
-# URLs
-API_BASE_URL=http://localhost:3000
-WEBSITE_BASE_URL=http://localhost:5173
-
-# Base de donnees (Docker Compose)
-SQL_DATABASE_URL=postgres://postgres:admin@localhost:5432/default
-
-# Stockage RustFS (Docker Compose)
-STORAGE_ENDPOINT=http://localhost:9000
-STORAGE_BUCKET_NAME=arrhes-files
-STORAGE_ACCESS_KEY=rustfsadmin
-STORAGE_SECRET_KEY=rustfsadmin
-
-# Email Mailpit (Docker Compose)
-EMAIL_ENDPOINT=localhost:1025
-EMAIL_USER=test
-EMAIL_PASSWORD=test
+```yaml
+environment:
+  ENV: development
+  VERBOSE: "true"
+  PORT: "3000"
+  CORS_ORIGIN: localhost
+  COOKIES_DOMAIN: localhost
+  COOKIES_KEY: development-secret-key-change-in-production-min-32-chars
+  API_BASE_URL: "http://localhost:3000"
+  WEBSITE_BASE_URL: "http://localhost:5173"
+  SQL_DATABASE_URL: "postgres://postgres:admin@localhost:5432/default"
+  STORAGE_ENDPOINT: "http://localhost:9000"
+  STORAGE_BUCKET_NAME: comptasse-files
+  STORAGE_ACCESS_KEY: rustfsadmin
+  STORAGE_SECRET_KEY: rustfsadmin
 ```
 
-**`packages/tools/.env` :**
-```env
-DATABASE_URL=postgres://postgres:admin@localhost:5432/default
-```
+Le service `tools` herite du meme environnement pour `DATABASE_URL` / `SQL_DATABASE_URL`.
 
 ### Configuration avec services externes (Production)
 
-**`packages/api/.env` :**
+Les variables d'environnement sont injectees via `docker-compose` (par exemple le service `comptasse` de `.workflows/build/compose.yml`) ou le manager de secrets de votre infrastructure :
+
 ```env
-# Environnement
 ENV=production
 VERBOSE=false
 PORT=3000
 
-# CORS et Cookies
 CORS_ORIGIN=https://your-domain.com
 COOKIES_DOMAIN=your-domain.com
 COOKIES_KEY=generate-a-strong-random-key-here-minimum-32-characters
 
-# URLs
 API_BASE_URL=https://api.your-domain.com
 WEBSITE_BASE_URL=https://your-domain.com
 
-# Base de donnees (PostgreSQL heberge)
-SQL_DATABASE_URL=postgres://user:pass@db.provider.com:5432/arrhes?sslmode=require
+SQL_DATABASE_URL=postgres://user:pass@db.provider.com:5432/comptasse?sslmode=require
 
-# Stockage AWS S3
 STORAGE_ENDPOINT=https://s3.eu-west-3.amazonaws.com
-STORAGE_BUCKET_NAME=my-arrhes-bucket
-STORAGE_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE
-STORAGE_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-
-# Email (service SMTP dedie)
-EMAIL_ENDPOINT=smtp-relay.brevo.com
-EMAIL_USER=myemail@example.com
-EMAIL_PASSWORD=your-smtp-key
+STORAGE_BUCKET_NAME=my-comptasse-bucket
+STORAGE_ACCESS_KEY=VOTRE_CLE_ACCES_S3
+STORAGE_SECRET_KEY=VOTRE_CLE_SECRETE_S3
 ```
 
 ## Securite
 
 ### Bonnes pratiques
 
-1. **Ne jamais commiter les fichiers `.env`**
-   - Verifiez que `.env` est dans `.gitignore`
-   - Utilisez des templates `.env.example` sans valeurs sensibles
+1. **Ne jamais commiter de secrets dans le code ou les fichiers de configuration**
+   - Injectez les secrets par `docker-compose` ou un secrets manager
+   - Utilisez des valeurs par defaut de developpement uniquement dans `.workflows/dev/compose.yml`
 
 2. **Generer des secrets forts**
    ```bash
@@ -442,21 +325,14 @@ EMAIL_PASSWORD=your-smtp-key
    openssl rand -base64 32
    ```
 
-3. **Permissions de fichiers**
-   ```bash
-   # Restreindre l'acces aux fichiers .env
-   chmod 600 packages/api/.env
-   chmod 600 packages/tools/.env
-   ```
-
-4. **Variables separees par environnement**
-   - Dev : `.env` (dans `packages/api/` et `packages/tools/`)
+3. **Secrets par environnement**
+   - Dev : valeurs par defaut dans `.workflows/dev/compose.yml`
    - Production : variables d'environnement systeme ou secrets manager
    - Ne jamais melanger les credentials
 
-5. **Rotation des secrets**
+4. **Rotation des secrets**
    - Changez regulierement `COOKIES_KEY`
-   - Renouvelez les cles API et mots de passe
+   - Renouvelez les cles de stockage et mots de passe
    - Revoquez les acces inutilises
 
 ### Verification de la configuration
@@ -470,7 +346,6 @@ Pour verifier que toutes les variables sont correctement definies, l'API affiche
 | `COOKIES_KEY` | Minimum 32 caracteres aleatoires |
 | `SQL_DATABASE_URL` | Connexion SSL en production (`?sslmode=require`) |
 | `STORAGE_*` | Credentials avec permissions minimales (lecture/ecriture bucket uniquement) |
-| `EMAIL_*` | Utiliser des app passwords, pas le mot de passe principal |
 
 ---
 

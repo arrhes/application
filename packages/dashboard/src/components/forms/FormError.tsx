@@ -1,1 +1,1 @@
-export { FormError } from "@arrhes/ui"
+export { FormError } from "@comptasse/ui"

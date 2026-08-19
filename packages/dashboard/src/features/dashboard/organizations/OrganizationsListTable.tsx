@@ -1,4 +1,4 @@
-import { getAllMyOrganizationsRouteDefinition } from "@arrhes/application-metadata/routes"
+import { getAllMyOrganizationsRouteDefinition } from "@comptasse/application-metadata/routes"
 import { IconBuilding } from "@tabler/icons-react"
 import { DataWrapper } from "../../../components/layouts/DataWrapper.tsx"
 import { EmptyState } from "../../../components/layouts/EmptyState.tsx"

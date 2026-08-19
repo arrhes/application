@@ -7,6 +7,7 @@ export const createOneYearRouteDefinition = routeDefinition({
     protocol: "http",
     method: "POST",
     path: `${routePath.v1}/organizations/:idOrganization/years`,
+    name: "create-one-year",
     schemas: {
         body: v.object({
             idYearPrevious: v.optional(yearSchema.entries.idYearPrevious),

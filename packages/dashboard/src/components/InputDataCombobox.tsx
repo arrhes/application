@@ -1,5 +1,5 @@
-import type { routeDefinition } from "@arrhes/application-metadata/utilities"
-import { InputCombobox } from "@arrhes/ui"
+import type { routeDefinition } from "@comptasse/application-metadata/utilities"
+import { InputCombobox } from "@comptasse/ui"
 import type * as v from "valibot"
 import { useDataFromAPI } from "../utilities/useHTTPData.js"
 

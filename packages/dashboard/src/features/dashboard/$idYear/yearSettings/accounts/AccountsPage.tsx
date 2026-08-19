@@ -1,10 +1,9 @@
-import { ButtonPlainContent, InputDebounced, InputText } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { ButtonPlainContent, InputDebounced, InputText } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconPlus } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { useCallback, useState, useTransition } from "react"
 import { Box } from "../../../../../components/layouts/Box.tsx"
-import { Page } from "../../../../../components/layouts/page/page.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
 import { AccountsTable } from "./AccountsTable.tsx"
 import { CreateOneAccount } from "./CreateOneAccount.tsx"
@@ -35,15 +34,13 @@ export function AccountsPage({
     }, [])
 
     return (
-        <Page.Root>
-            <Page.Content>
                 <Section.Root>
                     <Section.Item>
                         <div
                             className={css({
                                 width: "100%",
                                 display: "flex",
-                                justifyContent: "flex-end",
+                                justifyContent: "flex-start",
                                 alignItems: "center",
                                 gap: "0.5rem",
                             })}
@@ -82,7 +79,5 @@ export function AccountsPage({
                         </Box>
                     </Section.Item>
                 </Section.Root>
-            </Page.Content>
-        </Page.Root>
     )
 }

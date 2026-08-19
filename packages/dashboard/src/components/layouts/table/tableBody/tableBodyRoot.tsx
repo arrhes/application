@@ -1,4 +1,4 @@
-import { cn, css } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@comptasse/ui/utilities/cn.js"
 import { type ComponentProps, forwardRef, type ReactElement } from "react"
 
 export const TableBodyRoot = forwardRef<
@@ -19,7 +19,8 @@ export const TableBodyRoot = forwardRef<
                 }),
                 props.className,
             )}
-            children={props.children}
-        />
+        >
+            {props.children}
+        </tbody>
     )
 })

@@ -1,4 +1,4 @@
-import { models, readAllOrganizationUsersRouteDefinition } from "@arrhes/application-metadata"
+import { models, readAllOrganizationUsersRouteDefinition } from "@comptasse/application-metadata"
 import { and, eq } from "drizzle-orm"
 import { checkAuthMiddleware } from "../../../../../../middlewares/checkAuthMiddleware.js"
 import { requireOrganizationMiddleware } from "../../../../../../middlewares/requireOrganizationMiddleware.js"

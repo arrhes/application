@@ -1,11 +1,10 @@
 import { pbkdf2Sync } from "node:crypto"
-import { generateId, models, signUpRouteDefinition } from "@arrhes/application-metadata"
+import { generateId, models, signUpRouteDefinition } from "@comptasse/application-metadata"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"
 import { getCookieDomainFromHost } from "../../../utilities/cookies/getCookieDomainFromHost.js"
 import { serializeCookie } from "../../../utilities/cookies/serializeCookie.js"
 import { signString } from "../../../utilities/cookies/signString.js"
 import { Exception } from "../../../utilities/exception.js"
-import { generateVerificationToken } from "../../../utilities/generateVerificationToken.js"
 import { getRemoteAddress } from "../../../utilities/getRemoteAddress.js"
 import { registerRoute } from "../../../utilities/registerRoute.js"
 import { response } from "../../../utilities/response.js"
@@ -38,9 +37,6 @@ export const signUpRoute = registerRoute(signUpRouteDefinition, async (c) => {
                 isActive: true,
                 alias: null,
                 email: body.email,
-                isEmailValidated: false,
-                emailToken: generateVerificationToken(),
-                emailTokenExpiresAt: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
                 passwordHash: passwordHash,
                 passwordSalt: passwordSalt,
                 createdAt: new Date().toISOString(),
@@ -105,14 +101,6 @@ export const signUpRoute = registerRoute(signUpRouteDefinition, async (c) => {
             },
         }),
     )
-
-    // await sendEmail({
-    //     to: userResponse.email,
-    //     subject: "Valider votre email",
-    //     html: emailValidationTemplate({
-    //         url: `${urlApp}/services/email?id=${userResponse.id}&token=${userResponse.emailToken}`,
-    //     })
-    // })
 
     return response({
         context: c,

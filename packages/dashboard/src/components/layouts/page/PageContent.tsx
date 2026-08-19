@@ -1,4 +1,4 @@
-import { cn, css } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@comptasse/ui/utilities/cn.js"
 import type { ComponentProps, ReactNode } from "react"
 
 export function PageContent(props: { className?: ComponentProps<"div">["className"]; children: ReactNode }) {
@@ -7,13 +7,12 @@ export function PageContent(props: { className?: ComponentProps<"div">["classNam
             className={cn(
                 css({
                     width: "100%",
-                    maxWidth: "xl",
                     height: "fit",
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "flex-start",
                     alignItems: "flex-start",
-                    gap: "2rem",
+                    gap: "1rem",
                 }),
                 props.className,
             )}

@@ -10,6 +10,7 @@ export const createOneIncomeStatementRouteDefinition = routeDefinition({
     protocol: "http",
     method: "POST",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/income-statements`,
+    name: "create-one-income-statement",
     schemas: {
         body: v.object({
             idYear: incomeStatementSchema.entries.idYear,

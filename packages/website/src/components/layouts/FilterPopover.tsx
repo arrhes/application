@@ -7,8 +7,8 @@ import {
     InputDebounced,
     InputText,
     Separator,
-} from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+} from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconFilter, IconX } from "@tabler/icons-react"
 import { Popover } from "../overlays/popover/popover.js"
 

@@ -2,12 +2,12 @@ import {
     createOneComputationIncomeStatementRouteDefinition,
     readAllComputationIncomeStatementsRouteDefinition,
     readAllIncomeStatementsRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button, InputToggle, toast } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+} from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { Button, InputToggle, toast } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconPlus } from "@tabler/icons-react"
-import type { JSX } from "react"
+import { useState, type JSX } from "react"
 import { Fragment } from "react/jsx-runtime"
 import type * as v from "valibot"
 import { FormControl } from "../../../../../../../../components/forms/FormControl.tsx"
@@ -17,7 +17,6 @@ import { FormItem } from "../../../../../../../../components/forms/FormItem.tsx"
 import { FormLabel } from "../../../../../../../../components/forms/FormLabel.tsx"
 import { FormRoot } from "../../../../../../../../components/forms/FormRoot.tsx"
 import { InputDataCombobox } from "../../../../../../../../components/InputDataCombobox.tsx"
-import { useTabs } from "../../../../../../../../contexts/tabs/useTabs.tsx"
 import { getResponseBodyFromAPI } from "../../../../../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../../../../../utilities/invalidateData.ts"
 
@@ -25,32 +24,32 @@ export function CreateOneComputationIncomeStatement(props: {
     computation: v.InferOutput<typeof returnedSchemas.computation>
     children: JSX.Element
 }) {
-    const { openPanelTab, closeTab } = useTabs()
+    const [open, setOpen] = useState(false)
 
     return (
-        <Button
-            className={{
-                padding: "0",
-                border: "none",
-                backgroundColor: "transparent",
-                width: "fit-content",
-                height: "fit-content",
-            }}
-            onClick={() => {
-                const r = {
-                    current: "",
-                }
-                r.current = openPanelTab(
-                    "Ajouter un nouveau terme au calcul",
-                    <div
-                        className={css({
-                            padding: "2rem",
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "1rem",
-                        })}
-                    >
-                        <FormRoot
+        <>
+            <Button
+                className={{
+                    padding: "0",
+                    border: "none",
+                    backgroundColor: "transparent",
+                    width: "fit-content",
+                    height: "fit-content",
+                }}
+                onClick={() => setOpen(true)}
+            >
+                {props.children}
+            </Button>
+            {open && (
+                <div
+                    className={css({
+                        padding: "2rem",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "1rem",
+                    })}
+                >
+                    <FormRoot
                             schema={createOneComputationIncomeStatementRouteDefinition.schemas.body}
                             defaultValues={{
                                 idYear: props.computation.idYear,
@@ -79,7 +78,7 @@ export function CreateOneComputationIncomeStatement(props: {
                                 })
                                 return true
                             }}
-                            onCancel={undefined}
+                            onCancel={() => setOpen(false)}
                             onSuccess={async () => {
                                 await invalidateData({
                                     routeDefinition: readAllComputationIncomeStatementsRouteDefinition,
@@ -88,7 +87,7 @@ export function CreateOneComputationIncomeStatement(props: {
                                     },
                                 })
 
-                                closeTab(r.current)
+                                setOpen(false)
                             }}
                         >
                             {(form) => (
@@ -155,11 +154,8 @@ export function CreateOneComputationIncomeStatement(props: {
                                 </Fragment>
                             )}
                         </FormRoot>
-                    </div>,
-                )
-            }}
-        >
-            {props.children}
-        </Button>
-    )
-}
+                    </div>
+                )}
+            </>
+        )
+    }

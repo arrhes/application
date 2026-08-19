@@ -1,1 +1,1 @@
-export { FormRoot } from "@arrhes/ui"
+export { FormRoot } from "@comptasse/ui"

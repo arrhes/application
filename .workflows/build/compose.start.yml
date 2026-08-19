@@ -1,5 +1,5 @@
 # ==============================================================================
-# Arrhes Production Smoke Test
+# Comptasse Production Smoke Test
 # ==============================================================================
 # Runs the production Docker images against local infrastructure to verify
 # startup correctness. Use this after `just build images`.
@@ -7,8 +7,8 @@
 # Usage:
 #   just build start
 #   # or manually:
-#   ARRHES_VERSION=$(cat VERSION) docker compose -f .workflows/build/compose.start.yml \
-#     --project-name arrhes-prod up
+#   COMPTASSE_VERSION=$(cat VERSION) docker compose -f .workflows/build/compose.start.yml \
+#     --project-name comptasse-prod up
 # ==============================================================================
 
 services:
@@ -17,7 +17,7 @@ services:
   # ============================================================================
 
   postgres:
-    container_name: arrhes-prod-postgres
+    container_name: comptasse-prod-postgres
     image: postgres:18.1
     restart: unless-stopped
     environment:
@@ -34,20 +34,8 @@ services:
       timeout: 5s
       retries: 5
 
-  redis:
-    container_name: arrhes-prod-redis
-    image: redis:7-alpine
-    restart: unless-stopped
-    ports:
-      - "6379:6379"
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
   rustfs:
-    container_name: arrhes-prod-rustfs
+    container_name: comptasse-prod-rustfs
     image: rustfs/rustfs:latest
     restart: unless-stopped
     environment:
@@ -67,26 +55,13 @@ services:
       timeout: 5s
       retries: 5
 
-  mailpit:
-    container_name: arrhes-prod-mailpit
-    image: axllent/mailpit:latest
-    restart: unless-stopped
-    ports:
-      - "1025:1025"
-      - "8025:8025"
-    healthcheck:
-      test: ["CMD-SHELL", "wget --quiet --tries=1 --spider http://localhost:8025 || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
   # ============================================================================
   # Production images (pre-built via `just build images`)
   # ============================================================================
 
   api:
-    container_name: arrhes-prod-api
-    image: arrhes-api:${ARRHES_VERSION:-dev}
+    container_name: comptasse-prod-api
+    image: comptasse-api:${COMPTASSE_VERSION:-dev}
     ports:
       - "3000:3000"
     environment:
@@ -100,69 +75,21 @@ services:
       SQL_DATABASE_URL: postgres://postgres:admin@postgres:5432/default
       STORAGE_ENDPOINT: http://rustfs:9000
 
-      STORAGE_BUCKET_NAME: arrhes-files
+      STORAGE_BUCKET_NAME: comptasse-files
       STORAGE_ACCESS_KEY: rustfsadmin
       STORAGE_SECRET_KEY: rustfsadmin
-      EMAIL_ENDPOINT: mailpit:1025
-      EMAIL_USER: test
-      EMAIL_PASSWORD: test
       MOLLIE_API_KEY: test_z8gjjnezmRNx7dretKbEr5vcCfADh9
-      INTERNAL_API_KEY: development-internal-api-key
-      LLM_PROVIDER: mistral-api
-      LLM_BASE_URL: https://api.mistral.ai/v1
-      LLM_MODEL: mistral-small-2603
-      LLM_API_KEY: OwMSblegsAyAWd3AzCZbJkbaMQLCCj7y
-      REDIS_HOST: redis
-      REDIS_PORT: "6379"
-      REDIS_USERNAME: ""
-      REDIS_PASSWORD: ""
     depends_on:
       postgres:
-        condition: service_healthy
-      redis:
         condition: service_healthy
       rustfs:
         condition: service_healthy
-      mailpit:
-        condition: service_healthy
 
   website:
-    container_name: arrhes-prod-website
-    image: arrhes-website:${ARRHES_VERSION:-dev}
+    container_name: comptasse-prod-website
+    image: comptasse-website:${COMPTASSE_VERSION:-dev}
     ports:
       - "5173:80"
-
-  worker:
-    container_name: arrhes-prod-worker
-    image: arrhes-worker:${ARRHES_VERSION:-dev}
-    logging:
-      driver: json-file
-      options:
-        max-size: "50m"
-        max-file: "5"
-    environment:
-      ENV: development
-      VERBOSE: "true"
-      SQL_DATABASE_URL: postgres://postgres:admin@postgres:5432/default
-      STORAGE_ENDPOINT: http://rustfs:9000
-      STORAGE_NAME: arrhes-files
-      STORAGE_ACCESS_KEY: rustfsadmin
-      STORAGE_SECRET_KEY: rustfsadmin
-      API_BASE_URL: http://api:3000
-      INTERNAL_API_KEY: development-internal-api-key
-      REDIS_HOST: redis
-      REDIS_PORT: "6379"
-      REDIS_USERNAME: ""
-      REDIS_PASSWORD: ""
-      LLM_PROVIDER: mistral-api
-      LLM_BASE_URL: https://api.mistral.ai/v1
-      LLM_MODEL: mistral-small-2603
-      LLM_API_KEY: OwMSblegsAyAWd3AzCZbJkbaMQLCCj7y
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
 
 volumes:
   postgres_data:

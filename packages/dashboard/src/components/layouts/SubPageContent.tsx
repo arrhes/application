@@ -1,7 +1,7 @@
-import { Button, ButtonGhostContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { Button, ButtonGhostContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import type { Icon, IconProps } from "@tabler/icons-react"
-import { type ReactElement, type ReactNode, useState } from "react"
+import { type ReactElement, type ReactNode, useEffect, useRef, useState } from "react"
 
 type SectionItem = {
     key: string
@@ -25,14 +25,28 @@ export function SubPageContent(props: {
     const allItems = Object.values(props.sections).flatMap((s) => s.items)
     const firstKey = props.defaultKey ?? allItems[0]?.key ?? ""
     const [activeKey, setActiveKey] = useState(firstKey)
+    const prevDefaultKey = useRef(props.defaultKey)
+
+    useEffect(() => {
+        if (props.defaultKey && props.defaultKey !== prevDefaultKey.current) {
+            prevDefaultKey.current = props.defaultKey
+            if (allItems.some((i) => i.key === props.defaultKey)) {
+                setActiveKey(props.defaultKey)
+            }
+        }
+    }, [
+        props.defaultKey,
+        allItems,
+    ])
+
     const activeContent = allItems.find((i) => i.key === activeKey)?.content ?? null
 
     return (
         <div
             className={css({
                 width: "100%",
-                flex: "1",
-                flexShrink: "0",
+                flex: 1,
+                minHeight: 0,
                 display: "flex",
                 flexDirection: "column",
             })}
@@ -47,7 +61,7 @@ export function SubPageContent(props: {
                     alignItems: "center",
                     gap: "1rem",
                     flexWrap: "wrap",
-                    padding: "0.5rem",
+                    padding: "1rem",
                     borderBottom: "1px solid",
                     borderBottomColor: "neutral/10",
                 })}
@@ -77,7 +91,7 @@ export function SubPageContent(props: {
                 <div
                     className={css({
                         display: "flex",
-                        justifyContent: "flex-end",
+                        justifyContent: "flex-start",
                         alignItems: "center",
                         gap: "0.5rem",
                         flexWrap: "wrap",
@@ -91,10 +105,14 @@ export function SubPageContent(props: {
             <div
                 className={css({
                     width: "100%",
-                    padding: {
-                        base: "1rem",
-                        md: "2rem",
-                    },
+                    flex: 1,
+                    minHeight: 0,
+                    overflowY: "auto",
+                    padding: "1rem",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "start",
+                    gap: "1rem",
                 })}
             >
                 {activeContent}

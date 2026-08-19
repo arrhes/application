@@ -1,4 +1,4 @@
-import { models, signOutRouteDefinition } from "@arrhes/application-metadata"
+import { models, signOutRouteDefinition } from "@comptasse/application-metadata"
 import { eq } from "drizzle-orm"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"
 import { getCookieDomainFromHost } from "../../../utilities/cookies/getCookieDomainFromHost.js"

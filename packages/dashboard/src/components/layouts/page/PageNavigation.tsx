@@ -1,1 +1,1 @@
-export { PageNavigation } from "@arrhes/ui"
+export { PageNavigation } from "@comptasse/ui"

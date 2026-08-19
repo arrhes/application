@@ -7,18 +7,12 @@
 // =============================================================================
 
 export {
-    agentMessageModel,
-    agentMessageRelations,
-    agentMessageStateEnum,
-} from "../../metadata/src/models/AgentMessage.ts"
-export {
     accountBalanceSheetColumnEnum,
     accountBalanceSheetFlowEnum,
     accountModel,
     accountRelations,
     accountTypeEnum,
 } from "../../metadata/src/models/account.ts"
-export { agentSessionModel, agentSessionRelations } from "../../metadata/src/models/agentSession.ts"
 export { apiKeyModel, apiKeyRelations } from "../../metadata/src/models/apiKey.ts"
 export { balanceSheetModel, balanceSheetRelations } from "../../metadata/src/models/balanceSheet.ts"
 export { computationModel, computationRelations } from "../../metadata/src/models/computation.ts"
@@ -32,24 +26,25 @@ export { entryTagModel, entryTagRelations } from "../../metadata/src/models/entr
 export { fileModel } from "../../metadata/src/models/file.ts"
 export { folderModel } from "../../metadata/src/models/folder.ts"
 export { incomeStatementModel, incomeStatementRelations } from "../../metadata/src/models/incomeStatement.ts"
+export {
+    inventoryItemModel,
+    inventoryItemRelations,
+} from "../../metadata/src/models/inventoryItem.ts"
+export {
+    inventoryMovementModel,
+    inventoryMovementRelations,
+} from "../../metadata/src/models/inventoryMovement.ts"
 export { journalModel, journalRelations } from "../../metadata/src/models/journal.ts"
 export { organizationModel, organizationRelations } from "../../metadata/src/models/organization.ts"
-export {
-    organizationPaymentModel,
-    organizationPaymentRelations,
-    organizationPaymentStatusEnum,
-} from "../../metadata/src/models/organizationPayment.ts"
 export {
     organizationUserModel,
     organizationUserRelations,
     organizationUserStatusEnum,
 } from "../../metadata/src/models/organizationUser.ts"
 export { tagModel, tagRelations } from "../../metadata/src/models/tag.ts"
-export { ticketModel, ticketRelations, ticketStatusEnum, ticketTypeEnum } from "../../metadata/src/models/ticket.ts"
-export { ticketMessageModel, ticketMessageRelations } from "../../metadata/src/models/ticketMessage.ts"
 export { userModel, userRelations } from "../../metadata/src/models/user.ts"
 export {
     userSessionModel,
     userSessionsRelations,
 } from "../../metadata/src/models/userSession.ts"
-export { yearModel, yearRelations, yearStateEnum } from "../../metadata/src/models/year.ts"
+export { yearModel } from "../../metadata/src/models/year.ts"

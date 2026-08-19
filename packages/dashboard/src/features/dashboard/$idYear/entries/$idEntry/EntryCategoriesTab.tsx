@@ -2,10 +2,10 @@ import {
     addOneEntryTagRouteDefinition,
     readAllEntryTagsRouteDefinition,
     removeOneEntryTagRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button, ButtonGhostContent, FormatNull, FormatText, InputCombobox, toast } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+} from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { Button, ButtonGhostContent, FormatNull, FormatText, InputCombobox, toast } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconLinkOff } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { useState } from "react"
@@ -79,12 +79,15 @@ function EntryCategoriesTabContent(props: {
         })
         .filter((t): t is NonNullable<typeof t> => t !== null)
 
-    const availableTags = props.tags
-        .filter((t) => !currentTagIds.has(t.id))
-        .map((t) => ({
-            key: t.id,
-            label: t.label,
-        }))
+    const availableTags: Array<{ key: string; label: string }> = []
+    for (const t of props.tags) {
+        if (!currentTagIds.has(t.id)) {
+            availableTags.push({
+                key: t.id,
+                label: t.label,
+            })
+        }
+    }
 
     const handleAddTag = async (idTag: string | null | undefined) => {
         if (!idTag) return
@@ -158,7 +161,7 @@ function EntryCategoriesTabContent(props: {
                 className={css({
                     width: "100%",
                     display: "flex",
-                    justifyContent: "end",
+                    justifyContent: "start",
                     alignItems: "center",
                     gap: "0.5rem",
                 })}

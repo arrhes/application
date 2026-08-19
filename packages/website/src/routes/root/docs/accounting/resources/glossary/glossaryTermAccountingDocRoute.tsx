@@ -1,6 +1,8 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { DocRoot } from "../../../../../../components/document/DocRoot"
 import { getGlossaryTermBySlug } from "../../../../../../features/docs/accounting/resources/glossary/glossaryData.js"
 import { glossaryAccountingDocLayoutRoute } from "./glossaryAccountingDocLayoutRoute.js"
+import { GlossaryTermResourcesAccountingDocPage } from "../../../../../../features/docs/accounting/resources/glossary/GlossaryTermResourcesAccountingDocPage.js"
 
 export const glossaryTermAccountingDocRoute = createRoute({
     getParentRoute: () => glossaryAccountingDocLayoutRoute,
@@ -14,11 +16,9 @@ export const glossaryTermAccountingDocRoute = createRoute({
                 : "Terme comptable introuvable dans le glossaire.",
         }
     },
-    component: lazyRouteComponent(
-        () =>
-            import(
-                "../../../../../../features/docs/accounting/resources/glossary/GlossaryTermResourcesAccountingDocPage.js"
-            ),
-        "GlossaryTermResourcesAccountingDocPage",
+    component: () => (
+        <DocRoot>
+            <GlossaryTermResourcesAccountingDocPage />
+        </DocRoot>
     ),
 })

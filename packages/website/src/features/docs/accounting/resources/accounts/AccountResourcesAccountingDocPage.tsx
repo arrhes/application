@@ -1,4 +1,4 @@
-import { ButtonOutlineContent, LinkButton } from "@arrhes/ui"
+import { ButtonOutlineContent, LinkButton } from "@comptasse/ui"
 import { IconArrowLeft } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { DocHeader } from "../../../../../components/document/DocHeader.js"
@@ -16,19 +16,14 @@ import { SummaryAccountBanner } from "./components/SummaryAccountBanner.js"
 export function AccountResourcesAccountingDocPage() {
     const { account: slug } = useParams({
         strict: false,
-    }) as {
-        account: string
-    }
+    })
     const entry = getAccountBySlug(slug)
-
     if (!entry) {
         return <AccountNotFound />
     }
-
     const parentAccount = entry.parent ? getAccount(entry.parent) : null
     const children = getDirectChildren(entry.number)
     const isSummary = entry.number.length <= 2
-
     return (
         <DocRoot>
             <LinkButton to="/documentation/comptabilité/ressources/comptes">

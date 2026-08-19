@@ -1,10 +1,9 @@
 import {
     readOneOrganizationRouteDefinition,
     updateOneOrganizationRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button, InputText, toast } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+} from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { Button, InputText, toast } from "@comptasse/ui"
 import { IconPencil } from "@tabler/icons-react"
 import type { JSX } from "react"
 import { Fragment } from "react/jsx-runtime"
@@ -15,7 +14,7 @@ import { FormField } from "../../../../components/forms/FormField.tsx"
 import { FormItem } from "../../../../components/forms/FormItem.tsx"
 import { FormLabel } from "../../../../components/forms/FormLabel.tsx"
 import { FormRoot } from "../../../../components/forms/FormRoot.tsx"
-import { useTabs } from "../../../../contexts/tabs/useTabs.tsx"
+import { useRightPanel } from "../../../../contexts/rightPanel/RightPanelContext.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.ts"
 import { invalidateData } from "../../../../utilities/invalidateData.ts"
 
@@ -23,7 +22,74 @@ export function UpdateOneOrganization(props: {
     organization: v.InferOutput<typeof returnedSchemas.organization>
     children: JSX.Element
 }) {
-    const { openPanelTab, closeTab } = useTabs()
+    const { openPanel, closePanel } = useRightPanel()
+
+    const form = (
+        <FormRoot
+            schema={updateOneOrganizationRouteDefinition.schemas.body}
+            defaultValues={props.organization}
+            submitButtonProps={{
+                leftIcon: <IconPencil />,
+                text: "Modifier l'organisation",
+            }}
+            onSubmit={async (data) => {
+                const response = await getResponseBodyFromAPI({
+                    routeDefinition: updateOneOrganizationRouteDefinition,
+                    body: data,
+                })
+                if (!response.ok) {
+                    toast({
+                        title: "Impossible de modifier l'organisation",
+                        variant: "error",
+                    })
+                    return false
+                }
+
+                toast({
+                    title: "Organisation modifiée avec succès",
+                    variant: "success",
+                })
+                return true
+            }}
+            onCancel={undefined}
+            onSuccess={async () => {
+                await invalidateData({
+                    routeDefinition: readOneOrganizationRouteDefinition,
+                    body: {
+                        idOrganization: props.organization.id,
+                    },
+                })
+
+                closePanel()
+            }}
+        >
+            {(form) => (
+                <Fragment>
+                    <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel
+                                    label="Raison sociale ou nom de l'organisation"
+                                    isRequired={true}
+                                    description={undefined}
+                                    tooltip={undefined}
+                                />
+                                <FormControl>
+                                    <InputText
+                                        value={field.value}
+                                        onChange={field.onChange}
+                                    />
+                                </FormControl>
+                                <FormError />
+                            </FormItem>
+                        )}
+                    />
+                </Fragment>
+            )}
+        </FormRoot>
+    )
 
     return (
         <Button
@@ -34,130 +100,7 @@ export function UpdateOneOrganization(props: {
                 width: "fit-content",
                 height: "fit-content",
             }}
-            onClick={() => {
-                const r = {
-                    current: "",
-                }
-                r.current = openPanelTab(
-                    "Modifier les informations de l'organisation",
-                    <div
-                        className={css({
-                            padding: "2rem",
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "1rem",
-                        })}
-                    >
-                        <FormRoot
-                            schema={updateOneOrganizationRouteDefinition.schemas.body}
-                            defaultValues={props.organization}
-                            submitButtonProps={{
-                                leftIcon: <IconPencil />,
-                                text: "Modifier l'organisation",
-                            }}
-                            onSubmit={async (data) => {
-                                const response = await getResponseBodyFromAPI({
-                                    routeDefinition: updateOneOrganizationRouteDefinition,
-                                    body: data,
-                                })
-                                if (!response.ok) {
-                                    toast({
-                                        title: "Impossible de modifier l'organisation",
-                                        variant: "error",
-                                    })
-                                    return false
-                                }
-
-                                toast({
-                                    title: "Organisation modifiée avec succès",
-                                    variant: "success",
-                                })
-                                return true
-                            }}
-                            onCancel={undefined}
-                            onSuccess={async () => {
-                                await invalidateData({
-                                    routeDefinition: readOneOrganizationRouteDefinition,
-                                    body: {
-                                        idOrganization: props.organization.id,
-                                    },
-                                })
-
-                                closeTab(r.current)
-                            }}
-                        >
-                            {(form) => (
-                                <Fragment>
-                                    <FormField
-                                        control={form.control}
-                                        name="name"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel
-                                                    label="Raison sociale ou nom de l'organisation"
-                                                    isRequired={true}
-                                                    description={undefined}
-                                                    tooltip={undefined}
-                                                />
-                                                <FormControl>
-                                                    <InputText
-                                                        value={field.value}
-                                                        onChange={field.onChange}
-                                                    />
-                                                </FormControl>
-                                                <FormError />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <FormField
-                                        control={form.control}
-                                        name="siren"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel
-                                                    label="SIREN"
-                                                    isRequired={false}
-                                                    description={undefined}
-                                                    tooltip={undefined}
-                                                />
-                                                <FormControl>
-                                                    <InputText
-                                                        value={field.value}
-                                                        onChange={field.onChange}
-                                                    />
-                                                </FormControl>
-                                                <FormError />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <FormField
-                                        control={form.control}
-                                        name="email"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel
-                                                    label="Email"
-                                                    isRequired={false}
-                                                    description={undefined}
-                                                    tooltip={undefined}
-                                                />
-                                                <FormControl>
-                                                    <InputText
-                                                        value={field.value}
-                                                        onChange={field.onChange}
-                                                        type="email"
-                                                    />
-                                                </FormControl>
-                                                <FormError />
-                                            </FormItem>
-                                        )}
-                                    />
-                                </Fragment>
-                            )}
-                        </FormRoot>
-                    </div>,
-                )
-            }}
+            onClick={() => openPanel(form, "Modifier l'organisation")}
         >
             {props.children}
         </Button>

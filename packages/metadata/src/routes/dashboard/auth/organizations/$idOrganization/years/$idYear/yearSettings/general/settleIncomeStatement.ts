@@ -9,6 +9,7 @@ export const settleIncomeStatementRouteDefinition = routeDefinition({
     protocol: "http",
     method: "POST",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/settle-income-statement`,
+    name: "settle-income-statement",
     schemas: {
         body: v.object({
             idYear: yearSchema.entries.id,

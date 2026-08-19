@@ -1,4 +1,4 @@
-import { sva } from "@arrhes/ui/css"
+import { sva } from "@comptasse/ui/css"
 import { type ButtonContentProps, renderButtonContent } from "./buttonContent"
 import { useButtonLoading } from "./useButtonLoading"
 

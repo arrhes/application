@@ -6,14 +6,14 @@ beforeAll(async () => {
     await verifyApiIsRunning()
 })
 
-describe("POST /v1/auth/sign-out", () => {
+describe("POST /auth/sign-out", () => {
     it("signs out a signed-in user", async () => {
         // First sign in to get cookies
         const signInResponse = await apiRequest({
             method: "POST",
-            path: "/v1/auth/sign-in",
+            path: "/auth/sign-in",
             body: {
-                email: "demo@arrhes.com",
+                email: "demo@comptasse.com",
                 password: "demo",
             },
         })
@@ -23,7 +23,7 @@ describe("POST /v1/auth/sign-out", () => {
         // Then sign out
         const signOutResponse = await apiRequest({
             method: "POST",
-            path: "/v1/auth/sign-out",
+            path: "/auth/sign-out",
             body: {},
             cookies,
         })
@@ -32,13 +32,13 @@ describe("POST /v1/auth/sign-out", () => {
 
         // Should reset cookies
         const setCookies = signOutResponse.cookies.join("; ")
-        expect(setCookies).toContain("arrhes_is_auth")
+        expect(setCookies).toContain("comptasse_is_auth")
     })
 
     it("succeeds even without session cookies (no-op sign-out)", async () => {
         const response = await apiRequest({
             method: "POST",
-            path: "/v1/auth/sign-out",
+            path: "/auth/sign-out",
             body: {},
         })
         expect(response.status).toBe(200)
@@ -49,9 +49,9 @@ describe("POST /v1/auth/sign-out", () => {
         // Sign in
         const signInResponse = await apiRequest({
             method: "POST",
-            path: "/v1/auth/sign-in",
+            path: "/auth/sign-in",
             body: {
-                email: "demo@arrhes.com",
+                email: "demo@comptasse.com",
                 password: "demo",
             },
         })
@@ -60,7 +60,7 @@ describe("POST /v1/auth/sign-out", () => {
         // Sign out
         await apiRequest({
             method: "POST",
-            path: "/v1/auth/sign-out",
+            path: "/auth/sign-out",
             body: {},
             cookies,
         })
@@ -68,7 +68,7 @@ describe("POST /v1/auth/sign-out", () => {
         // Try to use the old session to read user session
         const sessionResponse = await apiRequest({
             method: "GET",
-            path: "/v1/users/me",
+            path: "/users/me",
             cookies,
         })
         // Should fail because session was deactivated

@@ -1,6 +1,6 @@
-import { readOneComputationIncomeStatementRouteDefinition } from "@arrhes/application-metadata/routes"
-import { ButtonOutlineContent, ButtonPlainContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { readOneComputationIncomeStatementRouteDefinition } from "@comptasse/application-metadata/routes"
+import { ButtonOutlineContent, ButtonPlainContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconChevronLeft, IconDatabase, IconInfoCircle, IconPencil, IconTrash } from "@tabler/icons-react"
 import { Outlet, useParams } from "@tanstack/react-router"
 import { LinkButton } from "../../../../../../../../../components/LinkButton.tsx"
@@ -64,7 +64,7 @@ export function ComputationIncomeStatementLayout() {
                                     className={css({
                                         ml: "auto",
                                         display: "flex",
-                                        justifyContent: "flex-end",
+                                        justifyContent: "flex-start",
                                         alignItems: "center",
                                         gap: "0.5rem",
                                     })}

@@ -1,4 +1,6 @@
-import { createRoute, lazyRouteComponent } from "@tanstack/react-router"
+import { createRoute } from "@tanstack/react-router"
+import { DocRoot } from "../../../../components/document/DocRoot"
+import { RootAccountingDocPage } from "../../../../features/docs/accounting/RootAccountingDocPage.js"
 import { accountingDocLayoutRoute } from "./accountingDocLayoutRoute.js"
 
 export const rootAccountingDocRoute = createRoute({
@@ -9,8 +11,9 @@ export const rootAccountingDocRoute = createRoute({
         description:
             "Cours de comptabilité française complet : partie double, écritures, comptes, documents de synthèse et glossaire.",
     }),
-    component: lazyRouteComponent(
-        () => import("../../../../features/docs/accounting/introduction/RootAccountingDocPage.js"),
-        "RootAccountingDocPage",
+    component: () => (
+        <DocRoot>
+            <RootAccountingDocPage />
+        </DocRoot>
     ),
 })

@@ -1,5 +1,5 @@
-import type { readUserSessionRouteDefinition } from "@arrhes/application-metadata/routes"
-import { CircularLoader } from "@arrhes/ui"
+import type { readUserSessionRouteDefinition } from "@comptasse/application-metadata/routes"
+import { CircularLoader } from "@comptasse/ui"
 import { createRootRouteWithContext, Outlet } from "@tanstack/react-router"
 import type * as v from "valibot"
 

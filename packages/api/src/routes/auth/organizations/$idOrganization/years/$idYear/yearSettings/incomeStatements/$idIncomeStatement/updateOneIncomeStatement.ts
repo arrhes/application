@@ -1,4 +1,4 @@
-import { models, updateOneIncomeStatementRouteDefinition } from "@arrhes/application-metadata"
+import { models, updateOneIncomeStatementRouteDefinition } from "@comptasse/application-metadata"
 import { and, eq } from "drizzle-orm"
 import { checkAuthMiddleware } from "../../../../../../../../../middlewares/checkAuthMiddleware.js"
 import { requireOrganizationMiddleware } from "../../../../../../../../../middlewares/requireOrganizationMiddleware.js"

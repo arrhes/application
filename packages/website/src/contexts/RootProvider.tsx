@@ -1,4 +1,4 @@
-import { CircularLoader, ModalProvider, PopoverProvider, ToasterProvider } from "@arrhes/ui"
+import { CircularLoader, ModalProvider, PopoverProvider, ToasterProvider } from "@comptasse/ui"
 import { Fragment, Suspense } from "react"
 import { RouterProvider } from "./router/RouterProvider.js"
 

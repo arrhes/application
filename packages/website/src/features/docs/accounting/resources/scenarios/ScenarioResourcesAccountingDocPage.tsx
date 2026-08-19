@@ -1,7 +1,8 @@
-import { ButtonOutlineContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { ButtonOutlineContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconArrowLeft, IconLink } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
+import { DocExample } from "../../../../../components/document/DocExample.js"
 import { DocHeader } from "../../../../../components/document/DocHeader.js"
 import { DocParagraph } from "../../../../../components/document/DocParagraph.js"
 import { DocRoot } from "../../../../../components/document/DocRoot.js"
@@ -14,11 +15,8 @@ import { getScenarioAccounts, getScenarioById } from "./scenariosData.js"
 export function ScenarioResourcesAccountingDocPage() {
     const { scenario: id } = useParams({
         strict: false,
-    }) as {
-        scenario: string
-    }
+    })
     const scenario = getScenarioById(id)
-
     if (!scenario) {
         return (
             <DocRoot>
@@ -35,9 +33,7 @@ export function ScenarioResourcesAccountingDocPage() {
             </DocRoot>
         )
     }
-
     const accounts = getScenarioAccounts(scenario)
-
     return (
         <DocRoot>
             <LinkButton to="/documentation/comptabilité/ressources/scénarios">
@@ -54,11 +50,8 @@ export function ScenarioResourcesAccountingDocPage() {
 
             <DocParagraph>{scenario.description}</DocParagraph>
 
-            {scenario.examples.map((example, index) => (
-                <DocSection
-                    key={example.description}
-                    title={scenario.examples.length > 1 ? `Exemple ${index + 1}` : "Exemple d'écriture"}
-                >
+            {scenario.examples.map((example) => (
+                <DocExample key={example.description}>
                     <DocParagraph>{example.description}</DocParagraph>
                     <DocTable
                         headers={[
@@ -69,7 +62,7 @@ export function ScenarioResourcesAccountingDocPage() {
                         ]}
                         rows={example.entry.rows}
                     />
-                </DocSection>
+                </DocExample>
             ))}
 
             <DocSection title="Comptes concernés">

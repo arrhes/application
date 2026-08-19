@@ -1,13 +1,14 @@
-import type { readAllYearsRouteDefinition } from "@arrhes/application-metadata/routes"
-import { Button, Chip, formatDate, LinkContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import type { readAllYearsRouteDefinition } from "@comptasse/application-metadata/routes"
+import { Button, Chip, formatDate, LinkContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import type * as v from "valibot"
 import { ListTable } from "../../../../components/layouts/listTable/listTable.tsx"
-import { TabLink } from "../../../../components/layouts/tabBar/TabLink.js"
+import { useRouter } from "@tanstack/react-router"
 
 export function YearListTableRow(props: {
     year: v.InferOutput<typeof readAllYearsRouteDefinition.schemas.return>[number]
 }) {
+    const router = useRouter()
     const startDate = formatDate(props.year.startingAt)
     const endDate = formatDate(props.year.endingAt)
 
@@ -38,36 +39,36 @@ export function YearListTableRow(props: {
                             gap: "0.75rem",
                         })}
                     >
-                        <TabLink
-                            args={{
-                                component: "exercice-écritures",
-                                props: {
-                                    idOrganization: props.year.idOrganization,
-                                    idYear: props.year.id,
-                                },
-                            }}
+                        <Button
+                            onClick={() =>
+                                router.navigate({
+                                    to: "/organisation/$idOrganization/exercice/$idYear/écritures",
+                                    params: {
+                                        idOrganization: props.year.idOrganization,
+                                        idYear: props.year.id,
+                                    },
+                                })
+                            }
                         >
-                            <Button>
-                                <LinkContent
-                                    className={{
-                                        fontSize: "base",
-                                        fontWeight: "semibold",
-                                        color: "primary",
-                                        textDecoration: "none",
-                                        _hover: {
-                                            textDecoration: "underline",
-                                        },
-                                    }}
-                                >
-                                    {props.year.label}
-                                </LinkContent>
-                            </Button>
-                        </TabLink>
+                            <LinkContent
+                                className={{
+                                    fontSize: "base",
+                                    fontWeight: "semibold",
+                                    color: "primary",
+                                    textDecoration: "none",
+                                    _hover: {
+                                        textDecoration: "underline",
+                                    },
+                                }}
+                            >
+                                {props.year.label}
+                            </LinkContent>
+                        </Button>
                     </div>
                     <div
                         className={css({
                             display: "flex",
-                            justifyContent: "end",
+                            justifyContent: "start",
                             alignItems: "start",
                             gap: "0.5rem",
                         })}

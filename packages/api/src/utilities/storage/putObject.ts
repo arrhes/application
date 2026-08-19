@@ -1,4 +1,4 @@
-import { PutObjectCommand } from "@aws-sdk/client-s3"
+import { PutObjectCommand, type S3 } from "@aws-sdk/client-s3"
 import { Exception } from "../exception.js"
 import type { getClients } from "../getClients.js"
 import type { getEnv } from "../getEnv.js"
@@ -8,6 +8,8 @@ export async function putObject(parameters: {
         env: ReturnType<typeof getEnv>
         clients: Awaited<ReturnType<typeof getClients>>
     }
+    s3Client?: S3
+    bucketName?: string
     storageKey: string
     contentLength: number | undefined
     contentType: string | undefined
@@ -15,8 +17,11 @@ export async function putObject(parameters: {
     body: PutObjectCommand["input"]["Body"] | undefined
 }) {
     try {
+        const client = parameters.s3Client ?? parameters.var.clients.storage
+        const bucket = parameters.bucketName ?? parameters.var.env.STORAGE_BUCKET_NAME
+
         const command = new PutObjectCommand({
-            Bucket: parameters.var.env.STORAGE_BUCKET_NAME,
+            Bucket: bucket,
             Key: parameters.storageKey,
             ContentLength: parameters.contentLength,
             ContentType: parameters.contentType,
@@ -24,7 +29,7 @@ export async function putObject(parameters: {
             Body: parameters.body,
         })
 
-        const response = await parameters.var.clients.storage.send(command, {
+        const response = await client.send(command, {
             abortSignal: undefined,
             requestTimeout: undefined,
         })

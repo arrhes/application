@@ -7,6 +7,7 @@ export const readAllYearsRouteDefinition = routeDefinition({
     protocol: "http",
     method: "GET",
     path: `${routePath.v1}/organizations/:idOrganization/years`,
+    name: "read-all-years",
     schemas: {
         body: v.object({
             idOrganization: v.optional(v.string()),

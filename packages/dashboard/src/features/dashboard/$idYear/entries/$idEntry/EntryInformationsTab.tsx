@@ -1,11 +1,11 @@
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { Button, ButtonPlainContent, FormatDate, FormatNull, FormatPrice, FormatText, LinkContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { Button, ButtonPlainContent, FormatDate, FormatNull, FormatPrice, FormatText, LinkContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconPencil } from "@tabler/icons-react"
 import type * as v from "valibot"
 import { DataBlock } from "../../../../../components/layouts/dataBlock/dataBlock.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
-import { useTabs } from "../../../../../contexts/tabs/useTabs.tsx"
+import { useRouter } from "@tanstack/react-router"
 import { UpdateOneEntry } from "./UpdateOneEntry.tsx"
 
 export function EntryInformationsTab(props: {
@@ -16,7 +16,7 @@ export function EntryInformationsTab(props: {
     totalDebit: number
     totalCredit: number
 }) {
-    const { openTab } = useTabs()
+    const router = useRouter()
 
     return (
         <Section.Item
@@ -28,7 +28,7 @@ export function EntryInformationsTab(props: {
                 className={css({
                     width: "100%",
                     display: "flex",
-                    justifyContent: "end",
+                    justifyContent: "start",
                     alignItems: "center",
                     gap: "0.5rem",
                 })}
@@ -64,9 +64,9 @@ export function EntryInformationsTab(props: {
                         ) : (
                             <Button
                                 onClick={() => {
-                                    openTab({
-                                        component: "fichier",
-                                        props: {
+                                    router.navigate({
+                                        to: "/organisation/$idOrganization/fichier/$idFile",
+                                        params: {
                                             idOrganization: props.entry.idOrganization,
                                             idFile: props.file!.id,
                                         },

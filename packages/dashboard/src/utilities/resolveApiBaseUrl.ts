@@ -9,8 +9,8 @@ export function resolveApiBaseUrl(configuredApiBaseUrl: string | undefined) {
     if (hostname === "website.localhost") {
         return `${protocol}//api.localhost`
     }
-    if (hostname === "website.arrhes.localhost") {
-        return `${protocol}//api.arrhes.localhost`
+    if (hostname === "website.comptasse.localhost") {
+        return `${protocol}//api.comptasse.localhost`
     }
 
     return configuredApiBaseUrl

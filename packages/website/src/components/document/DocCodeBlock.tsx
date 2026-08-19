@@ -1,4 +1,5 @@
-import { cn, css } from "@arrhes/ui/utilities/cn.js"
+import { Button, ButtonGhostContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconCheck, IconCopy } from "@tabler/icons-react"
 import { useState } from "react"
 
@@ -37,52 +38,17 @@ export function DocCodeBlock(props: { children: string }) {
             >
                 <code>{props.children}</code>
             </pre>
-            <button
-                type="button"
+            <Button
                 onClick={handleCopy}
                 aria-label="Copier le code"
-                className={cn(
-                    css({
-                        position: "absolute",
-                        top: "0.375rem",
-                        right: "0.375rem",
-                        width: "1.75rem",
-                        height: "1.75rem",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        borderRadius: "sm",
-                        border: "none",
-                        cursor: "pointer",
-                        transition: "all 0.15s",
-                        _hover: {
-                            backgroundColor: "neutral/10",
-                            color: "neutral",
-                        },
-                    }),
-                    copied
-                        ? css({
-                              backgroundColor: "success/10",
-                              color: "success",
-                          })
-                        : css({
-                              backgroundColor: "transparent",
-                              color: "neutral/40",
-                          }),
-                )}
+                className={css.raw({
+                    position: "absolute",
+                    top: "0.375rem",
+                    right: "0.375rem",
+                })}
             >
-                {copied ? (
-                    <IconCheck
-                        width={13}
-                        height={13}
-                    />
-                ) : (
-                    <IconCopy
-                        width={13}
-                        height={13}
-                    />
-                )}
-            </button>
+                <ButtonGhostContent leftIcon={copied ? <IconCheck /> : <IconCopy />} />
+            </Button>
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import { sva } from "@arrhes/ui/css"
+import { sva } from "@comptasse/ui/css"
 import { IconAlertTriangle, IconBulb, IconCircleCheck, IconInfoCircle } from "@tabler/icons-react"
 import type { ComponentType, ReactNode } from "react"
 
@@ -46,6 +46,7 @@ const docTipRecipe = sva({
             color: "neutral/70",
             lineHeight: "1.6",
             display: "inline-block",
+            gap: "0.5rem",
         },
     },
     variants: {

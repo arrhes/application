@@ -16,7 +16,7 @@ const envSchema = v.object({
 
     CORS_ORIGIN: v.string(),
     COOKIES_DOMAIN: v.string(),
-    COOKIES_KEY: v.string(),
+    COOKIES_KEY: v.optional(v.string(), ""),
 
     API_BASE_URL: v.string(),
     WEBSITE_BASE_URL: v.string(),
@@ -30,25 +30,9 @@ const envSchema = v.object({
     STORAGE_SECRET_KEY: v.string(),
     STORAGE_REGION: v.optional(v.string(), "fr-par"),
 
-    EMAIL_ENDPOINT: v.string(),
-    EMAIL_USER: v.string(),
-    EMAIL_PASSWORD: v.string(),
-
-    MOLLIE_API_KEY: v.string(),
-    INTERNAL_API_KEY: v.optional(v.string(), ""),
-
-    LLM_PROVIDER: v.optional(
-        v.picklist([
-            "mistral-api",
-            "ollama",
-        ]),
-        "ollama",
-    ),
-    LLM_BASE_URL: v.optional(v.string(), "http://localhost:11434"),
-    LLM_MODEL: v.optional(v.string(), "mistral-small3.1"),
-    LLM_API_KEY: v.optional(v.string(), ""),
-
-    REDIS_URL: v.string(),
+    OCR_API_KEY: v.optional(v.string(), ""),
+    OCR_ENDPOINT: v.optional(v.string(), "https://api.mistral.ai/v1/ocr"),
+    OCR_MODEL: v.optional(v.string(), "mistral-ocr-latest"),
 })
 
 export function getEnv() {

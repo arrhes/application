@@ -11,14 +11,16 @@ import {
     readAllIncomeStatementsRouteDefinition,
     readAllJournalsRouteDefinition,
     readAllTagsRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import { CircularLoader, FormatError } from "@arrhes/ui"
+} from "@comptasse/application-metadata/routes"
+import { CircularLoader, FormatError } from "@comptasse/ui"
 import { useQueries } from "@tanstack/react-query"
+import { useParams } from "@tanstack/react-router"
 import type { ReactElement } from "react"
 import { useMemo } from "react"
 import type * as v from "valibot"
 import { ClientError } from "../../../utilities/clientError.ts"
 import { getResponseBodyFromAPI } from "../../../utilities/getResponseBodyFromAPI.ts"
+import { buildQueryKey } from "../../../utilities/queryKey.ts"
 
 const yearQueries = {
     accounts: readAllAccountsRouteDefinition,
@@ -62,6 +64,7 @@ export type YearDataMaps = {
 type YearScopedRouteDefinition = {
     method: "GET" | "POST" | "PATCH" | "DELETE"
     path: string
+    name: string | undefined
     schemas: {
         body: v.ObjectSchema<v.ObjectEntries, undefined>
         return:
@@ -88,6 +91,7 @@ export function YearDataWrapper<const K extends readonly YearDataKey[]>(props: {
     requiredKeys: K
     children: (data: Pick<YearData, K[number]> & YearDataMaps) => ReactElement | null
 }) {
+    const urlParams = useParams({ strict: false })
     const body = useMemo(
         () => ({
             idYear: props.idYear,
@@ -97,16 +101,31 @@ export function YearDataWrapper<const K extends readonly YearDataKey[]>(props: {
         ],
     )
 
+    const params = useMemo(() => {
+        const result: Record<string, string> = {}
+        if (typeof urlParams.idOrganization === "string") {
+            result.idOrganization = urlParams.idOrganization
+        }
+        return result
+    }, [urlParams.idOrganization])
+
+    const requiredKeySet = useMemo(
+        () => new Set<YearDataKey>(props.requiredKeys),
+        [props.requiredKeys],
+    )
+
     const results = useQueries({
-        queries: yearQueryEntries.map(([_key, routeDef]) => ({
-            queryKey: [
-                routeDef.path,
-                body,
-            ],
+        queries: yearQueryEntries.map(([key, routeDef]) => ({
+            queryKey: buildQueryKey(
+                routeDef,
+                body as Record<string, unknown>,
+                params,
+            ),
             queryFn: async (context: { signal: AbortSignal }) => {
                 const response = await getResponseBodyFromAPI({
                     routeDefinition: routeDef,
                     body,
+                    params,
                     signal: context.signal,
                 })
                 if (response.ok === false) {
@@ -118,6 +137,8 @@ export function YearDataWrapper<const K extends readonly YearDataKey[]>(props: {
                 return response.data
             },
             retry: 1,
+            staleTime: Number.POSITIVE_INFINITY,
+            enabled: requiredKeySet.has(key),
         })),
     })
 

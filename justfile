@@ -65,46 +65,54 @@ db-reset:
 #   just build images  - CI gate + build api/website/worker images (same as publish GH Action)
 #   just build start   - Start built images against local infra to check for startup errors
 
-COMPOSE_BUILD := "docker compose -f .workflows/build/compose.yml"
-COMPOSE_START := "docker compose -f .workflows/build/compose.start.yml --project-name arrhes-prod"
+COMPOSE_BUILD := "docker compose --progress=plain -f .workflows/build/compose.yml"
+COMPOSE_START := "docker compose -f .workflows/build/compose.start.yml --project-name comptasse-prod"
 
 build cmd:
     @just build-{{cmd}}
 
-# Stamp packages/cli/arrhes.sh and packages/cli/version from the VERSION file
+# Stamp packages/cli/comptasse.sh and packages/cli/version from the VERSION file
 build-cli:
     @VER=$(cat VERSION | tr -d 'v[:space:]') && \
-    sed -i "s/^VERSION=\".*\"/VERSION=\"$VER\"/" packages/cli/arrhes.sh && \
+    sed -i "s/^VERSION=\".*\"/VERSION=\"$VER\"/" packages/cli/comptasse.sh && \
     printf '%s\n' "$VER" > packages/cli/version && \
     echo "CLI stamped: $VER"
+
+# Build all-in-one Docker image (api + dashboard + cli)
+build-all-in-one:
+    @echo "=============================================="
+    @echo "  Comptasse All-in-One Image Build"
+    @echo "=============================================="
+    @echo ""
+    COMPTASSE_VERSION=$(cat VERSION) {{COMPOSE_BUILD}} build --no-cache comptasse
+    @echo ""
+    @echo "=============================================="
+    @echo "  Image built: comptasse/comptasse ($(cat VERSION))"
+    @echo "=============================================="
 
 # Run CI gate: lint + typecheck + unit tests + build
 build-ci:
     @echo "=============================================="
-    @echo "  Arrhes Build (lint + test + build)"
+    @echo "  Comptasse Build (lint + test + build)"
     @echo "=============================================="
     @echo ""
-    {{COMPOSE_BUILD}} build --progress=plain --no-cache ci
+    COMPTASSE_VERSION=$(cat VERSION) {{COMPOSE_BUILD}} build --no-cache comptasse
     @echo ""
     @echo "=============================================="
     @echo "  Build succeeded"
     @echo "=============================================="
 
-# Build production images (api, website, worker) - mirrors the publish GitHub Action
-# Runs the CI gate first, then builds all three images tagged with VERSION
+# Build production images - all-in-one only
+# Runs the CI gate first, then builds the comptasse image tagged with VERSION
 build-images:
     @echo "=============================================="
-    @echo "  Arrhes Image Build (ci + api + website + worker)"
+    @echo "  Comptasse Image Build (ci + comptasse)"
     @echo "=============================================="
     @echo ""
-    {{COMPOSE_BUILD}} build --progress=plain --no-cache ci
-    ARRHES_VERSION=$(cat VERSION) \
-    VITE_API_BASE_URL=http://localhost:3000 \
-    VITE_WEBSITE_BASE_URL=http://localhost:5173 \
-    {{COMPOSE_BUILD}} build --progress=plain api website worker
+    COMPTASSE_VERSION=$(cat VERSION) {{COMPOSE_BUILD}} build --no-cache comptasse
     @echo ""
     @echo "=============================================="
-    @echo "  Images built: arrhes-api, arrhes-website, arrhes-worker ($(cat VERSION))"
+    @echo "  Image built: comptasse/comptasse ($(cat VERSION))"
     @echo "=============================================="
 
 # Start production images against local infrastructure to check for startup errors
@@ -117,8 +125,8 @@ build-start:
     @echo "=============================================="
     @echo ""
     -{{DC}} down --remove-orphans 2>/dev/null || true
-    -ARRHES_VERSION=$(cat VERSION) {{COMPOSE_START}} down --remove-orphans 2>/dev/null || true
-    ARRHES_VERSION=$(cat VERSION) {{COMPOSE_START}} up --force-recreate --remove-orphans
+    -COMPTASSE_VERSION=$(cat VERSION) {{COMPOSE_START}} down --remove-orphans 2>/dev/null || true
+    COMPTASSE_VERSION=$(cat VERSION) {{COMPOSE_START}} up --force-recreate --remove-orphans
 
 # ==============================================================================
 # Tests (requires dev environment running)
@@ -130,7 +138,7 @@ test-unit:
 
 # Run all integration tests
 test-integration:
-    {{DC}} exec api sh -c "pnpm --filter='@arrhes/application-api' run test:integration"
+    {{DC}} exec api sh -c "pnpm --filter='@comptasse/application-api' run test:integration"
 
 # Run all Playwright E2E tests
 test-e2e:

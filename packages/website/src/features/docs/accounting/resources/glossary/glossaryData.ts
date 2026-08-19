@@ -73,7 +73,7 @@ export const glossaryTerms: GlossaryTerm[] = [
             relatedPages: [
                 {
                     label: "Les comptes",
-                    path: "/documentation/comptabilité/comptes",
+                    path: "/documentation/comptabilité/introduction/comptes",
                 },
             ],
         },
@@ -244,7 +244,7 @@ export const glossaryTerms: GlossaryTerm[] = [
             relatedPages: [
                 {
                     label: "Les comptes",
-                    path: "/documentation/comptabilité/comptes",
+                    path: "/documentation/comptabilité/introduction/comptes",
                 },
             ],
         },
@@ -267,7 +267,7 @@ export const glossaryTerms: GlossaryTerm[] = [
             relatedPages: [
                 {
                     label: "Les comptes",
-                    path: "/documentation/comptabilité/comptes",
+                    path: "/documentation/comptabilité/introduction/comptes",
                 },
             ],
         },
@@ -292,7 +292,7 @@ export const glossaryTerms: GlossaryTerm[] = [
             relatedPages: [
                 {
                     label: "Les comptes",
-                    path: "/documentation/comptabilité/comptes",
+                    path: "/documentation/comptabilité/introduction/comptes",
                 },
             ],
         },
@@ -343,7 +343,7 @@ export const glossaryTerms: GlossaryTerm[] = [
             relatedPages: [
                 {
                     label: "Les comptes",
-                    path: "/documentation/comptabilité/comptes",
+                    path: "/documentation/comptabilité/introduction/comptes",
                 },
             ],
         },
@@ -367,7 +367,7 @@ export const glossaryTerms: GlossaryTerm[] = [
             relatedPages: [
                 {
                     label: "Les comptes",
-                    path: "/documentation/comptabilité/comptes",
+                    path: "/documentation/comptabilité/introduction/comptes",
                 },
             ],
         },
@@ -392,7 +392,7 @@ export const glossaryTerms: GlossaryTerm[] = [
             relatedPages: [
                 {
                     label: "Les comptes",
-                    path: "/documentation/comptabilité/comptes",
+                    path: "/documentation/comptabilité/introduction/comptes",
                 },
             ],
         },
@@ -417,7 +417,7 @@ export const glossaryTerms: GlossaryTerm[] = [
             relatedPages: [
                 {
                     label: "Les comptes",
-                    path: "/documentation/comptabilité/comptes",
+                    path: "/documentation/comptabilité/introduction/comptes",
                 },
             ],
         },
@@ -441,7 +441,7 @@ export const glossaryTerms: GlossaryTerm[] = [
             relatedPages: [
                 {
                     label: "Les écritures",
-                    path: "/documentation/comptabilité/écritures",
+                    path: "/documentation/comptabilité/introduction/écritures",
                 },
             ],
         },
@@ -512,7 +512,7 @@ export const glossaryTerms: GlossaryTerm[] = [
             relatedPages: [
                 {
                     label: "Les comptes",
-                    path: "/documentation/comptabilité/comptes",
+                    path: "/documentation/comptabilité/introduction/comptes",
                 },
             ],
         },
@@ -535,7 +535,7 @@ export const glossaryTerms: GlossaryTerm[] = [
             relatedPages: [
                 {
                     label: "Les écritures",
-                    path: "/documentation/comptabilité/écritures",
+                    path: "/documentation/comptabilité/introduction/écritures",
                 },
             ],
         },
@@ -558,7 +558,7 @@ export const glossaryTerms: GlossaryTerm[] = [
             relatedPages: [
                 {
                     label: "Les écritures",
-                    path: "/documentation/comptabilité/écritures",
+                    path: "/documentation/comptabilité/introduction/écritures",
                 },
             ],
         },
@@ -566,7 +566,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     defineTerm(
         "Organisation",
         "Organization",
-        "Terme générique désignant toute entité qui tient une comptabilité : entreprise, association, collectivité, etc. Dans Arrhes, une organisation correspond à l'entité pour laquelle vous gérez la comptabilité.",
+        "Terme générique désignant toute entité qui tient une comptabilité : entreprise, association, collectivité, etc. Dans Comptasse, une organisation correspond à l'entité pour laquelle vous gérez la comptabilité.",
         {
             sources: [
                 {
@@ -581,7 +581,7 @@ export const glossaryTerms: GlossaryTerm[] = [
                 },
                 {
                     label: "Organisations (Dashboard)",
-                    path: "/documentation/dashboard/organisations",
+                    path: "/documentation/guide/organisations",
                 },
             ],
         },
@@ -630,7 +630,7 @@ export const glossaryTerms: GlossaryTerm[] = [
             relatedPages: [
                 {
                     label: "Les comptes",
-                    path: "/documentation/comptabilité/comptes",
+                    path: "/documentation/comptabilité/introduction/comptes",
                 },
             ],
         },
@@ -672,7 +672,7 @@ export const glossaryTerms: GlossaryTerm[] = [
             relatedPages: [
                 {
                     label: "Les écritures",
-                    path: "/documentation/comptabilité/écritures",
+                    path: "/documentation/comptabilité/introduction/écritures",
                 },
             ],
         },
@@ -695,7 +695,7 @@ export const glossaryTerms: GlossaryTerm[] = [
             relatedPages: [
                 {
                     label: "Les comptes",
-                    path: "/documentation/comptabilité/comptes",
+                    path: "/documentation/comptabilité/introduction/comptes",
                 },
             ],
         },
@@ -719,7 +719,7 @@ export const glossaryTerms: GlossaryTerm[] = [
             relatedPages: [
                 {
                     label: "Les comptes",
-                    path: "/documentation/comptabilité/comptes",
+                    path: "/documentation/comptabilité/introduction/comptes",
                 },
             ],
         },
@@ -815,7 +815,7 @@ export const glossaryTerms: GlossaryTerm[] = [
             relatedPages: [
                 {
                     label: "Les comptes",
-                    path: "/documentation/comptabilité/comptes",
+                    path: "/documentation/comptabilité/introduction/comptes",
                 },
             ],
         },
@@ -839,7 +839,7 @@ export const glossaryTerms: GlossaryTerm[] = [
             relatedPages: [
                 {
                     label: "Les comptes",
-                    path: "/documentation/comptabilité/comptes",
+                    path: "/documentation/comptabilité/introduction/comptes",
                 },
             ],
         },
@@ -863,7 +863,7 @@ export const glossaryTerms: GlossaryTerm[] = [
             relatedPages: [
                 {
                     label: "Les comptes",
-                    path: "/documentation/comptabilité/comptes",
+                    path: "/documentation/comptabilité/introduction/comptes",
                 },
             ],
         },
@@ -887,7 +887,7 @@ export const glossaryTerms: GlossaryTerm[] = [
             relatedPages: [
                 {
                     label: "Les comptes",
-                    path: "/documentation/comptabilité/comptes",
+                    path: "/documentation/comptabilité/introduction/comptes",
                 },
             ],
         },

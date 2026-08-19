@@ -1,5 +1,5 @@
 import { pbkdf2Sync } from "node:crypto"
-import { generateId, models, signInRouteDefinition } from "@arrhes/application-metadata"
+import { generateId, models, signInRouteDefinition } from "@comptasse/application-metadata"
 import { eq } from "drizzle-orm"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"
 import { getCookieDomainFromHost } from "../../../utilities/cookies/getCookieDomainFromHost.js"

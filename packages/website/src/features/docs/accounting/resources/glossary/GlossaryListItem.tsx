@@ -1,4 +1,4 @@
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { LinkButton } from "../../../../../components/LinkButton.js"
 
 export function GlossaryListItem(props: {

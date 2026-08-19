@@ -1,6 +1,6 @@
 # Guide de contribution
 
-Merci de votre interet pour contribuer a Arrhes ! Ce document explique comment participer au developpement du projet.
+Merci de votre interet pour contribuer a Comptasse ! Ce document explique comment participer au developpement du projet.
 
 ## Table des matieres
 
@@ -28,7 +28,7 @@ Les comportements inacceptables incluent le harcelement, les insultes, et tout c
 
 ## Comment contribuer
 
-Il existe plusieurs facons de contribuer a Arrhes :
+Il existe plusieurs facons de contribuer a Comptasse :
 
 ### Signaler des bugs
 Ouvrez une issue sur GitHub avec le label `bug`
@@ -61,13 +61,13 @@ Avant de commencer a contribuer, configurez votre environnement de developpement
 
 2. **Cloner votre fork**
    ```bash
-   git clone https://github.com/votre-username/arrhes.git
-   cd arrhes
+   git clone https://github.com/votre-username/comptasse.git
+   cd comptasse
    ```
 
 3. **Ajouter le repository principal comme remote**
    ```bash
-   git remote add upstream https://github.com/arrhes/application.git
+   git remote add upstream https://github.com/comptasse/application.git
    ```
 
 4. **Choisir votre methode de developpement**
@@ -176,8 +176,8 @@ import { Hono } from 'hono'
 import * as v from 'valibot'
 
 // 2. Imports de workspace packages
-import { models } from '@arrhes/application-metadata/models'
-import { schemas } from '@arrhes/application-metadata/schemas'
+import { models } from '@comptasse/application-metadata/models'
+import { schemas } from '@comptasse/application-metadata/schemas'
 
 // 3. Imports relatifs du package actuel
 import { authFactory } from '#/factories/authFactory.js'
@@ -299,9 +299,9 @@ export function MyComponent({ title, description, onClose }: MyComponentProps) {
 }
 ```
 
-**Utiliser Panda CSS pour le styling** (via `@arrhes/ui`)
+**Utiliser Panda CSS pour le styling** (via `@comptasse/ui`)
 ```typescript
-import { css, cx } from '@arrhes/ui/utilities/cn.js'
+import { css, cx } from '@comptasse/ui/utilities/cn.js'
 
 // Bon
 <div className={css({ display: 'flex', alignItems: 'center', gap: '2' })}>
@@ -569,8 +569,8 @@ Plusieurs utilisateurs ont demande cette fonctionnalite pour faire des analyses 
 - [Documentation d'architecture](ARCHITECTURE.md)
 - [Guide de developpement](DEVELOPMENT.md)
 - [Configuration](CONFIGURATION.md)
-- [Issues GitHub](https://github.com/arrhes/application/issues)
-- [Discussions GitHub](https://github.com/arrhes/application/discussions)
+- [Issues GitHub](https://github.com/comptasse/application/issues)
+- [Discussions GitHub](https://github.com/comptasse/application/discussions)
 
 ## Questions ?
 
@@ -579,4 +579,4 @@ Si vous avez des questions sur la contribution, n'hesitez pas a :
 - Contacter les mainteneurs
 - Consulter les issues et PR existantes
 
-Merci de contribuer a Arrhes !
+Merci de contribuer a Comptasse !

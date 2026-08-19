@@ -10,8 +10,8 @@ type InputDebounced<T> = {
 
 export function InputDebounced<T>({ value: propValue, initialValue, onChange, debounce, children }: InputDebounced<T>) {
     const currentPropValue = initialValue !== undefined ? initialValue : propValue
-    const prevPropValueRef = useRef<T>(currentPropValue)
     const [value, setValue] = useState<T>(currentPropValue)
+    const [prevValue, setPrevValue] = useState<T>(currentPropValue)
     const onChangeRef = useRef(onChange)
 
     // Keep the ref up to date
@@ -19,8 +19,8 @@ export function InputDebounced<T>({ value: propValue, initialValue, onChange, de
         onChangeRef.current = onChange
     })
 
-    if (currentPropValue !== prevPropValueRef.current) {
-        prevPropValueRef.current = currentPropValue
+    if (currentPropValue !== prevValue) {
+        setPrevValue(currentPropValue)
         setValue(currentPropValue)
     }
 

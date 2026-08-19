@@ -14,6 +14,7 @@ export function routeDefinition<
      */
     method?: "GET" | "POST" | "PATCH" | "DELETE"
     path: TPath
+    name?: string
     schemas: {
         body: TSchemaBody
         return: TSchemaReturn
@@ -22,6 +23,7 @@ export function routeDefinition<
     return {
         method: (parameters.method ?? "POST") as "GET" | "POST" | "PATCH" | "DELETE",
         path: parameters.path,
+        name: parameters.name,
         schemas: parameters.schemas,
     }
 }

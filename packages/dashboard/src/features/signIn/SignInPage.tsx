@@ -1,6 +1,6 @@
-import { signInRouteDefinition } from "@arrhes/application-metadata/routes"
-import { ButtonGhostContent, ButtonOutlineContent, InputPassword, InputText, Logo, Separator, toast } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { signInRouteDefinition } from "@comptasse/application-metadata/routes"
+import { ButtonGhostContent, ButtonOutlineContent, InputPassword, InputText, Logo, Separator, toast } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconBook2, IconLogin2, IconUserPlus } from "@tabler/icons-react"
 import { Fragment } from "react/jsx-runtime"
 import { FormControl } from "../../components/forms/FormControl.js"
@@ -66,7 +66,7 @@ export function SignInPage() {
                         <a href={import.meta.env.VITE_WEBSITE_BASE_URL}>
                             <ButtonGhostContent
                                 leftIcon={<Logo />}
-                                text="Arrhes"
+                                text="Comptasse"
                             />
                         </a>
                         <a href={`${import.meta.env.VITE_WEBSITE_BASE_URL}/documentation`}>

@@ -1,5 +1,5 @@
-import { ButtonOutlineContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { ButtonOutlineContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconBuildingPlus } from "@tabler/icons-react"
 import { Page } from "../../../components/layouts/page/page.tsx"
 import { AddNewOrganization } from "./AddNewOrganization.tsx"
@@ -18,7 +18,7 @@ export function OrganizationsPage() {
                     className={css({
                         width: "100%",
                         display: "flex",
-                        justifyContent: "end",
+                        justifyContent: "start",
                         alignItems: "center",
                     })}
                 >

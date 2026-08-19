@@ -15,12 +15,12 @@ beforeAll(async () => {
 })
 
 describe("Files", () => {
-    describe("GET /v1/organizations/:idOrganization/years/:idYear/files", () => {
+    describe("GET /organizations/:idOrganization/years/:idYear/files", () => {
         it("returns all files for the year", async () => {
             const response = await authenticatedRequest({
                 session,
                 method: "GET",
-                path: `/v1/organizations/${idOrganization}/years/${idYear}/files`,
+                path: `/organizations/${idOrganization}/years/${idYear}/files`,
             })
             expect(response.status).toBe(200)
 
@@ -32,12 +32,12 @@ describe("Files", () => {
 })
 
 describe("Folders", () => {
-    describe("GET /v1/organizations/:idOrganization/years/:idYear/folders", () => {
+    describe("GET /organizations/:idOrganization/years/:idYear/folders", () => {
         it("returns all folders for the year", async () => {
             const response = await authenticatedRequest({
                 session,
                 method: "GET",
-                path: `/v1/organizations/${idOrganization}/years/${idYear}/folders`,
+                path: `/organizations/${idOrganization}/years/${idYear}/folders`,
             })
             expect(response.status).toBe(200)
 

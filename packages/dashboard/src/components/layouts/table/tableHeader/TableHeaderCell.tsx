@@ -1,4 +1,4 @@
-import { cn, css } from "@arrhes/ui/utilities/cn.js"
+import { cn, css } from "@comptasse/ui/utilities/cn.js"
 import type { ComponentProps, ReactElement } from "react"
 
 export function TableHeaderCell(props: {
@@ -19,7 +19,8 @@ export function TableHeaderCell(props: {
             )}
             colSpan={props.colSpan}
             align={props.align ?? "left"}
-            children={props.children}
-        />
+        >
+            {props.children}
+        </th>
     )
 }

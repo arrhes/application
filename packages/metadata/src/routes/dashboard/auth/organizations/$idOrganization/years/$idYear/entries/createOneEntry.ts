@@ -7,6 +7,7 @@ export const createOneEntryRouteDefinition = routeDefinition({
     protocol: "http",
     method: "POST",
     path: `${routePath.v1}/organizations/:idOrganization/years/:idYear/entries`,
+    name: "create-one-entry",
     schemas: {
         body: v.object({
             idYear: entrySchema.entries.idYear,

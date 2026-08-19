@@ -1,4 +1,4 @@
-import { activateOrganizationMembershipRouteDefinition, models } from "@arrhes/application-metadata"
+import { activateOrganizationMembershipRouteDefinition, models } from "@comptasse/application-metadata"
 import { and, eq } from "drizzle-orm"
 import { checkAuthMiddleware } from "../../../middlewares/checkAuthMiddleware.js"
 import { validateBodyMiddleware } from "../../../middlewares/validateBody.middleware.js"

@@ -1,10 +1,9 @@
-import { Button, ButtonOutlineContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { Button, ButtonOutlineContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { useState } from "react"
 import { Box } from "../../../../../components/layouts/Box.tsx"
-import { Page } from "../../../../../components/layouts/page/page.tsx"
 import { Section } from "../../../../../components/layouts/section/section.tsx"
 import type { YearDataKey } from "../../YearDataWrapper.tsx"
 import { YearDataWrapper } from "../../YearDataWrapper.tsx"
@@ -75,9 +74,12 @@ export function JournalReportPage({ idYear: idYearProp }: { idYear?: string } = 
 
                 if (selectedTags.length > 0) {
                     const selectedTagIds = new Set(selectedTags.map((t) => t.key))
-                    const matchingEntryIds = new Set(
-                        entryTags.filter((et) => selectedTagIds.has(et.idTag)).map((et) => et.idEntry),
-                    )
+                    const matchingEntryIds = new Set<string>()
+                    for (const et of entryTags) {
+                        if (selectedTagIds.has(et.idTag)) {
+                            matchingEntryIds.add(et.idEntry)
+                        }
+                    }
                     filteredEntries = filteredEntries.filter((entry) => matchingEntryIds.has(entry.id))
                 }
 
@@ -97,8 +99,6 @@ export function JournalReportPage({ idYear: idYearProp }: { idYear?: string } = 
                 const canNextPage = clampedPageIndex < pageCount - 1
 
                 return (
-                    <Page.Root>
-                        <Page.Content>
                             <Section.Root>
                                 <Section.Item>
                                     <div
@@ -193,8 +193,6 @@ export function JournalReportPage({ idYear: idYearProp }: { idYear?: string } = 
                                     ) : null}
                                 </Section.Item>
                             </Section.Root>
-                        </Page.Content>
-                    </Page.Root>
                 )
             }}
         </YearDataWrapper>

@@ -18,7 +18,7 @@ async function getOrCreateAccount(parameters: { label: string; number: string; p
     const response = await authenticatedRequest({
         session,
         method: "GET",
-        path: `/v1/organizations/${idOrganization}/years/${idYear}/accounts`,
+        path: `/organizations/${idOrganization}/years/${idYear}/accounts`,
     })
     expect(response.status).toBe(200)
 
@@ -34,7 +34,7 @@ async function getOrCreateAccount(parameters: { label: string; number: string; p
     const createResponse = await authenticatedRequest({
         session,
         method: "POST",
-        path: `/v1/organizations/${idOrganization}/years/${idYear}/accounts`,
+        path: `/organizations/${idOrganization}/years/${idYear}/accounts`,
         body: {
             idAccountParent: parentAccount.id,
             idYear,
@@ -49,12 +49,12 @@ async function getOrCreateAccount(parameters: { label: string; number: string; p
 }
 
 describe("Settle income statement", () => {
-    describe("POST /v1/organizations/:idOrganization/years/:idYear/settle-income-statement", () => {
+    describe("POST /organizations/:idOrganization/years/:idYear/settle-income-statement", () => {
         it("creates a balanced closing entry with the result on the correct side", async () => {
             const journalResponse = await authenticatedRequest({
                 session,
                 method: "POST",
-                path: `/v1/organizations/${idOrganization}/years/${idYear}/journals`,
+                path: `/organizations/${idOrganization}/years/${idYear}/journals`,
                 body: {
                     code: `CL${Date.now().toString(36).slice(-3).toUpperCase()}`,
                     label: `Closing test ${Date.now()}`,
@@ -79,7 +79,7 @@ describe("Settle income statement", () => {
             const settleResponse = await authenticatedRequest({
                 session,
                 method: "POST",
-                path: `/v1/organizations/${idOrganization}/years/${idYear}/settle-income-statement`,
+                path: `/organizations/${idOrganization}/years/${idYear}/settle-income-statement`,
                 body: {
                     idAccountLoss: lossAccount.id,
                     idAccountProfit: profitAccount.id,
@@ -92,7 +92,7 @@ describe("Settle income statement", () => {
             const entriesResponse = await authenticatedRequest({
                 session,
                 method: "GET",
-                path: `/v1/organizations/${idOrganization}/years/${idYear}/entries`,
+                path: `/organizations/${idOrganization}/years/${idYear}/entries`,
             })
             expect(entriesResponse.status).toBe(200)
 
@@ -105,7 +105,7 @@ describe("Settle income statement", () => {
             const linesResponse = await authenticatedRequest({
                 session,
                 method: "GET",
-                path: `/v1/organizations/${idOrganization}/years/${idYear}/entries/${closingEntry.id}/lines`,
+                path: `/organizations/${idOrganization}/years/${idYear}/entries/${closingEntry.id}/lines`,
             })
             expect(linesResponse.status).toBe(200)
 

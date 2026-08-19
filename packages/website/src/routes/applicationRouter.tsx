@@ -1,18 +1,14 @@
 import { createRouter, type LinkProps } from "@tanstack/react-router"
-import { getIsAuthenticated } from "../utilities/cookies/getIsAuthenticated.js"
-import { getUserSession } from "../utilities/cookies/getUserSession.js"
 import { applicationTree } from "./applicationTree.js"
 
 export const applicationRouter = createRouter({
     routeTree: applicationTree,
-    scrollRestoration: true,
+    scrollRestoration: (opts) => !opts.location.pathname.startsWith("/documentation"),
     context: {
         title: undefined,
         section: undefined,
         description: undefined,
         robots: undefined,
-        isAuthenticated: getIsAuthenticated(),
-        userSession: getUserSession(),
     },
 })
 

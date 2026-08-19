@@ -1,5 +1,5 @@
-import { ButtonOutlineContent } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
+import { ButtonOutlineContent } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconCalendarPlus } from "@tabler/icons-react"
 import { useParams } from "@tanstack/react-router"
 import { Page } from "../../../../components/layouts/page/page.tsx"
@@ -26,7 +26,7 @@ export function YearsPage({ idOrganization: idOrganizationProp }: { idOrganizati
                     className={css({
                         width: "100%",
                         display: "flex",
-                        justifyContent: "end",
+                        justifyContent: "start",
                         alignItems: "center",
                     })}
                 >

@@ -1,7 +1,8 @@
-import { resetPasswordRouteDefinition } from "@arrhes/application-metadata/routes"
-import { ButtonGhostContent, InputText, Logo, toast } from "@arrhes/ui"
-import { css } from "@arrhes/ui/utilities/cn.js"
-import { IconArrowLeft, IconBook2, IconMail } from "@tabler/icons-react"
+import { useState } from "react"
+import { resetPasswordRouteDefinition } from "@comptasse/application-metadata/routes"
+import { ButtonGhostContent, InputText, Logo } from "@comptasse/ui"
+import { css } from "@comptasse/ui/utilities/cn.js"
+import { IconArrowLeft, IconBook2 } from "@tabler/icons-react"
 import { FormControl } from "../../components/forms/FormControl.js"
 import { FormError } from "../../components/forms/FormError.js"
 import { FormField } from "../../components/forms/FormField.js"
@@ -12,6 +13,8 @@ import { LinkButton } from "../../components/LinkButton.js"
 import { getResponseBodyFromAPI } from "../../utilities/getResponseBodyFromAPI.js"
 
 export function ResetPasswordPage() {
+    const [sent, setSent] = useState(false)
+
     return (
         <div
             className={css({
@@ -62,7 +65,7 @@ export function ResetPasswordPage() {
                         <a href={import.meta.env.VITE_WEBSITE_BASE_URL}>
                             <ButtonGhostContent
                                 leftIcon={<Logo />}
-                                text="Arrhes"
+                                text="Comptasse"
                             />
                         </a>
                         <a href={`${import.meta.env.VITE_WEBSITE_BASE_URL}/documentation`}>
@@ -110,83 +113,74 @@ export function ResetPasswordPage() {
                                 fontSize: "sm",
                             })}
                         >
-                            Saisissez votre email pour recevoir un nouveau mot de passe temporaire.
+                            Saisissez votre email pour générer un nouveau mot de passe temporaire.
                         </p>
                     </div>
 
-                    <FormRoot
-                        schema={resetPasswordRouteDefinition.schemas.body}
-                        defaultValues={{}}
-                        submitButtonProps={{
-                            leftIcon: <IconMail />,
-                            text: "Recevoir un nouveau mot de passe",
-                            className: {
-                                width: "100%",
-                                justifyContent: "center",
-                            },
-                        }}
-                        submitOnPressEnterKey={true}
-                        onSubmit={async (data) => {
-                            const response = await getResponseBodyFromAPI({
-                                routeDefinition: resetPasswordRouteDefinition,
-                                body: data,
-                            })
-
-                            if (response.ok === false) {
-                                toast({
-                                    title: response.error?.cause ?? "Réinitialisation impossible",
-                                    variant: "error",
+                    {sent ? (
+                        <p
+                            className={css({
+                                color: "success",
+                                fontSize: "sm",
+                                textAlign: "center",
+                            })}
+                        >
+                            Un nouveau mot de passe a été généré. Consultez les logs du serveur pour le récupérer.
+                        </p>
+                    ) : (
+                        <FormRoot
+                            schema={resetPasswordRouteDefinition.schemas.body}
+                            defaultValues={{}}
+                            submitButtonProps={{
+                                text: "Réinitialiser le mot de passe",
+                                className: {
+                                    width: "100%",
+                                    justifyContent: "center",
+                                },
+                            }}
+                            submitOnPressEnterKey={true}
+                            onSubmit={async (data) => {
+                                const response = await getResponseBodyFromAPI({
+                                    routeDefinition: resetPasswordRouteDefinition,
+                                    body: data,
                                 })
-                                return false
-                            }
 
-                            toast({
-                                title: "Un nouveau mot de passe vous a été envoyé par email",
-                                description: "Pensez à le modifier dès votre prochaine connexion.",
-                                variant: "success",
-                            })
-                            return true
-                        }}
-                        onCancel={undefined}
-                        onSuccess={() => {
-                            window.location.assign("/connexion")
-                        }}
-                    >
-                        {(form) => (
-                            <FormField
-                                control={form.control}
-                                name="email"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel
-                                            label="Email"
-                                            isRequired={false}
-                                            description={undefined}
-                                            tooltip={undefined}
-                                        />
-                                        <FormControl>
-                                            <InputText
-                                                value={field.value}
-                                                onChange={field.onChange}
-                                                type="email"
+                                if (response.ok === false) {
+                                    return false
+                                }
+
+                                setSent(true)
+                                return true
+                            }}
+                            onCancel={undefined}
+                            onSuccess={undefined}
+                        >
+                            {(form) => (
+                                <FormField
+                                    control={form.control}
+                                    name="email"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel
+                                                label="Email"
+                                                isRequired={false}
+                                                description={undefined}
+                                                tooltip={undefined}
                                             />
-                                        </FormControl>
-                                        <FormError />
-                                    </FormItem>
-                                )}
-                            />
-                        )}
-                    </FormRoot>
-
-                    <p
-                        className={css({
-                            fontSize: "sm",
-                            color: "neutral/60",
-                        })}
-                    >
-                        Après connexion, modifiez ce mot de passe temporaire depuis votre profil pour sécuriser votre
-                        compte.
-                    </p>
+                                            <FormControl>
+                                                <InputText
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                    type="email"
+                                                />
+                                            </FormControl>
+                                            <FormError />
+                                        </FormItem>
+                                    )}
+                                />
+                            )}
+                        </FormRoot>
+                    )}
                 </div>
             </section>
         </div>

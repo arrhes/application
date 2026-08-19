@@ -1,9 +1,9 @@
 import {
     readAllComputationIncomeStatementsRouteDefinition,
     readOneIncomeStatementRouteDefinition,
-} from "@arrhes/application-metadata/routes"
-import type { returnedSchemas } from "@arrhes/application-metadata/schemas"
-import { ButtonGhostContent, Chip, FormatDateTime, FormatText } from "@arrhes/ui"
+} from "@comptasse/application-metadata/routes"
+import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
+import { ButtonGhostContent, Chip, FormatDateTime, FormatText } from "@comptasse/ui"
 import { IconEye } from "@tabler/icons-react"
 import type * as v from "valibot"
 import { LinkButton } from "../../../../../../../../components/LinkButton.tsx"

@@ -11,8 +11,6 @@ export const addNewOrganizationRouteDefinition = routeDefinition({
         body: v.object({
             scope: organizationSchema.entries.scope,
             name: organizationSchema.entries.name,
-            siren: v.optional(organizationSchema.entries.siren),
-            email: v.optional(organizationSchema.entries.email),
         }),
         return: organizationSchemaReturn,
     },

@@ -4,7 +4,7 @@ test.describe("Dashboard", () => {
     test.beforeEach(async ({ page }) => {
         // Sign in as demo user
         await page.goto("/connexion")
-        await page.getByLabel("Email").fill("demo@arrhes.com")
+        await page.getByLabel("Email").fill("demo@comptasse.com")
         await page.getByLabel("Mot de passe").fill("demo")
         await page
             .getByRole("button", {

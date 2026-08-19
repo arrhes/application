@@ -10,4 +10,5 @@ export const ModalStoreContext = createContext<ModalStoreValue | null>(null)
 
 export const ModalItemContext = createContext<{
     closeModal: () => void
+    titleId?: string
 } | null>(null)
