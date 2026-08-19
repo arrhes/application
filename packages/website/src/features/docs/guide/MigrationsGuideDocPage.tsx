@@ -8,8 +8,10 @@ import { DocParagraph } from "../../../components/document/DocParagraph.js"
 import { DocRoot } from "../../../components/document/DocRoot.js"
 import { DocSection } from "../../../components/document/DocSection.js"
 import { DocTip } from "../../../components/document/DocTip.js"
+import { useSiteOrigin } from "../../../utilities/useSiteOrigin.js"
 
 export function MigrationsGuideDocPage() {
+    const origin = useSiteOrigin()
     return (
         <DocRoot>
             <DocHeader
@@ -17,101 +19,77 @@ export function MigrationsGuideDocPage() {
                 description="Gérer les migrations de schéma de la base de données lors des mises à jour"
             />
 
-            <DocSection title="Quand les migrations sont nécessaires">
+            <DocSection title="Comment les migrations fonctionnent">
                 <DocParagraph>
-                    Lorsque vous mettez à jour Comptasse, le schéma de la base de données
-                    peut évoluer. Le conteneur vérifie automatiquement la synchronisation
-                    au démarrage.
+                    Les images API embarquent les fichiers de migration SQL générés au moment de la
+                    construction :
                 </DocParagraph>
                 <DocList
                     items={[
-                        "Premier démarrage : le schéma est poussé automatiquement",
-                        "Mise à jour mineure : le schéma est poussé automatiquement si compatible",
-                        "Mise à jour majeure : une erreur de synchronisation peut survenir",
+                        <DocCode key="mig-1">0000_setup.sql</DocCode>,
+                        <span key="mig-2">crée le schéma complet (utilisé pour une nouvelle installation)</span>,
+                        <DocCode key="mig-3">0001_from_last_update.sql</DocCode>,
+                        <span key="mig-4">
+                            contient les changements depuis la dernière version publiée (vide s'il n'y a pas de
+                            changement)
+                        </span>,
                     ]}
                 />
+                <DocParagraph>
+                    Au démarrage du conteneur API, la migration est appliquée automatiquement avant le lancement
+                    du serveur :
+                </DocParagraph>
+                <DocList
+                    items={[
+                        "Base vide (nouvelle installation) : le schéma complet est créé",
+                        "Base existante (mise à jour) : les changements incrémentaux sont appliqués",
+                        "Aucun changement : rien à faire, le serveur démarre normalement",
+                    ]}
+                />
+                <DocTip variant="info">
+                    Les fichiers SQL de la version courante sont consultables sur{" "}
+                    <DocLink href={`${origin}/migrations/`} target="_blank" rel="noopener noreferrer">
+                        {`${origin}/migrations/`}
+                    </DocLink>{" "}
+                    pour les passer en revue avant une mise à jour.
+                </DocTip>
             </DocSection>
 
             <DocSection title="Résoudre les erreurs de schéma">
                 <DocParagraph>
-                    Si vous voyez l'erreur{" "}
-                    <DocCode>Database schema is out of sync</DocCode> au démarrage, cela
-                    signifie que le schéma de la base de données n'est pas compatible avec
-                    la version de Comptasse que vous utilisez.
+                    L'API vérifie le schéma au démarrage. Si vous voyez l'erreur{" "}
+                    <DocCode>Database schema is out of sync</DocCode>, la base de données n'est pas compatible
+                    avec la version des images. Redémarrez le conteneur API pour ré-appliquer les migrations :
                 </DocParagraph>
+                <DocCodeBlock>{`# Redémarrez le conteneur API (les migrations s'exécutent au démarrage)
+docker compose --project-name comptasse restart api
 
-                <DocExample title="Option 1 : Pousser le schéma (recommandé)">
-                    <DocParagraph>
-                        Cette commande applique les modifications de schéma sans perdre de
-                        données.
-                    </DocParagraph>
-                    <DocCodeBlock>{`docker exec comptasse pnpm --filter @comptasse/application-tools run push`}</DocCodeBlock>
-                </DocExample>
-
-                <DocExample title="Option 2 : Réinitialiser la base de données">
-                    <DocTip variant="warning">
-                        Cette commande supprime toutes les données de la base de
-                        données. Utilisez-la uniquement en développement ou si vous
-                        acceptez la perte de données.
-                    </DocTip>
-                    <DocCodeBlock>{`docker exec comptasse pnpm --filter @comptasse/application-tools run reset`}</DocCodeBlock>
-                </DocExample>
+# Consultez les logs pour voir le résultat de la migration
+docker compose --project-name comptasse logs api`}</DocCodeBlock>
             </DocSection>
 
-            <DocSection title="Commandes de gestion du schéma">
-                <DocExample title="Vérifier le schéma">
-                    <DocCodeBlock>{`# Vérifier la synchronisation du schéma
-docker exec comptasse pnpm --filter @comptasse/application-api exec tsx --conditions source ./src/server.ts
-# (avec SCHEMA_CHECK_ONLY=1 pour un check rapide)`}</DocCodeBlock>
+            <DocSection title="En développement">
+                <DocParagraph>
+                    Pendant le développement, le schéma est géré avec les commandes du dépôt :
+                </DocParagraph>
+                <DocExample title="Pousser le schéma (développement)">
+                    <DocCodeBlock>{`# Depuis la racine du dépôt, avec l'environnement de développement lancé
+just db-push`}</DocCodeBlock>
                 </DocExample>
 
-                <DocExample title="Pousser le schéma">
-                    <DocCodeBlock>{`# Appliquer les modifications de schéma
-docker exec comptasse pnpm --filter @comptasse/application-tools run push`}</DocCodeBlock>
+                <DocExample title="Générer les fichiers de migration">
+                    <DocCodeBlock>{`# Régénère 0000_setup.sql et 0001_from_last_update.sql depuis les modèles
+pnpm --filter @comptasse/application-tools run generate`}</DocCodeBlock>
                 </DocExample>
 
-                <DocExample title="Générer des migrations">
-                    <DocCodeBlock>{`# Générer des fichiers de migration SQL
-docker exec comptasse pnpm --filter @comptasse/application-tools run generate`}</DocCodeBlock>
+                <DocExample title="Mettre à jour le snapshot de référence">
+                    <DocCodeBlock>{`# Après avoir validé un changement de schéma, verrouille la nouvelle référence
+pnpm --filter @comptasse/application-tools run save-snapshot`}</DocCodeBlock>
                 </DocExample>
 
-                <DocExample title="Appliquer les migrations">
-                    <DocCodeBlock>{`# Appliquer les migrations générées
-docker exec comptasse pnpm --filter @comptasse/application-tools run migrate`}</DocCodeBlock>
-                </DocExample>
-
-                <DocExample title="Réinitialiser la base de données">
-                    <DocCodeBlock>{`# Supprimer toutes les tables, pousser le schéma, et charger les données de test
-docker exec comptasse pnpm --filter @comptasse/application-tools run reset`}</DocCodeBlock>
-                </DocExample>
-            </DocSection>
-
-            <DocSection title="Résoudre les problèmes courants">
-                <DocExample title="Table manquante dans la base de données">
-                    <DocParagraph>
-                        Si une table attendue par le code n'existe pas dans la base de
-                        données, exécutez :
-                    </DocParagraph>
-                    <DocCodeBlock>{`docker exec comptasse pnpm --filter @comptasse/application-tools run push`}</DocCodeBlock>
-                </DocExample>
-
-                <DocExample title="Colonne manquante dans une table">
-                    <DocParagraph>
-                        Si une colonne attendue par le code n'existe pas, la commande push
-                        l'ajoutera automatiquement.
-                    </DocParagraph>
-                    <DocCodeBlock>{`docker exec comptasse pnpm --filter @comptasse/application-tools run push`}</DocCodeBlock>
-                </DocExample>
-
-                <DocExample title="Table ou colonne obsolète">
-                    <DocParagraph>
-                        Si la base de données contient des tables ou colonnes qui n'existent
-                        plus dans le code, vous pouvez les supprimer manuellement ou
-                        réinitialiser la base de données.
-                    </DocParagraph>
-                    <DocCodeBlock>{`# Option A : supprimer manuellement les tables/colonnes obsolètes
-# Option B : réinitialiser la base de données (ATTENTION : perte de données)
-docker exec comptasse pnpm --filter @comptasse/application-tools run reset`}</DocCodeBlock>
+                <DocExample title="Réinitialiser la base de données (développement)">
+                    <DocCodeBlock>{`# Supprime toutes les tables, pousse le schéma, et charge les données de test
+just db-reset`}</DocCodeBlock>
                 </DocExample>
             </DocSection>
 
@@ -119,10 +97,9 @@ docker exec comptasse pnpm --filter @comptasse/application-tools run reset`}</Do
                 <DocList
                     items={[
                         "Sauvegardez toujours votre base de données avant une mise à jour majeure",
-                        "Testez les migrations dans un environnement de développement d'abord",
-                        "Utilisez le mode push pour les mises à jour mineures",
-                        "Utilisez les migrations pour les changements de schéma complexes",
+                        "Testez les mises à jour dans un environnement de développement d'abord",
                         "Consultez le journal des modifications (CHANGELOG) avant de mettre à jour",
+                        "En cas d'échec de migration, les logs du conteneur API indiquent l'étape concernée",
                     ]}
                 />
             </DocSection>

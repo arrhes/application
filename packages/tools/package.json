@@ -4,10 +4,10 @@
     "private": true,
     "scripts": {
         "build:metadata": "pnpm --filter @comptasse/application-metadata build",
-        "generate": "pnpm drizzle-kit generate --config=./src/drizzle.config.ts",
+        "generate": "pnpm run build:metadata && tsx ./src/generateMigrations.ts",
+        "save-snapshot": "pnpm run build:metadata && tsx ./src/saveSnapshot.ts",
         "push": "pnpm run build:metadata && tsx ./src/push.ts",
         "pull": "pnpm drizzle-kit introspect --config=./src/drizzle.config.ts",
-        "migrate": "pnpm drizzle-kit migrate --config=./src/drizzle.config.ts",
         "seed": "pnpm run build:metadata && tsx ./src/seed/seed.ts",
         "migration": "pnpm run build:metadata && tsx ./src/seed/migration.ts",
         "clear": "pnpm run build:metadata && tsx ./src/clearDB.ts",
