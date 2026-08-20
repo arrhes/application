@@ -10,13 +10,7 @@ import {
     Version,
 } from "@comptasse/ui"
 import { css } from "@comptasse/ui/utilities/cn.js"
-import {
-    IconBook2,
-    IconExternalLink,
-    IconLogout,
-    IconSettings,
-    IconUser,
-} from "@tabler/icons-react"
+import { IconBook2, IconExternalLink, IconLogout, IconSettings, IconUser } from "@tabler/icons-react"
 import { Outlet, useParams, useRouter } from "@tanstack/react-router"
 import { Suspense, useEffect, useRef } from "react"
 import { Popover } from "../../../components/overlays/popover/popover.js"
@@ -24,13 +18,19 @@ import { useSidebarContext } from "../../../contexts/sidebar/SidebarContext.js"
 import { deleteCookies } from "../../../utilities/cookies/deleteCookies.js"
 import { getResponseBodyFromAPI } from "../../../utilities/getResponseBodyFromAPI.js"
 import { prefetchYearData } from "../../../utilities/prefetchYearData.js"
+import { WEBSITE_BASE_URL } from "../../../utilities/variables.js"
 import { SidebarNavigation } from "./SidebarNavigation.js"
 
 export function DashboardShell() {
     const sidebar = useSidebarContext()
     const router = useRouter()
     const sidebarRef = useRef<HTMLDivElement>(null)
-    const params = useParams({ strict: false }) as { idOrganization?: string; idYear?: string }
+    const params = useParams({
+        strict: false,
+    }) as {
+        idOrganization?: string
+        idYear?: string
+    }
 
     useEffect(() => {
         if (params.idOrganization === undefined || params.idYear === undefined) return
@@ -121,11 +121,7 @@ export function DashboardShell() {
                 >
                     <Button
                         onClick={() =>
-                            window.open(
-                                `${import.meta.env.VITE_WEBSITE_BASE_URL ?? ""}/documentation`,
-                                "_blank",
-                                "noopener,noreferrer",
-                            )
+                            window.open(`${WEBSITE_BASE_URL}/documentation`, "_blank", "noopener,noreferrer")
                         }
                         title="Documentation"
                         className={{

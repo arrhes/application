@@ -170,7 +170,6 @@ services:
       # Vite reads VITE_* from process.env (injected directly by Compose).
       VITE_ENV: development
       VITE_API_BASE_URL: "http://localhost:${API_HOST_PORT}"
-      VITE_WEBSITE_BASE_URL: "http://localhost:${WEBSITE_HOST_PORT}"
 
 # ==============================================================================
 # Named Volumes (Persistent infrastructure data)

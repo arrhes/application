@@ -2,4 +2,3 @@ User-agent: *
 Allow: /connexion
 Allow: /inscription
 Disallow: /
-Sitemap: https://app.comptasse.com/sitemap.xml

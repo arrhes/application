@@ -1,6 +1,5 @@
 import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
-import { sitemapPlugin } from "./plugins/sitemapPlugin"
 
 export default defineConfig(() => {
     return {
@@ -8,7 +7,6 @@ export default defineConfig(() => {
             react({
                 include: "**/*.tsx",
             }),
-            sitemapPlugin(),
         ],
         root: "./src",
         publicDir: "../public",
