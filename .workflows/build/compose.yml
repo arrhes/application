@@ -14,10 +14,8 @@
 #   STORAGE_ACCESS_KEY    - Storage access key
 #   STORAGE_SECRET_KEY    - Storage secret key
 #
-# Build arguments (dashboard/website):
-#   VITE_API_BASE_URL       default /api
-#   VITE_WEBSITE_BASE_URL   default empty
-#   VITE_DASHBOARD_BASE_URL default empty
+# Runtime environment (dashboard):
+#   API_BASE_URL              default /api (proxied by nginx to the api service)
 # ==============================================================================
 
 services:
@@ -51,10 +49,8 @@ services:
     build:
       context: ../..
       dockerfile: .workflows/build/packages/dashboard/Dockerfile
-      args:
-        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-/api}
-        VITE_WEBSITE_BASE_URL: ${VITE_WEBSITE_BASE_URL:-}
-        VITE_DASHBOARD_BASE_URL: ${VITE_DASHBOARD_BASE_URL:-}
+    environment:
+      API_BASE_URL: ${API_BASE_URL:-/api}
     ports:
       - "${DASHBOARD_PORT:-5173}:80"
     depends_on:
@@ -66,10 +62,6 @@ services:
     build:
       context: ../..
       dockerfile: .workflows/build/packages/website/Dockerfile
-      args:
-        VITE_WEBSITE_BASE_URL: ${VITE_WEBSITE_BASE_URL:-}
-        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-}
-        VITE_DASHBOARD_BASE_URL: ${VITE_DASHBOARD_BASE_URL:-}
     ports:
       - "${WEBSITE_PORT:-8080}:80"
     restart: unless-stopped

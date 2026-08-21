@@ -1,14 +1,13 @@
 # ==============================================================================
 # Comptasse Website Docker Image
 # ==============================================================================
-# Builds the marketing website (Vite) and serves it with nginx.
+# Builds the fully static marketing website (Vite) and serves it with nginx.
 # Also serves the CLI install scripts and version file under /cli/ and the
 # self-host installer at /install.sh (copied from the public dir by Vite).
 #
-# Build arguments (Vite environment variables baked into the SPA):
-#   VITE_WEBSITE_BASE_URL   the public website URL
-#   VITE_API_BASE_URL       the public API URL
-#   VITE_DASHBOARD_BASE_URL the public dashboard URL
+# The site is built without any environment variables: all external URLs are
+# baked as constants at build time (see useSiteOrigin.ts and the sitemap /
+# prerender plugins, which default to https://comptasse.com).
 # ==============================================================================
 
 # ---------------------------------------------------------------------------
@@ -19,18 +18,9 @@ RUN npm install -g pnpm@10.26.1
 ENV NODE_OPTIONS="--max-old-space-size=4096"
 
 FROM base AS build
-ARG VITE_WEBSITE_BASE_URL
-ARG VITE_API_BASE_URL
-ARG VITE_DASHBOARD_BASE_URL
-
 WORKDIR /root
 COPY . .
 RUN pnpm install
-
-# Write VITE_* build args to .env so Vite can read them during build.
-RUN printf "VITE_WEBSITE_BASE_URL=%s\nVITE_API_BASE_URL=%s\nVITE_DASHBOARD_BASE_URL=%s\n" \
-    "$VITE_WEBSITE_BASE_URL" "$VITE_API_BASE_URL" "$VITE_DASHBOARD_BASE_URL" \
-    > packages/website/.env
 
 RUN pnpm --filter @comptasse/website... run build
 

@@ -1,4 +1,11 @@
+import { getRuntimeConfig } from "./runtimeConfig.js"
+
 export function resolveApiBaseUrl(configuredApiBaseUrl: string | undefined) {
+    const runtimeConfig = getRuntimeConfig()
+    if (runtimeConfig.apiBaseUrl) {
+        return runtimeConfig.apiBaseUrl
+    }
+
     if (typeof window === "undefined") {
         return configuredApiBaseUrl
     }

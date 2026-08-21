@@ -3,13 +3,14 @@
 # ==============================================================================
 # Builds the dashboard SPA (Vite) and serves it with nginx.
 #
-# Build arguments (Vite environment variables baked into the SPA):
-#   VITE_API_BASE_URL       default /api (proxied by nginx to the api service)
-#   VITE_WEBSITE_BASE_URL   default empty
-#   VITE_DASHBOARD_BASE_URL default empty
+# Environment variables (injected at runtime, not baked at build time):
+#   API_BASE_URL             API base URL used by the browser. Default: /api
+#                            (proxied by nginx to the api service). Set it to an
+#                            absolute URL (e.g. https://api.arrhes.com) when the
+#                            dashboard is served from a different origin.
 #
-# The nginx config also proxies /api/ to the `api` service on the compose
-# network, which is how self-hosted installs reach the API from the browser.
+# On startup the entrypoint renders /config.js from API_BASE_URL so a single
+# image can be deployed to any installation without rebuilding.
 # ==============================================================================
 
 # ---------------------------------------------------------------------------
@@ -20,18 +21,9 @@ RUN npm install -g pnpm@10.26.1
 ENV NODE_OPTIONS="--max-old-space-size=4096"
 
 FROM base AS build
-ARG VITE_API_BASE_URL=/api
-ARG VITE_WEBSITE_BASE_URL=""
-ARG VITE_DASHBOARD_BASE_URL=""
-
 WORKDIR /root
 COPY . .
 RUN pnpm install
-
-# Write VITE_* build args to .env so Vite can read them during build.
-RUN printf "VITE_API_BASE_URL=%s\nVITE_WEBSITE_BASE_URL=%s\nVITE_DASHBOARD_BASE_URL=%s\n" \
-    "$VITE_API_BASE_URL" "$VITE_WEBSITE_BASE_URL" "$VITE_DASHBOARD_BASE_URL" \
-    > packages/dashboard/.env
 
 RUN pnpm --filter @comptasse/dashboard... run build
 
@@ -40,13 +32,17 @@ RUN pnpm --filter @comptasse/dashboard... run build
 # ---------------------------------------------------------------------------
 FROM nginx:alpine AS deploy
 COPY .workflows/build/packages/dashboard/nginx/default.conf /etc/nginx/nginx.conf
+COPY .workflows/build/packages/dashboard/nginx/config.template.js /config.template.js
+COPY .workflows/build/packages/dashboard/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=build /root/packages/dashboard/build /usr/share/nginx/html
 
 # Build-time smoke tests
 RUN nginx -t && \
     test -f /usr/share/nginx/html/index.html && \
+    sh -n /entrypoint.sh && \
     echo "Dashboard smoke tests passed"
 
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["/entrypoint.sh"]

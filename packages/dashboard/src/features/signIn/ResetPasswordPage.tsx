@@ -1,8 +1,8 @@
-import { useState } from "react"
 import { resetPasswordRouteDefinition } from "@comptasse/application-metadata/routes"
 import { ButtonGhostContent, InputText, Logo } from "@comptasse/ui"
 import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconArrowLeft, IconBook2 } from "@tabler/icons-react"
+import { useState } from "react"
 import { FormControl } from "../../components/forms/FormControl.js"
 import { FormError } from "../../components/forms/FormError.js"
 import { FormField } from "../../components/forms/FormField.js"
@@ -11,6 +11,7 @@ import { FormLabel } from "../../components/forms/FormLabel.js"
 import { FormRoot } from "../../components/forms/FormRoot.js"
 import { LinkButton } from "../../components/LinkButton.js"
 import { getResponseBodyFromAPI } from "../../utilities/getResponseBodyFromAPI.js"
+import { WEBSITE_BASE_URL } from "../../utilities/variables.js"
 
 export function ResetPasswordPage() {
     const [sent, setSent] = useState(false)
@@ -62,13 +63,13 @@ export function ResetPasswordPage() {
                             gap: "0.5rem",
                         })}
                     >
-                        <a href={import.meta.env.VITE_WEBSITE_BASE_URL}>
+                        <a href={WEBSITE_BASE_URL}>
                             <ButtonGhostContent
                                 leftIcon={<Logo />}
                                 text="Comptasse"
                             />
                         </a>
-                        <a href={`${import.meta.env.VITE_WEBSITE_BASE_URL}/documentation`}>
+                        <a href={`${WEBSITE_BASE_URL}/documentation`}>
                             <ButtonGhostContent
                                 leftIcon={<IconBook2 />}
                                 className={{

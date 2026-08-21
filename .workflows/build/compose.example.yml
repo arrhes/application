@@ -44,6 +44,8 @@ services:
   dashboard:
     image: comptasse-dashboard:${COMPTASSE_VERSION:-dev}
     container_name: comptasse-dashboard
+    environment:
+      API_BASE_URL: ${API_BASE_URL:-/api}
     ports:
       - "${DASHBOARD_PORT:-5173}:80"
     depends_on:

@@ -1,5 +1,13 @@
 import { signUpRouteDefinition } from "@comptasse/application-metadata/routes"
-import { ButtonGhostContent, ButtonOutlineContent, InputPassword, InputText, Logo, Separator, toast } from "@comptasse/ui"
+import {
+    ButtonGhostContent,
+    ButtonOutlineContent,
+    InputPassword,
+    InputText,
+    Logo,
+    Separator,
+    toast,
+} from "@comptasse/ui"
 import { css } from "@comptasse/ui/utilities/cn.js"
 import { IconBook2, IconLogin2, IconUserPlus } from "@tabler/icons-react"
 import { Fragment } from "react/jsx-runtime"
@@ -12,7 +20,7 @@ import { FormRoot } from "../../components/forms/FormRoot.js"
 import { LinkButton } from "../../components/LinkButton.js"
 import { setCookie } from "../../utilities/cookies/setCookie.js"
 import { getResponseBodyFromAPI } from "../../utilities/getResponseBodyFromAPI.js"
-import { cookiePrefix } from "../../utilities/variables.js"
+import { cookiePrefix, WEBSITE_BASE_URL } from "../../utilities/variables.js"
 
 export function SignUpPage() {
     return (
@@ -63,13 +71,13 @@ export function SignUpPage() {
                             gap: "0.5rem",
                         })}
                     >
-                        <a href={import.meta.env.VITE_WEBSITE_BASE_URL}>
+                        <a href={WEBSITE_BASE_URL}>
                             <ButtonGhostContent
                                 leftIcon={<Logo />}
                                 text="Comptasse"
                             />
                         </a>
-                        <a href={`${import.meta.env.VITE_WEBSITE_BASE_URL}/documentation`}>
+                        <a href={`${WEBSITE_BASE_URL}/documentation`}>
                             <ButtonGhostContent
                                 leftIcon={<IconBook2 />}
                                 className={{

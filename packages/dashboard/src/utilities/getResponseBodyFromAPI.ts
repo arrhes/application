@@ -82,8 +82,9 @@ export async function getResponseBodyFromAPI<
 
     if (!apiBaseUrl) {
         console.error(
-            "VITE_API_BASE_URL is not defined. The request will not be sent. " +
-                "Make sure the environment variable is set at build time.",
+            "API_BASE_URL is not defined. The request will not be sent. " +
+                "Make sure the API_BASE_URL environment variable is set at runtime " +
+                "(or VITE_API_BASE_URL at build time in development).",
         )
         return <const>{
             ok: false,

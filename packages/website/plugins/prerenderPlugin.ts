@@ -28,7 +28,7 @@ export function prerenderPlugin(): Plugin {
                 const buildDir = resolve(pkgRoot, "build")
                 const renderBuildDir = resolve(pkgRoot, "build-render")
                 const env = loadEnv("production", pkgRoot, "VITE_")
-                const baseUrl = env.VITE_WEBSITE_BASE_URL ?? ""
+                const baseUrl = env.VITE_WEBSITE_BASE_URL ?? "https://comptasse.com"
 
                 const spaShell = readFileSync(resolve(buildDir, "index.html"), "utf-8")
 
