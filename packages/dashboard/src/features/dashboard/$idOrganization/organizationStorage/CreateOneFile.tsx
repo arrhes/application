@@ -1,23 +1,17 @@
 import { computeSHA256 } from "@comptasse/application-metadata"
-import {
-    createOneFileRouteDefinition,
-    finalizeFileUploadRouteDefinition,
-    generateFilePutSignedUrlRouteDefinition,
-    readAllFilesRouteDefinition,
-} from "@comptasse/application-metadata/routes"
+import { readAllFilesRouteDefinition } from "@comptasse/application-metadata/routes"
 import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
 import { Button, toast } from "@comptasse/ui"
 import type { JSX } from "react"
 import { useRef } from "react"
 import type * as v from "valibot"
-import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
+import { getCookie } from "../../../../utilities/cookies/getCookie.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
+import { resolveApiBaseUrl } from "../../../../utilities/resolveApiBaseUrl.js"
+import { cookiePrefix } from "../../../../utilities/variables.js"
 
-const MAX_FILE_SIZE = 1024 * 1024 * 50 // 50 MB
+const MAX_FILE_SIZE = 1024 * 1024 * 50
 
-/**
- * Derive a human-readable reference from a file name by stripping the extension.
- */
 function referenceFromFileName(name: string): string {
     const dotIndex = name.lastIndexOf(".")
     return dotIndex > 0 ? name.slice(0, dotIndex) : name
@@ -27,8 +21,8 @@ async function uploadOneFile(params: {
     idOrganization: string
     idFolder?: string | null
     file: File
-}): Promise<"added" | "duplicate" | "error"> {
-    const { file, idOrganization: _idOrganization, idFolder } = params
+}): Promise<"added" | "error"> {
+    const { file, idOrganization, idFolder } = params
 
     if (file.size > MAX_FILE_SIZE) {
         toast({
@@ -40,71 +34,40 @@ async function uploadOneFile(params: {
 
     const hash = await computeSHA256(file)
 
-    // Step 1 - create the database record (server deduplicates by hash)
-    const createResponse = await getResponseBodyFromAPI({
-        routeDefinition: createOneFileRouteDefinition,
-        body: {
-            idFolder: idFolder ?? undefined,
-            reference: referenceFromFileName(file.name),
-            name: referenceFromFileName(file.name),
-            hash: hash,
+    const apiBaseUrl = resolveApiBaseUrl(import.meta.env.VITE_API_BASE_URL)
+    if (!apiBaseUrl) {
+        toast({
+            title: "Impossible d'envoyer le fichier",
+            variant: "error",
+        })
+        return "error"
+    }
+
+    const formData = new FormData()
+    formData.append("file", file)
+    formData.append("name", file.name)
+    formData.append("reference", referenceFromFileName(file.name))
+    formData.append("hash", hash)
+    if (idFolder) {
+        formData.append("idFolder", idFolder)
+    }
+
+    const orgId = getCookie(`${cookiePrefix}_id_organization`) ?? idOrganization
+
+    const response = await fetch(`${apiBaseUrl}/organizations/${orgId}/years/:idYear/files`, {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+        headers: {
+            "X-Organization-Id": orgId,
         },
     })
-    if (createResponse.ok === false) {
+
+    if (!response.ok) {
+        const errorText = await response.text().catch(() => "")
         toast({
             title: `Impossible de créer "${file.name}"`,
-            description: createResponse.error.message,
-            variant: "error",
-        })
-        return "error"
-    }
-
-    // If the file already exists in storage (deduplication), skip upload
-    if (createResponse.data.storageKey !== null) {
-        return "duplicate"
-    }
-
-    // Step 2 - obtain a pre-signed PUT URL and update storage metadata
-    const signedUrlResponse = await getResponseBodyFromAPI({
-        routeDefinition: generateFilePutSignedUrlRouteDefinition,
-        body: {
-            idFile: createResponse.data.id,
-            type: file.type,
-            size: file.size,
-        },
-    })
-    if (signedUrlResponse.ok === false) {
-        toast({
-            title: `Impossible de télécharger "${file.name}"`,
-            description: signedUrlResponse.error.message,
-            variant: "error",
-        })
-        return "error"
-    }
-
-    // Step 3 - upload the binary directly to object storage
-    const uploadResponse = await fetch(signedUrlResponse.data.url, {
-        method: "PUT",
-        body: file,
-    })
-    if (uploadResponse.ok === false) {
-        toast({
-            title: `Échec du téléchargement de "${file.name}"`,
-            variant: "error",
-        })
-        return "error"
-    }
-
-    // Step 4 - finalize upload only after the object was successfully stored
-    const finalizeResponse = await getResponseBodyFromAPI({
-        routeDefinition: finalizeFileUploadRouteDefinition,
-        body: {
-            idFile: createResponse.data.id,
-        },
-    })
-    if (finalizeResponse.ok === false) {
-        toast({
-            title: `Téléversement incomplet pour "${file.name}"`,
+            description: errorText,
             variant: "error",
         })
         return "error"
@@ -135,7 +98,6 @@ export function CreateOneFile(props: {
         )
 
         const added = results.filter((r) => r === "added").length
-        const duplicates = results.filter((r) => r === "duplicate").length
         const failed = results.filter((r) => r === "error").length
 
         if (added > 0) {
@@ -149,16 +111,6 @@ export function CreateOneFile(props: {
             toast({
                 title: `${added} fichier(s) ajouté(s), ${failed} en erreur`,
                 variant: "error",
-            })
-        } else if (duplicates > 0 && added === 0) {
-            toast({
-                title: duplicates === 1 ? "Ce fichier existe déjà" : `Ces ${duplicates} fichiers existent déjà`,
-                variant: "information",
-            })
-        } else if (duplicates > 0) {
-            toast({
-                title: `${added} fichier(s) ajouté(s), ${duplicates} déjà existant(s)`,
-                variant: "success",
             })
         } else {
             toast({
@@ -181,7 +133,6 @@ export function CreateOneFile(props: {
                     if (event.target.files && event.target.files.length > 0) {
                         handleFiles(event.target.files)
                     }
-                    // Reset so selecting the same file(s) again still triggers onChange
                     event.target.value = ""
                 }}
             />

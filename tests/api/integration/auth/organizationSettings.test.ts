@@ -126,7 +126,7 @@ describe("POST /organizations/:idOrganization/users", () => {
         expect(response.status).toBe(400)
     })
 
-    it("returns an error for a non-existent user email", async () => {
+    it("invites a new user when the email does not already exist", async () => {
         const response = await authenticatedRequest({
             session,
             method: "POST",
@@ -134,12 +134,17 @@ describe("POST /organizations/:idOrganization/users", () => {
             body: {
                 isAdmin: false,
                 user: {
-                    email: "nonexistent@example.com",
+                    email: `nonexistent-${Date.now()}@example.com`,
                 },
             },
         })
-        // selectOne throws 500 when the user is not found
-        expect(response.status).toBe(500)
+        // Adding an unknown email invites the user: a new user is created with a
+        // temporary password and linked to the organization.
+        expect(response.status).toBe(200)
+        expect(response.data.idOrganization).toBe(idOrganization)
+        expect(response.data.isAdmin).toBe(false)
+        expect(typeof response.data.temporaryPassword).toBe("string")
+        expect(response.data.temporaryPassword).not.toBe("")
     })
 })
 

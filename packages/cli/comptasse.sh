@@ -1,10 +1,39 @@
 #!/bin/sh
 # comptasse - Comptasse API CLI
 # Requires: curl
-# Config:   ~/.comptasse/config  (COMPTASSE_URL, COMPTASSE_API_KEY)
+# Config:   ~/.comptasse/config  (COMPTASSE_URL, COMPTASSE_ORGANIZATION)
+#           ~/.comstasse/cookies.txt  (session cookie jar, set by `login`)
 set -e
 
-VERSION="1.3.5"
+# ── Version ─────────────────────────────────────────────────────────────────────
+# Read at runtime from a `version` file that ships next to this script. That file
+# is generated from the single source of truth (root `VERSION`) by
+# `just build-cli` / `.scripts/release-cli.sh`. No hardcoded version string lives
+# in this file. Override via COMPTASSE_VERSION_FILE if needed.
+_self="$0"
+if command -v "$_self" >/dev/null 2>&1; then _self="$(command -v "$_self")"; fi
+_script_dir="$(dirname "$_self")"
+SCRIPT_DIR="$(cd "$_script_dir" 2>/dev/null && pwd)" || SCRIPT_DIR="$_script_dir"
+
+# Primary source: a co-shipped `version` file (generated from root VERSION).
+VERSION_FILE="${COMPTASSE_VERSION_FILE:-$SCRIPT_DIR/version}"
+VERSION="$(cat "$VERSION_FILE" 2>/dev/null | tr -d '[:space:]')"
+
+# Dev convenience fallback: if no shipped version file exists (e.g. fresh dev
+# checkout with `version` git-ignored), walk up from the script dir to find the
+# repo-root `VERSION` file (the source of truth) and strip a leading `v`.
+if [ -z "$VERSION" ]; then
+    _d="$SCRIPT_DIR"
+    while [ "$_d" != "/" ]; do
+        if [ -f "$_d/VERSION" ]; then
+            VERSION="$(tr -d 'v[:space:]' < "$_d/VERSION" 2>/dev/null)"
+            break
+        fi
+        _d="$(dirname "$_d")"
+    done
+fi
+[ -n "$VERSION" ] || VERSION="unknown"
+
 DEFAULT_URL="https://api.comptasse.com"
 CONFIG_FILE="${COMPTASSE_CONFIG:-${HOME}/.comptasse/config}"
 
@@ -47,22 +76,47 @@ _jbody() { printf '{%s}' "$_JBODY"; }
 
 # ── Config ────────────────────────────────────────────────────────────────────
 
+COMPTASSE_DIR="${COMPTASSE_DIR:-${HOME}/.comptasse}"
+COOKIE_JAR="${COMPTASSE_COOKIE_JAR:-${COMPTASSE_DIR}/cookies.txt}"
+
 _cfg_read() {
     COMPTASSE_URL="$DEFAULT_URL"
-    COMPTASSE_API_KEY=''
+    COMPTASSE_ORGANIZATION=''
     [ -f "$CONFIG_FILE" ] && . "$CONFIG_FILE"
 }
 
 _cfg_write() {
-    # $1=url  $2=api_key
+    # $1=url  $2=organization_id
     mkdir -p "$(dirname "$CONFIG_FILE")"
-    printf 'COMPTASSE_URL=%s\nCOMPTASSE_API_KEY=%s\n' "$1" "$2" > "$CONFIG_FILE"
+    printf 'COMPTASSE_URL=%s\nCOMPTASSE_ORGANIZATION=%s\n' "$1" "$2" > "$CONFIG_FILE"
     chmod 600 "$CONFIG_FILE"
 }
 
+# Auth gate: cookie-session flow (the API signs in via /auth/sign-in and sets
+# the `comptasse_id_user_session` cookie). No API key is used.
 _require_cfg() {
     _cfg_read
-    [ -n "$COMPTASSE_API_KEY" ] || _die "Not logged in. Run: comptasse login --api-key <key>"
+    [ -f "$COOKIE_JAR" ] || _die "Not logged in. Run: comptasse login --email <email> --password <password>"
+}
+
+# Resolve the active organization id. The API scopes all org endpoints under
+# /organizations/:idOrganization; cookie-session auth has no org yet, so we list
+# the user's organizations once and persist the first one.
+# Priority: COMPTASSE_ORGANIZATION env -> saved config -> /auth/get-all-my-organization.
+IDORG=''
+_org_id() {
+    _require_cfg
+    [ -n "$IDORG" ] && return 0
+    _cfg_read
+    if [ -z "$COMPTASSE_ORGANIZATION" ]; then
+        COMPTASSE_ORGANIZATION="$(
+            curl -sS -b "$COOKIE_JAR" "${COMPTASSE_URL}/auth/get-all-my-organization" 2>/dev/null \
+            | sed -n 's/.*"id":"\([^"]*\)".*/\1/p' | head -n1
+        )"
+        [ -n "$COMPTASSE_ORGANIZATION" ] || _die "Could not resolve organization. Pass --org <idOrganization> or log in with one."
+        _cfg_write "$COMPTASSE_URL" "$COMPTASSE_ORGANIZATION"
+    fi
+    IDORG="$COMPTASSE_ORGANIZATION"
 }
 
 # ── HTTP ──────────────────────────────────────────────────────────────────────
@@ -76,14 +130,14 @@ _api() {
     url="${COMPTASSE_URL}${path}"
     if [ -n "$body" ]; then
         HTTP_CODE=$(curl -sS -o "$_RESP" -w "%{http_code}" \
+            -b "$COOKIE_JAR" -c "$COOKIE_JAR" \
             -X "$method" \
-            -H "Authorization: Bearer ${COMPTASSE_API_KEY}" \
             -H "Content-Type: application/json" \
             -d "$body" "$url")
     else
         HTTP_CODE=$(curl -sS -o "$_RESP" -w "%{http_code}" \
+            -b "$COOKIE_JAR" -c "$COOKIE_JAR" \
             -X "$method" \
-            -H "Authorization: Bearer ${COMPTASSE_API_KEY}" \
             "$url")
     fi
     case "$HTTP_CODE" in
@@ -92,36 +146,56 @@ _api() {
     esac
 }
 
-# The API key is scoped to an org; the server uses its own org ID from the key.
-# 'me' is just a valid URL placeholder for :idOrganization.
-_org_path()  { printf '/organizations/me'; }
-_year_path() { printf '/organizations/me/years/%s' "$1"; }
+# Nested REST paths, scoped to the resolved organization (no more `/me` placeholder).
+_org_path()  { _org_id >/dev/null; printf '/organizations/%s' "$IDORG"; }
+_year_path() { _org_id >/dev/null; printf '/organizations/%s/years/%s' "$IDORG" "$1"; }
 
 # ── login / whoami / logout ───────────────────────────────────────────────────
 
 _cmd_login() {
-    api_key=''; base_url=''
+    email=''; password=''; base_url=''; org=''
     while [ $# -gt 0 ]; do
         case "$1" in
-            --api-key) api_key="$2"; shift ;;
-            --url)     base_url="$2"; shift ;;
+            --email)    email="$2";     shift ;;
+            --password) password="$2";  shift ;;
+            --url)      base_url="$2";  shift ;;
+            --org)      org="$2";       shift ;;
             *) _die "Unknown option: $1" ;;
         esac; shift
     done
-    [ -n "$api_key" ] || _die "--api-key is required"
+    [ -n "$email" ] || _die "--email is required"
+    [ -n "$password" ] || _die "--password is required"
     base_url="${base_url:-$DEFAULT_URL}"; base_url="${base_url%/}"
-    COMPTASSE_URL="$base_url" COMPTASSE_API_KEY="$api_key" _api GET "/users/me" > /dev/null
-    _cfg_write "$base_url" "$api_key"
-    printf 'Logged in. Config saved to %s\n' "$CONFIG_FILE"
+    mkdir -p "$(dirname "$COOKIE_JAR")"
+    : > "$COOKIE_JAR"; chmod 600 "$COOKIE_JAR"
+    # Cookie-session sign-in: -c writes Set-Cookie into the jar.
+    HTTP_CODE=$(curl -sS -o "$_RESP" -w "%{http_code}" \
+        -c "$COOKIE_JAR" \
+        -X POST "$base_url/auth/sign-in" \
+        -H "Content-Type: application/json" \
+        -d "{\"email\":\"$(_jesc "$email")\",\"password\":\"$(_jesc "$password")\"}")
+    if ! case "$HTTP_CODE" in 2??) true ;; *) false ;; esac; then
+        cat "$_RESP" >&2 2>/dev/null
+        rm -f "$COOKIE_JAR"
+        _die "Login failed (HTTP $HTTP_CODE)."
+    fi
+    # Persist base URL + chosen org (resolved lazily if not provided).
+    _cfg_write "$base_url" "$org"
+    printf 'Logged in (%s). Session saved to %s\n' "$base_url" "$COOKIE_JAR"
 }
 
 _cmd_whoami() {
     _require_cfg
-    _api GET "/users/me"
+    # Valid session if the user's organizations are reachable.
+    curl -sS -b "$COOKIE_JAR" "${COMPTASSE_URL}/auth/get-all-my-organization"
 }
 
 _cmd_logout() {
     _cfg_read
+    if [ -f "$COOKIE_JAR" ]; then
+        curl -sS -b "$COOKIE_JAR" -X POST "${COMPTASSE_URL}/auth/sign-out" >/dev/null 2>&1 || true
+    fi
+    rm -f "$COOKIE_JAR"
     _cfg_write "${COMPTASSE_URL:-$DEFAULT_URL}" ""
     printf 'Logged out.\n'
 }
@@ -544,31 +618,46 @@ _lines_get() {
 }
 
 _lines_create() {
-    entry=''; year=''; account=''; label=''; debit=''; credit=''
+    entry=''; year=''; account=''; label=''; debit=''; credit=''; computed='false'
     while [ $# -gt 0 ]; do
         case "$1" in
             --year)    year="$2";    shift ;; --account) account="$2"; shift ;;
             --label)   label="$2";   shift ;; --debit)   debit="$2";   shift ;;
-            --credit)  credit="$2";  shift ;; -*)         _die "Unknown: $1" ;; *) entry="$1" ;;
+            --credit)  credit="$2";  shift ;; --computed) computed='true' ;;
+            *)         _die "Unknown: $1" ;;
         esac; shift
     done
     [ -n "$entry" ] && [ -n "$year" ] && [ -n "$account" ] || \
         _die "Usage: comptasse entries lines create <idEntry> --year <id> --account <id>"
     _require_cfg; _jbody_reset; _jstr idAccount "$account"; _jstr label "$label"; _jnum debit "$debit"; _jnum credit "$credit"
+    # The API requires the computed flags on every entry line (computed = e.g. from
+    # an income-statement/amortization generation; false for manually entered lines).
+    _jbool isComputedForJournalReport "$computed"
+    _jbool isComputedForLedgerReport "$computed"
+    _jbool isComputedForBalanceReport "$computed"
+    _jbool isComputedForBalanceSheetReport "$computed"
+    _jbool isComputedForIncomeStatementReport "$computed"
     _api POST "$(_lines_base "$year" "$entry")" "$(_jbody)"
 }
 
 _lines_update() {
-    entry=''; line=''; year=''; label=''; debit=''; credit=''
+    entry=''; line=''; year=''; label=''; debit=''; credit=''; computed='true'
     while [ $# -gt 0 ]; do
         case "$1" in
             --year)   year="$2";   shift ;; --label)  label="$2";  shift ;;
             --debit)  debit="$2";  shift ;; --credit) credit="$2"; shift ;;
+            --computed)     computed='true' ;;
+            --manual)       computed='false' ;;
             -*) _die "Unknown: $1" ;; *) if [ -z "$entry" ]; then entry="$1"; else line="$1"; fi ;;
         esac; shift
     done
     [ -n "$entry" ] && [ -n "$line" ] && [ -n "$year" ] || _die "Usage: comptasse entries lines update <idEntry> <idLine> --year <id>"
     _require_cfg; _jbody_reset; _jstr label "$label"; _jnum debit "$debit"; _jnum credit "$credit"
+    _jbool isComputedForJournalReport "$computed"
+    _jbool isComputedForLedgerReport "$computed"
+    _jbool isComputedForBalanceReport "$computed"
+    _jbool isComputedForBalanceSheetReport "$computed"
+    _jbool isComputedForIncomeStatementReport "$computed"
     _api PATCH "$(_lines_base "$year" "$entry")/$line" "$(_jbody)"
 }
 
@@ -624,10 +713,11 @@ _entry_tag_remove() {
 _cmd_files() {
     subcmd="${1:-}"; [ $# -gt 0 ] && shift
     case "$subcmd" in
-        list)         _files_list "$@" ;;         get)    _files_get "$@" ;;
-        create)       _files_create "$@" ;;        update) _files_update "$@" ;;
-        delete)       _files_delete "$@" ;;        download-url) _files_download_url "$@" ;;
-        folders)      _cmd_folders "$@" ;;
+        list)    _files_list "$@" ;; get)        _files_get "$@" ;;
+        upload)  _files_upload "$@" ;; update)  _files_update "$@" ;;
+        delete)  _files_delete "$@" ;; download) _files_download "$@" ;;
+        ocr)     _files_ocr "$@" ;;
+        folders) _cmd_folders "$@" ;;
         *) _die "comptasse files: unknown subcommand '$subcmd'" ;;
     esac
 }
@@ -663,6 +753,66 @@ _files_create() {
     _api POST "$(_files_base "$year")" "$(_jbody)"
 }
 
+# Upload a file: create a file record and upload the binary content in a single
+# multipart POST to the API (server-side S3 I/O, no signed URLs).
+_files_upload() {
+    year=''; name=''; reference=''; folder=''; file_path=''
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            --year)      year="$2";      shift ;; --name)      name="$2";      shift ;;
+            --reference) reference="$2"; shift ;;
+            --folder)    folder="$2";    shift ;; --file)      file_path="$2"; shift ;; -*) _die "Unknown: $1" ;;
+        esac; shift
+    done
+    [ -n "$year" ] && [ -n "$file_path" ] || _die "--year and --file are required"
+    [ -f "$file_path" ] || _die "File not found: $file_path"
+    _require_cfg
+    [ -n "$name" ] || name="$(basename "$file_path")"
+    if [ -z "$reference" ]; then
+        reference="$(basename "$file_path")"
+        reference="${reference%.*}"
+    fi
+    hash="$(sha256sum "$file_path" | awk '{print $1}')"
+    # Multipart upload: the file binary + metadata fields go directly to the API.
+    if [ -n "$folder" ]; then
+        HTTP_CODE=$(curl -sS -o "$_RESP" -w "%{http_code}" \
+            -b "$COOKIE_JAR" -c "$COOKIE_JAR" \
+            -X POST \
+            -F "file=@${file_path}" \
+            -F "name=${name}" \
+            -F "reference=${reference}" \
+            -F "hash=${hash}" \
+            -F "idFolder=${folder}" \
+            "${COMPTASSE_URL}$(_files_base "$year")")
+    else
+        HTTP_CODE=$(curl -sS -o "$_RESP" -w "%{http_code}" \
+            -b "$COOKIE_JAR" -c "$COOKIE_JAR" \
+            -X POST \
+            -F "file=@${file_path}" \
+            -F "name=${name}" \
+            -F "reference=${reference}" \
+            -F "hash=${hash}" \
+            "${COMPTASSE_URL}$(_files_base "$year")")
+    fi
+    case "$HTTP_CODE" in
+        2??) ;;
+        *)   cat "$_RESP" >&2; exit 1 ;;
+    esac
+    idFile="$(printf '%s' "$(cat "$_RESP")" | sed -n 's/.*"id":"\([^"]*\)".*/\1/p')"
+    [ -n "$idFile" ] || { printf '%s\n' "$(cat "$_RESP")" >&2; _die "Could not upload file."; }
+    printf 'Uploaded %s -> file %s\n' "$file_path" "$idFile"
+}
+
+_files_ocr() {
+    id=''; year=''
+    while [ $# -gt 0 ]; do case "$1" in --year) year="$2"; shift ;; -*) _die "Unknown: $1" ;; *) id="$1" ;; esac; shift; done
+    [ -n "$id" ] && [ -n "$year" ] || _die "Usage: comptasse files ocr <idFile> --year <id>"
+    _require_cfg
+    printf 'OCR running for %s...\n' "$id"
+    _api POST "$(_files_base "$year")/$id/ocr"
+    printf 'OCR queued for file %s\n' "$id"
+}
+
 _files_update() {
     id=''; year=''; name=''; reference=''; date=''; folder=''
     while [ $# -gt 0 ]; do
@@ -685,12 +835,17 @@ _files_delete() {
     printf 'File %s deleted.\n' "$id"
 }
 
-_files_download_url() {
-    id=''; year=''
-    while [ $# -gt 0 ]; do case "$1" in --year) year="$2"; shift ;; -*) _die "Unknown: $1" ;; *) id="$1" ;; esac; shift; done
-    [ -n "$id" ] && [ -n "$year" ] || _die "Usage: comptasse files download-url <idFile> --year <id>"
+_files_download() {
+    id=''; year=''; output=''
+    while [ $# -gt 0 ]; do case "$1" in --year) year="$2"; shift ;; --output) output="$2"; shift ;; -*) _die "Unknown: $1" ;; *) id="$1" ;; esac; shift; done
+    [ -n "$id" ] && [ -n "$year" ] || _die "Usage: comptasse files download <idFile> --year <id> [--output <path>]"
     _require_cfg
-    _api POST "$(_files_base "$year")/$id/download-url" | sed 's/.*"url":"\([^"]*\)".*/\1/'
+    url="${COMPTASSE_URL}$(_files_base "$year")/$id/content"
+    if [ -n "$output" ]; then
+        curl -sS -b "$COOKIE_JAR" -o "$output" "$url" && printf 'Downloaded file %s -> %s\n' "$id" "$output"
+    else
+        curl -sS -b "$COOKIE_JAR" "$url"
+    fi
 }
 
 # ── files folders ─────────────────────────────────────────────────────────────
@@ -984,7 +1139,7 @@ _usage() {
 Usage: comptasse <command> [subcommand] [options]
 
 Authentication:
-  login --api-key <key> [--url <url>]
+  login --email <email> --password <password> [--url <url>] [--org <idOrganization>]
   whoami
   logout
 
@@ -998,7 +1153,7 @@ Commands:
   entries         list | get | create | update | duplicate | reverse | delete | compute
     entries lines   list | get | create | update | delete
     entries tags    add | remove
-  files           list | get | create | update | delete | download-url
+   files           list | get | upload | update | delete | download | ocr
     files folders   list | get | create | update | delete
   members         list | get | invite | update | remove
   exports         fec | xbrl-balance-sheet | xbrl-income-statement

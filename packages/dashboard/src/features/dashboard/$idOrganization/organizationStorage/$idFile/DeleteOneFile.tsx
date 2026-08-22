@@ -5,7 +5,7 @@ import { type ComponentPropsWithRef, type ReactElement, useId } from "react"
 import type * as v from "valibot"
 import { applicationRouter } from "../../../../../routes/applicationRouter.tsx"
 import { invalidateData } from "../../../../../utilities/invalidateData.ts"
-import { deleteFileWithSignedUrl } from "../deleteFileWithSignedUrl.ts"
+import { deleteFile } from "../deleteFile.ts"
 
 export function DeleteOneFile(props: {
     file: v.InferOutput<typeof returnedSchemas.file>
@@ -15,7 +15,7 @@ export function DeleteOneFile(props: {
     const { open: openModal, close: closeModal } = useModalStore()
 
     async function onSubmit() {
-        const isDeleted = await deleteFileWithSignedUrl({
+        const isDeleted = await deleteFile({
             idFile: props.file.id,
         })
 

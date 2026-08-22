@@ -1,8 +1,9 @@
 import { readAllYearsRouteDefinition } from "@comptasse/application-metadata/routes"
 import { IconBuilding, IconCalendar, IconCloud, IconHome, IconLock, IconSettings, IconUsers } from "@tabler/icons-react"
 import { useRouter, useRouterState } from "@tanstack/react-router"
-import { useMemo, useState } from "react"
+import { useMemo } from "react"
 import { TreeNode, TreeNodeLink } from "../../../components/layouts/tree/TreeNode.js"
+import { useCollapsibleState } from "../../../components/layouts/tree/useCollapsibleState.js"
 import { useDataFromAPI } from "../../../utilities/useHTTPData.js"
 import { SidebarYearNode } from "./SidebarYearNode.js"
 
@@ -19,13 +20,15 @@ export function SidebarOrganizationNode({ org }: { org: Org }) {
     const router = useRouter()
     const pathname = usePathname()
     const orgPrefix = `/organisation/${org.id}`
-    const [expanded, setExpanded] = useState(false)
-    const [settingsExpanded, setSettingsExpanded] = useState(false)
-    const isExpanded = expanded || pathname.startsWith(orgPrefix + "/")
-    const isSettingsExpanded = settingsExpanded || pathname.startsWith(orgPrefix + "/paramètres")
+    const orgMatch = pathname.startsWith(orgPrefix + "/")
+    const [isExpanded, setExpanded] = useCollapsibleState(pathname, orgMatch)
+    const [isSettingsExpanded, setSettingsExpanded] = useCollapsibleState(
+        pathname,
+        pathname.startsWith(`${orgPrefix}/paramètres`),
+    )
     const p = (path: string) => path.replace("$idOrganization", org.id)
     const isActive = (path: string) => pathname === p(path)
-    const anyOrgChildActive = isExpanded || pathname.startsWith(orgPrefix + "/")
+    const anyOrgChildActive = isExpanded || orgMatch
 
     const yearsResponse = useDataFromAPI({
         routeDefinition: readAllYearsRouteDefinition,
@@ -47,10 +50,10 @@ export function SidebarOrganizationNode({ org }: { org: Org }) {
             icon={<IconBuilding />}
             label={org.name ?? org.id}
             expanded={isExpanded}
-            onToggle={() => setExpanded(!expanded)}
+            onToggle={() => setExpanded(!isExpanded)}
             onClick={() => {}}
         >
-            {expanded && yearsResponse.isLoading && (
+            {isExpanded && yearsResponse.isLoading && (
                 <div
                     style={{
                         padding: "0.375rem 0.5rem",
@@ -86,7 +89,7 @@ export function SidebarOrganizationNode({ org }: { org: Org }) {
                 label="Paramètres"
                 depth={1}
                 expanded={isSettingsExpanded}
-                onToggle={() => setSettingsExpanded(!settingsExpanded)}
+                onToggle={() => setSettingsExpanded(!isSettingsExpanded)}
                 onClick={() => {}}
             >
                 <TreeNodeLink

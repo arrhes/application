@@ -8,6 +8,7 @@ import { apiFactory } from "../../../../../../utilities/apiFactory.js"
 import { Exception } from "../../../../../../utilities/exception.js"
 import { response } from "../../../../../../utilities/response.js"
 import { insertOne } from "../../../../../../utilities/sql/insertOne.js"
+import { selectMany } from "../../../../../../utilities/sql/selectMany.js"
 import { selectOne } from "../../../../../../utilities/sql/selectOne.js"
 
 export const createOneOrganizationUserRoute = apiFactory
@@ -37,11 +38,14 @@ export const createOneOrganizationUserRoute = apiFactory
             })
         }
 
-        let toAddUser = await selectOne({
-            database: c.var.clients.sql,
-            table: models.user,
-            where: (table) => eq(table.email, body.user.email),
-        })
+        let toAddUser = (
+            await selectMany({
+                database: c.var.clients.sql,
+                table: models.user,
+                where: (table) => eq(table.email, body.user.email),
+                limit: 1,
+            })
+        ).at(0)
 
         let temporaryPassword: string | null = null
         if (toAddUser === undefined) {

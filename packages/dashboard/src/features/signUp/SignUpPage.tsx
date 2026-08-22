@@ -18,9 +18,8 @@ import { FormItem } from "../../components/forms/FormItem.js"
 import { FormLabel } from "../../components/forms/FormLabel.js"
 import { FormRoot } from "../../components/forms/FormRoot.js"
 import { LinkButton } from "../../components/LinkButton.js"
-import { setCookie } from "../../utilities/cookies/setCookie.js"
 import { getResponseBodyFromAPI } from "../../utilities/getResponseBodyFromAPI.js"
-import { cookiePrefix, WEBSITE_BASE_URL } from "../../utilities/variables.js"
+import { WEBSITE_BASE_URL } from "../../utilities/variables.js"
 
 export function SignUpPage() {
     return (
@@ -155,8 +154,6 @@ export function SignUpPage() {
                         }}
                         onCancel={undefined}
                         onSuccess={() => {
-                            // Mirror backend auth cookie to avoid a transient undefined state during immediate redirect.
-                            setCookie(`${cookiePrefix}_is_auth`, "true")
                             window.location.assign("/")
                         }}
                     >

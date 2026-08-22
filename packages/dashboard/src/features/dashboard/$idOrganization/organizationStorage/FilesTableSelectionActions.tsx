@@ -20,7 +20,7 @@ import type * as v from "valibot"
 import { Popover } from "../../../../components/overlays/popover/popover.js"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
-import { deleteFileWithSignedUrl } from "./deleteFileWithSignedUrl.js"
+import { deleteFile } from "./deleteFile.js"
 
 export type TableRow =
     | {
@@ -51,7 +51,7 @@ export function FilesTableSelectionActions(props: { selectedRows: Array<Row<Tabl
     async function handleDelete() {
         const results = await Promise.all([
             ...selectedFiles.map((file) =>
-                deleteFileWithSignedUrl({
+                deleteFile({
                     idFile: file.id,
                 }).then((ok) => ({
                     ok,

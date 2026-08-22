@@ -38,6 +38,9 @@ export function CreateOneOrganizationUser(props: {
                 const response = await getResponseBodyFromAPI({
                     routeDefinition: createOneOrganizationUserRouteDefinition,
                     body: data,
+                    params: {
+                        idOrganization: props.idOrganization,
+                    },
                 })
                 if (!response.ok) {
                     toast({

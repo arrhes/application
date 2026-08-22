@@ -1,7 +1,7 @@
 import { IconBook, IconBook2, IconCalculator, IconCalendar, IconChartBar, IconHome, IconListNumbers, IconPackage, IconPencil, IconReport, IconReportMoney, IconScale, IconSettings, IconTag } from "@tabler/icons-react"
 import { useRouter, useRouterState } from "@tanstack/react-router"
-import { useState } from "react"
 import { TreeNode, TreeNodeLink } from "../../../components/layouts/tree/TreeNode.js"
+import { useCollapsibleState } from "../../../components/layouts/tree/useCollapsibleState.js"
 
 type Year = {
     id: string
@@ -29,16 +29,20 @@ export function SidebarYearNode({
         pathname.startsWith(yearPrefix + "/catégories") ||
         pathname.startsWith(yearPrefix + "/bilan") ||
         pathname.startsWith(yearPrefix + "/compte-de-résultat")
-    const [expanded, setExpanded] = useState(false)
-    const [settingsExpanded, setSettingsExpanded] = useState(false)
-    const [documentsExpanded, setDocumentsExpanded] = useState(false)
-    const [inventoryExpanded, setInventoryExpanded] = useState(false)
-    const [compteResultatExpanded, setCompteResultatExpanded] = useState(false)
-    const isExpanded = expanded || pathname.startsWith(yearPrefix)
-    const isSettingsExpanded = settingsExpanded || isSettingsPath
-    const isDocumentsExpanded = documentsExpanded || pathname.startsWith(yearPrefix + "/documents")
-    const isInventoryExpanded = inventoryExpanded || pathname.startsWith(yearPrefix + "/inventaire")
-    const isCompteResultatExpanded = compteResultatExpanded || pathname.startsWith(yearPrefix + "/compte-de-résultat")
+    const [isExpanded, setExpanded] = useCollapsibleState(pathname, pathname.startsWith(yearPrefix))
+    const [isSettingsExpanded, setSettingsExpanded] = useCollapsibleState(pathname, isSettingsPath)
+    const [isDocumentsExpanded, setDocumentsExpanded] = useCollapsibleState(
+        pathname,
+        pathname.startsWith(yearPrefix + "/documents"),
+    )
+    const [isInventoryExpanded, setInventoryExpanded] = useCollapsibleState(
+        pathname,
+        pathname.startsWith(yearPrefix + "/inventaire"),
+    )
+    const [isCompteResultatExpanded, setCompteResultatExpanded] = useCollapsibleState(
+        pathname,
+        pathname.startsWith(yearPrefix + "/compte-de-résultat"),
+    )
 
     const p = (path: string) => path.replace("$idOrganization", orgId).replace("$idYear", year.id)
     const isActive = (path: string) => pathname === p(path) || pathname.startsWith(`${p(path)}/`)
@@ -49,7 +53,7 @@ export function SidebarYearNode({
             label={year.label ?? year.id}
             depth={1}
             expanded={isExpanded}
-            onToggle={() => setExpanded(!expanded)}
+            onToggle={() => setExpanded(!isExpanded)}
             onClick={() =>{}}
         >
             <TreeNodeLink
@@ -69,7 +73,7 @@ export function SidebarYearNode({
                 label="Documents"
                 depth={2}
                 expanded={isDocumentsExpanded}
-                onToggle={() => setDocumentsExpanded(!documentsExpanded)}
+                onToggle={() => setDocumentsExpanded(!isDocumentsExpanded)}
                 onClick={() => {}}
             >
                 <TreeNodeLink
@@ -138,7 +142,7 @@ export function SidebarYearNode({
                 label="Inventaire"
                 depth={2}
                 expanded={isInventoryExpanded}
-                onToggle={() => setInventoryExpanded(!inventoryExpanded)}
+                onToggle={() => setInventoryExpanded(!isInventoryExpanded)}
                 onClick={() => {}}
             >
                 <TreeNodeLink
@@ -171,7 +175,7 @@ export function SidebarYearNode({
                 label="Paramètres"
                 depth={2}
                 expanded={isSettingsExpanded}
-                onToggle={() => setSettingsExpanded(!settingsExpanded)}
+                onToggle={() => setSettingsExpanded(!isSettingsExpanded)}
                 onClick={() => {}}
             >
                 <TreeNodeLink
@@ -239,7 +243,7 @@ export function SidebarYearNode({
                     label="Compte de résultat"
                     depth={3}
                     expanded={isCompteResultatExpanded}
-                    onToggle={() => setCompteResultatExpanded(!compteResultatExpanded)}
+                    onToggle={() => setCompteResultatExpanded(!isCompteResultatExpanded)}
                     onClick={() => {}}
                 >
                     <TreeNodeLink
