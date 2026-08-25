@@ -97,7 +97,7 @@ export function ReferenceApiGuideDocPage() {
 
             <DocSection title="Catégories de routes">
                 <DocParagraph>
-                    L'API expose 120 routes protégées réparties en 21 catégories. Le tableau ci-dessous résume chaque
+                    L'API expose 111 routes protégées réparties en 21 catégories. Le tableau ci-dessous résume chaque
                     catégorie :
                 </DocParagraph>
                 <DocTable
@@ -207,7 +207,7 @@ export function ReferenceApiGuideDocPage() {
                         [
                             "17",
                             "Fichiers",
-                            "10",
+                            "7",
                             "Exercice",
                         ],
                         [

@@ -8,6 +8,7 @@ import { response } from "../../../../../../../../utilities/response.js"
 import { deleteOne } from "../../../../../../../../utilities/sql/deleteOne.js"
 import { selectOne } from "../../../../../../../../utilities/sql/selectOne.js"
 import { updateOne } from "../../../../../../../../utilities/sql/updateOne.js"
+import { deleteObject } from "../../../../../../../../utilities/storage/deleteObject.js"
 
 export const deleteOneFileRoute = registerRoute(deleteOneFileRouteDefinition, async (c) => {
     const auth = await checkAuthMiddleware({
@@ -27,6 +28,13 @@ export const deleteOneFileRoute = registerRoute(deleteOneFileRouteDefinition, as
             table: models.file,
             where: (table) => and(eq(table.idOrganization, idOrganization), eq(table.id, body.idFile)),
         })
+
+        if (readOneFile.storageKey) {
+            await deleteObject({
+                var: c.var,
+                storageKey: readOneFile.storageKey,
+            }).catch(() => {})
+        }
 
         if (readOneFile.size !== null && readOneFile.size > 0) {
             await updateOne({

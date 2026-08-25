@@ -3,10 +3,13 @@ import {
     createOneFolderRouteDefinition,
     deleteOneFileRouteDefinition,
     deleteOneFolderRouteDefinition,
+    downloadFileRouteDefinition,
+    ocrFileRouteDefinition,
     readAllFilesRouteDefinition,
     readAllFoldersRouteDefinition,
     readOneFileRouteDefinition,
     readOneFolderRouteDefinition,
+    updateOneFileRouteDefinition,
     updateOneFolderRouteDefinition,
 } from "@comptasse/application-metadata/routes"
 import { DocCode } from "../../../components/document/DocCode.js"
@@ -80,6 +83,9 @@ export function StockageGuideDocPage() {
                                 <DocRouteRequest routeDefinition={createOneFileRouteDefinition} />
                                 <DocRouteRequest routeDefinition={readAllFilesRouteDefinition} />
                                 <DocRouteRequest routeDefinition={readOneFileRouteDefinition} />
+                                <DocRouteRequest routeDefinition={updateOneFileRouteDefinition} />
+                                <DocRouteRequest routeDefinition={downloadFileRouteDefinition} />
+                                <DocRouteRequest routeDefinition={ocrFileRouteDefinition} />
                                 <DocRouteRequest routeDefinition={deleteOneFileRouteDefinition} />
                             </DocSection>
                             <DocSection
@@ -103,43 +109,58 @@ export function StockageGuideDocPage() {
                                 ]}
                                 rows={[
                                     [
-                                        <DocCode key="0">{"comptasse files list --organization <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse files list --year <id>"}</DocCode>,
                                         "Liste les fichiers",
                                     ],
                                     [
                                         <DocCode key="0">
-                                            {"comptasse files upload <chemin> --organization <id>"}
+                                            {"comptasse files upload --year <id> --file <chemin>"}
                                         </DocCode>,
                                         "Téléverse un fichier",
                                     ],
                                     [
-                                        <DocCode key="0">{"comptasse files attach <id> --entry <id>"}</DocCode>,
-                                        "Attache un fichier à une écriture",
+                                        <DocCode key="0">{"comptasse files get <idFile> --year <id>"}</DocCode>,
+                                        "Affiche un fichier",
                                     ],
                                     [
-                                        <DocCode key="0">{"comptasse files delete <id>"}</DocCode>,
+                                        <DocCode key="0">
+                                            {"comptasse files update <idFile> --year <id> --name <nom>"}
+                                        </DocCode>,
+                                        "Modifie un fichier",
+                                    ],
+                                    [
+                                        <DocCode key="0">{"comptasse files download <idFile> --year <id>"}</DocCode>,
+                                        "Télécharge un fichier",
+                                    ],
+                                    [
+                                        <DocCode key="0">{"comptasse files ocr <idFile> --year <id>"}</DocCode>,
+                                        "Lance la reconnaissance OCR d'un fichier",
+                                    ],
+                                    [
+                                        <DocCode key="0">{"comptasse files delete <idFile> --year <id>"}</DocCode>,
                                         "Supprime un fichier",
                                     ],
                                     [
-                                        <DocCode key="0">{"comptasse files folders list --organization <id>"}</DocCode>,
+                                        <DocCode key="0">{"comptasse files folders list --year <id>"}</DocCode>,
                                         "Liste les dossiers",
                                     ],
                                     [
                                         <DocCode key="0">
-                                            {"comptasse files folders create --organization <id> --name <nom>"}
+                                            {"comptasse files folders create --year <id> --name <nom>"}
                                         </DocCode>,
                                         "Crée un dossier",
                                     ],
                                     [
-                                        <DocCode key="0">{"comptasse files folders delete <id>"}</DocCode>,
+                                        <DocCode key="0">
+                                            {"comptasse files folders delete <idFolder> --year <id>"}
+                                        </DocCode>,
                                         "Supprime un dossier",
                                     ],
                                 ]}
                             />
                             <DocExample title="Téléverser une pièce justificative">
                                 <DocCodeBlock>
-                                    comptasse files upload ./facture-2025-03.pdf --organization org_abc --folder
-                                    folder_xyz
+                                    comptasse files upload ./facture-2025-03.pdf --year 1 --folder 12
                                 </DocCodeBlock>
                             </DocExample>
                         </>

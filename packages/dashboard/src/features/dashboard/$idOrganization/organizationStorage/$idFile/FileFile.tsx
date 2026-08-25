@@ -1,60 +1,54 @@
-import { generateFileGetSignedUrlRouteDefinition } from "@comptasse/application-metadata/routes"
 import type { returnedSchemas } from "@comptasse/application-metadata/schemas"
 import { CircularLoader, FormatError } from "@comptasse/ui"
 import { css } from "@comptasse/ui/utilities/cn.js"
 import { useQuery } from "@tanstack/react-query"
 import type * as v from "valibot"
-import { useDataFromAPI } from "../../../../../utilities/useHTTPData.ts"
+import { getCookie } from "../../../../../utilities/cookies/getCookie.js"
+import { resolveApiBaseUrl } from "../../../../../utilities/resolveApiBaseUrl.js"
+import { cookiePrefix } from "../../../../../utilities/variables.js"
 
-function useMarkdownContent(url: string | undefined, enabled: boolean) {
-    return useQuery({
-        queryKey: [
-            "markdown-content",
-            url,
-        ],
+export function FileFile(props: { file: v.InferOutput<typeof returnedSchemas.file> }) {
+    const apiBaseUrl = resolveApiBaseUrl(import.meta.env.VITE_API_BASE_URL)
+    const orgId = getCookie(`${cookiePrefix}_id_organization`) ?? props.file.idOrganization
+
+    const downloadUrl = apiBaseUrl
+        ? `${apiBaseUrl}/organizations/${orgId}/years/:idYear/files/${props.file.id}/content`
+        : undefined
+
+    const isMarkdownFile = props.file.type?.startsWith("text/markdown") ?? false
+
+    const contentQuery = useQuery({
+        queryKey: ["file-content", props.file.id, isMarkdownFile],
         queryFn: async ({ signal }) => {
-            if (!url) throw new Error("Missing markdown URL")
-            const response = await fetch(url, { signal })
+            if (!downloadUrl) throw new Error("API_BASE_URL is not defined")
+            const response = await fetch(downloadUrl, {
+                signal,
+                credentials: "include",
+                headers: {
+                    "X-Organization-Id": orgId,
+                },
+            })
             if (!response.ok) {
-                throw new Error("Impossible de récupérer le fichier markdown")
+                throw new Error("Impossible de récupérer le fichier")
             }
             const bytes = await response.arrayBuffer()
             return new TextDecoder("utf-8").decode(bytes)
         },
-        enabled: enabled && url !== undefined,
-    })
-}
-
-export function FileFile(props: { file: v.InferOutput<typeof returnedSchemas.file> }) {
-    const fileSignedUrlResponse = useDataFromAPI({
-        routeDefinition: generateFileGetSignedUrlRouteDefinition,
-        body: {
-            idFile: props.file.id,
-        },
+        enabled: apiBaseUrl !== undefined && isMarkdownFile && props.file.storageKey !== null,
+        staleTime: Infinity,
     })
 
-    const isMarkdownFile = props.file.type?.startsWith("text/markdown") ?? false
-    const markdownQuery = useMarkdownContent(
-        fileSignedUrlResponse.data?.url,
-        isMarkdownFile,
-    )
-
-    if (fileSignedUrlResponse.data === undefined) {
-        if (fileSignedUrlResponse.isPending) {
-            return <CircularLoader text="Récupération du fichier..." />
-        }
-        return <FormatError text="Impossible de récupérer le fichier." />
+    if (props.file.storageKey === null) {
+        return <FormatError text="Ce fichier n'a pas de contenu associé." />
     }
 
     if (isMarkdownFile) {
-        if (markdownQuery.isPending) {
+        if (contentQuery.isPending) {
             return <CircularLoader text="Affichage du markdown..." />
         }
-
-        if (markdownQuery.isError) {
+        if (contentQuery.isError) {
             return <FormatError text="Impossible d'afficher le contenu markdown." />
         }
-
         return (
             <pre
                 className={css({
@@ -72,7 +66,7 @@ export function FileFile(props: { file: v.InferOutput<typeof returnedSchemas.fil
                     color: "neutral",
                 })}
             >
-                {markdownQuery.data ?? ""}
+                {contentQuery.data ?? ""}
             </pre>
         )
     }
@@ -90,7 +84,7 @@ export function FileFile(props: { file: v.InferOutput<typeof returnedSchemas.fil
                 borderRadius: "md",
                 padding: "4",
             })}
-            src={fileSignedUrlResponse.data.url}
+            src={downloadUrl}
             type={props.file.type ?? undefined}
         />
     )

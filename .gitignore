@@ -13,6 +13,9 @@ build
 packages/cli/binaries/
 packages/cli/dist/
 packages/cli/sea-prep.blob
+# packages/cli/version is generated from root VERSION by `just build-cli` /
+# .scripts/release-cli.sh — do not commit the generated file.
+packages/cli/version
 
 .pnpm-store
 

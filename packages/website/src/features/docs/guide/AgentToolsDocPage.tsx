@@ -4,8 +4,8 @@ import { DocHeader } from "../../../components/document/DocHeader.js"
 import { DocLink } from "../../../components/document/DocLink.js"
 import { DocList } from "../../../components/document/DocList.js"
 import { DocParagraph } from "../../../components/document/DocParagraph.js"
-import { DocSection } from "../../../components/document/DocSection.js"
 import { DocRoot } from "../../../components/document/DocRoot.js"
+import { DocSection } from "../../../components/document/DocSection.js"
 
 const paperasseRepo = "https://github.com/romainsimon/paperasse"
 
@@ -167,35 +167,29 @@ class ArrhesClient:
 
     def upload_file(self, year_id: str, name: str, content: bytes, ocr: bool = False) -> dict[str, Any]:
         """Uploader un fichier avec option OCR."""
-        # 1. Creer l'entree fichier
+        # 1. Calculer le hash SHA256 du contenu
         from hashlib import sha256
         file_hash = sha256(content).hexdigest()
-        create_resp = httpx.post(
+        file_reference = name.rsplit(".", 1)[0] if "." in name else name
+
+        # 2.Uploader le fichier directement via multipart (serveur gère le S3)
+        upload_resp = httpx.post(
             f"{API_BASE}/organizations/{self.org_id}/years/{year_id}/files",
             headers=self.headers,
-            json={"name": name, "reference": name, "hash": file_hash},
+            files={"file": (name, content, "application/octet-stream")},
+            data={"name": name, "reference": file_reference, "hash": file_hash},
         )
-        file_data = create_resp.json()
+        upload_resp.raise_for_status()
+        file_data = upload_resp.json()
 
-        # 2. Obtenir l'URL de telechargement
-        upload_resp = httpx.post(
-            f"{API_BASE}/organizations/{self.org_id}/years/{year_id}/files/{file_data['id']}/upload-url",
-            headers=self.headers,
-            json={"idFile": file_data["id"], "type": "application/pdf", "size": len(content)},
-        )
-        upload_data = upload_resp.json()
+        # 3. Lancer l'OCR si demande
+        if ocr:
+            httpx.post(
+                f"{API_BASE}/organizations/{self.org_id}/years/{year_id}/files/{file_data['id']}/ocr",
+                headers=self.headers,
+            )
 
-        # 3. Uploader le fichier
-        httpx.put(upload_data["url"], content=content)
-
-        # 4. Finaliser avec OCR si demande
-        finalize_resp = httpx.post(
-            f"{API_BASE}/organizations/{self.org_id}/years/{year_id}/files/{file_data['id']}/finalize",
-            headers=self.headers,
-            json={"idFile": file_data["id"], "ocr": ocr},
-        )
-
-        return finalize_resp.json()}`}
+        return file_data}`}
                 />
             </DocSection>
 
@@ -253,7 +247,8 @@ class ArrhesClient:
 
             <DocSection title="Référence API">
                 <DocParagraph>
-                    Consultez la documentation API pour la liste exhaustive des endpoints disponibles et leurs paramètres.
+                    Consultez la documentation API pour la liste exhaustive des endpoints disponibles et leurs
+                    paramètres.
                 </DocParagraph>
             </DocSection>
         </DocRoot>

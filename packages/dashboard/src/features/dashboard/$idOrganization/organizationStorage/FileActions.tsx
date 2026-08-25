@@ -19,7 +19,7 @@ import { useRouter } from "@tanstack/react-router"
 import { getResponseBodyFromAPI } from "../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
 import { UpdateOneFileForm } from "./$idFile/UpdateOneFileForm.js"
-import { deleteFileWithSignedUrl } from "./deleteFileWithSignedUrl.js"
+import { deleteFile } from "./deleteFile.js"
 import { MoveOneFileForm } from "./MoveOneFileForm.js"
 
 export function FileActions(props: { file: v.InferOutput<typeof returnedSchemas.file>; idOrganization: string }) {
@@ -32,7 +32,7 @@ export function FileActions(props: { file: v.InferOutput<typeof returnedSchemas.
     const isOcrSupportedType = props.file.type === "application/pdf" || (props.file.type?.startsWith("image/") ?? false)
 
     async function handleDelete() {
-        const isDeleted = await deleteFileWithSignedUrl({
+        const isDeleted = await deleteFile({
             idFile: props.file.id,
         })
 

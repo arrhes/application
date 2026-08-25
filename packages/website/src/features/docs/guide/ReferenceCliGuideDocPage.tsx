@@ -124,11 +124,15 @@ export function ReferenceCliGuideDocPage() {
                             "Ouvre un exercice avec un journal d'ouverture",
                         ],
                         [
-                            <DocCode key="0">{"comptasse years settle-balance-sheet <idYear> --journal-closing <id>"}</DocCode>,
+                            <DocCode key="0">
+                                {"comptasse years settle-balance-sheet <idYear> --journal-closing <id>"}
+                            </DocCode>,
                             "Solde le bilan d'un exercice",
                         ],
                         [
-                            <DocCode key="0">{"comptasse years settle-income-statement <idYear> --journal-closing <id>"}</DocCode>,
+                            <DocCode key="0">
+                                {"comptasse years settle-income-statement <idYear> --journal-closing <id>"}
+                            </DocCode>,
                             "Solde le compte de résultat d'un exercice",
                         ],
                     ]}
@@ -150,7 +154,9 @@ export function ReferenceCliGuideDocPage() {
                             "Liste les comptes",
                         ],
                         [
-                            <DocCode key="0">{"comptasse accounts create --year <id> --number <n> --label <l>"}</DocCode>,
+                            <DocCode key="0">
+                                {"comptasse accounts create --year <id> --number <n> --label <l>"}
+                            </DocCode>,
                             "Crée un compte",
                         ],
                         [
@@ -158,7 +164,9 @@ export function ReferenceCliGuideDocPage() {
                             "Liste les journaux",
                         ],
                         [
-                            <DocCode key="0">{"comptasse journals create --year <id> --code <code> --label <l>"}</DocCode>,
+                            <DocCode key="0">
+                                {"comptasse journals create --year <id> --code <code> --label <l>"}
+                            </DocCode>,
                             "Crée un journal",
                         ],
                         [
@@ -186,7 +194,9 @@ export function ReferenceCliGuideDocPage() {
                         ],
                         [
                             <DocCode key="0">
-                                {"comptasse entries create --year <id> --journal <id> [--label <libellé>] [--date <date>]"}
+                                {
+                                    "comptasse entries create --year <id> --journal <id> [--label <libellé>] [--date <date>]"
+                                }
                             </DocCode>,
                             "Crée une écriture",
                         ],
@@ -220,7 +230,9 @@ export function ReferenceCliGuideDocPage() {
                             "Liste les fichiers",
                         ],
                         [
-                            <DocCode key="0">{"comptasse files create --year <id> --name <nom> [--folder <id>]"}</DocCode>,
+                            <DocCode key="0">
+                                {"comptasse files create --year <id> --name <nom> [--folder <id>]"}
+                            </DocCode>,
                             "Enregistre un fichier",
                         ],
                         [

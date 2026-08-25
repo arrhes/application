@@ -1,7 +1,5 @@
-import { fileSchema } from "@comptasse/application-metadata/components"
+import { blobSchema } from "@comptasse/application-metadata/components"
 import {
-    finalizeFileUploadRouteDefinition,
-    generateFilePutSignedUrlRouteDefinition,
     readAllFilesRouteDefinition,
     readOneFileRouteDefinition,
     updateOneFileRouteDefinition,
@@ -20,6 +18,9 @@ import { FormRoot } from "../../../../../components/forms/FormRoot.js"
 import { useRightPanel } from "../../../../../contexts/rightPanel/RightPanelContext.js"
 import { getResponseBodyFromAPI } from "../../../../../utilities/getResponseBodyFromAPI.js"
 import { invalidateData } from "../../../../../utilities/invalidateData.js"
+import { resolveApiBaseUrl } from "../../../../../utilities/resolveApiBaseUrl.js"
+import { getCookie } from "../../../../../utilities/cookies/getCookie.js"
+import { cookiePrefix } from "../../../../../utilities/variables.js"
 
 export function UpdateOneFileForm(props: { file: v.InferOutput<typeof returnedSchemas.file> }) {
     const { closePanel } = useRightPanel()
@@ -27,7 +28,7 @@ export function UpdateOneFileForm(props: { file: v.InferOutput<typeof returnedSc
         <FormRoot
             schema={v.object({
                 ...updateOneFileRouteDefinition.schemas.body.entries,
-                file: v.optional(fileSchema),
+                file: v.optional(v.nullable(blobSchema)),
             })}
             defaultValues={{
                 ...props.file,
@@ -38,60 +39,50 @@ export function UpdateOneFileForm(props: { file: v.InferOutput<typeof returnedSc
                 text: "Modifier le fichier",
             }}
             onSubmit={async (data) => {
-                const updateFileResponse = await getResponseBodyFromAPI({
-                    routeDefinition: updateOneFileRouteDefinition,
-                    body: {
-                        idFile: props.file.id,
-                        reference: data.reference,
-                        name: data.name,
-                        date: data.date,
-                    },
-                })
-                if (updateFileResponse.ok === false) {
-                    toast({
-                        title: "Impossible de modifier le fichier",
-                        variant: "error",
-                    })
-                    return false
-                }
+                const apiBaseUrl = resolveApiBaseUrl(import.meta.env.VITE_API_BASE_URL)
+                const orgId = getCookie(`${cookiePrefix}_id_organization`) ?? props.file.idOrganization
+                const url = `${apiBaseUrl}/organizations/${orgId}/years/:idYear/files/${props.file.id}`
 
-                if (data.file !== undefined) {
-                    const signedUrlResponse = await getResponseBodyFromAPI({
-                        routeDefinition: generateFilePutSignedUrlRouteDefinition,
-                        body: {
-                            idFile: updateFileResponse.data.id,
-                            type: data.file.type,
-                            size: data.file.size,
+                if (data.file instanceof File) {
+                    const formData = new FormData()
+                    formData.append("reference", data.reference ?? "")
+                    formData.append("name", data.name ?? "")
+                    formData.append("date", data.date ?? "")
+                    if (data.idFolder) {
+                        formData.append("idFolder", data.idFolder)
+                    }
+                    formData.append("file", data.file)
+
+                    const response = await fetch(url, {
+                        method: "PATCH",
+                        body: formData,
+                        credentials: "include",
+                        headers: {
+                            "X-Organization-Id": orgId,
                         },
                     })
-                    if (signedUrlResponse.ok === false) {
+
+                    if (!response.ok) {
                         toast({
-                            title: "Impossible de télécharger le fichier",
+                            title: "Impossible de modifier le fichier",
                             variant: "error",
                         })
                         return false
                     }
-                    const uploadFileResponse = await fetch(signedUrlResponse.data.url, {
-                        method: "PUT",
-                        body: data.file,
-                    })
-                    if (uploadFileResponse.ok === false) {
-                        toast({
-                            title: "Le fichier ne peut pas être téléchargé",
-                            variant: "error",
-                        })
-                        return false
-                    }
-
-                    const finalizeResponse = await getResponseBodyFromAPI({
-                        routeDefinition: finalizeFileUploadRouteDefinition,
+                } else {
+                    const updateFileResponse = await getResponseBodyFromAPI({
+                        routeDefinition: updateOneFileRouteDefinition,
                         body: {
-                            idFile: updateFileResponse.data.id,
+                            idFile: props.file.id,
+                            reference: data.reference,
+                            name: data.name,
+                            date: data.date,
+                            idFolder: data.idFolder,
                         },
                     })
-                    if (finalizeResponse.ok === false) {
+                    if (updateFileResponse.ok === false) {
                         toast({
-                            title: "Le téléversement du fichier a échoué",
+                            title: "Impossible de modifier le fichier",
                             variant: "error",
                         })
                         return false
@@ -131,11 +122,11 @@ export function UpdateOneFileForm(props: { file: v.InferOutput<typeof returnedSc
                             <FormItem>
                                 <FormLabel
                                     label="Fichier"
-                                    isRequired
+                                    isRequired={false}
                                 />
                                 <FormControl>
                                     <InputFile
-                                        value={field.value}
+                                        value={field.value instanceof File ? field.value : null}
                                         onChange={field.onChange}
                                     />
                                 </FormControl>

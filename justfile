@@ -74,9 +74,8 @@ build cmd:
 # Stamp packages/cli/comptasse.sh and packages/cli/version from the VERSION file
 build-cli:
     @VER=$(cat VERSION | tr -d 'v[:space:]') && \
-    sed -i "s/^VERSION=\".*\"/VERSION=\"$VER\"/" packages/cli/comptasse.sh && \
     printf '%s\n' "$VER" > packages/cli/version && \
-    echo "CLI stamped: $VER"
+    echo "CLI version file generated from VERSION: $VER"
 
 # Build all three production Docker images (api, dashboard, website)
 build-images:

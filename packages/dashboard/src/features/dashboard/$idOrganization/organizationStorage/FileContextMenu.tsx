@@ -10,7 +10,7 @@ import { useRightPanel } from "../../../../contexts/rightPanel/RightPanelContext
 import { applicationRouter } from "../../../../routes/applicationRouter.js"
 import { invalidateData } from "../../../../utilities/invalidateData.js"
 import { UpdateOneFileForm } from "./$idFile/UpdateOneFileForm.js"
-import { deleteFileWithSignedUrl } from "./deleteFileWithSignedUrl.js"
+import { deleteFile } from "./deleteFile.js"
 import { MoveOneFileForm } from "./MoveOneFileForm.js"
 
 export function FileContextMenu(props: {
@@ -23,7 +23,7 @@ export function FileContextMenu(props: {
     const { open: openModal, close: closeModal } = useModalStore()
 
     async function handleDelete() {
-        const isDeleted = await deleteFileWithSignedUrl({
+        const isDeleted = await deleteFile({
             idFile: props.file.id,
         })
 
