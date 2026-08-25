@@ -15,6 +15,7 @@ import {
 } from "./docsMdDynamicContent"
 import { docsSearchIndexPlugin } from "./docsSearchIndexPlugin"
 import { mdGeneratePlugin } from "./mdGeneratePlugin"
+import type { RenderedPage } from "./render"
 
 export function prerenderPlugin(): Plugin {
     return {
@@ -63,67 +64,49 @@ export function prerenderPlugin(): Plugin {
                 // Load the render bundle and generate static HTML for each route
                 const renderBundleUrl = `file://${resolve(renderBuildDir, "render.js")}`
                 const { render } = (await import(renderBundleUrl)) as {
-                    render: (url: string) => Promise<string>
+                    render: (url: string) => Promise<RenderedPage>
                 }
 
-                // Collect all routes to prerender
+                // Redirect-only routes (they throw redirect() in beforeLoad) and
+                // auth screens must not be prerendered: nginx serves them via
+                // redirects / the SPA shell instead.
                 const routes: string[] = [
                     "/",
-                    "/connexion",
-                    "/inscription",
-                    "/mot-de-passe-oublié",
-                    ...DOC_PAGE_MANIFEST.map((e) => e.path),
+                    ...DOC_PAGE_MANIFEST.map((e) => e.path).filter((p) => p !== "/documentation"),
                 ]
 
                 // Dynamic account slugs
-                const accountsDataPath = resolve(
-                    pkgRoot,
-                    "src/features/docs/accounting/resources/accounts/accountsData.ts",
-                )
-                for (const m of readFileSync(accountsDataPath, "utf-8").matchAll(
-                    /defineAccount\(\s*\n?\s*"([^"]+)"/g,
-                )) {
-                    routes.push(`/documentation/comptabilité/ressources/comptes/${m[1]}`)
+                for (const slug of listAccountSlugs(pkgRoot)) {
+                    routes.push(`/documentation/comptabilité/ressources/comptes/${slug}`)
                 }
 
                 // Dynamic glossary slugs
-                const toSlug = (term: string) =>
-                    term
-                        .toLowerCase()
-                        .normalize("NFD")
-                        .replace(/[\u0300-\u036f]/g, "")
-                        .replace(/[^a-z0-9]+/g, "-")
-                        .replace(/(^-|-$)/g, "")
-                const glossaryDataPath = resolve(
-                    pkgRoot,
-                    "src/features/docs/accounting/resources/glossary/glossaryData.ts",
-                )
-                for (const m of readFileSync(glossaryDataPath, "utf-8").matchAll(/defineTerm\(\s*\n?\s*"([^"]+)"/g)) {
-                    routes.push(`/documentation/comptabilité/ressources/glossaire/${toSlug(m[1])}`)
+                for (const slug of listGlossarySlugs(pkgRoot)) {
+                    routes.push(`/documentation/comptabilité/ressources/glossaire/${slug}`)
                 }
 
-                // Scenario paths
-                const scenariosDataPath = resolve(
-                    pkgRoot,
-                    "src/features/docs/accounting/resources/scenarios/scenariosData.ts",
-                )
-                for (const m of readFileSync(scenariosDataPath, "utf-8").matchAll(
-                    /path:\s*"(\/documentation\/comptabilité\/scénarios\/[^"]+)"/g,
-                )) {
-                    routes.push(m[1])
+                // Dynamic scenario ids (the route lives under /ressources/scénarios)
+                for (const id of listScenarioIds(pkgRoot)) {
+                    routes.push(`/documentation/comptabilité/ressources/scénarios/${id}`)
                 }
 
                 const results = await Promise.all(
                     routes.map(async (route) => {
                         try {
-                            const appHtml = await render(route)
-
-                            // Extract the page-specific <title> rendered by React and update <head>
-                            const renderedTitle = /<title>([\s\S]*?)<\/title>/.exec(appHtml)?.[1]
-                            let html = spaShell
-                            if (renderedTitle) {
-                                html = html.replace(/<title>[^<]*<\/title>/, `<title>${renderedTitle}</title>`)
-                            }
+                            const { html: appHtml, title, description } = await render(route)
+                            const escapeAttr = (value: string) =>
+                                value
+                                    .replace(/&/g, "&amp;")
+                                    .replace(/</g, "&lt;")
+                                    .replace(/>/g, "&gt;")
+                                    .replace(/"/g, "&quot;")
+                            let html = spaShell.replace(/<title>[^<]*<\/title>/, `<title>${escapeAttr(title)}</title>`)
+                            html = html.replace(
+                                /(<meta name="description" content=")[^"]*(")/,
+                                `$1${escapeAttr(description)}$2`,
+                            )
+                            const canonicalUrl = encodeURI(`${baseUrl}${route}`)
+                            html = html.replace("</head>", `<link rel="canonical" href="${canonicalUrl}" /></head>`)
                             html = html.replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`)
 
                             const outFile =
