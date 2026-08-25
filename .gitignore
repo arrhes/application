@@ -8,6 +8,7 @@ build
 .old
 .vscode
 .agents
+.local
 
 packages/cli/binaries/
 packages/cli/dist/
