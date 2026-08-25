@@ -21,8 +21,7 @@ export function MigrationsGuideDocPage() {
 
             <DocSection title="Comment les migrations fonctionnent">
                 <DocParagraph>
-                    Les images API embarquent les fichiers de migration SQL générés au moment de la
-                    construction :
+                    Les images API embarquent les fichiers de migration SQL générés au moment de la construction :
                 </DocParagraph>
                 <DocList
                     items={[
@@ -36,8 +35,8 @@ export function MigrationsGuideDocPage() {
                     ]}
                 />
                 <DocParagraph>
-                    Au démarrage du conteneur API, la migration est appliquée automatiquement avant le lancement
-                    du serveur :
+                    Au démarrage du conteneur API, la migration est appliquée automatiquement avant le lancement du
+                    serveur :
                 </DocParagraph>
                 <DocList
                     items={[
@@ -48,7 +47,11 @@ export function MigrationsGuideDocPage() {
                 />
                 <DocTip variant="info">
                     Les fichiers SQL de la version courante sont consultables sur{" "}
-                    <DocLink href={`${origin}/migrations/`} target="_blank" rel="noopener noreferrer">
+                    <DocLink
+                        href={`${origin}/migrations/`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
                         {`${origin}/migrations/`}
                     </DocLink>{" "}
                     pour les passer en revue avant une mise à jour.
@@ -58,8 +61,8 @@ export function MigrationsGuideDocPage() {
             <DocSection title="Résoudre les erreurs de schéma">
                 <DocParagraph>
                     L'API vérifie le schéma au démarrage. Si vous voyez l'erreur{" "}
-                    <DocCode>Database schema is out of sync</DocCode>, la base de données n'est pas compatible
-                    avec la version des images. Redémarrez le conteneur API pour ré-appliquer les migrations :
+                    <DocCode>Database schema is out of sync</DocCode>, la base de données n'est pas compatible avec la
+                    version des images. Redémarrez le conteneur API pour ré-appliquer les migrations :
                 </DocParagraph>
                 <DocCodeBlock>{`# Redémarrez le conteneur API (les migrations s'exécutent au démarrage)
 docker compose --project-name comptasse restart api
@@ -69,9 +72,7 @@ docker compose --project-name comptasse logs api`}</DocCodeBlock>
             </DocSection>
 
             <DocSection title="En développement">
-                <DocParagraph>
-                    Pendant le développement, le schéma est géré avec les commandes du dépôt :
-                </DocParagraph>
+                <DocParagraph>Pendant le développement, le schéma est géré avec les commandes du dépôt :</DocParagraph>
                 <DocExample title="Pousser le schéma (développement)">
                     <DocCodeBlock>{`# Depuis la racine du dépôt, avec l'environnement de développement lancé
 just db-push`}</DocCodeBlock>

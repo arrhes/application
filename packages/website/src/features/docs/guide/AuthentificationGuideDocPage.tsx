@@ -20,9 +20,9 @@ export function AuthentificationGuideDocPage() {
 
             <DocSection title="Méthodes d'authentification">
                 <DocParagraph>
-                    Comptasse utilise un système d'authentification unique par email et mot
-                    de passe pour toutes les interfaces (Dashboard, API et CLI). Une session
-                    est créée sous forme de cookie sécurisé après connexion.
+                    Comptasse utilise un système d'authentification unique par email et mot de passe pour toutes les
+                    interfaces (Dashboard, API et CLI). Une session est créée sous forme de cookie sécurisé après
+                    connexion.
                 </DocParagraph>
                 <DocTable
                     headers={[
@@ -55,8 +55,8 @@ export function AuthentificationGuideDocPage() {
                     dashboard={
                         <>
                             <DocParagraph>
-                                La connexion au dashboard se fait par email et mot de passe.
-                                Vous pouvez créer un compte directement depuis l'interface.
+                                La connexion au dashboard se fait par email et mot de passe. Vous pouvez créer un compte
+                                directement depuis l'interface.
                             </DocParagraph>
 
                             <DocExample title="Créer un compte">
@@ -93,8 +93,8 @@ export function AuthentificationGuideDocPage() {
                             <DocParagraph>
                                 L'API expose deux endpoints publics pour l'authentification :
                                 <DocCode>POST /auth/sign-up</DocCode> pour créer un compte et
-                                <DocCode>POST /auth/sign-in</DocCode> pour se connecter.
-                                Les deux endpoints retournent un cookie de session dans l'en-tête
+                                <DocCode>POST /auth/sign-in</DocCode> pour se connecter. Les deux endpoints retournent
+                                un cookie de session dans l'en-tête
                                 <DocCode>Set-Cookie</DocCode>.
                             </DocParagraph>
 
@@ -148,10 +148,9 @@ export function AuthentificationGuideDocPage() {
                     cli={
                         <>
                             <DocParagraph>
-                                Le CLI stocke la session dans{" "}
-                                <DocCode>~/.comptasse/config.json</DocCode>. La commande{" "}
-                                <DocCode>login</DocCode> crée un compte si l'email n'existe pas
-                                encore, ou se connecte s'il existe.
+                                Le CLI stocke la session dans <DocCode>~/.comptasse/config.json</DocCode>. La commande{" "}
+                                <DocCode>login</DocCode> crée un compte si l'email n'existe pas encore, ou se connecte
+                                s'il existe.
                             </DocParagraph>
 
                             <DocExample title="Créer un compte ou se connecter">

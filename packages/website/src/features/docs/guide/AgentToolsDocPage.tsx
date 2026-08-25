@@ -4,8 +4,8 @@ import { DocHeader } from "../../../components/document/DocHeader.js"
 import { DocLink } from "../../../components/document/DocLink.js"
 import { DocList } from "../../../components/document/DocList.js"
 import { DocParagraph } from "../../../components/document/DocParagraph.js"
-import { DocSection } from "../../../components/document/DocSection.js"
 import { DocRoot } from "../../../components/document/DocRoot.js"
+import { DocSection } from "../../../components/document/DocSection.js"
 
 const paperasseRepo = "https://github.com/romainsimon/paperasse"
 
@@ -247,7 +247,8 @@ class ArrhesClient:
 
             <DocSection title="Référence API">
                 <DocParagraph>
-                    Consultez la documentation API pour la liste exhaustive des endpoints disponibles et leurs paramètres.
+                    Consultez la documentation API pour la liste exhaustive des endpoints disponibles et leurs
+                    paramètres.
                 </DocParagraph>
             </DocSection>
         </DocRoot>

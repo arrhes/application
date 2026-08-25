@@ -64,9 +64,9 @@ export function InstallationGuideDocPage() {
                 <DocTip variant="info">
                     Le script choisit la source des images en fonction de l'origine du téléchargement : depuis
                     <DocCode>https://comptasse.com</DocCode> (production), il télécharge les images publiées (API +
-                    Dashboard) sur GHCR ; depuis tout autre origine, par exemple{" "}
-                    <DocCode>http://localhost</DocCode> en développement, il construit les images à partir des sources
-                    sans passer par un registre — ce qui requiert une copie du dépôt Comptasse sur la machine.
+                    Dashboard) sur GHCR ; depuis tout autre origine, par exemple <DocCode>http://localhost</DocCode> en
+                    développement, il construit les images à partir des sources sans passer par un registre — ce qui
+                    requiert une copie du dépôt Comptasse sur la machine.
                 </DocTip>
 
                 <DocExample title="Après l'installation">
@@ -132,8 +132,8 @@ docker run -d \\
                 <DocParagraph>
                     Si vous n'avez pas de PostgreSQL ou de S3, ce fichier <DocCode>compose.yml</DocCode> inclut tout :
                     l'API, le Dashboard, PostgreSQL et RustFS (stockage S3). Le Dashboard est construit avec{" "}
-                    <DocCode>VITE_API_BASE_URL=/api</DocCode> et son nginx relaie les requêtes{" "}
-                    <DocCode>/api</DocCode> vers le service <DocCode>api</DocCode>.
+                    <DocCode>VITE_API_BASE_URL=/api</DocCode> et son nginx relaie les requêtes <DocCode>/api</DocCode>{" "}
+                    vers le service <DocCode>api</DocCode>.
                 </DocParagraph>
 
                 <DocExample title="Fichier compose.yml">

@@ -3,8 +3,8 @@ import { DocCodeBlock } from "../../../components/document/DocCodeBlock.js"
 import { DocHeader } from "../../../components/document/DocHeader.js"
 import { DocLink } from "../../../components/document/DocLink.js"
 import { DocParagraph } from "../../../components/document/DocParagraph.js"
-import { DocSection } from "../../../components/document/DocSection.js"
 import { DocRoot } from "../../../components/document/DocRoot.js"
+import { DocSection } from "../../../components/document/DocSection.js"
 
 const paperasseRepo = "https://github.com/romainsimon/paperasse"
 
@@ -27,9 +27,9 @@ export function AgentSkillsDocPage() {
 
             <DocSection title="Authentification">
                 <DocParagraph>
-                    Pour qu'un agent externe puisse interagir avec Arrhes, il doit s'authentifier via un cookie de session.
-                    L'agent utilisera ce cookie dans l'en-tête <DocCode>{"Cookie: arrhes_id_user_session=<session>"}</DocCode>{" "}
-                    de chaque requête.
+                    Pour qu'un agent externe puisse interagir avec Arrhes, il doit s'authentifier via un cookie de
+                    session. L'agent utilisera ce cookie dans l'en-tête{" "}
+                    <DocCode>{"Cookie: arrhes_id_user_session=<session>"}</DocCode> de chaque requête.
                 </DocParagraph>
             </DocSection>
 
@@ -108,7 +108,8 @@ Tu aides les utilisateurs à gérer leur comptabilité en partie double.
 
             <DocSection title="Référence">
                 <DocParagraph>
-                    Consultez la documentation API pour la liste exhaustive des endpoints disponibles et leurs paramètres.
+                    Consultez la documentation API pour la liste exhaustive des endpoints disponibles et leurs
+                    paramètres.
                 </DocParagraph>
             </DocSection>
         </DocRoot>

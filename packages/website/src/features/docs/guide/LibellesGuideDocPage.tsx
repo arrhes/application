@@ -82,7 +82,9 @@ export function LibellesGuideDocPage() {
                                         "Détails d'un libellé",
                                     ],
                                     [
-                                        <DocCode key="0">{"comptasse tags create --year <id> --label <libellé>"}</DocCode>,
+                                        <DocCode key="0">
+                                            {"comptasse tags create --year <id> --label <libellé>"}
+                                        </DocCode>,
                                         "Crée un libellé",
                                     ],
                                     [
@@ -96,7 +98,9 @@ export function LibellesGuideDocPage() {
                                 ]}
                             />
                             <DocExample title="Créer un libellé">
-                                <DocCodeBlock>comptasse tags create --year year_xyz --label "Investissement"</DocCodeBlock>
+                                <DocCodeBlock>
+                                    comptasse tags create --year year_xyz --label "Investissement"
+                                </DocCodeBlock>
                             </DocExample>
                         </>
                     }

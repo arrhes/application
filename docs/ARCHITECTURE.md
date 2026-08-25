@@ -112,7 +112,7 @@ api/src/
 │   └── bodyValidator.ts
 └── utilities/          # Utilitaires
     ├── sql/            # Helpers SQL (selectOne, selectMany, insertOne, insertMany, deleteOne, deleteMany, updateOne)
-    ├── storage/        # Helpers S3 (signed URLs, get/put/delete)
+    ├── storage/        # I/O S3 cote serveur (get/put/delete)
     ├── cookies/        # Gestion cookies securises
     ├── workspace/      # Logique metier (generation donnees exercices)
     ├── getEnv.ts       # Validation des variables d'environnement (Valibot)

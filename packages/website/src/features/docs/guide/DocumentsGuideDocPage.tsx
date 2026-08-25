@@ -129,7 +129,9 @@ export function DocumentsGuideDocPage() {
                                         "Génère un export XBRL du bilan",
                                     ],
                                     [
-                                        <DocCode key="0">{"comptasse exports xbrl-income-statement --year <id>"}</DocCode>,
+                                        <DocCode key="0">
+                                            {"comptasse exports xbrl-income-statement --year <id>"}
+                                        </DocCode>,
                                         "Génère un export XBRL du compte de résultat",
                                     ],
                                 ]}
