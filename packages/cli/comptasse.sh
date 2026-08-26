@@ -538,7 +538,7 @@ _entries_create() {
     done
     [ -n "$year" ] && [ -n "$journal" ] || _die "--year and --journal are required"
     date="${date:-$(date +%Y-%m-%d)}"
-    _require_cfg; _jbody_reset; _jstr idJournal "$journal"; _jstr label "$label"; _jstr date "$date"
+    _require_cfg; _jbody_reset; _jstr idYear "$year"; _jstr idJournal "$journal"; _jstr label "$label"; _jstr date "$date"
     _api POST "$(_entries_base "$year")" "$(_jbody)"
 }
 
@@ -552,7 +552,7 @@ _entries_update() {
         esac; shift
     done
     [ -n "$id" ] && [ -n "$year" ] || _die "Usage: comptasse entries update <idEntry> --year <id>"
-    _require_cfg; _jbody_reset; _jstr label "$label"; _jstr date "$date"; _jstr idJournal "$journal"; _jstr idFile "$file"
+    _require_cfg; _jbody_reset; _jstr idYear "$year"; _jstr idEntry "$id"; _jstr label "$label"; _jstr date "$date"; _jstr idJournal "$journal"; _jstr idFile "$file"
     _api PATCH "$(_entries_base "$year")/$id" "$(_jbody)"
 }
 
@@ -624,12 +624,14 @@ _lines_create() {
             --year)    year="$2";    shift ;; --account) account="$2"; shift ;;
             --label)   label="$2";   shift ;; --debit)   debit="$2";   shift ;;
             --credit)  credit="$2";  shift ;; --computed) computed='true' ;;
-            *)         _die "Unknown: $1" ;;
+            --manual)  computed='false' ;;
+            -*)        _die "Unknown: $1" ;;
+            *)         entry="$1" ;;
         esac; shift
     done
     [ -n "$entry" ] && [ -n "$year" ] && [ -n "$account" ] || \
         _die "Usage: comptasse entries lines create <idEntry> --year <id> --account <id>"
-    _require_cfg; _jbody_reset; _jstr idAccount "$account"; _jstr label "$label"; _jnum debit "$debit"; _jnum credit "$credit"
+    _require_cfg; _jbody_reset; _jstr idYear "$year"; _jstr idEntry "$entry"; _jstr idAccount "$account"; _jstr label "$label"; _jstr debit "$debit"; _jstr credit "$credit"
     # The API requires the computed flags on every entry line (computed = e.g. from
     # an income-statement/amortization generation; false for manually entered lines).
     _jbool isComputedForJournalReport "$computed"
@@ -641,10 +643,11 @@ _lines_create() {
 }
 
 _lines_update() {
-    entry=''; line=''; year=''; label=''; debit=''; credit=''; computed='true'
+    entry=''; line=''; year=''; label=''; debit=''; credit=''; computed='true'; account=''
     while [ $# -gt 0 ]; do
         case "$1" in
             --year)   year="$2";   shift ;; --label)  label="$2";  shift ;;
+            --account) account="$2"; shift ;;
             --debit)  debit="$2";  shift ;; --credit) credit="$2"; shift ;;
             --computed)     computed='true' ;;
             --manual)       computed='false' ;;
@@ -652,7 +655,7 @@ _lines_update() {
         esac; shift
     done
     [ -n "$entry" ] && [ -n "$line" ] && [ -n "$year" ] || _die "Usage: comptasse entries lines update <idEntry> <idLine> --year <id>"
-    _require_cfg; _jbody_reset; _jstr label "$label"; _jnum debit "$debit"; _jnum credit "$credit"
+    _require_cfg; _jbody_reset; _jstr idYear "$year"; _jstr idEntry "$entry"; _jstr idEntryLine "$line"; _jstr idAccount "$account"; _jstr label "$label"; _jstr debit "$debit"; _jstr credit "$credit"
     _jbool isComputedForJournalReport "$computed"
     _jbool isComputedForLedgerReport "$computed"
     _jbool isComputedForBalanceReport "$computed"
