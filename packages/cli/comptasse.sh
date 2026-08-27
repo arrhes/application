@@ -907,6 +907,52 @@ _folders_delete() {
     printf 'Folder %s deleted.\n' "$id"
 }
 
+# ── scenarios ─────────────────────────────────────────────────────────────────
+
+_cmd_scenarios() {
+    subcmd="${1:-}"; [ $# -gt 0 ] && shift
+    case "$subcmd" in
+        list) _scenarios_list "$@" ;;
+        get)  _scenarios_get "$@" ;;
+        run)  _scenarios_run "$@" ;;
+        *) _die "comptasse scenarios: unknown subcommand '$subcmd'. Use: list, get, run" ;;
+    esac
+}
+
+_scenarios_list() {
+    year=''
+    while [ $# -gt 0 ]; do case "$1" in --year) year="$2"; shift ;; *) _die "Unknown: $1" ;; esac; shift; done
+    [ -n "$year" ] || _die "--year is required"
+    _require_cfg; _api GET "$(_year_path "$year")/scenarios"
+}
+
+_scenarios_get() {
+    slug=''; year=''
+    while [ $# -gt 0 ]; do case "$1" in --year) year="$2"; shift ;; -*) _die "Unknown: $1" ;; *) slug="$1" ;; esac; shift; done
+    [ -n "$slug" ] && [ -n "$year" ] || _die "Usage: comptasse scenarios get <slug> --year <id>"
+    _require_cfg; _api GET "$(_year_path "$year")/scenarios/$slug"
+}
+
+_scenarios_run() {
+    slug=''; year=''; journal=''; data=''; date=''
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            --year)   year="$2";   shift ;; --journal) journal="$2"; shift ;;
+            --data)   data="$2";   shift ;; --date)    date="$2";    shift ;;
+            -*) _die "Unknown: $1" ;; *) slug="$1" ;;
+        esac; shift
+    done
+    [ -n "$slug" ] && [ -n "$year" ] && [ -n "$journal" ] || \
+        _die "Usage: comptasse scenarios run <slug> --year <id> --journal <id> [--data '<json>'] [--date YYYY-MM-DD]"
+    _require_cfg; _jbody_reset
+    _jstr idYear "$year"; _jstr idJournal "$journal"
+    [ -n "$date" ] && _jstr date "$date"
+    if [ -n "$data" ]; then
+        _JBODY="${_JBODY},\"params\":${data}"
+    fi
+    _api POST "$(_year_path "$year")/scenarios/$slug" "$(_jbody)"
+}
+
 # ── members ───────────────────────────────────────────────────────────────────
 
 _cmd_members() {
@@ -1157,6 +1203,7 @@ Commands:
     entries lines   list | get | create | update | delete
     entries tags    add | remove
    files           list | get | upload | update | delete | download | ocr
+  scenarios       list | get | run
     files folders   list | get | create | update | delete
   members         list | get | invite | update | remove
   exports         fec | xbrl-balance-sheet | xbrl-income-statement
@@ -1194,6 +1241,7 @@ main() {
         tags)              _cmd_tags "$@" ;;
         entries)           _cmd_entries "$@" ;;
         files)             _cmd_files "$@" ;;
+        scenarios)         _cmd_scenarios "$@" ;;
         members)           _cmd_members "$@" ;;
         exports)           _cmd_exports "$@" ;;
         balance-sheets)    _cmd_balance_sheets "$@" ;;

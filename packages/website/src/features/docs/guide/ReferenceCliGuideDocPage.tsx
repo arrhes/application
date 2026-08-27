@@ -218,6 +218,36 @@ export function ReferenceCliGuideDocPage() {
                 />
             </DocSection>
 
+            <DocSection title="Scénarios d'écritures">
+                <DocParagraph>
+                    Les scénarios génèrent des écritures prêtes à l'emploi à partir de paramètres métier. La liste des
+                    scénarios disponibles est la même que celle documentée dans la rubrique « Scénarios » du cours de
+                    comptabilité.
+                </DocParagraph>
+                <DocTable
+                    headers={[
+                        "Commande",
+                        "Description",
+                    ]}
+                    rows={[
+                        [
+                            <DocCode key="0">{"comptasse scenarios list --year <id>"}</DocCode>,
+                            "Liste les scénarios disponibles",
+                        ],
+                        [
+                            <DocCode key="1">{"comptasse scenarios get <slug> --year <id>"}</DocCode>,
+                            "Affiche le détail, les paramètres et un exemple",
+                        ],
+                        [
+                            <DocCode key="2">
+                                {"comptasse scenarios run <slug> --year <id> --journal <id> --data '<json>'"}
+                            </DocCode>,
+                            "Exécute le scénario et crée les écritures",
+                        ],
+                    ]}
+                />
+            </DocSection>
+
             <DocSection title="Fichiers et exports">
                 <DocTable
                     headers={[

@@ -5,18 +5,22 @@ import { idColumn } from "../components/models/idColumn.js"
 import { organizationUserModel } from "./organizationUser.js"
 
 // Model
-export const userModel = pgTable("table_user", {
-    id: idColumn("id").primaryKey(),
-    isActive: boolean("is_active").notNull(),
-    alias: varchar("alias", {
-        length: 256,
-    }),
-    email: text("email").notNull().unique(),
-    passwordHash: text("password_hash").notNull(),
-    passwordSalt: text("password_salt").notNull(),
-    createdAt: dateTimeColumn("created_at").notNull(),
-    lastUpdatedAt: dateTimeColumn("last_updated_at"),
-}, (_t) => [])
+export const userModel = pgTable(
+    "table_user",
+    {
+        id: idColumn("id").primaryKey(),
+        isActive: boolean("is_active").notNull(),
+        alias: varchar("alias", {
+            length: 256,
+        }),
+        email: text("email").notNull().unique(),
+        passwordHash: text("password_hash").notNull(),
+        passwordSalt: text("password_salt").notNull(),
+        createdAt: dateTimeColumn("created_at").notNull(),
+        lastUpdatedAt: dateTimeColumn("last_updated_at"),
+    },
+    (_t) => [],
+)
 
 // Relations
 export const userRelations = relations(userModel, ({ many }) => ({

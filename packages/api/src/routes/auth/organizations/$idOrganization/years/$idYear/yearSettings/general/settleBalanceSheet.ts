@@ -73,9 +73,7 @@ export const settleBalanceSheetRoute = apiFactory
             const sheetLines: Array<typeof models.entryLine.$inferInsert> = []
 
             for (const account of accounts) {
-                if (account.number.length <= 2) continue
-
-                let totalDebit = 0
+                    let totalDebit = 0
                 let totalCredit = 0
                 for (const line of entryLines) {
                     if (line.idAccount !== account.id) continue
