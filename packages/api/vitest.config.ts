@@ -5,6 +5,10 @@ export default defineConfig({
     resolve: {
         alias: {
             "#": path.resolve(__dirname, "./src"),
+            "@comptasse/application-metadata": path.resolve(
+                __dirname,
+                "../metadata/src/index.ts",
+            ),
         },
     },
     test: {
@@ -15,5 +19,11 @@ export default defineConfig({
         testTimeout: 15000,
         hookTimeout: 30000,
         fileParallelism: false,
+        transform: {
+            "^.+\\.ts$": "tsx",
+        },
+        resolve: {
+            conditions: ["source"],
+        },
     },
 })

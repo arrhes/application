@@ -3,6 +3,7 @@ import { exportsRoutes } from "./exports/exportsRoutes.js"
 import { filesRoutes } from "./files/filesRoutes.js"
 import { foldersRoutes } from "./folders/foldersRoutes.js"
 import { readOneYearRoute } from "./readOneYear.js"
+import { scenariosRoutes } from "./scenarios/scenariosRoutes.js"
 import { yearSettingsRoute } from "./yearSettings/yearSettingsRoute.js"
 
 export const $idYearRoutes = [
@@ -12,5 +13,6 @@ export const $idYearRoutes = [
     ...exportsRoutes,
     ...filesRoutes,
     ...foldersRoutes,
+    ...scenariosRoutes,
     ...yearSettingsRoute,
 ]

@@ -44,6 +44,9 @@ export { createOneFolderRouteDefinition } from "./years/$idYear/folders/createOn
 export { readAllFoldersRouteDefinition } from "./years/$idYear/folders/readAllFolders.js"
 // year
 export { readOneYearRouteDefinition } from "./years/$idYear/readOneYear.js"
+export { executeScenarioRouteDefinition } from "./years/$idYear/scenarios/executeScenario.js"
+export { readAllScenariosRouteDefinition } from "./years/$idYear/scenarios/readAllScenarios.js"
+export { readOneScenarioRouteDefinition } from "./years/$idYear/scenarios/readOneScenario.js"
 export { deleteOneAccountRouteDefinition } from "./years/$idYear/yearSettings/accounts/$idAccount/deleteOneAccount.js"
 export { readOneAccountRouteDefinition } from "./years/$idYear/yearSettings/accounts/$idAccount/readOneAccount.js"
 export { updateOneAccountRouteDefinition } from "./years/$idYear/yearSettings/accounts/$idAccount/updateOneAccount.js"
