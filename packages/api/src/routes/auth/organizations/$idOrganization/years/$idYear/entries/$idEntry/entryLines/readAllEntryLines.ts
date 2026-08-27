@@ -18,16 +18,17 @@ export const readAllEntryLinesRoute = registerRoute(readAllEntryLinesRouteDefini
         context: c,
         schema: readAllEntryLinesRouteDefinition.schemas.body,
     })
+    const idEntry = c.req.param("idEntry")
 
     const readAllEntryLines = await selectMany({
         database: c.var.clients.sql,
         table: models.entryLine,
         where: (table) => {
-            if (body.idEntry !== null && body.idEntry !== undefined) {
+            if (idEntry !== null && idEntry !== undefined) {
                 return and(
                     eq(table.idOrganization, idOrganization),
                     eq(table.idYear, body.idYear),
-                    eq(table.idEntry, body.idEntry),
+                    eq(table.idEntry, idEntry),
                 )
             }
             return and(eq(table.idOrganization, idOrganization), eq(table.idYear, body.idYear))

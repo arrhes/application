@@ -39,6 +39,8 @@ export function DeleteOneEntryLine(props: {
                 routeDefinition: readAllEntryLinesRouteDefinition,
                 body: {
                     idYear: props.entryLine.idYear,
+                },
+                params: {
                     idEntry: props.entryLine.idEntry,
                 },
             }),
