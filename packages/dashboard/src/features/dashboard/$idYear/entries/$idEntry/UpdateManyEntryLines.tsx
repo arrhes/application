@@ -62,6 +62,8 @@ export function UpdateManyEntryLines(props: {
                         routeDefinition: readAllEntryLinesRouteDefinition,
                         body: {
                             idYear: props.entry.idYear,
+                        },
+                        params: {
                             idEntry: props.entry.id,
                         },
                     }),

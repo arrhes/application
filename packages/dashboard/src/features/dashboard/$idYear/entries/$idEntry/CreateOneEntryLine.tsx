@@ -69,6 +69,8 @@ export function CreateOneEntryLine(props: {
                         routeDefinition: readAllEntryLinesRouteDefinition,
                         body: {
                             idYear: props.entry.idYear,
+                        },
+                        params: {
                             idEntry: props.entry.id,
                         },
                     }),
